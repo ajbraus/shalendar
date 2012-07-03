@@ -1,7 +1,11 @@
 Shalendar::Application.routes.draw do
-  devise_for :users
+  authenticated :user do
+    root :to => 'shalendar#home'
+  end
 
-  root :to => 'static_pages#home'
+  root :to => 'static_pages#landing'
+
+  devise_for :users
   
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/contact', :to => 'static_pages#contact', :as => "contact"
