@@ -4,10 +4,22 @@
       <%= link_to "Shalendar", '/', id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to "About", about_path %></li>
-          <li><%= link_to "Contact", contact_path %></li>
-          <li><%= link_to "Sign in", new_user_session_path %></li>
-          <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+          <% if user_signed_in? %>
+            <li><h1><%= @user.fullname %></h1></li>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= gravatar_for @user %><b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Settings", edit_user_registration_path %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Logout", destroy_user_session_path, :method => :delete %>
+                </li>
+              </ul>
+            </li>
+          <% else %>
+            <li><%= link_to "Sign in", new_user_session_path %></li>
+          <% end %>
         </ul>
       </nav>
     </div>

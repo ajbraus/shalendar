@@ -1,9 +1,15 @@
 <div class="row">
-  <aside class="span4">
+  <aside class="span2">
     <section>
-      <%= gravatar_for @user %>
-      <h1><%= @user.email %></h1>
+    	<button>New Chillin'</button>
+    	<% if @users.any? %>
+       <div class="user_avatars">
+        <% @users.each do |user| %>
+        	<%= link_to gravatar_for(user, size: 30) %>
+      	<% end %>
+        </div>
+      <% end %>
     </section>
   </aside>
-  <div id="calendar"></div>
+ <div id="calendar"></div>
 </div>

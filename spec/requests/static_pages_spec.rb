@@ -25,8 +25,12 @@ describe "Static pages" do
 
   describe "Shalendar Home Page (after sign up / sign in" do
 
-  let(:user) { FactoryGirl.create(:user) }
-    before do
+    let(:user) { FactoryGirl.create(:user) }
+
+    before(:all) { 30.times { FactoryGirl.create(:user) } }
+    after(:all)  { User.delete_all }
+
+    before(:each) do
       visit new_user_session_path
       fill_in "Email",    with: user.email
       fill_in "Password", with: user.password
@@ -42,14 +46,13 @@ describe "Static pages" do
                         text: "Shalendar")
     end
 
-    # it "should have a custom page title" do
-    #   page.should have_selector('title', text: '| Home')
-    # end
+    it "should display current_user's name" do
+      page.should have_content('User')
+    end
 
     it "should have a user toolbar with a logout option" do
       page.should have_content('Logout')
     end
-
   end
 
   describe "About page" do
