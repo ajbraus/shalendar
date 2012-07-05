@@ -30,6 +30,9 @@ group :test do
   gem 'capybara', '1.1.2'
 	gem 'factory_girl_rails', '1.4.0'
 	gem 'email_spec', '1.2.1'
+	gem 'guard-rspec', '1.1.0'
+	gem "spork", '0.9.2'
+	gem 'guard-spork', '1.1.0'
 end
 
 group :production do
