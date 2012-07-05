@@ -23,6 +23,8 @@ body {
 section {
   overflow: auto;
   float:left;
+  position: relative;
+  top:50px;
 } 
 
 textarea {
@@ -174,5 +176,7 @@ aside {
 #calendar {
   width: 700px;
   position: relative;
+  top:60px;
   float:right;
+  margin: 0 auto;
 }

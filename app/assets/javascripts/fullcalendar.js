@@ -21,11 +21,11 @@
 var defaults = {
 
 	// display
-	defaultView: 'agendaWeek',
+	defaultView: 'month',
 	aspectRatio: 1.35,
 	header: {
-		left: '',
-		center: 'title',
+		left: 'title',
+		center: '',
 		right: 'today prev,next'
 	},
 	weekends: true,
