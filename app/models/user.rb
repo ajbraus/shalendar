@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   								:first_name, 
   								:last_name
   # attr_accessible :title, :body
-
+  has_many :events, :dependent => :destroy
 
 def fullname
   "#{first_name} #{last_name}"

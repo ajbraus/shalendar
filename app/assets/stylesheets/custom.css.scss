@@ -22,7 +22,8 @@ body {
 
 section {
   overflow: auto;
-}
+  float:left;
+} 
 
 textarea {
   resize: vertical;
@@ -146,6 +147,7 @@ aside {
   section {
     padding: 10px 0;
     border-top: 1px solid $grayLighter;
+    width:220px;
     &:first-child {
       border: 0;
       padding-top: 0;
@@ -170,5 +172,7 @@ aside {
 }
 
 #calendar {
-  margin-left: 200px;
+  width: 700px;
+  position: relative;
+  float:right;
 }

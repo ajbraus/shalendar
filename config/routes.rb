@@ -5,8 +5,10 @@ Shalendar::Application.routes.draw do
 
   root :to => 'static_pages#landing'
 
-  devise_for :users
-  
+  devise_for :users 
+
+  resources :events
+
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/contact', :to => 'static_pages#contact', :as => "contact"
   

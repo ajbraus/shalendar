@@ -1,7 +1,7 @@
 <div class="row">
   <aside class="span2">
     <section>
-    	<button>New Chillin'</button>
+    	<%= button_to "New", new_event_path, :method => :get %>
     	<% if @users.any? %>
        <div class="user_avatars">
         <% @users.each do |user| %>

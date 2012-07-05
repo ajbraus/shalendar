@@ -5,9 +5,9 @@
       <nav>
         <ul class="nav pull-right">
           <% if user_signed_in? %>
-            <li><h1><%= @user.fullname %></h1></li>
+            <li><h1><%= current_user.fullname %></h1></li>
             <li id="fat-menu" class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= gravatar_for @user %><b class="caret"></b>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= gravatar_for current_user %><b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
                 <li><%= link_to "Settings", edit_user_registration_path %></li>
