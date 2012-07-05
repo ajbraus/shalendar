@@ -26,9 +26,9 @@ $(document).ready(function() {
         // a future calendar might have many sources.        
         eventSources: [{
             url: '/events',
-            color: 'yellow',
+            color: 'lightblue',
             textColor: 'black',
-            ignoreTimezone: false
+            ignoreTimezone: true
         }],
         
         timeFormat: 'h:mm t{ - h:mm t} ',
@@ -59,7 +59,7 @@ function updateEvent(the_event) {
                  ends_at: "" + the_event.end,
                  description: the_event.description
                }
-      },
-      function (reponse) { alert('successfully updated task.'); }
+      }//,
+      //function (reponse) { alert('successfully updated task.'); }
     );
 };

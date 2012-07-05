@@ -3,8 +3,12 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
 
+    #@events = Event.all
+    @events = Event.scoped  
+    @events = @events.after(params['start']) if (params['start'])
+    @events = @events.before(params['end']) if (params['end'])
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @events }
@@ -25,8 +29,8 @@ class EventsController < ApplicationController
   # GET /events/new
   # GET /events/new.json
   def new
-    @user = current_user
-    @event = @user.events.build
+    #@user = current_user - old
+    @event = current_user.events.build
 
     respond_to do |format|
       format.html # new.html.erb

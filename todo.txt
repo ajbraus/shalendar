@@ -1,0 +1,47 @@
+fix ABOUT AND CONTACT views
+
+use devise_mailchimp :o)
+
+refactor error messages as partial
+
+Figure out timezone offset by 5 hr (CDT vs. UTC, don't care about diff timezones, just want to get date working correct)
+
+phantom-js
+
+click event -- only creator sees 'edit' button
+
+---------------------------------------------------
+
+add all day boolean
+
+add recurring functionality
+
+Add google calendar socket
+
+
+show details of daily events with this
+
+$(.dayDetails).hide();
+
+$('.day').hover(function(){
+	$(this).next('.dayDetails').show();
+	},
+	$(this).next('.dayDetails').hide();
+});
+
+$(.eventDetails).hide();
+$('.event').hover(function(){
+	$(this)next('.eventDetails').show();
+	},
+	$(this).next('eventDetails').hide();
+});
+
+
+overlay for new event form could be with a toggle call
+
+$('new_event_button').toggle(function(){
+	$(#new_event_form).show(); // with overlay jquery formatting
+	},
+	$(#new_event_form).hide();
+)};
+
