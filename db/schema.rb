@@ -14,13 +14,13 @@
 ActiveRecord::Schema.define(:version => 20120705153222) do
 
   create_table "events", :force => true do |t|
-    t.datetime "start_datetime"
-    t.datetime "end_datetime"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
     t.string   "title"
     t.string   "description"
     t.string   "location"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "user_id"
   end
 

@@ -4,8 +4,8 @@ describe Event do
 
   let(:user) { FactoryGirl.create(:user) }
 	before { @event = user.events.build(title: "Fun Get Together",
-																			start_datetime: 2.hours.ago,
-																			end_datetime: 1.hour.ago,
+																			starts_at: 2.hours.ago,
+																			ends_at: 1.hour.ago,
 																			location: "My house",
 																			description: "Going to be totally fun",
 																			) }
@@ -14,8 +14,8 @@ describe Event do
 
 	it { should respond_to(:title) }
 	it { should respond_to(:description) }
-	it { should respond_to(:start_datetime) }
-	it { should respond_to(:end_datetime) }
+	it { should respond_to(:starts_at) }
+	it { should respond_to(:ends_at) }
 	it { should respond_to(:location) }
   it { should respond_to(:user_id) }
 
