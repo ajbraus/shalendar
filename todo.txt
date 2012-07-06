@@ -1,5 +1,7 @@
 fix ABOUT AND CONTACT views
 
+validations
+
 use devise_mailchimp :o)
 
 refactor error messages as partial
@@ -10,6 +12,26 @@ phantom-js
 
 click event -- only creator sees 'edit' button
 
+What would an admin user be able to do?
+
+secure the /events/ route from users so only the calendar can pull JSON from it.
+
+see your events as one color and others' events in another color
+
+mailers
+
+event creator -- show name (picture)
+
+rsvp raster in the event!
+
+authenticate user for events but not for index?
+
+remove ourselves from the raster
+
+add a + button to raster to invite ppl to shalendar
+
+paginate raster
+
 ---------------------------------------------------
 
 add all day boolean
@@ -18,6 +40,7 @@ add recurring functionality
 
 Add google calendar socket
 
+notify on event cancellation (destroy!)
 
 show details of daily events with this
 

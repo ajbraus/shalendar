@@ -1,5 +1,7 @@
 class Event < ActiveRecord::Base
   belongs_to :user
+  has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
+  has_many :guests, through: :rsvps
 
   attr_accessible :description, :ends_at, :location, :starts_at, :title
   validates :user_id, presence: true

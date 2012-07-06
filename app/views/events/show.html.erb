@@ -1,30 +1,27 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Start:</b>
-  <%= @event.starts_at %>
+  <b>Start: <%= @event.starts_at %>
 </p>
 
 <p>
-  <b>End:</b>
-  <%= @event.ends_at %>
+  <b>End: <%= @event.ends_at %>
 </p>
 
 <p>
-  <b>Title:</b>
-  <%= @event.title %>
+  <b>Title: <%= @event.title %>
 </p>
 
 <p>
-  <b>Description:</b>
-  <%= @event.description %>
+  <b>Description: <%= @event.description %>
 </p>
 
 <p>
-  <b>Location:</b>
-  <%= @event.location %>
+  <b>Location: <%= @event.location %>
 </p>
 
+<%= render 'rsvp_form' %>
 
+<!-- IF USER IS CREATOR, ALLOW EDIT -->
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>

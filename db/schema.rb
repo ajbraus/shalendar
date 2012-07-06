@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120705153222) do
+ActiveRecord::Schema.define(:version => 20120705223628) do
 
   create_table "events", :force => true do |t|
     t.datetime "starts_at"
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(:version => 20120705153222) do
     t.datetime "updated_at",  :null => false
     t.integer  "user_id"
   end
+
+  create_table "rsvps", :force => true do |t|
+    t.integer  "guest_id"
+    t.integer  "plan_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "rsvps", ["guest_id", "plan_id"], :name => "index_rsvps_on_guest_id_and_plan_id", :unique => true
+  add_index "rsvps", ["guest_id"], :name => "index_rsvps_on_guest_id"
+  add_index "rsvps", ["plan_id"], :name => "index_rsvps_on_plan_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

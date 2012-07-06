@@ -9,6 +9,8 @@ Shalendar::Application.routes.draw do
 
   resources :events
 
+  resources :rsvps, only: [:create, :destroy]
+  
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/contact', :to => 'static_pages#contact', :as => "contact"
   

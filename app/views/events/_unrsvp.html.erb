@@ -1,0 +1,4 @@
+<%= form_for(current_user.rsvps.find_by_plan_id(@event),
+             html: { method: :delete }) do |f| %>
+  <%= f.submit "Cancel", class: "btn btn-large" %>
+<% end %>
