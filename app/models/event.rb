@@ -15,6 +15,9 @@ class Event < ActiveRecord::Base
   # scope :not_my_plans, Event.where("guest_id != ?", params[:user.id] )
   # scope :not_my_events, Event.where("user != ?", )
   
+  scope :my_plans where(user: current_user).joins('rsvps').on('rsvps.guest_id = user_id').joins('users').on('rsvps.guest_id = user.id')}
+  scope :my_maybes where(user: current_user).joins('rsvps').on('rsvps.guest_id != user_id')}
+  scope :my_events current_user.events
 
   #http://rorguide.blogspot.com/2011/02/to-pass-currentuser-object-to.html
   # scope :not_my_plans, lambda {|user| joins(:guest).where("guest_id != ?", user.id)}
