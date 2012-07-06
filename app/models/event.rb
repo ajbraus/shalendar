@@ -10,6 +10,15 @@ class Event < ActiveRecord::Base
   scope :before, lambda {|end_time| {:conditions => ["ends_at < ?", Event.format_date(end_time)] }}
   scope :after, lambda {|start_time| {:conditions => ["starts_at > ?", Event.format_date(start_time)] }}
   
+  # scope :not_my_plans, {|event| {:conditions => ["current_user NOT IN ?", ]}}
+  # scope :not_my_plans, lambda {|user| where(" ? NOT IN guest_id", user.id)}
+  # scope :not_my_plans, Event.where("guest_id != ?", params[:user.id] )
+  # scope :not_my_events, Event.where("user != ?", )
+  
+
+  #http://rorguide.blogspot.com/2011/02/to-pass-currentuser-object-to.html
+  # scope :not_my_plans, lambda {|user| joins(:guest).where("guest_id != ?", user.id)}
+
   # need to override the json view to return what full_calendar is expecting.
   # http://arshaw.com/fullcalendar/docs/event_data/Event_Object/
   def as_json(options = {})
@@ -29,4 +38,8 @@ class Event < ActiveRecord::Base
   def self.format_date(date_time)
     Time.at(date_time.to_i).to_formatted_s(:db)
   end
+
 end
+  # def self.my_maybes(events, my_plans, my_events)
+  #   where()
+  # end

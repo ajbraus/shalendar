@@ -14,6 +14,11 @@ Shalendar::Application.routes.draw do
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/contact', :to => 'static_pages#contact', :as => "contact"
   
+
+  match '/my_events', :to => 'events#my_events', :as => "my_events"
+  match '/my_plans', :to => 'events#my_plans', :as => "my_plans"
+  match '/my_maybes', :to => 'events#my_maybes', :as => "my_maybes"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

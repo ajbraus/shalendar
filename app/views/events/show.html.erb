@@ -22,6 +22,21 @@
 
 <%= render 'rsvp_form' %>
 
+<p>
+		<b> RSVP Count: </b> <%= @guests.count %>
+</p>
+
+<% if @guests.any? %>
+ <div class="user_avatars">
+  <% @guests.each do |user| %>
+  	<p><%= link_to gravatar_for(user, size: 30) %><b/>
+  	<%= user.fullname %></p>
+	<% end %>
+  </div>
+<% end %>
 <!-- IF USER IS CREATOR, ALLOW EDIT -->
 <%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<%= link_to 'Back', root_path %> 
+<% if current_user == @event.user %>
+ | <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<% end %>

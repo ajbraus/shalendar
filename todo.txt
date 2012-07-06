@@ -22,17 +22,19 @@ mailers
 
 event creator -- show name (picture)
 
-rsvp raster in the event!
-
-authenticate user for events but not for index?
-
 remove ourselves from the raster
 
 add a + button to raster to invite ppl to shalendar
 
 paginate raster
 
+full name => title case
+
 ---------------------------------------------------
+
+tags
+
+search
 
 add all day boolean
 

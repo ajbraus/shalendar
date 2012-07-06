@@ -24,9 +24,25 @@ $(document).ready(function() {
         },
         
         // a future calendar might have many sources.        
-        eventSources: [{
-            url: '/events',
+        eventSources: [
+
+        {
+            url: '/my_maybes',
             color: 'lightblue',
+            textColor: 'black',
+            ignoreTimezone: true
+        },
+
+        {
+            url: '/my_events',
+            color: 'red',
+            textColor: 'black',
+            ignoreTimezone: true
+        },
+        
+        {
+            url: '/my_plans',
+            color: 'green',
             textColor: 'black',
             ignoreTimezone: true
         }],

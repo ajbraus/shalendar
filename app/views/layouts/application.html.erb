@@ -6,6 +6,10 @@
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>  
+
+    <script type="text/javascript">
+      var user_id = <%= current_user %>;
+    </script>
   </head>
   <body>
     <%= render 'layouts/header' %>
