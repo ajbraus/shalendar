@@ -15,17 +15,32 @@ class EventsController < ApplicationController
   end
 
   def my_maybes
-    @events = Event.scoped
+
+
+    @events = Event.all
+    
+    @maybe_events = []
+    @events.each { |e|
+      plan = false
+      e.guests.each{ |g|
+        if g == current_user
+          plan = true
+        end
+      }
+      if plan == false
+        @maybe_events.push(e)
+      end
+    }
+
     #@events = @events.maybes(current_user)
     #@events = @events.joins('rsvps').on('plan_id').where("rsvps.guest_id != ?", current_user.id)
 
     #@events = Event.scope
     #@events = @events.not_my_plans(current_user)
-    @events = @events.after(params['start']) if (params['start'])
-    @events = @events.before(params['end']) if (params['end'])
+    @events = @maybe_events
+    #@events = @events.after(params['start']) if (params['start'])
+    #@events = @events.before(params['end']) if (params['end'])
     
-
-
 
     respond_to do |format|
       format.html # index.html.erb

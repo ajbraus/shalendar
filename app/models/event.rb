@@ -46,6 +46,4 @@ class Event < ActiveRecord::Base
   end
 
 end
-  # def self.my_maybes(events, my_plans, my_events)
-  #   where()
-  # end
+
