@@ -6,27 +6,16 @@ class Event < ActiveRecord::Base
   attr_accessible :description, :ends_at, :location, :starts_at, :title
   validates :user_id, presence: true
 
-
-  #scope :maybes, lambda {|guest| joins('rsvps').on('plan_id').where("guest_id != ?", guest)
-
   #from bokmann fullcalendar event model
   scope :before, lambda {|end_time| {:conditions => ["ends_at < ?", Event.format_date(end_time)] }}
   scope :after, lambda {|start_time| {:conditions => ["starts_at > ?", Event.format_date(start_time)] }}
   
-  # scope :not_my_plans, {|event| {:conditions => ["current_user NOT IN ?", ]}}
-  # scope :not_my_plans, lambda {|user| where(" ? NOT IN guest_id", user.id)}
-  # scope :not_my_plans, Event.where("guest_id != ?", params[:user.id] )
-  # scope :not_my_events, Event.where("user != ?", )
-  
-  # scope :my_plans where(user: current_user).joins('rsvps').on('rsvps.guest_id = user_id').joins('users').on('rsvps.guest_id = user.id')}
-  # scope :my_maybes where(user: current_user).joins('rsvps').on('rsvps.guest_id != user_id')}
-  # scope :my_events current_user.events
-
   #http://rorguide.blogspot.com/2011/02/to-pass-currentuser-object-to.html
   # scope :not_my_plans, lambda {|user| joins(:guest).where("guest_id != ?", user.id)}
 
   # need to override the json view to return what full_calendar is expecting.
   # http://arshaw.com/fullcalendar/docs/event_data/Event_Object/
+
   def as_json(options = {})
     {
       :id => self.id,

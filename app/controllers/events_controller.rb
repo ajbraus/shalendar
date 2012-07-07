@@ -18,8 +18,8 @@ class EventsController < ApplicationController
 
     #this will eventually populate with all followed + wanted to be displayed events
     #basically, loop through following (and toggled), add any of their created events
+    
     @events = Event.all
-
     @maybe_events = [] #an empty array to fill with relevant events
 
     #take main list and remove already RSVP'd events
@@ -39,6 +39,10 @@ class EventsController < ApplicationController
     }
     @events = @maybe_events
     
+    #The best ideas for SQL query implementation...
+    #Find events where [user.id, event.id] doesn't exist in RSVP table
+    #@events = Event.all
+    #@events = @events.where("[ ? , ? ] NOT IN rsvps", 5, 2)
     #@events = @events.joins('rsvps').on('plan_id').where("rsvps.guest_id != ?", current_user.id)
     #@events = Event.scope
     
