@@ -16,11 +16,13 @@ class EventsController < ApplicationController
 
   def my_maybes
 
+    #this will eventually populate with all followed + wanted to be displayed events
+    #basically, loop through following (and toggled), add any of their created events
     @events = Event.all
-    
-    @maybe_events = [] #this will eventually populate with all followed + wanted to be displayed events
 
-    #take that list and don't re-display already RSVP'd events
+    @maybe_events = [] #an empty array to fill with relevant events
+
+    #take main list and remove already RSVP'd events
     @events.each { |e|
       plan = false
       e.guests.each{ |g|
@@ -39,6 +41,8 @@ class EventsController < ApplicationController
     
     #@events = @events.joins('rsvps').on('plan_id').where("rsvps.guest_id != ?", current_user.id)
     #@events = Event.scope
+    
+    #PROBLEM HERE, EVENTS will not load with these on under current hack
     #@events = @events.after(params['start']) if (params['start'])
     #@events = @events.before(params['end']) if (params['end'])
     

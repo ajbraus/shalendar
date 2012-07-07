@@ -1,1 +1,3 @@
 If an event creator un-rsvps from own event, it's not destroyed
+
+maybe_events hack doesn't work with (full-calendar) scope calls on after, before
