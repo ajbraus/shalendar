@@ -20,7 +20,9 @@
   <b>Location: <%= @event.location %>
 </p>
 
-<%= render 'rsvp_form' %>
+<% unless current_user %>
+  <%= render 'rsvp_form' %>
+<% end %>
 
 <p>
 		<b> RSVP Count: </b> <%= @guests.count %>
