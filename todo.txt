@@ -1,36 +1,43 @@
-fix ABOUT AND CONTACT views
-
-validations
-
-use devise_mailchimp :o)
-
-refactor error messages as partial
-
+full name => title case
+Clean up New Event form
 Figure out timezone offset by 5 hr (CDT vs. UTC, don't care about diff timezones, just want to get date working correct)
+Open Auth
+Validations
 
-phantom-js
+Mailers - Welcome to Shalendar, Digest, Tipping, Event Change, Event Cancellation, RSVP Reminders
 
-click event -- only creator sees 'edit' button
 
-What would an admin user be able to do?
 
-secure the /events/ route from users so only the calendar can pull JSON from it.
+Followers/following
+	rescoping the calendar to pull in friends events
+	click faces on raster shows/hides their events
+	friends of friends can see event.
+Tipping
 
-see your events as one color and others' events in another color
 
-mailers
 
-event creator -- show name (picture)
-
-remove ourselves from the raster
-
+tweet this event, fb post this event, email this event
+get FB events to show on shalendar
 add a + button to raster to invite ppl to shalendar
+use devise_mailchimp :o)
+fix ABOUT AND CONTACT views
+refactor error messages as partial
+Add google calendar socket
+4 day view with current day on the left
+
+event types - public, follows, invitation, paid
+
+stats for how many follows but not how many ppl they follow.
+
+---------------------------------------------------
 
 paginate raster
 
-full name => title case
+add first day is always the left most day of four days. Probably need to add a dyanmic function to the firstDay call
 
----------------------------------------------------
+phantom-js & jasmine
+
+security: recaptcha, 
 
 tags
 
@@ -40,9 +47,6 @@ add all day boolean
 
 add recurring functionality
 
-Add google calendar socket
-
-notify on event cancellation (destroy!)
 
 show details of daily events with this
 
@@ -60,7 +64,6 @@ $('.event').hover(function(){
 	},
 	$(this).next('eventDetails').hide();
 });
-
 
 overlay for new event form could be with a toggle call
 

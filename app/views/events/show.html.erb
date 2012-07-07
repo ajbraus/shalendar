@@ -20,7 +20,7 @@
   <b>Location: <%= @event.location %>
 </p>
 
-<% unless current_user %>
+<% unless @event.user == current_user %>
   <%= render 'rsvp_form' %>
 <% end %>
 
@@ -36,9 +36,10 @@
 	<% end %>
   </div>
 <% end %>
+
 <!-- IF USER IS CREATOR, ALLOW EDIT -->
-<%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', root_path %> 
-<% if current_user == @event.user %>
- | <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<% if @event.user == current_user %> 
+  | <%= link_to 'Edit', edit_event_path(@event) %> |
+  <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' } %></td
 <% end %>

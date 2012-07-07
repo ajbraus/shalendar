@@ -12,7 +12,7 @@ $(document).ready(function() {
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
-        defaultView: 'month',
+        defaultView: 'agendaWeek',
         height: 550,
         slotMinutes: 30,
         
@@ -67,15 +67,15 @@ $(document).ready(function() {
   });
 });
 
-function updateEvent(the_event) {
-    $.update(
-      "/events/" + the_event.id,
-      { event: { title: the_event.title,
-                 starts_at: "" + the_event.start,
-                 ends_at: "" + the_event.end,
-                 description: the_event.description
-               }
-      }//,
-      //function (reponse) { alert('successfully updated task.'); }
-    );
-};
+// function updateEvent(the_event) {
+//     $.update(
+//       "/events/" + the_event.id,
+//       { event: { title: the_event.title,
+//                  starts_at: "" + the_event.start,
+//                  ends_at: "" + the_event.end,
+//                  description: the_event.description
+//                }
+//       }//,
+//       //function (reponse) { alert('successfully updated task.'); }
+//     );
+// };

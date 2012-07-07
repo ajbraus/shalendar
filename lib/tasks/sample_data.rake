@@ -6,7 +6,7 @@ namespace :db do
 end
 
 def make_users
-  99.times do |n|
+  60.times do |n|
     first_name  = Faker::Name.first_name
     last_name = Faker::Name.last_name
     email = "example-#{n+1}@shalendar.org"

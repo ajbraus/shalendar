@@ -1,3 +1,5 @@
 If an event creator un-rsvps from own event, it's not destroyed -- AJB - I called an 'unless current_user' statment on the rsvp_form partial so the button does not appear to the owner. They could still do it through a URL command?
 
 maybe_events hack doesn't work with (full-calendar) scope calls on after, before
+
+drag and drop is broken
