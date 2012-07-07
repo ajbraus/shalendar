@@ -1,0 +1,1 @@
+If an event creator un-rsvps from own event, it's not destroyed

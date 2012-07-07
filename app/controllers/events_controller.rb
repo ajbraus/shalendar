@@ -16,10 +16,11 @@ class EventsController < ApplicationController
 
   def my_maybes
 
-
     @events = Event.all
     
-    @maybe_events = []
+    @maybe_events = [] #this will eventually populate with all followed + wanted to be displayed events
+
+    #take that list and don't re-display already RSVP'd events
     @events.each { |e|
       plan = false
       e.guests.each{ |g|
@@ -27,17 +28,17 @@ class EventsController < ApplicationController
           plan = true
         end
       }
+      if e.user == current_user
+        plan = true
+      end
       if plan == false
         @maybe_events.push(e)
       end
     }
-
-    #@events = @events.maybes(current_user)
-    #@events = @events.joins('rsvps').on('plan_id').where("rsvps.guest_id != ?", current_user.id)
-
-    #@events = Event.scope
-    #@events = @events.not_my_plans(current_user)
     @events = @maybe_events
+    
+    #@events = @events.joins('rsvps').on('plan_id').where("rsvps.guest_id != ?", current_user.id)
+    #@events = Event.scope
     #@events = @events.after(params['start']) if (params['start'])
     #@events = @events.before(params['end']) if (params['end'])
     
