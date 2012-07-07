@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
 
-    @events = Event.scoped  
+    @events = Event.scoped
     @events = @events.after(params['start']) if (params['start'])
     @events = @events.before(params['end']) if (params['end'])
     
@@ -16,10 +16,17 @@ class EventsController < ApplicationController
 
   def my_maybes
     @events = Event.scoped
+    #@events = @events.maybes(current_user)
+    #@events = @events.joins('rsvps').on('plan_id').where("rsvps.guest_id != ?", current_user.id)
+
+    #@events = Event.scope
     #@events = @events.not_my_plans(current_user)
     @events = @events.after(params['start']) if (params['start'])
     @events = @events.before(params['end']) if (params['end'])
     
+
+
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @events }
@@ -32,7 +39,9 @@ class EventsController < ApplicationController
   def my_plans
   
     @events = current_user.plans.scoped
-    @events = @events.not_my_events
+    @events = @events.where("user_id != ?", current_user.id)
+    #@events = @events.not_my_events
+
     @events = @events.after(params['start']) if (params['start'])
     @events = @events.before(params['end']) if (params['end'])
 
@@ -45,6 +54,7 @@ class EventsController < ApplicationController
   def my_events
   
     @events = current_user.events.scoped
+    #@events = Event.where("user_id = ?", current_user.id).scoped
     @events = @events.after(params['start']) if (params['start'])
     @events = @events.before(params['end']) if (params['end'])
 

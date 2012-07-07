@@ -6,6 +6,9 @@ class Event < ActiveRecord::Base
   attr_accessible :description, :ends_at, :location, :starts_at, :title
   validates :user_id, presence: true
 
+
+  #scope :maybes, lambda {|guest| joins('rsvps').on('plan_id').where("guest_id != ?", guest)
+
   #from bokmann fullcalendar event model
   scope :before, lambda {|end_time| {:conditions => ["ends_at < ?", Event.format_date(end_time)] }}
   scope :after, lambda {|start_time| {:conditions => ["starts_at > ?", Event.format_date(start_time)] }}
