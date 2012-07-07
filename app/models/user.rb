@@ -14,10 +14,21 @@ class User < ActiveRecord::Base
   								:last_name
   # attr_accessible :title, :body
   has_many :events, :dependent => :destroy
+  
+
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
   has_many :plans, through: :rsvps
+  
 
 
+  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  has_many :followed_users, through: :relationships, source: :followed_users
+  has_many :reverse_relationships, foreign_key: "followed_id",
+                                   class_name:  "Relationship",
+                                   dependent:   :destroy
+  has_many :followers, through: :reverse_relationships, source: :follower
+
+  #Rsvp methods... user.plans = list of events
   def rsvpd?(event)
     rsvps.find_by_plan_id(event.id)
   end
@@ -34,10 +45,21 @@ class User < ActiveRecord::Base
     user == current_user
   end
 
-  #rsvp list
+  #Relationship methods
+  def following?(other_user)
+    relationships.find_by_followed_id(other_user.id)
+  end
 
+  def follow!(other_user)
+    relationships.create!(followed_id: other_user.id)
+  end
+
+  def unfollow!(other_user)
+    relationships.find_by_followed_id(other_user.id).destroy
+  end
+
+  #AUX methods
   def fullname
     "#{first_name} #{last_name}"
   end
-
 end
