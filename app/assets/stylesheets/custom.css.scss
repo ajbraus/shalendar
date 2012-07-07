@@ -16,15 +16,11 @@ html {
   overflow-y: scroll;
 }
 
-body {
-  padding-top: 60px;
-}
-
 section {
   overflow: auto;
   float:left;
   position: relative;
-  top:50px;
+  top:20px;
 } 
 
 textarea {
@@ -176,7 +172,47 @@ aside {
 #calendar {
   width: 700px;
   position: relative;
-  top:60px;
+  top:30px;
   float:right;
   margin: 0 auto;
+}
+
+
+
+input, textarea, .uneditable-input {
+  width: 420px;
+}
+
+select {
+  width: 80px;
+}
+
+.navbar .nav.pull-right {
+margin-left: 10px;
+margin-right: 0;
+  h1 {
+    font-size: 1.7em;
+    color:white;
+    position: relative;
+    top: 35px;
+  }
+
+}
+
+.navbar {
+overflow: visible;
+margin-bottom: 0px;
+}
+
+.navbar-fixed-top {
+position: static;
+top: 0;
+right: 0;
+left: 0;
+z-index: 1030;
+}
+
+.gravatar {
+  position: relative;
+  bottom: 5px;
 }

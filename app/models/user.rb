@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   #rsvp list
 
   def fullname
-    "#{first_name} #{last_name}"
+    "#{first_name.capitalize} #{last_name.capitalize}"
   end
 
 end

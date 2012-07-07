@@ -1,4 +1,3 @@
-full name => title case
 Clean up New Event form
 Figure out timezone offset by 5 hr (CDT vs. UTC, don't care about diff timezones, just want to get date working correct)
 Open Auth
@@ -12,6 +11,9 @@ Followers/following
 	rescoping the calendar to pull in friends events
 	click faces on raster shows/hides their events
 	friends of friends can see event.
+	no-confirmation
+	raster is only who you are following
+	in settings you can see who you are following and who is following you
 Tipping
 
 
@@ -73,3 +75,20 @@ $('new_event_button').toggle(function(){
 	$(#new_event_form).hide();
 )};
 
+
+add qTip to event for deets
+
+http://arshaw.com/fullcalendar/docs/event_rendering/eventRender/
+
+    eventRender: function(event, element) {
+        element.qtip({
+            content: event.description
+        });
+    }
+
+
+maybe use lyconic's full calendar to get jquery tooltips and limit the number of events per day
+
+https://github.com/lyconic/fullcalendar/tree/jquery-ui-tooltip
+
+fullcalendar issues http://code.google.com/p/fullcalendar/issues/detail?id=837
