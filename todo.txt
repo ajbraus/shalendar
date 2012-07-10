@@ -1,10 +1,14 @@
 Figure out timezone offset by 5 hr (CDT vs. UTC, don't care about diff timezones, just want to get date working correct)
 
+Populate with events
+
 Validations
 
 Clean up New Event form with not writer buttons
 
 Clean up event#show -- add share event on twitter and facebook 
+
+Make focus fall on first text field on form
 
 Mailers - Welcome to Shalendar, Digest, Tipping, Event Change, Event Cancellation, RSVP Reminders
 
@@ -13,6 +17,7 @@ Tip by deadline
 Open Auth
 
 Signup wizard/find friends by location through facebook.
+
 
 
 Refactor Event Filtering from Ruby->ActiveRecord

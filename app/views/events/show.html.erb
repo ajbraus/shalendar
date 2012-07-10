@@ -36,9 +36,24 @@
 
 <% if @guests.any? %>
  <div class="user_avatars">
-  <% @guests.each do |user| %>
-  	<p><%= link_to gravatar_for(user, size: 30) %><b/>
-  	<%= user.fullname %></p>
+  <% @guests.each do |guest| %>
+  	<p><%= link_to gravatar_for(guest, size: 30) %><b/>
+  	<%= guest.fullname %></p> |
+      <% unless current_user == guest %>
+      <div id="follow_form">
+        <% if current_user.following?(guest) %>
+          <%= form_for(current_user.relationships.find_by_followed_id(guest),
+                   html: { method: :delete }) do |f| %>
+            <%= f.submit "Unfollow", class: "btn btn-large" %>
+          <% end %>
+        <% else %>
+          <%= form_for(current_user.relationships.build(followed_id: guest.id)) do |f| %>
+            <div><%= f.hidden_field :followed_id %></div>
+            <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
 	<% end %>
   </div>
 <% end %>

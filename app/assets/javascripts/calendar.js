@@ -28,7 +28,7 @@ $(document).ready(function() {
 
         {
             url: '/my_maybes',
-            color: 'lightblue',
+            color: 'blue',
             textColor: 'black',
             ignoreTimezone: true
         },
@@ -51,7 +51,7 @@ $(document).ready(function() {
 
         {
             url: '/my_untipped_maybes',
-            color: 'lightblue',
+            color: 'blue',
             textColor: 'white',
             ignoreTimezone: true
         },

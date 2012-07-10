@@ -2,13 +2,30 @@
   <aside class="span2">
     <section>
     	<%= button_to "New", new_event_path, :method => :get %>
-    	<% if @users.any? %>
+
+      <div class="stats">
+        <a href="<%= manage_follows_path %>">
+          <strong id="following" class="stat">
+            <%= @user.followed_users.count %>
+          </strong>
+          following
+        </a>
+        <a href="<%= manage_follows_path %>">
+          <strong id="" class="stat">
+            <%= @user.followers.count %>
+          </strong>
+          followers
+        </a>
+      </div>
+
+      <% if @followers.any? %>
        <div class="raster">
-          <% @users.each do |user| %>
-        	  <%= link_to gravatar_for(user, size: 30) %>
+          <% @followers.each do |follower| %>
+        	  <%= link_to gravatar_for(follower, size: 30) %>
       	  <% end %>
         </div>
       <% end %>
+      <% @user = current_user %>
     </section>
   </aside>
  <div id='calendar'></div>

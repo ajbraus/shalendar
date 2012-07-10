@@ -1,0 +1,24 @@
+No following maybes    
+    @events = Event.all
+    @maybe_events = [] #an empty array to fill with relevant events
+
+    #take main list and remove already RSVP'd events
+    @events.each { |e|
+      plan = false
+      unless(e.full?)
+        if(e.tipped?)
+          e.guests.each{ |g|
+            if g == current_user
+             plan = true
+            end
+          }
+          if e.user == current_user
+            plan = true
+          end
+          if plan == false
+            @maybe_events.push(e)
+          end
+        end  
+      end
+    }
+    @events = @maybe_events

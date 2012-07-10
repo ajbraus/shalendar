@@ -19,11 +19,23 @@ class EventsController < ApplicationController
     #this will eventually populate with all followed + wanted to be displayed events
     #basically, loop through following (and toggled), add any of their created events
     
-    @events = Event.all
+    @followed_events = []
+
+    @followed_users = current_user.followed_users
+
+    @followed_users.each { |f|
+      # f.events.each{ |fe|     #FOR only friend events
+      #   @followed_events.push(fe)
+      # }
+      f.plans.each{ |fp| #for friends of friends events that are RSVPd for
+        @followed_events.push(fp)
+      }
+    }
+
     @maybe_events = [] #an empty array to fill with relevant events
 
     #take main list and remove already RSVP'd events
-    @events.each { |e|
+    @followed_events.each { |e|
       plan = false
       unless(e.full?)
         if(e.tipped?)
@@ -41,7 +53,6 @@ class EventsController < ApplicationController
         end  
       end
     }
-    @events = @maybe_events
     
     #The best ideas for SQL query implementation...
     #Find events where [user.id, event.id] doesn't exist in RSVP table
@@ -57,7 +68,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @events }
+      format.json { render json: @maybe_events }
     end
   end
 
@@ -115,12 +126,23 @@ class EventsController < ApplicationController
 
   def my_untipped_maybes
 
-    @events = Event.all
+    @followed_events = []
+
+    @followed_users = current_user.followed_users
+
+    @followed_users.each { |f|
+      # f.events.each{ |fe|     #FOR only friend events
+      #   @followed_events.push(fe)
+      # }
+      f.plans.each{ |fp| #for friends of friends events that are RSVPd for
+        @followed_events.push(fp)
+      }
+    }
 
     @maybe_events = [] #an empty array to fill with relevant events
 
     #take main list and remove already RSVP'd events
-    @events.each { |e|
+    @followed_events.each { |e|
       plan = false
       unless(e.full?)
         unless(e.tipped?)
@@ -138,14 +160,13 @@ class EventsController < ApplicationController
         end  
       end
     }
-    @events = @maybe_events
 
     #@events = @events.after(params['start']) if (params['start'])
     #@events = @events.before(params['end']) if (params['end'])
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @events }
+      format.json { render json: @maybe_events }
     end
   end
 

@@ -7,10 +7,14 @@ Shalendar::Application.routes.draw do
 
   devise_for :users 
 
+  match '/manage_follows', :to => 'shalendar#manage_follows', :as => "manage_follows"
+
   resources :events
 
   resources :rsvps, only: [:create, :destroy]
   
+  resources :relationships, only: [:create, :destroy]
+
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/contact', :to => 'static_pages#contact', :as => "contact"
   

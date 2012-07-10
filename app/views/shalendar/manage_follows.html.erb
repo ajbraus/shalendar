@@ -1,0 +1,52 @@
+<div class="follow_list">
+  <div id="followed_users">
+    <h1>Following</h1>
+    <table>
+      <% @followed_users.each do |followed| %>
+        <tr>
+          <td><%= gravatar_for followed, size: 35 %></td>
+          <td><%= followed.first_name %> <%= followed.last_name%> </td>
+          <td>
+            <span id="follow_form" class="follow_btn">
+              <%= form_for(current_user.relationships.find_by_followed_id(followed),
+                   html: { method: :delete }) do |f| %>
+              <%= f.submit "Unfollow", class: "btn btn-large" %>
+              <% end %>
+            </span>
+          </td>
+        </tr>
+    <% end %>
+    </table>
+  </div>
+
+
+  <div id="followers">
+    <h1>Followers</h1>
+    <table>
+      <% @followers.each do |follower| %>
+        <tr>
+          <td><%= gravatar_for follower, size: 35 %></td>
+          <td><%= follower.first_name %> <%= follower.last_name %></td>
+          <td>
+            <span id="follow_form" class="follow_btn">
+              <% if current_user.following?(follower) %>
+                <%= form_for(current_user.relationships.find_by_followed_id(follower),
+                         html: { method: :delete }) do |f| %>
+                <%= f.submit "Unfollow", class: "btn btn-large" %>
+                <% end %>
+              <% else %>
+                <%= form_for(current_user.relationships.build(followed_id: follower.id)) do |f| %>
+                  <div><%= f.hidden_field :followed_id %></div>
+                  <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
+                <% end %>
+
+              <% end %>
+            </span>
+          </td>
+          <td class="btn btn-large btn-danger">Remove</td>
+        </tr>
+      <% end %>
+      </table>
+    </div>
+
+</div>
