@@ -3,10 +3,10 @@
     <section>
     	<%= button_to "New", new_event_path, :method => :get %>
     	<% if @users.any? %>
-       <div class="user_avatars">
-        <% @users.each do |user| %>
-        	<%= link_to gravatar_for(user, size: 30) %>
-      	<% end %>
+       <div class="raster">
+          <% @users.each do |user| %>
+        	  <%= link_to gravatar_for(user, size: 30) %>
+      	  <% end %>
         </div>
       <% end %>
     </section>

@@ -1,15 +1,22 @@
-Clean up New Event form
-Clean up event#show
 Figure out timezone offset by 5 hr (CDT vs. UTC, don't care about diff timezones, just want to get date working correct)
-Open Auth
+
 Validations
+
+Clean up New Event form
+
+Clean up event#show -- add share event on twitter and facebook 
 
 Mailers - Welcome to Shalendar, Digest, Tipping, Event Change, Event Cancellation, RSVP Reminders
 
+Tip by deadline
 
 Open Auth
 
+Signup wizard/find friends by location through facebook.
+
+
 Refactor Event Filtering from Ruby->ActiveRecord
+	Full + Tipped bool on events model
 
 
 Followers/following
@@ -19,7 +26,7 @@ Followers/following
 	no-confirmation
 	raster is only who you are following
 	in settings you can see who you are following and who is following you
-Tipping
+
 
 
 
