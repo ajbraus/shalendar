@@ -34,7 +34,9 @@ class User < ActiveRecord::Base
   end
 
   def rsvp!(event)
-    rsvps.create!(plan_id: event.id)
+    unless event.full?
+      rsvps.create!(plan_id: event.id)
+    end
   end
 
   def unrsvp!(event)

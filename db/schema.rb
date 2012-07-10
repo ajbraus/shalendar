@@ -11,7 +11,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120707175900) do
+
+ActiveRecord::Schema.define(:version => 20120710150150) do
 
   create_table "events", :force => true do |t|
     t.datetime "starts_at"
@@ -19,9 +20,11 @@ ActiveRecord::Schema.define(:version => 20120707175900) do
     t.string   "title"
     t.string   "description"
     t.string   "location"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.integer  "user_id"
+    t.integer  "min",         :default => 1
+    t.integer  "max",         :default => 10000
   end
 
   create_table "relationships", :force => true do |t|
@@ -46,6 +49,16 @@ ActiveRecord::Schema.define(:version => 20120707175900) do
   add_index "rsvps", ["guest_id"], :name => "index_rsvps_on_guest_id"
   add_index "rsvps", ["plan_id"], :name => "index_rsvps_on_plan_id"
 
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -61,6 +74,8 @@ ActiveRecord::Schema.define(:version => 20120707175900) do
     t.datetime "updated_at",                             :null => false
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

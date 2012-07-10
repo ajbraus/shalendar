@@ -1,10 +1,15 @@
 Clean up New Event form
+Clean up event#show
 Figure out timezone offset by 5 hr (CDT vs. UTC, don't care about diff timezones, just want to get date working correct)
 Open Auth
 Validations
 
 Mailers - Welcome to Shalendar, Digest, Tipping, Event Change, Event Cancellation, RSVP Reminders
 
+
+Open Auth
+
+Refactor Event Filtering from Ruby->ActiveRecord
 
 
 Followers/following

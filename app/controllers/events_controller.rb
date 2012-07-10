@@ -25,16 +25,20 @@ class EventsController < ApplicationController
     #take main list and remove already RSVP'd events
     @events.each { |e|
       plan = false
-      e.guests.each{ |g|
-        if g == current_user
-          plan = true
-        end
-      }
-      if e.user == current_user
-        plan = true
-      end
-      if plan == false
-        @maybe_events.push(e)
+      unless(e.full?)
+        if(e.tipped?)
+          e.guests.each{ |g|
+            if g == current_user
+             plan = true
+            end
+          }
+          if e.user == current_user
+            plan = true
+          end
+          if plan == false
+            @maybe_events.push(e)
+          end
+        end  
       end
     }
     @events = @maybe_events
@@ -62,12 +66,22 @@ class EventsController < ApplicationController
 
   def my_plans
   
-    @events = current_user.plans.scoped
-    @events = @events.where("user_id != ?", current_user.id)
-    #@events = @events.not_my_events
+    @events = current_user.plans
 
-    @events = @events.after(params['start']) if (params['start'])
-    @events = @events.before(params['end']) if (params['end'])
+    @plans = []
+
+    @events.each { |e|
+      if(e.tipped?)
+        unless(e.user == current_user)
+          @plans.push(e)
+        end
+      end
+    }
+
+    @events = @plans
+
+    #@events = @events.after(params['start']) if (params['start'])
+    #@events = @events.before(params['end']) if (params['end'])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -77,16 +91,114 @@ class EventsController < ApplicationController
 
   def my_events
   
-    @events = current_user.events.scoped
-    #@events = Event.where("user_id = ?", current_user.id).scoped
-    @events = @events.after(params['start']) if (params['start'])
-    @events = @events.before(params['end']) if (params['end'])
+    @events = current_user.events
+
+    @my_events = []
+
+    @events.each { |e|
+      if(e.tipped?)
+        @my_events.push(e)
+      end
+    }
+
+    @events = @my_events
+    #@events = @events.after(params['start']) if (params['start'])
+    #@events = @events.before(params['end']) if (params['end'])
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @events }
     end
   end
+
+
+
+  def my_untipped_maybes
+
+    @events = Event.all
+
+    @maybe_events = [] #an empty array to fill with relevant events
+
+    #take main list and remove already RSVP'd events
+    @events.each { |e|
+      plan = false
+      unless(e.full?)
+        unless(e.tipped?)
+          e.guests.each{ |g|
+            if g == current_user
+             plan = true
+            end
+          }
+          if e.user == current_user
+            plan = true
+          end
+          if plan == false
+            @maybe_events.push(e)
+          end
+        end  
+      end
+    }
+    @events = @maybe_events
+
+    #@events = @events.after(params['start']) if (params['start'])
+    #@events = @events.before(params['end']) if (params['end'])
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @events }
+    end
+  end
+
+  def my_untipped_plans
+  
+    @events = current_user.plans
+
+    @plans = []
+
+    @events.each { |e|
+      unless(e.tipped?)
+        unless(e.user == current_user)
+          @plans.push(e)
+        end
+      end
+    }
+
+    @events = @plans
+
+    #@events = @events.after(params['start']) if (params['start'])
+    #@events = @events.before(params['end']) if (params['end'])
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @events }
+    end
+  end
+
+
+  def my_untipped_events
+  
+    @events = current_user.events
+
+    @my_events = []
+
+    @events.each { |e|
+      unless(e.tipped?)
+        @my_events.push(e)
+      end 
+    }
+
+    @events = @my_events
+
+    #@events = @events.after(params['start']) if (params['start'])
+    #@events = @events.before(params['end']) if (params['end'])
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @events }
+    end
+  end
+
+
 
   def show
     @event = Event.find(params[:id])

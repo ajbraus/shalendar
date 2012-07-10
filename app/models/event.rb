@@ -3,7 +3,7 @@ class Event < ActiveRecord::Base
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
   has_many :guests, through: :rsvps
 
-  attr_accessible :description, :ends_at, :location, :starts_at, :title
+  attr_accessible :description, :ends_at, :location, :starts_at, :title, :min, :max
   validates :user_id, presence: true
 
   #from bokmann fullcalendar event model
@@ -32,6 +32,14 @@ class Event < ActiveRecord::Base
   
   def self.format_date(date_time)
     Time.at(date_time.to_i).to_formatted_s(:db)
+  end
+
+  def tipped?
+    self.guests.count >= self.min
+  end
+
+  def full?
+    self.guests.count >= self.max
   end
 
 end
