@@ -24,6 +24,12 @@
   <%= render 'rsvp_form' %>
 <% end %>
 
+<% unless @event.tipped? %>
+  <p>Needs <%= @event.min - @guests.count %> to Tip.</p>
+<% else %>
+  <p><strong>Event is On!</strong>
+<% end %>
+
 <p>
 		<b> RSVP Count: </b> <%= @guests.count %>
 </p>

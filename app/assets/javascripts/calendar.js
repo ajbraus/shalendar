@@ -45,8 +45,34 @@ $(document).ready(function() {
             color: 'green',
             textColor: 'black',
             ignoreTimezone: true
-        }],
+        },
+
+        // Tipping event URLs
+
+        {
+            url: '/my_untipped_maybes',
+            color: 'lightblue',
+            textColor: 'white',
+            ignoreTimezone: true
+        },
+
+        {
+            url: '/my_untipped_events',
+            color: 'red',
+            textColor: 'white',
+            ignoreTimezone: true
+        },
         
+        {
+            url: '/my_untipped_plans',
+            color: 'green',
+            textColor: 'white',
+            ignoreTimezone: true
+        }
+        ],
+        
+
+
         timeFormat: 'h:mm t{ - h:mm t} ',
         dragOpacity: "0.5",
         

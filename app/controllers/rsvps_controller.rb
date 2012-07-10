@@ -15,7 +15,7 @@ class RsvpsController < ApplicationController
   def destroy
     @event = Rsvp.find(params[:id]).plan
     current_user.unrsvp!(@event)
-    redirect_to root_path
+    redirect_to @event
 
     # respond_to do |format|
     #   format.html { redirect_to @event }
