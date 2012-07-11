@@ -9,7 +9,7 @@ Clean up event#show -- add share event on twitter and facebook
 
 Populate with events (user names = first_name = user last_name = user#{n})
 
-Mailers - Welcome to Shalendar, Event Cancellation, Confirmation of follow notification, RSVP Reminders (for recurrings), Tipping, Digest,  Event Change,  (tipping cron job), use devise_mailchimp :o)
+Mailers - Welcome to Shalendar, Event Cancellation, Confirmation of follow notification, RSVP Reminders (for recurrings), Event Tipped! (to RSVPs), Tipping, Digest,  Event Change,  (tipping cron job), use devise_mailchimp :o)
 
 Validations
 

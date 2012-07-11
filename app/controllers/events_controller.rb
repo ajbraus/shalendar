@@ -256,7 +256,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         current_user.rsvp!(@event)
-        format.html { redirect_to root_path, notice: 'Event was successfully created.' }
+        format.html { redirect_to root_path }
         format.json { render json: root_path, status: :created, location: @event }
       else
         format.html { render action: "new" }

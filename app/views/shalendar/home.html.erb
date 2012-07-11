@@ -1,7 +1,11 @@
 <div class="row">
   <aside class="span2">
     <section>
-    	<%= button_to "New", new_event_path, :method => :get %>
+    	<%= button_to "New", new_event_path, :class => 'btn btn-large btn-primary', :method => :get %>
+
+    <div class="current_user">
+      <%= gravatar_for(current_user) %>
+      <h3><%= current_user.fullname %></h3>
 
       <div class="stats">
         <a href="<%= manage_follows_path %>">

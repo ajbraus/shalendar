@@ -15,30 +15,29 @@
     <% end %>
 
     <div class="field">
-      <%= f.label :title %><br />
-      <%= f.text_field :title %>
+      <%= f.text_field :title, :placeholder => "What's going on?" %>
+    </div>
+    <div id="event_details">Add Details</div>
+    <div class="field" id="description">
+      <%= f.text_area :description, :cols => 30, :rows => 2, :placeholder => "FYIs" %>
     </div>
     <div class="field">
-      <%= f.label :description %><br />
-      <%= f.text_area :description, :cols => 30, :rows => 4 %>
+      <%= f.text_field :location, :placeholder => "Where's it goin on at?" %>
+    </div>
+    <div class="field" id="address">
+      <%= f.text_field :map_location, :id => 'addresspicker_map', :class =>"ui-autocomplete-input", :placeholder => "Search Address" %>
+    
+    <div id="map"></div>
     </div>
     <div class="field">
-      <%= f.label :location %><br />
-      <%= f.text_field :location %>
+      <%= f.text_field :starts_at, :class => 'input-medium', :id => 'eventStartsAt', :placeholder => "starts at?" %>
+      &nbsp &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <%= f.text_field :ends_at, :class => 'input-medium', :id => 'eventEndsAt', :placeholder => "ends at?" %>
     </div>
-    <div class="field">
-      <%= f.label :starts_at %><br />
-      <%= f.datetime_select :starts_at, :default => Time.now, :ampm => true  %>
-    </div>
-    <div class="field">
-      <%= f.label :ends_at %><br />
-      <%= f.datetime_select :ends_at, :default => Time.now, :ampm => true %>
-    </div>
-    <div class="field">
-      <%= f.label :min, "Minimum Guests" %><br />
-      <%= f.text_field :min %>
-      <%= f.label :max, "Maximum Guests" %><br />
-      <%= f.text_field :max %>
+    <div class="min_max_field">
+      Min Attendees : <%= f.text_field :min, :class => 'input-mini', :value => "1" %>
+      &nbsp &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      Max Attendees : <%= f.text_field :max, :class => 'input-mini', :value => "10000" %>
     </div>
 
     <div class="actions"> 

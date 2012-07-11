@@ -1,66 +1,63 @@
-<p id="notice"><%= notice %></p>
+<div class="event_show">
+  <h3><%= @event.title %></h3>
+  <span class="grey_italics"><%= @event.description %></span>
+  <hr>
 
-<p>
-  <b>Start: <%= @event.starts_at %>
-</p>
+  <h4>Starts at: <%= @event.starts_at%></h4>
+  <h4>Ends at: <%= @event.ends_at %></h4>
+  <div class="location">Location: <%= @event.location %></div>
+  <div id="show_map"></div>
+  
 
-<p>
-  <b>End: <%= @event.ends_at %>
-</p>
-
-<p>
-  <b>Title: <%= @event.title %>
-</p>
-
-<p>
-  <b>Description: <%= @event.description %>
-</p>
-
-<p>
-  <b>Location: <%= @event.location %>
-</p>
-
-<% unless @event.user == current_user %>
-  <%= render 'rsvp_form' %>
-<% end %>
-
-<% unless @event.tipped? %>
-  <p>Needs <%= @event.min - @guests.count %> to Tip.</p>
-<% else %>
-  <p><strong>Event is On!</strong>
-<% end %>
-
-<p>
-		<b> RSVP Count: </b> <%= @guests.count %>
-</p>
-
-<% if @guests.any? %>
- <div class="user_avatars">
-  <% @guests.each do |guest| %>
-  	<p><%= link_to gravatar_for(guest, size: 30) %><b/>
-  	<%= guest.fullname %></p> |
-      <% unless current_user == guest %>
-      <div id="follow_form">
-        <% if current_user.following?(guest) %>
-          <%= form_for(current_user.relationships.find_by_followed_id(guest),
-                   html: { method: :delete }) do |f| %>
-            <%= f.submit "Unfollow", class: "btn btn-large" %>
-          <% end %>
-        <% else %>
-          <%= form_for(current_user.relationships.build(followed_id: guest.id)) do |f| %>
-            <div><%= f.hidden_field :followed_id %></div>
-            <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
-          <% end %>
-        <% end %>
-      </div>
+  <div class="nav_buttons">
+  <!-- IF USER IS CREATOR, ALLOW EDIT -->
+    <%= link_to 'Back', root_path, :class => "btn btn-primary" %> 
+    <% if @event.user == current_user %> 
+        <%= link_to 'Edit', edit_event_path(@event), :class =>"btn btn-warning" %>
+      <%= link_to 'Cancel Event', @event, method: :delete, data: { confirm: 'This will send an Email to all RSVPs. Are you sure?' }, :class => "btn btn-danger" %></td
     <% end %>
-	<% end %>
   </div>
-<% end %>
+  </div>
 
-<!-- IF USER IS CREATOR, ALLOW EDIT -->
-<%= link_to 'Back', root_path %> 
-<% if @event.user == current_user %> 
-  | <%= link_to 'Edit', edit_event_path(@event) %> |
-  <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' } %></td
-<% end %>
+  <div class="rsvp_tip">
+    <% unless @event.user == current_user %>
+      <%= render 'rsvp_form' %>
+    <% end %>
+
+
+    <% unless @event.tipped? %>
+      <h2>RSVP Count: </b> <span class="red"><%= @guests.count %></span></h2>
+      <h2>Needs <%= @event.min - @guests.count %> to Tip. . . </h2>
+    <% else %>
+      <p class="event_on">Event is On!</p>
+      <h2>RSVP Count: </b> <span class="red"><%= @guests.count %></span></h2>
+    <% end %>
+  </div>
+
+    <% if @guests.any? %>
+     <table>
+      <% @guests.each do |guest| %>
+      	<tr>
+          <td><%= link_to gravatar_for(guest, size: 30) %></td>
+          <td><%= guest.fullname %></td>
+        
+          <% unless current_user == guest %>
+          <td id="follow_form">
+            <% if current_user.following?(guest) %>
+              <%= form_for(current_user.relationships.find_by_followed_id(guest),
+                       html: { method: :delete }) do |f| %>
+                <%= f.submit "Unfollow", class: "btn btn-large" %>
+              <% end %>
+            <% else %>
+              <%= form_for(current_user.relationships.build(followed_id: guest.id)) do |f| %>
+                <div><%= f.hidden_field :followed_id %></div>
+                <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
+              <% end %>
+            <% end %>
+          </td>
+        <% end %>
+    	<% end %>
+      </table>
+    <% end %>
+  </div>
+</div>

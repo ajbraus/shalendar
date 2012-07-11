@@ -35,14 +35,14 @@ $(document).ready(function() {
 
         {
             url: '/my_events',
-            color: 'red',
+            color: '#33FDC0',
             textColor: 'black',
             ignoreTimezone: true
         },
         
         {
             url: '/my_plans',
-            color: 'green',
+            color: '#33FDC0',
             textColor: 'black',
             ignoreTimezone: true
         },
@@ -51,40 +51,38 @@ $(document).ready(function() {
 
         {
             url: '/my_untipped_maybes',
-            color: 'blue',
-            textColor: 'white',
+            color: '#DBDBDB',
+            textColor: '#A3A3A3',
             ignoreTimezone: true
         },
 
         {
             url: '/my_untipped_events',
-            color: 'red',
-            textColor: 'white',
+            color: '#BDFFEA',
+            textColor: '#A3A3A3',
             ignoreTimezone: true
         },
         
         {
             url: '/my_untipped_plans',
-            color: 'green',
+            color: 'lightgreen',
             textColor: 'white',
             ignoreTimezone: true
         }
         ],
         
-
-
         timeFormat: 'h:mm t{ - h:mm t} ',
         dragOpacity: "0.5",
         
-        //http://arshaw.com/fullcalendar/docs/event_ui/eventDrop/
-        eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
-            updateEvent(event);
-        },
+        // //http://arshaw.com/fullcalendar/docs/event_ui/eventDrop/
+        // eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
+        //     updateEvent(event);
+        // },
 
-        // http://arshaw.com/fullcalendar/docs/event_ui/eventResize/
-        eventResize: function(event, dayDelta, minuteDelta, revertFunc){
-            updateEvent(event);
-        },
+        // // http://arshaw.com/fullcalendar/docs/event_ui/eventResize/
+        // eventResize: function(event, dayDelta, minuteDelta, revertFunc){
+        //     updateEvent(event);
+        // },
 
         // http://arshaw.com/fullcalendar/docs/mouse/eventClick/
         eventClick: function(event, jsEvent, view){

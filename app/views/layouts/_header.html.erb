@@ -6,7 +6,7 @@
         <ul class="nav pull-right">
           <% if user_signed_in? %>
             <li id="fat-menu" class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><h1><%= current_user.fullname %></h1><b class="caret"></b>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
                 <li><%= link_to "Settings", edit_user_registration_path %></li>

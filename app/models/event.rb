@@ -3,7 +3,7 @@ class Event < ActiveRecord::Base
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
   has_many :guests, through: :rsvps
 
-  attr_accessible :description, :ends_at, :location, :starts_at, :title, :min, :max
+  attr_accessible :description, :ends_at, :location, :starts_at, :title, :min, :max, :map_location
   validates :user_id, presence: true
 
   #from bokmann fullcalendar event model

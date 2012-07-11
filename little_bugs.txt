@@ -6,3 +6,9 @@ Don't know how to scope an event array, and need to figure out correct SQL calls
 Don't know how to render the follow button using partials
 
 Friends of friends is broken
+
+max = 0 creates this error "comparison of Fixnum with nil failed"
+
+Swapped day and month from Jquery datetime picker
+
+google icon is tiny and squished
