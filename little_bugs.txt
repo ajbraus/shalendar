@@ -1,7 +1,8 @@
 maybe_events hack doesn't work with (full-calendar) scope calls on after, before
 
-drag and drop is broken
-
-Don't know how to scope an event array, and need to figure out correct SQL calls
+Don't know how to scope an event array, and need to figure out correct SQL calls. Refactor Event Filtering from Ruby->ActiveRecord
+	Full + Tipped bool on events model
 
 Don't know how to render the follow button using partials
+
+Friends of friends is broken
