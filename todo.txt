@@ -1,73 +1,111 @@
+////////////////////Alone . . .
+
 Figure out timezone offset by 5 hr (CDT vs. UTC, don't care about diff timezones, just want to get date working correct)
 
-Populate with events
+Clean up New Event form with not writer buttons, google map, 15 min
+
+Clean up event#show -- add share event on twitter and facebook 
+	tweet this event, fb post this event, email this event
+
+Populate with events (user names = first_name = user last_name = user#{n})
+
+Mailers - Welcome to Shalendar, Event Cancellation, Confirmation of follow notification, RSVP Reminders (for recurrings), Tipping, Digest,  Event Change,  (tipping cron job), use devise_mailchimp :o)
 
 Validations
-
-Clean up New Event form with not writer buttons
 
 Friends of Friends button (click this for friends of RSVPs see this event)
 
 Clean up event#show -- add share event on twitter and facebook 
 
-Make focus fall on first text field on form
 
-Mailers - Welcome to Shalendar, Digest, Tipping, Event Change, Event Cancellation, RSVP Reminders
 
-Tip by deadline
+
+JS
+	add first day is always the left most day of four days. Probably need to add a dyanmic function to the firstDay call
+	Make focus fall on first text field on form
+	Click on calendar to event
+	default view of calendar 8am (set this?)
+	manage followers/following w tab page in a grid
+	overlay for event#show, event#edit
+	1day, 4day, 2week
+
+paginate raster - 
+
+search
+
+add a + button to raster to invite ppl to shalendar
+
+fix ABOUT AND CONTACT views
+
+Add google calendar socket - as 'busy'
+
+Google adsense on event#show - pay to get rid of
+
+unrsvp the event creator
+
+feedback button - to contact form
+
+
+////////////////////////////Paired
 
 Open Auth
 
 Signup wizard/find friends by location through facebook.
 
-
-
-Refactor Event Filtering from Ruby->ActiveRecord
-	Full + Tipped bool on events model
-
+F T G - scan contacts for users to follow.
 
 Followers/following
-	rescoping the calendar to pull in friends events
 	click faces on raster shows/hides their events
-	friends of friends can see event.
-	no-confirmation
-	raster is only who you are following
-	in settings you can see who you are following and who is following you
+	friends of friends can see event
 
+Tip by deadline - two hours ahead
 
+friends of friends are broken
 
+subdomains for every city - you can belong to multiple cities -- this strategy can be used for -- should we use heroku if we know our deployment strategy?
 
-tweet this event, fb post this event, email this event
-get FB events to show on shalendar
-add a + button to raster to invite ppl to shalendar
-use devise_mailchimp :o)
-fix ABOUT AND CONTACT views
-refactor error messages as partial
-Add google calendar socket
-4 day view with current day on the left
-
-event types - public, follows, invitation, paid
-
-stats for how many follows but not how many ppl they follow.
-
----------------------------------------------------
-
-paginate raster
-
-add first day is always the left most day of four days. Probably need to add a dyanmic function to the firstDay call
-
-phantom-js & jasmine
-
-security: recaptcha, 
+text notifications (1 cent per text)
 
 tags
 
-search
+--------------------General ideas:----------------
+
+user experience of curating invites/groups - don't just select a new type of event
+	"Make Current Selection a Group Users" "Invite Group to event"	
+
+Monetization
+	Individual deployments (cost based on user limit) (churches, frats, businesses) - pricing?
+	Paid RSVPs
+	############Premier accounts
+	create Paid RSVPs subscription
+	Logo icon on event
+	preferred search
+	personal calendar page (with customizable pretty header picture)
+
+	
+Marketing strategy
+	private beta? 1001 ppl
+
+
+
+---------------------------------------------------
+
+
+get FB events to show on shalendar
+
+refactor error messages as partial
+
+
+security: recaptcha
 
 add all day boolean
 
 add recurring functionality
 
+
+library of icons -flush out use cases -sports, games, booze, playdates, 
+
+event types - public, follows, invitation, paid
 
 show details of daily events with this
 
