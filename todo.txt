@@ -6,6 +6,8 @@ Validations
 
 Clean up New Event form with not writer buttons
 
+Friends of Friends button (click this for friends of RSVPs see this event)
+
 Clean up event#show -- add share event on twitter and facebook 
 
 Make focus fall on first text field on form
