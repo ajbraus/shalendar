@@ -199,7 +199,6 @@ class EventsController < ApplicationController
   def my_untipped_events
   
     @events = current_user.events
-
     @my_events = []
 
     @events.each { |e|

@@ -25,6 +25,12 @@ $(document).ready(function() {
         
         // a future calendar might have many sources.        
         eventSources: [
+        {
+            url: '/events',
+            color: 'blue',
+            textColor: 'black',
+            ignoreTimezone: true
+        },
 
         {
             url: '/my_maybes',
