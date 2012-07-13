@@ -15,6 +15,7 @@ $(document).ready(function() {
         defaultView: 'agendaWeek',
         height: 550,
         slotMinutes: 30,
+        selectable: true,
         
         loading: function(bool){
             if (bool) 
@@ -74,15 +75,15 @@ $(document).ready(function() {
         timeFormat: 'h:mm t{ - h:mm t} ',
         dragOpacity: "0.5",
         
-        // //http://arshaw.com/fullcalendar/docs/event_ui/eventDrop/
+        // // //http://arshaw.com/fullcalendar/docs/event_ui/eventDrop/
         // eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
-        //     updateEvent(event);
-        // },
+        // //     updateEvent(event);
+        // // },
 
-        // // http://arshaw.com/fullcalendar/docs/event_ui/eventResize/
+        // // // http://arshaw.com/fullcalendar/docs/event_ui/eventResize/
         // eventResize: function(event, dayDelta, minuteDelta, revertFunc){
-        //     updateEvent(event);
-        // },
+        // //     updateEvent(event);
+        // // },
 
         // http://arshaw.com/fullcalendar/docs/mouse/eventClick/
         eventClick: function(event, jsEvent, view){
