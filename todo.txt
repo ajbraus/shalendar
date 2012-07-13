@@ -2,22 +2,20 @@
 
 Figure out timezone offset by 5 hr (CDT vs. UTC, don't care about diff timezones, just want to get date working correct)
 
-Clean up New Event form with not writer buttons, google map, 15 min
+Event#new
+	Title, Starts_at (chronic), duration 
+	calculate ends_at from duration (http://stackoverflow.com/questions/238684/subtract-n-hours-from-a-datetime-in-ruby)
 
-Clean up event#show -- add share event on twitter and facebook 
+Event#show
+	display map_location
+	make a grid (not a table) for guest raster
 	tweet this event, fb post this event, email this event
 
 Populate with events (user names = first_name = user last_name = user#{n})
 
 Mailers - Welcome to Shalendar, Event Cancellation, Confirmation of follow notification, RSVP Reminders (for recurrings), Event Tipped! (to RSVPs), Tipping, Digest,  Event Change,  (tipping cron job), use devise_mailchimp :o)
 
-Validations
-
 Friends of Friends button (click this for friends of RSVPs see this event)
-
-Clean up event#show -- add share event on twitter and facebook 
-
-
 
 JS
 	add first day is always the left most day of four days. Probably need to add a dyanmic function to the firstDay call
@@ -28,11 +26,11 @@ JS
 	overlay for event#show, event#edit
 	1day, 4day, 2week
 
-paginate raster - 
+user search bar
 
-search
 
-add a + button to raster to invite ppl to shalendar
+
+find friends in gmail, twitter, and facebook contacts.
 
 fix ABOUT AND CONTACT views
 
