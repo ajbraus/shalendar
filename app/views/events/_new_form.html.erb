@@ -1,4 +1,5 @@
 <div id="new_event">
+<<<<<<< HEAD
 	<%= form_for @event do |f| %>
 
 	<%= f.text_area :title, :placeholder => "What's happening? Where? What should they bring?", :rows => 2 %><br/>	
@@ -12,5 +13,20 @@
 	<div class="actions"> 
 	  <%= f.submit 'New Event', :class => 'btn btn-large btn-primary' %>
 	</div>
+=======
+ <%= form_for @event do |f| %>
+
+ <%= f.text_area :title, :placeholder => "What's happening? Where? What should they bring?", :rows => 2 %><br/>  
+
+ Starts at?<br/>
+ <%= f.text_field :chronic_starts_at, :class => "input-large", :placeholder => "e.g. 7, tommorrow at noon, next thursday at 5" %><br/>
+
+ Ends at?<br/>
+ <%= f.text_field :chronic_ends_at, :class => "input-large", :placeholder => "e.g. 7, tommorrow at noon, next thursday at 5" %>
+
+ <div class="actions"> 
+   <%= f.submit 'New Event', :class => 'btn btn-large btn-primary' %>
+ </div>
+>>>>>>> killing-views
 <% end %>
 </div>

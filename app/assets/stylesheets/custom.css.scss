@@ -245,11 +245,15 @@ footer {
 
 /* forms */
 
+form {
+margin: 0 0 0 0;
+}
+
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   padding: 10px;
   height: auto;
-  margin-bottom: 15px;
+  margin-bottom: 0;
   @include box_sizing;
 }
 
@@ -428,16 +432,27 @@ aside {
 #show_map {
   border: 1px solid #DDD;
   width:400px;
-  height: 200px;
+  height: 180px;
   float:left; 
-  margin: 15px 160px 13px 0px;
+  margin: 15px 20px 13px 0px;
   -webkit-box-shadow: #AAA 0px 0px 10px teal;
   display: block;
+  float:left;
+}
+
+#no_map {
+  width:400px;
+  height: 180px;
+  float:left; 
+  margin: 15px 20px 13px 0px;
+  display: block;
+  float:left;
 }
 
 .rsvp_tip {
   position: relative;
-  float:center;
+  float:right;
+  right:170px;
 }
 
 .grey_italics {
@@ -448,9 +463,55 @@ aside {
 }
 
 .nav_buttons {
-  position: relative;
+  text-align: left;
+  margin-left: 70px;
 }
 
 .event_show {
+<<<<<<< HEAD
   height:480px;
 }
+=======
+  height:460px;
+}
+
+#guest_raster {
+  display: inline-block;
+  position: relative;
+  float: right;
+  width: 510px;
+  height: 250px;
+  font-size: 20px;
+}
+
+.current_user {
+  margin:16px 0 0 0 ;
+}
+
+.input-large {
+  width:340px;
+}
+
+#when {
+  float:left;
+  font-size: 15px;
+    p {
+      font-size: 26px;
+    }
+}
+
+.container {
+width: 940px;
+margin-left: auto;
+margin-right: auto;
+padding-left: 50px;
+padding-right: 50px;
+}
+
+footer {
+  margin: 65px 0 70px 0;
+  padding: 5px 50px;
+  border-top: 1px solid #EAEAEA;
+  color: #999;
+}
+>>>>>>> killing-views

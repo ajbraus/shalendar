@@ -1,10 +1,25 @@
+require 'chronic'
 class Event < ActiveRecord::Base
   belongs_to :user
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
   has_many :guests, through: :rsvps
 
-  attr_accessible :description, :ends_at, :location, :starts_at, :title, :min, :max, :map_location
-  validates :user_id, presence: true
+  attr_accessible :description, 
+                  :ends_at, 
+                  :location, 
+                  :starts_at, 
+                  :title, 
+                  :min, 
+                  :max, 
+                  :map_location,
+                  :chronic_starts_at,
+                  :chronic_ends_at
+
+
+  validates :user_id,
+            :title,
+            :starts_at,
+            :ends_at, presence: true
 
   #from bokmann fullcalendar event model
   scope :before, lambda {|end_time| {:conditions => ["ends_at < ?", Event.format_date(end_time)] }}
@@ -40,6 +55,22 @@ class Event < ActiveRecord::Base
 
   def full?
     self.guests.count >= self.max
+  end
+
+  def chronic_starts_at
+    self.starts_at
+  end
+
+  def chronic_starts_at=(s)
+    self.starts_at = Chronic.parse(s) if s
+  end
+
+  def chronic_ends_at
+    self.ends_at
+  end
+
+  def chronic_ends_at=(e)
+    self.ends_at = Chronic.parse(e) if e
   end
 
 end

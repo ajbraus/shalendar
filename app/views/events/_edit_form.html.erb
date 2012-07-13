@@ -30,8 +30,12 @@
     <div id="map"></div>
     </div>
     <div class="field">
-      <%= f.datetime_select :starts_at %>
-      <%= f.text_field :ends_at, :class => 'input-medium', :id => 'eventEndsAt', :placeholder => "ends at?" %>
+     Starts at?<br/>
+     <%= f.text_field :chronic_starts_at, :class => "input-large", :placeholder => "7pm? tommorrow at noon? next thursday at 5" %>
+
+     Ends at?<br/>
+     <%= f.text_field :chronic_ends_at, :class => "input-large", :placeholder => "7pm? tommorrow at noon? next thursday at 5 in the morning?" %>
+>>>>>>> killing-views
     </div>
     <div class="min_max_field">
       Min Attendees : <%= f.text_field :min, :class => 'input-mini', :value => "1" %>
