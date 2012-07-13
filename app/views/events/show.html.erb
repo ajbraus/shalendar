@@ -23,9 +23,6 @@
     <% unless @event.user == current_user %>
       <%= render 'rsvp_form' %>
     <% end %>
-
-
-<<<<<<< HEAD
     <% unless @event.tipped? %>
       <h2>RSVP Count: </b> <span class="red"><%= @guests.count %></span></h2>
       <h2>Needs <%= @event.min - @guests.count %> to Tip. . . </h2>
@@ -33,29 +30,6 @@
       <p class="event_on">Event is On!</p>
       <h2>RSVP Count: </b> <span class="red"><%= @guests.count %></span></h2>
     <% end %>
-=======
-<% if @guests.any? %>
- <div class="user_avatars">
-  <% @guests.each do |guest| %>
-  	<p><%= link_to gravatar_for(guest, size: 30) %><b/>
-  	<%= guest.fullname %></p> |
-      <% unless current_user == guest %>
-      <div id="follow_form">
-        <% if current_user.following?(guest) %>
-          <%= form_for(current_user.relationships.find_by_followed_id(guest),
-                   html: { method: :delete }) do |f| %>
-            <%= f.submit "Unfollow", class: "btn btn-large" %>
-          <% end %>
-        <% else %>
-          <%= form_for(current_user.relationships.build(followed_id: guest.id)) do |f| %>
-            <div><%= f.hidden_field :followed_id %></div>
-            <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
-          <% end %>
-        <% end %>
-      </div>
-    <% end %>
-	<% end %>
->>>>>>> 8e54a7e... updated views and raster
   </div>
 
     <% if @guests.any? %>
