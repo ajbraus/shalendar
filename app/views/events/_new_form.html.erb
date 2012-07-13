@@ -1,0 +1,16 @@
+<div id="new_event">
+	<%= form_for @event do |f| %>
+
+	<%= f.text_area :title, :placeholder => "What's happening? Where? What should they bring?", :rows => 2 %><br/>	
+
+	Starts at?<br/>
+	<%= f.text_field :chronic_starts_at, :class => "input-large", :placeholder => "7pm? tommorrow at noon? next thursday at 5 in the morning?" %> <br/>
+
+	Ends at?<br/>
+	<%= f.text_field :chronic_ends_at, :class => "input-large", :placeholder => "7pm? tommorrow at noon? next thursday at 5 in the morning?" %> 
+
+	<div class="actions"> 
+	  <%= f.submit 'New Event', :class => 'btn btn-large btn-primary' %>
+	</div>
+<% end %>
+</div>

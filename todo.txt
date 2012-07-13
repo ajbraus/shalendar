@@ -19,7 +19,6 @@ Clean up event#show -- add share event on twitter and facebook
 
 
 
-
 JS
 	add first day is always the left most day of four days. Probably need to add a dyanmic function to the firstDay call
 	Make focus fall on first text field on form
