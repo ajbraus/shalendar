@@ -1,0 +1,7 @@
+	<% if @followed_users.any? %>
+	 <div class="raster">
+	    <% @followed_users.each do |follow| %>
+	  	  <%= link_to gravatar_for(follow, size: 30) %>
+		  <% end %>
+	  </div>
+	<% end %>

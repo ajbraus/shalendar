@@ -223,6 +223,8 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @guests = @event.guests
+    @starttime = @event.starts_at.strftime "%l:%M%P, %A %B %e"
+    @endtime = @event.ends_at.strftime "%l:%M%P, %A %B %e"
 
     respond_to do |format|
       format.html # show.html.erb

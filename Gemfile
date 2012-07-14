@@ -7,7 +7,10 @@ gem 'faker', '1.0.1'
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 gem 'devise', '2.1.0'
-gem 'thin', '1.4.1'
+gem 'thin'
+gem 'chronic'
+
+gem 'heroku'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'

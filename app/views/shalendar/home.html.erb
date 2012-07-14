@@ -7,29 +7,10 @@
       <%= gravatar_for(current_user) %>
       <h3><%= current_user.fullname %></h3>
 
-      <div class="stats">
-        <a href="<%= manage_follows_path %>">
-          <strong id="following" class="stat">
-            <%= @user.followed_users.count %>
-          </strong>
-          following
-        </a>
-        <a href="<%= manage_follows_path %>">
-          <strong id="" class="stat">
-            <%= @user.followers.count %>
-          </strong>
-          followers
-        </a>
-      </div>
+      <%= render 'stats' %>
 
-      <% if @followers.any? %>
-       <div class="raster">
-          <% @followers.each do |follower| %>
-        	  <%= link_to gravatar_for(follower, size: 30) %>
-      	  <% end %>
-        </div>
-      <% end %>
-      <% @user = current_user %>
+      <%= render 'raster' %>
+      
     </section>
   </aside>
  <div id='calendar'></div>
