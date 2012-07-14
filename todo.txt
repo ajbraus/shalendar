@@ -68,6 +68,16 @@ text notifications (1 cent per text)
 
 tags
 
+***** Suggestions from Jesse
+
+Map of all events? - hyperlocal NYC thing
+
+dialogue in event#show
+
+Very appealing single-day view
+
+Google Alerts style notifications- different options
+
 --------------------General ideas:----------------
 
 user experience of curating invites/groups - don't just select a new type of event

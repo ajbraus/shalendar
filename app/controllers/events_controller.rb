@@ -24,12 +24,12 @@ class EventsController < ApplicationController
     @followed_users = current_user.followed_users
 
     @followed_users.each { |f|
-      # f.events.each{ |fe|     #FOR only friend events
-      #   @followed_events.push(fe)
-      # }
-      f.plans.each{ |fp| #for friends of friends events that are RSVPd for
-        @followed_events.push(fp)
+      f.events.each{ |fe|     #FOR only friend events
+        @followed_events.push(fe)
       }
+      # f.plans.each{ |fp| #for friends of friends events that are RSVPd for
+      #   @followed_events.push(fp)
+      # }
     }
 
     @maybe_events = [] #an empty array to fill with relevant events
