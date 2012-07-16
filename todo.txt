@@ -1,6 +1,6 @@
 ////////////////////Alone . . .
 
-Figure out timezone offset by 5 hr (CDT vs. UTC, don't care about diff timezones, just want to get date working correct)
+Set default time to central daylight time. ideally we would detect user's local time with an ajax call to the browser and then log it in the session.
 
 Mailers - Welcome to Shalendar, Event Cancellation, Confirmation of follow notification, RSVP Reminders (for recurrings), Event Tipped! (to RSVPs), Tipping, Digest,  Event Change,  (tipping cron job), use devise_mailchimp :o)
 
