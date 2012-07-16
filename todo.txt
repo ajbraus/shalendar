@@ -1,10 +1,10 @@
 ////////////////////Alone . . .
 
-Set default time to central daylight time. ideally we would detect user's local time with an ajax call to the browser and then log it in the session.
-
-Mailers - Welcome to Shalendar, Event Cancellation, Confirmation of follow notification, RSVP Reminders (for recurrings), Event Tipped! (to RSVPs), Tipping, Digest,  Event Change,  (tipping cron job), use devise_mailchimp :o)
-
 user search bar - jquery drop down - not auto complete, I need to actually see rendered @users that folks can follow.
+
+Selectable
+
+fix ABOUT AND CONTACT views
 
 Event#new
 	Title, Starts_at (chronic), duration 
@@ -28,20 +28,22 @@ JS
 	overlay for event#show, event#edit
 	1day, 4day, 2week
 
-
-
 find friends in gmail, twitter, and facebook contacts.
 
-fix ABOUT AND CONTACT views
-
 Add google calendar socket - as 'busy'
-
-Google adsense on event#show - pay to get rid of
 
 unrsvp the event creator
 
 feedback button - to contact form
 
+
+
+
+Set default time to central daylight time. ideally we would detect user's local time with an ajax call to the browser and then log it in the session.
+
+Google adsense on event#show - pay to get rid of
+
+Mailers - Welcome to Shalendar, Event Cancellation, Confirmation of follow notification, RSVP Reminders (for recurrings), Event Tipped! (to RSVPs), Tipping, Digest,  Event Change,  (tipping cron job), use devise_mailchimp :o)
 
 ////////////////////////////Paired
 

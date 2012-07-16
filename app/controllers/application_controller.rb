@@ -5,8 +5,4 @@ class ApplicationController < ActionController::Base
  		root_path
   end
 
-  def time_zone
-  	Time.zone = "CET"
-  end
-
 end
