@@ -2,6 +2,10 @@
 
 Figure out timezone offset by 5 hr (CDT vs. UTC, don't care about diff timezones, just want to get date working correct)
 
+Mailers - Welcome to Shalendar, Event Cancellation, Confirmation of follow notification, RSVP Reminders (for recurrings), Event Tipped! (to RSVPs), Tipping, Digest,  Event Change,  (tipping cron job), use devise_mailchimp :o)
+
+user search bar - jquery drop down - not auto complete, I need to actually see rendered @users that folks can follow.
+
 Event#new
 	Title, Starts_at (chronic), duration 
 	calculate ends_at from duration (http://stackoverflow.com/questions/238684/subtract-n-hours-from-a-datetime-in-ruby)
@@ -13,8 +17,6 @@ Event#show
 
 Populate with events (user names = first_name = user last_name = user#{n})
 
-Mailers - Welcome to Shalendar, Event Cancellation, Confirmation of follow notification, RSVP Reminders (for recurrings), Event Tipped! (to RSVPs), Tipping, Digest,  Event Change,  (tipping cron job), use devise_mailchimp :o)
-
 Friends of Friends button (click this for friends of RSVPs see this event)
 
 JS
@@ -25,8 +27,6 @@ JS
 	manage followers/following w tab page in a grid
 	overlay for event#show, event#edit
 	1day, 4day, 2week
-
-user search bar
 
 
 

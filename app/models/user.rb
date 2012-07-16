@@ -29,6 +29,12 @@ class User < ActiveRecord::Base
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
 
+  after_create :send_welcome
+  
+  def send_welcome
+     Notifier.welcome(self).deliver
+  end
+
   #Rsvp methods... user.plans = list of events
   def rsvpd?(event)
     rsvps.find_by_plan_id(event.id)

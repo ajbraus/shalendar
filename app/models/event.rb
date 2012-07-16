@@ -1,5 +1,8 @@
 require 'chronic'
 class Event < ActiveRecord::Base
+  
+  # after_destroy :send_cancellation
+
   belongs_to :user
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
   has_many :guests, through: :rsvps
@@ -72,6 +75,10 @@ class Event < ActiveRecord::Base
   def chronic_ends_at=(e)
     self.ends_at = Chronic.parse(e) if e
   end
+
+  # def send_cancellation
+  #   Notifier.cancellation(self.email).deliver
+  # end
 
 end
 
