@@ -1,6 +1,4 @@
-<div class="container">
-<div class="row">
-<div class="span6 offset3">
+<div id="edit_event">
   <%= form_for(@event) do |f| %>
     <% if @event.errors.any? %>
       <div id="error_explanation">
@@ -15,37 +13,38 @@
     <% end %>
 
     <div class="field">
+      <%= f.label :what? %><br/>
       <%= f.text_field :title, :placeholder => "What's going on?" %>
     </div>
-    <div id="event_details">Add Details</div>
-    <div class="field" id="description">
-      <%= f.text_area :description, :cols => 30, :rows => 2, :placeholder => "FYIs" %>
-    </div>
     <div class="field">
-      <%= f.text_field :location, :placeholder => "Where's it goin on at?" %>
+      <%= f.label :where? %><br/>
+      <%= f.text_field :location, :placeholder => "Where?" %>
     </div>
     <div class="field" id="address">
+      <%= f.label :attach_a_map? %><br/>
       <%= f.text_field :map_location, :id => 'addresspicker_map', :class =>"ui-autocomplete-input", :placeholder => "Search Address" %>
     
     <div id="map"></div>
     </div>
     <div class="field">
      Starts at?<br/>
-     <%= f.text_field :chronic_starts_at, :class => "input-large", :placeholder => "7pm? tommorrow at noon? next thursday at 5" %>
+     <%= f.text_field :chronic_starts_at, :class => "input-large", :placeholder => "7pm? tommorrow at noon? next thursday at 5" %><br/>
 
      Ends at?<br/>
      <%= f.text_field :chronic_ends_at, :class => "input-large", :placeholder => "7pm? tommorrow at noon? next thursday at 5 in the morning?" %>
     </div>
-    <div class="min_max_field">
-      Min Attendees : <%= f.text_field :min, :class => 'input-mini', :value => "1" %>
-      &nbsp &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      Max Attendees : <%= f.text_field :max, :class => 'input-mini', :value => "10000" %>
+    <div>
+      <span>
+        <%= f.label :min_attendees %> <br/>
+        <%= f.text_field :min, :class => 'input-mini', :value => "1" %>
+      </span>
+      <span>
+        <%= f.label :max_attendees %> <br/>
+        <%= f.text_field :max, :class => 'input-mini', :value => "10000" %>
+      </span>
     </div>
-
     <div class="actions"> 
-      <%= f.submit %>
+      <%= f.submit :class => 'btn btn-large btn-warning' %>
     </div>
   <% end %>
-</div>
-</div>
 </div>

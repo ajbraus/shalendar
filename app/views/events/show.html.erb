@@ -55,12 +55,6 @@
 
 </div>
 
-  <div class="nav_buttons">
-  <!-- IF USER IS CREATOR, ALLOW EDIT -->
-    <%= link_to 'Home', root_path, :class => "btn btn-primary" %> 
-    <% if @event.user == current_user %> 
-        <%= link_to 'Edit', edit_event_path(@event), :class =>"btn btn-warning" %>
-      <%= link_to 'Cancel Event', @event, method: :delete, data: { confirm: 'This will send an Email to all RSVPs. Are you sure?' }, :class => "btn btn-danger" %></td
-    <% end %>
-  </div>
+<%= render 'nav_buttons' %>
+
 </div>

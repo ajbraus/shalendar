@@ -68,6 +68,10 @@ p {
   line-height: 1.7em;
 }
 
+i {
+  color:white;
+}
+
 .btn-primary {
   background-color: hsl(186, 100%, 40%) !important;
   background-repeat: repeat-x;
@@ -159,6 +163,15 @@ left: 0;
 z-index: 1030;
 }
 
+.navbar-fixed-top .navbar-inner {
+padding-left: 0;
+padding-right: 0;
+-webkit-border-radius: 0;
+-moz-border-radius: 0;
+border-radius: 0;
+height: 50px;
+}
+
 .dropdown .caret {
   margin-top: 0px;
   margin-left: 0px;
@@ -211,10 +224,23 @@ z-index: 1030;
 
 .navbar .nav > li > a {
   position:relative;
-  top:2px;
-  width: 70px;
+  bottom: 3px;
+  width: 50px;
   text-align: center;
   color:white;
+}
+
+input[type=search] {
+  position:relative;
+  top:5px;
+  right:5px;
+  z-index:10;
+  width:180px;
+  height:8px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+
 }
 
 /* footer */
@@ -223,6 +249,7 @@ footer {
   margin-top: 45px;
   padding-top: 5px;
   border-top: 1px solid $grayMediumLight;
+  margin-bottom:20px;
   color: $grayLight;
   a {
     color: $gray;
@@ -249,6 +276,12 @@ form {
 margin: 0 0 0 0;
 }
 
+label {
+display: inline;
+margin-bottom: 0px;
+color: #333;
+}
+
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   padding: 10px;
@@ -261,6 +294,58 @@ input, textarea, .uneditable-input {
   width: 420px;
 }
 
+#sign_in {
+  position:relative;
+  left:30%;
+  input {
+    font-size: 23px;
+    width:380px;
+    margin-bottom: 10px;
+    margin-top:5px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+  }
+  label {
+    font-size: 15px;
+    color: #404040;
+  }
+  input[type=checkbox]{
+    width:28px;
+  }
+}
+
+#edit_event {
+  position:relative;
+  left:30%;
+  margin-bottom: 20px;
+  input {
+    font-size: 23px;
+    width:414px;
+    margin-bottom: 10px;
+    margin-top:5px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+  }
+  label {
+    font-size: 15px;
+    color: #404040;
+  }
+  input[type=checkbox]{
+    width:28px;
+  }
+  span {
+    text-decoration: none;
+    display: inline;  
+    float:left;
+    margin-right:160px;
+    input {
+      width:100px;
+      text-align: center;
+    }
+  }
+}
 
 select {
   width: 80px;
@@ -289,6 +374,7 @@ select {
 
 aside {
   section {
+    margin-top:35px;
     padding: 10px 0;
     border-top: 1px solid $grayLighter;
     width:220px;
@@ -306,6 +392,9 @@ aside {
       text-align: left;
       letter-spacing: -1px;
       margin-bottom: 3px;
+    }
+    h3 {
+      margin:5px 0;
     }
   }
 }
@@ -424,7 +513,6 @@ aside {
   border: 1px solid #DDD;
   width:400px;
   height: 200px;
-  float:left; 
   margin: 0 0 13px 10px;
   -webkit-box-shadow: #AAA 0px 0px 10px teal;
 }
@@ -505,7 +593,7 @@ padding-right: 50px;
 }
 
 footer {
-  margin: 65px 0 70px 0;
+  margin: 65px 0 30px 0;
   padding: 5px 50px;
   border-top: 1px solid #EAEAEA;
   color: #999;

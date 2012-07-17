@@ -4,14 +4,17 @@
     	<%= button_to "New", new_event_path, :class => 'btn btn-large btn-primary', :method => :get %>
 
     <div class="current_user">
-      <%= gravatar_for(current_user) %>
+      <%= gravatar_for(current_user, size: "80px") %>
       <h3><%= current_user.fullname %></h3>
 
       <%= render 'stats' %>
+      
+      <%= search_field :user, :email, :autosave => false, :value => "", :placeholder => "Search for Calendars"  %>
 
       <%= render 'raster' %>
       
     </section>
+
   </aside>
  <div id='calendar'></div>
 </div>

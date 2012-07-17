@@ -1,10 +1,4 @@
 $(document).ready(function() {
-  // $("#eventDate").datepicker();
-  // $("#eventTime").timepicker();
-  $("#eventStartsAt").datetimepicker({ ampm: true });
-  $("#eventEndsAt").datetimepicker({ ampm: true });
-  $('#ui-datepicker-div').removeClass('ui-helper-hidden-accessible')
-
 
 // http://jquerybyexample.blogspot.com/2011/11/jquery-addresspicker-plugin-explained.html
 
