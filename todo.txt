@@ -4,6 +4,15 @@ user search bar - jquery drop down - not auto complete, I need to actually see r
 
 Selectable
 
+Jammit
+
+Rails alerts after event drag drop update.
+
+get mike verified and deploy to calensha.re with zerigo.
+https://devcenter.heroku.com/articles/zerigo_dns
+http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deploying-my-rails-app
+heroku addons:add zerigo_dns:basic --app warm-samurai-8582
+
 fix ABOUT AND CONTACT views
 
 Event#new

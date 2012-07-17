@@ -20,7 +20,7 @@ class Event < ActiveRecord::Base
 
 
   validates :user_id,
-            :title,
+            # :title,
             :starts_at,
             :ends_at, presence: true
 
