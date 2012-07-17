@@ -21,9 +21,13 @@ class EventsController < ApplicationController
     
     @followed_events = []
 
-    @followed_users = current_user.followed_users
+    #BEFORE toggling on/off followed_user events
+    #@followed_users = current_user.followed_users
 
-    @followed_users.each { |f|
+    @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id').where('relationships.follower_id = :current_user_id AND relationships.toggled = "t"', :current_user_id => current_user.id)
+    #@toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id WHERE relationships.follower_id = ? AND relationships.toggled = ?', current_user.id, true)
+
+    @toggled_followed_users.each { |f|
       f.events.each{ |fe|     #FOR only friend events
         @followed_events.push(fe)
       }
@@ -128,15 +132,18 @@ class EventsController < ApplicationController
 
     @followed_events = []
 
-    @followed_users = current_user.followed_users
+    #@followed_users = current_user.followed_users
 
-    @followed_users.each { |f|
+    @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id').where('relationships.follower_id = :current_user_id AND relationships.toggled = "t"', :current_user_id => current_user.id)
+
+    @toggled_followed_users.each { |f|
       # f.events.each{ |fe|     #FOR only friend events
       #   @followed_events.push(fe)
       # }
       f.plans.each{ |fp| #for friends of friends events that are RSVPd for
-        @followed_events.push(fp)
+       @followed_events.push(fp)
       }
+      #end
     }
 
     @maybe_events = [] #an empty array to fill with relevant events

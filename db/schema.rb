@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120711190040) do
+ActiveRecord::Schema.define(:version => 20120717210403) do
 
   create_table "events", :force => true do |t|
     t.datetime "starts_at"
@@ -30,8 +30,9 @@ ActiveRecord::Schema.define(:version => 20120711190040) do
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "toggled",     :default => true
   end
 
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
