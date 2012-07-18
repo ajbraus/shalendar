@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
   								:password_confirmation, 
   								:remember_me, 
   								:first_name, 
-  								:last_name
+  								:last_name,
+                  :terms
   # attr_accessible :title, :body
   has_many :events, :dependent => :destroy
   

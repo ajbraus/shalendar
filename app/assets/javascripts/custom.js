@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
 // http://jquerybyexample.blogspot.com/2011/11/jquery-addresspicker-plugin-explained.html
-
 	$(function() {
 		var addresspicker = $( "#addresspicker" ).addresspicker();
 		var addresspickerMap = $( "#addresspicker_map" ).addresspicker({

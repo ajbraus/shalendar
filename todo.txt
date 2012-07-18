@@ -8,12 +8,12 @@ Jammit
 
 Rails alerts after event drag drop update.
 
+defaulting min and max is resetting it upon hitting event#edit
+
 get mike verified and deploy to calensha.re with zerigo.
 https://devcenter.heroku.com/articles/zerigo_dns
 http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deploying-my-rails-app
 heroku addons:add zerigo_dns:basic --app warm-samurai-8582
-
-fix ABOUT AND CONTACT views
 
 Event#new
 	Title, Starts_at (chronic), duration 
@@ -41,12 +41,10 @@ find friends in gmail, twitter, and facebook contacts.
 
 Add google calendar socket - as 'busy'
 
-unrsvp the event creator
-
 feedback button - to contact form
 
 
-
+about and contact page
 
 Set default time to central daylight time. ideally we would detect user's local time with an ajax call to the browser and then log it in the session.
 
@@ -85,6 +83,9 @@ dialogue in event#show
 Very appealing single-day view
 
 Google Alerts style notifications- different options
+
+copy envite
+
 
 --------------------General ideas:----------------
 

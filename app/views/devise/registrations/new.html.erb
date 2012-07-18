@@ -2,7 +2,7 @@
 <h1>Sign Up</h1>
 
 <div class="row">
-  <div class="span6 offset3">
+  <div id="sign_up" class="span6 offset3">
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
@@ -21,7 +21,9 @@
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
 
-  <div><%= f.submit "Sign up" %></div>
+  <div><%= f.check_box :terms, checked: true %><%= f.label :terms, :terms_and_conditions %></div><br/>
+
+  <div><%= f.submit "Sign up", :class => "btn btn-large btn-primary" %></div>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>
