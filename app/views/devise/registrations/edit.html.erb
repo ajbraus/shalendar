@@ -2,7 +2,9 @@
 <h1>Update your Settings</h1>
 
 <div class="row">
-  <div class="span6 offset3">
+  <div id="sign_up" class="span6 offset3">
+    <%= gravatar_for @user, :size => 130 %><br/>
+    <p><a href="http://gravatar.com/emails">Update Profile Picture?</a></p>
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
       <%= devise_error_messages! %>
 
@@ -21,16 +23,12 @@
       <div><%= f.label :password_confirmation %><br />
       <%= f.password_field :password_confirmation %></div>
 
-      <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+      <div><%= f.label :current_password %><br />
       <%= f.password_field :current_password %></div>
 
-      <div><%= f.submit "Update" %></div>
+      <div><%= f.submit "Update", :class => "btn btn-large btn-warning" %></div>
     <% end %>
-    <p><%= gravatar_for @user %></p>
 
-    <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
-
-
-    <a href="http://gravatar.com/emails">change</a>
+    <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete, :class => "red" %>.</p>
   </div>
 </div>

@@ -1,4 +1,4 @@
-  <h3><%= @event.title %></h3>
+  <h1><%= @event.title %></h1>
   <span class="grey_italics"><%= @event.description %></span>
   
   <hr>
@@ -13,14 +13,14 @@
     <p><%= @event.location %></p>
     <% end %>
     <% unless @event.map_location == nil %>
-      <div id="show_map"></div>
+      <div id="addresspicker_map"></div>  
+      <div id="map"></div>
     <% else %>
       <div id="no_map"></div>
     <% end %>
   </div>
 
   <div class="rsvp_tip">
-    <%= render 'rsvp_form' %>
     <% unless @event.tipped? %>
       <h2>RSVP Count: </b> <span class="red"><%= @guests.count %></span></h2>
       <h2>Needs <%= @event.min - @guests.count %> to Tip. . . </h2>
@@ -53,8 +53,8 @@
   	<% end %>
     </table>
 
-</div>
-
 <%= render 'nav_buttons' %>
+<%= render 'rsvp_form' %>
 
+  </div>
 </div>
