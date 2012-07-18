@@ -5,10 +5,12 @@ Don't know how to scope an event array, and need to figure out correct SQL calls
 
 Don't know how to render the follow button using partials
 
-Friends of friends is broken
+Friends of friends is broken in the event controller viewing logic
 
 max = 0 creates this error "comparison of Fixnum with nil failed"
 
 Swapped day and month from Jquery datetime picker
 
 google icon is tiny and squished
+
+In event controller viewing logic, don't capture if somebody has made an event but un-RSVPd.
