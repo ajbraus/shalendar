@@ -44,7 +44,9 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 3em;
   letter-spacing: -2px;
-  text-align: center;
+  text-align: left;
+  position: relative;
+  left:65px;
 }
 
 h2 {
@@ -359,7 +361,8 @@ input, textarea, .uneditable-input {
     text-decoration: none;
     display: inline;  
     float:left;
-    margin-right:160px;
+    margin-right:150px;
+    margin-left:20px;
     input {
       width:100px;
       text-align: center;
@@ -531,26 +534,15 @@ aside {
 
 #map {
   border: 1px solid #DDD;
-  width:400px;
+  width:370px;
   height: 200px;
   margin: 0 0 13px 10px;
   -webkit-box-shadow: #AAA 0px 0px 10px teal;
 }
 
-#show_map {
-  border: 1px solid #DDD;
-  width:400px;
-  height: 180px;
-  float:left; 
-  margin: 15px 20px 13px 0px;
-  -webkit-box-shadow: #AAA 0px 0px 10px teal;
-  display: block;
-  float:left;
-}
-
 #no_map {
-  width:400px;
-  height: 180px;
+  width:370px;
+  height: 200px;
   float:left; 
   margin: 15px 20px 13px 0px;
   display: block;
@@ -602,11 +594,17 @@ aside {
 
 #rsvp_form {
   float:left;
-  margin-left:395px;
+  margin-left:330px;
+  height:50px;
+}
+
+#social {
+  position:relative;
+  left:230px;
+  top:40px;
 }
 
 .nav_buttons {  
-  margin-top:50px;
   float:left;
 }
 
@@ -624,3 +622,4 @@ footer {
   border-top: 1px solid #EAEAEA;
   color: #999;
 }
+

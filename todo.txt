@@ -10,6 +10,11 @@ Rails alerts after event drag drop update.
 
 defaulting min and max is resetting it upon hitting event#edit
 
+no flash notices when hitting validations for new event.
+
+custom url w title of the event.
+	www.calenshare/AdamBraus/Hanging_at_my_house
+
 get mike verified and deploy to calensha.re with zerigo.
 https://devcenter.heroku.com/articles/zerigo_dns
 http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deploying-my-rails-app
