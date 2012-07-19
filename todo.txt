@@ -81,8 +81,6 @@ text notifications (1 cent per text)
 
 tags
 
-Lists + Invite Events 
-
 ***** Suggestions from Jesse
 
 Map of all events? - hyperlocal NYC thing
@@ -123,6 +121,7 @@ get FB events to show on shalendar
 
 refactor error messages as partial
 
+Lists + Invite Events 
 
 security: recaptcha
 
