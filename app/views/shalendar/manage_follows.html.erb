@@ -43,7 +43,8 @@
               <% end %>
             </span>
           </td>
-          <td class="btn btn-large btn-danger">Remove</td>
+          <td>
+            <%= link_to "Remove", relationship_path(follower.relationships.find_by_followed_id(current_user)), class: "btn btn-large btn-warning", method: :delete %> <!-- equivalent to follower.unfollow!(current_user) -->
         </tr>
       <% end %>
       </table>

@@ -53,7 +53,6 @@ Add google calendar socket - as 'busy'
 
 feedback button - to contact form
 
-
 about and contact page
 
 Set default time to central daylight time. ideally we would detect user's local time with an ajax call to the browser and then log it in the session.
@@ -64,21 +63,15 @@ Mailers - Welcome to Shalendar, Event Cancellation, Confirmation of follow notif
 
 ////////////////////////////Paired
 
+Remove Follower Implementation
+
 Open Auth
 
 Signup wizard/find friends by location through facebook.
 
 F T G - scan contacts for users to follow.
 
-Followers/following
-	click faces on raster shows/hides their events
-	friends of friends can see event
-
 Tip by deadline - two hours ahead
-
-friends of friends are broken
-
-Remove Follower Implementation
 
 subdomains for every city - you can belong to multiple cities -- this strategy can be used for -- should we use heroku if we know our deployment strategy?
 

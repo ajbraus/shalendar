@@ -34,6 +34,10 @@
      <%= f.text_field :chronic_ends_at, :class => "input-large", :placeholder => "7pm? tommorrow at noon? next thursday at 5 in the morning?" %>
     </div>
     <div class="field">
+      <%= f.label :friends_of_friends, "Invite friends of friends?" %>
+      <%= f.check_box :friends_of_friends %>
+    </div>
+    <div class="field">
       <span>
         <%= f.label :min_attendees %> <br/>
         <%= f.text_field :min, :class => 'input-mini', :value => "1" %>

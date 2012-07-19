@@ -13,6 +13,12 @@ before_filter :authenticate_user!
     redirect_to :back 
   end
 
+  def remove
+    @follower = Relationship.find(params[:id]).follower
+    @follower.unfollow!(current_user)
+    redirect_to :back
+  end
+
   def toggle
    #@relationship = Relationship.where('relationships.follower_id = :current_user_id AND relationships.followed_id = :followed_user_id', :current_user_id => current_user.id, :followed_user_id => followed_user.id)
    #@followed_user = fu
@@ -21,7 +27,6 @@ before_filter :authenticate_user!
    @relationship = Relationship.find(params[:relationship_id])
    @relationship.toggle!
    @relationship.save
-   flash[:success] = "Toggled User"
    redirect_to :back
   end
 
