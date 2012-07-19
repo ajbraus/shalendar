@@ -15,7 +15,10 @@ Shalendar::Application.routes.draw do
   
   resources :relationships, only: [:create, :destroy] do
     put :toggle
+    delete :remove
   end
+
+  # match '/manage_follows/remove', :to => 'relationships#remove', :as => "remove"
 
 
   match '/about', :to => 'static_pages#about', :as => "about"

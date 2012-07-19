@@ -24,16 +24,20 @@ class EventsController < ApplicationController
     #BEFORE toggling on/off followed_user events
     #@followed_users = current_user.followed_users
 
+    #PUT THIS OUTSIDE OF HERE SO CAN BE USED FOR TIPPED AND UNTIPPED???
     @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id').where('relationships.follower_id = :current_user_id AND relationships.toggled = "t"', :current_user_id => current_user.id)
     #@toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id WHERE relationships.follower_id = ? AND relationships.toggled = ?', current_user.id, true)
 
     @toggled_followed_users.each { |f|
-      f.events.each{ |fe|     #FOR only friend events
-        @followed_events.push(fe)
+      f.plans.each{ |fp| #for friends of friends events that are RSVPd for
+        if fp.user == f
+          @followed_events.push(fp)
+        elsif fp.friends_of_friends?
+          if f.following?(fp.user)
+            @followed_events.push(fp)
+          end
+        end
       }
-      # f.plans.each{ |fp| #for friends of friends events that are RSVPd for
-      #   @followed_events.push(fp)
-      # }
     }
 
     @maybe_events = [] #an empty array to fill with relevant events
@@ -137,13 +141,15 @@ class EventsController < ApplicationController
     @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id').where('relationships.follower_id = :current_user_id AND relationships.toggled = "t"', :current_user_id => current_user.id)
 
     @toggled_followed_users.each { |f|
-      # f.events.each{ |fe|     #FOR only friend events
-      #   @followed_events.push(fe)
-      # }
       f.plans.each{ |fp| #for friends of friends events that are RSVPd for
-       @followed_events.push(fp)
+        if fp.user == f
+          @followed_events.push(fp)
+        elsif fp.friends_of_friends?
+          if f.following?(fp.user)
+            @followed_events.push(fp)
+          end
+        end
       }
-      #end
     }
 
     @maybe_events = [] #an empty array to fill with relevant events

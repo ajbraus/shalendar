@@ -13,4 +13,6 @@ Swapped day and month from Jquery datetime picker
 
 google icon is tiny and squished
 
-In event controller viewing logic, don't capture if somebody has made an event but un-RSVPd.
+--------In event controller viewing logic
+	doesn't show if somebody has made an event but un-RSVPd
+	also, is adding event multiple times to JSON feed if more than one friend is RSVPd... does this matter?

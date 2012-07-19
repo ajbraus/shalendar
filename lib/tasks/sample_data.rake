@@ -3,7 +3,7 @@ namespace :db do
   task populate: :environment do
     make_users
     make_relationships
-    #make_events
+    make_events
   end
 end
 
@@ -30,6 +30,42 @@ def make_relationships
   followers.each      { |follower| follower.follow!(user) }
 end
 
+def make_events
+  users = User.all(limit: 7)
+  rsvps1 = users[0..3]
+  rsvps2 = users[4..6]
+  users.each do |user|
+    5.times do |e|
+      title = "Fun Time #{e+1}"
+      description = Faker::Lorem.sentences(1)
+      starts_at = Time.now + (e+user.id).days - (e+user.id).hours
+      ends_at = Time.now + (e+user.id).days - (e+user.id-2).hours
+      min = 5
+      max = 20
+      map_location = "421 w gilman st, madison, wi"
+      location = "My house"
+      @event = user.events.build(id: e + user.id*5 + 1,
+                        title: title,
+                        description: description,
+                        starts_at: starts_at,
+                        ends_at: ends_at,
+                        min: min,
+                        max: max,
+                        map_location: map_location,
+                        location: location)
+      @event.save
+      rsvps1.each do |r|
+        r.rsvp!(@event)
+      end
+      if(e > 2)
+        rsvps2.each do |r2|
+          r2.rsvp!(@event)
+        end
+      end
+    end
+
+  end
+end
 # def make_events
 #   users = User.all(limit: 5)
 #   3.times do |n|
