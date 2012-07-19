@@ -73,11 +73,15 @@ Tip by deadline - two hours ahead
 
 friends of friends are broken
 
+Remove Follower Implementation
+
 subdomains for every city - you can belong to multiple cities -- this strategy can be used for -- should we use heroku if we know our deployment strategy?
 
 text notifications (1 cent per text)
 
 tags
+
+Lists + Invite Events 
 
 ***** Suggestions from Jesse
 
