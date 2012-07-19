@@ -70,10 +70,6 @@ Signup wizard/find friends by location through facebook.
 
 F T G - scan contacts for users to follow.
 
-Followers/following
-	click faces on raster shows/hides their events
-	friends of friends can see event
-
 Tip by deadline - two hours ahead
 
 friends of friends are broken
