@@ -1,7 +1,11 @@
-	<% if @followed_users.any? %>
+	<% if @relationships.any? %>
 	 <div class="raster">
-	    <% @followed_users.each do |follow| %>
-	  	  <%= link_to gravatar_for(follow, size: 30) %>
+	    <% @relationships.each do |relation| %>
+	    	<% if relation.toggled == true %>
+	  	  	<%= link_to gravatar_for(relation.followed, size: 30), relationship_toggle_path(relation), :method => :put %>
+	  	  <% else %>
+	  	  	<%= link_to gravatar_for(relation.followed, size: 30), relationship_toggle_path(relation), :method => :put, :class => 'toggle-off' %>
+	  	  <% end %>
 		  <% end %>
 	  </div>
 	<% end %>

@@ -13,7 +13,10 @@ Shalendar::Application.routes.draw do
 
   resources :rsvps, only: [:create, :destroy]
   
-  resources :relationships, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy] do
+    put :toggle
+  end
+
 
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/contact', :to => 'static_pages#contact', :as => "contact"

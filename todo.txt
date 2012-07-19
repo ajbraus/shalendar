@@ -8,6 +8,11 @@ Jammit
 
 Rails alerts after event drag drop update.
 
+Ajaxify everything
+	follow/unfollow
+	rsvp/unrsvp
+	toggle/untoggle
+
 defaulting min and max is resetting it upon hitting event#edit
 
 no flash notices when hitting validations for new event.

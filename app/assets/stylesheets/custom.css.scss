@@ -241,7 +241,7 @@ input[type=search] {
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   border-radius: 15px;
-
+  margin-bottom:13px;
 }
 
 /* footer */
@@ -623,3 +623,6 @@ footer {
   color: #999;
 }
 
+.toggle-off {
+  opacity:0.3;
+}
