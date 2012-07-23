@@ -82,6 +82,8 @@ FB Sign up logic:
 
 Permissions for access_token on connect
 
+Save FB image? because we are going to see that in the raster - cache it? it would be an HTTP request for each picture! too much.
+
 //////////////////////////////
 
 F T G - scan contacts for users to follow.

@@ -4,10 +4,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.find_for_facebook_oauth(env["omniauth.auth"], current_user)
 
     if @user.persisted?
+      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "your Facebook"
+      auth = request.env['omniauth.auth']
+      token = auth['credentials']['token']
+      session[:fb_access_token] = token
       if @user.sign_in_count >= 1
-        redirect_to find_friends_path
+        sign_in_and_redirect @user, :event => :authentication
       else
-        flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "your Facebook"
         sign_in_and_redirect @user, :event => :authentication
       end
     else

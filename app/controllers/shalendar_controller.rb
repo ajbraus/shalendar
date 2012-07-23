@@ -1,13 +1,12 @@
 class ShalendarController < ApplicationController
-	before_filter :parse_facebook_cookies, :only => [:home, :find_friends]
+	# before_filter :parse_facebook_cookies, :only => [:home, :find_friends]
 
 	def home
-		@user = current_user
 		@users = User.all
 		@relationships = current_user.relationships
 
-		@access_token = @facebook_cookies#["access_token"]
-  	@graph = Koala::Facebook::GraphAPI.new(@access_token)
+		@access_token = session[:fb_access_token]
+  	@graph = Koala::Facebook::API.new(@access_token)
 	end
 
 	def manage_follows
@@ -16,22 +15,20 @@ class ShalendarController < ApplicationController
 	end
 
 	def find_friends
-		@access_token = @facebook_cookies#["access_token"]
-  	@graph = Koala::Facebook::GraphAPI.new(@access_token)
+		@access_token = session[:fb_access_token]
+		@graph = Koala::Facebook::API.new(@access_token)
 
-  # if session["fb_access_token"].present?
-  # graph = Koala::Facebook::GraphAPI.new(session["fb_access_token"]) # Note that i'm using session here
-
-		@friends = @graph.get_connections('me','friends',:fields=>"name,image,location")
-		@my_location = @graph.user_location.id
+		@friends = @graph.get_connections('me','friends',:fields=>"location")
+		@my_location = @graph.get_object('me', :fields => "location")
 		@city_friends = []
 
 		@friends.each do |f|
-			if f.user_location.id == @my_location
+			if f[location] == @my_location
 				@city_friends.push(f)
 			end
 		end
 	end
+
 
 
 	protected
