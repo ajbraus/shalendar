@@ -36,6 +36,8 @@ Event#show
 
 Populate with events (user names = first_name = user last_name = user#{n})
 
+Make Koala pic large (https://groups.google.com/forum/?fromgroups#!topic/koala-users/dQHzoGAtr1o)
+
 Friends of Friends button (click this for friends of RSVPs see this event)
 
 JS
@@ -46,6 +48,7 @@ JS
 	manage followers/following w tab page in a grid
 	overlay for event#show, event#edit
 	1day, 4day, 2week
+	hover over friend raster and display full name
 
 find friends in gmail, twitter, and facebook contacts.
 
@@ -65,9 +68,21 @@ Mailers - Welcome to Shalendar, Event Cancellation, Confirmation of follow notif
 
 Remove Follower Implementation
 
-Open Auth
+Add confirmations for follows (and user settings page)
 
-Signup wizard/find friends by location through facebook.
+FACEBOOK ////////////////////////
+
+Signup wizard/find friends by location through facebook. get a list of friends from your city
+
+FB Sign up logic:
+	1. load all friends, 
+	2. match on uid & provider in calenshare, 
+	3. filter to location, 
+	4. filter to not already following
+
+Permissions for access_token on connect
+
+//////////////////////////////
 
 F T G - scan contacts for users to follow.
 
@@ -87,9 +102,9 @@ dialogue in event#show
 
 Very appealing single-day view
 
-Google Alerts style notifications- different options
+Google Alerts style notifications - different options
 
-copy envite
+copy evite
 
 
 --------------------General ideas:----------------

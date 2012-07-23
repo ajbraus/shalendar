@@ -5,7 +5,12 @@ Shalendar::Application.routes.draw do
 
   root :to => 'static_pages#landing'
 
-  devise_for :users 
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
+  # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
+  devise_scope :user do
+    get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+  end
 
   match '/manage_follows', :to => 'shalendar#manage_follows', :as => "manage_follows"
 
@@ -20,7 +25,7 @@ Shalendar::Application.routes.draw do
 
   # match '/manage_follows/remove', :to => 'relationships#remove', :as => "remove"
 
-
+  match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/contact', :to => 'static_pages#contact', :as => "contact"
   
