@@ -18,6 +18,7 @@ gem 'thin'
 gem 'chronic'
 
 gem 'heroku'
+gem 'pg'
 
 gem 'debugger'
 
