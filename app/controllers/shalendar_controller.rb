@@ -20,15 +20,14 @@ class ShalendarController < ApplicationController
 
 		@friends = @graph.get_connections('me','friends',:fields => "name,picture,location")
 		@me = @graph.get_object('me')
-		
-		
-		# @city_friends = []
+			
+		@city_friends = []
 
-		# @friends.each do |f|
-		# 	if f[:location] == @me[:location]
-		# 		@city_friends.push(f)
-		# 	end
-		# end
+		@friends.each do |f|
+			if f[:location] == @me[:location]
+				@city_friends.push(f)
+			end
+		end
 	end
 
 
