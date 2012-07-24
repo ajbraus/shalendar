@@ -13,6 +13,8 @@ Ajaxify everything
 	rsvp/unrsvp
 	toggle/untoggle
 
+remove power to drag and drop other ppl's events
+
 defaulting min and max is resetting it upon hitting event#edit
 
 no flash notices when hitting validations for new event.

@@ -1,25 +1,5 @@
   <h1><%= @event.title %></h1>
   <span class="grey_italics"><%= @event.description %></span>
-  
-  <hr>
-
-  <div id="when">
-    From:
-    <p><%= @starttime %></p>
-    To:
-    <p><%= @endtime %></p>
-    <% unless @event.location == nil %>
-    Location: 
-    <p><%= @event.location %></p>
-    <% end %>
-    <% unless @event.map_location == nil %>
-      <div id="addresspicker_map"></div>  
-      <div id="map"></div>
-    <% else %>
-      <div id="no_map"></div>
-    <% end %>
-  </div>
-
   <div class="rsvp_tip">
     <% unless @event.tipped? %>
       <h2>RSVP Count: </b> <span class="red"><%= @guests.count %></span></h2>
@@ -27,6 +7,28 @@
     <% else %>
       <p class="event_on">Event is On!</p>
       <h2>RSVP Count: </b> <span class="red"><%= @guests.count %></span></h2>
+    <% end %>
+  </div>
+  <hr>
+
+  <div id="when">
+    From:
+    <p><%= @starttime %></p>
+    To:
+    <p><%= @endtime %></p>
+    <% if @event.location == nil %>
+    Location:<p>Not Specified</p>
+    <% else %>
+    Location: 
+    <p><%= @event.location %></p>
+    <% end %>
+    <% if @event.map_location == nil %>
+    Map:<br>
+      <p id="no_map">no map</p>
+    <% else %>
+    Map:
+      <div id="addresspicker_map"></div>  
+      <div id="map"></div>
     <% end %>
   </div>
 

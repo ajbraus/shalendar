@@ -525,7 +525,7 @@ aside {
 
 .event_on {
   text-align: center;
-  font-size: 40px;
+  font-size: 32px;
   font-family: serif;
   font-style: bold;
   color:#3D8B37;
@@ -543,16 +543,20 @@ aside {
 #no_map {
   width:370px;
   height: 200px;
-  float:left; 
   margin: 15px 20px 13px 0px;
-  display: block;
-  float:left;
+  display: inline-block;
+  color:grey;
+  font-style: italic;
 }
 
 .rsvp_tip {
-  position: relative;
-  float:right;
-  right:170px;
+  width:225px;
+  font-size:12px;
+  h2 {
+    margin-top:0px;
+    margin-bottom:0px;
+    font-size:1.2em;
+  }
 }
 
 .grey_italics {
@@ -585,7 +589,7 @@ aside {
 }
 
 #when {
-  float:left;
+  float:center;
   font-size: 15px;
     p {
       font-size: 26px;
