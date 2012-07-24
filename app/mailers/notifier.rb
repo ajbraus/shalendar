@@ -1,5 +1,5 @@
 class Notifier < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "Calenshare@gmail.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -7,7 +7,7 @@ class Notifier < ActionMailer::Base
   #   en.notifier.welcome.subject
   #
   def welcome(user)
-    @user = user
+    @calenshare = root_path
 
     mail to: user.email, subject: "Welcome to Calenshare"
 
@@ -18,11 +18,18 @@ class Notifier < ActionMailer::Base
   #
   #   en.notifier.cancellation.subject
   #
-  def cancellation
-    @event = event
-    @rsvps = event.rsvp.all.join("; ")
+  def cancellation(event)
+    @guests = event.guests
 
-    mail bcc: @rsvps
+    @guest_emails = []
+
+    @guests.each do |g|
+      @guest_emails.push(g.email)
+    end
+
+    @guest_emails.join('; ')
+
+    mail bcc: @guest_emails
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml

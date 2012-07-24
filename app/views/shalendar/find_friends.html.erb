@@ -1,8 +1,9 @@
-<% @city_friends.each do |cf| %>
+<% @friends.each do |cf| %>
 	<div>
 		<ul>
-			<li><%= cf.picture %></li>
-			<li><%= cf.name %></li> 
+			<li><%= cf[:picture] %></li>
+			<li><%= cf[:name] %></li> 
+			<li><%= cf[:location] %></li>
 		</ul>
 	</div>
 <% end %>

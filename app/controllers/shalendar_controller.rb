@@ -18,15 +18,17 @@ class ShalendarController < ApplicationController
 		@access_token = session[:fb_access_token]
 		@graph = Koala::Facebook::API.new(@access_token)
 
-		@friends = @graph.get_connections('me','friends',:fields=>"location")
-		@my_location = @graph.get_object('me', :fields => "location")
-		@city_friends = []
+		@friends = @graph.get_connections('me','friends',:fields => "name,picture,location")
+		@me = @graph.get_object('me')
+		
+		
+		# @city_friends = []
 
-		@friends.each do |f|
-			if f[location] == @my_location
-				@city_friends.push(f)
-			end
-		end
+		# @friends.each do |f|
+		# 	if f[:location] == @me[:location]
+		# 		@city_friends.push(f)
+		# 	end
+		# end
 	end
 
 

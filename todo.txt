@@ -28,15 +28,12 @@ http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deployin
 heroku addons:add zerigo_dns:basic --app warm-samurai-8582
 
 Event#new
-	Title, Starts_at (chronic), duration 
+	Title, Starts_at (chronic), duration, min, max, invite friends of friends?
 	calculate ends_at from duration (http://stackoverflow.com/questions/238684/subtract-n-hours-from-a-datetime-in-ruby)
 
 Event#show
 	display map_location
 	make a grid (not a table) for guest raster
-	tweet this event, fb post this event, email this event
-
-Populate with events (user names = first_name = user last_name = user#{n})
 
 Make Koala pic large (https://groups.google.com/forum/?fromgroups#!topic/koala-users/dQHzoGAtr1o)
 
@@ -58,19 +55,35 @@ Add google calendar socket - as 'busy'
 
 feedback button - to contact form
 
-about and contact page
+about, landing, and contact page -- landing page -> share events, manage who, what, where and when quickly and dynamically, invite friends of friends
 
-Set default time to central daylight time. ideally we would detect user's local time with an ajax call to the browser and then log it in the session.
+Detect user's local time with an ajax call to the browser and then log it in the session.
 
 Google adsense on event#show - pay to get rid of
 
-Mailers - Welcome to Shalendar, Event Cancellation, Confirmation of follow notification, RSVP Reminders (for recurrings), Event Tipped! (to RSVPs), Tipping, Digest,  Event Change,  (tipping cron job), use devise_mailchimp :o)
 
 ////////////////////////////Paired
+
+Mailers - 
+	Welcome to Shalendar - all users, Registration#create
+	Event Cancellation - all RSVPs, Event#destroy
+
+		User Settings -
+	Confirmation of follow notification - one follow, Relationship#create
+	Event Tipped! all RSVPs, RSVP#create 
+	1 day, 3 day Digest - all users, daily cron job
+	Event Update, all RSVPs, Event#update
+	New comment in Event conversation, all RSVPs, Comment#create
+	
+
+
+	RSVP Reminders, all RSVPs
+	(tipping cron job), use devise_mailchimp :o)
 
 Remove Follower Implementation
 
 Add confirmations for follows (and user settings page)
+
 
 FACEBOOK ////////////////////////
 
@@ -88,6 +101,7 @@ Save FB image? because we are going to see that in the raster - cache it? it wou
 
 //////////////////////////////
 
+
 F T G - scan contacts for users to follow.
 
 Tip by deadline - two hours ahead
@@ -96,13 +110,13 @@ subdomains for every city - you can belong to multiple cities -- this strategy c
 
 text notifications (1 cent per text)
 
-tags
-
 ***** Suggestions from Jesse
 
 Map of all events? - hyperlocal NYC thing
 
 dialogue in event#show
+
+tags
 
 Very appealing single-day view
 

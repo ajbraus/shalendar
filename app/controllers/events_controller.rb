@@ -299,7 +299,11 @@ class EventsController < ApplicationController
   # DELETE /events/1.json
   def destroy
     @event = Event.find(params[:id])
+
+    Notifier.cancellation(@event).deliver
+
     @event.destroy
+
 
     respond_to do |format|
       format.html { redirect_to root_path }
