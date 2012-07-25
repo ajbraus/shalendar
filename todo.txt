@@ -49,7 +49,7 @@ JS
 	1day, 4day, 2week
 	hover over friend raster and display full name
 
-find friends in gmail, twitter, and facebook contacts.
+find friends in gmail, twitter
 
 Add google calendar socket - as 'busy'
 
