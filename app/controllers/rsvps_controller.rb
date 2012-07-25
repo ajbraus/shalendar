@@ -4,6 +4,9 @@ class RsvpsController < ApplicationController
   def create
     @event = Event.find(params[:rsvp][:plan_id])
     current_user.rsvp!(@event)
+    if @event.tipped?
+      Notifier.event_tipped(@event).deliver
+    end
     redirect_to @event
 
     # respond_to do |format|

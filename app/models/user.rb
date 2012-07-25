@@ -14,7 +14,11 @@ class User < ActiveRecord::Base
   								:last_name,
                   :terms,
                   :provider,
-                  :uid
+                  :uid,
+                  :require_confirm_follow,
+                  :notify_noncritical_change,
+                  :daily_digest,
+                  :notify_event_reminders
 
   has_many :events, :dependent => :destroy
   
