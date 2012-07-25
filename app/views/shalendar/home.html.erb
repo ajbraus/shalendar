@@ -1,7 +1,8 @@
 <div class="row">
   <aside class="span2">
     <section>
-    	<%= button_to "New", new_event_path, :class => 'btn btn-large btn-primary', :method => :get %>
+<!--     	<button class='btn btn-large btn-primary modalInput', rel='#new_event'>New</button> -->
+      <%= button_to "New", new_event_path, :class => 'btn btn-large btn-primary', :method => :get %>
 
     <div class="current_user">
       <% if current_user.uid %>

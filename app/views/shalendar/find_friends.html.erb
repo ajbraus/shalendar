@@ -1,9 +1,9 @@
 <% @friends.each do |cf| %>
-	<div>
+	<div id="find_friends">
 		<ul>
-			<li><%= cf[:picture] %></li>
-			<li><%= cf[:name] %></li> 
-			<li><%= cf[:location] %></li>
+			<li><%= image_tag cf['picture'] %></li>
+			<li><%= cf['name'] %></li> 
+			<li><%= cf['location'].nil? ? "Undefined Location" : cf['location']['name'] %></li>
 		</ul>
 	</div>
 <% end %>

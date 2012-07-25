@@ -8,9 +8,10 @@ class Event < ActiveRecord::Base
   has_many :guests, through: :rsvps
 
   attr_accessible :description, 
-                  :ends_at, 
                   :location, 
                   :starts_at, 
+                  :duration,
+                  :ends_at,
                   :title, 
                   :min, 
                   :max, 
@@ -21,7 +22,7 @@ class Event < ActiveRecord::Base
 
 
   validates :user_id,
-            # :title,
+            :title,
             :starts_at,
             :ends_at, presence: true
 
@@ -77,9 +78,17 @@ class Event < ActiveRecord::Base
     self.ends_at = Chronic.parse(e) if e
   end
 
-  # def send_cancellation
-  #   Notifier.cancellation(self.email).deliver
-  # end
+  def duration_hours
+    self.duration
+  end
+
+  def duration_hours=(d)
+    self.duration = self.duration*60*60 if d
+  end
+
+  def ends_at
+    self.starts_at + self.duration_hours
+  end
 
 end
 
