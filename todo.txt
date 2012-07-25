@@ -51,7 +51,7 @@ JS
 	1day, 4day, 2week
 	hover over friend raster and display full name
 
-find friends in gmail, twitter, and facebook contacts.
+find friends in gmail, twitter
 
 Add google calendar socket - as 'busy'
 
@@ -68,23 +68,28 @@ Google adsense on event#show - pay to get rid of
 
 Mailers - 
 	Welcome to Shalendar - all users, Registration#create
-	Event Cancellation - all RSVPs, Event#destroy
+	Event Core Changes
+		Event Cancellation - all RSVPs, Event#destroy
+		Event Tipped! all RSVPs, RSVP#create 
+		Event Change start_time
+		Event Reminder 2 hrs ahead of time? (play in with tip deadline)
 
 		User Settings -
-	Confirmation of follow notification - one follow, Relationship#create
-	Event Tipped! all RSVPs, RSVP#create 
-	1 day, 3 day Digest - all users, daily cron job
-	Event Update, all RSVPs, Event#update
-	New comment in Event conversation, all RSVPs, Comment#create
-	
+	Confirmation of follow notification - one follow Relationship#create
+	Daily Digest - all users, daily cron job (what ideas are out there and what you've RSVPd to)
+	Event Update, all RSVPs, Event#update, Comment#create (new comment, description change, map added, etc.)
+	Invited notifications, all RSVPs (for invite events)
 
-	RSVP Reminders, all RSVPs
+
+	, or for untipped events to tell friends, or set-up for workday to help collect ideas at like 2 pm and re-send out at 4pm)
+
 	(tipping cron job), use devise_mailchimp :o)
 
 Remove Follower Implementation
 
 Add confirmations for follows (and user settings page)
 
+Invite and Public Events
 
 FACEBOOK ////////////////////////
 

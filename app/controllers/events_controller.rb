@@ -270,6 +270,9 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         current_user.rsvp!(@event)
+        # if @event.invite?
+        #   Notifier.send_invites(@event)
+        # end
         format.html { redirect_to root_path }
         format.json { render json: root_path, status: :created, location: @event }
       else
@@ -283,9 +286,19 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
     @event = Event.find(params[:id])
-
+    @start_time = @event.starts_at
+    @location = @event.location
     respond_to do |format|
       if @event.update_attributes(params[:event])
+
+        if @start_time != @event.starts_at
+          Notifier.time_change(@event).deliver
+        elsif @location != @event.location
+          Notifier.location_change(@event).deliver
+        else
+          Notifier.noncritical_change(@event).deliver
+        end
+
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
         format.json { head :no_content }
       else
