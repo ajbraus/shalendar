@@ -81,8 +81,6 @@ class User < ActiveRecord::Base
     unless user
       user = User.create(  first_name:auth.extra.raw_info.first_name,
                            last_name:auth.extra.raw_info.last_name,
-                           fb_token:auth.credentials.token,
-                           fb_picture:auth.picture,
                            provider:auth.provider,
                            uid:auth.uid,
                            email:auth.info.email,

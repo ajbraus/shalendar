@@ -1,4 +1,4 @@
-require 'chronic'
+ require 'chronic'
 class Event < ActiveRecord::Base
   
   # after_destroy :send_cancellation
@@ -78,16 +78,12 @@ class Event < ActiveRecord::Base
     self.ends_at = Chronic.parse(e) if e
   end
 
-  def duration_hours
-    self.duration
-  end
-
-  def duration_hours=(d)
-    self.duration = self.duration*60*60 if d
-  end
+  # def duration
+  #   self.duration
+  # end
 
   def ends_at
-    self.starts_at + self.duration_hours
+    self.ends_at = self.starts_at + self.duration*3600
   end
 
 end

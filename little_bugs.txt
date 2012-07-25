@@ -17,6 +17,7 @@ With notifier for event_noncritical_change, which means any update to event othe
 
 If event is tipped once it can still untip- not currently notifying on that... do we want to allow it? or maybe up until 2 hours ahead of time?...
 
+double-creating events by hitting enter twice (when trying to specify duration)
 
 --------In event controller viewing logic
 	doesn't show if somebody has made an event but un-RSVPd
