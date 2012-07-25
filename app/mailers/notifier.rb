@@ -8,9 +8,7 @@ class Notifier < ActionMailer::Base
   #
   def welcome(user)
     @calenshare = root_path
-
     mail to: user.email, subject: "Welcome to Calenshare"
-
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml

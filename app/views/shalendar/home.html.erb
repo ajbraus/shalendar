@@ -6,7 +6,7 @@
 
     <div class="current_user">
       <% if current_user.uid %>
-        <%= fb_picture(current_user, size: "80px", type: "large") %>
+        <%= fb_picture(current_user) %>
       <% else %>
         <%= gravatar_for(current_user, size: "80px") %>
       <% end %>
@@ -17,7 +17,9 @@
       <%= search_field :user, :email, :autosave => false, :value => "", :placeholder => "Search for Calendars"  %>
 
       <%= render 'raster' %>
-      
+      <div class="social_friends">
+      <%= link_to( (image_tag "fb.png", :size => "50x50"), find_friends_path) %>
+      </div>
     </section>
 
   </aside>

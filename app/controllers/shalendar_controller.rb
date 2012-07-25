@@ -17,23 +17,14 @@ class ShalendarController < ApplicationController
 	def find_friends
 		@access_token = session[:fb_access_token]
 		@graph = Koala::Facebook::API.new(@access_token)
-
+		
 		@friends = @graph.get_connections('me','friends',:fields => "name,picture,location")
 		@me = @graph.get_object('me')
-			
-		@city_friends = []
-
-		@friends.each do |f|
-			if f[:location] == @me[:location]
-				@city_friends.push(f)
-			end
+		
+		@city_friends = @friends.select do |friend|
+			friend['location'].present? && friend['location']['name'] == @me['location']['name']
 		end
+
+		@city_members = User.where('uid IN (?)', @city_friends.map {|friend| friend['id']} ) 
 	end
-
-
-
-	protected
-		def parse_facebook_cookies
-	  	@facebook_cookies ||= Koala::Facebook::OAuth.new("327936950625049", "4d3de0cbf2ce211f66733f377b5e3816").get_user_info_from_cookie(cookies)
-		end
 end

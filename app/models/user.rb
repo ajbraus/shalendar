@@ -77,6 +77,8 @@ class User < ActiveRecord::Base
     unless user
       user = User.create(  first_name:auth.extra.raw_info.first_name,
                            last_name:auth.extra.raw_info.last_name,
+                           fb_token:auth.credentials.token,
+                           fb_picture:auth.picture,
                            provider:auth.provider,
                            uid:auth.uid,
                            email:auth.info.email,
@@ -90,4 +92,28 @@ class User < ActiveRecord::Base
   def fullname
     "#{first_name.capitalize} #{last_name.capitalize}"
   end
+
+  # def graph
+  #   @graph ||= Koala::Facebook::API.new(self.fb_token)
+  # end
+
+  # def fb_me
+  #   graph.get_object('me')
+  # end
+
+  # def fb_friends(fields)
+  #   graph.get_connections('me','friends',:fields => fields)
+  # end
+
+  # def fb_city_friends
+  #   @friends_location = fb_friends("location")
+  #   @friends_location.select do |friend|
+  #     friend['location'].present? && friend['location']['name'] == fb_me['location']['name']
+  #   end
+  # end
+
+  # def city_members
+  #   User.where('uid IN (?)', fb_city_friends.map {|friend| friend['id']} ) 
+  # end
+
 end

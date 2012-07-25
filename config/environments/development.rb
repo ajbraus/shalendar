@@ -18,7 +18,7 @@ Shalendar::Application.configure do
 
   # Enables serving of images, sytlesheets, and JavaScripts from an asset
   # config.action_controller.asset_host = "http://assets.example.com"
-  config.action_mailer.default_url_option = { :host => 'calenshare.dev'}
+  config.action_mailer.default_url_options = { :host => 'calenshare.dev' }
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
