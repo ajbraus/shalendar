@@ -61,7 +61,7 @@ class Notifier < ActionMailer::Base
     mail bcc: @guest_emails, subject: "Your plan #{event.title} has changed start time to #{event.chronic_starts_at}!"
   end
 
-  def time_change(event)
+  def location_change(event)
 
     @guests = event.guests
 
