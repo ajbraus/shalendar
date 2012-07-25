@@ -14,7 +14,6 @@ class Notifier < ActionMailer::Base
     #@calenshare = root_path
 
     mail to: user.email, subject: "Welcome to Calenshare"
-
   end
 
   def cancellation(event)

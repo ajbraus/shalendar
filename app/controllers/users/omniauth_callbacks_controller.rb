@@ -7,15 +7,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "your Facebook"
       auth = request.env['omniauth.auth']
       token = auth['credentials']['token']
+      fb_picture = auth['picture']
+      # @user.fb_token = token 
+      # @user.fb_picture = fb_picture
+      # @user.save
       session[:fb_access_token] = token
-      if @user.sign_in_count <= 1
-        sign_in_and_redirect @user, :event => :authentication
-      else
-        sign_in_and_redirect @user, :event => :authentication
-      end
+      sign_in_and_redirect @user, :event => :authentication
     else
+      flash[:notice] = 'Your email already exists. Try signing in through Calenshare.'
       session["devise.facebook_data"] = env["omniauth.auth"]
-      redirect_to new_user_registration_url
+      redirect_to new_user_session_url
     end
   end
 

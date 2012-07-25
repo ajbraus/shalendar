@@ -22,3 +22,11 @@ No following maybes
       end
     }
     @events = @maybe_events
+
+
+    class AddFbPictureToUsers < ActiveRecord::Migration
+  def change
+    add_column :users, :fb_picture, :string
+    add_column :users, :fb_token, :string
+  end
+end

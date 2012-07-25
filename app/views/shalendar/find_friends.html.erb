@@ -1,9 +1,25 @@
-<% @friends.each do |cf| %>
-	<div id="find_friends">
-		<ul>
-			<li><%= image_tag cf['picture'] %></li>
-			<li><%= cf['name'] %></li> 
-			<li><%= cf['location'].nil? ? "Undefined Location" : cf['location']['name'] %></li>
-		</ul>
-	</div>
+<div id="find_friends">
+<% @city_members.each do |cm| %>
+	<table>
+		<tr>
+			<td width="55px"><%= fb_picture(cm) %></td>
+			<td width="100px"><%= cm.fullname %></td>
+			<td>
+	      <span id="follow_form" class="follow_btn">
+	        <% if current_user.following?(cm) %>
+	          <%= form_for(current_user.relationships.find_by_followed_id(cm),
+	                   html: { method: :delete }) do |f| %>
+	          <%= f.submit "Unfollow", class: "btn btn-large" %>
+	          <% end %>
+	        <% else %>
+	          <%= form_for(current_user.relationships.build(followed_id: cm.id)) do |f| %>
+	            <div><%= f.hidden_field :followed_id %></div>
+	            <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
+	          <% end %>
+	        <% end %>
+	      </span>
+	    </td>
+		</tr> 
+	</table>
 <% end %>
+</div>

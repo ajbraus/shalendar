@@ -630,3 +630,21 @@ footer {
 .toggle-off {
   opacity:0.3;
 }
+
+#find_friends {
+  font-size: 15px;
+  margin-top:50px;
+  height:450px;
+  overflow:scroll;
+  table {
+    width:30%;
+    float:left;
+  }
+  td {
+    text-align: left;
+  }
+}
+
+.social_friends {
+  margin-top:250px;
+}
