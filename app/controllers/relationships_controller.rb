@@ -3,7 +3,13 @@ before_filter :authenticate_user!
 
   def create
     @user = User.find(params[:relationship][:followed_id])
-    current_user.follow!(@user)
+    if @user.require_confirm_follow
+      Notifier.confirm_follow(@user, current_user)
+      #flash[:notice] "Follow Request Sent"
+      #Hold relationship to be confirmed somewhere (maybe a confirm_relationships table)
+    else
+      current_user.follow!(@user)
+    end
     redirect_to :back
   end
 

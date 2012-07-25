@@ -13,6 +13,11 @@ Swapped day and month from Jquery datetime picker
 
 google icon is tiny and squished
 
+With notifier for event_noncritical_change, which means any update to event other than starts_at, it will send even if nothing was changed but the edit/update controller action was called... AND need to add to comment#create when we make that
+
+If event is tipped once it can still untip- not currently notifying on that... do we want to allow it? or maybe up until 2 hours ahead of time?...
+
+
 --------In event controller viewing logic
 	doesn't show if somebody has made an event but un-RSVPd
 	also, is adding event multiple times to JSON feed if more than one friend is RSVPd... does this matter?
