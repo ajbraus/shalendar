@@ -1,19 +1,32 @@
-////////////////////Alone . . .
+FOR LAUNCH
 
-user search bar - jquery drop down - not auto complete, I need to actually see rendered @users that folks can follow.
+	User search bar
+	Invitation Events
 
-be able to send size to fb_picture method small, medium, large, square.
+	lil' stuff
+			Remove Drag/drop
 
-Selectable
+	Views -
+		Flash notices
+		fb_picture sizes
+		Blue
 
-Jammit
+	Ajaxify everything
+		follow/unfollow
+		rsvp/unrsvp
+		toggle/untoggle
 
-Remove Drag/drop
 
-Ajaxify everything
-	follow/unfollow
-	rsvp/unrsvp
-	toggle/untoggle
+AFTER LAUNCH
+	
+	Selectable
+
+
+LOW PRIORITY 
+
+	Jammit
+
+
 
 log the access token upon sign_up and update upon sign_in. store picture URL as well.
 
