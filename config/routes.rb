@@ -29,11 +29,12 @@ Shalendar::Application.routes.draw do
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/contact', :to => 'static_pages#contact', :as => "contact"
   
-
+  match '/my_invitations', :to => 'events#my_invitations', :as => "my_invitations"
   match '/my_events', :to => 'events#my_events', :as => "my_events"
   match '/my_plans', :to => 'events#my_plans', :as => "my_plans"
   match '/my_maybes', :to => 'events#my_maybes', :as => "my_maybes"
 
+  match '/my_untipped_invitations', :to => 'events#my_untipped_invitations', :as => "my_untipped_invitations"
   match '/my_untipped_events', :to => 'events#my_untipped_events', :as => "my_untipped_events"
   match '/my_untipped_plans', :to => 'events#my_untipped_plans', :as => "my_untipped_plans"
   match '/my_untipped_maybes', :to => 'events#my_untipped_maybes', :as => "my_untipped_maybes"

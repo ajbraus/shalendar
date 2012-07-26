@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
   has_many :plans, through: :rsvps
   
+  has_many :invitations, foreign_key: "invited_user_id", dependent: :destroy
+  has_many :pending_plans, through: :invitations
 
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
@@ -81,8 +83,6 @@ class User < ActiveRecord::Base
     unless user
       user = User.create(  first_name:auth.extra.raw_info.first_name,
                            last_name:auth.extra.raw_info.last_name,
-                           fb_token:auth.credentials.token,
-                           fb_picture:auth.picture,
                            provider:auth.provider,
                            uid:auth.uid,
                            email:auth.info.email,

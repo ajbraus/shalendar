@@ -1,1 +1,15 @@
-done.txt
+Features
+
+
+
+Notifiers:
+	Automatic
+		Welcome to Shalendar - all users, Registration#create
+		Event Core Changes
+			Event Cancellation - all RSVPs, Event#destroy
+			Event Tipped! all RSVPs, RSVP#create 
+			Event Change start_time
+			Event change location
+	User Settings
+		Confirmation of follow notification - one follow Relationship#create
+		Event Update, all RSVPs, Event#update, Comment#create (new comment, description change, map added, etc.)

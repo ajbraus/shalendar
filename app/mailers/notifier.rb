@@ -30,6 +30,13 @@ class Notifier < ActionMailer::Base
     mail bcc: @guest_emails, subject: "Your event #{event.title} has been canceled!"
   end
 
+  def invitation(user, event)
+
+
+    mail to: user.email, subject: "Hello #{user.fullname}, you've been invited to #{event.title}; visit www.calenshare.com/events/#{event.id}"
+
+  end
+
   def event_tipped(event)
 
     @guests = event.guests

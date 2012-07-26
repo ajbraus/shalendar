@@ -1,11 +1,15 @@
-require 'chronic'
+ require 'chronic'
 class Event < ActiveRecord::Base
   
   # after_destroy :send_cancellation
 
   belongs_to :user
+  
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
   has_many :guests, through: :rsvps
+
+  has_many :invitations, foreign_key: "pending_plan_id", dependent: :destroy
+  has_many :invited_users, through: :invitations
 
   attr_accessible :description, 
                   :location, 
@@ -17,14 +21,14 @@ class Event < ActiveRecord::Base
                   :max, 
                   :map_location,
                   :chronic_starts_at,
-                  :chronic_ends_at,
-                  :friends_of_friends
+                  :chronic_ends_at
 
 
   validates :user_id,
             :title,
             :starts_at,
-            :ends_at, presence: true
+            :ends_at, 
+            :duration, presence: true
 
   #from bokmann fullcalendar event model
   scope :before, lambda {|end_time| {:conditions => ["ends_at < ?", Event.format_date(end_time)] }}
@@ -78,17 +82,39 @@ class Event < ActiveRecord::Base
     self.ends_at = Chronic.parse(e) if e
   end
 
-  def duration_hours
-    self.duration
-  end
-
-  def duration_hours=(d)
-    self.duration = self.duration*60*60 if d
-  end
-
   def ends_at
-    self.starts_at + self.duration_hours
+    if self.duration && self.starts_at
+      self.ends_at = self.starts_at + self.duration*3600
+    end
   end
+
+  #For Refactoring Invites to be unconfirmed RSVPs
+  
+  def invite!(user)
+    invitations.create!(invited_user_id: user.id, pending_plan_id: self.id)
+  end
+
+  def uninvite!(user)
+    invitations.find_by_invited_user_id(user.id).destroy
+  end
+
+  
+    
+
+
+  # WAS FOR doing invites as unconfirmed rsvps
+  # def confirmed_guests
+  #     User.joins('INNER JOIN rsvps ON users.id = rsvps.guest_id').
+  #           where('rsvps.plan_id = :event_id AND rsvps.confirmed = "t"',
+  #               :event_id => self.id)
+  # end
+
+  # def invited_guests
+  #       #maybe try searchign RSVP table for user/event combo and check if true
+  #     User.joins('INNER JOIN rsvps ON users.id = rsvps.guest_id').
+  #           where('rsvps.plan_id = :event_id AND rsvps.confirmed = "f"',
+  #               :event_id => self.id)
+  # end
 
 end
 

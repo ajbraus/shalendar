@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 FOR LAUNCH
+=======
+////////////////////Adam . . .
+>>>>>>> a5b564b4693aa54fe2c57be727dec14a96494061
 
 	User search bar
 	Invitation Events
@@ -42,13 +46,10 @@ https://devcenter.heroku.com/articles/zerigo_dns
 http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deploying-my-rails-app
 heroku addons:add zerigo_dns:basic --app warm-samurai-8582
 
-Event#new
-	Title, Starts_at (chronic), duration, min, max, invite friends of friends?
-	calculate ends_at from duration (http://stackoverflow.com/questions/238684/subtract-n-hours-from-a-datetime-in-ruby)
 
 Event#show
 	display map_location
-	make a grid (not a table) for guest raster
+	make a scrollable grid (not a table) for guest raster
 
 Make Koala pic large (https://groups.google.com/forum/?fromgroups#!topic/koala-users/dQHzoGAtr1o)
 
@@ -57,7 +58,7 @@ Friends of Friends button (click this for friends of RSVPs see this event)
 JS
 	add first day is always the left most day of four days. Probably need to add a dyanmic function to the firstDay call
 	Make focus fall on first text field on form
-	Click on calendar to event
+	Selectable
 	default view of calendar 8am (set this?)
 	manage followers/following w tab page in a grid
 	overlay for event#show, event#edit
@@ -70,37 +71,51 @@ Add google calendar socket - as 'busy'
 
 feedback button - to contact form
 
-about, landing, and contact page -- landing page -> share events, manage who, what, where and when quickly and dynamically, invite friends of friends
+about, landing, and contact page -- landing page -> Have ideas for fun, share them on Calenshare with friends and friends of friends, have fun, rinse and repeat.
 
 Detect user's local time with an ajax call to the browser and then log it in the session.
 
 Google adsense on event#show - pay to get rid of
 
 
+//////////////////Mike
+
+INVITATIONS
+	Invitations are like RSVPs, but rather than user->event, they're event->user
+	Invitations really only matter because they make private events show up on certain followers' feeds... that plus they send an email notification. Do we allow invitations for non-private events (ostensibly to send the email)? Sending the email is good... but actually creating the invitation is a pain in the ass because then we have to filter it out of the maybes for it not to show up twice.
+
+	Right now invitation logic is only fully working if they are only allowed for private events
+	
+	Still need to test invitations, and creating invitations from the view... which is a little tricky because we want to select a bunch of invitations and then do them all at once, rather than a one-time button with redirect like RSVP.
+
+
+
+Add confirmations of follows
+
+SQL Table maintenance; mainly destroying events after they are done, but transferring data somewhere in a reasonable format for conducting analytics
+
+Add comments as belongs_to events in DB
+
+
 ////////////////////////////Paired
 
-Mailers - 
-	Welcome to Shalendar - all users, Registration#create
-	Event Core Changes
-		Event Cancellation - all RSVPs, Event#destroy
-		Event Tipped! all RSVPs, RSVP#create 
-		Event Change start_time
-		Event Reminder 2 hrs ahead of time? (play in with tip deadline)
+Mailers:
+	Look into devise Mailchimp
 
-		User Settings -
-	Confirmation of follow notification - one follow Relationship#create
-	Daily Digest - all users, daily cron job (what ideas are out there and what you've RSVPd to)
-	Event Update, all RSVPs, Event#update, Comment#create (new comment, description change, map added, etc.)
+Chron Jobs:
+	Event Reminder 2 hrs ahead of time
+	Tip by 2 hrs ahead of time (or by specified if e.g. young-prof NYC daily schedule)
+	Daily Digest
+		
+	
 	Invited notifications, all RSVPs (for invite events)
 
+Implement the follow confirmation process
+	Email with a link to confirm
+	Store somewhere in DB
 
-	, or for untipped events to tell friends, or set-up for workday to help collect ideas at like 2 pm and re-send out at 4pm)
 
-	(tipping cron job), use devise_mailchimp :o)
-
-Remove Follower Implementation
-
-Add confirmations for follows (and user settings page)
+Fix Remove Follower Implementation
 
 Invite and Public Events
 
@@ -164,7 +179,8 @@ Monetization
 Marketing strategy
 	private beta? 1001 ppl
 
-
+NYC-inspired daily routine
+	e.g. lunchtime email to gather ideas, 3pm to spread ideas, 6pm to tip
 
 ---------------------------------------------------
 

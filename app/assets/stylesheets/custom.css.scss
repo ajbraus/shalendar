@@ -44,9 +44,8 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 3em;
   letter-spacing: -2px;
-  text-align: left;
+  text-align: center;
   position: relative;
-  left:65px;
 }
 
 h2 {
@@ -89,6 +88,10 @@ p {
 
 input[type="button"] {
   width:200px;
+}
+input[type="button"], input[type="reset"], input[type="submit"] {
+width: 88px;
+height: auto;
 }
 
 span.red a {
@@ -337,12 +340,14 @@ input, textarea, .uneditable-input {
   }
 }
 
-#edit_event {
-  position:relative;
-  left:30%;
+#event_form {
+  margin-left:auto;
+  margin-right:auto;
   margin-bottom: 20px;
-  input {
-    font-size: 23px;
+  width:414px;
+  input, textarea, input[type=submit]{
+    font-size: 18px;
+    line-height: 24px;
     width:414px;
     margin-bottom: 10px;
     margin-top:5px;
@@ -354,12 +359,13 @@ input, textarea, .uneditable-input {
     font-size: 15px;
     color: #404040;
   }
-  input[type=checkbox]{
-    width:28px;
+  input[type=radio]{
+    width:18px;
+    margin-left:42px;
   }
   span {
     text-decoration: none;
-    display: inline;  
+    width:5%; 
     float:left;
     margin-right:150px;
     margin-left:20px;
@@ -369,6 +375,7 @@ input, textarea, .uneditable-input {
     }
   }
 }
+
 
 select {
   width: 80px;
@@ -481,36 +488,28 @@ aside {
 }
 
 
-.follow_list {
+#follow_list {
   padding:25px;
   width:900px;
   float:center;
-  height:500px;
+  height:620px;
 }
 
-#followed_users {
-  float:left;
-  width:430px;
-  table {
-    max-width: 100%;
+.user_table {
+  font-size: 15px;
+  margin-top:30px;
+  height:250px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+   table {
+    width:50%;
+    float:left;
     border-collapse: collapse;
     border-spacing: 0;
-    position: relative;
-    left: 40px;
     font-size: 20px;
   }
-}
-
-#followers {
-  float:right;
-  width:450px;
-  table {
-    max-width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    position: relative;
-    left: 40px;
-    font-size: 20px;
+  td {
+    text-align: left;
   }
 }
 

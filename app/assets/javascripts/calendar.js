@@ -29,6 +29,13 @@ $(document).ready(function() {
     eventSources: [
 
     {
+        url: '/my_invitations',
+        color: 'red',
+        textColor: 'black',
+        ignoreTimezone: true
+    },
+
+    {
         url: '/my_maybes',
         color: 'blue',
         textColor: 'black',
@@ -50,6 +57,13 @@ $(document).ready(function() {
     },
 
     // Tipping event URLs
+
+    {
+        url: '/my_untipped_invitations',
+        color: 'red',
+        textColor: '#A3A3A3',
+        ignoreTimezone: true
+    },
 
     {
         url: '/my_untipped_maybes',
