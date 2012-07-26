@@ -1,34 +1,13 @@
-maybe_events hack doesn't work with (full-calendar) scope calls on after, before
+BUGS
 
-Don't know how to scope an event array, and need to figure out correct SQL calls. Refactor Event Filtering from Ruby->ActiveRecord
-	Full + Tipped bool on events model
-
-Don't know how to render the follow button using partials
-
-Friends of friends is broken in the event controller viewing logic
+FOR LAUNCH
+defaulting min and max is resetting it upon hitting event#edit
 
 max = 0 creates this error "comparison of Fixnum with nil failed"
 
-Swapped day and month from Jquery datetime picker
+AFTER LAUNCH
+maybe_events doesn't work with (full-calendar) scope calls on after, before
 
-google icon is tiny and squished
+With notifier for event_noncritical_change, which means any update to event other than starts_at, it will send even if nothing was changed but the edit/update controller action was called...
 
-With notifier for event_noncritical_change, which means any update to event other than starts_at, it will send even if nothing was changed but the edit/update controller action was called... AND need to add to comment#create when we make that
-
-If event is tipped once it can still untip- not currently notifying on that... do we want to allow it? or maybe up until 2 hours ahead of time?...
-
-double-creating events by hitting enter twice (when trying to specify duration)
-
-Event create, isn't validating starts_at and will have fixnum problem if min/max aren't set
-
-flash success message upon successful creation of event with event details
-
-manage followers/following: 
-	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
-	follow button not working
-
-want to destroy events after they have passed... or at least destroy RSVPs / invitations, to maintain the tables- maybe store on some hard disk somewhere for records
-
---------In event controller viewing logic
-	doesn't show if somebody has made an event but un-RSVPd
-	also, is adding event multiple times to JSON feed if more than one friend is RSVPd... does this matter?
+double-creating events by hitting enter twice (when trying to specify duration)- all buttons

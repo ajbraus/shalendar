@@ -1,164 +1,110 @@
-<<<<<<< HEAD
 FOR LAUNCH
-=======
-////////////////////Adam . . .
->>>>>>> a5b564b4693aa54fe2c57be727dec14a96494061
 
+
+	ADAM//////
 	User search bar
-	Invitation Events
+		also in manage follow page
 
-	lil' stuff
-			Remove Drag/drop
+	Fullcalendar vs. Eventcalendar (or other) (fixing too many events in one day, allowing our custom views and defaults) 
+
+				maybe use lyconic's full calendar to get jquery tooltips and limit the number of events per day
+
+				https://github.com/lyconic/fullcalendar/tree/jquery-ui-tooltip
+
+			fullcalendar issues http://code.google.com/p/fullcalendar/issues/detail?id=837
+
+	review validations- event, user, etc.
+	feedback button - to contact form
+	Add comments as belongs_to events in DB (asynchronous)
+	Mailers formatted
+
+	Settings form for notification settings
+
+	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
 
 	Views -
-		Flash notices
-		fb_picture sizes
+		Flash notices - no flash notices when hitting validations for new event. no flash notices when you have login troubles
+		fb_picture sizes - https://groups.google.com/forum/?fromgroups#!topic/koala-users/dQHzoGAtr1o)
 		Blue
+		Fullname upon signup
+		hover over friend raster and display full name
+		Make focus fall on first text field on form
+		About, landing, and contact page -- landing page -> Have ideas for fun, share them on Calenshare with friends and friends of friends, have fun, rinse and repeat.
+		google icon is tiny and squished
+		invitations- email entering + select from raster + maybe select from FB friends
 
-	Ajaxify everything
-		follow/unfollow
-		rsvp/unrsvp
-		toggle/untoggle
+
+		Ajaxify everything
+			follow/unfollow
+			rsvp/unrsvp
+			toggle/untoggle
+
+		recaptcha security
+
+		Event#show
+			display map_location
+			make a scrollable grid (not a table) for guest raster
+
+
+	defaulting min and max is resetting it upon hitting event#edit
+		Take out defaulting from db?
+	max = 0 creates this error "comparison of Fixnum with nil failed"
+
+	MIKE//////
+
+		Invitation Events- email list per event + logic
+		Add confirmations of follows
+		untipped events -- cancelling them 2 hours ahead
+		Notifications
+			Daily Digest - Day view list
+
+		Event should only be able to tip once. Implement with tipped boolean?
+		
+		Deploy
+			https://devcenter.heroku.com/articles/zerigo_dns
+			http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deploying-my-rails-app
+			Airbreak / rescues
+
+		Private deployments
+
+		PAIRED ////////
+			Fix Remove Follower Implementation
+
 
 
 AFTER LAUNCH
 	
+	Tests/refactoring
+	Mobile dev
+	SQL Table maintenance; mainly destroying events after they are done, but transferring data somewhere in a reasonable format for conducting analytics
+	add recurring functionality
 	Selectable
-
+	log the access token upon sign_up and update upon sign_in. store picture URL as well.
+	custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house
+	find friends in gmail, twitter
+	Customize Calendar view
+		1day, 4day, 2week
+		add first day is always the left most day of four days. Probably need to add a dyanmic function to the firstDay call
+	Detect user's local time with an ajax call to the browser and then log it in the session.
+	copy evite
+	Event search (w #tags)
+	List view of events
+	Groups/Lists of users ("Make selected viewed into list")
+	Primeum membership
+		Paid event types
+	Show on over details of day/event
 
 LOW PRIORITY 
 
 	Jammit
-
-
-
-log the access token upon sign_up and update upon sign_in. store picture URL as well.
-
-defaulting min and max is resetting it upon hitting event#edit
-
-no flash notices when hitting validations for new event.
-
-custom url w title of the event.
-	www.calenshare/AdamBraus/Hanging_at_my_house
-
-get mike verified and deploy to calensha.re with zerigo.
-https://devcenter.heroku.com/articles/zerigo_dns
-http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deploying-my-rails-app
-heroku addons:add zerigo_dns:basic --app warm-samurai-8582
-
-
-Event#show
-	display map_location
-	make a scrollable grid (not a table) for guest raster
-
-Make Koala pic large (https://groups.google.com/forum/?fromgroups#!topic/koala-users/dQHzoGAtr1o)
-
-Friends of Friends button (click this for friends of RSVPs see this event)
-
-JS
-	add first day is always the left most day of four days. Probably need to add a dyanmic function to the firstDay call
-	Make focus fall on first text field on form
-	Selectable
 	default view of calendar 8am (set this?)
-	manage followers/following w tab page in a grid
 	overlay for event#show, event#edit
-	1day, 4day, 2week
-	hover over friend raster and display full name
+	Add google calendar socket - as 'busy'
+	Map of all events? - hyperlocal NYC thing
+	get FB events to show on shalendar
+	refactor error messages as partial
+	library of icons -flush out use cases -sports, games, booze, playdates, 
 
-find friends in gmail, twitter
-
-Add google calendar socket - as 'busy'
-
-feedback button - to contact form
-
-about, landing, and contact page -- landing page -> Have ideas for fun, share them on Calenshare with friends and friends of friends, have fun, rinse and repeat.
-
-Detect user's local time with an ajax call to the browser and then log it in the session.
-
-Google adsense on event#show - pay to get rid of
-
-
-//////////////////Mike
-
-INVITATIONS
-	Invitations are like RSVPs, but rather than user->event, they're event->user
-	Invitations really only matter because they make private events show up on certain followers' feeds... that plus they send an email notification. Do we allow invitations for non-private events (ostensibly to send the email)? Sending the email is good... but actually creating the invitation is a pain in the ass because then we have to filter it out of the maybes for it not to show up twice.
-
-	Right now invitation logic is only fully working if they are only allowed for private events
-	
-	Still need to test invitations, and creating invitations from the view... which is a little tricky because we want to select a bunch of invitations and then do them all at once, rather than a one-time button with redirect like RSVP.
-
-
-
-Add confirmations of follows
-
-SQL Table maintenance; mainly destroying events after they are done, but transferring data somewhere in a reasonable format for conducting analytics
-
-Add comments as belongs_to events in DB
-
-
-////////////////////////////Paired
-
-Mailers:
-	Look into devise Mailchimp
-
-Chron Jobs:
-	Event Reminder 2 hrs ahead of time
-	Tip by 2 hrs ahead of time (or by specified if e.g. young-prof NYC daily schedule)
-	Daily Digest
-		
-	
-	Invited notifications, all RSVPs (for invite events)
-
-Implement the follow confirmation process
-	Email with a link to confirm
-	Store somewhere in DB
-
-
-Fix Remove Follower Implementation
-
-Invite and Public Events
-
-FACEBOOK ////////////////////////
-
-Signup wizard/find friends by location through facebook.
-	log FB uid when they login
-	Check FB uid against other users
-
-FB Sign up logic:
-	1. load all friends, 
-	2. match on uid & provider in calenshare, 
-	3. filter to location, 
-	4. filter to not already following
-
-Permissions for access_token on connect
-
-Save FB image? because we are going to see that in the raster - cache it? it would be an HTTP request for each picture! too much.
-
-//////////////////////////////
-
-
-F T G - scan contacts for users to follow.
-
-Tip by deadline - two hours ahead
-
-subdomains for every city - you can belong to multiple cities -- this strategy can be used for -- should we use heroku if we know our deployment strategy?
-
-text notifications (1 cent per text)
-
-***** Suggestions from Jesse
-
-Map of all events? - hyperlocal NYC thing
-
-dialogue in event#show
-
-tags
-
-Very appealing single-day view
-
-Google Alerts style notifications - different options
-
-copy evite
 
 
 --------------------General ideas:----------------
@@ -175,7 +121,8 @@ Monetization
 	preferred search
 	personal calendar page (with customizable pretty header picture)
 
-	
+subdomains for every city - you can belong to multiple cities -- this strategy can be used for -- should we use heroku if we know our deployment strategy?
+
 Marketing strategy
 	private beta? 1001 ppl
 
@@ -183,64 +130,3 @@ NYC-inspired daily routine
 	e.g. lunchtime email to gather ideas, 3pm to spread ideas, 6pm to tip
 
 ---------------------------------------------------
-
-
-get FB events to show on shalendar
-
-refactor error messages as partial
-
-Lists + Invite Events 
-
-security: recaptcha
-
-add all day boolean
-
-add recurring functionality
-
-
-library of icons -flush out use cases -sports, games, booze, playdates, 
-
-event types - public, follows, invitation, paid
-
-show details of daily events with this
-
-$(.dayDetails).hide();
-
-$('.day').hover(function(){
-	$(this).next('.dayDetails').show();
-	},
-	$(this).next('.dayDetails').hide();
-});
-
-$(.eventDetails).hide();
-$('.event').hover(function(){
-	$(this)next('.eventDetails').show();
-	},
-	$(this).next('eventDetails').hide();
-});
-
-overlay for new event form could be with a toggle call
-
-$('new_event_button').toggle(function(){
-	$(#new_event_form).show(); // with overlay jquery formatting
-	},
-	$(#new_event_form).hide();
-)};
-
-
-add qTip to event for deets
-
-http://arshaw.com/fullcalendar/docs/event_rendering/eventRender/
-
-    eventRender: function(event, element) {
-        element.qtip({
-            content: event.description
-        });
-    }
-
-
-maybe use lyconic's full calendar to get jquery tooltips and limit the number of events per day
-
-https://github.com/lyconic/fullcalendar/tree/jquery-ui-tooltip
-
-fullcalendar issues http://code.google.com/p/fullcalendar/issues/detail?id=837

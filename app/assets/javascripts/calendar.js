@@ -90,19 +90,19 @@ $(document).ready(function() {
     timeFormat: 'h:mm t{ - h:mm t} ',
     dragOpacity: "0.5",
     
-    // //http://arshaw.com/fullcalendar/docs/event_ui/eventDrop/
-    eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
-        updateEvent(event);
-    },
+    // // //http://arshaw.com/fullcalendar/docs/event_ui/eventDrop/
+    // eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
+    //     updateEvent(event);
+    // },
 
-    // // http://arshaw.com/fullcalendar/docs/event_ui/eventResize/
-    eventResize: function(event, dayDelta, minuteDelta, revertFunc){
-        updateEvent(event);
-    },
+    // // // http://arshaw.com/fullcalendar/docs/event_ui/eventResize/
+    // eventResize: function(event, dayDelta, minuteDelta, revertFunc){
+    //     updateEvent(event);
+    // },
 
-    select: function( startDate, endDate, allDay ) {
-        createEvent(startDate, endDate);
-    },
+    // select: function( startDate, endDate, allDay ) {
+    //     createEvent(startDate, endDate);
+    // },
 
     // http://arshaw.com/fullcalendar/docs/mouse/eventClick/
     eventClick: function(event, jsEvent, view){
