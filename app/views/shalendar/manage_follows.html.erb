@@ -4,8 +4,8 @@
       <% @followed_users.each do |followed| %>
       <table>       
         <tr>
-          <td width="50px"><%= gravatar_for followed, size: 45 %></td>
-          <td width="200px"><%= followed.fullname %> </td>
+          <td width="50px"><%= small_profile_picture(followed) %></td>
+          <td width="200px"><%= followed.name %> </td>
           <td>
             <span id="follow_form" class="follow_btn">
               <%= form_for(current_user.relationships.find_by_followed_id(followed),
@@ -26,8 +26,8 @@
     <% @followers.each do |follower| %>
     <table>        
         <tr>
-          <td width="50px"><%= gravatar_for follower, size: 45 %></td>
-          <td width="200px"><%= follower.first_name %> <%= follower.last_name %></td>
+          <td width="50px"><%= small_profile_picture(follower) %></td>
+          <td width="200px"><%= follower.name %></td>
           <td>
             <span id="follow_form" class="follow_btn">
               <% if current_user.following?(follower) %>

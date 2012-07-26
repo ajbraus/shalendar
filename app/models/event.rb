@@ -1,6 +1,5 @@
  require 'chronic'
 class Event < ActiveRecord::Base
-  
   # after_destroy :send_cancellation
 
   belongs_to :user
@@ -27,8 +26,17 @@ class Event < ActiveRecord::Base
   validates :user_id,
             :title,
             :starts_at,
+            :chronic_starts_at,
             :ends_at, 
             :duration, presence: true
+
+  validates :max, numericality: { in: 1..10000, only_integer: true }
+  validates :min, numericality: { in: 1..10000, only_integer: true }
+  validates :duration, numericality: { in: 0..1000 } 
+
+  validates :title, length: { maximum: 140 }
+  validates :description, length: { maximum: 250 }
+  validates :location, length: { maximum: 70 }
 
   #from bokmann fullcalendar event model
   scope :before, lambda {|end_time| {:conditions => ["ends_at < ?", Event.format_date(end_time)] }}
@@ -97,6 +105,18 @@ class Event < ActiveRecord::Base
   def uninvite!(user)
     invitations.find_by_invited_user_id(user.id).destroy
   end
+
+  # def min
+  #   if min == nil
+  #     min = 1
+  #   end
+  # end
+
+  # def max
+  #   if max == nil
+  #     max = 10000
+  #   end
+  # end
 
   
     

@@ -10,8 +10,7 @@ class User < ActiveRecord::Base
   								:password, 
   								:password_confirmation, 
   								:remember_me, 
-  								:first_name, 
-  								:last_name,
+                  :name,
                   :terms,
                   :provider,
                   :uid,
@@ -19,6 +18,10 @@ class User < ActiveRecord::Base
                   :notify_noncritical_change,
                   :daily_digest,
                   :notify_event_reminders
+
+
+  validates :terms,
+            :name, presence: true
 
   has_many :events, :dependent => :destroy
   
@@ -43,6 +46,19 @@ class User < ActiveRecord::Base
   def send_welcome
      Notifier.welcome(self).deliver
   end
+
+  # Search indexes
+
+  # define_index do
+  #   # fields
+  #   indexes email, :sortable => true
+  #   indexes name, :sortable => true
+    
+  #   # attributes
+  #   has author_id, created_at, updated_at
+  # end
+  
+
 
   #Rsvp methods... user.plans = list of events
   def rsvpd?(event)
@@ -81,8 +97,7 @@ class User < ActiveRecord::Base
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     unless user
-      user = User.create(  first_name:auth.extra.raw_info.first_name,
-                           last_name:auth.extra.raw_info.last_name,
+      user = User.create(  name:auth.extra.raw_info.name,
                            provider:auth.provider,
                            uid:auth.uid,
                            email:auth.info.email,
@@ -93,9 +108,19 @@ class User < ActiveRecord::Base
   end
 
   #AUX methods
-  def fullname
-    "#{first_name.capitalize} #{last_name.capitalize}"
+
+  def first_name
+    name.split(" ")[0]
   end
+
+  def last_name
+    name.split.count == 3 ? name.split(" ")[2] : name.split(" ")[1]
+  end
+
+  def middle_name
+    name.split.count == 3 ? name.split(" ")[1] : nil
+  end
+  
 
   # def graph
   #   @graph ||= Koala::Facebook::API.new(self.fb_token)

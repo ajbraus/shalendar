@@ -11,8 +11,6 @@ class Notifier < ActionMailer::Base
   #AUTOMATIC NOTIFIERS
 
   def welcome(user)
-    #@calenshare = root_path
-
     mail to: user.email, subject: "Welcome to Calenshare"
   end
 
@@ -33,7 +31,7 @@ class Notifier < ActionMailer::Base
   def invitation(user, event)
 
 
-    mail to: user.email, subject: "Hello #{user.fullname}, you've been invited to #{event.title}; visit www.calenshare.com/events/#{event.id}"
+    mail to: user.email, subject: "Hello #{user.name}, you've been invited to #{event.title}; visit www.calenshare.com/events/#{event.id}"
 
   end
 
@@ -92,7 +90,7 @@ class Notifier < ActionMailer::Base
 
   def confirm_follow(user, follower)
 
-    mail to: user.email, subject: "You have a follow from: #{follower.fullname}"
+    mail to: user.email, subject: "You have a follow from: #{follower.name}"
   end
 
   def noncritical_change(event)

@@ -35,8 +35,8 @@
    <table id="guest_raster">
     <% @guests.each do |guest| %>
     	<tr>
-        <td><%= link_to gravatar_for(guest, size: 30) %></td>
-        <td><%= guest.fullname %></td>
+        <td><%= link_to raster_profile_picture(guest) %></td>
+        <td><%= guest.name %></td>
         <% unless current_user == guest %>
         <td id="follow_form">
           <% if current_user.following?(guest) %>

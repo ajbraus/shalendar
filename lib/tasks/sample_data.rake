@@ -9,12 +9,10 @@ end
 
 def make_users
   60.times do |n|
-    first_name  = Faker::Name.first_name
-    last_name = Faker::Name.last_name
+    name  = Faker::Name.name
     email = "example-#{n+1}@gmail.com"
     password  = "password"
-    User.create!(first_name: first_name,
-                 last_name: last_name,
+    User.create!(name: name,
                  email: email,
                  password: password,
                  password_confirmation: password)

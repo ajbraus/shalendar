@@ -1,6 +1,5 @@
 FOR LAUNCH
 
-
 	ADAM//////
 	User search bar
 		also in manage follow page
@@ -13,12 +12,11 @@ FOR LAUNCH
 
 			fullcalendar issues http://code.google.com/p/fullcalendar/issues/detail?id=837
 
-	review validations- event, user, etc.
+
 	feedback button - to contact form
 	Add comments as belongs_to events in DB (asynchronous)
-	Mailers formatted
-
-	Settings form for notification settings
+	
+	Mailers layout
 
 	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
 
@@ -67,20 +65,24 @@ FOR LAUNCH
 
 		Private deployments
 
+
 		PAIRED ////////
 			Fix Remove Follower Implementation
 
 
+Only owners of events can edit events
+
 
 AFTER LAUNCH
 	
+	Text messages for reminders to go to events your RSVPd to
 	Tests/refactoring
 	Mobile dev
 	SQL Table maintenance; mainly destroying events after they are done, but transferring data somewhere in a reasonable format for conducting analytics
 	add recurring functionality
 	Selectable
 	log the access token upon sign_up and update upon sign_in. store picture URL as well.
-	custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house
+	- custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid
 	find friends in gmail, twitter
 	Customize Calendar view
 		1day, 4day, 2week
@@ -130,3 +132,9 @@ NYC-inspired daily routine
 	e.g. lunchtime email to gather ideas, 3pm to spread ideas, 6pm to tip
 
 ---------------------------------------------------
+
+
+
+DONE
+
+	review validations- event, user, etc.

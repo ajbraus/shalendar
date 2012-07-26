@@ -1,10 +1,5 @@
 BUGS
 
-FOR LAUNCH
-defaulting min and max is resetting it upon hitting event#edit
-
-max = 0 creates this error "comparison of Fixnum with nil failed"
-
 AFTER LAUNCH
 maybe_events doesn't work with (full-calendar) scope calls on after, before
 

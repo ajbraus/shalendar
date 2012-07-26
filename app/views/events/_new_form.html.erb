@@ -8,7 +8,7 @@
 
   <p>
     <%= label :starts_at, "Starts at", name: "starts_at" %><br/>
-    <%= f.text_field :chronic_starts_at, :class => "input-large", :placeholder => "e.g. 7pm, tommorrow at noon, thursday at 5" %><br/>
+    <%= f.text_field :chronic_starts_at, :class => "input-large", :placeholder => "7pm, tommorrow at noon, thursday at 5" %>
   </p>
 
   <p>
@@ -20,13 +20,14 @@
 </div>
 
 <p>
+  <h3>How Many People?</h3>
   <span>
-    <%= f.label :min_attendees, "Fewest ppl" %> <br/>
-    <%= f.text_field :min, :class => 'input-mini' %>
+    <%= f.label :min_attendees, "Min" %> <br/>
+    <%= f.text_field :min, :class => 'input-mini', value: 1 %>
   </span>
   <span>
-    <%= f.label :max_attendees, "Max ppl" %> <br/>
-    <%= f.text_field :max, :class => 'input-mini' %>
+    <%= f.label :max_attendees, "Full" %> <br/>
+    <%= f.text_field :max, :class => 'input-mini', value: 50 %>
   </span>
 </p>
 

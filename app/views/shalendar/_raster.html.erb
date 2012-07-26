@@ -2,9 +2,9 @@
 	 <div class="raster">
 	    <% @relationships.each do |relation| %>
 	    	<% if relation.toggled == true %>
-	  	  	<%= link_to gravatar_for(relation.followed, size: 30), relationship_toggle_path(relation), :method => :put %>
+	  	  	<%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put %>
 	  	  <% else %>
-	  	  	<%= link_to gravatar_for(relation.followed, size: 30), relationship_toggle_path(relation), :method => :put, :class => 'toggle-off' %>
+	  	  	<%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put, :class => 'toggle-off' %>
 	  	  <% end %>
 		  <% end %>
 	  </div>

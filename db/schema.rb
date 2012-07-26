@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726033802) do
+ActiveRecord::Schema.define(:version => 20120726193615) do
 
   create_table "events", :force => true do |t|
     t.datetime "starts_at"
@@ -64,27 +64,26 @@ ActiveRecord::Schema.define(:version => 20120726033802) do
   add_index "rsvps", ["plan_id"], :name => "index_rsvps_on_plan_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "",   :null => false
-    t.string   "encrypted_password",     :default => "",   :null => false
+    t.string   "email",                     :default => "",    :null => false
+    t.string   "encrypted_password",        :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",             :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
-    t.string   "first_name"
-    t.string   "last_name"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.boolean  "terms"
     t.string   "provider"
     t.string   "uid"
-    t.boolean  "require_confirm_follow", :default => true
-    t.boolean  "daily_digest",           :default => true
-    t.boolean  "notify_event_reminders", :default => true
-    t.boolean  "notify_on_invite",       :default => true
+    t.boolean  "require_confirm_follow",    :default => true
+    t.boolean  "notify_noncritical_change", :default => false
+    t.boolean  "daily_digest",              :default => true
+    t.boolean  "notify_event_reminders",    :default => true
+    t.string   "name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -5,15 +5,54 @@ module UsersHelper
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
     size = options[:size]
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
-    image_tag(gravatar_url, alt: user.fullname, class: "profile_picture")
+    image_tag(gravatar_url, alt: user.name, class: "profile_picture")
   end
 
   def fb_picture(user)
   	fb_id = user.uid
   	facebook_url = @graph.get_picture(fb_id)
-  	image_tag(facebook_url, alt: user.fullname, class: "profile_picture")
+  	image_tag(facebook_url, alt: user.name, class: "profile_picture")
   end
 end
+
+
+  def big_profile_picture(user)
+    if user.uid != nil 
+      fb_picture(user)
+    else
+      gravatar_for(user, :size => 120 )
+    end
+  end
+
+  def medium_profile_picture(user)
+    if user.uid != nil 
+      fb_picture(user)
+    else
+      gravatar_for(user, :size => 100 )
+    end
+  end
+
+  def small_profile_picture(user)
+    if user.uid != nil 
+      fb_picture(user)
+    else
+      gravatar_for(user, :size => 45 )
+    end
+  end
+
+  def raster_profile_picture(user)
+    if user.uid != nil 
+      fb_picture(user)
+    else
+      gravatar_for(user, :size => 30 )
+    end
+  end 
+
+  # def medium_profile_picture(user)
+  #   if user.uid != nil
+  #     fb_picture(user)
+  #   else
+  #     gravatar_for(user)
 
 # add if statement for paperclip/gravatar/FB picture.
 # "display profile pic method"

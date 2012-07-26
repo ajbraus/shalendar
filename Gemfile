@@ -23,6 +23,8 @@ gem 'pry'
 gem 'pry-nav'
 gem 'pry-remote'
 
+gem 'thinking-sphinx', '2.0.10'
+
 group :production do
   gem 'pg', '0.12.2'
 end
