@@ -9,7 +9,7 @@ module UsersHelper
   end
 
   def fb_picture(user)
-  	fb_id = current_user.uid
+  	fb_id = user.uid
   	facebook_url = @graph.get_picture(fb_id)
   	image_tag(facebook_url, alt: user.fullname, class: "profile_picture")
   end

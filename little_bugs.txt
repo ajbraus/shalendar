@@ -19,6 +19,16 @@ If event is tipped once it can still untip- not currently notifying on that... d
 
 double-creating events by hitting enter twice (when trying to specify duration)
 
+Event create, isn't validating starts_at and will have fixnum problem if min/max aren't set
+
+flash success message upon successful creation of event with event details
+
+manage followers/following: 
+	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
+	follow button not working
+
+want to destroy events after they have passed... or at least destroy RSVPs / invitations, to maintain the tables- maybe store on some hard disk somewhere for records
+
 --------In event controller viewing logic
 	doesn't show if somebody has made an event but un-RSVPd
 	also, is adding event multiple times to JSON feed if more than one friend is RSVPd... does this matter?

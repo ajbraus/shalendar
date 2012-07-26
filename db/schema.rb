@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120724175532) do
+ActiveRecord::Schema.define(:version => 20120726033802) do
 
   create_table "events", :force => true do |t|
     t.datetime "starts_at"
@@ -19,15 +19,26 @@ ActiveRecord::Schema.define(:version => 20120724175532) do
     t.string   "title"
     t.string   "description"
     t.string   "location"
-    t.datetime "created_at",                                                          :null => false
-    t.datetime "updated_at",                                                          :null => false
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
     t.integer  "user_id"
-    t.integer  "min",                                              :default => 1
-    t.integer  "max",                                              :default => 10000
+    t.integer  "min",                                        :default => 1
+    t.integer  "max",                                        :default => 10000
     t.string   "map_location"
-    t.boolean  "friends_of_friends",                               :default => true
-    t.decimal  "duration",           :precision => 2, :scale => 2
+    t.decimal  "duration",     :precision => 2, :scale => 2
+    t.string   "visibility"
   end
+
+  create_table "invitations", :force => true do |t|
+    t.integer  "invited_user_id"
+    t.integer  "pending_plan_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "invitations", ["invited_user_id", "pending_plan_id"], :name => "index_invitations_on_invited_user_id_and_pending_plan_id", :unique => true
+  add_index "invitations", ["invited_user_id"], :name => "index_invitations_on_invited_user_id"
+  add_index "invitations", ["pending_plan_id"], :name => "index_invitations_on_pending_plan_id"
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"

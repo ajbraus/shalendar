@@ -14,19 +14,39 @@ class EventsController < ApplicationController
     end
   end
 
-  def my_maybes
+  def my_invitations
+    @invitation_events = current_user.pending_plans
+    
+    #perhaps a faster way?
+    # Events.joins('INNER JOIN invitations ON events.id = invitations.pending_plan_id')
+    #         .where('invitations.invited_user_id = :current_user_id AND
+    #           ')
+    @toggled_invitation_events = []
 
-    #this will eventually populate with all followed + wanted to be displayed events
-    #basically, loop through following (and toggled), add any of their created events
+    @invitation_events.each do |ie|
+      if ie.tipped?
+        if Relationship.find(current_user.id, ie.user.id).toggled? #14.6 ms each, console
+          @toggled_invitation_events.push(ie)
+        end
+      end
+    end
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @toggled_invitation_events }
+    end
+
+  end
+
+  def my_maybes
     
     @followed_events = []
 
-    #BEFORE toggling on/off followed_user events
-    #@followed_users = current_user.followed_users
-
     #PUT THIS OUTSIDE OF HERE SO CAN BE USED FOR TIPPED AND UNTIPPED???
-    @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id').where('relationships.follower_id = :current_user_id AND relationships.toggled = "t"', :current_user_id => current_user.id)
-    #@toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id WHERE relationships.follower_id = ? AND relationships.toggled = ?', current_user.id, true)
+    @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id')
+                                    .where('relationships.follower_id = :current_user_id AND 
+                                      relationships.toggled = "t"', :current_user_id => current_user.id) #316 ms in console for user1, ~50 followed
+
 
     @toggled_followed_users.each { |f|
       f.plans.each{ |fp| #for friends of friends events that are RSVPd for
@@ -39,6 +59,11 @@ class EventsController < ApplicationController
         end
       }
     }
+
+    # #alternative to the big up-front SQL call, but then more smaller calls
+    # current_user.followed_users.each do |f|
+    #   if Relationship.find(current_user.id, f.id).toggled?
+    #     ...
 
     @maybe_events = [] #an empty array to fill with relevant events
 
@@ -61,13 +86,6 @@ class EventsController < ApplicationController
         end  
       end
     }
-    
-    #The best ideas for SQL query implementation...
-    #Find events where [user.id, event.id] doesn't exist in RSVP table
-    #@events = Event.all
-    #@events = @events.where("[ ? , ? ] NOT IN rsvps", 5, 2)
-    #@events = @events.joins('rsvps').on('plan_id').where("rsvps.guest_id != ?", current_user.id)
-    #@events = Event.scope
     
     #PROBLEM HERE, EVENTS will not load with these on under current hack
     #@events = @events.after(params['start']) if (params['start'])
@@ -129,8 +147,6 @@ class EventsController < ApplicationController
       format.json { render json: @events }
     end
   end
-
-
 
   def my_untipped_maybes
 
@@ -231,7 +247,25 @@ class EventsController < ApplicationController
     end
   end
 
+  def my_untipped_invitations
+    @invitation_events = current_user.pending_plans
 
+    @toggled_invitation_events = []
+
+    @invitation_events.each do |ie|
+      unless ie.tipped?
+        if Relationship.find(current_user.id, ie.user.id).toggled?
+          @toggled_invitation_events.push(ie)
+        end
+      end
+    end
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @toggled_invitation_events }
+    end
+
+  end
 
   def show
     @event = Event.find(params[:id])
@@ -270,9 +304,11 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         current_user.rsvp!(@event)
+
         # if @event.invite?
         #   Notifier.send_invites(@event)
         # end
+
         format.html { redirect_to root_path }
         format.json { render json: root_path, status: :created, location: @event }
       else

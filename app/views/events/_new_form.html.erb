@@ -1,15 +1,46 @@
-<div id="new_event">
+<div id="event_form">
  <%= form_for @event do |f| %>
 
- <%= f.text_area :title, :placeholder => "What's happening? Where? What should they bring?", :rows => 2 %><br/>  
+  <p>
+    <%= label :title, "Idea" %><br/>
+    <%= f.text_area :title, :placeholder => "What's happening? Where? What should they bring?", :rows => 2 %>
+  </p>  
 
- Starts at?<br/>
- <%= f.text_field :chronic_starts_at, :class => "input-large", :placeholder => "e.g. 7, tommorrow at noon, next thursday at 5" %><br/>
+  <p>
+    <%= label :starts_at, "Starts at", name: "starts_at" %><br/>
+    <%= f.text_field :chronic_starts_at, :class => "input-large", :placeholder => "e.g. 7pm, tommorrow at noon, thursday at 5" %><br/>
+  </p>
 
- Duration?<br/>
- <%= f.text_field :duration, :class => "input-mini", :placeholder => "# hours" %>
+  <p>
+   <%= label :duration, "Duration", name: "duration" %><br/>
+   <%= f.text_field :duration, :class => "input-mini", :placeholder => "# hours" %>
+  </p>
+<div>
+  <a href="#">Add Map</a>
+</div>
 
- <div class="actions"> 
+<p>
+  <span>
+    <%= f.label :min_attendees, "Fewest ppl" %> <br/>
+    <%= f.text_field :min, :class => 'input-mini' %>
+  </span>
+  <span>
+    <%= f.label :max_attendees, "Max ppl" %> <br/>
+    <%= f.text_field :max, :class => 'input-mini' %>
+  </span>
+</p>
+
+<p>
+  <p><%= label :visibility, "Event Visibility (in Degrees of Separation)" %></p>
+	<%= radio_button_tag :visibility, 'friends_of_friends' %>
+	<%= label :friends_of_friends, "2&deg;" %>
+	<%= radio_button_tag :visibility, 'friends', :checked => true %>
+	<%= label :friends, "1&deg;" %>
+	<%= radio_button_tag :visibility, 'invite_only' %>
+	<%= label :invite_only, 'Invite only' %>
+</p>
+
+ <div> 
    <%= f.submit 'New Event', :class => 'btn btn-large btn-primary' %>
  </div>
 <% end %>

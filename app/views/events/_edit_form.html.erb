@@ -1,4 +1,4 @@
-<div id="edit_event">
+<div id="event_form">
   <%= form_for(@event) do |f| %>
     <% if @event.errors.any? %>
       <div id="error_explanation">
@@ -34,8 +34,13 @@
      <%= f.text_field :chronic_ends_at, :class => "input-large", :placeholder => "7pm? tommorrow at noon? next thursday at 5 in the morning?" %>
     </div>
     <div class="field">
-      <%= f.label :friends_of_friends, "Invite friends of friends?" %>
-      <%= f.check_box :friends_of_friends %>
+      <h4>Visibility (in Degrees of Separation)</h4>
+      <%= radio_button_tag :visibility, 'friends_of_friends' %>
+      <%= label :friends_of_friends, "2&deg;" %>
+      <%= radio_button_tag :visibility, 'friends', :checked => true %>
+      <%= label :friends, "1&deg;" %>
+      <%= radio_button_tag :visibility, 'invite_only' %>
+      <%= label :invite_only, 'Invite only' %>
     </div>
     <div class="field">
       <span>
