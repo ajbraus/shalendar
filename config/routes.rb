@@ -1,13 +1,20 @@
 Shalendar::Application.routes.draw do
-  resources :comments
-
+  
   authenticated :user do
     root :to => 'shalendar#home'
   end
 
   root :to => 'static_pages#landing'
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, 
+             controllers:   { omniauth_callbacks: "users/omniauth_callbacks", 
+                            registrations: "registrations"
+                            }, 
+             path: "user",
+             path_names:    { sign_in: "login",
+                              sign_out: "logout", 
+                              sign_up: "join"
+                            } 
 
   # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
   devise_scope :user do

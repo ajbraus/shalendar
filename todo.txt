@@ -1,8 +1,19 @@
 FOR LAUNCH
 
 	ADAM//////
+	
+	fb_picture sizes - https://groups.google.com/forum/?fromgroups#!topic/koala-users/dQHzoGAtr1o)
+
+	Flash notices - no flash notices when hitting validations for new event. no flash notices when you have login troubles.	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
+
+	About, landing, and contact page -- landing page -> Have ideas for fun, share them on Calenshare with friends and friends of friends, have fun, rinse and repeat.
+
+	Blue
+	
+
 	User search bar
 		also in manage follow page
+
 
 	Fullcalendar vs. Eventcalendar (or other) (fixing too many events in one day, allowing our custom views and defaults) 
 
@@ -14,20 +25,14 @@ FOR LAUNCH
 
 	feedback button - to contact form
 
-	Notification views
-
-	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
-
 	Views -
-		Flash notices - no flash notices when hitting validations for new event. no flash notices when you have login troubles
-		fb_picture sizes - https://groups.google.com/forum/?fromgroups#!topic/koala-users/dQHzoGAtr1o)
-		Blue
-		Fullname upon signup
-		hover over friend raster and display full name
-		Make focus fall on first text field on form
-		About, landing, and contact page -- landing page -> Have ideas for fun, share them on Calenshare with friends and friends of friends, have fun, rinse and repeat.
+		
+
 		google icon is tiny and squished
 		invitations- email entering + select from raster + maybe select from FB friends
+		Notification views
+		hover over friend raster and display full name
+
 
 
 		Ajaxify everything
@@ -36,15 +41,11 @@ FOR LAUNCH
 			toggle/untoggle
 			comments
 
-		recaptcha security
 
 		Event#show
 			display map_location
 			make a scrollable grid (not a table) for guest raster
 
-
-	defaulting min and max is resetting it upon hitting event#edit
-		Take out defaulting from db?
 	max = 0 creates this error "comparison of Fixnum with nil failed"
 
 	MIKE//////
@@ -95,6 +96,7 @@ AFTER LAUNCH
 		Paid event types
 	Show on over details of day/event
 
+
 LOW PRIORITY 
 
 	Jammit
@@ -105,10 +107,12 @@ LOW PRIORITY
 	get FB events to show on shalendar
 	refactor error messages as partial
 	library of icons -flush out use cases -sports, games, booze, playdates, 
-
+	Make focus fall on first text field on form
 
 
 --------------------General ideas:----------------
+
+More integration with facebook -- invitation creates facebook message . . . option to create facebook message / facebook event. In app app?
 
 user experience of curating invites/groups - don't just select a new type of event
 	"Make Current Selection a Group Users" "Invite Group to event"	
@@ -137,3 +141,7 @@ NYC-inspired daily routine
 DONE
 
 	review validations- event, user, etc.
+	Recaptcha
+	Comments on events
+	Fullname upon signup
+	profile pic helper method

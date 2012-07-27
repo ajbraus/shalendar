@@ -22,6 +22,13 @@ Shalendar::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  # Recaptcha
+  Recaptcha.configure do |config|
+  config.public_key  = '6LchmNQSAAAAAKubzPrT2otskw6b8OMLJ9blmAPU' #calenshare.com
+  config.private_key = '6LchmNQSAAAAAKncSmn87x7wALWus5MYgjfv8I_n'
+  end
+
+  
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 

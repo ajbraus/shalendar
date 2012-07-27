@@ -23,7 +23,9 @@ gem 'pry'
 gem 'pry-nav'
 gem 'pry-remote'
 
-gem 'thinking-sphinx', '2.0.10'
+# gem 'thinking-sphinx', '2.0.10'
+
+gem "recaptcha", :require => "recaptcha/rails"
 
 group :production do
   gem 'pg', '0.12.2'

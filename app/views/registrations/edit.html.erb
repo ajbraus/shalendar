@@ -1,0 +1,52 @@
+<% provide(:title, "Settings") %> 
+<div class="row">
+  <div id="sign_up" class="span6 offset3">
+    <br>
+  <h2>General Settings</h2>
+    <%= big_profile_picture(current_user) %>
+    <p><a href="http://gravatar.com/emails">Update Profile Picture?</a></p>
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+      <%= devise_error_messages! %>
+      <p>
+        <%= check_box :require_confirm_follow, 'require_confirm_follow' %> 
+        <label for="require_confirm_follow"><strong>Go public</strong> - Allow viewers to follow without my confirmation</label>
+      </p>
+      <br>
+
+      <h2>Email Notification Settings</h2>
+      <p>
+        <%= check_box :daily_digest, 'daily_digest', checked: true %>
+        <label for="daily_digest"><strong>Stay in touch</strong> - Recieve daily summaries of what your viewing calendars are planning.</label>
+      </p>
+      <br>
+      <p>
+        <%= check_box :notify_noncritical_change, 'notify_noncritical_change' %>
+        <label for="notify_noncritical_change"><strong>Details, Details</strong> - Recieve notification upon minor changes to plans.</label>
+      </p>
+      <p>
+        <%= check_box :notify_event_reminders, 'notify_event_reminders', checked: true %>
+        <label for="notify_event_reminders"><strong>Remind me, please</strong> - Recieve reminders for your upcomming plans.</label>
+      </p>
+      <br>
+      <h2>Personal Settings</h2>
+      <div><%= f.label :name %><br />
+      <%= f.text_field :name %></div>
+
+      <div><%= f.label :email %><br />
+      <%= f.email_field :email %></div>
+
+      <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+      <%= f.password_field :password, :autocomplete => "off" %></div>
+
+      <div><%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation %></div>
+
+      <div><%= f.label :current_password %><br />
+      <%= f.password_field :current_password %></div>
+
+      <div><%= f.submit "Update", :class => "btn btn-large btn-warning" %></div>
+    <% end %>
+
+    <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete, :class => "red" %>.</p>
+  </div>
+</div>
