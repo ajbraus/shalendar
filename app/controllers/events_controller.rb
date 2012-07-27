@@ -272,6 +272,8 @@ class EventsController < ApplicationController
     @guests = @event.guests
     @starttime = @event.starts_at.strftime "%l:%M%P, %A %B %e"
     @endtime = @event.ends_at.strftime "%l:%M%P, %A %B %e"
+    @comments = @event.comments.order "created_at desc"
+    @comment_created_at = @event.created_at.strftime "%l:%M%P, %A %B %e"
 
     respond_to do |format|
       format.html # show.html.erb

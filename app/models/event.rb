@@ -4,6 +4,8 @@ class Event < ActiveRecord::Base
 
   belongs_to :user
   
+  has_many :comments, dependent: :destroy
+
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
   has_many :guests, through: :rsvps
 

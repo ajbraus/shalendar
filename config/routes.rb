@@ -1,4 +1,6 @@
 Shalendar::Application.routes.draw do
+  resources :comments
+
   authenticated :user do
     root :to => 'shalendar#home'
   end
@@ -14,7 +16,10 @@ Shalendar::Application.routes.draw do
 
   match '/manage_follows', :to => 'shalendar#manage_follows', :as => "manage_follows"
 
-  resources :events
+  resources :events do
+    resources :comments
+  end
+  
 
   resources :rsvps, only: [:create, :destroy]
   

@@ -54,8 +54,19 @@
         <% end %>
   	<% end %>
     </table>
-    <%= render 'rsvp_form' %>
-    <%= render 'nav_buttons' %>
+
+    <div id="comments_form">
+      <%= render partial: 'comments_form' %>
+    </div>
+
+    <div id="comments">
+      <%= render :partial => 'comments/comment', collection: @comments %>
+    </div>
+
+    <div>
+      <%= render 'rsvp_form' %>
+      <%= render 'nav_buttons' %>
+    </div>
   </div>
 
 

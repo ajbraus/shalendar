@@ -12,11 +12,9 @@ FOR LAUNCH
 
 			fullcalendar issues http://code.google.com/p/fullcalendar/issues/detail?id=837
 
-
 	feedback button - to contact form
-	Add comments as belongs_to events in DB (asynchronous)
-	
-	Mailers layout
+
+	Notification views
 
 	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
 
@@ -36,6 +34,7 @@ FOR LAUNCH
 			follow/unfollow
 			rsvp/unrsvp
 			toggle/untoggle
+			comments
 
 		recaptcha security
 
