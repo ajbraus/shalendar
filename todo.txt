@@ -11,7 +11,7 @@ FOR LAUNCH
 	Blue
 	
 
-	User search bar
+	  User search bar
 		also in manage follow page
 
 

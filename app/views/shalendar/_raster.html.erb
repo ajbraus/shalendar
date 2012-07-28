@@ -2,9 +2,18 @@
 	 <div class="raster">
 	    <% @relationships.each do |relation| %>
 	    	<% if relation.toggled == true %>
-	  	  	<%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put %>
+	  	  	<u class="raster_hover">
+	  	  		<%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put %>
+	  	  		<div class="viewing_name">
+	  	  			<%= relation.followed.name %>
+	  	  		</div>
+	  	  	</u>
 	  	  <% else %>
-	  	  	<%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put, :class => 'toggle-off' %>
+	  	  	<u class="raster_hover"><%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put, :class => 'toggle-off' %>
+	  	  		<div class="viewing_name">
+	  	  			<%= relation.followed.name %>
+	  	  		</div>
+	  	  	</u>
 	  	  <% end %>
 		  <% end %>
 	  </div>

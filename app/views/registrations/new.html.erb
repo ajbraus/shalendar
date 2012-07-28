@@ -20,8 +20,6 @@
 
   <div><%= f.check_box :terms, checked: true %><%= f.label :terms, "Terms & Conditions" %></div><br/>
 
-  <div id="recaptcha"><%= recaptcha_tags display: { theme: 'white' }, ajax: true %></div>
-
   <div><%= f.submit "Sign up", :class => "btn btn-large btn-primary" %></div>
 <% end %>
 

@@ -34,9 +34,9 @@
 <p>
   <p><%= label :visibility, "Event Visibility (in Degrees of Separation)" %></p>
 	<%= radio_button_tag :visibility, 'friends_of_friends' %>
-	<%= label :friends_of_friends, "2&deg;" %>
+	<%= label :friends_of_friends, "Viewers of RSVPs" %>
 	<%= radio_button_tag :visibility, 'friends', :checked => true %>
-	<%= label :friends, "1&deg;" %>
+	<%= label :friends, "Viewers" %>
 	<%= radio_button_tag :visibility, 'invite_only' %>
 	<%= label :invite_only, 'Invite only' %>
 </p>

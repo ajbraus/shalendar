@@ -6,3 +6,7 @@ maybe_events doesn't work with (full-calendar) scope calls on after, before
 With notifier for event_noncritical_change, which means any update to event other than starts_at, it will send even if nothing was changed but the edit/update controller action was called...
 
 double-creating events by hitting enter twice (when trying to specify duration)- all buttons
+
+populating database is not creating because "Validating plan id is not there" (we solved this before by putting @event.save, and assigning an ID. I tried removing that and adding one and not the other.)
+
+not getting events on calendar -- js errors - looks like something is wacky from some of our URL streams

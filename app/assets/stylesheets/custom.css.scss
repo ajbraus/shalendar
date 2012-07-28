@@ -16,6 +16,10 @@ html {
   overflow-y: scroll;
 }
 
+u {
+  text-decoration: none;
+}
+
 section {
   overflow: auto;
   float:left;
@@ -649,5 +653,22 @@ footer {
 }
 
 .social_friends {
-  margin-top:250px;
+}
+
+.raster {
+  height:330px;
+  overflow:auto;
+}
+
+.viewing_name {
+  position: absolute;
+  background-color: white;
+  z-index: 100;
+  display:none;
+  width:auto;
+  border:2px solid grey;
+  height:30px;
+  -webkit-box-shadow: .5px 2.5px 13px rgba(50, 50, 50, 0.33);
+  -moz-box-shadow:    .5px 2.5px 13px rgba(50, 50, 50, 0.33);
+  box-shadow:         .5px 2.5px 13px rgba(50, 50, 50, 0.33);
 }

@@ -12,10 +12,12 @@ def make_users
     name  = Faker::Name.name
     email = "example-#{n+1}@gmail.com"
     password  = "password"
+    terms = true
     User.create!(name: name,
                  email: email,
                  password: password,
-                 password_confirmation: password)
+                 password_confirmation: password,
+                 terms: terms)
   end
 end
 
@@ -34,6 +36,7 @@ def make_events
   rsvps2 = users[4..6]
   users.each do |user|
     5.times do |e|
+      # id = e + user.id*10 + 1
       title = "Fun Time #{e+1}"
       description = Faker::Lorem.sentences(1)
       starts_at = Time.now + (e+user.id).days - (e+user.id).hours
@@ -42,7 +45,8 @@ def make_events
       max = 20
       map_location = "421 w gilman st, madison, wi"
       location = "My house"
-      @event = user.events.build(id: e + user.id*5 + 1,
+      @event = user.events.build(
+                        # id: id,
                         title: title,
                         description: description,
                         starts_at: starts_at,
@@ -53,6 +57,7 @@ def make_events
                         location: location)
       @event.save
       rsvps1.each do |r|
+        puts @event.id
         r.rsvp!(@event)
       end
       if(e > 2)

@@ -21,10 +21,10 @@ Shalendar::Application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   # Recaptcha 
-  Recaptcha.configure do |config|
-  config.public_key  = '6Lc4mNQSAAAAAGogl0qfZI3tvZcdSglWAGqIKflk' #calenshare.dev
-  config.private_key = '6Lc4mNQSAAAAADMQWInE5gXqUrH6-jWPTY3tQerq'
-  end
+  # Recaptcha.configure do |config|
+  # config.public_key  = '6Lc4mNQSAAAAAGogl0qfZI3tvZcdSglWAGqIKflk' #calenshare.dev
+  # config.private_key = '6Lc4mNQSAAAAADMQWInE5gXqUrH6-jWPTY3tQerq'
+  # end
 
 
   # Only use best-standards-support built into browsers

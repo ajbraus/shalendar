@@ -20,8 +20,6 @@ gem 'chronic'
 gem 'heroku'
 
 gem 'pry'
-gem 'pry-nav'
-gem 'pry-remote'
 
 # gem 'thinking-sphinx', '2.0.10'
 

@@ -68,3 +68,6 @@ http://arshaw.com/fullcalendar/docs/event_rendering/eventRender/
             content: event.description
         });
     }
+
+
+<div id="recaptcha"><%= recaptcha_tags display: { theme: 'white' }, ajax: true %></div>
