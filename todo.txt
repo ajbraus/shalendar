@@ -31,7 +31,6 @@ FOR LAUNCH
 		google icon is tiny and squished
 		invitations- email entering + select from raster + maybe select from FB friends
 		Notification views
-		hover over friend raster and display full name
 
 
 

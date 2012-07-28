@@ -110,15 +110,15 @@ class User < ActiveRecord::Base
   #AUX methods
 
   def first_name
-    name.split(" ")[0]
+    name.split(' ')[0]
   end
 
   def last_name
-    name.split.count == 3 ? name.split(" ")[2] : name.split(" ")[1]
+    name.split.count == 3 ? name.split(' ')[2] : name.split(' ')[1]
   end
 
   def middle_name
-    name.split.count == 3 ? name.split(" ")[1] : nil
+    name.split.count == 3 ? name.split(' ')[1] : nil
   end
   
 
