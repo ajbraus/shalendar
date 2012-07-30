@@ -1,7 +1,22 @@
-FOR LAUNCH
+FOR BETA
 
 	ADAM//////
 	
+	Update follow/unfollow button to say "Requested" "Follow" "Unfollow"
+	Manage follows -- pending follows, requested follows
+
+	if event is private redirect to event, not calendar.
+
+	in event#show follow=>unfollow btn broken
+
+	event#show invite raster
+
+	"hidden features" - settings more clear, toggling, visibility, states of events unclear (tipped vs. untipped, idea vs. plan, idea vs. invitation )
+
+
+	Scope some stuff like: 
+                only: [:index, :edit, :update, :destroy, :following, :followers]
+
 	fb_picture sizes - https://groups.google.com/forum/?fromgroups#!topic/koala-users/dQHzoGAtr1o)
 
 	Flash notices - no flash notices when hitting validations for new event. no flash notices when you have login troubles.	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
@@ -51,8 +66,10 @@ FOR LAUNCH
 
 	MIKE//////
 
-		Invitation Events- email list per event + logic
-		Add confirmations of follows
+		Add confirmations of follows - Make email, link from email to confirm_follow_path => 	
+			'manage_follows/confirm/follower_id' go to home with flash alert.
+			button showing 'pending, follow, unfollow'
+
 		untipped events -- cancelling them 2 hours ahead
 		Notifications
 			Daily Digest - Day view list
@@ -69,7 +86,7 @@ FOR LAUNCH
 
 		PAIRED ////////
 			Fix Remove Follower Implementation
-
+			Chron job mailers for event changes (to fix lots of sends on drag/drop)
 
 Only owners of events can edit events
 
@@ -146,3 +163,4 @@ DONE
 	Comments on events
 	Fullname upon signup
 	profile pic helper method
+	Invitation Events- email list per event + logic

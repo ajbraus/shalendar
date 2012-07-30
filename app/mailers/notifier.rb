@@ -93,7 +93,12 @@ class Notifier < ActionMailer::Base
 
   def confirm_follow(user, follower)
 
-    mail to: user.email, subject: "You have a follow from: #{follower.name}"
+    mail to: user.email, subject: "You have a view request from: #{follower.name}"
+  end
+
+  def new_follower(user, follower)
+
+    mail to: user.email, subject: "You have a new viewer from: #{follower.name}"
   end
 
   def noncritical_change(event)

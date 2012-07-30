@@ -32,13 +32,13 @@
 </p>
 
 <p>
-  <p><%= label :visibility, "Event Visibility (in Degrees of Separation)" %></p>
-	<%= radio_button_tag :visibility, 'friends_of_friends' %>
-	<%= label :friends_of_friends, "Viewers of RSVPs" %>
-	<%= radio_button_tag :visibility, 'friends', :checked => true %>
-	<%= label :friends, "Viewers" %>
-	<%= radio_button_tag :visibility, 'invite_only' %>
-	<%= label :invite_only, 'Invite only' %>
+  <p><%= f.label :visibility, "Event Visibility (in Degrees of Separation)" %></p>
+	<%= f.radio_button :visibility, 'friends_of_friends' %>
+	<%= f.label :friends_of_friends, "Viewers of RSVPs" %>
+	<%= f.radio_button :visibility, 'friends', :checked => true %>
+	<%= f.label :friends, "Viewers" %>
+	<%= f.radio_button :visibility, 'invite_only' %>
+	<%= f.label :invite_only, 'Invite only' %>
 </p>
 
  <div> 

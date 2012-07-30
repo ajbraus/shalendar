@@ -21,7 +21,8 @@ class Event < ActiveRecord::Base
                   :max, 
                   :map_location,
                   :chronic_starts_at,
-                  :chronic_ends_at
+                  :chronic_ends_at,
+                  :visibility
 
 
   validates :user_id,

@@ -19,18 +19,18 @@ class EventsController < ApplicationController
     @invitation_events = Event.joins('INNER JOIN invites ON events.id = invites.event_id')
                                 .where('invites.email = :current_user_email', current_user_email: current_user.email)
 
-    # @invites = Invite.where('invites.event_id = :event_id AND ')
-
     @toggled_invitation_events = []
 
      @invitation_events.each do |ie|
-      if ie.tipped?
-        if current_user.following?(ie.user)
-          if r.toggled?
+      unless current_user.rsvpd?(ie)
+        if ie.tipped?
+          if current_user.following?(ie.user)
+            if current_user.relationships.find_by_followed_id(ie.user).toggled?
+              @toggled_invitation_events.push(ie)
+            end
+          else
             @toggled_invitation_events.push(ie)
           end
-        else
-          @toggled_invitation_events.push(ie)
         end
       end
     end
@@ -49,7 +49,8 @@ class EventsController < ApplicationController
     #PUT THIS OUTSIDE OF HERE SO CAN BE USED FOR TIPPED AND UNTIPPED???
     @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id')
                                     .where('relationships.follower_id = :current_user_id AND 
-                                      relationships.toggled = "t"', :current_user_id => current_user.id) #316 ms in console for user1, ~50 followed
+                                      relationships.toggled = "t" AND relationships.confirmed = "t"',
+                                      :current_user_id => current_user.id) #316 ms in console for user1, ~50 followed
 
 
     @toggled_followed_users.each { |f|
@@ -86,7 +87,11 @@ class EventsController < ApplicationController
               plan = true
             end
             if plan == false
-              @maybe_events.push(e)
+              i = Invite.where("invites.event_id = :current_event_id AND invites.email = :current_user_email",
+                               current_event_id: e.id, current_user_email: current_user.email)
+              if i.empty?
+                @maybe_events.push(e)
+              end
             end
           end  
         end
@@ -160,7 +165,9 @@ class EventsController < ApplicationController
 
     #@followed_users = current_user.followed_users
 
-    @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id').where('relationships.follower_id = :current_user_id AND relationships.toggled = "t"', :current_user_id => current_user.id)
+    @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id').
+                                   where('relationships.follower_id = :current_user_id AND relationships.toggled = "t" AND relationships.confirmed = "t"',
+                                   :current_user_id => current_user.id)
 
     @toggled_followed_users.each { |f|
       f.plans.each{ |fp| #for friends of friends events that are RSVPd for
@@ -191,7 +198,11 @@ class EventsController < ApplicationController
               plan = true
             end
             if plan == false
-              @maybe_events.push(e)
+              i = Invite.where("invites.event_id = :current_event_id AND invites.email = :current_user_email",
+                                current_event_id: e.id, current_user_email: current_user.email)
+              if i.empty?
+                @maybe_events.push(e)
+              end
             end
           end  
         end
@@ -262,13 +273,15 @@ class EventsController < ApplicationController
     @toggled_invitation_events = []
 
     @invitation_events.each do |ie|
-      unless ie.tipped?
-        if r = Relationship.find(current_user.id, ie.user.id)
-          if r.toggled?
+      unless current_user.rsvpd?(ie)
+        unless ie.tipped?
+          if current_user.following?(ie.user)
+            if current_user.relationships.find_by_followed_id(ie.user).toggled?
+              @toggled_invitation_events.push(ie)
+            end
+          else
             @toggled_invitation_events.push(ie)
           end
-        else
-          @toggled_invitation_events.push(ie)
         end
       end
     end

@@ -30,12 +30,16 @@ class User < ActiveRecord::Base
 
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
-  has_many :followed_users, through: :relationships, source: :followed
+
+  has_many :followed_users, through: :relationships, source: :followed, conditions: "confirmed = 't'"
+  has_many :pending_followed_users, through: :relationships, source: :followed, conditions: "confirmed = 'f'"
   
+
   has_many :reverse_relationships, foreign_key: "followed_id",
                                    class_name:  "Relationship",
                                    dependent:   :destroy
-  has_many :followers, through: :reverse_relationships, source: :follower
+  has_many :followers, through: :reverse_relationships, source: :follower, conditions: "confirmed = 't'"
+  has_many :pending_followers, through: :reverse_relationships, source: :follower, conditions: "confirmed = 'f'"
 
   after_create :send_welcome
   
@@ -77,7 +81,20 @@ class User < ActiveRecord::Base
 
   #Relationship methods
   def following?(other_user)
-    relationships.find_by_followed_id(other_user.id)
+    if r = relationships.find_by_followed_id(other_user.id)
+      if r.confirmed?
+        return true
+      end
+    else
+      return false
+    end
+  end
+
+  def request_following?(other_user)
+    if r = relationships.find_by_followed_id(other_user.id)
+      unless r.confirmed?
+      end
+    end
   end
 
   def follow!(other_user)
