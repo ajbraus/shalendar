@@ -15,17 +15,21 @@ class EventsController < ApplicationController
   end
 
   def my_invitations
-    @invitation_events = current_user.pending_plans
-    
-    #perhaps a faster way?
-    # Events.joins('INNER JOIN invitations ON events.id = invitations.pending_plan_id')
-    #         .where('invitations.invited_user_id = :current_user_id AND
-    #           ')
+
+    @invitation_events = Event.joins('INNER JOIN invites ON events.id = invites.event_id')
+                                .where('invites.email = :current_user_email', current_user_email: current_user.email)
+
+    # @invites = Invite.where('invites.event_id = :event_id AND ')
+
     @toggled_invitation_events = []
 
-    @invitation_events.each do |ie|
+     @invitation_events.each do |ie|
       if ie.tipped?
-        if Relationship.find(current_user.id, ie.user.id).toggled? #14.6 ms each, console
+        if current_user.following?(ie.user)
+          if r.toggled?
+            @toggled_invitation_events.push(ie)
+          end
+        else
           @toggled_invitation_events.push(ie)
         end
       end
@@ -71,19 +75,21 @@ class EventsController < ApplicationController
     @followed_events.each { |e|
       plan = false
       unless(e.full?)
-        if(e.tipped?)
-          e.guests.each{ |g|
-            if g == current_user
-             plan = true
+        unless(e.visibility == "invite_only")
+          if(e.tipped?)
+            e.guests.each{ |g|
+              if g == current_user
+               plan = true
+              end
+            }
+            if e.user == current_user
+              plan = true
             end
-          }
-          if e.user == current_user
-            plan = true
-          end
-          if plan == false
-            @maybe_events.push(e)
-          end
-        end  
+            if plan == false
+              @maybe_events.push(e)
+            end
+          end  
+        end
       end
     }
     
@@ -174,19 +180,21 @@ class EventsController < ApplicationController
     @followed_events.each { |e|
       plan = false
       unless(e.full?)
-        unless(e.tipped?)
-          e.guests.each{ |g|
-            if g == current_user
-             plan = true
+        unless(e.visibility == "invite_only")
+          unless(e.tipped?)
+            e.guests.each{ |g|
+              if g == current_user
+               plan = true
+              end
+            }
+            if e.user == current_user
+              plan = true
             end
-          }
-          if e.user == current_user
-            plan = true
-          end
-          if plan == false
-            @maybe_events.push(e)
-          end
-        end  
+            if plan == false
+              @maybe_events.push(e)
+            end
+          end  
+        end
       end
     }
 
@@ -248,13 +256,18 @@ class EventsController < ApplicationController
   end
 
   def my_untipped_invitations
-    @invitation_events = current_user.pending_plans
+    @invitation_events = Events.joins('INNER JOIN invites on events.id = invites.event_id')
+                               .where('invites.email = :current_user_email', current_user_email: current_user.email)
 
     @toggled_invitation_events = []
 
     @invitation_events.each do |ie|
       unless ie.tipped?
-        if Relationship.find(current_user.id, ie.user.id).toggled?
+        if r = Relationship.find(current_user.id, ie.user.id)
+          if r.toggled?
+            @toggled_invitation_events.push(ie)
+          end
+        else
           @toggled_invitation_events.push(ie)
         end
       end
@@ -274,6 +287,7 @@ class EventsController < ApplicationController
     @endtime = @event.ends_at.strftime "%l:%M%P, %A %B %e"
     @comments = @event.comments.order "created_at desc"
     @comment_created_at = @event.created_at.strftime "%l:%M%P, %A %B %e"
+    @invites = @event.invites
 
     respond_to do |format|
       format.html # show.html.erb

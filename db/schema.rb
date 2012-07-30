@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726214945) do
+ActiveRecord::Schema.define(:version => 20120730170715) do
 
   create_table "comments", :force => true do |t|
     t.string   "content"
@@ -39,16 +39,14 @@ ActiveRecord::Schema.define(:version => 20120726214945) do
     t.string   "visibility"
   end
 
-  create_table "invitations", :force => true do |t|
-    t.integer  "invited_user_id"
-    t.integer  "pending_plan_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+  create_table "invites", :force => true do |t|
+    t.string   "email"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "invitations", ["invited_user_id", "pending_plan_id"], :name => "index_invitations_on_invited_user_id_and_pending_plan_id", :unique => true
-  add_index "invitations", ["invited_user_id"], :name => "index_invitations_on_invited_user_id"
-  add_index "invitations", ["pending_plan_id"], :name => "index_invitations_on_pending_plan_id"
+  add_index "invites", ["event_id"], :name => "index_invites_on_event_id"
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
@@ -72,6 +70,16 @@ ActiveRecord::Schema.define(:version => 20120726214945) do
   add_index "rsvps", ["guest_id", "plan_id"], :name => "index_rsvps_on_guest_id_and_plan_id", :unique => true
   add_index "rsvps", ["guest_id"], :name => "index_rsvps_on_guest_id"
   add_index "rsvps", ["plan_id"], :name => "index_rsvps_on_plan_id"
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
     t.string   "email",                     :default => "",    :null => false

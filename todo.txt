@@ -10,7 +10,6 @@ FOR LAUNCH
 
 	Blue
 	
-
 	  User search bar
 		also in manage follow page
 
@@ -33,7 +32,6 @@ FOR LAUNCH
 		Notification views
 
 
-
 		Ajaxify everything
 			follow/unfollow
 			rsvp/unrsvp
@@ -46,6 +44,10 @@ FOR LAUNCH
 			make a scrollable grid (not a table) for guest raster
 
 	max = 0 creates this error "comparison of Fixnum with nil failed"
+
+	Post to facebook wall . . . not for private events.
+
+	Flag user for spam . . .?
 
 	MIKE//////
 

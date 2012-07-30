@@ -14,6 +14,7 @@ $(document).ready(function() {
     editable: true, 
     selectable: false,
     selectHelper: false,
+    allDaySlot: false,
     defaultView: 'agendaWeek',
     height: 610,
     slotMinutes: 30,
@@ -107,6 +108,15 @@ $(document).ready(function() {
     // http://arshaw.com/fullcalendar/docs/mouse/eventClick/
     eventClick: function(event, jsEvent, view){
       // would like a lightbox here.
+    },
+
+    dayClick: function(date, allDay, jsEvent, view) {
+        // alert('Clicked on the slot: ' + date);
+        // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);   
+        // alert('Current view: ' + view.name);
+
+    // change the day's background color just for fun
+    $(this).css('background-color', 'blue');
     },
   });
 });

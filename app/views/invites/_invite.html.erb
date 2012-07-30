@@ -1,0 +1,7 @@
+<%= div_for invite do %>
+	<% if u = User.find_by_email(invite.email) %>
+		<%= raster_profile_picture(u) %> | <%= u.name %>
+	<% else %>
+	  <%= invite.email %>
+	<% end %>
+<% end %>

@@ -25,6 +25,7 @@ Shalendar::Application.routes.draw do
 
   resources :events do
     resources :comments
+    resources :invites
   end
   
 

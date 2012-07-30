@@ -9,8 +9,7 @@ class Event < ActiveRecord::Base
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
   has_many :guests, through: :rsvps
 
-  has_many :invitations, foreign_key: "pending_plan_id", dependent: :destroy
-  has_many :invited_users, through: :invitations
+  has_many :invites, dependent: :destroy
 
   attr_accessible :description, 
                   :location, 
@@ -100,14 +99,6 @@ class Event < ActiveRecord::Base
 
   #For Refactoring Invites to be unconfirmed RSVPs
   
-  def invite!(user)
-    invitations.create!(invited_user_id: user.id, pending_plan_id: self.id)
-  end
-
-  def uninvite!(user)
-    invitations.find_by_invited_user_id(user.id).destroy
-  end
-
   # def min
   #   if min == nil
   #     min = 1

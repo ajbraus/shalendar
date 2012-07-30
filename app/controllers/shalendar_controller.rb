@@ -4,7 +4,6 @@ class ShalendarController < ApplicationController
 	def home
 		@users = User.all
 		@relationships = current_user.relationships
-
 		@access_token = session[:fb_access_token]
   	@graph = Koala::Facebook::API.new(@access_token)
 	end

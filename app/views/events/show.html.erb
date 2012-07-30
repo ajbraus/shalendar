@@ -63,6 +63,14 @@
       <%= render :partial => 'comments/comment', collection: @comments %>
     </div>
 
+    <div id="invites_form">
+      <%= render partial: 'invites_form' %>
+    </div>
+
+    <div id="invites">
+      <%= render partial: 'invites/invite', collection: @invites %>
+    </div>
+
     <div>
       <%= render 'rsvp_form' %>
       <%= render 'nav_buttons' %>

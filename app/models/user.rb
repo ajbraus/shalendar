@@ -25,12 +25,8 @@ class User < ActiveRecord::Base
 
   has_many :events, :dependent => :destroy
   
-
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
   has_many :plans, through: :rsvps
-  
-  has_many :invitations, foreign_key: "invited_user_id", dependent: :destroy
-  has_many :pending_plans, through: :invitations
 
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy

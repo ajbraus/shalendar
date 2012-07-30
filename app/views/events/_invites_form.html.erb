@@ -1,0 +1,7 @@
+<%= form_for([@event, @event.invites.build]) do |f| %>
+  <div class="field">
+    <%= f.label :content, "Invites" %><br />
+    <%= f.text_field :email %>
+  </div>
+	<%= f.submit "Add", class: "btn btn-primary" %>
+<% end %>
