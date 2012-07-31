@@ -1,14 +1,16 @@
 Shalendar::Application.routes.draw do
   
-  authenticated :user do
-    root :to => 'shalendar#home'
-  end
+  # authenticated :user do
+  #   root :to => 'shalendar#home'
+  # end
 
+  user_root :to => 'shalendar#home'
   root :to => 'static_pages#landing'
 
   devise_for :users, 
              controllers:   { omniauth_callbacks: "users/omniauth_callbacks", 
-                            registrations: "registrations"
+                            registrations: "registrations",
+                            sessions: "sessions"
                             }, 
              path: "user",
              path_names:    { sign_in: "login",
@@ -16,9 +18,12 @@ Shalendar::Application.routes.draw do
                               sign_up: "join"
                             } 
 
+  resources :token_authentications, :only => [:create, :destroy]
+
   # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+    resources :sessions, :only => [:create, :destroy]
   end
 
   match '/manage_follows', :to => 'shalendar#manage_follows', :as => "manage_follows"
