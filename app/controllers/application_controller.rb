@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     if current_user.uid != nil
     	find_friends_path
     else
-    	user_root_path
+    	root_path
     end
   end
 end

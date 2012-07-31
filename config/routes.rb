@@ -1,10 +1,9 @@
 Shalendar::Application.routes.draw do
   
-  # authenticated :user do
-  #   root :to => 'shalendar#home'
-  # end
+  authenticated :user do
+    root :to => 'shalendar#home'
+  end
 
-  user_root :to => 'shalendar#home'
   root :to => 'static_pages#landing'
 
   devise_for :users, 
