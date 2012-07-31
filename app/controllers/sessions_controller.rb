@@ -1,4 +1,5 @@
 # app/controllers/sessions_controller.rb
+
 class SessionsController < Devise::SessionsController
   def create
     respond_to do |format|
