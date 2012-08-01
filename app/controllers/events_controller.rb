@@ -364,7 +364,7 @@ class EventsController < ApplicationController
   end
 
   def my_untipped_invitations
-    @invitation_events = Events.joins('INNER JOIN invites on events.id = invites.event_id')
+    @invitation_events = Event.joins('INNER JOIN invites on events.id = invites.event_id')
                                .where('invites.email = :current_user_email', current_user_email: current_user.email)
 
     @toggled_invitation_events = []
