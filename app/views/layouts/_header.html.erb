@@ -1,7 +1,11 @@
 <header class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
+      <% if user_signed_in? %>
+      <%= link_to "Calenshare", '/home', id: "logo" %>
+      <% else %>
       <%= link_to "Calenshare", '/', id: "logo" %>
+      <% end %>
       <nav>
         <ul class="nav pull-right">
           <% if user_signed_in? %>
