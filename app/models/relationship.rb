@@ -7,8 +7,12 @@ class Relationship < ActiveRecord::Base
   validates :follower_id, presence: true
   validates :followed_id, presence: true
 
-def toggle!
-	self.toggled = !self.toggled
-end
+	def toggle!
+		self.toggled = !self.toggled
+	end
+
+	def confirm!
+		self.confirmed = true
+	end
 
 end

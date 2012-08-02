@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery-ui-addresspicker
+//= require autocomplete-rails.js
 //= require bootstrap
 //= require_tree

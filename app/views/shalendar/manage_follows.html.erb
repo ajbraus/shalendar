@@ -1,15 +1,14 @@
 <div id="follow_list">
   <h1>Following</h1>
   <div class="user_table">
-      <% @followed_users.each do |followed| %>
+      <% @followed_user_relationships.each do |fur| %>
       <table>       
         <tr>
-          <td width="50px"><%= small_profile_picture(followed) %></td>
-          <td width="200px"><%= followed.name %> </td>
+          <td width="50px"><%= small_profile_picture(fur.followed) %></td>
+          <td width="200px"><%= fur.followed.name %> </td>
           <td>
             <span id="follow_form" class="follow_btn">
-              <%= form_for(current_user.relationships.find_by_followed_id(followed),
-                   html: { method: :delete }) do |f| %>
+              <%= form_for(fur, method: :delete ) do |f| %>
               <%= f.submit "Unfollow", class: "btn btn-large" %>
               <% end %>
             </span>
@@ -23,20 +22,19 @@
 
   <h1>Followers</h1>
   <div class="user_table">
-    <% @followers.each do |follower| %>
+    <% @follower_relationships.each do |fr| %>
     <table>        
         <tr>
-          <td width="50px"><%= small_profile_picture(follower) %></td>
-          <td width="200px"><%= follower.name %></td>
+          <td width="50px"><%= small_profile_picture(fr.follower) %></td>
+          <td width="200px"><%= fr.follower.name %></td>
           <td>
             <span id="follow_form" class="follow_btn">
-              <% if current_user.following?(follower) %>
-                <%= form_for(current_user.relationships.find_by_followed_id(follower),
-                         html: { method: :delete }) do |f| %>
+              <% if current_user.following?(fr.follower) %>
+                <%= form_for(fr, method: :delete ) do |f| %>
                 <%= f.submit "Unfollow", class: "btn btn-large" %>
                 <% end %>
               <% else %>
-                <%= form_for(current_user.relationships.build(followed_id: follower.id)) do |f| %>
+                <%= form_for(current_user.relationships.build(followed_id: fr.follower.id)) do |f| %>
                   <div><%= f.hidden_field :followed_id %></div>
                   <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
                 <% end %>
@@ -45,7 +43,7 @@
             </span>
           </td>
           <td>
-            <%= link_to "Remove", relationship_path(follower.relationships.find_by_followed_id(current_user)), class: "btn btn-large btn-warning", method: :delete %> <!-- equivalent to follower.unfollow!(current_user) -->
+            <%= link_to "Remove", relationship_remove_path(fr), class: "btn btn-large btn-warning", method: :delete %> <!-- equivalent to follower.unfollow!(current_user) -->
         </tr>
       </table>
       <% end %>

@@ -1,20 +1,20 @@
-	<% if @relationships.any? %>
-	 <div class="raster">
-	    <% @relationships.each do |relation| %>
-	    	<% if relation.toggled == true %>
-	  	  	<u class="raster_hover">
-	  	  		<%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put %>
-	  	  		<div class="viewing_name">
-	  	  			<%= relation.followed.first_name %>
-	  	  		</div>
-	  	  	</u>
-	  	  <% else %>
-	  	  	<u class="raster_hover"><%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put, :class => 'toggle-off' %>
-	  	  		<div class="viewing_name">
-	  	  			<%= relation.followed.first_name %>
-	  	  		</div>
-	  	  	</u>
-	  	  <% end %>
-		  <% end %>
-	  </div>
-	<% end %>
+<% if @relationships %>
+ <div class="raster">
+    <% @relationships.each do |relation| %>
+    	<% if relation.toggled == true %>
+  	  	<u class="raster_hover">
+  	  		<%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put %>
+  	  		<div class="viewing_name">
+  	  			<%= relation.followed.first_name %>
+  	  		</div>
+  	  	</u>
+  	  <% else %>
+  	  	<u class="raster_hover"><%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put, :class => 'toggle-off' %>
+  	  		<div class="viewing_name">
+  	  			<%= relation.followed.first_name %>
+  	  		</div>
+  	  	</u>
+  	  <% end %>
+	  <% end %>
+  </div>
+<% end %>

@@ -10,3 +10,5 @@ double-creating events by hitting enter twice (when trying to specify duration)-
 populating database is not creating because "Validating plan id is not there" (we solved this before by putting @event.save, and assigning an ID. I tried removing that and adding one and not the other.)
 
 not getting events on calendar -- js errors - looks like something is wacky from some of our URL streams
+
+home.html.erb - current user relationship list building to not count followed_id nil relationships, because when we're building one to fill in with form it's breaking otherwise

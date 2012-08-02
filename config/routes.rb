@@ -2,6 +2,10 @@ Shalendar::Application.routes.draw do
 
   root :to => 'static_pages#landing'
   
+  authenticated :user do
+    root :to => 'static_pages#home'
+  end
+  
 
   devise_for :users, 
              controllers:   { omniauth_callbacks: "users/omniauth_callbacks", 
@@ -14,7 +18,8 @@ Shalendar::Application.routes.draw do
                               sign_up: "join"
                             } 
 
-
+  #Autocomplete path for autocomplete gem
+  match'/autocomplete_email', to: 'shalendar#autocomplete_user_email', as: "autocomplete_email"
 
   # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
   devise_scope :user do
@@ -38,9 +43,10 @@ Shalendar::Application.routes.draw do
 
   resources :rsvps, only: [:create, :destroy]
   
-  resources :relationships, only: [:create, :destroy] do
+  resources :relationships, only: [:create, :destroy, :toggle, :remove, :comfirm] do
     put :toggle
     delete :remove
+    put :confirm
   end
 
   # match '/manage_follows/remove', :to => 'relationships#remove', :as => "remove"

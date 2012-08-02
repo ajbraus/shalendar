@@ -139,6 +139,13 @@ class User < ActiveRecord::Base
   end
   
 
+  private
+
+  def password_required? 
+    new_record? 
+  end 
+
+
   # def graph
   #   @graph ||= Koala::Facebook::API.new(self.fb_token)
   # end

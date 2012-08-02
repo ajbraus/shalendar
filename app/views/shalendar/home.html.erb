@@ -1,17 +1,24 @@
 <div class="row">
   <aside class="span2">
     <section>
-<!--     	<button class='btn btn-large btn-primary modalInput', rel='#new_event'>New</button> -->
       <%= button_to "New", new_event_path, :class => 'btn btn-large btn-primary', :method => :get %>
 
     <div class="current_user">
-      <%= medium_profile_picture(current_user) %></h3>
+      <%= medium_profile_picture(@current_user) %></h3>
 
       <%= render 'stats' %>
-      
-      <%= search_field :user, :email, :autosave => false, :value => "", :placeholder => "Search for Calendars"  %>
+
+      <%= form_tag '/relationships' do %>
+      <div class="input-append">
+          <%= autocomplete_field_tag :email, '', autocomplete_email_path %>
+          <%= submit_tag "Follow", class: "btn-primary" %>
+      </div>
+      <% end %>
+
+      <%= render 'view_requests' %>
 
       <%= render 'raster' %>
+      
       <div class="social_friends">
       <%= link_to( (image_tag "fb.png", :size => "50x50"), find_friends_path) %>
       </div>

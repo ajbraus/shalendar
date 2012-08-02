@@ -8,17 +8,16 @@ module UsersHelper
     image_tag(gravatar_url, alt: user.name, class: "profile_picture")
   end
 
-  def fb_picture(user)
+  def fb_picture(user, options = { type: "large", })
   	fb_id = user.uid
-  	facebook_url = @graph.get_picture(fb_id)
+    type = options[:type]
+  	facebook_url = @graph.get_picture(fb_id, { type: type })
   	image_tag(facebook_url, alt: user.name, class: "profile_picture")
   end
-end
-
 
   def big_profile_picture(user)
     if user.uid != nil 
-      fb_picture(user)
+      fb_picture(user, type: "large")
     else
       gravatar_for(user, :size => 120 )
     end
@@ -26,7 +25,7 @@ end
 
   def medium_profile_picture(user)
     if user.uid != nil 
-      fb_picture(user)
+      fb_picture(user, type: "normal")
     else
       gravatar_for(user, :size => 100 )
     end
@@ -34,7 +33,7 @@ end
 
   def small_profile_picture(user)
     if user.uid != nil 
-      fb_picture(user)
+      fb_picture(user, type: "small")
     else
       gravatar_for(user, :size => 45 )
     end
@@ -42,17 +41,13 @@ end
 
   def raster_profile_picture(user)
     if user.uid != nil 
-      fb_picture(user)
+      fb_picture(user, type: "square")
     else
       gravatar_for(user, :size => 30 )
     end
   end 
 
-  # def medium_profile_picture(user)
-  #   if user.uid != nil
-  #     fb_picture(user)
-  #   else
-  #     gravatar_for(user)
+end
 
 # add if statement for paperclip/gravatar/FB picture.
 # "display profile pic method"

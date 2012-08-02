@@ -4,7 +4,9 @@
     <br>
   <h2>General Settings</h2>
     <%= big_profile_picture(current_user) %>
-    <p><a href="http://gravatar.com/emails">Update Profile Picture?</a></p>
+    <% if current_user.uid == nil %>
+    <p><a href="http://gravatar.com/emails">Add or Update Gravatar Picture</a></p>
+    <% end %>
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
       <%= devise_error_messages! %>
       <p>
@@ -28,9 +30,12 @@
         <label for="notify_event_reminders"><strong>Remind me, please</strong> - Recieve reminders for your upcomming plans.</label>
       </p>
       <br>
+      
+<% if false %>
       <h2>Personal Settings</h2>
       <div><%= f.label :name %><br />
       <%= f.text_field :name %></div>
+
 
       <div><%= f.label :email %><br />
       <%= f.email_field :email %></div>
@@ -43,6 +48,7 @@
 
       <div><%= f.label :current_password %><br />
       <%= f.password_field :current_password %></div>
+<% end %>
 
       <div><%= f.submit "Update", :class => "btn btn-large btn-warning" %></div>
     <% end %>
