@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "comments/new" do
+describe "event/2" do
   before(:each) do
     assign(:comment, stub_model(Comment,
       :content => "MyString",

@@ -43,7 +43,7 @@ module UsersHelper
     if user.uid != nil 
       fb_picture(user, type: "square")
     else
-      gravatar_for(user, :size => 30 )
+      gravatar_for(user, :size => 40 )
     end
   end 
 

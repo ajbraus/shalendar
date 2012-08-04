@@ -1,6 +1,10 @@
 @import "bootstrap";
+@import "font-awesome";
 
 /* mixins, variables, etc. */
+
+/* $background_one: ;*/
+$accent_one: #00B8CC;
 
 $grayMediumLight: #eaeaea;
 
@@ -161,6 +165,23 @@ margin-right: 0;
     position: relative;
   }
 }
+
+nav div {
+  padding-right:40px;
+  a {
+    color:white;
+    text-decoration: none;
+    font-size: 1.8em;
+    padding:5px;
+    position: relative;
+    top: 13px;
+    }
+  a:hover {
+    color:#00B8CC ;
+    text-decoration: none;
+  }
+}
+
 
 .navbar {
 overflow: visible;
@@ -504,15 +525,14 @@ aside {
   padding:25px;
   width:900px;
   float:center;
-  height:620px;
+  height:600px;
 }
 
 .user_table {
   font-size: 15px;
   margin-top:30px;
-  height:250px;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  height:220px;
+  overflow:hidden;
    table {
     width:50%;
     float:left;
@@ -682,4 +702,10 @@ footer {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+}
+
+.search {
+  float:right;
+  position: relative;
+  top:30px;
 }

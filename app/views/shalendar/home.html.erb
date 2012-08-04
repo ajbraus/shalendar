@@ -8,12 +8,7 @@
 
       <%= render 'stats' %>
 
-      <%= form_tag '/relationships' do %>
-      <div class="input-append">
-          <%= autocomplete_field_tag :email, '', autocomplete_email_path %>
-          <%= submit_tag "Follow", class: "btn-primary" %>
-      </div>
-      <% end %>
+      <%= render 'search' %>
 
       <%= render 'view_requests' %>
 

@@ -29,13 +29,14 @@ ActiveRecord::Schema.define(:version => 20120731191754) do
     t.string   "title"
     t.string   "description"
     t.string   "location"
-    t.datetime "created_at",                                                    :null => false
-    t.datetime "updated_at",                                                    :null => false
+    t.datetime "created_at",                                                          :null => false
+    t.datetime "updated_at",                                                          :null => false
     t.integer  "user_id"
-    t.integer  "min",                                        :default => 1
-    t.integer  "max",                                        :default => 10000
+    t.integer  "min",                                              :default => 1
+    t.integer  "max",                                              :default => 10000
     t.string   "map_location"
-    t.decimal  "duration",     :precision => 2, :scale => 2
+    t.boolean  "friends_of_friends",                               :default => true
+    t.decimal  "duration",           :precision => 2, :scale => 2
     t.string   "visibility"
   end
 

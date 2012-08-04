@@ -12,19 +12,28 @@ Name:
 
 	ADAM//////
 
-	check if follow works
 
-	PG
+	add Jquery validations for search
+
+	follow someone with the autocomplete that you are already following -- sql error
+	SQLite3::ConstraintException: constraint failed: INSERT INTO "relationships" ("confirmed", "created_at", "followed_id", "follower_id", "toggled", "updated_at") VALUES (?, ?, ?, ?, ?, ?)
+
+	don't auto-complete completely and enter garbage into the field error
+
+
+	buy hughsin.com, change twitter handel, facebook page/app, google analytics, heroku
+	add DNS to hughsin.com
+
+
+	Add city to signup
 
 	facebook only signup
 
-	Search in manage follows
+	have session destroy controller method also kill the facebook session
 
 	event#show
 
 	calendar colors
-
-	Add google analytics
 
 	Update follow/unfollow button to say "Requested" "Follow" "Unfollow"
 	Manage follows -- pending follows, requested follows
@@ -34,12 +43,6 @@ Name:
 	easter photo size
 
 	Blue
-
-
-	follow someone with the autocomplete that you are already following -- sql error
-	SQLite3::ConstraintException: constraint failed: INSERT INTO "relationships" ("confirmed", "created_at", "followed_id", "follower_id", "toggled", "updated_at") VALUES (?, ?, ?, ?, ?, ?)
-
-	don't auto-complete completely and enter garbage into the field error
 
 
 	Post to facebook wall . . . not for private events. post to rsvps facebook wall of friends of RSVPs
@@ -86,6 +89,7 @@ Name:
 			rsvp/unrsvp
 			toggle/untoggle
 			comments
+			confirms - remove follower, cancel account
 
 
 		Event#show
@@ -102,6 +106,8 @@ Name:
 
 	MIKE//////
 
+
+		friends_of_friends? is no longer a boolean so the logic of events needs to be fixed to reflect 'visibility'
 
 		untipped events -- cancelling them 2 hours ahead
 		
@@ -132,7 +138,9 @@ Only owners of events can edit events
 
 AFTER LAUNCH
 	
-	Twitter & google (at least add contacts from google)
+
+	Twitter & google (at least add contacts from google) (add an Authentications model and then connect all the users through this) 
+	save image and access tokens in database and then update them upon login.
 	Text messages for reminders to go to events your RSVPd to
 	Tests/refactoring
 	Mobile dev

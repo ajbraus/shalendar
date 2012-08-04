@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe TokenAuthenticationsController do
+describe Api::V1::TokenAuthenticationsController do
 
 end

@@ -1,5 +1,12 @@
+<%= form_tag '/relationships' do %>
+  <div class="input-append search">
+      <%= autocomplete_field_tag :email, '', autocomplete_email_path, class:"span3", id:"appendedInputButton" %>
+      <%= submit_tag icon('search'), class: "btn-primary", style:"width:37px;" %>
+  </div>
+<% end %>
+
 <div id="follow_list">
-  <h1>Following</h1>
+  <h2>Viewing</h2>
   <div class="user_table">
       <% @followed_user_relationships.each do |fur| %>
       <table>       
@@ -20,7 +27,7 @@
   </div>
 
 
-  <h1>Followers</h1>
+  <h2>Viewers</h2>
   <div class="user_table">
     <% @follower_relationships.each do |fr| %>
     <table>        
@@ -43,7 +50,7 @@
             </span>
           </td>
           <td>
-            <%= link_to "Remove", relationship_remove_path(fr), class: "btn btn-large btn-warning", method: :delete %> <!-- equivalent to follower.unfollow!(current_user) -->
+            <%= link_to "Remove", relationship_remove_path(fr), class: "btn btn-large btn-warning", method: :delete, confirm: "#{fr.follower.name} so they will not be able to view your ideas?" %> <!-- equivalent to follower.unfollow!(current_user) -->
         </tr>
       </table>
       <% end %>

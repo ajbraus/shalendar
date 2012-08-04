@@ -9,8 +9,8 @@ class ShalendarController < ApplicationController
 		@relationships = current_user.relationships
 		@access_token = session[:fb_access_token]
   	@graph = Koala::Facebook::API.new(@access_token)
-  	@view_requests = Relationship.where('relationships.followed_id = :current_user_id AND 
-  																				relationships.confirmed = "f"', current_user_id: current_user.id)
+  	@view_requests = Relationship.where("relationships.followed_id = :current_user_id AND 
+  																				relationships.confirmed = 'f'", current_user_id: current_user.id)
 	end
 
 	def manage_follows

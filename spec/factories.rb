@@ -9,4 +9,10 @@ FactoryGirl.define do
 	factory :event do
 		user
 	end
+
+	factory :comment do
+		creator 'Test User'
+		content 'Ill be 10 min late'
+	end
+	
 end

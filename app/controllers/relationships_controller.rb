@@ -36,7 +36,8 @@ before_filter :authenticate_user!
   def destroy
     @user = Relationship.find(params[:id]).followed
     current_user.unfollow!(@user)
-    redirect_to :back, notice: "#{@user.name} can no longer view your ideas"
+    redirect_to :back, 
+                notice: "#{@user.name} can no longer view your ideas"
   end
 
 
@@ -45,7 +46,8 @@ before_filter :authenticate_user!
     @relationship = Relationship.find(params[:relationship_id])
     @follower = @relationship.follower
     @follower.unfollow!(current_user)
-    redirect_to :back, notice: "#{@follower.name} can no longer view your ideas"
+    redirect_to :back, 
+                notice: "#{@follower.name} can no longer view your ideas"
   end
 
   def toggle

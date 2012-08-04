@@ -23,36 +23,91 @@
     <script type="text/javascript">
       var user_id = <%= current_user %>;
     </script>
+
+<!-- google analytics --> 
+
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-32631199-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+
+    <!-- remove the junk FB adds to the end of the URL -->
+    <script type="text/javascript">
+
+    </script>
+
   </head>
   <body>
-    <div id="fb-root"></div>
-      <script>
-        // window.fbAsyncInit = function () {
-        //     FB.init({
-        //         appId: '327936950625049', // App ID
-        //         channelUrl : '//localhost:3000/channel.html', // Channel File
-        //         status: true, // check login status
-        //         cookie: true, // enable cookies to allow the server to access the session
-        //         xfbml: true // parse XFBML
-        //     });
 
-        //     FB.login(function (response) {
-        //         if (response.session) {
-        //             location.href = '/'
-        //         } else {
-        //             location.href = '/users/sign_up'
-        //         }
-        //     });
-        // };
-        // //Load the SDK Asynchronously
-        // (function(d){
-        //    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-        //    if (d.getElementById(id)) {return;}
-        //    js = d.createElement('script'); js.id = id; js.async = true;
-        //    js.src = "//connect.facebook.net/en_US/all.js";
-        //    ref.parentNode.insertBefore(js, ref);
-        //  }(document)
-        //  );
+    <div id="fb-root"></div>
+          <script>
+      // Load the SDK Asynchronously
+      (function(d){
+         var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement('script'); js.id = id; js.async = true;
+         js.src = "//connect.facebook.net/en_US/all.js";
+         ref.parentNode.insertBefore(js, ref);
+       }(document));
+
+      // Init the SDK upon load
+      window.fbAsyncInit = function () {
+          FB.init({
+              appId: '327936950625049', // App ID
+              channelUrl : '//localhost:3000/channel.html', // Channel File
+              status: true, // check login status
+              cookie: true, // enable cookies to allow the server to access the session
+              xfbml: true // parse XFBML
+          });
+
+        // listen for and handle auth.statusChange events
+        FB.Event.subscribe('auth.statusChange', function(response) {
+          if (response.authResponse) {
+            // user has auth'd your app and is logged into Facebook
+            FB.api('/me', function(me){
+              if (me.name) {
+                document.getElementById('auth-displayname').innerHTML = me.name;
+              }
+            })
+            document.getElementById('auth-loggedout').style.display = 'none';
+            document.getElementById('auth-loggedin').style.display = 'block';
+          } else {
+            // user has not auth'd your app, or is not logged into Facebook
+            document.getElementById('auth-loggedout').style.display = 'block';
+            document.getElementById('auth-loggedin').style.display = 'none';
+          }
+        });
+
+        // respond to clicks on the login and logout links
+        document.getElementById('auth-loginlink').addEventListener('click', function(){
+          FB.login(function(response) {
+            if(response.authResponse) {
+              window.location = "/user/auth/facebook/callback"
+              }
+          }, {scope: "email"});
+        });
+        document.getElementById('auth-logoutlink').addEventListener('click', function(){
+          FB.logout();
+        }); 
+      } 
+
+
+// trying to logout and then redirect to /user/logout/ to kill the native session
+        // document.getElementById('auth-logoutlink').addEventListener('click', function(){
+        //   FB.logout(function(response) {
+        //     window.location = "/user/logout"
+        //   });
+        // }); 
+        //}
       </script>
 
 
