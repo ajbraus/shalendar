@@ -4,7 +4,7 @@ before_filter :authenticate_user!
   def create
     @user = User.find(params[:relationship][:followed_id])
     if @user.require_confirm_follow
-      Notifier.confirm_follow(@user, current_user)
+      Notifier.confirm_follow(@user, current_user).deliver
       #flash[:notice] "Follow Request Sent"
       #Hold relationship to be confirmed somewhere (maybe a confirm_relationships table)
     else

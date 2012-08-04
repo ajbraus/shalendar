@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '1.9.3'
+#ruby '1.9.3'
 gem 'rails', '3.2.6'
 gem 'debugger'
 
@@ -18,6 +18,8 @@ gem 'thin'
 gem 'chronic'
 
 gem 'heroku'
+
+gem 'whenever', :require => false
 
 gem 'pry'
 gem 'pry-nav'

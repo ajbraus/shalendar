@@ -30,6 +30,20 @@ class Notifier < ActionMailer::Base
     mail bcc: @guest_emails, subject: "Your event #{event.title} has been canceled!"
   end
 
+  def reminder(event)
+    @guests = event.guests
+
+    @guest_emails = []
+
+    @guests.each do |g|
+      @guest_emails.push(g.email)
+    end
+
+    @guest_emails.join('; ')
+
+    mail bcc: @guest_emails, subject: "Your event #{event.title} begins in 2 hours!"
+  end
+
   def invitation(user, event)
 
 

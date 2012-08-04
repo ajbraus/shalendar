@@ -62,13 +62,11 @@ Google adsense on event#show - pay to get rid of
 
 //////////////////Mike
 
-INVITATIONS
-	Invitations are like RSVPs, but rather than user->event, they're event->user
-	Invitations really only matter because they make private events show up on certain followers' feeds... that plus they send an email notification. Do we allow invitations for non-private events (ostensibly to send the email)? Sending the email is good... but actually creating the invitation is a pain in the ass because then we have to filter it out of the maybes for it not to show up twice.
+Run 'whenever --update-crontab *title*' from command line to make schedule.rb work, each time we change our cron jobs.
 
-	Right now invitation logic is only fully working if they are only allowed for private events
-	
-	Still need to test invitations, and creating invitations from the view... which is a little tricky because we want to select a bunch of invitations and then do them all at once, rather than a one-time button with redirect like RSVP.
+Check through all notification stuff, make sure always sent and not double
+
+Go through all app logic; test (QA)
 
 
 

@@ -305,10 +305,6 @@ class EventsController < ApplicationController
       if @event.save
         current_user.rsvp!(@event)
 
-        # if @event.invite?
-        #   Notifier.send_invites(@event)
-        # end
-
         format.html { redirect_to root_path }
         format.json { render json: root_path, status: :created, location: @event }
       else
@@ -349,7 +345,7 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
 
-    Notifier.cancellation(@event).deliver
+    #Notifier.cancellation(@event).deliver
 
     @event.destroy
 
