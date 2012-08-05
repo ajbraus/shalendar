@@ -10,9 +10,13 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
+# Ignore the database
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
 
 # Ignore DS_Store
 .DS_Store
+
+# /config/database.yml

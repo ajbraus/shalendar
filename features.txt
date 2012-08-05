@@ -1,5 +1,9 @@
 Features
 
+	Follow
+	follow confirmation
+	remove follow
+	unfollow
 
 
 Notifiers:
@@ -13,3 +17,4 @@ Notifiers:
 	User Settings
 		Confirmation of follow notification - one follow Relationship#create
 		Event Update, all RSVPs, Event#update, Comment#create (new comment, description change, map added, etc.)
+

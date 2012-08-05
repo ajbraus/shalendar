@@ -2,16 +2,14 @@ source 'https://rubygems.org'
 
 #ruby '1.9.3'
 gem 'rails', '3.2.6'
-gem 'debugger'
 
 gem 'bootstrap-sass', '2.0.0'
-gem 'bcrypt-ruby', '3.0.1'
-gem 'faker', '1.0.1'
-gem 'will_paginate', '3.0.3'
-gem 'bootstrap-will_paginate', '0.0.6'
+
+# gem 'will_paginate', '3.0.3'
+# gem 'bootstrap-will_paginate', '0.0.6'
 
 gem 'devise', '2.1.0'
-gem 'omniauth-facebook'
+gem 'omniauth-facebook', '1.4.0'
 gem 'koala'
 
 gem 'thin'
@@ -22,17 +20,18 @@ gem 'heroku'
 gem 'whenever', :require => false
 
 gem 'pry'
-gem 'pry-nav'
-gem 'pry-remote'
+gem 'pry-debugger'
 
-group :production do
-  gem 'pg', '0.12.2'
-end
+gem 'rails3-jquery-autocomplete'
 
+# gem "recaptcha", :require => "recaptcha/rails"
+
+gem 'pg'
+gem 'sqlite3', '1.3.5'
 
 
 group :development, :test do
-  gem 'sqlite3', '1.3.5'
+  gem 'faker', '1.0.1'
   gem 'rspec-rails', '2.10.1'
 end
 
@@ -44,11 +43,13 @@ group :assets do
   gem 'sass-rails',   '3.2.4'
   gem 'coffee-rails', '3.2.2'
   gem 'uglifier', '1.2.3'
+  gem 'font-awesome-sass-rails'
 end
 
 gem 'jquery-rails', '2.0.0'
 
 group :test do
+  gem 'faker', '1.0.1'
   gem 'capybara', '1.1.2'
 	gem 'factory_girl_rails', '1.4.0'
 	gem 'email_spec', '1.2.1'

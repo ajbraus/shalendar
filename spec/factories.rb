@@ -1,7 +1,6 @@
 FactoryGirl.define do
 	factory :user do
-		first_name 'User'
-    sequence(:last_name)  { |n| "Number #{n}" }
+    sequence(:name)  { |n| "User Number #{n}" }
     sequence(:email) { |n| "person_#{n}@example.com"} 
 		password 'please'
 		password_confirmation 'please'
@@ -10,4 +9,10 @@ FactoryGirl.define do
 	factory :event do
 		user
 	end
+
+	factory :comment do
+		creator 'Test User'
+		content 'Ill be 10 min late'
+	end
+	
 end

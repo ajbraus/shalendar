@@ -4,11 +4,13 @@
   <h2>
   	What do you have to share?
   </h2>
-
+<% if false %>
   <%= link_to "Sign up now!", new_user_registration_path , class: "btn btn-large btn-success" %>
-  <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
 
-<div class="fb-login-button" scope="user_location, friends_location, user_events">Login with Facebook</div>
+<% end %>
 
+
+      <div id="auth-status">
+          <a href="#" id="auth-loginlink" class="fb-login-button">Use Facebook to Login</a>
+      </div>
 </div>
-

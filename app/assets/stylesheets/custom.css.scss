@@ -1,6 +1,10 @@
 @import "bootstrap";
+@import "font-awesome";
 
 /* mixins, variables, etc. */
+
+/* $background_one: ;*/
+$accent_one: #00B8CC;
 
 $grayMediumLight: #eaeaea;
 
@@ -14,6 +18,10 @@ $grayMediumLight: #eaeaea;
 
 html {
   overflow-y: scroll;
+}
+
+u {
+  text-decoration: none;
 }
 
 section {
@@ -67,6 +75,10 @@ font-size: 22px;
 p {
   font-size: 1.1em;
   line-height: 1.7em;
+}
+
+ul, li {
+  list-style: none;
 }
 
 .btn-primary {
@@ -153,6 +165,23 @@ margin-right: 0;
     position: relative;
   }
 }
+
+nav div {
+  padding-right:40px;
+  a {
+    color:white;
+    text-decoration: none;
+    font-size: 1.8em;
+    padding:5px;
+    position: relative;
+    top: 13px;
+    }
+  a:hover {
+    color:#00B8CC ;
+    text-decoration: none;
+  }
+}
+
 
 .navbar {
 overflow: visible;
@@ -317,6 +346,10 @@ input, textarea, .uneditable-input {
   input[type=checkbox]{
     width:28px;
   }
+}
+
+#recaptcha {
+  margin-left:25px;
 }
 
 #sign_in {
@@ -492,15 +525,14 @@ aside {
   padding:25px;
   width:900px;
   float:center;
-  height:620px;
+  height:600px;
 }
 
 .user_table {
   font-size: 15px;
   margin-top:30px;
-  height:250px;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  height:220px;
+  overflow:hidden;
    table {
     width:50%;
     float:left;
@@ -645,5 +677,35 @@ footer {
 }
 
 .social_friends {
-  margin-top:250px;
+}
+
+.raster {
+  height:330px;
+  overflow-y:auto;
+}
+
+.viewing_name {
+  position: absolute;
+  left:50px;
+  background-color: white;
+  padding:0 5px;
+  z-index: 100;
+  display:none;
+  width:auto;
+  height:30px;
+  -webkit-box-shadow: .5px 2.5px 13px rgba(50, 50, 50, 0.33);
+  -moz-box-shadow:    .5px 2.5px 13px rgba(50, 50, 50, 0.33);
+  box-shadow:         .5px 2.5px 13px rgba(50, 50, 50, 0.33);
+  line-height: 30px;
+  font-family: verdana;
+  font-size: 15px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.search {
+  float:right;
+  position: relative;
+  top:30px;
 }

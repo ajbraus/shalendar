@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726033802) do
+ActiveRecord::Schema.define(:version => 20120731191754) do
+
+  create_table "comments", :force => true do |t|
+    t.string   "content"
+    t.string   "creator"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "comments", ["event_id"], :name => "index_comments_on_event_id"
 
   create_table "events", :force => true do |t|
     t.datetime "starts_at"
@@ -19,26 +29,25 @@ ActiveRecord::Schema.define(:version => 20120726033802) do
     t.string   "title"
     t.string   "description"
     t.string   "location"
-    t.datetime "created_at",                                                    :null => false
-    t.datetime "updated_at",                                                    :null => false
+    t.datetime "created_at",                                                          :null => false
+    t.datetime "updated_at",                                                          :null => false
     t.integer  "user_id"
-    t.integer  "min",                                        :default => 1
-    t.integer  "max",                                        :default => 10000
+    t.integer  "min",                                              :default => 1
+    t.integer  "max",                                              :default => 10000
     t.string   "map_location"
-    t.decimal  "duration",     :precision => 2, :scale => 2
+    t.boolean  "friends_of_friends",                               :default => true
+    t.decimal  "duration",           :precision => 2, :scale => 2
     t.string   "visibility"
   end
 
-  create_table "invitations", :force => true do |t|
-    t.integer  "invited_user_id"
-    t.integer  "pending_plan_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+  create_table "invites", :force => true do |t|
+    t.string   "email"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "invitations", ["invited_user_id", "pending_plan_id"], :name => "index_invitations_on_invited_user_id_and_pending_plan_id", :unique => true
-  add_index "invitations", ["invited_user_id"], :name => "index_invitations_on_invited_user_id"
-  add_index "invitations", ["pending_plan_id"], :name => "index_invitations_on_pending_plan_id"
+  add_index "invites", ["event_id"], :name => "index_invites_on_event_id"
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
@@ -46,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20120726033802) do
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
     t.boolean  "toggled",     :default => true
+    t.boolean  "confirmed"
   end
 
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
@@ -63,28 +73,38 @@ ActiveRecord::Schema.define(:version => 20120726033802) do
   add_index "rsvps", ["guest_id"], :name => "index_rsvps_on_guest_id"
   add_index "rsvps", ["plan_id"], :name => "index_rsvps_on_plan_id"
 
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "",   :null => false
-    t.string   "encrypted_password",     :default => "",   :null => false
+    t.string   "email",                     :default => "",    :null => false
+    t.string   "encrypted_password",        :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",             :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
-    t.string   "first_name"
-    t.string   "last_name"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.boolean  "terms"
     t.string   "provider"
     t.string   "uid"
-    t.boolean  "require_confirm_follow", :default => true
-    t.boolean  "daily_digest",           :default => true
-    t.boolean  "notify_event_reminders", :default => true
-    t.boolean  "notify_on_invite",       :default => true
+    t.boolean  "require_confirm_follow",    :default => true
+    t.boolean  "notify_noncritical_change", :default => false
+    t.boolean  "daily_digest",              :default => true
+    t.boolean  "notify_event_reminders",    :default => true
+    t.string   "name"
+    t.string   "authentication_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

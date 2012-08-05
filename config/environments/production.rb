@@ -17,11 +17,18 @@ Shalendar::Application.configure do
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
 
-  config.action_mailer.default_url_options = { :host => 'warm-samurai-8582.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'calenshare.herokuapp.com' }
 
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  # Recaptcha
+  # Recaptcha.configure do |config|
+  # config.public_key  = '6LchmNQSAAAAAKubzPrT2otskw6b8OMLJ9blmAPU' #calenshare.com
+  # config.private_key = '6LchmNQSAAAAAKncSmn87x7wALWus5MYgjfv8I_n'
+  # end
+
+  
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 

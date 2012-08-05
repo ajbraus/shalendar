@@ -30,3 +30,44 @@ No following maybes
     add_column :users, :fb_token, :string
   end
 end
+
+
+
+show details of daily events with this
+
+$(.dayDetails).hide();
+
+$('.day').hover(function(){
+  $(this).next('.dayDetails').show();
+  },
+  $(this).next('.dayDetails').hide();
+});
+
+$(.eventDetails).hide();
+$('.event').hover(function(){
+  $(this)next('.eventDetails').show();
+  },
+  $(this).next('eventDetails').hide();
+});
+
+overlay for new event form could be with a toggle call
+
+$('new_event_button').toggle(function(){
+  $(#new_event_form).show(); // with overlay jquery formatting
+  },
+  $(#new_event_form).hide();
+)};
+
+
+add qTip to event for deets
+
+http://arshaw.com/fullcalendar/docs/event_rendering/eventRender/
+
+    eventRender: function(event, element) {
+        element.qtip({
+            content: event.description
+        });
+    }
+
+
+<div id="recaptcha"><%= recaptcha_tags display: { theme: 'white' }, ajax: true %></div>

@@ -35,8 +35,8 @@
    <table id="guest_raster">
     <% @guests.each do |guest| %>
     	<tr>
-        <td><%= link_to gravatar_for(guest, size: 30) %></td>
-        <td><%= guest.fullname %></td>
+        <td><%= link_to raster_profile_picture(guest) %></td>
+        <td><%= guest.name %></td>
         <% unless current_user == guest %>
         <td id="follow_form">
           <% if current_user.following?(guest) %>
@@ -54,8 +54,27 @@
         <% end %>
   	<% end %>
     </table>
-    <%= render 'rsvp_form' %>
-    <%= render 'nav_buttons' %>
+
+    <div id="comments_form">
+      <%= render partial: 'comments_form' %>
+    </div>
+
+    <div id="comments">
+      <%= render :partial => 'comments/comment', collection: @comments %>
+    </div>
+
+    <div id="invites_form">
+      <%= render partial: 'invites_form' %>
+    </div>
+
+    <div id="invites">
+      <%= render partial: 'invites/invite', collection: @invites %>
+    </div>
+
+    <div>
+      <%= render 'rsvp_form' %>
+      <%= render 'nav_buttons' %>
+    </div>
   </div>
 
 

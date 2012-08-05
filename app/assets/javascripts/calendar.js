@@ -12,8 +12,9 @@ $(document).ready(function() {
             right: 'month,agendaWeek,agendaDay'
     },
     editable: true, 
-    selectable:true,
-    selectHelper:true,
+    selectable: false,
+    selectHelper: false,
+    allDaySlot: false,
     defaultView: 'agendaWeek',
     height: 610,
     slotMinutes: 30,
@@ -90,12 +91,12 @@ $(document).ready(function() {
     timeFormat: 'h:mm t{ - h:mm t} ',
     dragOpacity: "0.5",
     
-    // //http://arshaw.com/fullcalendar/docs/event_ui/eventDrop/
+    //http://arshaw.com/fullcalendar/docs/event_ui/eventDrop/
     eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
         updateEvent(event);
     },
 
-    // // http://arshaw.com/fullcalendar/docs/event_ui/eventResize/
+    // http://arshaw.com/fullcalendar/docs/event_ui/eventResize/
     eventResize: function(event, dayDelta, minuteDelta, revertFunc){
         updateEvent(event);
     },
@@ -107,6 +108,15 @@ $(document).ready(function() {
     // http://arshaw.com/fullcalendar/docs/mouse/eventClick/
     eventClick: function(event, jsEvent, view){
       // would like a lightbox here.
+    },
+
+    dayClick: function(date, allDay, jsEvent, view) {
+        // alert('Clicked on the slot: ' + date);
+        // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);   
+        // alert('Current view: ' + view.name);
+
+    // change the day's background color just for fun
+    $(this).css('background-color', 'blue');
     },
   });
 });
@@ -130,6 +140,6 @@ function createEvent(startDate, endDate) {
           starts_at: startDate,
           ends_at: endDate
         },
-        function (reponse) { alert('successfully created task.'); }
+        function (reponse) { alert('successfully created event.'); }
      ); 
 };

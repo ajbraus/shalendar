@@ -1,26 +1,52 @@
 Shalendar::Application.routes.draw do
-  authenticated :user do
-    root :to => 'shalendar#home'
-  end
 
   root :to => 'static_pages#landing'
+  
+  authenticated :user do
+    root :to => 'static_pages#home'
+  end
+  
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, 
+             controllers:   { omniauth_callbacks: "users/omniauth_callbacks", 
+                            registrations: "registrations",
+                            sessions: "sessions"
+                            }, 
+             path: "user",
+             path_names:    { sign_in: "login",
+                              sign_out: "logout", 
+                              sign_up: "join"
+                            } 
+
+  #Autocomplete path for autocomplete gem
+  match'/autocomplete_email', to: 'shalendar#autocomplete_user_email', as: "autocomplete_email"
 
   # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+
+    namespace :api do
+      namespace :v1 do
+        resources :token_authentications, :only => [:create, :destroy]
+        resources :sessions, :only => [:create, :destroy]
+      end
+    end
   end
 
   match '/manage_follows', :to => 'shalendar#manage_follows', :as => "manage_follows"
 
-  resources :events
+  resources :events do
+    resources :comments, only: [:create, :destroy]
+    resources :invites, only: [:create, :destroy]
+  end
+  
 
   resources :rsvps, only: [:create, :destroy]
   
-  resources :relationships, only: [:create, :destroy] do
+  resources :relationships, only: [:create, :destroy, :toggle, :remove, :comfirm] do
     put :toggle
     delete :remove
+    put :confirm
   end
 
   # match '/manage_follows/remove', :to => 'relationships#remove', :as => "remove"
@@ -28,6 +54,7 @@ Shalendar::Application.routes.draw do
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/contact', :to => 'static_pages#contact', :as => "contact"
+  match '/home', to: 'shalendar#home', as: "home"
   
   match '/my_invitations', :to => 'events#my_invitations', :as => "my_invitations"
   match '/my_events', :to => 'events#my_events', :as => "my_events"

@@ -1,15 +1,15 @@
  require 'chronic'
 class Event < ActiveRecord::Base
-  
   # after_destroy :send_cancellation
 
   belongs_to :user
   
+  has_many :comments, dependent: :destroy
+
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
   has_many :guests, through: :rsvps
 
-  has_many :invitations, foreign_key: "pending_plan_id", dependent: :destroy
-  has_many :invited_users, through: :invitations
+  has_many :invites, dependent: :destroy
 
   attr_accessible :description, 
                   :location, 
@@ -21,14 +21,24 @@ class Event < ActiveRecord::Base
                   :max, 
                   :map_location,
                   :chronic_starts_at,
-                  :chronic_ends_at
+                  :chronic_ends_at,
+                  :visibility
 
 
   validates :user_id,
             :title,
             :starts_at,
+            :chronic_starts_at,
             :ends_at, 
             :duration, presence: true
+
+  validates :max, numericality: { in: 1..10000, only_integer: true }
+  validates :min, numericality: { in: 1..10000, only_integer: true }
+  validates :duration, numericality: { in: 0..1000 } 
+
+  validates :title, length: { maximum: 140 }
+  validates :description, length: { maximum: 250 }
+  validates :location, length: { maximum: 70 }
 
   #from bokmann fullcalendar event model
   scope :before, lambda {|end_time| {:conditions => ["ends_at < ?", Event.format_date(end_time)] }}
@@ -90,13 +100,17 @@ class Event < ActiveRecord::Base
 
   #For Refactoring Invites to be unconfirmed RSVPs
   
-  def invite!(user)
-    invitations.create!(invited_user_id: user.id, pending_plan_id: self.id)
-  end
+  # def min
+  #   if min == nil
+  #     min = 1
+  #   end
+  # end
 
-  def uninvite!(user)
-    invitations.find_by_invited_user_id(user.id).destroy
-  end
+  # def max
+  #   if max == nil
+  #     max = 10000
+  #   end
+  # end
 
   
     
