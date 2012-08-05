@@ -1,14 +1,12 @@
 BUGS
 
-<<<<<<< HEAD
 Had to take Notifier.cancelation out of destroy call; need to call every time we cancel from the calling controller, CHECK THIS OUT
 
 Don't know how to scope an event array, and need to figure out correct SQL calls. Refactor Event Filtering from Ruby->ActiveRecord
 	Full + Tipped bool on events model
-=======
+
 AFTER LAUNCH
 maybe_events doesn't work with (full-calendar) scope calls on after, before
->>>>>>> f476af9a1219dbb784aa4bbba4a0d9733c4f9c37
 
 With notifier for event_noncritical_change, which means any update to event other than starts_at, it will send even if nothing was changed but the edit/update controller action was called...
 
@@ -18,7 +16,6 @@ populating database is not creating because "Validating plan id is not there" (w
 
 not getting events on calendar -- js errors - looks like something is wacky from some of our URL streams
 
-<<<<<<< HEAD
 google icon is tiny and squished
 
 With notifier for event_noncritical_change, which means any update to event other than starts_at, it will send even if nothing was changed but the edit/update controller action was called... AND need to add to comment#create when we make that
@@ -42,6 +39,6 @@ Week always shows Sunday-Saturday on current week
 --------In event controller viewing logic
 	doesn't show if somebody has made an event but un-RSVPd
 	also, is adding event multiple times to JSON feed if more than one friend is RSVPd... does this matter?
-=======
+
 home.html.erb - current user relationship list building to not count followed_id nil relationships, because when we're building one to fill in with form it's breaking otherwise
->>>>>>> f476af9a1219dbb784aa4bbba4a0d9733c4f9c37
+

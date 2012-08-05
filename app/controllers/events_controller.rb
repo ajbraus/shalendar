@@ -389,7 +389,6 @@ class EventsController < ApplicationController
     end
 
   end
-<<<<<<< HEAD
 
   def show
     @event = Event.find(params[:id])
@@ -479,6 +478,4 @@ class EventsController < ApplicationController
       format.json { head :no_content }
     end
   end
-=======
->>>>>>> f476af9a1219dbb784aa4bbba4a0d9733c4f9c37
 end

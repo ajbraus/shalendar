@@ -29,7 +29,6 @@ class Notifier < ActionMailer::Base
     mail bcc: @guest_emails, subject: "Your event #{event.title} has been canceled!"
   end
 
-<<<<<<< HEAD
   def reminder(event)
     @guests = event.guests
 
@@ -44,14 +43,10 @@ class Notifier < ActionMailer::Base
     mail bcc: @guest_emails, subject: "Your event #{event.title} begins in 2 hours!"
   end
 
-  def invitation(user, event)
 
-
-    mail to: user.email, subject: "Hello #{user.fullname}, you've been invited to #{event.title}; visit www.calenshare.com/events/#{event.id}"
-=======
   def invitation(email, event)
->>>>>>> f476af9a1219dbb784aa4bbba4a0d9733c4f9c37
 
+    #should we include here an invited by X to make them more likely to join?
     if @user = User.find_by_email(email)
       mail to: @user.email, subject: "Hello, #{@user.first_name} you've been invited to #{event.title}; visit www.calenshare.com/events/#{event.id}"
     else
