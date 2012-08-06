@@ -1,15 +1,5 @@
 FOR BETA
 
-Name:
-	hughsin.com
-		hugh is a ewe... dorky w/ glasses, horns, always texting and posting on facebook but has few parties/friends 
-
-	monthface.com
-
-	whusin.com
-
-
-
 	ADAM//////
 
 	name below the picture
@@ -22,12 +12,7 @@ Name:
 	SQLite3::ConstraintException: constraint failed: INSERT INTO "relationships" ("confirmed", "created_at", "followed_id", "follower_id", "toggled", "updated_at") VALUES (?, ?, ?, ?, ?, ?)
 
 	don't auto-complete completely and enter garbage into the field error
-
-
-get mike verified and deploy to calensha.re with zerigo.
-https://devcenter.heroku.com/articles/zerigo_dns
-http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deploying-my-rails-app
-
+	
 	remove yourself -- right now you can follow yourself
 
 		Event#show

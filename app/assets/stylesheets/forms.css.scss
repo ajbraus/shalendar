@@ -1,0 +1,146 @@
+/* forms */
+
+form {
+margin: 0 0 0 0;
+}
+
+label {
+display: inline;
+margin-bottom: 0px;
+color: #333;
+}
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  padding: 10px;
+  height: auto;
+  margin-bottom: 0;
+}
+
+input[type="submit"]{
+  border: 0px solid #bbb;
+  padding: 10px;
+  height: auto;
+}
+
+input, textarea, .uneditable-input {
+  width: 420px;
+}
+
+#sign_up {
+  position:relative;
+  left:4%;
+  input {
+    font-size: 23px;
+    width:380px;
+    margin-bottom: 10px;
+    margin-top:5px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+  }
+  label {
+    font-size: 15px;
+    color: #404040;
+  }
+  input[type=checkbox]{
+    width:28px;
+  }
+}
+
+#recaptcha {
+  margin-left:25px;
+}
+
+#sign_in {
+  position:relative;
+  left:30%;
+  input {
+    font-size: 23px;
+    width:380px;
+    margin-bottom: 10px;
+    margin-top:5px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+  }
+  label {
+    font-size: 15px;
+    color: #404040;
+  }
+  input[type=checkbox]{
+    width:28px;
+  }
+}
+
+
+#event_form {
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom: 20px;
+  width:414px;
+  input, textarea, input[type=submit]{
+    font-size: 18px;
+    line-height: 24px;
+    width:414px;
+    margin-bottom: 10px;
+    margin-top:5px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+  }
+  label {
+    font-size: 15px;
+    color: #404040;
+  }
+  input[type=radio]{
+    width:18px;
+    margin-left:42px;
+  }
+  span {
+    text-decoration: none;
+    width:5%; 
+    float:left;
+    margin-right:150px;
+    margin-left:20px;
+    input {
+      width:100px;
+      text-align: center;
+    }
+  }
+  input[name="event[chronic_starts_at]"]{
+    width:305px;
+  }
+  input[name="event[duration]"] {
+    width:55px;
+    margin-left:5px;
+  }
+  label[name="duration"]{
+    margin-left:275px;
+  }
+  ul {
+    li{
+    display: inline;
+    padding-right:51px;
+    }
+  }
+}
+
+
+select {
+  width: 80px;
+}
+
+#error_explanation {
+  color: #f00;
+  ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .control-group;
+  @extend .error;
+}
+

@@ -22,6 +22,7 @@ class EventsController < ApplicationController
     @comments = @event.comments.order "created_at desc"
     @comment_created_at = @event.created_at.strftime "%l:%M%P, %A %B %e"
     @invites = @event.invites
+    @access_token = session[:fb_access_token]
     @graph = Koala::Facebook::API.new(@access_token)
 
     respond_to do |format|
