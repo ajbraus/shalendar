@@ -154,10 +154,12 @@ class EventsController < ApplicationController
       f.plans.each{ |fp| #for friends of friends events that are RSVPd for
         if fp.user == f
           @followed_events.push(fp)
-        elsif fp.friends_of_friends?
-          if f.following?(fp.user)
-            @followed_events.push(fp)
-          end
+        elsif fp.visibility == "friends_of_friends"
+          @followed_events.push(fp)
+          # For actualy 2deg separation
+          # if f.following?(fp.user)
+          #   @followed_events.push(fp)
+          # end
         end
       }
     }
@@ -270,10 +272,12 @@ class EventsController < ApplicationController
       f.plans.each{ |fp| #for friends of friends events that are RSVPd for
         if fp.user == f
           @followed_events.push(fp)
-        elsif fp.friends_of_friends?
-          if f.following?(fp.user)
-            @followed_events.push(fp)
-          end
+        elsif fp.visibility == "friends_of_friends"
+          @followed_events.push(fp)
+          # For actual 2 degree separation only:
+          # if f.following?(fp.user)
+          #   @followed_events.push(fp)
+          # end
         end
       }
     }

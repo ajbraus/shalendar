@@ -36,6 +36,8 @@ want to destroy events after they have passed... or at least destroy RSVPs / inv
 
 Week always shows Sunday-Saturday on current week
 
+If event is full, just not showing it in maybes right now
+
 --------In event controller viewing logic
 	doesn't show if somebody has made an event but un-RSVPd
 	also, is adding event multiple times to JSON feed if more than one friend is RSVPd... does this matter?
