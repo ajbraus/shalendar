@@ -1,6 +1,6 @@
 <%= form_tag '/relationships' do %>
 	<div class="input-append">
-	    <%= autocomplete_field_tag :email, '', autocomplete_email_path, class:"input-medium", id:"appendedInputButton", size:"16" %>
-	    <%= submit_tag "Search", class: "btn-primary", style:"width:37px;" %>
+	    <%= autocomplete_field_tag :email, '', autocomplete_email_path, class: "search_users" %>
+	    <%= submit_tag "View", class: "btn-primary", style:"width:49px;" %>
 	</div>
 <% end %>

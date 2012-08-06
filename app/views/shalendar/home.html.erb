@@ -1,24 +1,19 @@
-<div class="row">
-  <aside class="span2">
-    <section>
-      <%= button_to "New", new_event_path, :class => 'btn btn-large btn-primary', :method => :get %>
+<aside>
+  <%= button_to "New", new_event_path, :class => 'btn btn-large btn-primary', :method => :get %>
 
-    <div class="current_user">
-      <%= medium_profile_picture(@current_user) %></h3>
+  <div style="height:140px;"><%= medium_profile_picture(@current_user) %></div>
 
-      <%= render 'stats' %>
+  <%= render 'stats' %>
 
-      <%= render 'search' %>
+  <%= render 'search' %>
 
-      <%= render 'view_requests' %>
+  <%= render 'view_requests' %>
 
-      <%= render 'raster' %>
-      
-      <div class="social_friends">
-      <%= link_to( (image_tag "fb.png", :size => "50x50"), find_friends_path) %>
-      </div>
-    </section>
+  <%= render 'raster' %>
+  
+  <div class="social_friends">
+  <%= link_to( (image_tag "fb.png", :size => "50x50"), find_friends_path) %>
+  </div>
+</aside>
 
-  </aside>
  <div id='calendar'></div>
-</div>

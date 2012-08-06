@@ -12,6 +12,7 @@ Name:
 
 	ADAM//////
 
+	ppl who did not create events can change them!
 
 	add Jquery validations for search
 
@@ -20,57 +21,64 @@ Name:
 
 	don't auto-complete completely and enter garbage into the field error
 
+
 get mike verified and deploy to calensha.re with zerigo.
 https://devcenter.heroku.com/articles/zerigo_dns
 http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deploying-my-rails-app
 
-	buy hughsin.com, change twitter handel, facebook page/app, google analytics, heroku
-	add DNS to hughsin.com
+	remove yourself -- right now you can follow yourself
 
+		Event#show
+			display map_location
+			make a scrollable grid (not a table) for guest raster
 
-	Add city to signup
-
-	facebook only signup
-
-	have session destroy controller method also kill the facebook session
-
-	event#show
 
 	calendar colors
+
+	if event is private redirect to event, not calendar.
 
 	Update follow/unfollow button to say "Requested" "Follow" "Unfollow"
 	Manage follows -- pending follows, requested follows
 
-	if event is private redirect to event, not calendar.
-
-	easter photo size
+	buy hughsin.com, change twitter handel, facebook page/app, google analytics, heroku
+	add DNS to hughsin.com
 
 	Blue
 
+	Flash notices - no flash notices when hitting validations for new event. no flash notices when you have login troubles.	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
 
 	Post to facebook wall . . . not for private events. post to rsvps facebook wall of friends of RSVPs
 
 
 	add fb events to calenshare
 
-	google calendar "add this to calenshare"
+	About, landing, and contact page -- landing page -> Have ideas for fun, share them on Calenshare with friends and friends of friends, have fun, rinse and repeat.
 
-	don't send out notifications in dev
+		google icon is tiny and squished
+		Notification views
+
+	Add city to signup
+	
+	raster photo size
 
 	Add fb to current login, add twitter etc. 
 
 
 
 	"hidden features" - settings more clear, toggling, visibility, states of events unclear (tipped vs. untipped, idea vs. plan, idea vs. invitation )
-
+ 
 	Scope some stuff like: 
                 only: [:index, :edit, :update, :destroy, :following, :followers]
 
-	Flash notices - no flash notices when hitting validations for new event. no flash notices when you have login troubles.	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
 
-	About, landing, and contact page -- landing page -> Have ideas for fun, share them on Calenshare with friends and friends of friends, have fun, rinse and repeat.
+	Post to facebook wall . . . not for private events. post to rsvps facebook wall of friends of RSVPs
+
+	add fb events to calenshare
+
+	google calendar "add this to calenshare"
 
 
+	"hidden features" - settings more clear, toggling, visibility, states of events unclear (tipped vs. untipped, idea vs. plan, idea vs. invitation )
 
 
 
@@ -84,22 +92,15 @@ http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deployin
 
 	Views -
 		
-		google icon is tiny and squished
-		invitations- email entering + select from raster + maybe select from FB friends
-		Notification views
-
 
 		Ajaxify everything
 			follow/unfollow
 			rsvp/unrsvp
 			toggle/untoggle
 			comments
-			confirms - remove follower, cancel account
+			confirmations - remove follower, cancel account
 
 
-		Event#show
-			display map_location
-			make a scrollable grid (not a table) for guest raster
 
 	Add confirmations of follows - Make email, link from email to confirm_follow_path
 	

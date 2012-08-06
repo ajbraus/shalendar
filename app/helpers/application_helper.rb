@@ -7,7 +7,7 @@ module ApplicationHelper
     html = "<i class='icon-#{name}' "
     html += "style='font-size:#{size}em' "
     html += "></i>"
-    html.html.safe
+    html.html_safe
   end
   
   def button_icon(text, url, name, size=1.5, *options)
