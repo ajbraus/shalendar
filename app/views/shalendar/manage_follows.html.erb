@@ -1,7 +1,7 @@
 <%= form_tag '/relationships' do %>
   <div class="input-append search">
       <%= autocomplete_field_tag :email, '', autocomplete_email_path, class:"span3", id:"appendedInputButton" %>
-      <%= submit_tag icon('search'), class: "btn-primary", style:"width:37px;" %>
+      <%= submit_tag "search", class: "btn-primary", style:"width:37px;" %>
   </div>
 <% end %>
 
