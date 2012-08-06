@@ -1,7 +1,5 @@
  require 'chronic'
 class Event < ActiveRecord::Base
-  # after_destroy :send_cancellation
-
   belongs_to :user
   
   has_many :comments, dependent: :destroy
@@ -98,37 +96,24 @@ class Event < ActiveRecord::Base
     end
   end
 
-  #For Refactoring Invites to be unconfirmed RSVPs
-  
-  # def min
-  #   if min == nil
-  #     min = 1
-  #   end
-  # end
+  def check_tip_deadlines
+    @window_floor = Time.now + 1.hour + 44.minutes
+    @window_ceiling = Time.now + 2.hours
+    @relevant_events = Event.where(':window_floor <= events.start_time AND 
+                        events.start_time < :window_ceiling',
+                        window_floor: window_floor, window_ceiling: window_ceiling)
+    @relevant_events.each do |re|
 
-  # def max
-  #   if max == nil
-  #     max = 10000
-  #   end
-  # end
+    if re.tipped?
+      Notifier.reminder(re).deliver
+    else
+      re.destroy
+    end
+  end
 
-  
+
+  end
     
-
-
-  # WAS FOR doing invites as unconfirmed rsvps
-  # def confirmed_guests
-  #     User.joins('INNER JOIN rsvps ON users.id = rsvps.guest_id').
-  #           where('rsvps.plan_id = :event_id AND rsvps.confirmed = "t"',
-  #               :event_id => self.id)
-  # end
-
-  # def invited_guests
-  #       #maybe try searchign RSVP table for user/event combo and check if true
-  #     User.joins('INNER JOIN rsvps ON users.id = rsvps.guest_id').
-  #           where('rsvps.plan_id = :event_id AND rsvps.confirmed = "f"',
-  #               :event_id => self.id)
-  # end
-
+  end
 end
 
