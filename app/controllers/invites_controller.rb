@@ -1,5 +1,5 @@
 class InvitesController < ApplicationController
-
+  before_filter :authenticate_user!
   def create
     @event = Event.find(params[:event_id])
     @invite = @event.invites.build(params[:invite])

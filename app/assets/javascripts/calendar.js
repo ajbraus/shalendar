@@ -93,11 +93,15 @@ $(document).ready(function() {
     
     //http://arshaw.com/fullcalendar/docs/event_ui/eventDrop/
     eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
+        var x=window.confirm("Are you sure you would like to change this event?")
+        if (x)
         updateEvent(event);
     },
 
     // http://arshaw.com/fullcalendar/docs/event_ui/eventResize/
     eventResize: function(event, dayDelta, minuteDelta, revertFunc){
+        var x=window.confirm("Are you sure you would like to change this event?")
+        if (x)
         updateEvent(event);
     },
 

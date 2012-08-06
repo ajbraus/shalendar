@@ -99,8 +99,6 @@
           FB.logout();
         }); 
       } 
-
-
 // trying to logout and then redirect to /user/logout/ to kill the native session
         // document.getElementById('auth-logoutlink').addEventListener('click', function(){
         //   FB.logout(function(response) {
@@ -115,7 +113,9 @@
       <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>"><%= value %></div>
       <% end %>
+      
       <%= yield %>
+      
       <%= render 'layouts/footer' %>
     
   </div>

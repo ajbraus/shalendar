@@ -59,10 +59,15 @@ class EventsController < ApplicationController
         #   Notifier.send_invites(@event)
         # end
 
-        format.html { redirect_to home_path }
-        format.json { render json: home_path, status: :created, location: @event }
+        if @event.visibility == "invite_only"
+          format.html { redirect_to @event }
+          format.json { render json: @event, status: :created, location: @event }
+        else
+          format.html { redirect_to home_path }
+          format.json { render json: home_path, status: :created, location: @event }
+        end
       else
-        format.html { render action: "new" }
+        format.html { render action: "new", notice: 'Comment could not be saved.' }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end

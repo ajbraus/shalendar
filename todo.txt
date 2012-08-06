@@ -14,7 +14,7 @@ Name:
 
 	name below the picture
 
-	ppl who did not create events can change them!
+	ppl who did not create events can change them! warning
 
 	add Jquery validations for search
 
@@ -32,13 +32,8 @@ Name:
 
 	calendar colors
 
-	if event is private redirect to event, not calendar.
-
 	Update follow/unfollow button to say "Requested" "Follow" "Unfollow"
 	Manage follows -- pending follows, requested follows
-
-	buy hughsin.com, change twitter handel, facebook page/app, google analytics, heroku
-	add DNS to hughsin.com
 
 	Blue
 
@@ -46,18 +41,14 @@ Name:
 
 	About, landing, and contact page -- landing page -> Have ideas for fun, share them on Calenshare with friends and friends of friends, have fun, rinse and repeat.
 
-		google icon is tiny and squished
-		Notification views
+	google icon is tiny and squished
+	Notification views
 
 	Add city to signup
 	
 	raster photo size
 
 	Add fb to current login, add twitter etc. 
-	
-	Scope some stuff like: 
-                only: [:index, :edit, :update, :destroy, :following, :followers]
-
 
 	Post to facebook wall . . . not for private events. post to rsvps facebook wall of friends of RSVPs
 
