@@ -23,7 +23,7 @@ input[type="submit"]{
   height: auto;
 }
 
-input, textarea, .uneditable-input {
+input[type=text], textarea, .uneditable-input {
   width: 420px;
 }
 

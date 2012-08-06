@@ -7,8 +7,9 @@
   
 	  <%= render 'search' %>
 
-	  <%= render 'view_requests' %>
+
 		<%= button_to "New Idea", new_event_path, :class => 'btn-primary btn_new_idea', :method => :get %>
+		<%= render 'view_requests' %>
 	  <%= render 'raster' %>
 	  
 	  <div class="social_friends">

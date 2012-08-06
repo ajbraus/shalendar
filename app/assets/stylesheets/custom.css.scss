@@ -119,6 +119,41 @@ ul, li {
   top:1px;
 }
 
+.btn_stop_viewing {
+  background-color:#ededed;
+  -moz-border-radius:6px;
+  -webkit-border-radius:6px;
+  border-radius:6px;
+  border:1px solid #dcdcdc;
+  display:inline-block;
+  color:#636363;
+  font-family:arial;
+  font-size:15px;
+  font-weight:normal;
+  padding:8px 13px;
+  text-decoration:none;
+}
+.btn_stop_viewing:hover {
+  background-color:#ededed;
+  cursor:pointer;
+}
+.btn_stop_viewing:active {
+  position:relative;
+  top:1px;
+}
+
+.btn_start_viewing {
+  width:110px;
+}
+
+.btn_remove {
+  font-size: 13px;
+  color:#aeaeae;
+  &:hover {
+    color:#dddddd;
+  }
+}
+
 span.red a {
   color:darkred;
 }
@@ -139,7 +174,6 @@ header {
   color:white;
   height: 60px;
   width:100%;
-
   > a {
     margin-left: 42%;
     text-decoration: none;
@@ -185,10 +219,10 @@ header {
 /* HOME */
 
 .container {
-  width: 980px;
+  width: 1020px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 50px;
+  padding-left: 30px;
   padding-right: 50px;
   height:730px;
 }
@@ -201,7 +235,7 @@ header {
   border-radius: 4px;
 }
 .btn_new_idea {
-  width:206px;
+  width:231px;
   margin: 10px 0px;
   height: 45px;
 }
@@ -214,7 +248,7 @@ aside {
   float:left;
   margin-top:35px;
   padding: 10px 0;
-  width:220px;
+  width:250px;
   &:first-child {
     border: 0;
     padding-top: 0;
@@ -267,6 +301,7 @@ aside {
   height:310px;
   overflow-y:auto;
   margin-bottom:10px;
+  width:235px;
 }
 
 /* Calendar */
@@ -329,8 +364,36 @@ footer {
   margin-right: 12%;
 }
 
+/* Manage Follows */ 
 
-/* Event#show */
+#view_search {
+  input[type=text] {
+    margin-right:0px;
+    width:160px;
+    margin-right: -5px;
+    -webkit-border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    border-radius: 5px 0 0 5px;
+    padding:9.5px;
+    outline:none;
+    font-size: 15px;
+    position: relative;
+    top: 2px;
+  }
+  input[type=submit] {
+    -webkit-border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
+    padding-bottom:12px;
+    width:49px;
+  }
+}
+
+#manage_search {
+  position:relative;
+  left:70%;
+  top:20px;
+}
 
 #follow_list {
   padding:25px;
@@ -500,4 +563,26 @@ footer {
 .search_users {
   width:130px;
 }
+
+#view_requests {
+  width:200px;
+  i {
+    font-size: 28px;
+  }
+}
+
+.icon-check {
+  color:#AAAAAA;
+  &:hover {
+    color:#0E8C3A;
+  }
+}
+
+.icon-remove-sign {
+  color:#AAAAAA;
+  &:hover {
+    color:#CC1100;
+  }
+}
+
 
