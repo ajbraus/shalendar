@@ -1,12 +1,12 @@
 <div id="view_requests">
 	<% @view_requests.each do |vr| %>
-		<ul>
-			<li>
-				<%= link_to raster_profile_picture(vr.follower) %>
-				<%= vr.follower.name %>
-				<%= link_to raw("<i class='icon-check'></i>"), relationship_confirm_path(vr), method: :put %>
-				<%= link_to raw("<i class='icon-remove-sign'></i>"), relationship_remove_path(vr), method: :delete %>
-			</li>
-		</ul>
+	<table>
+		<tr>
+			<td width="50px"><%= link_to raster_profile_picture(vr.follower) %></td>
+			<td width="200px"><%= vr.follower.name %></td>
+			<td width="20px"><%= link_to raw("<i class='icon-check'></i>"), relationship_confirm_path(vr), method: :put %></td>
+			<td width="20px"><%= link_to raw("<i class='icon-remove-sign'></i>"), relationship_remove_path(vr), method: :delete %></td>
+		</tr>
+	</table>
 	<% end %>
 </div>

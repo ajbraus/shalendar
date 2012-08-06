@@ -1,19 +1,21 @@
-<aside>
-  <%= button_to "New", new_event_path, :class => 'btn btn-large btn-primary', :method => :get %>
+<div class="container">
+	<aside>
 
-  <div style="height:140px;"><%= medium_profile_picture(@current_user) %></div>
+	  <div class="profile_pic_home"><%= medium_profile_picture(@current_user) %></div>
 
-  <%= render 'stats' %>
-
-  <%= render 'search' %>
-
-  <%= render 'view_requests' %>
-
-  <%= render 'raster' %>
+	  <%= render 'stats' %>
   
-  <div class="social_friends">
-  <%= link_to( (image_tag "fb.png", :size => "50x50"), find_friends_path) %>
-  </div>
-</aside>
+	  <%= render 'search' %>
 
- <div id='calendar'></div>
+
+		<%= button_to "New Idea", new_event_path, :class => 'btn-primary btn_new_idea', :method => :get %>
+		<%= render 'view_requests' %>
+	  <%= render 'raster' %>
+	  
+	  <div class="social_friends">
+	  <%= link_to( (image_tag "fb.png", :size => "50x50", title: "Find more calendars to view on Facebook"), find_friends_path) %>
+	  </div>
+	</aside>
+
+	<div id='calendar'></div>
+</div>

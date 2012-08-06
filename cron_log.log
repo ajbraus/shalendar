@@ -61,3 +61,11 @@ pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  databa
 	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/commands.rb:64:in `<top (required)>'
 	from script/rails:6:in `require'
 	from script/rails:6:in `<main>'
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist

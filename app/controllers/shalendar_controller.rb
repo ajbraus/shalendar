@@ -1,4 +1,5 @@
 class ShalendarController < ApplicationController
+  before_filter :authenticate_user!
 	# before_filter :parse_facebook_cookies, :only => [:home, :find_friends]
 
 	autocomplete :user, :email
@@ -6,19 +7,21 @@ class ShalendarController < ApplicationController
 	def home
 		@current_user = current_user
 		@users = User.all
-		@relationships = current_user.relationships
+		@relationships = current_user.relationships.where('relationships.confirmed = true')
 		@access_token = session[:fb_access_token]
   	@graph = Koala::Facebook::API.new(@access_token)
+  	
   	@view_requests = Relationship.where("relationships.followed_id = :current_user_id AND 
-  																				relationships.confirmed = 'f'", current_user_id: current_user.id)
+												relationships.confirmed = false ", current_user_id: current_user.id)
 	end
 
 	def manage_follows
 		@graph = Koala::Facebook::API.new(@access_token)
 		# @followers = current_user.followers
 		# @followed_users = current_user.followed_users
-		@follower_relationships = current_user.reverse_relationships
-		@followed_user_relationships = current_user.relationships
+		@follower_relationships = current_user.reverse_relationships.where('relationships.confirmed = true')
+		@followed_user_relationships = current_user.relationships.where('relationships.confirmed = true')
+		@view_requests = current_user.relationships.where('relationships.confirmed = false')
 	end
 
 	def find_friends
