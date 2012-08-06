@@ -19,49 +19,48 @@
 
 # Learn more: http://github.com/javan/whenever
 
-#eventually move this stuff into cron_controller
-every 1.day do
-	Notifier.digest.deliver
+#here set the output path so it will log in right place
+set :cron_log, "~/desktop/shalendar/cron_log.log"
+
+# every :friday, :at => "4am" do
+# 	command "rm -rf #{RAILS_ROOT}/tmp/cache"
+# 	runner "Event.clean_up"
+# end
+
+every 1.minute do
+	command "pg_dump"
+
 end
+
+every 1.day, :at => '2:00 pm' do
+	runner "Notifier.digest.deliver"
+
+end
+
 
 every 15.minutes do #we should start this off the 15-min increment so there's never overlap
 
+	runner "Event.check_tip_deadlines"
 	#events where the start time is between 1hr45mins and 2hrs from now
-	window_floor = Time.now + 1.hour + 45.minutes
-	window_ceiling = Time.now + 2.hours
-	relevant_events = Event.where(':window_floor <= events.start_time AND 
-												events.start_time < :window_ceiling',
-												window_floor: window_floor, window_ceiling: window_ceiling)
-	relevant_events.each do |re|
-
-		if re.tipped?
-			Notifier.reminder(re).deliver
-		else
-			Notifier.cancellation(re).deliver
-			re.destroy
-		end
-
-	end
 
 end
 
-every 1.week do
+# PRUNE THE DB
+# every 1.week do
 
 	#output user/follower info for social graph info
 	# User.all.each do |u|
 	# 	??
 	# end
 
-	old_events = Event.where('events.start_time <= :one_week_ago', one_week_ago: Time.now - 1.week)
-	old_events.each do |oe|
-		#output event information for easy searching
-		#oe.log
-		oe.destroy
-	end
+	# pg_dump
+	# old_events = Event.where('events.start_time <= :one_week_ago', one_week_ago: Time.now - 1.week)
+	# old_events.each do |oe|
+	# 	oe.clean_up
+	# end
 
-end
+# end
 #To clear cache each week, from railscast on cron jobs
 # every :friday, :at => "4am" do
 # 	command "rm -rf #{RAILS_ROOT}/tmp/cache" #clear cache every friday
-
-end
+# end

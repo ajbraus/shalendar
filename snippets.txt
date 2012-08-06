@@ -71,3 +71,32 @@ http://arshaw.com/fullcalendar/docs/event_rendering/eventRender/
 
 
 <div id="recaptcha"><%= recaptcha_tags display: { theme: 'white' }, ajax: true %></div>
+
+
+
+#For Refactoring Invites to be unconfirmed RSVPs
+  
+  # def min
+  #   if min == nil
+  #     min = 1
+  #   end
+  # end
+
+  # def max
+  #   if max == nil
+  #     max = 10000
+  #   end
+  # end
+
+  # def confirmed_guests
+  #     User.joins('INNER JOIN rsvps ON users.id = rsvps.guest_id').
+  #           where('rsvps.plan_id = :event_id AND rsvps.confirmed = "t"',
+  #               :event_id => self.id)
+  # end
+
+  # def invited_guests
+  #       #maybe try searchign RSVP table for user/event combo and check if true
+  #     User.joins('INNER JOIN rsvps ON users.id = rsvps.guest_id').
+  #           where('rsvps.plan_id = :event_id AND rsvps.confirmed = "f"',
+  #               :event_id => self.id)
+  # end

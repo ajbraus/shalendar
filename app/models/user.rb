@@ -69,7 +69,9 @@ class User < ActiveRecord::Base
   end
 
   def rsvp!(event)
-    unless event.full?
+    if event.full?
+      flash[:notice] = "The event is currently full."
+    else
       rsvps.create!(plan_id: event.id)
     end
   end

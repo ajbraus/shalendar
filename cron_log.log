@@ -1,0 +1,63 @@
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+pg_dump: [archiver (db)] connection to database "Fenchel" failed: FATAL:  database "Fenchel" does not exist
+/Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:251:in `require': /Users/Fenchel/Desktop/shalendar/app/models/event.rb:118: syntax error, unexpected keyword_end, expecting $end (SyntaxError)
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:251:in `block in require'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:236:in `load_dependency'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:251:in `require'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:359:in `require_or_load'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:502:in `load_missing_constant'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:192:in `block in const_missing'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:190:in `each'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:190:in `const_missing'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/inflector/methods.rb:229:in `block in constantize'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/inflector/methods.rb:228:in `each'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/inflector/methods.rb:228:in `constantize'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/inflector/methods.rb:259:in `safe_constantize'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/core_ext/string/inflections.rb:66:in `safe_constantize'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/actionpack-3.2.6/lib/action_controller/metal/params_wrapper.rb:152:in `_default_wrap_model'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/actionpack-3.2.6/lib/action_controller/metal/params_wrapper.rb:169:in `_set_wrapper_defaults'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/actionpack-3.2.6/lib/action_controller/metal/params_wrapper.rb:133:in `inherited'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/actionpack-3.2.6/lib/abstract_controller/railties/routes_helpers.rb:7:in `block (2 levels) in with'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/actionpack-3.2.6/lib/action_controller/railties/paths.rb:7:in `block (2 levels) in with'
+	from /Users/Fenchel/Desktop/shalendar/app/controllers/events_controller.rb:1:in `<top (required)>'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:251:in `require'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:251:in `block in require'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:236:in `load_dependency'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:251:in `require'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:359:in `require_or_load'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:313:in `depend_on'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:225:in `require_dependency'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/engine.rb:439:in `block (2 levels) in eager_load!'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/engine.rb:438:in `each'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/engine.rb:438:in `block in eager_load!'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/engine.rb:436:in `each'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/engine.rb:436:in `eager_load!'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/application/finisher.rb:53:in `block in <module:Finisher>'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/initializable.rb:30:in `instance_exec'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/initializable.rb:30:in `run'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/initializable.rb:55:in `block in run_initializers'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/initializable.rb:54:in `each'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/initializable.rb:54:in `run_initializers'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/application.rb:136:in `initialize!'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/railtie/configurable.rb:30:in `method_missing'
+	from /Users/Fenchel/Desktop/shalendar/config/environment.rb:5:in `<top (required)>'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:251:in `require'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:251:in `block in require'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:236:in `load_dependency'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/activesupport-3.2.6/lib/active_support/dependencies.rb:251:in `require'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/application.rb:103:in `require_environment!'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/commands/runner.rb:44:in `<top (required)>'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/commands.rb:64:in `require'
+	from /Users/Fenchel/.rvm/gems/ruby-1.9.3-p194@shalendar/gems/railties-3.2.6/lib/rails/commands.rb:64:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'

@@ -1,7 +1,5 @@
 BUGS
 
-Had to take Notifier.cancelation out of destroy call; need to call every time we cancel from the calling controller, CHECK THIS OUT
-
 Don't know how to scope an event array, and need to figure out correct SQL calls. Refactor Event Filtering from Ruby->ActiveRecord
 	Full + Tipped bool on events model
 

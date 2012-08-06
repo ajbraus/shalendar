@@ -18,6 +18,8 @@ Name:
 
 	don't auto-complete completely and enter garbage into the field error
 
+	Drag/Drop- pop up notice before making changes "sure you want to change time? will email all guests"
+
 	remove yourself -- right now you can follow yourself
 
 	Event#show
@@ -41,6 +43,8 @@ Name:
 
 	About, landing, and contact page -- landing page -> Have ideas for fun, share them on Calenshare with friends and friends of friends, have fun, rinse and repeat.
 
+	Find Friends- the automatic redirect from Facebook should have some message if no friends are there, or at least a title to let ppl know where they land.
+	
 		google icon is tiny and squished
 		Notification views
 
@@ -76,15 +80,13 @@ Name:
 
 		Test cron jobs
 
-	max = 0 creates this error "comparison of Fixnum with nil failed"
+		Start tip_deadline cron job off the 15-min standard (e.g. not at 3:45) to make sure we catch all events only once.
 
 	Populate a demo database
 
 	Check through all notification stuff, make sure always sent and not double
 
 	Go through all app logic; test (QA)
-
-	Prune / maintain a lean database and offload the information to a searchable log
 		
 	Daily Digest - Day view list?
 
@@ -96,8 +98,6 @@ Name:
 		Airbreak / rescues
 
 		Private deployments
-
-		Cron job mailers for event changes (to fix lots of sends on drag/drop)
 
 AFTER BETA LAUNCH
 	
