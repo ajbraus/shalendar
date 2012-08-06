@@ -1,20 +1,20 @@
 development:
   adapter: postgresql
-  database: hugesin_development
+  database: calenshare_development
   encoding: unicode
-  username: hugh
+  username: calenshare
   password: ""
 
 test:
   adapter: postgresql
-  database: hugesin_test
+  database: calenshare_test
   encoding: unicode
-  username: hugh
+  username: calenshare
   password: ""
 
 production:
   adapter: postgresql
-  database: hugh_production
+  database: calenshare_production
   encoding: unicode
-  username: hugh
+  username: calenshare
   password: ""
