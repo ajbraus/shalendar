@@ -15,6 +15,8 @@ gem 'chronic'
 
 gem 'heroku'
 
+gem 'whenever', :require => false
+
 gem 'pry'
 gem 'pry-debugger'
 

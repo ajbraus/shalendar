@@ -394,4 +394,93 @@ class EventsController < ApplicationController
     end
 
   end
+
+  def show
+    @event = Event.find(params[:id])
+    @guests = @event.guests
+    @starttime = @event.starts_at.strftime "%l:%M%P, %A %B %e"
+    @endtime = @event.ends_at.strftime "%l:%M%P, %A %B %e"
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @event }
+    end
+  end
+
+  # GET /events/new
+  # GET /events/new.json
+  def new
+    #@user = current_user - old
+    @event = current_user.events.build
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @event }
+    end
+  end
+
+  # GET /events/1/edit
+  def edit
+    @event = Event.find(params[:id])
+  end
+
+  # POST /events
+  # POST /events.json
+  def create
+    @event = current_user.events.build(params[:event])
+
+    respond_to do |format|
+      if @event.save
+        current_user.rsvp!(@event)
+
+        format.html { redirect_to root_path }
+        format.json { render json: root_path, status: :created, location: @event }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @event.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /events/1
+  # PUT /events/1.json
+  def update
+    @event = Event.find(params[:id])
+    @start_time = @event.starts_at
+    @location = @event.location
+    respond_to do |format|
+      if @event.update_attributes(params[:event])
+
+        if @start_time != @event.starts_at
+          Notifier.time_change(@event).deliver
+        elsif @location != @event.location
+          Notifier.location_change(@event).deliver
+        else
+          Notifier.noncritical_change(@event).deliver
+        end
+
+        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @event.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /events/1
+  # DELETE /events/1.json
+  def destroy
+    @event = Event.find(params[:id])
+
+    #Notifier.cancellation(@event).deliver
+
+    @event.destroy
+
+
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.json { head :no_content }
+    end
+  end
 end

@@ -29,8 +29,24 @@ class Notifier < ActionMailer::Base
     mail bcc: @guest_emails, subject: "Your event #{event.title} has been canceled!"
   end
 
+  def reminder(event)
+    @guests = event.guests
+
+    @guest_emails = []
+
+    @guests.each do |g|
+      @guest_emails.push(g.email)
+    end
+
+    @guest_emails.join('; ')
+
+    mail bcc: @guest_emails, subject: "Your event #{event.title} begins in 2 hours!"
+  end
+
+
   def invitation(email, event)
 
+    #should we include here an invited by X to make them more likely to join?
     if @user = User.find_by_email(email)
       mail to: @user.email, subject: "Hello, #{@user.first_name} you've been invited to #{event.title}; visit www.calenshare.com/events/#{event.id}"
     else

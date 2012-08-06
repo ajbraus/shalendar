@@ -12,7 +12,7 @@ before_filter :authenticate_user!
       Notifier.confirm_follow(@user, current_user)
       #@relationship.confirmed = false
       current_user.follow!(@user)
-      @relationship = Relationship.last
+      @relationship = Relationship.last #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
       @relationship.confirmed = false
       if @relationship.save
         redirect_to :back, notice: "View request sent to #{@user.name}"

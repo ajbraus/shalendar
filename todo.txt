@@ -23,6 +23,11 @@ Name:
 
 	don't auto-complete completely and enter garbage into the field error
 
+
+get mike verified and deploy to calensha.re with zerigo.
+https://devcenter.heroku.com/articles/zerigo_dns
+http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deploying-my-rails-app
+
 	remove yourself -- right now you can follow yourself
 
 		Event#show
@@ -39,6 +44,11 @@ Name:
 
 	Flash notices - no flash notices when hitting validations for new event. no flash notices when you have login troubles.	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
 
+	Post to facebook wall . . . not for private events. post to rsvps facebook wall of friends of RSVPs
+
+
+	add fb events to calenshare
+
 	About, landing, and contact page -- landing page -> Have ideas for fun, share them on Calenshare with friends and friends of friends, have fun, rinse and repeat.
 
 	google icon is tiny and squished
@@ -49,6 +59,11 @@ Name:
 	raster photo size
 
 	Add fb to current login, add twitter etc. 
+
+	"hidden features" - settings more clear, toggling, visibility, states of events unclear (tipped vs. untipped, idea vs. plan, idea vs. invitation )
+ 
+	Scope some stuff like: 
+                only: [:index, :edit, :update, :destroy, :following, :followers]
 
 	Post to facebook wall . . . not for private events. post to rsvps facebook wall of friends of RSVPs
 
@@ -91,15 +106,20 @@ Name:
 
 	MIKE//////
 
+	Run 'whenever --update-crontab *title*' from command line to make schedule.rb work, each time we change our cron jobs.
 
-		friends_of_friends? is no longer a boolean so the logic of events needs to be fixed to reflect 'visibility'
+	Check through all notification stuff, make sure always sent and not double
 
-		untipped events -- cancelling them 2 hours ahead
+	Go through all app logic; test (QA)
+
+	friends_of_friends? is no longer a boolean so the logic of events needs to be fixed to reflect 'visibility'
+
+	untipped events -- cancelling them 2 hours ahead
 		
-		Notifications
-			Daily Digest - Day view list
+	Notifications
+		Daily Digest - Day view list
 
-		Event should only be able to tip once. Implement with tipped boolean?
+	Event should only be able to tip once. Implement with tipped boolean?
 		
 		Deploy
 			https://devcenter.heroku.com/articles/zerigo_dns
@@ -108,13 +128,12 @@ Name:
 
 		Private deployments
 
-		change friends of friends to friends of RSVPs
+		change friends of friends to friends of RSVPs in controller logic
+
+		Chron job mailers for event changes (to fix lots of sends on drag/drop)
 
 		PAIRED ////////
 		
-			Chron job mailers for event changes (to fix lots of sends on drag/drop)
-
-
 
 
 
