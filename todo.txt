@@ -12,6 +12,8 @@ Name:
 
 	ADAM//////
 
+	name below the picture
+
 	ppl who did not create events can change them!
 
 	add Jquery validations for search
