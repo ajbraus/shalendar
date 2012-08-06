@@ -1,6 +1,6 @@
 <%= form_tag '/relationships' do %>
   <div id="view_search">
-      <%= autocomplete_field_tag :email, '', autocomplete_email_path %>
+      <%= autocomplete_field_tag :email, '', autocomplete_email_path, placeholder:"Search for Friends..." %>
       <%= submit_tag "View", class: "btn-primary" %>
   </div>
 <% end %>

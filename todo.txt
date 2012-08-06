@@ -6,6 +6,9 @@ FOR BETA
 
 	ppl who did not create events can change them! warning
 
+
+	autocomplete on name
+
 	add Jquery validations for search
 
 	follow someone with the autocomplete that you are already following -- sql error
@@ -15,6 +18,8 @@ FOR BETA
 	
 	remove yourself -- right now you can follow yourself
 
+
+
 		Event#show
 			display map_location
 			make a scrollable grid (not a table) for guest raster
@@ -23,7 +28,7 @@ FOR BETA
 	calendar colors
 
 	Update follow/unfollow button to say "Requested" "Follow" "Unfollow"
-	Manage follows -- pending follows, requested follows
+	Manage follows -- requested follows
 
 	Blue
 
