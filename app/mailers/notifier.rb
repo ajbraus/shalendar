@@ -29,7 +29,7 @@ class Notifier < ActionMailer::Base
     mail bcc: @guest_emails, subject: "Your event #{event.title} has been canceled!"
   end
 
-  def reminder(event)
+  def rsvp_reminder(event)
     @guests = event.guests
 
     @guest_emails = []
@@ -74,9 +74,18 @@ class Notifier < ActionMailer::Base
     @guests = event.guests
 
     @guest_emails = []
+    @guest_phone_numbers = []
 
     @guests.each do |g|
+      if g.phone_number
+        @guest_phone_numbers.push(g.phone_number)
+      end
       @guest_emails.push(g.email)
+    end
+
+    @guest_phone_numbers.each do |gp|
+      Twilio::SMS.create :to => gp.to_str, :from => '+16084675636',
+                          :body => "Hey baby, how's your day going? xoxo"
     end
 
     @guest_emails.join('; ')
@@ -144,11 +153,4 @@ class Notifier < ActionMailer::Base
       mail to: u.email, subject: "Your daily digest from Calenshare!"
     end
   end
-
-  def rsvp_reminder
-    @greeting = "Hi"
-
-    mail to: "to@example.org"
-  end
-
 end

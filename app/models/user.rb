@@ -78,6 +78,9 @@ class User < ActiveRecord::Base
   end
 
   def unrsvp!(event)
+    if event.guests.count == event.min
+      #Warning: this will un-tip the event for everyone, are you sure?
+    end
     rsvps.find_by_plan_id(event.id).destroy
   end
 

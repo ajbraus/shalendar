@@ -1,4 +1,5 @@
- require 'chronic'
+require 'chronic'
+
 class Event < ActiveRecord::Base
   belongs_to :user
   
@@ -100,15 +101,16 @@ class Event < ActiveRecord::Base
     @window_ceiling = Time.now + 2.hours
     @relevant_events = Event.where(':window_floor <= events.start_time AND 
                         events.start_time < :window_ceiling',
-                        window_floor: window_floor, window_ceiling: window_ceiling)
+                        window_floor: @window_floor, window_ceiling: @window_ceiling)
     @relevant_events.each do |re|
 
       if re.tipped?
-        Notifier.reminder(re).deliver
+        Notifier.rsvp_reminder(re).deliver
       else
         re.destroy
       end
     end
   end
+
 end
 

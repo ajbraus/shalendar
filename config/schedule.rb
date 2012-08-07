@@ -27,20 +27,21 @@ set :cron_log, "~/desktop/shalendar/cron_log.log"
 # 	runner "Event.clean_up"
 # end
 
-every 1.minute do
-	command "pg_dump"
+every 1.day, at: '2:22 am' do
 
+	command "pg_dump -a calenshare_development"
 end
 
 every 1.day, :at => '2:00 pm' do
 	runner "Notifier.digest.deliver"
 
+
 end
 
 
-every 15.minutes do #we should start this off the 15-min increment so there's never overlap
+every 15.minutes, at: [8, 23, 38, 53] do #we should start this off the 15-min increment so there's never overlap
 
-	runner "Event.check_tip_deadlines"
+	runner "Event.first.check_tip_deadlines"
 	#events where the start time is between 1hr45mins and 2hrs from now
 
 end

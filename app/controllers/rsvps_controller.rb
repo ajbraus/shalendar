@@ -4,7 +4,7 @@ class RsvpsController < ApplicationController
   def create
     @event = Event.find(params[:rsvp][:plan_id])
     current_user.rsvp!(@event)
-    if @event.tipped?
+    if @event.guests.count == @event.min
       Notifier.event_tipped(@event).deliver
     end
     redirect_to @event
