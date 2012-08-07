@@ -79,20 +79,22 @@ Name:
 
 	Draft Landing, About, Contact pages + emails
 
-	Cron:
-		Run 'whenever --update-crontab *title*' from command line to make schedule.rb work, each time we change our cron jobs.
-
-		Test cron jobs
-
-		Start tip_deadline cron job off the 15-min standard (e.g. not at 3:45) to make sure we catch all events only once.
-
 	Populate a demo database
+
+	Twilio:
+		add phone number to user in DB
+		add SMS messages to notifier
+		Buy phone number
+		add phone number in settings page
+		add user boolean for receiving text messages
+
 
 	Check through all notification stuff, make sure always sent and not double
 
 	Go through all app logic; test (QA)
 		
 	Daily Digest - Day view list?
+		look into mailer bcc vs. individual sends, cost and spam filtering
 
 	Event should only be able to tip once.. or should it tip/untip? Implement with tipped boolean?
 		

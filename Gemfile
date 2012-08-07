@@ -12,6 +12,7 @@ gem 'koala'
 
 gem 'thin'
 gem 'chronic'
+gem 'twilio-rb'
 
 gem 'heroku'
 

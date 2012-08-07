@@ -106,7 +106,7 @@ class Event < ActiveRecord::Base
     @relevant_events.each do |re|
 
       if re.tipped?
-        Notifier.reminder(re).deliver
+        Notifier.rsvp_reminder(re).deliver
       else
         re.destroy
       end
