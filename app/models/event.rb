@@ -104,16 +104,12 @@ class Event < ActiveRecord::Base
                         window_floor: window_floor, window_ceiling: window_ceiling)
     @relevant_events.each do |re|
 
-    if re.tipped?
-      Notifier.reminder(re).deliver
-    else
-      re.destroy
+      if re.tipped?
+        Notifier.reminder(re).deliver
+      else
+        re.destroy
+      end
     end
-  end
-
-
-  end
-    
   end
 end
 

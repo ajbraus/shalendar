@@ -8,6 +8,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       auth = request.env['omniauth.auth']
       token = auth['credentials']['token']
       session[:fb_access_token] = token
+      city = auth['info']['location']
+      @user.city = city
       sign_in_and_redirect @user, :event => :authentication
     else
       flash[:notice] = 'There was an error with Facebook. Try signing up through Calenshare.'

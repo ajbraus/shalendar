@@ -15,4 +15,8 @@ class Relationship < ActiveRecord::Base
 		self.confirmed = true
 	end
 
+	def confirmed?
+		self.confirmed
+	end
+	
 end

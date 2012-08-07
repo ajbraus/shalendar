@@ -1,5 +1,6 @@
 <div id="manage_search">
   <%= render 'search' %>
+  <%= render 'view_requests' %>
 </div>
 
 <div id="follow_list">
@@ -12,8 +13,12 @@
           <td width="150px"><%= fur.followed.name %> </td>
           <td>
             <span id="follow_form" class="follow_btn">
-              <%= form_for(fur, method: :delete ) do |f| %>
-              <%= f.submit "Stop Viewing", class: "btn_stop_viewing", confirm:"Are you sure you would like to stop viewing #{fur.followed.name}'s ideas?" %>
+              <% if current_user.request_following?(fur.followed) %>
+                Request Sent...
+              <% else %>
+                <%= form_for(fur, method: :delete ) do |f| %>
+                <%= f.submit "Stop Viewing", class: "btn_stop_viewing", confirm:"Are you sure you would like to stop viewing #{fur.followed.name}'s ideas?" %>
+                <% end %>
               <% end %>
             </span>
           </td>
@@ -31,17 +36,19 @@
           <td width="150px"><%= fr.follower.name %></td>
           <td>
             <span>
-              <% unless current_user.following?(fr.follower) %>
+              <% if current_user.request_following?(fr.follower) %>
+                Request Sent
+              <% elsif current_user.following?(fr.follower) == "false" %>
                 <%= form_for(current_user.relationships.build(followed_id: fr.follower.id)) do |f| %>
                   <div><%= f.hidden_field :followed_id %></div>
                   <%= f.submit "View", class: "btn-primary btn_start_viewing" %>
                 <% end %>
-
+              <% else %>
+                <%= link_to "Remove Viewer", relationship_remove_path(fr), class: "btn_remove", method: :delete, confirm: "Are you sure #{fr.follower.name} should no longer be able to view your ideas?" %>
               <% end %>
             </span>
           </td>
           <td>
-            <%= link_to "Remove Viewer", relationship_remove_path(fr), class: "btn_remove", method: :delete, confirm: "Are you sure #{fr.follower.name} should no longer be able to view your ideas?" %> <!-- equivalent to follower.unfollow!(current_user) -->
         </tr>
       </table>
       <% end %>

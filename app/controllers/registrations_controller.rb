@@ -19,7 +19,9 @@ class RegistrationsController < Devise::RegistrationsController
   def update
   	@graph = Koala::Facebook::API.new(@access_token)	
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
-    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+    if resource.respond_to?(:unconfirmed_email)
+      prev_unconfirmed_email = resource.unconfirmed_email 
+    end
 
     #if resource.update_with_password(resource_params)
     if resource.update_attributes(resource_params)	

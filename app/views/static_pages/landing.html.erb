@@ -4,13 +4,14 @@
   <h2>
   	What do you have to share?
   </h2>
-<% if false %>
-  <%= link_to "Sign up now!", new_user_registration_path , class: "btn btn-large btn-success" %>
-
-<% end %>
-
-
+  	<div class="fb_button">
       <div id="auth-status">
-          <a href="#" id="auth-loginlink" class="fb-login-button">Use Facebook to Login</a>
+          <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
       </div>
+    </div><br>
+  or, <%= link_to "Join here", new_user_registration_path , class: "" %>
+
+
+
 </div>
+

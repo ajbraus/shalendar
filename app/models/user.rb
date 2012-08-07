@@ -20,7 +20,8 @@ class User < ActiveRecord::Base
                   :require_confirm_follow,
                   :notify_noncritical_change,
                   :daily_digest,
-                  :notify_event_reminders
+                  :notify_event_reminders,
+                  :city
 
 
   validates :terms,
@@ -89,6 +90,8 @@ class User < ActiveRecord::Base
     if r = relationships.find_by_followed_id(other_user.id)
       if r.confirmed?
         return true
+      else
+        return false
       end
     else
       return false
@@ -97,8 +100,13 @@ class User < ActiveRecord::Base
 
   def request_following?(other_user)
     if r = relationships.find_by_followed_id(other_user.id)
-      unless r.confirmed?
+      if r.confirmed?
+        return false
+      else
+        return true
       end
+    else
+      return false
     end
   end
 
@@ -120,7 +128,8 @@ class User < ActiveRecord::Base
                            uid:auth.uid,
                            email:auth.info.email,
                            password:Devise.friendly_token[0,20],
-                           terms: 't'
+                           terms: 't',
+                           city:auth.info.location
                            )
     end
     user

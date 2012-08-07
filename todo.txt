@@ -9,6 +9,8 @@ Name:
 
 	ADAM//////
 
+	manage follows page with the requested views:
+	
 	name below the picture
 
 	ppl who did not create events can change them! warning
@@ -23,16 +25,6 @@ Name:
 
 	don't auto-complete completely and enter garbage into the field error
 
-<<<<<<< HEAD
-
-
-		Event#show
-			display map_location
-			make a scrollable grid (not a table) for guest raster
-=======
-	Drag/Drop- pop up notice before making changes "sure you want to change time? will email all guests"
->>>>>>> 1d0966804ddc85eaada0d1de44e64156fa87e51f
-
 	remove yourself -- right now you can follow yourself
 
 	Event#show
@@ -41,18 +33,12 @@ Name:
 
 	calendar colors
 
-<<<<<<< HEAD
-	Update follow/unfollow button to say "Requested" "Follow" "Unfollow"
-	Manage follows -- requested follows
-=======
 	if event is private redirect to event, not calendar.
 
 	Update view/unview button to say "Requested" "View" "Unview"
 
 	Manage follows -- pending follows, requested follows
->>>>>>> 1d0966804ddc85eaada0d1de44e64156fa87e51f
 
-	Blue
 
 	Make native login play nice with FB, be able to use either/both
 
@@ -66,8 +52,6 @@ Name:
 	
 		google icon is tiny and squished
 		Notification views
-
-	Add city to signup
 	
 	raster photo size
 
@@ -126,6 +110,8 @@ AFTER BETA LAUNCH
 		fullcalendar, event calendar, roll our own, ?
 		maybe use lyconic's full calendar to get jquery tooltips and limit the number of events per day https://github.com/lyconic/fullcalendar/tree/jquery-ui-tooltip
 
+	Invite only signup
+	Get their city from facebook -- if not in our list, redirect to registration for invitation.
 	Refactor event stream to use SQL rather than ruby
 	google calendar "add this to calenshare"
 	add fb events to calenshare

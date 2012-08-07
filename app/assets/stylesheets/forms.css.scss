@@ -46,6 +46,9 @@ input[type=text], textarea, .uneditable-input {
   input[type=checkbox]{
     width:28px;
   }
+  select[name=city]{
+    font-size: 25px;
+  }
 }
 
 #recaptcha {
