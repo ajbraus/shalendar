@@ -1,7 +1,10 @@
 BUGS
 
-Don't know how to scope an event array, and need to figure out correct SQL calls. Refactor Event Filtering from Ruby->ActiveRecord
+ SQL calls. Refactor Event Filtering from Ruby->ActiveRecord
 	Full + Tipped bool on events model
+
+Cron jobs environment set to production, don't know how to change, but still getting some output (pg_dump and also Event.check_tip_deadlines executing when dev server running.)
+
 
 AFTER LAUNCH
 maybe_events doesn't work with (full-calendar) scope calls on after, before
