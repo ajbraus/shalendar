@@ -10,7 +10,6 @@ class Event < ActiveRecord::Base
   has_many :invites, dependent: :destroy
 
   attr_accessible :description, 
-                  :location, 
                   :starts_at, 
                   :duration,
                   :ends_at,
@@ -36,7 +35,7 @@ class Event < ActiveRecord::Base
 
   validates :title, length: { maximum: 140 }
   validates :description, length: { maximum: 250 }
-  validates :location, length: { maximum: 70 }
+  validates :map_location, length: { maximum: 120 }
 
   #from bokmann fullcalendar event model
   scope :before, lambda {|end_time| {:conditions => ["ends_at < ?", Event.format_date(end_time)] }}

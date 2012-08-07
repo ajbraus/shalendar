@@ -3,7 +3,7 @@
     <%= comment.content %>
   </p>
   <p class="comment_data">
-  	<span class="comment_created_at"><%= @comment_created_at %></span> | <span class="comment_creator"><%= comment.creator %></span><br>
+  	<span class="comment_created_at"><%= comment.created_at.strftime "%l:%M%P, %A %B %e" %></span> | <span class="comment_creator"><%= comment.creator %></span> |
 		<% if current_user.name == comment.creator %>
 			<%= link_to 'Remove', event_comment_path(@event, comment), :method => :delete %>
 		<% end %>

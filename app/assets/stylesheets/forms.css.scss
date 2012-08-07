@@ -1,5 +1,13 @@
 /* forms */
 
+::-webkit-input-placeholder {
+   font-style: italic;
+}
+
+:-moz-placeholder {  
+   font-style: italic;
+}
+
 form {
 margin: 0 0 0 0;
 }
@@ -15,6 +23,15 @@ input, textarea, select, .uneditable-input {
   padding: 10px;
   height: auto;
   margin-bottom: 0;
+  color:hotpink;
+  font-size:15px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+
+textarea {
+  font-size: 15px;
 }
 
 input[type="submit"]{
@@ -29,25 +46,25 @@ input[type=text], textarea, .uneditable-input {
 
 #sign_up {
   position:relative;
-  left:30%;
+  left:33%;
+  top:30px;
   input {
     font-size: 23px;
     width:380px;
     margin-bottom: 10px;
     margin-top:5px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
   }
   label {
     font-size: 15px;
     color: #404040;
   }
   input[type=checkbox]{
-    width:28px;
+    width:20px;
   }
-  select[name=city]{
-    font-size: 25px;
+  select[name="user[city]"]{
+    width:290px;
+    font-size: 20px;
+    margin: 5px 0 20px 0;
   }
 }
 
@@ -81,6 +98,7 @@ input[type=text], textarea, .uneditable-input {
   margin-left:auto;
   margin-right:auto;
   margin-bottom: 20px;
+  margin-top:20px;
   width:414px;
   input, textarea, input[type=submit]{
     font-size: 18px;
@@ -98,17 +116,24 @@ input[type=text], textarea, .uneditable-input {
   }
   input[type=radio]{
     width:18px;
-    margin-left:42px;
+    margin-left:22px;
+    margin-bottom:30px;
   }
   span {
     text-decoration: none;
-    width:5%; 
-    float:left;
-    margin-right:150px;
-    margin-left:20px;
+    width: 49%;
+    float: left;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-left: 3px;
+    margin-top: 15px;
+
     input {
       width:100px;
       text-align: center;
+    }
+    label {
+      width:100px;
     }
   }
   input[name="event[chronic_starts_at]"]{
@@ -122,13 +147,23 @@ input[type=text], textarea, .uneditable-input {
     margin-left:275px;
   }
   ul {
-    li{
+  margin-left:160px;
+    li {
     display: inline;
-    padding-right:51px;
+    padding-left:10px;
     }
   }
 }
 
+#minmax {
+  margin-left:45px;
+}
+
+#visibility, #addmap {
+  cursor:pointer;
+  color:blue;
+  text-decoration: underline;
+}
 
 select {
   width: 80px;

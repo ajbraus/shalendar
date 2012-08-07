@@ -9,13 +9,17 @@ Name:
 
 	ADAM//////
 
-	manage follows page with the requested views:
-	
 	name below the picture
 
-	ppl who did not create events can change them! warning
+	idea click lightbox
 
+	new idea lightbox
 
+	expiring facebook tokens
+
+	
+	merge title and description together 
+	
 	autocomplete on name
 
 	add Jquery validations for search
@@ -26,6 +30,11 @@ Name:
 	don't auto-complete completely and enter garbage into the field error
 
 	remove yourself -- right now you can follow yourself
+
+map bug -google.maps.event.trigger(map, 'resize');
+
+modernizr?
+
 
 	Event#show
 		display map_location

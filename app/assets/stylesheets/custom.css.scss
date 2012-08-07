@@ -77,7 +77,6 @@ line-height: 27px;
 font-size: 22px;
 }
 
-
 p {
   font-size: 1.1em;
   line-height: 1.7em;
@@ -447,21 +446,33 @@ footer {
   }
 }
 
-#manage_search {
-  position:relative;
-  left:70%;
-  top:20px;
+#manage_views {
+  margin-left:auto;
+  margin-right:auto;
+  height:550px;
+  width:950px;
 }
 
-#follow_list {
-  padding:25px;
-  width:900px;
-  float:center;
+#manage_search {
+  position: relative;
+  top:50px;
+  height:520px;
+  float:left;
+  width:300px;
+  overflow-y:auto;
+  h3 {
+    margin-top:30px;
+  }
+}
+
+#views_list {
+  width:600px;
   height:600px;
+  float:left;
 }
 
 .user_table {
-  font-size: 15px;
+  font-size: 12px;
   margin-top:30px;
   height:220px;
   overflow:hidden;
@@ -470,7 +481,8 @@ footer {
     float:left;
     border-collapse: collapse;
     border-spacing: 0;
-    font-size: 20px;
+    font-size: 15px;
+    padding-right:25px;
   }
   td {
     text-align: left;
@@ -484,100 +496,6 @@ footer {
 
 .red {
   color:red;
-}
-
-/* EVENT#SHOW */
-
-#event_show {
-  margin-left:auto;
-  margin-right:auto;
-  margin-bottom: 20px;
-  width:414px;
-}
-
-.event_on {
-  text-align: center;
-  font-size: 32px;
-  font-family: serif;
-  font-style: bold;
-  color:#3D8B37;
-  text-shadow: 0.03em 0.03em 0.15em lightgrey
-}
-
-#map {
-  border: 1px solid #DDD;
-  width:370px;
-  height: 200px;
-  margin: 0 0 13px 10px;
-  -webkit-box-shadow: #AAA 0px 0px 10px teal;
-}
-
-#no_map {
-  width:370px;
-  height: 200px;
-  margin: 15px 20px 13px 0px;
-  display: inline-block;
-  color:grey;
-  font-style: italic;
-}
-
-.rsvp_tip {
-  width:225px;
-  font-size:12px;
-  h2 {
-    margin-top:0px;
-    margin-bottom:0px;
-    font-size:1.2em;
-  }
-}
-
-.grey_italics {
-  font-size: 24px;
-  font-style: italic;
-  color: grey;
-  font-family: veranda;
-}
-
-.event_show {
-  height:460px;
-}
-
-#guest_raster {
-  display: inline-block;
-  position: relative;
-  float: right;
-  width: 510px;
-  height: 280px;
-  margin-bottom:10px;
-  font-size: 20px;
-}
-
-.input-large {
-  width:340px;
-}
-
-#when {
-  float:center;
-  font-size: 15px;
-    p {
-      font-size: 26px;
-    }
-}
-
-#rsvp_form {
-  float:left;
-  margin-left:330px;
-  height:50px;
-}
-
-#social {
-  position:relative;
-  left:230px;
-  top:40px;
-}
-
-.nav_buttons {  
-  float:left;
 }
 
 .toggle-off {

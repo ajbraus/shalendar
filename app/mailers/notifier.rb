@@ -96,7 +96,7 @@ class Notifier < ActionMailer::Base
 
     @guest_emails.join('; ')
 
-    mail bcc: @guest_emails, subject: "Your plan #{event.title} has changed location to #{event.location}!"
+    mail bcc: @guest_emails, subject: "Your plan #{event.title} has changed location to #{event.map_location}!"
   end
 
   def send_invites(event)

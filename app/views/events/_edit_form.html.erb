@@ -16,13 +16,12 @@
       <%= f.label :what? %><br/>
       <%= f.text_field :title, :placeholder => "What's going on?" %>
     </div>
-    <div class="field">
-      <%= f.label :where? %><br/>
-      <%= f.text_field :location, :placeholder => "Where?" %>
-    </div>
+
+    <% if false %>
     <div class="field" id="address">
       <%= f.label :attach_a_map? %><br/>
       <%= f.text_field :map_location, :id => 'addresspicker_map', :class =>"ui-autocomplete-input", :placeholder => "Search Address" %>
+    <% end %>
     
     <div id="map"></div>
     </div>
