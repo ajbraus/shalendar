@@ -20,7 +20,7 @@
 # Learn more: http://github.com/javan/whenever
 
 #here set the output path so it will log in right place
-set :cron_log, "~/desktop/shalendar/cron_log.log"
+set :cron_log, "~/desktop/shalendar/log/cron_log.log"
 
 # every :friday, :at => "4am" do
 # 	command "rm -rf #{RAILS_ROOT}/tmp/cache"
