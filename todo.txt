@@ -16,11 +16,12 @@ Name:
 	new idea lightbox
 
 	expiring facebook tokens
-
-	
-	merge title and description together 
 	
 	autocomplete on name
+
+	requested on stats, settings page, manage page isn't working perfectly (viewers you are not following have no view button)
+
+	invites list had duplicates and unconfirmed followers showing up.
 
 	add Jquery validations for search
 
@@ -31,13 +32,15 @@ Name:
 
 	remove yourself -- right now you can follow yourself
 
-map bug -google.maps.event.trigger(map, 'resize');
+merge title and description together 
 
-modernizr?
+
 
 
 	Event#show
 		display map_location
+		map bug -google.maps.event.trigger(map, 'resize');
+		modernizr?
 		make a scrollable grid (not a table) for guest raster
 
 	calendar colors
