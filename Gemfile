@@ -26,7 +26,6 @@ gem 'rails3-jquery-autocomplete'
 # gem "recaptcha", :require => "recaptcha/rails"
 
 gem 'pg'
-gem 'sqlite3', '1.3.5'
 
 
 group :development, :test do
