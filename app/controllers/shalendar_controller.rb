@@ -16,12 +16,16 @@ class ShalendarController < ApplicationController
 		@graph = Koala::Facebook::API.new(@access_token)
 		# @followers = current_user.followers
 		# @followed_users = current_user.followed_users
+
+		#people viewing current user 
 		@follower_relationships = Relationship.where("relationships.followed_id = :current_user_id AND 
 																									relationships.confirmed = true ", current_user_id: current_user.id)
-		@followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id AND 
-																											 relationships.confirmed = true ", current_user_id: current_user.id)
+		#people who want to view current user
 		@view_requests = Relationship.where("relationships.followed_id = :current_user_id AND 
 											 									 relationships.confirmed = false ", current_user_id: current_user.id)
+		#people current user is viewing
+		@followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
+																											 current_user_id: current_user.id)
 
 	end
 
