@@ -1,7 +1,13 @@
 <%= div_for invite do %>
+	<table>
+		<tr>
 	<% if u = User.find_by_email(invite.email) %>
-		<%= raster_profile_picture(u) %> <%= u.name %>
+		<td><%= raster_profile_picture(u) %></td>
+		<td><%= u.name %></td>
 	<% else %>
-	  <%= invite.email %>
+		<td width="54" height="50"></td>
+	  <td><%= invite.email %></td>
 	<% end %>
+		<tr>
+	</table>
 <% end %>

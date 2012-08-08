@@ -8,16 +8,36 @@ Name:
 	hoos.in
 
 	ADAM//////
-
-	name below the picture
+	
+	landing, and About contact page -- landing page -> Have ideas for fun, share them on Calenshare with friends and friends of friends, have fun, rinse and repeat.
 
 	idea click lightbox
 
-	new idea lightbox
+	name hover raster
+
+	Event#show
+		display map_location
+		map bug -google.maps.event.trigger(map, 'resize');
+		modernizr?
+		make a scrollable grid (not a table) for guest raster
+
+	calendar colors
+
+	if event is private redirect to event, not calendar.
+
+
+	Flash notices - no flash notices when hitting validations for new event. no flash notices when you have login troubles.	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
+
+
+	Notification views
+
+	comments screwed up
 
 	expiring facebook tokens
 	
 	autocomplete on name
+
+	Make native login play nice with FB, be able to use either/both
 
 	requested on stats, settings page, manage page isn't working perfectly (viewers you are not following have no view button)
 
@@ -34,56 +54,10 @@ Name:
 
 merge title and description together 
 
-
-
-
-	Event#show
-		display map_location
-		map bug -google.maps.event.trigger(map, 'resize');
-		modernizr?
-		make a scrollable grid (not a table) for guest raster
-
-	calendar colors
-
-	if event is private redirect to event, not calendar.
-
-	Update view/unview button to say "Requested" "View" "Unview"
-
-	Manage follows -- pending follows, requested follows
-
-
-	Make native login play nice with FB, be able to use either/both
-
-	Flash notices - no flash notices when hitting validations for new event. no flash notices when you have login troubles.	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
-
 	Post to facebook wall . . . not for private events. post to rsvps facebook wall of friends of RSVPs
 
-	About, landing, and contact page -- landing page -> Have ideas for fun, share them on Calenshare with friends and friends of friends, have fun, rinse and repeat.
+	"hidden features" - toggling, visibility, states of events unclear (tipped vs. untipped, idea vs. plan, idea vs. invitation )
 
-	Find Friends- the automatic redirect from Facebook should have some message if no friends are there, or at least a title to let ppl know where they land.
-	
-		google icon is tiny and squished
-		Notification views
-	
-	raster photo size
-
-	"hidden features" - settings more clear, toggling, visibility, states of events unclear (tipped vs. untipped, idea vs. plan, idea vs. invitation )
-
-
-	Post to facebook wall . . . not for private events. post to rsvps facebook wall of friends of RSVPs
-
-	Twilio texts an hour before start
-
-	Views -
-
-		Ajaxify everything
-			follow/unfollow
-			rsvp/unrsvp
-			toggle/untoggle
-			comments
-			confirmations - remove follower, cancel account
-
-	Add confirmations of follows - Make email, link from email to confirm_follow_path
 
 	Flag user for spam . . .?
 
@@ -93,14 +67,6 @@ merge title and description together
 
 	Populate a demo database
 
-	Twilio:
-		add phone number to user in DB
-		add SMS messages to notifier
-		Buy phone number
-		add phone number in settings page
-		add user boolean for receiving text messages
-
-
 	Check through all notification stuff, make sure always sent and not double
 
 	Go through all app logic; test (QA)
@@ -108,8 +74,8 @@ merge title and description together
 	Daily Digest - Day view list?
 		look into mailer bcc vs. individual sends, cost and spam filtering
 
-	Event should only be able to tip once.. or should it tip/untip? Implement with tipped boolean?
-		
+		Event should only be able to tip once.. or should it tip/untip? Implement with tipped boolean?
+	
 	Deploy
 		https://devcenter.heroku.com/articles/zerigo_dns
 		http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deploying-my-rails-app
@@ -119,6 +85,23 @@ merge title and description together
 
 AFTER BETA LAUNCH
 	
+
+		Post to facebook wall . . . not for private events. post to rsvps facebook wall of friends of RSVPs
+
+	Twilio:
+		add phone number to user in DB
+		add SMS messages to notifier
+		Buy phone number
+		add phone number in settings page
+		add user boolean for receiving text messages
+
+		Ajaxify everything
+			follow/unfollow
+			rsvp/unrsvp
+			toggle/untoggle
+			comments
+			confirmations - remove follower, cancel account
+
 	*Figure out how to get a pretty calendar*
 		
 		fullcalendar, event calendar, roll our own, ?

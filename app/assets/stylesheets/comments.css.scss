@@ -8,23 +8,27 @@
 	float:right;
 	position: relative;
 	right: 88px;
+	textarea {
+		width:330px;
+	}
 }
 
 #comments {
-	width:400px;
-	height:240px;
-	overflow-y:scroll;
-	overflow-x:hidden;
+	width:330px;
+	height:180px;
+	overflow-y:auto;
 	padding-left:20px;
+	margin-right:-50px;
 }
 
 .comment {
 	padding-left:15px;
-	padding-bottom:3px;
 	border-bottom: 1px solid lightgrey;
-	margin:20px 0;
+	margin:8px 0;
+	position: relative;
+	left: 86px;
 	a {
-		font-size: 12px;
+		font-size: 10px;
 	}
 }
 
@@ -37,14 +41,14 @@
 }
 
 .comment_creator {
-	font-size: 12px;
+	font-size: 10px;
 	color:black;
 	font-style: italic;
 
 }
 
 .comment_created_at {
-	font-size: 12px;
+	font-size: 10px;
 	color:grey;
 	font-style: italic;
 }

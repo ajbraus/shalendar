@@ -1,0 +1,72 @@
+#PopupContainer
+{
+    position:absolute;
+    left:0;
+    top:0;
+    display:none;
+    z-index: 20000;
+}
+
+.PopupPopup
+{
+}
+
+#PopupContent
+{
+    background-color: #FFF;
+    min-width: 175px;
+    min-height: 50px;
+}
+
+.PopupPopup .PopupImage
+{
+    margin: 5px;
+    margin-right: 15px;
+}
+
+.PopupPopup .corner 
+{
+    width: 19px;
+    height: 15px;
+}
+    
+.PopupPopup .topLeft 
+{
+    background: url(../images/personpopup/balloon_topLeft.png) no-repeat;
+}
+    
+.PopupPopup .bottomLeft 
+{
+    background: url(../images/personpopup/balloon_bottomLeft.png) no-repeat;
+}
+    
+.PopupPopup .left 
+{
+    background: url(../images/personpopup/balloon_left.png) repeat-y;
+}
+    
+.PopupPopup .right 
+{
+    background: url(../images/personpopup/balloon_right.png) repeat-y;
+}
+    
+.PopupPopup .topRight 
+{
+    background: url(../images/personpopup/balloon_topRight.png) no-repeat;
+}
+    
+.PopupPopup .bottomRight 
+{
+    background: url(../images/personpopup/balloon_bottomRight.png) no-repeat;
+}
+    
+.PopupPopup .top 
+{
+    background: url(../images/personpopup/balloon_top.png) repeat-x;
+}
+    
+.PopupPopup .bottom 
+{
+    background: url(../images/personpopup/balloon_bottom.png) repeat-x;
+    text-align: center;
+}

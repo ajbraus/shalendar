@@ -62,6 +62,7 @@ class EventsController < ApplicationController
     @guests = @event.guests
     @starttime = @event.starts_at.strftime "%l:%M%P, %A %B %e"
     @endtime = @event.ends_at.strftime "%l:%M%P, %A %B %e"
+    
     if @event.visibility == "invite_only" 
       @invites = @event.invites
     else
