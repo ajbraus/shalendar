@@ -10,6 +10,7 @@ class ShalendarController < ApplicationController
 		@relationships = current_user.relationships.where('relationships.confirmed = true')
 		@access_token = session[:fb_access_token]
   	@graph = Koala::Facebook::API.new(@access_token)
+  	@event = Event.new
 	end
 
 	def manage_follows
@@ -26,7 +27,7 @@ class ShalendarController < ApplicationController
 		#people current user is viewing
 		@followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
 																											 current_user_id: current_user.id)
-
+		
 	end
 
 	def find_friends

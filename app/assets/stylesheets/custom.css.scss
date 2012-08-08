@@ -17,6 +17,11 @@ $grayDarker:#eaeaea;
 
 /* universal */
 
+html, body, div {
+  margin: 0;
+  padding: 0;
+}
+
 html {
   overflow-y: scroll;
   font-family: arial;
@@ -183,7 +188,7 @@ ul, li {
 }
 
 .btn_fb_login {
-  background: image-url("facebook_signin.png") no-repeat 0 0;
+  background: image-url("social/facebook_signin.png") no-repeat 0 0;
   width: 150px;
   height: 21px;
   display: block;
@@ -292,18 +297,26 @@ header {
   border-radius: 4px;
 }
 .btn_new_idea {
-  width:231px;
-  margin: 10px 0px;
-  height: 45px;
+  width: 181px;
+  margin: 6px 0px;
+  height: 27px;
+  text-align: center;
+  line-height: 26px;
 }
 
+#new_idea {
+  width:470px;
+  height:370px;
+  overflow:auto;
+  padding:30px;
+  padding-bottom:50px;
+  padding-top:0px;
+}
 aside {
   height:600px;
-  position:relative;
-  top:20px;
   margin-left:3%;
   float:left;
-  margin-top:35px;
+  margin-top:17px;
   padding: 10px 0;
   width:250px;
   &:first-child {
@@ -355,7 +368,7 @@ aside {
 /* raster */
 
 .raster {
-  height:310px;
+  height:320px;
   overflow-y:auto;
   margin-bottom:10px;
   width:235px;
@@ -570,4 +583,12 @@ footer {
   }
 }
 
-
+#lightbox {
+    position:fixed; /* keeps the lightbox window in the current viewport */
+    top:0; 
+    left:0; 
+    width:100%; 
+    height:100%; 
+    background:url(overlay.png) repeat; 
+    text-align:center;
+}
