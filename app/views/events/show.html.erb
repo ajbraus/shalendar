@@ -2,12 +2,11 @@
 <div id="event_show"> 
   <span class="grey_italics"><%= @event.description %></span>
   <div class="rsvp_tip">
-    <% unless @event.tipped? %>
-      <h3>Needs <span class="red"><%= @event.min - @guests.count %></span> to Tip. . . </h3>
+    <% if @event.tipped? %>
+      <p class="event_on">Idea is On!</p>
     <% else %>
-      <p class="event_on">Event is On!</p>
+      <h3>Needs <span class="red"><%= @event.min - @guests.count %></span> more people to Tip. . . </h3>
     <% end %>
-    
   </div>
 
   <div id="title">

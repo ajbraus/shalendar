@@ -100,7 +100,6 @@ merge title and description together
 		add phone number in settings page
 		add user boolean for receiving text messages
 
-
 	Check through all notification stuff, make sure always sent and not double
 
 	Go through all app logic; test (QA)
@@ -108,7 +107,7 @@ merge title and description together
 	Daily Digest - Day view list?
 		look into mailer bcc vs. individual sends, cost and spam filtering
 
-	Event should only be able to tip once.. or should it tip/untip? Implement with tipped boolean?
+	Event should only be able to tip once.. Implement with tipped boolean.
 		
 	Deploy
 		https://devcenter.heroku.com/articles/zerigo_dns

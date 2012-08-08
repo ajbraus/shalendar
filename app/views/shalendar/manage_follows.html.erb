@@ -1,7 +1,7 @@
 <% provide(:title, " | Manage Views") %>
 <div id="manage_views">
   <div id="views_list">
-    <h2>Calenshares Your Viewing</h2>
+    <h2>Calendars You're Viewing</h2>
     <div class="user_table">
         <% @followed_user_relationships.each do |fur| %>
         <table>       
@@ -24,7 +24,7 @@
       <% end %>
     </div>
 
-    <h2>People Viewing Your Calenshare</h2>
+    <h2>Viewing Your Calendar</h2>
     <div class="user_table">
       <% @follower_relationships.each do |fr| %>
       <table>        
