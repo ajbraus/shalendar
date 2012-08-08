@@ -57,12 +57,21 @@ class EventsController < ApplicationController
     @guests = @event.guests
     @starttime = @event.starts_at.strftime "%l:%M%P, %A %B %e"
     @endtime = @event.ends_at.strftime "%l:%M%P, %A %B %e"
-    
-    if @event.visibility == "invite_only" 
-      @invites = @event.invites
-    else
-      @invites = @event.user.followers.to_a | @event.invites.to_a
+
+    #separating invites by email from invites who are users
+    @invites = []
+    @invited_users = []
+    @event.invites.each do |i|
+      if u = User.find_by_email(i.email)
+        @invited_users.push(u)
+      else
+        @invites.push(i)
+      end
     end
+    unless @event.visibility == "invite_only" 
+      @invited_users = @invited_users | @event.user.followers
+    end
+    @invited_users = @invited_users - @event.guests
 
     @access_token = session[:fb_access_token]
     @graph = Koala::Facebook::API.new(@access_token)
@@ -136,7 +145,7 @@ class EventsController < ApplicationController
     @toggled_invitation_events = []
 
      @invitation_events.each do |ie|
-      unless current_user.rsvpd?(ie)
+      unless current_user.rsvpd?(ie) || current_user == ie.user
         if ie.tipped?
           if current_user.following?(ie.user)
             if current_user.relationships.find_by_followed_id(ie.user).toggled?
@@ -155,54 +164,30 @@ class EventsController < ApplicationController
   end
 
   def my_maybes
-    @followed_events = []
+
+    @maybe_events = []
     #PUT THIS OUTSIDE OF HERE SO CAN BE USED FOR TIPPED AND UNTIPPED???
     @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id')
                                     .where('relationships.follower_id = :current_user_id AND 
                                       relationships.toggled = "t" AND relationships.confirmed = "t"',
                                       :current_user_id => current_user.id) #316 ms in console for user1, ~50 followed
 
-    @toggled_followed_users.each { |f|
-      f.plans.each{ |fp| #for friends of friends events that are RSVPd for
-        if fp.user == f
-          @followed_events.push(fp)
-        elsif fp.visibility == "friends_of_friends"
-          @followed_events.push(fp)
-          # For actualy 2deg separation
-          # if f.following?(fp.user)
-          #   @followed_events.push(fp)
-          # end
-        end
-      }
-    }
-
-    @maybe_events = [] #an empty array to fill with relevant events
-
-    #take main list and remove already RSVP'd events
-    @followed_events.each { |e|
-      plan = false
-      unless(e.full?)
-        unless(e.visibility == "invite_only")
-          if(e.tipped?)
-            e.guests.each{ |g|
-              if g == current_user
-               plan = true
-              end
-            }
-            if e.user == current_user
-              plan = true
-            end
-            if plan == false
+    @toggled_followed_users.each do |f|
+      f.plans.each do |fp| #for friends of friends events that are RSVPd for
+        unless fp.full || fp.visibility == "invite_only" || current_user.rsvpd?(fp)
+          if fp.tipped?
+            if fp.user == f || fp.visibility == "friends_of_friends"
               i = Invite.where("invites.event_id = :current_event_id AND invites.email = :current_user_email",
-                               current_event_id: e.id, current_user_email: current_user.email)
+               current_event_id: fp.id, current_user_email: current_user.email)
               if i.empty?
-                @maybe_events.push(e)
+                @maybe_events.push(fp)
               end
             end
-          end  
+          end
         end
       end
-    }
+    end
+
     #PROBLEM HERE, EVENTS will not load with these on
     #@events = @events.after(params['start']) if (params['start'])
     #@events = @events.before(params['end']) if (params['end'])
@@ -362,7 +347,7 @@ class EventsController < ApplicationController
     @toggled_invitation_events = []
 
     @invitation_events.each do |ie|
-      unless current_user.rsvpd?(ie)
+      unless current_user.rsvpd?(ie) || current_user == ie.user
         unless ie.tipped?
           if current_user.following?(ie.user)
             if current_user.relationships.find_by_followed_id(ie.user).toggled?

@@ -34,15 +34,12 @@
         <td><%= guest.name %></td>
         <% unless current_user == guest %>
         <td id="follow_form">
-          <% if current_user.following?(guest) %>
-            <%= form_for(current_user.relationships.find_by_followed_id(guest),
-                     html: { method: :delete }) do |f| %>
-              <%= f.submit "Unfollow", class: "btn btn-large" %>
-            <% end %>
-          <% else %>
-            <%= form_for(current_user.relationships.build(followed_id: guest.id)) do |f| %>
-              <div><%= f.hidden_field :followed_id %></div>
-              <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
+          <% unless current_user.following?(guest) %>
+            <% unless current_user.request_following?(guest) %>
+              <%= form_for(current_user.relationships.build(followed_id: guest.id)) do |f| %>
+                <div><%= f.hidden_field :followed_id %></div>
+                <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
+              <% end %>
             <% end %>
           <% end %>
         </td>
@@ -60,6 +57,26 @@
   <% end %>
     <div id="invites">
       Invites:
+      <% if @invited_users.empty? == false %>
+        <% @invited_users.each do |iu| %>
+          <table>
+          <tr>
+            <td><%= raster_profile_picture(iu) %></td>
+            <td><%= iu.name %></td>
+            <% unless current_user == iu %>
+              <% unless current_user.following?(iu) %>
+                <% unless current_user.request_following?(iu) %>
+                  <%= form_for(current_user.relationships.build(followed_id: iu.id)) do |f| %>
+                    <div><%= f.hidden_field :followed_id %></div>
+                    <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <tr>
+        </table>
+        <% end %>
+      <% end %>
       <%= render partial: 'invites/invite', collection: @invites %>
     </div>
 
