@@ -11,7 +11,7 @@ $(document).ready(function() {
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
     },
-    editable: true, 
+    // editable: true, 
     selectable: false,
     selectHelper: false,
     allDaySlot: false,
@@ -92,18 +92,18 @@ $(document).ready(function() {
     dragOpacity: "0.5",
     
     //http://arshaw.com/fullcalendar/docs/event_ui/eventDrop/
-    eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
-        var x=window.confirm("Are you sure you would like to change this event?")
-        if (x)
-        updateEvent(event);
-    },
+    // eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
+    //     var x=window.confirm("Are you sure you would like to change this event?")
+    //     if (x)
+    //     updateEvent(event);
+    // },
 
-    // http://arshaw.com/fullcalendar/docs/event_ui/eventResize/
-    eventResize: function(event, dayDelta, minuteDelta, revertFunc){
-        var x=window.confirm("Are you sure you would like to change this event?")
-        if (x)
-        updateEvent(event);
-    },
+    // // http://arshaw.com/fullcalendar/docs/event_ui/eventResize/
+    // eventResize: function(event, dayDelta, minuteDelta, revertFunc){
+    //     var x=window.confirm("Are you sure you would like to change this event?")
+    //     if (x)
+    //     updateEvent(event);
+    // },
 
     select: function( startDate, endDate, allDay ) {
         createEvent(startDate, endDate);
@@ -112,38 +112,38 @@ $(document).ready(function() {
     // http://arshaw.com/fullcalendar/docs/mouse/eventClick/
     eventClick: function(event, jsEvent, view){
       // would like a lightbox here.
-    },
+    }
 
-    dayClick: function(date, allDay, jsEvent, view) {
-        // alert('Clicked on the slot: ' + date);
-        // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);   
-        // alert('Current view: ' + view.name);
+    // dayClick: function(date, allDay, jsEvent, view) {
+    //     // alert('Clicked on the slot: ' + date);
+    //     // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);   
+    //     // alert('Current view: ' + view.name);
 
-    // change the day's background color just for fun
-    $(this).css('background-color', 'blue');
-    },
+    // // change the day's background color just for fun
+    // $(this).css('background-color', 'blue');
+    // },
   });
 });
 
-function updateEvent(the_event) {
-    $.update(
-      "/events/" + the_event.id,
-      { event: { 
-                 starts_at: "" + the_event.start,
-                 ends_at: "" + the_event.end
-               }
-      }//,
-      // function (reponse) { alert('successfully updated task.'); }
-    );
-};
+// function updateEvent(the_event) {
+//     $.update(
+//       "/events/" + the_event.id,
+//       { event: { 
+//                  starts_at: "" + the_event.start,
+//                  ends_at: "" + the_event.end
+//                }
+//       }//,
+//       // function (reponse) { alert('successfully updated task.'); }
+//     );
+// };
 
-function createEvent(startDate, endDate) {
-    $.create(
-        "/events",
-        { 
-          starts_at: startDate,
-          ends_at: endDate
-        },
-        function (reponse) { alert('successfully created event.'); }
-     ); 
-};
+// function createEvent(startDate, endDate) {
+//     $.create(
+//         "/events",
+//         { 
+//           starts_at: startDate,
+//           ends_at: endDate
+//         },
+//         function (reponse) { alert('successfully created event.'); }
+//      ); 
+// };

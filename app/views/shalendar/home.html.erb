@@ -1,3 +1,4 @@
+<% provide(:title, " | Home") %>
 <div class="container">
 	<aside>
 
@@ -6,7 +7,6 @@
 	  <%= render 'stats' %>
   
 	  <%= render 'search' %>
-
 
 		<%= button_to "New Idea", new_event_path, :class => 'btn-primary btn_new_idea', :method => :get %>
 

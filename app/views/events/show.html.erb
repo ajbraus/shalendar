@@ -1,39 +1,34 @@
+<% provide(:title, " | Idea") %>
 <div id="event_show"> 
-  <h1><%= @event.title %></h1>
   <span class="grey_italics"><%= @event.description %></span>
   <div class="rsvp_tip">
     <% unless @event.tipped? %>
-      <h2>RSVP Count: </b> <span class="red"><%= @guests.count %></span></h2>
-      <h2>Needs <%= @event.min - @guests.count %> to Tip. . . </h2>
+      <h3>Needs <span class="red"><%= @event.min - @guests.count %></span> to Tip. . . </h3>
     <% else %>
       <p class="event_on">Event is On!</p>
-      <h2>RSVP Count: </b> <span class="red"><%= @guests.count %></span></h2>
     <% end %>
+    
   </div>
-  <hr>
 
-  <div id="when">
-    From:
-    <p><%= @starttime %></p>
-    To:
-    <p><%= @endtime %></p>
-    <% if @event.location == nil %>
-    Location:<p>Not Specified</p>
-    <% else %>
-    Location: 
-    <p><%= @event.location %></p>
-    <% end %>
-    <% if @event.map_location == nil %>
-    Map:<br>
-      <p id="no_map">no map</p>
-    <% else %>
+  <div id="title">
+    <%= @event.title %>
+      <div id="when">At <%= @starttime %> for <%= @event.duration %> hours</div>
+  </div>
+    
+  <%= render 'rsvp_form' %>
+</div>
+    <% if false  %>
+    <% if @event.map_location != nil %>
     Map:
-      <div id="addresspicker_map"></div>  
+      <input id="addresspicker_map" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" value= "<%= @event.map_location %>" type="hidden">
       <div id="map"></div>
     <% end %>
-  </div>
+    <% end %>
 
-   <table id="guest_raster">
+<div id="event_info">
+  <h2>RSVP Count: </b> <span class="red"><%= @guests.count %></span></h2>
+  <div id="guest_raster">
+   <table>
     <% @guests.each do |guest| %>
     	<tr>
         <td><%= link_to raster_profile_picture(guest) %></td>
@@ -55,30 +50,27 @@
         <% end %>
   	<% end %>
     </table>
+  </div>
+
+      <%= render 'social' %>
+
+  <% if @event.visibility == "friends_of_friends" || @event.user == current_user %>
+    <div id="invites_form">
+      <%= render partial: 'invites_form' %>
+    </div>
+  <% end %>
+    <div id="invites">
+      <%= render partial: 'invites/invite', collection: @invites %>
+    </div>
 
     <div id="comments_form">
       <%= render partial: 'comments_form' %>
     </div>
 
-    <div id="comments">
-      <%= render :partial => 'comments/comment', collection: @comments %>
-    </div>
-
-    <div id="invites_form">
-      <%= render partial: 'invites_form' %>
-    </div>
-
-    <div id="invites">
-      <%= render partial: 'invites/invite', collection: @invites %>
-    </div>
-
     <div>
-      <%= render 'rsvp_form' %>
       <%= render 'nav_buttons' %>
     </div>
   </div>
-  </div>
-</div>
 </div>
 
 <!-- Twitter API script -->

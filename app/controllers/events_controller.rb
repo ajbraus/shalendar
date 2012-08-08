@@ -62,11 +62,15 @@ class EventsController < ApplicationController
     @guests = @event.guests
     @starttime = @event.starts_at.strftime "%l:%M%P, %A %B %e"
     @endtime = @event.ends_at.strftime "%l:%M%P, %A %B %e"
-    @invites = @event.invites
+    if @event.visibility == "invite_only" 
+      @invites = @event.invites
+    else
+      @invites = @event.user.followers.to_a | @event.invites.to_a
+    end
+
     @access_token = session[:fb_access_token]
     @graph = Koala::Facebook::API.new(@access_token)
     @comments = @event.comments.order "created_at desc"
-#    @comment_created_at = @comment.created_at.strftime "%l:%M%P, %A %B %e"
 
     respond_to do |format|
       format.html # show.html.erb
@@ -79,13 +83,13 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     @start_time = @event.starts_at
-    @location = @event.location
+    @location = @event.map_location
     respond_to do |format|
       if @event.update_attributes(params[:event])
 
         if @start_time != @event.starts_at
           Notifier.time_change(@event).deliver
-        elsif @location != @event.location
+        elsif @location != @event.map_location
           Notifier.location_change(@event).deliver
         else
           Notifier.noncritical_change(@event).deliver

@@ -17,5 +17,19 @@ $(document).ready(function() {
 		addresspickerMap.addresspicker( "updatePosition");
 		
 	});
+
+  $("#minmax").click(function () {
+     $('#minmaxp').slideToggle();
+  });
+
+  $("#visibility").click(function () {
+   $('#visibilityp').slideToggle();
+  });
+
+  $("#addmap").click(function () {
+   $('#addmapp').slideToggle();
+  });
+
+
  
 });

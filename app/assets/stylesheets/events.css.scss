@@ -1,0 +1,175 @@
+
+
+/* EVENT#SHOW */
+
+#event_show {
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom: 20px;
+  width:414px;
+}
+
+#title {
+  font-size:1.2em;
+  color:hotpink;
+  padding:30px;
+  border:1px solid lightgrey;
+  font-weight: normal;
+  height:80px;
+  overflow:auto;
+  -webkit-box-shadow: 5px 5px 5px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    5px 5px 5px rgba(50, 50, 50, 0.75);
+  box-shadow:         5px 5px 5px rgba(50, 50, 50, 0.75);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-bottom:20px;
+}
+
+#when {
+  text-align: right;
+  color:gray;
+  position:relative;
+  top:63px;
+  left:20px;
+  font-style: italic;
+  font-size:.9em;
+}
+
+.event_on {
+  text-align: center;
+  font-size: 32px;
+  font-family: serif;
+  font-style: bold;
+  color:#3D8B37;
+  text-shadow: 0.03em 0.03em 0.15em lightgrey
+}
+
+#map {
+  border: 1px solid #DDD;
+  width:370px;
+  height: 200px;
+  display: inline-block;
+  margin: 0 0 13px 10px;
+  -webkit-box-shadow: #AAA 0px 0px 10px teal;
+}
+
+#no_map {
+  width:370px;
+  height: 200px;
+  margin: 15px 20px 13px 0px;
+  display: inline-block;
+  color:grey;
+  font-style: italic;
+}
+
+.rsvp_tip {
+  margin-top:20px;
+  margin-bottom:10px;
+  font-size:12px;
+  h2 {
+    margin-top:0px;
+    margin-bottom:5px;
+    font-size:1.8em;
+  }
+  h3 {
+    text-align: center;
+  }
+}
+
+.grey_italics {
+  font-size: 24px;
+  font-style: italic;
+  color: grey;
+  font-family: veranda;
+}
+
+.event_show {
+  height:260px;
+}
+
+#event_info {
+  margin-left:auto;
+  margin-right:auto;
+  width:1040px;
+  height:730px;
+  position: relative;
+  top: 50px;
+  h1 {
+    margin-top:0px;
+    text-align: left;
+  }
+}
+
+#guest_raster {
+  display: inline-block;
+  float:left;
+  width: 630px;
+  margin-right:40px;
+  height: 240px;
+  margin-bottom:10px;
+  font-size: 20px;
+  overflow:auto;
+  border:1px solid lightgrey;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding:0 20px 20px 20px;
+}
+
+.input-large {
+  width:340px;
+}
+
+#rsvp_form {
+  float:left;
+  margin-left:330px;
+  height:0px;
+}
+
+#social {
+  margin-bottom:20px;
+  margin-top:20px;
+  float:left;
+  width:300px;
+}
+
+#invites_form {
+  margin-bottom:20px;
+  float:right;
+  input[type=text] {
+    float:left;
+    margin-right:0px;
+    width:250px;
+    margin-right: -5px;
+    -webkit-border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    border-radius: 5px 0 0 5px;
+    padding:9.5px;
+    outline:none;
+    font-size: 15px;
+    margin-bottom:20px;
+  }
+  input[type=submit] {
+    -webkit-border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
+    padding-bottom:12px;
+    width:46px;
+    float:left;
+  }
+}
+
+#invites {
+  float:right;
+  width:320px;
+  height:450px;
+  overflow-y:auto;
+}
+
+.nav_buttons {  
+  float:left;
+  a {
+    color:blue;
+  }
+}

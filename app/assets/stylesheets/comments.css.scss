@@ -3,7 +3,11 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #comments_form {
+	margin-top:30px;
 	width:400px;
+	float:right;
+	position: relative;
+	right: 88px;
 }
 
 #comments {
@@ -11,19 +15,21 @@
 	height:240px;
 	overflow-y:scroll;
 	overflow-x:hidden;
-	padding-right:15px;
-
+	padding-left:20px;
 }
 
 .comment {
 	padding-left:15px;
-	padding-bottom:10px;
+	padding-bottom:3px;
 	border-bottom: 1px solid lightgrey;
 	margin:20px 0;
+	a {
+		font-size: 12px;
+	}
 }
 
 .comment_content {
-	font-size: 15px;
+	font-size: 13px;
 }
 
 .comment_data {
