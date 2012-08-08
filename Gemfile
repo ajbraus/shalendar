@@ -44,7 +44,7 @@ group :assets do
   gem 'font-awesome-sass-rails'
 end
 
-gem 'jquery-rails', '2.0.0'
+gem 'jquery-rails'#, '2.0.0'
 
 group :test do
   gem 'faker', '1.0.1'
