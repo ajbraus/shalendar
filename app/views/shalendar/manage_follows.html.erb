@@ -33,15 +33,16 @@
             <td width="150px"><%= fr.follower.name %></td>
             <td>
               <span>
-                <% if current_user.request_following?(fr.follower) %>
-                  Request Sent...
-                <% elsif current_user.following?(fr.follower) == "false" %>
+                <%= link_to "Remove Viewer", relationship_remove_path(fr), class: "btn_remove", method: :delete, confirm: "Are you sure #{fr.follower.name} should no longer be able to view your ideas?" %>
+                <% if current_user.following?(fr.follower) %>
+                  Viewing Back
+                <% elsif current_user.request_following?(fr.follower) %>
+                  Awaiting View Confirmation...
+                <% else %>
                   <%= form_for(current_user.relationships.build(followed_id: fr.follower.id)) do |f| %>
                     <div><%= f.hidden_field :followed_id %></div>
-                    <%= f.submit "View", class: "btn-primary btn_start_viewing" %>
+                    <%= f.submit "View Back", class: "btn-primary btn_start_viewing" %>
                   <% end %>
-                <% else %>
-                  <%= link_to "Remove Viewer", relationship_remove_path(fr), class: "btn_remove", method: :delete, confirm: "Are you sure #{fr.follower.name} should no longer be able to view your ideas?" %>
                 <% end %>
               </span>
             </td>
