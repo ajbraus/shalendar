@@ -111,7 +111,7 @@ class Notifier < ActionMailer::Base
   def send_invites(event)
     @invitees = @event.invites.join('; ')
 
-    mail bcc: @invitees, subject: "Invitation to: #{event.title}"
+    mail bcc: @invitees, subject: "#{event.user.name} has invited you to #{event.title} on Calenshare"
   end
 
   #PREFERENCE NOTIFIERS, DEFAULT YES

@@ -10,7 +10,8 @@ class Event < ActiveRecord::Base
 
   has_many :invites, dependent: :destroy
 
-  attr_accessible :description, 
+  attr_accessible :id,
+                  :description, 
                   :starts_at, 
                   :duration,
                   :ends_at,
@@ -21,7 +22,6 @@ class Event < ActiveRecord::Base
                   :chronic_starts_at,
                   :chronic_ends_at,
                   :visibility
-
 
   validates :user_id,
             :title,

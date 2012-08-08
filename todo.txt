@@ -74,8 +74,9 @@ merge title and description together
 	Daily Digest - Day view list?
 		look into mailer bcc vs. individual sends, cost and spam filtering
 
-		Event should only be able to tip once.. or should it tip/untip? Implement with tipped boolean?
-	
+	Event should only be able to tip once.. Implement with tipped boolean.
+		
+
 	Deploy
 		https://devcenter.heroku.com/articles/zerigo_dns
 		http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deploying-my-rails-app
