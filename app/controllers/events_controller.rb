@@ -169,12 +169,12 @@ class EventsController < ApplicationController
     #PUT THIS OUTSIDE OF HERE SO CAN BE USED FOR TIPPED AND UNTIPPED???
     @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id')
                                     .where('relationships.follower_id = :current_user_id AND 
-                                      relationships.toggled = "t" AND relationships.confirmed = "t"',
+                                      relationships.toggled = true AND relationships.confirmed = true',
                                       :current_user_id => current_user.id) #316 ms in console for user1, ~50 followed
 
     @toggled_followed_users.each do |f|
       f.plans.each do |fp| #for friends of friends events that are RSVPd for
-        unless fp.full || fp.visibility == "invite_only" || current_user.rsvpd?(fp)
+        unless fp.full? || fp.visibility == "invite_only" || current_user.rsvpd?(fp)
           if fp.tipped?
             if fp.user == f || fp.visibility == "friends_of_friends"
               i = Invite.where("invites.event_id = :current_event_id AND invites.email = :current_user_email",
@@ -246,7 +246,7 @@ class EventsController < ApplicationController
     @followed_events = []
     #@followed_users = current_user.followed_users
     @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id').
-                                   where('relationships.follower_id = :current_user_id AND relationships.toggled = "t" AND relationships.confirmed = "t"',
+                                   where('relationships.follower_id = :current_user_id AND relationships.toggled = true AND relationships.confirmed = true',
                                    :current_user_id => current_user.id)
     @toggled_followed_users.each { |f|
       f.plans.each{ |fp| #for friends of friends events that are RSVPd for
