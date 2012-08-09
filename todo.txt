@@ -79,7 +79,6 @@ merge title and description together
 
 	Deploy
 		https://devcenter.heroku.com/articles/zerigo_dns
-		http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deploying-my-rails-app
 		Airbreak / rescues
 
 		Private deployments
