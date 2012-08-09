@@ -7,10 +7,10 @@ before_filter :authenticate_user!
     else
       @user = User.find(params[:relationship][:followed_id])
     end
-
-    if @user == current_user
-      flash[:notice] "Already viewing yourself!"
-    elsif @user.require_confirm_follow?
+    # TO TRY AND STOP FOLLOWING YOURSELF
+    # if @user == current_user
+    #   flash[:notice] = 'Already viewing yourself!'
+    if @user.require_confirm_follow?
       Notifier.confirm_follow(@user, current_user)
       current_user.follow!(@user)
       @relationship = Relationship.last #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
@@ -69,4 +69,24 @@ before_filter :authenticate_user!
     redirect_to :back, notice: "#{@relationship.follower.name} can now view your ideas"
   end
 
+  def confirm_and_follow
+    @relationship = Relationship.find(params[:relationship_id])
+    @relationship.confirm!
+    @relationship.save
+
+    #@other_user = @relationship.follower
+    
+    current_user.follow!(@relationship.follower)
+    @new_relationship = Relationship.last
+    if(@relationship.follower.require_confirm_follow == true)
+      @new_relationship.confirmed = false
+    else
+      @new_relationship.confirmed = true
+    end
+    if @new_relationship.save 
+      redirect_to :back, notice: "#{@relationship.follower.name} can now view your ideas and request sent to view back"
+    else
+      redirect_to :back, notice: "Couldn't View #{@user.name}'s ideas"
+    end
+  end
 end

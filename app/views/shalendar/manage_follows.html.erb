@@ -35,7 +35,7 @@
               <span>
                 <%= link_to "Remove Viewer", relationship_remove_path(fr), class: "btn_remove", method: :delete, confirm: "Are you sure #{fr.follower.name} should no longer be able to view your ideas?" %>
                 <% if current_user.following?(fr.follower) %>
-                  Viewing Back
+                  <%# do nothing... already displaying viewing above %>
                 <% elsif current_user.request_following?(fr.follower) %>
                   <%# do nothing... already are displaying request sent above %>
                 <% else %>

@@ -1,19 +1,17 @@
-FOR BETA
+FOR Pitch:
 
-Name:
-	
-	calenshare!
-	monthbook.com
-	whusin.com
-	hoos.in
 
 	ADAM//////
 	
+	signin page needs facebook button
+
 	landing, and About contact page -- landing page -> Have ideas for fun, share them on Calenshare with friends and friends of friends, have fun, rinse and repeat.
 
 	idea click lightbox
 
 	name hover raster
+
+	"hidden features" -  visibility - target icon, states of events unclear (tipped vs. untipped, idea vs. plan, idea vs. invitation ) legend
 
 	Event#show
 		display map_location
@@ -52,11 +50,13 @@ Name:
 
 	remove yourself -- right now you can follow yourself
 
+
+	tabed viewers viewing on manage views page
 merge title and description together 
 
 	Post to facebook wall . . . not for private events. post to rsvps facebook wall of friends of RSVPs
 
-	"hidden features" - toggling, visibility, states of events unclear (tipped vs. untipped, idea vs. plan, idea vs. invitation )
+
 
 
 	Flag user for spam . . .?
@@ -79,9 +79,24 @@ merge title and description together
 
 	Deploy
 		https://devcenter.heroku.com/articles/zerigo_dns
+		http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deploying-my-rails-app
 		Airbreak / rescues
 
 		Private deployments
+
+
+paperclip your own picture
+add facebook and twitter and google +  authentications
+
+tabbed view of manage views and viewers
+
+better calenar
+
+post to facebook wall
+
+MOBILE! (web mobile and native)
+
+
 
 AFTER BETA LAUNCH
 	

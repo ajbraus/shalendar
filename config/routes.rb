@@ -47,6 +47,7 @@ Shalendar::Application.routes.draw do
     put :toggle
     delete :remove
     put :confirm
+    put :confirm_and_follow
   end
 
   # match '/manage_follows/remove', :to => 'relationships#remove', :as => "remove"
