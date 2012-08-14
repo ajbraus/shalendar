@@ -1,17 +1,62 @@
-FOR Pitch:
+iPhone app
+	1. Authentication/list of events
+	2. Event Show/notifications/RSVP
+	3. Raster/Create event
+	
+	invite
+	manage follows
+
+Android app
+
+Notifications 3-day digest
+
+
+Roll your own calendar - legend, front-end, backend
+
+Search bugs - simple/sphinx
+
+Authenication - FB/Native/Twitter + paperclip
+
+Minor fixes
+	requested in stats
+	map
+	Event#show
+
+FB post to wall
+
+Invite friends on signup and on home
+
+Add FB events to calendar
+
+SDK
+
+Design:
+	Name
+	Logo
+	Colorscheme - set 6 colors
+	Font
+	Images:
+		Tipped 
+		untipped
+		morning/afternoon/evening
+		RSVPed 
+		UnRSVPed - greyed out
+	Landing page
+
 
 
 	ADAM//////
-	
-	signin page needs facebook button
 
-	landing, and About contact page -- landing page -> Have ideas for fun, share them on Calenshare with friends and friends of friends, have fun, rinse and repeat.
+	invite friends to calenshare
 
 	idea click lightbox
 
+	remove city
+
 	name hover raster
 
-	"hidden features" -  visibility - target icon, states of events unclear (tipped vs. untipped, idea vs. plan, idea vs. invitation ) legend
+	"hidden features" -  
+		visibility - target icon, states of events unclear (tipped vs. untipped, idea vs. plan, idea vs. invitation ) legend
 
 	Event#show
 		display map_location
@@ -23,9 +68,7 @@ FOR Pitch:
 
 	if event is private redirect to event, not calendar.
 
-
 	Flash notices - no flash notices when hitting validations for new event. no flash notices when you have login troubles.	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
-
 
 	Notification views
 
@@ -50,13 +93,15 @@ FOR Pitch:
 
 	remove yourself -- right now you can follow yourself
 
+	SDK
 
 	tabed viewers viewing on manage views page
 merge title and description together 
 
-	Post to facebook wall . . . not for private events. post to rsvps facebook wall of friends of RSVPs
+	Post to facebook wall . . . not for private events
+	post to rsvps facebook wall of friends of RSVPs
 
-
+	add fb events to calenshare
 
 
 	Flag user for spam . . .?
@@ -71,7 +116,7 @@ merge title and description together
 
 	Go through all app logic; test (QA)
 		
-	Daily Digest - Day view list?
+	3 day Digest - Day view list?
 		look into mailer bcc vs. individual sends, cost and spam filtering
 
 	Event should only be able to tip once.. Implement with tipped boolean.
@@ -101,8 +146,6 @@ MOBILE! (web mobile and native)
 AFTER BETA LAUNCH
 	
 
-		Post to facebook wall . . . not for private events. post to rsvps facebook wall of friends of RSVPs
-
 	Twilio:
 		add phone number to user in DB
 		add SMS messages to notifier
@@ -117,36 +160,39 @@ AFTER BETA LAUNCH
 			comments
 			confirmations - remove follower, cancel account
 
-	*Figure out how to get a pretty calendar*
-		
-		fullcalendar, event calendar, roll our own, ?
-		maybe use lyconic's full calendar to get jquery tooltips and limit the number of events per day https://github.com/lyconic/fullcalendar/tree/jquery-ui-tooltip
+	Recurring events
 
 	Invite only signup
+
 	Get their city from facebook -- if not in our list, redirect to registration for invitation.
-	Refactor event stream to use SQL rather than ruby
+	
 	google calendar "add this to calenshare"
-	add fb events to calenshare
-	Twitter & google (at least add contacts from google) (add an Authentications model and then connect all the users through this) 
+
 	save image and access tokens in database and then update them upon login.
+
 	Tests/refactoring
-	Mobile dev
+	
 	SQL Table maintenance; mainly destroying events after they are done, but transferring data somewhere in a reasonable format for conducting analytics
 	add recurring functionality
+
 	Selectable
+
 	log the access token upon sign_up and update upon sign_in. store picture URL as well.
+
 	- custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid
+
 	find friends in gmail, twitter
-	Customize Calendar view
-		1day, 4day, 2week
-		add first day is always the left most day of four days. Probably need to add a dyanmic function to the firstDay call
+
 	Detect user's local time with an ajax call to the browser and then log it in the session.
+
 	copy evite
+
 	Event search (w #tags)
 	List view of events
 	Groups/Lists of users ("Make selected viewed into list")
 	Premium membership
 		Paid event types
+		make CS event - FB event
 	Show on over details of day/event
 
 

@@ -1,3 +1,7 @@
+htmlEscape(event.host_pic) +
+
+
+
 No following maybes    
     @events = Event.all
     @maybe_events = [] #an empty array to fill with relevant events

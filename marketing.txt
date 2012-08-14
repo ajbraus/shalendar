@@ -1,0 +1,65 @@
+initial:
+	Small social network(s) - 
+
+		How much of your social life are you using this for?
+		Which parts? and Why?
+
+		How confident do you feel that RSVPs will attend? Do they attend?
+
+		do you just use this or in conjunction with text/phone/email/fb/twitter?
+
+		How often do you check/look at your calenshare?
+
+		Do you read the three day digests?
+
+		How many times a week do you hang out with friends? how many are on calenshare? How many times a week would you LIKE to be hangning out with friends?
+
+		What do you like most about calenshare? What would you like to change? What could be cut?
+
+		Do you different things using calenshare? 
+
+		Do you meet more people?
+
+		Do you use CS with your phone or on your computer?
+
+
+
+Social users - 15 nodes
+
+	CE
+	Madison
+	Create
+	Mary
+	Niko/Epic
+	Sector 67
+	Virtuvian Farms
+	West High
+	Marketing student
+	Nina
+
+	Swag
+		t-shirts, stickers, b-cards
+	
+
+
+Biznizes/organizations
+
+	Window sticker
+	SDK
+	CS icon
+
+	pricing page - 
+	100 followers free, 100-200 $20, 200-500 $60, 500-1000 $120, 
+	non-profit pricing
+	RSVPs per month
+
+	Goodman community center
+	Orpheum
+	Majestic
+	Churches
+	Temples
+	10 free users
+
+
+
+
