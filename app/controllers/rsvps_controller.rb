@@ -1,5 +1,5 @@
 class RsvpsController < ApplicationController
-  before_filter :authenticate_user!
+  # before_filter :authenticate_user!
 
   def create
     @event = Event.find(params[:rsvp][:plan_id])
@@ -8,7 +8,7 @@ class RsvpsController < ApplicationController
       Notifier.event_tipped(@event).deliver
     end
     redirect_to @event
-
+    ##TEST MPT PM <ASTER##
     # respond_to do |format|
     # 	format.html { redirect_to @event }
     # 	format.js

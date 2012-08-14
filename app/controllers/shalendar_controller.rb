@@ -1,5 +1,5 @@
 class ShalendarController < ApplicationController
-  before_filter :authenticate_user!
+  # before_filter :authenticate_user!
 	# before_filter :parse_facebook_cookies, :only => [:home, :find_friends]
 
 	autocomplete :user, :email
