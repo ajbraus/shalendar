@@ -52,6 +52,8 @@ class EventsController < ApplicationController
     end
   end
 
+  #GET /events/id
+  #GET /events/id.json
   def show
     @event = Event.find(params[:id])
     @guests = @event.guests
