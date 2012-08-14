@@ -1,9 +1,12 @@
 class EventsController < ApplicationController
   # before_filter :authenticate_user!
 
+
+  ## FOR MOBILE- CHANGED ALL current_user to @mobile_user (which is User.find_by_id(3))
   # GET /events
   # GET /events.json
   def index
+    @mobile_user = User.find_by_id(3)
     @events = Event.scoped
     @events = @events.after(params['start']) if (params['start'])
     @events = @events.before(params['end']) if (params['end'])
@@ -17,7 +20,8 @@ class EventsController < ApplicationController
   # GET /events/new
   # GET /events/new.json
   def new
-    @event = current_user.events.build
+    @mobile_user = User.find_by_id(3)
+    @event = @mobile_user.events.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -27,16 +31,18 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+    @mobile_user = User.find_by_id(3)
     @event = Event.find(params[:id])
   end
 
   # POST /events
   # POST /events.json
   def create
-    @event = current_user.events.build(params[:event])
+    @mobile_user = User.find_by_id(3)
+    @event = @mobile_user.events.build(params[:event])
     respond_to do |format|
       if @event.save
-        current_user.rsvp!(@event)
+        @mobile_user.rsvp!(@event)
 
         if @event.visibility == "invite_only"
           format.html { redirect_to @event }
@@ -53,6 +59,7 @@ class EventsController < ApplicationController
   end
 
   def show
+    @mobile_user = User.find_by_id(3)
     @event = Event.find(params[:id])
     @guests = @event.guests
     @starttime = @event.starts_at.strftime "%l:%M%P, %A %B %e"
@@ -86,6 +93,7 @@ class EventsController < ApplicationController
   # PUT /events/1
   # PUT /events/1.json
   def update
+    @mobile_user = User.find_by_id(3)
     @event = Event.find(params[:id])
     @start_time = @event.starts_at
     @location = @event.map_location
@@ -113,6 +121,7 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
+    @mobile_user = User.find_by_id(3)
     @event = Event.find(params[:id])
 
     Notifier.cancellation(@event).deliver
@@ -140,15 +149,16 @@ class EventsController < ApplicationController
   # end
 
   def my_invitations
+    @mobile_user = User.find_by_id(3)
     @invitation_events = Event.joins('INNER JOIN invites ON events.id = invites.event_id')
-                                .where('invites.email = :current_user_email', current_user_email: current_user.email)
+                                .where('invites.email = :@mobile_user_email', @mobile_user_email: @mobile_user.email)
     @toggled_invitation_events = []
 
      @invitation_events.each do |ie|
-      unless current_user.rsvpd?(ie) || current_user == ie.user
+      unless @mobile_user.rsvpd?(ie) || @mobile_user == ie.user
         if ie.tipped?
-          if current_user.following?(ie.user)
-            if current_user.relationships.find_by_followed_id(ie.user).toggled?
+          if @mobile_user.following?(ie.user)
+            if @mobile_user.relationships.find_by_followed_id(ie.user).toggled?
               @toggled_invitation_events.push(ie)
             end
           else
@@ -164,21 +174,21 @@ class EventsController < ApplicationController
   end
 
   def my_maybes
-
+    @mobile_user = User.find_by_id(3)
     @maybe_events = []
     #PUT THIS OUTSIDE OF HERE SO CAN BE USED FOR TIPPED AND UNTIPPED???
     @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id')
-                                    .where('relationships.follower_id = :current_user_id AND 
+                                    .where('relationships.follower_id = :@mobile_user_id AND 
                                       relationships.toggled = true AND relationships.confirmed = true',
-                                      :current_user_id => current_user.id) #316 ms in console for user1, ~50 followed
+                                      :@mobile_user_id => @mobile_user.id) #316 ms in console for user1, ~50 followed
 
     @toggled_followed_users.each do |f|
       f.plans.each do |fp| #for friends of friends events that are RSVPd for
-        unless fp.full? || fp.visibility == "invite_only" || current_user.rsvpd?(fp)
+        unless fp.full? || fp.visibility == "invite_only" || @mobile_user.rsvpd?(fp)
           if fp.tipped?
             if fp.user == f || fp.visibility == "friends_of_friends"
-              i = Invite.where("invites.event_id = :current_event_id AND invites.email = :current_user_email",
-               current_event_id: fp.id, current_user_email: current_user.email)
+              i = Invite.where("invites.event_id = :current_event_id AND invites.email = :@mobile_user_email",
+               current_event_id: fp.id, @mobile_user_email: @mobile_user.email)
               if i.empty?
                 @maybe_events.push(fp)
               end
@@ -202,12 +212,13 @@ class EventsController < ApplicationController
   # GET /events/1.json
 
   def my_plans
-    @events = current_user.plans
+    @mobile_user = User.find_by_id(3)
+    @events = @mobile_user.plans
     @plans = []
 
     @events.each { |e|
       if(e.tipped?)
-        unless(e.user == current_user)
+        unless(e.user == @mobile_user)
           @plans.push(e)
         end
       end
@@ -224,7 +235,8 @@ class EventsController < ApplicationController
   end
 
   def my_events
-    @events = current_user.events
+    @mobile_user = User.find_by_id(3)
+    @events = @mobile_user.events
     @my_events = []
 
     @events.each { |e|
@@ -243,11 +255,12 @@ class EventsController < ApplicationController
   end
 
   def my_untipped_maybes
+    @mobile_user = User.find_by_id(3)
     @followed_events = []
-    #@followed_users = current_user.followed_users
+    #@followed_users = @mobile_user.followed_users
     @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id').
-                                   where('relationships.follower_id = :current_user_id AND relationships.toggled = true AND relationships.confirmed = true',
-                                   :current_user_id => current_user.id)
+                                   where('relationships.follower_id = :@mobile_user_id AND relationships.toggled = true AND relationships.confirmed = true',
+                                   :@mobile_user_id => @mobile_user.id)
     @toggled_followed_users.each { |f|
       f.plans.each{ |fp| #for friends of friends events that are RSVPd for
         if fp.user == f
@@ -270,16 +283,16 @@ class EventsController < ApplicationController
         unless(e.visibility == "invite_only")
           unless(e.tipped?)
             e.guests.each{ |g|
-              if g == current_user
+              if g == @mobile_user
                plan = true
               end
             }
-            if e.user == current_user
+            if e.user == @mobile_user
               plan = true
             end
             if plan == false
-              i = Invite.where("invites.event_id = :current_event_id AND invites.email = :current_user_email",
-                                current_event_id: e.id, current_user_email: current_user.email)
+              i = Invite.where("invites.event_id = :current_event_id AND invites.email = :@mobile_user_email",
+                                current_event_id: e.id, @mobile_user_email: @mobile_user.email)
               if i.empty?
                 @maybe_events.push(e)
               end
@@ -299,11 +312,12 @@ class EventsController < ApplicationController
   end
 
   def my_untipped_plans
-    @events = current_user.plans
+    @mobile_user = User.find_by_id(3)
+    @events = @mobile_user.plans
     @plans = []
     @events.each { |e|
       unless(e.tipped?)
-        unless(e.user == current_user)
+        unless(e.user == @mobile_user)
           @plans.push(e)
         end
       end
@@ -320,8 +334,8 @@ class EventsController < ApplicationController
   end
 
   def my_untipped_events
-  
-    @events = current_user.events
+    @mobile_user = User.find_by_id(3)
+    @events = @mobile_user.events
     @my_events = []
 
     @events.each { |e|
@@ -341,16 +355,17 @@ class EventsController < ApplicationController
   end
 
   def my_untipped_invitations
+    @mobile_user = User.find_by_id(3)
     @invitation_events = Event.joins('INNER JOIN invites on events.id = invites.event_id')
-                               .where('invites.email = :current_user_email', current_user_email: current_user.email)
+                               .where('invites.email = :@mobile_user_email', @mobile_user_email: @mobile_user.email)
 
     @toggled_invitation_events = []
 
     @invitation_events.each do |ie|
-      unless current_user.rsvpd?(ie) || current_user == ie.user
+      unless @mobile_user.rsvpd?(ie) || @mobile_user == ie.user
         unless ie.tipped?
-          if current_user.following?(ie.user)
-            if current_user.relationships.find_by_followed_id(ie.user).toggled?
+          if @mobile_user.following?(ie.user)
+            if @mobile_user.relationships.find_by_followed_id(ie.user).toggled?
               @toggled_invitation_events.push(ie)
             end
           else
