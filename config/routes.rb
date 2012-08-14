@@ -67,6 +67,19 @@ Shalendar::Application.routes.draw do
   match '/my_untipped_plans', :to => 'events#my_untipped_plans', :as => "my_untipped_plans"
   match '/my_untipped_maybes', :to => 'events#my_untipped_maybes', :as => "my_untipped_maybes"
 
+
+  #FOR MOBILE W USER AUTO USER(3)
+  match '/mobile_my_invitations', :to => 'events#mobile_my_invitations', :as => "mobile_my_invitations"
+  match '/mobile_my_events', :to => 'events#mobile_my_events', :as => "mobile_my_events"
+  match '/mobile_my_plans', :to => 'events#mobile_my_plans', :as => "mobile_my_plans"
+  match '/mobile_my_maybes', :to => 'events#mobile_my_maybes', :as => "mobile_my_maybes"
+
+  match '/mobile_my_untipped_invitations', :to => 'events#mobile_my_untipped_invitations', :as => "mobile_my_untipped_invitations"
+  match '/mobile_my_untipped_events', :to => 'events#mobile_my_untipped_events', :as => "mobile_my_untipped_events"
+  match '/mobile_my_untipped_plans', :to => 'events#mobile_my_untipped_plans', :as => "mobile_my_untipped_plans"
+  match '/mobile_my_untipped_maybes', :to => 'events#mobile_my_untipped_maybes', :as => "mobile_my_untipped_maybes"
+
+  match '/mobile_home', to: 'shalendar#mobile_home', as: "mobile_home"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
