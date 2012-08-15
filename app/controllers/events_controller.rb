@@ -55,6 +55,8 @@ class EventsController < ApplicationController
   #GET /events/id
   #GET /events/id.json
   def show
+    # @mobile_user = User.find_by_id(3)
+    # @event = @mobile_user.plans.last
     @event = Event.find(params[:id])
     @guests = @event.guests
     @starttime = @event.starts_at.strftime "%l:%M%P, %A %B %e"
