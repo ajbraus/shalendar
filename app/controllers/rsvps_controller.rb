@@ -4,7 +4,8 @@ class RsvpsController < ApplicationController
   def create
     @mobile_user = User.find_by_id(3)
     @event = Event.find(params[:rsvp][:plan_id])
-    @mobile_user.rsvp!(@event)
+    @mobile_user.rsvp!(@event) #used to be current_user
+    
     if @event.guests.count == @event.min
       Notifier.event_tipped(@event).deliver
     end

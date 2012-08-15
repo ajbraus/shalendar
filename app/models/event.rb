@@ -59,7 +59,7 @@ class Event < ActiveRecord::Base
       :url => Rails.application.routes.url_helpers.event_path(self.id),
       :host_name => self.user.name,
       :number_of_guests => self.guests.count,
-      :tipped => (self.guests.count >= self.min)
+      :min_to_tip => self.min
     }
     
   end

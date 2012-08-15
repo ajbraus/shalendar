@@ -371,38 +371,26 @@ class EventsController < ApplicationController
 
   end
 
-
-
-  # DEFINED ALL NEW SET OF CALLS FOR MOBILE, replaced
-  # current_user by @mobile_user, which is User w/ id 3
-
-  def mobile_my_invitations
+  # Mobile: replaced current_user by @mobile_user for now, which is User w/ id 3
+  # Only give maybes and plans, send tipped separately. Invitations are maybes, but get notification too
+  def mobile_maybes
     @mobile_user = User.find_by_id(3)
     @invitation_events = Event.joins('INNER JOIN invites ON events.id = invites.event_id')
                                 .where('invites.email = :mobile_user_email', mobile_user_email: @mobile_user.email)
     @toggled_invitation_events = []
 
-     @invitation_events.each do |ie|
+    @invitation_events.each do |ie|
       unless @mobile_user.rsvpd?(ie) || @mobile_user == ie.user
-        if ie.tipped?
-          if @mobile_user.following?(ie.user)
-            if @mobile_user.relationships.find_by_followed_id(ie.user).toggled?
-              @toggled_invitation_events.push(ie)
-            end
-          else
+        if @mobile_user.following?(ie.user)
+          if @mobile_user.relationships.find_by_followed_id(ie.user).toggled?
             @toggled_invitation_events.push(ie)
           end
+        else
+          @toggled_invitation_events.push(ie)
         end
       end
     end
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @toggled_invitation_events }
-    end
-  end
 
-  def mobile_my_maybes
-    @mobile_user = User.find_by_id(3)
     @maybe_events = []
     #PUT THIS OUTSIDE OF HERE SO CAN BE USED FOR TIPPED AND UNTIPPED???
     @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id')
@@ -413,200 +401,31 @@ class EventsController < ApplicationController
     @toggled_followed_users.each do |f|
       f.plans.each do |fp| #for friends of friends events that are RSVPd for
         unless fp.full? || fp.visibility == "invite_only" || @mobile_user.rsvpd?(fp)
-          if fp.tipped?
-            if fp.user == f || fp.visibility == "friends_of_friends"
-              i = Invite.where("invites.event_id = :current_event_id AND invites.email = :mobile_user_email",
-               current_event_id: fp.id, mobile_user_email: @mobile_user.email)
-              if i.empty?
-                @maybe_events.push(fp)
-              end
-            end
+          if fp.user == f || fp.visibility == "friends_of_friends"
+            @maybe_events.push(fp)
           end
         end
       end
     end
 
-    #PROBLEM HERE, EVENTS will not load with these on
-    #@events = @events.after(params['start']) if (params['start'])
-    #@events = @events.before(params['end']) if (params['end'])
-    
+    @events = @maybe_events | @toggled_invitation_events
+
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @maybe_events }
+      format.json { render json: @events }
     end
   end
 
   # GET /events/1
   # GET /events/1.json
 
-  def mobile_my_plans
+  def mobile_plans
     @mobile_user = User.find_by_id(3)
     @events = @mobile_user.plans
-    @plans = []
-
-    @events.each { |e|
-      if(e.tipped?)
-        unless(e.user == @mobile_user)
-          @plans.push(e)
-        end
-      end
-    }
-    @events = @plans
-
-    #@events = @events.after(params['start']) if (params['start'])
-    #@events = @events.before(params['end']) if (params['end'])
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @events }
     end
-  end
-
-  def mobile_my_events
-    @mobile_user = User.find_by_id(3)
-    @events = @mobile_user.events
-    @my_events = []
-
-    @events.each { |e|
-      if(e.tipped?)
-        @my_events.push(e)
-      end
-    }
-    @events = @my_events
-    #@events = @events.after(params['start']) if (params['start'])
-    #@events = @events.before(params['end']) if (params['end'])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @events }
-    end
-  end
-
-  def mobile_my_untipped_maybes
-    @mobile_user = User.find_by_id(3)
-    @followed_events = []
-    #@followed_users = @mobile_user.followed_users
-    @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id').
-                                   where('relationships.follower_id = :mobile_user_id AND relationships.toggled = true AND relationships.confirmed = true',
-                                   :mobile_user_id => @mobile_user.id)
-    @toggled_followed_users.each { |f|
-      f.plans.each{ |fp| #for friends of friends events that are RSVPd for
-        if fp.user == f
-          @followed_events.push(fp)
-        elsif fp.visibility == "friends_of_friends"
-          @followed_events.push(fp)
-          # For actual 2 degree separation only:
-          # if f.following?(fp.user)
-          #   @followed_events.push(fp)
-          # end
-        end
-      }
-    }
-    @maybe_events = [] #an empty array to fill with relevant events
-
-    #take main list and remove already RSVP'd events
-    @followed_events.each { |e|
-      plan = false
-      unless(e.full?)
-        unless(e.visibility == "invite_only")
-          unless(e.tipped?)
-            e.guests.each{ |g|
-              if g == @mobile_user
-               plan = true
-              end
-            }
-            if e.user == @mobile_user
-              plan = true
-            end
-            if plan == false
-              i = Invite.where("invites.event_id = :current_event_id AND invites.email = :mobile_user_email",
-                                current_event_id: e.id, mobile_user_email: @mobile_user.email)
-              if i.empty?
-                @maybe_events.push(e)
-              end
-            end
-          end  
-        end
-      end
-    }
-
-    #@events = @events.after(params['start']) if (params['start'])
-    #@events = @events.before(params['end']) if (params['end'])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @maybe_events }
-    end
-  end
-
-  def mobile_my_untipped_plans
-    @mobile_user = User.find_by_id(3)
-    @events = @mobile_user.plans
-    @plans = []
-    @events.each { |e|
-      unless(e.tipped?)
-        unless(e.user == @mobile_user)
-          @plans.push(e)
-        end
-      end
-    }
-    @events = @plans
-
-    #@events = @events.after(params['start']) if (params['start'])
-    #@events = @events.before(params['end']) if (params['end'])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @events }
-    end
-  end
-
-  def mobile_my_untipped_events
-    @mobile_user = User.find_by_id(3)
-    @events = @mobile_user.events
-    @my_events = []
-
-    @events.each { |e|
-      unless(e.tipped?)
-        @my_events.push(e)
-      end 
-    }
-    @events = @my_events
-
-    #@events = @events.after(params['start']) if (params['start'])
-    #@events = @events.before(params['end']) if (params['end'])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @events }
-    end
-  end
-
-  def mobile_my_untipped_invitations
-    @mobile_user = User.find_by_id(3)
-    @invitation_events = Event.joins('INNER JOIN invites on events.id = invites.event_id')
-                               .where('invites.email = :mobile_user_email', mobile_user_email: @mobile_user.email)
-
-    @toggled_invitation_events = []
-
-    @invitation_events.each do |ie|
-      unless @mobile_user.rsvpd?(ie) || @mobile_user == ie.user
-        unless ie.tipped?
-          if @mobile_user.following?(ie.user)
-            if @mobile_user.relationships.find_by_followed_id(ie.user).toggled?
-              @toggled_invitation_events.push(ie)
-            end
-          else
-            @toggled_invitation_events.push(ie)
-          end
-        end
-      end
-    end
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @toggled_invitation_events }
-    end
-
   end
 end
