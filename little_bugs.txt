@@ -5,6 +5,7 @@ BUGS
 
 Cron jobs environment set to production, don't know how to change, but still getting some output (pg_dump and also Event.check_tip_deadlines executing when dev server running.)
 
+Make sure events always get served in time order
 
 AFTER LAUNCH
 maybe_events doesn't work with (full-calendar) scope calls on after, before

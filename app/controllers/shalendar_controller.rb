@@ -1,5 +1,5 @@
 class ShalendarController < ApplicationController
-  before_filter :authenticate_user!
+  # before_filter :authenticate_user!
 	# before_filter :parse_facebook_cookies, :only => [:home, :find_friends]
 
 	autocomplete :user, :email
@@ -12,6 +12,33 @@ class ShalendarController < ApplicationController
   	@graph = Koala::Facebook::API.new(@access_token)
   	@event = Event.new
 	end
+
+	def mobile_home
+		@mobile_user = User.find_by_id(3)
+  	respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @mobile_user }
+    end	
+	end
+
+	def mobile_followed_users
+		@mobile_user = User.find_by_id(3)
+		@mobile_followed_users = @mobile_user.followed_users
+
+		respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @mobile_followed_users }
+    end
+	end
+
+	def mobile_followers
+		@mobile_user = User.find_by_id(3)
+		@mobile_followers = @mobile_user.followers
+		respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @mobile_followers }
+    end
+  end	
 
 	def manage_follows
 		@graph = Koala::Facebook::API.new(@access_token)
