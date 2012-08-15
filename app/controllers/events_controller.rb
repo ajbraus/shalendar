@@ -372,6 +372,7 @@ class EventsController < ApplicationController
   end
 
 
+
   # DEFINED ALL NEW SET OF CALLS FOR MOBILE, replaced
   # current_user by @mobile_user, which is User w/ id 3
 
