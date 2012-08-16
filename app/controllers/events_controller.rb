@@ -1,6 +1,8 @@
 class EventsController < ApplicationController
   # before_filter :authenticate_user!
 
+  require 'active_support/core_ext'
+
   # GET /events
   # GET /events.json
   def index
@@ -380,13 +382,15 @@ class EventsController < ApplicationController
     @toggled_invitation_events = []
 
     @invitation_events.each do |ie|
-      unless @mobile_user.rsvpd?(ie) || @mobile_user == ie.user
-        if @mobile_user.following?(ie.user)
-          if @mobile_user.relationships.find_by_followed_id(ie.user).toggled?
+      if fp.start_time.to_date <= Date.today <= fp.end_time.to_date
+        unless @mobile_user.rsvpd?(ie) || @mobile_user == ie.user
+          if @mobile_user.following?(ie.user)
+            if @mobile_user.relationships.find_by_followed_id(ie.user).toggled?
+              @toggled_invitation_events.push(ie)
+            end
+          else
             @toggled_invitation_events.push(ie)
           end
-        else
-          @toggled_invitation_events.push(ie)
         end
       end
     end
@@ -402,7 +406,9 @@ class EventsController < ApplicationController
       f.plans.each do |fp| #for friends of friends events that are RSVPd for
         unless fp.full? || fp.visibility == "invite_only" || @mobile_user.rsvpd?(fp)
           if fp.user == f || fp.visibility == "friends_of_friends"
-            @maybe_events.push(fp)
+            if  fp.start_time.to_date <= Date.today <= fp.end_time.to_date
+              @maybe_events.push(fp)
+            end
           end
         end
       end
@@ -410,6 +416,7 @@ class EventsController < ApplicationController
 
     @events = @maybe_events | @toggled_invitation_events
 
+    @events = @events.where('events.start_time >= ')
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @events }
@@ -422,6 +429,13 @@ class EventsController < ApplicationController
   def mobile_plans
     @mobile_user = User.find_by_id(3)
     @events = @mobile_user.plans
+
+    @scoped_plans = []
+    @events.each do |e|
+      if e.start_time.to_date <= Date.today <= e.end_time.to_date
+        @scoped_plans.push(e)
+      end
+    end
 
     respond_to do |format|
       format.html # index.html.erb

@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   								:password, 
   								:password_confirmation, 
   								:remember_me, 
+                  :first_name,
+                  :last_name,
                   :name,
                   :terms,
                   :provider,
@@ -47,6 +49,14 @@ class User < ActiveRecord::Base
 
   after_create :send_welcome
   
+  def as_json(options = {})
+   {
+    :id => self.id,
+    :first_name => self.first_name,
+    :last_name => self.last_name
+    }
+  end
+
   def send_welcome
      Notifier.welcome(self).deliver
   end

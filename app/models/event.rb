@@ -52,8 +52,8 @@ class Event < ActiveRecord::Base
     {
       :id => self.id,
       :title => self.title,
-      :start => starts_at.rfc822,
-      :end => ends_at.rfc822,
+      :start => starts_at,
+      :end => ends_at,
       :allDay => false, #self.all_day,
       :recurring => false,
       :url => Rails.application.routes.url_helpers.event_path(self.id),
