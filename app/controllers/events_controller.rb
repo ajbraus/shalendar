@@ -382,7 +382,7 @@ class EventsController < ApplicationController
     @toggled_invitation_events = []
 
     @invitation_events.each do |ie|
-      if fp.start_time.to_date <= Date.today <= fp.end_time.to_date
+      if fp.starts_at.to_date == Date.today || fp.ends_at.to_date == Date.today
         unless @mobile_user.rsvpd?(ie) || @mobile_user == ie.user
           if @mobile_user.following?(ie.user)
             if @mobile_user.relationships.find_by_followed_id(ie.user).toggled?
@@ -406,7 +406,7 @@ class EventsController < ApplicationController
       f.plans.each do |fp| #for friends of friends events that are RSVPd for
         unless fp.full? || fp.visibility == "invite_only" || @mobile_user.rsvpd?(fp)
           if fp.user == f || fp.visibility == "friends_of_friends"
-            if  fp.start_time.to_date <= Date.today <= fp.end_time.to_date
+            if fp.starts_at.to_date == Date.today || fp.ends_at.to_date == Date.today #won't work for >2 day events
               @maybe_events.push(fp)
             end
           end
@@ -416,7 +416,7 @@ class EventsController < ApplicationController
 
     @events = @maybe_events | @toggled_invitation_events
 
-    @events = @events.where('events.start_time >= ')
+    #@events = @events.where('events.start_time >= ')
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @events }
@@ -432,14 +432,16 @@ class EventsController < ApplicationController
 
     @scoped_plans = []
     @events.each do |e|
-      if e.start_time.to_date <= Date.today <= e.end_time.to_date
+      if e.starts_at.to_date == Date.today || e.ends_at.to_date == Date.today #won't work for >2 day events
         @scoped_plans.push(e)
       end
     end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @events }
+      format.json { render json: @scoped_plans }
+      # An attempt at a customized json feed... didn't go so well
+      #format.json { render @scoped_plans.to_json(:only => [:id, :title, :start_time]) }
     end
   end
 end

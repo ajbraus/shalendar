@@ -1,4 +1,4 @@
-iPhone app
+Mobile apps
 	1. Authentication/list of events
 	2. Event Show/notifications/RSVP
 	3. Raster/Create event
@@ -6,16 +6,14 @@ iPhone app
 	invite
 	manage follows
 
-Android app
 
 Notifications 3-day digest
-
 
 Roll your own calendar - legend, front-end, backend
 
 Search bugs - simple/sphinx
 
-Authenication - FB/Native/Twitter + paperclip
+Authentication - FB/Native/Twitter + paperclip
 
 Minor fixes
 	requested in stats
@@ -43,6 +41,9 @@ Design:
 		UnRSVPed - greyed out
 	Landing page
 
+Mobile Apps:
+	Figure out how to send JSON differently for same model (or sub-model?)
+	Push Notifications
 
 
 	ADAM//////

@@ -71,8 +71,6 @@ class User < ActiveRecord::Base
   #   # attributes
   #   has author_id, created_at, updated_at
   # end
-  
-
 
   #Rsvp methods... user.plans = list of events
   def rsvpd?(event)
@@ -179,6 +177,234 @@ class User < ActiveRecord::Base
     name.split.count == 3 ? name.split(' ')[1] : nil
   end
   
+  def morning_plans_on_date(load_date)
+    @plans = self.plans
+    @morning_plans = []
+    @plans.each do |p|
+      if p.starts_at.to_date == load_date
+        if p.starts_at < load_date.to_s + " 12:00:00"
+          @morning_plans.push(p)
+        end
+      end
+    end
+    return @morning_plans
+  end
+
+  def afternoon_plans_on_date(load_date)
+    @plans = self.plans
+    @afternoon_plans = []
+    @plans.each do |p|
+      if p.starts_at.to_date == load_date
+        if p.starts_at >= load_date.to_s + " 12:00:00" && p.starts_at < load_date.to_s + " 18:00:00"
+          @afternoon_plans.push(p)
+        end
+      end
+    end
+    return @afternoon_plans
+  end
+
+  def evening_plans_on_date(load_date)
+    @plans = self.plans
+    @evening_plans = []
+    @plans.each do |p|
+      if p.starts_at.to_date == load_date
+        if  p.starts_at >= load_date.to_s + " 18:00:00"
+          @evening_plans.push(p)
+        end
+      end
+    end
+    return @evening_plans
+  end
+
+  def morning_maybes_on_date(load_date)
+    @invitation_events = Event.joins('INNER JOIN invites ON events.id = invites.event_id')
+                                .where('invites.email = :current_user_email', current_user_email: self.email)
+    @toggled_morning_invitation_events = []
+
+    @invitation_events.each do |ie|
+      if fp.starts_at.to_date == load_date
+        if fp.starts_at < load_date.to_s + " 12:00:00"
+          unless self.rsvpd?(ie) || self == ie.user
+            if self.following?(ie.user)
+              if self.relationships.find_by_followed_id(ie.user).toggled?
+                @toggled_morning_invitation_events.push(ie)
+              end
+            else
+              @toggled_morning_invitation_events.push(ie)
+            end
+          end
+        end
+      end
+    end
+
+    @morning_maybe_events = []
+    @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id')
+                                    .where('relationships.follower_id = :current_user_id AND 
+                                      relationships.toggled = true AND relationships.confirmed = true',
+                                      :current_user_id => self.id) 
+
+    @toggled_followed_users.each do |f|
+      f.plans.each do |fp| #for friends of friends events that are RSVPd for
+        if fp.starts_at.to_date == load_date
+          if fp.starts_at < load_date.to_s + " 12:00:00"
+            unless fp.full? || fp.visibility == "invite_only" || self.rsvpd?(fp)
+              if fp.user == f || fp.visibility == "friends_of_friends"
+                @morning_maybe_events.push(fp)
+              end
+            end
+          end
+        end
+      end
+    end
+
+    @morning_maybes_on_date = @morning_maybe_events | @toggled_morning_invitation_events
+    return @morning_maybes_on_date
+
+  end
+
+  def afternoon_maybes_on_date(load_date)
+    @invitation_events = Event.joins('INNER JOIN invites ON events.id = invites.event_id')
+                                .where('invites.email = :current_user_email', current_user_email: self.email)
+    @toggled_afternoon_invitation_events = []
+
+    @invitation_events.each do |ie|
+      if fp.starts_at.to_date == load_date
+        if fp.starts_at >= load_date.to_s + " 12:00:00" && fp.starts_at < load_date.to_s + " 18:00:00"
+          unless self.rsvpd?(ie) || self == ie.user
+            if self.following?(ie.user)
+              if self.relationships.find_by_followed_id(ie.user).toggled?
+                @toggled_afternoon_invitation_events.push(ie)
+              end
+            else
+              @toggled_afternoon_invitation_events.push(ie)
+            end
+          end
+        end
+      end
+    end
+
+    @afternoon_maybe_events = []
+    @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id')
+                                    .where('relationships.follower_id = :current_user_id AND 
+                                      relationships.toggled = true AND relationships.confirmed = true',
+                                      :current_user_id => self.id) 
+
+    @toggled_followed_users.each do |f|
+      f.plans.each do |fp| #for friends of friends events that are RSVPd for
+        if fp.starts_at.to_date == load_date
+          if fp.starts_at >= load_date.to_s + " 12:00:00" && fp.starts_at < load_date.to_s + " 18:00:00"
+            unless fp.full? || fp.visibility == "invite_only" || self.rsvpd?(fp)
+              if fp.user == f || fp.visibility == "friends_of_friends"
+                @afternoon_maybe_events.push(fp)
+              end
+            end
+          end
+        end
+      end
+    end
+
+    @afternoon_maybes_on_date = @afternoon_maybe_events | @toggled_afternoon_invitation_events
+    return @afternoon_maybes_on_date
+
+  end
+
+  def evening_maybes_on_date(load_date)
+    @invitation_events = Event.joins('INNER JOIN invites ON events.id = invites.event_id')
+                                .where('invites.email = :current_user_email', current_user_email: self.email)
+    @toggled_evening_invitation_events = []
+
+    @invitation_events.each do |ie|
+      if fp.starts_at.to_date == load_date
+        if fp.starts_at >= load_date.to_s + " 18:00:00"
+          unless self.rsvpd?(ie) || self == ie.user
+            if self.following?(ie.user)
+              if self.relationships.find_by_followed_id(ie.user).toggled?
+                @toggled_evening_invitation_events.push(ie)
+              end
+            else
+              @toggled_evening_invitation_events.push(ie)
+            end
+          end
+        end
+      end
+    end
+
+    @evening_maybe_events = []
+    @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id')
+                                    .where('relationships.follower_id = :current_user_id AND 
+                                      relationships.toggled = true AND relationships.confirmed = true',
+                                      :current_user_id => self.id) 
+
+    @toggled_followed_users.each do |f|
+      f.plans.each do |fp| #for friends of friends events that are RSVPd for
+        if fp.starts_at.to_date == load_date
+          if fp.starts_at >= load_date.to_s + " 18:00:00"
+            unless fp.full? || fp.visibility == "invite_only" || self.rsvpd?(fp)
+              if fp.user == f || fp.visibility == "friends_of_friends"
+                @evening_maybe_events.push(fp)
+              end
+            end
+          end
+        end
+      end
+    end
+
+    @evening_maybes_on_date = @evening_maybe_events | @toggled_evening_invitation_events
+    return @evening_maybes_on_date
+  end
+
+  # def plans_on_date(load_date)
+  #   @plans = self.plans
+  #   @plans_on_date = []
+  #   @plans.each do |p|
+  #     if p.starts_at.to_date == load_date
+  #       @plans_on_date.push(p)
+  #     end
+  #   end
+  #   return @plans_on_date
+  # end
+
+  # def maybes_on_date(load_date)
+  #   @invitation_events = Event.joins('INNER JOIN invites ON events.id = invites.event_id')
+  #                               .where('invites.email = :current_user_email', current_user_email: self.email)
+  #   @toggled_invitation_events = []
+
+  #   @invitation_events.each do |ie|
+  #     if fp.starts_at.to_date == load_date
+  #       unless self.rsvpd?(ie) || self == ie.user
+  #         if self.following?(ie.user)
+  #           if self.relationships.find_by_followed_id(ie.user).toggled?
+  #             @toggled_invitation_events.push(ie)
+  #           end
+  #         else
+  #           @toggled_invitation_events.push(ie)
+  #         end
+  #       end
+  #     end
+  #   end
+
+  #   @maybe_events = []
+  #   @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id')
+  #                                   .where('relationships.follower_id = :current_user_id AND 
+  #                                     relationships.toggled = true AND relationships.confirmed = true',
+  #                                     :current_user_id => self.id) 
+
+  #   @toggled_followed_users.each do |f|
+  #     f.plans.each do |fp| #for friends of friends events that are RSVPd for
+  #       unless fp.full? || fp.visibility == "invite_only" || self.rsvpd?(fp)
+  #         if fp.user == f || fp.visibility == "friends_of_friends"
+  #           if fp.starts_at.to_date == load_date
+  #             @maybe_events.push(fp)
+  #           end
+  #         end
+  #       end
+  #     end
+  #   end
+
+  #   @maybes_on_date = @maybe_events | @toggled_invitation_events
+  #   return @maybes_on_date
+  # end
+
 
   private
 
