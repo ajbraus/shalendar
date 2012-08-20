@@ -5,6 +5,13 @@ BUGS
 
 Cron jobs environment set to production, don't know how to change, but still getting some output (pg_dump and also Event.check_tip_deadlines executing when dev server running.)
 
+Time Zones are causing the event-by-day logic to be off (starts_at is reading from UTC 0, not offset by 500 even though it knows that is there)
+Make sure events always get served in time order
+
+Only showing events that start on the day... don't know what to do for longer than 1-day things... but not really core
+
+What do we do with already finished events in a given day?
+	Probably gray them out but still display? Or should we take them off the calendar as they're mostly irrelevant (but they still help for finding friends, make calendar more busy for better or worse)
 
 AFTER LAUNCH
 maybe_events doesn't work with (full-calendar) scope calls on after, before

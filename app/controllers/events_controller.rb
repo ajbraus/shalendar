@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
-  before_filter :authenticate_user!
+  # before_filter :authenticate_user!
+
+  require 'active_support/core_ext'
 
   # GET /events
   # GET /events.json
@@ -52,7 +54,11 @@ class EventsController < ApplicationController
     end
   end
 
+  #GET /events/id
+  #GET /events/id.json
   def show
+    # @mobile_user = User.find_by_id(3)
+    # @event = @mobile_user.plans.last
     @event = Event.find(params[:id])
     @guests = @event.guests
     @starttime = @event.starts_at.strftime "%l:%M%P, %A %B %e"
@@ -365,5 +371,77 @@ class EventsController < ApplicationController
       format.json { render json: @toggled_invitation_events }
     end
 
+  end
+
+  # Mobile: replaced current_user by @mobile_user for now, which is User w/ id 3
+  # Only give maybes and plans, send tipped separately. Invitations are maybes, but get notification too
+  def mobile_maybes
+    @mobile_user = User.find_by_id(3)
+    @invitation_events = Event.joins('INNER JOIN invites ON events.id = invites.event_id')
+                                .where('invites.email = :mobile_user_email', mobile_user_email: @mobile_user.email)
+    @toggled_invitation_events = []
+
+    @invitation_events.each do |ie|
+      if fp.starts_at.to_date == Date.today || fp.ends_at.to_date == Date.today
+        unless @mobile_user.rsvpd?(ie) || @mobile_user == ie.user
+          if @mobile_user.following?(ie.user)
+            if @mobile_user.relationships.find_by_followed_id(ie.user).toggled?
+              @toggled_invitation_events.push(ie)
+            end
+          else
+            @toggled_invitation_events.push(ie)
+          end
+        end
+      end
+    end
+
+    @maybe_events = []
+    #PUT THIS OUTSIDE OF HERE SO CAN BE USED FOR TIPPED AND UNTIPPED???
+    @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id')
+                                    .where('relationships.follower_id = :mobile_user_id AND 
+                                      relationships.toggled = true AND relationships.confirmed = true',
+                                      :mobile_user_id => @mobile_user.id) #316 ms in console for user1, ~50 followed
+
+    @toggled_followed_users.each do |f|
+      f.plans.each do |fp| #for friends of friends events that are RSVPd for
+        unless fp.full? || fp.visibility == "invite_only" || @mobile_user.rsvpd?(fp)
+          if fp.user == f || fp.visibility == "friends_of_friends"
+            if fp.starts_at.to_date == Date.today || fp.ends_at.to_date == Date.today #won't work for >2 day events
+              @maybe_events.push(fp)
+            end
+          end
+        end
+      end
+    end
+
+    @events = @maybe_events | @toggled_invitation_events
+
+    #@events = @events.where('events.start_time >= ')
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @events }
+    end
+  end
+
+  # GET /events/1
+  # GET /events/1.json
+
+  def mobile_plans
+    @mobile_user = User.find_by_id(3)
+    @events = @mobile_user.plans
+
+    @scoped_plans = []
+    @events.each do |e|
+      if e.starts_at.to_date == Date.today || e.ends_at.to_date == Date.today #won't work for >2 day events
+        @scoped_plans.push(e)
+      end
+    end
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @scoped_plans }
+      # An attempt at a customized json feed... didn't go so well
+      #format.json { render @scoped_plans.to_json(:only => [:id, :title, :start_time]) }
+    end
   end
 end

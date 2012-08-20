@@ -1,5 +1,5 @@
 class ShalendarController < ApplicationController
-  before_filter :authenticate_user!
+  # before_filter :authenticate_user!
 	# before_filter :parse_facebook_cookies, :only => [:home, :find_friends]
 
 	autocomplete :user, :email
@@ -11,7 +11,96 @@ class ShalendarController < ApplicationController
 		@access_token = session[:fb_access_token]
   	@graph = Koala::Facebook::API.new(@access_token)
   	@event = Event.new
+
+  	#@first_date_on_calendar = Date.today #how to change this w/ button?
+
+    # @morning_plans = []
+    # @afternoon_plans = []
+    # @evening_plans = []
+    # @finished_morning_plans = []
+
+    # @current_user.plans.each do |e|
+    #   if e.starts_at.to_date == Date.today #won't work for >2 day events
+    #     if e.ends_at >= Time.now
+        	
+
+    #     	@_plans.push(e)
+    #   	end
+    #   end
+    # end
+
+
 	end
+
+	def mobile_home
+		@mobile_user = User.find_by_id(3)
+  	respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @mobile_user }
+    end	
+	end
+
+	def mobile_followed_users
+		@mobile_user = User.find_by_id(3)
+		@mobile_followed_users = @mobile_user.followed_users
+
+		respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @mobile_followed_users }
+    end
+  end
+
+	def mobile_toggled_followed_users
+		@mobile_user = User.find_by_id(3)
+		@mobile_followed_users = @mobile_user.followed_users
+		@mobile_toggled_followed_users = []
+		
+		@mobile_followed_users.each do |mfu|
+			@mfu_relationship = Relationship.where("relationships.follower_id = :mobile_user_id AND relationships.followed_id = :mfu_id",
+												 :mobile_user_id => @mobile_user.id, :mfu_id => mfu.id)
+			if @mfu_relationship.toggled?
+				@mobile_toggled_followed_users.push(mfu)
+			end
+		end
+
+		respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @mobile_toggled_followed_users }
+    end
+	end
+
+	def mobile_untoggled_followed_users
+		@mobile_user = User.find_by_id(3)
+		@mobile_followed_users = @mobile_user.followed_users
+		@mobile_untoggled_followed_users = []
+
+		@mobile_followed_users.each do |mfu|
+			unless Relationship.where("follower_id = :mobile_user_id AND followed_id = :mfu_id", mobile_user_id: @mobile_user.id, mfu_id: mfu.id).toggled?
+				@mobile_untoggled_followed_users.push(mfu)
+			end
+		end
+		respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @mobile_untoggled_followed_users }
+    end
+	end
+
+	# def mobile_toggled_follows
+	# 	@mobile_user = User.find_by_id(3)
+	# 	@mobile_toggled_follows = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id')
+ #                                    .where('relationships.follower_id = :current_user_id AND 
+ #                                      relationships.toggled = true AND relationships.confirmed = true',
+ #                                      :current_user_id => @mobile_user.id)
+
+	# end
+	def mobile_followers
+		@mobile_user = User.find_by_id(3)
+		@mobile_followers = @mobile_user.followers
+		respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @mobile_followers }
+    end
+  end	
 
 	def manage_follows
 		@graph = Koala::Facebook::API.new(@access_token)

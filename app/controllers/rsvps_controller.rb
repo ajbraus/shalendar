@@ -10,8 +10,8 @@ class RsvpsController < ApplicationController
     redirect_to @event
 
     # respond_to do |format|
-    # 	format.html { redirect_to @event }
-    # 	format.js
+    #   format.html { redirect_to @event }
+    #   format.js
     # end
   end
 

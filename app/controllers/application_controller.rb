@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
+  before_filter :adjust_format_for_iphone
+
   def after_sign_in_path_for(resource)
   	if session[:fb_access_token] != nil
       @access_token = session[:fb_access_token]
@@ -17,4 +19,13 @@ class ApplicationController < ActionController::Base
       home_path
     end
   end
+
+  private
+    def adjust_format_for_iphone    
+          request.format = :ios if ios_user_agent?
+    end
+    
+    def ios_user_agent?
+        request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(Mobile\/.+Safari)/]
+    end
 end

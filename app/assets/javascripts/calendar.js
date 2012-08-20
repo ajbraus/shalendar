@@ -31,15 +31,15 @@ $(document).ready(function() {
 
     {
         url: '/my_invitations',
-        color: 'red',
-        textColor: 'black',
+        color: '#B0FFE7',
+        textColor: 'white',
         ignoreTimezone: true
     },
 
     {
         url: '/my_maybes',
-        color: 'blue',
-        textColor: 'black',
+        color: '#B0FFE7',
+        textColor: 'white',
         ignoreTimezone: true
     },
 
@@ -49,6 +49,13 @@ $(document).ready(function() {
         textColor: 'black',
         ignoreTimezone: true
     },
+    // TESTED THIS, WORKS AS FEED
+    // {
+    //     url: '/mobile_my_events',
+    //     color: '#33FDC0',
+    //     textColor: 'black',
+    //     ignoreTimezone: true
+    // },
     
     {
         url: '/my_plans',
@@ -61,29 +68,29 @@ $(document).ready(function() {
 
     {
         url: '/my_untipped_invitations',
-        color: 'red',
-        textColor: '#A3A3A3',
+        color: '#F59A9A',
+        textColor: 'gray',
         ignoreTimezone: true
     },
 
     {
         url: '/my_untipped_maybes',
-        color: '#DBDBDB',
-        textColor: '#A3A3A3',
+        color: '#F59A9A',
+        textColor: 'gray',
         ignoreTimezone: true
     },
 
     {
         url: '/my_untipped_events',
-        color: '#BDFFEA',
-        textColor: '#A3A3A3',
+        color: '#FF264A',
+        textColor: 'gray',
         ignoreTimezone: true
     },
     
     {
         url: '/my_untipped_plans',
-        color: 'lightgreen',
-        textColor: 'white',
+        color: '#FF264A',
+        textColor: 'gray',
         ignoreTimezone: true
     }
     ],
