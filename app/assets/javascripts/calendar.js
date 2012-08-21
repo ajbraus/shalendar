@@ -49,9 +49,9 @@ $(document).ready(function() {
         textColor: 'black',
         ignoreTimezone: true
     },
-    // TESTED THIS, WORKS AS FEED
+    //TESTED THIS, WORKS AS FEED
     // {
-    //     url: '/mobile_my_events',
+    //     url: '/mobile_maybes',
     //     color: '#33FDC0',
     //     textColor: 'black',
     //     ignoreTimezone: true

@@ -53,7 +53,9 @@ class User < ActiveRecord::Base
    {
     :id => self.id,
     :first_name => self.first_name,
-    :last_name => self.last_name
+    :last_name => self.last_name,
+    :email_hex => Digest::MD5::hexdigest(self.email.downcase)
+    #:profile_pic_url => "https://secure.gravatar.com/avatar/#{Digest::MD5::hexdigest(user.email.downcase)}?s=50"
     }
   end
 
@@ -74,7 +76,11 @@ class User < ActiveRecord::Base
 
   #Rsvp methods... user.plans = list of events
   def rsvpd?(event)
-    rsvps.find_by_plan_id(event.id)
+    if(rsvps.find_by_plan_id(event.id))
+      return true
+    else
+      return false
+    end
   end
 
   def rsvp!(event)
@@ -177,12 +183,133 @@ class User < ActiveRecord::Base
     name.split.count == 3 ? name.split(' ')[1] : nil
   end
   
+  def events_on_date(load_datetime)
+    #usable_date = load_datetime.in_time_zone("Central Time (US & Canada)")
+    # usable_date = load_datetime# - 4.hours
+    # adjusted_load_date = usable_date.to_date
+
+    @plans = self.plans
+    @date_plans = []
+    @plans.each do |p|
+      if p.starts_at.to_date == load_datetime.to_date
+        @date_plans.push(p)
+      end
+    end
+
+    @my_events = self.events
+    @date_events = []
+    @my_events.each do |e|
+      if e.starts_at.to_date == load_datetime.to_date
+        @date_events.push(e)
+      end
+    end
+    @invitation_events = Event.joins('INNER JOIN invites ON events.id = invites.event_id')
+                                .where('invites.email = :current_user_email', current_user_email: self.email)
+    @toggled_invitation_events = []
+
+    @invitation_events.each do |ie|
+      if ie.starts_at.to_date == load_datetime.to_date
+        unless self.rsvpd?(ie)
+          if self.following?(ie.user)
+            if self.relationships.find_by_followed_id(ie.user).toggled?
+              @toggled_invitation_events.push(ie)
+            end
+          else
+            @toggled_invitation_events.push(ie)
+          end
+        end
+      end
+    end
+
+    @date_ideas = []
+    @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id')
+                                    .where('relationships.follower_id = :current_user_id AND 
+                                      relationships.toggled = true AND relationships.confirmed = true',
+                                      :current_user_id => self.id) 
+
+    @toggled_followed_users.each do |f|
+      f.plans.each do |fp| #for friends of friends events that are RSVPd for
+        if fp.starts_at.to_date == load_datetime.to_date
+          unless fp.full? || fp.visibility == "invite_only" || self.rsvpd?(fp)
+            if fp.user == f || fp.visibility == "friends_of_friends"
+              @date_ideas.push(fp)
+            end
+          end
+        end
+      end
+    end
+
+    return @date_ideas | @toggled_invitation_events | @date_plans | @date_events
+  end
+
+
+  def plans_on_date(load_datetime)
+    #usable_date = load_datetime.in_time_zone("Central Time (US & Canada)")
+    # usable_date = load_datetime# - 4.hours
+    # adjusted_load_date = usable_date.to_date
+
+    @plans = self.plans
+    @date_plans = []
+    @plans.each do |p|
+      if p.starts_at.to_date == load_datetime.to_date
+        @date_plans.push(p)
+      end
+    end
+    return @date_plans
+  end
+
+  def ideas_on_date(load_datetime)
+    #This is to make sure the date matches the local date
+    #usable_date = load_datetime.in_time_zone("Central Time (US & Canada)")
+    # usable_date = load_datetime# - 4.hours
+    # adjusted_load_date = usable_date.to_date
+
+    @invitation_events = Event.joins('INNER JOIN invites ON events.id = invites.event_id')
+                                .where('invites.email = :current_user_email', current_user_email: self.email)
+    @toggled_invitation_events = []
+
+    @invitation_events.each do |ie|
+      if ie.starts_at.to_date == load_datetime.to_date
+        unless self.rsvpd?(ie)
+          if self.following?(ie.user)
+            if self.relationships.find_by_followed_id(ie.user).toggled?
+              @toggled_invitation_events.push(ie)
+            end
+          else
+            @toggled_invitation_events.push(ie)
+          end
+        end
+      end
+    end
+
+    @date_ideas = []
+    @toggled_followed_users = User.joins('INNER JOIN relationships ON users.id = relationships.followed_id')
+                                    .where('relationships.follower_id = :current_user_id AND 
+                                      relationships.toggled = true AND relationships.confirmed = true',
+                                      :current_user_id => self.id) 
+
+    @toggled_followed_users.each do |f|
+      f.plans.each do |fp| #for friends of friends events that are RSVPd for
+        if fp.starts_at.to_date == load_datetime.to_date
+          unless fp.full? || fp.visibility == "invite_only" || self.rsvpd?(fp)
+            if fp.user == f || fp.visibility == "friends_of_friends"
+              @date_ideas.push(fp)
+            end
+          end
+        end
+      end
+    end
+
+    return @date_ideas | @toggled_invitation_events
+
+  end
+
   def morning_plans_on_date(load_date)
     @plans = self.plans
     @morning_plans = []
     @plans.each do |p|
       if p.starts_at.to_date == load_date
-        if p.starts_at < load_date.to_s + " 12:00:00"
+        if p.starts_at.utc < load_date.to_s + " 17:00:00"
           @morning_plans.push(p)
         end
       end
@@ -195,7 +322,7 @@ class User < ActiveRecord::Base
     @afternoon_plans = []
     @plans.each do |p|
       if p.starts_at.to_date == load_date
-        if p.starts_at >= load_date.to_s + " 12:00:00" && p.starts_at < load_date.to_s + " 18:00:00"
+        if p.starts_at.utc >= load_date.to_s + " 17:00:00" && p.starts_at.utc < load_date.to_s + " 23:00:00"
           @afternoon_plans.push(p)
         end
       end
@@ -208,7 +335,7 @@ class User < ActiveRecord::Base
     @evening_plans = []
     @plans.each do |p|
       if p.starts_at.to_date == load_date
-        if  p.starts_at >= load_date.to_s + " 18:00:00"
+        if  p.starts_at.utc >= load_date.to_s + " 23:00:00"
           @evening_plans.push(p)
         end
       end

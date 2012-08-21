@@ -32,6 +32,9 @@ Shalendar::Application.routes.draw do
       namespace :v1 do
         resources :token_authentications, :only => [:create, :destroy]
         resources :sessions, :only => [:create, :destroy]
+        match '/user_events_on_date', :to => 'events#user_events_on_date', :as => "user_events_on_date"
+        match '/event_details', :to => 'events#event_details', :as => "event_details"
+        match '/followed_users', :to => 'shalendar#followed_users', :as => "followed_users"
       end
     end
   end
@@ -52,6 +55,10 @@ Shalendar::Application.routes.draw do
     put :confirm
     put :confirm_and_follow
   end
+
+  match '/user_plans_on_date', :to => 'shalendar#user_plans_on_date', :as => "user_plans_on_date"
+  match '/user_ideas_on_date', :to => 'shalendar#user_ideas_on_date', :as => "user_ideas_on_date"
+  match '/user_events_on_date', :to => 'shalendar#user_events_on_date', :as => "user_events_on_date"
 
   # match '/manage_follows/remove', :to => 'relationships#remove', :as => "remove"
 
@@ -76,6 +83,7 @@ Shalendar::Application.routes.draw do
   match '/mobile_maybes', :to => 'events#mobile_maybes', :as => "mobile_maybes"
 
   match '/mobile_home', to: 'shalendar#mobile_home', as: "mobile_home"
+  match '/mobile_followed_users', to: 'shalendar#mobile_followed_users', as: "mobile_followed_users"
   match '/mobile_toggled_followed_users', to: 'shalendar#mobile_toggled_followed_users', as: "mobile_toggled_followed_users"
   match '/mobile_untoggled_followed_users', to: 'shalendar#mobile_untoggled_followed_users', as: "mobile_untoggled_followed_users"
   match '/mobile_followers', to: 'shalendar#mobile_followers', as: "mobile_followers"

@@ -11,3 +11,24 @@ http://s3.amazonaws.com/pragmaticstudio/iPhoneOnRails.pdf
 http://stackoverflow.com/questions/5626954/ruby-on-rails-website-to-iphone-app
 
 ASIHTTPRequest, RestKit, or ObjectiveResource for communicating with server
+
+
+make new EventForUser class? subclass of Event model, can send as different JSON to give more details on it. Whenever a user calls for events, make a new array of EventForUser objects that returns, and then delete the array? The can add part_of_day integer into the event for user class... and can adjust all tiems from UTC to local for whatever user wants the event.
+
+For Push Notifications:
+	https://github.com/PRX/apn_on_rails
+	Run background process
+	Install SSL certificate
+	Make outgoing TLS connections on certain ports
+	*can't do in simulator
+
+For Refreshing data- keeping it up to speed
+	Load relevant days on open (-5 days, +14 days)
+	Any time the app closes (or goes background) refresh on open
+	Refresh button
+	Reload on notifications (at least invitation notifications)
+
+For Dates on Client:
+	Send timezone along with request, will process and use to make appropriate EventForUser changes.
+	Display Today 8/19, and then M T W Th F Sa Su ...
+

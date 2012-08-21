@@ -4,7 +4,7 @@ require File.expand_path('../application', __FILE__)
 # Initialize the rails application
 Shalendar::Application.initialize!
 
-
+#config.time_zone = 'Central Time (US & Canada)'
 
 #config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
 
