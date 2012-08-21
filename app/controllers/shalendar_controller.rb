@@ -9,6 +9,7 @@ class ShalendarController < ApplicationController
 		@relationships = current_user.relationships.where('relationships.confirmed = true')
   	@graph = Koala::Facebook::API.new(session[:access_token])
   	@event = Event.new
+    binding.pry
 
   	#@first_date_on_calendar = Date.today #how to change this w/ button?
 

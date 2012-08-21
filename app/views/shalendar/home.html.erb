@@ -15,16 +15,19 @@
 	  <%= render 'raster' %>
 	  
 	  <% if session[:access_token] %>
-		<%= link_to( (image_tag "social/fb.png", :size => "50x50", title: "Find more calendars to view on Facebook"), find_friends_path) %>
-	  <% end %>
+		<%= link_to (image_tag "social/fb.png", :size => "50x50", title: "Find more calendars to view on Facebook"), find_friends_path %>
+		<br>
+		Find Friends on Facebook
     <% else %>
-	  	  <div class="social_friends">
-	  	  	<div class="fb_button">
-      <div id="auth-status">
-          <a href="#" id="auth-loginlink" class="fb-login-button"><%= image_tag "social/fb.png", :size => "50x50", title: "Find more calendars to view on Facebook" %></a>
-      </div>
-    </div><br>
-	  </div>
+	  	<div class="social_friends">
+	   		<div class="fb_button">
+      		<div id="auth-status">
+          	<a href="#" id="auth-loginlink" class="fb-login-button"><%= image_tag "social/fb.png", :size => "50x30", title: "Find more calendars to view on Facebook" %></a>
+     		  </div>
+    		</div><br>
+	  	</div>
+	  	Add Facebook Authentication
+	  <% end %>
 	</aside>
 
 <!-- 6 calls per day right now... mae plans, mae maybes. x3 days = 18 calls... not pretty but don't know what else, could parse in view but won't save much.. I guess we could just call plans and make sure they're sorted by start time and display based on start time. -->
