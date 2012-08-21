@@ -7,6 +7,8 @@ Cron jobs environment set to production, don't know how to change, but still get
 
 Time Zones are causing the event-by-day logic to be off (starts_at is reading from UTC 0, not offset by 500 even though it knows that is there)
 Make sure events always get served in time order
+	** Just going to set all for CST (-600) for now
+	see: http://databasically.com/2010/10/22/what-time-is-it-or-handling-timezones-in-rails/
 
 Only showing events that start on the day... don't know what to do for longer than 1-day things... but not really core
 

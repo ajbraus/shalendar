@@ -56,10 +56,10 @@ class Event < ActiveRecord::Base
       :end => ends_at,
       :allDay => false, #self.all_day,
       :recurring => false,
-      :url => Rails.application.routes.url_helpers.event_path(self.id),
-      :host_name => self.user.name,
-      :number_of_guests => self.guests.count,
-      :min_to_tip => self.min
+      :host => self.user,
+      :guest_count => self.guests.count,
+      :min_to_tip => self.min,
+      :guests => self.guests
     }
     
   end

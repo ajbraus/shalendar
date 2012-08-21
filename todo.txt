@@ -136,7 +136,7 @@ add facebook and twitter and google +  authentications
 
 tabbed view of manage views and viewers
 
-better calenar
+better calendar
 
 post to facebook wall
 
@@ -153,6 +153,7 @@ AFTER BETA LAUNCH
 		Buy phone number
 		add phone number in settings page
 		add user boolean for receiving text messages
+		Text message invitations to join calenshare for an event
 
 		Ajaxify everything
 			follow/unfollow
@@ -167,7 +168,7 @@ AFTER BETA LAUNCH
 
 	Get their city from facebook -- if not in our list, redirect to registration for invitation.
 	
-	google calendar "add this to calenshare"
+	google calendar "add this to calenshare".. and ADD THIS TO GoogleCal for rsvp'd events!
 
 	save image and access tokens in database and then update them upon login.
 

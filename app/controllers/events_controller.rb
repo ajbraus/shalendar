@@ -373,8 +373,11 @@ class EventsController < ApplicationController
 
   end
 
+
+
   # Mobile: replaced current_user by @mobile_user for now, which is User w/ id 3
   # Only give maybes and plans, send tipped separately. Invitations are maybes, but get notification too
+  
   def mobile_maybes
     @mobile_user = User.find_by_id(3)
     @invitation_events = Event.joins('INNER JOIN invites ON events.id = invites.event_id')
@@ -382,7 +385,7 @@ class EventsController < ApplicationController
     @toggled_invitation_events = []
 
     @invitation_events.each do |ie|
-      if fp.starts_at.to_date == Date.today || fp.ends_at.to_date == Date.today
+      if ie.starts_at.to_date == Date.today || ie.ends_at.to_date == Date.today
         unless @mobile_user.rsvpd?(ie) || @mobile_user == ie.user
           if @mobile_user.following?(ie.user)
             if @mobile_user.relationships.find_by_followed_id(ie.user).toggled?
@@ -402,11 +405,12 @@ class EventsController < ApplicationController
                                       relationships.toggled = true AND relationships.confirmed = true',
                                       :mobile_user_id => @mobile_user.id) #316 ms in console for user1, ~50 followed
 
+
     @toggled_followed_users.each do |f|
       f.plans.each do |fp| #for friends of friends events that are RSVPd for
         unless fp.full? || fp.visibility == "invite_only" || @mobile_user.rsvpd?(fp)
           if fp.user == f || fp.visibility == "friends_of_friends"
-            if fp.starts_at.to_date == Date.today || fp.ends_at.to_date == Date.today #won't work for >2 day events
+            if fp.starts_at.to_date == Date.today
               @maybe_events.push(fp)
             end
           end
@@ -414,7 +418,7 @@ class EventsController < ApplicationController
       end
     end
 
-    @events = @maybe_events | @toggled_invitation_events
+    @events = @maybe_events | @toggled_invitation_evenaawts
 
     #@events = @events.where('events.start_time >= ')
     respond_to do |format|
@@ -432,7 +436,7 @@ class EventsController < ApplicationController
 
     @scoped_plans = []
     @events.each do |e|
-      if e.starts_at.to_date == Date.today || e.ends_at.to_date == Date.today #won't work for >2 day events
+      if e.starts_at.to_date == Date.today #won't work for >2 day events
         @scoped_plans.push(e)
       end
     end
