@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120807171158) do
+ActiveRecord::Schema.define(:version => 20120820153034) do
+
+  create_table "authentications", :force => true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "token"
+    t.string   "secret"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
   create_table "comments", :force => true do |t|
     t.string   "content"
@@ -95,15 +107,12 @@ ActiveRecord::Schema.define(:version => 20120807171158) do
     t.datetime "created_at",                                   :null => false
     t.datetime "updated_at",                                   :null => false
     t.boolean  "terms"
-    t.string   "provider"
-    t.string   "uid"
     t.boolean  "require_confirm_follow",    :default => true
     t.boolean  "notify_noncritical_change", :default => false
     t.boolean  "daily_digest",              :default => true
     t.boolean  "notify_event_reminders",    :default => true
     t.string   "name"
     t.string   "authentication_token"
-    t.string   "city"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

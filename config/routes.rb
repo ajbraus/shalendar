@@ -1,5 +1,8 @@
 Shalendar::Application.routes.draw do
 
+  # resources :authentications, :only => [:index, :create, :destroy]
+  # match '/auth/:authentication/callback' => 'authentications#create' 
+
   root :to => 'static_pages#landing'
   
   authenticated :user do

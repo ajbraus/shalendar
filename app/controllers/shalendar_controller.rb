@@ -6,10 +6,8 @@ class ShalendarController < ApplicationController
 
 	def home
 		@current_user = current_user
-		@users = User.all
 		@relationships = current_user.relationships.where('relationships.confirmed = true')
-		@access_token = session[:fb_access_token]
-  	@graph = Koala::Facebook::API.new(@access_token)
+  	@graph = Koala::Facebook::API.new(session[:access_token])
   	@event = Event.new
 
   	#@first_date_on_calendar = Date.today #how to change this w/ button?
@@ -186,16 +184,23 @@ class ShalendarController < ApplicationController
 	end
 
 	def find_friends
-		@access_token = session[:fb_access_token]
-		@graph = Koala::Facebook::API.new(@access_token)
-		
-		@friends = @graph.get_connections('me','friends',:fields => "name,picture,location")
-		@me = @graph.get_object('me')
-		
-		@city_friends = @friends.select do |friend|
-			friend['location'].present? && friend['location']['name'] == @me['location']['name']
-		end
+		if session[:access_token] 
+	  	@graph = Koala::Facebook::API.new(session[:access_token])
+			@friends = @graph.get_connections('me','friends',:fields => "name,picture,location")
+			@me = @graph.get_object('me')
+			
+			@city_friends = @friends.select do |friend|
+				friend['location'].present? && friend['location']['name'] == @me['location']['name']
+			end
 
-		@city_members = User.where('uid IN (?)', @city_friends.map {|friend| friend['id']} ) 
+			@fb_authentications = Authentication.where('uid IN (?)', @city_friends.map {|friend| friend['id']} )
+			
+			@city_members = []
+			@fb_authentications.each do |fa|
+				@city_members.push(fa.user)
+			end
+		else
+			redirect_to user_omniauth_callback_path
+		end
 	end
 end

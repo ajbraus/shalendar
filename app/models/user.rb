@@ -17,8 +17,6 @@ class User < ActiveRecord::Base
                   :last_name,
                   :name,
                   :terms,
-                  :provider,
-                  :uid,
                   :require_confirm_follow,
                   :notify_noncritical_change,
                   :daily_digest,
@@ -28,6 +26,8 @@ class User < ActiveRecord::Base
 
   validates :terms,
             :name, presence: true
+
+  has_many :authentications, :dependent => :destroy
 
   has_many :events, :dependent => :destroy
   
@@ -137,20 +137,20 @@ class User < ActiveRecord::Base
 
 
 #OAUTH METHOD
-  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
-    user = User.where(:provider => auth.provider, :uid => auth.uid).first
-    unless user
-      user = User.create(  name:auth.extra.raw_info.name,
-                           provider:auth.provider,
-                           uid:auth.uid,
-                           email:auth.info.email,
-                           password:Devise.friendly_token[0,20],
-                           terms: 't',
-                           city:auth.info.location
-                           )
-    end
-    user
-  end
+  # def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+  #   user = User.where(:provider => auth.provider, :uid => auth.uid).first
+  #   unless user
+  #     user = User.create(  name:auth.extra.raw_info.name,
+  #                          provider:auth.provider,
+  #                          uid:auth.uid,
+  #                          email:auth.info.email,
+  #                          password:Devise.friendly_token[0,20],
+  #                          terms: 't',
+  #                          city:auth.info.location
+  #                          )
+  #   end
+  #   user
+  # end
 
 # https://github.com/pantulis/devise-omniauth-only-twitter/blob/master/app/models/user.rb
 
