@@ -76,7 +76,11 @@ class User < ActiveRecord::Base
 
   #Rsvp methods... user.plans = list of events
   def rsvpd?(event)
-    rsvps.find_by_plan_id(event.id)
+    if(rsvps.find_by_plan_id(event.id))
+      return true
+    else
+      return false
+    end
   end
 
   def rsvp!(event)

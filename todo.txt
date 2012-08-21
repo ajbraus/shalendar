@@ -146,7 +146,14 @@ MOBILE! (web mobile and native)
 
 AFTER BETA LAUNCH
 	
+-------- Features To Add ------
+	See old plans/ideas and be able to easily 'resurface' them, with guests as invites (in lightbox or some other way than scrolling back in calendar)
+		OldEvents model that holds events so that main searching doesn't have to handle larger array
 
+
+	Event Checklist- something to bring or a role to fill (eg a potluck or a music jam session in need of a drummer)
+
+	
 	Twilio:
 		add phone number to user in DB
 		add SMS messages to notifier
@@ -173,7 +180,7 @@ AFTER BETA LAUNCH
 	save image and access tokens in database and then update them upon login.
 
 	Tests/refactoring
-	
+
 	SQL Table maintenance; mainly destroying events after they are done, but transferring data somewhere in a reasonable format for conducting analytics
 	add recurring functionality
 
