@@ -4,7 +4,7 @@
     <br>
   <h2>General Settings</h2>
     <%= big_profile_picture(current_user) %>
-    <% if current_user.uid == nil %>
+    <% if current_user.authentications.find_by_provider("Facebook").uid == nil %>
     <p><a href="http://gravatar.com/emails">Add or Update Gravatar Picture</a></p>
     <% end %>
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
@@ -49,9 +49,6 @@
 
       <div><%= f.label :current_password %><br />
       <%= f.password_field :current_password %></div>
-
-      <div><%= f.label :city %><br />
-      <%= f.text_field :city %></div>
     
 <% end %>
 

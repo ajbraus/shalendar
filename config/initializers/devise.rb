@@ -209,11 +209,10 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
 
   config.omniauth :facebook, "327936950625049", "4d3de0cbf2ce211f66733f377b5e3816",
-      {:scope => 'email, offline_access', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}} 
+      {:scope => 'email,user_location,user_events,friends_location,friends_events', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}} 
 
-  # require "omniauth-twitter"
-  # config.omniauth :twitter, "oEzuIonxe98AhgZf8GycQ", "SD5J5hA2RIn9ZELqKZQ3IQsmQ4OLyE8xJlNIMNBv0"
-
+   require "omniauth-twitter"
+   config.omniauth :twitter, "oEzuIonxe98AhgZf8GycQ", "SD5J5hA2RIn9ZELqKZQ3IQsmQ4OLyE8xJlNIMNBv0"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

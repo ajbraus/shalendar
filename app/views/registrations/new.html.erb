@@ -15,9 +15,6 @@
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
 
-  <div><%= f.label :city %><br />
-  <%= f.select(:city, ['Madison, Wisconsin']) %></div>
-
   <div><%= f.check_box :terms, checked: true %><%= f.label :terms, "Terms & Conditions" %></div><br/>
 
   <div><%= f.submit "Sign up", :class => "btn btn-large btn-primary" %></div>

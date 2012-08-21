@@ -86,13 +86,24 @@
           }
         });
 
+        // FB.getLoginStatus(function(response) {
+        //   if (response.status === 'connected') {
+        //     var uid = response.authResponse.userID;
+        //     var accessToken = response.authResponse.accessToken;
+        //   } else if (response.status === 'not_authorized') {
+            
+        //   } else {
+
+        //   }
+        // });
+
         // respond to clicks on the login and logout links
         document.getElementById('auth-loginlink').addEventListener('click', function(){
           FB.login(function(response) {
             if(response.authResponse) {
               window.location = "/user/auth/facebook/callback"
               }
-          }, {scope: "email"});
+          }, {scope: "email,user_location,user_events,friends_location,friends_events"});
         });
         document.getElementById('auth-logoutlink').addEventListener('click', function(){
           FB.logout();
