@@ -14,14 +14,10 @@
 ActiveRecord::Schema.define(:version => 20120820153034) do
 
   create_table "authentications", :force => true do |t|
-    t.string   "useremail"
-    t.string   "username"
     t.string   "provider"
     t.string   "uid"
     t.string   "token"
     t.string   "secret"
-    t.string   "name"
-    t.string   "link"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

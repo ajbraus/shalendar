@@ -79,7 +79,7 @@ class EventsController < ApplicationController
     end
     @invited_users = @invited_users - @event.guests
 
-    @access_token = session[:fb_access_token]
+    @access_token = session[:access_token]
     @graph = Koala::Facebook::API.new(@access_token)
     @comments = @event.comments.order "created_at desc"
 
