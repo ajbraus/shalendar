@@ -14,16 +14,16 @@
 
 	  <%= render 'raster' %>
 	  
-	  <% if not @graph %>
-	  <div class="social_friends">
+	  <% if session[:access_token] %>
+		<%= link_to( (image_tag "social/fb.png", :size => "50x50", title: "Find more calendars to view on Facebook"), find_friends_path) %>
+	  <% end %>
+    <% else %>
+	  	  <div class="social_friends">
 	  	  	<div class="fb_button">
       <div id="auth-status">
-          <a href="#" id="auth-loginlink" class="fb-login-button"><% image_tag "social/fb.png", :size => "50x50", title: "Find more calendars to view on Facebook" %></a>
+          <a href="#" id="auth-loginlink" class="fb-login-button"><%= image_tag "social/fb.png", :size => "50x50", title: "Find more calendars to view on Facebook" %></a>
       </div>
     </div><br>
-    <% else %>
-	  <%= link_to( (image_tag "social/fb.png", :size => "50x50", title: "Find more calendars to view on Facebook"), find_friends_path) %>
-	  <% end %>
 	  </div>
 	</aside>
 
