@@ -5,22 +5,20 @@
     <% if current_user.authentications.find_by_provider("Facebook") == nil %>
       <p><a href="http://gravatar.com/emails">Add or Update Gravatar Picture</a></p>
     <% end %>
-    <div id="authentications">
-      <strong>Authentications</strong>
-      <% if current_user.authentications.any? == true %>
-        <% current_user.authentications.each do |a| %>
-          <%= a.provider %>
-          <%= link_to 'Remove', a, confirm: 'Are you sure?', method: :delete %>
-        <% end %>
-      <% else %>
-        <div class="fb_button">
-          <div id="auth-status">
-            <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
-          </div>
-        </div>
-        Add Facebook Authentication
+    <strong>Authentications</strong>
+    <% if current_user.authentications.any? == true %>
+      <% current_user.authentications.each do |a| %>
+        <%= a.provider %>
+        <%= link_to 'Remove', a, confirm: 'Are you sure?', method: :delete %>
       <% end %>
-    </div>
+    <% else %>
+      <div class="fb_button">
+        <div id="auth-status">
+          <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
+        </div>
+      </div>
+      Add Facebook Authentication
+    <% end %>
   </div>
 
 
@@ -67,12 +65,8 @@
     <div><%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation %></div>
 
-
-
-
-
     <div><%= f.submit "Update", :class => "btn btn-warning" %></div>
+    <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete, :class => "red" %>.</p>
   <% end %>
 
-  <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete, :class => "red" %>.</p>
 </div>

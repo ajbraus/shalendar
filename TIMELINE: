@@ -12,27 +12,19 @@ August 20-27
 
 Dev
 	Search - Adam
+	find friends "Adds facebook" and redirects to find friends
+	Add logo to Post to FB wall - Adam
+	Add FB events - Adam
+	Mobile FB authentication - Jeff & Mike
 
 	Authentication - Adam
 		DONE: expiring fb tokens
 		DONE: Multiple authentications:
-			find friends "Adds facebook" and redirects to find friends
 		DONE: Add name when user is created through facebook
 		DONE: Mobile native authentication
-
-		Mobile FB authentication
-			
-	FB events - Adam
-
 	DONE: Requests show - Adam
-
-	Post to FB wall - Adam
-		update scope of access_token
-		@graph.put_wall_post(message, attachment = {}, target_id = "me", options = {})
-		eg. @graph.put_wall_post("explodingdog!", {:name => "i love loving you", :link => "http://www.explodingdog.com/title/ilovelovingyou.html"}, "tmiley")
-		#=> {"id"=>"83901496_520908898070"}	
-
-
+	DONE:	Post to FB wall - Adam
+	
 	Mobile 2 - Mike & Jeff
 
 Design

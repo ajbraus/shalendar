@@ -661,12 +661,14 @@ footer {
 
 #settings {
   width:700px;
-  margin:auto auto;
-  input {
-  }
+  height:900px;
+  margin: 15px auto 0 auto;
   form {
-    width:380px;
-
+    float:left;
+    width:70%;
+    input[type=text], input[type=email], input[type=password] {
+      width:380px;
+    }
   }
 
 }
@@ -674,9 +676,5 @@ footer {
 #personal {
   float:left;
   width:30%;
-}
-
-#authentications{
-  float:left;
-  width:70%;
+  margin-top:25px;
 }

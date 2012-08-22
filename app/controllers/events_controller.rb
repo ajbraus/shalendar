@@ -39,6 +39,10 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         current_user.rsvp!(@event)
+        if current_user.post_to_fb_wall?
+          @graph = Koala::Facebook::API.new(session[:access_token])
+          @graph.put_wall_post("#{@event.title}", { :link => "http://www.hoosin.com/events/#{@event.id}"}, target_id = 'me')
+        end
 
         if @event.visibility == "invite_only"
           format.html { redirect_to @event }
