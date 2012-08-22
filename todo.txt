@@ -2,10 +2,10 @@ Mobile apps
 	1. Authentication/list of events
 	2. Event Show/notifications/RSVP
 	3. Raster/Create event
+	4. styling
 	
 	invite
 	manage follows
-
 
 Notifications 3-day digest
 
@@ -23,10 +23,6 @@ Minor fixes
 FB post to wall
 
 Invite friends on signup and on home
-
-Add FB events to calendar
-
-SDK
 
 Design:
 	Name
@@ -52,12 +48,9 @@ Mobile Apps:
 
 	idea click lightbox
 
-	remove city
+	log city
 
 	name hover raster
-
-	"hidden features" -  
-		visibility - target icon, states of events unclear (tipped vs. untipped, idea vs. plan, idea vs. invitation ) legend
 
 	Event#show
 		display map_location
@@ -67,24 +60,18 @@ Mobile Apps:
 
 	calendar colors
 
-	if event is private redirect to event, not calendar.
-
 	Flash notices - no flash notices when hitting validations for new event. no flash notices when you have login troubles.	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
 
 	Notification views
 
 	comments screwed up
-
-	expiring facebook tokens
 	
-	autocomplete on name
-
-	Make native login play nice with FB, be able to use either/both
 
 	requested on stats, settings page, manage page isn't working perfectly (viewers you are not following have no view button)
 
-	invites list had duplicates and unconfirmed followers showing up.
 
+
+	autocomplete on name
 	add Jquery validations for search
 
 	follow someone with the autocomplete that you are already following -- sql error
@@ -94,18 +81,16 @@ Mobile Apps:
 
 	remove yourself -- right now you can follow yourself
 
-	SDK
+
 
 	tabed viewers viewing on manage views page
-merge title and description together 
+	
+	merge title and description together 
 
 	Post to facebook wall . . . not for private events
 	post to rsvps facebook wall of friends of RSVPs
 
-	add fb events to calenshare
 
-
-	Flag user for spam . . .?
 
 	MIKE//////
 
@@ -128,15 +113,9 @@ merge title and description together
 		http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deploying-my-rails-app
 		Airbreak / rescues
 
-		Private deployments
-
-add facebook and twitter and google +  authentications
-
 tabbed view of manage views and viewers
 
 better calendar
-
-post to facebook wall
 
 MOBILE! (web mobile and native)
 
@@ -147,6 +126,9 @@ AFTER BETA LAUNCH
 -------- Features To Add ------
 	See old plans/ideas and be able to easily 'resurface' them, with guests as invites (in lightbox or some other way than scrolling back in calendar)
 		OldEvents model that holds events so that main searching doesn't have to handle larger array
+
+Add FB events to calendar
+	Flag user for spam (block/ignore user)
 
 
 	Event Checklist- something to bring or a role to fill (eg a potluck or a music jam session in need of a drummer)

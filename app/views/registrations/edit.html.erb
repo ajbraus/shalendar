@@ -1,17 +1,16 @@
 <% provide(:title, "Settings") %> 
 <div id="settings">
-  <br>
-<h2>General Settings</h2>
   <div id="personal">
     <%= big_profile_picture(current_user) %>
     <% if current_user.authentications.find_by_provider("Facebook") == nil %>
       <p><a href="http://gravatar.com/emails">Add or Update Gravatar Picture</a></p>
     <% end %>
     <div id="authentications">
+      <strong>Authentications</strong>
       <% if current_user.authentications.any? == true %>
         <% current_user.authentications.each do |a| %>
           <%= a.provider %>
-          <%= link_to 'Destroy', a, confirm: 'Are you sure?', method: :delete %>
+          <%= link_to 'Remove', a, confirm: 'Are you sure?', method: :delete %>
         <% end %>
       <% else %>
         <div class="fb_button">
@@ -24,11 +23,18 @@
     </div>
   </div>
 
+
+
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+    <h2>General Settings</h2>
     <%= devise_error_messages! %>
     <p>
       <%= f.check_box :require_confirm_follow, checked: current_user.require_confirm_follow %> 
       <label for="require_confirm_follow"><strong>Authorize Viewers</strong> - Confirm before anyone can view your Calenshare</label>
+    </p>
+    <p>
+      <%= f.check_box :post_to_fb_wall %>
+      <label for="post_to_fb_wall"><strong>Social Graph</strong> - Have Hoosin post social events you create to your Facebook wall.</label>
     </p>
     <br>
 

@@ -75,7 +75,7 @@ private
       return user
     else
       email = access_token.info.email
-      name = access_token.name
+      name = access_token.info.name
       user = User.new(:email => email, 
                 :name => name,
                 :terms => true,

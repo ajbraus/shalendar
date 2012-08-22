@@ -1,5 +1,10 @@
 <% provide(:title, " | Manage Views") %>
 <div id="manage_views">
+    <div id="manage_search">
+    <%= render 'search' %>
+    <h3>New View Requests</h3>
+    <%= render 'view_requests' %>
+  </div>
   <div id="views_list">
     <h2>Calendars You're Viewing</h2>
     <div class="user_table">
@@ -51,10 +56,5 @@
         </table>
         <% end %>
     </div>
-  </div>
-  <div id="manage_search">
-    <%= render 'search' %>
-    <h3>New View Requests</h3>
-    <%= render 'view_requests' %>
   </div>
 </div>

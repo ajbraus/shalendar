@@ -12,31 +12,26 @@ August 20-27
 
 Dev
 	Search - Adam
+
 	Authentication - Adam
 		DONE: expiring fb tokens
 		DONE: Multiple authentications:
 			find friends "Adds facebook" and redirects to find friends
-			Add name when user is created through facebook
-		Mobile
+		DONE: Add name when user is created through facebook
+		DONE: Mobile native authentication
+
+		Mobile FB authentication
 			
 	FB events - Adam
-		@graph.get_connections("me", "events")
 
-		[{"name"=>"Housewarming Party",
-  "start_time"=>"2012-08-25T14:00:00-0500",
-  "end_time"=>"2012-08-25T22:00:00-0500",
-  "timezone"=>"America/Chicago",
-  "location"=>"8954 Sunstone Ln Middleton, WI 53562",
-  "id"=>"316821768413401",
-  "rsvp_status"=>"attending"}]
-
-		Events model?
-
-		need to use FQL to get user's events - http://stackoverflow.com/questions/1866596/get-my-facebook-friends-attending-to-events
+	DONE: Requests show - Adam
 
 	Post to FB wall - Adam
 		update scope of access_token
 		@graph.put_wall_post(message, attachment = {}, target_id = "me", options = {})
+		eg. @graph.put_wall_post("explodingdog!", {:name => "i love loving you", :link => "http://www.explodingdog.com/title/ilovelovingyou.html"}, "tmiley")
+		#=> {"id"=>"83901496_520908898070"}	
+
 
 	Mobile 2 - Mike & Jeff
 

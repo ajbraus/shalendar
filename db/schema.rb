@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120820153034) do
+ActiveRecord::Schema.define(:version => 20120822173557) do
 
   create_table "authentications", :force => true do |t|
     t.string   "provider"
@@ -107,15 +107,13 @@ ActiveRecord::Schema.define(:version => 20120820153034) do
     t.datetime "created_at",                                   :null => false
     t.datetime "updated_at",                                   :null => false
     t.boolean  "terms"
-    t.string   "provider"
-    t.string   "uid"
     t.boolean  "require_confirm_follow",    :default => true
     t.boolean  "notify_noncritical_change", :default => false
     t.boolean  "daily_digest",              :default => true
     t.boolean  "notify_event_reminders",    :default => true
     t.string   "name"
     t.string   "authentication_token"
-    t.string   "city"
+    t.boolean  "post_to_fb_wall"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

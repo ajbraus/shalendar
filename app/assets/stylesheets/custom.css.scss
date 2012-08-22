@@ -399,6 +399,7 @@ aside {
   overflow: auto;
   margin:10px 0 17px 0;
   a {
+    width:22%;
     text-decoration: none;
     float: left;
     padding: 0 10px;
@@ -415,6 +416,18 @@ aside {
   }
   strong {
     display: block;
+  }
+}
+
+#view_requests {
+  color:black;
+  width:auto;
+  position: relative;
+  bottom: 8px;
+  u {
+    color:darkgreen;
+    font-size: 28px;
+    text-decoration: none;
   }
 }
 
@@ -650,14 +663,20 @@ footer {
   width:700px;
   margin:auto auto;
   input {
-    width:380px;
   }
+  form {
+    width:380px;
+
+  }
+
 }
 
 #personal {
   float:left;
+  width:30%;
 }
 
 #authentications{
   float:left;
+  width:70%;
 }

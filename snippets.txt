@@ -104,3 +104,49 @@ http://arshaw.com/fullcalendar/docs/event_rendering/eventRender/
   #           where('rsvps.plan_id = :event_id AND rsvps.confirmed = "f"',
   #               :event_id => self.id)
   # end
+
+
+
+FB events
+
+upon sign up from facebook (omniauth_controller)
+add method create_fb_events
+
+in events model:
+
+  def create_fb_events
+
+    @graph.get_connections("me", "events")
+    @graph.get_connections("me", "invitations")?
+
+    [{"name"=>"Housewarming Party",
+  "start_time"=>"2012-08-25T14:00:00-0500",
+  "end_time"=>"2012-08-25T22:00:00-0500",
+  "timezone"=>"America/Chicago",
+  "location"=>"8954 Sunstone Ln Middleton, WI 53562",
+  "id"=>"316821768413401",
+  "rsvp_status"=>"attending"}]
+
+
+  create dummy facebook user
+
+  call asynchronously to get the events and invites 
+    on each
+      Check that they have start TIME
+      if true
+      Check on fb_id if events are already there
+      if false
+      determin the event's owner & privacy
+        @graph.get_object("415061778552519")
+        lookup host from hi's users by fb_id
+        if present - create event with user as host and visibility
+        else - create event with set fb_dummy is host and visibility
+      create net new events and either RSVP or invite the user (if the events have start times)
+  end
+
+    create job to check at night if users should replace fb_dummy
+      get all events from facebook using fb_event_id
+      If owner = current_user && current owner = fb_dummy
+        Then replace fb_dummy with current_user as owner of event
+
+

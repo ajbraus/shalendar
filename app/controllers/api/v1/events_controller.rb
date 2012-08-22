@@ -1,5 +1,6 @@
 class Api::V1::EventsController < ApplicationController
    before_filter :authenticate_user!
+   
    def user_events_on_date
     #receive call to : calenshare.com/user_plans_on_date.json?date="DateInString"
     raw_datetime = DateTime.parse(params[:date])

@@ -9,7 +9,8 @@ class ShalendarController < ApplicationController
 		@relationships = current_user.relationships.where('relationships.confirmed = true')
   	@graph = Koala::Facebook::API.new(session[:access_token])
   	@event = Event.new
-    binding.pry
+    @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
+                                         relationships.confirmed = false ", current_user_id: current_user.id)
 
   	#@first_date_on_calendar = Date.today #how to change this w/ button?
 
@@ -191,7 +192,7 @@ class ShalendarController < ApplicationController
 			@me = @graph.get_object('me')
 			
 			@city_friends = @friends.select do |friend|
-				friend['location'].present? && friend['location']['name'] == @me['location']['name']
+				friend['location'].present? && friend['location']['id'] == @me['location']['id']
 			end
 
 			@fb_authentications = Authentication.where('uid IN (?)', @city_friends.map {|friend| friend['id']} )

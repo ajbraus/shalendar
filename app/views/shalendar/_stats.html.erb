@@ -11,4 +11,11 @@
     </strong>
     viewers
   </a>
-</div>
+  <% if @view_requests.any? %>
+  <a href="<%= manage_follows_path %>">
+    <strong id="view_requests">
+      <u> + </u><%= @view_requests.count %> <br> Requests
+    </strong>
+  </a>
+  <% end %>
+</div>  
