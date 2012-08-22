@@ -130,8 +130,6 @@ merge title and description together
 
 		Private deployments
 
-
-paperclip your own picture
 add facebook and twitter and google +  authentications
 
 tabbed view of manage views and viewers

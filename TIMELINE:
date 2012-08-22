@@ -15,12 +15,29 @@ Dev
 	Authentication - Adam
 		DONE: expiring fb tokens
 		DONE: Multiple authentications:
-			find friends "Adds facebook" 
+			find friends "Adds facebook" and redirects to find friends
+			Add name when user is created through facebook
 		Mobile
-		Paperclip
 			
 	FB events - Adam
+		@graph.get_connections("me", "events")
+
+		[{"name"=>"Housewarming Party",
+  "start_time"=>"2012-08-25T14:00:00-0500",
+  "end_time"=>"2012-08-25T22:00:00-0500",
+  "timezone"=>"America/Chicago",
+  "location"=>"8954 Sunstone Ln Middleton, WI 53562",
+  "id"=>"316821768413401",
+  "rsvp_status"=>"attending"}]
+
+		Events model?
+
+		need to use FQL to get user's events - http://stackoverflow.com/questions/1866596/get-my-facebook-friends-attending-to-events
+
 	Post to FB wall - Adam
+		update scope of access_token
+		@graph.put_wall_post(message, attachment = {}, target_id = "me", options = {})
+
 	Mobile 2 - Mike & Jeff
 
 Design
@@ -33,7 +50,7 @@ Design
 Marketing
 	5 more nodes - Mike
 	contact sudents - Mike
-	Incorporate - Mike
+	DONE Incorporate - Mike
 
 August 27- September 4
 

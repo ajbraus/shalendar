@@ -10,8 +10,9 @@ def destroy
   # remove an authentication authentications linked to the current user
   @authentications = current_user.authentications.find(params[:id])
   @authentications.destroy
+  session[:access_token] = nil
   
-  redirect_to authentications_path
+  redirect_to :back
 end
 
 def create
