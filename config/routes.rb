@@ -30,7 +30,7 @@ Shalendar::Application.routes.draw do
 
     namespace :api do
       namespace :v1 do
-        resources :token_authentications, :only => [:create, :destroy]
+        resources :tokens, :only => [:create, :destroy]
         resources :sessions, :only => [:create, :destroy]
         match '/user_events_on_date', :to => 'events#user_events_on_date', :as => "user_events_on_date"
         match '/event_details', :to => 'events#event_details', :as => "event_details"

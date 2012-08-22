@@ -1,10 +1,11 @@
 class Api::V1::EventsController < ApplicationController
+   before_filter :authenticate_user!
    def user_events_on_date
     #receive call to : calenshare.com/user_plans_on_date.json?date="DateInString"
     raw_datetime = DateTime.parse(params[:date])
     @mobile_user = User.find_by_id(3)
     #@events = current_user.plans_on_date(raw_date)
-    @events = @mobile_user.events_on_date(raw_datetime)
+    @events = @mobile_user.mobile_events_on_date(raw_datetime)
 
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []

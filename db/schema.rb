@@ -107,12 +107,15 @@ ActiveRecord::Schema.define(:version => 20120820153034) do
     t.datetime "created_at",                                   :null => false
     t.datetime "updated_at",                                   :null => false
     t.boolean  "terms"
+    t.string   "provider"
+    t.string   "uid"
     t.boolean  "require_confirm_follow",    :default => true
     t.boolean  "notify_noncritical_change", :default => false
     t.boolean  "daily_digest",              :default => true
     t.boolean  "notify_event_reminders",    :default => true
     t.string   "name"
     t.string   "authentication_token"
+    t.string   "city"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
