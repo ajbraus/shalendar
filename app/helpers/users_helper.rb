@@ -4,21 +4,21 @@ module UsersHelper
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
     size = options[:size]
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
-    image_tag(gravatar_url, alt: user.name, class: "profile_picture")
+    image_tag(gravatar_url, alt: user.name, class: "profile_picture", title:"#{user.name}")
   end
 
   def fb_picture(user, options = { type: "large", })
   	fb_id = user.authentications.find_by_provider("Facebook").uid
     type = options[:type]
   	facebook_url = @graph.get_picture(fb_id, { type: type })
-  	image_tag(facebook_url, alt: user.name, class: "profile_picture")
+  	image_tag(facebook_url, alt: user.name, class: "profile_picture", title:"#{user.name}")
   end
 
   def twitter_picture(user, options = { type: "large", })
     twitter_username = user.authentications.find_by_provider("Twitter").username
     type = options[:type]
     twitter_url = "https://api.twitter.com/1/users/profile_image?user_id=#{twitter_username}&size=#{type}"
-    image_tag(twitter_url, alt: user.name, class: "profile_picture")
+    image_tag(twitter_url, alt: user.name, class: "profile_picture", title:"#{user.name}")
   end
 
   def big_profile_picture(user)

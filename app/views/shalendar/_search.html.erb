@@ -1,6 +1,15 @@
+<% if false %>
 <%= form_tag '/relationships' do %>
   <div id="view_search">
       <%= autocomplete_field_tag :email, '', autocomplete_email_path, placeholder:"Search for Friends..." %>
       <%= submit_tag "View", class: "btn-success" %>
   </div>
 <% end %>
+<% end %>
+
+<div id="view_search">
+	<%= form_tag :controller => 'shalendar', :action => 'home', :method => 'get' do %>
+	  <%= text_field_tag :search, params[:search], :id => 'search_field', placeholder:"Search for Friends by Name or Email..." %>
+	  <%= image_submit_tag , :name => nil, class: "btn-success" %> 
+	<% end %> 
+</div>

@@ -26,7 +26,7 @@
 			</div>
 
 			<div id="visibilityp" style="display: none;">
-			  <h3>Visibility</h3>
+			  <%= label_tag "Visibility" %><br/>
 				<%= f.radio_button :visibility, 'friends_of_friends' %>
 				<%= f.label :friends_of_friends, "Viewers of RSVPs" %>
 				<%= f.radio_button :visibility, 'friends', :checked => true %>
@@ -36,12 +36,12 @@
 			</div>
 
 			<div id="addmapp" style="display: none;">
-			  <h3>Add a Map</h3>
+			  <%= label_tag "Map" %><br/>
 			  <%= f.text_field :map_location, id:"addresspicker_map", class:"ui-autocomplete-input", placeholder:"Map location..." %>
 			  <div id="map"></div>
 			</div>
 			
-			 <div>
+			<div>
 				<ul>
 				  <li id="visibility">Set Visibility</li> 
 				  <li>|</li>

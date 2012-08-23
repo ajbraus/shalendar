@@ -15,14 +15,13 @@
 	  <%= render 'raster' %>
 	  
 	  <% if session[:access_token] %>
-		<%= link_to (image_tag "social/fb.png", :size => "50x50", title: "Find more calendars to view on Facebook"), find_friends_path %>
+		<a href="#find_friends", class="find_friends"><%= (image_tag "social/fb.png", :size => "50x50", title: "Find Friend's On Facebook") %></a>
 		<br>
-		Find Friends on Facebook
     <% else %>
 	  	<div class="social_friends">
 	   		<div class="fb_button">
       		<div id="auth-status">
-          	<a href="#" id="auth-loginlink" class="fb-login-button"><%= image_tag "social/fb.png", :size => "50x30", title: "Find more calendars to view on Facebook" %></a>
+          	<a href="#" id="auth-loginlink" class="fb-login-button"><%= image_tag "social/fb.png", :size => "50x30", title: "Add Facebook Authentication and Find More Friends" %></a>
      		  </div>
     		</div><br>
 	  	</div>
@@ -54,3 +53,9 @@
 </div>
 
 	<%= render 'new_idea_form' %>
+	<% if session[:access_token] != nil %>
+		<%= render 'find_friends' %>
+	<% end %>
+	<% if params[:search] %>
+	<%= render 'search_results' %>
+	<% end %>

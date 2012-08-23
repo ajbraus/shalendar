@@ -208,11 +208,14 @@ user experience of curating invites/groups - don't just select a new type of eve
 Monetization
 	Individual deployments (cost based on user limit) (churches, frats, businesses) - pricing?
 	Paid RSVPs
+	pay structure based on # of follows.
 	############Premier accounts
 	create Paid RSVPs subscription
 	Logo icon on event
 	preferred search
 	personal calendar page (with customizable pretty header picture)
+	the link of event go to the event page
+	branded event pages
 
 subdomains for every city - you can belong to multiple cities -- this strategy can be used for -- should we use heroku if we know our deployment strategy?
 

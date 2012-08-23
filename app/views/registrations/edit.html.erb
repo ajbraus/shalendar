@@ -7,10 +7,16 @@
     <% end %>
     <strong>Authentications</strong>
     <% if current_user.authentications.any? == true %>
+    <p>
       <% current_user.authentications.each do |a| %>
-        <%= a.provider %>
-        <%= link_to 'Remove', a, confirm: 'Are you sure?', method: :delete %>
+        <table>
+          <tr>
+            <td width="100px"><%= a.provider %></td>
+            <td width="50px"><%= link_to raw("<i class='icon-remove-sign'></i>"), a, confirm: 'Are you sure you want to remove your Facebook authentication?', method: :delete %></td>
+          </tr>
+        </table>
       <% end %>
+    </p>
     <% else %>
       <div class="fb_button">
         <div id="auth-status">
@@ -32,7 +38,7 @@
     </p>
     <p>
       <%= f.check_box :post_to_fb_wall %>
-      <label for="post_to_fb_wall"><strong>Social Graph</strong> - Have Hoosin post social events you create to your Facebook wall.</label>
+      <label for="post_to_fb_wall"><strong>Social Graph</strong> - Have Hoos.in post social events you create to your Facebook wall.</label>
     </p>
     <br>
 

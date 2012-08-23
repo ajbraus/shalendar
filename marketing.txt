@@ -26,20 +26,30 @@ initial:
 
 Social users - 15 nodes
 
-	CE
-	Madison
-	Create
-	Mary
-	Niko/Epic
-	Sector 67
-	Virtuvian Farms
-	West High
-	Marketing student
+	CE - Forrest
+	Madison - Scott R.
+	Mike
+	Ricky
+	Mary - 
+	Epic - Niko, Nolen
+	Sector 67 - Chris
+	Virtuvian Farms - Sean
+	West High - ?
+	Marketing student - ?
+	Babblespark - Abby
+	Adam
+	Sorority - Anna
+	Fraternity - Jesse
 	Nina
-
+	
 	Swag
 		t-shirts, stickers, b-cards
 	
+Contact in person
+One-page pdf
+Keep in touch - use hi to setup in person/skype/phone meetings
+Email
+Survey
 
 
 Biznizes/organizations

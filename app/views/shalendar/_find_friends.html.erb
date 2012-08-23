@@ -1,0 +1,35 @@
+<div style="display: none;">
+	<div id="find_friends">
+	<h1>Your Friends in <%= current_user.city %></h1>
+	<% @city_friends.each do |cf| %>
+			<table>
+			<tr>
+				<td width="55px"><%= image_tag("#{cf['picture']}") %></td>
+				<td width="100px"><%= "#{cf['name']}" %></td>
+				<td width="100px">
+					<% if Authentication.find_by_uid(cf['id']) %>
+					<% u = Authentication.find_by_uid(cf['id']).user %>
+						<span id="follow_form" class="follow_btn">
+			        <% if current_user.following?(u) %>
+			          <%= form_for(current_user.relationships.find_by_followed_id(u.id),
+			                   html: { method: :delete }) do |f| %>
+		              <%= f.submit "Stop Viewing", class: "btn_stop_viewing", confirm:"Are you sure you would like to stop viewing #{cm.name}'s ideas?" %>
+		              <% end %>
+		          <% elsif current_user.request_following?(u) %>
+		          	<span>Request Sent...</span>
+			        <% else %>
+		            <%= form_for(current_user.relationships.build(followed_id: u.id)) do |f| %>
+		              <div><%= f.hidden_field :followed_id %></div>
+		              <%= f.submit "View", class: "btn-primary btn_start_viewing" %>
+		            <% end %>
+			        <% end %>
+			      </span>
+			    <% else %>
+			    	<%= link_to "Invite", invite_path(:username => cf['username']), id: "invite", class:"btn-primary btn-success", remote: true %>
+					<% end %>
+		    </td>
+			</tr> 
+		</table>
+	<% end %>
+	</div>
+</div>

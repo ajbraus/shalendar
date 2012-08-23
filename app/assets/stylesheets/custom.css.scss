@@ -359,10 +359,10 @@ header {
 
 #new_idea {
   width:470px;
-  height:370px;
+  height:auto;
   overflow:auto;
   padding:30px;
-  padding-bottom:50px;
+  padding-bottom:20px;
   padding-top:0px;
 }
 aside {
@@ -583,8 +583,7 @@ footer {
 
 #find_friends {
   font-size: 15px;
-  margin-top:50px;
-  height:450px;
+  height:auto;
   overflow:scroll;
   table {
     width:30%;
@@ -649,6 +648,13 @@ footer {
   }
 }
 
+.icon-repeat {
+  color:#AAAAAA;
+  &:hover {
+    color:#1464F4;
+  }
+}
+
 #lightbox {
     position:fixed; /* keeps the lightbox window in the current viewport */
     top:0; 
@@ -678,3 +684,34 @@ footer {
   width:30%;
   margin-top:25px;
 }
+
+.hi {
+  width:100px;
+  height:100px;
+  border-radius: 6px;
+  background-color:purple;
+  font-size: 80px;
+  color:white;
+  font-family: verdana;
+}
+
+#littleTIP {
+        max-width: 250px;
+        padding: 5px;
+        }
+
+#littleTIPbackground {
+        background: #ffffff;
+        -webkit-box-shadow: 3px 3px 3px rgba(50, 50, 50, 0.55);
+        -moz-box-shadow:    3px 3px 3px rgba(50, 50, 50, 0.55);
+        box-shadow:         3px 3px 3px rgba(50, 50, 50, 0.55);
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        }
+
+#littleTIPtext {
+        font-family: Arial, verdana, sans-serif;
+        font-size: 16px;
+        text-align: left;
+        }

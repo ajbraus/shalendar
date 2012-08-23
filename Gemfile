@@ -22,8 +22,6 @@ gem 'whenever', :require => false
 gem 'pry'
 gem 'pry-debugger'
 
-gem 'rails3-jquery-autocomplete'
-
 # gem "recaptcha", :require => "recaptcha/rails"
 
 gem 'pg'

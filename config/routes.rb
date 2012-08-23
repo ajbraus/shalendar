@@ -56,6 +56,13 @@ Shalendar::Application.routes.draw do
     put :confirm_and_follow
   end
 
+  # invite users from the find_friends lightbox
+  match '/invite', :to => 'shalendar#invite', :as => "invite"
+
+  # shalendar#search get request 
+  # match '/search', :to => 'shalendar#search', :as => "search"
+
+
   match '/user_plans_on_date', :to => 'shalendar#user_plans_on_date', :as => "user_plans_on_date"
   match '/user_ideas_on_date', :to => 'shalendar#user_ideas_on_date', :as => "user_ideas_on_date"
   match '/user_events_on_date', :to => 'shalendar#user_events_on_date', :as => "user_events_on_date"

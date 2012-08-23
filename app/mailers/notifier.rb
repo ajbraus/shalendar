@@ -140,9 +140,9 @@ class Notifier < ActionMailer::Base
 
     @guest_emails.join('; ')
 
-    mail bcc: @guest_emails, subject: "Your plan #{event.title} has changed start time to #{event.chronic_starts_at}!"
+    mail bcc: @guest_emails, subject: "#{event.title.capitalize} now starts at #{event.chronic_starts_at}!"
   end
-
+  
   #CHRON JOBS
   def digest
     @users = User.where('users.daily_digest = "t"')
