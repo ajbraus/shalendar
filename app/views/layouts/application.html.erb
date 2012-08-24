@@ -103,7 +103,7 @@
             if(response.authResponse) {
               window.location = "/user/auth/facebook/callback"
               }
-          }, {scope: "email,user_location,user_events,friends_location,friends_events"});
+          }, {scope: "email,user_location,friends_location,publish_stream"});
         });
         document.getElementById('auth-logoutlink').addEventListener('click', function(){
           FB.logout();

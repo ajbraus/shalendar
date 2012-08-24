@@ -44,6 +44,7 @@
 	left: 0;
 	width: 100%;
 	z-index: 1100;
+	background-repeat:repeat-y;
 	display: none;
 }
 
@@ -63,6 +64,8 @@
 	z-index: 1101;
 	outline: none;
 	display: none;
+	width:auto;
+	height:auto;
 }
 
 #fancybox-outer {

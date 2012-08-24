@@ -331,6 +331,30 @@ header {
 }
 
 
+/* tooltips */
+
+#littleTIP {
+        max-width: 250px;
+        padding: 5px;
+        }
+
+#littleTIPbackground {
+        background: #ffffff;
+        -webkit-box-shadow: 3px 3px 3px rgba(50, 50, 50, 0.55);
+        -moz-box-shadow:    3px 3px 3px rgba(50, 50, 50, 0.55);
+        box-shadow:         3px 3px 3px rgba(50, 50, 50, 0.55);
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        }
+
+#littleTIPtext {
+        font-family: Arial, verdana, sans-serif;
+        font-size: 16px;
+        text-align: left;
+        }
+
+
 /* HOME */
 
 .container {
@@ -359,10 +383,10 @@ header {
 
 #new_idea {
   width:470px;
-  height:370px;
+  height:auto;
   overflow:auto;
   padding:30px;
-  padding-bottom:50px;
+  padding-bottom:20px;
   padding-top:0px;
 }
 aside {
@@ -396,7 +420,6 @@ aside {
 
 
 .stats {
-  overflow: auto;
   margin:10px 0 17px 0;
   a {
     width:22%;
@@ -423,7 +446,7 @@ aside {
   color:black;
   width:auto;
   position: relative;
-  bottom: 8px;
+  bottom: 14px;
   u {
     color:darkgreen;
     font-size: 28px;
@@ -520,10 +543,31 @@ footer {
     -webkit-border-radius: 0 5px 5px 0;
     -moz-border-radius: 0 5px 5px 0;
     border-radius: 0 5px 5px 0;
-    padding-bottom:12px;
-    width:49px;
+    height:40px;
+    width:50px;
+    position: relative;
+    top: 4px;
   }
 }
+
+#search_results {
+  position: absolute;
+  background-color: white;
+  color:black;
+  height:auto;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding:10px;
+  border:1px solid #BBB;
+  z-index: 5;
+}
+
+.fa-input {
+  font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 23px;
+}
+
 
 #manage_views {
   margin-left:auto;
@@ -583,8 +627,7 @@ footer {
 
 #find_friends {
   font-size: 15px;
-  margin-top:50px;
-  height:450px;
+  height:auto;
   overflow:scroll;
   table {
     width:30%;
@@ -649,6 +692,13 @@ footer {
   }
 }
 
+.icon-repeat {
+  color:#AAAAAA;
+  &:hover {
+    color:#1464F4;
+  }
+}
+
 #lightbox {
     position:fixed; /* keeps the lightbox window in the current viewport */
     top:0; 
@@ -661,12 +711,14 @@ footer {
 
 #settings {
   width:700px;
-  margin:auto auto;
-  input {
-  }
+  height:900px;
+  margin: 15px auto 0 auto;
   form {
-    width:380px;
-
+    float:left;
+    width:70%;
+    input[type=text], input[type=email], input[type=password] {
+      width:380px;
+    }
   }
 
 }
@@ -674,9 +726,17 @@ footer {
 #personal {
   float:left;
   width:30%;
+  margin-top:25px;
 }
 
-#authentications{
-  float:left;
-  width:70%;
+.hi {
+  width:100px;
+  height:100px;
+  border-radius: 6px;
+  background-color:purple;
+  font-size: 80px;
+  color:white;
+  font-family: verdana;
 }
+
+

@@ -3,18 +3,19 @@
     <% @relationships.each do |relation| %>
     	<% if relation.toggled == true %>
   	  	<u class="raster_hover">
-  	  		<%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put %>
-  	  		<div class="viewing_name">
-  	  			<%= relation.followed.first_name %>
-  	  		</div>
+  	  		<%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put%>
   	  	</u>
   	  <% else %>
   	  	<u class="raster_hover"><%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put, :class => 'toggle-off' %>
-  	  		<div class="viewing_name">
-  	  			<%= relation.followed.first_name %>
-  	  		</div>
   	  	</u>
   	  <% end %>
 	  <% end %>
+<% if false %>
+  uncheck all
+  check all
+  make new "group/list"
+  <%= link_to_function "Clear", "$('search_field').clear()" %>
+<% end %>
+
   </div>
 <% end %>

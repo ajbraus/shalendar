@@ -1,19 +1,8 @@
-<div id="view_search">
-	<%= form_tag :controller => 'shalendar', :action => 'home', :method => 'get' do %>
-	  <%= text_field_tag :search, params[:search], :id => 'search_field', placeholder:"Search for Friends by Name or Email..." %>
-	  <input type="submit" class="btn-success fa-input" value="&#xf002;" onclick="javascript:showElement('search_results')">
-	  <% submit_tag remote:true %>
-	<% end %> 
-</div>
-
-<% if params[:search] %>
-<div id="search_results" style="display:none;">  
-  <table>
+  <ul>
     <% @users.each do |u| %>
-    <tr>
-    	<td><%= raster_profile_picture(u) %></td>
-		  <td><%= u.name %></td>
-			<td id="follow_form" class="follow_btn">
+    <li>
+		  <span><%= u.name %></span>
+			<span id="follow_form" class="follow_btn">
 			  <% if current_user.following?(u) %>
 			    <%= form_for(current_user.relationships.find_by_followed_id(u.id),
 			             html: { method: :delete }) do |f| %>
@@ -27,9 +16,7 @@
 			      <%= f.submit "View", class: "btn-primary btn_start_viewing" %>
 			    <% end %>
 			  <% end %>
-			</td>
-		</tr>
+			</span>
+		</li>
   	<% end %>
-  </table>
-</div>
-<% end %>
+  </ul>

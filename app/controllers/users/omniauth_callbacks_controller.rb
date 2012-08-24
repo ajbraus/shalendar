@@ -76,8 +76,10 @@ private
     else
       email = access_token.info.email
       name = access_token.info.name
+      city = access_token.info.location
       user = User.new(:email => email, 
                 :name => name,
+                :city => city,
                 :terms => true,
                 :remember_me => true,
                 :password => Devise.friendly_token[0,20]

@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20120822173557) do
     t.datetime "ends_at"
     t.string   "title"
     t.string   "description"
+    t.string   "location"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
     t.integer  "user_id"
@@ -106,6 +107,8 @@ ActiveRecord::Schema.define(:version => 20120822173557) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                                   :null => false
     t.datetime "updated_at",                                   :null => false
+    t.string   "name"
+    t.string   "city"
     t.boolean  "terms"
     t.string   "provider"
     t.string   "uid"
@@ -113,10 +116,11 @@ ActiveRecord::Schema.define(:version => 20120822173557) do
     t.boolean  "notify_noncritical_change", :default => false
     t.boolean  "daily_digest",              :default => true
     t.boolean  "notify_event_reminders",    :default => true
-    t.string   "name"
     t.string   "authentication_token"
+
     t.string   "city"
     t.boolean  "post_to_fb_wall"
+
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

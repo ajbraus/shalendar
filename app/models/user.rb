@@ -75,6 +75,17 @@ class User < ActiveRecord::Base
   # end
 
   #Rsvp methods... user.plans = list of events
+
+  def self.search(query)
+    conditions = <<-EOS
+      to_tsvector('english', 
+        coalesce(name, '') || ' ' || coalesce(email, '')
+      ) @@ plainto_tsquery('english', ?)
+    EOS
+
+    where(conditions, query)
+  end
+
   def rsvpd?(event)
     if(rsvps.find_by_plan_id(event.id))
       return true
