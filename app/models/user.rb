@@ -169,28 +169,27 @@ class User < ActiveRecord::Base
 
   def forecast(load_date)
     @forecast = []
-
     (0..2).each do |i|
-      @daycast = []
-      @new_date = load_date + i
-      @events_on_date = self.events_on_date(@new_date)
       @morning_events = []
       @afternoon_events = []
       @evening_events = []
+      @new_date = load_date + i
+      @events_on_date = self.events_on_date(@new_date)
       @events_on_date.each do |e|
-        if e.starts_at.utc < load_date.to_s + " 17:00:00"
+        if e.starts_at.utc < @new_date.to_s + " 17:00:00"
           @morning_events.push(e)
-        elsif e.starts_at.utc < load_date.to_s + "23:00:00"
+        elsif e.starts_at.utc < @new_date.to_s + " 23:00:00"
           @afternoon_events.push(e)
         else
           @evening_events.push(e)
         end
       end
-      @daycast.push(@morning_events)
-      @daycast.push(@afternoon_events)
-      @daycast.push(@evening_events)
+      @daycast = [@morning_events, @afternoon_events, @evening_events]
       @forecast.push(@daycast)
     end
+
+    #@forecast = [[@morning_events][@afternoon_events][]]
+
     return @forecast
   end
 
@@ -204,7 +203,7 @@ class User < ActiveRecord::Base
     @my_events.each do |e|
       if e.starts_at.to_date == load_date
         e.inviter_id = self.id
-        @date_events.push(e)
+        @date_events.push(e)#if you un-rsvp to your own event and friends are rsvpd, you might see it twice
       end
     end
 

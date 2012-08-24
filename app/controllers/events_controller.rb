@@ -48,7 +48,7 @@ class EventsController < ApplicationController
           format.html { redirect_to @event }
           format.json { render json: @event, status: :created, location: @event }
         else
-          format.html { redirect_to home_path, notice: 'Event could not be saved'}
+          format.html { redirect_to home_path, notice: 'Event saved!'}
           format.json { render json: home_path, status: :created, location: @event }
         end
       else

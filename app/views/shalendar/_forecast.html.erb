@@ -6,41 +6,42 @@
 		</tr>
 		<tr>
 			<% t.each do |te| %>
-			<%- binding.pry %>
-				<% if current_user.rsvpd?(te) %>
-				<td class="plan">
-					<table>
-						<tr>
-							<td rowspan="2"><%= te.starts_at %></td>
-							<td rowspan="2"><%= raster_profile_picture(te.user) %></td>
-							<td rowspan="2"><%= te.title %></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td><%= te.guests.count%> / <%= te.min %></td>
-							<td><%= link_to raw("<i class='icon-ok-sign'></i>"), home_path %></td>
-						</tr>
-						<caption><%= "#{friends_attending(te)} of your friends are going" %></caption>
-					</table>
-				</td>
-				<% else %>
-					<td class="idea">
+				<% te.each do |event| %>
+					<% if current_user.rsvpd?(event) %>
+					<td class="plan">
 						<table>
 							<tr>
-								<td rowspan="2"><%= te.starts_at %></td>
-								<td rowspan="2"><%= raster_profile_picture(te.user) %></td>
-								<td rowspan="2"><%= te.title %></td>
+								<td rowspan="2"><%= event.starts_at %></td>
+								<td rowspan="2"><%= raster_profile_picture(event.user) %></td>
+								<td rowspan="2"><%= event.title %></td>
 							</tr>
 							<tr>
 								<td></td>
 								<td></td>
-								<td><%= te.rsvps.count %> / <%= te.min %></td>
+								<td><%= event.guests.count%> / <%= event.min %></td>
 								<td><%= link_to raw("<i class='icon-ok-sign'></i>"), home_path %></td>
 							</tr>
-							<caption><%= "Invited by: #{User.find_by_id(te.inviter_id)}" %> | <%= "#{friends_attending(te)} of your friends are going" %></caption>
+							<caption><%= "#{friends_attending(event)} of your friends are going" %></caption>
 						</table>
 					</td>
+					<% else %>
+						<td class="idea">
+							<table>
+								<tr>
+									<td rowspan="2"><%= event.starts_at %></td>
+									<td rowspan="2"><%= raster_profile_picture(event.user) %></td>
+									<td rowspan="2"><%= event.title %></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td><%= event.rsvps.count %> / <%= event.min %></td>
+									<td><%= link_to raw("<i class='icon-ok-sign'></i>"), home_path %></td>
+								</tr>
+								<caption><%= "Invited by: #{User.find_by_id(event.inviter_id).name}" %> | <%= "#{friends_attending(event)} of your friends are going" %></caption>
+							</table>
+						</td>
+					<% end %>
 				<% end %>
 			<% end %>
 		</tr>

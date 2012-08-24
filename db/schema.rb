@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120822173557) do
+ActiveRecord::Schema.define(:version => 20120824171711) do
 
   create_table "authentications", :force => true do |t|
     t.string   "provider"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20120822173557) do
     t.datetime "ends_at"
     t.string   "title"
     t.string   "description"
+    t.string   "location"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
     t.integer  "user_id"
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20120822173557) do
     t.string   "map_location"
     t.decimal  "duration"
     t.string   "visibility"
+    t.integer  "inviter_id",   :default => 0
   end
 
   create_table "invites", :force => true do |t|
@@ -55,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20120822173557) do
     t.integer  "event_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "inviter_id"
   end
 
   add_index "invites", ["event_id"], :name => "index_invites_on_event_id"
@@ -106,17 +109,15 @@ ActiveRecord::Schema.define(:version => 20120822173557) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                                   :null => false
     t.datetime "updated_at",                                   :null => false
+    t.string   "name"
+    t.string   "city"
     t.boolean  "terms"
-    t.string   "provider"
-    t.string   "uid"
     t.boolean  "require_confirm_follow",    :default => true
     t.boolean  "notify_noncritical_change", :default => false
     t.boolean  "daily_digest",              :default => true
     t.boolean  "notify_event_reminders",    :default => true
-    t.string   "name"
     t.string   "authentication_token"
-    t.string   "city"
-    t.boolean  "post_to_fb_wall"
+    t.boolean  "post_to_fb_wall",           :default => true
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
