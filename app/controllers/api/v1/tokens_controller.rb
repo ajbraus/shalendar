@@ -67,7 +67,7 @@ class Api::V1::TokensController  < ApplicationController
       @followers = []
       @user.followers.each do |f|
         r = Relationship.where("follower_id = :followerid AND @followed_id = :followedid", 
-                                followerid: f.id, followedid: @user.id).last
+                                followerid: f.id, followedid: @user.id).last #should just be a find call
         @temp = {
           first_name: f.first_name,
           last_name: f.last_name,

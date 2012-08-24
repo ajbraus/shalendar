@@ -5,8 +5,7 @@ class Api::V1::EventsController < ApplicationController
     #receive call to : calenshare.com/user_plans_on_date.json?date="DateInString"
     raw_datetime = DateTime.parse(params[:date])
     @mobile_user = User.find_by_id(3)
-    #@events = current_user.plans_on_date(raw_date)
-    @events = @mobile_user.mobile_events_on_date(raw_datetime)
+    @events = @mobile_user.mobile_events_on_date(raw_datetime.to_date)#Need to check timezone here
 
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []

@@ -12,6 +12,8 @@ Make sure events always get served in time order
 
 Only showing events that start on the day... don't know what to do for longer than 1-day things... but not really core
 
+Time Zones- breaking things into correct day and displaying time correctly.
+
 What do we do with already finished events in a given day?
 	Probably gray them out but still display? Or should we take them off the calendar as they're mostly irrelevant (but they still help for finding friends, make calendar more busy for better or worse)
 
