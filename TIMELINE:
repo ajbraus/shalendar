@@ -12,6 +12,8 @@ August 20-27
 
 Dev
 	Search name/email - Adam
+		AJAXify search
+		
 	10 second delay on first login
 	visual indicator if invitation sent. ajax
 	new event form not showing validation errors

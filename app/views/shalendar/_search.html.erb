@@ -1,15 +1,35 @@
-<% if false %>
-<%= form_tag '/relationships' do %>
-  <div id="view_search">
-      <%= autocomplete_field_tag :email, '', autocomplete_email_path, placeholder:"Search for Friends..." %>
-      <%= submit_tag "View", class: "btn-success" %>
-  </div>
-<% end %>
-<% end %>
-
 <div id="view_search">
 	<%= form_tag :controller => 'shalendar', :action => 'home', :method => 'get' do %>
 	  <%= text_field_tag :search, params[:search], :id => 'search_field', placeholder:"Search for Friends by Name or Email..." %>
-	  <%= image_submit_tag , :name => nil, class: "btn-success" %> 
+	  <input type="submit" class="btn-success fa-input" value="&#xf002;" onclick="javascript:showElement('search_results')">
+	  <% submit_tag remote:true %>
 	<% end %> 
 </div>
+
+<% if params[:search] %>
+<div id="search_results" style="display:none;">  
+  <table>
+    <% @users.each do |u| %>
+    <tr>
+    	<td><%= raster_profile_picture(u) %></td>
+		  <td><%= u.name %></td>
+			<td id="follow_form" class="follow_btn">
+			  <% if current_user.following?(u) %>
+			    <%= form_for(current_user.relationships.find_by_followed_id(u.id),
+			             html: { method: :delete }) do |f| %>
+			      <%= f.submit "Stop Viewing", class: "btn_stop_viewing", confirm:"Are you sure you would like to stop viewing #{cm.name}'s ideas?" %>
+			      <% end %>
+			  <% elsif current_user.request_following?(u) %>
+			  	<span>Request Sent...</span>
+			  <% else %>
+			    <%= form_for(current_user.relationships.build(followed_id: u.id)) do |f| %>
+			      <div><%= f.hidden_field :followed_id %></div>
+			      <%= f.submit "View", class: "btn-primary btn_start_viewing" %>
+			    <% end %>
+			  <% end %>
+			</td>
+		</tr>
+  	<% end %>
+  </table>
+</div>
+<% end %>

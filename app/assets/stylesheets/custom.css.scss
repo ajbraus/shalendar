@@ -331,6 +331,30 @@ header {
 }
 
 
+/* tooltips */
+
+#littleTIP {
+        max-width: 250px;
+        padding: 5px;
+        }
+
+#littleTIPbackground {
+        background: #ffffff;
+        -webkit-box-shadow: 3px 3px 3px rgba(50, 50, 50, 0.55);
+        -moz-box-shadow:    3px 3px 3px rgba(50, 50, 50, 0.55);
+        box-shadow:         3px 3px 3px rgba(50, 50, 50, 0.55);
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        }
+
+#littleTIPtext {
+        font-family: Arial, verdana, sans-serif;
+        font-size: 16px;
+        text-align: left;
+        }
+
+
 /* HOME */
 
 .container {
@@ -396,7 +420,6 @@ aside {
 
 
 .stats {
-  overflow: auto;
   margin:10px 0 17px 0;
   a {
     width:22%;
@@ -423,7 +446,7 @@ aside {
   color:black;
   width:auto;
   position: relative;
-  bottom: 8px;
+  bottom: 14px;
   u {
     color:darkgreen;
     font-size: 28px;
@@ -520,10 +543,31 @@ footer {
     -webkit-border-radius: 0 5px 5px 0;
     -moz-border-radius: 0 5px 5px 0;
     border-radius: 0 5px 5px 0;
-    padding-bottom:12px;
-    width:49px;
+    height:40px;
+    width:50px;
+    position: relative;
+    top: 4px;
   }
 }
+
+#search_results {
+  position: absolute;
+  background-color: white;
+  color:black;
+  height:auto;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding:10px;
+  border:1px solid #BBB;
+  z-index: 5;
+}
+
+.fa-input {
+  font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 23px;
+}
+
 
 #manage_views {
   margin-left:auto;
@@ -695,23 +739,4 @@ footer {
   font-family: verdana;
 }
 
-#littleTIP {
-        max-width: 250px;
-        padding: 5px;
-        }
 
-#littleTIPbackground {
-        background: #ffffff;
-        -webkit-box-shadow: 3px 3px 3px rgba(50, 50, 50, 0.55);
-        -moz-box-shadow:    3px 3px 3px rgba(50, 50, 50, 0.55);
-        box-shadow:         3px 3px 3px rgba(50, 50, 50, 0.55);
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        border-radius: 4px;
-        }
-
-#littleTIPtext {
-        font-family: Arial, verdana, sans-serif;
-        font-size: 16px;
-        text-align: left;
-        }

@@ -9,6 +9,7 @@
   
 	  <%= render 'search' %>
 
+
 		<a class="btn-primary btn_new_idea" href="#new_idea">New Idea</a>
 	  <span class="grey_italics" style="font-size:14px;">Click pics to show/hide user's ideas</span>
 
@@ -55,7 +56,4 @@
 	<%= render 'new_idea_form' %>
 	<% if session[:access_token] != nil %>
 		<%= render 'find_friends' %>
-	<% end %>
-	<% if params[:search] %>
-	<%= render 'search_results' %>
 	<% end %>

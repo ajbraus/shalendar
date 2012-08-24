@@ -124,7 +124,11 @@ class ShalendarController < ApplicationController
 		#people current user is viewing
 		@followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
 																											 current_user_id: current_user.id)
-	end
+	 
+    if params[:search]
+      @users = User.search params[:search]
+    end
+  end
 
   def invite
     @graph = Koala::Facebook::API.new(session[:access_token])

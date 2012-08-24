@@ -1,12 +1,52 @@
 <% provide(:title, " | Manage Views") %>
 <div id="manage_views">
     <div id="manage_search">
-    <%= render 'search' %>
+      <!-- search -->
+      <div id="view_search">
+        <%= form_tag :controller => 'shalendar', :action => 'manage_follows', :method => 'get' do %>
+          <%= text_field_tag :search, params[:search], :id => 'search_field', placeholder:"Search for Friends by Name or Email..." %>
+          <input type="submit" class="btn-success fa-input" value="&#xf002;" onclick="javascript:showElement('search_results')">
+          <% submit_tag remote:true %>
+        <% end %> 
+      </div>
+
+      <% if params[:search] %>
+      <div id="search_results" style="display:none;">  
+        <table>
+          <% @users.each do |u| %>
+          <tr>
+            <td><%= raster_profile_picture(u) %></td>
+            <td><%= u.name %></td>
+            <td id="follow_form" class="follow_btn">
+              <% if current_user.following?(u) %>
+                <%= form_for(current_user.relationships.find_by_followed_id(u.id),
+                         html: { method: :delete }) do |f| %>
+                  <%= f.submit "Stop Viewing", class: "btn_stop_viewing", confirm:"Are you sure you would like to stop viewing #{cm.name}'s ideas?" %>
+                  <% end %>
+              <% elsif current_user.request_following?(u) %>
+                <span>Request Sent...</span>
+              <% else %>
+                <%= form_for(current_user.relationships.build(followed_id: u.id)) do |f| %>
+                  <div><%= f.hidden_field :followed_id %></div>
+                  <%= f.submit "View", class: "btn-primary btn_start_viewing" %>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+      <% end %>
+
+    <!-- VIEW REQUESTS -->
+
     <h3>New View Requests</h3>
     <%= render 'view_requests' %>
   </div>
+
+    <!-- VIEWERS AND VIEWING TABLES -->
   <div id="views_list">
-    <h2>Calendars You're Viewing</h2>
+    <h2>Who You're Viewing</h2>
     <div class="user_table">
         <% @followed_user_relationships.each do |fur| %>
         <table>       
@@ -29,7 +69,7 @@
       <% end %>
     </div>
 
-    <h2>Viewing Your Calendar</h2>
+    <h2>Who's Viewing You</h2>
     <div class="user_table">
       <% @follower_relationships.each do |fr| %>
       <table>        
