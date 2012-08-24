@@ -51,7 +51,20 @@ class Api::V1::TokensController  < ApplicationController
       logger.info("User #{email} failed signin, password \"#{password}\" is invalid")
       render :status=>401, :json=>{:message=>"Invalid email or password."}
     else
-      render :status=>200, :json=>{:token=>@user.authentication_token}
+      render :status=>200, :json=>{:token=>@user.authentication_token, 
+                                    :user=>{
+                                      :user_id=>@user.id,
+                                      :first_name=>@user.first_name,
+                                      :last_name=>@user.last_name,
+                                      :confirm_f=>@user.require_confirm_follow,
+                                      :daily_d=>@user.daily_digest,
+                                      :notify_r=>@user.notify_event_reminders,
+                                      :notify_n=>@user.notify_noncritical_change,
+                                      :post_wall=>@user.post_to_fb_wall,
+                                      :followed_users=>@user.followed_users,
+                                      :followers=>@user.followers
+                                    }
+                                   }
     end
   end
 

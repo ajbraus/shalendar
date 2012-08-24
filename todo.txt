@@ -209,6 +209,7 @@ Monetization
 	Individual deployments (cost based on user limit) (churches, frats, businesses) - pricing?
 	Paid RSVPs
 	############Premier accounts
+	BRANDED EVENT#SHOW!! OR LINK TO THEIR SITE RATHER LOCAL
 	create Paid RSVPs subscription
 	Logo icon on event
 	preferred search

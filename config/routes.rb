@@ -32,6 +32,10 @@ Shalendar::Application.routes.draw do
       namespace :v1 do
         resources :tokens, :only => [:create, :destroy]
         resources :sessions, :only => [:create, :destroy]
+        resources :registrations, :only => [:create, :destroy]
+        resources :relationships, :only => [:create, :destroy]
+        resources :rsvps, :only => [:create, :destroy]
+        
         match '/user_events_on_date', :to => 'events#user_events_on_date', :as => "user_events_on_date"
         match '/event_details', :to => 'events#event_details', :as => "event_details"
         match '/followed_users', :to => 'shalendar#followed_users', :as => "followed_users"
