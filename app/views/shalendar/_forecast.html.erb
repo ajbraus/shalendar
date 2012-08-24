@@ -2,11 +2,12 @@
 	<% @forecastevents.each do |t| %>
 	<tabel>
 		<tr>
-			<th><%= Date.today + index(t)%></th>
+			<th><%= Date.today + @forecastevents.index(t) %></th>
 		</tr>
 		<tr>
 			<% t.each do |te| %>
-				<% if current_user.rsvpd? %>
+			<%- binding.pry %>
+				<% if current_user.rsvpd?(te) %>
 				<td class="plan">
 					<table>
 						<tr>
@@ -17,7 +18,7 @@
 						<tr>
 							<td></td>
 							<td></td>
-							<td><%= te.rsvps.count "/" te.min %></td>
+							<td><%= te.guests.count%> / <%= te.min %></td>
 							<td><%= link_to raw("<i class='icon-ok-sign'></i>"), home_path %></td>
 						</tr>
 						<caption><%= "#{friends_attending(te)} of your friends are going" %></caption>
@@ -34,7 +35,7 @@
 							<tr>
 								<td></td>
 								<td></td>
-								<td><%= te.rsvps.count "/" te.min %></td>
+								<td><%= te.rsvps.count %> / <%= te.min %></td>
 								<td><%= link_to raw("<i class='icon-ok-sign'></i>"), home_path %></td>
 							</tr>
 							<caption><%= "Invited by: #{User.find_by_id(te.inviter_id)}" %> | <%= "#{friends_attending(te)} of your friends are going" %></caption>
@@ -44,4 +45,5 @@
 			<% end %>
 		</tr>
 	</table>
+	<% end %>
 </div>
