@@ -194,7 +194,7 @@ class User < ActiveRecord::Base
     name.split.count == 3 ? name.split(' ')[1] : nil
   end
   
-  def mobile_events_on_date(load_datetime)#don't care about toggled here, do it locally on client
+  def mobile_events_on_date(load_date)#don't care about toggled here, do it locally on client
     #usable_date = load_datetime.in_time_zone("Central Time (US & Canada)")
     # usable_date = load_datetime# - 4.hours
     # adjusted_load_date = usable_date.to_date
@@ -202,7 +202,7 @@ class User < ActiveRecord::Base
     @my_events = self.events
     @date_events = []
     @my_events.each do |e|
-      if e.starts_at.to_date == load_datetime.to_date
+      if e.starts_at.to_date == load_date #change starts_at to appropriate timezone
         @date_events.push(e)
       end
     end
@@ -210,7 +210,7 @@ class User < ActiveRecord::Base
     @plans = self.plans
     @date_plans = []
     @plans.each do |p|
-      if p.starts_at.to_date == load_datetime.to_date
+      if p.starts_at.to_date == load_date
         @date_plans.push(p)
       end
     end
@@ -242,35 +242,47 @@ class User < ActiveRecord::Base
     return @date_ideas | @date_invitation_events | @date_plans | @date_events
   end
 
-  def events_on_date(load_datetime)
+  def events_on_date(load_date)
     #usable_date = load_datetime.in_time_zone("Central Time (US & Canada)")
     # usable_date = load_datetime# - 4.hours
     # adjusted_load_date = usable_date.to_date
 
+    @my_events = self.events
+    @date_events = []
+    @my_events.each do |e|
+      if e.starts_at.to_date == load_date
+        e.invitor_id = self.id;
+        @date_events.push(e)
+      end
+    end
+
     @plans = self.plans
     @date_plans = []
     @plans.each do |p|
-      if p.starts_at.to_date == load_datetime.to_date
+      if p.starts_at.to_date == load_date
         @date_plans.push(p)
       end
     end
 
-    @my_events = self.events
-    @date_events = []
-    @my_events.each do |e|
-      if e.starts_at.to_date == load_datetime.to_date
-        @date_events.push(e)
-      end
-    end
+    # @invitations = Invite.where('invites.email = :current_user_email', current_user_email: self.email)
+
+    # @invitations.each do |i|
+    #   @e = Event.find_by_id(i.event_id)
+
+
+
+    # end
+    
     @invitation_events = Event.joins('INNER JOIN invites ON events.id = invites.event_id')
                                 .where('invites.email = :current_user_email', current_user_email: self.email)
     @toggled_invitation_events = []
 
     @invitation_events.each do |ie|
-      if ie.starts_at.to_date == load_datetime.to_date
+      if ie.starts_at.to_date == load_date
         unless self.rsvpd?(ie)
           if self.following?(ie.user)
             if self.relationships.find_by_followed_id(ie.user).toggled?
+              ie.inviter_id = 
               @toggled_invitation_events.push(ie)
             end
           else
@@ -288,7 +300,7 @@ class User < ActiveRecord::Base
 
     @toggled_followed_users.each do |f|
       f.plans.each do |fp| #for friends of friends events that are RSVPd for
-        if fp.starts_at.to_date == load_datetime.to_date
+        if fp.starts_at.to_date == load_date
           unless fp.full? || fp.visibility == "invite_only" || self.rsvpd?(fp)
             if fp.user == f || fp.visibility == "friends_of_friends"
               @date_ideas.push(fp)

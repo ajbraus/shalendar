@@ -39,6 +39,7 @@ Shalendar::Application.routes.draw do
         match '/user_events_on_date', :to => 'events#user_events_on_date', :as => "user_events_on_date"
         match '/event_details', :to => 'events#event_details', :as => "event_details"
         match '/followed_users', :to => 'shalendar#followed_users', :as => "followed_users"
+        match '/followers', :to => 'shalendar#followers', :as => "followers"
       end
     end
   end

@@ -51,6 +51,33 @@ class Api::V1::TokensController  < ApplicationController
       logger.info("User #{email} failed signin, password \"#{password}\" is invalid")
       render :status=>401, :json=>{:message=>"Invalid email or password."}
     else
+      @followed_users = []
+      @user.followed_users.each do |fu|
+        r = @user.relationships.find_by_followed_id(fu.id)
+        @temp = {
+          first_name: fu.first_name,
+          last_name: fu.last_name,
+          id: fu.id,
+          email_hex: Digest::MD5::hexdigest(fu.email.downcase),
+          confirmed: r.confirmed,
+          toggled: r.toggled
+        }
+        @followed_users.push(@temp)
+      end
+      @followers = []
+      @user.followers.each do |f|
+        r = Relationship.where("follower_id = :followerid AND @followed_id = :followedid", 
+                                followerid: f.id, followedid: @user.id).last
+        @temp = {
+          first_name: f.first_name,
+          last_name: f.last_name,
+          id: f.id,
+          email_hex: Digest::MD5::hexdigest(f.email.downcase),
+          confirmed: r.confirmed,
+          toggled: r.toggled
+        }
+        @followers.push(@temp)
+      end
       render :status=>200, :json=>{:token=>@user.authentication_token, 
                                     :user=>{
                                       :user_id=>@user.id,
@@ -61,8 +88,8 @@ class Api::V1::TokensController  < ApplicationController
                                       :notify_r=>@user.notify_event_reminders,
                                       :notify_n=>@user.notify_noncritical_change,
                                       :post_wall=>@user.post_to_fb_wall,
-                                      :followed_users=>@user.followed_users,
-                                      :followers=>@user.followers
+                                      :followed_users=>@followed_users,#may put these in separate calls for speed of login
+                                      :followers=>@followers
                                     }
                                    }
     end

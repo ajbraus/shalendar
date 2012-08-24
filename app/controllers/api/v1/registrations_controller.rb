@@ -3,7 +3,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
   respond_to :json
 
   def create
-    user = User.new(params)
+    user = User.new(params[:user])
     # user.email = params[:email]
     # user.name = params[:name]
     # user.password = params[:password]
