@@ -1,19 +1,18 @@
 TIMELINE:
 
-August 13-August 20 (Adam on vacation)
+August 27- September 4
 
-1 Mobile apps - Mike & Jeff
-Paper pages - Adam
-Roll our calendar paper - Mike
-Reach out to 5 nodes - Mike
-Outsourced design - Mike
+Marketing:
+	Reach out to 10 nodes - Mike/Adam
+	Swag T.shirts & Biz cards & Window decals - Adam
 
-August 20-27
+	Calendar layout - Adam
+		morning, noon, night visual inidcators
 
-Dev
+	feedback button
+	general styling
 
-
-	Ajaxify everything
+	Ajaxify everything - Monday
 		follow/unfollow
 		rsvp/unrsvp
 		toggle/untoggle
@@ -35,8 +34,66 @@ Dev
 	Mobile FB authentication - Jeff & Mike
 	Mobile 2 - Mike & Jeff
 
+Submit to Apple
 
-	Authentication - Adam
+
+
+Notifiers - Adam
+Mobile 3 - Mike
+
+Landing page
+About page
+Timezone?
+POW
+
+
+September 4 - september 12
+
+Push to production
+test in production (& debug)
+
+plan payment gateway & premier accounts
+
+get nodes logged in
+
+Android Market app
+
+September 12- September 19
+
+Talk to nodes - Mike
+Approach biznezes - Adam
+Daily fixes
+Respond to feedback
+Mobile 4 - Mike
+Payments for 100+ infastructure - pricing page design and build - Adam
+Metrics
+
+
+metrics:
+	new users per week
+	plans per user per week
+	events per user per week
+	100+ followers (paying customers)
+	viral coeficent 
+
+
+
+
+
+
+
+August 13-August 20 (Adam on vacation)
+
+1 Mobile apps - Mike & Jeff
+Paper pages - Adam
+Roll our calendar paper - Mike
+Outsourced design - Mike
+
+August 20-27
+
+Dev
+
+	DONE: Authentication - Adam
 		DONE: expiring fb tokens
 		DONE: Multiple authentications:
 		DONE: Add name when user is created through facebook
@@ -47,7 +104,7 @@ Dev
 	DONE: tooltip javascrip that shows the alt text (split on " "[0])
 		DONE: Find Friends lightbox 
 			DONE: Find friends - view/invite
-
+DONE: Serving events - Mike
 
 Design
 	DONE!!! Name deadline - Tuesday
@@ -60,47 +117,3 @@ Marketing
 	5 more nodes - Mike
 	contact sudents - Mike
 	DONE Incorporate - Mike
-
-August 27- September 4
-
-Swag - tshirts, biz cards, 
-Calendar layout - Adam
-DONE: Serving events - Mike
-Notifiers - Adam
-Mobile 3 - Mike
-Minor fixes
-	feedback button
-	hover raster name
-	general styling
-Landing page
-About page
-Timezone?
-POW
-
-
-September 4 - september 12
-
-Push to production
-test in production (& debug)
-
-get nodes logged in
-Submit to Apple
-Android Market app
-
-September 12- September 19
-
-Talk to nodes - Mike
-Approach biznezes - Adam
-Daily fixes
-Respond to feedback
-Mobile 4 - Mike
-Payments for 100+ infastructure - pricing page design and build - Adam
-
-
-metrics:
-	new users per week
-	plans per user per week
-	events per user per week
-	100+ followers (paying customers)
-	viral coeficent 
-

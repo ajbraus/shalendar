@@ -28,31 +28,9 @@
 	  <% end %>
 	</aside>
 
-<!-- 6 calls per day right now... mae plans, mae maybes. x3 days = 18 calls... not pretty but don't know what else, could parse in view but won't save much.. I guess we could just call plans and make sure they're sorted by start time and display based on start time. -->
-<!--
-	<div id='roll-your-own'>
-		<%# current_user.morning_plans_on_date(@first_date_on_calendar).each do |mp|%>
-
-		<%# current_user.plans_on_date(@first_date_on_calendar).each do |p|%>
-
-	</div>
-	<div id='next-day-selector'>
-		Button that does this:
-		<%# @first_date_on_calendar = @first_date_on_calendar + 1 %>
-		<%#redirect_to(home_path)%>
-	</div>
-	<div id='prev-day-selector'>
-		//Button that does this:
-		<%#@first_date_on_calendar = @first_date_on_calendar - 1 %>
-		<%#redirect_to(home_path)%>
-	</div>
--->
-
 	<%= render 'ribbon' %>
 	<%= render 'forecast' %>
 </div>
-
-	<%= render 'new_idea_form' %>
 	<% if session[:access_token] != nil %>
 		<%= render 'find_friends' %>
 	<% end %>

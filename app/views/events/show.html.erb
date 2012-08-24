@@ -30,7 +30,7 @@
    <table>
     <% @guests.each do |guest| %>
     	<tr>
-        <td><%= link_to raster_profile_picture(guest) %></td>
+        <td><%= raster_profile_picture(guest) %></td>
         <td><%= guest.name %></td>
         <% unless current_user == guest %>
         <td id="follow_form">

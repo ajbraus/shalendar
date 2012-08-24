@@ -25,8 +25,10 @@ class ShalendarController < ApplicationController
 
     if params[:date] 
       @forecastevents = current_user.forecast(params[:date])
+      @date = Date.strptime(params[:date], "%Y-%m-%d")
     else
-      @forecastevents = current_user.forecast(Date.today)
+      @forecastevents = current_user.forecast((Date.today).to_s)
+      @date = Date.today
     end
 
   	#@first_date_on_calendar = Date.today #how to change this w/ button?

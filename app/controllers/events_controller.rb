@@ -39,7 +39,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         current_user.rsvp!(@event)
-        if current_user.post_to_fb_wall?
+        if current_user.post_to_fb_wall? && session[:access_token]
           @graph = Koala::Facebook::API.new(session[:access_token])
           @graph.put_wall_post("#{@event.title}", { :link => "http://www.hoos.in/events/#{@event.id}"}, target_id = 'me')
         end
@@ -66,8 +66,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @guests = @event.guests
     @starttime = @event.starts_at.strftime "%l:%M%P, %A %B %e"
-    @endtime = @event.ends_at.strftime "%l:%M%P, %A %B %e"
-
+    
     #separating invites by email from invites who are users
     @invites = []
     @invited_users = []

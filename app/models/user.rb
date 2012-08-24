@@ -21,7 +21,8 @@ class User < ActiveRecord::Base
                   :notify_noncritical_change,
                   :daily_digest,
                   :notify_event_reminders,
-                  :city
+                  :city,
+                  :post_to_fb_wall
 
 
   validates :terms,
@@ -173,7 +174,7 @@ class User < ActiveRecord::Base
       @morning_events = []
       @afternoon_events = []
       @evening_events = []
-      @new_date = load_date + i
+      @new_date = Date.strptime(load_date, "%Y-%m-%d") + i
       @events_on_date = self.events_on_date(@new_date)
       @events_on_date.each do |e|
         if e.starts_at.utc < @new_date.to_s + " 17:00:00"

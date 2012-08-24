@@ -376,7 +376,6 @@ header {
 
 aside {
   height:600px;
-  margin-left:3%;
   float:left;
   margin-top:17px;
   padding: 10px 0;
@@ -453,10 +452,11 @@ aside {
 
 #ribbon {
   float:right;
+  width: 739px;
 }
 
 #datepicker {
-  
+
 }
 
 .btn_new_idea {
@@ -465,6 +465,7 @@ aside {
   height: 27px;
   text-align: center;
   line-height: 26px;
+  float:left;
 }
 
 #new_idea {
@@ -480,10 +481,12 @@ aside {
 /* Forecast */
 
 #forecast {
-  width:1040px;
-  height:700px;
-  table{
+  width:770px;
+  height:600px;
+  float:right;
+  > table{
     width:30%;
+    float:left;
   }
 }
 .plan {
