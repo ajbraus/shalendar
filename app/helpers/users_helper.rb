@@ -1,5 +1,10 @@
 module UsersHelper
   
+  def friends_attending(event)
+    f = event.guests.select { |a| current_user.following?(a) }
+    f.count
+  end
+
   def gravatar_for(user, options = { size: 50, })
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
     size = options[:size]

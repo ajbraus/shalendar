@@ -142,13 +142,6 @@ Add FB events to calendar
 		add user boolean for receiving text messages
 		Text message invitations to join calenshare for an event
 
-		Ajaxify everything
-			follow/unfollow
-			rsvp/unrsvp
-			toggle/untoggle
-			comments
-			confirmations - remove follower, cancel account
-
 	Recurring events
 
 	Invite only signup
@@ -165,6 +158,8 @@ Add FB events to calendar
 	add recurring functionality
 
 	Selectable
+
+	hide event/recurring event
 
 	log the access token upon sign_up and update upon sign_in. store picture URL as well.
 

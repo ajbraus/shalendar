@@ -1,0 +1,47 @@
+<div id='forecast'>
+	<% @forecastevents.each do |t| %>
+	<tabel>
+		<tr>
+			<th><%= Date.today + index(t)%></th>
+		</tr>
+		<tr>
+			<% t.each do |te| %>
+				<% if current_user.rsvpd? %>
+				<td class="plan">
+					<table>
+						<tr>
+							<td rowspan="2"><%= te.starts_at %></td>
+							<td rowspan="2"><%= raster_profile_picture(te.user) %></td>
+							<td rowspan="2"><%= te.title %></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td><%= te.rsvps.count "/" te.min %></td>
+							<td><%= link_to raw("<i class='icon-ok-sign'></i>"), home_path %></td>
+						</tr>
+						<caption><%= "#{friends_attending(te)} of your friends are going" %></caption>
+					</table>
+				</td>
+				<% else %>
+					<td class="idea">
+						<table>
+							<tr>
+								<td rowspan="2"><%= te.starts_at %></td>
+								<td rowspan="2"><%= raster_profile_picture(te.user) %></td>
+								<td rowspan="2"><%= te.title %></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td><%= te.rsvps.count "/" te.min %></td>
+								<td><%= link_to raw("<i class='icon-ok-sign'></i>"), home_path %></td>
+							</tr>
+							<caption><%= "Invited by: #{User.find_by_id(te.inviter_id)}" %> | <%= "#{friends_attending(te)} of your friends are going" %></caption>
+						</table>
+					</td>
+				<% end %>
+			<% end %>
+		</tr>
+	</table>
+</div>

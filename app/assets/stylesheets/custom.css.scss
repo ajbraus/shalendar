@@ -373,22 +373,7 @@ header {
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-.btn_new_idea {
-  width: 181px;
-  margin: 6px 0px;
-  height: 27px;
-  text-align: center;
-  line-height: 26px;
-}
 
-#new_idea {
-  width:470px;
-  height:auto;
-  overflow:auto;
-  padding:30px;
-  padding-bottom:20px;
-  padding-top:0px;
-}
 aside {
   height:600px;
   margin-left:3%;
@@ -463,15 +448,55 @@ aside {
   width:235px;
 }
 
-/* Calendar */
+/* Ribbon */
 
-#calendar {
-  width: 700px;
-  position: relative;
-  top:30px;
-  float:left;
-  margin: 0 auto;
+
+#ribbon {
+  float:right;
 }
+
+#datepicker {
+  
+}
+
+.btn_new_idea {
+  width: 181px;
+  margin: 6px 0px;
+  height: 27px;
+  text-align: center;
+  line-height: 26px;
+}
+
+#new_idea {
+  width:470px;
+  height:auto;
+  overflow:auto;
+  padding:30px;
+  padding-bottom:20px;
+  padding-top:0px;
+}
+
+
+/* Forecast */
+
+#forecast {
+  width:1040px;
+  height:700px;
+  table{
+    width:30%;
+  }
+}
+.plan {
+  border:1px solid black;
+  background-color: green;
+}
+
+.idea {
+  background-color: grey;
+  border:1px solid lightgrey;
+}
+
+
 
 
 
@@ -739,4 +764,9 @@ footer {
   font-family: verdana;
 }
 
-
+.icon-ok-sign {
+  color:lightgrey;
+  &hover{
+    color:blue;
+  }
+}

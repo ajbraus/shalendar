@@ -23,6 +23,12 @@ class ShalendarController < ApplicationController
       end
     end
 
+    # if params[:date] 
+    #   @forecastevents = current_user.forecast(params[:date])
+    # else
+    #   @forecastevents = current_user.forecast(Date.today)
+    # end
+
   	#@first_date_on_calendar = Date.today #how to change this w/ button?
 
     # @morning_plans = []

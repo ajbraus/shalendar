@@ -11,15 +11,22 @@ Outsourced design - Mike
 August 20-27
 
 Dev
-	Search name/email - Adam
-		AJAXify search
-		
+
+	Ajaxify everything
+		follow/unfollow
+		rsvp/unrsvp
+		toggle/untoggle
+		comments
+		confirmations - remove follower, cancel account
+		Search name/email - Adam
+		visual indicator if invitation sent in find_friends
+	
 	10 second delay on first login
-	visual indicator if invitation sent. ajax
 	new event form not showing validation errors
 	map is broken
 	
-	Side note: put_wall_post posts to user/feeds, which doesn’t include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details).
+	Side note: put_wall_post posts to user/feeds, which doesn’t include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
+
 	Agent call - if android/iPhone download our app.
 	Add logo to Post to FB wall - Adam
 	Add FB events - Adam
@@ -66,6 +73,7 @@ Minor fixes
 	general styling
 Landing page
 About page
+Timezone?
 
 
 September 4 - september 12

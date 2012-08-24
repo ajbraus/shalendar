@@ -1,0 +1,9 @@
+<div id="ribbon">
+	<a class="btn-primary btn_new_idea" href="#new_idea">New Idea</a>
+
+	<div id="datepicker">
+		<% for i in -3..16 do %>
+		  <%= link_to "#{(Date.today + i).strftime("%a").slice!(0..1)}", home_path(:date => Date.today+i) %>
+		<% end %>
+	</div>
+</div>
