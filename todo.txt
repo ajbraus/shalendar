@@ -1,11 +1,15 @@
-Mobile apps
+iPhone TODO:
+	notifications (3)
+	un-RSVP (3)
+	Raster / Guests / Manage Follows (3)
+	Toggling (3)
+	Create Event (3?)
+	Register User (4?)
+	Style (3-4)
+
+MOBILE DONE:
 	1. Authentication/list of events
-	2. Event Show/notifications/RSVP
-	3. Raster/Create event
-	4. styling
-	
-	invite
-	manage follows
+	2. Event Show / RSVP / Follow
 
 Notifications 3-day digest
 
