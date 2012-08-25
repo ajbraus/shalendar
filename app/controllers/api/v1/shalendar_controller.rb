@@ -42,8 +42,6 @@ class Api::V1::ShalendarController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @followers }
     end
-
-
   end
 
 end

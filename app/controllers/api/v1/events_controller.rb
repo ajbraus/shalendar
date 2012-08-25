@@ -10,14 +10,19 @@ class Api::V1::EventsController < ApplicationController
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []
     @events.each do |e|
+      @guestids = []
+      e.guests.each do |g|
+        @guestids.push(g.id)
+      end
         @temp = {
         :id => e.id,
         :title => e.title,  
         :start => e.starts_at,  
-        :guest_count => e.guests.count,  
-        :min_to_tip => e.min,  
+        :gcnt => e.guests.count,  
+        :tip => e.min,  
         :host => e.user,
-        :plan => @mobile_user.rsvpd?(e)
+        :plan => @mobile_user.rsvpd?(e),
+        :gids => @guestids
         }
      	@list_events.push(@temp)
     end

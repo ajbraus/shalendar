@@ -51,6 +51,7 @@ class Api::V1::TokensController  < ApplicationController
       logger.info("User #{email} failed signin, password \"#{password}\" is invalid")
       render :status=>401, :json=>{:message=>"Invalid email or password."}
     else
+      # THIS IS FOR SENDING FOLLOWED/FOLLOWER INFO FROM LOGIN
       @followed_users = []
       @user.followed_users.each do |fu|
         r = @user.relationships.find_by_followed_id(fu.id)
@@ -64,20 +65,31 @@ class Api::V1::TokensController  < ApplicationController
         }
         @followed_users.push(@temp)
       end
-      @followers = []
-      @user.followers.each do |f|
-        r = Relationship.where("follower_id = :followerid AND @followed_id = :followedid", 
-                                followerid: f.id, followedid: @user.id).last #should just be a find call
+      #FOR FOLLOWERS, DON"T KNOW IF WE CARE
+      # @followers = []
+      # @user.followers.each do |f|
+      #   r = Relationship.where("follower_id = :followerid AND @followed_id = :followedid", 
+      #                           followerid: f.id, followedid: @user.id).last #should just be a find call
+      #   @temp = {
+      #     first_name: f.first_name,
+      #     last_name: f.last_name,
+      #     id: f.id,
+      #     email_hex: Digest::MD5::hexdigest(f.email.downcase),
+      #     confirmed: r.confirmed,
+      #     toggled: r.toggled
+      #   }
+      #   @followers.push(@temp)
+      # end
+      @all_invites = Invite.where("invites.email = :current_user_email", current_user_email: @user.email)
+      @invites = []
+      @all_invites.each do |i|
         @temp = {
-          first_name: f.first_name,
-          last_name: f.last_name,
-          id: f.id,
-          email_hex: Digest::MD5::hexdigest(f.email.downcase),
-          confirmed: r.confirmed,
-          toggled: r.toggled
+          :eid => i.event_id,
+          :iid => i.inviter_id
         }
-        @followers.push(@temp)
+        @invites.push(@temp)
       end
+
       render :status=>200, :json=>{:token=>@user.authentication_token, 
                                     :user=>{
                                       :user_id=>@user.id,
@@ -89,7 +101,8 @@ class Api::V1::TokensController  < ApplicationController
                                       :notify_n=>@user.notify_noncritical_change,
                                       :post_wall=>@user.post_to_fb_wall,
                                       :followed_users=>@followed_users,#may put these in separate calls for speed of login
-                                      :followers=>@followers
+                                      #:followers=>@followers,
+                                      :invites=>@invites
                                     }
                                    }
     end
