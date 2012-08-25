@@ -5,6 +5,10 @@ module UsersHelper
     f.count
   end
 
+  def start_time(event)
+    event.starts_at.strftime("%l:%M")
+  end
+
   def gravatar_for(user, options = { size: 50, })
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
     size = options[:size]
