@@ -284,7 +284,7 @@ class User < ActiveRecord::Base
     @date_invitation_events = []
 
     @invitation_events.each do |ie|
-      if ie.starts_at.to_date == load_datetime.to_date
+      if ie.starts_at.to_date == load_date
         @date_invitation_events.push(ie)
       end
     end
@@ -293,7 +293,7 @@ class User < ActiveRecord::Base
     @followed_users = self.followed_users
     @followed_users.each do |f|
       f.plans.each do |fp| #for friends of friends events that are RSVPd for
-        if fp.starts_at.to_date == load_datetime.to_date
+        if fp.starts_at.to_date == load_date
           unless fp.full? || fp.visibility == "invite_only"
             if fp.user == f || fp.visibility == "friends_of_friends"
               @date_ideas.push(fp)
