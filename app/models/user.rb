@@ -248,7 +248,7 @@ class User < ActiveRecord::Base
     @toggled_followed_users.each do |f|
       f.plans.each do |fp| #for friends of friends events that are RSVPd for
         if fp.starts_at.to_date == load_date
-          unless fp.full? || fp.visibility == "invite_only" || self.rsvpd?(fp) || self.invited?(fp)
+          unless fp.visibility == "invite_only" || self.rsvpd?(fp) || self.invited?(fp)
             if fp.user == f || fp.visibility == "friends_of_friends"
               fp.inviter_id = f.id
               @date_ideas.push(fp)
