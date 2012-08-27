@@ -1,0 +1,17 @@
+<div id="rsvp_check">
+	<% if current_user.rsvpd?(event) %>
+		<%= form_for(current_user.rsvps.find_by_plan_id(event),
+	           html: { method: :delete },
+	           remote: true) do |f| %>
+		  <input class="btn_icon btn_icon_unrsvp fa-input" name="commit" type="submit" value="&#xf058;" title="UnRSVP" %>
+		<% end %>
+	<% elsif event.full? %>
+		<i class="icon-ban-circle btn_icon" title="Event Full"></i>
+	<% else %>
+		<%= form_for(current_user.rsvps.build(plan_id: event.id),
+								 remote: true) do |f| %>
+		  <div><%= f.hidden_field :plan_id %></div>
+		  <input class="btn_icon btn_icon_rsvp fa-input" name="commit" type="submit" value="&#xf058;" title="RSVP" %>
+		<% end %>
+	<% end %>
+</div>

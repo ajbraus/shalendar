@@ -1,12 +1,32 @@
 module UsersHelper
   
+  def event_blerb(event)
+    if event.title.size >=26
+      event.title.slice(0..24) + "..."
+    else
+      event.title
+    end
+  end
+
+  def ideas_on_date_count(i)
+    3 + i
+  end
+
+  def plans_on_date_count(i)
+    3 + i
+  end
+
   def friends_attending(event)
     f = event.guests.select { |a| current_user.following?(a) }
     f.count
   end
 
-  def start_time(event)
-    event.starts_at.strftime("%l:%M")
+  def start_time_hour(event)
+    event.starts_at.strftime("%l")
+  end
+
+  def start_time_min(event)
+    event.starts_at.strftime("%M")
   end
 
   def gravatar_for(user, options = { size: 50, })

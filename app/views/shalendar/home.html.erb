@@ -1,36 +1,55 @@
 <% provide(:title, " | Home") %>
+<div id='feedback'><a href="mailto:info@hoos.in"> Feedback</a></div>
 <div class="container">
 	<aside>
-
-	  <div class="profile_pic_home"><%= medium_profile_picture(@current_user) %></div>
+	  <div class="profile_pic_home">
+	  	<%= medium_profile_picture(@current_user) %>
+	  </div>
 	  <%= current_user.name %>
-
 	  <%= render 'stats' %>
-  
 	  <%= render 'search' %>
-
-	  <span class="grey_italics" style="font-size:14px;">Click pics to show/hide user's ideas</span>
-
+	  <span class="grey_italics" style="font-size:14px;margin-top:5px;">
+	  	Click pics to show/hide user's ideas
+	  </span>
 	  <%= render 'raster' %>
-	  
-	  <% if session[:access_token] %>
-		<a href="#find_friends", class="find_friends"><%= (image_tag "social/fb.png", :size => "50x50", title: "Find Friend's On Facebook") %></a>
-		<br>
-    <% else %>
-	  	<div class="social_friends">
-	   		<div class="fb_button">
-      		<div id="auth-status">
-          	<a href="#" id="auth-loginlink" class="fb-login-button"><%= image_tag "social/fb.png", :size => "50x30", title: "Add Facebook Authentication and Find More Friends" %></a>
-     		  </div>
-    		</div><br>
-	  	</div>
-	  	Add Facebook Authentication
-	  <% end %>
+	  <%= render 'fb_button' %>
 	</aside>
-
 	<%= render 'ribbon' %>
 	<%= render 'forecast' %>
 </div>
-	<% if session[:access_token] != nil %>
+
+	<% if session[:access_token] %>
 		<%= render 'find_friends' %>
+		<% if current_user.authentications.where(:provider == "Facebook") and current_user.sign_in_count == 1 and @city_friends.any? == true %>
+			<script> 
+				// function clickLink(link) {
+			 //    var cancelled = false;
+
+			 //    if (document.createEvent) {
+			 //        var event = document.createEvent("MouseEvents");
+			 //        event.initMouseEvent("click", true, true, window,
+			 //            0, 0, 0, 0, 0,
+			 //            false, false, false, false,
+			 //            0, null);
+			 //        cancelled = !link.dispatchEvent(event);
+			 //    	}
+			 //    else if (link.fireEvent) {
+			 //        cancelled = !link.fireEvent("onclick");
+			 //    	}
+
+			 //    if (!cancelled) {
+			 //        window.location = link.href;
+			 //    	}
+				// 	}
+				function Func1() { 
+					//alert("ahh!")
+					$(".find_friends").click();
+					//clickLink(".find_friends")
+					}
+				function Func1Delay() { 
+					setTimeout("Func1()", 5000);
+					}
+				//document.ready(Func1Delay());
+			</script>
+		<% end %>
 	<% end %>

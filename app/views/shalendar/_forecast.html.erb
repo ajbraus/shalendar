@@ -6,46 +6,7 @@
 		</tr>
 		<% @forecastevents[i].each do |part_of_day| %>
 			<% part_of_day.each do |event| %>
-			<% if current_user.rsvpd?(event) %>
-				<tr>
-					<td class="plan"> <a href="/events/<%= event.id %>"> %>
-						<table>
-							<tr>
-								<td><%= start_time(event) %></td>
-								<td width=""><%= raster_profile_picture(event.user) %></td>
-								<td><%= event.title %></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><%= "#{friends_attending(event)} of your friends are going" %></td>
-								<td><%= event.guests.count%> / <%= event.min %></td>
-								<td><%= link_to raw("<i class='icon-ok-sign'></i>"), home_path %></td>
-							</tr>
-						</table>
-					</a></td>
-				</tr>
-			<% else %>
-				<tr>
-					<td class="idea">
-						<table>
-							<tr>
-								<td><%= event.starts_at %></td>
-								<td><%= raster_profile_picture(event.user) %></td>
-								<td><%= event.title %></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td><%= event.rsvps.count %> / <%= event.min %></td>
-								<td>									
-									<%= "Invited by: #{User.find_by_id(event.inviter_id).name}" %> | <%= "#{friends_attending(event)} of your friends are going" %> 
-									<%= link_to raw("<i class='icon-ok-sign'></i>"), home_path %>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			<% end %>
+				<%= render :partial => "event", :locals => { :event => event } %>
 			<% end %>
 		<% end %>
 	</table>

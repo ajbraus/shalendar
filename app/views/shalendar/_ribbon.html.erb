@@ -4,7 +4,22 @@
 
 	<div id="datepicker">
 		<% for i in -3..16 do %>
-		  <%= link_to "#{(Date.today + i).strftime("%a").slice!(0..1)}", home_path(:date => Date.today + i) %>
+		<table>
+			<tr>
+				<th>
+				  <a href="/home?date=<%= Date.today + i %>"><%= (Date.today + i).strftime("%a").slice!(0..1) %></a>
+		  	</th>
+		  </tr>
+		  <tr>
+		  	<td>
+		  		<%= ideas_on_date_count(i) %>
+		  	</td>
+		  </tr>
+		  	<td>
+		  		<%= plans_on_date_count(i) %>
+		  	</td>
+		  </tr>
+		</table>
 		<% end %>
 	</div>
 </div>

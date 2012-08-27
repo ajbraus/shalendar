@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/thedarkone/rails-dev-boost.git
+  revision: 10ca96bfa7a65577a65f55cc18de83a72402139e
+  specs:
+    rails-dev-boost (0.1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -283,6 +289,7 @@ DEPENDENCIES
   pry
   pry-debugger
   rails (= 3.2.6)
+  rails-dev-boost!
   rspec-rails (= 2.10.1)
   sass-rails (= 3.2.4)
   spork (= 0.9.2)

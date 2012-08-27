@@ -26,6 +26,8 @@ initial:
 
 Social users - 15 nodes
 
+materials - kick off email, one page description pdf, schedule weekly calls/meetings
+
 	CE - Forrest
 	Madison - Scott R.
 	Mike
@@ -43,7 +45,7 @@ Social users - 15 nodes
 	Nina
 	
 	Swag
-		t-shirts, stickers, b-cards
+		t-shirts, stickers, b-cards, window decals
 	
 Contact in person
 One-page pdf

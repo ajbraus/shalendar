@@ -1,32 +1,9 @@
-iPhone TODO:
-	notifications (3)
-	un-RSVP (3)
-	Raster / Guests / Manage Follows (3)
-	Toggling (3)
-	Create Event (3?)
-	Register User (4?)
-	Style (3-4)
 
 MOBILE DONE:
 	1. Authentication/list of events
 	2. Event Show / RSVP / Follow
 
 Notifications 3-day digest
-
-Roll your own calendar - legend, front-end, backend
-
-Search bugs - simple/sphinx
-
-Authentication - FB/Native/Twitter + paperclip
-
-Minor fixes
-	requested in stats
-	map
-	Event#show
-
-FB post to wall
-
-Invite friends on signup and on home
 
 Design:
 	Name
@@ -41,60 +18,8 @@ Design:
 		UnRSVPed - greyed out
 	Landing page
 
-Mobile Apps:
-	Figure out how to send JSON differently for same model (or sub-model?)
-	Push Notifications
 
-
-	ADAM//////
-
-	invite friends to calenshare
-
-	idea click lightbox
-
-	log city
-
-	name hover raster
-
-	Event#show
-		display map_location
-		map bug -google.maps.event.trigger(map, 'resize');
-		modernizr?
-		make a scrollable grid (not a table) for guest raster
-
-	calendar colors
-
-	Flash notices - no flash notices when hitting validations for new event. no flash notices when you have login troubles.	when unfollowing -- should double check or say undo, or flash that you unfollowed them.
-
-	Notification views
-
-	comments screwed up
-	
-
-	requested on stats, settings page, manage page isn't working perfectly (viewers you are not following have no view button)
-
-
-
-	autocomplete on name
-	add Jquery validations for search
-
-	follow someone with the autocomplete that you are already following -- sql error
-	SQLite3::ConstraintException: constraint failed: INSERT INTO "relationships" ("confirmed", "created_at", "followed_id", "follower_id", "toggled", "updated_at") VALUES (?, ?, ?, ?, ?, ?)
-
-	don't auto-complete completely and enter garbage into the field error
-
-	remove yourself -- right now you can follow yourself
-
-
-
-	tabed viewers viewing on manage views page
-	
-	merge title and description together 
-
-	Post to facebook wall . . . not for private events
-	post to rsvps facebook wall of friends of RSVPs
-
-
+Add FB events - Adam
 
 	MIKE//////
 
@@ -110,35 +35,17 @@ Mobile Apps:
 		look into mailer bcc vs. individual sends, cost and spam filtering
 
 	Event Tipped Bool and Part_of_day string... be sure to @local.save to make it work this time!
-		
 
-	Deploy
-		https://devcenter.heroku.com/articles/zerigo_dns
-		http://stackoverflow.com/questions/5785702/when-to-start-thinking-about-deploying-my-rails-app
-		Airbreak / rescues
-
-tabbed view of manage views and viewers
-
-better calendar
-
-MOBILE! (web mobile and native)
-
-
+	Make focus fall on first text field on new idea form
 
 AFTER BETA LAUNCH
 	
 -------- Features To Add ------
-	See old plans/ideas and be able to easily 'resurface' them, with guests as invites (in lightbox or some other way than scrolling back in calendar)
-		OldEvents model that holds events so that main searching doesn't have to handle larger array
 
-Add FB events to calendar
-	Flag user for spam (block/ignore user)
-
-
-	Event Checklist- something to bring or a role to fill (eg a potluck or a music jam session in need of a drummer)
-
-	
-	Twilio:
+	1. payment gateway
+	2. premier accounts
+	3. SDK - follow us on hoos.in
+	3. 	Twilio:
 		add phone number to user in DB
 		add SMS messages to notifier
 		Buy phone number
@@ -148,11 +55,24 @@ Add FB events to calendar
 
 	Recurring events
 
-	Invite only signup
+	Groups/Lists of users ("Make selected viewed into list")
 
-	Get their city from facebook -- if not in our list, redirect to registration for invitation.
-	
-	google calendar "add this to calenshare".. and ADD THIS TO GoogleCal for rsvp'd events!
+	find friends in gmail, twitter
+
+	Premium membership
+		Paid event types
+		make CS event - FB event
+	Show on over details of day/event
+
+	google calendar "add this to hoos.in".. and ADD THIS TO GoogleCal for rsvp'd events!
+
+	See old plans/ideas and be able to easily 'resurface' them, with guests as invites (in lightbox or some other way than scrolling back in calendar)
+		OldEvents model that holds events so that main searching doesn't have to handle larger array
+
+	Add FB events to calendar
+	Flag user for spam (block/ignore user)
+
+	Event Checklist- something to bring or a role to fill (eg a potluck or a music jam session in need of a drummer)
 
 	save image and access tokens in database and then update them upon login.
 
@@ -169,32 +89,21 @@ Add FB events to calendar
 
 	- custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid
 
-	find friends in gmail, twitter
-
 	Detect user's local time with an ajax call to the browser and then log it in the session.
 
 	copy evite
 
-	Event search (w #tags)
 	List view of events
-	Groups/Lists of users ("Make selected viewed into list")
-	Premium membership
-		Paid event types
-		make CS event - FB event
-	Show on over details of day/event
+
 
 
 LOW PRIORITY 
 
-	Jammit
-	default view of calendar 8am (set this?)
-	overlay for event#show, event#edit
 	Add google calendar socket - as 'busy'
 	Map of all events? - hyperlocal NYC thing
-	get FB events to show on shalendar
 	refactor error messages as partial
 	library of icons -flush out use cases -sports, games, booze, playdates, 
-	Make focus fall on first text field on form
+
 
 
 --------------------General ideas:----------------

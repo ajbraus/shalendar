@@ -4,14 +4,59 @@ August 27- September 4
 
 Marketing:
 	Reach out to 10 nodes - Mike/Adam
+		Adam-
+			Nina Ham agreed
+			Stark agreed
+			Epic - Niko, Nolen
+			Babblespark
+
+		Mike-
+			Sector 67 - Chris
+			Virtuvian Farms - Sean
+			Ricky
+			Mary - 
+			MIKE F.
+			Matt Ford
+			CE - Forrest
+			Madison - Scott R.
+			Sorority - Anna
+			Fraternity - Jesse
+			West High - ?
+			Marketing student - Deca?
+
 	Swag T.shirts & Biz cards & Window decals - Adam
 
 	Calendar layout - Adam
 		morning, noon, night visual inidcators
 
-	feedback button
-	general styling
+	load facebook friends on first login with FB authentication
+	10 second delay on first login check on facebook callback if login count = 1 (or 0)and then do a 10 second delay
 
+	Invitation raster
+	
+	feedback button
+	
+	Notifiers - Adam
+	
+	Mobile local registration
+
+	display map_location
+	map bug -google.maps.event.trigger(map, 'resize');
+	modernizr?
+
+	check all raster, uncheck all buttons
+
+	general styling
+	log city add to new/edit registrations -- needs to sync w facebook
+	put everything in header?
+
+	tabed viewers viewing on manage views page
+	
+	merge title and description together 
+
+	Post to facebook wall . . . not for private events
+	post to rsvps facebook wall of friends of RSVPs
+	
 	Ajaxify everything - Monday
 		follow/unfollow
 		rsvp/unrsvp
@@ -21,24 +66,36 @@ Marketing:
 		Search name/email - Adam
 		visual indicator if invitation sent in find_friends
 	
-	10 second delay on first login
 	new event form not showing validation errors
-	map is broken
 	
 	Side note: put_wall_post posts to user/feeds, which doesn’t include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
 
 	Agent call - if android/iPhone download our app.
 	Add logo to Post to FB wall - Adam
-	Add FB events - Adam
+	
+	make it so you only call for the @city_friends once from the database
+
+	Mike:
+
+	info@hoos.in
+
+	iPhone TODO:
+		notifications (3)
+		un-RSVP (3)
+		Raster / Guests (3)
+		Settings / Confirm viewers (3)
+		Toggling (3)
+		Create Event (3?)
+		Register User (4?)
+		Style (3-4)
+		Views
 
 	Mobile FB authentication - Jeff & Mike
-	Mobile 2 - Mike & Jeff
 
-Submit to Apple
+	plan count on date
 
+	Submit to Apple
 
-
-Notifiers - Adam
 Mobile 3 - Mike
 
 Landing page
@@ -51,6 +108,7 @@ September 4 - september 12
 
 Push to production
 test in production (& debug)
+	test creating and deleting users
 
 plan payment gateway & premier accounts
 
@@ -75,9 +133,6 @@ metrics:
 	events per user per week
 	100+ followers (paying customers)
 	viral coeficent 
-
-
-
 
 
 
