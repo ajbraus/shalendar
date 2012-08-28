@@ -29,13 +29,8 @@ Marketing:
 	Calendar layout - Adam
 		morning, noon, night visual inidcators
 
-	load facebook friends on first login with FB authentication
-	10 second delay on first login check on facebook callback if login count = 1 (or 0)and then do a 10 second delay
-
 	Invitation raster
-	
-	feedback button
-	
+
 	Notifiers - Adam
 	
 	Mobile local registration
@@ -46,24 +41,19 @@ Marketing:
 
 	check all raster, uncheck all buttons
 
-	general styling
-	log city add to new/edit registrations -- needs to sync w facebook
-	put everything in header?
-
-	tabed viewers viewing on manage views page
-	
-	merge title and description together 
+	log city add to new/edit registrations -- needs to sync w facebook 
 
 	Post to facebook wall . . . not for private events
 	post to rsvps facebook wall of friends of RSVPs
 	
 	Ajaxify everything - Monday
 		follow/unfollow
+		DONE: rsvp_check/unrsvp_check
 		rsvp/unrsvp
-		toggle/untoggle
+		toggle/untoggle raster pics
 		comments
 		confirmations - remove follower, cancel account
-		Search name/email - Adam
+		DONE: Search name/email - Adam
 		visual indicator if invitation sent in find_friends
 	
 	new event form not showing validation errors
@@ -71,14 +61,13 @@ Marketing:
 	Side note: put_wall_post posts to user/feeds, which doesn’t include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
 
 	Agent call - if android/iPhone download our app.
+	
 	Add logo to Post to FB wall - Adam
 	
 	make it so you only call for the @city_friends once from the database
 
 	Mike:
-
-	info@hoos.in
-
+	
 	iPhone TODO:
 		notifications (3)
 			Gem for apple push notifications

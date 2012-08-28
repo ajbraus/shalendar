@@ -1,2 +1,1 @@
-$("#rsvp_form").html("<%= escape_javascript(render('events/rsvp')) %>")
-// $("#followers").html('<%= @user.followers.count %>')
+$('.event').withEventId(<%= @event.id %>).unrsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>")

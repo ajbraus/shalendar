@@ -10,7 +10,10 @@ class ShalendarController < ApplicationController
                                          relationships.confirmed = false ", current_user_id: current_user.id)
 
     if params[:search]
-      @users = User.search params[:search]
+      @users = User.search(params[:search]).limit(5)
+      respond_to do |f|
+        f.js { render "user_search_results" }
+      end
     end
 
     if session[:access_token] 
@@ -46,6 +49,9 @@ class ShalendarController < ApplicationController
 	 
     if params[:search]
       @users = User.search params[:search]
+      respond_to do |f|
+        f.js { render "user_search_results" }
+      end
     end
   end
 

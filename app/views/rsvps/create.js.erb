@@ -1,5 +1,1 @@
-change to plan
-increment guests/min
-
-$("#rsvp_check").html("<%= escape_javascript(render('events/unrsvp')) %>")
-$("#guests").html('<%= @event.guests.count %>')
+$('.event').withEventId(<%= @event.id %>).rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>")

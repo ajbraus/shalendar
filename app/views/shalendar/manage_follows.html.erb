@@ -1,45 +1,8 @@
 <% provide(:title, " | Manage Views") %>
 <div id="manage_views">
     <div id="manage_search">
-      <!-- search -->
-      <div id="view_search">
-        <%= form_tag :controller => 'shalendar', :action => 'manage_follows', :method => 'get' do %>
-          <%= text_field_tag :search, params[:search], :id => 'search_field', placeholder:"Search for Friends by Name or Email..." %>
-          <input type="submit" class="btn-success fa-input" value="&#xf002;" onclick="javascript:showElement('search_results')">
-          <% submit_tag remote:true %>
-        <% end %> 
-      </div>
-
-      <% if params[:search] %>
-      <div id="search_results" style="display:none;">  
-        <table>
-          <% @users.each do |u| %>
-          <tr>
-            <td><%= raster_profile_picture(u) %></td>
-            <td><%= u.name %></td>
-            <td id="follow_form" class="follow_btn">
-              <% if current_user.following?(u) %>
-                <%= form_for(current_user.relationships.find_by_followed_id(u.id),
-                         html: { method: :delete }) do |f| %>
-                  <%= f.submit "Stop Viewing", class: "btn_stop_viewing", confirm:"Are you sure you would like to stop viewing #{cm.name}'s ideas?" %>
-                  <% end %>
-              <% elsif current_user.request_following?(u) %>
-                <span>Request Sent...</span>
-              <% else %>
-                <%= form_for(current_user.relationships.build(followed_id: u.id)) do |f| %>
-                  <div><%= f.hidden_field :followed_id %></div>
-                  <%= f.submit "View", class: "btn-primary btn_start_viewing" %>
-                <% end %>
-              <% end %>
-            </td>
-          </tr>
-          <% end %>
-        </table>
-      </div>
-      <% end %>
-
-    <!-- VIEW REQUESTS -->
-
+      <%= render 'search' %>
+      
     <h3>New View Requests</h3>
     <%= render 'view_requests' %>
   </div>
@@ -78,7 +41,6 @@
             <td width="150px"><%= fr.follower.name %></td>
             <td>
               <span>
-                <%= link_to "Remove Viewer", relationship_remove_path(fr), class: "btn_remove", method: :delete, confirm: "Are you sure #{fr.follower.name} should no longer be able to view your ideas?" %>
                 <% if current_user.following?(fr.follower) %>
                   <%# do nothing... already displaying viewing above %>
                 <% elsif current_user.request_following?(fr.follower) %>
@@ -89,6 +51,7 @@
                     <%= f.submit "View Back", class: "btn-primary btn_start_viewing" %>
                   <% end %>
                 <% end %>
+                <%= link_to "Remove Viewer", relationship_remove_path(fr), class: "btn_remove", method: :delete, confirm: "Are you sure #{fr.follower.name} should no longer be able to view your ideas?" %>
               </span>
             </td>
             <td>
