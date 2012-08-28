@@ -53,6 +53,10 @@ AFTER BETA LAUNCH
 		add user boolean for receiving text messages
 		Text message invitations to join calenshare for an event
 
+	put everything in header?
+
+	tabed viewers viewing on manage views page
+
 	Recurring events
 
 	Groups/Lists of users ("Make selected viewed into list")

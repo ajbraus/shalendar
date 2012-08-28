@@ -30,7 +30,6 @@ gem 'pg'
 group :development, :test do
   gem 'faker', '1.0.1'
   gem 'rspec-rails', '2.10.1'
-  gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git', :require => 'rails_development_boost'
   gem 'annotate', '~> 2.4.1.beta'
 end
 
