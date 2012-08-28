@@ -2,8 +2,8 @@ class Api::V1::RelationshipsController < ApplicationController
 before_filter :authenticate_user!
 
   def create
-    @mobile_user = User.find_by_id(params[:user_id])
-    @user_to_follow = User.find_by_id(params[:other_user_id])
+    @mobile_user = User.find_by_id(params[:uid])
+    @user_to_follow = User.find_by_id(params[:ouid])
 
     if @mobile_user.following?(@user_to_follow)
       render :status=>400, :json=>{:success=>false, :message=>"You are already following that person!"}
