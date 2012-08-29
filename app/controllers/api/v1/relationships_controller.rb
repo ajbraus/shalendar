@@ -2,8 +2,8 @@ class Api::V1::RelationshipsController < ApplicationController
 before_filter :authenticate_user!
 
   def create
-    @mobile_user = User.find_by_id(params[:uid])
-    @user_to_follow = User.find_by_id(params[:ouid])
+    @mobile_user = User.find_by_id(params[:user_id])
+    @user_to_follow = User.find_by_id(params[:other_user_id])
 
     if @mobile_user.following?(@user_to_follow)
       render :status=>400, :json=>{:success=>false, :message=>"You are already following that person!"}
@@ -31,59 +31,39 @@ before_filter :authenticate_user!
   end
 
   def destroy
-    @user = Relationship.find(params[:id]).followed
-    current_user.unfollow!(@user)
-    redirect_to :back, 
-                notice: "#{@user.name} can no longer view your ideas"
+    @mobile_user = User.find_by_id(params[:user_id])
+    @user_to_unfollow = User.find_by_id(params[:other_user_id])
+    @mobile_user.unfollow!(@user_to_unfollow)
+    render :json=>{:success=>true}
   end
 
+  def remove_follower
+    @mobile_user = User.find_by_id(params[:user_id])
+    @user_to_remove = User.find_by_id(params[:other_user_id])
+    @user_to_remove.unfollow!(@mobile_user)
 
-
-  def remove
-    @relationship = Relationship.find(params[:relationship_id])
-    @follower = @relationship.follower
-    @follower.unfollow!(current_user)
-    redirect_to :back, 
-                notice: "#{@follower.name} can no longer view your ideas"
+    render :json=>{:success=>true}
   end
 
-  def toggle
-   #@relationship = Relationship.where('relationships.follower_id = :current_user_id AND relationships.followed_id = :followed_user_id', :current_user_id => current_user.id, :followed_user_id => followed_user.id)
-   #@followed_user = fu
-   #@relationship = Relationship.find(params[:id])
-
-   @relationship = Relationship.find(params[:relationship_id])
-   @relationship.toggle!
-   @relationship.save
-   redirect_to :back
-
-  end
-
-  def confirm
-    @relationship = Relationship.find(params[:relationship_id])
+  def confirm_follower
+    @mobile_user = User.find_by_id(params[:user_id])
+    @user_to_confirm = User.find_by_id(params[:other_user_id])
+    @relationship = Relationship.where(':follower_id = :confirm_id AND :followed_id = :mobile_user_id',
+                                        confirm_id: @user_to_confirm.id, :mobile_user_id => @mobile_user.id ).last
     @relationship.confirm!
     @relationship.save
-    redirect_to :back, notice: "#{@relationship.follower.name} can now view your ideas"
+    render :json=>{:success=>true, :follower_id=>@user_to_confirm.id}
   end
 
   def confirm_and_follow
-    @relationship = Relationship.find(params[:relationship_id])
+    @mobile_user = User.find_by_id(params[:user_id])
+    @user_to_confirm = User.find_by_id(params[:other_user_id])
+    @relationship = Relationship.where(':follower_id = :confirm_id AND :followed_id = :mobile_user_id',
+                                        confirm_id: @user_to_confirm.id, :mobile_user_id => @mobile_user.id ).last
     @relationship.confirm!
+    @mobile_user.follow!(@user_to_confirm)
     @relationship.save
-
-    #@other_user = @relationship.follower
-    
-    current_user.follow!(@relationship.follower)
-    @new_relationship = Relationship.last
-    if(@relationship.follower.require_confirm_follow == true)
-      @new_relationship.confirmed = false
-    else
-      @new_relationship.confirmed = true
-    end
-    if @new_relationship.save 
-      redirect_to :back, notice: "#{@relationship.follower.name} can now view your ideas and request sent to view back"
-    else
-      redirect_to :back, notice: "Couldn't View #{@user.name}'s ideas"
-    end
+    render :json=>{:success=>true, :follower_id=>@user_to_confirm.id, :followed_user=>@user_to_confirm}
   end
+
 end
