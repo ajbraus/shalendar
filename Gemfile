@@ -21,7 +21,7 @@ gem 'whenever', :require => false
 
 gem 'pry'
 gem 'pry-debugger'
-
+#gem 'apn_on_rails'
 # gem "recaptcha", :require => "recaptcha/rails"
 
 gem 'pg'

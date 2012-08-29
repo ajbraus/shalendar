@@ -76,6 +76,9 @@ Marketing:
 	
 	iPhone TODO:
 		notifications (3)
+			Gem for apple push notifications
+		FB Authentication (3)
+			Bundle ID added
 		un-RSVP (3)
 		Raster / Guests (3)
 		Settings / Confirm viewers (3)
@@ -83,7 +86,15 @@ Marketing:
 		Create Event (3?)
 		Register User (4?)
 		Style (3-4)
-		Views
+		Views (3-4)
+			Reload eventDetails after RSVP, display different on list 
+			Make sure can click through to event details more than once
+			Refresh button to reload event list
+			Toggling display, not just hide (bc takes up space)
+		Finish Data Models (4)
+			Blocked users..
+			Toggling display
+
 
 	Mobile FB authentication - Jeff & Mike
 
