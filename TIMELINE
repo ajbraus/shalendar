@@ -35,6 +35,8 @@ Marketing:
 	
 	Mobile local registration
 
+	idea count
+
 	display map_location
 	map bug -google.maps.event.trigger(map, 'resize');
 	modernizr?
@@ -49,6 +51,8 @@ Marketing:
 	Post to facebook wall . . . not for private events
 	post to rsvps facebook wall of friends of RSVPs
 	
+	"link" field in event with link shortener
+
 	Ajaxify everything - Monday
 		follow/unfollow
 		rsvp/unrsvp
