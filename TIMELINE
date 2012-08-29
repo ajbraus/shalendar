@@ -26,36 +26,46 @@ Marketing:
 
 	Swag T.shirts & Biz cards & Window decals - Adam
 
-	Calendar layout - Adam
-		morning, noon, night visual inidcators
-
+		tip this event
+		after event tipped just show number of folks comming
+		
 	Invitation raster
 
 	Notifiers - Adam
 	
 	Mobile local registration
 
+	idea count
+
 	display map_location
 	map bug -google.maps.event.trigger(map, 'resize');
 	modernizr?
 
+	not getting current_user in edit_form
+
 	check all raster, uncheck all buttons
+		test
 
 	log city add to new/edit registrations -- needs to sync w facebook 
 
 	Post to facebook wall . . . not for private events
 	post to rsvps facebook wall of friends of RSVPs
 	
+	"link" field in event with link shortener
+
 	Ajaxify everything - Monday
 		follow/unfollow
-		DONE: rsvp_check/unrsvp_check
 		rsvp/unrsvp
-		toggle/untoggle raster pics
-		comments
-		confirmations - remove follower, cancel account
-		DONE: Search name/email - Adam
 		visual indicator if invitation sent in find_friends
-	
+
+		AFTER BETA
+			confirmations - remove follower, cancel account
+			toggle/untoggle raster pics
+			comments
+			
+		DONE: rsvp_check/unrsvp_check
+		DONE: Search name/email - Adam
+
 	new event form not showing validation errors
 	
 	Side note: put_wall_post posts to user/feeds, which doesn’t include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)

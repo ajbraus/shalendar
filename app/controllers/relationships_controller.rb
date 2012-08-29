@@ -40,8 +40,6 @@ before_filter :authenticate_user!
                 notice: "#{@user.name} can no longer view your ideas"
   end
 
-
-
   def remove
     @relationship = Relationship.find(params[:relationship_id])
     @follower = @relationship.follower
@@ -51,15 +49,13 @@ before_filter :authenticate_user!
   end
 
   def toggle
-   #@relationship = Relationship.where('relationships.follower_id = :current_user_id AND relationships.followed_id = :followed_user_id', :current_user_id => current_user.id, :followed_user_id => followed_user.id)
-   #@followed_user = fu
-   #@relationship = Relationship.find(params[:id])
-
    @relationship = Relationship.find(params[:relationship_id])
    @relationship.toggle!
    @relationship.save
-   redirect_to :back
-
+   respond_to do |format|
+     format.html { redirect_to :back }
+     format.js
+   end
   end
 
   def confirm

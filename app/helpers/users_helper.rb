@@ -21,6 +21,10 @@ module UsersHelper
     f.count
   end
 
+  def start_time(event)
+    event.starts_at.strftime "%l:%M%P, %A %B %e"
+  end
+
   def start_time_hour(event)
     event.starts_at.strftime("%l")
   end

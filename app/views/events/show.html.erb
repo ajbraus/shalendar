@@ -1,55 +1,6 @@
 <% provide(:title, " | Idea") %>
-<div id="event_show"> 
-  <span class="grey_italics"><%= @event.description %></span>
-  <div class="rsvp_tip">
-    <% if @event.tipped? %>
-      <p class="event_on">Idea is On!</p>
-    <% else %>
-      <h3>Needs <span class="red"><%= @event.min - @guests.count %></span> more people to Tip. . . </h3>
-    <% end %>
-  </div>
-
-  <div id="title">
-    <%= @event.title %>
-      <div id="when">At <%= @starttime %> for <%= @event.duration %> hours</div>
-  </div>
-    
-  <%= render 'rsvp_form' %>
-</div>
-    <% if false  %>
-    <% if @event.map_location != nil %>
-    Map:
-      <input id="addresspicker_map" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" value= "<%= @event.map_location %>" type="hidden">
-      <div id="map"></div>
-    <% end %>
-    <% end %>
-
-<div id="event_info">
-  <h2>RSVP Count: </b> <span class="red"><%= @guests.count %></span></h2>
-  <div id="guest_raster">
-   <table>
-    <% @guests.each do |guest| %>
-    	<tr>
-        <td><%= raster_profile_picture(guest) %></td>
-        <td><%= guest.name %></td>
-        <% unless current_user == guest %>
-        <td id="follow_form">
-          <% unless current_user.following?(guest) %>
-            <% unless current_user.request_following?(guest) %>
-              <%= form_for(current_user.relationships.build(followed_id: guest.id)) do |f| %>
-                <div><%= f.hidden_field :followed_id %></div>
-                <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
-              <% end %>
-            <% end %>
-          <% end %>
-        </td>
-        <% end %>
-  	<% end %>
-    </table>
-  </div>
-
-      <%= render 'social' %>
-
+<aside>
+  <%= render 'layouts/logo_and_user' %>
   <% if @event.visibility == "friends_of_friends" || @event.user == current_user %>
     <div id="invites_form">
       <%= render partial: 'invites_form' %>
@@ -57,36 +8,63 @@
   <% end %>
     <div id="invites">
       Invites:
-      <% if @invited_users.empty? == false %>
+      <% unless @invited_users.empty? %>
         <% @invited_users.each do |iu| %>
           <table>
           <tr>
             <td><%= raster_profile_picture(iu) %></td>
             <td><%= iu.name %></td>
-            <% unless current_user == iu %>
-              <% unless current_user.following?(iu) %>
-                <% unless current_user.request_following?(iu) %>
-                  <%= form_for(current_user.relationships.build(followed_id: iu.id)) do |f| %>
-                    <div><%= f.hidden_field :followed_id %></div>
-                    <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
-                  <% end %>
-                <% end %>
-              <% end %>
-            <% end %>
+            <td>
+              <%= render :partial => 'events/follow_form', :locals => { :user => iu } %>
+            </td>
           <tr>
         </table>
         <% end %>
       <% end %>
       <%= render partial: 'invites/invite', collection: @invites %>
     </div>
+</aside>
 
-    <div id="comments_form">
-      <%= render partial: 'comments_form' %>
-    </div>
-
+<div id="event_show" class="container"> 
+  <div class="rsvp_tip">
+    <% if @event.tipped? %>
+      <p class="event_on">Its On!</p>
+    <% else %>
+      <h3>Needs <span class="red"><%= @event.min - @guests.count %></span> more people to Tip. . . </h3>
+    <% end %>
+  </div>
+  <div id="title">
+    <%= @event.title %>
+      <div id="when">At <%= start_time(@event) %> for <%= @event.duration %> hours</div>
+  </div>
+  <%= render 'nav_buttons' %>
+  <%= render 'rsvp_form' %>
+  <%= render 'social' %>
+  
+  <% if @event.location != nil %>
     <div>
-      <%= render 'nav_buttons' %>
+      Map:
+      <input id="addresspicker_map" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" value= "<%= @event.map_location %>" type="hidden">
+      <div id="map"></div>
     </div>
+  <% end %>
+
+  <div>
+    <h2>RSVP Count: </b> <span class="red"><%= @guests.count %></span></h2>
+    <div id="guest_raster">
+     <table>
+      <% @guests.each do |guest| %>
+      	<tr>
+          <td><%= raster_profile_picture(guest) %></td>
+          <td><%= guest.name %></td>
+          <td>
+            <%= render partial: 'events/follow_form', locals: { user: guest } %>
+          </td>
+    	<% end %>
+      </table>
+    </div>
+  </div>
+     <%= render partial: 'comments_form' %>
   </div>
 </div>
 

@@ -21,7 +21,6 @@ gem 'whenever', :require => false
 
 gem 'pry'
 gem 'pry-debugger'
-#gem 'apn_on_rails'
 # gem "recaptcha", :require => "recaptcha/rails"
 
 gem 'pg'
@@ -37,10 +36,11 @@ end
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '3.2.4'
-  gem 'coffee-rails', '3.2.2'
   gem 'uglifier', '1.2.3'
   gem 'font-awesome-sass-rails'
 end
+
+gem 'coffee-rails', '3.2.2'
 
 gem 'jquery-rails'#, '2.0.0'
 

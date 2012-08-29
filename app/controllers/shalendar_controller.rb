@@ -2,7 +2,6 @@ class ShalendarController < ApplicationController
   before_filter :authenticate_user!
 
 	def home
-		@current_user = current_user
 		@relationships = current_user.relationships.where('relationships.confirmed = true')
   	@graph = Koala::Facebook::API.new(session[:access_token])
   	@event = Event.new
@@ -27,9 +26,17 @@ class ShalendarController < ApplicationController
     if params[:date] 
       @forecastevents = current_user.forecast(params[:date])
       @date = Date.strptime(params[:date], "%Y-%m-%d")
+      # respond_to do |f|
+      #   f.html
+      #   f.js { render "forecast" }
+      # end
     else
       @forecastevents = current_user.forecast((Date.today).to_s)
       @date = Date.today
+      # respond_to do |f|
+      #   f.html
+      #   f.js { render "forecast" }
+      # end
     end
 
 	end
@@ -47,6 +54,10 @@ class ShalendarController < ApplicationController
 		@followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
 																											 current_user_id: current_user.id)
 	 
+   @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
+                                         relationships.confirmed = false ", current_user_id: current_user.id)
+
+
     if params[:search]
       @users = User.search params[:search]
       respond_to do |f|

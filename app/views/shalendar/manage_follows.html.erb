@@ -1,36 +1,33 @@
 <% provide(:title, " | Manage Views") %>
-<div id="manage_views">
-    <div id="manage_search">
-      <%= render 'search' %>
-      
-    <h3>New View Requests</h3>
-    <%= render 'view_requests' %>
-  </div>
+<aside>
+<%= render 'layouts/logo_and_user' %>
+<%= render 'search' %> 
+<h3>New View Requests</h3>
+<%= render 'view_requests' %>
+</aside>
 
     <!-- VIEWERS AND VIEWING TABLES -->
-  <div id="views_list">
-    <h2>Who You're Viewing</h2>
-    <div class="user_table">
-        <% @followed_user_relationships.each do |fur| %>
-        <table>       
-          <tr>
-            <td width="50px"><%= small_profile_picture(fur.followed) %></td>
-            <td width="150px"><%= fur.followed.name %> </td>
-            <td>
-              <span id="follow_form" class="follow_btn">
-                <% if current_user.request_following?(fur.followed) %>
-                  Request Sent...
-                <% else %>
-                  <%= form_for(fur, method: :delete ) do |f| %>
-                  <%= f.submit "Stop Viewing", class: "btn_stop_viewing", confirm:"Are you sure you would like to stop viewing #{fur.followed.name}'s ideas?" %>
-                  <% end %>
-                <% end %>
-              </span>
-            </td>
-          </tr>
-      </table>
-      <% end %>
-    </div>
+<div id="views_list" class="container">
+  <h2>Who You're Viewing</h2>
+  <div class="user_table">
+      <% @followed_user_relationships.each do |fur| %>
+      <table>       
+        <tr>
+          <td width="50px"><%= small_profile_picture(fur.followed) %></td>
+          <td width="150px"><%= fur.followed.name %> </td>
+          <td>
+            <span id="follow_form" class="follow_btn">
+              <% if current_user.request_following?(fur.followed) %>
+                Request Sent...
+              <% else %>
+                <%= render :partial => 'events/unfollow', :locals => { :user => fur.followed } %>
+              <% end %>
+            </span>
+          </td>
+        </tr>
+    </table>
+    <% end %>
+  </div>
 
     <h2>Who's Viewing You</h2>
     <div class="user_table">
@@ -46,10 +43,7 @@
                 <% elsif current_user.request_following?(fr.follower) %>
                   <%# do nothing... already are displaying request sent above %>
                 <% else %>
-                  <%= form_for(current_user.relationships.build(followed_id: fr.follower.id)) do |f| %>
-                    <div><%= f.hidden_field :followed_id %></div>
-                    <%= f.submit "View Back", class: "btn-primary btn_start_viewing" %>
-                  <% end %>
+                  <%= render :partial => 'follow', :locals => { :user => fr.follower } %>
                 <% end %>
                 <%= link_to "Remove Viewer", relationship_remove_path(fr), class: "btn_remove", method: :delete, confirm: "Are you sure #{fr.follower.name} should no longer be able to view your ideas?" %>
               </span>

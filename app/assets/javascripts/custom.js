@@ -1,5 +1,11 @@
 $(document).ready(function() {
 
+// user settings icon
+	$("#user-settings").hover(function(){
+		$(".profile_pic_home").show($(".user_settings"))
+	});
+
+
 // new idea button box
 
 	$(".btn_new_idea").fancybox();

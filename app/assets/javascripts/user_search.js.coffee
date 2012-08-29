@@ -39,6 +39,5 @@ class UserSearch
 				'search': $('#user_search_field').val()
 
 
-
 $ ->
 	new UserSearch() if $('#user_search_field').length

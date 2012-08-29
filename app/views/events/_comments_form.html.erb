@@ -1,11 +1,13 @@
-<%= form_for([@event, @event.comments.build]) do |f| %>
-  <div class="field">
-    <%= f.label :content, "Leave an FYI" %><br />
-    <%= f.text_area :content, rows: 2, cols: 20 %>
-  </div>
-  <p><%= f.submit "Note", class: "btn btn-primary" %></p>
-<% end %>
+<div>
+	<%= form_for([@event, @event.comments.build]) do |f| %>
+	  <div class="field">
+	    <%= f.label :content, "Leave an FYI" %><br />
+	    <%= f.text_area :content, rows: 2, cols: 20 %>
+	  </div>
+	  <p><%= f.submit "Note", class: "btn btn-primary" %></p>
+	<% end %>
 
-<div id="comments">
-  <%= render :partial => 'comments/comment', collection: @comments %>
+	<div id="comments">
+	  <%= render :partial => 'comments/comment', collection: @comments %>
+	</div>
 </div>

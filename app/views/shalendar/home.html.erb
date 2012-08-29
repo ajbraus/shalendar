@@ -1,12 +1,7 @@
 <% provide(:title, " | Home") %>
-<div id='feedback'><a href="mailto:info@hoos.in"> Feedback</a></div>
-<div class="container">
+<div id='feedback'><a href="mailto:info@hoos.in" target="_blank"> Feedback</a></div>
 	<aside>
-	  <div class="profile_pic_home">
-	  	<%= medium_profile_picture(@current_user) %>
-	  </div>
-	  <%= current_user.name %>
-	  <%= render 'stats' %>
+		<%= render 'layouts/logo_and_user' %>
 	  <%= render 'search' %>
 	  <span class="grey_italics" style="font-size:14px;margin-top:5px;">
 	  	Click pics to show/hide user's ideas
@@ -14,10 +9,11 @@
 	  <%= render 'raster' %>
 	  <%= render 'fb_button' %>
 	</aside>
-	<%= render 'ribbon' %>
-	<%= render 'forecast' %>
+	<div class="container">
+		<%= render 'ribbon' %>
+		<%= render 'forecast' %>
+	</div>
 </div>
-
 	<% if session[:access_token] %>
 		<%= render 'find_friends' %>
 		<% if current_user.authentications.where(:provider == "Facebook") and current_user.sign_in_count == 1 and @city_friends.any? == true %>

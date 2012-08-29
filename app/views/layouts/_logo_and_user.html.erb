@@ -1,0 +1,7 @@
+<%= render 'layouts/logo' %>
+<div id="user-settings" class="profile_pic_home">
+	<%= medium_profile_picture(current_user) %>
+	<div style="display:none;" class='user_settings'><i class='icon-wrench'></i></div>
+</div>
+<%= current_user.name %>
+<%= render 'shalendar/stats' %>

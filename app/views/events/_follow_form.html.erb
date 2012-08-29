@@ -1,16 +1,11 @@
-<% unless current_user == guest %>
-  <div id="follow_form">
-  <% if current_user.following?(guest) %>
-		<%= form_for(current_user.relationships.find_by_followed_id(guest),
-		             html: { method: :delete }) do |f| %>
-		  <%= f.submit "Unfollow", class: "btn btn-large" %>
-		<% end %>
-  <% else %>
-    <%= form_for(current_user.relationships.build(followed_id: guest.id)) do |f| %>
-	  <div><%= f.hidden_field :followed_id %></div>
-	  	<%= f.submit "Follow", class: "btn btn-large btn-primary" %>
-		<% end %>
-  <% end %>
-  </div>
+<% unless current_user == user %>
+	<div id="follow_form" class="follow_btn">
+	  <% if current_user.following?(user) %>
+	  	<%= render :partial => 'events/unfollow', :locals => { :user => user } %>
+	  <% elsif current_user.request_following?(user) %>
+	  	<span>Request Sent...</span>
+	  <% else %>
+	  	<%= render :partial => 'events/follow', :locals => { :user => user } %>
+	  <% end %>
+	</div>
 <% end %>
-

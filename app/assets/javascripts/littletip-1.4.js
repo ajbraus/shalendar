@@ -19,7 +19,7 @@
 	
 
 $(document).ready(function(){			// Script executed on DOM load
-	var elT = $('.[title]');			// Store all title attributes in a variable for further usage
+	var elT = $(".[title]");			// Store all title attributes in a variable for further usage
 
 
 
