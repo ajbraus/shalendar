@@ -1,3 +1,8 @@
+<% provide(:title, " | Edit Event") %>
+<aside>
+  <%= render 'layouts/logo_and_user' %>
+</aside>
+
 <div id="event_form">
   <%= form_for(@event) do |f| %>
     <% if @event.errors.any? %>
@@ -13,24 +18,22 @@
     <% end %>
 
     <div class="field">
-      <%= f.label :what? %><br/>
+      <%= f.label :idea %><br/>
       <%= f.text_field :title, :placeholder => "What's going on?" %>
     </div>
 
-    <% if false %>
     <div class="field" id="address">
-      <%= f.label :attach_a_map? %><br/>
-      <%= f.text_field :map_location, :id => 'addresspicker_map', :class =>"ui-autocomplete-input", :placeholder => "Search Address" %>
-    <% end %>
+      <%= f.label :map%><br/>
+      <%= f.text_field :location, :id => 'addresspicker_map', :class =>"ui-autocomplete-input", :placeholder => "Search Address" %>
     
     <div id="map"></div>
     </div>
     <div class="field">
-     Starts at?<br/>
-     <%= f.text_field :chronic_starts_at, :class => "input-large", :placeholder => "7pm? tommorrow at noon? next thursday at 5" %><br/>
+     Starts at<br/>
+     <%= f.text_field :chronic_starts_at, value: "#{start_time(@event)}" %><br/>
 
-     Ends at?<br/>
-     <%= f.text_field :chronic_ends_at, :class => "input-large", :placeholder => "7pm? tommorrow at noon? next thursday at 5 in the morning?" %>
+     Duration<br/>
+     <%= f.text_field :chronic_ends_at, :placeholder => "7pm? tommorrow at noon? next thursday at 5 in the morning?" %>
     </div>
     <div class="field">
       <h4>Visibility (in Degrees of Separation)</h4>

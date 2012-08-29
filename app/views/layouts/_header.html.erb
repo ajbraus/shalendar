@@ -1,9 +1,4 @@
 <header>
-  <% if user_signed_in? %>
-  <%= link_to "Calenshare", '/home' %>
-  <% else %>
-  <%= link_to "Calenshare", '/' %>
-  <% end %>
   <nav>
       <% if user_signed_in? %>
       <ul>
@@ -15,6 +10,5 @@
         <li><%= link_icon("Login", new_user_session_path,"signin","","") %></li>
       </ul>
       <% end %>
-
   </nav>
 </header>

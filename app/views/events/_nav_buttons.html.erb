@@ -1,10 +1,10 @@
 <div class="nav_buttons">
-<!-- IF USER IS CREATOR, ALLOW EDIT -->
-  <%= link_to 'Home', home_path, :class => "btn-primary", style:"color:white;" %> 
   <% if @event.user == current_user %> 
-      <%= link_to 'Edit', edit_event_path(@event) %>
-    <%= link_to @event, method: :delete, data: { confirm: 'This will send an Email to all RSVPs. Are you sure?' } do %>
-    <i class="icon-trash icon-large"></i>
+      <%= link_to edit_event_path(@event) do %>
+      	<span class="btn_stop_viewing"><i class="icon-wrench icon-large"></i>&nbsp;Edit</span>
+      <% end %>
+    <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will send an Email to all RSVPs a cancellation email.' } do %>
+    <span class="red"><i class="icon-trash icon-large"></i>&nbsp;Delete</span>
     <% end %>
   <% end %>
 </div>

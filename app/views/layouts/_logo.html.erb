@@ -1,0 +1,16 @@
+<% if user_signed_in? %>
+	<div class='logo'>
+		<a href="/home">
+			<span class='icon'>hi</span>
+			<u>hoos.in</u>
+		</a>
+	</div>
+	
+<% else %>
+	<div class='logo'>
+		<a href="/">
+			<span class='icon'>hi</span>
+			<u>hoos.in</u>
+		</a>
+	</div>
+<% end %>

@@ -61,11 +61,11 @@ class EventsController < ApplicationController
   #GET /events/id
   #GET /events/id.json
   def show
-    # @mobile_user = User.find_by_id(3)
-    # @event = @mobile_user.plans.last
+    @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
+                                         relationships.confirmed = false ", current_user_id: current_user.id)
+    
     @event = Event.find(params[:id])
     @guests = @event.guests
-    @starttime = @event.starts_at.strftime "%l:%M%P, %A %B %e"
     
     #separating invites by email from invites who are users
     @invites = []

@@ -1,20 +1,23 @@
 <% provide(:title, " | Welcome") %>
-<div class="center hero-unit">
+<%= render 'layouts/logo' %>
+
+<div class="hero-unit">
 
   <h1>
   	Have fun with friends.
-    <p>This makes it easy.</p>
+    <p>We make it easy.</p>
   </h1>
 
   <%= image_tag('calenshare_landing_123.png') %>
 
-
-  	<div class="fb_button">
-      <div id="auth-status">
+  	<div class="login_buttons">
+      <div id="auth-status" class="fb_button">
           <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
       </div>
-    </div><br>
-  or, <%= link_to "Join here", new_user_registration_path , class: "" %>
+      <p><%= link_to "Login", new_user_session_path %></p>
+      <p>or, <%= link_to "Join here", new_user_registration_path %></p>
+    </div>
+
 
 </div>
 
