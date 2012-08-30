@@ -1,6 +1,0 @@
-<% if @event.user == current_user || @event.visibility == "friends_of_friends" %>
-	<%= form_for([@event, @event.invites.build]) do |f| %>
-	    <%= f.text_field :email, placeholder: "Add invites by email address" %>
-			<%= f.submit "Add", class: "btn-primary" %>
-	<% end %>
-<% end %>

@@ -1,28 +1,16 @@
 <% provide(:title, " | Idea") %>
 <aside>
   <%= render 'layouts/logo_and_user' %>
+
   <% if @event.visibility == "friends_of_friends" || @event.user == current_user %>
     <div id="invites_form">
-      <%= render partial: 'invites_form' %>
-    </div>
-  <% end %>
-    <div id="invites">
-      Invites:
-      <% unless @invited_users.empty? %>
-        <% @invited_users.each do |iu| %>
-          <table>
-          <tr>
-            <td><%= raster_profile_picture(iu) %></td>
-            <td><%= iu.name %></td>
-            <td>
-              <%= render :partial => 'events/follow_form', :locals => { :user => iu } %>
-            </td>
-          <tr>
-        </table>
+        <%= form_for([@event, @event.invites.build]) do |f| %>
+            <%= f.text_field :email, placeholder: "Invite by Email Address" %>
+            <%= f.submit raw("&#xf0e0;"), class: "btn-primary fa-input" %>
         <% end %>
-      <% end %>
-      <%= render partial: 'invites/invite', collection: @invites %>
     </div>
+    <%= render partial: 'invite_raster', locals: { :event => @event } %>
+  <% end %>
 </aside>
 
 <div id="event_show" class="container"> 
@@ -38,8 +26,6 @@
       <div id="when">At <%= start_time(@event) %> for <%= @event.duration %> hours</div>
   </div>
   <%= render 'nav_buttons' %>
-  <%= render 'rsvp_form' %>
-  <%= render 'social' %>
   
   <% if @event.location != nil %>
     <div>
@@ -50,18 +36,34 @@
   <% end %>
 
   <div>
-    <h2>RSVP Count: </b> <span class="red"><%= @guests.count %></span></h2>
     <div id="guest_raster">
-     <table>
+     <p>Guests:(<%= @guests.count %>)</p>
       <% @guests.each do |guest| %>
+      <table>
       	<tr>
           <td><%= raster_profile_picture(guest) %></td>
           <td><%= guest.name %></td>
           <td>
             <%= render partial: 'events/follow_form', locals: { user: guest } %>
           </td>
-    	<% end %>
+        </tr>
       </table>
+    	<% end %>
+      <p>Invites:(<%= @invited_users.count + @invites.count %>)</p>
+      <% unless @invited_users.empty? %>
+        <% @invited_users.each do |iu| %>
+          <table>
+            <tr>
+              <td><%= raster_profile_picture(iu) %></td>
+              <td><%= iu.name %></td>
+              <td><%= render :partial => 'events/follow_form', :locals => { :user => iu } %></td>
+            </tr>
+          </table>  
+        <% end %>
+      <% end %>
+      <%= render partial: 'invites/invite', collection: @invites %>
+    
+
     </div>
   </div>
      <%= render partial: 'comments_form' %>

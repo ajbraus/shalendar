@@ -4,7 +4,7 @@ class InvitesController < ApplicationController
   def create
     @event = Event.find(params[:event_id])
     @invite = @event.invites.build(params[:invite])
-    @invite.inviter_id = current_user.id #hopefully this works
+    @invite.inviter_id = current_user.id 
 
     respond_to do |format|
       if @invite.save

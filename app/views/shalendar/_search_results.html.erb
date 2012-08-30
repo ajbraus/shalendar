@@ -4,10 +4,6 @@
   	<tr>
 				<td>Your search returned no users.</td>
 		</tr>
-		<% elsif current_user == @users.first and @users.count == 1 %>
-				<tr>
-					<td>Your search returned only yourself.</td>
-				</tr>
 		<% else @users.each do |u| %>
 		    <tr>
 		    	<td><%= raster_profile_picture(u) %></td>

@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   validates :terms,
             :name, presence: true
 
-  has_many :authentications, :dependent => :destroy
+  has_many :authentications, :dependent => :destroy, :uniq => true
 
   has_many :events, :dependent => :destroy
   

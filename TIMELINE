@@ -26,16 +26,16 @@ Marketing:
 
 	Swag T.shirts & Biz cards & Window decals - Adam
 
-		tip this event
+	tip this event
 		after event tipped just show number of folks comming
-		
-	Invitation raster
 
 	Notifiers - Adam
+		RSVP to event
+		block emails from this user
 	
 	Mobile local registration
 
-	idea count
+	.layout => height:auto;
 
 	display map_location
 	map bug -google.maps.event.trigger(map, 'resize');
@@ -46,22 +46,31 @@ Marketing:
 	check all raster, uncheck all buttons
 		test
 
+	Event
+		Face is inviter, host name to the side
+
+	Event#show
+		rethink tipped visiual indication
+		links in fyis
+
 	log city add to new/edit registrations -- needs to sync w facebook 
 
 	Post to facebook wall . . . not for private events
 	post to rsvps facebook wall of friends of RSVPs
 	
-	"link" field in event with link shortener
+	"link" field in event
 
 	Ajaxify everything - Monday
 		follow/unfollow
 		rsvp/unrsvp
 		visual indicator if invitation sent in find_friends
 
+
 		AFTER BETA
 			confirmations - remove follower, cancel account
 			toggle/untoggle raster pics
 			comments
+			Invitation raster
 			
 		DONE: rsvp_check/unrsvp_check
 		DONE: Search name/email - Adam

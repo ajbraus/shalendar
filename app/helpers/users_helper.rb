@@ -31,7 +31,7 @@ module UsersHelper
 
   def start_time_min(event)
     event.starts_at.strftime("%M")
-  end
+  end 
 
   def gravatar_for(user, options = { size: 50, })
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
@@ -68,7 +68,7 @@ module UsersHelper
     if user.authentications.where(:provider == "Facebook").any? 
       fb_picture(user, type: "normal")
     elsif user.authentications.where(:provider == "Twitter").any?
-       twitter_picture(user, type: "normal") 
+      twitter_picture(user, type: "normal") 
     else
       gravatar_for(user, :size => 100 )
     end
@@ -94,6 +94,36 @@ module UsersHelper
     end
   end 
 
+
+# Invite raster
+
+  def invite_raster_picture(user)
+    if user.authentications.where(:provider == "Facebook").any?
+      invite_fb_picture(user, type: "square")
+    elsif user.authentications.where(:provider == "Twitter").any?
+      invite_twitter_picture(user, type: "normal") 
+    else
+      invite_gravatar_for(user, :size => 50 )
+    end
+  end
+
+  def invite_gravatar_for(user, options = { size: 50, })
+    gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
+    size = options[:size]
+    "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
+  end
+
+  def invite_fb_picture(user, options = { type: "large", })
+    fb_id = user.authentications.find_by_provider("Facebook").uid
+    type = options[:type]
+    @graph.get_picture(fb_id, { type: type })
+  end
+
+  def invite_twitter_picture(user, options = { type: "large", })
+    twitter_username = user.authentications.find_by_provider("Twitter").username
+    type = options[:type]
+    "https://api.twitter.com/1/users/profile_image?user_id=#{twitter_username}&size=#{type}"
+  end
 end
 
 # add if statement for paperclip/gravatar/FB picture.
