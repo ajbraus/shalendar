@@ -38,6 +38,8 @@ Add FB events - Adam
 
 	Make focus fall on first text field on new idea form
 
+	@mobile_user = User.find_by_auth_token(params[:auth_token])
+
 AFTER BETA LAUNCH
 	
 -------- Features To Add ------

@@ -1,0 +1,15 @@
+development:
+  :address: smtp.gmail.com
+  :port: 587
+  :authentication: plain
+  :user_name: hoosinapp@gmail.com
+  :password: "hoosin1@#"
+  :enable_starttls_auto: true
+production:
+  :user_name: hoosin
+  :password: "hoosin1@#"
+  :domain: hoos.in
+  :address: smtp.sendgrid.net
+  :port: 587
+  :authentication: plain
+  :enable_starttls_auto: true

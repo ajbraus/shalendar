@@ -2,7 +2,7 @@ class Api::V1::EventsController < ApplicationController
    before_filter :authenticate_user!
    
    def user_events_on_date
-    #receive call to : calenshare.com/user_plans_on_date.json?date="DateInString"
+    #receive call to : hoos.in/user_plans_on_date.json?date="DateInString"
     raw_datetime = DateTime.parse(params[:date])
     @mobile_user = User.find_by_id(params[:user_id])
     @events = @mobile_user.mobile_events_on_date(raw_datetime.to_date)#Need to check timezone here
@@ -38,5 +38,6 @@ class Api::V1::EventsController < ApplicationController
     #could add invites here, and/or comments
     @event = Event.find_by_id(params[:event_id])
     render json: {  :eid => @event.id, :guests => @event.guests }
+
   end
 end

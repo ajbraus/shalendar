@@ -80,11 +80,11 @@ def create
                 user.confirm!
 
                 # flash and sign in
-                flash[:myinfo] = 'Your account on Calenshare has been created via ' + provider.capitalize + '. In your profile you can change your personal information and add a local password.'
+                flash[:myinfo] = 'Your account on hoos.in has been created via ' + provider.capitalize + '. In your profile you can change your personal information and add a local password.'
                 sign_in_and_redirect(:user, user)
               end
             else
-              flash[:error] =  authentication_route.capitalize + ' can not be used to sign-up on Calenshare as no valid email address has been provided. Please use another authentication provider or use local sign-up. If you already have an account, please sign-in and add ' + authentication_route.capitalize + ' from your profile.'
+              flash[:error] =  authentication_route.capitalize + ' can not be used to sign-up on hoos.in as no valid email address has been provided. Please use another authentication provider or use local sign-up. If you already have an account, please sign-in and add ' + authentication_route.capitalize + ' from your profile.'
               redirect_to new_user_session_path
             end
           end

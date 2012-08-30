@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+
+	$("div.alert").delay(5000).fadeOut(1000);
+
 // user settings icon
 	$("#user-settings").hover(function(){
 		$(".user_settings").show();

@@ -30,10 +30,39 @@ Marketing:
 		after event tipped just show number of folks comming
 
 	Notifiers - Adam
-		RSVP to event
+		Welcome
+			Home
+			Create Event
+		Cancellation
+			Event Details
+			Home
+		Invitation
+			Event Details
+			RSVP
+			View Event
+			Home
+		RSVP reminder
+			Event Details
+		Event tipped
+			Event Details
+		Time change
+			Event Details
+		Location change
+			Event Details
+		Minor change
+			Event Details
+		Confirm Follow
+			Follower details
+		New Follower
+			Follower Details
+
 		block emails from this user
+		change notification settings
+		add SMS
 	
 	Mobile local registration
+
+	update user name and city upon fblogin
 
 	.layout => height:auto;
 
