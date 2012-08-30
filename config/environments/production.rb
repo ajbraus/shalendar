@@ -18,19 +18,19 @@ Shalendar::Application.configure do
   config.assets.compile = false
 
   #this is from using email tut on heroku documentation
-  config.action_mailer.default_url_options = { :host => 'calenshare.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'hoosin.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = false
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default :charset => "utf-8"
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
+    address: "smtp.sendgrid.com",
     port: 587,
-    domain: "calenshare.herokuapp.com",
+    domain: "hoosin.herokuapp.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: ENV["GMAIL_USERNAME"],
-    password: ENV["GMAIL_PASSWORD"]
+    user_name: "hoosin",
+    password: "hoosin1@#"
   }
   # Generate digests for assets URLs
   config.assets.digest = true

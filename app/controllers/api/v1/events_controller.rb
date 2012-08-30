@@ -2,7 +2,7 @@ class Api::V1::EventsController < ApplicationController
    before_filter :authenticate_user!
    
    def user_events_on_date
-    #receive call to : calenshare.com/user_plans_on_date.json?date="DateInString"
+    #receive call to : hoos.in/user_plans_on_date.json?date="DateInString"
     raw_datetime = DateTime.parse(params[:date])
     @mobile_user = User.find_by_id(params[:user_id])
     @events = @mobile_user.mobile_events_on_date(raw_datetime.to_date)#Need to check timezone here

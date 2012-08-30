@@ -19,10 +19,23 @@ Shalendar::Application.configure do
   # Enables serving of images, sytlesheets, and JavaScripts from an asset
   # config.action_controller.asset_host = "http://assets.example.com"
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = false
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    domain: "calenshare.herokuapp.com",
+    authentication: "plain",
+    enable_starttls_auto: true,
+    user_name: ENV["GMAIL_USERNAME"],
+    password: ENV["GMAIL_PASSWORD"]
+  }
 
   # Recaptcha 
   # Recaptcha.configure do |config|
-  # config.public_key  = '6Lc4mNQSAAAAAGogl0qfZI3tvZcdSglWAGqIKflk' #calenshare.dev
+  # config.public_key  = '6Lc4mNQSAAAAAGogl0qfZI3tvZcdSglWAGqIKflk' #hoos.in.dev
   # config.private_key = '6Lc4mNQSAAAAADMQWInE5gXqUrH6-jWPTY3tQerq'
   # end
 

@@ -25,6 +25,7 @@ gem 'pry-debugger'
 
 gem 'pg'
 
+gem "sendgrid", "~> 1.0.1"
 
 group :development, :test do
   gem 'faker', '1.0.1'

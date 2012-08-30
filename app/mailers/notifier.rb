@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
   layout 'email' # use email.(html|text).erb as the layout for emails
-  default from: "hoosin@gmail.com"
+  default from: "info@hoos.in"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -12,7 +12,7 @@ class Notifier < ActionMailer::Base
   #AUTOMATIC NOTIFIERS
 
   def welcome(user)
-    mail to: user.email, subject: "Welcome to Calenshare"
+    mail to: user.email, subject: "Welcome to hoos.in"
   end
 
   def cancellation(event)
@@ -48,9 +48,9 @@ class Notifier < ActionMailer::Base
 
     #should we include here an invited by X to make them more likely to join?
     if @user = User.find_by_email(email)
-      mail to: @user.email, subject: "Hello, #{@user.first_name} you've been invited to #{event.title}; visit www.calenshare.com/events/#{event.id}"
+      mail to: @user.email, subject: "Hello, #{@user.first_name} you've been invited to #{event.title}; visit www.hoos.in.com/events/#{event.id}"
     else
-      mail to: email, subject: "Hello, you've been invited to #{event.title}; visit www.calenshare.com/events/#{event.id}"
+      mail to: email, subject: "Hello, you've been invited to #{event.title}; visit www.hoos.in.com/events/#{event.id}"
     end
   end
 
@@ -111,7 +111,7 @@ class Notifier < ActionMailer::Base
   def send_invites(event)
     @invitees = @event.invites.join('; ')
 
-    mail bcc: @invitees, subject: "#{event.user.name} has invited you to #{event.title} on Calenshare"
+    mail bcc: @invitees, subject: "#{event.user.name} has invited you to #{event.title} on hoos.in"
   end
 
   #PREFERENCE NOTIFIERS, DEFAULT YES
@@ -150,7 +150,7 @@ class Notifier < ActionMailer::Base
     @users.each do |u|
       #@events = u.plans; something to send all plans, but need to lay this out
 
-      mail to: u.email, subject: "Your daily digest from Calenshare!"
+      mail to: u.email, subject: "Your daily digest from hoos.in!"
     end
   end
 end

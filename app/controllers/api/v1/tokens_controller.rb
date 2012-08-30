@@ -135,7 +135,7 @@ class Api::V1::TokensController  < ApplicationController
                                       :post_wall=>@user.post_to_fb_wall,
                                       :followed_users=>@followed_users,#may put these in separate calls for speed of login
                                       #:followers=>@followers,
-                                      :invites=>@invites
+                                      :invites=>@invites,
                                     }
                                    }
     end

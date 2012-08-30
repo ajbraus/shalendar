@@ -11,5 +11,5 @@ class Invite < ActiveRecord::Base
       :eid => self.event_id,
       :uid => self.inviter_id
     }
-
+  end
 end
