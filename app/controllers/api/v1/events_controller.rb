@@ -17,7 +17,8 @@ class Api::V1::EventsController < ApplicationController
         @temp = {
         :id => e.id,
         :title => e.title,  
-        :start => e.starts_at,  
+        :start => e.starts_at,
+        :end => e.ends_at, 
         :gcnt => e.guests.count,  
         :tip => e.min,  
         :host => e.user,
@@ -38,7 +39,8 @@ class Api::V1::EventsController < ApplicationController
     @event = Event.find_by_id(params[:event_id])
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @event }
+      format.json { render json: {  :eid => @event.id,
+                                    :guests => @event.guests }
     end
   end
 

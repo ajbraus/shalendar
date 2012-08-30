@@ -28,7 +28,6 @@ class Api::V1::TokensController  < ApplicationController
   skip_before_filter :verify_authenticity_token
   respond_to :json
   def create
-
     if params[:access_token]
       auth = env["omniauth.auth"]
       email = auth.info.email
@@ -68,7 +67,6 @@ class Api::V1::TokensController  < ApplicationController
                 :json=>{:message=>"The request must contain the user email and password."}
          return
       end
-
 
     @user=User.find_by_email(email.downcase)
 
