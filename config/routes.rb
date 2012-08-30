@@ -2,13 +2,12 @@ Shalendar::Application.routes.draw do
 
   resources :authentications, :only => [:destroy]
   # match '/auth/:authentication/callback' => 'authentications#create' 
-
-  root :to => 'static_pages#landing'
   
   authenticated :user do
-    root :to => 'static_pages#home'
+    root :to => 'shalendar#home'
   end
-  
+
+  root :to => 'static_pages#landing'
 
   devise_for :users, 
              controllers:   { omniauth_callbacks: "users/omniauth_callbacks", 

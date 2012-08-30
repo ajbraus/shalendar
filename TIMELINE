@@ -62,6 +62,8 @@ Marketing:
 	
 	Mobile local registration
 
+	update user name and city upon fblogin
+
 	.layout => height:auto;
 
 	display map_location

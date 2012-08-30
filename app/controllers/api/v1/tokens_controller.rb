@@ -1,57 +1,22 @@
-# app/controllers/api/v1/token_authentications_controller.rb
-# module Api
-#   module V1
-#     class TokenAuthenticationsController < ApplicationController
-#     before_filter :authenticate_user!
-     
-#       def create
-#         @user = current_user
-#         @user.reset_authentication_token!
-#         redirect_to edit_user_registration_path(@user)
-#       end
-     
-#       def destroy
-#         @user = current_user
-#         @user.authentication_token = nil
-#         @user.save
-#         redirect_to edit_user_registration_path(@user)
-#       end
-#     end
-#   end
-# end
-
-#exchange short access token for long
-#update authentication info
-#update user info
-
 class Api::V1::TokensController  < ApplicationController
   skip_before_filter :verify_authenticity_token
   respond_to :json
   
   def create
     if params[:access_token]
-      access_token = params[:access_token]
       auth = env["omniauth.auth"]
       email = auth.info.email
       uid = auth.uid
       provider = auth.provider
+      access_token = params[:access_token]
+      auth_attr = { :uid => uid, :token => access_token, :secret => nil }
 
-      @user = find_for_oauth_by_email(email, access_token)
+      @user = find_for_oauth(email, access_token, resource)
       
-      if @user
-        auth = user.authentications.find_by_provider(provider)
-        if auth.nil? && Authentication.find_by_uid(uid).nil?     
-          auth = user.authentications.build(:provider => provider)
-          user.authentications << auth
-        end
-        if auth.present?
-          auth.update_attributes auth_attr
-        end
-
-        if auth.nil?
-          user = nil
-        end
-        return user
+      if @user.present?
+        @short_token = access_token
+        @long_token = HTTParty.get("https://graph.facebook.com/oauth/access_token?client_id=327936950625049&client_secret=4d3de0cbf2ce211f66733f377b5e3816&grant_type=fb_exchange_token&fb_exchange_token=#{@short_token}")
+        access_token = @long_token
       else 
         render :status=>400, :json=>{:message=>"There was an error. Check your Facebook account status and retry."}
       end
@@ -138,8 +103,9 @@ class Api::V1::TokensController  < ApplicationController
                                       :followed_users=>@followed_users,#may put these in separate calls for speed of login
                                       #:followers=>@followers,
                                       :invites=>@invites,
+                                      :FBtoken=>access_token
                                     }
-                                   }
+                                  }
     end
   end
 
@@ -152,6 +118,42 @@ class Api::V1::TokensController  < ApplicationController
       @user.reset_authentication_token!
       render :status=>200, :json=>{:token=>params[:id]}
     end
+  end
+
+  def find_for_oauth(provider, access_token, resource=nil)
+    user, email, name, uid, auth_attr = nil, nil, nil, {}
+    case provider
+    when "Facebook"
+      uid = access_token.uid
+      email = access_token.info.email
+      access_token = access_token.credentials.token
+      auth_attr = { :uid => uid, :token => access_token, :secret => nil }
+    else
+      raise 'Provider #{provider} not handled'
+    end
+    if resource.nil?
+      if email
+        user = find_for_oauth_by_email(email, access_token, resource)
+      else uid
+        user = find_for_oauth_by_uid(uid, access_token, resource)
+      end
+    else
+      user = resource
+    end
+    
+    auth = user.authentications.find_by_provider(provider)
+    if auth.nil? && Authentication.find_by_uid(uid).nil?     
+      auth = user.authentications.build(:provider => provider)
+      user.authentications << auth
+    end
+    if auth.present?
+      auth.update_attributes auth_attr
+    end
+
+    if auth.nil?
+      user = nil
+    end
+    return user
   end
 
   def find_for_oauth_by_email(email, access_token)
