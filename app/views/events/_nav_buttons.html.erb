@@ -1,10 +1,17 @@
 <div class="nav_buttons">
   <% if @event.user == current_user %> 
-      <%= link_to edit_event_path(@event) do %>
+  	Tip Event!
+    <%= link_to edit_event_path(@event) do %>
       	<span class="btn_stop_viewing"><i class="icon-wrench icon-large"></i>&nbsp;Edit</span>
       <% end %>
     <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will send an Email to all RSVPs a cancellation email.' } do %>
     <span class="red"><i class="icon-trash icon-large"></i>&nbsp;Delete</span>
     <% end %>
+    <%= render 'social' %>
+  <% else %>
+   	<%= render 'rsvp_form' %>
+   	<% if @event.visiblity == "friends_of_friens" %>
+	    <%= render 'social' %>
+  	<% end %>
   <% end %>
 </div>

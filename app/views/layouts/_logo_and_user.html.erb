@@ -1,7 +1,12 @@
 <%= render 'layouts/logo' %>
-<div id="user-settings" class="profile_pic_home">
-	<%= medium_profile_picture(current_user) %>
-	<div style="display:none;" class='user_settings'><i class='icon-wrench'></i></div>
+<div class="profile_pic_home">
+	<div id="user-settings">
+		<%= medium_profile_picture(current_user) %>
+		<%= link_to edit_user_registration_path do %>
+		<i class='icon-wrench user_settings' title="Edit User Settings" style="display:none;"></i>
+		<% end %>
+	</div>
+	<p><%= current_user.name %></p>
 </div>
-<%= current_user.name %>
+
 <%= render 'shalendar/stats' %>

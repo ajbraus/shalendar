@@ -1,6 +1,7 @@
-<h2>Sign in</h2>
-
+<% provide(:title, " | Login") %> 
+<%= render 'layouts/logo' %>
 <div id="sign_in">
+	<h2>Login†fp</h2>
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>

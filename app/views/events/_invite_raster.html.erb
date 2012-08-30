@@ -1,0 +1,10 @@
+<div class="raster">
+  <% current_user.followers.each do |f| %>
+  	<% unless f.invited?(event) %>
+	  	<%= form_for([event, event.invites.build]) do |i| %>
+	  		<%= i.hidden_field :email, value: f.email %>
+        <%= image_submit_tag("#{invite_raster_picture(f)}") %>
+      <% end %>
+	  <% end %>
+	<% end %>
+</div>

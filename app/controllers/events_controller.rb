@@ -77,9 +77,6 @@ class EventsController < ApplicationController
         @invites.push(i)
       end
     end
-    unless @event.visibility == "invite_only" 
-      @invited_users = @invited_users | @event.user.followers
-    end
     @invited_users = @invited_users - @event.guests
 
     @access_token = session[:access_token]

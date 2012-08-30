@@ -17,9 +17,10 @@ $grayDarker:#eaeaea;
 
 /* universal */
 
-html, body, div {
+html, body, div, img {
   margin: 0;
   padding: 0;
+  display: inline-block;
 }
 
 html {
@@ -58,12 +59,13 @@ textarea {
   margin-top: 25px;
   padding: 60px;
   margin-bottom: 30px;
-  width:838px;
-  position: relative;
-  left: 45px;
+width: 960px;
+position: relative;
+right: 172px;
   h1 {
     font-size: 2.3em;
     margin-bottom:-10px;
+    position: relative;
   }
   p {
     font-size: 1em;
@@ -131,7 +133,7 @@ ul, li {
   font-family:arial;
   font-size:15px;
   font-weight:normal;
-  padding:6px 24px;
+  /*padding:6px 24px;*/
   text-decoration:none;
 }
 .btn-primary:hover {
@@ -235,8 +237,6 @@ ul, li {
 
 .login_buttons {
   float:center;
-  position: relative;
-  left: 63px;
 }
 
 .btn-warning {
@@ -398,7 +398,7 @@ aside {
   }
   input[type=text] {
     margin-right:0px;
-    width:160px;
+    width: 213px;
     margin-right: -5px;
     -webkit-border-radius: 5px 0 0 5px;
     -moz-border-radius: 5px 0 0 5px;
@@ -610,15 +610,24 @@ footer {
   margin-bottom: 20px;
   color: #9C9C9C;
   a {
+    float:left;
+    font-size: 20px;
     color: gray;
-  &:hover { 
+    position: relative; 
+    left:20px;
+    &:hover { 
       color: darkgrey;
     }
   }  
   small { 
-    float: left; 
+    float: left;
+    position: relative; 
+    left:50px; 
   }
   ul {
+    position: relative;
+    bottom: 20px;
+    right:100px;
     float: right;
     list-style: none;
     li {
@@ -720,6 +729,7 @@ footer {
 }
 
 .social_friends {
+
 }
 
 .viewing_name {
@@ -801,14 +811,26 @@ footer {
       width:380px;
     }
   }
-
-.user_settings {
-  width:50px;
-  height:50px;
-  background-color: lightgrey;
-  color:white;
 }
 
+.user_settings {
+  width: 12px;
+  height: 15px;
+  background-color: lightGrey;
+  padding: 4px 10px 8px 5px;
+  color:darkgrey;
+  font-size: 20px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  position: absolute;
+  top: 227px;
+  left: 137px;
+}
+
+#user-settings {
+  width:100px;
+  height:100px;
 }
 
 #personal {
@@ -833,7 +855,7 @@ footer {
 
 #feedback {
     position: fixed;
-    bottom: 63%;
+    bottom: 53%;
     right: 0;
     width:31px;
     z-index: 1000;

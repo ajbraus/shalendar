@@ -20,29 +20,62 @@
 #   end
 # end
 
+#exchange short access token for long
+#update authentication info
+#update user info
+
 class Api::V1::TokensController  < ApplicationController
   skip_before_filter :verify_authenticity_token
   respond_to :json
   def create
-    email = params[:email]
-    password = params[:password]
-    if request.format != :json
-      render :status=>406, :json=>{:message=>"The request must be json"}
-      return
-    end
- 
-    if email.nil? or password.nil?
-       render :status=>400,
-              :json=>{:message=>"The request must contain the user email and password."}
-       return
-    end
+    if params[:access_token]
+      auth = env["omniauth.auth"]
+      email = auth.info.email
+      uid = auth.uid
+
+
+      @user=User.find_by_email(email.downcase)
+
+      if @user.nil?
+        user = find_for_oauth_by_email(email, access_token, resource)
+        
+        auth = user.authentications.find_by_provider(provider)
+        if auth.nil? && Authentication.find_by_uid(uid).nil?     
+          auth = user.authentications.build(:provider => provider)
+          user.authentications << auth
+        end
+        if auth.present?
+          auth.update_attributes auth_attr
+        end
+
+        if auth.nil?
+          user = nil
+        end
+        return user
+      end
+
+    else
+      email = params[:email]
+      password = params[:password]
+      if request.format != :json
+        render :status=>406, :json=>{:message=>"The request must be json"}
+        return
+      end
+   
+      if email.nil? or password.nil?
+         render :status=>400,
+                :json=>{:message=>"The request must contain the user email and password."}
+         return
+      end
 
     @user=User.find_by_email(email.downcase)
 
-    if @user.nil?
-      logger.info("User #{email} failed signin, user cannot be found.")
-      render :status=>401, :json=>{:message=>"Invalid email or passoword."}
-      return
+      if @user.nil?
+        logger.info("User #{email} failed signin, user cannot be found.")
+        render :status=>401, :json=>{:message=>"Invalid email or passoword."}
+        return
+      end
+
     end
 
     # http://rdoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable
@@ -118,5 +151,23 @@ class Api::V1::TokensController  < ApplicationController
       render :status=>200, :json=>{:token=>params[:id]}
     end
   end
+
+  def find_for_oauth_by_email(email, access_token, resource=nil)
+    if user = User.find_by_email(email)
+      return user
+    else
+      email = access_token.info.email
+      name = access_token.info.name
+      city = access_token.info.location
+      user = User.new(:email => email, 
+                :name => name,
+                :city => city,
+                :terms => true,
+                :remember_me => true,
+                :password => Devise.friendly_token[0,20]
+              ) 
+      user.save
+      return user
+    end
 
 end

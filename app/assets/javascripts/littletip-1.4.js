@@ -19,7 +19,7 @@
 	
 
 $(document).ready(function(){			// Script executed on DOM load
-	var elT = $(".[title]");			// Store all title attributes in a variable for further usage
+	var elT = $("[title]");			// Store all title attributes in a variable for further usage
 
 
 
@@ -84,8 +84,6 @@ $(document).ready(function(){			// Script executed on DOM load
 			liTIP.css("top", e.pageY + littleTIPy);
 			}
 	});
-
-
 
 	elT.mouseout(function(){			// Function applied when mouse moves out
 		$('#littleTIP').remove();		// Remove littleTIP

@@ -13,7 +13,6 @@ describe Event do
   subject { @event }
 
 	it { should respond_to(:title) }
-	it { should respond_to(:description) }
 	it { should respond_to(:starts_at) }
 	it { should respond_to(:ends_at) }
 	it { should respond_to(:location) }

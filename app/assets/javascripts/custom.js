@@ -2,7 +2,10 @@ $(document).ready(function() {
 
 // user settings icon
 	$("#user-settings").hover(function(){
-		$(".profile_pic_home").show($(".user_settings"))
+		$(".user_settings").show();
+	},
+		function(){
+		$(".user_settings").hide();
 	});
 
 

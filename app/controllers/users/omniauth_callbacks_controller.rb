@@ -1,5 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  
+
   def facebook
     oauthorize "Facebook"
   end
@@ -12,7 +12,7 @@ private
 
   def oauthorize(kind)
     @user = find_for_oauth(kind, env["omniauth.auth"], current_user)
-    if @user
+    if @user.present?
       #put a flash into the session
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => kind
 
@@ -21,13 +21,13 @@ private
       @long_token = HTTParty.get("https://graph.facebook.com/oauth/access_token?client_id=327936950625049&client_secret=4d3de0cbf2ce211f66733f377b5e3816&grant_type=fb_exchange_token&fb_exchange_token=#{@short_token}")
       
       #get back "access_token=AAAEqQcVzYxkBAFPwIFPN7sUsdNZA5gZBIzZCRVbufmkJMlK2OOlITw6cmeZAFgRkrnvVfrCAwG9zZCKDfQRHe163UZAuPhsHUZD&expires=5181597"
-      session[:access_token] = @long_token.split('=')[1].split('&')[0]
+      @uid = env["omniauth.auth"].uid
+      @user.authentications.find_by_uid(@uid).token = @long_token.split('=')[1].split('&')[0]
 
       # session["devise.#{kind.downcase}_data"] = env["omniauth.auth"]
       sign_in_and_redirect @user, :event => :authentication
     else
-      flash[:notice] = 'There was an error with Facebook. Try signing up through Calenshare.'
-      redirect_to new_user_registration_url
+      redirect_to :back, notice: 'There was an error with Facebook. Check your Facebook account status.'
     end   
   end
 
@@ -37,8 +37,8 @@ private
     when "Facebook"
       uid = access_token.uid
       email = access_token.info.email
-      session[:access_token] = access_token.credentials.token
-      auth_attr = { :uid => uid, :token => access_token.credentials.token, :secret => nil }
+      token = access_token.credentials.token
+      auth_attr = { :uid => uid, :token => token, :secret => nil }
     else
       raise 'Provider #{provider} not handled'
     end
@@ -53,12 +53,17 @@ private
     end
     
     auth = user.authentications.find_by_provider(provider)
-    if auth.nil?
+    if auth.nil? && Authentication.find_by_uid(uid).nil?     
       auth = user.authentications.build(:provider => provider)
       user.authentications << auth
     end
-    auth.update_attributes auth_attr
-    
+    if auth.present?
+      auth.update_attributes auth_attr
+    end
+
+    if auth.nil?
+      user = nil
+    end
     return user
   end
 
