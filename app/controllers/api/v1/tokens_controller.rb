@@ -67,8 +67,7 @@ class Api::V1::TokensController  < ApplicationController
                 :json=>{:message=>"The request must contain the user email and password."}
          return
       end
-
-    @user=User.find_by_email(email.downcase)
+      @user=User.find_by_email(email.downcase)
 
       if @user.nil?
         logger.info("User #{email} failed signin, user cannot be found.")
@@ -138,6 +137,7 @@ class Api::V1::TokensController  < ApplicationController
                                       :invites=>@invites
                                     }
                                    }
+
     end
   end
 
@@ -169,5 +169,6 @@ class Api::V1::TokensController  < ApplicationController
       user.save
       return user
     end
-
+  end
 end
+

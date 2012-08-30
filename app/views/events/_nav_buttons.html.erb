@@ -10,7 +10,7 @@
     <%= render 'social' %>
   <% else %>
    	<%= render 'rsvp_form' %>
-   	<% if @event.visiblity == "friends_of_friens" %>
+   	<% if @event.visibility == "friends_of_friends" %>
 	    <%= render 'social' %>
   	<% end %>
   <% end %>
