@@ -11,7 +11,6 @@ class Event < ActiveRecord::Base
   has_many :invites, dependent: :destroy
 
   attr_accessible :id,
-                  :description, 
                   :starts_at, 
                   :duration,
                   :ends_at,
@@ -35,7 +34,6 @@ class Event < ActiveRecord::Base
   validates :duration, numericality: { in: 0..1000 } 
 
   validates :title, length: { maximum: 140 }
-  validates :description, length: { maximum: 250 }
   validates :map_location, length: { maximum: 120 }
 
   #from bokmann fullcalendar event model
@@ -54,11 +52,9 @@ class Event < ActiveRecord::Base
       :title => self.title,
       :start => starts_at,
       :end => ends_at,
-      :allDay => false, #self.all_day,
-      :recurring => false,
       :host => self.user,
-      :guest_count => self.guests.count,
-      :min_to_tip => self.min,
+      :gcnt => self.guests.count,
+      :tip => self.min,
       :guests => self.guests
     }
     
