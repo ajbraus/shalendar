@@ -41,6 +41,7 @@ class Api::V1::EventsController < ApplicationController
       format.html # index.html.erb
       format.json { render json: {  :eid => @event.id,
                                     :guests => @event.guests }
+                  }
     end
   end
 

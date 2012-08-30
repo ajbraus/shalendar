@@ -27,18 +27,18 @@
 class Api::V1::TokensController  < ApplicationController
   skip_before_filter :verify_authenticity_token
   respond_to :json
+  
   def create
     if params[:access_token]
+      access_token = params[:access_token]
       auth = env["omniauth.auth"]
       email = auth.info.email
       uid = auth.uid
+      provider = auth.provider
 
-
-      @user=User.find_by_email(email.downcase)
-
-      if @user.nil?
-        user = find_for_oauth_by_email(email, access_token, resource)
-        
+      @user = find_for_oauth_by_email(email, access_token)
+      
+      if @user
         auth = user.authentications.find_by_provider(provider)
         if auth.nil? && Authentication.find_by_uid(uid).nil?     
           auth = user.authentications.build(:provider => provider)
@@ -52,6 +52,8 @@ class Api::V1::TokensController  < ApplicationController
           user = nil
         end
         return user
+      else 
+        render :status=>400, :json=>{:message=>"There was an error. Check your Facebook account status and retry."}
       end
 
     else
@@ -152,7 +154,7 @@ class Api::V1::TokensController  < ApplicationController
     end
   end
 
-  def find_for_oauth_by_email(email, access_token, resource=nil)
+  def find_for_oauth_by_email(email, access_token)
     if user = User.find_by_email(email)
       return user
     else
@@ -169,5 +171,5 @@ class Api::V1::TokensController  < ApplicationController
       user.save
       return user
     end
-
+  end
 end
