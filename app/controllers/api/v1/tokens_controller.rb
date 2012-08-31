@@ -4,6 +4,7 @@ class Api::V1::TokensController  < ApplicationController
   
   def create
     if params[:access_token]
+<<<<<<< HEAD
       email_handle = params[:email].slice('@')
       auth = HTTParty.get("https://graph.facebook.com/#{email_handle}/access_token?#{params[:access_token]}")
       email = auth.info.email
@@ -11,14 +12,32 @@ class Api::V1::TokensController  < ApplicationController
       provider = auth.provider
       access_token = params[:access_token]
       auth_attr = { :uid => uid, :token => access_token, :secret => nil }
+=======
+>>>>>>> aeb3658accd39e791de98f87e58a88baf41e6745
 
-      @user = find_for_oauth(email, access_token, resource)
-      
+      # binding.pry
+      # auth = request.env["omniauth.auth"]
+      # email = auth.info.email
+      # uid = auth.uid
+      # provider = auth.provider
+      #access_token = params[:access_token]
+      # auth_attr = { :uid => uid, :token => access_token, :secret => nil }
+
+      if params[:email].nil?
+         render :status=>400,
+                :json=>{:message=>"The request must contain the user email and FB access token."}
+         return
+      end
+      # @user = find_for_oauth(email, access_token, resource)
+      @user = User.find_by_email(params[:email])
+
       if @user.present?
-        @short_token = access_token
-        @long_token = HTTParty.get("https://graph.facebook.com/oauth/access_token?client_id=327936950625049&client_secret=4d3de0cbf2ce211f66733f377b5e3816&grant_type=fb_exchange_token&fb_exchange_token=#{@short_token}")
-        access_token = @long_token
+        #I think we get the long access token already on the mobile app
+        #@short_token = access_token
+        #@long_token = HTTParty.get("https://graph.facebook.com/oauth/access_token?client_id=327936950625049&client_secret=4d3de0cbf2ce211f66733f377b5e3816&grant_type=fb_exchange_token&fb_exchange_token=#{@short_token}")
+        #access_token = @long_token
       else 
+        #create a new user from the FB access token + email
         render :status=>400, :json=>{:message=>"There was an error. Check your Facebook account status and retry."}
       end
 
@@ -35,37 +54,36 @@ class Api::V1::TokensController  < ApplicationController
                 :json=>{:message=>"The request must contain the user email and password."}
          return
       end
-
-    @user=User.find_by_email(email.downcase)
+      @user=User.find_by_email(email.downcase)
 
       if @user.nil?
         logger.info("User #{email} failed signin, user cannot be found.")
         render :status=>401, :json=>{:message=>"Invalid email or passoword."}
         return
       end
-
+      # http://rdoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable
+      @user.ensure_authentication_token!
+      if not @user.valid_password?(password)
+        logger.info("User #{email} failed signin, password \"#{password}\" is invalid")
+        render :status=>401, :json=>{:message=>"Invalid email or password."}
+      end
     end
 
-    # http://rdoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable
-    @user.ensure_authentication_token!
-    if not @user.valid_password?(password)
-      logger.info("User #{email} failed signin, password \"#{password}\" is invalid")
-      render :status=>401, :json=>{:message=>"Invalid email or password."}
-    else
-      # THIS IS FOR SENDING FOLLOWED/FOLLOWER INFO FROM LOGIN
-      @followed_users = []
-      @user.followed_users.each do |fu|
-        r = @user.relationships.find_by_followed_id(fu.id)
-        @temp = {
-          first_name: fu.first_name,
-          last_name: fu.last_name,
-          id: fu.id,
-          email_hex: Digest::MD5::hexdigest(fu.email.downcase),
-          confirmed: r.confirmed,
-          toggled: r.toggled
-        }
-        @followed_users.push(@temp)
-      end
+
+    # THIS IS FOR SENDING FOLLOWED/FOLLOWER INFO FROM LOGIN
+    @followed_users = []
+    @user.followed_users.each do |fu|
+      r = @user.relationships.find_by_followed_id(fu.id)
+      @temp = {
+        first_name: fu.first_name,
+        last_name: fu.last_name,
+        id: fu.id,
+        email_hex: Digest::MD5::hexdigest(fu.email.downcase),
+        confirmed: r.confirmed,
+        toggled: r.toggled
+      }
+      @followed_users.push(@temp)
+
       #FOR FOLLOWERS, DON"T KNOW IF WE CARE
       # @followers = []
       # @user.followers.each do |f|
@@ -103,10 +121,10 @@ class Api::V1::TokensController  < ApplicationController
                                       :post_wall=>@user.post_to_fb_wall,
                                       :followed_users=>@followed_users,#may put these in separate calls for speed of login
                                       #:followers=>@followers,
-                                      :invites=>@invites,
-                                      :FBtoken=>access_token
-                                    }
-                                  }
+                                      :invites=>@invites
+                                      }
+                                   }
+
     end
   end
 
@@ -176,3 +194,4 @@ class Api::V1::TokensController  < ApplicationController
     end
   end
 end
+

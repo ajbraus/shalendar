@@ -12,4 +12,5 @@ class Invite < ActiveRecord::Base
       :uid => self.inviter_id
     }
   end
+
 end

@@ -40,7 +40,6 @@ def make_events
   5.times do |e|
     id = e
     title = "Fun Time #{e+1}"
-    description = Faker::Lorem.sentences(1)
     starts_at = Time.now + (e).days - (e).hours
     ends_at = Time.now + (e).days - (e-2).hours
     min = 2
@@ -48,7 +47,6 @@ def make_events
     @event = users[e].events.build(
                         id: id,
                         title: title,
-                        description: description,
                         starts_at: starts_at,
                         ends_at: ends_at,
                         min: min,

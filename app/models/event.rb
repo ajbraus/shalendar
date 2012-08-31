@@ -52,11 +52,9 @@ class Event < ActiveRecord::Base
       :title => self.title,
       :start => starts_at,
       :end => ends_at,
-      :allDay => false, #self.all_day,
-      :recurring => false,
       :host => self.user,
-      :guest_count => self.guests.count,
-      :min_to_tip => self.min,
+      :gcnt => self.guests.count,
+      :tip => self.min,
       :guests => self.guests
     }
     
