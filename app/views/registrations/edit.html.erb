@@ -1,6 +1,6 @@
 <% provide(:title, "Settings") %> 
+<aside>
 <%= render 'layouts/logo' %>
-<div id="settings">
   <div id="personal">
     <%= big_profile_picture(current_user) %>
     <% if current_user.authentications.find_by_provider("Facebook") == nil %>
@@ -27,8 +27,9 @@
       Add Facebook Authentication
     <% end %>
   </div>
+</aside>
 
-
+<div id="settings">
 
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
     <h2>General Settings</h2>
@@ -67,7 +68,7 @@
     <%= f.email_field :email %></div>
 
     <div><%= f.label :city %><br />
-    <%= f.text_field :city %></div>
+    <%= f.select :city, @cities %></div>
 
     <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
     <%= f.password_field :password, :autocomplete => "off" %></div>

@@ -19,10 +19,18 @@ private
       #get shortlived access token, exchange it for a long lived one, save it in the session.
       @short_token = env["omniauth.auth"].credentials.token
       @long_token = HTTParty.get("https://graph.facebook.com/oauth/access_token?client_id=327936950625049&client_secret=4d3de0cbf2ce211f66733f377b5e3816&grant_type=fb_exchange_token&fb_exchange_token=#{@short_token}")
-      
       #get back "access_token=AAAEqQcVzYxkBAFPwIFPN7sUsdNZA5gZBIzZCRVbufmkJMlK2OOlITw6cmeZAFgRkrnvVfrCAwG9zZCKDfQRHe163UZAuPhsHUZD&expires=5181597"
+      #save it in the session
+      session[:access_token] = @long_token.split('=')[1].split('&')[0]
+
       @uid = env["omniauth.auth"].uid
-      @user.authentications.find_by_uid(@uid).token = @long_token.split('=')[1].split('&')[0]
+      @user.authentications.find_by_uid(@uid).token = session[:access_token]
+
+      @city = env["omniauth.auth"].info.location
+        unless City.find_by_name(@city)
+          c = City.new(name: @city)
+          c.save
+        end
 
       # session["devise.#{kind.downcase}_data"] = env["omniauth.auth"]
       sign_in_and_redirect @user, :event => :authentication
@@ -77,7 +85,14 @@ private
 
   def find_for_oauth_by_email(email, access_token, resource=nil)
     if user = User.find_by_email(email)
+      email = access_token.info.email
+      name = access_token.info.name
+      location = access_token.info.location
+      user_attr = { email: email, name: name, city: location }
+      user.update_attributes user_attr
+      
       return user
+
     else
       email = access_token.info.email
       name = access_token.info.name

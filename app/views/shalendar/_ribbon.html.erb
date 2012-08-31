@@ -1,13 +1,15 @@
 <div id="ribbon">
 	<a class="btn-primary btn_new_idea" href="#new_idea">New Idea</a>
 	<%= render 'new_idea_form' %>
+	<%= render 'next_plan', event: @next_plan %>
 
 	<div id="datepicker">
 		<% for i in -3..16 do %>
+		<a href="/home?date=<%= Date.today + i %>">
 		<table>
 			<tr>
 				<th>
-				  <a href="/home?date=<%= Date.today + i %>"><%= (Date.today + i).strftime("%a").slice!(0..1) %></a>
+					<%= i == 0 ? "Today" : (Date.today + i).strftime("%a").slice!(0..1) %>
 		  	</th>
 		  </tr>
 		  <tr>
@@ -20,6 +22,7 @@
 		  	</td>
 		  </tr>
 		</table>
+		</a>
 		<% end %>
 	</div>
 </div>

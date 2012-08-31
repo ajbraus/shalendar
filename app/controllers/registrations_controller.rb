@@ -1,11 +1,29 @@
 class RegistrationsController < Devise::RegistrationsController
 
+  def new
+    @all_cities = City.all
+    @cities = []
+    @all_cities.each do |c|
+      @city_name = c.name
+      @cities.push(@city_name)
+    end
+    super
+  end
+
   def create
     super
     #binding.pry
   end
 
 	def edit
+    @all_cities = City.all
+    @cities = []
+    @all_cities.each do |c|
+      @city_name = c.name
+      @cities.push(@city_name)
+    end
+
+
 		@graph = Koala::Facebook::API.new(@access_token)		
 		super
 	end

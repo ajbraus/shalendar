@@ -63,7 +63,7 @@ class EventsController < ApplicationController
   def show
     @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
                                          relationships.confirmed = false ", current_user_id: current_user.id)
-    
+
     @event = Event.find(params[:id])
     @guests = @event.guests
     
@@ -81,7 +81,7 @@ class EventsController < ApplicationController
 
     @access_token = session[:access_token]
     @graph = Koala::Facebook::API.new(@access_token)
-    @comments = @event.comments.order "created_at desc"
+    @comments = @event.comments.order("created_at desc")
 
     respond_to do |format|
       format.html # show.html.erb

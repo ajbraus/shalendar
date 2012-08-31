@@ -4,7 +4,8 @@ class Api::V1::TokensController  < ApplicationController
   
   def create
     if params[:access_token]
-      auth = env["omniauth.auth"]
+      email_handle = params[:email].slice('@')
+      auth = HTTParty.get("https://graph.facebook.com/#{email_handle}/access_token?#{params[:access_token]}")
       email = auth.info.email
       uid = auth.uid
       provider = auth.provider

@@ -8,6 +8,8 @@ class ShalendarController < ApplicationController
     @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
                                          relationships.confirmed = false ", current_user_id: current_user.id)
 
+    @next_plan = current_user.plans.order("starts_at desc").last
+    
     if params[:search]
       @users = User.search(params[:search]).limit(5)
       respond_to do |f|

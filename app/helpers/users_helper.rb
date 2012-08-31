@@ -25,13 +25,18 @@ module UsersHelper
     event.starts_at.strftime "%l:%M%P, %A %B %e"
   end
 
-  def start_time_hour(event)
-    event.starts_at.strftime("%l")
+  def event_start_time(event)
+    event.starts_at.strftime("%l:%M%P")
   end
 
-  def start_time_min(event)
-    event.starts_at.strftime("%M")
+  def event_end_time(event)
+    event.ends_at.strftime("%l:%M%P")
   end 
+
+  def next_event_date(event)
+    event.starts_at.strftime("%A %B %e")
+  end
+
 
   def gravatar_for(user, options = { size: 50, })
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)

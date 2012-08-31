@@ -1,20 +1,17 @@
 <tr>
+	<td>
 	<% if current_user.rsvpd?(event) %>
-	<td class="event plan" data-event-id="<%= event.id %>"> <a href="/events/<%= event.id %>">
+	<div class="event plan" data-event-id="<%= event.id %>"> <a href="/events/<%= event.id %>">
 	<% else %>
-	<td class="event idea" data-event-id="<%= event.id %>"> <a href="/events/<%= event.id %>">
+	<div class="event idea" data-event-id="<%= event.id %>"> <a href="/events/<%= event.id %>">
 	<% end %>
-		<table>
-			<tr>
-				<td width="18px" rowspan="2"><%= start_time_hour(event) %><br /><%= start_time_min(event) %></td>
-				<td width="45px" rowspan="2"><%= raster_profile_picture(event.user) %></td>
-				<td width="120px" height="37px" style="vertical-align:top;"><%= event_blerb(event) %></td>
-			</tr>
-			<tr>
-				<td height="15" colspan="3"><span title="Inviter: <%= User.find_by_id(event.inviter_id).name %>"><i class="icon-envelope"></i></span> <i class="icon-group"></i> <%= "#{friends_attending(event)}" %> </td>
-				<td height="15" ><span class="guest-count"><%= event.guests.count%></span>/<%= event.min %></td>
-				<td height="15"><%= render :partial => "rsvp_check", :locals => { :event => event } %></td>
-			</tr>
-		</table>
-	</a></td>
+		<div class="event_time"><%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>
+		<div class="event_pic"><%= raster_profile_picture(event.user) %></div>
+		<div class="event_blerb"><%= event_blerb(event) %></div>
+		<div class="friends_attending"><i class="icon-group"></i> <%= "#{friends_attending(event)}" %></div>
+		<div class="guest_count right"><span class="guest-count"><%= event.guests.count%></span>/<%= event.min %></div>
+		<div class="rsvp_check right"><%= render :partial => "rsvp_check", :locals => { :event => event } %></div>
+		<div class="host right">Host: <%= event.user.name %></div>
+	</div>
+</a></td>
 </tr>

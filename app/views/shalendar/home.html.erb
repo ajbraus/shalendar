@@ -2,14 +2,14 @@
 	<aside>
 		<%= render 'layouts/logo_and_user' %>
 	  <%= render 'search' %>
-	  <span class="grey_italics" style="font-size:14px;margin-top:5px;">
+	  <span class="grey_italics small">
 	  	Click pics to show/hide user's ideas
 	  </span>
 	  <%= render 'raster' %>
 	  <%= render 'fb_button' %>
 	</aside>
 	<div class="container">
-		<%= render 'ribbon' %>
+		<%= render 'ribbon', :locals => { :next_plan => @next_plan } %>
 		<%= render 'forecast' %>
 	</div>
 </div>

@@ -29,6 +29,44 @@ Marketing:
 	tip this event
 		after event tipped just show number of folks comming
 
+	Mobile local registration
+
+	update user name and city upon fblogin
+
+	Side note: put_wall_post posts to user/feeds, which doesn’t include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
+
+	check all raster, uncheck all buttons
+		test
+
+	Post to facebook wall . . . not for private events
+	post to rsvps facebook wall of friends of RSVPs
+	
+	"link" field in event
+
+	Ajaxify everything - Monday
+		follow/unfollow
+		rsvp/unrsvp
+		visual indicator if invitation sent in find_friends
+
+
+		AFTER BETA
+			confirmations - remove follower, cancel account
+			toggle/untoggle raster pics
+			comments
+			Invitation raster
+			
+		DONE: rsvp_check/unrsvp_check
+		DONE: Search name/email - Adam
+
+
+	Event
+		Face is inviter, host name to the side
+
+	Event#show
+		rethink tipped visual indication
+		links in fyis
+
+
 	Notifiers - Adam
 		Welcome
 			Home
@@ -59,10 +97,18 @@ Marketing:
 		block emails from this user
 		change notification settings
 		add SMS
-	
-	Mobile local registration
 
-	update user name and city upon fblogin
+	log city add to new/edit registrations -- needs to sync w facebook 
+
+	new event form not showing validation errors
+
+	not getting current_user in edit_form
+
+	Agent call - if android/iPhone download our app.
+	
+	Add logo to Post to FB wall - Adam
+	
+	make it so you only call for the @city_friends once from the database
 
 	.layout => height:auto;
 
@@ -70,49 +116,6 @@ Marketing:
 	map bug -google.maps.event.trigger(map, 'resize');
 	modernizr?
 
-	not getting current_user in edit_form
-
-	check all raster, uncheck all buttons
-		test
-
-	Event
-		Face is inviter, host name to the side
-
-	Event#show
-		rethink tipped visiual indication
-		links in fyis
-
-	log city add to new/edit registrations -- needs to sync w facebook 
-
-	Post to facebook wall . . . not for private events
-	post to rsvps facebook wall of friends of RSVPs
-	
-	"link" field in event
-
-	Ajaxify everything - Monday
-		follow/unfollow
-		rsvp/unrsvp
-		visual indicator if invitation sent in find_friends
-
-
-		AFTER BETA
-			confirmations - remove follower, cancel account
-			toggle/untoggle raster pics
-			comments
-			Invitation raster
-			
-		DONE: rsvp_check/unrsvp_check
-		DONE: Search name/email - Adam
-
-	new event form not showing validation errors
-	
-	Side note: put_wall_post posts to user/feeds, which doesn’t include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
-
-	Agent call - if android/iPhone download our app.
-	
-	Add logo to Post to FB wall - Adam
-	
-	make it so you only call for the @city_friends once from the database
 
 	Mike:
 	

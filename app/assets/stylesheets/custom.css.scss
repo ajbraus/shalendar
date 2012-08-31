@@ -29,7 +29,7 @@ html {
 }
 
 body {
-
+  font-size: 15px;
 }
 
 ul {
@@ -280,10 +280,11 @@ span.red a {
 .logo {
   margin-top: 17px;
   padding: 10px 0;
-  border-bottom:.5px solid lightgrey;
-  width:220px;
-  float:left;
-  height: 100px;
+  border-bottom: 1px solid lightGrey;
+  width: 206px;
+  float: left;
+  height:102px;
+  margin-bottom: 13px;
   a {
     float:center;
     color:white;
@@ -356,6 +357,7 @@ font-family: 'Quando', serif;
   margin-right:auto;
   padding-left: 60px;
   padding-right: 30px;
+  position: absolute;
 }
 
 .container {
@@ -374,9 +376,7 @@ font-family: 'Quando', serif;
 
 aside {
   height:600px;
-  margin-top:17px;
-  padding: 10px 0;
-  width:290px;
+  width:220px;
   float:left;
   &:first-child {
     border: 0;
@@ -385,7 +385,6 @@ aside {
   span {
     display: block;
     margin-bottom: 3px;
-    line-height: 1;
   }
   h1 {
     font-size: 1.6em;
@@ -398,25 +397,26 @@ aside {
   }
   input[type=text] {
     margin-right:0px;
-    width: 213px;
+    width: 160px;
     margin-right: -5px;
     -webkit-border-radius: 5px 0 0 5px;
     -moz-border-radius: 5px 0 0 5px;
     border-radius: 5px 0 0 5px;
-    padding:9.5px;
+    padding:10px;
     outline:none;
-    font-size: 15px;
+    font-size: 12px;
     position: relative;
     top: 2px;
+    margin:5px -5px 5px 0;
   }
   input[type=submit] {
     -webkit-border-radius: 0 5px 5px 0;
     -moz-border-radius: 0 5px 5px 0;
     border-radius: 0 5px 5px 0;
-    height:40px;
-    width:50px;
+    height: 36.5px;
+    width: 38px;
     position: relative;
-    top: 5px;
+    top: 15.5px;
   }
 }
 
@@ -447,19 +447,24 @@ aside {
 
 
 .stats {
-  margin:10px 0 17px 0;
-  font-size: 19px;
+  margin:10px 0 0px 0;
+  font-size: 14.5px;
+  width:98%;
   a {
-    width:22%;
+    width:32%;
     text-decoration: none;
     float: left;
     padding: 0 10px;
     border-left: 1px solid $grayLighter;
     color: gray;
     &:first-child {
-      padding-left: 0;
+      margin-right:-36px;
       border: 0;
-    }
+      padding-left:2px;
+      }
+    &:last-child {
+      padding-right:0px;
+      }
     &:hover {
       text-decoration: none;
       color: black;
@@ -468,22 +473,15 @@ aside {
   strong {
     display: block;
     color:black;
-    font-weight: 900;
+    font-weight: 600;
     font-size: 19px;
   }
 }
 
-#view_requests {
-  color:black;
-  width:auto;
-  position: relative;
-  bottom: 14px;
-  u {
-    color:darkgreen;
-    font-size: 28px;
-    text-decoration: none;
-  }
+#view_search {
+  margin-top:-5px;
 }
+
 
 /* raster */
 
@@ -513,20 +511,35 @@ aside {
 
 #datepicker {
   float:right;
-  width:510px;
+  width:586px;
+  font-size:13px; 
+  position: relative;
+  left:80px;
   table{
     float:left;
-    width:5%;
+    width:4.5%;
+    td {
+      text-align: center;
+    }
+  }
+  a {
+    color:black;
+    &:hover {
+      color:black;
+    }
   }
 }
 
 .btn_new_idea {
-  width: 47px;
+  width: 90px;
   margin: 6px 0px;
   height: 50px;
   text-align: center;
-  line-height: 27px;
-  float:left;
+  line-height: 44px;
+  padding: 7px 6px;
+  position: relative;
+  left: 40px;
+  bottom: 10px;
 }
 
 #new_idea {
@@ -542,9 +555,11 @@ aside {
 /* Forecast */
 
 #forecast {
-  width:900px;
-  height:600px;
+  width:920px;
+  height:740px;
   float:right;
+  position: relative;
+  left: 46px;
   > table{
     width:30%;
     float:left;
@@ -557,10 +572,12 @@ aside {
 }
 
 .event {
-  padding:5px;
+  padding:3px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+  height:72px;
+  width: 261px;
 }
 
 .plan {
@@ -571,6 +588,81 @@ aside {
 .idea {
   background-color: lightblue;
   border:1px solid lightgrey;
+}
+
+.event_time {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  /*opacity:.8;*/
+  color: white;
+  background-color: #383838;
+  padding:0 9px;
+  float:left;
+}
+
+.event_pic {
+  float:left;
+  margin-right:3px;
+  margin-top:3px;
+}
+
+.event_blerb {
+  float:left;
+  margin-top:3px;
+  width: 169px;
+  height: 34px;
+  margin-right: 38px;
+}
+
+.friends_attending {
+  margin-left:2px;
+}
+
+.right {
+  float:right;
+}
+
+.host {
+  font-size: 11px;
+  font-style: italic;
+  color: darkgrey;
+  position: relative;
+  top: 3px;
+  right: 33px;
+}
+
+
+/* NEXT PLAN */
+
+.next_plan {
+  width: 203px;
+  position: absolute;
+  left: 438px;
+  top:1px;
+  a {
+    color:black;
+  }
+}
+
+.next_plan_time {
+  width:100%;
+  padding:0 10px;
+  -webkit-border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0 ;
+  border-radius: 5px 5px 0 0;
+  background: #7db9e8; /* Old browsers */
+  background: -moz-linear-gradient(top,  #7db9e8 0%, #2989d8 50%, #1e5799 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7db9e8), color-stop(50%,#2989d8), color-stop(100%,#1e5799)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #7db9e8 0%,#2989d8 50%,#1e5799 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #7db9e8 0%,#2989d8 50%,#1e5799 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #7db9e8 0%,#2989d8 50%,#1e5799 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #7db9e8 0%,#2989d8 50%,#1e5799 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#1e5799',GradientType=0 ); /* IE6-9 */
+}
+
+.next_event_blerb {
+  width:80px;
 }
 
 .btn_icon {
@@ -604,11 +696,12 @@ aside {
 footer {
   margin-left: 10%;
   margin-right: 10%;
-  margin-top:10px;
   padding-top: 18px;
   border-top: 1px solid lightGrey;
-  margin-bottom: 20px;
   color: #9C9C9C;
+  position: absolute;
+  top: 882px;
+  width: 1060px;
   a {
     float:left;
     font-size: 20px;
@@ -641,6 +734,7 @@ footer {
 /* miscellaneous */
 
 .alert {
+  position:absolute;
   padding: 8px 35px 8px 14px;
   margin-bottom: 7px;
   margin-top: 7px;
@@ -652,7 +746,8 @@ footer {
   border-radius: 4px;
   color: goldenrod;
   width: auto;
-  margin-left: 25px;
+left: 297px;
+
 }
 
 .warning

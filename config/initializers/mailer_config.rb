@@ -7,6 +7,3 @@ ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = email_settings[Rails.env] unless email_settings[Rails.env].nil?
 
 ActionMailer::Base.register_interceptor(DevelopmentMailInterceptor) if Rails.env.development?
-
-
-

@@ -214,7 +214,7 @@ class User < ActiveRecord::Base
     @date_plans = []
     @plans.each do |p|
       if p.starts_at.to_date == load_date
-        p.inviter_id = self.id
+        p.inviter_id = p.user.id
         @date_plans.push(p)
       end
     end
