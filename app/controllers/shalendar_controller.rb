@@ -38,6 +38,7 @@ class ShalendarController < ApplicationController
       #   f.js { render "forecast" }
       # end
     end
+    @forecastoverview = current_user.forecastoverview
 
 	end
 

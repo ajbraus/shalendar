@@ -6,7 +6,6 @@ class Api::V1::EventsController < ApplicationController
     raw_datetime = DateTime.parse(params[:date])
     @mobile_user = User.find_by_id(params[:user_id])
     @events = @mobile_user.mobile_events_on_date(raw_datetime.to_date)#Need to check timezone here
-
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []
     @events.each do |e|

@@ -190,9 +190,6 @@ class User < ActiveRecord::Base
       @daycast = [@morning_events, @afternoon_events, @evening_events]
       @forecast.push(@daycast)
     end
-
-    #@forecast = [[@morning_events][@afternoon_events][]]
-
     return @forecast
   end
 
@@ -214,7 +211,7 @@ class User < ActiveRecord::Base
     @date_plans = []
     @plans.each do |p|
       if p.starts_at.to_date == load_date
-        p.inviter_id = self.id
+        p.inviter_id = p.user.id
         @date_plans.push(p)
       end
     end
@@ -259,6 +256,59 @@ class User < ActiveRecord::Base
     end
 
     return @date_ideas | @toggled_invitation_events | @date_plans | @date_events
+  end
+
+
+  def forecastoverview
+    @forecastoverview = []
+    (-3..21).each do |i|
+      @datecounts = []
+      @new_date = Date.strptime(Date.today, "%Y-%m-%d") + i
+      @ideacount = self.idea_count_on_date(@new_date)
+      @plancount = self.plan_count_on_date(@new_date)
+      @datecounts.push(@ideacount)
+      @datecounts.push(@plancount)
+      @forecastoverview.push(@datecounts)
+    end
+    return @forecastoverview
+  end
+
+  #these could be maintained on RSVP/unRSVP... maybe
+  def plan_count_on_date(load_date)
+    @plancount = 0
+    self.plans.each do |p|
+      if p.starts_at.to_date == load_date
+        @plancount = @plancount + 1
+      end
+    end
+    return @plancount
+  end
+
+  def idea_count_on_date(load_date)
+    @ideacount = 0
+
+    @invitations = Invite.where('invites.email = :current_user_email', current_user_email: self.email)
+    @invitations.each do |i|
+      @ie = Event.find_by_id(i.event_id)
+      if @ie.starts_at.to_date == load_date
+        unless self.rsvpd?(@ie)
+          @ideacount = @ideacount + 1
+        end
+      end
+    end
+
+    self.followed_users.each do |f|
+      f.plans.each do |fp| #for friends of friends events that are RSVPd for
+        if fp.starts_at.to_date == load_date
+          unless fp.visibility == "invite_only" || self.rsvpd?(fp) || self.invited?(fp)
+            if fp.user == f || fp.visibility == "friends_of_friends"
+              @ideacount = @ideacount + 1
+            end
+          end
+        end
+      end
+    end
+    return @ideacount
   end
 
   def mobile_events_on_date(load_date)#don't care about toggled here, do it locally on client
