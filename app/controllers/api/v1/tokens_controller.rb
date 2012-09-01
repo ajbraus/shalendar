@@ -4,13 +4,15 @@ class Api::V1::TokensController  < ApplicationController
   
   def create
     if params[:access_token]
-      email_handle = params[:email].slice('@')
-      auth = HTTParty.get("https://graph.facebook.com/#{email_handle}/access_token?#{params[:access_token]}")
-      email = auth.info.email
-      uid = auth.uid
-      provider = auth.provider
-      access_token = params[:access_token]
-      auth_attr = { :uid => uid, :token => access_token, :secret => nil }
+      # Handle login from mobile FB
+      email = params[:email]
+      # email_handle = params[:email].slice('@')
+      # auth = HTTParty.get("https://graph.facebook.com/#{email_handle}/access_token?#{params[:access_token]}")
+      # email = auth.info.email
+      # uid = auth.uid
+      # provider = auth.provider
+      # access_token = params[:access_token]
+      # auth_attr = { :uid => uid, :token => access_token, :secret => nil }
 
       if params[:email].nil?
          render :status=>400,

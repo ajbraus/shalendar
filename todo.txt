@@ -114,6 +114,12 @@ LOW PRIORITY
 
 --------------------General ideas:----------------
 
+**IDeas from Jack: community + your events, display each in different sections. Give ppl 'credits', pay one to post any event, pay five for community event. Get points for a tipped event. Events around influential ppl. ----- Feed on right side of new event with other events of same type/tag. See other e.g. soccer games/camping trips. In 'didn't tip' notifier, send other ideas.
+
+People set a price they're willing to pay- use to get group discounts on e.g. paintballing, rent a soccer field, rent equipment. could have ppl set a max, and tip on $ instead of ppl. Get enough ppl for hockey team, 'register a soccer team', 
+
+Venues/resorts/... can put up events that only happen if they get enough interest, or that are cheaper based on how many ppl join and thus everyone going has incentive to tell people while the place is guaranteed to make money or have no costs!!!!
+
 More integration with facebook -- invitation creates facebook message . . . option to create facebook message / facebook event. In app app?
 
 user experience of curating invites/groups - don't just select a new type of event
