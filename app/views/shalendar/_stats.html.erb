@@ -1,6 +1,6 @@
 <div class="stats">
   <a href="<%= manage_follows_path %>">
-    <strong id="following" class="stat">
+    <strong id="event_count" class="stat">
       <%= current_user.events.count %>
     </strong>
     ideas
@@ -12,7 +12,7 @@
     subscribing
   </a>
   <a href="<%= manage_follows_path %>">
-    <strong id="" class="stat">
+    <strong id="followers" class="stat">
       <%= current_user.followers.count %>
     </strong>
     subscribers

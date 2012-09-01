@@ -12,14 +12,6 @@ class Api::V1::TokensController  < ApplicationController
       access_token = params[:access_token]
       auth_attr = { :uid => uid, :token => access_token, :secret => nil }
 
-      # binding.pry
-      # auth = request.env["omniauth.auth"]
-      # email = auth.info.email
-      # uid = auth.uid
-      # provider = auth.provider
-      #access_token = params[:access_token]
-      # auth_attr = { :uid => uid, :token => access_token, :secret => nil }
-
       if params[:email].nil?
          render :status=>400,
                 :json=>{:message=>"The request must contain the user email and FB access token."}

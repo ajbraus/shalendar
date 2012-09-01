@@ -141,9 +141,6 @@ ul, li {
   background:-moz-linear-gradient( center top, #f77740 5%, #f0976e 100% );
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f77740', endColorstr='#f0976e');
   background-color:#f77740;
-}.btn-primary:active {
-  position:relative;
-  top:1px;
 }
 
 .btn_stop_viewing {
@@ -413,10 +410,11 @@ aside {
     -webkit-border-radius: 0 5px 5px 0;
     -moz-border-radius: 0 5px 5px 0;
     border-radius: 0 5px 5px 0;
-    height: 36.5px;
-    width: 38px;
+    height: 36px;
+    width: 37px;
     position: relative;
-    top: 15.5px;
+    top: 2.5px;
+    padding:0;
   }
 }
 
@@ -425,7 +423,6 @@ aside {
 }
 
 #search_results {
-  position: absolute;
   background-color: white;
   color:black;
   height:auto;
@@ -436,11 +433,12 @@ aside {
   border:1px solid #BBB;
   z-index: 5;
   width:265px;
+  position: absolute;
   input[type=submit] {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    width:119px;
+    width:94px;
   }
 }
 /* stats */
@@ -513,11 +511,14 @@ aside {
   float:right;
   width:586px;
   font-size:13px; 
+  height: 78px;
   position: relative;
-  left:80px;
+  bottom: 8px;
+  left:100px;
   table{
     float:left;
     width:4.5%;
+    height:100%;
     td {
       text-align: center;
     }
@@ -536,10 +537,10 @@ aside {
   height: 50px;
   text-align: center;
   line-height: 44px;
-  padding: 7px 6px;
+  padding: 11px 0px;
   position: relative;
   left: 40px;
-  bottom: 10px;
+  bottom: 18px;
 }
 
 #new_idea {
@@ -549,6 +550,7 @@ aside {
   padding:30px;
   padding-bottom:20px;
   padding-top:0px;
+
 }
 
 
@@ -636,10 +638,10 @@ aside {
 /* NEXT PLAN */
 
 .next_plan {
-  width: 203px;
-  position: absolute;
-  left: 438px;
-  top:1px;
+width: 224px;
+position: absolute;
+left: 432px;
+top: 1px;
   a {
     color:black;
   }
@@ -662,7 +664,8 @@ aside {
 }
 
 .next_event_blerb {
-  width:80px;
+  width: 171px;
+height: 41px;
 }
 
 .btn_icon {

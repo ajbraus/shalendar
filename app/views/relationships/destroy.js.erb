@@ -1,0 +1,2 @@
+$("#follow_form").html("<%= escape_javascript(render('events/follow')) %>")
+$("#following").html("<%= current_user.followed_users.count %>")

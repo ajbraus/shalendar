@@ -2,21 +2,18 @@ class RelationshipsController < ApplicationController
 before_filter :authenticate_user!
 
   def create
-    if params[:email] != nil
-      @user = User.find_by_email(params[:email])
-    else
-      @user = User.find(params[:relationship][:followed_id])
-    end
-    # TO TRY AND STOP FOLLOWING YOURSELF
-    # if @user == current_user
-    #   flash[:notice] = 'Already viewing yourself!'
+     @user = User.find(params[:relationship][:followed_id])
+
     if @user.require_confirm_follow?
       Notifier.confirm_follow(@user, current_user)
       current_user.follow!(@user)
       @relationship = Relationship.last #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
       @relationship.confirmed = false
       if @relationship.save
-        redirect_to :back, notice: "View request sent to #{@user.name}"
+        respond_to do |format|
+         format.html { redirect_to :back, notice: "View request sent to #{@user.name}" }
+         format.js
+        end
       else
         redirect_to :back, notice: "Couldn't View #{@user.name}'s ideas"
       end
@@ -26,7 +23,10 @@ before_filter :authenticate_user!
       @relationship = Relationship.last
       @relationship.confirmed = true
       if @relationship.save
-        redirect_to :back, notice: "Now you're viewing #{@user.name}'s ideas"
+        respond_to do |format|
+         format.html { redirect_to :back, notice: "View request sent to #{@user.name}" }
+         format.js
+        end
       else
         redirect_to :back, notice: "Couldn't View #{@user.name}'s ideas"
       end
@@ -36,8 +36,10 @@ before_filter :authenticate_user!
   def destroy
     @user = Relationship.find(params[:id]).followed
     current_user.unfollow!(@user)
-    redirect_to :back, 
-                notice: "#{@user.name} can no longer view your ideas"
+    respond_to do |format|
+     format.html { redirect_to :back, notice: "#{@user.name} can no longer view your ideas" }
+     format.js
+    end
   end
 
   def remove

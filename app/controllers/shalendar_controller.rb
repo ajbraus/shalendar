@@ -9,6 +9,7 @@ class ShalendarController < ApplicationController
                                          relationships.confirmed = false ", current_user_id: current_user.id)
 
     @next_plan = current_user.plans.order("starts_at desc").last
+    @forecastoverview = current_user.forecastoverview
     
     if params[:search]
       @users = User.search(params[:search]).limit(5)
@@ -40,7 +41,6 @@ class ShalendarController < ApplicationController
       #   f.js { render "forecast" }
       # end
     end
-    @forecastoverview = current_user.forecastoverview
 
 	end
 

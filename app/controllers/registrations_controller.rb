@@ -11,6 +11,12 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
+        @all_cities = City.all
+    @cities = []
+    @all_cities.each do |c|
+      @city_name = c.name
+      @cities.push(@city_name)
+    end
     super
     #binding.pry
   end
