@@ -5,8 +5,8 @@ class Api::V1::RsvpsController < ApplicationController
     @event = Event.find_by_id(params[:event_id])
     @user = User.find_by_id(params[:user_id])
     @user.rsvp!(@event)
-    if @event.guests.count == @event.min
-      Notifier.event_tipped(@event).deliver
+    if @event.guests.count >= @event.min && @event.tipped? == false
+      @event.tip!
     end
     render :json=> {:success=>true}, :status=>201
   end

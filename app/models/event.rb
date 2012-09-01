@@ -64,8 +64,13 @@ class Event < ActiveRecord::Base
     Time.at(date_time.to_i).to_formatted_s(:db)
   end
 
+  def tip!
+    self.tipped = true
+    Notifier.event_tipped(@event).deliver
+  end
+  
   def tipped?
-    self.guests.count >= self.min
+    self.tipped
   end
 
   def full?

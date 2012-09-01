@@ -4,8 +4,9 @@ class RsvpsController < ApplicationController
   def create
     @event = Event.find(params[:rsvp][:plan_id])
     current_user.rsvp!(@event)
-    if @event.guests.count == @event.min
-      Notifier.event_tipped(@event).deliver
+    if @event.guests.count == @event.min && @event.tipped? == false
+      binding.pry
+      @event.tip!
     end
 
     respond_to do |format|
