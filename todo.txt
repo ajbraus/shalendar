@@ -44,8 +44,13 @@ AFTER BETA LAUNCH
 	
 -------- Features To Add ------
 
-	1. payment gateway
-	2. premier accounts
+	1. subscribers ?
+	2. offers accounts
+		a. event.offer?
+		c. background image on event
+		d. percentage structure (per users)
+		e. PCI compliant database (spreedly core call paypal to setup escrow payments)
+
 	3. SDK - follow us on hoos.in
 	3. 	Twilio:
 		add phone number to user in DB
@@ -54,6 +59,14 @@ AFTER BETA LAUNCH
 		add phone number in settings page
 		add user boolean for receiving text messages
 		Text message invitations to join calenshare for an event
+
+
+	Offers and Subscribers
+
+	Setup Offers Account - credit card
+
+
+
 
 	put everything in header?
 
