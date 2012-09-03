@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120903151245) do
+ActiveRecord::Schema.define(:version => 20120903211658) do
 
   create_table "apn_devices", :force => true do |t|
     t.string   "token",              :null => false
@@ -151,6 +151,8 @@ ActiveRecord::Schema.define(:version => 20120903151245) do
     t.boolean  "notify_event_reminders",    :default => true
     t.string   "authentication_token"
     t.boolean  "post_to_fb_wall",           :default => true
+    t.string   "APNtoken"
+    t.boolean  "iPhone_user",               :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
