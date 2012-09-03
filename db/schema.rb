@@ -13,30 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20120903211658) do
 
-  create_table "apn_devices", :force => true do |t|
-    t.string   "token",              :null => false
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-    t.datetime "last_registered_at"
-  end
-
-  add_index "apn_devices", ["token"], :name => "index_apn_devices_on_token", :unique => true
-
-  create_table "apn_notifications", :force => true do |t|
-    t.integer  "device_id",                        :null => false
-    t.integer  "errors_nb",         :default => 0
-    t.string   "device_language"
-    t.string   "sound"
-    t.string   "alert"
-    t.integer  "badge"
-    t.text     "custom_properties"
-    t.datetime "sent_at"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
-  end
-
-  add_index "apn_notifications", ["device_id"], :name => "index_apn_notifications_on_device_id"
-
   create_table "authentications", :force => true do |t|
     t.string   "provider"
     t.string   "uid"

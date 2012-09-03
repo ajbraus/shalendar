@@ -37,6 +37,8 @@ class Api::V1::EventsController < ApplicationController
     #could add invites here, and/or comments
     @event = Event.find_by_id(params[:event_id])
     @mobile_user = User.find_by_id(params[:user_id])
+    APN.notify('41420189 83371275 405b4547 a0c2fa97 cec540a8 63b18365 094cfb52 79e36eba', :alert => 'PUSH MESSAGE', :badge => 4, :sound => true)
+
     render json: { 
         :eid => @event.id,
         :title => @event.title,  
