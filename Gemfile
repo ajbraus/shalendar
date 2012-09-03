@@ -15,6 +15,9 @@ gem 'thin'
 gem 'chronic'
 gem 'twilio-rb'
 
+gem 'apn_on_rails'
+gem 'resque'
+
 gem 'heroku'
 
 gem 'whenever', :require => false

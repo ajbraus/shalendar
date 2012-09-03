@@ -18,7 +18,11 @@ Design:
 		UnRSVPed - greyed out
 	Landing page
 
-
+	**thoughts from scott:
+		get some background for divs, grass on bottom, html5 bird periodically
+		a little more concrete
+		put out to art students on UW job boards
+		
 Add FB events - Adam
 
 	MIKE//////

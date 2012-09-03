@@ -30,6 +30,7 @@ class Api::V1::TokensController  < ApplicationController
       else 
         #create a new user from the FB access token + email
         render :status=>400, :json=>{:message=>"There was an error. Check your Facebook account status and retry."}
+        returnx
       end
 
     else
@@ -46,7 +47,7 @@ class Api::V1::TokensController  < ApplicationController
          return
       end
       @user=User.find_by_email(email.downcase)
-
+      logger.info("User #{@user.id} found.")
       if @user.nil?
         logger.info("User #{email} failed signin, user cannot be found.")
         render :status=>401, :json=>{:message=>"Invalid email or passoword."}
@@ -57,6 +58,7 @@ class Api::V1::TokensController  < ApplicationController
       if not @user.valid_password?(password)
         logger.info("User #{email} failed signin, password \"#{password}\" is invalid")
         render :status=>401, :json=>{:message=>"Invalid email or password."}
+        return
       end
     end
 
@@ -184,6 +186,18 @@ class Api::V1::TokensController  < ApplicationController
       user.save
       return user
     end
+  end
+
+  def APNtoken
+
+
+
+  end
+
+  def GCMtoken
+    token = params[:gcm_token]
+
+
   end
 end
 
