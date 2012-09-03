@@ -1,5 +1,5 @@
 <div id="ribbon">
-	<a class="btn-primary btn_new_idea" href="#new_idea">New Idea</a>
+	<a class="btn_new_idea" href="#new_idea"></a>
 	<%= render 'new_idea_form' %>
 	<% if @next_plan %>
 		<%= render 'next_plan', event: @next_plan %>
@@ -10,15 +10,15 @@
 		<table>
 			<tr>
 				<th>
-					<%= i == 0 ? "Today" : (Date.today + i).strftime("%a").slice!(0..1) %>
+					<%= i == 0 ? raw("<span class='red'>T</span>") : (Date.today + i).strftime("%a").slice!(0..1) %>
 		  	</th>
 		  </tr>
 		  <tr>
-		  	<td>
+		  	<td class="ideas_cloud">
 		  		<%= @forecastoverview[i+3][0] %>
 		  	</td>
 		  </tr>
-		  	<td>
+		  	<td class="plan_box">
 		  		<%= @forecastoverview[i+3][1] %>
 		  	</td>
 		  </tr>

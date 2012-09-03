@@ -6,9 +6,11 @@ $(document).ready(function() {
 // user settings icon
 	$("#user-settings").hover(function(){
 		$(".user_settings").show();
+		$(".logout").show();
 	},
 		function(){
 		$(".user_settings").hide();
+		$(".logout").hide();
 	});
 
 
@@ -21,7 +23,7 @@ $(document).ready(function() {
 // new idea visibility/map show/hide
 
   $("#addLink").click(function () {
-   $('#addLinkp').slideToggle();
+   $("#addLinkp").slideToggle();
   });
 
   $("#addmap").click(function () {

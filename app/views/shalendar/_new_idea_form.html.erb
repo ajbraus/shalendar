@@ -21,7 +21,7 @@
 			  </span>
 			  <span>
 			    <%= f.label :max_attendees, "Max RSVPs" %> <br/>
-			    http://<%= f.text_field :max, :class => 'input-mini', value: 50 %>
+			    <%= f.text_field :max, :class => 'input-mini', value: 50 %>
 			  </span>
 			</div>
 
@@ -37,7 +37,7 @@
 
 			<div id="addLinkp" style="display: none;">
 				<%= label_tag "Link" %></br>
-				<%= f.text_field :link %>
+				<%= f.text_field :link, :value => "http://" %>
 			</div>
 
 			<div id="addmapp" style="display: none;">
