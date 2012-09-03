@@ -309,6 +309,7 @@ DEPENDENCIES
   pry
   pry-debugger
   rails (= 3.2.6)
+  redis
   resque
   rspec-rails (= 2.10.1)
   sass-rails (= 3.2.4)

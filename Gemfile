@@ -18,6 +18,7 @@ gem 'twilio-rb'
 gem 'apn_sender', :require => 'apn'
 gem 'daemons'
 gem 'resque'
+gem 'redis'
 
 gem 'heroku'
 
