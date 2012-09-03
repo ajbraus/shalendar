@@ -25,8 +25,7 @@ class Api::V1::ShalendarController < ApplicationController
                                     :notify_r=>@user.notify_event_reminders,
                                     :notify_n=>@user.notify_noncritical_change,
                                     :post_wall=>@user.post_to_fb_wall,
-                                    :followed_users=>@followed_users,#may put these in separate calls for speed of login
-                                    #:followers=>@followers,
+                                    :followed_users=>@user.followed_users,
                                     :invites=>@invites
                                     }
                                  }
