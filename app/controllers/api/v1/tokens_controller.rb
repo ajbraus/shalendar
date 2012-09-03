@@ -156,13 +156,20 @@ class Api::V1::TokensController  < ApplicationController
     end
   end
 
-  def APNtoken
-
-
+  def newAPNtoken
+    token = params[:apn_token]
+    device = APN::Device.create(:token => "XXXX XXXX XXXXX XXXX XXXX .... XXXX")   
+    
+    notification = APN::Notification.new   
+    notification.device = device   
+    notification.badge = 5   
+    notification.sound = true   
+    notification.alert = "My first push"   
+    notification.save  
 
   end
 
-  def GCMtoken
+  def newGCMtoken
     token = params[:gcm_token]
 
 
