@@ -1,7 +1,6 @@
 BUGS
 
- SQL calls. Refactor Event Filtering from Ruby->ActiveRecord
-	Full + Tipped bool on events model
+view from search button not changing to viewed until close search window
 
 Cron jobs environment set to production, don't know how to change, but still getting some output (pg_dump and also Event.check_tip_deadlines executing when dev server running.)
 

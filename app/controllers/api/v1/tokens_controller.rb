@@ -62,64 +62,32 @@ class Api::V1::TokensController  < ApplicationController
       end
     end
 
-
-    # THIS IS FOR SENDING FOLLOWED/FOLLOWER INFO FROM LOGIN
-    @followed_users = []
-    @user.followed_users.each do |fu|
-      r = @user.relationships.find_by_followed_id(fu.id)
+    @all_invites = Invite.where("invites.email = :current_user_email", current_user_email: @user.email)
+    @invites = []
+    @all_invites.each do |i|
       @temp = {
-        first_name: fu.first_name,
-        last_name: fu.last_name,
-        id: fu.id,
-        email_hex: Digest::MD5::hexdigest(fu.email.downcase),
-        confirmed: r.confirmed,
-        toggled: r.toggled
+        :eid => i.event_id,
+        :i => User.find_by_id(i.inviter_id)
       }
-      @followed_users.push(@temp)
-
-      #FOR FOLLOWERS, DON"T KNOW IF WE CARE
-      # @followers = []
-      # @user.followers.each do |f|
-      #   r = Relationship.where("follower_id = :followerid AND @followed_id = :followedid", 
-      #                           followerid: f.id, followedid: @user.id).last #should just be a find call
-      #   @temp = {
-      #     first_name: f.first_name,
-      #     last_name: f.last_name,
-      #     id: f.id,
-      #     email_hex: Digest::MD5::hexdigest(f.email.downcase),
-      #     confirmed: r.confirmed,
-      #     toggled: r.toggled
-      #   }
-      #   @followers.push(@temp)
-      # end
-      @all_invites = Invite.where("invites.email = :current_user_email", current_user_email: @user.email)
-      @invites = []
-      @all_invites.each do |i|
-        @temp = {
-          :eid => i.event_id,
-          :i => User.find_by_id(i.inviter_id)
-        }
-        @invites.push(@temp)
-      end
-
-      render :status=>200, :json=>{:token=>@user.authentication_token, 
-                                    :user=>{
-                                      :user_id=>@user.id,
-                                      :first_name=>@user.first_name,
-                                      :last_name=>@user.last_name,
-                                      :email_hex=> Digest::MD5::hexdigest(@user.email.downcase),
-                                      :confirm_f=>@user.require_confirm_follow,
-                                      :daily_d=>@user.daily_digest,
-                                      :notify_r=>@user.notify_event_reminders,
-                                      :notify_n=>@user.notify_noncritical_change,
-                                      :post_wall=>@user.post_to_fb_wall,
-                                      :followed_users=>@followed_users,#may put these in separate calls for speed of login
-                                      #:followers=>@followers,
-                                      :invites=>@invites
-                                      }
-                                   }
-
+      @invites.push(@temp)
     end
+
+    render :status=>200, :json=>{:token=>@user.authentication_token, 
+                                  :user=>{
+                                    :user_id=>@user.id,
+                                    :first_name=>@user.first_name,
+                                    :last_name=>@user.last_name,
+                                    :email_hex=> Digest::MD5::hexdigest(@user.email.downcase),
+                                    :confirm_f=>@user.require_confirm_follow,
+                                    :daily_d=>@user.daily_digest,
+                                    :notify_r=>@user.notify_event_reminders,
+                                    :notify_n=>@user.notify_noncritical_change,
+                                    :post_wall=>@user.post_to_fb_wall,
+                                    :followed_users=>@user.followed_users,#may put these in separate calls for speed of login
+                                    #:followers=>@followers,
+                                    :invites=>@invites
+                                    }
+                                 }
   end
 
   def destroy

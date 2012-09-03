@@ -14,7 +14,7 @@ class Api::V1::EventsController < ApplicationController
         @guestids.push(g.id)
       end
         @temp = {
-        :id => e.id,
+        :eid => e.id,
         :title => e.title,  
         :start => e.starts_at,
         :end => e.ends_at, 
@@ -36,7 +36,16 @@ class Api::V1::EventsController < ApplicationController
     #this will give mobile the info about the guests of the event
     #could add invites here, and/or comments
     @event = Event.find_by_id(params[:event_id])
-    render json: {  :eid => @event.id, :guests => @event.guests }
+    render json: { :eid => @event.id,
+        :title => e.title,  
+        :start => e.starts_at,
+        :end => e.ends_at, 
+        :gcnt => e.guests.count,  
+        :tip => e.min,  
+        :host => e.user,
+        :plan => @mobile_user.rsvpd?(e),
+        :gids => @guestids
+     :guests => @event.guests }
 
   end
 end

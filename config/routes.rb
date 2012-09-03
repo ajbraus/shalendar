@@ -35,6 +35,7 @@ Shalendar::Application.routes.draw do
         resources :relationships, :only => [:create, :destroy]
         resources :rsvps, :only => [:create, :destroy]
         
+        match '/get_user_info', :to => 'shalendar#get_user_info', :via => :get
         match '/APNtoken', :to=> 'tokens#APNtoken', :as => "APNtoken", :via => :post
         match '/user_events_on_date', :to => 'events#user_events_on_date', :as => "user_events_on_date", :via => :get
         match '/event_details', :to => 'events#event_details', :as => "event_details", :via => :get
