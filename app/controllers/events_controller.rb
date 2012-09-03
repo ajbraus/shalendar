@@ -67,7 +67,6 @@ class EventsController < ApplicationController
   def show
     @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
                                          relationships.confirmed = false ", current_user_id: current_user.id)
-
     @event = Event.find(params[:id])
     @guests = @event.guests
     
@@ -133,6 +132,16 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to home_path }
       format.json { head :no_content }
+    end
+  end
+
+  def tip
+    @event = Event.find(params[:event_id])
+    @event.tip!
+    @event.save
+    respond_to do |format|
+     format.html { redirect_to :back }
+     format.js
     end
   end
 

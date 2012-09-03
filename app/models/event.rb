@@ -20,7 +20,8 @@ class Event < ActiveRecord::Base
                   :map_location,
                   :chronic_starts_at,
                   :chronic_ends_at,
-                  :visibility
+                  :visibility,
+                  :link
 
   validates :user_id,
             :title,
@@ -35,6 +36,9 @@ class Event < ActiveRecord::Base
 
   validates :title, length: { maximum: 140 }
   validates :map_location, length: { maximum: 120 }
+
+  @url = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/ 
+  validates :link, :format => { :with => @url }
 
   #from bokmann fullcalendar event model
   scope :before, lambda {|end_time| {:conditions => ["ends_at < ?", Event.format_date(end_time)] }}
@@ -65,12 +69,10 @@ class Event < ActiveRecord::Base
   end
 
   def tip!
-    self.tipped = true
-    Notifier.event_tipped(@event).deliver
-  end
-  
-  def tipped?
-    self.tipped
+    if self.tipped? == false
+      self.tipped = true
+      Notifier.event_tipped(self).deliver
+    end
   end
 
   def full?

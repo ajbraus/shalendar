@@ -20,8 +20,8 @@ $(document).ready(function() {
 
 // new idea visibility/map show/hide
 
-  $("#visibility").click(function () {
-   $('#visibilityp').slideToggle();
+  $("#addLink").click(function () {
+   $('#addLinkp').slideToggle();
   });
 
   $("#addmap").click(function () {

@@ -21,11 +21,11 @@
 			  </span>
 			  <span>
 			    <%= f.label :max_attendees, "Max RSVPs" %> <br/>
-			    <%= f.text_field :max, :class => 'input-mini', value: 50 %>
+			    http://<%= f.text_field :max, :class => 'input-mini', value: 50 %>
 			  </span>
 			</div>
 
-			<div id="visibilityp" style="display: none;">
+			<div>
 			  <%= label_tag "Visibility" %><br/>
 				<%= f.radio_button :visibility, 'friends_of_friends' %>
 				<%= f.label :friends_of_friends, "Viewers of RSVPs" %>
@@ -33,6 +33,11 @@
 				<%= f.label :friends, "Viewers" %>
 				<%= f.radio_button :visibility, 'invite_only' %>
 				<%= f.label :invite_only, 'Invite only' %>
+			</div>
+
+			<div id="addLinkp" style="display: none;">
+				<%= label_tag "Link" %></br>
+				<%= f.text_field :link %>
 			</div>
 
 			<div id="addmapp" style="display: none;">
@@ -43,7 +48,7 @@
 			
 			<div>
 				<ul>
-				  <li id="visibility">Set Visibility</li> 
+				  <li id="addLink">Add Link</li> 
 				  <li>|</li>
 				  <li id="addmap">Add Map</li>
 				</ul>

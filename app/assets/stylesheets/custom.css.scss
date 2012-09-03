@@ -580,6 +580,7 @@ aside {
   border-radius: 4px;
   height:72px;
   width: 261px;
+  position: relative;
 }
 
 .plan {
@@ -600,7 +601,7 @@ aside {
   color: white;
   background-color: #383838;
   padding:0 9px;
-  float:left;
+  margin-left: 20px;
 }
 
 .event_pic {
@@ -619,21 +620,43 @@ aside {
 
 .friends_attending {
   margin-left:2px;
-}
-
-.right {
-  float:right;
+  width: 44px;
 }
 
 .host {
   font-size: 11px;
   font-style: italic;
-  color: darkgrey;
-  position: relative;
-  top: 3px;
-  right: 33px;
+  color: #4F4F4F;
+  position: absolute;
+  bottom: 3px;
+  right: 79px;
+  width: 86px;
+  overflow-x: hidden;
+  height: 14px;
 }
 
+.guest_count {
+  position:absolute;
+  right:21px;
+  width: 45px;
+  text-align: right;
+}
+
+.force_tip {
+  position: absolute;
+  right: 7px;
+  color:grey;
+  &:hover {
+    color:darkorange;
+  }
+}
+
+.rsvp_check {
+  position: absolute;
+  right: 7px;
+  bottom:2px;
+  width: 15px;
+}
 
 /* NEXT PLAN */
 
@@ -740,7 +763,6 @@ footer {
   position:absolute;
   padding: 8px 35px 8px 14px;
   margin-bottom: 7px;
-  margin-top: 7px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #FCF8E3;
   border: 1px solid #FBEED5;
@@ -748,8 +770,11 @@ footer {
   -moz-border-radius: 4px;
   border-radius: 4px;
   color: goldenrod;
-  width: auto;
-left: 297px;
+  width: 194px;
+  left: 432px;
+  z-index: 10;
+  height: 57px;
+
 
 }
 

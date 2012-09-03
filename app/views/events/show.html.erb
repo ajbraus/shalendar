@@ -25,6 +25,9 @@
     <%= @event.title %>
       <div id="when">At <%= start_time(@event) %> for <%= @event.duration %> hours</div>
   </div>
+  <div class="eventLink">
+    Link: <%= event_link(@event) %>
+  </div>
   <%= render 'nav_buttons' %>
   
   <% if @event.location != nil %>

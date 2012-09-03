@@ -2,8 +2,6 @@ TIMELINE:
 
 August 27- September 4
 
-**Added Event Tipped only once, but now AJAX not working on RSVP that will tip the event (but RSVP is happening if you reload the site)
-
 Marketing:
 	Reach out to 10 nodes - Mike/Adam
 		Adam-
@@ -31,8 +29,7 @@ Marketing:
 
 	Swag T.shirts & Biz cards & Window decals - Adam
 
-	tip this event
-		after event tipped just show number of folks comming
+	morning, noon, night
 
 	Mobile local registration
 
@@ -40,13 +37,12 @@ Marketing:
 
 	Post to facebook wall . . . not for private events
 	post to rsvps facebook wall of friends of RSVPs
-	
-	"link" field in event
 
 	Ajaxify everything - Monday
 		follow/unfollow
 		rsvp/unrsvp
 		visual indicator if invitation sent in find_friends
+		tip!
 
 		AFTER BETA
 			confirmations - remove follower, cancel account
@@ -62,7 +58,6 @@ Marketing:
 
 	Event#show
 		rethink tipped visual indication
-		links in fyis
 
 	Notifiers - Adam
 		Welcome
@@ -112,11 +107,8 @@ Marketing:
 	check all raster, uncheck all buttons
 		test
 
-
 	Mike:
 
-	plan has tipped! this happens when it waivers between tipped and untipped. at least the email should not go out again if it untips and tips again.
-	
 	iPhone TODO:
 		notifications (3)
 			Gem for apple push notifications
@@ -141,8 +133,6 @@ Marketing:
 
 	Mobile FB authentication - Jeff & Mike
 
-	plan count on date
-
 	Submit to Apple
 
 Mobile 3 - Mike
@@ -151,6 +141,9 @@ Landing page
 About page
 Timezone?
 POW
+
+Make focus fall on first text field on new idea form
+
 
 
 September 4 - september 12

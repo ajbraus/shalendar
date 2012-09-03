@@ -1,17 +1,15 @@
-<div class="rsvp_check">
-	<% if current_user.rsvpd?(event) %>
-		<%= form_for(current_user.rsvps.find_by_plan_id(event),
-	           html: { method: :delete },
-	           remote: true) do |f| %>
-		  <%= f.submit raw("&#xf058;"), class: "btn_icon btn_icon_unrsvp fa-input" %>
-		<% end %>
-	<% elsif event.full? %>
-		<i class="icon-ban-circle btn_icon" title="Event Full"></i>
-	<% else %>
-		<%= form_for(current_user.rsvps.build(plan_id: event.id),
-								 remote: true) do |f| %>
-		  <div><%= f.hidden_field :plan_id %></div>
-		  <%= f.submit raw("&#xf058;"), class:"btn_icon btn_icon_rsvp fa-input" %>
-		<% end %>
+<% if current_user.rsvpd?(event) %>
+	<%= form_for(current_user.rsvps.find_by_plan_id(event),
+           html: { method: :delete },
+           remote: true) do |f| %>
+	  <%= f.submit raw("&#xf058;"), class: "btn_icon btn_icon_unrsvp fa-input" %>
 	<% end %>
-</div>
+<% elsif event.full? %>
+	<i class="icon-ban-circle btn_icon" title="Event Full"></i>
+<% else %>
+	<%= form_for(current_user.rsvps.build(plan_id: event.id),
+							 remote: true) do |f| %>
+	  <div><%= f.hidden_field :plan_id %></div>
+	  <%= f.submit raw("&#xf058;"), class:"btn_icon btn_icon_rsvp fa-input" %>
+	<% end %>
+<% end %>
