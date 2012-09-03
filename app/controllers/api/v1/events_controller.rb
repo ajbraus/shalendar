@@ -36,6 +36,7 @@ class Api::V1::EventsController < ApplicationController
     #this will give mobile the info about the guests of the event
     #could add invites here, and/or comments
     @event = Event.find_by_id(params[:event_id])
+    @mobile_user = User.find_by_id(params[:user_id])
     render json: { 
         :eid => @event.id,
         :title => @event.title,  
