@@ -44,7 +44,7 @@ class Api::V1::EventsController < ApplicationController
         :gcnt => @event.guests.count,  
         :tip => @event.min,  
         :host => @event.user,
-        :plan => @mobile_user.rsvpd?(e),
+        :plan => @mobile_user.rsvpd?(@event),
         :guests => @event.guests 
       }
 
