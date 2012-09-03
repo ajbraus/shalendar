@@ -1,8 +1,9 @@
 <div id="ribbon">
 	<a class="btn-primary btn_new_idea" href="#new_idea">New Idea</a>
 	<%= render 'new_idea_form' %>
-	<%= render 'next_plan', event: @next_plan %>
-
+	<% if @next_plan %>
+		<%= render 'next_plan', event: @next_plan %>
+	<% end %>
 	<div id="datepicker">
 		<% for i in -3..16 do %>
 		<a href="/home?date=<%= Date.today + i %>">
@@ -14,11 +15,11 @@
 		  </tr>
 		  <tr>
 		  	<td>
-		  		<%= ideas_on_date_count(i) %>
+		  		<%= @forecastoverview[i+3][0] %>
 		  	</td>
 		  </tr>
 		  	<td>
-		  		<%= plans_on_date_count(i) %>
+		  		<%= @forecastoverview[i+3][1] %>
 		  	</td>
 		  </tr>
 		</table>

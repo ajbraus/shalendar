@@ -23,9 +23,9 @@ class UserSearch
 		if $('#user_search_field').val().length == 0
 			@hideResults()
 
-		if $('#user_search_field').val().length > 1 and $('#user_search_field').val() != @oldValue
+		if $('#user_search_field').val().length > 1 # and $('#user_search_field').val() != @oldValue
 			clearTimeout(@timer)
-			@timer = setTimeout(@performSearch, 500)
+			@timer = setTimeout(@performSearch, 700)
 			$('.search_spinner').css({'background-position': 'right'})
 		@oldValue = $('#user_search_field').val()
 

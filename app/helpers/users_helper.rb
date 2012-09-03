@@ -8,14 +8,6 @@ module UsersHelper
     end
   end
 
-  def ideas_on_date_count(i)
-    3 + i
-  end
-
-  def plans_on_date_count(i)
-    3 + i
-  end
-
   def friends_attending(event)
     f = event.guests.select { |a| current_user.following?(a) }
     f.count
@@ -34,7 +26,7 @@ module UsersHelper
   end 
 
   def next_event_date(event)
-    event.starts_at.strftime("%A %B %e")
+    event.starts_at.strftime("%a %b %e")
   end
 
 

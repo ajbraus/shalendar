@@ -36,18 +36,18 @@
     <%= devise_error_messages! %>
     <p>
       <%= f.check_box :require_confirm_follow, checked: current_user.require_confirm_follow %> 
-      <label for="require_confirm_follow"><strong>Authorize Viewers</strong> - Confirm </label>
+      <label for="require_confirm_follow"><strong>Authorize Subscribers</strong> - Confirm each subscriber before they can view your ideas. </label>
     </p>
     <p>
       <%= f.check_box :post_to_fb_wall %>
-      <label for="post_to_fb_wall"><strong>Social Graph</strong> - Have Hoos.in post social events you create to your Facebook wall.</label>
+      <label for="post_to_fb_wall"><strong>Social Graph</strong> - Have hoos.in post social events you create to your Facebook wall.</label>
     </p>
     <br>
 
     <h2>Email Notification Settings</h2>
     <p>
       <%= f.check_box :daily_digest %>
-      <label for="daily_digest"><strong>Stay in touch</strong> - Recieve daily summaries of what your viewing calendars are planning.</label>
+      <label for="daily_digest"><strong>Stay in touch</strong> - Recieve daily summaries of what your subscribers.</label>
     </p>
     <br>
     <p>

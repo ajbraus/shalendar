@@ -36,12 +36,7 @@ Marketing:
 
 	Mobile local registration
 
-	update user name and city upon fblogin
-
 	Side note: put_wall_post posts to user/feeds, which doesn’t include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
-
-	check all raster, uncheck all buttons
-		test
 
 	Post to facebook wall . . . not for private events
 	post to rsvps facebook wall of friends of RSVPs
@@ -53,7 +48,6 @@ Marketing:
 		rsvp/unrsvp
 		visual indicator if invitation sent in find_friends
 
-
 		AFTER BETA
 			confirmations - remove follower, cancel account
 			toggle/untoggle raster pics
@@ -63,14 +57,12 @@ Marketing:
 		DONE: rsvp_check/unrsvp_check
 		DONE: Search name/email - Adam
 
-
 	Event
 		Face is inviter, host name to the side
 
 	Event#show
 		rethink tipped visual indication
 		links in fyis
-
 
 	Notifiers - Adam
 		Welcome
@@ -103,11 +95,7 @@ Marketing:
 		change notification settings
 		add SMS
 
-	log city add to new/edit registrations -- needs to sync w facebook 
-
 	new event form not showing validation errors
-
-	not getting current_user in edit_form
 
 	Agent call - if android/iPhone download our app.
 	
@@ -121,8 +109,13 @@ Marketing:
 	map bug -google.maps.event.trigger(map, 'resize');
 	modernizr?
 
+	check all raster, uncheck all buttons
+		test
+
 
 	Mike:
+
+	plan has tipped! this happens when it waivers between tipped and untipped. at least the email should not go out again if it untips and tips again.
 	
 	iPhone TODO:
 		notifications (3)

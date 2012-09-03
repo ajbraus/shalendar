@@ -261,7 +261,7 @@ class User < ActiveRecord::Base
 
   def forecastoverview
     @forecastoverview = []
-    (-3..21).each do |i|
+    (-3..16).each do |i|
       @datecounts = []
       @new_date = Date.today + i
       @ideacount = self.idea_count_on_date(@new_date)
