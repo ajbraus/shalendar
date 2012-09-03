@@ -156,7 +156,7 @@ class Api::V1::TokensController  < ApplicationController
     end
   end
 
-  def APNtoken
+  def apn_token
     token = params[:apn_token]
     @user = User.find_by_id(params[:user_id])
 
