@@ -2,7 +2,17 @@
 		<div id="new_idea">
 			<div id="event_form">
 			 <%= form_for @event do |f| %>
+			  <% if @event.errors.any? %>
+			    <div id="error_explanation">
+			      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this user from being saved:</h2>
 
+			      <ul>
+			      <% @user.errors.full_messages.each do |msg| %>
+			        <li><%= msg %></li>
+			      <% end %>
+			      </ul>
+			    </div>
+			  <% end %>
 			  <p>
 			    <%= label :title, "Idea" %><br/>
 			    <%= f.text_area :title, :placeholder => "What's the plan? Where? What should people bring?", :rows => 2 %>
@@ -37,7 +47,7 @@
 
 			<div id="addLinkp" style="display: none;">
 				<%= label_tag "Link" %></br>
-				<%= f.text_field :link, :value => "http://" %>
+				http://<%= f.text_field :link %>
 			</div>
 
 			<div id="addmapp" style="display: none;">

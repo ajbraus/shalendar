@@ -65,12 +65,11 @@ textarea {
 
 .hero-unit {
   text-align: center;
-  margin-top: 25px;
-  padding: 60px;
   margin-bottom: 30px;
 width: 960px;
 position: relative;
-right: 172px;
+top: 80px;
+right: 131px;
   h1 {
     font-size: 2.3em;
     margin-bottom:-10px;
@@ -544,16 +543,18 @@ background-position: -6px -4px;
 }
 
 .btn_new_idea {
-  width: 132px;
-  height: 112px;
-  position: relative;
-  left: 39px;
-  bottom: 29px;
-  background:url(new_idea.png) no-repeat;
-  background-size: 163px;
-    display:inline-block;
-  &:hover {
-  }
+width: 112px;
+height: 98px;
+position: relative;
+left: 53px;
+bottom: 11px;
+background: url(new_idea.png) no-repeat;
+background-size: 163px;
+display: inline-block;
+background-position: -22px -17px;
+  -webkit-border-radius: 9px;
+-moz-border-radius: 9px;
+border-radius: 9px;
 }
 
 #new_idea {
@@ -605,8 +606,8 @@ background-color: #D8D8D8;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  height:72px;
-  width: 261px;
+  height: 82px;
+  width: 297px;
   position: relative;
 }
 
@@ -690,7 +691,7 @@ background-color: #D8D8D8;
 .next_plan {
 width: 224px;
 position: absolute;
-left: 432px;
+left: 462px;
 top: 1px;
   a {
     color:black;
@@ -804,15 +805,14 @@ footer {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #FCF8E3;
   border: 1px solid #FBEED5;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
   color: goldenrod;
   width: 194px;
   left: 463px;
   z-index: 10;
   height: 57px;
-
 
 }
 

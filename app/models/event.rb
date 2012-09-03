@@ -27,7 +27,6 @@ class Event < ActiveRecord::Base
             :title,
             :starts_at,
             :chronic_starts_at,
-            :ends_at, 
             :duration, presence: true
 
   validates :max, numericality: { in: 1..10000, only_integer: true }
@@ -35,9 +34,9 @@ class Event < ActiveRecord::Base
   validates :duration, numericality: { in: 0..1000 } 
 
   validates :title, length: { maximum: 140 }
-  validates :map_location, length: { maximum: 120 }
+  validates :map_location, length: { maximum: 80 }
 
-  @url = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/ 
+  @url = /^((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)?$/ 
   validates :link, :format => { :with => @url }
 
   #from bokmann fullcalendar event model

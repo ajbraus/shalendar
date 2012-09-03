@@ -29,6 +29,8 @@ Marketing:
 
 	Swag T.shirts & Biz cards & Window decals - Adam
 
+	new event form not showing validation errors
+
 	morning, noon, night
 
 	Mobile local registration
@@ -38,20 +40,6 @@ Marketing:
 	Post to facebook wall . . . not for private events
 	post to rsvps facebook wall of friends of RSVPs
 
-	Ajaxify everything - Monday
-		follow/unfollow
-		rsvp/unrsvp
-		visual indicator if invitation sent in find_friends
-		tip!
-
-		AFTER BETA
-			confirmations - remove follower, cancel account
-			toggle/untoggle raster pics
-			comments
-			Invitation raster
-			
-		DONE: rsvp_check/unrsvp_check
-		DONE: Search name/email - Adam
 
 	Event
 		Face is inviter, host name to the side
@@ -86,11 +74,24 @@ Marketing:
 		New Follower
 			Follower Details
 
+	Ajaxify everything - Monday
+		follow/unfollow
+		rsvp/unrsvp
+		visual indicator if invitation sent in find_friends
+		tip!
+
+		AFTER BETA
+			confirmations - remove follower, cancel account
+			toggle/untoggle raster pics
+			comments
+			Invitation raster
+			
+		DONE: rsvp_check/unrsvp_check
+		DONE: Search name/email - Adam
+
 		block emails from this user
 		change notification settings
 		add SMS
-
-	new event form not showing validation errors
 
 	Agent call - if android/iPhone download our app.
 	
