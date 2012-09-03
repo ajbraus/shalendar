@@ -38,12 +38,12 @@ class Api::V1::EventsController < ApplicationController
     @event = Event.find_by_id(params[:event_id])
     render json: { 
         :eid => @event.id,
-        :title => e.title,  
-        :start => e.starts_at,
-        :end => e.ends_at, 
-        :gcnt => e.guests.count,  
-        :tip => e.min,  
-        :host => e.user,
+        :title => @event.title,  
+        :start => @event.starts_at,
+        :end => @event.ends_at, 
+        :gcnt => @event.guests.count,  
+        :tip => @event.min,  
+        :host => @event.user,
         :plan => @mobile_user.rsvpd?(e),
         :guests => @event.guests 
       }
