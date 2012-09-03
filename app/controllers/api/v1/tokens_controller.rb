@@ -103,7 +103,7 @@ class Api::V1::TokensController  < ApplicationController
       @all_invites.each do |i|
         @temp = {
           :eid => i.event_id,
-          :iid => i.inviter_id
+          :i => User.find_by_id(i.inviter_id)
         }
         @invites.push(@temp)
       end
@@ -113,6 +113,7 @@ class Api::V1::TokensController  < ApplicationController
                                       :user_id=>@user.id,
                                       :first_name=>@user.first_name,
                                       :last_name=>@user.last_name,
+                                      :email_hex=> Digest::MD5::hexdigest(@user.email.downcase),
                                       :confirm_f=>@user.require_confirm_follow,
                                       :daily_d=>@user.daily_digest,
                                       :notify_r=>@user.notify_event_reminders,

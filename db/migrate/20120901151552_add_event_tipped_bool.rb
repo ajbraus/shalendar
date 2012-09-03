@@ -1,7 +1,5 @@
 class AddEventTippedBool < ActiveRecord::Migration
-  def up
-  end
-
-  def down
-  end
+	def change
+	 	add_column :events, :tipped, :bool, :default => false
+	end
 end
