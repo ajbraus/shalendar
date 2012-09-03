@@ -164,16 +164,13 @@ class Api::V1::TokensController  < ApplicationController
 
     @user.APNtoken = token
     @user.iPhone_user = true
-    if @user.save!
-      render :json => { :success => true }
-      return
-    else
-      render :json => { :success => false }
-    end
-    else
-      logger.info("Didn't get device from APN token: #{token}.")
-      render :json => { :success => false }
-    end
+    render :json => { :token => token }
+    # if @user.save!
+    #   render :json => { :success => true }
+    #   return
+    # else
+    #   render :json => { :success => false }
+    # end
   end
 
   def newGCMtoken
