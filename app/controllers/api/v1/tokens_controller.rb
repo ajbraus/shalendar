@@ -160,23 +160,16 @@ class Api::V1::TokensController  < ApplicationController
     token = params[:apn_token]
     @user = User.find_by_id(params[:user_id])
 
-    device = APN::Device.create(token)   
-    if(device)
-      logger.info("Got an APN token")
-      notification = APN::Notification.new   
-      notification.device = device   
-      notification.badge = 5   
-      notification.sound = true   
-      notification.alert = "Device has been registered w/ token: #{token}!"   
-      notification.save
-      @user.APNtoken = token
-      @user.iPhone_user = true
-      if @user.save!
-        render :json => { :success => true }
-        return
-      else
-        render :json => { :success => false }
-      end
+    APN.notify(token, :alert => 'New Message', :badge => 4, :sound => true)
+
+    @user.APNtoken = token
+    @user.iPhone_user = true
+    if @user.save!
+      render :json => { :success => true }
+      return
+    else
+      render :json => { :success => false }
+    end
     else
       logger.info("Didn't get device from APN token: #{token}.")
       render :json => { :success => false }
