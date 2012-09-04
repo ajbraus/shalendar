@@ -1,5 +1,5 @@
 <% provide(:title, " | Idea") %>
-<aside>
+<div class="dashboard">
   <%= render 'layouts/logo_and_user' %>
 
   <% if @event.visibility == "friends_of_friends" || @event.user == current_user %>
@@ -11,9 +11,9 @@
     </div>
     <%= render partial: 'invite_raster', locals: { :event => @event } %>
   <% end %>
-</aside>
+</div>
 
-<div id="event_show" class="container"> 
+<div class="container event_show"> 
   <div class="rsvp_tip">
     <% if @event.tipped? %>
       <p class="event_on">Its On!</p>
@@ -25,12 +25,14 @@
     <%= @event.title %>
       <div id="when">At <%= start_time(@event) %> for <%= @event.duration %> hours</div>
   </div>
-  <div class="eventLink">
-    Link: <%= event_link(@event) %>
-  </div>
+  <% if @event.link %>
+    <div class="eventLink">
+      Link: <%= event_link(@event) %>
+    </div>
+  <% end %>
   <%= render 'nav_buttons' %>
   
-  <% if @event.location != nil %>
+  <% if @event.map_location != nil %>
     <div>
       Map:
       <input id="addresspicker_map" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" value= "<%= @event.map_location %>" type="hidden">

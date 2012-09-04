@@ -37,7 +37,6 @@ class EventsController < ApplicationController
   def create
     @event = current_user.events.build(params[:event])
     respond_to do |format|
-      binding.pry
       if @event.save
         current_user.rsvp!(@event)
         if(@event.min <= 1)

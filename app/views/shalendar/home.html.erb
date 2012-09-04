@@ -1,5 +1,5 @@
 <% provide(:title, " | Home") %>
-	<aside>
+	<div class="dashboard">
 		<%= render 'layouts/logo_and_user' %>
 	  <%= render 'search' %>
 	  <span class="grey_italics small">
@@ -7,7 +7,7 @@
 	  </span>
 	  <%= render 'raster' %>
 	  <%= render 'fb_button' %>
-	</aside>
+	</div>
 	<div class="container">
 		<%= render 'ribbon', :locals => { :next_plan => @next_plan } %>
 		<%= render 'forecast' %>

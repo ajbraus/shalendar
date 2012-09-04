@@ -49,13 +49,11 @@ AFTER BETA LAUNCH
 		add user boolean for receiving text messages
 		Text message invitations to join calenshare for an event
 
+paperclip
 
 	Offers and Subscribers
 
 	Setup Offers Account - credit card
-
-
-
 
 	put everything in header?
 

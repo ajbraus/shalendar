@@ -2,11 +2,11 @@
 <div class="profile_pic_home">
 	<div id="user-settings">
 		<%= medium_profile_picture(current_user) %>
-		<%= link_to destroy_user_session_path, :method => :destroy do %>
-		<i class='icon-signout logout' title="Logout" style="display:none;"></i>
+		<%= link_to destroy_user_session_path, :method => :delete do %>
+			<i class='icon-signout logout' title="Logout" style="display:none;"></i>
 		<% end %>
 		<%= link_to edit_user_registration_path do %>
-		<i class='icon-wrench user_settings' title="Settings" style="display:none;"></i>
+			<i class='icon-wrench user_settings' title="Settings" style="display:none;"></i>
 		<% end %>
 	<p><%= current_user.name %></p>
 	</div>
