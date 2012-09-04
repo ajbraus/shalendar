@@ -1,0 +1,11 @@
+APN Notes
+
+Right now, development push notifications working.
+Must run redis server 
+	(go to place in directory and run ./redis-server if it's on own comp)
+	on heroku, it should be launching from config/initializer, but need to test
+Must call ./script/apn_sender to send notifications
+	seems like this has to happen each time, from a cron job like every 2 mins
+Can run APN::Feedback.new from the console to see what it's saying
+
+For now, copied dev certificate into apn_production.pem, but have the real cert in prov/certs folder
