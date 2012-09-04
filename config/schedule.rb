@@ -38,6 +38,9 @@ set :cron_log, "~/desktop/shalendar/log/cron_log.log"
 
 # end
 
+every 1.minutes do
+	command "/script/apn_sender"
+end
 
 # every 15.minutes, at: [8, 23, 38, 53] do #we should start this off the 15-min increment so there's never overlap
 
