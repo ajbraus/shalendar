@@ -41,7 +41,6 @@ class Api::V1::TokensController  < ApplicationController
         render :status=>400, :json=>{:message=>"There was an error. Check your Facebook account status and retry."}
         return
       end
-    end
 
     else
       email = params[:email]
