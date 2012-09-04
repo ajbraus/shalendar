@@ -1,4 +1,9 @@
 
+NOTE: took =======
+  rails_autolink (~> 1.0.9)
+>>>>>>> f8f7d7c90f9ca6b452c21fc39c952c88894e4c10
+out of gemfile.lock
+
 MOBILE DONE:
 	1. Authentication/list of events
 	2. Event Show / RSVP / Follow
@@ -18,6 +23,10 @@ Design:
 		UnRSVPed - greyed out
 	Landing page
 
+	**thoughts from scott:
+		get some background for divs, grass on bottom, html5 bird periodically
+		a little more concrete
+		put out to art students on UW job boards
 
 Add FB events - Adam
 
@@ -124,6 +133,21 @@ More integration with facebook -- invitation creates facebook message . . . opti
 
 user experience of curating invites/groups - don't just select a new type of event
 	"Make Current Selection a Group Users" "Invite Group to event"	
+
+** Thoughts from Eve Galanter ** LOTS OF FRIENDS THAT RUN EVENTS
+	Madison Magazine, brava, inbusiness date books (calendars), Isthmus
+	Monona terrace, alliant energy center
+	public feed: *things to do with children as a subset/category- very appealing to young families
+	Greater Madison convention and visitor's bureau- *Deb Archer*
+		Want to see what it looks like
+		not a lot of work - easy to put on events
+		Understanding of what they already do, how it will enhance rather than detract
+	Downtown Madison
+	Greenway station, Museums, Arts community (overture)
+	Nonprofit events- fundraising events
+	Greek fest, Irish fest, German fest
+	Isthmus would love to talk about it
+
 
 Monetization
 	Individual deployments (cost based on user limit) (churches, frats, businesses) - pricing?

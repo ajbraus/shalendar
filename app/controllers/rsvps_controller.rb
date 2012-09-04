@@ -5,7 +5,6 @@ class RsvpsController < ApplicationController
     @event = Event.find(params[:rsvp][:plan_id])
     current_user.rsvp!(@event)
     if @event.guests.count == @event.min && @event.tipped? == false
-      binding.pry
       @event.tip!
     end
 

@@ -29,7 +29,7 @@ set :cron_log, "~/desktop/shalendar/log/cron_log.log"
 
 # every 1.day, at: '2:22 am' do
 
-# 	command "pg_dump -a calenshare_development"
+# 	command "pg_dump -a calenshare_production"
 # end
 
 # every 1.day, :at => '2:00 pm' do
@@ -38,10 +38,14 @@ set :cron_log, "~/desktop/shalendar/log/cron_log.log"
 
 # end
 
+every 1.minutes do
+	command "/script/apn_sender"
+end
 
 # every 15.minutes, at: [8, 23, 38, 53] do #we should start this off the 15-min increment so there's never overlap
 
-# 	runner "Event.first.check_tip_deadlines"
+# 	
+# 	runner "Event.check_tip_deadlines"
 # 	#events where the start time is between 1hr45mins and 2hrs from now
 
 # end

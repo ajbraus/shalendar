@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   
   def as_json(options = {})
    {
-    :id => self.id,
+    :uid => self.id,
     :first_name => self.first_name,
     :last_name => self.last_name,
     :email_hex => Digest::MD5::hexdigest(self.email.downcase)

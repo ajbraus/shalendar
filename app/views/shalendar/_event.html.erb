@@ -29,8 +29,11 @@
 				<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
 			<% end %>
 		<% end %>
-			<div class="host"><%= event.user.first_name.capitalize %> <%= event.user.last_name.capitalize%></div>
-		</div>
-	</a>
-</td>
+				<div class="host"><%= event.user.first_name.capitalize %> 
+					<% if event.user.last_name %>
+						<%= event.user.last_name.capitalize%>
+						<% end %> </div>
+			</div>
+		</a>
+	</td>
 </tr>

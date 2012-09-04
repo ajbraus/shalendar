@@ -5,31 +5,41 @@ class Api::V1::TokensController  < ApplicationController
   def create
     if params[:access_token]
       # Handle login from mobile FB
-      email = params[:email]
-      # email_handle = params[:email].slice('@')
-      # auth = HTTParty.get("https://graph.facebook.com/#{email_handle}/access_token?#{params[:access_token]}")
-      # email = auth.info.email
-      # uid = auth.uid
-      # provider = auth.provider
-      # access_token = params[:access_token]
-      # auth_attr = { :uid => uid, :token => access_token, :secret => nil }
-
       if params[:email].nil?
          render :status=>400,
                 :json=>{:message=>"The request must contain the user email and FB access token."}
          return
       end
-      # @user = find_for_oauth(email, access_token, resource)
-      @user = User.find_by_email(params[:email])
+      email = params[:email]
+      if params[:fbid].nil?
+         render :status=>400,
+                :json=>{:message=>"The request must contain the user FBID"}
+         return
+      end
+      fbid = params[:fbid]
+      # email_handle = params[:email].slice('@')
+      fb_json = HTTParty.get("https://graph.facebook.com/#{fbid}?access_token=#{params[:access_token]}")
+      
+      if email != fb_json["email"]
+        render :json=>{:message => "Email doesn't match the facebook email"}
+        return
+      end
+      @user = find_for_oauth("Facebook", fb_json, params[:access_token])   
 
+      # uid = auth.uid
+      # provider = auth.provider
+      # access_token = params[:access_token]
+      # access_token = env["omniauth.auth"]
+      # auth_attr = { :uid => uid, :token => access_token, :secret => nil }
       if @user.present?
         #I think we get the long access token already on the mobile app
-        #@short_token = access_token
-        #@long_token = HTTParty.get("https://graph.facebook.com/oauth/access_token?client_id=327936950625049&client_secret=4d3de0cbf2ce211f66733f377b5e3816&grant_type=fb_exchange_token&fb_exchange_token=#{@short_token}")
-        #access_token = @long_token
+        # @short_token = access_token
+        # @long_token = HTTParty.get("https://graph.facebook.com/oauth/access_token?client_id=327936950625049&client_secret=4d3de0cbf2ce211f66733f377b5e3816&grant_type=fb_exchange_token&fb_exchange_token=#{@short_token}")
+        # access_token = @long_token
       else 
         #create a new user from the FB access token + email
         render :status=>400, :json=>{:message=>"There was an error. Check your Facebook account status and retry."}
+        return
       end
 
     else
@@ -46,7 +56,7 @@ class Api::V1::TokensController  < ApplicationController
          return
       end
       @user=User.find_by_email(email.downcase)
-
+      logger.info("User #{@user.id} found.")
       if @user.nil?
         logger.info("User #{email} failed signin, user cannot be found.")
         render :status=>401, :json=>{:message=>"Invalid email or passoword."}
@@ -57,66 +67,36 @@ class Api::V1::TokensController  < ApplicationController
       if not @user.valid_password?(password)
         logger.info("User #{email} failed signin, password \"#{password}\" is invalid")
         render :status=>401, :json=>{:message=>"Invalid email or password."}
+        return
       end
     end
 
-
-    # THIS IS FOR SENDING FOLLOWED/FOLLOWER INFO FROM LOGIN
-    @followed_users = []
-    @user.followed_users.each do |fu|
-      r = @user.relationships.find_by_followed_id(fu.id)
+    @all_invites = Invite.where("invites.email = :current_user_email", current_user_email: @user.email)
+    @invites = []
+    @all_invites.each do |i|
       @temp = {
-        first_name: fu.first_name,
-        last_name: fu.last_name,
-        id: fu.id,
-        email_hex: Digest::MD5::hexdigest(fu.email.downcase),
-        confirmed: r.confirmed,
-        toggled: r.toggled
+        :eid => i.event_id,
+        :i => User.find_by_id(i.inviter_id)
       }
-      @followed_users.push(@temp)
-
-      #FOR FOLLOWERS, DON"T KNOW IF WE CARE
-      # @followers = []
-      # @user.followers.each do |f|
-      #   r = Relationship.where("follower_id = :followerid AND @followed_id = :followedid", 
-      #                           followerid: f.id, followedid: @user.id).last #should just be a find call
-      #   @temp = {
-      #     first_name: f.first_name,
-      #     last_name: f.last_name,
-      #     id: f.id,
-      #     email_hex: Digest::MD5::hexdigest(f.email.downcase),
-      #     confirmed: r.confirmed,
-      #     toggled: r.toggled
-      #   }
-      #   @followers.push(@temp)
-      # end
-      @all_invites = Invite.where("invites.email = :current_user_email", current_user_email: @user.email)
-      @invites = []
-      @all_invites.each do |i|
-        @temp = {
-          :eid => i.event_id,
-          :iid => i.inviter_id
-        }
-        @invites.push(@temp)
-      end
-
-      render :status=>200, :json=>{:token=>@user.authentication_token, 
-                                    :user=>{
-                                      :user_id=>@user.id,
-                                      :first_name=>@user.first_name,
-                                      :last_name=>@user.last_name,
-                                      :confirm_f=>@user.require_confirm_follow,
-                                      :daily_d=>@user.daily_digest,
-                                      :notify_r=>@user.notify_event_reminders,
-                                      :notify_n=>@user.notify_noncritical_change,
-                                      :post_wall=>@user.post_to_fb_wall,
-                                      :followed_users=>@followed_users,#may put these in separate calls for speed of login
-                                      #:followers=>@followers,
-                                      :invites=>@invites
-                                      }
-                                   }
-
+      @invites.push(@temp)
     end
+
+    render :status=>200, :json=>{:token=>@user.authentication_token, 
+                                  :user=>{
+                                    :user_id=>@user.id,
+                                    :first_name=>@user.first_name,
+                                    :last_name=>@user.last_name,
+                                    :email_hex=> Digest::MD5::hexdigest(@user.email.downcase),
+                                    :confirm_f=>@user.require_confirm_follow,
+                                    :daily_d=>@user.daily_digest,
+                                    :notify_r=>@user.notify_event_reminders,
+                                    :notify_n=>@user.notify_noncritical_change,
+                                    :post_wall=>@user.post_to_fb_wall,
+                                    :followed_users=>@user.followed_users,#may put these in separate calls for speed of login
+                                    #:followers=>@followers,
+                                    :invites=>@invites
+                                    }
+                                 }
   end
 
   def destroy
@@ -130,22 +110,21 @@ class Api::V1::TokensController  < ApplicationController
     end
   end
 
-  def find_for_oauth(provider, access_token, resource=nil)
-    user, email, name, uid, auth_attr = nil, nil, nil, {}
+  def find_for_oauth(provider, fb_json, resource=nil, access_token)
+    user, email, name, uid, auth_attr = nil, nil, nil, nil, {}
     case provider
     when "Facebook"
-      uid = access_token.uid
-      email = access_token.info.email
-      access_token = access_token.credentials.token
+      uid = fb_json["id"]
+      email = fb_json["email"]
       auth_attr = { :uid => uid, :token => access_token, :secret => nil }
     else
       raise 'Provider #{provider} not handled'
     end
     if resource.nil?
       if email
-        user = find_for_oauth_by_email(email, access_token, resource)
-      else uid
-        user = find_for_oauth_by_uid(uid, access_token, resource)
+        user = find_for_oauth_by_email(email, fb_json)
+      else
+        user = nil
       end
     else
       user = resource
@@ -166,13 +145,13 @@ class Api::V1::TokensController  < ApplicationController
     return user
   end
 
-  def find_for_oauth_by_email(email, access_token)
+  def find_for_oauth_by_email(email, fb_json)
     if user = User.find_by_email(email)
       return user
     else
-      email = access_token.info.email
-      name = access_token.info.name
-      city = access_token.info.location
+      email = fb_json["email"]
+      name = fb_json["name"]
+      city = fb_json["location"]
       user = User.new(:email => email, 
                 :name => name,
                 :city => city,
@@ -183,6 +162,29 @@ class Api::V1::TokensController  < ApplicationController
       user.save
       return user
     end
+  end
+
+  def apn_token
+    token = params[:apn_token]
+    @user = User.find_by_id(params[:user_id])
+
+    APN.notify(token, :alert => 'New Message', :badge => 4, :sound => true)
+    @user.APNtoken = token
+    @user.iPhone_user = true
+    #binding.pry
+    render :json => { :token => token }
+    # if @user.save!
+    #   render :json => { :success => true }
+    #   return
+    # else
+    #   render :json => { :success => false }
+    # end
+  end
+
+  def newGCMtoken
+    token = params[:gcm_token]
+
+
   end
 end
 
