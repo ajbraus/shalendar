@@ -12,6 +12,7 @@ class Api::V1::TokensController  < ApplicationController
       # uid = auth.uid
       # provider = auth.provider
       # access_token = params[:access_token]
+      # access_token = env["omniauth.auth"]
       # auth_attr = { :uid => uid, :token => access_token, :secret => nil }
 
       if params[:email].nil?
@@ -102,7 +103,7 @@ class Api::V1::TokensController  < ApplicationController
   end
 
   def find_for_oauth(provider, access_token, resource=nil)
-    user, email, name, uid, auth_attr = nil, nil, nil, {}
+    user, email, name, uid, auth_attr = nil, nil, nil, nil, {}
     case provider
     when "Facebook"
       uid = access_token.uid
