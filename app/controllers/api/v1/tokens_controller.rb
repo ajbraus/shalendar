@@ -5,34 +5,43 @@ class Api::V1::TokensController  < ApplicationController
   def create
     if params[:access_token]
       # Handle login from mobile FB
-      email = params[:email]
-      # email_handle = params[:email].slice('@')
-      # auth = HTTParty.get("https://graph.facebook.com/#{email_handle}/access_token?#{params[:access_token]}")
-      # email = auth.info.email
-      # uid = auth.uid
-      # provider = auth.provider
-      # access_token = params[:access_token]
-      # access_token = env["omniauth.auth"]
-      # auth_attr = { :uid => uid, :token => access_token, :secret => nil }
-
       if params[:email].nil?
          render :status=>400,
                 :json=>{:message=>"The request must contain the user email and FB access token."}
          return
       end
-      # @user = find_for_oauth(email, access_token, resource)
-      @user = User.find_by_email(params[:email])
+      binding.pry
+      email = params[:email]
+      if params[:fbid].nil?
+         render :status=>400,
+                :json=>{:message=>"The request must contain the user FBID"}
+         return
+      end
+      @fbid = params[:fbid]
+      # email_handle = params[:email].slice('@')
+      auth = HTTParty.get("https://graph.facebook.com/#{fbid}/access_token?#{params[:access_token]}")
+      if email != auth.info.email
+        render :json=>{:message => "Email doesn't match the facebook email"}
+        return
+      end
+      @user = find_for_oauth("Facebook", auth, resource)   
 
+      # uid = auth.uid
+      # provider = auth.provider
+      # access_token = params[:access_token]
+      # access_token = env["omniauth.auth"]
+      # auth_attr = { :uid => uid, :token => access_token, :secret => nil }
       if @user.present?
         #I think we get the long access token already on the mobile app
-        #@short_token = access_token
-        #@long_token = HTTParty.get("https://graph.facebook.com/oauth/access_token?client_id=327936950625049&client_secret=4d3de0cbf2ce211f66733f377b5e3816&grant_type=fb_exchange_token&fb_exchange_token=#{@short_token}")
-        #access_token = @long_token
+        # @short_token = access_token
+        # @long_token = HTTParty.get("https://graph.facebook.com/oauth/access_token?client_id=327936950625049&client_secret=4d3de0cbf2ce211f66733f377b5e3816&grant_type=fb_exchange_token&fb_exchange_token=#{@short_token}")
+        # access_token = @long_token
       else 
         #create a new user from the FB access token + email
         render :status=>400, :json=>{:message=>"There was an error. Check your Facebook account status and retry."}
         return
       end
+    end
 
     else
       email = params[:email]

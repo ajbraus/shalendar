@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20120903211658) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.string   "title"
+    t.string   "location"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
     t.integer  "user_id"
