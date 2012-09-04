@@ -1,6 +1,6 @@
 <div id='forecast'>
 	<% for i in 0..@forecastevents.size-1 %>
-	<table>
+		<table>
 		<tr>
 			<th><%= (@date + i).strftime("%A %B %e") %></th>
 		</tr>
@@ -9,6 +9,6 @@
 				<%= render :partial => "event", :locals => { :event => event } %>
 			<% end %>
 		<% end %>
-	</table>
 	<% end %>
+	</table>
 </div>

@@ -49,7 +49,8 @@ Shalendar::Application.routes.draw do
 
   match '/manage_follows', :to => 'shalendar#manage_follows', :as => "manage_follows"
 
-  resources :events do
+  resources :events, only: [:create, :destroy, :update, :tip, :edit, :new, :show] do 
+    put :tip
     resources :comments, only: [:create, :destroy]
     resources :invites, only: [:create, :destroy]
   end

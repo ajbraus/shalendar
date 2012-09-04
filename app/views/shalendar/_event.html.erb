@@ -1,17 +1,32 @@
 <tr>
 	<td>
-	<% if current_user.rsvpd?(event) %>
-	<div class="event plan" data-event-id="<%= event.id %>"> <a href="/events/<%= event.id %>">
-	<% else %>
-	<div class="event idea" data-event-id="<%= event.id %>"> <a href="/events/<%= event.id %>">
-	<% end %>
-		<div class="event_time"><%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>
-		<div class="event_pic"><%= raster_profile_picture(event.user) %></div>
-		<div class="event_blerb"><%= event_blerb(event) %></div>
-		<div class="friends_attending"><i class="icon-group"></i> <%= "#{friends_attending(event)}" %></div>
-		<div class="guest_count right"><span class="guest-count"><%= event.guests.count%></span>/<%= event.min %></div>
-		<div class="rsvp_check right"><%= render :partial => "rsvp_check", :locals => { :event => event } %></div>
-		<div class="host right">Host: <%= event.user.name %></div>
-	</div>
-</a></td>
+		<a href="/events/<%= event.id %>">
+			<% if current_user.rsvpd?(event) %>
+			<div class="event plan" data-event-id="<%= event.id %>">
+			<% else %>
+			<div class="event idea" data-event-id="<%= event.id %>">
+			<% end %>
+				<div class="event_time"><%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>
+				<div class="event_pic"><%= raster_profile_picture(event.user) %></div>
+				<div class="event_blerb"><%= event_blerb(event) %></div>
+				<div class="friends_attending"><i class="icon-group"></i> <%= "#{friends_attending(event)}" %></div>
+			
+			<% if event.tipped? %>
+				<div class="guest_count"><%= event.guests.count %></div>
+				<% if event.user == current_user %>
+					<div class="rsvp_check"></div>
+				<% end %>
+			<% else %>
+				<div class="guest_count"><%= event.guests.count%>/<%= event.min %></div>
+				<% if event.user == current_user %>
+					<div class="force_tip"><%= link_to raw("&#xf08d;"), event_tip_path(event), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input" %>
+					</div>
+				<% else %>
+					<div class="rsvp_check"><%= render :partial => "rsvp_check", :locals => { :event => event } %></div>
+				<% end %>
+			<% end %>
+				<div class="host"><%= event.user.first_name.capitalize %> <%= event.user.last_name.capitalize%></div>
+			</div>
+		</a>
+	</td>
 </tr>

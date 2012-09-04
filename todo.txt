@@ -1,4 +1,9 @@
 
+NOTE: took =======
+  rails_autolink (~> 1.0.9)
+>>>>>>> f8f7d7c90f9ca6b452c21fc39c952c88894e4c10
+out of gemfile.lock
+
 MOBILE DONE:
 	1. Authentication/list of events
 	2. Event Show / RSVP / Follow
@@ -31,19 +36,6 @@ Add FB events - Adam
 
 	Populate a demo database
 
-	Check through all notification stuff, make sure always sent and not double
-
-	Go through all app logic; test (QA)
-		
-	3 day Digest - Day view list?
-		look into mailer bcc vs. individual sends, cost and spam filtering
-
-	Event Tipped Bool and Part_of_day string... be sure to @local.save to make it work this time!
-
-	Make focus fall on first text field on new idea form
-
-	@mobile_user = User.find_by_auth_token(params[:auth_token])
-
 AFTER BETA LAUNCH
 	
 -------- Features To Add ------
@@ -54,6 +46,8 @@ AFTER BETA LAUNCH
 		c. background image on event
 		d. percentage structure (per users)
 		e. PCI compliant database (spreedly core call paypal to setup escrow payments)
+		f. tip-by date
+		g. price
 
 	3. SDK - follow us on hoos.in
 	3. 	Twilio:

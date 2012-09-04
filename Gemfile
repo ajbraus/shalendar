@@ -32,6 +32,8 @@ gem 'pg'
 
 gem "sendgrid", "~> 1.0.1"
 
+gem "rails_autolink", "~> 1.0.9"
+
 group :development, :test do
   gem 'faker', '1.0.1'
   gem 'rspec-rails', '2.10.1'

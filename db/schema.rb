@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(:version => 20120903211658) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.string   "title"
-    t.string   "location"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
     t.integer  "user_id"
@@ -59,6 +58,10 @@ ActiveRecord::Schema.define(:version => 20120903211658) do
     t.string   "visibility"
     t.integer  "inviter_id",   :default => 0
     t.boolean  "tipped",       :default => false
+<<<<<<< HEAD
+=======
+    t.string   "link"
+>>>>>>> f8f7d7c90f9ca6b452c21fc39c952c88894e4c10
   end
 
   create_table "invites", :force => true do |t|

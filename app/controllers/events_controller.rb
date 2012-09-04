@@ -37,26 +37,27 @@ class EventsController < ApplicationController
   def create
     @event = current_user.events.build(params[:event])
     respond_to do |format|
+      binding.pry
       if @event.save
         current_user.rsvp!(@event)
         if(@event.min <= 1)
           @event.tipped = true
           @event.save
         end
-        if current_user.post_to_fb_wall? && session[:access_token]
-          @graph = Koala::Facebook::API.new(session[:access_token])
-          @graph.put_wall_post("#{@event.title}", { :link => "http://www.hoos.in/events/#{@event.id}"}, target_id = 'me')
-        end
+        # if current_user.post_to_fb_wall? && session[:access_token]
+        #   @graph = Koala::Facebook::API.new(session[:access_token])
+        #   @graph.put_wall_post("#{@event.title}", { :link => "http://www.hoos.in/events/#{@event.id}"}, target_id = 'me')
+        # end
 
         if @event.visibility == "invite_only"
           format.html { redirect_to @event }
           format.json { render json: @event, status: :created, location: @event }
         else
-          format.html { redirect_to home_path, notice: 'Event saved!'}
+          format.html { redirect_to home_path, notice: "Idea posted! On #{@event.starts_at}"}
           format.json { render json: home_path, status: :created, location: @event }
         end
       else
-        format.html { redirect_to home_path, notice: 'Event could not be saved.' }
+        format.html { redirect_to home_path, notice: "Idea could not be posted." }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
@@ -67,7 +68,6 @@ class EventsController < ApplicationController
   def show
     @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
                                          relationships.confirmed = false ", current_user_id: current_user.id)
-
     @event = Event.find(params[:id])
     @guests = @event.guests
     
@@ -110,7 +110,7 @@ class EventsController < ApplicationController
           Notifier.noncritical_change(@event).deliver
         end
 
-        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+        format.html { redirect_to @event, notice: 'Idea was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -133,6 +133,16 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to home_path }
       format.json { head :no_content }
+    end
+  end
+
+  def tip
+    @event = Event.find(params[:event_id])
+    @event.tip!
+    @event.save
+    respond_to do |format|
+     format.html { redirect_to :back }
+     format.js
     end
   end
 

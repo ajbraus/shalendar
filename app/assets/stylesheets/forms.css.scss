@@ -99,11 +99,6 @@ input[type=text], textarea, .uneditable-input {
 
 
 #event_form {
-  margin-left:auto;
-  margin-right:auto;
-  margin-bottom: 20px;
-  margin-top:20px;
-  width:414px;
   input, textarea, input[type=submit]{
     font-size: 18px;
     line-height: 24px;
@@ -147,6 +142,9 @@ input[type=text], textarea, .uneditable-input {
     width:55px;
     margin-left:5px;
   }
+  input[name="event[link]"] {
+    width: 345px;
+  }
   label[name="duration"]{
     margin-left:275px;
   }
@@ -163,7 +161,7 @@ input[type=text], textarea, .uneditable-input {
   margin-left:45px;
 }
 
-#visibility, #addmap {
+#addLink, #addmap {
   cursor:pointer;
   color:blue;
   text-decoration: underline;
