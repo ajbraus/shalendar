@@ -10,21 +10,21 @@ class Api::V1::TokensController  < ApplicationController
                 :json=>{:message=>"The request must contain the user email and FB access token."}
          return
       end
-      binding.pry
       email = params[:email]
       if params[:fbid].nil?
          render :status=>400,
                 :json=>{:message=>"The request must contain the user FBID"}
          return
       end
-      @fbid = params[:fbid]
+      fbid = params[:fbid]
       # email_handle = params[:email].slice('@')
-      auth = HTTParty.get("https://graph.facebook.com/#{fbid}/access_token?#{params[:access_token]}")
-      if email != auth.info.email
+      fb_json = HTTParty.get("https://graph.facebook.com/#{fbid}?access_token=#{params[:access_token]}")
+      
+      if email != fb_json["email"]
         render :json=>{:message => "Email doesn't match the facebook email"}
         return
       end
-      @user = find_for_oauth("Facebook", auth, resource)   
+      @user = find_for_oauth("Facebook", fb_json, params[:access_token])   
 
       # uid = auth.uid
       # provider = auth.provider
@@ -110,22 +110,21 @@ class Api::V1::TokensController  < ApplicationController
     end
   end
 
-  def find_for_oauth(provider, access_token, resource=nil)
+  def find_for_oauth(provider, fb_json, resource=nil, access_token)
     user, email, name, uid, auth_attr = nil, nil, nil, nil, {}
     case provider
     when "Facebook"
-      uid = access_token.uid
-      email = access_token.info.email
-      access_token = access_token.credentials.token
+      uid = fb_json["id"]
+      email = fb_json["email"]
       auth_attr = { :uid => uid, :token => access_token, :secret => nil }
     else
       raise 'Provider #{provider} not handled'
     end
     if resource.nil?
       if email
-        user = find_for_oauth_by_email(email, access_token, resource)
-      else uid
-        user = find_for_oauth_by_uid(uid, access_token, resource)
+        user = find_for_oauth_by_email(email, fb_json)
+      else
+        user = nil
       end
     else
       user = resource
@@ -146,13 +145,13 @@ class Api::V1::TokensController  < ApplicationController
     return user
   end
 
-  def find_for_oauth_by_email(email, access_token)
+  def find_for_oauth_by_email(email, fb_json)
     if user = User.find_by_email(email)
       return user
     else
-      email = access_token.info.email
-      name = access_token.info.name
-      city = access_token.info.location
+      email = fb_json["email"]
+      name = fb_json["name"]
+      city = fb_json["location"]
       user = User.new(:email => email, 
                 :name => name,
                 :city => city,
@@ -170,9 +169,9 @@ class Api::V1::TokensController  < ApplicationController
     @user = User.find_by_id(params[:user_id])
 
     APN.notify(token, :alert => 'New Message', :badge => 4, :sound => true)
-
     @user.APNtoken = token
     @user.iPhone_user = true
+    #binding.pry
     render :json => { :token => token }
     # if @user.save!
     #   render :json => { :success => true }

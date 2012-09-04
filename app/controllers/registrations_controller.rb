@@ -18,7 +18,6 @@ class RegistrationsController < Devise::RegistrationsController
       @cities.push(@city_name)
     end
     super
-    #binding.pry
   end
 
 	def edit
