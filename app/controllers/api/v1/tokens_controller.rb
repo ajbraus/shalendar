@@ -168,21 +168,24 @@ class Api::V1::TokensController  < ApplicationController
     token = params[:apn_token]
     @user = User.find_by_id(params[:user_id])
 
-    #APN.notify(token, :alert => 'New Message', :badge => 4, :sound => true)
+    if @user.nil?
+      render :json => { :success => false }
+      return
+    elsif @user.iPhone_user == true && @user.APNtoken == token
+      render :json => { :success => true }
+      return
+    end
     @user.APNtoken = token
     @user.iPhone_user = true
     @user.save!
     #binding.pry
+    
+    APN.notify(token, {:alert => "You're now signed up for notifications", :badge => 1, :sound => true})
+
     render :json => { :success => true, :token => token }
-    # if @user.save!
-    #   render :json => { :success => true }
-    #   return
-    # else
-    #   render :json => { :success => false }
-    # end
   end
 
-  def newGCMtoken
+  def gcm_user
     @user = User.find_by_id(params[:user_id])
 
     registration_id = params[:registration_id]

@@ -39,17 +39,21 @@ class Api::V1::EventsController < ApplicationController
     @mobile_user = User.find_by_id(params[:user_id])
     APN.notify('41420189 83371275 405b4547 a0c2fa97 cec540a8 63b18365 094cfb52 79e36eba', :alert => 'PUSH MESSAGE', :badge => 4, :sound => true)
 
-    render json: { 
-        :eid => @event.id,
-        :title => @event.title,  
-        :start => @event.starts_at,
-        :end => @event.ends_at, 
-        :gcnt => @event.guests.count,  
-        :tip => @event.min,  
-        :host => @event.user,
-        :plan => @mobile_user.rsvpd?(@event),
-        :guests => @event.guests 
-      }
-
+    if @mobile_user.nil?
+      render :status => 400, :json => {:success => false}
+    else
+      render json: { 
+          :eid => @event.id,
+          :title => @event.title,  
+          :start => @event.starts_at,
+          :end => @event.ends_at, 
+          :gcnt => @event.guests.count,  
+          :tip => @event.min,  
+          :host => @event.user,
+          :plan => @mobile_user.rsvpd?(@event),
+          :guests => @event.guests 
+        }
+    end
   end
+
 end
