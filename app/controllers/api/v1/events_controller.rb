@@ -1,5 +1,6 @@
 class Api::V1::EventsController < ApplicationController
    before_filter :authenticate_user!
+   respond_to :json
    
    def user_events_on_date
     #receive call to : hoos.in/user_plans_on_date.json?date="DateInString"
@@ -22,6 +23,7 @@ class Api::V1::EventsController < ApplicationController
         :tip => e.min,  
         :host => e.user,
         :plan => @mobile_user.rsvpd?(e),
+        :tipped => e.tipped,
         :gids => @guestids
         }
      	@list_events.push(@temp)
@@ -37,7 +39,6 @@ class Api::V1::EventsController < ApplicationController
     #could add invites here, and/or comments
     @event = Event.find_by_id(params[:event_id])
     @mobile_user = User.find_by_id(params[:user_id])
-    APN.notify('41420189 83371275 405b4547 a0c2fa97 cec540a8 63b18365 094cfb52 79e36eba', :alert => 'PUSH MESSAGE', :badge => 4, :sound => true)
 
     if @mobile_user.nil?
       render :status => 400, :json => {:success => false}
@@ -51,6 +52,7 @@ class Api::V1::EventsController < ApplicationController
           :tip => @event.min,  
           :host => @event.user,
           :plan => @mobile_user.rsvpd?(@event),
+          :tipped => @event.tipped,
           :guests => @event.guests 
         }
     end

@@ -35,6 +35,7 @@ Shalendar::Application.routes.draw do
         resources :relationships, :only => [:create, :destroy]
         resources :rsvps, :only => [:create, :destroy]
         
+        #match '/unrsvp', :to => 'rsvps#destroy', :via => :delete
         match '/get_user_info', :to => 'shalendar#get_user_info', :via => :get
         match '/apn_user', :to=> 'tokens#apn_user', :as => "apn_user", :via => :post
         match '/gcm_user', :to=> 'tokens#gcm_user', :as => "gcm_user", :via => :post

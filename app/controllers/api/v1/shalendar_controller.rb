@@ -1,6 +1,7 @@
 class Api::V1::ShalendarController < ApplicationController
 	before_filter :authenticate_user!
-
+  respond_to :json
+  
 	def get_user_info
 
 		@user = User.find_by_id(params[:user_id])

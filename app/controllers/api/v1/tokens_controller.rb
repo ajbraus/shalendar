@@ -93,6 +93,7 @@ class Api::V1::TokensController  < ApplicationController
                                     :notify_n=>@user.notify_noncritical_change,
                                     :post_wall=>@user.post_to_fb_wall,
                                     :followed_users=>@user.followed_users,#may put these in separate calls for speed of login
+                                    :pending_followed_users=>@user.pending_followed_users,
                                     #:followers=>@followers,
                                     :invites=>@invites
                                     }
