@@ -15,4 +15,4 @@ desc "Alias for apn:work (To run workers on Heroku)"
 task "jobs:work" => "apn:work"
 
 desc "Alias for gcm:notifications:deliver"
-task "jobs:work" => "rake gcm:notifications:deliver"
+task "jobs:work" => "gcm:work"
