@@ -363,6 +363,22 @@ class User < ActiveRecord::Base
 
   def password_required? 
     new_record? 
-  end 
+  end
+
+  def send_gcm_notification(message, params)
+    if self.android_user == false
+      logger.info("Tried to send gcm notification to non-android user")
+      return
+    end
+
+    device = Gcm::Device.find_by_id(self.GCMdevice_id)
+    notification = Gcm::Notification.new
+    notification.device = device
+    notification.collapse_key = "updates_available"
+    notification.delay_while_idle = true
+    notification.data = { :data => message}
+    notification.save
+
+  end
 
 end

@@ -164,15 +164,16 @@ class Api::V1::TokensController  < ApplicationController
     end
   end
 
-  def apn_token
+  def apn_user
     token = params[:apn_token]
     @user = User.find_by_id(params[:user_id])
 
-    APN.notify(token, :alert => 'New Message', :badge => 4, :sound => true)
+    #APN.notify(token, :alert => 'New Message', :badge => 4, :sound => true)
     @user.APNtoken = token
     @user.iPhone_user = true
+    @user.save!
     #binding.pry
-    render :json => { :token => token }
+    render :json => { :success => true, :token => token }
     # if @user.save!
     #   render :json => { :success => true }
     #   return
@@ -182,9 +183,25 @@ class Api::V1::TokensController  < ApplicationController
   end
 
   def newGCMtoken
-    token = params[:gcm_token]
+    @user = User.find_by_id(params[:user_id])
 
+    registration_id = params[:registration_id]
+    if @user.android_user == true && @user.GCMdevice_id != 0
+      if Gcm::Device.find_by_id(@user.GCMdevice_id).registration_id == registration_id
+        render :json => { :success => true }
+        return
+      end
+    end
+    device = Gcm::Device.create(registration_id: registration_id)
 
+    @user.GCMregistration_id = registration_id
+    @user.GCMdevice_id = device.id
+    @user.android_user = true
+    if @user.save!
+      render :json => {:success => true }
+    else
+      render :status => 400, :json => {:success => false}
+    end
   end
 end
 

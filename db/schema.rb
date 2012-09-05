@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120903211658) do
+ActiveRecord::Schema.define(:version => 20120904221619) do
 
   create_table "authentications", :force => true do |t|
     t.string   "provider"
@@ -61,6 +61,28 @@ ActiveRecord::Schema.define(:version => 20120903211658) do
     t.boolean  "tipped",       :default => false
     t.string   "link"
   end
+
+  create_table "gcm_devices", :force => true do |t|
+    t.string   "registration_id",    :null => false
+    t.datetime "last_registered_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "gcm_devices", ["registration_id"], :name => "index_gcm_devices_on_registration_id", :unique => true
+
+  create_table "gcm_notifications", :force => true do |t|
+    t.integer  "device_id",        :null => false
+    t.string   "collapse_key"
+    t.text     "data"
+    t.boolean  "delay_while_idle"
+    t.datetime "sent_at"
+    t.integer  "time_to_live"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "gcm_notifications", ["device_id"], :name => "index_gcm_notifications_on_device_id"
 
   create_table "invites", :force => true do |t|
     t.string   "email"
@@ -130,6 +152,9 @@ ActiveRecord::Schema.define(:version => 20120903211658) do
     t.boolean  "post_to_fb_wall",           :default => true
     t.string   "APNtoken"
     t.boolean  "iPhone_user",               :default => false
+    t.integer  "GCMdevice_id",              :default => 0
+    t.integer  "GCMregistration_id",        :default => 0
+    t.boolean  "android_user",              :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

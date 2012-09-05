@@ -20,6 +20,8 @@ gem 'daemons'
 gem 'resque'
 gem 'redis'
 
+gem 'gcm_on_rails', :git => "git://github.com/dondeng/gcm_on_rails.git"
+
 gem 'heroku'
 
 gem 'whenever', :require => false

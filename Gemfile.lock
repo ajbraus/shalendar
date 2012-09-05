@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/dondeng/gcm_on_rails.git
+  revision: e00ff3a71bc5eadf8598c74693b50e617a02ea0b
+  specs:
+    gcm_on_rails (0.1.2)
+      configatron
+      json
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -55,6 +63,8 @@ GEM
       execjs
     coffee-script-source (1.3.3)
     columnize (0.3.6)
+    configatron (2.9.1)
+      yamler (>= 0.1.0)
     daemons (1.1.9)
     debugger (1.1.4)
       columnize (>= 0.3.1)
@@ -284,6 +294,7 @@ GEM
       chronic (~> 0.6.3)
     xpath (0.1.4)
       nokogiri (~> 1.3)
+    yamler (0.1.0)
 
 PLATFORMS
   ruby
@@ -300,6 +311,7 @@ DEPENDENCIES
   factory_girl_rails (= 1.4.0)
   faker (= 1.0.1)
   font-awesome-sass-rails
+  gcm_on_rails!
   guard-rspec (= 1.1.0)
   guard-spork (= 1.1.0)
   heroku
