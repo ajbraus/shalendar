@@ -1,1 +1,0 @@
-gcm_sender.rake
