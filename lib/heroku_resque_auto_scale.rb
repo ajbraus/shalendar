@@ -1,0 +1,1 @@
+heroku_resque_auto_scale.rb
