@@ -1,6 +1,1 @@
 $("a").withPicId(<%= @relationship.followed.id %>).raster_toggle("<%= escape_javascript(render partial: 'shalendar/forecast' ) %>")
-	
-
-<% if false %>
-$('.event').withEventId(<%= @event.id %>).rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>")
-<% end %>

@@ -5,25 +5,26 @@
 		<%= render 'next_plan', event: @next_plan %>
 	<% end %>
 	<div id="datepicker">
+		<div id="datewindow"></div>
 		<% for i in -3..16 do %>
-		<a href="/home?date=<%= Date.today + i %>">
-		<table>
-			<tr>
-				<th>
-					<%= i == 0 ? raw("<span class='red'>T</span>") : (Date.today + i).strftime("%a").slice!(0..1) %>
-		  	</th>
-		  </tr>
-		  <tr>
-		  	<td class="ideas_cloud">
-		  		<%= @forecastoverview[i+3][0] %>
-		  	</td>
-		  </tr>
-		  	<td class="plan_box">
-		  		<%= @forecastoverview[i+3][1] %>
-		  	</td>
-		  </tr>
-		</table>
-		</a>
+			<%= link_to root_path(date: Date.today + i), remote: true do %>
+			<table data-date=<%= "#{Date.today + i}" %>
+				<tr>
+					<th>
+						<%= i == 0 ? raw("<span class='red'>T</span>") : (Date.today + i).strftime("%a").slice!(0..1) %>
+			  	</th>
+			  </tr>
+			  <tr>
+			  	<td class="ideas_cloud">
+			  		<%= @forecastoverview[i+3][0] %>
+			  	</td>
+			  </tr>
+			  	<td class="plan_box">
+			  		<%= @forecastoverview[i+3][1] %>
+			  	</td>
+			  </tr>
+			</table>
+			<% end %>	
 		<% end %>
 	</div>
 </div>

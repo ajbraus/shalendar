@@ -2,11 +2,9 @@
 
 /* EVENT#SHOW */
 
-#event_show {
-  margin-left:75px;
-  margin-right:auto;
-  margin-bottom: 20px;
-  width:414px;
+.event_show {
+  width:850px;
+  margin-right: 55px;
 }
 
 #title {
@@ -86,10 +84,6 @@
 
 .small {
   font-size:12px;
-}
-
-.event_show {
-  height:260px;
 }
 
 #event_info {

@@ -2,10 +2,18 @@ $.fn.withPicId = (id) ->
 	@filter ->
 		$(this).data('pic-id') == id
 
+$.fn.withUserId = (uid) ->
+	@filter ->
+		$(this).data('user-id') == uid
+
 $.fn.raster_toggle = (forecastHTML) ->
-	if $(@).hasClass("toggle-off")
+	if $(@).hasClass("toggled-off")
 		$(@).removeClass("toggled-off").addClass("toggled-on")
-	else
+	else if $(@).hasClass("toggled-on")
 		$(@).removeClass("toggled-on").addClass("toggled-off")
 	
-	#$(@).find('#forecast').html(forecastHTML)
+	$("#forecast").html(forecastHTML)
+
+		#$("td").withUserId.fadeOut(400)
+		#$("td").withUserId.fadeIn(400)
+

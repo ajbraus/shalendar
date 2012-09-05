@@ -11,6 +11,9 @@ before_filter :authenticate_user!
       @relationship.confirmed = false
       if @relationship.save
         respond_to do |format|
+         @relationships = current_user.relationships.where('relationships.confirmed = true')
+         @forecastevents = current_user.forecast((Date.today).to_s)
+         @date = Date.today
          format.html { redirect_to :back, notice: "View request sent to #{@user.name}" }
          format.js
         end
@@ -24,6 +27,9 @@ before_filter :authenticate_user!
       @relationship.confirmed = true
       if @relationship.save
         respond_to do |format|
+         @relationships = current_user.relationships.where('relationships.confirmed = true')
+         @forecastevents = current_user.forecast((Date.today).to_s)
+         @date = Date.today
          format.html { redirect_to :back, notice: "View request sent to #{@user.name}" }
          format.js
         end
@@ -37,6 +43,9 @@ before_filter :authenticate_user!
     @user = Relationship.find(params[:id]).followed
     current_user.unfollow!(@user)
     respond_to do |format|
+     @relationships = current_user.relationships.where('relationships.confirmed = true')
+     @forecastevents = current_user.forecast((Date.today).to_s)
+     @date = Date.today
      format.html { redirect_to :back, notice: "#{@user.name} can no longer view your ideas" }
      format.js
     end
@@ -55,6 +64,8 @@ before_filter :authenticate_user!
    @relationship.toggle!
    @relationship.save
    respond_to do |format|
+     @forecastevents = current_user.forecast((Date.today).to_s)
+     @date = Date.today     
      format.html { redirect_to :back }
      format.js
    end

@@ -43,6 +43,7 @@ Marketing:
 
 	Event
 		Face is inviter, host name to the side
+		set data-user-id => data-inviter-id and remake ajax
 
 	Event#show
 		rethink tipped visual indication
@@ -75,8 +76,8 @@ Marketing:
 			Follower Details
 
 	Ajaxify everything - Monday
-		follow/unfollow
-		rsvp/unrsvp
+		DONE follow/unfollow
+		FIX rsvp/unrsvp
 		visual indicator if invitation sent in find_friends
 		tip!
 
@@ -93,13 +94,13 @@ Marketing:
 		change notification settings
 		add SMS
 
+		inset on plans
+		
 	Agent call - if android/iPhone download our app.
 	
 	Add logo to Post to FB wall - Adam
 	
 	make it so you only call for the @city_friends once from the database
-
-	.layout => height:auto;
 
 	display map_location
 	map bug -google.maps.event.trigger(map, 'resize');
@@ -176,6 +177,40 @@ metrics:
 	events per user per week
 	100+ followers (paying customers)
 	viral coeficent 
+
+
+
+scalability - Plan for 100,000 users on October 12
+finished polished mobile apps - Submit round 2 by October 12
+fine tuning UX/Notifications - October 12
+Virality - October 12
+polished design/business promotional stuff - September 19 
+completed calendar functionality - Gauge users - 21 day view . . . Plan by October 12
+	slide around days and into the future
+	recurring events
+	monetization
+	lists 
+Team/Office - Kick off w About, Careers - September 12, Employee structure September 19
+	Backend Developer
+	Frontend Developer
+	PR communications
+	Designer
+Monetizing - Built by October 12 - first customer October 19
+Money in the bank ($20K)
+Legal - Friday
+	Operators agreement - friday
+	check infridgement of hi/hoos.in - friday
+	terms and conditions - friday
+Accounting - Friday
+	budgeting, costs, burn rate, $1,500 
+
+
+
+
+
+
+
+
 
 
 
