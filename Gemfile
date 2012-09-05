@@ -22,6 +22,8 @@ gem 'redis'
 
 gem 'gcm_on_rails', :git => "git://github.com/dondeng/gcm_on_rails.git"
 
+#gem 'apn_on_rails'
+
 gem 'heroku'
 
 gem 'whenever', :require => false

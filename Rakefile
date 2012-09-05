@@ -11,3 +11,9 @@ Shalendar::Application.load_tasks
   rescue MissingSourceFile => e
     puts e.message
   end
+
+  # begin
+  #   require 'apn_on_rails_tasks'
+  # rescue MissingSourceFile => e
+  #   puts e.message
+  # end
