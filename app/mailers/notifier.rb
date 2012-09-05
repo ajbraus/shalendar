@@ -21,14 +21,13 @@ class Notifier < ActionMailer::Base
     @guest_emails = []
     @guests.each do |g|
       if(g.iPhone_user == true)
-        APN.notify(g.APNtoken, {:alert => "Event #{event.title} canceled!", :badge => 1, :sound => true})
+        APN.notify(g.APNtoken, {:alert => "#{event.title} canceled!", :badge => 1, :sound => true})
       end
       @guest_emails.push(g.email)
     end
-
     @guest_emails.join('; ')
 
-    mail bcc: @guest_emails, subject: "Your event #{event.title} has been canceled!"
+    mail bcc: @guest_emails, subject: "#{event.title} has been canceled!"
   end
 
   def rsvp_reminder(event)

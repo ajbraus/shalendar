@@ -178,9 +178,8 @@ class Api::V1::TokensController  < ApplicationController
     @user.APNtoken = token
     @user.iPhone_user = true
     @user.save!
-    #binding.pry
     
-    APN.notify(token, {:alert => "You're now signed up for notifications", :badge => 1, :sound => true})
+    #APN.notify(token, {:alert => "You're now signed up for notifications", :badge => 1, :sound => true})
 
     render :json => { :success => true, :token => token }
   end
