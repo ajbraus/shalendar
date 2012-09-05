@@ -8,7 +8,7 @@
 		<% elsif event.tipped? == true && current_user.rsvpd?(event) == false %>
 			<div class="event plan rsvpd" data-event-id="<%= event.id %>">
 		<% elsif event.tipped? == false && current_user.rsvpd?(event) %>
-			<div class="event" data-event-id="<%= event.id %>"><span class="cloud"><%= image_tag("rsvp_cloud.png") %></span>
+			<div class="event" data-event-id="<%= event.id %>"><span class="cloud"><%= image_tag("cloud.png") %></span>
 		<% end %>
 			<div class="event_time"><%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>
 			<div class="event_pic"><%= raster_profile_picture(event.user) %></div>
