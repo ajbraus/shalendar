@@ -1071,15 +1071,14 @@
 		});
 
 		if ($.fn.mousewheel) {
-			wrap.bind('mousewheel.fb', function(e, delta) {
-				if (busy) {
-					e.preventDefault();
-
-				} else if ($(e.target).get(0).clientHeight == 0 || $(e.target).get(0).scrollHeight === $(e.target).get(0).clientHeight) {
-					e.preventDefault();
-					$.fancybox[ delta > 0 ? 'prev' : 'next']();
-				}
-			});
+        wrap.bind('mousewheel.fb', function(e, delta) {
+            if (!busy && $(e.target).get(0).clientHeight == 0 || $(e.target).get(0).scrollHeight === $(e.target).get(0).clientHeight) {
+                // Remove the next line too, if you want weird movements
+                // at the image gallery example...
+                // e.preventDefault();
+                $.fancybox[ delta > 0 ? 'prev' : 'next']();
+            }
+        });
 		}
 
 		if (!$.support.opacity) {

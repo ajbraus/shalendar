@@ -43,6 +43,7 @@ $(document).ready(function() {
 // 	}
 // });
 
+	$( "#views_list" ).tabs();
 
 // new idea button box
 

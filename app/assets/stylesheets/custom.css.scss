@@ -933,15 +933,6 @@ opacity: .8;
   }
 }
 
-#views_list {
-  width: 600px;
-  height: 600px;
-  float: left;
-  position: relative;
-  left: 100px;
-  top: 50px;
-}
-
 .user_table {
 font-size: 12px;
 height: 312px;
@@ -1077,7 +1068,7 @@ left: 46px;
   width: 12px;
   height: 15px;
   background-color: lightGrey;
-  padding: 0px 13px 19px 8px;
+padding: 6px 9px 7px 7px;
   color:darkgrey;
   font-size: 20px;
   -webkit-border-radius: 3px;
@@ -1085,7 +1076,7 @@ left: 46px;
   border-radius: 3px;
   position: absolute;
   top: 266px;
-  left: 254px;
+  left: 203px;
   &:hover {
     color:#F2B041;
   }
@@ -1095,7 +1086,7 @@ left: 46px;
   width: 12px;
   height: 15px;
   background-color: lightGrey;
-  padding: 0px 13px 19px 8px;
+padding: 6px 9px 7px 7px;
   color:darkgrey;
   font-size: 20px;
   -webkit-border-radius: 3px;
@@ -1103,7 +1094,7 @@ left: 46px;
   border-radius: 3px;
   position: absolute;
   top: 266px;
-  left: 218px;
+  left: 170px;
     &:hover {
     color:#CD0000;
   }
@@ -1229,7 +1220,7 @@ bottom: 23px;
   width:370px;
   height: 200px;
   display: inline-block;
-  margin: 0 0 13px 10px;
+  margin: 10px 0 13px 0px;
   -webkit-box-shadow: #AAA 0px 0px 10px teal;
   width: 447px;
 }
@@ -1335,9 +1326,9 @@ bottom: 23px;
 
 /* forms */
 
-.error {
-  background-color:#FFC1C1;
-  color:$destroy;
+input[type=text].error, textarea.error {
+  box-shadow: 0px 0px 0px 2pt $destroy;
+  outline:none;
 }
 
 label.error {
@@ -1346,6 +1337,7 @@ label.error {
   background-color: inherit;
   width:200px;
 }
+
 ::-webkit-input-placeholder {
    font-style: italic;
 }
@@ -1487,6 +1479,7 @@ input[type=text], textarea, .uneditable-input {
   }
   input[name="event[chronic_starts_at]"]{
     width: 361px;
+    margin-top: 5px;
   }
   input[name="event[duration]"] {
     width:55px;
@@ -1494,6 +1487,7 @@ input[type=text], textarea, .uneditable-input {
   }
   input[name="event[link]"] {
     width: 345px;
+    margin-bottom:15px;
   }
   label[name="duration"]{
     margin-left: 253px;
@@ -1531,6 +1525,11 @@ input[type=text], textarea, .uneditable-input {
   cursor:pointer;
   color:black;
   text-decoration: underline;
+  &:hover{
+    color:$dark_orange;
+    -webkit-transition: color .25s linear .4s;
+    transition: color .25s linear .4s;
+  }
 }
 
 #addmapp {

@@ -16,15 +16,11 @@ gem 'daemons'
 gem 'resque'
 gem 'redis'
 gem 'heroku'
-
 gem 'gcm_on_rails', :git => "git://github.com/dondeng/gcm_on_rails.git"
-
 #gem 'apn_on_rails'
-
 gem 'heroku'
-
-
->>>>>>> 73c6195ba1173a4f5d1e598a2d39c8bf82d059bc
+gem 'rails-i18n'
+gem 'devise-i18n'
 gem 'whenever', :require => false
 gem 'pry'
 gem 'pry-debugger'
