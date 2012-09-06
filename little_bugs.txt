@@ -30,8 +30,6 @@ What do we do with already finished events in a given day?
 AFTER LAUNCH
 maybe_events doesn't work with (full-calendar) scope calls on after, before
 
-With notifier for event_noncritical_change, which means any update to event other than starts_at, it will send even if nothing was changed but the edit/update controller action was called...
-
 double-creating events by hitting enter twice (when trying to specify duration)- all buttons
 
 populating database is not creating because "Validating plan id is not there" (we solved this before by putting @event.save, and assigning an ID. I tried removing that and adding one and not the other.)
@@ -39,8 +37,6 @@ populating database is not creating because "Validating plan id is not there" (w
 not getting events on calendar -- js errors - looks like something is wacky from some of our URL streams
 
 google icon is tiny and squished
-
-With notifier for event_noncritical_change, which means any update to event other than starts_at, it will send even if nothing was changed but the edit/update controller action was called... AND need to add to comment#create when we make that
 
 If event is tipped once it can still untip- not currently notifying on that... do we want to allow it? or maybe up until 2 hours ahead of time?...
 

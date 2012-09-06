@@ -88,9 +88,8 @@ class Api::V1::TokensController  < ApplicationController
                                     :last_name=>@user.last_name,
                                     :email_hex=> Digest::MD5::hexdigest(@user.email.downcase),
                                     :confirm_f=>@user.require_confirm_follow,
-                                    :daily_d=>@user.daily_digest,
+                                    :daily_d=>@user.allow_contact,
                                     :notify_r=>@user.notify_event_reminders,
-                                    :notify_n=>@user.notify_noncritical_change,
                                     :post_wall=>@user.post_to_fb_wall,
                                     :followed_users=>@user.followed_users,#may put these in separate calls for speed of login
                                     :pending_followed_users=>@user.pending_followed_users,
