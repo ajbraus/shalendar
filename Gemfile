@@ -2,37 +2,28 @@ source 'https://rubygems.org'
 
 ruby '1.9.3'
 gem 'rails', '3.2.6'
-
 # gem 'will_paginate', '3.0.3'
 # gem 'bootstrap-will_paginate', '0.0.6'
-
 gem 'devise', '2.1.0'
 gem 'omniauth-facebook', '1.4.0'
 gem 'omniauth-twitter'
 gem 'koala'
-
 gem 'thin'
 gem 'chronic'
 gem 'twilio-rb'
-
 gem 'apn_sender', :require => 'apn'
 gem 'daemons'
 gem 'resque'
 gem 'redis'
-
 gem 'heroku'
-
 gem 'whenever', :require => false
-
 gem 'pry'
 gem 'pry-debugger'
 # gem "recaptcha", :require => "recaptcha/rails"
-
 gem 'pg'
-
 gem "sendgrid", "~> 1.0.1"
-
 gem "rails_autolink", "~> 1.0.9"
+gem 'gmaps4rails'
 
 group :development, :test do
   gem 'faker', '1.0.1'
@@ -46,6 +37,7 @@ group :assets do
   gem 'sass-rails',   '3.2.4'
   gem 'uglifier', '1.2.3'
   gem 'font-awesome-sass-rails'
+  gem 'jquery-ui-rails'
 end
 
 gem 'coffee-rails', '3.2.2'

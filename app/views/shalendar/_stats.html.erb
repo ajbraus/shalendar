@@ -9,13 +9,13 @@
     <strong id="following" class="stat">
       <%= current_user.followed_users.count %>
     </strong>
-    subscribing
+    following
   </a>
   <a href="<%= manage_follows_path %>">
     <strong id="followers" class="stat">
       <%= current_user.followers.count %>
     </strong>
-    subscribers
+    followers
   </a>
   <% if @view_requests.any? %>
   <a href="<%= manage_follows_path %>">

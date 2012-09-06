@@ -52,7 +52,7 @@ class EventsController < ApplicationController
           format.html { redirect_to @event }
           format.json { render json: @event, status: :created, location: @event }
         else
-          format.html { redirect_to home_path, notice: "Idea posted! On #{@event.starts_at}"}
+          format.html { redirect_to home_path, notice: "Idea posted! On #{@event.start_time}"}
           format.json { render json: home_path, status: :created, location: @event }
         end
       else
@@ -69,7 +69,7 @@ class EventsController < ApplicationController
                                          relationships.confirmed = false ", current_user_id: current_user.id)
     @event = Event.find(params[:id])
     @guests = @event.guests
-    
+    @json = @event.to_gmaps4rails
     #separating invites by email from invites who are users
     @invites = []
     @invited_users = []
@@ -97,16 +97,13 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     @start_time = @event.starts_at
-    @location = @event.map_location
+    @location = @event.lng
     respond_to do |format|
       if @event.update_attributes(params[:event])
-
         if @start_time != @event.starts_at
           Notifier.time_change(@event).deliver
-        elsif @location != @event.map_location
+        elsif @location != @event.lng
           Notifier.location_change(@event).deliver
-        else
-          Notifier.noncritical_change(@event).deliver
         end
 
         format.html { redirect_to @event, notice: 'Idea was successfully updated.' }

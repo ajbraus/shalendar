@@ -56,6 +56,10 @@ textarea {
   resize: vertical;
 }
 
+textarea:focus, input:focus {
+  outline: none;
+}
+
 .center {
   text-align: center;
   h1 {
@@ -65,9 +69,7 @@ textarea {
 
 .hero-unit {
   text-align: center;
-  margin-bottom: 30px;
-width: 960px;
-position: relative;
+position: absolute;
 top: 80px;
 right: 131px;
   h1 {
@@ -125,6 +127,17 @@ a {
 
 ul, li {
   list-style: none;
+}
+
+.btn {
+  font-size: 15px;
+  line-height: 24px;
+  margin-bottom: 10px;
+  margin-top:5px;
+  padding: 11px 20px 11px 20px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
 }
 
 .btn-primary {
@@ -242,6 +255,8 @@ ul, li {
 
 .login_buttons {
   float:center;
+  position: relative;
+top: 50px;
 }
 
 .btn-warning {
@@ -343,6 +358,8 @@ min-height: 1040px;
   width:895px;
   height:720px;
   float:right;
+  position: relative;
+  top: 38px;
 }
 
 /* sidebar */
@@ -399,10 +416,10 @@ div.dashboard {
     -webkit-border-radius: 0 5px 5px 0;
     -moz-border-radius: 0 5px 5px 0;
     border-radius: 0 5px 5px 0;
-    height: 36px;
-    width: 37px;
-    position: relative;
-    top: 2.5px;
+    height: 36.5px;
+width: 37px;
+position: relative;
+top: 3.5px;
     padding:0;
   }
 }
@@ -492,6 +509,7 @@ width: 255px;
 
 
 #ribbon {
+  width: 1000px;
 }
 
 #datepicker {
@@ -500,8 +518,6 @@ width: 255px;
   font-size:13px; 
   height: 78px;
   position: relative;
-  bottom: 8px;
-left: 105px;
   table{
     float:left;
     width:5%;
@@ -566,8 +582,7 @@ float:left;
   overflow:auto;
   padding:30px;
   padding-bottom:20px;
-  padding-top:0px;
-
+  padding-top: 14px;
 }
 
 
@@ -576,7 +591,7 @@ float:left;
 #forecast {
   width: 997px;
   height: 100%;
-  overflow: scroll;
+  overflow: hidden;
   background-color: rgba(250, 250, 250, 0.8);
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -733,9 +748,12 @@ left: 59px;
 /* NEXT PLAN */
 
 .next_plan {
-width: 224px;
+width: 242px;
+height: 100px;
 position: relative;
-float:left;
+float: left;
+bottom: 7px;
+left: 15px;
 .event_pic {
 top: 20px;
 left: 0px;
@@ -745,11 +763,17 @@ left: 0px;
   }
   .friends_attending {
     position: relative;
+    top: 44px;
+left: 50px;
+  }
+  .guest_count{
+    position: relative;
+    left: 197px;
+top: 22px;
   }
 }
 
 .next_plan_time {
-  width:100%;
   padding:0 10px;
   -webkit-border-radius: 5px 5px 0 0;
   -moz-border-radius: 5px 5px 0 0 ;
@@ -770,6 +794,13 @@ height: 41px;
 position: absolute;
 top: 35px;
 left: 54px;
+}
+
+.next_plan_date {
+  position: absolute;
+  top:20px;
+  left:54px;
+  width: 100%;
 }
 
 .btn_icon {
@@ -873,7 +904,7 @@ opacity: .8;
   border-radius: 7px;
   color: goldenrod;
   width: 194px;
-  left: 463px;
+  left: 396px;
   z-index: 10;
   height: 57px;
 
@@ -916,10 +947,8 @@ font-size: 12px;
 height: 312px;
 overflow: hidden;
    table {
-    width:50%;
+    width: 38%;
     float:left;
-    border-collapse: collapse;
-    border-spacing: 0;
     font-size: 15px;
     padding-right:25px;
   }
@@ -1142,3 +1171,390 @@ left: 46px;
   width: 0px;
   height: 0px;
 }
+
+.fb_login_button {
+  position: relative;
+right: 68px;
+bottom: 23px;
+}
+
+
+
+
+/* EVENT#SHOW */
+
+.event_show {
+  width:850px;
+  margin-right: 55px;
+}
+
+#title {
+  font-size:1.2em;
+  color:hotpink;
+  padding:30px;
+  border:1px solid lightgrey;
+  font-weight: normal;
+  height:80px;
+  overflow:auto;
+  -webkit-box-shadow: 5px 5px 5px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    5px 5px 5px rgba(50, 50, 50, 0.75);
+  box-shadow:         5px 5px 5px rgba(50, 50, 50, 0.75);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-bottom:20px;
+}
+
+#when {
+  text-align: right;
+  color:gray;
+  position:relative;
+  top:63px;
+  left:20px;
+  font-style: italic;
+  font-size:.9em;
+}
+
+.event_on {
+  text-align: center;
+  font-size: 32px;
+  font-family: serif;
+  font-style: bold;
+  color:#3D8B37;
+  text-shadow: 0.03em 0.03em 0.15em lightgrey
+}
+
+#map {
+  border: 1px solid #DDD;
+  width:370px;
+  height: 200px;
+  display: inline-block;
+  margin: 0 0 13px 10px;
+  -webkit-box-shadow: #AAA 0px 0px 10px teal;
+  width: 447px;
+}
+
+#no_map {
+  width:370px;
+  height: 200px;
+  margin: 15px 20px 13px 0px;
+  display: inline-block;
+  color:grey;
+  font-style: italic;
+}
+
+.rsvp_tip {
+  margin-top:20px;
+  margin-bottom:10px;
+  font-size:12px;
+  h2 {
+    margin-top:0px;
+    margin-bottom:5px;
+    font-size:1.8em;
+  }
+  h3 {
+    text-align: center;
+  }
+}
+
+.grey_italics {
+  font-size: 24px;
+  font-style: italic;
+  color: grey;
+  font-family: veranda;
+}
+
+.small {
+  font-size:12px;
+}
+
+#event_info {
+  margin-left:auto;
+  margin-right:auto;
+  width:1040px;
+  height:730px;
+  position: relative;
+  top: 50px;
+  h1 {
+    margin-top:0px;
+    text-align: left;
+  }
+}
+
+.comments_form {
+  float:left;
+}
+
+#guest_raster {
+  display: inline-block;
+  float:left;
+  width: 700px;
+  margin-right:40px;
+  height: 240px;
+  margin-bottom:10px;
+  font-size: 20px;
+  overflow:auto;
+  border:1px solid lightgrey;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding:20px;
+  table{
+    width:30%;
+  }
+}
+
+.input-large {
+  width:340px;
+}
+
+#rsvp_form {
+  margin-left:330px;
+}
+
+#social {
+  margin-bottom:20px;
+  margin-top:20px;
+  width:300px;
+}
+
+#invites {
+  float:right;
+  width:320px;
+  height:450px;
+  overflow-y:auto;
+}
+
+.nav_buttons {  
+  float:left;
+  width:100%;
+  a {
+    color:blue;
+  }
+}
+
+/* forms */
+
+.error {
+  background-color:#FFC1C1;
+  color:$destroy;
+}
+
+label.error {
+  float:left;
+  color:black;
+  background-color: inherit;
+  width:200px;
+}
+::-webkit-input-placeholder {
+   font-style: italic;
+}
+
+:-moz-placeholder {  
+   font-style: italic;
+}
+
+form {
+margin: 0 0 0 0;
+}
+
+label {
+display: inline;
+margin-bottom: 0px;
+color: #333;
+}
+
+input[type=text], input[type=email], input[type=password], textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  padding: 10px;
+  height: auto;
+  margin-bottom: 0;
+  color:hotpink;
+  font-size:15px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+
+textarea {
+  font-size: 15px;
+}
+
+input[type=text], textarea, .uneditable-input {
+  width: 420px;
+}
+
+#sign_up {
+  margin: 0 auto;
+  width: 517px;
+  position: relative;
+  top: 80px;
+  left: 40px;
+    h2 {
+    width:410px;
+  }
+  input {
+    font-size: 23px;
+    width:380px;
+    margin-bottom: 10px;
+    margin-top:5px;
+  }
+  label {
+    font-size: 15px;
+    color: #404040;
+  }
+  input[type=checkbox]{
+    width:20px;
+  }
+  select[name="user[city]"]{
+    width:290px;
+    font-size: 20px;
+    margin: 5px 0 20px 0;
+  }
+}
+
+#recaptcha {
+  margin-left:25px;
+}
+
+#sign_in {
+  margin:0 auto;
+  width: 500px;
+  position: relative;
+  top: 80px;
+  h2 {
+    width:410px;
+  }
+  input {
+    font-size: 23px;
+    width:380px;
+    margin-bottom: 10px;
+    margin-top:5px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+  }
+  label {
+    font-size: 15px;
+    color: #404040;
+  }
+  input[type=checkbox]{
+    width:28px;
+  }
+}
+
+
+.event_form {
+  p{
+    line-height: 1;
+    margin:10px 0;
+  }
+ textarea {
+    font-size: 18px;
+    line-height: 24px;
+    width: 452px;
+    margin-bottom: 10px;
+    margin-top:5px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+  }
+  label {
+    font-size: 15px;
+    color: #404040;
+    margin-bottom:5px;
+  }
+  input[type=radio]{
+    width:18px;
+    margin-left:22px;
+    margin-bottom:30px;
+  }
+  div > span {
+    text-decoration: none;
+    width: 49%;
+    float: left;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-left: 3px;
+    input {
+      width:100px;
+      text-align: center;
+      font-size: 35px;
+    }
+    label {
+      width: 210px;
+    }
+  }
+  input[name="event[chronic_starts_at]"]{
+    width: 361px;
+  }
+  input[name="event[duration]"] {
+    width:55px;
+    margin-left:5px;
+  }
+  input[name="event[link]"] {
+    width: 345px;
+  }
+  label[name="duration"]{
+    margin-left: 253px;
+  }
+  ul {
+    float:right;
+    font-size: 20px;
+    margin-top: 18px;
+    margin-right: 15px;
+    li {
+    display: inline;
+    padding-left:7px;
+    }
+  }
+}
+
+.new_idea_button {
+  width:200px;
+  float:left;
+  input[type=submit]{
+    padding: 11px 156px 11px 158px;
+  }
+}
+
+#radio {
+  float:left;
+  margin: 10px 10px 25px 10px;
+}
+
+#minmax {
+  margin-left:45px;
+}
+
+#addLink, #addmap {
+  cursor:pointer;
+  color:black;
+  text-decoration: underline;
+}
+
+#addmapp {
+  float:left;
+}
+
+#addLinkp {
+  float:left;
+}
+
+select {
+  width: 80px;
+}
+
+#error_explanation {
+  color: #f00;
+  ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .control-group;
+  @extend .error;
+}
+

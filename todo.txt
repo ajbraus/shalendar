@@ -1,9 +1,4 @@
 
-NOTE: took =======
-  rails_autolink (~> 1.0.9)
->>>>>>> f8f7d7c90f9ca6b452c21fc39c952c88894e4c10
-out of gemfile.lock
-
 MOBILE DONE:
 	1. Authentication/list of events
 	2. Event Show / RSVP / Follow

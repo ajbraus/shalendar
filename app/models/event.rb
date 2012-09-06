@@ -1,54 +1,41 @@
 require 'chronic'
 
 class Event < ActiveRecord::Base
+  acts_as_gmappable :validation => false
   belongs_to :user
-  
   has_many :comments, dependent: :destroy
-
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
   has_many :guests, through: :rsvps
-
   has_many :invites, dependent: :destroy
-
   attr_accessible :id,
                   :starts_at, 
                   :duration,
                   :ends_at,
                   :title, 
                   :min, 
-                  :max, 
-                  :map_location,
+                  :max,
+                  :address, 
+                  :latitude,
+                  :longitude,
                   :chronic_starts_at,
                   :chronic_ends_at,
                   :visibility,
-                  :link
+                  :link,
+                  :gmaps
 
   validates :user_id,
             :title,
             :starts_at,
             :chronic_starts_at,
             :duration, presence: true
-
   validates :max, numericality: { in: 1..10000, only_integer: true }
   validates :min, numericality: { in: 1..10000, only_integer: true }
-  validates :duration, numericality: { in: 0..1000 } 
-
+  # validates :duration, numericality: { in: 0..1000 } 
   validates :title, length: { maximum: 140 }
-  validates :map_location, length: { maximum: 80 }
-
+  # validates_numericality_of :lng, :lat
   @url = /^((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)?$/ 
   validates :link, :format => { :with => @url }
-
-  #from bokmann fullcalendar event model
-  scope :before, lambda {|end_time| {:conditions => ["ends_at < ?", Event.format_date(end_time)] }}
-  scope :after, lambda {|start_time| {:conditions => ["starts_at > ?", Event.format_date(start_time)] }}
-  
-  #http://rorguide.blogspot.com/2011/02/to-pass-currentuser-object-to.html
-  # scope :not_my_plans, lambda {|user| joins(:guest).where("guest_id != ?", user.id)}
-
-  # need to override the json view to return what full_calendar is expecting.
-  # http://arshaw.com/fullcalendar/docs/event_data/Event_Object/
-
+ 
   def as_json(options = {})
     {
       :id => self.id,
@@ -116,5 +103,14 @@ class Event < ActiveRecord::Base
       end
     end
   end
+
+  def gmaps4rails_address
+    address
+  end
+
+  def start_time
+    starts_at.strftime "%l:%M%P, %A %B %e"
+  end
+
 end
 

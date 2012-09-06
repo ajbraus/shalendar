@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-
 	$("div.alert").delay(5000).fadeOut(1000);
 
 // user settings icon
@@ -12,6 +11,26 @@ $(document).ready(function() {
 		$(".user_settings").hide();
 		$(".logout").hide();
 	});
+
+	$("#new_event_form").validate({
+		rules: {
+			"event[min]": {
+				number: true
+			},
+			"event[max]": {
+				number: true
+			},
+			"event[duration]": {
+				required: true,
+				number: true
+			},
+			"event[link]": {
+				url: true
+			}
+		}
+	});
+
+	$( "#radio" ).buttonset();
 
 // fade in hover of new idea
 // 	$(".btn_new_idea").hover(function(){

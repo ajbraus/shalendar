@@ -32,11 +32,10 @@
   <% end %>
   <%= render 'nav_buttons' %>
   
-  <% if @event.map_location != nil %>
+  <% if @event.latitude && @event.longitude != nil %>
     <div>
-      Map:
-      <input id="addresspicker_map" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" value= "<%= @event.map_location %>" type="hidden">
-      <div id="map"></div>
+      Map:<br>
+      <%= gmaps("map_options" => { "detect_location" => true, "center_on_user" => true, "zoom" => 10 },"markers" => { "data" => @json }) %>
     </div>
   <% end %>
 
@@ -71,8 +70,7 @@
 
     </div>
   </div>
-     <%= render partial: 'comments_form' %>
-  </div>
+  <%= render partial: 'comments_form' %>
 </div>
 
 <!-- Twitter API script -->
@@ -87,3 +85,4 @@
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=327936950625049";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+

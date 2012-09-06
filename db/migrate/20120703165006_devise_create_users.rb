@@ -31,7 +31,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.datetime :locked_at
 
       ## Token authenticatable
-      # t.string :authentication_token
+      t.string :authentication_token
 
 
       t.timestamps
@@ -41,6 +41,16 @@ class DeviseCreateUsers < ActiveRecord::Migration
     add_index :users, :reset_password_token, :unique => true
     # add_index :users, :confirmation_token,   :unique => true
     # add_index :users, :unlock_token,         :unique => true
-    # add_index :users, :authentication_token, :unique => true
+    add_index :users, :authentication_token, :unique => true
+
+    add_column :users, :name, :string
+    add_column :users, :city, :string
+    add_column :users, :terms, :boolean
+    add_column :users, :require_confirm_follow, :boolean, :default => true
+    add_column :users, :allow_contact, :boolean, :default => true
+    add_column :users, :notify_event_reminders, :boolean, :default => true
+    add_column :users, :post_to_fb_wall, :boolean, :default => true
+    add_column :users, :APNtoken, :string
+    add_column :users, :iPhone_user, :bool, :default => false
   end
 end
