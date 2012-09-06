@@ -26,7 +26,7 @@ class Api::V1::RsvpsController < ApplicationController
   end
 
   def destroy
-    @event = Event.find_by_id(params[:plan_id])
+    @event = Event.find_by_id(params[:event_id])
     @mobile_user = User.find_by_id(params[:user_id])
     unless @mobile_user.rsvpd?(@event) == false
       @mobile_user.unrsvp!(@event)
