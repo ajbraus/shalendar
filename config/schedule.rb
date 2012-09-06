@@ -39,7 +39,11 @@ set :cron_log, "~/desktop/shalendar/log/cron_log.log"
 # end
 
 every 1.minutes do
-	command "/script/apn_sender"
+	#command "/script/apn_sender" not sure exactly how this works, but uses daemon
+	#to send apn_notifications, which is supposed to be better (faster?) in production
+	#can also 'start it' from the command line, using redis/rescue...
+	rake "apn:sender"
+	rake "gcm:notifications:deliver"
 end
 
 # every 15.minutes, at: [8, 23, 38, 53] do #we should start this off the 15-min increment so there's never overlap

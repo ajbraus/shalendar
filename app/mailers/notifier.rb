@@ -19,8 +19,10 @@ class Notifier < ActionMailer::Base
     @guests = event.guests
 
     @guest_emails = []
-
     @guests.each do |g|
+      if(g.iPhone_user == true)
+        APN.notify(g.APNtoken, {:alert => "Event #{event.title} canceled!", :badge => 1, :sound => true})
+      end
       @guest_emails.push(g.email)
     end
 
@@ -35,6 +37,9 @@ class Notifier < ActionMailer::Base
     @guest_emails = []
 
     @guests.each do |g|
+      if(g.iPhone_user == true)
+        APN.notify(g.APNtoken, { :alert => "Event #{event.title} canceled!", :badge => 1, :sound => true})
+      end
       @guest_emails.push(g.email)
     end
 
@@ -48,6 +53,9 @@ class Notifier < ActionMailer::Base
 
     #should we include here an invited by X to make them more likely to join?
     if @user = User.find_by_email(email)
+      if(@user.iPhone_user == true)
+        APN.notify(@user.APNtoken, {:alert => "You've been invited to #{event.title}", :badge => 1, :sound => true})
+      end
       mail to: @user.email, subject: "Hello, #{@user.first_name} you've been invited to #{event.title}; visit www.hoos.in.com/events/#{event.id}"
     else
       mail to: email, subject: "Hello, you've been invited to #{event.title}; visit www.hoos.in.com/events/#{event.id}"
@@ -61,6 +69,9 @@ class Notifier < ActionMailer::Base
     @guest_emails = []
 
     @guests.each do |g|
+      if(g.iPhone_user == true)
+        APN.notify(g.APNtoken, {:alert => "#{event.title} has tipped!", :badge => 1, :sound => true})
+      end
       @guest_emails.push(g.email)
     end
 
@@ -83,10 +94,10 @@ class Notifier < ActionMailer::Base
       @guest_emails.push(g.email)
     end
 
-    @guest_phone_numbers.each do |gp|
-      Twilio::SMS.create :to => gp.to_str, :from => '+16084675636',
-                          :body => "Hey baby, how's your day going? xoxo"
-    end
+    # @guest_phone_numbers.each do |gp|
+    #   Twilio::SMS.create :to => gp.to_str, :from => '+16084675636',
+    #                       :body => "Hey baby, how's your day going? xoxo"
+    # end
 
     @guest_emails.join('; ')
 
@@ -109,9 +120,17 @@ class Notifier < ActionMailer::Base
   end
 
   def send_invites(event)
-    @invitees = @event.invites.join('; ')
 
+    @event.invites.each do |i|
+      @user = User.find_by_email(i.email)
+      unless @user.nil?
+        if(@user.iPhone_user == true)
+          APN.notify(@user.APNtoken, {:alert => "#{event.title} has tipped!", :badge => 1, :sound => true})
+        end
+      end
+    @invitees = @event.invites.join('; ')
     mail bcc: @invitees, subject: "#{event.user.name} has invited you to #{event.title} on hoos.in"
+    end
   end
 
   #PREFERENCE NOTIFIERS, DEFAULT YES
