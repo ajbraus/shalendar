@@ -15,7 +15,7 @@ respond_to :json
         @relationship = Relationship.last #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
         @relationship.confirmed = false
         if @relationship.save
-          render :status=>200, :json=>{:success=>true, :pending_followed_user=>@user_to_follow}
+          render :status=>200, :json=>{:success=>true, :pfu=>@user_to_follow}
           return
         else
           render :status=>400, :json=>{:success=>false, :message=>"Some server error prevented follow"}
@@ -27,7 +27,7 @@ respond_to :json
       @relationship = Relationship.last
       @relationship.confirmed = true
       if @relationship.save
-        render :status=>400, :json=>{:success=>true, :followed_user=>@user_to_follow}
+        render :status=>200, :json=>{:success=>true, :fu=>@user_to_follow}
         return
       else
         render :status=>400, :json=>{:success=>false, :message=>"Some server error prevented follow"}
