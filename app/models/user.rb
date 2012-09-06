@@ -18,8 +18,7 @@ class User < ActiveRecord::Base
                   :name,
                   :terms,
                   :require_confirm_follow,
-                  :notify_noncritical_change,
-                  :daily_digest,
+                  :allow_contact,
                   :notify_event_reminders,
                   :city,
                   :post_to_fb_wall

@@ -11,9 +11,14 @@ before_filter :authenticate_user!
       @relationship.confirmed = false
       if @relationship.save
         respond_to do |format|
-         @relationships = current_user.relationships.where('relationships.confirmed = true')
-         @forecastevents = current_user.forecast((Date.today).to_s)
-         @date = Date.today
+        @relationships = current_user.relationships.where('relationships.confirmed = true')  
+        if params[:date] 
+          @forecastevents = current_user.forecast(params[:date])
+          @date = Date.strptime(params[:date], "%Y-%m-%d")
+         else 
+          @forecastevents = current_user.forecast((Date.today).to_s)
+          @date = Date.today
+         end
          format.html { redirect_to :back, notice: "View request sent to #{@user.name}" }
          format.js
         end
@@ -28,8 +33,13 @@ before_filter :authenticate_user!
       if @relationship.save
         respond_to do |format|
          @relationships = current_user.relationships.where('relationships.confirmed = true')
-         @forecastevents = current_user.forecast((Date.today).to_s)
-         @date = Date.today
+         if params[:date] 
+          @forecastevents = current_user.forecast(params[:date])
+          @date = Date.strptime(params[:date], "%Y-%m-%d")
+         else 
+          @forecastevents = current_user.forecast((Date.today).to_s)
+          @date = Date.today
+         end
          format.html { redirect_to :back, notice: "View request sent to #{@user.name}" }
          format.js
         end
@@ -44,8 +54,13 @@ before_filter :authenticate_user!
     current_user.unfollow!(@user)
     respond_to do |format|
      @relationships = current_user.relationships.where('relationships.confirmed = true')
-     @forecastevents = current_user.forecast((Date.today).to_s)
-     @date = Date.today
+     if params[:date] 
+      @forecastevents = current_user.forecast(params[:date])
+      @date = Date.strptime(params[:date], "%Y-%m-%d")
+     else 
+      @forecastevents = current_user.forecast((Date.today).to_s)
+      @date = Date.today
+     end
      format.html { redirect_to :back, notice: "#{@user.name} can no longer view your ideas" }
      format.js
     end

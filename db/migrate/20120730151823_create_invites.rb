@@ -7,5 +7,7 @@ class CreateInvites < ActiveRecord::Migration
       t.timestamps
     end
     add_index :invites, :event_id
+
+    add_column :invites, :inviter_id, :integer
   end
 end

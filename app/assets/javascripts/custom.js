@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-
 	$("div.alert").delay(5000).fadeOut(1000);
 
 // user settings icon
@@ -13,6 +12,26 @@ $(document).ready(function() {
 		$(".logout").hide();
 	});
 
+	$("#new_event_form").validate({
+		rules: {
+			"event[min]": {
+				number: true
+			},
+			"event[max]": {
+				number: true
+			},
+			"event[duration]": {
+				required: true,
+				number: true
+			},
+			"event[link]": {
+				url: true
+			}
+		}
+	});
+
+	$( "#radio" ).buttonset();
+
 // fade in hover of new idea
 // 	$(".btn_new_idea").hover(function(){
 // 		$(".btn_new_idea").style.-webkit-box-shadow = "0px 0px 50px 15px rgba(235, 131, 37, 1)";
@@ -24,6 +43,7 @@ $(document).ready(function() {
 // 	}
 // });
 
+	$( "#views_list" ).tabs();
 
 // new idea button box
 

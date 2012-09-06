@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120904221619) do
+ActiveRecord::Schema.define(:version => 20120831171845) do
 
   create_table "authentications", :force => true do |t|
     t.string   "provider"
@@ -48,18 +48,20 @@ ActiveRecord::Schema.define(:version => 20120904221619) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.string   "title"
-    t.string   "location"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "user_id"
-    t.integer  "min",          :default => 1
-    t.integer  "max",          :default => 10000
-    t.string   "map_location"
-    t.decimal  "duration"
+    t.integer  "min",        :default => 1
+    t.integer  "max",        :default => 10000
+    t.float    "duration"
     t.string   "visibility"
-    t.integer  "inviter_id",   :default => 0
-    t.boolean  "tipped",       :default => false
+    t.integer  "inviter_id", :default => 0
+    t.boolean  "tipped",     :default => false
     t.string   "link"
+    t.string   "address"
+    t.float    "longitude"
+    t.float    "latitude"
+    t.boolean  "gmaps"
   end
 
   create_table "gcm_devices", :force => true do |t|
@@ -129,34 +131,32 @@ ActiveRecord::Schema.define(:version => 20120904221619) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                     :default => "",    :null => false
-    t.string   "encrypted_password",        :default => "",    :null => false
+    t.string   "email",                  :default => "",    :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",             :default => 0
+    t.integer  "sign_in_count",          :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
+    t.string   "authentication_token"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "name"
     t.string   "city"
     t.boolean  "terms"
-    t.boolean  "require_confirm_follow",    :default => true
-    t.boolean  "notify_noncritical_change", :default => false
-    t.boolean  "daily_digest",              :default => true
-    t.boolean  "notify_event_reminders",    :default => true
-    t.string   "authentication_token"
-    t.boolean  "post_to_fb_wall",           :default => true
+    t.boolean  "require_confirm_follow", :default => true
+    t.boolean  "allow_contact",          :default => true
+    t.boolean  "notify_event_reminders", :default => true
+    t.boolean  "post_to_fb_wall",        :default => true
     t.string   "APNtoken"
-    t.boolean  "iPhone_user",               :default => false
-    t.integer  "GCMdevice_id",              :default => 0
-    t.integer  "GCMregistration_id",        :default => 0
-    t.boolean  "android_user",              :default => false
+    t.boolean  "iPhone_user",            :default => false
+
   end
 
+  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 

@@ -1,5 +1,14 @@
 BUGS
 
+NEW
+
+-----
+
+toggling faces on and off goes back to today and doesn't move the orange rectangle
+
+OLD
+
+------
 raster on/off switches view back to today
 
 view from search button not changing to viewed until close search window
