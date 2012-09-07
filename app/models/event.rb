@@ -21,7 +21,8 @@ class Event < ActiveRecord::Base
                   :chronic_ends_at,
                   :visibility,
                   :link,
-                  :gmaps
+                  :gmaps,
+                  :tipped
 
   validates :user_id,
             :title,
@@ -57,9 +58,10 @@ class Event < ActiveRecord::Base
 
   def tip!
     if self.tipped? == false
-      self.tipped = true
       Notifier.event_tipped(self).deliver
     end
+    self.tipped = true
+    self.save!
   end
 
   def full?

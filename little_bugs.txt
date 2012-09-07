@@ -3,8 +3,13 @@ BUGS
 NEW
 
 -----
+TIMES are showing in GMT, not in local.. and get time working on iphone too
 
 toggling faces on and off goes back to today and doesn't move the orange rectangle
+
+toggling on and off not working as ajax in production, same with view buttons...
+
+in manage follows, after viewing someone it switches back tabs to following (when ajax not working)
 
 OLD
 
