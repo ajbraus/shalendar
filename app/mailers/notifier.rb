@@ -21,14 +21,13 @@ class Notifier < ActionMailer::Base
     @guest_emails = []
     @guests.each do |g|
       if(g.iPhone_user == true)
-        APN.notify(g.APNtoken, {:alert => "Event #{event.title} canceled!", :badge => 1, :sound => true})
+        APN.notify(g.APNtoken, {:alert => "#{event.title} canceled!", :badge => 1, :sound => true})
       end
       @guest_emails.push(g.email)
     end
-
     @guest_emails.join('; ')
 
-    mail bcc: @guest_emails, subject: "Your event #{event.title} has been canceled!"
+    mail bcc: @guest_emails, subject: "#{event.title} has been canceled!"
   end
 
   def rsvp_reminder(event)
@@ -144,27 +143,10 @@ class Notifier < ActionMailer::Base
 
     mail to: user.email, subject: "You have a new viewer from: #{follower.name}"
   end
-
-  def noncritical_change(event)
-
-    @guests = event.guests
-
-    @guest_emails = []
-
-    @guests.each do |g|
-      if g.notify_noncritical_change?
-        @guest_emails.push(g.email)
-      end
-    end
-
-    @guest_emails.join('; ')
-
-    mail bcc: @guest_emails, subject: "#{event.title.capitalize} now starts at #{event.chronic_starts_at}!"
-  end
   
   #CHRON JOBS
   def digest
-    @users = User.where('users.daily_digest = "t"')
+    @users = User.where('users.allow_contact = "t"')
 
     @users.each do |u|
       #@events = u.plans; something to send all plans, but need to lay this out

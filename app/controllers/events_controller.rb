@@ -131,16 +131,6 @@ class EventsController < ApplicationController
     end
   end
 
-  def tip
-    @event = Event.find(params[:event_id])
-    @event.tip!
-    @event.save
-    respond_to do |format|
-     format.html { redirect_to :back }
-     format.js
-    end
-  end
-
 end
   # TO PRUNE DATABASE
   # def clean_up

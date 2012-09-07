@@ -1,25 +1,47 @@
 class Api::V1::RsvpsController < ApplicationController
  	before_filter :authenticate_user!
+  respond_to :json
 
   def create
     @event = Event.find_by_id(params[:event_id])
-    @user = User.find_by_id(params[:user_id])
-    @user.rsvp!(@event)
-    if @event.guests.count >= @event.min && @event.tipped? == false
-      @event.tip!
+    @mobile_user = User.find_by_id(params[:user_id])
+    unless @mobile_user.rsvpd?(@event)
+      @mobile_user.rsvp!(@event)
+      if @event.guests.count >= @event.min && @event.tipped? == false
+        @event.tip!
+      end
     end
-    render :json=> {:success=>true}, :status=>200
+    render :json=> { :success => true
+          # :eid => @event.id,
+          # :title => @event.title,  
+          # :start => @event.starts_at,
+          # :end => @event.ends_at, 
+          # :gcnt => @event.guests.count,  
+          # :tip => @event.min,  
+          # :host => @event.user,
+          # :plan => @mobile_user.rsvpd?(@event),
+          # :tipped => @event.tipped,
+          # :guests => @event.guests 
+        }, :status=>200
   end
 
   def destroy
-    @event = Event.find_by_id(params[:plan_id])
-    @user = User.find_by_id(params[:user_id])
-    @user.unrsvp!(@event)
-    render :json=>{:success => true}, :status =>200
-
-    # respond_to do |format|
-    #   format.html { redirect_to @event }
-    #   format.js
-    # end
+    @event = Event.find_by_id(params[:event_id])
+    @mobile_user = User.find_by_id(params[:user_id])
+    unless @mobile_user.rsvpd?(@event) == false
+      @mobile_user.unrsvp!(@event)
+    end
+        render :json=> { :success => true
+          # :eid => @event.id,
+          # :title => @event.title,  
+          # :start => @event.starts_at,
+          # :end => @event.ends_at, 
+          # :gcnt => @event.guests.count,  
+          # :tip => @event.min,  
+          # :host => @event.user,
+          # :plan => @mobile_user.rsvpd?(@event),
+          # :tipped => @event.tipped,
+          # :guests => @event.guests 
+        }, :status=>200
   end
 end

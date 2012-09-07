@@ -1,21 +1,25 @@
 class Api::V1::RelationshipsController < ApplicationController
 before_filter :authenticate_user!
+respond_to :json
 
   def create
     @mobile_user = User.find_by_id(params[:user_id])
     @user_to_follow = User.find_by_id(params[:other_user_id])
 
     if @mobile_user.following?(@user_to_follow)
-      render :status=>400, :json=>{:success=>false, :message=>"You are already following that person!"}
+      render :status=>200, :json=>{ :followed_user=>@user_to_follow}
+      return
     elsif @user_to_follow.require_confirm_follow?
         Notifier.confirm_follow(@user_to_follow, @mobile_user)
         @mobile_user.follow!(@user_to_follow)
         @relationship = Relationship.last #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
         @relationship.confirmed = false
         if @relationship.save
-          render :status=>400, :json=>{:success=>true, :followed_user=>@user_to_follow}
+          render :status=>200, :json=>{:success=>true, :pfu=>@user_to_follow}
+          return
         else
           render :status=>400, :json=>{:success=>false, :message=>"Some server error prevented follow"}
+          return
         end
     else
       Notifier.new_follower(@user_to_follow, @mobile_user)
@@ -23,9 +27,11 @@ before_filter :authenticate_user!
       @relationship = Relationship.last
       @relationship.confirmed = true
       if @relationship.save
-        render :status=>400, :json=>{:success=>true, :followed_user=>@user_to_follow}
+        render :status=>200, :json=>{:success=>true, :fu=>@user_to_follow}
+        return
       else
         render :status=>400, :json=>{:success=>false, :message=>"Some server error prevented follow"}
+        return
       end
     end
   end
@@ -33,8 +39,10 @@ before_filter :authenticate_user!
   def destroy
     @mobile_user = User.find_by_id(params[:user_id])
     @user_to_unfollow = User.find_by_id(params[:other_user_id])
-    @mobile_user.unfollow!(@user_to_unfollow)
-    render :json=>{:success=>true}
+    if @mobile_user.following?(@user_to_unfollow)
+      @mobile_user.unfollow!(@user_to_unfollow)
+    end
+    render :json=>{:unfollowed_id=>@user_to_unfollow.id}
   end
 
   def remove_follower

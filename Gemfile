@@ -42,8 +42,9 @@ group :assets do
   gem 'sass-rails',   '3.2.4'
   gem 'uglifier', '1.2.3'
   gem 'font-awesome-sass-rails'
-  gem 'jquery-ui-rails'
 end
+
+gem 'jquery-ui-rails'
 
 gem 'coffee-rails', '3.2.2'
 

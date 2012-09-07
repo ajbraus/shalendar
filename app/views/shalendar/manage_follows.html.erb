@@ -50,7 +50,7 @@
                 <% elsif current_user.request_following?(fr.follower) %>
                   <%# do nothing... already are displaying request sent above %>
                 <% else %>
-                  <%= render :partial => 'follow', :locals => { :user => fr.follower } %>
+                  <%= render :partial => 'events/follow', :locals => { :user => fr.follower } %>
                 <% end %>
                 <%= link_to "Remove Viewer", relationship_remove_path(fr), class: "btn_remove", method: :delete, confirm: "Are you sure #{fr.follower.name} should no longer be able to view your ideas?" %>
               </span>
