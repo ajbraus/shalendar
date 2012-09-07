@@ -91,16 +91,9 @@ textarea:focus, input:focus {
 
 .hero-unit {
   text-align: center;
-height: auto;
-float: left;
-position: relative;
-left: 100px;
-bottom: 79px;
-  h1 {
-    font-size: 2.3em;
-    margin-bottom:-10px;
-    position: relative;
-  }
+  position: absolute;
+left: 150px;
+top: 100px;
   p {
     font-size: 1em;
     font-weight: normal;
@@ -277,12 +270,6 @@ ul, li {
   border-radius: 4px;
 }
 
-.login_buttons {
-  float:center;
-  position: relative;
-top: 50px;
-}
-
 .btn-warning {
 width:380px;
 color: white;
@@ -373,10 +360,8 @@ top: 23px;
   position: relative;
 width: 1265px;
   min-height: 1040px;
-margin: 0 5%;
-left: 20px;
+margin: 0 auto;
   z-index: 100;
-  padding-top: 22px;
 }
 
 .container {
@@ -392,6 +377,7 @@ left: 20px;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;
+  padding-top: 12px;
 }
 
 .careers {
@@ -468,6 +454,11 @@ width: 37px;
 position: relative;
 top: 3.5px;
     padding:0;
+  }
+  > div {
+    position: relative;
+left: 10px;
+
   }
 }
 
@@ -586,7 +577,7 @@ height: 78px;
 position: absolute;
 left: 86px;
 top: -4px;
-z-index: -1;
+z-index: 1;
 }
 
 .ideas_cloud {
@@ -656,13 +647,13 @@ bottom: -30px;
 }
 
 .event {
-  padding:3px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  height: 82px;
-  width: 297px; 
-  position: relative;
+padding: 3px;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+height: 56px;
+width: 297px;
+position: relative;
 }
 
 .plan {
@@ -698,13 +689,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6348db', end
 .event_time {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
-  border-radius: 4px;
-  /*opacity:.8;*/
-  color: white;
-  background-color: #383838;
-  padding:0 9px;
+border-radius: 4px;
+color: white;
+background-color: #383838;
+padding: 2px 11px 0 11px;
 position: absolute;
 left: 60px;
+top: -2px;
 
 }
 
@@ -719,9 +710,8 @@ top: 4px;
 
 .event_blerb {
   float:left;
-  margin-top:3px;
-  width: 169px;
-  height: 40px;
+width: 230px;
+  height: 20px;
   margin-right: 38px;
   position: absolute;
 left: 62px;
@@ -870,13 +860,12 @@ filter: alpha(opacity=75);
 -khtml-opacity: 0.75;
 opacity: 0.75;
   background-color: white;
-  float:left;
-  width: 100%;
-  position: relative;
+position: absolute;
 left: 8%;
-width: 88%;
-  z-index: 1;
-  border-top:1px solid darkgrey;
+width: 1210px;
+z-index: 1;
+border-top: 1px solid darkgrey;
+bottom: -77px;
   a {
     float:left;
     font-size: 20px;
@@ -1119,7 +1108,7 @@ left: 46px;
   font-size: 20px;
   position: absolute;
   top: 266px;
-  left: 203px;
+left: 192px;
 }
 
 .logout {
@@ -1234,7 +1223,7 @@ bottom: 23px;
   color:$happening;
 font-size: 125px;
 position: relative;
-left: 54px;
+left: 190px;
 top: 129px;
   z-index: -1;
 }
@@ -1319,7 +1308,7 @@ margin-right: 27px;
 height: 346px;
 }
 
-#map {
+.gmaps4rails_map {
   border: 1px solid #DDD;
   display: inline-block;
   width:350px;
@@ -1332,11 +1321,6 @@ height: 346px;
 
 .map_container {
   padding: 6px;
-}
-
-.gmaps4rails_map {
-  width: 800px;
-  height: 400px;
 }
 
 .bing_map {
@@ -1623,10 +1607,12 @@ input[type=text], textarea, .uneditable-input {
   input[name="event[chronic_starts_at]"]{
     width: 361px;
     margin-top: 5px;
+    font-size: 18px;
   }
   input[name="event[duration]"] {
     width:55px;
     margin-left:5px;
+    font-size: 18px;
   }
   input[name="event[link]"] {
     width: 345px;
@@ -1681,6 +1667,17 @@ input[type=text], textarea, .uneditable-input {
 
 #addLinkp {
   float:left;
+}
+
+.new_idea_map {
+  border: 1px solid #DDD;
+display: inline-block;
+width: 407px;
+height: 200px;
+margin: 10px 0 13px 14px;
+-moz-box-shadow: 0 0 12px -1px black;
+-webkit-box-shadow: 0 0 12px -1px black;
+box-shadow: 0 0 12px -1px black;
 }
 
 select {

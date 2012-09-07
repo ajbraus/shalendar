@@ -9,8 +9,9 @@ Marketing:
 			Stark - agreed
 			Epic - Niko, Nolen
 			Babblespark - 
-			Drew - agreed
-			Danni - agreed
+			Drew - agreed drew.cohen@epic.com
+			Danni - agreed Dkevitch@gmail.com
+			SBwells@wisc.edu is in
 
 		Mike-
 			Sector 67 - Chris - agreed
@@ -30,9 +31,16 @@ Marketing:
 			3 Marketing/Communications Interns -
 			keysha - tshirt
 
+
+	FB pages can't log in -- so we have to have native signup with paperclip for organizations.
+
 	Swag T.shirts & Biz cards & Window decals - Adam
 
 	morning, noon, night
+
+	drawn arrows
+
+	gmaps4rails - no scroll, default to satilight view 45dgs
 
 	Mobile local registration
 
@@ -46,6 +54,8 @@ Marketing:
 
 	Event#show
 		rethink tipped visual indication
+
+	Can everyone comment on an event? NO! only RSVPd . . . unless it is to say, I can't make this time . . . so only if you are invited or following the creator. or on friends-of-friends you are following someone who is RSVPd.
 
 	Notifiers - Adam
 		Welcome
@@ -73,6 +83,8 @@ Marketing:
 			Follower details
 		New Follower
 			Follower Details
+		Comment created
+			comment details
 
 	Ajaxify everything - Monday
 		DONE follow/unfollow

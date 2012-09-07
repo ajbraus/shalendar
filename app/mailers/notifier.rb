@@ -9,10 +9,17 @@ class Notifier < ActionMailer::Base
   #
 
 
+  # AD HOC NOTIFIERS
+
+  def beta_users
+    mail to: "hoosinapp@gmail.com", subject: "hoos.in"
+  end
+
   #AUTOMATIC NOTIFIERS
 
   def welcome(user)
     mail to: user.email, subject: "Welcome to hoos.in"
+    @user_first_name = user.first_name
   end
 
   def cancellation(event)

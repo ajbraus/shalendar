@@ -11,6 +11,8 @@ toggling on and off not working as ajax in production, same with view buttons...
 
 in manage follows, after viewing someone it switches back tabs to following (when ajax not working)
 
+URL validation in new idea
+
 OLD
 
 ------
