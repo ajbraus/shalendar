@@ -1,19 +1,15 @@
-<div class="nav_buttons">
+<div class="nav_buttons part">
+  <div class="when">
+    <%= date(@event) %> <br> 
+    <%= event_start_time(@event) %> - <%= event_end_time(@event) %>
+  </div> 
   <% if @event.user == current_user %> 
     <% unless @event.tipped? %>
-  	 <%= link_to "Tip!", event_tip_path(@event), :confirm => "Force your idea to tip? This cannot be reversed and will send notifications to all RSVPs.", :method => :put %>
-    <% end %>
-    <%= link_to edit_event_path(@event) do %>
-      	<span class="btn_stop_viewing"><i class="icon-wrench icon-large"></i>&nbsp;Edit</span>
+      <%= link_to event_tip_path(@event), :confirm => "Force your idea to tip? This cannot be reversed and will send notifications to all RSVPs.", :method => :put do %>
+        <span class="btn btn-primary"><i class="icon-pushpin"></i> Tip!</span>
       <% end %>
-    <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will send an Email to all RSVPs a cancellation email.' } do %>
-    <span class="red"><i class="icon-trash icon-large"></i>&nbsp;Delete</span>
     <% end %>
-    <%= render 'social' %>
   <% else %>
    	<%= render 'rsvp_form' %>
-   	<% if @event.visibility == "friends_of_friends" %>
-	    <%= render 'social' %>
-  	<% end %>
   <% end %>
 </div>

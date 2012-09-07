@@ -1,0 +1,36 @@
+<div id="guest_raster" class="part">
+  <ul>
+    <li><a href="#guests">in - <%= @guests.count %></a></li>
+    <li><a href="#invites">invited - <%= @invited_users.count + @invites.count %></a></li>
+    <% if @event.tipped? == false %>
+      <li class="insetType"><span class="red"><%= @event.min - @guests.count %></span> to Tip!</li>
+    <% end %>
+  </ul>
+  <div id="guests">
+    <% @guests.each do |guest| %>
+    <table>
+    	<tr>
+        <td><%= raster_profile_picture(guest) %></td>
+        <td><%= guest.name %></td>
+        <td>
+          <%= render partial: 'events/follow_form', locals: { user: guest } %>
+        </td>
+      </tr>
+    </table>
+  	<% end %>
+  </div>
+  <div id="invites">
+    <% unless @invited_users.empty? %>
+      <% @invited_users.each do |iu| %>
+        <table>
+          <tr>
+            <td><%= raster_profile_picture(iu) %></td>
+            <td><%= iu.name %></td>
+            <td><%= render :partial => 'events/follow_form', :locals => { :user => iu } %></td>
+          </tr>
+        </table>  
+      <% end %>
+    <% end %>
+    <%= render partial: 'invites/invite', collection: @invites %>
+  </div>
+</div>

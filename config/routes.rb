@@ -48,7 +48,7 @@ Shalendar::Application.routes.draw do
       end
     end
   end
-
+  
   match '/manage_follows', :to => 'shalendar#manage_follows', :as => "manage_follows"
 
   resources :events, only: [:create, :destroy, :update, :tip, :edit, :new, :show] do 
@@ -82,7 +82,7 @@ Shalendar::Application.routes.draw do
 
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
   match '/about', :to => 'static_pages#about', :as => "about"
-  match '/contact', :to => 'static_pages#contact', :as => "contact"
+  match '/careers', :to => 'static_pages#careers', :as => "careers"
   match '/home', to: 'shalendar#home', as: "home"
   
   match '/my_invitations', :to => 'events#my_invitations', :as => "my_invitations"

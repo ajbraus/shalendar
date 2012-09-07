@@ -1,0 +1,29 @@
+<% if @event.tipped? %>
+<div class="title part tipped_title">
+<% elsif @event.tipped? == false %>
+<div class="title part not_tipped_title">
+<% end %>  
+  <%= @event.title %>
+  <div class="title_bottom">
+    <% if @event.user == current_user %>
+      <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will send an Email to all RSVPs a cancellation email.' } do %>
+      <span class="fadeInRed"><i class="icon-trash icon-large"></i></span>
+      <% end %>
+      <%= link_to edit_event_path(@event) do %>
+        <span class="fadeInOrange"><i class="icon-wrench icon-large"></i></span>
+      <% end %>
+    <% else %>
+    <p>by:</p>
+      <%= raster_profile_picture(@event.user) %> <u><%= @event.user.name %></u>
+    <% end %>
+    <div class="event_visibility">  
+      <% if @event.visibility == "friends_of_friends" %>
+        <i class="icon-bullhorn"></i>
+      <% elsif @event.visibility == "friends" %>
+        <i class="icon-group"></i>
+      <% elsif @event.visibility == "invite_only" %>
+        <i class="icon-envelope"></i>
+      <% end %>
+    </div>
+  </div>
+</div>

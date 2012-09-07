@@ -1,0 +1,4 @@
+<div class="part map">
+  Address: <br><strong><%= @event.address %> </strong><br>
+  <%= gmaps("map_options" => { "detect_location" => true, "center_on_user" => true, "zoom" => 10 },"markers" => { "data" => @json }) %>
+</div>

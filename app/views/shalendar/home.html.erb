@@ -10,6 +10,10 @@
   		<a href="#" onclick="$('.toggled-on').click();">Clear All</a> |
   		<a href="#" onclick="$('.toggled-off').click();">Select All</a>
 		</div>
+		<% if false %>
+			<a href="#public", class="public" ><%= (image_tag "madison_icon", :size => "50x50", title: "Find Friend's On Facebook") %></a>
+			<%= render 'public' %>
+		<% end %> 
 	  <%= render 'fb_button' %>
 	</div>
 	<div class="container">

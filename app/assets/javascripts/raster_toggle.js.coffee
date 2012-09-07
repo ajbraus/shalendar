@@ -11,7 +11,6 @@ $.fn.raster_toggle = (forecastHTML) ->
 		$(@).removeClass("toggled-off").addClass("toggled-on")
 	else if $(@).hasClass("toggled-on")
 		$(@).removeClass("toggled-on").addClass("toggled-off")
-	
 	$("#forecast").html(forecastHTML)
 
 		#$("td").withUserId.fadeOut(400)

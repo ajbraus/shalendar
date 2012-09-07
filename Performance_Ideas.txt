@@ -1,1 +1,4 @@
-Add tipped boolean
+visibility as integer
+SQL queries events_on_date
+javascript not hitting server 
+	serve all events in forecast and just hide and show based on which users are toggled

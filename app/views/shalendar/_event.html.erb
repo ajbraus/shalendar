@@ -10,29 +10,36 @@
 		<% elsif event.tipped? == false && current_user.rsvpd?(event) %>
 			<div class="event" data-event-id="<%= event.id %>"><span class="cloud"><%= image_tag("cloud.png") %></span>
 		<% end %>
+			
 			<div class="event_time"><%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>
+			
 			<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
+			
 			<div class="event_blerb"><%= event_blerb(event) %></div>
-			<div class="friends_attending"><i class="icon-group"></i> <%= "#{friends_attending(event)}" %></div>
-		
-		<% if event.tipped? %>
-			<div class="guest_count"><%= event.guests.count %></div>
-			<% if event.user == current_user %>
-				<div class="rsvp_check"></div>
+			
+			<div class="friends_attending" title="# of friends already in"><i class="icon-group"></i> <%= "#{friends_attending(event)}" %></div>
+			
+			<% if event.tipped? %>
+				<div class="guest_count"><%= event.guests.count %></div>
+			<% else %>
+				<div class="guest_count"><%= event.guests.count%>/<%= event.min %></div>
 			<% end %>
-		<% else %>
-			<div class="guest_count"><%= event.guests.count%>/<%= event.min %></div>
-			<% if event.user == current_user %>
-				<div class="force_tip"><%= link_to raw("&#xf08d;"), event_tip_path(event), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input" %>
+
+			<% if event.user == current_user && event.tipped? == false %>
+				<div class="force_tip">
+					<%= link_to raw("&#xf08d;"), event_tip_path(event), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input" %>
 				</div>
+			<% elsif event.user == current_user && event.tipped? == true %>
+				<div class="rsvp_check"></div>
 			<% else %>
 				<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
 			<% end %>
-		<% end %>
 				<div class="host"><%= event.user.first_name.capitalize %> 
 					<% if event.user.last_name %>
 						<%= event.user.last_name.capitalize%>
-						<% end %> </div>
+					<% end %> 
+				</div>
+
 			</div>
 		</a>
 	</td>

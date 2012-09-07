@@ -1,0 +1,21 @@
+<div id="public" style="display: none;">
+<h1><%= current_user.city %></h1>
+	<div id="public_tabs">
+		<% @public_categories.each do |pc| %>
+			<div id="<%= pc %>"><%= pc %></div>
+			<% @pc.users.each do |pu| %>
+					<table>
+					<tr>
+						<td width="55px"><%= raster_profile_pic(pu) %></td>
+						<td width="100px"><%= pu.name %></td>
+						<td width="100px">
+							<span id="follow_form" class="follow_btn">
+								<%= render 'events/follow_form', :locals => { :user => pu } %>
+				      </span>
+				    </td>
+					</tr> 
+				</table>
+			<% end %>
+		<% end %>
+	</div>
+</div>
