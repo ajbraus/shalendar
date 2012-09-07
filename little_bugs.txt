@@ -3,6 +3,8 @@ BUGS
 NEW
 
 -----
+Events are not tipping on heroku 
+
 TIMES are showing in GMT, not in local.. and get time working on iphone too
 
 toggling faces on and off goes back to today and doesn't move the orange rectangle

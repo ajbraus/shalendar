@@ -131,7 +131,20 @@ class EventsController < ApplicationController
     end
   end
 
+  def tip
+    @event = Event.find(params[:id])
+
+    @event.tip!
+
+    respond_to do |format|
+      format.html {redirect_to home_path}
+      format.json {head :no_content}
+    end
+  end
+
 end
+
+
   # TO PRUNE DATABASE
   # def clean_up
   #   @event = Event.find(params[:id])
