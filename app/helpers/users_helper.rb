@@ -33,6 +33,12 @@ module UsersHelper
     event.starts_at.strftime("%a %b %e")
   end
 
+if false
+image_tag @user.avatar.url
+image_tag @user.avatar.url(:medium)
+image_tag @user.avatar.url(:thumb)
+end
+
 
   def gravatar_for(user, options = { size: 50, })
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
@@ -55,18 +61,10 @@ module UsersHelper
     image_tag(twitter_url, alt: user.name, class: "profile_picture" )
   end
 
-  def big_profile_picture(user)
-    if user.authentications.where(:provider == "Facebook").any?
-      fb_picture(user, type: "large")
-    elsif user.authentications.where(:provider == "Twitter").any?
-      twitter_picture(user, type: "bigger")
-    else
-      gravatar_for(user, :size => 120 )
-    end
-  end
-
   def medium_profile_picture(user)
-    if user.authentications.where(:provider == "Facebook").any? 
+    if user.avatar.present?
+      image_tag user.avatar.url(:medium), style:"border-radius: 7px;"
+    elsif user.authentications.where(:provider == "Facebook").any? 
       fb_picture(user, type: "normal")
     elsif user.authentications.where(:provider == "Twitter").any?
       twitter_picture(user, type: "normal") 
@@ -75,18 +73,10 @@ module UsersHelper
     end
   end
 
-  def small_profile_picture(user)
-    if user.authentications.where(:provider == "Facebook").any?
-      fb_picture(user, type: "small")
-    elsif user.authentications.where(:provider == "Twitter").any?
-      twitter_picture(user, type: "mini") 
-    else
-      gravatar_for(user, :size => 45 )
-    end
-  end
-
   def raster_profile_picture(user)
-    if user.authentications.where(:provider == "Facebook").any?
+    if user.avatar.present?
+      image_tag user.avatar.url(:raster)
+    elsif user.authentications.where(:provider == "Facebook").any?
       fb_picture(user, type: "square")
     elsif user.authentications.where(:provider == "Twitter").any?
       twitter_picture(user, type: "normal") 

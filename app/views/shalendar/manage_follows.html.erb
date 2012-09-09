@@ -18,7 +18,7 @@
         <% @followed_user_relationships.each do |fur| %>
         <table>       
           <tr>
-            <td width="50px"><%= small_profile_picture(fur.followed) %></td>
+            <td width="50px"><%= raster_profile_picture(fur.followed) %></td>
             <td width="150px"><%= fur.followed.name %> </td>
             <td>
               <span id="follow_form" class="follow_btn">
@@ -41,7 +41,7 @@
       <% @follower_relationships.each do |fr| %>
       <table>        
           <tr>
-            <td width="50px"><%= small_profile_picture(fr.follower) %></td>
+            <td width="50px"><%= raster_profile_picture(fr.follower) %></td>
             <td width="150px"><%= fr.follower.name %></td>
             <td>
               <span>

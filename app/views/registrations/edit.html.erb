@@ -1,9 +1,9 @@
 <% provide(:title, "Settings") %> 
-<aside>
+<div class="dashboard">
 <%= render 'layouts/logo' %>
   <div id="personal">
-    <%= big_profile_picture(current_user) %>
-    <% if current_user.authentications.find_by_provider("Facebook") == nil %>
+    <%= medium_profile_picture(current_user) %>
+    <% if current_user.authentications.find_by_provider("Facebook") == nil && current_user.avatar.present? == false %>
       <p><a href="http://gravatar.com/emails">Add or Update Gravatar Picture</a></p>
     <% end %>
     <strong>Authentications</strong>
@@ -27,7 +27,7 @@
       Add Facebook Authentication
     <% end %>
   </div>
-</aside>
+</div>
 
 <div id="settings">
 
@@ -58,6 +58,9 @@
       <h2>Personal Settings</h2>
     <div><%= f.label :name %><br />
     <%= f.text_field :name %></div>
+
+    <div><%= f.label :avatar %><br />
+    <%= f.file_field :avatar %></div>
 
     <div><%= f.label :email %><br />
     <%= f.email_field :email %></div>
