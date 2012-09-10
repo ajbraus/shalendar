@@ -514,6 +514,8 @@ div.dashboard {
   display:inline-block;
   width:220px;
   float:left;
+  position: relative;
+bottom: 55px;
   &:first-child {
     border: 0;
     padding-top: 0;
