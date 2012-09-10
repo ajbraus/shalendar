@@ -34,8 +34,8 @@ class ShalendarController < ApplicationController
       #   f.js { render "forecast" }
       # end
     else
-      @forecastevents = current_user.forecast((Date.today).to_s)
-      @date = Date.today
+      @forecastevents = current_user.forecast(Time.now.to_date)
+      @date = Time.now.to_date
       # respond_to do |f|
       #   f.html
       #   f.js { render "forecast" }

@@ -107,6 +107,7 @@ class Notifier < ActionMailer::Base
 
     @guest_emails.join('; ')
 
+    #HOW DO WE DO EACH TIME FOR THE CORRECT TIME ZONE??
     mail bcc: @guest_emails, subject: "Your plan #{event.title} has changed start time to #{event.chronic_starts_at}!"
   end
 

@@ -190,9 +190,9 @@ class User < ActiveRecord::Base
       @new_date = Date.strptime(load_date, "%Y-%m-%d") + i
       @events_on_date = self.events_on_date(@new_date)
       @events_on_date.each do |e|
-        if e.starts_at.utc < @new_date.to_s + " 17:00:00"
+        if e.starts_at < @new_date.to_s + " 12:00:00"
           @morning_events.push(e)
-        elsif e.starts_at.utc < @new_date.to_s + " 23:00:00"
+        elsif e.starts_at < @new_date.to_s + " 18:00:00"
           @afternoon_events.push(e)
         else
           @evening_events.push(e)

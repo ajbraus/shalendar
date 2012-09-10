@@ -4,11 +4,11 @@ before_filter :authenticate_user!
   def create
      @user = User.find(params[:relationship][:followed_id])
 
-    if @user.require_confirm_follow?
-      Notifier.confirm_follow(@user, current_user)
+    if @user.require_confirm_follow?  && (@user.following?(current_user) == false)#autoconfirm if already following us
       current_user.follow!(@user)
       @relationship = Relationship.last #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
       @relationship.confirmed = false
+      Notifier.confirm_follow(@user, current_user)
       if @relationship.save
         respond_to do |format|
         @relationships = current_user.relationships.where('relationships.confirmed = true')  

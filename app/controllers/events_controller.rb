@@ -52,7 +52,7 @@ class EventsController < ApplicationController
           format.html { redirect_to @event }
           format.json { render json: @event, status: :created, location: @event }
         else
-          format.html { redirect_to home_path, notice: "Idea posted! On #{@event.start_time}"}
+          format.html { redirect_to home_path, notice: "Idea posted! On #{start_time(@event)}"}
           format.json { render json: home_path, status: :created, location: @event }
         end
       else
@@ -96,7 +96,7 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
     @event = Event.find(params[:id])
-    @start_time = @event.starts_at
+    @start_time = @event.starts_at #don't worry about timezone here bc only on server
     @location = @event.lng
     respond_to do |format|
       if @event.update_attributes(params[:event])

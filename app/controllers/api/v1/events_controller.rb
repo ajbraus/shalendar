@@ -17,7 +17,7 @@ class Api::V1::EventsController < ApplicationController
         @temp = {
         :eid => e.id,
         :title => e.title,  
-        :start => e.starts_at,
+        :start => e.starts_at,#don't do timezone here, do it local on mobile
         :end => e.ends_at, 
         :gcnt => e.guests.count,  
         :tip => e.min,  
@@ -48,7 +48,7 @@ class Api::V1::EventsController < ApplicationController
           :title => @event.title,  
           :start => @event.starts_at,
           :end => @event.ends_at, 
-          :gcnt => @event.guests.count,  
+          :gcnt => @event.guests.count,
           :tip => @event.min,  
           :host => @event.user,
           :plan => @mobile_user.rsvpd?(@event),

@@ -1,17 +1,16 @@
 To do
+Paired
+---------
+Input starts_at to account for timezone (chronic, ...)
+Input a user's correct timezone (probably on registration.. but how do we get from FB?)
 
 Mike
 ------------
 
-follow back does not require confirmation.
-
 wednesday - add hoos.in domain to heroku
-
-TIMES are showing in GMT, not in local.. and get time working on iphone too
 
 Time Zones are causing the event-by-day logic to be off (starts_at is reading from UTC 0, not offset by 500 even though it knows that is there)
 Make sure events always get served in time order
-	** Just going to set all for CST (-600) for now
 	see: http://databasically.com/2010/10/22/what-time-is-it-or-handling-timezones-in-rails/
 
 Cron jobs environment set to production, don't know how to change, but still getting some output (pg_dump and also Event.check_tip_deadlines executing when dev server running.) - heroku scheduler
@@ -29,6 +28,7 @@ Landing page, about, contact
 			Make sure can click through to event details more than once
 			Refresh button to reload event list
 			Toggling display, not just hide (bc takes up space)
+		Times (4)
 
 
 
@@ -92,9 +92,9 @@ post to rsvps facebook wall of friends of RSVPs
 			Event Details
 		Event tipped
 			Event Details
-		DELETE Time change
+		Time change
 			Event Details
-		DELETE Location change
+		Location change
 			Event Details
 		DELETE Minor change
 			Event Details
