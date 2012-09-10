@@ -52,7 +52,7 @@ class EventsController < ApplicationController
           format.html { redirect_to @event }
           format.json { render json: @event, status: :created, location: @event }
         else
-          format.html { redirect_to home_path, notice: "Idea posted! On #{start_time(@event)}"}
+          format.html { redirect_to home_path, notice: "Idea posted! On #{@event.starts_at}"}
           format.json { render json: home_path, status: :created, location: @event }
         end
       else
