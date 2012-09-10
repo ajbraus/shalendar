@@ -153,6 +153,9 @@ ActiveRecord::Schema.define(:version => 20120910185936) do
     t.boolean  "post_to_fb_wall",        :default => true
     t.string   "APNtoken"
     t.boolean  "iPhone_user",            :default => false
+    t.integer  "GCMdevice_id",           :default => 0
+    t.integer  "GCMregistration_id",     :default => 0
+    t.boolean  "android_user",           :default => false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
