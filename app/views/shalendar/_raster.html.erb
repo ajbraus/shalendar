@@ -1,4 +1,4 @@
-<div id="raster">
+<div id="raster" class="element">
   <% @relationships.each do |relation| %>
     <% if relation.toggled == true %>
       <%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put, class:"toggled-on", "data-pic-id" => "#{relation.followed.id}", title: "#{relation.followed.name}", remote: true %>

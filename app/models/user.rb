@@ -21,8 +21,20 @@ class User < ActiveRecord::Base
                   :allow_contact,
                   :notify_event_reminders,
                   :city,
-                  :post_to_fb_wall
+                  :post_to_fb_wall,
+                  :avatar
 
+  has_attached_file :avatar, :default_url => "/images/default_avatar.png",
+                             :styles => { :medium => "120x120#", 
+                                          :raster => "50x50#",
+                                        },
+                             :convert_options => { :medium => '-quality 30',
+                                                   :raster => '-quality 80' } 
+                            
+
+  validates :avatar, :attachment_presence => true,
+                     :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] },
+                     :attachment_size => { :in => 0..150.kilobytes }
 
   validates :terms,
             :name, presence: true

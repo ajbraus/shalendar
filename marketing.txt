@@ -27,22 +27,35 @@ initial:
 Social users - 15 nodes
 
 materials - kick off email, one page description pdf, schedule weekly calls/meetings
+Marketing:
+	Reach out to 10 nodes - Mike/Adam
+		Adam-
+			Nina Ham - agreed
+			Stark - agreed
+			Epic - Niko, Nolen
+			Babblespark - 
+			Drew - agreed drew.cohen@epic.com
+			Danni - agreed Dkevitch@gmail.com
+			SBwells@wisc.edu is in
 
-	CE - Forrest
-	Madison - Scott R.
-	Mike
-	Ricky
-	Mary - 
-	Epic - Niko, Nolen
-	Sector 67 - Chris
-	Virtuvian Farms - Sean
-	West High - ?
-	Marketing student - ?
-	Babblespark - Abby
-	Adam
-	Sorority - Anna
-	Fraternity - Jesse
-	Nina
+		Mike-
+			Sector 67 - Chris - agreed
+			Virtuvian Farms - Sean
+			Ricky
+			Mary - agreed
+			MIKE F. - in
+			Matt Ford
+			CE - Forrest
+			Madison - Scott R. - agreed
+			Sorority - Anna - agreed
+			Fraternity - Jesse
+			West High - ?
+			Marketing student - Deca?
+			Jack Wheeler - agreed
+			Max Lynch (iterators)- agreed
+			3 Marketing/Communications Interns -
+			keysha - tshirt
+
 	
 	Swag
 		t-shirts, stickers, b-cards, window decals
@@ -73,5 +86,13 @@ Biznizes/organizations
 	10 free users
 
 eg Ace Hardware does 'paint seminars'
+
+metrics:
+	new users per week
+	plans per user per week
+	events per user per week
+	100+ followers (paying customers)
+	viral coeficent 
+
 
 

@@ -1,15 +1,8 @@
 <%= render 'layouts/logo' %>
-<div class="profile_pic_home">
+<div class="profile_pic_home element">
 	<div id="user-settings">
 		<%= medium_profile_picture(current_user) %>
-		<%= link_to destroy_user_session_path, :method => :delete do %>
-			<i class='icon-signout logout fadeInRed' title="Logout" style="display:none;"></i>
-		<% end %>
-		<%= link_to edit_user_registration_path do %>
-			<i class='icon-wrench user_settings fadeInOrange' title="Settings" style="display:none;"></i>
-		<% end %>
 	<p><%= current_user.name %></p>
 	</div>
-</div>
-
 <%= render 'shalendar/stats' %>
+</div>

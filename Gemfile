@@ -29,6 +29,7 @@ gem 'pg'
 gem "sendgrid", "~> 1.0.1"
 gem "rails_autolink", "~> 1.0.9"
 gem 'gmaps4rails'
+gem "paperclip", "~> 3.0"
 
 group :development, :test do
   gem 'faker', '1.0.1'
@@ -41,13 +42,11 @@ end
 group :assets do
   gem 'sass-rails',   '3.2.4'
   gem 'uglifier', '1.2.3'
-  gem 'font-awesome-sass-rails'
 end
 
+gem 'font-awesome-sass-rails'
 gem 'jquery-ui-rails'
-
 gem 'coffee-rails', '3.2.2'
-
 gem 'jquery-rails'#, '2.0.0'
 
 group :test do

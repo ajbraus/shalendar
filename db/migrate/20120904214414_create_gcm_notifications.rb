@@ -1,7 +1,5 @@
 class CreateGcmNotifications < ActiveRecord::Migration # :nodoc:
-
   def self.up
-
     create_table :gcm_notifications do |t|
       t.integer :device_id, :null => false
       t.string :collapse_key

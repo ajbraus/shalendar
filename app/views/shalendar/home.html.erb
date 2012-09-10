@@ -2,9 +2,9 @@
 	<div class="dashboard">
 		<%= render 'layouts/logo_and_user' %>
 	  <%= render 'search' %>
-	  <span class="grey_italics small">
+	  <div class="grey_italics small">
 	  	Click pics to show/hide user's ideas
-	  </span>
+	  </div>
 	  <%= render 'raster' %>
 	  <div class="raster_nav">
   		<a href="#" onclick="$('.toggled-on').click();">Clear All</a> |
@@ -31,7 +31,7 @@
 					//clickLink(".find_friends")
 					}
 				function Func1Delay() { 
-					setTimeout("Func1()", 5000);
+					setTimeout("Func1()", 500);
 					}
 				//document.ready(Func1Delay());
 			</script>

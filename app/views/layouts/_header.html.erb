@@ -1,14 +1,27 @@
 <header>
   <nav>
-      <% if user_signed_in? %>
-      <ul>
-        <li> <%= link_icon("",edit_user_registration_path,"wrench","","") %></li>
-        <li><%= link_to "Logout", destroy_user_session_path, :method => :delete, id: 'auth-logoutlink' %></li>
-      </ul>
-      <% else %>
-      <ul>
-        <li><%= link_icon("Login", new_user_session_path,"signin","","") %></li>
-      </ul>
-      <% end %>
+    <dl class="dropdown">
+      <dt><a href="#"><span>^</span></a></dt>
+      <dd>
+        <ul>
+          <% if user_signed_in? %>
+            <li>
+              <%= link_to destroy_user_session_path, :method => :delete do %>
+                <i class='icon-signout logout fadeInRed'></i>logout
+              <% end %>
+            </li>
+            <li>
+              <%= link_to edit_user_registration_path do %>
+                <i class='icon-wrench user_settings fadeInOrange'></i>settings
+              <% end %>
+            </li>
+            <% else %>
+            <li>
+              <%= link_icon("Login", new_user_session_path,"signin","","") %>
+            </li>
+          <% end %>
+        </ul>
+      </dd>
+    </dl>
   </nav>
 </header>

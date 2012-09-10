@@ -1,39 +1,114 @@
+To do
 
-MOBILE DONE:
-	1. Authentication/list of events
-	2. Event Show / RSVP / Follow
+Mike
+------------
 
-Notifications 3-day digest
+follow back does not require confirmation.
 
-Design:
-	Name
-	Logo
-	Colorscheme - set 6 colors
-	Font
-	Images:
-		Tipped 
-		untipped
-		morning/afternoon/evening
-		RSVPed 
-		UnRSVPed - greyed out
-	Landing page
+wednesday - add hoos.in domain to heroku
 
-	**thoughts from scott:
-		get some background for divs, grass on bottom, html5 bird periodically
-		a little more concrete
-		put out to art students on UW job boards
+TIMES are showing in GMT, not in local.. and get time working on iphone too
 
-Add FB events - Adam
+Time Zones are causing the event-by-day logic to be off (starts_at is reading from UTC 0, not offset by 500 even though it knows that is there)
+Make sure events always get served in time order
+	** Just going to set all for CST (-600) for now
+	see: http://databasically.com/2010/10/22/what-time-is-it-or-handling-timezones-in-rails/
 
-	MIKE//////
+Cron jobs environment set to production, don't know how to change, but still getting some output (pg_dump and also Event.check_tip_deadlines executing when dev server running.) - heroku scheduler
+	want to destroy events after they have passed... or at least destroy RSVPs / invitations, to maintain the tables- maybe store on some hard disk somewhere for records
 
-	Draft Landing, About, Contact pages + emails
+Landing page, about, contact
 
-	Populate a demo database
+	iPhone TODO:
+		Settings / Confirm viewers (3)
+		Create Event (3?)
+		Native/local Register User (4?)
+		Style (3-4)
+		Views (3-4)
+			Reload eventDetails after RSVP, display different on list 
+			Make sure can click through to event details more than once
+			Refresh button to reload event list
+			Toggling display, not just hide (bc takes up space)
+
+
+
+
+Adam
+--------------
+
+fix cloud/rsvp thing
+
+event#edit
+
+ajax bugs
+
+	toggling faces on and off goes back to today and doesn't move the orange rectangle
+
+	in manage follows, after viewing someone it switches back tabs to following (when ajax not working)
+
+	view from search button not changing to viewed until close search window
+
+	FIX rsvp/unrsvp
+	
+	visual indicator if invitation sent in find_friends
+		
+view request crowds stats
+
+Only showing events that start on the day... don't know what to do for longer than 1-day things... but not really core - test
+
+double-creating events by hitting enter twice (when trying to specify duration)- all buttons
+
+maps problem
+	gmaps4rails - no scroll, default to satilight view 45dgs
+
+/300 followers
+
+settings dropdown/icon
+
+Add logo to Post to FB wall - Adam
+
+T.shirts & Biz cards - Adam
+
+morning, noon, night
+
+Side note: put_wall_post posts to user/feeds, which doesn’t include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
+
+Post to facebook wall . . . not for private events
+post to rsvps facebook wall of friends of RSVPs
+
+	Notifiers - Adam
+		Welcome
+			Home
+			Create Event
+		Cancellation
+			Event Details
+			Home
+		Invitation
+			Event Details
+			RSVP
+			View Event
+			Home
+		RSVP reminder
+			Event Details
+		Event tipped
+			Event Details
+		DELETE Time change
+			Event Details
+		DELETE Location change
+			Event Details
+		DELETE Minor change
+			Event Details
+		Confirm Follow
+			Follower details
+		New Follower
+			Follower Details
+
 
 AFTER BETA LAUNCH
 	
 -------- Features To Add ------
+
+	Public feed
 
 	1. subscribers ?
 	2. offers accounts
@@ -65,15 +140,39 @@ AFTER BETA LAUNCH
 		add user boolean for receiving text messages
 		Text message invitations to join calenshare for an event
 
-paperclip
+	Add FB events - Adam
+
+		block emails from this user
+		change notification settings
+		add SMS
+
+		AJAX
+			confirmations - remove follower, cancel account
+			toggle/untoggle raster pics
+			comments
+			Invitation raster
+			tip!
+
+	event#edit in lightbox
+
+	If event is full, just not showing it in maybes right now - show as full
+	
+	Make focus fall on first text field on new idea form
+
+What do we do with already finished events in a given day? - grey out the past
+	Probably gray them out but still display? Or should we take them off the calendar as they're mostly irrelevant (but they still help for finding friends, make calendar more busy for better or worse)
+	
+	Agent call - if android/iPhone download our apps
+	
+	make it so you only call for the @city_friends once from the database
+
+	drawn arrows
+
+	Mobile local registration
 
 	Offers and Subscribers
 
 	Setup Offers Account - credit card
-
-	put everything in header?
-
-	tabed viewers viewing on manage views page
 
 	Recurring events
 
@@ -96,14 +195,8 @@ paperclip
 
 	Event Checklist- something to bring or a role to fill (eg a potluck or a music jam session in need of a drummer)
 
-	save image and access tokens in database and then update them upon login.
-
-	Tests/refactoring
-
 	SQL Table maintenance; mainly destroying events after they are done, but transferring data somewhere in a reasonable format for conducting analytics
 	add recurring functionality
-
-	Selectable
 
 	hide event/recurring event
 
@@ -111,12 +204,9 @@ paperclip
 
 	- custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid
 
-	Detect user's local time with an ajax call to the browser and then log it in the session.
-
 	copy evite
 
-	List view of events
-
+	List view of events/ 3 week 5 week view of events calendar
 
 
 LOW PRIORITY 
@@ -125,7 +215,6 @@ LOW PRIORITY
 	Map of all events? - hyperlocal NYC thing
 	refactor error messages as partial
 	library of icons -flush out use cases -sports, games, booze, playdates, 
-
 
 
 --------------------General ideas:----------------
@@ -178,14 +267,3 @@ NYC-inspired daily routine
 	e.g. lunchtime email to gather ideas, 3pm to spread ideas, 6pm to tip
 
 ---------------------------------------------------
-
-
-
-DONE
-
-	review validations- event, user, etc.
-	Recaptcha
-	Comments on events
-	Fullname upon signup
-	profile pic helper method
-	Invitation Events- email list per event + logic
