@@ -1,6 +1,6 @@
 <% provide(:title, " | Idea") %>
 <div class="dashboard">
-  <%= render 'layouts/logo_and_user' %>
+  <%= render 'layouts/logo' %>
 
   <% if @event.visibility == "friends_of_friends" || @event.user == current_user %>
     <div id="invites_form">

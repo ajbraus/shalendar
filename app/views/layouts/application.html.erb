@@ -32,10 +32,11 @@
   </head>
   <body>
     <%= render 'layouts/fb_script' %>  
-    <%= render 'layouts/header' %>
+    <header></header>
     <div class="layout"> 
+      <%= render 'layouts/header' %>
       <%= render 'layouts/alerts' %>
-      
+
       <%= yield %>
       
       <%= render 'layouts/footer' %>

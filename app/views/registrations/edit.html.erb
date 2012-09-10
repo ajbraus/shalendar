@@ -1,8 +1,7 @@
 <% provide(:title, "Settings") %> 
 <div class="dashboard">
-<%= render 'layouts/logo' %>
+<%= render 'layouts/logo_and_user' %>
   <div id="personal">
-    <%= medium_profile_picture(current_user) %>
     <% if current_user.authentications.find_by_provider("Facebook") == nil && current_user.avatar.present? == false %>
       <p><a href="http://gravatar.com/emails">Add or Update Gravatar Picture</a></p>
     <% end %>

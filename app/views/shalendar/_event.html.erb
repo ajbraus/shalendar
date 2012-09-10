@@ -17,12 +17,10 @@
 			
 			<div class="event_blerb"><%= event_blerb(event) %></div>
 			
-			<div class="friends_attending" title="# of friends already in"><i class="icon-group"></i> <%= "#{friends_attending(event)}" %></div>
-			
 			<% if event.tipped? %>
-				<div class="guest_count"><%= event.guests.count %></div>
+				<div class="guest_count"><i class="icon-group"></i>  <%= event.guests.count %></div>
 			<% else %>
-				<div class="guest_count"><%= event.guests.count%>/<%= event.min %></div>
+				<div class="guest_count"><i class="icon-group"></i>  <%= event.guests.count%>/<%= event.min %></div>
 			<% end %>
 
 			<% if event.user == current_user && event.tipped? == false %>
