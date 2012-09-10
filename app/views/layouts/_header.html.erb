@@ -7,6 +7,7 @@
     <li><a href="<%= manage_follows_path %>"><strong><%= current_user.events.count %></strong>  ideas</a></li>
     <li><a href="<%= manage_follows_path %>"><strong><%= current_user.followed_users.count %></strong>  following</a></li>
     <li><a href="<%= manage_follows_path %>"><strong><%= current_user.followers.count %></strong><span class="ceiling">/300</span>  followers</a></li>
+    <li><%= current_user.first_name.capitalize %> <%= current_user.last_name.capitalize %></li>
     <li><dl class="dropdown">
         <dt><a href="#"><%= raster_profile_picture(current_user) %></a></dt>
         <dd>
