@@ -13,8 +13,7 @@ class User < ActiveRecord::Base
   								:password, 
   								:password_confirmation, 
   								:remember_me, 
-                  :first_name,
-                  :last_name,
+                  :time_zone,
                   :name,
                   :terms,
                   :require_confirm_follow,
@@ -37,7 +36,9 @@ class User < ActiveRecord::Base
                      :attachment_size => { :in => 0..150.kilobytes }
 
   validates :terms,
-            :name, presence: true
+            :name, 
+            :time_zone, presence: true
+            # :city
 
   has_many :authentications, :dependent => :destroy, :uniq => true
 

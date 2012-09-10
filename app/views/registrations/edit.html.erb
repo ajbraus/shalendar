@@ -68,6 +68,9 @@
     <div><%= f.label :city %><br />
     <%= f.select :city, @cities %></div>
 
+    <div><%= f.label :time_zone %><br />
+    <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %></div>
+
     <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
     <%= f.password_field :password, :autocomplete => "off" %></div>
 
