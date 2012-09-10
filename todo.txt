@@ -44,6 +44,18 @@ AFTER BETA LAUNCH
 		f. tip-by date
 		g. price
 
+	4. 3 types of events
+		1. Optional contribution checklist
+		 	pop up as optional after RSVP button
+
+		2. Required contribution checklist
+			in place of rsvp
+			something to contribute (good or skill or cash)
+			pay through our site if cash?
+
+		3. Commercial - payment
+			pay through our site
+
 	3. SDK - follow us on hoos.in
 	3. 	Twilio:
 		add phone number to user in DB
