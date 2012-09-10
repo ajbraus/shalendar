@@ -1,4 +1,17 @@
+PERFORMANCE OPPORTUNITIES:
+
 visibility as integer
 SQL queries events_on_date
 javascript not hitting server 
 	serve all events in forecast and just hide and show based on which users are toggled
+
+
+	Event
+		set data-user-id => data-inviter-id and remake ajax
+
+
+REFACTORING OPPORTUNITIES:
+
+Index DB on created_at so that the events are actually physically stored next to each other by time
+
+Events inviter_id only matters when it is served up, and is user-dependent: want a UserEvent subclass (good for mobile too)

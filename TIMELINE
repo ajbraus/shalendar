@@ -1,158 +1,9 @@
 TIMELINE:
 
-August 27- September 4
+Submit iPhone app to Apple 24 September
 
-Marketing:
-	Reach out to 10 nodes - Mike/Adam
-		Adam-
-			Nina Ham - agreed
-			Stark - agreed
-			Epic - Niko, Nolen
-			Babblespark - 
-			Drew - agreed drew.cohen@epic.com
-			Danni - agreed Dkevitch@gmail.com
-			SBwells@wisc.edu is in
+Android go live by Apple live (October 1?)
 
-		Mike-
-			Sector 67 - Chris - agreed
-			Virtuvian Farms - Sean
-			Ricky
-			Mary - agreed
-			MIKE F. - in
-			Matt Ford
-			CE - Forrest
-			Madison - Scott R. - agreed
-			Sorority - Anna - agreed
-			Fraternity - Jesse
-			West High - ?
-			Marketing student - Deca?
-			Jack Wheeler - agreed
-			Max Lynch (iterators)- agreed
-			3 Marketing/Communications Interns -
-			keysha - tshirt
-
-
-	FB pages can't log in -- so we have to have native signup with paperclip for organizations.
-
-	Swag T.shirts & Biz cards & Window decals - Adam
-
-	morning, noon, night
-
-	drawn arrows
-
-	gmaps4rails - no scroll, default to satilight view 45dgs
-
-	Mobile local registration
-
-	Side note: put_wall_post posts to user/feeds, which doesn’t include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
-
-	Post to facebook wall . . . not for private events
-	post to rsvps facebook wall of friends of RSVPs
-
-	Event
-		set data-user-id => data-inviter-id and remake ajax
-
-	Event#show
-		rethink tipped visual indication
-
-	Can everyone comment on an event? NO! only RSVPd . . . unless it is to say, I can't make this time . . . so only if you are invited or following the creator. or on friends-of-friends you are following someone who is RSVPd.
-
-	Notifiers - Adam
-		Welcome
-			Home
-			Create Event
-		Cancellation
-			Event Details
-			Home
-		Invitation
-			Event Details
-			RSVP
-			View Event
-			Home
-		RSVP reminder
-			Event Details
-		Event tipped
-			Event Details
-		Time change
-			Event Details
-		DELETE Location change
-			Event Details
-		DELETE Minor change
-			Event Details
-		Confirm Follow
-			Follower details
-		New Follower
-			Follower Details
-		Comment created
-			comment details
-
-	Ajaxify everything - Monday
-		DONE follow/unfollow
-		FIX rsvp/unrsvp
-		visual indicator if invitation sent in find_friends
-		tip!
-
-		AFTER BETA
-			confirmations - remove follower, cancel account
-			toggle/untoggle raster pics
-			comments
-			Invitation raster
-			
-		DONE: rsvp_check/unrsvp_check
-		DONE: Search name/email - Adam
-
-		block emails from this user
-		change notification settings
-		add SMS
-
-		inset on plans
-		
-	Agent call - if android/iPhone download our app.
-	
-	Add logo to Post to FB wall - Adam
-	
-	make it so you only call for the @city_friends once from the database
-
-	Mike:
-
-	iPhone TODO:
-		notifications (3)
-			Gem for apple push notifications
-		FB Authentication (3)
-			Bundle ID added
-		un-RSVP (3)
-		Raster / Guests (3)
-		Settings / Confirm viewers (3)
-		Toggling (3)
-		Create Event (3?)
-		Register User (4?)
-		Style (3-4)
-		Views (3-4)
-			Reload eventDetails after RSVP, display different on list 
-			Make sure can click through to event details more than once
-			Refresh button to reload event list
-			Toggling display, not just hide (bc takes up space)
-		Finish Data Models (4)
-			Blocked users..
-			Toggling display
-
-
-	Mobile FB authentication - Jeff & Mike
-
-	Submit to Apple
-
-Mobile 3 - Mike
-
-Landing page
-About page
-Timezone?
-POW
-
-Make focus fall on first text field on new idea form
-
-
-
-September 4 - september 12
 
 Push to production
 test in production (& debug)
@@ -164,24 +15,20 @@ get nodes logged in
 
 Android Market app
 
+
+
 September 12- September 19
 
 Talk to nodes - Mike
-Approach biznezes - Adam
 Daily fixes
 Respond to feedback
-Mobile 4 - Mike
-Payments for 100+ infastructure - pricing page design and build - Adam
+Public feed
+UGMs
 Metrics
+	Admin dashboard
 
 
-metrics:
-	new users per week
-	plans per user per week
-	events per user per week
-	100+ followers (paying customers)
-	viral coeficent 
-
+September 19 - 26
 
 
 scalability - Plan for 100,000 users on October 12
@@ -195,16 +42,11 @@ completed calendar functionality - Gauge users - 21 day view . . . Plan by Octob
 	monetization
 	lists 
 Team/Office - Kick off w About, Careers - September 12, Employee structure September 19
-	Backend Developer
-	Frontend Developer
-	PR communications
-	Designer
 Monetizing - Built by October 12 - first customer October 19
-Money in the bank ($20K)
+Money in the bank ($5K)
 Legal - Friday
-	Operators agreement - friday
-	check infridgement of hi/hoos.in - friday
-	terms and conditions - friday
+	Operators agreement - friday 
+	terms and conditions - friday Adam
 Accounting - Friday
 	budgeting, costs, burn rate, $1,500 
 

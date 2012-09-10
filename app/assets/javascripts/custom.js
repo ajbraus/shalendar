@@ -3,14 +3,32 @@ $(document).ready(function() {
 	$("div.alert").delay(5000).fadeOut(1000);
 
 // user settings icon
-	$(".dashboard").hover(function(){
-		$(".user_settings").show();
-		$(".logout").show();
-	},
-		function(){
-		$(".user_settings").hide();
-		$(".logout").hide();
-	});
+	// $(".dashboard").hover(function(){
+	// 	$(".user_settings").show();
+	// 	$(".logout").show();
+	// },
+	// 	function(){
+	// 	$(".user_settings").hide();
+	// 	$(".logout").hide();
+	// });
+
+// SETTINGS DROPDOWN
+
+$(".dropdown dt a").click(function() {
+    $(".dropdown dd ul").toggle();
+});
+
+$(".dropdown dd ul li a").click(function() {
+    var text = $(this).html();
+    $(".dropdown dt a span").html(text);
+    $(".dropdown dd ul").hide();
+}); 
+
+$(document).bind('click', function(e) {
+    var $clicked = $(e.target);
+    if (! $clicked.parents().hasClass("dropdown"))
+        $(".dropdown dd ul").hide();
+});
 
 // NEW IDEA LIGHTBOX
 
@@ -44,10 +62,10 @@ $(document).ready(function() {
 			"event[duration]": {
 				required: true,
 				number: true
-			},
-			"event[link]": {
-				url: true
 			}
+			// "event[link]": {
+			// 	url: true
+			// }
 		}
 	});
 

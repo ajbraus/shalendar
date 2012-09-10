@@ -1,8 +1,4 @@
 
-
-
-make new EventForUser class? subclass of Event model, can send as different JSON to give more details on it. Whenever a user calls for events, make a new array of EventForUser objects that returns, and then delete the array? The can add part_of_day integer into the event for user class... and can adjust all tiems from UTC to local for whatever user wants the event.
-
 For Push Notifications:
 	https://github.com/PRX/apn_on_rails
 	Run background process
@@ -17,3 +13,16 @@ For Dates on Client:
 	Send timezone along with request, will process and use to make appropriate EventForUser changes.
 	Display Today 8/19, and then M T W Th F Sa Su ...
 
+
+
+APN Notes
+
+Right now, development push notifications working.
+Must run redis server 
+	(go to place in directory and run ./redis-server if it's on own comp)
+	on heroku, it should be launching from config/initializer, but need to test
+Must call ./script/apn_sender to send notifications
+	seems like this has to happen each time, from a cron job like every 2 mins
+Can run APN::Feedback.new from the console to see what it's saying
+
+For now, copied dev certificate into apn_production.pem, but have the real cert in prov/certs folder

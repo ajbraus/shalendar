@@ -341,3 +341,158 @@
   #   return @date_ideas | @toggled_invitation_events
 
   # end
+
+
+
+  htmlEscape(event.host_pic) +
+
+
+
+No following maybes    
+    @events = Event.all
+    @maybe_events = [] #an empty array to fill with relevant events
+
+    #take main list and remove already RSVP'd events
+    @events.each { |e|
+      plan = false
+      unless(e.full?)
+        if(e.tipped?)
+          e.guests.each{ |g|
+            if g == current_user
+             plan = true
+            end
+          }
+          if e.user == current_user
+            plan = true
+          end
+          if plan == false
+            @maybe_events.push(e)
+          end
+        end  
+      end
+    }
+    @events = @maybe_events
+
+
+    class AddFbPictureToUsers < ActiveRecord::Migration
+  def change
+    add_column :users, :fb_picture, :string
+    add_column :users, :fb_token, :string
+  end
+end
+
+
+
+show details of daily events with this
+
+$(.dayDetails).hide();
+
+$('.day').hover(function(){
+  $(this).next('.dayDetails').show();
+  },
+  $(this).next('.dayDetails').hide();
+});
+
+$(.eventDetails).hide();
+$('.event').hover(function(){
+  $(this)next('.eventDetails').show();
+  },
+  $(this).next('eventDetails').hide();
+});
+
+overlay for new event form could be with a toggle call
+
+$('new_event_button').toggle(function(){
+  $(#new_event_form).show(); // with overlay jquery formatting
+  },
+  $(#new_event_form).hide();
+)};
+
+
+add qTip to event for deets
+
+http://arshaw.com/fullcalendar/docs/event_rendering/eventRender/
+
+    eventRender: function(event, element) {
+        element.qtip({
+            content: event.description
+        });
+    }
+
+
+<div id="recaptcha"><%= recaptcha_tags display: { theme: 'white' }, ajax: true %></div>
+
+
+
+#For Refactoring Invites to be unconfirmed RSVPs
+  
+  # def min
+  #   if min == nil
+  #     min = 1
+  #   end
+  # end
+
+  # def max
+  #   if max == nil
+  #     max = 10000
+  #   end
+  # end
+
+  # def confirmed_guests
+  #     User.joins('INNER JOIN rsvps ON users.id = rsvps.guest_id').
+  #           where('rsvps.plan_id = :event_id AND rsvps.confirmed = "t"',
+  #               :event_id => self.id)
+  # end
+
+  # def invited_guests
+  #       #maybe try searchign RSVP table for user/event combo and check if true
+  #     User.joins('INNER JOIN rsvps ON users.id = rsvps.guest_id').
+  #           where('rsvps.plan_id = :event_id AND rsvps.confirmed = "f"',
+  #               :event_id => self.id)
+  # end
+
+
+
+FB events
+
+upon sign up from facebook (omniauth_controller)
+add method create_fb_events
+
+in events model:
+
+  def create_fb_events
+
+    @graph.get_connections("me", "events")
+    @graph.get_connections("me", "invitations")?
+
+    [{"name"=>"Housewarming Party",
+  "start_time"=>"2012-08-25T14:00:00-0500",
+  "end_time"=>"2012-08-25T22:00:00-0500",
+  "timezone"=>"America/Chicago",
+  "location"=>"8954 Sunstone Ln Middleton, WI 53562",
+  "id"=>"316821768413401",
+  "rsvp_status"=>"attending"}]
+
+
+  create dummy facebook user
+
+  call asynchronously to get the events and invites 
+    on each
+      Check that they have start TIME
+      if true
+      Check on fb_id if events are already there
+      if false
+      determin the event's owner & privacy
+        @graph.get_object("415061778552519")
+        lookup host from hi's users by fb_id
+        if present - create event with user as host and visibility
+        else - create event with set fb_dummy is host and visibility
+      create net new events and either RSVP or invite the user (if the events have start times)
+  end
+
+    create job to check at night if users should replace fb_dummy
+      get all events from facebook using fb_event_id
+      If owner = current_user && current owner = fb_dummy
+        Then replace fb_dummy with current_user as owner of event
+
+
