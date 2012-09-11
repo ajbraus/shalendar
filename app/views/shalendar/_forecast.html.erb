@@ -1,14 +1,50 @@
+<% if false %>
 <div id='forecast'>
 	<% for i in 0..@forecastevents.size-1 %>
 	<table>
 		<tr>
 		<th class="date"><%= (@date + i).strftime("%A %B %e") %></th>
 			<% @forecastevents[i].each do |part_of_day| %>
-				<% part_of_day.each do |event| %>
-					<%= render :partial => "shalendar/event", :locals => { :event => event } %>
-				<% end %>
+				<table>
+					<tr>
+						<% part_of_day.each do |event| %>
+							<td><%= render :partial => "shalendar/event", :locals => { :event => event } %></td>
+						<% end %>
+					</tr>
+				</table>
 			<% end %>
 		</tr>
 	</table>
+	<% end %>
+</div>
+<% end %>
+
+<div id='forecast'>
+	<% for i in 0..@forecastevents.size-1 %>
+	<dl>
+		<dt class="forecastDate"><%= (@date + i).strftime("%A %B %e") %></dt>
+		<dd>
+			<% for j in 0..2 %>
+			<dl>
+				<% if j == 0 %>
+					<dt><%= image_tag "morning.png" %></dt>
+				<% elsif j == 1 %>
+					<dt><%= image_tag "noon.png" %></dt>
+				<% else j == 2 %>
+					<dt><%= image_tag "night.png" %></dt>
+				<% end %>
+				<dd>
+					<% @forecastevents[i][j].each do |event| %>
+					<table>
+						<tr>
+							<td><%= render :partial => "shalendar/event", :locals => { :event => event } %></td>
+						</tr>
+					</table>
+					<% end %>
+				</dd>
+			</dl>
+		<% end %>
+		</dd>
+	</dl>
 	<% end %>
 </div>

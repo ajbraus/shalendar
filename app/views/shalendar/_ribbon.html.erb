@@ -1,9 +1,6 @@
 <div id="ribbon">
 	<a class="btn btn-rsvp btn-new-idea" href="#new_idea"><i class="icon-cloud"></i> New Idea</a>
 	<%= render 'new_idea_form' %>
-	<% if @next_plan %>
-		<%= render 'next_plan', event: @next_plan %>
-	<% end %>
 	<div id="datepicker">
 		<div id="datewindow"></div>
 		<% for i in -3..16 do %>
