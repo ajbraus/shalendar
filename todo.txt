@@ -1,8 +1,3 @@
-To do
-Paired
----------
-Input starts_at to account for timezone (chronic, ...)
-Input a user's correct timezone (probably on registration.. but how do we get from FB?)
 
 Mike
 ------------
@@ -33,6 +28,8 @@ Landing page, about, contact
 
 Adam
 --------------
+
+Get timezone from Facebook
 
 fix cloud/rsvp thing
 

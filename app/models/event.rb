@@ -73,6 +73,7 @@ class Event < ActiveRecord::Base
   end
 
   def chronic_starts_at=(s)
+    Chronic.time_class = Time.zone
     self.starts_at = Chronic.parse(s) if s
   end
 
@@ -81,6 +82,7 @@ class Event < ActiveRecord::Base
   end
 
   def chronic_ends_at=(e)
+    Chronic.time_class = Time.zone
     self.ends_at = Chronic.parse(e) if e
   end
 

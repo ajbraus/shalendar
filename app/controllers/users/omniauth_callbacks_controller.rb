@@ -109,6 +109,44 @@ private
     end
   end
   
+  def timezone_for_utc_offset(utc_offset)
+    identifier = {
+      -11  => 'Samoa',#International Date Line West, Midway Island
+      -10  => 'Hawaii',
+      -9   => 'Alaska',
+      -8   => 'Pacific Time (US & Canada)',#Tijuana
+      -7   => 'Mountain Time (US & Canada)',#Arizona, Chihuahua, Mazatlan
+      -6   => 'Central Time (US & Canada)',#Central America, Guadalajara, Mexico City, Monterrey, Saskatchewan
+      -5   => 'Eastern Time (US & Canada)',#Bogota, Indiana (East), Lima, Quito
+      -4.5 => 'Caracas',
+      -4   => 'Atlantic Time (Canada)',#Georgetown, La Paz, Santiago
+      -3.5 => 'Newfoundland',
+      -3   => 'Buenos Aires',#Brasilia, Greenland
+      -2   => 'Mid-Atlantic',
+      -1   => 'Cape Verde Is.',#Azores
+      0    => 'London',#Casablanca, Dublin, Edinburgh, Lisbon, Monrovia, UTC
+      1    => 'Paris',#Amsterdam, Belgrade, Berlin, Bern, Bratislava, Brussels, Budapest, Copenhagen, Ljubljana, Madrid, Prague, Rome, Sarajevo, Skopje, Stockholm, Vienna, Warsaw, West Central Africa, Zagreb
+      2    => 'Cairo',#Athens, Bucharest, Harare, Helsinki, Istanbul, Jerusalem, Kyiv, Minsk, Pretoria, Riga, Sofia, Tallinn, Vilnius
+      3    => 'Moscow',#Baghdad, Kuwait, Nairobi, Riyadh, St. Petersburg, Volgograd
+      3.5  => 'Tehran',
+      4    => 'Baku',#Abu Dhabi, Muscat, Tbilisi, Yerevan
+      4.5  => 'Kabul',
+      5    => 'Karachi',#Ekaterinburg, Islamabad, Tashkent
+      5.5  => 'Mumbai',#Chennai, Kolkata, New Delhi, Sri Jayawardenepura
+      5.75 => 'Kathmandu',
+      6    => 'Dhaka',#Almaty, Astana, Novosibirsk
+      6.5  => 'Rangoon',
+      7    => 'Jakarta',#Bangkok, Hanoi, Krasnoyarsk
+      8    => 'Hong Kong',#Beijing, Chongqing, Irkutsk, Kuala Lumpur, Perth, Singapore, Taipei, Ulaan Bataar, Urumqi
+      9    => 'Tokyo',#Osaka, Sapporo, Seoul, Yakutsk
+      9.5  => 'Adelaide',#Darwin
+      10   => 'Sydney',#Brisbane, Canberra, Guam, Hobart, Melbourne, Port Moresby, Vladivostok
+      11   => 'Solomon Is.',#Kamchatka, Magadan, New Caledonia
+      12   => 'Auckland',#Fiji, Marshall Is., Wellington
+      13   => "Nuku'alofa",
+    }
+    return identifier(utc_offset)
+end
   # def find_for_oauth_by_name(name, resource=nil)
   #   if user = User.find_by_name(name)
   #     user

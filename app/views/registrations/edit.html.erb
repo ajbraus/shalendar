@@ -68,7 +68,7 @@
     <%= f.select :city, @cities %></div>
 
     <div><%= f.label :time_zone %><br />
-    <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %></div>
+    <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)" %></div>
 
     <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
     <%= f.password_field :password, :autocomplete => "off" %></div>

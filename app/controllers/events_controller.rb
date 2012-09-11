@@ -65,8 +65,8 @@ class EventsController < ApplicationController
   #GET /events/id
   #GET /events/id.json
   def show
-    @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
-                                         relationships.confirmed = false ", current_user_id: current_user.id)
+    # @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
+    #                                      relationships.confirmed = false ", current_user_id: current_user.id)
     @event = Event.find(params[:id])
     @guests = @event.guests
     @json = @event.to_gmaps4rails
