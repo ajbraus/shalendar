@@ -1,1 +1,1 @@
-$('.event').withEventId(<%= @event.id %>).rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>")
+$('.event').withEventId(<%= @event.id %>).rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>", <%= @event.min - @event.guests.count %>)
