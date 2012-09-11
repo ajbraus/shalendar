@@ -1,9 +1,6 @@
 <% provide(:title, " | Home") %>
 	<div class="dashboard">
 		<%= render 'layouts/logo' %>
-		<% if @next_plan %>
-			<%= render 'next_plan', event: @next_plan %>
-		<% end %>
 	  <%= render 'search' %>
 	  <div class="grey_italics small">
 	  	Click pics to show/hide user's ideas

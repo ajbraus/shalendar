@@ -356,9 +356,9 @@ header {
   color: white;
   float: right;
   position: absolute;
-  right: 55px;
+  right: 110px;
   padding: 2px;
-width: 744px;
+width: auto;
   top: -70px;
   ul > li {
     display: inline;
@@ -367,6 +367,7 @@ width: 744px;
     padding: 0px 15px;
     right: 33px;
     left: 94px;
+    float:left;
     a {
       color:white;
       &:hover {
@@ -389,12 +390,9 @@ width: 744px;
   display: inline;
 }     
 .dropdown dd, .dropdown dt, .dropdown ul { 
-  margin:0px; 
-  padding:0px; 
+
 position: relative;
-float: right;
 bottom: 16px;
-right: 69px;
 }
 .dropdown dd { 
   position:relative; 
@@ -416,14 +414,13 @@ right: 69px;
 background: white;
 display: none;
 list-style: none;
-padding: 15px;
 position: absolute;
-top: 55px;
-right: -51px;
+top: 7px;
+right: -32px;
 min-width: 150px;
 z-index: 10;
 font-size: 23px;
-min-height: 112px;
+min-height: 191px;
 background-color: #FAFAFA;
 -webkit-border-radius: 7px;
 -moz-border-radius: 7px;
@@ -436,7 +433,7 @@ border-radius: 7px;
   display:none;
 }
 .dropdown dd ul li a { 
-  padding:8px; 
+  padding:9px; 
   display:block; 
   color:black;
   position: relative;
@@ -508,15 +505,13 @@ div.dashboard {
   display:inline-block;
   width:220px;
   float:left;
-  position: relative;
-bottom: 55px;
   &:first-child {
     border: 0;
     padding-top: 0;
   }
   span {
     display: block;
-margin-bottom: 25px;
+margin-bottom: 15px;
   }
   h1 {
     font-size: 1.6em;
@@ -550,10 +545,6 @@ width: 37px;
 position: relative;
 top: 3.5px;
     padding:0;
-  }
-  > div {
-  float:left;
-  width: 194px;
   }
 }
 
@@ -628,6 +619,7 @@ width: 105%;
 height: 396px;
 overflow-y: auto;
 margin-bottom: 10px;
+width: 195px;
 }
 
 .raster_nav {
@@ -642,7 +634,7 @@ margin-bottom: 10px;
 
 #datepicker {
   float:right;
-  width: 615px;
+  width: 705px;
   font-size:13px; 
   height: 78px;
   position: relative;
@@ -667,11 +659,11 @@ margin-bottom: 10px;
 }       
 
 #datewindow {
-border: 5px solid #EB8325;
-width: 90px;
+border: 7px solid #EB8325;
+width: 97px;
 height: 78px;
 position: absolute;
-left: 86px;
+left: 97px;
 top: -4px;
 z-index: -1;
 }
@@ -703,16 +695,18 @@ background-position: -6px -5px;
 /* Forecast */
 
 #forecast {
-  width: 1015px;
+width: 1004px;
   height: 837px;
   -webkit-border-radius: 12px;
   -moz-border-radius: 12px;
   border-radius: 12px;
   float:left;
     background-color: rgba(250, 250, 250, 0.8);
-  -moz-box-shadow: inset 0 0 8px -1px #000;
-  -webkit-box-shadow: inset 0 0 8px -1px #000;
-  box-shadow: inset 0 0 8px -1px #000;
+  -moz-box-shadow: 0 0 8px -1px #000;
+  -webkit-box-shadow: 0 0 8px -1px #000;
+  box-shadow: 0 0 8px -1px #000;
+  margin-top: 14px;
+  margin-left: 5px;
   > dl {
     width: 30.7%;
     float: left;
@@ -867,34 +861,9 @@ height: 14px;
 /* NEXT PLAN */
 
 .next_plan {
-  width: 242px;
-  height: 100px;
-  position: relative;
-  float: left;
-  left: 15px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px ;
-  border-radius: 5px;
-  padding:0px;
-  .event_pic {
-    top: 20px;
-    left: 0px;
-  }
-  a {
-    color:black;
-    position: absolute;
-top: 6px;
-  }
-  .friends_attending {
-    position: relative;
-    top: 44px;
-left: 50px;
-  }
-  .guest_count{
-position: relative;
-left: 181px;
-top: 54px;
-  }
+  -moz-box-shadow: 0 0 10px -1px $happening;
+  -webkit-box-shadow: 0 0 10px -1px $happening;
+  box-shadow: 0 0 10px -1px $happening;
 }
 
 .next_plan_time {
@@ -1331,6 +1300,7 @@ bottom: 23px;
   -o-transform:rotate(-16deg); /* Opera */
   font-family: typewriter, courier, serif;
 }
+
 .event_on {
   color:$happening;
 font-size: 125px;
@@ -1641,6 +1611,9 @@ input[type=text], textarea, .uneditable-input {
     width:290px;
     font-size: 20px;
     margin: 5px 0 20px 0;
+  }
+  select[name="user[time_zone]"] {
+    width:290px;
   }
 }
 

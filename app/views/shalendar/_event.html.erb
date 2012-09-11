@@ -1,5 +1,9 @@
 <tr>
-	<td data-user-id="<%= event.user.id %>">
+	<% if event.id == @next_plan.id %>
+		<td class="next_plan" data-user-id="<%= event.user.id %>">
+	<% else %>
+		<td data-user-id="<%= event.user.id %>">
+	<% end %>
 	<a href="/events/<%= event.id %>">
 		<% if event.tipped? && current_user.rsvpd?(event) %>
 			<div class="event plan rsvpd" data-event-id="<%= event.id %>">

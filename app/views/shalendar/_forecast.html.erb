@@ -1,24 +1,3 @@
-<% if false %>
-<div id='forecast'>
-	<% for i in 0..@forecastevents.size-1 %>
-	<table>
-		<tr>
-		<th class="date"><%= (@date + i).strftime("%A %B %e") %></th>
-			<% @forecastevents[i].each do |part_of_day| %>
-				<table>
-					<tr>
-						<% part_of_day.each do |event| %>
-							<td><%= render :partial => "shalendar/event", :locals => { :event => event } %></td>
-						<% end %>
-					</tr>
-				</table>
-			<% end %>
-		</tr>
-	</table>
-	<% end %>
-</div>
-<% end %>
-
 <div id='forecast'>
 	<% for i in 0..@forecastevents.size-1 %>
 	<dl>
@@ -36,9 +15,7 @@
 				<dd>
 					<% @forecastevents[i][j].each do |event| %>
 					<table>
-						<tr>
-							<td><%= render :partial => "shalendar/event", :locals => { :event => event } %></td>
-						</tr>
+						<%= render :partial => "shalendar/event", :locals => { :event => event } %></td>
 					</table>
 					<% end %>
 				</dd>
