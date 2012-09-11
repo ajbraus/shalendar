@@ -9,11 +9,11 @@
     <!-- VIEWERS AND VIEWING TABLES -->
 <div id="views_list" class="container">
   <ul>
-    <li><a href="#following">Following (<%= @followed_user_relationships.count %>)</a></li>
-    <li><a href="#followers">Followers (<%= @follower_relationships.count %>)</a></li>
+    <li><a href="#following">Viewing (<%= @followed_user_relationships.count %>)</a></li>
+    <li><a href="#followers">Viewed by (<%= @follower_relationships.count %>)</a></li>
   </ul>
   <div id="following">
-    <h2>Following</h2>
+    <h2>Viewing</h2>
     <div class="user_table">
         <% @followed_user_relationships.each do |fur| %>
         <table>       
@@ -23,7 +23,7 @@
             <td>
               <span id="follow_form" class="follow_btn">
                 <% if current_user.request_following?(fur.followed) %>
-                  Request Sent...
+                  View Requested...
                 <% else %>
                   <%= render :partial => 'events/unfollow', :locals => { :user => fur.followed } %>
                 <% end %>
@@ -36,7 +36,7 @@
   </div>
 
   <div id="followers">
-    <h2>Followers</h2>
+    <h2>Viewed By</h2>
     <div class="user_table">
       <% @follower_relationships.each do |fr| %>
       <table>        
@@ -52,7 +52,7 @@
                 <% else %>
                   <%= render :partial => 'events/follow', :locals => { :user => fr.follower } %>
                 <% end %>
-                <%= link_to "Remove Viewer", relationship_remove_path(fr), class: "btn_remove", method: :delete, confirm: "Are you sure #{fr.follower.name} should no longer be able to view your ideas?" %>
+                <%= link_to "Remove", relationship_remove_path(fr), class: "btn_remove", method: :delete, confirm: "Are you sure #{fr.follower.name} should no longer be able to view your ideas?" %>
               </span>
             </td>
             <td>

@@ -6,9 +6,9 @@
       <% if @view_requests.any? %>
         <li><a href="<%= manage_follows_path %>"><strong id="view_requests"><u> + </u><%= @view_requests.count %> Requests</strong></a></li>
       <% end %>
-      <li><a href="<%= manage_follows_path %>"><strong><%= current_user.events.count %></strong>  ideas</a></li>
-      <li><a href="<%= manage_follows_path %>"><strong><%= current_user.followed_users.count %></strong>  following</a></li>
-      <li><a href="<%= manage_follows_path %>"><strong><%= current_user.followers.count %></strong><span class="ceiling">/300</span>  followers</a></li>
+      <li><a href="<%= root_path %>">ideas <strong><%= current_user.events.count %></strong></a></li>
+      <li><a href="<%= manage_follows_path %>">viewing  <strong><%= current_user.followed_users.count %></strong></a></li>
+      <li><a href="<%= manage_follows_path %>">viewed by  <strong><%= current_user.followers.count %></strong><span class="ceiling">/300</span></a></li>
       <li><%= current_user.name %></li>
       <li><dl class="dropdown">
           <dt><a href="#"><%= raster_profile_picture(current_user) %></a></dt>

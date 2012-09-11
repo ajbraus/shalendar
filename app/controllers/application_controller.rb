@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
       Time.zone = current_user.time_zone if current_user.time_zone
     end
   end
+
   
   # def expired_token
   #   flash[:notice] = "There was an error with Facebook."

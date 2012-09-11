@@ -6,13 +6,13 @@
     ideas
   </a>
   <a href="<%= manage_follows_path %>">
-    <strong id="following" class="stat">
+    <strong id="viewing" class="stat">
       <%= current_user.followed_users.count %>
     </strong>
     following
   </a>
   <a href="<%= manage_follows_path %>">
-    <strong id="followers" class="stat">
+    <strong id="viewed by" class="stat">
       <%= current_user.followers.count %>
     </strong>
     followers

@@ -1,3 +1,5 @@
+
+
 $(document).ready(function() {
 
 	$("div.alert").delay(5000).fadeOut(1000);
@@ -13,6 +15,16 @@ $(document).ready(function() {
 	// });
 
 // SETTINGS DROPDOWN
+
+//Get local time zone- TRYING TO DO IT JavaScript
+// Event.observe(window, 'load', function(e) {
+// var now = new Date();
+// var gmtoffset = now.getTimezoneOffset();
+// // use ajax to set the time zone here.
+//   var set_time = new Ajax.Request('/gmtoffset/?gmtoffset='+gmtoffset, {
+// onSuccess: function(transport) {}
+// });
+// });
 
 $(".dropdown dt a").click(function() {
     $(".dropdown dd ul").toggle();
