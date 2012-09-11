@@ -1,5 +1,5 @@
 <% unless current_user == user %>
-	<div id="follow_form" class="follow_btn">
+	<div id="follow_form" class="follow_btn" data-user-id="<%= user.id %>">
 	  <% if current_user.following?(user) %>
 	  	<%= render :partial => 'events/unfollow', :locals => { :user => user } %>
 	  <% elsif current_user.request_following?(user) %>

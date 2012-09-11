@@ -1,11 +1,11 @@
 <% provide(:title, "Settings") %> 
 <div class="dashboard">
-<%= render 'layouts/logo_and_user' %>
+<%= render 'layouts/logo' %>
   <div id="personal">
     <% if current_user.authentications.find_by_provider("Facebook") == nil && current_user.avatar.present? == false %>
       <p><a href="http://gravatar.com/emails">Add or Update Gravatar Picture</a></p>
     <% end %>
-    <strong>Authentications</strong>
+    <p><strong>Authentications</strong></p>
     <% if current_user.authentications.any? == true %>
     <p>
       <% current_user.authentications.each do |a| %>
@@ -18,12 +18,12 @@
       <% end %>
     </p>
     <% else %>
+      <p>Add Facebook Authentication</p>
       <div class="fb_button">
         <div id="auth-status">
           <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
         </div>
       </div>
-      Add Facebook Authentication
     <% end %>
   </div>
 </div>
@@ -58,7 +58,7 @@
     <div><%= f.label :name %><br />
     <%= f.text_field :name %></div>
 
-    <div><%= f.label :avatar %><br />
+    <div><%= f.label :picture %><br />
     <%= f.file_field :avatar %></div>
 
     <div><%= f.label :email %><br />

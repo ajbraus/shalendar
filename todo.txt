@@ -38,12 +38,6 @@ Biz cards - Adam
 
 ajax bugs
 
-	fix cloud/rsvp thing
-
-	in manage follows, after viewing someone it switches back tabs to following (when ajax not working)
-
-	view from search button not changing to viewed until close search window
-
 	FIX rsvp/unrsvp
 	
 	visual indicator if invitation sent in find_friends
@@ -61,6 +55,8 @@ Side note: put_wall_post posts to user/feeds, which doesn’t include a Share bu
 
 Post to facebook wall . . . not for private events
 post to rsvps facebook wall of friends of RSVPs
+require city to join
+require time_zone to join
 
 	Notifiers - Adam
 		Welcome

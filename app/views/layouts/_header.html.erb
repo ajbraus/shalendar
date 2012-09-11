@@ -1,7 +1,8 @@
 <nav class="header_nav">
   <ul>
     <% if user_signed_in? %>
-      <% if @view_requests.any? %>
+      <% if @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
+                                         relationships.confirmed = false ", current_user_id: current_user.id).any? %>
         <li><a href="<%= manage_follows_path %>"><strong id="view_requests"><u> + </u><%= @view_requests.count %> Requests</strong></a></li>
       <% end %>
       <li><a href="<%= manage_follows_path %>"><strong><%= current_user.events.count %></strong>  ideas</a></li>

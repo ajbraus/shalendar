@@ -21,3 +21,7 @@
 
 /config/database.yml
 
+# Ignore all user avatars
+
+/public/system/users/avatars
+

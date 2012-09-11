@@ -24,6 +24,7 @@
       <% elsif @event.visibility == "invite_only" %>
         <i class="icon-envelope"></i>
       <% end %>
+      <%= @event.guests.count %>
     </div>
   </div>
 </div>

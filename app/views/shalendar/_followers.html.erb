@@ -1,0 +1,19 @@
+<div id="followers">
+  <h2>Followers</h2>
+  <div class="user_table">
+    <% @follower_relationships.each do |fr| %>
+    <table>        
+        <tr>
+          <td width="50px"><%= raster_profile_picture(fr.follower) %></td>
+          <td width="150px"><%= fr.follower.name %></td>
+          <td width="250px">
+            <%= render partial: 'events/follow_form', :locals => { :user => fr.follower } %>
+          </td>
+          <td>
+            <%= link_to "Remove Viewer", relationship_remove_path(fr), class: "fadeInRed", method: :delete, confirm: "Are you sure #{fr.follower.name} should no longer be able to view your ideas?" %>
+          </td>
+        </tr>
+      </table>
+      <% end %>
+  </div>
+</div>
