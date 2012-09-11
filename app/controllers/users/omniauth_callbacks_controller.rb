@@ -150,7 +150,6 @@ private
       12   => 'Auckland',#Fiji, Marshall Is., Wellington
       13   => "Nuku'alofa",
     }
-    binding.pry
     return identifier[utc_offset-1]#put in -1 bc looks like FB is off by 1
 end
   # def find_for_oauth_by_name(name, resource=nil)

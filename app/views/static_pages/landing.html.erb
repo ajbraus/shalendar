@@ -15,7 +15,9 @@
       <div id="auth-status" class="fb_button fb_login_button">
           <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
       </div>
-      <p><%= link_to "Login", new_user_session_path %></p>
-      <p>or, <%= link_to "Join here", new_user_registration_path %></p>
+      <div class="nativeLogin">
+        <p><%= link_to "Login", new_user_session_path %></p>
+        <p>or, <%= link_to "Join here", new_user_registration_path %></p>
+      </div>
     </div>
 </div>

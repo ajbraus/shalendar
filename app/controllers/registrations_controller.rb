@@ -66,7 +66,6 @@ class RegistrationsController < Devise::RegistrationsController
       respond_with resource, :location => home_path
     else
       clean_up_passwords resource
-      binding.pry
       respond_with resource
     end
   end

@@ -1,4 +1,4 @@
-$("a").withPicId(<%= @relationship.followed.id %>).raster_toggle("<%= escape_javascript(render partial: 'shalendar/forecast' ) %>")
+$("a").withPicId(<%= @relationship.followed.id %>).raster_toggle("<%= escape_javascript(render partial: 'shalendar/forecast' ) %>", "<%= escape_javascript(render partial: 'shalendar/datepicker' ) %>")
 position = $('table').withDate("<%= Date.today %>").position()
 current_position = $('#datewindow').position()
 $('#datewindow').animate({ left: position.left - 4}, 800)

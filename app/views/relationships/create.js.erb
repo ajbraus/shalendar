@@ -1,4 +1,6 @@
-$("#follow_form").html("<%= escape_javascript(render partial: 'events/unfollow', locals: {user:  @user}) %>")
-$("#following").html('<%= current_user.followed_users.count %>')
+$("div").withUserId(<%= @user.id %>).html("<%= escape_javascript(render partial: 'events/unfollow', locals: {user:  @user}) %>")
+//$("#following").html('<%= current_user.followed_users.count %>')
 $("#raster").html("<%= escape_javascript(render partial: 'shalendar/raster') %>")
 $("#forecast").html("<%= escape_javascript(render partial: 'shalendar/forecast') %>")
+$("#followers").html("<%= escape_javascript(render partial: 'shalendar/followers') %>")
+$("#following").html("<%= escape_javascript(render partial: 'shalendar/following') %>")

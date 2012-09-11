@@ -1,4 +1,3 @@
-<div id='forecast'>
 	<% for i in 0..@forecastevents.size-1 %>
 	<dl>
 		<dt class="forecastDate"><%= (@date + i).strftime("%A %B %e") %></dt>
@@ -24,4 +23,3 @@
 		</dd>
 	</dl>
 	<% end %>
-</div>

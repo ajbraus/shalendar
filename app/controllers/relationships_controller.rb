@@ -33,6 +33,11 @@ before_filter :authenticate_user!
       if @relationship.save
         respond_to do |format|
          @relationships = current_user.relationships.where('relationships.confirmed = true')
+         @follower_relationships = Relationship.where("relationships.followed_id = :current_user_id AND 
+                                                  relationships.confirmed = true ", current_user_id: current_user.id)
+         @followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
+                                                       current_user_id: current_user.id)
+   
          if params[:date] 
           @forecastevents = current_user.forecast(params[:date])
           @date = Date.strptime(params[:date], "%Y-%m-%d")
@@ -54,6 +59,8 @@ before_filter :authenticate_user!
     current_user.unfollow!(@user)
     respond_to do |format|
      @relationships = current_user.relationships.where('relationships.confirmed = true')
+     @followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
+                                                       current_user_id: current_user.id)
      if params[:date] 
       @forecastevents = current_user.forecast(params[:date])
       @date = Date.strptime(params[:date], "%Y-%m-%d")
@@ -81,6 +88,7 @@ before_filter :authenticate_user!
    respond_to do |format|
      @forecastevents = current_user.forecast((Date.today).to_s)
      @date = Date.today     
+     @forecastoverview = current_user.forecastoverview
      format.html { redirect_to :back }
      format.js
    end

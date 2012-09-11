@@ -1,0 +1,16 @@
+<div id="following">
+  <h2>Viewing</h2>
+  <div class="user_table">
+      <% @followed_user_relationships.each do |fur| %>
+      <table>       
+        <tr>
+          <td width="50px"><%= raster_profile_picture(fur.followed) %></td>
+          <td width="120px"><%= fur.followed.name %> </td>
+          <td width="100px">
+            <%= render partial: 'events/follow_form', :locals => { :user => fur.followed } %>
+          </td>
+        </tr>
+    </table>
+    <% end %>
+  </div>
+</div>

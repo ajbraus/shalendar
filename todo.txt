@@ -39,18 +39,6 @@ Biz cards - Adam
 
 ajax bugs
 
-	fix cloud/rsvp thing
-
-	forecast doubling on datepicker window shifting
-
-	raster doubling on toggle
-
-	toggling faces on and off goes back to today and doesn't move the orange rectangle
-
-	in manage follows, after viewing someone it switches back tabs to following (when ajax not working)
-
-	view from search button not changing to viewed until close search window
-
 	FIX rsvp/unrsvp
 	
 	visual indicator if invitation sent in find_friends
@@ -68,6 +56,8 @@ Side note: put_wall_post posts to user/feeds, which doesn’t include a Share bu
 
 Post to facebook wall . . . not for private events
 post to rsvps facebook wall of friends of RSVPs
+require city to join
+require time_zone to join
 
 	Notifiers - Adam
 		Welcome
@@ -148,6 +138,8 @@ AFTER BETA LAUNCH
 			Invitation raster
 			tip!
 
+
+	toggling faces on and off goes back to today and doesn't move the orange rectangle
 
 	all events already over turn grey
 

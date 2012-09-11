@@ -1,4 +1,4 @@
-<% provide(:title, " | Manage Views") %>
+<% provide(:title, " | Manage Follows") %>
 <div class="dashboard">
 <%= render 'layouts/logo' %>
 <%= render 'search' %> 
@@ -12,53 +12,6 @@
     <li><a href="#following">Viewing (<%= @followed_user_relationships.count %>)</a></li>
     <li><a href="#followers">Viewed by (<%= @follower_relationships.count %>)</a></li>
   </ul>
-  <div id="following">
-    <h2>Viewing</h2>
-    <div class="user_table">
-        <% @followed_user_relationships.each do |fur| %>
-        <table>       
-          <tr>
-            <td width="50px"><%= raster_profile_picture(fur.followed) %></td>
-            <td width="150px"><%= fur.followed.name %> </td>
-            <td>
-              <span id="follow_form" class="follow_btn">
-                <% if current_user.request_following?(fur.followed) %>
-                  View Requested...
-                <% else %>
-                  <%= render :partial => 'events/unfollow', :locals => { :user => fur.followed } %>
-                <% end %>
-              </span>
-            </td>
-          </tr>
-      </table>
-      <% end %>
-    </div>
-  </div>
-
-  <div id="followers">
-    <h2>Viewed By</h2>
-    <div class="user_table">
-      <% @follower_relationships.each do |fr| %>
-      <table>        
-          <tr>
-            <td width="50px"><%= raster_profile_picture(fr.follower) %></td>
-            <td width="150px"><%= fr.follower.name %></td>
-            <td>
-              <span>
-                <% if current_user.following?(fr.follower) %>
-                  <%# do nothing... already displaying viewing above %>
-                <% elsif current_user.request_following?(fr.follower) %>
-                  <%# do nothing... already are displaying request sent above %>
-                <% else %>
-                  <%= render :partial => 'events/follow', :locals => { :user => fr.follower } %>
-                <% end %>
-                <%= link_to "Remove", relationship_remove_path(fr), class: "btn_remove", method: :delete, confirm: "Are you sure #{fr.follower.name} should no longer be able to view your ideas?" %>
-              </span>
-            </td>
-            <td>
-          </tr>
-        </table>
-        <% end %>
-    </div>
-  </div>
+  <%= render partial: 'shalendar/following' %>
+  <%= render partial: 'shalendar/followers' %>
 </div>
