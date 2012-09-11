@@ -358,7 +358,7 @@ header {
   position: absolute;
   right: 55px;
   padding: 2px;
-  width: 610px;
+width: 744px;
   top: -70px;
   ul > li {
     display: inline;
@@ -387,15 +387,13 @@ header {
 /* General dropdown styles */  
 .dropdown {
   display: inline;
-  position: relative;
-  bottom: 25px;
 }     
 .dropdown dd, .dropdown dt, .dropdown ul { 
   margin:0px; 
   padding:0px; 
 position: relative;
 float: right;
-bottom: 9px;
+bottom: 16px;
 right: 69px;
 }
 .dropdown dd { 
@@ -469,10 +467,6 @@ background-color: rgba(255, 255, 255, 0.8);
   float:right;
   position: relative;
   float: right;
-  background-color: rgba(250, 250, 250, 0.8);
-  -moz-box-shadow: inset 0 0 8px -1px #000;
-  -webkit-box-shadow: inset 0 0 8px -1px #000;
-  box-shadow: inset 0 0 8px -1px #000;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;
@@ -679,7 +673,7 @@ height: 78px;
 position: absolute;
 left: 86px;
 top: -4px;
-z-index: 1;
+z-index: -1;
 }
 
 .ideas_cloud {
@@ -709,51 +703,49 @@ background-position: -6px -5px;
 /* Forecast */
 
 #forecast {
-  width: 997px;
+  width: 1015px;
   height: 837px;
   -webkit-border-radius: 12px;
   -moz-border-radius: 12px;
   border-radius: 12px;
   float:left;
-  > table {
-width: 32.2%;
-float: left;
-margin: 0 5px;
-position: relative;
-top: 6px;
-left: 9px;
-padding:8px;
-      -moz-box-shadow: inset 0 0 8px -1px #000;
+    background-color: rgba(250, 250, 250, 0.8);
+  -moz-box-shadow: inset 0 0 8px -1px #000;
   -webkit-box-shadow: inset 0 0 8px -1px #000;
   box-shadow: inset 0 0 8px -1px #000;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  border-radius: 7px;
+  > dl {
+    width: 30.7%;
+    float: left;
+    margin: 0 5px;
+    position: relative;
+    top: 6px;
+    left: 9px;
+    padding:8px;
+  }
+  dt {
+
   }
   .cloud {
     img {
-position: absolute;
-left: -25px;
-width: 346px;
-bottom: -30px;
+      position: absolute;
+      left: -25px;
+      width: 346px;
+      bottom: -30px;
     }
-  }
-  th {
-    height: 36px;
-    background-color: #372C8B;
-    -webkit-border-radius: 12px 12px 0 0;
-    -moz-border-radius: 12px 12px 0 0;
-    border-radius: 12px 12px 0 0;
-    color: white;
-    margin-bottom: 4px;
-    font-size: 20px;
-    text-shadow: .5px .5px 0 rgba(170, 175, 202, 1);
-    text-align: center; 
   }
   a {
     text-decoration: none;
     color:inherit;
   }
+}
+
+.forecastDate {
+  text-align: center;
+  height: 36px;
+  margin-bottom: 4px;
+  font-size: 20px;
+  text-shadow: .5px .5px 0 rgba(170, 175, 202, 1);
+  text-align: center; 
 }
 
 .event {
@@ -875,15 +867,19 @@ height: 14px;
 /* NEXT PLAN */
 
 .next_plan {
-width: 242px;
-height: 100px;
-position: relative;
-float: left;
-left: 15px;
-.event_pic {
-top: 20px;
-left: 0px;
-}
+  width: 242px;
+  height: 100px;
+  position: relative;
+  float: left;
+  left: 15px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px ;
+  border-radius: 5px;
+  padding:0px;
+  .event_pic {
+    top: 20px;
+    left: 0px;
+  }
   a {
     color:black;
     position: absolute;
