@@ -92,7 +92,7 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def check_tip_deadlines
+  def self.check_tip_deadlines
     #want to change this to be for each event, check the deadline, if it's in the window then act
     @window_floor = Time.now + 1.hour + 44.minutes
     @window_ceiling = Time.now + 2.hours
