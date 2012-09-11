@@ -14,11 +14,6 @@
 </div>
 
 <div class="container event_show"> 
-  <% if @event.tipped? %>
-    <div class="event_on typed_text">happening</div>
-  <% else %>
-    <div class="not_tipped typed_text">Needs <%= @event.min - @guests.count %> to Tip</div>
-  <% end %>
   <%= render 'title' %>
   <%= render 'nav_buttons' %>
   <%= render 'social' %>

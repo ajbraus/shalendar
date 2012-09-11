@@ -1,14 +1,20 @@
 <tr>
-	<td data-user-id="<%= event.user.id %>">
+	<% if @next_plan %>
+		<% if event.id == @next_plan.id %>
+		<td class="next_plan" data-user-id="<%= event.user.id %>">
+		<% else %>
+		<td data-user-id="<%= event.user.id %>">
+		<% end %>
+	<% end %>
 	<a href="/events/<%= event.id %>">
 		<% if event.tipped? && current_user.rsvpd?(event) %>
 			<div class="event plan rsvpd" data-event-id="<%= event.id %>">
 		<% elsif event.tipped? == false && current_user.rsvpd?(event) == false %>
-			<div class="event" data-event-id="<%= event.id %>"><span class="cloud"><%= image_tag("cloud.png") %></span>
+			<div class="event" data-event-id="<%= event.id %>"><span class="cloud"><%= image_tag "cloud.png" %></span>
 		<% elsif event.tipped? == true && current_user.rsvpd?(event) == false %>
-			<div class="event plan rsvpd" data-event-id="<%= event.id %>">
+			<div class="event plan" data-event-id="<%= event.id %>">
 		<% elsif event.tipped? == false && current_user.rsvpd?(event) %>
-			<div class="event" data-event-id="<%= event.id %>"><span class="cloud"><%= image_tag("cloud.png") %></span>
+			<div class="event" data-event-id="<%= event.id %>"><span class="cloud"><%= image_tag "cloud.png", height: 75 %></span>
 		<% end %>
 			
 			<div class="event_time"><%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>
@@ -32,7 +38,7 @@
 			<% else %>
 				<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
 			<% end %>
-				<div class="host"><%= event.user.first_name.capitalize %> 
+				<div class="host">by: <%= event.user.first_name.capitalize %> 
 					<% if event.user.last_name %>
 						<%= event.user.last_name.capitalize%>
 					<% end %> 

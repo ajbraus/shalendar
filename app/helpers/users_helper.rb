@@ -33,13 +33,6 @@ module UsersHelper
     event.starts_at.strftime("%a %b %e")
   end
 
-if false
-image_tag @user.avatar.url
-image_tag @user.avatar.url(:medium)
-image_tag @user.avatar.url(:thumb)
-end
-
-
   def gravatar_for(user, options = { size: 50, })
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
     size = options[:size]

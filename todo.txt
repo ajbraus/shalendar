@@ -37,11 +37,13 @@ fix cloud/rsvp thing
 Biz cards - Adam
 >>>>>>> 86fdcfd084635dbcc086f2784ed6381bd2a675ea
 
-morning, noon, night
-
-fix cloud/rsvp thing
-
 ajax bugs
+
+	fix cloud/rsvp thing
+
+	forecast doubling on datepicker window shifting
+
+	raster doubling on toggle
 
 	toggling faces on and off goes back to today and doesn't move the orange rectangle
 
@@ -52,17 +54,15 @@ ajax bugs
 	FIX rsvp/unrsvp
 	
 	visual indicator if invitation sent in find_friends
-		
-view request crowds stats
+
+	reload datepicker upon view new person or stop viewing
 
 Only showing events that start on the day... don't know what to do for longer than 1-day things... but not really core - test
 
 double-creating events by hitting enter twice (when trying to specify duration)- all buttons
 
 maps problem
-	gmaps4rails - no scroll, default to satilight view 45dgs6                                                                                                                             
-
-test fb logging the utc offset
+	gmaps4rails - no scroll, default to satilight view                                                                
                       
 Side note: put_wall_post posts to user/feeds, which doesn’t include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
 
@@ -147,6 +147,9 @@ AFTER BETA LAUNCH
 			comments
 			Invitation raster
 			tip!
+
+
+	all events already over turn grey
 
 	event#edit in lightbox
 
