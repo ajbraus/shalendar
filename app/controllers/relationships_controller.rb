@@ -81,6 +81,7 @@ before_filter :authenticate_user!
    respond_to do |format|
      @forecastevents = current_user.forecast((Date.today).to_s)
      @date = Date.today     
+     @forecastoverview = current_user.forecastoverview
      format.html { redirect_to :back }
      format.js
    end

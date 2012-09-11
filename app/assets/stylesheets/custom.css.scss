@@ -368,6 +368,7 @@ width: auto;
     right: 33px;
     left: 94px;
     float:left;
+    height: 47px;
     a {
       color:white;
       &:hover {
@@ -417,10 +418,10 @@ list-style: none;
 position: absolute;
 top: 7px;
 right: -32px;
-min-width: 150px;
+width: 194px;
+height: 115px;
 z-index: 10;
 font-size: 23px;
-min-height: 191px;
 background-color: #FAFAFA;
 -webkit-border-radius: 7px;
 -moz-border-radius: 7px;

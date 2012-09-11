@@ -40,12 +40,6 @@ ajax bugs
 
 	fix cloud/rsvp thing
 
-	forecast doubling on datepicker window shifting
-
-	raster doubling on toggle
-
-	toggling faces on and off goes back to today and doesn't move the orange rectangle
-
 	in manage follows, after viewing someone it switches back tabs to following (when ajax not working)
 
 	view from search button not changing to viewed until close search window
@@ -147,6 +141,8 @@ AFTER BETA LAUNCH
 			Invitation raster
 			tip!
 
+
+	toggling faces on and off goes back to today and doesn't move the orange rectangle
 
 	all events already over turn grey
 

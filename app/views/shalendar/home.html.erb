@@ -18,7 +18,9 @@
 	</div>
 	<div class="container">
 		<%= render 'ribbon', :locals => { :next_plan => @next_plan } %>
-		<%= render 'forecast' %>
+		<div id='forecast'>
+			<%= render 'forecast' %>
+		</div>
 	</div>
 </div>
 	<% if session[:access_token] %>

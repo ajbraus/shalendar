@@ -1,27 +1,5 @@
 <div id="ribbon">
 	<a class="btn btn-rsvp btn-new-idea" href="#new_idea"><i class="icon-cloud"></i> New Idea</a>
 	<%= render 'new_idea_form' %>
-	<div id="datepicker">
-		<div id="datewindow"></div>
-		<% for i in -3..16 do %>
-			<%= link_to root_path(date: Date.today + i), remote: true do %>
-			<table data-date=<%= "#{Date.today + i}" %>
-				<tr>
-					<th>
-						<%= i == 0 ? raw("<span class='red'>T</span>") : (Date.today + i).strftime("%a").slice!(0..1) %>
-			  	</th>
-			  </tr>
-			  <tr>
-			  	<td class="ideas_cloud">
-			  		<%= @forecastoverview[i+3][0] %>
-			  	</td>
-			  </tr>
-			  	<td class="plan_box">
-			  		<%= @forecastoverview[i+3][1] %>
-			  	</td>
-			  </tr>
-			</table>
-			<% end %>	
-		<% end %>
-	</div>
+	<%= render 'datepicker' %>
 </div>
