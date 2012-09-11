@@ -101,7 +101,7 @@ private
       user = User.new(:email => email, 
                 :name => name,
                 :city => city,
-                :time_zone => timezone,
+                :time_zone => timezone_for_utc_offset(time_zone),
                 :terms => true,
                 :remember_me => true,
                 :password => Devise.friendly_token[0,20]
