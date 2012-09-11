@@ -88,7 +88,9 @@ private
       email = access_token.info.email
       name = access_token.info.name
       location = access_token.info.location
-      user_attr = { email: email, name: name, city: location }
+      time_zone = timezone_for_utc_offset(access_token.extra.raw_info.timezone)
+
+      user_attr = { email: email, name: name, city: location, time_zone: time_zone }
       user.update_attributes user_attr
       
       return user
@@ -97,11 +99,12 @@ private
       email = access_token.info.email
       name = access_token.info.name
       city = access_token.info.location
-      time_zone = access_token.info.timezone
+      time_zone = timezone_for_utc_offset(access_token.extra.raw_info.timezone)
+
       user = User.new(:email => email, 
                 :name => name,
                 :city => city,
-                :time_zone => timezone_for_utc_offset(time_zone),
+                :time_zone => time_zone,
                 :terms => true,
                 :remember_me => true,
                 :password => Devise.friendly_token[0,20]
@@ -147,7 +150,8 @@ private
       12   => 'Auckland',#Fiji, Marshall Is., Wellington
       13   => "Nuku'alofa",
     }
-    return identifier(utc_offset)
+    binding.pry
+    return identifier[utc_offset]
 end
   # def find_for_oauth_by_name(name, resource=nil)
   #   if user = User.find_by_name(name)
