@@ -36,9 +36,11 @@ Landing page, about, contact
 Adam
 --------------
 
-fix cloud/rsvp thing
+Biz cards - Adam
 
-event#edit
+morning, noon, night
+
+fix cloud/rsvp thing
 
 ajax bugs
 
@@ -59,18 +61,10 @@ Only showing events that start on the day... don't know what to do for longer th
 double-creating events by hitting enter twice (when trying to specify duration)- all buttons
 
 maps problem
-	gmaps4rails - no scroll, default to satilight view 45dgs
+	gmaps4rails - no scroll, default to satilight view 45dgs6                                                                                                                             
 
-/300 followers
-
-settings dropdown/icon
-
-Add logo to Post to FB wall - Adam
-
-T.shirts & Biz cards - Adam
-
-morning, noon, night
-
+test fb logging the utc offset
+                      
 Side note: put_wall_post posts to user/feeds, which doesn’t include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
 
 Post to facebook wall . . . not for private events
@@ -109,6 +103,8 @@ AFTER BETA LAUNCH
 -------- Features To Add ------
 
 	Public feed
+	lists
+	payment gateway
 
 	1. subscribers ?
 	2. offers accounts

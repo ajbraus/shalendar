@@ -97,9 +97,11 @@ private
       email = access_token.info.email
       name = access_token.info.name
       city = access_token.info.location
+      time_zone = access_token.info.timezone
       user = User.new(:email => email, 
                 :name => name,
                 :city => city,
+                :time_zone => timezone,
                 :terms => true,
                 :remember_me => true,
                 :password => Devise.friendly_token[0,20]

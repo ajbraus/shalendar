@@ -30,6 +30,10 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
+
+    @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
+                                         relationships.confirmed = false ", current_user_id: current_user.id)
+
   end
 
   # POST /events
