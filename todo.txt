@@ -9,9 +9,7 @@ Mike
 
 wednesday - add hoos.in domain to heroku
 
-Time Zones are causing the event-by-day logic to be off (starts_at is reading from UTC 0, not offset by 500 even though it knows that is there)
 Make sure events always get served in time order
-	see: http://databasically.com/2010/10/22/what-time-is-it-or-handling-timezones-in-rails/
 
 Cron jobs environment set to production, don't know how to change, but still getting some output (pg_dump and also Event.check_tip_deadlines executing when dev server running.) - heroku scheduler
 	want to destroy events after they have passed... or at least destroy RSVPs / invitations, to maintain the tables- maybe store on some hard disk somewhere for records
