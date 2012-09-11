@@ -504,7 +504,6 @@ right: 118px;
 div.dashboard {
   display:inline-block;
   width:220px;
-  float:left;
   &:first-child {
     border: 0;
     padding-top: 0;
@@ -695,13 +694,13 @@ background-position: -6px -5px;
 /* Forecast */
 
 #forecast {
-width: 1004px;
-  height: 837px;
+  width: 1004px;
+  height: 780px;
   -webkit-border-radius: 12px;
   -moz-border-radius: 12px;
   border-radius: 12px;
   float:left;
-    background-color: rgba(250, 250, 250, 0.8);
+  background-color: rgba(250, 250, 250, 0.8);
   -moz-box-shadow: 0 0 8px -1px #000;
   -webkit-box-shadow: 0 0 8px -1px #000;
   box-shadow: 0 0 8px -1px #000;
@@ -716,15 +715,10 @@ width: 1004px;
     left: 9px;
     padding:8px;
   }
-  dt {
-
-  }
   .cloud {
     img {
-      position: absolute;
-      left: -25px;
-      width: 346px;
-      bottom: -30px;
+position: relative;
+bottom: 16px;
     }
   }
   a {
@@ -835,10 +829,10 @@ height: 14px;
 
 .guest_count {
   position:absolute;
-  right:21px;
-  width: 45px;
+right: 44px;
+width: 53px;
   text-align: right;
-  bottom:0px;
+  bottom:3px;
 }
 
 .force_tip {
@@ -853,8 +847,8 @@ height: 14px;
 
 .rsvp_check {
   position: absolute;
-  right: 7px;
-  bottom:2px;
+right: 17px;
+bottom: 6px;
   width: 15px;
 }
 
@@ -908,7 +902,7 @@ top: 24px;
 
 .btn_icon_unrsvp {
   color:blue;
-  font-size:18px;
+  font-size:30px;
   cursor:pointer;
   &:hover {
     color:#CC1100;
@@ -917,7 +911,7 @@ top: 24px;
 
 .btn_icon_rsvp {
   color: grey;
-  font-size: 22px;
+  font-size: 30px;
   &:hover{
     color:$rsvp;
   }
@@ -1006,11 +1000,10 @@ bottom: 17px;
   -moz-border-radius: 7px;
   border-radius: 7px;
   color: goldenrod;
-  width: 194px;
-  left: 396px;
+  width: auto;
+  left: 257px;
   z-index: 10;
-height: 79px;
-top: 52px;
+  top: -7px;
 }
 
 .warning
@@ -1058,6 +1051,10 @@ overflow: hidden;
 
 .red {
   color:$destroy;
+}
+
+.green {
+  color:$happening;
 }
 
 .fadeInRed {
@@ -1587,10 +1584,10 @@ input[type=text], textarea, .uneditable-input {
 
 #sign_up {
   margin: 0 auto;
-  width: 517px;
+  width: 550px;
   position: relative;
-  top: 80px;
-  left: 40px;
+bottom: 70px;
+right: 50px;
     h2 {
     width:410px;
   }
@@ -1622,10 +1619,11 @@ input[type=text], textarea, .uneditable-input {
 }
 
 #sign_in {
-  width: 865px;
+  width: 550px;
+  margin: 0 auto;
   position: relative;
-  top: 80px;
-  float:right;
+bottom: 70px;
+right: 50px;
   h2 {
     width:410px;
   }

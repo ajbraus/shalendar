@@ -147,6 +147,9 @@ AFTER BETA LAUNCH
 			Invitation raster
 			tip!
 
+
+	all events already over turn grey
+
 	event#edit in lightbox
 
 	If event is full, just not showing it in maybes right now - show as full
