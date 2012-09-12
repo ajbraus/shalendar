@@ -31,13 +31,9 @@ Biz cards - Adam
 
 i'm in and not in when datepicker shifts
 
-calendar
-	times on parts of day
-
 style of about and careers and how to
 
-header nav in header . . . how to make it lineup with layout?
-
+carrot next to picture
 
 add date to ribbon datepicker
 
