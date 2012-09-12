@@ -56,7 +56,7 @@ module UsersHelper
 
   def medium_profile_picture(user)
     if user.avatar.present?
-      image_tag user.avatar.url(:medium), style:"border-radius: 7px;"
+      image_tag(user.avatar.url(:medium), class:"profile_picture")
     elsif user.authentications.where(:provider == "Facebook").any? 
       fb_picture(user, type: "normal")
     elsif user.authentications.where(:provider == "Twitter").any?
