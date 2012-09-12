@@ -1,4 +1,4 @@
-<% provide(:title, "Settings") %> 
+<% provide(:title, "| Settings") %> 
 <div class="dashboard">
 <%= render 'layouts/logo' %>
   <div id="personal">
@@ -9,12 +9,14 @@
     <% if current_user.authentications.any? == true %>
     <p>
       <% current_user.authentications.each do |a| %>
+      <p>
         <table>
           <tr>
             <td width="100px"><%= a.provider %></td>
             <td width="50px"><%= link_to raw("<i class='icon-remove-sign'></i>"), a, confirm: 'Are you sure you want to remove your Facebook authentication?', method: :delete %></td>
           </tr>
         </table>
+      </p>
       <% end %>
     </p>
     <% else %>
