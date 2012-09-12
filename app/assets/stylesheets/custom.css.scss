@@ -1873,3 +1873,31 @@ select {
   top: 74px;
   right: 88px;
 }
+
+.instagramFeed {
+  width: 900px;
+  margin: 0 auto;
+  position: relative;
+  bottom: 40px;
+  h3 {
+
+  }
+  span {
+    color:$icon_color;
+    font-weight: bold;
+    font-size: 30px;
+  }
+  #instaButton{
+    position: relative;
+    top:131px; 
+  }
+  p {
+    position: relative;
+    top:124px; 
+  }
+}
+
+.instagram-placeholder {
+  float: left;
+  margin-right: 5px;
+}
