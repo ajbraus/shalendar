@@ -741,6 +741,14 @@ padding: 8px 10px 8px 12px;
     left: 343px;
     width: 332px;
     top: 110px;
+    z-index: -1;
+  }
+  dt span {
+    color: darkgrey;
+font-size: 15px;
+position: relative;
+bottom: 6px;
+letter-spacing: 2px;
   }
 }
 
