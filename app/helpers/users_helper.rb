@@ -108,6 +108,15 @@ module UsersHelper
     type = options[:type]
     "https://api.twitter.com/1/users/profile_image?user_id=#{twitter_username}&size=#{type}"
   end
+
+  def output_once(name, &block)
+    @output_once_blocks ||= []
+    unless @output_once_blocks.include?(name)
+        @output_once_blocks << name
+        concat(capture(block), block.binding)
+    end
+  end
+
 end
 
 # add if statement for paperclip/gravatar/FB picture.

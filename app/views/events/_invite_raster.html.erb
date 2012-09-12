@@ -1,4 +1,6 @@
-<div class="raster">
+<p>Invite Friends to this Idea</p>
+
+<div id="raster" class="element">
   <% current_user.followers.each do |f| %>
   	<% unless f.invited?(event) %>
 	  	<%= form_for([event, event.invites.build]) do |i| %>

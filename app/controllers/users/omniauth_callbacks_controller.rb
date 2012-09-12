@@ -88,7 +88,7 @@ private
       email = access_token.info.email
       name = access_token.info.name
       location = access_token.info.location
-      time_zone = timezone_for_utc_offset(access_token.extra.raw_info.timezone)
+      time_zone = "Central Time (US & Canada)" #timezone_for_utc_offset(access_token.extra.raw_info.timezone)
 
       user_attr = { email: email, name: name, city: location, time_zone: time_zone }
       user.update_attributes user_attr
@@ -99,7 +99,7 @@ private
       email = access_token.info.email
       name = access_token.info.name
       city = access_token.info.location
-      time_zone = timezone_for_utc_offset(access_token.extra.raw_info.timezone)
+      time_zone = "Central Time (US & Canada)"  # timezone_for_utc_offset(access_token.extra.raw_info.timezone)
 
       user = User.new(:email => email, 
                 :name => name,
