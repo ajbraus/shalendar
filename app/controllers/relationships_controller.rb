@@ -37,7 +37,7 @@ before_filter :authenticate_user!
                                                   relationships.confirmed = true ", current_user_id: current_user.id)
          @followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
                                                        current_user_id: current_user.id)
-   
+      @graph = Koala::Facebook::API.new(session[:access_token])
          if params[:date] 
           @forecastevents = current_user.forecast(params[:date])
           @date = Date.strptime(params[:date], "%Y-%m-%d")
@@ -61,6 +61,7 @@ before_filter :authenticate_user!
      @relationships = current_user.relationships.where('relationships.confirmed = true')
      @followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
                                                        current_user_id: current_user.id)
+        @graph = Koala::Facebook::API.new(session[:access_token])
      if params[:date] 
       @forecastevents = current_user.forecast(params[:date])
       @date = Date.strptime(params[:date], "%Y-%m-%d")

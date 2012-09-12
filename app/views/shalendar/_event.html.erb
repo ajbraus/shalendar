@@ -18,7 +18,7 @@
 		<% end %>
 			
 			<div class="event_time"><%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>
-			
+
 			<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
 			
 			<div class="event_blerb"><%= event_blerb(event) %></div>

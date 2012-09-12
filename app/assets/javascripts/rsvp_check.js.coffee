@@ -22,7 +22,6 @@ $.fn.rsvp_check = (rsvpCheckHTML, about_to_tip) ->
   else if $(@).hasClass("not_tipped_not_rsvpd")
     $(@).removeClass("not_tipped_not_rsvpd")
     $(@).addClass("not_tipped_rsvpd")
-  
 
 $.fn.unrsvp_check = (rsvpCheckHTML) ->
   $(@).find('.count').decrement()

@@ -1,30 +1,40 @@
-
-
 $(document).ready(function() {
 
 	$("div.alert").delay(5000).fadeOut(1000);
 
-// user settings icon
-	// $(".dashboard").hover(function(){
-	// 	$(".user_settings").show();
-	// 	$(".logout").show();
-	// },
-	// 	function(){
-	// 	$(".user_settings").hide();
-	// 	$(".logout").hide();
-	// });
+// FIND FRIENDS LIGHTBOX SHOW UPON FIRST LOGIN
+
+
+// INVITE => INVITED IN FIND FRIENDS
+
+	$("#find_friends a").click(
+    function() {
+        $(this).text("invited")
+        $(this).removeClass('btn-success');
+        $(this).addClass('btn_stop_viewing');
+    });
+
+// I'M IN AND NOT IN BTNS CHANGING
+
+	$(".btn_icon_unrsvp").hover(
+		function() {
+			$(this).val("not in");
+		},
+		function() {
+			$(this).val("I'm in");
+		});
+
+	$(".btn_icon_rsvp").hover(
+		function() {
+			$(this).val("I'm in");
+		},
+		function() {
+			$(this).val("not in");
+		});
+
+
 
 // SETTINGS DROPDOWN
-
-//Get local time zone- TRYING TO DO IT JavaScript
-// Event.observe(window, 'load', function(e) {
-// var now = new Date();
-// var gmtoffset = now.getTimezoneOffset();
-// // use ajax to set the time zone here.
-//   var set_time = new Ajax.Request('/gmtoffset/?gmtoffset='+gmtoffset, {
-// onSuccess: function(transport) {}
-// });
-// });
 
 $(".dropdown dt a").click(function() {
     $(".dropdown dd ul").toggle();
@@ -47,6 +57,8 @@ $(document).bind('click', function(e) {
 	$(".btn-new-idea").fancybox();
 
 	$(".find_friends").fancybox();
+
+	$(".howto").fancybox();
 
 // SHOW/HIDE LINK AND MAP
 
@@ -112,3 +124,15 @@ $(document).bind('click', function(e) {
 	});
 
 });
+
+
+//Get local time zone- TRYING TO DO IT JavaScript
+// Event.observe(window, 'load', function(e) {
+// var now = new Date();
+// var gmtoffset = now.getTimezoneOffset();
+// // use ajax to set the time zone here.
+//   var set_time = new Ajax.Request('/gmtoffset/?gmtoffset='+gmtoffset, {
+// onSuccess: function(transport) {}
+// });
+// });
+

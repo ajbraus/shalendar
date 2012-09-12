@@ -77,7 +77,7 @@
     <%= f.password_field :password_confirmation %></div>
 
     <div><%= f.submit "Update", :class => "btn btn-warning" %></div>
-    <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete, :class => "fadeInRed" %>.</p>
+    <p><%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete, :class => "fadeInRed" %></p>
   <% end %>
 
 </div>

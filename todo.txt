@@ -2,15 +2,13 @@
 Mike
 ------------
 
-wednesday - add hoos.in domain to heroku
-
 Make sure events always get served in time order
 
 Cron jobs environment set to production, don't know how to change, but still getting some output (pg_dump and also Event.check_tip_deadlines executing when dev server running.) - heroku scheduler
 	want to destroy events after they have passed... or at least destroy RSVPs / invitations, to maintain the tables- maybe store on some hard disk somewhere for records
 
 Landing page, about, contact
-
+ 
 	iPhone TODO:
 		Settings / Confirm viewers (3)
 		Create Event (3?)
@@ -24,24 +22,26 @@ Landing page, about, contact
 		Times (4)
 
 
-
-
 Adam
 --------------
-
-fix cloud/rsvp thing
 
 Bank johnson bank
 
 Biz cards - Adam
 
-invitation raster
+i'm in and not in when datepicker shifts
 
-ajax bugs
+calendar
+	times on parts of day
 
-	FIX rsvp/unrsvp
-	
-	visual indicator if invitation sent in find_friends
+style of about and careers and how to
+
+
+
+header nav in header . . . how to make it lineup with layout?
+
+
+add date to ribbon datepicker
 
 Only showing events that start on the day... don't know what to do for longer than 1-day things... but not really core - test
 
@@ -52,7 +52,7 @@ maps problem
                       
 Side note: put_wall_post posts to user/feeds, which doesn’t include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
 
-Post to facebook wall . . . not for private events
+P t to facebook wall . . . not for private events
 post to rsvps facebook wall of friends of RSVPs
 require city to join
 require time_zone to join
@@ -136,12 +136,19 @@ AFTER BETA LAUNCH
 			Invitation raster
 			tip!
 
+	troubleshoot signing in twice from facebook
+
+	fix timezone
+
+	List view
 
 	toggling faces on and off goes back to today and doesn't move the orange rectangle
 
 	all events already over turn grey
 
-	event#edit in lightbox
+	event#edit ajax lightbox
+
+	event#show ajax lightbox
 
 	If event is full, just not showing it in maybes right now - show as full
 	

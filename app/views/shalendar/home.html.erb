@@ -2,6 +2,7 @@
 	<div class="dashboard">
 		<%= render 'layouts/logo' %>
 	  <%= render 'search' %>
+	  <%= render 'fb_button' %>
 	  <div class="grey_italics small">
 	  	Click pic to show/hide user's ideas on forecast.
 	  </div>
@@ -9,14 +10,14 @@
 	  	<%= render 'raster' %>
 	  </div>
 	  <div class="raster_nav">
-  		<a href="#" onclick="$('.toggled-on').click();">Show All</a> |
-  		<a href="#" onclick="$('.toggled-off').click();">Hide All</a>
+  		<a href="#" onclick="$('.toggled-off').click();">View All</a> |
+  		<a href="#" onclick="$('.toggled-on').click();">Hide All</a>
+
 		</div>
 		<% if false %>
 			<a href="#public", class="public" ><%= (image_tag "madison_icon", :size => "50x50", title: "Find Friend's On Facebook") %></a>
 			<%= render 'public' %>
 		<% end %> 
-	  <%= render 'fb_button' %>
 	</div>
 	<div class="container">
 		<%= render 'ribbon', :locals => { :next_plan => @next_plan } %>
@@ -27,7 +28,8 @@
 </div>
 	<% if session[:access_token] %>
 		<%= render 'find_friends' %>
-		<% if current_user.authentications.where(:provider == "Facebook") and current_user.sign_in_count == 1 and @city_friends.any? == true %>
+		<% if false %>
+		<% if current_user.authentications.where(:provider == "Facebook").present? and current_user.sign_in_count < 3 and @city_friends.any? == true %>
 			<script> 
 				function Func1() { 
 					//alert("ahh!")
@@ -35,9 +37,11 @@
 					//clickLink(".find_friends")
 					}
 				function Func1Delay() { 
-					setTimeout("Func1()", 500);
+					setTimeout("Func1()", 1000);
 					}
-				//document.ready(Func1Delay());
+				document.ready(Func1Delay());
 			</script>
 		<% end %>
+		<% end %>
 	<% end %>
+	<%= render 'how_it_works' %>
