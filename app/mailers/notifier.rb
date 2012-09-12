@@ -12,7 +12,7 @@ class Notifier < ActionMailer::Base
   # AD HOC NOTIFIERS
 
   def beta_users
-    mail to: "msfenchel@gmail.com", subject: "hoos.in"
+    mail to: "msfenchel@gmail.com", subject: "Welcome, Beta-User, to hoos.in!"
   end
 
   #AUTOMATIC NOTIFIERS

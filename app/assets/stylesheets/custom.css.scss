@@ -1868,10 +1868,20 @@ select {
   @extend .error;
 }
 
+.text {
+  width:500px;
+  margin: 0 auto;
+  clear:both;
+}
+
 .howto {
   position: relative;
   top: 74px;
   right: 88px;
+}
+#howItWorks{
+ width:700px;
+ margin: 0 auto;
 }
 
 .instagramFeed {

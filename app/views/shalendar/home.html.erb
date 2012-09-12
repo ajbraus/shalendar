@@ -1,9 +1,11 @@
 <% provide(:title, " | Home") %>
 	<div class="dashboard">
 		<%= render 'layouts/logo' %>
-	  <%= render 'search' %>	
-	  <%= render 'social_friends' %>
-	  <div class="small"><p>Click below to show/hide a user's ideas</p></div>
+	  <%= render 'search' %>
+	  <%= render 'fb_button' %>
+	  <div class="grey_italics small">
+	  	Viewing: click pics to show/hide user's ideas
+	  </div>
 	  <div id="raster" class="element">
 	  	<%= render 'raster' %>
 	  </div>
