@@ -73,6 +73,7 @@ class Event < ActiveRecord::Base
   end
 
   def chronic_starts_at=(s)
+    Chronic.time_class = Time.zone
     self.starts_at = Chronic.parse(s) if s
   end
 
@@ -81,6 +82,7 @@ class Event < ActiveRecord::Base
   end
 
   def chronic_ends_at=(e)
+    Chronic.time_class = Time.zone
     self.ends_at = Chronic.parse(e) if e
   end
 
@@ -90,21 +92,26 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def check_tip_deadlines
+  def self.check_tip_deadlines
     #want to change this to be for each event, check the deadline, if it's in the window then act
-    @window_floor = Time.now + 1.hour + 44.minutes
-    @window_ceiling = Time.now + 2.hours
+    @tip_window_floor = Time.now + 2.hours + 50.minutes
+    @tip_window_ceiling = Time.now + 3.hours
     @relevant_events = Event.where(':window_floor <= events.starts_at AND 
                         events.starts_at < :window_ceiling',
-                        window_floor: @window_floor, window_ceiling: @window_ceiling)
+                        window_floor: @tip_window_floor, window_ceiling: @tip_window_ceiling)
     @relevant_events.each do |re|
-
       if re.tipped?
         Notifier.rsvp_reminder(re).deliver
       else
         Notifier.tip_or_destroy(re).deliver
       end
     end
+
+  end
+
+  def self.clean_up
+    #prune db of old events here.. for now that's anything older than 3 days ago
+
   end
 
   def gmaps4rails_address

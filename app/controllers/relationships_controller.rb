@@ -110,11 +110,12 @@ before_filter :authenticate_user!
     
     current_user.follow!(@relationship.follower)
     @new_relationship = Relationship.last
-    if(@relationship.follower.require_confirm_follow == true)
-      @new_relationship.confirmed = false
-    else
+    # This was for when we didn't auto-confirm on follow-back, probably make a setting for this
+    # if(@relationship.follower.require_confirm_follow == true)
+    #   @new_relationship.confirmed = false
+    # else
       @new_relationship.confirmed = true
-    end
+    # end
     if @new_relationship.save 
       redirect_to :back, notice: "#{@relationship.follower.name} can now view your ideas and request sent to view back"
     else

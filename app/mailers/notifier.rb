@@ -12,30 +12,31 @@ class Notifier < ActionMailer::Base
   # AD HOC NOTIFIERS
 
   def beta_users
-    mail to: "hoosinapp@gmail.com", subject: "hoos.in"
+    mail to: "msfenchel@gmail.com", subject: "hoos.in"
   end
 
   #AUTOMATIC NOTIFIERS
 
   def welcome(user)
     @user_first_name = user.first_name
-    mail to: user.email, subject: "Welcome to hoos.in #{user.first_name}"
+    mail to: user.email, subject: "Welcome to hoos.in, #{user.first_name}!"
     
   end
 
   def cancellation(event)
     @guests = event.guests
 
-    @guest_emails = []
+    # @guest_emails = []
     @guests.each do |g|
       if(g.iPhone_user == true)
-        APN.notify(g.APNtoken, {:alert => "#{event.title} canceled!", :badge => 1, :sound => true})
+        APN.notify(g.APNtoken, {:alert => "#{event.title} Canceled!", :badge => 1, :sound => true})
       end
-      @guest_emails.push(g.email)
+      mail to: g.email, subject: "#{event.title} Canceled!"
+      # @guest_emails.push(g.email)
     end
-    @guest_emails.join('; ')
+    # @guest_emails.join('; ')
 
-    mail bcc: @guest_emails, subject: "#{event.title} has been canceled!"
+    # mail bcc: @guest_emails, subject: "#{event.title} Canceled!"
   end
 
   def rsvp_reminder(event)
@@ -45,7 +46,17 @@ class Notifier < ActionMailer::Base
 
     @guests.each do |g|
       if(g.iPhone_user == true)
-        APN.notify(g.APNtoken, { :alert => "Event #{event.title} canceled!", :badge => 1, :sound => true})
+        APN.notify(g.APNtoken, { :alert => "#{event.title} starting soon!", :badge => 1, :sound => true})
+      elsif(g.android_user == true)
+        #need to know how Gcm::Devices behave- do they persist?
+        if(Gcm::Device.find_by_id(g.GCMdevice_id).nil? == false)#if we have a device for user
+          notification = Gcm::Notification.new
+          notification.device = Gcm::Device.find_by_id(g.GCMdevice_id)
+          notification.collapse_key = "RSVP_Reminder"
+          notification.delay_while_idle = true
+          notification.data = {:registration_ids => [@user.regis], :data => {:message_text => "#{event.title} starting soon!"}}
+          notification.save
+        end
       end
       @guest_emails.push(g.email)
     end

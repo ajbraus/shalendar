@@ -3,14 +3,14 @@
 		<%= render 'layouts/logo' %>
 	  <%= render 'search' %>
 	  <div class="grey_italics small">
-	  	Click pics to show/hide user's ideas
+	  	Click pic to show/hide user's ideas on forecast.
 	  </div>
 	  <div id="raster" class="element">
 	  	<%= render 'raster' %>
 	  </div>
 	  <div class="raster_nav">
-  		<a href="#" onclick="$('.toggled-on').click();">Clear All</a> |
-  		<a href="#" onclick="$('.toggled-off').click();">Select All</a>
+  		<a href="#" onclick="$('.toggled-on').click();">Show All</a> |
+  		<a href="#" onclick="$('.toggled-off').click();">Hide All</a>
 		</div>
 		<% if false %>
 			<a href="#public", class="public" ><%= (image_tag "madison_icon", :size => "50x50", title: "Find Friend's On Facebook") %></a>

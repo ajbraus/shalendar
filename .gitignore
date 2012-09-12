@@ -10,6 +10,10 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 
+# Ignore all user avatars
+
+/public/system/users/avatars
+
 # Ignore the database
 
 # Ignore all logfiles and tempfiles.

@@ -56,7 +56,7 @@ class EventsController < ApplicationController
           format.html { redirect_to @event }
           format.json { render json: @event, status: :created, location: @event }
         else
-          format.html { redirect_to home_path, notice: "Idea posted! On #{@event.starts_at}"}
+          format.html { redirect_to home_path, notice: "Idea posted! On #{@event.starts_at.strftime "%l:%M%P, %A %B %e"}"}
           format.json { render json: home_path, status: :created, location: @event }
         end
       else
@@ -69,8 +69,8 @@ class EventsController < ApplicationController
   #GET /events/id
   #GET /events/id.json
   def show
-    @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
-                                         relationships.confirmed = false ", current_user_id: current_user.id)
+    # @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
+    #                                      relationships.confirmed = false ", current_user_id: current_user.id)
     @event = Event.find(params[:id])
     @guests = @event.guests
     @json = @event.to_gmaps4rails

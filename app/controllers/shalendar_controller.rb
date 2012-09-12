@@ -5,8 +5,8 @@ class ShalendarController < ApplicationController
 		@relationships = current_user.relationships.where('relationships.confirmed = true')
   	@graph = Koala::Facebook::API.new(session[:access_token])
   	@event = Event.new
-    @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
-                                         relationships.confirmed = false ", current_user_id: current_user.id)
+    # @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
+    #                                      relationships.confirmed = false ", current_user_id: current_user.id)
 
     @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
     @forecastoverview = current_user.forecastoverview
@@ -56,9 +56,6 @@ class ShalendarController < ApplicationController
 		#people current user is viewing
 		@followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
 																											 current_user_id: current_user.id)
-	 
-   @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
-                                         relationships.confirmed = false ", current_user_id: current_user.id)
 
 
     if params[:search]

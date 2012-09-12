@@ -1,3 +1,5 @@
+#THIS IS ALL OLD: JAVAN-WHENEVER CRON STUFF REPLACED BY HEROKU SCHEDULER
+
 # Use this file to easily define all of your cron jobs.
 #
 # It's helpful, but not entirely necessary to understand cron before proceeding.
@@ -20,7 +22,7 @@
 # Learn more: http://github.com/javan/whenever
 
 #here set the output path so it will log in right place
-set :cron_log, "~/desktop/shalendar/log/cron_log.log"
+# set :cron_log, "~/desktop/shalendar/log/cron_log.log"
 
 # every :friday, :at => "4am" do
 # 	command "rm -rf #{RAILS_ROOT}/tmp/cache"
@@ -38,13 +40,13 @@ set :cron_log, "~/desktop/shalendar/log/cron_log.log"
 
 # end
 
-every 1.minutes do
-	#command "/script/apn_sender" not sure exactly how this works, but uses daemon
-	#to send apn_notifications, which is supposed to be better (faster?) in production
-	#can also 'start it' from the command line, using redis/rescue...
-	rake "apn:sender"
-	rake "gcm:notifications:deliver"
-end
+# every 1.minutes do
+# 	#command "/script/apn_sender" not sure exactly how this works, but uses daemon
+# 	#to send apn_notifications, which is supposed to be better (faster?) in production
+# 	#can also 'start it' from the command line, using redis/rescue...
+# 	rake "apn:sender"
+# 	rake "gcm:notifications:deliver"
+# end
 
 # every 15.minutes, at: [8, 23, 38, 53] do #we should start this off the 15-min increment so there's never overlap
 

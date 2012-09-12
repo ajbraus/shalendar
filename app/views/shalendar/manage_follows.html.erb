@@ -9,11 +9,9 @@
     <!-- VIEWERS AND VIEWING TABLES -->
 <div id="views_list" class="container">
   <ul>
-    <li><a href="#following">Following (<%= @followed_user_relationships.count %>)</a></li>
-    <li><a href="#followers">Followers (<%= @follower_relationships.count %>)</a></li>
+    <li><a href="#following">Viewing (<%= @followed_user_relationships.count %>)</a></li>
+    <li><a href="#followers">Viewed by (<%= @follower_relationships.count %>)</a></li>
   </ul>
   <%= render partial: 'shalendar/following' %>
   <%= render partial: 'shalendar/followers' %>
 </div>
-
-
