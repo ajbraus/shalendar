@@ -334,8 +334,7 @@ span.red a {
 
 
 header {
-  position: absolute;
-  top:0;
+  clear: both;
   width:100%;
   background-color:$icon_color;
   height:58px;
@@ -435,11 +434,10 @@ right: 75px;
 }
 
 .layout {
-  position: relative;
+  clear:both;
   width: 1265px;
   min-height: 1040px;
-  margin: 0 auto;
-  top: 70px;
+  margin: 20px auto;
 }
 
 .element {
@@ -457,13 +455,9 @@ background-color: rgba(255, 255, 255, 0.8);
   width: 1015px;
   float:right;
   position: relative;
-  float: right;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;
-  padding-top: 12px;
-  height: 883px;
-overflow: hidden;
 }
 
 .careers {
@@ -699,7 +693,7 @@ background-position: -6px -5px;
 
 #forecast {
   width: 1004px;
-  height: 680px;
+min-height: 680px;
   -webkit-border-radius: 12px;
   -moz-border-radius: 12px;
   border-radius: 12px;
@@ -711,13 +705,12 @@ background-position: -6px -5px;
   margin-top: 14px;
   margin-left: 5px;
   > dl {
-    width: 30.7%;
-    float: left;
-    margin: 0 5px;
-    position: relative;
-    top: 6px;
-    left: 9px;
-    padding:8px;
+width: 31%;
+float: left;
+position: relative;
+top: 6px;
+left: 5px;
+padding: 8px 10px 8px 12px;
     > dd {
 /*      -moz-box-shadow: inset 0 0 10px -1px #000;
       -webkit-box-shadow: inset 0 0 10px -1px #000;
@@ -727,6 +720,11 @@ background-position: -6px -5px;
       border-radius: 4px;*/
     }
   }
+/*  > dl:nth-child(2) {
+    border-right: 1px solid darkgrey;
+    border-left:1px solid darkgrey;
+    height: 96%;
+  }*/
   a {
     text-decoration: none;
     color:inherit;
@@ -735,6 +733,15 @@ background-position: -6px -5px;
     table {
       margin: 7px 0;
     }
+  }
+  .gutter {
+    border-right: 1px solid darkgrey;
+    border-left: 1px solid darkgrey;
+    height: 83%;
+    position: absolute;
+    left: 343px;
+    width: 332px;
+    top: 110px;
   }
 }
 
@@ -983,17 +990,16 @@ footer {
   padding: 20px 0 30px 0;
   color: rgb(54, 54, 54);
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
-filter: alpha(opacity=75);
--moz-opacity: 0.75;
--khtml-opacity: 0.75;
-opacity: 0.75;
+  filter: alpha(opacity=75);
+  -moz-opacity: 0.75;
+  -khtml-opacity: 0.75;
+  opacity: 0.75;
   background-color: white;
-position: absolute;
-left: 8%;
-width: 1210px;
-z-index: 1;
-border-top: 1px solid darkgrey;
-bottom: -20px;
+  clear: both;
+  margin: 50px auto;
+  width: 1210px;
+  border-top: 1px solid lightGrey;
+
   a {
     float:left;
     font-size: 20px;
@@ -1851,3 +1857,8 @@ select {
   @extend .error;
 }
 
+.howto {
+  position: relative;
+  top: 74px;
+  right: 88px;
+}

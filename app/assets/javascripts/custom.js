@@ -58,6 +58,8 @@ $(document).bind('click', function(e) {
 
 	$(".find_friends").fancybox();
 
+	$(".howto").fancybox();
+
 // SHOW/HIDE LINK AND MAP
 
   $("#addLink").click(function () {
