@@ -14,7 +14,7 @@
 		<% elsif event.tipped? == true && current_user.rsvpd?(event) == false %>
 			<div class="event tipped_not_rsvpd" data-event-id="<%= event.id %>">
 		<% elsif event.tipped? == false && current_user.rsvpd?(event) %>
-			<div class="event not_tipped?rsvpd" data-event-id="<%= event.id %>">
+			<div class="event not_tipped_rsvpd" data-event-id="<%= event.id %>">
 		<% end %>
 			
 			<div class="event_time"><%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>

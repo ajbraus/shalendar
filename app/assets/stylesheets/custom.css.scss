@@ -695,7 +695,7 @@ background-position: -6px -5px;
 
 #forecast {
   width: 1004px;
-  height: 780px;
+  height: 680px;
   -webkit-border-radius: 12px;
   -moz-border-radius: 12px;
   border-radius: 12px;
@@ -754,15 +754,18 @@ position: relative;
 }
 
 .tipped_rsvpd {
-  -moz-box-shadow: inset 0 0 10px -1px $rsvp;
-  -webkit-box-shadow: inset 0 0 10px -1px $rsvp;
-  box-shadow: inset 0 0 10px -1px $rsvp;
+  -moz-box-shadow: 0 0 10px -1px $rsvp;
+  -webkit-box-shadow: 0 0 10px -1px $rsvp;
+  box-shadow: 0 0 10px -1px $rsvp;
   background-color:white;
   .event_blerb {
   color:black;
  }
   .event_time {
   background-color: #ffffff;
+  color:black;
+ }
+ .host {
   color:black;
  }
 }
@@ -781,11 +784,11 @@ position: relative;
 } 
 
 .not_tipped_rsvpd {
-  background: url(rsvp_cloud.png);
-  background-size: 298px;
-  background-position: 7px -14px;
-  background-repeat: no-repeat;
-  z-index: 1; 
+background: url(rsvp_cloud.png);
+background-size: 293px;
+background-position: 6px -14px;
+background-repeat: no-repeat;
+z-index: 100;
 }
 
 .not_tipped_not_rsvpd {
@@ -805,8 +808,7 @@ background-color: #383838;
 padding: 2px 11px 0 11px;
 position: absolute;
 left: 60px;
-top: 0px;
-
+top: 3px;
 }
 
 .event_pic {
@@ -819,12 +821,13 @@ top: 4px;
 }
 
 .event_blerb {
-  float:left;
-width: 230px;
-  height: 20px;
-  margin-right: 38px;
-  position: absolute;
+float: left;
+width: 207px;
+height: 20px;
+margin-right: 38px;
+position: absolute;
 left: 62px;
+top: 23px;
 }
 
 .friends_attending {
@@ -840,7 +843,7 @@ font-size: 13px;
 font-style: italic;
 color: white;
 position: absolute;
-bottom: 3px;
+bottom: 5px;
 right: 145px;
 width: 86px;
 height: 14px;
@@ -879,9 +882,10 @@ width: 53px;
 /* NEXT PLAN */
 
 .next_plan {
-  -moz-box-shadow: 0 0 10px -1px $happening;
-  -webkit-box-shadow: 0 0 10px -1px $happening;
-  box-shadow: 0 0 10px -1px $happening;
+-webkit-box-shadow: 1px 1px 30px rgba(235, 131, 37, 1);
+-moz-box-shadow:    1px 1px 30px rgba(235, 131, 37, 1);
+box-shadow:         1px 1px 30px rgba(235, 131, 37, 1);
+z-index: 100;
 }
 
 .next_plan_time {
@@ -966,7 +970,7 @@ left: 8%;
 width: 1210px;
 z-index: 1;
 border-top: 1px solid darkgrey;
-bottom: -77px;
+bottom: -20px;
   a {
     float:left;
     font-size: 20px;
