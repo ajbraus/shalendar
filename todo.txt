@@ -36,8 +36,6 @@ calendar
 
 style of about and careers and how to
 
-
-
 header nav in header . . . how to make it lineup with layout?
 
 

@@ -344,13 +344,12 @@ header {
 }
 
 .header_nav {
-  color: white;
-  float: right;
-  position: absolute;
-  right: 110px;
-  padding: 2px;
-width: auto;
-  top: -70px;
+color: white;
+position: relative;
+left: 270px;
+padding: 2px;
+width: 499px;
+margin: 0 auto;
   ul > li {
     display: inline;
     position: relative;
@@ -493,9 +492,8 @@ right: 118px;
 div.dashboard {
   display:inline-block;
   width:220px;
-  &:first-child {
-    border: 0;
-    padding-top: 0;
+  > div, p {
+    float:left;
   }
   span {
     display: block;
@@ -609,6 +607,7 @@ overflow-y: auto;
 margin-bottom: 10px;
 width: 218px;
 padding: 7px;
+float:left;
 form {
   width:53px;
   float:left;
@@ -1159,7 +1158,9 @@ opacity: 0.6;
 }
 
 .social_friends {
-
+  height: 107px;
+border-bottom: 1px solid lightGrey;
+margin-bottom: 10px;
 }
 
 .viewing_name {
@@ -1530,7 +1531,7 @@ font-size: 24px;
   display: inline-block;
   width: 482px;
   float:left;  
-height: 587px;
+  height: 587px;
   overflow-y: scroll;
   table{
     width:30%;
