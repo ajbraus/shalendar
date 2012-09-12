@@ -8,7 +8,7 @@ Cron jobs environment set to production, don't know how to change, but still get
 	want to destroy events after they have passed... or at least destroy RSVPs / invitations, to maintain the tables- maybe store on some hard disk somewhere for records
 
 Landing page, about, contact
-
+ 
 	iPhone TODO:
 		Settings / Confirm viewers (3)
 		Create Event (3?)
@@ -22,8 +22,6 @@ Landing page, about, contact
 		Times (4)
 
 
-
-
 Adam
 --------------
 
@@ -31,9 +29,7 @@ Bank johnson bank
 
 Biz cards - Adam
 
-i'm in and not in
-
-invitation raster
+i'm in and not in when datepicker shifts
 
 add date to ribbon datepicker
 
@@ -46,7 +42,7 @@ maps problem
                       
 Side note: put_wall_post posts to user/feeds, which doesn’t include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
 
-Post to facebook wall . . . not for private events
+P t to facebook wall . . . not for private events
 post to rsvps facebook wall of friends of RSVPs
 require city to join
 require time_zone to join
