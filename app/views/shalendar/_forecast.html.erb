@@ -8,13 +8,13 @@
 					<dt><%= image_tag "morning.png" %></dt>
 				<% elsif j == 1 %>
 					<dt><%= image_tag "noon.png" %></dt>
-				<% else j == 2 %>
+				<% elsif j == 2 %>
 					<dt><%= image_tag "night.png" %></dt>
 				<% end %>
 				<dd>
 					<% @forecastevents[i][j].each do |event| %>
 					<table>
-						<%= render :partial => "shalendar/event", :locals => { :event => event } %></td>
+						<%= render :partial => "shalendar/event", :locals => { :event => event } %>
 					</table>
 					<% end %>
 				</dd>

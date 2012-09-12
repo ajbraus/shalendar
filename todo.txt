@@ -29,21 +29,19 @@ Landing page, about, contact
 Adam
 --------------
 
-<<<<<<< HEAD
-Get timezone from Facebook
-
 fix cloud/rsvp thing
-=======
+
+Bank johnson bank
+
 Biz cards - Adam
->>>>>>> 86fdcfd084635dbcc086f2784ed6381bd2a675ea
+
+invitation raster
 
 ajax bugs
 
 	FIX rsvp/unrsvp
 	
 	visual indicator if invitation sent in find_friends
-
-	reload datepicker upon view new person or stop viewing
 
 Only showing events that start on the day... don't know what to do for longer than 1-day things... but not really core - test
 

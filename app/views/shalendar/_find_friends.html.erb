@@ -13,19 +13,19 @@
 			        <% if current_user.following?(u) %>
 			          <%= form_for(current_user.relationships.find_by_followed_id(u.id),
 			                   html: { method: :delete }) do |f| %>
-		              <%= f.submit "Stop Viewing", class: "btn_stop_viewing", confirm:"Are you sure you would like to stop viewing #{cf['name']}'s ideas?" %>
+		              <%= f.submit "Stop Viewing", class: "btn btn_stop_viewing", confirm:"Are you sure you would like to stop viewing #{cf['name']}'s ideas?" %>
 		              <% end %>
 		          <% elsif current_user.request_following?(u) %>
 		          	<span>View Requested</span>
 			        <% else %>
 		            <%= form_for(current_user.relationships.build(followed_id: u.id)) do |f| %>
 		              <div><%= f.hidden_field :followed_id %></div>
-		              <%= f.submit "View", class: "btn btn-primary btn_start_viewing" %>
+		              <%= f.submit "View", class: "btn btn-primary" %>
 		            <% end %>
 			        <% end %>
 			      </span>
 			    <% else %>
-			    	<%= link_to "Invite", invite_path(:username => cf['username']), id: "invite", class:"btn-primary btn-success", remote: true %>
+			    	<%= link_to "Invite", invite_path(:username => cf['username']), id: "invite", class:"btn btn-success", remote: true %>
 					<% end %>
 		    </td>
 			</tr> 

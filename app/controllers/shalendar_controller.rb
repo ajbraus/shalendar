@@ -8,7 +8,7 @@ class ShalendarController < ApplicationController
     # @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
     #                                      relationships.confirmed = false ", current_user_id: current_user.id)
 
-    @next_plan = current_user.plans.where("starts_at > ?", Time.now).order("starts_at desc").last
+    @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
     @forecastoverview = current_user.forecastoverview
     
     if params[:search]
