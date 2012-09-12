@@ -754,9 +754,15 @@ position: relative;
 }
 
 .tipped_rsvpd {
-  -moz-box-shadow: 0 0 10px -1px $rsvp;
-  -webkit-box-shadow: 0 0 10px -1px $rsvp;
-  box-shadow: 0 0 10px -1px $rsvp;
+background: #372c8b; /* Old browsers */
+background: -moz-linear-gradient(top,  #372c8b 0%, #ced0db 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#372c8b), color-stop(100%,#ced0db)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #372c8b 0%,#ced0db 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #372c8b 0%,#ced0db 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #372c8b 0%,#ced0db 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #372c8b 0%,#ced0db 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#372c8b', endColorstr='#ced0db',GradientType=0 ); /* IE6-9 */
+
   background-color:white;
   .event_blerb {
   color:black;
@@ -784,19 +790,17 @@ position: relative;
 } 
 
 .not_tipped_rsvpd {
-background: url(rsvp_cloud.png);
-background-size: 293px;
-background-position: 6px -14px;
-background-repeat: no-repeat;
-z-index: 100;
+border: 3px solid $icon_color;
+  .guest_count {
+    color:$destroy;
+  }
 }
 
 .not_tipped_not_rsvpd {
-  background: url(cloud.png);
-  background-size: 298px;
-  background-position: 7px -14px;
-  background-repeat: no-repeat;
-  z-index: 1; 
+  border: 1px solid lightGrey;
+  .guest_count {
+    color:$destroy;
+  }
 } 
 
 .event_time {
@@ -808,7 +812,7 @@ background-color: #383838;
 padding: 2px 11px 0 11px;
 position: absolute;
 left: 60px;
-top: 3px;
+top: 1px;
 }
 
 .event_pic {
@@ -834,28 +838,27 @@ top: 23px;
   margin-left:2px;
   width: 44px;
   position: absolute;
-bottom: -4px;
-left: 59px;
+  bottom: -4px;
+  left: 59px;
 }
 
 .host {
-font-size: 13px;
-font-style: italic;
-color: white;
-position: absolute;
-bottom: 5px;
-right: 145px;
-width: 86px;
-height: 14px;
-
+  font-size: 13px;
+  font-style: italic;
+  color: white;
+  position: absolute;
+  bottom: 5px;
+  right: 145px;
+  width: 86px;
+  height: 14px;
 }
 
 .guest_count {
   position:absolute;
-right: 44px;
+right: 62px;
 width: 53px;
   text-align: right;
-  bottom:3px;
+  bottom:0;
 }
 
 .force_tip {
@@ -921,32 +924,38 @@ top: 24px;
 }
 
 .btn_icon {
-  border: 0px solid #bbb;
-  padding: 0px;
-  background-color: inherit;
+  cursor: pointer;
+  display: inline-block;
+  color: white;
   position: absolute;
-  bottom: -6px;
+  bottom: -3px;
+  right: -12px;
+  font-family: arial;
+  font-size: 15px;
+  font-weight: normal;
+  text-decoration: none;
+  padding: 2px;
+  border-radius: 2px;
 }
 
 .btn_icon_unrsvp {
-  color:$rsvp;
-  font-size:30px;
-  cursor:pointer;
-  &:hover{
-  color:$destroy;
-  -webkit-transition: color .25s linear .05s;
-  transition: color .25s linear .05s;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5) );
+  background:-moz-linear-gradient( center top, #79bbff 5%, #378de5 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
+  background-color:#79bbff;
+  border:1px solid #84bbf3;
+  &:hover {
+     background-color:#79bbff;
+  border:1px solid #84bbf3; 
   }
 }
 
 .btn_icon_rsvp {
-  color: darkgrey;
-  font-size: 30px;
-  &:hover{
-  color:$rsvp;
-  -webkit-transition: color .25s linear .05s;
-  transition: color .25s linear .05s;
-  }
+  background-color:#ededed;
+  border:1px solid #dcdcdc;
+  display:inline-block;
+  color:#636363;
+
 }
 
 

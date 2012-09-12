@@ -40,6 +40,8 @@ Biz cards - Adam
 
 invitation raster
 
+add date to ribbon datepicker
+
 ajax bugs
 
 	FIX rsvp/unrsvp
@@ -140,11 +142,15 @@ AFTER BETA LAUNCH
 			tip!
 
 
+	List view
+
 	toggling faces on and off goes back to today and doesn't move the orange rectangle
 
 	all events already over turn grey
 
-	event#edit in lightbox
+	event#edit ajax lightbox
+
+	event#show ajax lightbox
 
 	If event is full, just not showing it in maybes right now - show as full
 	
