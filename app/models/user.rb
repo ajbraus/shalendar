@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
                                                    :raster => '-quality 80' } 
                             
 
-  validates :avatar, :attachment_presence => true,
+  validates :avatar, # :attachment_presence => true,
                      :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] },
                      :attachment_size => { :in => 0..150.kilobytes }
 
@@ -46,7 +46,6 @@ class User < ActiveRecord::Base
   
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
   has_many :plans, through: :rsvps
-
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
 

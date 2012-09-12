@@ -1,0 +1,14 @@
+<div class="social_friends">
+	<% if session[:access_token] %>
+	<p>Find Friends On Facebook</p>
+	<a href="#find_friends", class="find_friends"><%= (image_tag "social/fb.png", :size => "50x50") %></a>
+	<br>
+	<% else %>
+	<p>Find Friends On Facebook</p>
+		<div class="fb_button">
+			<div id="auth-status">
+	    	<a href="#" id="auth-loginlink" class="fb-login-button"><%= image_tag "social/fb.png", :size => "50x50" %></a>
+			  </div>
+		</div><br>
+	<% end %>
+</div>

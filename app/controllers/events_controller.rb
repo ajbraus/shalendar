@@ -136,7 +136,7 @@ class EventsController < ApplicationController
   end
 
   def tip
-    @event = Event.find(params[:id])
+    @event = Event.find(params[:event_id])
 
     @event.tip!
 

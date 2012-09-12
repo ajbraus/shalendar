@@ -90,6 +90,7 @@ before_filter :authenticate_user!
      @forecastevents = current_user.forecast((Date.today).to_s)
      @date = Date.today     
      @forecastoverview = current_user.forecastoverview
+     @graph = Koala::Facebook::API.new(session[:access_token])
      format.html { redirect_to :back }
      format.js
    end
