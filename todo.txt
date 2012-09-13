@@ -2,8 +2,6 @@
 Mike
 ------------
 
-Get guest names into the notification emails. 
-
 Make sure events always get served in time order
 
 Cron jobs environment set to production, don't know how to change, but still getting some output (pg_dump and also Event.check_tip_deadlines executing when dev server running.) - heroku scheduler
@@ -142,69 +140,65 @@ Get more users
 		gmail authentication
 		meetup API
 		get FB events
+		couchsurfing
 
-	Virality
+	-Virality
+
 
 Maintain users
-	Improved interface/design
-		Twillio
+	-Improved interface/design
+		-Greater connectivity w friends through out platform
+			Twillio
+			email rsvps from comment field with checkbox
+		-Improved look			
+			drawn arrows
+			
+		-Improved UXsmoothness
+			event#edit ajax lightbox
+			event#show ajax lightbox/expand the idea vertically
+			Make focus fall on first text field on new idea form
+			List view
 
+		-Performance (zippiness)
+			Optimize ajax to call for less data
+			make it so you only call for the @city_friends once from the database
 
-	email rsvps from comment field with checkbox
+Make money
+	Payment gateway
+		Deals
+		Public member
+		Upgrade account
 
+Fixes
 	troubleshoot signing in twice from facebook
-
 	fix timezone
-
-	List view
-
-	toggling faces on and off goes back to today and doesn't move the orange rectangle
-
 	all events already over turn grey
-
-	event#edit ajax lightbox
-
-	event#show ajax lightbox
-
 	If event is full, just not showing it in maybes right now - show as full
-	
-	Make focus fall on first text field on new idea form
+	Agent call - if android/iPhone download our apps	
+	toggling faces on and off goes back to today and doesn't move the orange rectangle
+	keyup character counter in idea
+	Mobile local registration
+	Recurring events
+	Groups/Lists of users ("Make selected viewed into list")
+	Flag user for spam (block/ignore user)
+
+
+Features
+
+	Event Checklist- something to bring or a role to fill (eg a potluck or a music jam session in need of a drummer)
+
+
 
 What do we do with already finished events in a given day? - grey out the past
 	Probably gray them out but still display? Or should we take them off the calendar as they're mostly irrelevant (but they still help for finding friends, make calendar more busy for better or worse)
 	
-	Agent call - if android/iPhone download our apps
-	
-	make it so you only call for the @city_friends once from the database
-
-	drawn arrows
-
-	Mobile local registration
-
-	Offers and Subscribers
-
-	Setup Offers Account - credit card
-
-	Recurring events
-
-	Groups/Lists of users ("Make selected viewed into list")
-
-	find friends in gmail, twitter
-
-	Premium membership
-		Paid event types
-		make CS event - FB event
-	Show on over details of day/event
-
 	google calendar "add this to hoos.in".. and ADD THIS TO GoogleCal for rsvp'd events!
 
 	See old plans/ideas and be able to easily 'resurface' them, with guests as invites (in lightbox or some other way than scrolling back in calendar)
 		OldEvents model that holds events so that main searching doesn't have to handle larger array
 
-	Add FB events to calendar
-	Flag user for spam (block/ignore user)
 
-	Event Checklist- something to bring or a role to fill (eg a potluck or a music jam session in need of a drummer)
+	
 
 	SQL Table maintenance; mainly destroying events after they are done, but transferring data somewhere in a reasonable format for conducting analytics
 	add recurring functionality

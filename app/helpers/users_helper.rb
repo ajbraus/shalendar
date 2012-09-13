@@ -37,7 +37,7 @@ module UsersHelper
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
     size = options[:size]
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
-    image_tag(gravatar_url, alt: user.name, class: "profile_picture" )
+    image_tag gravatar_url, alt: user.name, class: "profile_picture"
   end
 
   def fb_picture(user, options = { type: "large", })
@@ -56,7 +56,7 @@ module UsersHelper
 
   def medium_profile_picture(user)
     if user.avatar.present?
-      image_tag(user.avatar.url(:medium), class:"profile_picture")
+      image_tag(user.avatar.url(:medium), class: "profile_picture")
     elsif user.authentications.where(:provider == "Facebook").any? 
       fb_picture(user, type: "normal")
     elsif user.authentications.where(:provider == "Twitter").any?
@@ -68,7 +68,7 @@ module UsersHelper
 
   def raster_profile_picture(user)
     if user.avatar.present?
-      image_tag user.avatar.url(:raster), style:"border-radius: 7px;"
+      image_tag user.avatar.url(:raster), class: "profile_picture"
     elsif user.authentications.where(:provider == "Facebook").any?
       fb_picture(user, type: "square")
     elsif user.authentications.where(:provider == "Twitter").any?
@@ -82,7 +82,9 @@ module UsersHelper
 # Invite raster
 
   def invite_raster_picture(user)
-    if user.authentications.where(:provider == "Facebook").any?
+    if user.avatar.present?
+      invite_avatar(user, type: "square")
+    elsif user.authentications.where(:provider == "Facebook").any?
       invite_fb_picture(user, type: "square")
     elsif user.authentications.where(:provider == "Twitter").any?
       invite_twitter_picture(user, type: "normal") 
@@ -108,6 +110,11 @@ module UsersHelper
     type = options[:type]
     "https://api.twitter.com/1/users/profile_image?user_id=#{twitter_username}&size=#{type}"
   end
+
+  def invite_avatar(user, options = { type: "large", })
+    "#{user.avatar.url(:raster)}'>"
+  end
+
 
   def output_once(name, &block)
     @output_once_blocks ||= []

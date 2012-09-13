@@ -3,6 +3,7 @@
   <%= render 'layouts/logo' %>
 
   <% if @event.visibility == "friends_of_friends" || @event.user == current_user %>
+    <p>Invite by Name or Email</p>
     <div id="invites_form">
         <%= form_for([@event, @event.invites.build]) do |f| %>
             <%= f.text_field :email, placeholder: "Invite by Email Address" %>

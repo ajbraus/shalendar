@@ -57,11 +57,11 @@ class EventsController < ApplicationController
           format.html { redirect_to @event }
           format.json { render json: @event, status: :created, location: @event }
         else
-          format.html { redirect_to home_path, notice: "Idea posted! On #{@event.starts_at.strftime "%l:%M%P, %A %B %e"}"}
+          format.html { redirect_to home_path, notice: "Idea posted! #{@event.title.slice(0..40)}, #{@event.starts_at.strftime "%l:%M%P, %A %B %e"}: "}
           format.json { render json: home_path, status: :created, location: @event }
         end
       else
-        format.html { redirect_to home_path, notice: "Idea could not be posted." }
+        format.html { redirect_to home_path, notice: "Idea could not be posted. Please try again." }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
@@ -127,7 +127,7 @@ class EventsController < ApplicationController
     @event.destroy
 
     respond_to do |format|
-      format.html { redirect_to home_path }
+      format.html { redirect_to home_path, notice: 'Idea was successfully removed' }
       format.json { head :no_content }
     end
   end
@@ -138,7 +138,7 @@ class EventsController < ApplicationController
     @event.tip!
 
     respond_to do |format|
-      format.html {redirect_to home_path}
+      format.html { redirect_to home_path, notice: 'Idea tipped!' }
       format.json {head :no_content}
     end
   end

@@ -5,11 +5,11 @@
 			<% for j in 0..2 %>
 			<dl>
 				<% if j == 0 %>
-					<dt><%= image_tag "morning.png" %> <span>------ 12:00am - 12:00pm -------</span> </dt>
+					<dt><%= image_tag "morning.png" %> <span class="fcTime">12:00am - 12:00pm</span><span class="fcLine"></span> </dt>
 				<% elsif j == 1 %>
-					<dt><%= image_tag "noon.png" %> <span>------ 12:00pm - 6:00pm --------</span>  </dt>
+					<dt><%= image_tag "noon.png" %> <span class="fcTime">12:00pm - 6:00pm</span><span class="fcLine"></span>  </dt>
 				<% elsif j == 2 %>
-					<dt><%= image_tag "night.png" %> <span>------ 6:00pm - 12:00am --------</span> </dt>
+					<dt><%= image_tag "night.png" %> <span class="fcTime">6:00pm - 12:00am</span></span><span class="fcLine"></span> </dt>
 				<% end %>
 				<dd>
 					<% @forecastevents[i][j].each do |event| %>
