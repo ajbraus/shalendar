@@ -1,10 +1,11 @@
-<td><h2 style="font-size:18px;">Hey <% if @user.nil? == false %> <%= g.first_name %> <% else %> there <% end %>,</h2></td>
+<td><h2 style="font-size:18px;">Hey <% if @user.nil? == false %> <%= @user.first_name %> <% else %> there <% end %>,</h2></td>
 
 <tr>
-	<td style="padding:0 0 0 10px"><%= @event.user.name %> canceled your plan <%= @event.title %>...</td>
+	<td style="padding:0 0 0 10px"><%= @event.user.name %> has invited you to <%= @event.title %>.  Check out www.hoos.in/events/<%=@event.id%> to join!</td>
 </tr>
-<tr>
-	<td style="padding:0 0 0 10px">Either the idea failed to tip or they had to change plans. Hopefully they'll put it up again soon!</td>
-</tr>
-
-to #{event.title}; visit www.hoos.in.com/events/#{event.id}"
+<% if @user.nil? %>
+	<tr>
+		<td style="padding:0 0 0 10px">Join hoos.in to make leading an adventurous, creative and all-together awesome social life easy!</td>
+	</tr>
+<% end %>
+	

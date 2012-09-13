@@ -25,7 +25,7 @@ class Notifier < ActionMailer::Base
 
   def cancellation(event)
     @guests = event.guests
-
+    @event = event
     # @guest_emails = []
     @guests.each do |g|
       if(g.iPhone_user == true)
