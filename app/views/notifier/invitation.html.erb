@@ -1,11 +1,11 @@
 <td><h2 style="font-size:18px;">Hey <% if @user.nil? == false %> <%= @user.first_name %> <% else %> there <% end %>,</h2></td>
 
 <tr>
-	<td style="padding:0 0 0 10px"><%= @event.user.name %> has invited you to <%= @event.title %>.  Check out www.hoos.in/events/<%=@event.id%> to join!</td>
+	<td style="padding:0 0 0 10px">You're invited to <strong><%= @event.title %></strong> by <strong><%= @inviter.name %></strong>. Check out www.hoos.in/events/<%=@event.id%> to join.</td>
 </tr>
 <% if @user.nil? %>
 	<tr>
-		<td style="padding:0 0 0 10px">Join hoos.in to make leading an adventurous, creative and all-together awesome social life easy!</td>
+		<td style="padding:0 0 0 10px">hoos.in makes leading an adventurous, creative and all-together awesome social life easy... we're in beta and growing fast, check us out!</td>
 	</tr>
 <% end %>
 	

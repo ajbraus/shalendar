@@ -1,8 +1,8 @@
-<td><h2 style="font-size:18px;">Hey <%= g.first_name %>,</h2></td>
+<td><h2 style="font-size:16px;">Hey <%= @current_guest.first_name %>,</h2></td>
 
 <tr>
-	<td style="padding:0 0 0 10px">Your Activity: <%= @event.title %> starts in 2 hours!</td>
+	<td style="padding:0 0 0 10px">Your plan: <strong><%= @event.title %></strong> starts in 2 hours, see you there!</td>
 </tr>
 <tr>
-	<td style="padding:0 0 0 10px">If you need to cancel, let <%= @event.user.name %> know asap, otherwise, see you there!</td>
+	<td style="padding:0 0 0 10px">For more details and to invite more friends, check out www.hoos.in/events/<%=@event.id%>.</td>
 </tr>
