@@ -87,11 +87,10 @@ $(document).bind('click', function(e) {
 				required: true,
 				number: true
 			}
-			// "event[link]": {
-			// 	url: true
-			// }
 		}
 	});
+
+	$("#registration_form").validate();
 
 
 // TABS

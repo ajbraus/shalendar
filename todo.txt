@@ -31,19 +31,15 @@ transfer money to chase and into business account
 
 Biz cards - Adam
 
-i'm in and not in when datepicker shifts
-
-style of about and careers and how to
-
 carrot next to picture
 
 add ajax loaders to raster pics
 
 add date to ribbon datepicker
 
-Only showing events that start on the day... don't know what to do for longer than 1-day things... but not really core - test
-
 double-creating events by hitting enter twice (when trying to specify duration)- all buttons
+
+moon to the left
 
 maps problem
 	gmaps4rails - no scroll, default to satilight view                                                                
@@ -133,6 +129,8 @@ AFTER BETA LAUNCH
 			comments
 			Invitation raster
 			tip!
+
+	email rsvps from comment field with checkbox
 
 	troubleshoot signing in twice from facebook
 
