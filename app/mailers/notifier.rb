@@ -11,7 +11,7 @@ class Notifier < ActionMailer::Base
       "nolanbjohnson@gmail.com", "drew.cohen@epic.com", "Dkevitch@gmail.com",
       "SBwells@wisc.edu", "gstratch@gmail.com", "ohfortuna@gmail.com"]
     @sbu_emails.each do |sbu_email|  
-      mail to: sbu_email, subject: "Hoos.in? You are!"
+      mail to: sbu_email, subject: "hoos.in Launch!"
     end
   end
 
@@ -30,7 +30,7 @@ class Notifier < ActionMailer::Base
                       "msfenchel@gmail.com", "ajbraus@gmail.com"]
 
     @friend_emails.each do |friend_email|  
-      mail to: friend_email, subject: "Hoos.in? You are!"
+      mail to: friend_email, subject: "hoos.in Launch!"
     end
   end
   #AUTOMATIC NOTIFIERS
