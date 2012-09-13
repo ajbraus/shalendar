@@ -3,9 +3,11 @@ class ApplicationController < ActionController::Base
   
   before_filter :adjust_format_for_iphone
   before_filter :set_time_zone 
-  
+  before_filter :get_graph
 
-  @graph = Koala::Facebook::API.new(@access_token) if session[:access_token]
+  def get_graph
+    @graph = Koala::Facebook::API.new(@access_token) if session[:access_token]
+  end
 
   def after_sign_in_path_for(resource)
     home_path
