@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_time_zone 
   
 
+  @graph = Koala::Facebook::API.new(@access_token) if session[:access_token]
+
   def after_sign_in_path_for(resource)
     home_path
   end
