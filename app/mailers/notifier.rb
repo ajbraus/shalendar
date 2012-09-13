@@ -31,6 +31,7 @@ class Notifier < ActionMailer::Base
       if(g.iPhone_user == true)
         APN.notify(g.APNtoken, {:alert => "#{event.title} Canceled!", :badge => 1, :sound => true})
       end
+      @current_guest = g
       mail to: g.email, subject: "Your Plan got Canceled!"
       # @guest_emails.push(g.email)
     end
@@ -58,7 +59,8 @@ class Notifier < ActionMailer::Base
           notification.save
         end
       end
-      @guest_emails.push(g.email)
+      mail to: g.email, subject: "Reminder: Activity starts in 2 hours!"
+
     end
 
     @guest_emails.join('; ')
@@ -74,7 +76,7 @@ class Notifier < ActionMailer::Base
       if(@user.iPhone_user == true)
         APN.notify(@user.APNtoken, {:alert => "You've been invited to #{event.title}", :badge => 1, :sound => true})
       end
-      mail to: @user.email, subject: "Hello, #{@user.first_name} you've been invited to #{event.title}; visit www.hoos.in.com/events/#{event.id}"
+      mail to: @user.email, subject: "Hey, #{@user.first_name}- you're Invited!" 
     else
       mail to: email, subject: "Hello, you've been invited to #{event.title}; visit www.hoos.in.com/events/#{event.id}"
     end
