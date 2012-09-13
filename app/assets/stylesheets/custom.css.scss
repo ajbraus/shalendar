@@ -1082,7 +1082,6 @@ bottom: 17px;
 .alert {
 position: absolute;
 padding: 8px 35px 8px 14px;
-margin-bottom: 7px;
 text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 background-color: #FCF8E3;
 border: 1px solid #FBEED5;
@@ -1090,8 +1089,8 @@ border: 1px solid #FBEED5;
 -moz-border-radius: 7px;
 border-radius: 7px;
 color: goldenrod;
-min-width: 285px;
-left: 101px;
+min-width: 307px;
+left: 136px;
 z-index: 10;
 top: 10px;
 }
@@ -1155,6 +1154,14 @@ margin: 0 30px;
   -webkit-transition: color .25s linear .1s;
   transition: color .25s linear .1s;
   }
+}
+
+.destroy {
+  color:$destroy;
+}
+
+.orange {
+  color:$dark_orange;
 }
 
 .fadeInOrange {
@@ -1293,8 +1300,14 @@ float: right;
 
 #personal {
   float:left;
-width: 239px;
+  width: 239px;
   margin-top:25px;
+  .fb_button {
+    float: left;
+    position: relative;
+    top: 36px;
+    right: 152px;
+  }
 }
 
 .hi {
@@ -1596,7 +1609,7 @@ left: 210px;
 }
 
 .comment_content {
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .comment_data {

@@ -25,6 +25,8 @@ Landing page, about, contact
 Adam
 --------------
 
+test
+
 operators agreement
 
 transfer money to chase and into business account
@@ -38,8 +40,6 @@ add ajax loaders to raster pics
 add date to ribbon datepicker
 
 double-creating events by hitting enter twice (when trying to specify duration)- all buttons
-
-moon to the left
 
 maps problem
 	gmaps4rails - no scroll, default to satilight view                                                                
@@ -131,6 +131,7 @@ Maintain users
 			event#show ajax lightbox/expand the idea vertically
 			Make focus fall on first text field on new idea form
 			List view
+			- custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid
 
 		-Performance (zippiness)
 			Optimize ajax to call for less data
@@ -161,7 +162,6 @@ Features
 	Event Checklist- something to bring or a role to fill (eg a potluck or a music jam session in need of a drummer)
 
 
-
 What do we do with already finished events in a given day? - grey out the past
 	Probably gray them out but still display? Or should we take them off the calendar as they're mostly irrelevant (but they still help for finding friends, make calendar more busy for better or worse)
 	
@@ -174,14 +174,10 @@ What do we do with already finished events in a given day? - grey out the past
 	
 
 	SQL Table maintenance; mainly destroying events after they are done, but transferring data somewhere in a reasonable format for conducting analytics
-	add recurring functionality
 
 	hide event/recurring event
 
-	log the access token upon sign_up and update upon sign_in. store picture URL as well.
-
-	- custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid
-
+	
 	copy evite
 
 	List view of events/ 3 week 5 week view of events calendar
