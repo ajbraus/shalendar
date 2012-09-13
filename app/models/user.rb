@@ -38,7 +38,8 @@ class User < ActiveRecord::Base
   validates :terms,
             :name, 
             :time_zone, presence: true
-            # :city
+
+  validates :city, presence: true if Rails.env.production?
 
   has_many :authentications, :dependent => :destroy, :uniq => true
 
