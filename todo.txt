@@ -130,6 +130,24 @@ AFTER BETA LAUNCH
 			Invitation raster
 			tip!
 
+	pow
+
+Get more users
+	
+	-Integration
+
+		twitter authentication
+		gmail authentication
+		meetup API
+		get FB events
+
+	Virality
+
+Maintain users
+	Improved interface/design
+		Twillio
+
+
 	email rsvps from comment field with checkbox
 
 	troubleshoot signing in twice from facebook
