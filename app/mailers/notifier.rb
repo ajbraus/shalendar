@@ -4,22 +4,38 @@ class Notifier < ActionMailer::Base
 
   # AD HOC NOTIFIERS
 
-  def beta_users
-    @emails = ["msfenchel@gmail.com", "ajbraus@gmail.com", "matt@womstreet.com", 
-      "marykvernon@gmail.com", "rsfenchel@gmail.com", "scott.j.resnick@gmail.com", 
+  def super_beta_users
+    @sbu_emails = ["msfenchel@gmail.com", "ajbraus@gmail.com", "javfenchel@gmail.com",
+      "matt@womstreet.com", "marykvernon@gmail.com", "rsfenchel@gmail.com", "scott.j.resnick@gmail.com", 
       "johnbwheel@gmail.com", "acconnel7@gmail.com", "nikolaiskievaski@gmail.com",
       "nolanbjohnson@gmail.com", "drew.cohen@epic.com", "Dkevitch@gmail.com",
-      "SBwells@wisc.edu", "gstratch@gmail.com", "ohfortuna@gmail.com", 
-       ]
-    mail to: "msfenchel@gmail.com", subject: "Hoos.in? You are!"
+      "SBwells@wisc.edu", "gstratch@gmail.com", "ohfortuna@gmail.com"]
+    @sbu_emails.each do |sbu_email|  
+      mail to: sbu_email, subject: "Hoos.in? You are!"
+    end
   end
 
+  def friend_beta_users
+    @friend_emails = ["MadIterators@madisoniterators.com", "woolworth@gmail.com", "galbraks@gmail.com",
+                      "dylanbmathieu@gmail.com", "jakebrower87@gmail.com", "dgamoran@gmail.com", 
+                      "galbraks@uwec.edu", "walshandj@gmail.com>", "cecekress@gmail.com", 
+                      "jhschneider09@gmail.com", "max.rosen17@gmail.com", "samlundsten@gmail.com",
+                      "malone2@wisc.edu", "jsh4ft@gmail.com", "waterppk@gmail.com",
+                      "kmabra@uwalumni.com", "jrd309@gmail.com", "dangormich@gmail.com", "jbornhorst@gmail.com",
+                      "stratsgoo@gmail.com", "rkyoung366@gmail.com", "shawn@vitruvianfarms.com",
+                      "tommy@vitruvianfarms.com", "craig@vitruvianfarms.com", "ari.eisenstat@gmail.com",
+                      "nick.guggenbuehl@gmail.com", "alexandra@7cees.org", "rocheleau.jen@gmail.com", 
+                      "becca.m.cohen@gmail.com", "Christopher.Galbraith@associatedbank.com"]
+
+    @friend_emails.each do |friend_email|  
+      mail to: friend_email, subject: "Hoos.in? You are!"
+    end
+  end
   #AUTOMATIC NOTIFIERS
 
   def welcome(user)
     @user = user
-    mail to: user.email, subject: "Welcome to hoos.in, #{user.first_name}!"
-    
+    mail to: user.email, subject: "Welcome to hoos.in, #{@user.first_name}!"
   end
 
   def cancellation(event, user)

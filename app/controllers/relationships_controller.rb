@@ -8,7 +8,7 @@ before_filter :authenticate_user!
       current_user.follow!(@user)
       @relationship = Relationship.last #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
       @relationship.confirmed = false
-      Notifier.confirm_follow(@user, current_user)
+      Notifier.confirm_follow(@user, current_user).deliver
       if @relationship.save
         respond_to do |format|
         @relationships = current_user.relationships.where('relationships.confirmed = true')  
@@ -26,7 +26,7 @@ before_filter :authenticate_user!
         redirect_to :back, notice: "Couldn't View #{@user.name}'s ideas"
       end
     else
-      Notifier.new_follower(@user, current_user)
+      Notifier.new_follower(@user, current_user).deliver
       current_user.follow!(@user)
       @relationship = Relationship.last
       @relationship.confirmed = true

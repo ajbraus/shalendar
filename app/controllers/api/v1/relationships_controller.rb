@@ -10,7 +10,7 @@ respond_to :json
       render :status=>200, :json=>{ :followed_user=>@user_to_follow}
       return
     elsif @user_to_follow.require_confirm_follow?
-        Notifier.confirm_follow(@user_to_follow, @mobile_user)
+        Notifier.confirm_follow(@user_to_follow, @mobile_user).deliver
         @mobile_user.follow!(@user_to_follow)
         @relationship = Relationship.last #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
         @relationship.confirmed = false
@@ -22,7 +22,7 @@ respond_to :json
           return
         end
     else
-      Notifier.new_follower(@user_to_follow, @mobile_user)
+      Notifier.new_follower(@user_to_follow, @mobile_user).deliver
       @mobile_user.follow!(@user_to_follow)
       @relationship = Relationship.last
       @relationship.confirmed = true
