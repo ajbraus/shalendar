@@ -31,7 +31,7 @@ class Notifier < ActionMailer::Base
       if(g.iPhone_user == true)
         APN.notify(g.APNtoken, {:alert => "#{event.title} Canceled!", :badge => 1, :sound => true})
       end
-      mail to: g.email, subject: "#{event.title} Canceled!"
+      mail to: g.email, subject: "Hey #{g.first_name}, your Plan got Canceled!"
       # @guest_emails.push(g.email)
     end
     # @guest_emails.join('; ')
