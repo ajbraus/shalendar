@@ -33,6 +33,21 @@ class Notifier < ActionMailer::Base
     # mail bcc: @guest_emails, subject: "#{event.title} Canceled!"
   end
 
+
+  def event_tipped(event)
+
+    @guests = event.guests
+    @event = event
+
+    @guests.each do |g|
+      if(g.iPhone_user == true)
+        APN.notify(g.APNtoken, {:alert => "#{event.title} has tipped!", :badge => 1, :sound => true})
+      end
+      @current_guest = g
+      mail to: g.email, subject: "Your plan has tipped!"
+    end
+  end
+
   def rsvp_reminder(event)
     @guests = event.guests
     @event = event
@@ -73,20 +88,6 @@ class Notifier < ActionMailer::Base
     end
   end
 
-  def event_tipped(event)
-
-    @guests = event.guests
-    @event = event
-
-    @guests.each do |g|
-      if(g.iPhone_user == true)
-        APN.notify(g.APNtoken, {:alert => "#{event.title} has tipped!", :badge => 1, :sound => true})
-      end
-      @current_guest = g
-      mail to: g.email, subject: "Your plan has tipped!"
-    end
-  end
-
   def time_change(event)
     @event = event
     @guests = event.guests
@@ -96,7 +97,7 @@ class Notifier < ActionMailer::Base
         APN.notify(g.APNtoken, {:alert => "#{event.title} has changed time!", :badge => 1, :sound => true})
       end
       @current_guest = g
-      mail to: @guest_emails, subject: "Your plan has changed start time."
+      mail to: g.email, subject: "Your plan has changed start time."
     end
   end
 
