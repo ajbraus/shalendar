@@ -11,7 +11,7 @@ class Notifier < ActionMailer::Base
   #AUTOMATIC NOTIFIERS
 
   def welcome(user)
-    @user_first_name = user.first_name
+    @user = user
     mail to: user.email, subject: "Welcome to hoos.in, #{user.first_name}!"
     
   end
@@ -31,6 +31,21 @@ class Notifier < ActionMailer::Base
     # @guest_emails.join('; ')
 
     # mail bcc: @guest_emails, subject: "#{event.title} Canceled!"
+  end
+
+
+  def event_tipped(event)
+
+    @guests = event.guests
+    @event = event
+
+    @guests.each do |g|
+      if(g.iPhone_user == true)
+        APN.notify(g.APNtoken, {:alert => "#{event.title} has tipped!", :badge => 1, :sound => true})
+      end
+      @current_guest = g
+      mail to: g.email, subject: "Your plan has tipped!"
+    end
   end
 
   def rsvp_reminder(event)
@@ -73,30 +88,16 @@ class Notifier < ActionMailer::Base
     end
   end
 
-  def event_tipped(event)
-
-    @guests = event.guests
-    @event = event
-
-    @guests.each do |g|
-      if(g.iPhone_user == true)
-        APN.notify(g.APNtoken, {:alert => "#{event.title} has tipped!", :badge => 1, :sound => true})
-      end
-      @current_guest = g
-      mail to: g.email, subject: "Your plan has tipped!"
-    end
-  end
-
   def time_change(event)
     @event = event
     @guests = event.guests
 
     @guests.each do |g|
-      if g.phone_number
-        @guest_phone_numbers.push(g.phone_number)
+      if(g.iPhone_user == true)
+        APN.notify(g.APNtoken, {:alert => "#{event.title} has changed time!", :badge => 1, :sound => true})
       end
       @current_guest = g
-      mail to: @guest_emails, subject: "Your plan has changed start time."
+      mail to: g.email, subject: "Your plan has changed start time."
     end
   end
 
@@ -109,7 +110,8 @@ class Notifier < ActionMailer::Base
   end
 
   def new_follower(user, follower)
-
+    @user = user
+    @follower = follower
     mail to: user.email, subject: "You have a new viewer: #{follower.name}"
   end
   
