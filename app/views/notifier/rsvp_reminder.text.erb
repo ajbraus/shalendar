@@ -1,3 +1,5 @@
-Notifier#rsvp_reminder
+Hey <%= @current_guest.first_name %>,
 
-<%= @greeting %>, find me in app/views/app/views/notifier/rsvp_reminder.text.erb
+Your plan: <%= @event.title %> starts in 2 hours, see you there!
+
+For more details and to invite more friends, check out www.hoos.in/events/<%=@event.id%>.

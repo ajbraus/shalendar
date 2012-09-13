@@ -2,13 +2,6 @@ class Notifier < ActionMailer::Base
   layout 'email' # use email.(html|text).erb as the layout for emails
   default from: "info@hoos.in"
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.notifier.welcome.subject
-  #
-
-
   # AD HOC NOTIFIERS
 
   def beta_users
@@ -25,13 +18,14 @@ class Notifier < ActionMailer::Base
 
   def cancellation(event)
     @guests = event.guests
-
+    @event = event
     # @guest_emails = []
     @guests.each do |g|
       if(g.iPhone_user == true)
         APN.notify(g.APNtoken, {:alert => "#{event.title} Canceled!", :badge => 1, :sound => true})
       end
-      mail to: g.email, subject: "#{event.title} Canceled!"
+      @current_guest = g
+      mail to: g.email, subject: "Your Plan got Canceled!"
       # @guest_emails.push(g.email)
     end
     # @guest_emails.join('; ')
@@ -41,8 +35,7 @@ class Notifier < ActionMailer::Base
 
   def rsvp_reminder(event)
     @guests = event.guests
-
-    @guest_emails = []
+    @event = event
 
     @guests.each do |g|
       if(g.iPhone_user == true)
@@ -58,120 +51,75 @@ class Notifier < ActionMailer::Base
           notification.save
         end
       end
-      @guest_emails.push(g.email)
+      @current_guest = g
+      mail to: g.email, subject: "Reminder: Activity starts in 2 hours!"
+
     end
-
-    @guest_emails.join('; ')
-
-    mail bcc: @guest_emails, subject: "Your event #{event.title} begins in 2 hours!"
   end
 
 
-  def invitation(email, event)
-
+  def invitation(email, event, inviter_id)
+    @event = event
+    @email = email
+    @inviter = User.find_by_id(inviter_id)
     #should we include here an invited by X to make them more likely to join?
     if @user = User.find_by_email(email)
       if(@user.iPhone_user == true)
-        APN.notify(@user.APNtoken, {:alert => "You've been invited to #{event.title}", :badge => 1, :sound => true})
+        APN.notify(@user.APNtoken, {:alert => "#{@inviter.name} sent you an invitation!", :badge => 1, :sound => true})
       end
-      mail to: @user.email, subject: "Hello, #{@user.first_name} you've been invited to #{event.title}; visit www.hoos.in.com/events/#{event.id}"
+      mail to: @user.email, subject: "#{@inviter.name} sent you an invitation!" 
     else
-      mail to: email, subject: "Hello, you've been invited to #{event.title}; visit www.hoos.in.com/events/#{event.id}"
+      mail to: email, subject: "#{@inviter.name} sent you an invitation!"
     end
   end
 
   def event_tipped(event)
 
     @guests = event.guests
-
-    @guest_emails = []
+    @event = event
 
     @guests.each do |g|
       if(g.iPhone_user == true)
         APN.notify(g.APNtoken, {:alert => "#{event.title} has tipped!", :badge => 1, :sound => true})
       end
-      @guest_emails.push(g.email)
+      @current_guest = g
+      mail to: g.email, subject: "Your plan has tipped!"
     end
-
-    @guest_emails.join('; ')
-
-    mail bcc: @guest_emails, subject: "Your plan #{event.title} has tipped!"
   end
 
   def time_change(event)
-
+    @event = event
     @guests = event.guests
-
-    @guest_emails = []
-    @guest_phone_numbers = []
 
     @guests.each do |g|
       if g.phone_number
         @guest_phone_numbers.push(g.phone_number)
       end
-      @guest_emails.push(g.email)
-    end
-
-    # @guest_phone_numbers.each do |gp|
-    #   Twilio::SMS.create :to => gp.to_str, :from => '+16084675636',
-    #                       :body => "Hey baby, how's your day going? xoxo"
-    # end
-
-    @guest_emails.join('; ')
-
-    #HOW DO WE DO EACH TIME FOR THE CORRECT TIME ZONE??
-    mail bcc: @guest_emails, subject: "Your plan #{event.title} has changed start time to #{event.chronic_starts_at}!"
-  end
-
-  def location_change(event)
-
-    @guests = event.guests
-
-    @guest_emails = []
-
-    @guests.each do |g|
-      @guest_emails.push(g.email)
-    end
-
-    @guest_emails.join('; ')
-
-    mail bcc: @guest_emails, subject: "Your plan #{event.title} has changed location to #{event.map_location}!"
-  end
-
-  def send_invites(event)
-
-    @event.invites.each do |i|
-      @user = User.find_by_email(i.email)
-      unless @user.nil?
-        if(@user.iPhone_user == true)
-          APN.notify(@user.APNtoken, {:alert => "#{event.title} has tipped!", :badge => 1, :sound => true})
-        end
-      end
-    @invitees = @event.invites.join('; ')
-    mail bcc: @invitees, subject: "#{event.user.name} has invited you to #{event.title} on hoos.in"
+      @current_guest = g
+      mail to: @guest_emails, subject: "Your plan has changed start time."
     end
   end
 
   #PREFERENCE NOTIFIERS, DEFAULT YES
 
   def confirm_follow(user, follower)
-
+    @user = user
+    @follower = follower
     mail to: user.email, subject: "You have a view request from: #{follower.name}"
   end
 
   def new_follower(user, follower)
 
-    mail to: user.email, subject: "You have a new viewer from: #{follower.name}"
+    mail to: user.email, subject: "You have a new viewer: #{follower.name}"
   end
   
-  #CHRON JOBS
-  def digest
-    @users = User.where('users.allow_contact = "t"')
+  # def digest
+  #   @users = User.where('users.allow_contact = "t"')
 
-    @users.each do |u|
-      #@events = u.plans; something to send all plans, but need to lay this out
+  #   @users.each do |u|
+  #     #@events = u.plans; something to send all plans, but need to lay this out
 
-      mail to: u.email, subject: "Your daily digest from hoos.in!"
-    end
-  end
+  #     mail to: u.email, subject: "Your daily digest from hoos.in!"
+  #   end
+  # end
 end

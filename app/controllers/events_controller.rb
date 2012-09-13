@@ -31,6 +31,7 @@ class EventsController < ApplicationController
   def edit
     @event = Event.find(params[:id])
 
+
     @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
                                          relationships.confirmed = false ", current_user_id: current_user.id)
 
@@ -47,10 +48,10 @@ class EventsController < ApplicationController
           @event.tipped = true
           @event.save
         end
-        # if current_user.post_to_fb_wall? && session[:access_token]
-        #   @graph = Koala::Facebook::API.new(session[:access_token])
-        #   @graph.put_wall_post("#{@event.title}", { :link => "http://www.hoos.in/events/#{@event.id}"}, target_id = 'me')
-        # end
+        if current_user.post_to_fb_wall? && session[:access_token] && @event.visibility == "friends_of_friends" && Rails.env.production?
+          @graph = Koala::Facebook::API.new(session[:access_token])
+          @graph.put_wall_post("#{@event.title}", { :link => "http://www.hoos.in/events/#{@event.id}"}, target_id = 'me')
+        end
 
         if @event.visibility == "invite_only"
           format.html { redirect_to @event }
@@ -101,15 +102,11 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     @start_time = @event.starts_at #don't worry about timezone here bc only on server
-    @location = @event.lng
     respond_to do |format|
       if @event.update_attributes(params[:event])
         if @start_time != @event.starts_at
           Notifier.time_change(@event).deliver
-        elsif @location != @event.lng
-          Notifier.location_change(@event).deliver
         end
-
         format.html { redirect_to @event, notice: 'Idea was successfully updated.' }
         format.json { head :no_content }
       else

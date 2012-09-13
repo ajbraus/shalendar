@@ -8,7 +8,7 @@ class InvitesController < ApplicationController
 
     respond_to do |format|
       if @invite.save
-        Notifier.invitation(@invite.email, @event)
+        Notifier.invitation(@invite.email, @event, @invite.inviter_id)
         format.html { redirect_to @event, notice: 'Invite was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
       else
