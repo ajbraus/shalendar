@@ -2,7 +2,7 @@ class RelationshipsController < ApplicationController
 before_filter :authenticate_user!
 
   def create
-     @user = User.find(params[:relationship][:followed_id])
+    @user = User.find(params[:relationship][:followed_id])
 
     if @user.require_confirm_follow?  && (@user.following?(current_user) == false)#autoconfirm if already following us
       current_user.follow!(@user)
@@ -15,7 +15,9 @@ before_filter :authenticate_user!
         @follower_relationships = Relationship.where("relationships.followed_id = :current_user_id AND 
                                                   relationships.confirmed = true ", current_user_id: current_user.id)
         @followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
-                                                       current_user_id: current_user.id) 
+                                                       current_user_id: current_user.id)
+        @graph = Koala::Facebook::API.new(session[:access_token])
+
         if params[:date] 
           @forecastevents = current_user.forecast(params[:date])
           @date = Date.strptime(params[:date], "%Y-%m-%d")
