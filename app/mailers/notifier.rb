@@ -15,20 +15,20 @@ class Notifier < ActionMailer::Base
   end
 
   def friend_beta_users
-    @friend_emails = ["MadIterators@madisoniterators.com", "woolworth@gmail.com", "galbraks@gmail.com",
+    @friend_emails = ["MadIterators@madisoniterators.com", "woolworth@gmail.com", "galbraks@gmail.com", 
                       "dylanbmathieu@gmail.com", "jakebrower87@gmail.com", "dgamoran@gmail.com", 
                       "galbraks@uwec.edu", "walshandj@gmail.com>", "cecekress@gmail.com", 
-                      "jhschneider09@gmail.com", "max.rosen17@gmail.com", "samlundsten@gmail.com",
-                      "malone2@wisc.edu", "jsh4ft@gmail.com", "waterppk@gmail.com",
-                      "kmabra@uwalumni.com", "jrd309@gmail.com", "dangormich@gmail.com", "jbornhorst@gmail.com",
-                      "stratsgoo@gmail.com", "rkyoung366@gmail.com", "shawn@vitruvianfarms.com",
-                      "tommy@vitruvianfarms.com", "craig@vitruvianfarms.com", "ari.eisenstat@gmail.com",
-                      "nick.guggenbuehl@gmail.com", "alexandra@7cees.org", "rocheleau.jen@gmail.com", 
-                      "becca.m.cohen@gmail.com", "Christopher.Galbraith@associatedbank.com", "rbhaya2@gmail.com",
-                      "kari.k.design@gmail.com", "a.mearini@gmail.com", "reebz22@gmail.com",
+                      "jhschneider09@gmail.com", "max.rosen17@gmail.com", "samlundsten@gmail.com", 
+                      "malone2@wisc.edu", "jsh4ft@gmail.com", "waterppk@gmail.com", 
+                      "kmabra@uwalumni.com", "jrd309@gmail.com", "dangormich@gmail.com", "jbornhorst@gmail.com", 
+                      "stratsgoo@gmail.com", "rkyoung366@gmail.com", "shawn@vitruvianfarms.com", 
+                      "tommy@vitruvianfarms.com", "craig@vitruvianfarms.com", "ari.eisenstat@gmail.com", 
+                      "nick.guggenbuehl@gmail.com", "alexandra@7cees.org", "rocheleau.jen@gmail.com",  
+                      "becca.m.cohen@gmail.com", "Christopher.Galbraith@associatedbank.com", "rbhaya2@gmail.com", 
+                      "kari.k.design@gmail.com", "a.mearini@gmail.com", "reebz22@gmail.com", 
                       "msfenchel@gmail.com", "ajbraus@gmail.com"]
 
-    mail bcc: @friend_emails, subject: "hoos.in Launch!"
+    mail to:"info@hoos.in", bcc: @friend_emails, subject: "hoos.in Launch!"
   end
   #AUTOMATIC NOTIFIERS
 
