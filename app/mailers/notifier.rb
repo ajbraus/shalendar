@@ -28,7 +28,7 @@ class Notifier < ActionMailer::Base
                       "kari.k.design@gmail.com", "a.mearini@gmail.com", "reebz22@gmail.com", 
                       "msfenchel@gmail.com", "ajbraus@gmail.com"]
 
-    mail to:"info@hoos.in", bcc: @friend_emails, subject: "hoos.in Launch!"
+    mail bcc: @friend_emails, subject: "hoos.in Launch!"
   end
   #AUTOMATIC NOTIFIERS
 

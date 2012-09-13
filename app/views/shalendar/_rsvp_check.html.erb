@@ -10,6 +10,6 @@
 	<%= form_for(current_user.rsvps.build(plan_id: event.id),
 							 remote: true) do |f| %>
 	  <div><%= f.hidden_field :plan_id %></div>
-	  <%= f.submit "not in", class:"btn_icon btn_icon_rsvp" %>
+	  <%= f.submit "join", class:"btn_icon btn_icon_rsvp" %>
 	<% end %>
 <% end %>

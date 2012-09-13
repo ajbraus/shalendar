@@ -24,6 +24,7 @@ Landing page, about, contact
 
 Adam
 --------------
+fix RSVP buttons 
 
 test
 
