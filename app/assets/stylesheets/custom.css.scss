@@ -1156,6 +1156,14 @@ margin: 0 30px;
   }
 }
 
+.destroy {
+  color:$destroy;
+}
+
+.orange {
+  color:$dark_orange;
+}
+
 .fadeInOrange {
   color:lightGrey;
   &:hover{
@@ -1292,8 +1300,14 @@ float: right;
 
 #personal {
   float:left;
-width: 239px;
+  width: 239px;
   margin-top:25px;
+  .fb_button {
+    float: left;
+    position: relative;
+    top: 36px;
+    right: 152px;
+  }
 }
 
 .hi {
@@ -1595,7 +1609,7 @@ left: 210px;
 }
 
 .comment_content {
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .comment_data {
