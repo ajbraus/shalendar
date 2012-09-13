@@ -11,7 +11,11 @@ before_filter :authenticate_user!
       Notifier.confirm_follow(@user, current_user).deliver
       if @relationship.save
         respond_to do |format|
-        @relationships = current_user.relationships.where('relationships.confirmed = true')  
+        @relationships = current_user.relationships.where('relationships.confirmed = true')
+        @follower_relationships = Relationship.where("relationships.followed_id = :current_user_id AND 
+                                                  relationships.confirmed = true ", current_user_id: current_user.id)
+        @followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
+                                                       current_user_id: current_user.id) 
         if params[:date] 
           @forecastevents = current_user.forecast(params[:date])
           @date = Date.strptime(params[:date], "%Y-%m-%d")
@@ -37,7 +41,7 @@ before_filter :authenticate_user!
                                                   relationships.confirmed = true ", current_user_id: current_user.id)
          @followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
                                                        current_user_id: current_user.id)
-      @graph = Koala::Facebook::API.new(session[:access_token])
+        @graph = Koala::Facebook::API.new(session[:access_token])
          if params[:date] 
           @forecastevents = current_user.forecast(params[:date])
           @date = Date.strptime(params[:date], "%Y-%m-%d")
