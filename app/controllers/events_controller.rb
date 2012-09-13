@@ -102,15 +102,11 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     @start_time = @event.starts_at #don't worry about timezone here bc only on server
-    @location = @event.lng
     respond_to do |format|
       if @event.update_attributes(params[:event])
         if @start_time != @event.starts_at
           Notifier.time_change(@event).deliver
-        elsif @location != @event.lng
-          Notifier.location_change(@event).deliver
         end
-
         format.html { redirect_to @event, notice: 'Idea was successfully updated.' }
         format.json { head :no_content }
       else
