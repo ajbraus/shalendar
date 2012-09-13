@@ -26,7 +26,8 @@ class Notifier < ActionMailer::Base
                       "tommy@vitruvianfarms.com", "craig@vitruvianfarms.com", "ari.eisenstat@gmail.com",
                       "nick.guggenbuehl@gmail.com", "alexandra@7cees.org", "rocheleau.jen@gmail.com", 
                       "becca.m.cohen@gmail.com", "Christopher.Galbraith@associatedbank.com", "rbhaya2@gmail.com",
-                      "kari.k.design@gmail.com", "a.mearini@gmail.com", "reebz22@gmail.com"]
+                      "kari.k.design@gmail.com", "a.mearini@gmail.com", "reebz22@gmail.com",
+                      "msfenchel@gmail.com", "ajbraus@gmail.com"]
 
     @friend_emails.each do |friend_email|  
       mail to: friend_email, subject: "Hoos.in? You are!"
