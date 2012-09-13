@@ -11,7 +11,7 @@ class Notifier < ActionMailer::Base
   #AUTOMATIC NOTIFIERS
 
   def welcome(user)
-    @user_first_name = user.first_name
+    @user = user
     mail to: user.email, subject: "Welcome to hoos.in, #{user.first_name}!"
     
   end
@@ -92,8 +92,8 @@ class Notifier < ActionMailer::Base
     @guests = event.guests
 
     @guests.each do |g|
-      if g.phone_number
-        @guest_phone_numbers.push(g.phone_number)
+      if(g.iPhone_user == true)
+        APN.notify(g.APNtoken, {:alert => "#{event.title} has changed time!", :badge => 1, :sound => true})
       end
       @current_guest = g
       mail to: @guest_emails, subject: "Your plan has changed start time."
@@ -109,7 +109,8 @@ class Notifier < ActionMailer::Base
   end
 
   def new_follower(user, follower)
-
+    @user = user
+    @follower = follower
     mail to: user.email, subject: "You have a new viewer: #{follower.name}"
   end
   
