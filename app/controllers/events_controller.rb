@@ -49,7 +49,7 @@ class EventsController < ApplicationController
           @event.save
         end
         if current_user.post_to_fb_wall? && session[:access_token] && @event.visibility == "friends_of_friends" && Rails.env.production?
-          @graph = Koala::Facebook::API.new(session[:access_token])
+          #@graph = Koala::Facebook::API.new(session[:access_token])
           @graph.put_wall_post("#{@event.title}", { :link => "http://www.hoos.in/events/#{@event.id}"}, target_id = 'me')
         end
 
