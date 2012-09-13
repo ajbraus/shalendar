@@ -51,33 +51,6 @@ post to rsvps facebook wall of friends of RSVPs
 require city to join
 require time_zone to join
 
-	Notifiers - Adam
-		Welcome
-			Home
-			Create Event
-		Cancellation
-			Event Details
-			Home
-		Invitation
-			Event Details
-			RSVP
-			View Event
-			Home
-		RSVP reminder
-			Event Details
-		Event tipped
-			Event Details
-		Time change
-			Event Details
-		Location change
-			Event Details
-		DELETE Minor change
-			Event Details
-		Confirm Follow
-			Follower details
-		New Follower
-			Follower Details
-
 
 AFTER BETA LAUNCH
 	

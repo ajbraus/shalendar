@@ -5,7 +5,13 @@ class Notifier < ActionMailer::Base
   # AD HOC NOTIFIERS
 
   def beta_users
-    mail to: "msfenchel@gmail.com", subject: "Welcome, Beta-User, to hoos.in!"
+    @emails = ["msfenchel@gmail.com", "ajbraus@gmail.com", "matt@womstreet.com", 
+      "marykvernon@gmail.com", "rsfenchel@gmail.com", "scott.j.resnick@gmail.com", 
+      "johnbwheel@gmail.com", "acconnel7@gmail.com", "nikolaiskievaski@gmail.com",
+      "nolanbjohnson@gmail.com", "drew.cohen@epic.com", "Dkevitch@gmail.com",
+      "SBwells@wisc.edu", "gstratch@gmail.com", "ohfortuna@gmail.com", 
+       ]
+    mail to: "msfenchel@gmail.com", subject: "Hoos.in? You are!"
   end
 
   #AUTOMATIC NOTIFIERS
@@ -16,62 +22,44 @@ class Notifier < ActionMailer::Base
     
   end
 
-  def cancellation(event)
-    @guests = event.guests
+  def cancellation(event, user)
+    @user = user
     @event = event
-    # @guest_emails = []
-    @guests.each do |g|
-      if(g.iPhone_user == true)
-        APN.notify(g.APNtoken, {:alert => "#{event.title} Canceled!", :badge => 1, :sound => true})
-      end
-      @current_guest = g
-      mail to: g.email, subject: "Your Plan got Canceled!"
-      # @guest_emails.push(g.email)
+    if(@user.iPhone_user == true)
+      APN.notify(@user.APNtoken, {:alert => "#{event.title} Canceled!", :badge => 1, :sound => true})
     end
-    # @guest_emails.join('; ')
-
-    # mail bcc: @guest_emails, subject: "#{event.title} Canceled!"
+    mail to: @user.email, subject: "Your Plan got Canceled!"
   end
 
 
-  def event_tipped(event)
-
-    @guests = event.guests
+  def event_tipped(event, user)
     @event = event
-
-    @guests.each do |g|
-      if(g.iPhone_user == true)
-        APN.notify(g.APNtoken, {:alert => "#{event.title} has tipped!", :badge => 1, :sound => true})
-      end
-      @current_guest = g
-      mail to: g.email, subject: "Your plan has tipped!"
+    @user = user
+    if(@user.iPhone_user == true)
+      APN.notify(@user.APNtoken, {:alert => "#{event.title} has tipped!", :badge => 1, :sound => true})
     end
+    mail to: @user.email, subject: "Your plan has tipped!"
   end
 
-  def rsvp_reminder(event)
-    @guests = event.guests
+  def rsvp_reminder(event, user)
+    @user = user
     @event = event
 
-    @guests.each do |g|
-      if(g.iPhone_user == true)
-        APN.notify(g.APNtoken, { :alert => "#{event.title} starting soon!", :badge => 1, :sound => true})
-      elsif(g.android_user == true)
-        #need to know how Gcm::Devices behave- do they persist?
-        if(Gcm::Device.find_by_id(g.GCMdevice_id).nil? == false)#if we have a device for user
-          notification = Gcm::Notification.new
-          notification.device = Gcm::Device.find_by_id(g.GCMdevice_id)
-          notification.collapse_key = "RSVP_Reminder"
-          notification.delay_while_idle = true
-          notification.data = {:registration_ids => [@user.regis], :data => {:message_text => "#{event.title} starting soon!"}}
-          notification.save
-        end
+    if(@user.iPhone_user == true)
+      APN.notify(@user.APNtoken, { :alert => "#{event.title} starting soon!", :badge => 1, :sound => true})
+    elsif(@user.android_user == true)
+      #need to know how Gcm::Devices behave- do they persist?
+      if(Gcm::Device.find_by_id(@user.GCMdevice_id).nil? == false)#if we have a device for user
+        notification = Gcm::Notification.new
+        notification.device = Gcm::Device.find_by_id(@user.GCMdevice_id)
+        notification.collapse_key = "RSVP_Reminder"
+        notification.delay_while_idle = true
+        notification.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "#{event.title} starting soon!"}}
+        notification.save
       end
-      @current_guest = g
-      mail to: g.email, subject: "Reminder: Activity starts in 2 hours!"
-
     end
+      mail to: @user.email, subject: "Reminder: Activity starts in 2 hours!"
   end
-
 
   def invitation(email, event, inviter_id)
     @event = event
@@ -88,17 +76,22 @@ class Notifier < ActionMailer::Base
     end
   end
 
-  def time_change(event)
+  def time_change(event, user)
     @event = event
-    @guests = event.guests
-
-    @guests.each do |g|
-      if(g.iPhone_user == true)
-        APN.notify(g.APNtoken, {:alert => "#{event.title} has changed time!", :badge => 1, :sound => true})
-      end
-      @current_guest = g
-      mail to: g.email, subject: "Your plan has changed start time."
+    @user= user
+    if(@user.iPhone_user == true)
+      APN.notify(g.APNtoken, {:alert => "#{event.title} has changed time!", :badge => 1, :sound => true})
     end
+    mail to: @user.email, subject: "Your plan has changed start time."
+  end
+
+  def tip_or_destroy(event)
+    @user = event.user
+    @event = event
+    if(@user.iPhone_user == true)
+      APN.notify(g.APNtoken, {:alert => "Untipped idea: either tip or cancel", :badge => 1, :sound => true})
+    end
+    mail to: @user.email, subject: "Untipped idea: please tip or cancel"
   end
 
   #PREFERENCE NOTIFIERS, DEFAULT YES

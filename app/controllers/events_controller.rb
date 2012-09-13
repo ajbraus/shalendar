@@ -105,7 +105,9 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.update_attributes(params[:event])
         if @start_time != @event.starts_at
-          Notifier.time_change(@event).deliver
+          @event.guests.each do |g|
+            Notifier.time_change(@event, g).deliver
+          end
         end
         format.html { redirect_to @event, notice: 'Idea was successfully updated.' }
         format.json { head :no_content }
@@ -122,7 +124,9 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
 
-    Notifier.cancellation(@event).deliver
+    @event.guests.each do |g|
+      Notifier.cancellation(@event, g).deliver
+    end
 
     @event.destroy
 
