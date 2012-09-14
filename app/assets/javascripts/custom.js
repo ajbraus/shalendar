@@ -56,7 +56,7 @@ $(document).bind('click', function(e) {
 
 	$(".btn-new-idea").fancybox();
 
-	$(".find_friends").fancybox();
+	$('.find_friends').fancybox();
 
 	$(".howto").fancybox();
 

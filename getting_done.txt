@@ -1,0 +1,5 @@
+persistence problems with uploaded images
+facebook login errors with location
+speed
+	- diagnosing speed problems
+	- facebook
