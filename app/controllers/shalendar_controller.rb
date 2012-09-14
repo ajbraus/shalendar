@@ -3,7 +3,7 @@ class ShalendarController < ApplicationController
 
 	def home
 		@relationships = current_user.relationships.where('relationships.confirmed = true')
-  	@graph = Koala::Facebook::API.new(session[:access_token])
+  	@graph = session[:graph]
   	@event = Event.new
     # @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
     #                                      relationships.confirmed = false ", current_user_id: current_user.id)
@@ -19,7 +19,7 @@ class ShalendarController < ApplicationController
     end
 
     if session[:access_token] 
-      @graph = Koala::Facebook::API.new(session[:access_token])
+      @graph = session[:graph]
       @friends = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
       @me = @graph.get_object('me')
 
@@ -45,7 +45,7 @@ class ShalendarController < ApplicationController
 	end
 
 	def manage_follows
-		@graph = Koala::Facebook::API.new(session[:access_token])
+		@graph = session[:graph]
 		
 		#people viewing current user 
 		@follower_relationships = Relationship.where("relationships.followed_id = :current_user_id AND 
@@ -67,7 +67,7 @@ class ShalendarController < ApplicationController
   end
 
   def invite
-    @graph = Koala::Facebook::API.new(session[:access_token])
+    @graph = session[:graph]
     @graph.put_wall_post("I just joined Hoos.in and want to invite you too. ~#{current_user.first_name}", {:name => "Hoos.in", :link => "http://www.hoos.in"}, "#{params[:username]}")
     redirect_to :back
   end

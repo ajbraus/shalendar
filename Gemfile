@@ -13,7 +13,9 @@ gem 'chronic'
 gem 'twilio-rb'
 gem 'apn_sender', :require => 'apn'
 gem 'daemons'
-gem 'resque'
+#gem 'dalli'
+gem 'resque'#, :require => "resque/server"
+#gem 'resque-heroku-autoscaler'
 gem 'redis'
 gem 'heroku'
 gem 'gcm_on_rails', :git => "git://github.com/dondeng/gcm_on_rails.git"
@@ -24,6 +26,7 @@ gem 'devise-i18n'
 gem 'whenever', :require => false
 gem 'pry'
 gem 'pry-debugger'
+gem 'pry-remote', :group => :development
 # gem "recaptcha", :require => "recaptcha/rails"
 gem 'pg'
 gem "sendgrid", "~> 1.0.1"

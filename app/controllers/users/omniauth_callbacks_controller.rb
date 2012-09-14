@@ -22,7 +22,7 @@ private
       #get back "access_token=AAAEqQcVzYxkBAFPwIFPN7sUsdNZA5gZBIzZCRVbufmkJMlK2OOlITw6cmeZAFgRkrnvVfrCAwG9zZCKDfQRHe163UZAuPhsHUZD&expires=5181597"
       #save it in the session
       session[:access_token] = @long_token.split('=')[1].split('&')[0]
-
+      session[:graph] = Koala::Facebook::API.new(session[:access_token]) 
       @uid = env["omniauth.auth"].uid
       @user.authentications.find_by_uid(@uid).token = session[:access_token]
 

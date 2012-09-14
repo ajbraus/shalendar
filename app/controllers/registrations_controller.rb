@@ -44,12 +44,12 @@ class RegistrationsController < Devise::RegistrationsController
       @cities.push(@city_name)
     end
 
-		@graph = Koala::Facebook::API.new(@access_token)		
+		@graph = session[:graph]		
 		super
 	end
   
   def update
-  	@graph = Koala::Facebook::API.new(@access_token)	
+  	@graph = session[:graph]
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     
     @all_cities = City.all

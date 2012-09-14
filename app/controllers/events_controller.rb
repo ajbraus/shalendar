@@ -48,9 +48,9 @@ class EventsController < ApplicationController
           @event.tipped = true
           @event.save
         end
-        if current_user.post_to_fb_wall? && session[:access_token] && @event.visibility == "friends_of_friends" #&& Rails.env.production?
-          @graph = Koala::Facebook::API.new(session[:access_token])
-          @graph.put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
+        if current_user.post_to_fb_wall? && session[:graph] && @event.visibility == "friends_of_friends" #&& Rails.env.production?
+          # @graph = Koala::Facebook::API.new(session[:access_token])
+          session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
                                               :link => "http://www.hoos.in/events/#{@event.id}", 
                                               :picture => "http://www.hoos.in/assets/icon.png",
                                               })
@@ -91,7 +91,7 @@ class EventsController < ApplicationController
     @invited_users = @invited_users - @event.guests
 
     @access_token = session[:access_token]
-    @graph = Koala::Facebook::API.new(@access_token)
+    @graph = session[:graph]
     @comments = @event.comments.order("created_at desc")
 
     respond_to do |format|
