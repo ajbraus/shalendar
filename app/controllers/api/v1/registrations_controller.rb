@@ -33,12 +33,12 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
   end
 
 	def edit
-		@graph = Koala::Facebook::API.new(@access_token)		
+		@graph = session[:graph]	
 		super
 	end
   
   def update
-  	@graph = Koala::Facebook::API.new(@access_token)	
+  	@graph = session[:graph]
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     if resource.respond_to?(:unconfirmed_email)
       prev_unconfirmed_email = resource.unconfirmed_email 
