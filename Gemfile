@@ -20,6 +20,7 @@ gem 'redis'
 gem 'heroku'
 gem 'gcm_on_rails', :git => "git://github.com/dondeng/gcm_on_rails.git"
 #gem 'apn_on_rails'
+gem 'airbrake'
 gem 'newrelic_rpm'
 gem 'heroku'
 gem 'rails-i18n'
