@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   #rescue_from Koala::Facebook::APIError, :with => :expired_token
   def get_graph
-    if session[:graph].nil? && !session[:access_token].nil?
+    if session[:graph].nil?
       session[:graph] = Koala::Facebook::API.new(session[:access_token])
     end
   end
