@@ -1,3 +1,5 @@
+require 'resque/plugins/resque_heroku_autoscaler'
+
 class MailerCallback
 	extend Resque::Plugins::HerokuAutoscaler
 
