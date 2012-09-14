@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   #rescue_from Koala::Facebook::APIError, :with => :expired_token
   def get_graph
-    if session[:graph].nil? && !session[:access_token].nil?
+    if session[:graph].nil?
       session[:graph] = Koala::Facebook::API.new(session[:access_token])
     end
   end
@@ -20,15 +20,6 @@ class ApplicationController < ActionController::Base
       Time.zone = current_user.time_zone if current_user.time_zone
     end
   end
-
-  
-  # def expired_token
-  #   flash[:notice] = "There was an error with Facebook."
-  # end
-
-  # def adjust_format_for_iphone    
-  #   request.format = :ios if ios_user_agent?
-  # end
   
   def ios_user_agent?
       request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(Mobile\/.+Safari)/]

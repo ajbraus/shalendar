@@ -18,14 +18,6 @@ class ShalendarController < ApplicationController
       end
     end
 
-    if session[:access_token] 
-      @graph = session[:graph]
-      @friends = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
-      @me = @graph.get_object('me')
-
-      @city_friends = @friends.select { |friend| friend['location'].present? && friend['location']['id'] == @me['location']['id'] }
-    end
-
     if params[:date] 
       @forecastevents = current_user.forecast(params[:date])
       @date = Date.strptime(params[:date], "%Y-%m-%d")
@@ -71,5 +63,24 @@ class ShalendarController < ApplicationController
     @graph.put_wall_post("I just joined Hoos.in and want to invite you too. ~#{current_user.first_name}", {:name => "Hoos.in", :link => "http://www.hoos.in"}, "#{params[:username]}")
     redirect_to :back
   end
+
+  def find_friends
+    @graph = session[:graph]
+    @friends = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
+
+    # @city_friends = @graph.fql_query(
+    #   SELECT uid, name, location, pic_square
+    #   FROM user 
+    #   WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me() AND location = me())
+    #   )
+
+    @me = @graph.get_object('me')
+
+    @city_friends = @friends.select { |friend| friend['location'].present? && friend['location']['id'] == @me['location']['id'] }
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
 end

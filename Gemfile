@@ -28,6 +28,8 @@ gem 'whenever', :require => false
 gem 'pry'
 gem 'pry-debugger'
 gem 'pry-remote', :group => :development
+gem 'powder', :group => :development
+gem 'powify', :group => :development
 # gem "recaptcha", :require => "recaptcha/rails"
 gem 'pg'
 gem "sendgrid", "~> 1.0.1"
@@ -48,10 +50,10 @@ group :assets do
   gem 'uglifier', '1.2.3'
 end
 
-gem 'font-awesome-sass-rails'
-gem 'jquery-ui-rails'
-gem 'coffee-rails', '3.2.2'
-gem 'jquery-rails'#, '2.0.0'
+  gem 'font-awesome-sass-rails'
+  gem 'jquery-ui-rails'
+  gem 'coffee-rails', '3.2.2'
+  gem 'jquery-rails'#, '2.0.0'
 
 group :test do
   gem 'faker', '1.0.1'
