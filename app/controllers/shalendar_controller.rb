@@ -23,7 +23,11 @@ class ShalendarController < ApplicationController
       @friends = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
       @me = @graph.get_object('me')
 
-      @city_friends = @friends.select { |friend| friend['location'].present? && friend['location']['id'] == @me['location']['id'] }
+      if @me['location'].nil? == false
+        @city_friends = @friends.select { |friend| friend['location'].present? && friend['location']['id'] == @me['location']['id'] }
+      else
+        @city_friends = @friends
+      end
     end
 
     if params[:date] 

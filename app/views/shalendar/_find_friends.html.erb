@@ -1,6 +1,10 @@
 <div style="display: none;">
 	<div id="find_friends">
-	<h1>Your Friends in <%= current_user.city %></h1>
+	<% if @me['location'].nil? %>
+		<h1>Your Friends: Add your current city on Facebook to show nearby friends.</h1>
+	<% else %>
+		<h1>Your Friends in <%= current_user.city %></h1>
+	<% end %>
 	<% @city_friends.each do |cf| %>
 			<table>
 			<tr>
