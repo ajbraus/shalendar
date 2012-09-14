@@ -43,7 +43,7 @@ module UsersHelper
   def fb_picture(user, options = { type: "large", })
   	fb_id = user.authentications.find_by_provider("Facebook").uid
     type = options[:type]
-  	facebook_url = @graph.get_picture(fb_id, { type: type })
+  	facebook_url = session[:graph].get_picture(fb_id, { type: type })
   	image_tag(facebook_url, alt: user.name, class: "profile_picture" )
   end
 
