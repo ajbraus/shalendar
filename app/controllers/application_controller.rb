@@ -9,10 +9,6 @@ class ApplicationController < ActionController::Base
     @graph = Koala::Facebook::API.new(@access_token) if session[:access_token]
   end
 
-  def after_sign_in_path_for(resource)
-    home_path
-  end
-
   #rescue_from Koala::Facebook::APIError, :with => :expired_token
 
   private
