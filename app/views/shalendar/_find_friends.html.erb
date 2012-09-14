@@ -1,24 +1,23 @@
-<div style="display: none;">
-	<div id="find_friends">
-	<% if @me['location'].nil? %>
-		<h1>Your Friends: Add your current city on Facebook to show nearby friends.</h1>
-	<% else %>
-		<h1>Your Friends in <%= current_user.city %></h1>
-	<% end %>
-	<% @city_friends.each do |cf| %>
-			<table>
-			<tr>
-				<td width="55px"><%= image_tag("#{cf['picture']}") %></td>
-				<td width="100px"><%= "#{cf['name']}" %></td>
-				<td width="100px">
-					<% if Authentication.find_by_uid(cf['id']) %>
-					<% u = Authentication.find_by_uid(cf['id']).user %>
-						<%= render :partial => 'events/follow_form', locals: { :user => u } %>
-			    <% else %>
-			    	<%= link_to "Invite", invite_path(:username => cf['username']), id: "invite", class:"btn btn-success", remote: true %>
-					<% end %>
-		    </td>
-			</tr> 
-		</table>
-	<% end %>
+<div id="find_friends">
+<% if @me['location'].nil? %>
+	<h1>Your Friends: Add your current city on Facebook to show nearby friends.</h1>
+<% else %>
+	<h1>Your Friends in <%= current_user.city %></h1>
+<% end %>
+<% @city_friends.each do |cf| %>
+		<table>
+		<tr>
+			<td width="55px"><%= image_tag("#{cf['picture']}") %></td>
+			<td width="100px"><%= "#{cf['name']}" %></td>
+			<td width="100px">
+				<% if Authentication.find_by_uid(cf['id']) %>
+				<% u = Authentication.find_by_uid(cf['id']).user %>
+					<%= render :partial => 'events/follow_form', locals: { :user => u } %>
+		    <% else %>
+		    	<%= link_to "Invite", invite_path(:username => cf['username']), id: "invite", class:"btn btn-success", remote: true %>
+				<% end %>
+	    </td>
+		</tr> 
+	</table>
+<% end %>
 </div>
