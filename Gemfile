@@ -14,8 +14,8 @@ gem 'twilio-rb'
 gem 'apn_sender', :require => 'apn'
 gem 'daemons'
 #gem 'dalli'
-gem 'resque'#, :require => "resque/server"
-#gem 'resque-heroku-autoscaler'
+gem 'resque', :require => "resque/server"
+gem 'resque-heroku-autoscaler'
 gem 'redis'
 gem 'heroku'
 gem 'gcm_on_rails', :git => "git://github.com/dondeng/gcm_on_rails.git"
