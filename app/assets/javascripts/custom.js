@@ -72,7 +72,7 @@ $(document).bind('click', function(e) {
 
 // VISIBILITY RADIO BUTTONSET
 
-	// $( "#radio" ).buttonset();
+	$( "#radio" ).buttonset();
 
 // NEW IDEA FORM VALIDATION
 	$("#new_event_form").validate({
