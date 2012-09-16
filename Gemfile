@@ -14,8 +14,8 @@ gem 'twilio-rb'
 gem 'apn_sender', :require => 'apn'
 gem 'daemons'
 #gem 'dalli'
-gem 'resque'#, :require => "resque/server"
-#gem 'resque-heroku-autoscaler'
+gem 'resque', :require => "resque/server"
+gem 'resque-heroku-autoscaler'
 gem 'redis'
 gem 'heroku'
 gem 'gcm_on_rails', :git => "git://github.com/dondeng/gcm_on_rails.git"
@@ -49,12 +49,13 @@ end
 group :assets do
   gem 'sass-rails',   '3.2.4'
   gem 'uglifier', '1.2.3'
-end
-
   gem 'font-awesome-sass-rails'
   gem 'jquery-ui-rails'
   gem 'coffee-rails', '3.2.2'
   gem 'jquery-rails'#, '2.0.0'
+end
+
+
 
 group :test do
   gem 'faker', '1.0.1'

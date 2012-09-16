@@ -1,6 +1,9 @@
 
 Mike
 ------------
+take out attendees from invite raster
+
+Make links from notifiers work and don't display the event id, make them hrefs from other words
 
 Mailers running in background
 
@@ -56,6 +59,10 @@ reduce logo file size and upload quality size
 
 
 FQL for find_friends
+=======
+tool tip invite raster
+
+test
 
 operators agreement
 

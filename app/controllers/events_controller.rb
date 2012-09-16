@@ -109,7 +109,8 @@ class EventsController < ApplicationController
       if @event.update_attributes(params[:event])
         if @start_time != @event.starts_at
           @event.guests.each do |g|
-            Notifier.delay.time_change(@event, g)
+            #Notifier.time_change(@event, g).deliver
+            Resque.enqueue(MailerCallback, "Notifier", :time_change, @event, g)
           end
         end
         format.html { redirect_to @event, notice: 'Idea was successfully updated.' }
