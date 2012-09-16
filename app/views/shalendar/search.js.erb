@@ -5,3 +5,16 @@ if($('#search_results').length){
 else {
 	$('#view_search').append(results);
 }
+
+$('body').on('click', function(e){
+	window.target = e
+	if(!$(e.target).closest('#search_results').length 
+		|| $(e.target).attr('id') == 'user_search_field' 
+		|| $(e.target).attr('id') == 'btn_user_search'){
+			$('#search_results').remove()
+			$('#user_search_field').val('')
+			// $('.search_spinner').css({'background-position': 'right 21900915389012px'})
+		};
+});
+	
+
