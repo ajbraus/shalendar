@@ -9,13 +9,6 @@ class ShalendarController < ApplicationController
     @graph = session[:graph]
     @event = Event.new
     @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
-    
-    if params[:search]
-      @users = User.search(params[:search]).limit(5)
-      respond_to do |f|
-        f.js { render "user_search_results" }
-      end
-    end
 	end
 
 	def manage_follows
@@ -72,5 +65,11 @@ class ShalendarController < ApplicationController
     end
   end
 
+  def search
+    @users = User.search(params[:search]).limit(5)
+    respond_to do |format|
+      format.js 
+    end
+  end
 
 end

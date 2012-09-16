@@ -37,9 +37,6 @@ class UserSearch
 				$('.search_spinner').css({'background-position': 'right 2000000px'})
 			data:
 				'search': $('#user_search_field').val()
-			failure: ->
-				alert("ahh!")
-
 
 $ ->
 	new UserSearch() if $('#user_search_field').length
