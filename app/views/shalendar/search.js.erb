@@ -1,6 +1,5 @@
 var results = "<%= escape_javascript(render 'search_results') %>";
-if($('#search_results').length)
-{
+if($('#search_results').length){
 	$("#search_results").replaceWith(results);
 }
 else {
