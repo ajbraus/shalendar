@@ -2,14 +2,13 @@ class ShalendarController < ApplicationController
   before_filter :authenticate_user!
 
 	def home
-		@relationships = current_user.relationships.where('relationships.confirmed = true')
-  	@graph = session[:graph]
-  	@event = Event.new
-    # @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
-    #                                      relationships.confirmed = false ", current_user_id: current_user.id)
-
-    @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
+		@date = Time.now.to_date
+    @forecastevents = current_user.forecast(Time.now.to_s)
     @forecastoverview = current_user.forecastoverview
+    @relationships = current_user.relationships.where('relationships.confirmed = true')
+    @graph = session[:graph]
+    @event = Event.new
+    @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
     
     if params[:search]
       @users = User.search(params[:search]).limit(5)
@@ -17,23 +16,6 @@ class ShalendarController < ApplicationController
         f.js { render "user_search_results" }
       end
     end
-
-    if params[:date] 
-      @forecastevents = current_user.forecast(params[:date])
-      @date = Date.strptime(params[:date], "%Y-%m-%d")
-      # respond_to do |f|
-      #   f.html
-      #   f.js { render "forecast" }
-      # end
-    else
-      @forecastevents = current_user.forecast(Time.now.to_s)
-      @date = Time.now.to_date
-      # respond_to do |f|
-      #   f.html
-      #   f.js { render "forecast" }
-      # end
-    end
-
 	end
 
 	def manage_follows
@@ -61,7 +43,7 @@ class ShalendarController < ApplicationController
   def invite
     @graph = session[:graph]
     @graph.put_wall_post("I just joined Hoos.in and want to invite you too. ~#{current_user.first_name}", {:name => "Hoos.in", :link => "http://www.hoos.in"}, "#{params[:username]}")
-    redirect_to :back
+    render :nothing => true
   end
 
   def find_friends
@@ -77,6 +59,14 @@ class ShalendarController < ApplicationController
     @me = @graph.get_object('me')
 
     @city_friends = @friends.select { |friend| friend['location'].present? && friend['location']['id'] == @me['location']['id'] }
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def datepicker 
+    @forecastevents = current_user.forecast(params[:date])
+    @date = Date.strptime(params[:date], "%Y-%m-%d")
     respond_to do |format|
       format.js
     end

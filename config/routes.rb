@@ -82,6 +82,8 @@ Shalendar::Application.routes.draw do
 
   # match '/manage_follows/remove', :to => 'relationships#remove', :as => "remove"
 
+  match 'datepicker' => "shalendar#datepicker"
+
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/careers', :to => 'static_pages#careers', :as => "careers"
