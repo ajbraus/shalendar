@@ -3,6 +3,8 @@ Mike
 ------------
 take out attendees from invite raster
 
+Make links from notifiers work and don't display the event id, make them hrefs from other words
+
 Make sure events always get served in time order
 
 Cron jobs environment set to production, don't know how to change, but still getting some output (pg_dump and also Event.check_tip_deadlines executing when dev server running.) - heroku scheduler
