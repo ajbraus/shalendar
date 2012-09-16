@@ -50,7 +50,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to @event, notice: 'Comment was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
       else
-        format.html { render redirect_to(@event, notice: 'Comment could not be saved.') }
+        format.html { redirect_to(@event, notice: 'Comment could not be saved.') }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end

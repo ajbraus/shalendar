@@ -1,6 +1,7 @@
 
 Mike
 ------------
+take out attendees from invite raster
 
 Make sure events always get served in time order
 
@@ -25,6 +26,8 @@ Landing page, about, contact
 Adam
 --------------
 fix RSVP buttons 
+
+tool tip invite raster
 
 test
 
