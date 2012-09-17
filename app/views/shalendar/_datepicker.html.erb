@@ -1,7 +1,7 @@
 <div id="datepicker">
 	<div id="datewindow"></div>
 	<% for i in -3..16 do %>
-		<%= link_to root_path(date: Date.today + i), remote: true do %>
+		<%= link_to datepicker_path(date: Date.today + i), remote: true do %>
 		<table data-date=<%= "#{Date.today + i}" %>
 			<tr>
 				<th>

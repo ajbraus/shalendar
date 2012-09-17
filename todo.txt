@@ -12,6 +12,16 @@ take out attendees from invite raster
 
 Make links from notifiers work and don't display the event id, make them hrefs from other words
 
+Mailers running in background
+
+
+Setup staging enviornment
+
+schedule tip cron job
+
+new follower email link not working
+
+
 Make sure events always get served in time order
 
 	want to destroy events after they have passed... or at least destroy RSVPs / invitations, to maintain the tables- maybe store on some hard disk somewhere for records
@@ -31,7 +41,29 @@ Make sure events always get served in time order
 
 Adam
 --------------
-fix RSVP buttons 
+
+Store FB pic URLs locally
+	add migration
+	update attribute on registration and session create
+	change all pic helpers
+
+setup AWS s3 with heroku to store native profile pics
+
+Relationship create (check if on manage follows or on home and only ask for half the data)
+
+name in email
+
+Chronic error message unclear, dealing with chronic errors
+
+email for airbreak/setup dev@hoos.in
+
+reduce roundtrips - get all the forecastoverview days upfront
+
+reduce logo file size and upload quality size
+
+
+FQL for find_friends
+
 
 tool tip invite raster
 

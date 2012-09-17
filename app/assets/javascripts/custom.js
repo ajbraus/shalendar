@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 	$("#find_friends a").click(
     function() {
-        $(this).text("invited")
+        $(this).text("invited");
         $(this).removeClass('btn-success');
         $(this).addClass('btn_stop_viewing');
     });
