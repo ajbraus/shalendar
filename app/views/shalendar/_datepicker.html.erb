@@ -3,7 +3,7 @@
 	<div class="weeks_months"></div>
 	<% for i in -3..16 do %>
 		<%= link_to datepicker_path(date: Date.today + i), remote: true do %>
-		<table data-date=<%= "#{Date.today + i}" %>>
+		<table data-date=<%= "#{Date.today + i}" %> <%= "class='weeks'" if i == 1 || i == 7 || i == 14 %>
 			<tr>
 				<td class='months'>
 					<%= (Date.today + i).day == 1 ? raw("#{(Date.today + i).strftime("%b")}")  : raw("&nbsp;") %>
