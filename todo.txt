@@ -1,3 +1,10 @@
+From Feedback Fiesta
+----------
+some type of public feed (events first, then find viewers from there)
+
+tooltips explaining functionality
+
+'message attendees' functionality from inside event?
 
 operators agreement
 Terms & Conditions
@@ -25,10 +32,7 @@ new follower email link not working
 
 Make sure events always get served in time order
 
-Cron jobs environment set to production, don't know how to change, but still getting some output (pg_dump and also Event.check_tip_deadlines executing when dev server running.) - heroku scheduler
 	want to destroy events after they have passed... or at least destroy RSVPs / invitations, to maintain the tables- maybe store on some hard disk somewhere for records
-
-Landing page, about, contact
  
 	iPhone TODO:
 		Settings / Confirm viewers (3)
