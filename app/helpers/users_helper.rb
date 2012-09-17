@@ -83,7 +83,7 @@ module UsersHelper
     if user.avatar.present?
       invite_avatar(user, type: "square")
     elsif user.authentications.where(:provider == "Facebook").any?
-      user.authentications.find_by_provider("facebook").pic_url
+      "#{user.authentications.find_by_provider("facebook").pic_url}"
     elsif user.authentications.where(:provider == "Twitter").any?
       invite_twitter_picture(user, type: "normal") 
     else

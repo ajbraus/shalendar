@@ -56,8 +56,6 @@ group :assets do
   gem 'jquery-rails'#, '2.0.0'
 end
 
-
-
 group :test do
   gem 'faker', '1.0.1'
   gem 'capybara', '1.1.2'
