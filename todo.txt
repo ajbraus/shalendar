@@ -20,7 +20,8 @@ take out attendees from invite raster
 Make links from notifiers work and don't display the event id, make them hrefs from other words
 
 Mailers running in background
-	took this out of Procfile in favor or a resque worker: worker: bundle exec rake jobs:work
+	took this out of Procfile in favor or a resque worker: worker: bundle
+	exec rake jobs:work
 	Auto-scale workers
 
 Setup staging enviornment

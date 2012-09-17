@@ -16,3 +16,6 @@ task "jobs:work" => "apn:work"
 
 desc "Alias for gcm:work"
 task "jobs:work" => "gcm:work"
+
+desc "Alias for resque:work (To run workers on Heroku)"
+task "jobs:work" => "resque:work"
