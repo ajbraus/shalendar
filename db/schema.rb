@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120911023122) do
+ActiveRecord::Schema.define(:version => 20120914221241) do
 
   create_table "authentications", :force => true do |t|
     t.string   "provider"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20120911023122) do
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "pic_url"
   end
 
   add_index "authentications", ["uid"], :name => "index_authentications_on_uid", :unique => true

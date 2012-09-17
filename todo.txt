@@ -11,7 +11,6 @@ schedule tip cron job
 
 new follower email link not working
 
-
 Make sure events always get served in time order
 
 Cron jobs environment set to production, don't know how to change, but still getting some output (pg_dump and also Event.check_tip_deadlines executing when dev server running.) - heroku scheduler
@@ -36,9 +35,17 @@ Adam
 --------------
 
 Store FB pic URLs locally
-	add migration
-	update attribute on registration and session create
-	change all pic helpers
+	Data-migration - irreversible
+		add_column fb_pic_url, string, authentications
+		User.all.each - 
+			if user.authentication.where(provider="facebook")
+				fetch the url and store it in the new column
+			end
+	Omniauth controller
+		Capture url on registration
+		update attribute on session create
+	Users_helpers.rb
+		change all pic helpers (invite and normal)
 
 setup AWS s3 with heroku to store native profile pics
 
@@ -74,7 +81,7 @@ double-creating events by hitting enter twice (when trying to specify duration)-
 maps problem
 	gmaps4rails - no scroll, default to satilight view                                                                
                       
-Side note: put_wall_post posts to user/feeds, which doesn’t include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
+Side note: put_wall_post posts to user/feeds, which doesn’t `include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
 
 P t to facebook wall . . . not for private events
 post to rsvps facebook wall of friends of RSVPs
