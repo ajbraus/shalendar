@@ -24,6 +24,8 @@ Mailers running in background
 	exec rake jobs:work
 	Auto-scale workers
 
+	--for APN: had it working with a 'worker' (non-resque) with alias jobs:work=>apn:work, 
+
 Setup staging enviornment
 
 schedule tip cron job
