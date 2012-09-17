@@ -4,6 +4,14 @@ tooltips explaining functionality
 
 'message attendees' functionality from inside event?
 
+operators agreement
+Terms & Conditions
+info, support, dev, sales emails
+email signatures
+update git repo to company 
+
+
+
 Mike
 ------------
 
@@ -61,13 +69,11 @@ reduce roundtrips - get all the forecastoverview days upfront
 
 reduce logo file size and upload quality size
 
+redesign event in forecast
+
 
 FQL for find_friends
 
-
-tool tip invite raster
-
-test
 
 operators agreement
 
@@ -140,12 +146,28 @@ AFTER BETA LAUNCH
 
 		AJAX
 			confirmations - remove follower, cancel account
-			toggle/untoggle raster pics
 			comments
 			Invitation raster
 			tip!
 
-	pow
+Infrastructure
+	Staging
+	Tests
+
+Performance
+
+	benchmark 2 second page loads with #x users
+	mailers
+	Facebook URLs
+	Ajax
+	progressive page loading i.e. forecast with events after
+
+Mobile
+	Views
+	Only login through fb
+	New Idea
+	2 weeks 5hrs/day
+
 
 Get more users
 	
@@ -200,18 +222,23 @@ Fixes
 
 
 Features
+	payment gateway
+	public feed
+	map view / list view / forecast built / 14 day forecast
+	groups/lists
+	checklist - easy to plan hard things to plan.
 
-	Event Checklist- something to bring or a role to fill (eg a potluck or a music jam session in need of a drummer)
-
-
-What do we do with already finished events in a given day? - grey out the past
+	What do we do with already finished events in a given day? - grey out the past
 	Probably gray them out but still display? Or should we take them off the calendar as they're mostly irrelevant (but they still help for finding friends, make calendar more busy for better or worse)
 	
 	google calendar "add this to hoos.in".. and ADD THIS TO GoogleCal for rsvp'd events!
 
 	See old plans/ideas and be able to easily 'resurface' them, with guests as invites (in lightbox or some other way than scrolling back in calendar)
-		OldEvents model that holds events so that main searching doesn't have to handle larger array
+	
+	OldEvents model that holds events so that main searching doesn't have to handle larger array
 
+Node Satisfaction:
+	guest list
 
 	
 
@@ -219,7 +246,6 @@ What do we do with already finished events in a given day? - grey out the past
 
 	hide event/recurring event
 
-	
 	copy evite
 
 	List view of events/ 3 week 5 week view of events calendar
