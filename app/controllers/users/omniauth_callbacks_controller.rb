@@ -46,7 +46,8 @@ private
       uid = access_token.uid
       email = access_token.info.email
       token = access_token.credentials.token
-      pic_url = HTTParty.get("https://graph.facebook.com/#{uid}/picture")
+      @graph = Koala::Facebook::API.new
+      pic_url = @graph.get_picture(uid)
       auth_attr = { :uid => uid, :token => token, :secret => nil, :pic_url => pic_url }
     else
       raise 'Provider #{provider} not handled'
