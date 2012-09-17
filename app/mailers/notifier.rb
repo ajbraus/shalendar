@@ -94,9 +94,7 @@ class Notifier < ActionMailer::Base
   def time_change(event, user)
     @event = event
     @user= user
-    if(@user.iPhone_user == true)
-      APN.notify(g.APNtoken, {:alert => "#{event.title} has changed time!", :badge => 1, :sound => true})
-    end
+
     mail to: @user.email, subject: "Your plan has changed start time."
   end
 
