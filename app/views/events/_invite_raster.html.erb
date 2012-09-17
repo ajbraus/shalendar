@@ -5,7 +5,7 @@
   	<% unless f.invited?(event) %>
 	  	<%= form_for([event, event.invites.build]) do |i| %>
 	  		<%= i.hidden_field :email, value: f.email %>
-        <%= image_submit_tag("#{invite_raster_picture(f)}", class: "profile_picture") %>
+        <%= image_submit_tag("#{invite_raster_picture(f)}", class: "profile_picture", title: "#{f.name}") %>
       <% end %>
 	  <% end %>
 	<% end %>

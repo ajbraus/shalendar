@@ -649,12 +649,12 @@ form {
 /* Ribbon */
 
 #datepicker {
-  float:right;
-  width: 705px;
-  font-size:13px; 
-  height: 78px;
-  position: relative;
-  left: 13px;
+float: right;
+width: 785px;
+font-size: 17px;
+height: 91px;
+position: relative;
+left: 3px;
   table{
     float:left;
     width:5%;
@@ -664,6 +664,9 @@ form {
     }
     &:hover {
       background-color:#f2b041;
+    }
+    th {
+      font-size:11px;
     }
   }
   > table:nth-child(-n+3):hover {
@@ -675,27 +678,27 @@ form {
 }       
 
 #datewindow {
-border: 7px solid #EB8325;
-width: 103px;
-height: 77px;
+border: 7px solid #FF8500;
+width: 117px;
+height: 91px;
 position: absolute;
-left: 98px;
-top: -6px;
+left: 110px;
+top: -7px;
 z-index: -1;
 }
 
 .ideas_cloud {
-  background: url(new_idea_cloud.png) no-repeat;
-background-size: 40px;
-background-position: -6px -5px;
-  color:#4B9BED;
+background: url(new_idea_cloud.png) no-repeat;
+background-size: 49px;
+background-position: -6px -7px;
+color: #4B9BED;
 }
 
 .plan_box {
-  background: url(plan_icon.png) no-repeat;
-  background-size: 35px;
-  background-position: -4px -7px;
-  color:$dark_orange;
+background: url(plan_icon.png) no-repeat;
+background-size: 41px;
+background-position: -2px -9px;
+color: $dark_orange;
 }
 
 #new_idea {

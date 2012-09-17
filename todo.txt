@@ -75,10 +75,6 @@ redesign event in forecast
 FQL for find_friends
 
 
-tool tip invite raster
-
-test
-
 operators agreement
 
 transfer money to chase and into business account
