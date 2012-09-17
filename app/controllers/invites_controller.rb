@@ -11,9 +11,11 @@ class InvitesController < ApplicationController
         Notifier.invitation(@invite.email, @event, @invite.inviter_id).deliver
         format.html { redirect_to @event, notice: 'Invite was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
+        format.js
       else
         format.html { redirect_to @event, notice: 'Invite could not be saved.' }
         format.json { render json: @event.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
