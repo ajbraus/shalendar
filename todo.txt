@@ -71,9 +71,7 @@ reduce logo file size and upload quality size
 
 redesign event in forecast
 
-
 FQL for find_friends
-
 
 operators agreement
 
