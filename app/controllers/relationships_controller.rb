@@ -17,7 +17,6 @@ before_filter :authenticate_user!
         @followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
                                                        current_user_id: current_user.id)
         @graph = session[:graph]
-
         if params[:date] 
           @forecastevents = current_user.forecast(params[:date])
           @date = Date.strptime(params[:date], "%Y-%m-%d")

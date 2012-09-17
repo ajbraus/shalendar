@@ -40,10 +40,8 @@ module UsersHelper
     image_tag gravatar_url, alt: user.name, class: "profile_picture"
   end
 
-  def fb_picture(user, options = { type: "large", })
-  	fb_id = user.authentications.find_by_provider("Facebook").uid
-    type = options[:type]
-  	facebook_url = session[:graph].get_picture(fb_id, { type: type })
+  def fb_picture(user)
+  	facebook_url = user.authentications.find_by_provider("Facebook").pic_url
   	image_tag(facebook_url, alt: user.name, class: "profile_picture" )
   end
 
@@ -56,9 +54,9 @@ module UsersHelper
 
   def medium_profile_picture(user)
     if user.avatar.present?
-      image_tag(user.avatar.url(:medium), class: "profile_picture")
+      image_tag("http://s3.amazonaws.com/hoosin-production/#{user}/#{user.avatar}/medium/", class: "profile_picture")
     elsif user.authentications.where(:provider == "Facebook").any? 
-      fb_picture(user, type: "normal")
+      fb_picture(user)
     elsif user.authentications.where(:provider == "Twitter").any?
       twitter_picture(user, type: "normal") 
     else
@@ -68,9 +66,9 @@ module UsersHelper
 
   def raster_profile_picture(user)
     if user.avatar.present?
-      image_tag user.avatar.url(:raster), class: "profile_picture"
+      image_tag("http://s3.amazonaws.com/#{ENV['S3_BUCKET_NAME']}/#{user}/avatar/raster/", class: "profile_picture")
     elsif user.authentications.where(:provider == "Facebook").any?
-      fb_picture(user, type: "square")
+      fb_picture(user)
     elsif user.authentications.where(:provider == "Twitter").any?
       twitter_picture(user, type: "normal") 
     else
@@ -85,7 +83,7 @@ module UsersHelper
     if user.avatar.present?
       invite_avatar(user, type: "square")
     elsif user.authentications.where(:provider == "Facebook").any?
-      invite_fb_picture(user, type: "square")
+      user.authentications.find_by_provider("facebook").pic_url
     elsif user.authentications.where(:provider == "Twitter").any?
       invite_twitter_picture(user, type: "normal") 
     else
@@ -97,12 +95,6 @@ module UsersHelper
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
     size = options[:size]
     "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
-  end
-
-  def invite_fb_picture(user, options = { type: "large", })
-    fb_id = user.authentications.find_by_provider("Facebook").uid
-    type = options[:type]
-    @graph.get_picture(fb_id, { type: type })
   end
 
   def invite_twitter_picture(user, options = { type: "large", })
