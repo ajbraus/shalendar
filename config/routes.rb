@@ -80,6 +80,7 @@ Shalendar::Application.routes.draw do
   match '/user_ideas_on_date', :to => 'shalendar#user_ideas_on_date', :as => "user_ideas_on_date"
   match '/user_events_on_date', :to => 'shalendar#user_events_on_date', :as => "user_events_on_date"
 
+  mount Resque::Server.new, :at => '/resque'
   # match '/manage_follows/remove', :to => 'relationships#remove', :as => "remove"
 
   match 'search' => 'shalendar#search'
