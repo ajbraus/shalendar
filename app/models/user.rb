@@ -28,13 +28,7 @@ class User < ActiveRecord::Base
                                           :raster => "50x50#",
                                         },
                              :convert_options => { :medium => '-quality 30',
-                                                   :raster => '-quality 80' },
-                             :storage => :s3,
-                             :s3_credentials => {
-                                :bucket            => ENV['S3_BUCKET_NAME'],
-                                :access_key_id     => ENV['AWS_ACCESS_KEY_ID'],
-                                :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
-                              }
+                                                   :raster => '-quality 80' }
 
                             
   validates :avatar, # :attachment_presence => true,

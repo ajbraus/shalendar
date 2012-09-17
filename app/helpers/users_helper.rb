@@ -54,7 +54,7 @@ module UsersHelper
 
   def medium_profile_picture(user)
     if user.avatar.present?
-      image_tag("http://s3.amazonaws.com/hoosin-production/#{user}/#{user.avatar}/medium/", class: "profile_picture")
+      image_tag("#{user.avatar.url(:raster)}", class: "profile_picture")
     elsif user.authentications.where(:provider == "Facebook").any? 
       fb_picture(user)
     elsif user.authentications.where(:provider == "Twitter").any?
@@ -66,7 +66,7 @@ module UsersHelper
 
   def raster_profile_picture(user)
     if user.avatar.present?
-      image_tag("http://s3.amazonaws.com/#{ENV['S3_BUCKET_NAME']}/#{user}/avatar/raster/", class: "profile_picture")
+      image_tag("#{user.avatar.url(:raster)}", class: "profile_picture")
     elsif user.authentications.where(:provider == "Facebook").any?
       fb_picture(user)
     elsif user.authentications.where(:provider == "Twitter").any?
@@ -83,7 +83,7 @@ module UsersHelper
     if user.avatar.present?
       invite_avatar(user, type: "square")
     elsif user.authentications.where(:provider == "Facebook").any?
-      "#{user.authentications.find_by_provider("facebook").pic_url}"
+      "#{user.authentications.find_by_provider("Facebook").pic_url}"
     elsif user.authentications.where(:provider == "Twitter").any?
       invite_twitter_picture(user, type: "normal") 
     else
@@ -104,7 +104,7 @@ module UsersHelper
   end
 
   def invite_avatar(user, options = { type: "large", })
-    "#{user.avatar.url(:raster)}'>"
+    "#{user.avatar.url(:raster)}"
   end
 
 
