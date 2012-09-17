@@ -14,7 +14,7 @@ gem 'twilio-rb'
 gem 'apn_sender', :require => 'apn'
 gem 'daemons'
 #gem 'dalli'
-gem 'resque', :require => "resque/server"
+gem 'resque', "~> 1.22.0", :require => "resque/server"
 gem 'resque-heroku-autoscaler'
 gem 'redis'
 gem 'heroku'

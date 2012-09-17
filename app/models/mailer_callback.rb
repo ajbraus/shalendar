@@ -1,7 +1,7 @@
-#require 'resque/plugins/resque_heroku_autoscaler'
+require 'resque/plugins/resque_heroku_autoscaler'
 
 class MailerCallback
-	#extend Resque::Plugins::HerokuAutoscaler
+	extend Resque::Plugins::HerokuAutoscaler
 
   # resque queue name
   def self.queue
