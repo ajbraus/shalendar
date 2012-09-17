@@ -96,6 +96,9 @@ class Notifier < ActionMailer::Base
     @user= user
 
     mail to: @user.email, subject: "Your plan has changed start time."
+
+    rescue => ex
+    Airbrake.notify(ex)
   end
 
   def tip_or_destroy(event)
