@@ -358,7 +358,7 @@ DEPENDENCIES
   rails-i18n
   rails_autolink (~> 1.0.9)
   redis
-  resque
+  resque (~> 1.22.0)
   resque-heroku-autoscaler
   rspec-rails (= 2.10.1)
   sass-rails (= 3.2.4)
