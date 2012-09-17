@@ -1,7 +1,8 @@
 require 'resque/tasks'
  
 task "resque:setup" => :environment do
-ENV['QUEUE'] = '*'
+  ENV['QUEUE'] = '*'
+  Resque.after_fork = Proc.new { ActiveRecord::Base.establish_connection }
 end
  
 task "apn:setup" => :environment do
