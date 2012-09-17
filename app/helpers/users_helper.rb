@@ -41,7 +41,7 @@ module UsersHelper
   end
 
   def fb_picture(user)
-  	facebook_url = user.authentications.find_by_provider("Facebook").pic_url
+  	facebook_url = "#{user.authentications.find_by_provider("Facebook").pic_url}"
   	image_tag(facebook_url, alt: user.name, class: "profile_picture" )
   end
 

@@ -78,6 +78,8 @@ setup AWS s3 with heroku to store native profile pics
 
 Relationship create (check if on manage follows or on home and only ask for half the data)
 
+remove vendor/cache gems
+
 name in email
 
 Chronic error message unclear, dealing with chronic errors
