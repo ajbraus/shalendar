@@ -1,11 +1,16 @@
 <div id="datepicker">
 	<div id="datewindow"></div>
+	<div class="weeks_months"></div>
 	<% for i in -3..16 do %>
 		<%= link_to datepicker_path(date: Date.today + i), remote: true do %>
-		<table data-date=<%= "#{Date.today + i}" %>
+		<table data-date=<%= "#{Date.today + i}" %>>
+			<tr>
+				<td class='months'>
+					<%= (Date.today + i).day == 1 ? raw("#{(Date.today + i).strftime("%b")}")  : raw("&nbsp;") %>
+				</td>
 			<tr>
 				<th>
-					<%= i == 0 ? raw("<span class='red'>T</span>") : (Date.today + i).strftime("%a").slice!(0..1) + (Date.today + i).strftime("-%e") %>
+					<%= i == 0 ? raw("<span class='red'>#{(Date.today + i).strftime("%a").slice!(0..1) + (Date.today + i).strftime("-%e")}</span>") : (Date.today + i).strftime("%a").slice!(0..1) + (Date.today + i).strftime("-%e") %>
 		  	</th>
 		  </tr>
 		  <tr>

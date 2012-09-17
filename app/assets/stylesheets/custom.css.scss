@@ -652,13 +652,13 @@ form {
 float: right;
 width: 785px;
 font-size: 17px;
-height: 91px;
+height: 87px;
 position: relative;
 left: 3px;
+bottom: 11px;
   table{
     float:left;
     width:5%;
-    height:100%;
     td {
       text-align: center;
     }
@@ -667,6 +667,7 @@ left: 3px;
     }
     th {
       font-size:11px;
+      height:10px;
     }
   }
   > table:nth-child(-n+3):hover {
@@ -680,18 +681,27 @@ left: 3px;
 #datewindow {
 border: 7px solid #FF8500;
 width: 117px;
-height: 91px;
+height: 103px;
 position: absolute;
-left: 110px;
-top: -7px;
+left: 111px;
+top: -6px;
 z-index: -1;
+}
+
+.weeks {
+  border-left: 1px solid lightgray;
+}
+
+.months {
+height: 15px;
 }
 
 .ideas_cloud {
 background: url(new_idea_cloud.png) no-repeat;
 background-size: 49px;
-background-position: -6px -7px;
+background-position: -6px -6px;
 color: #4B9BED;
+height: 30px;
 }
 
 .plan_box {
@@ -699,6 +709,7 @@ background: url(plan_icon.png) no-repeat;
 background-size: 41px;
 background-position: -2px -9px;
 color: $dark_orange;
+height: 29px;
 }
 
 #new_idea {
