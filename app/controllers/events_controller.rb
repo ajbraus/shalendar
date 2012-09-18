@@ -104,13 +104,12 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
     @event = Event.find(params[:id])
-    logger.info("got here")
     @start_time = @event.starts_at #don't worry about timezone here bc only on server
     respond_to do |format|
       if @event.update_attributes(params[:event])
         if @start_time != @event.starts_at
           @event.guests.each do |g|
-            Resque.enqueue(MailerCallback, "Notifier", :time_change, @event, g)
+            Resque.enqueue(MailerCallback, "Notifier", :time_change, @event.id, g.id)
           end
         end
         format.html { redirect_to @event, notice: 'Idea was successfully updated.' }
