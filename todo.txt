@@ -57,6 +57,8 @@ lump together hide all view all
 
 ajaxify invitation raster
 
+toggle doesn't move datewindow anymore
+
 login every time (no remember me)
 
 hover to discover
