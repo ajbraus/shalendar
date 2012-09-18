@@ -91,7 +91,7 @@ class Notifier < ActionMailer::Base
     end
   end
 
-  def time_change(args)
+  def time_change(*args)
     @event = Event.find_by_id(args[0][:id])
     @user = User.find_by_id(args[1][:id])
     

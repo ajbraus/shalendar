@@ -11,9 +11,8 @@ class MailerCallback
   # resque callback method
   def self.perform(mailer, email_type, *args)
   	#logger.info("Got to perform the mailer callback with mailer = #{mailer} and event #{args[0]} and guest #{args[1]} ")
-    @event = args[0]
-    @user = args[1]
-    mailer.constantize.send(email_type, @event, @user).deliver
+
+    mailer.constantize.send(email_type, args).deliver
 
 	rescue => ex
 	  Airbrake.notify(ex)
