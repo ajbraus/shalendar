@@ -57,9 +57,9 @@ module UsersHelper
   end
 
   def raster_profile_picture(user)
-    if user.avatar.present?
-      image_tag("#{user.avatar.url(:raster)}", class: "profile_picture")
-    elsif user.authentications.where(:provider == "Facebook").any?
+    #if user.avatar.present?
+    #  image_tag("#{user.avatar.url(:raster)}", class: "profile_picture")
+    if user.authentications.where(:provider == "Facebook").any?
       fb_picture(user)
     elsif user.authentications.where(:provider == "Twitter").any?
       twitter_picture(user, type: "normal") 

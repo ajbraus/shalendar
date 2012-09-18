@@ -69,6 +69,8 @@ Ajax load event create form
 
 Relationship create (check if on manage follows or on home and only ask for half the data)
 
+better differentiator for toggled untoggled
+
 remove vendor/cache gems
 
 Chronic error message unclear, dealing with chronic errors
