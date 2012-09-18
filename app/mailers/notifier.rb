@@ -95,7 +95,9 @@ class Notifier < ActionMailer::Base
     @event = event
     @user= user
 
-    mail to: "msfenchel@gmail.com", from: "info@hoos.in", subject: "Your plan has changed start time."
+    Airbrake.notify(@user, @event)
+    
+    mail to: @user.email, subject: "Your plan has changed start time."
 
     rescue => ex
     Airbrake.notify(ex)
