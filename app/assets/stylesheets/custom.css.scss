@@ -1458,11 +1458,12 @@ top: 129px;
 }
 
 .title {
-  height: 237px;
-  width: 450px;
-  font-size: 30px;
-  line-height: 1;
-  position: relative;
+height: 208px;
+width: 450px;
+font-size: 30px;
+line-height: 1;
+position: relative;
+top: 11px;
 }
 
 .title_bottom {
@@ -1560,14 +1561,14 @@ height: 346px;
 }
 
 .nav_buttons {  
-  float:left;
-  width:400px;
-  margin-right: 27px;
-  height:54px;
-  position: absolute;
-  right:0;
-  top: 18px;
-  text-align: right;
+ float: left;
+width: 400px;
+margin-right: 27px;
+height: 60px;
+position: absolute;
+right: 0;
+top: 10px;
+text-align: right;
     .when {
     color: black;
 line-height: 28px;
@@ -1590,11 +1591,11 @@ font-size: 24px;
 }
 
 #guest_raster {
-  display: inline-block;
-  width: 482px;
-  float:left;  
-  height: 587px;
-  overflow-y: scroll;
+display: inline-block;
+width: 482px;
+float: left;
+overflow-y: scroll;
+min-height: 254px;
   table{
     width:30%;
   }
