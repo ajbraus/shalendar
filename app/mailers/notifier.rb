@@ -94,10 +94,8 @@ class Notifier < ActionMailer::Base
   def time_change(event, user)
     @event = event
     @user= user
-
-    Airbrake.notify(@user, @event)
     
-    mail to: @user.email, subject: "Your plan has changed start time."
+    mail to: @user[:email], subject: "Your plan has changed start time."
 
     rescue => ex
     Airbrake.notify(ex)
