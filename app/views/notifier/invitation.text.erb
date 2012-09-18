@@ -1,6 +1,10 @@
 Hey <% if @user.nil? == false %> <%= @user.first_name %> <% else %> there <% end %>,
 
-You're invited to <%= @event.title %> by <%= @inviter.name %>. Check out www.hoos.in/events/<%=@event.id%> to join.</td>
+<%= @inviter.name %> invited you to join something fun on hoos.in:
+
+<%= @event.title %>
+
+Check out www.hoos.in/events/<%=@event.id%> to join.</td>
 
 <% if @user.nil? %>
 hoos.in makes leading an adventurous, creative and all-together awesome social life easy... we're in beta and growing fast, check us out!
