@@ -115,8 +115,8 @@ class Notifier < ActionMailer::Base
     end
   end
 
-  def time_change(args)
-    @event = Event.find_by_id(args[0][:id].to_i)
+  def time_change(*args)
+    @event = Event.find_by_id(args[0][:id])
     @user = User.find_by_id(args[1][:id])
 
     if(@user.iPhone_user == true)
