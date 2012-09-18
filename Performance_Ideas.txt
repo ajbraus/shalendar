@@ -15,3 +15,6 @@ REFACTORING OPPORTUNITIES:
 Index DB on created_at so that the events are actually physically stored next to each other by time
 
 Events inviter_id only matters when it is served up, and is user-dependent: want a UserEvent subclass (good for mobile too)
+
+MINOR IMPROVEMENTS:
+use hash for all notifier stuff instead of finding by id at start
