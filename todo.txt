@@ -48,16 +48,20 @@ Make sure events always get served in time order
 Adam
 --------------
 
-setup AWS s3 with heroku to store native profile pics
+recieve an email every time your friend creates an event?
 
-       Paperclip 3.0 introduces a non-backward compatible change in your attachment
-       path. This will help to prevent attachment name clashes when you have
-       multiple attachments with the same name. If you didn't alter your
-       attachment's path and are using Paperclip's default, you'll have to add
-       `:path` and `:url` to your `has_attached_file` definition. For example:
-       has_attached_file :avatar,
-       :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
-       :url => "/system/:attachment/:id/:style/:filename"
+lump together hide all view all
+	create routes
+	create relationship controller actions
+	create js files
+
+ajaxify invitation raster
+
+login every time (no remember me)
+
+hover to discover
+
+how many facebook friends they have in their city
 
 maps problems
 
