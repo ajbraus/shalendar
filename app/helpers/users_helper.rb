@@ -1,12 +1,4 @@
 module UsersHelper
-  
-  def event_blerb(event)
-    if event.title.size >=26
-      event.title.slice(0..24) + "..."
-    else
-      event.title
-    end
-  end
 
   def friends_attending(event)
     f = event.guests.select { |a| current_user.following?(a) }

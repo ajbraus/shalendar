@@ -1,8 +1,9 @@
-<td><h2 style="font-size:18px;">Hey <%= @user.first_name %>,</h2></td>
-
 <tr>
-	<td style="padding:0 0 0 10px">Your planned idea: <%= @event.title %> has tipped. That means the plan is on- see you there!</td>
+	<td style="padding:20px 0 0 10px">An idea tipped!</td>
 </tr>
 <tr>
-	<td style="padding:0 0 0 10px">Check www.hoos.in/events/<%=@event.id%> for more details.</td>
+	<td style="padding:20px 0 10px 50px"><strong><%= @event.title %></strong></td>
+</tr>
+<tr>
+	<td style="padding:20px 0 10px 10px">See the activity's details <a href=<%= @event_link %>>here</a></td>
 </tr>

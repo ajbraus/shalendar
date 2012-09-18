@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
-  layout 'email' # use email.(html|text).erb as the layout for emails
-  default from: "info@hoos.in"
+  layout 'hoosin_email' # use email.(html|text).erb as the layout for emails
+  default from: "hoos.in info@hoos.in"
 
   # AD HOC NOTIFIERS
 
@@ -34,34 +34,59 @@ class Notifier < ActionMailer::Base
 
   def welcome(user)
     @user = user
-    mail to: user.email, subject: "Welcome to hoos.in, #{@user.first_name}!"
+    mail to: user.email, subject: "welcome to hoos.in"
   end
+
+  #PREFERENCE NOTIFIERS, DEFAULT YES
+
+  def confirm_follow(user, follower)
+    @user = user
+    @follower = follower
+    mail to: user.email, subject: "New View Request - #{@follower.name}"
+  end
+
+  def new_follower(user, follower)
+    @user = user
+    @follower = follower
+    mail to: user.email, subject: "New Viewer - #{@follower.name}"
+  end
+
+  def event_tipped(event, user)
+    @event = event
+    @user = user
+    @event_link = "http://www.hoos.in/events/#{event.id}"
+    if(@user.iPhone_user == true)
+      APN.notify(@user.APNtoken, {:alert => "#{@event.user.first_name}\'s plan for #{@event.event_day} tipped!", :badge => 1, :sound => true})
+    end
+    mail to: @user.email, subject: "Tipped - #{@event.event_day}\'s Idea Tipped! - #{@event.short_event_title}"
+  end
+
+  def tip_or_destroy(event)
+    @user = event.user
+    @event = event
+    if(@user.iPhone_user == true)
+      APN.notify(g.APNtoken, {:alert => "Untipped idea - #{@event.short_event_title}", :badge => 1, :sound => true})
+    end
+    mail to: @user.email, subject: "Untipped idea - #{@event.short_event_title}"
+  end
+
 
   def cancellation(event, user)
     @user = user
     @event = event
     if(@user.iPhone_user == true)
-      APN.notify(@user.APNtoken, {:alert => "#{event.title} Canceled!", :badge => 1, :sound => true})
+      APN.notify(@user.APNtoken, {:alert => "Canceled #{@event.title}", :badge => 1, :sound => true})
     end
-    mail to: @user.email, subject: "Your Plan got Canceled!"
-  end
-
-
-  def event_tipped(event, user)
-    @event = event
-    @user = user
-    if(@user.iPhone_user == true)
-      APN.notify(@user.APNtoken, {:alert => "#{event.title} has tipped!", :badge => 1, :sound => true})
-    end
-    mail to: @user.email, subject: "Your plan has tipped!"
+    mail to: @user.email, subject: "Cancellation - #{@event.event_day}, #{@event.short_event_title}" 
   end
 
   def rsvp_reminder(event, user)
     @user = user
     @event = event
+    @event_link = "http://www.hoos.in/events/#{event.id}"
 
     if(@user.iPhone_user == true)
-      APN.notify(@user.APNtoken, { :alert => "#{event.title} starting soon!", :badge => 1, :sound => true})
+      APN.notify(@user.APNtoken, { :alert => "#{@vent.title} starting soon!", :badge => 1, :sound => true})
     elsif(@user.android_user == true)
       #need to know how Gcm::Devices behave- do they persist?
       if(Gcm::Device.find_by_id(@user.GCMdevice_id).nil? == false)#if we have a device for user
@@ -73,13 +98,14 @@ class Notifier < ActionMailer::Base
         notification.save
       end
     end
-      mail to: @user.email, subject: "Reminder: Activity starts in 2 hours!"
+      mail to: @user.email, subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
   end
 
   def invitation(email, event, inviter_id)
     @event = event
     @email = email
     @inviter = User.find_by_id(inviter_id)
+    @event_link = "http://www.hoos.in/events/#{event.id}"
     #should we include here an invited by X to make them more likely to join?
     if @user = User.find_by_email(email)
       if(@user.iPhone_user == true)
@@ -87,39 +113,27 @@ class Notifier < ActionMailer::Base
       end
       mail to: @user.email, subject: "#{@inviter.name} sent you an invitation!" 
     else
-      mail to: email, subject: "#{@inviter.name} sent you an invitation!"
+      mail to: email, subject: "You're invited to #{@event.short_event_title}"
     end
   end
 
   def time_change(event, user)
     @event = event
     @user= user
-
-    mail to: @user.email, subject: "Your plan has changed start time."
-  end
-
-  def tip_or_destroy(event)
-    @user = event.user
-    @event = event
     if(@user.iPhone_user == true)
-      APN.notify(g.APNtoken, {:alert => "Untipped idea: either tip or cancel", :badge => 1, :sound => true})
+      APN.notify(g.APNtoken, {:alert => "Time Change - #{@event.short_event_title}", :badge => 1, :sound => true})
     end
-    mail to: @user.email, subject: "Untipped idea: please tip or cancel"
+    mail to: @user.email, subject: "Time Change - #{@event.short_event_title}"
   end
-
-  #PREFERENCE NOTIFIERS, DEFAULT YES
-
-  def confirm_follow(user, follower)
-    @user = user
-    @follower = follower
-    mail to: user.email, subject: "You have a view request from: #{follower.name}"
-  end
-
-  def new_follower(user, follower)
-    @user = user
-    @follower = follower
-    mail to: user.email, subject: "You have a new viewer: #{follower.name}"
-  end
+  
+  # def failed_to_tip(event, user)
+  #   @user = user
+  #   @event = event
+  #   if(@user.iPhone_user == true)
+  #     APN.notify(@user.APNtoken, {:alert => "Failed to Tip - #{@event.event_day}, #{@event.short_event_title}", :badge => 1, :sound => true})
+  #   end
+  #   mail to: @user.email, subject: "Failed to Tip - #{@event.event_day}, #{@event.short_event_title}" 
+  # end
   
   # def digest
   #   @users = User.where('users.allow_contact = "t"')

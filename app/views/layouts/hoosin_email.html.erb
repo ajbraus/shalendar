@@ -218,34 +218,28 @@ Email on Acid - http://www.emailonacid.com/blog/details/C18/doctype_-_the_black_
 		<td>
 
 		<!-- Tables are the most common way to format your email consistently. Set your table widths inside cells and in most cases reset cellpadding, cellspacing, and border to zero. Use nested tables as a way to space effectively in your message. -->
-		<table cellpadding="0" cellspacing="0" border="0" align="center" class="content">
+		<table cellpadding="0" cellspacing="0" border="0" class="content" style="padding:0 0 0 10px">
 			<tr>
 				<td width="200"><a href="http://www.hoos.in" width="200"> <img src="http://www.hoos.in/assets/logo.png" align="left" width="200"></a></td>
 			</tr>
-			<tr>
 				<%= yield %>
+		</table>
+
+		<table cellpadding="0" cellspacing="0" border="0"  align="center" class="signature">
+			<tr>
+				<td width="600" style="padding:30px 0px 0px 30px; font-size:12px;color:darkgrey;font-style:italic;">Sincerely,</td>
+			</tr>
+			<tr>
+				<td width="600" style="padding:10px 0px 30px 30px; font-size:12px;color:darkgrey;font-style:italic;">Mike and Adam on the hoos.in team</td>
 			</tr>
 		</table>
 
-		<table cellpadding="0" cellspacing="0" border="0" align="left" class="signature">
-			<tr align = "left">
-				<td width="600" valign="top" style="padding:10px 0 0 0; font-size:16px;">Cheers,
-				</td>
+		<table cellpadding="0"  align="left" border="0" id="footerTable" style="border-top:1px solid lightgrey;padding:10px 0;margin:10px 0">
+			<tr>
+				<td width="600" align="left">Visit your settings page to <a href="http://www.hoos.in/user/edit" style="color: grey; text-decoration: underline; cursor:default;">change notification settings</a></td>
 			</tr>
 			<tr>
-				<td width="600" valign="top"></td>
-			</tr>
-			<tr align="left">
-				<td width="600" valign="top" style="padding:10px 20px 20px 0; font-size:14px;">    Mike and Adam -The hoos.in team</td>
-			</tr>
-
-		</table>
-		<table cellpadding="0" align = "center" border="0" id="footerTable" style="border-top:1px solid lightgrey;padding:10px 0;margin:10px 0"
-			<tr>
-				<td width="600" valign="top">Visit your settings page to <a href="http://www.hoos.in/user/edit" style="color: grey; font-style:italic; text-decoration: none; cursor:default;">change notification settings</a></td>
-			</tr>
-			<tr>
-				<td width="600" valign="top" align="center" style="padding:15px 0 10px 0; font-size:10px;">Thanks for being one of our beta users- please <a href="mailto:info@hoos.in">let us know</a> if there's anything we can do to enhance your experience! </td>
+				<td width="600" align="left" style="padding:15px 0 10px 0px; font-size:10px;">Thanks for being one of our beta users- please <a href="mailto:info@hoos.in">let us know</a> if there's anything we can do to enhance your experience! </td>
 			</tr>
 		</table>
 

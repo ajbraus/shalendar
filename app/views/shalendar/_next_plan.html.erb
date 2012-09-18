@@ -2,7 +2,7 @@
 	<div class="next_plan_time"><%= next_event_date(event) %> <%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>
 	<a href="/events/<%= event.id %>">
 		<div class="event_pic"><%= raster_profile_picture(event.user) %></div>
-		<div class="next_event_blerb"><%= event_blerb(event) %></div>
+		<div class="next_event_blerb"><%= event.short_event_title %></div>
 		<% if event.tipped? %>
 			<div class="guest_count right"><i class="icon-group"></i>  <%= event.guests.count%></div>
 		<% else %>

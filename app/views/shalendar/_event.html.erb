@@ -21,7 +21,7 @@
 
 			<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
 			
-			<div class="event_blerb"><%= event_blerb(event) %></div>
+			<div class="event_blerb"><%= event.short_event_title %></div>
 			
 			<div class="guest_count">
 	      <% if event.visibility == "friends_of_friends" %>

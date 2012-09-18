@@ -1,11 +1,19 @@
 <td><h2 style="font-size:18px;">Hey <% if @user.nil? == false %> <%= @user.first_name %> <% else %> there <% end %>,</h2></td>
 
 <tr>
-	<td style="padding:0 0 0 10px">You're invited to <strong><%= @event.title %></strong> by <strong><%= @inviter.name %></strong>. Check out www.hoos.in/events/<%=@event.id%> to join.</td>
+	<td style="padding:10px 0 10px 10px"><strong><%= @inviter.name %></strong> invited you to an idea their planning on hoos.in:</td>
 </tr>
+
+<tr>
+	<td style="padding:20px 0 10px 50px"><strong><%= @event.title %></strong></td>
+</tr>
+
+<tr>
+	<td style="padding:20px 0 10px 10px"> Check out this idea's <a href=<%= @event_link %>>page on hoos.in</a> to join.</td>
+</tr>
+
 <% if @user.nil? %>
 	<tr>
-		<td style="padding:0 0 0 10px">hoos.in makes leading an adventurous, creative and all-together awesome social life easy... we're in beta and growing fast, check us out!</td>
+		<td style="padding:20px 0 10px 10px">hoos.in makes leading an adventurous, creative, and mobile social life easy... we're in beta and growing fast, check us out!</td>
 	</tr>
 <% end %>
-	

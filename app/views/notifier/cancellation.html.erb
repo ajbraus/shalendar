@@ -1,8 +1,10 @@
-<td><h2 style="font-size:18px;">Hey <%= @user.first_name %>,</h2></td>
+<tr>
+	<td style="padding:20px 0 0 10px">An activity you were planning on was cancelled:</td>
+</tr>
+<tr>
+	<td style="padding:20px 0 10px 50px"><strong><%= @event.title %>...</strong></td>
+</tr>
+<tr>
+	<td style="padding:20px 0 10px 10px">To view your forecast <a href="http://www.hoos.in">Click here</a></td>
+</tr>
 
-<tr>
-	<td style="padding:0 0 0 10px"><%= @event.user.name %> canceled your plan <%= @event.title %>...</td>
-</tr>
-<tr>
-	<td style="padding:0 0 0 10px">Either the idea failed to tip or they had to change plans. Hopefully they'll put it up again soon!</td>
-</tr>

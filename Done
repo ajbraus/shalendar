@@ -1,0 +1,12 @@
+Store FB pic URLs locally
+	Data-migration - irreversible
+		add_column fb_pic_url, string, authentications
+		User.all.each - 
+			if user.authentication.where(provider="facebook")
+				fetch the url and store it in the new column
+			end
+	Omniauth controller
+		Capture url on registration
+		update attribute on session create
+	Users_helpers.rb
+		change all pic helpers (invite and normal)

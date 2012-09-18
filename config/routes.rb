@@ -19,10 +19,7 @@ Shalendar::Application.routes.draw do
                               sign_out: "logout", 
                               sign_up: "join"
                             } 
-
-  #Autocomplete path for autocomplete gem
-  match'/autocomplete_email', to: 'shalendar#autocomplete_user_email', as: "autocomplete_email"
-
+                             
   # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
