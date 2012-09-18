@@ -357,6 +357,8 @@ margin: 0 auto;
 }
   ul {
     float:right;
+    position: relative;
+    right: 62px;
   }
   ul > li {
     display: inline;
