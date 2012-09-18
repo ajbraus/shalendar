@@ -15,9 +15,9 @@ update git repo to company
 Mike
 ------------
 
-take out attendees from invite raster
+Event#create post to facebook wall as background job
 
-Make links from notifiers work and don't display the event id, make them hrefs from other words
+take out attendees from invite raster
 
 Mailers running in background
 	took this out of Procfile in favor or a resque worker: worker: bundle
