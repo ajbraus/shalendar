@@ -91,9 +91,9 @@ class Notifier < ActionMailer::Base
     end
   end
 
-  def time_change(args)
-    @event = Event.find_by_id(args[0][:id])
-    @user= User.find_by_id(args[1][:id])
+  def time_change(event, user)
+    @event = Event.find_by_id(event[:id])
+    @user= User.find_by_id(user[:id])
     
     mail to: @user.email, subject: "Your plan has changed start time."
 
