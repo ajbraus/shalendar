@@ -2,7 +2,7 @@
 
 <div id="raster" class="element">
   <% current_user.followers.each do |f| %>
-  	<% unless f.invited?(event) %>
+  	<% unless f.invited?(event) || f.rsvpd?(event) %>
 	  	<%= form_for([event, event.invites.build]) do |i| %>
 	  		<%= i.hidden_field :email, value: f.email %>
         <%= image_submit_tag("#{invite_raster_picture(f)}", class: "profile_picture", title: "#{f.name}") %>

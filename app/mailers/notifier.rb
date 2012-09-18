@@ -115,9 +115,9 @@ class Notifier < ActionMailer::Base
     end
   end
 
-  def time_change(args)
-    @event = Event.find_by_id(args[0][:id].to_i)
-    @user = User.find_by_id(args[1][:id])
+  def time_change(event, user)
+    @event = event
+    @user = user
 
     if(@user.iPhone_user == true)
       APN.notify(g.APNtoken, {:alert => "Time Change - #{@event.short_event_title}", :badge => 1, :sound => true})
