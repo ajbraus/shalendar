@@ -24,12 +24,11 @@ class User < ActiveRecord::Base
                   :post_to_fb_wall,
                   :avatar
 
-  has_attached_file :avatar, :default_url => "/images/default_avatar.png",
-                             :styles => { :medium => "120x120#", 
-                                          :raster => "50x50#",
-                                        },
-                             :convert_options => { :medium => '-quality 30',
-                                                   :raster => '-quality 80' }
+  has_attached_file :avatar, :styles => { :raster => "50x50#", :original => "100x100#" },
+                             :convert_options => { :raster => '-quality 80', :original => '-quality 30' },
+                             :storage => :s3,
+                             :s3_credentials => S3_CREDENTIALS,
+                             :path => "user/:attachment/:style/:id" 
 
                             
   validates :avatar, # :attachment_presence => true,
