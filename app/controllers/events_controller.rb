@@ -104,6 +104,7 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
     @event = Event.find(params[:id])
+    logger.info("got here")
     @start_time = @event.starts_at #don't worry about timezone here bc only on server
     respond_to do |format|
       if @event.update_attributes(params[:event])

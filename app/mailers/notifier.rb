@@ -10,7 +10,7 @@ class Notifier < ActionMailer::Base
       "johnbwheel@gmail.com", "acconnel7@gmail.com", "nikolaiskievaski@gmail.com",
       "nolanbjohnson@gmail.com", "drew.cohen@epic.com", "Dkevitch@gmail.com",
       "SBwells@wisc.edu", "gstratch@gmail.com", "ohfortuna@gmail.com"]
-    mail bcc: @sbu_emails, subject: "hoos.in Launch!"
+    mail bcc: @sbu_emails, from: "info@hoos.in", subject: "hoos.in Launch!"
 
   end
 
@@ -28,7 +28,7 @@ class Notifier < ActionMailer::Base
                       "kari.k.design@gmail.com", "a.mearini@gmail.com", "reebz22@gmail.com", 
                       "msfenchel@gmail.com", "ajbraus@gmail.com"]
 
-    mail bcc: @friend_emails, subject: "hoos.in Launch!"
+    mail bcc: @friend_emails, from: "info@hoos.in", subject: "hoos.in Launch!"
   end
   #AUTOMATIC NOTIFIERS
 
@@ -111,19 +111,22 @@ class Notifier < ActionMailer::Base
       if(@user.iPhone_user == true)
         APN.notify(@user.APNtoken, {:alert => "#{@inviter.name} sent you an invitation!", :badge => 1, :sound => true})
       end
-      mail to: @user.email, subject: "#{@inviter.name} sent you an invitation!" 
-    else
       mail to: email, subject: "You're invited to #{@event.short_event_title}"
     end
   end
 
-  def time_change(event, user)
-    @event = event
-    @user= user
+  def time_change(args)
+    @event = Event.find_by_id(args[0][:id].to_i)
+    @user = User.find_by_id(args[1][:id])
+
     if(@user.iPhone_user == true)
       APN.notify(g.APNtoken, {:alert => "Time Change - #{@event.short_event_title}", :badge => 1, :sound => true})
     end
+
     mail to: @user.email, subject: "Time Change - #{@event.short_event_title}"
+    
+    rescue => ex
+    Airbrake.notify(ex)
   end
   
   # def failed_to_tip(event, user)
