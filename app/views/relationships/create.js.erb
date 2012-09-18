@@ -1,7 +1,11 @@
 $("div").withUserId(<%= @user.id %>).html("<%= escape_javascript(render partial: 'events/follow_form', locals: {user:  @user}) %>")
-//$("#following").html('<%= current_user.followed_users.count %>')
-$("#raster").html("<%= escape_javascript(render partial: 'shalendar/raster') %>")
-$("#forecast").html("<%= escape_javascript(render partial: 'shalendar/forecast') %>")
+//$("#following").html("<%= current_user.followed_users.count %>")
 
-$("#followers").html("<%= escape_javascript(render partial: 'shalendar/followers') %>")
-$("#following").html("<%= escape_javascript(render partial: 'shalendar/following') %>")
+if ($("#forecast")){
+	$("#raster").html("<%= escape_javascript(render partial: 'shalendar/raster') %>")
+	$("#forecast").html("<%= escape_javascript(render partial: 'shalendar/forecast') %>")
+}
+
+if ($("#following")){
+ 	$("#following").html("<%= escape_javascript(render partial: 'shalendar/following') %>")
+}
