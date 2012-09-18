@@ -202,7 +202,6 @@ Make money
 		Upgrade account
 
 Fixes
-	troubleshoot signing in twice from facebook
 	fix timezone
 	all events already over turn grey
 	If event is full, just not showing it in maybes right now - show as full

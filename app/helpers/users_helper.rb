@@ -26,23 +26,21 @@ module UsersHelper
   end
 
   def raster_profile_picture(user)
-    if user.avatar.present?
-      image_tag(user.avatar.url(:raster), class: "profile_picture")
-    elsif user.authentications.where(:provider == "Facebook").any?
-      fb_picture(user, type: "square")
+    if user.authentications.where(:provider == "Facebook").any?
+      fb_picture(user)
     elsif user.authentications.where(:provider == "Twitter").any?
       twitter_picture(user, type: "normal") 
     else
-      gravatar_for(user, :size => 50 )
+      image_tag user.avatar.url, class: "profile_picture"
     end
   end 
 
-  def gravatar_for(user, options = { size: 50, })
-    gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
-    size = options[:size]
-    gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
-    image_tag gravatar_url, alt: user.name, class: "profile_picture"
-  end
+  # def gravatar_for(user, options = { size: 50, })
+  #   gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
+  #   size = options[:size]
+  #   gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
+  #   image_tag gravatar_url, alt: user.name, class: "profile_picture"
+  # end
 
   def fb_picture(user)
   	facebook_url = "#{user.authentications.find_by_provider("Facebook").pic_url}"
@@ -55,26 +53,25 @@ module UsersHelper
     twitter_url = "https://api.twitter.com/1/users/profile_image?user_id=#{twitter_username}&size=#{type}"
     image_tag(twitter_url, alt: user.name, class: "profile_picture" )
   end
-  
+
 # Invite raster
 
   def invite_raster_picture(user)
-    if user.avatar.present?
-      user.avatar.url(:raster)
-    elsif user.authentications.where(:provider == "Facebook").any?
+    if user.authentications.where(:provider == "Facebook").any?
       "#{user.authentications.find_by_provider("Facebook").pic_url}"
     elsif user.authentications.where(:provider == "Twitter").any?
       invite_twitter_picture(user, type: "normal") 
     else
-      invite_gravatar_for(user, :size => 50 )
+      user.avatar.url
+      #invite_gravatar_for(user, :size => 50 )
     end
   end
 
-  def invite_gravatar_for(user, options = { size: 50, })
-    gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
-    size = options[:size]
-    "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
-  end
+  # def invite_gravatar_for(user, options = { size: 50, })
+  #   gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
+  #   size = options[:size]
+  #   "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
+  # end
 
   def invite_twitter_picture(user, options = { type: "large", })
     twitter_username = user.authentications.find_by_provider("Twitter").username

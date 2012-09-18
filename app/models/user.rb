@@ -24,8 +24,8 @@ class User < ActiveRecord::Base
                   :post_to_fb_wall,
                   :avatar
 
-  has_attached_file :avatar, :styles => { :raster => "50x50#", :original => "100x100#" },
-                             :convert_options => { :raster => '-quality 80', :original => '-quality 30' },
+  has_attached_file :avatar, :styles => { :original => "50x50#" },
+                             :convert_options => { :original => '-quality 40' },
                              :storage => :s3,
                              :s3_credentials => S3_CREDENTIALS,
                              :path => "user/:attachment/:style/:id" 
