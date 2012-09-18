@@ -76,12 +76,12 @@ class Notifier < ActionMailer::Base
       mail to: @user.email, subject: "Reminder: Activity starts in 2 hours!"
   end
 
-  def invitation(email, event, inviter_id)
-    @event = event
-    @email = email
-    @inviter = User.find_by_id(inviter_id)
+  def invitation(args)
+    @email = args[0]
+    @event = Event.find_by_id(args[1][:id])
+    @inviter = User.find_by_id(args[2])
     #should we include here an invited by X to make them more likely to join?
-    if @user = User.find_by_email(email)
+    if @user = User.find_by_email(@email)
       if(@user.iPhone_user == true)
         APN.notify(@user.APNtoken, {:alert => "#{@inviter.name} sent you an invitation!", :badge => 1, :sound => true})
       end
@@ -92,10 +92,10 @@ class Notifier < ActionMailer::Base
   end
 
   def time_change(args)
-    @event = args[0]
-    @user= args[1]
+    @event = Event.find_by_id(args[0][:id])
+    @user= User.find_by_id(args[1][:id])
     
-    mail to: @user[:email], subject: "Your plan has changed start time."
+    mail to: @user.email, subject: "Your plan has changed start time."
 
     rescue => ex
     Airbrake.notify(ex)
@@ -108,6 +108,8 @@ class Notifier < ActionMailer::Base
       APN.notify(g.APNtoken, {:alert => "Untipped idea: either tip or cancel", :badge => 1, :sound => true})
     end
     mail to: @user.email, subject: "Untipped idea: please tip or cancel"
+    rescue => ex
+    Airbrake.notify(ex)
   end
 
   #PREFERENCE NOTIFIERS, DEFAULT YES
