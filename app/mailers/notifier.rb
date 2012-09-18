@@ -34,7 +34,7 @@ class Notifier < ActionMailer::Base
 
   def welcome(user)
     @user = user
-    mail to: user.email, subject: "welcome to hoos.in"
+    mail to: user.email, from: "info@hoos.in", subject: "welcome to hoos.in"
   end
 
   #PREFERENCE NOTIFIERS, DEFAULT YES
@@ -42,13 +42,13 @@ class Notifier < ActionMailer::Base
   def confirm_follow(user, follower)
     @user = user
     @follower = follower
-    mail to: user.email, subject: "New View Request - #{@follower.name}"
+    mail to: user.email, from: "info@hoos.in", subject: "New View Request - #{@follower.name}"
   end
 
   def new_follower(user, follower)
     @user = user
     @follower = follower
-    mail to: user.email, subject: "New Viewer - #{@follower.name}"
+    mail to: user.email, from: "info@hoos.in", subject: "New Viewer - #{@follower.name}"
   end
 
   def event_tipped(event, user)
@@ -58,7 +58,7 @@ class Notifier < ActionMailer::Base
     if(@user.iPhone_user == true)
       APN.notify(@user.APNtoken, {:alert => "#{@event.user.first_name}\'s plan for #{@event.event_day} tipped!", :badge => 1, :sound => true})
     end
-    mail to: @user.email, subject: "Tipped - #{@event.event_day}\'s Idea Tipped! - #{@event.short_event_title}"
+    mail to: @user.email, from: "info@hoos.in", subject: "Tipped - #{@event.event_day}\'s Idea Tipped! - #{@event.short_event_title}"
   end
 
   def tip_or_destroy(event)
@@ -67,7 +67,7 @@ class Notifier < ActionMailer::Base
     if(@user.iPhone_user == true)
       APN.notify(g.APNtoken, {:alert => "Untipped idea - #{@event.short_event_title}", :badge => 1, :sound => true})
     end
-    mail to: @user.email, subject: "Untipped idea - #{@event.short_event_title}"
+    mail to: @user.email, from: "info@hoos.in", subject: "Untipped idea - #{@event.short_event_title}"
   end
 
 
@@ -77,7 +77,7 @@ class Notifier < ActionMailer::Base
     if(@user.iPhone_user == true)
       APN.notify(@user.APNtoken, {:alert => "Canceled #{@event.title}", :badge => 1, :sound => true})
     end
-    mail to: @user.email, subject: "Cancellation - #{@event.event_day}, #{@event.short_event_title}" 
+    mail to: @user.email, from: "info@hoos.in", subject: "Cancellation - #{@event.event_day}, #{@event.short_event_title}" 
   end
 
   def rsvp_reminder(event, user)
@@ -98,7 +98,7 @@ class Notifier < ActionMailer::Base
         notification.save
       end
     end
-      mail to: @user.email, subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
+      mail to: @user.email, from: "info@hoos.in", subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
   end
 
   def invitation(email, event, inviter_id)
@@ -111,7 +111,7 @@ class Notifier < ActionMailer::Base
       if(@user.iPhone_user == true)
         APN.notify(@user.APNtoken, {:alert => "#{@inviter.name} sent you an invitation!", :badge => 1, :sound => true})
       end
-      mail to: email, subject: "You're invited to #{@event.short_event_title}"
+      mail to: email, from: "info@hoos.in", subject: "You're invited to #{@event.short_event_title}"
     end
   end
 
@@ -123,7 +123,7 @@ class Notifier < ActionMailer::Base
       APN.notify(g.APNtoken, {:alert => "Time Change - #{@event.short_event_title}", :badge => 1, :sound => true})
     end
 
-    mail to: @user.email, subject: "Time Change - #{@event.short_event_title}"
+    mail to: @user.email, from: "info@hoos.in", subject: "Time Change - #{@event.short_event_title}"
     
     rescue => ex
     Airbrake.notify(ex)
