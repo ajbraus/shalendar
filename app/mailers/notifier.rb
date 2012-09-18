@@ -122,7 +122,7 @@ class Notifier < ActionMailer::Base
     @user = User.find_by_id(args[1])
 
     if(@user.iPhone_user == true)
-      APN.notify(g.APNtoken, {:alert => "Time Change - #{@event.short_event_title}", :badge => 1, :sound => true})
+      APN.notify(@user.APNtoken, {:alert => "Time Change - #{@event.short_event_title}", :badge => 1, :sound => true})
     end
 
     mail to: @user.email, from: "info@hoos.in", subject: "Time Change - #{@event.short_event_title}"
