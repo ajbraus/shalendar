@@ -9,7 +9,6 @@ javascript not hitting server
 	Event
 		set data-user-id => data-inviter-id and remake ajax
 
-
 REFACTORING OPPORTUNITIES:
 
 Index DB on created_at so that the events are actually physically stored next to each other by time
