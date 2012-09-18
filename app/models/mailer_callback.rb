@@ -1,7 +1,7 @@
-#require 'resque/plugins/resque_heroku_autoscaler'
+require 'resque/plugins/resque_heroku_autoscaler'
 
 class MailerCallback
-	#extend Resque::Plugins::HerokuAutoscaler
+	extend Resque::Plugins::HerokuAutoscaler
 
   # resque queue name
   def self.queue
@@ -10,8 +10,6 @@ class MailerCallback
 
   # resque callback method
   def self.perform(mailer, email_type, *args)
-  	#logger.info("Got to perform the mailer callback with mailer = #{mailer} and event #{args[0]} and guest #{args[1]} ")
-
     mailer.constantize.send(email_type, *args).deliver
 
 	rescue => ex
