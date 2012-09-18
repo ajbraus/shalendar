@@ -110,10 +110,6 @@ class EventsController < ApplicationController
       if @event.update_attributes(params[:event])
         if @start_time != @event.starts_at
           @event.guests.each do |g|
-            #Notifier.time_change(@event, g).deliver
-            if(g.iPhone_user == true)
-              APN.notify(g.APNtoken, {:alert => "#{@event.title} has changed time!", :badge => 1, :sound => true})
-            end
             Resque.enqueue(MailerCallback, "Notifier", :time_change, @event, g)
           end
         end
