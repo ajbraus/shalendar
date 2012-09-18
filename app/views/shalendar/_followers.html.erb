@@ -6,7 +6,7 @@
         <tr>
           <td width="50px"><%= raster_profile_picture(fr.follower) %></td>
           <td width="150px"><%= fr.follower.name %></td>
-          <td width="250px">
+          <td width="100px">
             <%= link_to "Remove", relationship_remove_path(fr), class: "fadeInRed", method: :delete, confirm: "Are you sure #{fr.follower.name} should no longer be able to view your ideas?" %>
           </td>
           <td>
