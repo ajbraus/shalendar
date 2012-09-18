@@ -101,10 +101,14 @@ class Notifier < ActionMailer::Base
       mail to: @user.email, from: "info@hoos.in", subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
   end
 
-  def invitation(*args)
+  def invitation(invite, event)
 
-    @invite = Invite.find_by_id(args[0])
-    @event = Event.find_by_id(args[1])
+    # @invite = Invite.find_by_id(args[0])
+    # @event = Event.find_by_id(args[1])
+    # @inviter = User.find_by_id(@invite.inviter_id)
+
+    @invite = invite
+    @event = event
     @inviter = User.find_by_id(@invite.inviter_id)
     @event_link = "http://www.hoos.in/events/#{@event.id}"
     #should we include here an invited by X to make them more likely to join?
