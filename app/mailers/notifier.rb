@@ -101,23 +101,26 @@ class Notifier < ActionMailer::Base
       mail to: @user.email, from: "info@hoos.in", subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
   end
 
-  def invitation(email, event, inviter_id)
-    @event = event
-    @email = email
-    @inviter = User.find_by_id(inviter_id)
-    @event_link = "http://www.hoos.in/events/#{event.id}"
+  def invitation(*args)
+
+    @invite = Invite.find_by_id(args[0])
+    @event = Event.find_by_id(args[1])
+    @inviter = User.find_by_id(@invite.inviter_id)
+    @event_link = "http://www.hoos.in/events/#{@event.id}"
     #should we include here an invited by X to make them more likely to join?
-    if @user = User.find_by_email(email)
+    if @user = User.find_by_email(@invite.email)
       if(@user.iPhone_user == true)
         APN.notify(@user.APNtoken, {:alert => "#{@inviter.name} sent you an invitation!", :badge => 1, :sound => true})
       end
-      mail to: email, from: "info@hoos.in", subject: "You're invited to #{@event.short_event_title}"
+      mail to: @user.email, from: "info@hoos.in", subject: "You're invited to #{@event.short_event_title}"
+    else
+      mail to: @invite.email, from: "info@hoos.in", subject: "#{@inviter.name} sent you an invitation"
     end
+
   end
 
   def time_change(*args)
-    logger.info("event id: #{args[0]}, user name: #{args[1]}")
-    logger.info("the whole args array:  #{args}")
+
     @event = Event.find_by_id(args[0])
     @user = User.find_by_id(args[1])
 

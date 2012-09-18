@@ -8,7 +8,8 @@ class InvitesController < ApplicationController
 
     respond_to do |format|
       if @invite.save
-        Notifier.invitation(@invite.email, @event, @invite.inviter_id).deliver
+        Resque.enqueue(MailerCallback, "Notifier", :invitation, @invite.id, @event.id)
+        #Notifier.invitation(@invite.email, @event, @invite.inviter_id).deliver
         format.html { redirect_to @event, notice: 'Invite was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
         format.js
