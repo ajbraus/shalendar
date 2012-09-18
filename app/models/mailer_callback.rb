@@ -12,7 +12,7 @@ class MailerCallback
   def self.perform(mailer, email_type, *args)
   	#logger.info("Got to perform the mailer callback with mailer = #{mailer} and event #{args[0]} and guest #{args[1]} ")
 
-    mailer.constantize.send(email_type, args).deliver
+    mailer.constantize.send(email_type, *args).deliver
 
 	rescue => ex
 	  Airbrake.notify(ex)
