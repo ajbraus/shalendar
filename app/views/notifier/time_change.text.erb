@@ -1,3 +1,3 @@
-Hey <%= @user.first_name %>,
+Hey <%= @user[:first_name] %>,
 
-Your plan: <%= @event.title %> has changed times. Make sure you can still make it at: www.hoos.in/events/<%=@event.id%>
+Your plan: <%= @event[:title] %> has changed times. Check the details at www.hoos.in/events/<%=@event[:id]%>
