@@ -65,6 +65,8 @@ Store FB pic URLs locally
 	Users_helpers.rb
 		change all pic helpers (invite and normal)
 
+Event edit page sets visibility and tipping point back to original defaults- need to fix
+
 setup AWS s3 with heroku to store native profile pics
 
        Paperclip 3.0 introduces a non-backward compatible change in your attachment

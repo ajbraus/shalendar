@@ -10,7 +10,7 @@ class Notifier < ActionMailer::Base
       "johnbwheel@gmail.com", "acconnel7@gmail.com", "nikolaiskievaski@gmail.com",
       "nolanbjohnson@gmail.com", "drew.cohen@epic.com", "Dkevitch@gmail.com",
       "SBwells@wisc.edu", "gstratch@gmail.com", "ohfortuna@gmail.com"]
-    mail bcc: @sbu_emails, subject: "hoos.in Launch!"
+    mail bcc: @sbu_emails, from: "info@hoos.in", subject: "hoos.in Launch!"
 
   end
 
@@ -28,13 +28,13 @@ class Notifier < ActionMailer::Base
                       "kari.k.design@gmail.com", "a.mearini@gmail.com", "reebz22@gmail.com", 
                       "msfenchel@gmail.com", "ajbraus@gmail.com"]
 
-    mail bcc: @friend_emails, subject: "hoos.in Launch!"
+    mail bcc: @friend_emails, from: "info@hoos.in", subject: "hoos.in Launch!"
   end
   #AUTOMATIC NOTIFIERS
 
   def welcome(user)
     @user = user
-    mail to: user.email, subject: "Welcome to hoos.in, #{@user.first_name}!"
+    mail to: user.email, from: "info@hoos.in", subject: "Welcome to hoos.in, #{@user.first_name}!"
   end
 
   def cancellation(event, user)
@@ -43,7 +43,7 @@ class Notifier < ActionMailer::Base
     if(@user.iPhone_user == true)
       APN.notify(@user.APNtoken, {:alert => "#{event.title} Canceled!", :badge => 1, :sound => true})
     end
-    mail to: @user.email, subject: "Your Plan got Canceled!"
+    mail to: @user.email, from: "info@hoos.in", subject: "Your Plan got Canceled!"
   end
 
 
@@ -53,7 +53,7 @@ class Notifier < ActionMailer::Base
     if(@user.iPhone_user == true)
       APN.notify(@user.APNtoken, {:alert => "#{event.title} has tipped!", :badge => 1, :sound => true})
     end
-    mail to: @user.email, subject: "Your plan has tipped!"
+    mail to: @user.email, from: "info@hoos.in", subject: "Your plan has tipped!"
   end
 
   def rsvp_reminder(event, user)
@@ -73,7 +73,7 @@ class Notifier < ActionMailer::Base
         notification.save
       end
     end
-      mail to: @user.email, subject: "Reminder: Activity starts in 2 hours!"
+      mail to: @user.email, from: "info@hoos.in", subject: "Reminder: Activity starts in 2 hours!"
   end
 
   def invitation(email, event, inviter_id)
@@ -85,17 +85,17 @@ class Notifier < ActionMailer::Base
       if(@user.iPhone_user == true)
         APN.notify(@user.APNtoken, {:alert => "#{@inviter.name} sent you an invitation!", :badge => 1, :sound => true})
       end
-      mail to: @user.email, subject: "#{@inviter.name} sent you an invitation!" 
+      mail to: @user.email, from: "info@hoos.in", subject: "#{@inviter.name} sent you an invitation!" 
     else
-      mail to: email, subject: "#{@inviter.name} sent you an invitation!"
+      mail to: email, from: "info@hoos.in", subject: "#{@inviter.name} sent you an invitation!"
     end
   end
 
-  def time_change(event, user)
-    @event = Event.find_by_id(event[:id])
-    @user= User.find_by_id(user[:id])
+  def time_change(args)
+    @event = Event.find_by_id(args[0][:id])
+    @user = User.find_by_id(args[1][:id])
     
-    mail to: @user.email, subject: "Your plan has changed start time."
+    mail to: @user.email, from: "info@hoos.in", subject: "Your plan has changed start time."
 
     rescue => ex
     Airbrake.notify(ex)
@@ -107,7 +107,7 @@ class Notifier < ActionMailer::Base
     if(@user.iPhone_user == true)
       APN.notify(g.APNtoken, {:alert => "Untipped idea: either tip or cancel", :badge => 1, :sound => true})
     end
-    mail to: @user.email, subject: "Untipped idea: please tip or cancel"
+    mail to: @user.email, from: "info@hoos.in", subject: "Untipped idea: please tip or cancel"
     rescue => ex
     Airbrake.notify(ex)
   end
@@ -117,13 +117,13 @@ class Notifier < ActionMailer::Base
   def confirm_follow(user, follower)
     @user = user
     @follower = follower
-    mail to: user.email, subject: "You have a view request from: #{follower.name}"
+    mail to: user.email, from: "info@hoos.in", subject: "You have a view request from: #{follower.name}"
   end
 
   def new_follower(user, follower)
     @user = user
     @follower = follower
-    mail to: user.email, subject: "You have a new viewer: #{follower.name}"
+    mail to: user.email, from: "info@hoos.in", subject: "You have a new viewer: #{follower.name}"
   end
   
   # def digest
