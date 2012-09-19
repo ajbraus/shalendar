@@ -860,6 +860,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#372c8b', end
   .guest_count {
     color:$destroy;
   }
+  .host {
+    color:black;
+  }
 }
 
 .not_tipped_not_rsvpd {
@@ -892,9 +895,8 @@ top: 4px;
 
 .event_blerb {
 float: left;
-width: 207px;
-height: 20px;
-margin-right: 38px;
+width: 220px;
+height: 35px;
 position: absolute;
 left: 62px;
 top: 23px;
@@ -921,8 +923,8 @@ height: 14px;
 
 .guest_count {
   position:absolute;
-right: 62px;
-width: 53px;
+right: 44px;
+width: 70px;
   text-align: right;
   bottom:0;
 }
