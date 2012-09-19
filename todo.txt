@@ -15,6 +15,8 @@ update git repo to company
 Mike
 ------------
 
+timezone is wrong - switches to wednesday around 6pm on tuesday.
+
 Event#create post to facebook wall as background job
 
 take out attendees from invite raster
@@ -48,7 +50,17 @@ Make sure events always get served in time order
 Adam
 --------------
 
-recieve an email every time your friend creates an event?
+users are not interacting enough because
+	1. they can't connect with each other
+	2. They don't know what's going on
+	3. Their friends don't know what their doing.
+
+Solutions:
+	recieve an email every time your friend creates an event?
+	A "Event's you've not seen" dropdown with cache counter
+	A daily/3 day digets Mon-Wed, Wed-Fri, Fri-Sun
+	Two view buttons "(view/stop viewing) (invite to view me/remove buttons)"
+
 
 lump together hide all view all
 	create routes

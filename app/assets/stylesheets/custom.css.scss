@@ -276,6 +276,7 @@ background-repeat: repeat-x;
 border-color: #F89406 #F89406 #AD6704;
 filter: progid:dximagetransform.microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
 filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+margin-top: 11px;
 }
 
 .btn-success {
@@ -923,7 +924,7 @@ height: 14px;
 
 .guest_count {
   position:absolute;
-right: 44px;
+right: 48px;
 width: 70px;
   text-align: right;
   bottom:0;
@@ -1311,6 +1312,7 @@ width: 971px;
 height: 100%;
 margin: 0 auto;
 float: right;
+line-height: 1.5;
   form {
     float:left;
     width:70%;
@@ -1338,7 +1340,7 @@ float: right;
 
 #personal {
   float:left;
-  width: 239px;
+width: 225px;
   margin-top:25px;
   .fb_button {
     float: left;
