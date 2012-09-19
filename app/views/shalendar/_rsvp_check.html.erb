@@ -2,7 +2,7 @@
 	<%= form_for(current_user.rsvps.find_by_plan_id(event),
            html: { method: :delete },
            remote: true) do |f| %>
-	  <%= f.submit "I'm in", class: "btn_icon btn_icon_unrsvp" %>
+	  <%= f.submit "in!", class: "btn_icon btn_icon_unrsvp" %>
 	<% end %>
 <% elsif event.full? %>
 	<i class="icon-ban-circle btn_icon" title="Event Full"></i>

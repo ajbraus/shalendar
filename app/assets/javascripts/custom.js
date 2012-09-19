@@ -35,10 +35,12 @@ $(document).bind('click', function(e) {
 
   $("#addLink").click(function () {
    $("#addLinkp").slideToggle();
+   $(".btn-new-idea").fancybox.update();
   });
 
   $("#addmap").click(function () {
    $('#addmapp').slideToggle();
+   $(".btn-new-idea").fancybox.update();
   });
 
 // VISIBILITY RADIO BUTTONSET
