@@ -18,11 +18,11 @@
     <% end %>
     <div class="event_visibility">  
       <% if @event.visibility == "friends_of_friends" %>
-        <i class="icon-bullhorn"></i>
+        <i class="icon-bullhorn" title="Friends People Coming"></i>
       <% elsif @event.visibility == "friends" %>
-        <i class="icon-group"></i>
+        <i class="icon-group" title="Friends"></i>
       <% elsif @event.visibility == "invite_only" %>
-        <i class="icon-envelope"></i>
+        <i class="icon-envelope" title="Only Invites"></i>
       <% end %>
       <%= @event.guests.count %>
     </div>

@@ -21,8 +21,6 @@
 $(document).ready(function(){			// Script executed on DOM load
 	var elT = $("[title]");			// Store all title attributes in a variable for further usage
 
-
-
 	elT.mouseover(function(){					// Function applied to title attribute on mouse over
 		var elemlT = $(this).attr('title');		// Store title information in a variable for further usage
 		this.tip = this.title;					// Copy and expand littleTIP

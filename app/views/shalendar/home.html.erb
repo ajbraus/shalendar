@@ -29,21 +29,16 @@
 
 <%= render 'how_it_works' %>
 
-<% if false %>
-This keeps coming up their entire first session on every page load!
-	<% if session[:graph] %>
-		<% if current_user.authentications.where(:provider == "Facebook").present? and current_user.sign_in_count == 1 %>
-			<script> 
-				function Func1() { 
-					//alert("ahh!")
-					$(".find_friends").click();
-					//clickLink(".find_friends")
-					}
-				function Func1Delay() { 
-					setTimeout("Func1()", 1000);
-					}
-				document.ready(Func1Delay());
-			</script>
-		<% end %>
-	<% end %>
+<% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
+	<script> 
+		function Func1() { 
+			//alert("ahh!")
+			$(".find_friends").click();
+			//clickLink(".find_friends")
+			}
+		function Func1Delay() { 
+			setTimeout("Func1()", 1000);
+			}
+		document.ready(Func1Delay());
+	</script>
 <% end %>

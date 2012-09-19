@@ -15,6 +15,8 @@ update git repo to company
 Mike
 ------------
 
+timezone is wrong - switches to wednesday around 6pm on tuesday.
+
 Event#create post to facebook wall as background job
 
 take out attendees from invite raster
@@ -23,10 +25,6 @@ Mailers running in background
 	took this out of Procfile in favor or a resque worker: worker: bundle
 	exec rake jobs:work
 	Auto-scale workers
-
-	--for APN: had it working with a 'worker' (non-resque) with alias jobs:work=>apn:work, 
-
-Setup staging enviornment
 
 schedule tip cron job
 
@@ -52,16 +50,40 @@ Make sure events always get served in time order
 Adam
 --------------
 
-setup AWS s3 with heroku to store native profile pics
+facebook to launch immediately
 
-       Paperclip 3.0 introduces a non-backward compatible change in your attachment
-       path. This will help to prevent attachment name clashes when you have
-       multiple attachments with the same name. If you didn't alter your
-       attachment's path and are using Paperclip's default, you'll have to add
-       `:path` and `:url` to your `has_attached_file` definition. For example:
-       has_attached_file :avatar,
-       :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
-       :url => "/system/:attachment/:id/:style/:filename"
+invite email date and time! RSVP button Image of the inviter. Address if there is one.
+
+I am your forecast and I live to serve
+
+you have a new confirmed! email
+
+users are not interacting enough because
+	1. they can't connect with each other
+	2. They don't know what's going on
+	3. Their friends don't know what their doing.
+
+Solutions:
+	recieve an email every time your friend creates an event?
+	A "Event's you've not seen" dropdown with cache counter
+	A daily/3 day digets Mon-Wed, Wed-Fri, Fri-Sun
+	Two view buttons "(view/stop viewing) (invite to view me/remove buttons)"
+
+
+lump together hide all view all
+	create routes
+	create relationship controller actions
+	create js files
+
+ajaxify invitation raster
+
+toggle doesn't move datewindow anymore
+
+login every time (no remember me)
+
+hover to discover
+
+how many facebook friends they have in their city
 
 maps problems
 
@@ -206,7 +228,6 @@ Make money
 		Upgrade account
 
 Fixes
-	troubleshoot signing in twice from facebook
 	fix timezone
 	all events already over turn grey
 	If event is full, just not showing it in maybes right now - show as full

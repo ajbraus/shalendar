@@ -5,26 +5,6 @@ $(document).ready(function() {
 // FIND FRIENDS LIGHTBOX SHOW UPON FIRST LOGIN
 
 
-// I'M IN AND NOT IN BTNS CHANGING
-
-	$(".btn_icon_unrsvp").hover(
-		function() {
-			$(this).val("not in");
-		},
-		function() {
-			$(this).val("I'm in");
-		});
-
-	$(".btn_icon_rsvp").hover(
-		function() {
-			$(this).val("I'm in");
-		},
-		function() {
-			$(this).val("not in");
-		});
-
-
-
 // SETTINGS DROPDOWN
 
 $(".dropdown dt a").click(function() {
@@ -55,10 +35,12 @@ $(document).bind('click', function(e) {
 
   $("#addLink").click(function () {
    $("#addLinkp").slideToggle();
+   $(".btn-new-idea").fancybox.update();
   });
 
   $("#addmap").click(function () {
    $('#addmapp').slideToggle();
+   $(".btn-new-idea").fancybox.update();
   });
 
 // VISIBILITY RADIO BUTTONSET
