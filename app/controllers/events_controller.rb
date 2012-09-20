@@ -48,11 +48,13 @@ class EventsController < ApplicationController
           @event.tipped = true
           @event.save
         end
-        if @event.invite_all_friends?
+
+        if params[:event][:invite_all_friends] == true
           current_user.invite_all_friends!(@event)
         end
+        
 
-        if current_user.post_to_fb_wall? && session[:graph] && @event.visibility == "friends_of_friends" #&& Rails.env.production?
+        if current_user.post_to_fb_wall? && session[:graph] && params[:event][:invite_all_friends] && @event.guests_can_invite_friends? #&& Rails.env.production?
           # @graph = Koala::Facebook::API.new(session[:access_token])
           session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
                                               :link => "http://www.hoos.in/events/#{@event.id}", 
@@ -60,13 +62,9 @@ class EventsController < ApplicationController
                                               })
         end
 
-        # if @event.visibility == "invite_only"
         format.html { redirect_to @event }
         format.json { render json: @event, status: :created, location: @event }
-        # else
-        #   format.html { redirect_to home_path, notice: "Idea posted! #{@event.title.slice(0..40)}, #{@event.starts_at.strftime "%l:%M%P, %A %B %e"}: "}
-        #   format.json { render json: home_path, status: :created, location: @event }
-        # end
+
       else
         format.html { redirect_to home_path, notice: "Idea could not be posted. Please try again." }
         format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -81,13 +79,6 @@ class EventsController < ApplicationController
     @guests = @event.guests
     @json = @event.to_gmaps4rails
     
-    # @event.invites.each do |i|
-    #   if u = User.find_by_email(i.email)
-    #     @invited_users.push(u)
-    #   else
-    #     @invites.push(i)
-    #   end
-    # end
     @email_invites = @event.email_invites
     @invited_users = @event.invited_users - @event.guests
 

@@ -2,8 +2,16 @@ $(document).ready(function() {
 
 	$("div.alert").delay(5000).fadeOut(1000);
 
-// FIND FRIENDS LIGHTBOX SHOW UPON FIRST LOGIN
+// DATEPICKERDAY
 
+$('#forecast')
+
+$('#datePickerDay').click(function(){
+  dw_position = $(this).position()
+  dw_current_position = $('#datewindow').position()
+  $('#datewindow').animate({ left: position.left - 5 }, 500)
+  $('.forecast').animate({ left: 322 }, 500)
+});
 
 // SETTINGS DROPDOWN
 

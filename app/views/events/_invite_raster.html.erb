@@ -1,13 +1,13 @@
-<p>Or by Clicking</p>
+<p>Click to Give Invitation</p>
 
 <div id="raster" class="element">
   <% current_user.followers.each do |f| %>
   	<% unless f.invited?(event) || f.rsvpd?(event) %>
-  		<%# **UPDATE- shouldn't be email value anymore, should be invited_user_id (inviter_id and invited_event_id are already known from current user and event)%>
-	  	<%= form_for([event, event.invitations.build]) do |i| %>
-	  		<%= i.hidden_field :email, value: f.email %>
-        <%= image_submit_tag("#{invite_raster_picture(f)}", class: "profile_picture", title: "#{f.name}") %>
-      <% end %>
+  		<%= form_for(f.invitations.build(invited_event_id: event.id, inviter_id: current_user.id), remote: true do |i|%>
+  			<%= i.hidden_field :inviter_id %>
+  			<%= i.hidden_field :invited_event_id %>
+  		  <%= image_submit_tag("#{invite_raster_picture(f)}", class: "profile_picture", title: "#{f.name}") %>
+  		<% end %>
 	  <% end %>
 	<% end %>
 </div>

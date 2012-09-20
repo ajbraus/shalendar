@@ -25,6 +25,8 @@ Mailers running in background
 
 schedule tip cron job- what exactly should we do?
 
+destroy old emailInvites and invitations
+
 new follower email link not working
 
 Make sure events always get served in time order
@@ -46,7 +48,7 @@ Make sure events always get served in time order
 
 Adam
 --------------
-
+Devise time-outable to end session before access_token goes away (and refresh other things)
 facebook to launch immediately
 
 invite email date and time! RSVP button Image of the inviter. Address if there is one.
@@ -166,6 +168,8 @@ AFTER BETA LAUNCH
 			comments
 			Invitation raster
 			tip!
+
+	MEETUP API
 
 Infrastructure
 	Staging

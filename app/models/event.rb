@@ -25,10 +25,10 @@ class Event < ActiveRecord::Base
                   :longitude,
                   :chronic_starts_at,
                   :chronic_ends_at,
-                  :visibility,#**UPDATE remove visibility
                   :link,
                   :gmaps,
-                  :tipped
+                  :tipped,
+                  :guests_can_invite_friends
 
   validates :user_id,
             :title,

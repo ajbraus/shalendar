@@ -80,6 +80,7 @@ Shalendar::Application.routes.draw do
   #mount Resque::Server.new, :at => '/resque'
   # match '/manage_follows/remove', :to => 'relationships#remove', :as => "remove"
 
+  match 'send_invitation' => 'invitation#send_invitation'
   match 'search' => 'shalendar#search'
   match 'datepicker' => "shalendar#datepicker"
 

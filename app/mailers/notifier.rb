@@ -109,6 +109,7 @@ class Notifier < ActionMailer::Base
 
     @invite = invite
     @event = event
+    @event_time = event.starts_at.strftime("%l:%M%P, %A %B %e")
     @inviter = User.find_by_id(@invite.inviter_id)
     @event_link = "http://www.hoos.in/events/#{@event.id}"
     #should we include here an invited by X to make them more likely to join?

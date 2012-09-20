@@ -38,16 +38,12 @@
       <%= f.text_field :max, :class => 'input-mini' %>
     </span>
   </div>
-
-  <%#**UPDATE- just remove the invite_all_friends? bc already have chance in show.
-  But put in checkbox for guests can invite friends %>
-  <%= label_tag "Who's invited to this Idea?" %>
-  <div id="radio">
-    <input type="radio" id="radio1" name="event[visibility]" value="friends_of_friends" /><label for="radio1"><i class="icon-bullhorn"></i>  Viewers of RSVPs</label>
-    <input type="radio" id="radio2" name="event[visibility]" value="friends" /><label for="radio2"><i class="icon-group"></i>  Viewers</label>
-    <input type="radio" id="radio3" name="event[visibility]" value="invite_only" /><label for="radio3"><i class="icon-envelope"></i>  Invite only</label>
+  <div class="invitation_options">
+    <div class="checkbox">
+      <%= f.label "Guests can Invite Friends: " %><span class="question_mark" title="Check this box to allow guests to give invitations to this event to their friends.">?</span>
+      <%= f.check_box :guests_can_invite_friends %>
+    </div>
   </div>
-
   <div id="addLinkp" style="display: none;">
     <%= label_tag "Link" %></br>
     http://<%= f.text_field :link, class: "url" %>

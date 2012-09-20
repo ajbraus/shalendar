@@ -736,6 +736,11 @@ height: 29px;
 
 /* Forecast */
 
+.forecast {
+  overflow:hidden;
+  position:relative;
+  right:966px;
+}
 #forecast {
   width: 1004px;
   min-height: 680px;
@@ -1484,7 +1489,7 @@ bottom: -17px;
     position: relative;
     bottom:5px;
   }
-  .event_visibility {
+  .can_invite {
   position: relative;
 left: 361px;
 bottom: 35px;

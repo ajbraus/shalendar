@@ -9,6 +9,8 @@ class Invitation < ActiveRecord::Base
 
   validates :invited_user_id, presence: true
   validates :invited_event_id, presence: true
+  validates [:invited_user_id, :invited_event_id], uniqueness: { message: "They're already invited"}
   validates :inviter_id, presence: true
 
 end
+
