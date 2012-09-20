@@ -1,33 +1,26 @@
 <div id="datepicker">
 	<div id="datewindow"></div>
 	<div class="weeks_months"></div>
-	<% if current_user.time_zone %>
-		<% @today = Time.now.in_time_zone(current_user.time_zone).to_date %>
-	<% else %>
-		<% @today = Date.today %>
-	<% end %>
 	<% for i in -3..16 do %>
-		<%= link_to datepicker_path(date: @today + i), remote: true do %>
-		<table data-date=<%= "#{@today + i}" %> <%= "class='weeks'" if i == 1 || i == 7 || i == 14 %>
+		<table class="datePickerDay" data-date=<%= "#{@date + i}" %> <%= "class='weeks'" if i == 1 || i == 7 || i == 14 %>
 			<tr>
 				<td class='months'>
-					<%= (@today + i).day == 1 ? raw("#{(@today + i).strftime("%b")}")  : raw("&nbsp;") %>
+					<%= (@date + i).day == 1 ? raw("#{(@date + i).strftime("%b")}")  : raw("&nbsp;") %>
 				</td>
 			<tr>
 				<th>
-					<%= i == 0 ? raw("<span class='red'>#{(@today + i).strftime("%a").slice!(0..1) + (@today + i).strftime("-%e")}</span>") : (@today + i).strftime("%a").slice!(0..1) + (@today + i).strftime("-%e") %>
+					<%= i == 0 ? raw("<span class='red'>#{(@date + i).strftime("%a").slice!(0..1) + (@date + i).strftime("-%e")}</span>") : (@date + i).strftime("%a").slice!(0..1) + (@date + i).strftime("-%e") %>
 		  	</th>
 		  </tr>
 		  <tr>
 		  	<td class="ideas_cloud">
-		  		<%= @forecastoverview[i+3][0] %>
+		  		<%= @invite_counts[i+3] %>
 		  	</td>
 		  </tr>
 		  	<td class="plan_box">
-		  		<%= @forecastoverview[i+3][1] %>
+		  		<%= @plan_counts[i+3] %>
 		  	</td>
 		  </tr>
 		</table>
-		<% end %>	
 	<% end %>
 </div>

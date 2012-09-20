@@ -16,15 +16,10 @@
     <p>by:</p>
       <%= raster_profile_picture(@event.user) %> <u><%= @event.user.name %></u>
     <% end %>
-    <div class="event_visibility">  
-      <% if @event.visibility == "friends_of_friends" %>
-        <i class="icon-bullhorn" title="Friends People Coming"></i>
-      <% elsif @event.visibility == "friends" %>
+    <div class="can_invite">
+      <% if @event.guests_can_invite_friends? %>
         <i class="icon-group" title="Friends"></i>
-      <% elsif @event.visibility == "invite_only" %>
-        <i class="icon-envelope" title="Only Invites"></i>
       <% end %>
-      <%= @event.guests.count %>
     </div>
   </div>
 </div>

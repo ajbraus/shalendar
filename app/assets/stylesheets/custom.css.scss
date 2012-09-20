@@ -624,7 +624,7 @@ width: 105%;
 
 /* raster */
 
-#raster {
+.raster {
 height: 396px;
 overflow-y: auto;
 margin-bottom: 10px;
@@ -737,25 +737,17 @@ height: 29px;
 /* Forecast */
 
 #forecast {
-  width: 1004px;
-  min-height: 680px;
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  border-radius: 12px;
-  float:left;
-  background-color: rgba(250, 250, 250, 0.8);
-  -moz-box-shadow: 0 0 8px -1px #000;
-  -webkit-box-shadow: 0 0 8px -1px #000;
-  box-shadow: 0 0 8px -1px #000;
-  margin-top: 14px;
-  margin-left: 5px;
-  > dl {
-    width: 31%;
+width:100000px;
+position: relative;
+right: 977px;
+   > dl {
+    width: 312px;
     float: left;
     position: relative;
     top: 6px;
     left: 5px;
     padding: 8px 10px 8px 12px;
+    height: 100%;
     > dd {
 /*      -moz-box-shadow: inset 0 0 10px -1px #000;
       -webkit-box-shadow: inset 0 0 10px -1px #000;
@@ -796,6 +788,21 @@ position: relative;
 bottom: 6px;
 letter-spacing: 2px;
   }
+}
+.forecast {
+  overflow:hidden;
+  width: 1004px;
+  min-height: 680px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  float:left;
+  background-color: rgba(250, 250, 250, 0.8);
+  -moz-box-shadow: 0 0 8px -1px #000;
+  -webkit-box-shadow: 0 0 8px -1px #000;
+  box-shadow: 0 0 8px -1px #000;
+  margin-top: 14px;
+  margin-left: 5px;
 }
 
 .forecastDate {
@@ -1484,7 +1491,7 @@ bottom: -17px;
     position: relative;
     bottom:5px;
   }
-  .event_visibility {
+  .can_invite {
   position: relative;
 left: 361px;
 bottom: 35px;
@@ -1957,3 +1964,11 @@ select {
   margin-right: 5px;
 }
 
+.new_invited_events {
+  position: absolute;
+  top:0;
+  left: 200px;
+  width:100px;
+  background-color:white;
+  height:200px;
+}

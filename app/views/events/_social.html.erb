@@ -1,6 +1,6 @@
 <div class="part social">
 	<p><%= friends_attending(@event) %> of your friends are attending.</p>
-	<% if @event.user == current_user || @event.visibility == "friends_of_friends" %>
+	<% if @event.user == current_user || @event.guests_can_invite_friends %>
 		<table>
 			<tr>
 				<td>

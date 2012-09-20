@@ -6,7 +6,7 @@
 	  <div class="grey_italics small">
 	  	Viewing: click pics to show/hide user's ideas
 	  </div>
-	  <div id="raster" class="element">
+	  <div id="home_raster" class="raster element">
 	  	<%= render 'raster' %>
 	  </div>
 	  <div class="raster_nav">
@@ -21,9 +21,7 @@
 	</div>
 	<div class="container">
 		<%= render 'ribbon', :locals => { :next_plan => @next_plan } %>
-		<div id='forecast'>
-			<%= render 'forecast' %>
-		</div>
+		<%= render 'forecast' %>
 	</div>
 </div>
 

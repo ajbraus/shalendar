@@ -1,4 +1,0 @@
-position = $('table').withDate("<%= params[:date] %>").position()
-current_position = $('#datewindow').position()
-$('#datewindow').animate({ left: position.left - 5}, 500)
-$("#forecast").html("<%= escape_javascript(render partial: 'shalendar/forecast' ) %>")

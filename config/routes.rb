@@ -53,12 +53,12 @@ Shalendar::Application.routes.draw do
   resources :events, only: [:create, :destroy, :update, :tip, :edit, :new, :show] do 
     put :tip
     resources :comments, only: [:create, :destroy]
-    resources :invites, only: [:create, :destroy]
+    resources :email_invites, only: [:create, :destroy]
   end
   
 
   resources :rsvps, only: [:create, :destroy]
-  
+  resources :invitations, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy, :toggle, :remove, :comfirm] do
     put :toggle
     delete :remove
@@ -80,6 +80,8 @@ Shalendar::Application.routes.draw do
   #mount Resque::Server.new, :at => '/resque'
   # match '/manage_follows/remove', :to => 'relationships#remove', :as => "remove"
 
+  match 'new_invited_events' => 'shalendar#new_invited_events'
+  match 'send_invitation' => 'invitation#send_invitation'
   match 'search' => 'shalendar#search'
   match 'datepicker' => "shalendar#datepicker"
 

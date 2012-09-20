@@ -9,6 +9,12 @@
     <% if @view_requests.any? %>
       <li><a href="<%= manage_follows_path %>"><strong id="view_requests"><u> + </u><%= @view_requests.count %> Requests</strong></a></li>
     <% end %>
+    <li>
+      <%= link_to new_invited_events_path, :remote => true do %>
+        invitations <span id="new_invited_events_count"><%= current_user.new_invited_events_count %></span>
+      <% end %>
+      <span id="test"></span>
+    </li>
     <li><a href="<%= root_path %>">ideas <strong><%= current_user.events.count %></strong></a></li>
     <li><a href="<%= manage_follows_path %>">viewing  <strong><%= current_user.followed_users.count %></strong></a></li>
     <li><a href="<%= manage_follows_path %>">viewed by  <strong><%= current_user.followers.count %></strong><span class="ceiling">/300</span></a></li>

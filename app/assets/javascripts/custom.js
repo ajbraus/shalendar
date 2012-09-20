@@ -2,8 +2,25 @@ $(document).ready(function() {
 
 	$("div.alert").delay(5000).fadeOut(1000);
 
-// FIND FRIENDS LIGHTBOX SHOW UPON FIRST LOGIN
+// DATEPICKERDAY
 
+// $('.datePickerDay').click(function(){
+//   dw_position = $(this).position();
+//   $('#datewindow').animate({ left: dw_position.left - 5 }, 500);
+//   for (i=-3; i<17; i++) {
+//     $('dl.day').
+//   }
+// });
+
+$('#yesterday').click(function(){
+  fc_current_position = $('#forecast').position();
+  $('#forecast').animate({ left: fc_current_position.left + 322 }, 500);
+});
+
+$('#tomorrow').click(function(){
+  fc_current_position = $('#forecast').position();
+  $('#forecast').animate({ left: fc_current_position.left + 322 }, 500);
+});
 
 // SETTINGS DROPDOWN
 

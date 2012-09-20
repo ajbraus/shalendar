@@ -21,6 +21,16 @@ class RegistrationsController < Devise::RegistrationsController
     end
     
     if resource.save
+      #turn all email_invites into invitations here **UPDATE
+      EmailInvite.where("email_invites.email = :new_user_email", new_user_email: resource.email).each do |ei|
+        @inviter_id = ei.inviter_id
+        @invited_user_id = resource.id
+        @event = ei.event
+        if @inviter = User.find_by_id(@inviter_id)
+          @inviter.invite!(@event, resource)
+        end
+        ei.destroy
+      end
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)

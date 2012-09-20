@@ -5,7 +5,7 @@ SQL queries events_on_date
 javascript not hitting server 
 	serve all events in forecast and just hide and show based on which users are toggled
 
-
+Searching invitations in invited? call through all invitations.. can we change it to event.invitations.where() call instead to scope it?
 	Event
 		set data-user-id => data-inviter-id and remake ajax
 

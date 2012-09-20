@@ -23,13 +23,10 @@
 			
 			<div class="event_blerb"><%= event.short_event_title %></div>
 			
+			<%# **UPDATE- change displaying icon to check event.friends_can_invite_friends %>
 			<div class="guest_count">
-	      <% if event.visibility == "friends_of_friends" %>
-	        <i class="icon-bullhorn"></i>
-	      <% elsif event.visibility == "friends" %>
-	        <i class="icon-group"></i>
-	      <% elsif event.visibility == "invite_only" %>
-	        <i class="icon-envelope"></i>
+	      <% if event.guests_can_invite_friends? %>
+	      	<i class="icon-group"></i>
 	      <% end %>
 				<% if event.tipped? %>	
 					<span class="count"><%= event.guests.count %></span>
