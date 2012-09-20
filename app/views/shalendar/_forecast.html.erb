@@ -6,18 +6,18 @@
 		<dd>
 			<% for j in 0..2 %>
 			<dl>
-				<% if j == 0 %>
-					<dt><%= image_tag "morning.png" %> <span class="fcTime">12:00am - 12:00pm</span><span class="fcLine"></span> </dt>
-				<% elsif j == 1 %>
-					<dt><%= image_tag "noon.png" %> <span class="fcTime">12:00pm - 6:00pm</span><span class="fcLine"></span>  </dt>
-				<% elsif j == 2 %>
-					<dt><%= image_tag "night.png" %> <span class="fcTime">6:00pm - 12:00am</span></span><span class="fcLine"></span> </dt>
+				<dt class="part_of_day">
+				<% if j == 0 && @forecastevents[i][0].any? %>
+					<%= image_tag "morning.png" %> <span class="fcTime">12:00am - 12:00pm</span><span class="fcLine"></span>
+				<% elsif j == 1 && @forecastevents[i][1].any? %>
+					<%= image_tag "noon.png" %> <span class="fcTime">12:00pm - 6:00pm</span><span class="fcLine"></span>
+				<% elsif j == 2 && @forecastevents[i][2].any? %>
+					<%= image_tag "night.png" %> <span class="fcTime">6:00pm - 12:00am</span></span><span class="fcLine"></span> 
 				<% end %>
+				</dt>
 				<dd>
 					<% @forecastevents[i][j].each do |event| %>
-					<table>
 						<%= render :partial => "shalendar/event", :locals => { :event => event } %>
-					</table>
 					<% end %>
 				</dd>
 			</dl>

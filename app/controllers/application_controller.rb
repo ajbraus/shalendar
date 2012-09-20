@@ -3,15 +3,6 @@ class ApplicationController < ActionController::Base
   
   # before_filter :adjust_format_for_iphone
   before_filter :set_time_zone 
-  before_filter :get_graph
-  # caches_action :get_graph
-
-  #rescue_from Koala::Facebook::APIError, :with => :expired_token
-  def get_graph
-    if session[:graph].nil?
-      session[:graph] = Koala::Facebook::API.new(session[:access_token])
-    end
-  end
   
   private
 
