@@ -3,7 +3,7 @@ class ShalendarController < ApplicationController
 
 	def home
     Time.zone
-		@date = Time.now.to_date
+		@date = Time.now.in_time_zone("Central Time (US & Canada)").to_date
     @forecastevents = current_user.forecast(Time.now.to_s)
     @forecastoverview = current_user.forecastoverview
     @relationships = current_user.relationships.where('relationships.confirmed = true')
