@@ -1,4 +1,6 @@
 <div id="rsvp_form">
+	<%#**UPDATE- only let this show if person is invited to event %>
+
 	<% if current_user.rsvpd?(@event) %>
   	<%= form_for(current_user.rsvps.find_by_plan_id(@event),
              html: { method: :delete }) do |f| %>
@@ -6,10 +8,12 @@
 		<% end %>
 	<% elsif @event.full? %>
 		Event is full
-	<% else %>
+	<% elsif current_user.invited?(@event) %>
   	<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
 		  <div><%= f.hidden_field :plan_id %></div>
 		  <%= f.submit raw("&#xf05d; I'm In"), class: "btn btn-rsvp fa-input" %>
 		<% end %>
+	<% else %>
+		You Must be Invited to join this Event
 	<% end %>
 </div>

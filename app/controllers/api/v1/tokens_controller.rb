@@ -70,15 +70,15 @@ class Api::V1::TokensController  < ApplicationController
         return
       end
     end
-
-    @all_invites = Invite.where("invites.email = :current_user_email", current_user_email: @user.email)
-    @invites = []
-    @all_invites.each do |i|
+    #Turn this into invitations... **UPDATE
+    @all_email_invites = EmailInvite.where("email_invites.email = :current_user_email", current_user_email: @user.email)
+    @email_invites = []
+    @all_email_invites.each do |i|
       @temp = {
         :eid => i.event_id,
         :i => User.find_by_id(i.inviter_id)
       }
-      @invites.push(@temp)
+      @email_invites.push(@temp)
     end
 
     render :status=>200, :json=>{:token=>@user.authentication_token, 

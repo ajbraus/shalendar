@@ -3,7 +3,8 @@
 <div id="raster" class="element">
   <% current_user.followers.each do |f| %>
   	<% unless f.invited?(event) || f.rsvpd?(event) %>
-	  	<%= form_for([event, event.invites.build]) do |i| %>
+  		<%# **UPDATE- shouldn't be email value anymore, should be invited_user_id (inviter_id and invited_event_id are already known from current user and event)%>
+	  	<%= form_for([event, event.invitations.build]) do |i| %>
 	  		<%= i.hidden_field :email, value: f.email %>
         <%= image_submit_tag("#{invite_raster_picture(f)}", class: "profile_picture", title: "#{f.name}") %>
       <% end %>

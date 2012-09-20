@@ -132,8 +132,11 @@ class User < ActiveRecord::Base
   end
 
   def invited?(event)
-    return Invite.where('invites.email = :current_user_email AND invites.event_id = :eventid',
-                   current_user_email: self.email, eventid: event.id).any?
+    return Invitation.where('invitations.invited_user_id = :current_user_id AND invitations.invited_event_id = :eventid',
+                                  current_user_id: self.id, eventid: event.id).any?
+    
+    #return Invite.where('invites.email = :current_user_email AND invites.event_id = :eventid',
+    #              current_user_email: self.email, eventid: event.id).any?
     #if an invite for user at event exists
   end
 
@@ -186,16 +189,14 @@ class User < ActiveRecord::Base
     name.split.count == 3 ? name.split(' ')[1] : nil
   end
 
-  def invite_all_friends(event)
+  def invite_all_friends!(event)
     self.followers.each do |f|
-
-
-
+      current_user.invite!(f, event)
+    end
   end
 
   def invite!(other_user, event)
-    invitations.create!(invited_id: :)
-
+    sent_invitations.create!(invited_user_id: other_user.id, invited_event_id: event.id)
   end
 
   def forecast(load_date)
@@ -227,6 +228,7 @@ class User < ActiveRecord::Base
     # adjusted_load_date = usable_date.to_date
 
     @my_events = self.events
+    #**UPDATE: #my_events, #my_plans, #my_invitations
     @date_events = []
     @my_events.each do |e|
       if e.starts_at.to_date == load_date

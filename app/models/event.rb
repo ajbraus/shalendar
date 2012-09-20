@@ -11,7 +11,7 @@ class Event < ActiveRecord::Base
   has_many :invited_users, through: :invitations
 
   has_many :comments, dependent: :destroy
-  has_many :invites, dependent: :destroy
+  has_many :email_invites, dependent: :destroy
 
   attr_accessible :id,
                   :starts_at, 
@@ -25,7 +25,7 @@ class Event < ActiveRecord::Base
                   :longitude,
                   :chronic_starts_at,
                   :chronic_ends_at,
-                  :visibility,
+                  :visibility,#**UPDATE remove visibility
                   :link,
                   :gmaps,
                   :tipped

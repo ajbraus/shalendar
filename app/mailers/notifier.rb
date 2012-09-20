@@ -101,7 +101,7 @@ class Notifier < ActionMailer::Base
       mail to: @user.email, from: "info@hoos.in", subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
   end
 
-  def invitation(invite, event)
+  def email_invitation(invite, event)
 
     # @invite = Invite.find_by_id(args[0])
     # @event = Event.find_by_id(args[1])

@@ -16,6 +16,7 @@
     <p>by:</p>
       <%= raster_profile_picture(@event.user) %> <u><%= @event.user.name %></u>
     <% end %>
+    <%# **UPDATE- remove these and put in just icon-group for if friends can invite friends%>
     <div class="event_visibility">  
       <% if @event.visibility == "friends_of_friends" %>
         <i class="icon-bullhorn" title="Friends People Coming"></i>

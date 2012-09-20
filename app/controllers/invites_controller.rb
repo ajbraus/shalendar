@@ -3,13 +3,13 @@ class InvitesController < ApplicationController
   
   def create
     @event = Event.find(params[:event_id])
-    @invite = @event.invites.build(params[:invite])
+    @invite = @event.email_invites.build(params[:email_invite])
     @invite.inviter_id = current_user.id 
 
     respond_to do |format|
       if @invite.save
         #Resque.enqueue(MailerCallback, "Notifier", :invitation, @invite.id, @event.id)
-        Notifier.invitation(@invite, @event).deliver
+        Notifier.email_invitation(@invite, @event).deliver
         format.html { redirect_to @event, notice: 'Invite was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
         format.js
@@ -22,9 +22,9 @@ class InvitesController < ApplicationController
   end
 
   def destroy
-    @invite = Invite.find(params[:id])
-    @event = Event.find(params[:event_id])
-    @invite.destroy
+    @email_invite = EmailInvite.find_by_id(params[:id])
+    @event = Event.find_by_id(params[:event_id])
+    @email_invite.destroy
 
     respond_to do |format|
       format.html { redirect_to @event }

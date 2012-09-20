@@ -1,4 +1,4 @@
-class Invite < ActiveRecord::Base
+class EmailInvite < ActiveRecord::Base
   belongs_to :event
   attr_accessible :email, :id, :inviter_id
 

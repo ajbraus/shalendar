@@ -110,7 +110,8 @@ private
                 :terms => true,
                 :remember_me => true,
                 :password => Devise.friendly_token[0,20]
-              ) 
+              )
+      #check for all email_invites and turn into invitations **UPDATE
       user.save
       return user
     end

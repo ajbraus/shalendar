@@ -44,10 +44,14 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         current_user.rsvp!(@event)
-        if(@event.min <= 1)
+        if @event.min <= 1
           @event.tipped = true
           @event.save
         end
+        if @event.invite_all_friends?
+          current_user.invite_all_friends!(@event)
+        end
+
         if current_user.post_to_fb_wall? && session[:graph] && @event.visibility == "friends_of_friends" #&& Rails.env.production?
           # @graph = Koala::Facebook::API.new(session[:access_token])
           session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
@@ -56,13 +60,13 @@ class EventsController < ApplicationController
                                               })
         end
 
-        if @event.visibility == "invite_only"
-          format.html { redirect_to @event }
-          format.json { render json: @event, status: :created, location: @event }
-        else
-          format.html { redirect_to home_path, notice: "Idea posted! #{@event.title.slice(0..40)}, #{@event.starts_at.strftime "%l:%M%P, %A %B %e"}: "}
-          format.json { render json: home_path, status: :created, location: @event }
-        end
+        # if @event.visibility == "invite_only"
+        format.html { redirect_to @event }
+        format.json { render json: @event, status: :created, location: @event }
+        # else
+        #   format.html { redirect_to home_path, notice: "Idea posted! #{@event.title.slice(0..40)}, #{@event.starts_at.strftime "%l:%M%P, %A %B %e"}: "}
+        #   format.json { render json: home_path, status: :created, location: @event }
+        # end
       else
         format.html { redirect_to home_path, notice: "Idea could not be posted. Please try again." }
         format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -84,7 +88,7 @@ class EventsController < ApplicationController
     #     @invites.push(i)
     #   end
     # end
-    @invites = @event.invites
+    @email_invites = @event.email_invites
     @invited_users = @event.invited_users - @event.guests
 
     @access_token = session[:access_token]
