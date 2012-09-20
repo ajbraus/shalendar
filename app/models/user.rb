@@ -274,7 +274,7 @@ class User < ActiveRecord::Base
   def forecastoverview
     @forecastoverview = []
     (-3..16).each do |i|
-      if self.time_zene
+      if self.time_zone
         @new_date = Time.now.in_time_zone(self.time_zone).to_date + i
       else
         @new_date = Date.today + i
