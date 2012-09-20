@@ -1,59 +1,55 @@
-<tr>
+<a href="/events/<%= event.id %>">
 	<% if @next_plan %>
 		<% if event.id == @next_plan.id %>
-		<td class="next_plan" data-user-id="<%= event.user.id %>">
+			<div class="next_plan" data-user-id="<%= event.user.id %>">
 		<% else %>
-		<td data-user-id="<%= event.user.id %>">
+			<div data-user-id="<%= event.user.id %>">
 		<% end %>
 	<% end %>
-	<a href="/events/<%= event.id %>">
-		<% if event.tipped? && current_user.rsvpd?(event) %>
-			<div class="event tipped_rsvpd" data-event-id="<%= event.id %>">
-		<% elsif event.tipped? == false && current_user.rsvpd?(event) == false %>
-			<div class="event not_tipped_not_rsvpd" data-event-id="<%= event.id %>">
-		<% elsif event.tipped? == true && current_user.rsvpd?(event) == false %>
-			<div class="event tipped_not_rsvpd" data-event-id="<%= event.id %>">
-		<% elsif event.tipped? == false && current_user.rsvpd?(event) %>
-			<div class="event not_tipped_rsvpd" data-event-id="<%= event.id %>">
-		<% end %>
-			
-			<div class="event_time"><%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>
-
-			<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
-			
-			<div class="event_blerb"><%= event.short_event_title %></div>
-			
-			<div class="guest_count">
-	      <% if event.visibility == "friends_of_friends" %>
-	        <i class="icon-bullhorn"></i>
-	      <% elsif event.visibility == "friends" %>
-	        <i class="icon-group"></i>
-	      <% elsif event.visibility == "invite_only" %>
-	        <i class="icon-envelope"></i>
-	      <% end %>
-				<% if event.tipped? %>	
-					<span class="count"><%= event.guests.count %></span>
-				<% else %>
-					<span class="count"><%= event.guests.count%></span>/<%= event.min %>
-				<% end %>
-			</div>
-
-			<% if event.user == current_user && event.tipped? == false %>
-				<div class="force_tip">
-					<%= link_to raw("&#xf08d;"), event_tip_path(event), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input" %>
-				</div>
-			<% elsif event.user == current_user && event.tipped? == true %>
-				<div class="rsvp_check"></div>
+			<% if current_user.rsvpd?(event) %>
+				<div class="event rsvpd" data-event-id="<%= event.id %>">
 			<% else %>
-				<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
+				<div class="event not_rsvpd" data-event-id="<%= event.id %>">
 			<% end %>
-				<div class="host">by: <%= event.user.first_name.capitalize %> 
-					<% if event.user.last_name %>
-						<%= event.user.last_name.capitalize%>
-					<% end %> 
+				
+				<div class="event_time"><%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>
+
+				<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
+				
+				<div class="event_blerb"><%= event.short_event_title %></div>
+				
+				<% if !event.tipped? %>
+					<div class="not_tipped guest_count">
+				<% else %>
+					<div class="guest_count">
+				<% end %>
+		      <% if event.visibility == "friends_of_friends" %>
+		        <i class="icon-bullhorn"></i>
+		      <% elsif event.visibility == "friends" %>
+		        <i class="icon-group"></i>
+		      <% elsif event.visibility == "invite_only" %>
+		        <i class="icon-envelope"></i>
+		      <% end %>
+					<% if event.tipped? %>	
+						<span class="count"><%= event.guests.count %></span>
+					<% else %>
+						<span class="count"><%= event.guests.count%></span>/<%= event.min %>
+					<% end %>
 				</div>
 
+				<% if event.user == current_user && event.tipped? == false %>
+					<div class="force_tip">
+						<%= link_to raw("&#xf08d;"), event_tip_path(event), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input" %>
+					</div>
+				<% elsif event.user == current_user && event.tipped? == true %>
+					<div class="rsvp_check"></div>
+				<% else %>
+					<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
+				<% end %>
+					<div class="host">by: <%= event.user.first_name.capitalize %> 
+						<% if event.user.last_name %>
+							<%= event.user.last_name.capitalize%>
+						<% end %> 
+					</div>
 			</div>
-		</a>
-	</td>
-</tr>
+</a>

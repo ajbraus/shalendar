@@ -1,7 +1,0 @@
-<div id="view_search">
-	<p>Find Friends by Email or Name</p>
-	<%= form_tag({:controller => 'shalendar', :action => 'search'}, {id: 'search_form', remote: true }) do %>
-	  <%= text_field_tag :search, params[:search], id: "user_search_field", class: "search_spinner", placeholder:"Search by Full Name or Email", autocomplete: "off" %>
-	  <input type="submit" id="btn_user_search" class="btn-success fa-input" value="&#xf002;">
-	<% end %> 
-</div>
