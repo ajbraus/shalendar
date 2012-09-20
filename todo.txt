@@ -15,18 +15,15 @@ update git repo to company
 Mike
 ------------
 
-timezone is wrong - switches to wednesday around 6pm on tuesday.
-
 Event#create post to facebook wall as background job
 
-take out attendees from invite raster
-
+Protect RSVP to only ppl invited to event
 Mailers running in background
 	took this out of Procfile in favor or a resque worker: worker: bundle
 	exec rake jobs:work
 	Auto-scale workers
 
-schedule tip cron job
+schedule tip cron job- what exactly should we do?
 
 new follower email link not working
 
