@@ -73,22 +73,19 @@ class EventsController < ApplicationController
   #GET /events/id
   #GET /events/id.json
   def show
-    # @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
-    #                                      relationships.confirmed = false ", current_user_id: current_user.id)
     @event = Event.find(params[:id])
     @guests = @event.guests
     @json = @event.to_gmaps4rails
-    #separating invites by email from invites who are users
-    @invites = []
-    @invited_users = []
-    @event.invites.each do |i|
-      if u = User.find_by_email(i.email)
-        @invited_users.push(u)
-      else
-        @invites.push(i)
-      end
-    end
-    @invited_users = @invited_users - @event.guests
+    
+    # @event.invites.each do |i|
+    #   if u = User.find_by_email(i.email)
+    #     @invited_users.push(u)
+    #   else
+    #     @invites.push(i)
+    #   end
+    # end
+    @invites = @event.invites
+    @invited_users = @event.invited_users - @event.guests
 
     @access_token = session[:access_token]
     @graph = session[:graph]

@@ -48,6 +48,10 @@ class User < ActiveRecord::Base
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
   has_many :plans, through: :rsvps
 
+  has_many :invitations, foreign_key: "invited_user_id", dependent: :destroy
+  has_many :sent_invitations, through: :invitations, foreign_key: "inviter_id", dependent: :destroy
+  has_many :invited_events, through: :invitations
+
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
 
   has_many :followed_users, through: :relationships, source: :followed, conditions: "confirmed = 't'"
@@ -180,6 +184,18 @@ class User < ActiveRecord::Base
 
   def middle_name
     name.split.count == 3 ? name.split(' ')[1] : nil
+  end
+
+  def invite_all_friends(event)
+    self.followers.each do |f|
+
+
+
+  end
+
+  def invite!(other_user, event)
+    invitations.create!(invited_id: :)
+
   end
 
   def forecast(load_date)
