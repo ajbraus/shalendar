@@ -2,6 +2,7 @@ class ShalendarController < ApplicationController
   before_filter :authenticate_user!
 
 	def home
+    Time.zone
 		@date = Time.now.to_date
     @forecastevents = current_user.forecast(Time.now.to_s)
     @forecastoverview = current_user.forecastoverview
