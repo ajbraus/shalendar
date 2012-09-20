@@ -1,16 +1,21 @@
 <div id="datepicker">
 	<div id="datewindow"></div>
 	<div class="weeks_months"></div>
+	<% if current_user.time_zone %>
+		<% @today = Time.now.in_time_zone(current_user.time_zone).to_date %>
+	<% else %>
+		<% @today = Date.today %>
+	<% end %>
 	<% for i in -3..16 do %>
-		<%= link_to datepicker_path(date: Date.today + i), remote: true do %>
-		<table data-date=<%= "#{Date.today + i}" %> <%= "class='weeks'" if i == 1 || i == 7 || i == 14 %>
+		<%= link_to datepicker_path(date: @today + i), remote: true do %>
+		<table data-date=<%= "#{@today + i}" %> <%= "class='weeks'" if i == 1 || i == 7 || i == 14 %>
 			<tr>
 				<td class='months'>
-					<%= (Date.today + i).day == 1 ? raw("#{(Date.today + i).strftime("%b")}")  : raw("&nbsp;") %>
+					<%= (@today + i).day == 1 ? raw("#{(@today + i).strftime("%b")}")  : raw("&nbsp;") %>
 				</td>
 			<tr>
 				<th>
-					<%= i == 0 ? raw("<span class='red'>#{(Date.today + i).strftime("%a").slice!(0..1) + (Date.today + i).strftime("-%e")}</span>") : (Date.today + i).strftime("%a").slice!(0..1) + (Date.today + i).strftime("-%e") %>
+					<%= i == 0 ? raw("<span class='red'>#{(@today + i).strftime("%a").slice!(0..1) + (@today + i).strftime("-%e")}</span>") : (@today + i).strftime("%a").slice!(0..1) + (@today + i).strftime("-%e") %>
 		  	</th>
 		  </tr>
 		  <tr>
