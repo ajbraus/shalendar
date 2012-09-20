@@ -10,16 +10,16 @@
 				</td>
 			<tr>
 				<th>
-					<%= i == 0 ? raw("<span class='red'>#{(Date.today + i).strftime("%a").slice!(0..1) + (Date.today + i).strftime("-%e")}</span>") : (Date.today + i).strftime("%a").slice!(0..1) + (Date.today + i).strftime("-%e") %>
+					<%= i == 0 ? raw("<span class='red'>#{(Date.today + i).strftime("%e") + "<br/>" + (Date.today + i).strftime(" %a").slice!(0..2) }</span>") : raw((Date.today + i).strftime("%e") + "<br/>" + (Date.today + i).strftime(" %a").slice!(0..2)) %>
 		  	</th>
 		  </tr>
 		  <tr>
-		  	<td class="ideas_cloud">
-		  		<%= @forecastoverview[i+3][0] %>
-		  	</td>
-		  </tr>
 		  	<td class="plan_box">
 		  		<%= @forecastoverview[i+3][1] %>
+		  	</td>		  	
+		  </tr>
+		  	<td class="ideas_cloud">
+		  		<%= @forecastoverview[i+3][0] %>
 		  	</td>
 		  </tr>
 		</table>
