@@ -8,9 +8,16 @@ class InvitationsController < ApplicationController
     current_user.invite!(@event, @user)
 
     respond_to do |format|
+      @invited_users = @event.invited_users - @event.guests
+      
       format.html { redirect_to @event }
       format.js
     end
   end
 
+  def destroy
+    @invitation = Invitation.find(params[:id])
+    @invitation.destroy
   end
+
+end

@@ -61,7 +61,7 @@ class ShalendarController < ApplicationController
       format.js
     end
   end
-  
+
   def search
     @users = User.search(params[:search]).limit(5)
     respond_to do |format|
@@ -70,7 +70,15 @@ class ShalendarController < ApplicationController
   end
 
   def new_invited_events
-    @new_invited_events = current_user.invited_events.order('created_at desc')
+    @new_invitations = current_user.invitations.order('created_at desc').limit(20)
+    @new_invited_events = []
+    @new_invitations.each do |i|
+      e = Event.find_by_id(i.invited_event_id)
+      unless current_user.rsvpd?(e)
+        e.inviter_id = i.inviter_id
+        @new_invited_events.push(e)
+      end
+    end
     current_user.new_invited_events_count = 0
     current_user.save
   end

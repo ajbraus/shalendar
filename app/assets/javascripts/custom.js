@@ -4,13 +4,22 @@ $(document).ready(function() {
 
 // DATEPICKERDAY
 
-$('#forecast')
+// $('.datePickerDay').click(function(){
+//   dw_position = $(this).position();
+//   $('#datewindow').animate({ left: dw_position.left - 5 }, 500);
+//   for (i=-3; i<17; i++) {
+//     $('dl.day').
+//   }
+// });
 
-$('#datePickerDay').click(function(){
-  dw_position = $(this).position()
-  dw_current_position = $('#datewindow').position()
-  $('#datewindow').animate({ left: position.left - 5 }, 500)
-  $('.forecast').animate({ left: 322 }, 500)
+$('#yesterday').click(function(){
+  fc_current_position = $('#forecast').position();
+  $('#forecast').animate({ left: fc_current_position.left + 322 }, 500);
+});
+
+$('#tomorrow').click(function(){
+  fc_current_position = $('#forecast').position();
+  $('#forecast').animate({ left: fc_current_position.left + 322 }, 500);
 });
 
 // SETTINGS DROPDOWN

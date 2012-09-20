@@ -10,7 +10,11 @@
             <%= f.submit raw("&#xf0e0;"), class: "btn btn-primary fa-input" %>
         <% end %>
     </div>
-    <%= render partial: 'invite_raster', locals: { :event => @event } %>
+    <p>Click to Give Invitation</p>
+
+    <div id="invite_raster" class="raster element">
+      <%= render partial: 'invite_raster', locals: { :event => @event } %>
+    </div>
   <% end %>
 </div>
 
@@ -47,7 +51,7 @@
 
   <%= link_to find_friends_path, :remote => true, class: "find_friends fancybox.ajax", style: "display:none;" do %>
     <%= image_tag "social/fb.png", :size => "50x50", style: "display:none;"  %>
-  <% efnd %>
+  <% end %>
 
   <script> 
     function Func1() { 

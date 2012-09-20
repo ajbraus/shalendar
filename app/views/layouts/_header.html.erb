@@ -13,6 +13,7 @@
       <%= link_to new_invited_events_path, :remote => true do %>
         invitations <span id="new_invited_events_count"><%= current_user.new_invited_events_count %></span>
       <% end %>
+      <span id="test"></span>
     </li>
     <li><a href="<%= root_path %>">ideas <strong><%= current_user.events.count %></strong></a></li>
     <li><a href="<%= manage_follows_path %>">viewing  <strong><%= current_user.followed_users.count %></strong></a></li>

@@ -206,8 +206,8 @@ class User < ActiveRecord::Base
       @afternoon_events = []
       @evening_events = []
       @new_date = Date.strptime(load_date, "%Y-%m-%d") + i
-      @plan_count = 0
-      @invite_count = 0
+      @plan_count = []
+      @invite_count = []
       @events_on_date = self.events_on_date(@new_date, @plan_count, @invite_count)
 
       @events_on_date.each do |e|
@@ -219,8 +219,8 @@ class User < ActiveRecord::Base
           @evening_events.push(e)
         end
       end
-      plan_counts.push(@plan_count)
-      invite_counts.push(@invite_count)
+      plan_counts.push(@plan_count[0])
+      invite_counts.push(@invite_count[0])
       @daycast = [@morning_events, @afternoon_events, @evening_events]
       @forecast.push(@daycast)
     end
@@ -246,11 +246,15 @@ class User < ActiveRecord::Base
     @date_invited_events = []
     self.invitations.each do |i|
       e = Event.find_by_id(i.invited_event_id)
-      e.inviter_id = i.inviter_id
-      @date_invited_events.push(e)
+      if e.starts_at.to_date == load_date
+        unless self.rsvpd?(e)
+          e.inviter_id = i.inviter_id
+          @date_invited_events.push(e)
+        end
+      end
     end
-    invited_count = @date_invited_events.count
-    plan_count = @date_plans.count
+    invite_count.push(@date_invited_events.count)
+    plan_count.push(@date_plans.count)
 
     return @date_invited_events | @date_plans
   end

@@ -48,6 +48,9 @@ Make sure events always get served in time order
 
 Adam
 --------------
+
+title floating after adding invite in event#show
+
 Devise time-outable to end session before access_token goes away (and refresh other things)
 facebook to launch immediately
 

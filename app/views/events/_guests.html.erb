@@ -1,7 +1,7 @@
 <div id="guest_raster" class="part">
   <ul>
     <li><a href="#guests">going: <%= @guests.count %></a></li>
-    <li><a href="#invites">invited: <%= @invited_users.count + @email_invites.count %></a></li>
+    <li><a href="#invites" id="invited">invited: <span id="invite_count"><%= @invited_users.count + @email_invites.count %></span></a></li>
     <% if @event.tipped? %>
       <li class="insetType"><span class="green">Tipped!</span></li>
     <% else %>

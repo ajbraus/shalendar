@@ -2,7 +2,7 @@
 	<div id="datewindow"></div>
 	<div class="weeks_months"></div>
 	<% for i in -3..16 do %>
-		<table id="datePickerDay" data-date=<%= "#{@date + i}" %> <%= "class='weeks'" if i == 1 || i == 7 || i == 14 %>
+		<table class="datePickerDay" data-date=<%= "#{@date + i}" %> <%= "class='weeks'" if i == 1 || i == 7 || i == 14 %>
 			<tr>
 				<td class='months'>
 					<%= (@date + i).day == 1 ? raw("#{(@date + i).strftime("%b")}")  : raw("&nbsp;") %>
@@ -22,6 +22,5 @@
 		  	</td>
 		  </tr>
 		</table>
-		<% end %>	
 	<% end %>
 </div>

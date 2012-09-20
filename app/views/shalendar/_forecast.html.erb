@@ -1,8 +1,8 @@
-<div id='forecast'>
-	<div class="forecast">
+<div class='forecast'>
+	<div id="forecast">
 	<% for i in 0..@forecastevents.size-1 %>
-	<dl>
-		<dt class="forecastDate"><%= (@date + i).strftime("%A %B %e") %></dt>
+	<dl class="day">
+		<dt class="forecastDate"><%= (@date + (i - 3)).strftime("%A %B %e") %></dt>
 		<dd>
 			<% for j in 0..2 %>
 			<dl>
