@@ -1,9 +1,16 @@
 class ShalendarController < ApplicationController
   before_filter :authenticate_user!
-
+  before_filter :set_time_zone
 	def home
-		@date = Time.now.to_date
-    @forecastevents = current_user.forecast(Time.now.to_s)
+    if current_user.time_zone
+
+		  @date = Time.now.in_time_zone(current_user.time_zone).to_date #in_time_zone("Central Time (US & Canada)")
+      @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s)
+    else
+      @date = Time.now.to_date #in_time_zone("Central Time (US & Canada)")
+      @forecastevents = current_user.forecast(Time.now.to_s)
+    
+    end
     @forecastoverview = current_user.forecastoverview
     @relationships = current_user.relationships.where('relationships.confirmed = true')
     @graph = session[:graph]
@@ -72,4 +79,11 @@ class ShalendarController < ApplicationController
     end
   end
 
+  private
+
+  def set_time_zone
+    if current_user
+      Time.zone = current_user.time_zone if current_user.time_zone
+    end
+  end
 end

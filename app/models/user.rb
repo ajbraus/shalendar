@@ -274,8 +274,13 @@ class User < ActiveRecord::Base
   def forecastoverview
     @forecastoverview = []
     (-3..16).each do |i|
+      if self.time_zene
+        @new_date = Time.now.in_time_zone(self.time_zone).to_date + i
+      else
+        @new_date = Date.today + i
+      end
       @datecounts = []
-      @new_date = Date.today + i
+      
       @ideacount = self.idea_count_on_date(@new_date)
       @plancount = self.plan_count_on_date(@new_date)
       @datecounts.push(@ideacount)
