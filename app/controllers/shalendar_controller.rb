@@ -2,9 +2,15 @@ class ShalendarController < ApplicationController
   before_filter :authenticate_user!
   before_filter :set_time_zone
 	def home
-    Time.zone
-		@date = Time.now.to_date #in_time_zone("Central Time (US & Canada)")
-    @forecastevents = current_user.forecast(Time.now.to_s)
+    if current_user.time_zone
+
+		  @date = Time.now.in_time_zone(current_user.time_zone).to_date #in_time_zone("Central Time (US & Canada)")
+      @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s)
+    else
+      @date = Time.now.to_date #in_time_zone("Central Time (US & Canada)")
+      @forecastevents = current_user.forecast(Time.now.to_s)
+    
+    end
     @forecastoverview = current_user.forecastoverview
     @relationships = current_user.relationships.where('relationships.confirmed = true')
     @graph = session[:graph]
