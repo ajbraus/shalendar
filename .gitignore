@@ -25,6 +25,6 @@
 
 /config/database.yml
 
-/config/s3.yml
+#/config/s3.yml
 
 

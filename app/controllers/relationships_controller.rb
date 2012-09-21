@@ -39,7 +39,7 @@ before_filter :authenticate_user!
           @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
           @plan_counts = []
           @invite_counts = []
-          @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s)
+          @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s, @plan_counts, @invite_counts)
           @date = Time.now.in_time_zone(current_user.time_zone).to_date
           format.js
         end
@@ -57,7 +57,7 @@ before_filter :authenticate_user!
     @user.find_alternate_invitations(current_user)
     respond_to do |format|
       @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
-      @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s)
+      @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s, @plan_counts, @invite_counts)
       @date = Time.now.in_time_zone(current_user.time_zone)
       format.html { redirect_to :back, notice: "You are no longer friends with #{@follower.name} on hoos.in" }
       format.js

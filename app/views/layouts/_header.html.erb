@@ -17,7 +17,7 @@
       <span id="test"></span>
     </li>
     <li><a href="<%= root_path %>">ideas <strong><%= current_user.events.count %></strong></a></li>
-    <li><a href="<%= manage_follows_path %>">friends <strong><%= current_user.followers.count %></strong></a></li>
+    <li><a href="<%= manage_follows_path %>">friends <strong class="friends_count"><%= current_user.followers.count %></strong></a></li>
     <li><%= current_user.name %></li>
     <li><dl class="dropdown">
         <dt><a href="#"><%= raster_profile_picture(current_user) %></a></dt>

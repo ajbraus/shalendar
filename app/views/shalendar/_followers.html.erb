@@ -1,5 +1,5 @@
 <div class="part friends">
-  <h2>Friends</h2>
+  <h2><span class="friend_count"><%= current_user.followers.count %></span>Friends</h2>
   <div class="user_table">
     <% @friendships.each do |fr| %>
     <table>        

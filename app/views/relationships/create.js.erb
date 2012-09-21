@@ -1,6 +1,6 @@
 $("div").withUserId(<%= @user.id %>).html("<%= escape_javascript(render partial: 'events/follow_form', locals: {user:  @user}) %>")
-	$("#home_raster").html("<%= escape_javascript(render partial: 'shalendar/raster') %>")
-	$("#forecast").html("<%= escape_javascript(render partial: 'shalendar/forecast') %>")
- 
- 	$("#following").html("<%= escape_javascript(render partial: 'shalendar/following') %>")
-	$(".following_count").increment()
+$("#home_raster").html("<%= escape_javascript(render partial: 'shalendar/raster') %>")
+$("#forecast").html("<%= escape_javascript(render partial: 'shalendar/forecast') %>")
+
+$("#following").html("<%= escape_javascript(render partial: 'shalendar/followers') %>")
+$(".friend_count").increment()
