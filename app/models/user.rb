@@ -249,7 +249,6 @@ class User < ActiveRecord::Base
     return @date_invited_events | @date_plans
   end
 
-
   # def forecastoverview
   #   @forecastoverview = []
   #   (-3..16).each do |i|
