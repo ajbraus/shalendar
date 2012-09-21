@@ -1,7 +1,9 @@
-<nav>
+<nav>  
   <%= render 'layouts/alerts' %>
-  <div class="tagline">
-    Do Great Things With Friends :<a href="#howItWorks" class="howto">how it works</a>
+  <div class="event_header_logo">
+    <%= link_to root_path do %>
+      <span class="logo"><%= image_tag "logo_beta.png", width: 120 %></span>
+    <% end %>
   </div>
   <ul>
     <% @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false') %>
@@ -21,22 +23,16 @@
         <dt><a href="#"><%= raster_profile_picture(current_user) %></a></dt>
         <dd>
           <ul>
-            <% if user_signed_in? %>
-              <li>
-                <%= link_to edit_user_registration_path do %>
-                  <span class="fadeInOrange"><i class='icon-wrench user_settings'></i>settings</span>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to destroy_user_session_path, :method => :delete do %>
-                  <span class="fadeInRed"><i class='icon-signout logout'></i>logout</span>
-                <% end %>
-              </li>
-              <% else %>
-              <li>
-                <%= link_icon("Login", new_user_session_path,"signin","","") %>
-              </li>
-            <% end %>
+            <li>
+              <%= link_to edit_user_registration_path do %>
+                <span class="fadeInOrange"><i class='icon-wrench user_settings'></i>settings</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_user_session_path, :method => :delete do %>
+                <span class="fadeInRed"><i class='icon-signout logout'></i>logout</span>
+              <% end %>
+            </li>
           </ul>
         </dd>
       </dl>

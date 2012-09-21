@@ -4,23 +4,27 @@ $(document).ready(function() {
 
 // DATEPICKERDAY
 
-// $('.datePickerDay').click(function(){
-//   dw_position = $(this).position();
-//   $('#datewindow').animate({ left: dw_position.left - 5 }, 500);
-//   for (i=-3; i<17; i++) {
-//     $('dl.day').
-//   }
+$('.datePickerDay').click(function(){
+  dw_position = $(this).position();
+  $('#datewindow').animate({ left: dw_position.left - 5}, 1000);
+  date = $(this).attr('data-date');
+  forecast_original_position = $('#forecast').position();
+  forecast_day_position = $('dl').withDate(date).position();
+  //frame_position = $('.forecast').position();
+  $('#forecast').animate({ right: forecast_day_position.left + 10 }, 1000);
+});
+
+// $('#yesterday').click(function(){
+//   fc_position = $('#forecast').position();
+//   $('#forecast').animate({ left: fc_position.left +=340 }, 1000);
+//   $('#datewindow').animate({ left: '-=38.3' }, 500);
 // });
 
-$('#yesterday').click(function(){
-  fc_current_position = $('#forecast').position();
-  $('#forecast').animate({ left: fc_current_position.left + 322 }, 500);
-});
-
-$('#tomorrow').click(function(){
-  fc_current_position = $('#forecast').position();
-  $('#forecast').animate({ left: fc_current_position.left + 322 }, 500);
-});
+// $('#tomorrow').click(function(){
+//   fc_position = $('#forecast').position();
+//   $('#forecast').animate({ right: fc_position.right -=340 }, 1000);
+//   $('#datewindow').animate({ left: '+=38.3' }, 500);
+// });
 
 // SETTINGS DROPDOWN
 

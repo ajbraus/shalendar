@@ -303,8 +303,9 @@ span.red a {
 
 /* logo */
 
-.logo {
-
+.event_header_logo {
+width: 158px;
+float: left;
 }
 
 
@@ -335,21 +336,20 @@ span.red a {
 /* HOME */
 
 
-header {
+header.header {
   clear: both;
   width:100%;
-  background-color:$icon_color;
   height:58px;
+  background-color:$icon_color;
   -webkit-box-shadow: 0px 2px 9px rgba(50, 50, 50, 0.75);
   -moz-box-shadow:    0px 2px 9px rgba(50, 50, 50, 0.75);
   box-shadow:         0px 2px 9px rgba(50, 50, 50, 0.75);
-}
-
-.header_nav {
-color: white;
-width: 1100px;
-padding: 2px;
-margin: 0 auto;
+  nav {
+    width:1100px;
+    margin: 0 auto;
+    color: white;
+    padding: 2px;
+  }
   .tagline {
     position: relative;
     top: 18px;
@@ -373,6 +373,57 @@ margin: 0 auto;
     height: 47px;
     a {
       color:white;
+      &:hover {
+        color:#3E92E8;
+        .ceiling {
+          color:#3E92E8;
+        }
+      }
+    }
+  }
+  .ceiling {
+    color:darkgrey;
+    font-size: 14px;
+  }
+}
+
+header.event_header{
+  clear: both;
+  width:100%;
+  height:58px;
+  -webkit-box-shadow: inset 0px 0px 10px .3px $icon_color;
+  -moz-box-shadow:    inset 0px 0px 10px .3px $icon_color;
+  box-shadow:         inset 0px 0px 10px .3px $icon_color;
+  background-color: white;
+  nav {
+      color: black;
+  padding: 2px;
+  margin: 0 auto;
+    width:1100px;
+  }
+  .tagline {
+    position: relative;
+    top: 18px;
+    right: 39px;
+    float:left;
+    font-size: 20px;
+}
+  ul {
+    float:right;
+    position: relative;
+    right: 87px;
+  }
+  ul > li {
+    display: inline;
+    position: relative;
+    top: 19px;
+    padding: 0px 15px;
+    right: 33px;
+    left: 94px;
+    float:left;
+    height: 47px;
+    a {
+      color:black;
       &:hover {
         color:#3E92E8;
         .ceiling {
@@ -466,6 +517,7 @@ min-height: 955px;
 margin: 0 auto;
 background-color: rgba(255, 255, 255, .6);
 padding-top: 20px;
+z-index: -10;
 }
 
 .element {
@@ -487,6 +539,7 @@ background-color: rgba(255, 255, 255, 0.8);
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;
+  z-index: 0;
 }
 
 .text {
@@ -620,11 +673,12 @@ float: left;
 width: 214px;
 height: 120px;
 border-bottom: 1px solid lightGrey;
+margin-bottom: 10px;
 }
 
 .get_friends {
 width: 210px;
-height: 185px;
+height: 182px;
 }
 
 /* raster */
@@ -678,6 +732,7 @@ bottom: 3px;
     }
     &:hover {
       background-color:#f2b041;
+      cursor:pointer;
     }
     th {
       font-size: 1em;
@@ -693,13 +748,13 @@ bottom: 3px;
 }       
 
 #datewindow {
-border: 7px solid #FF8500;
-width: 114px;
-height: 95px;
-position: absolute;
-left: 109px;
-top: -6px;
-z-index: -1;
+  border: 7px solid #FF8500;
+  width: 113px;
+  height: 94px;
+  position: absolute;
+  left: 109px;
+  top: -6px;
+  z-index: -1;
 }
 
 .weeks {
@@ -751,6 +806,7 @@ top: 6px;
 left: 17px;
 padding: 8px 10px 8px 12px;
 height: 100%;
+@box-sizing
   }
     > dd {
 /*      -moz-box-shadow: inset 0 0 10px -1px #000;
@@ -1399,10 +1455,6 @@ bottom: 23px;
   margin-bottom: 80px;
 }
 
-#invites_form {
-  width:260px;
-}
-
 .part {
   padding:20px;
   -webkit-border-radius: 7px;
@@ -1433,17 +1485,17 @@ top: 129px;
 }
 
 .title {
-height: 208px;
-width: 450px;
+height: 200px;
+width: 600px;
 font-size: 30px;
 line-height: 1;
+margin:0 auto;
 position: relative;
-top: 11px;
 }
 
 .title_bottom {
 position: absolute;
-bottom: -17px;
+bottom:0;
   p {
     font-size: 15px;
   }
@@ -1470,6 +1522,15 @@ bottom: 35px;
   -moz-box-shadow: 0 0 10px -1px $destroy;
   -webkit-box-shadow: 0 0 10px -1px $destroy;
   box-shadow: 0 0 10px -1px $destroy;
+}
+
+.invites_guests {
+  width: 900px;
+  margin: 0 auto;
+  .raster {
+    float:left;
+    margin-left: 15px;
+  }
 }
 
 .event_link {
