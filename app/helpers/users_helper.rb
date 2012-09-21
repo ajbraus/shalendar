@@ -10,7 +10,7 @@ module UsersHelper
   end
 
   def date(event)
-    event.starts_at.strftime "%A, %B %e"
+    event.starts_at.strftime "%A, %b %e"
   end
 
   def event_start_time(event)

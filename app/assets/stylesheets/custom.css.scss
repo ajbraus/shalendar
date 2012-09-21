@@ -345,7 +345,7 @@ header.header {
   -moz-box-shadow:    0px 2px 9px rgba(50, 50, 50, 0.75);
   box-shadow:         0px 2px 9px rgba(50, 50, 50, 0.75);
   nav {
-    width:1100px;
+  width: 980px;
     margin: 0 auto;
     color: white;
     padding: 2px;
@@ -360,15 +360,12 @@ header.header {
   ul {
     float:right;
     position: relative;
-    right: 87px;
   }
   ul > li {
     display: inline;
     position: relative;
     top: 19px;
     padding: 0px 15px;
-    right: 33px;
-    left: 94px;
     float:left;
     height: 47px;
     a {
@@ -399,7 +396,7 @@ header.event_header{
       color: black;
   padding: 2px;
   margin: 0 auto;
-    width:1100px;
+ width: 980px;
   }
   .tagline {
     position: relative;
@@ -411,15 +408,12 @@ header.event_header{
   ul {
     float:right;
     position: relative;
-    right: 87px;
   }
   ul > li {
     display: inline;
     position: relative;
     top: 19px;
     padding: 0px 15px;
-    right: 33px;
-    left: 94px;
     float:left;
     height: 47px;
     a {
@@ -1137,19 +1131,19 @@ bottom: 17px;
 /* miscellaneous */
 
 .alert {
-position: absolute;
-padding: 8px 35px 8px 14px;
+position: fixed;
 text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 background-color: #FCF8E3;
-border: 1px solid #FBEED5;
--webkit-border-radius: 7px;
--moz-border-radius: 7px;
-border-radius: 7px;
+border-bottom: 2px solid goldenrod;
 color: goldenrod;
-min-width: 307px;
-left: 136px;
 z-index: 10;
-top: 10px;
+top: 0;
+height: 56px;
+line-height: 57px;
+width: 100%;
+left: 0;
+text-align: center;
+font-size: 23px;
 }
 
 .warning
@@ -1260,10 +1254,6 @@ opacity: 0.2;
   td {
     text-align: left;
   }
-}
-
-.social_friends {
-
 }
 
 .viewing_name {
@@ -1451,8 +1441,13 @@ bottom: 23px;
 /* EVENT#SHOW */
 
 .event_show {
-  padding-bottom: 30px;
-  margin-bottom: 80px;
+  margin: 0 auto;
+  width: 900px;
+  clear: both;
+min-height: 1100px;
+background-color: rgba(255, 255, 255, .6);
+padding-top: 20px;
+z-index: -10;
 }
 
 .part {
@@ -1485,30 +1480,46 @@ top: 129px;
 }
 
 .title {
-height: 200px;
-width: 600px;
+height: 225px;
+width: 440px;
 font-size: 30px;
-line-height: 1;
-margin:0 auto;
+margin: 0 0 0 6%;
 position: relative;
-}
-
-.title_bottom {
-position: absolute;
-bottom:0;
-  p {
-    font-size: 15px;
+background-color: white;
+float: left;
+  .event_buttons{
+    float: right;
   }
-  u {
-    font-size: 35px;
-    text-decoration: none;
+  .when {
+  font-size: 21px;
+  width: 300px;
+  color: black;
+  padding: 10px;
+  border-radius: 9px;
+  font-weight: 600;
+  float: left;
+  }
+  .title_bottom {
+  position: absolute;
+  bottom:0;
+  width: 94%;
+    p {
+      font-size: 15px;
+    }
+    u {
+      font-size: 35px;
+      text-decoration: none;
+      position: relative;
+      bottom:5px;
+    }
+    .can_invite {
     position: relative;
-    bottom:5px;
+  left: 361px;
+  bottom: 35px;
+    }
   }
-  .can_invite {
-  position: relative;
-left: 361px;
-bottom: 35px;
+  .by {
+    float:right;
   }
 }
 
@@ -1524,46 +1535,19 @@ bottom: 35px;
   box-shadow: 0 0 10px -1px $destroy;
 }
 
-.invites_guests {
-  width: 900px;
-  margin: 0 auto;
-  .raster {
-    float:left;
-    margin-left: 15px;
-  }
-}
-
-.event_link {
-  float:left;
-  width: 404px;
-}
-
-.social {
-  margin-top:20px;
-  width: 400px;
-  float:right;
-  margin-right:27px;
-  position: absolute;
-top: 140px;
-right: 0;
-min-height: 87px;
-  p{
-    padding:9px 0;
-  }
-}
 
 .map {
-width: 400px;
+width: 280px;
 float: right;
-margin-right: 27px;
-height: 346px;
+margin-right: 22px;
+height: 275px;
 }
 
 .gmaps4rails_map {
   border: 1px solid #DDD;
   display: inline-block;
-  width:350px;
-  height:300px;
+  width:280px;
+  height:220px;
   margin: 10px 0 13px 0px;
   -moz-box-shadow: 0 0 12px -1px #000;
   -webkit-box-shadow: 0 0 12px -1px #000;
@@ -1571,7 +1555,6 @@ height: 346px;
 }
 
 .map_container {
-  padding: 6px;
 }
 
 .bing_map {
@@ -1592,8 +1575,49 @@ height: 346px;
   font-style: italic;
 }
 
-.rsvp_tip {
+.event_link {
+float: right;
+width: 215px;
+overflow-x: hidden;
+position: relative;
+}
 
+.social {
+width: 500px;
+position: relative;
+left: 76px;
+margin: 10px 0;
+float: left;}
+
+.invites_guests {
+  width: 900px;
+  margin: 0 auto;
+  position: relative;
+  left: 26px;
+  height: 465px;
+  float:left;
+  .raster {
+    float:left;
+  }
+  .raster:nth-child(3) {
+    margin:0px 55px;
+  }
+}
+
+.invite_by_email {
+height: 200px;
+width: 233px;
+position: relative;
+left: 15px;
+float:left;
+  textarea {
+    width:200px;
+  }
+  input[type=submit] {
+    position: absolute;
+    bottom:20px;
+    right:50px;
+  }
 }
 
 .nav_buttons {  
@@ -1605,13 +1629,6 @@ position: absolute;
 right: 0;
 top: 10px;
 text-align: right;
-    .when {
-    color: black;
-line-height: 28px;
-text-align: left;
-float: left;
-font-size: 24px;
-  }
 }
 
 .grey_italics {
@@ -1626,48 +1643,21 @@ font-size: 24px;
   margin: 8px 0;
 }
 
-#guest_raster {
-display: inline-block;
-width: 482px;
-float: left;
-overflow-y: scroll;
-min-height: 254px;
-  table{
-    width:30%;
-  }
-}
-
-li.insetType {
-  font-family: Bariol, arial, sans-serif;
-  font-size: 40px;
-  color: rgb(160, 160, 160);
-  padding-left: 50px; /* The padding is just there to move the h1 element to the center of the div */
-  padding-top: 17px;
-  text-shadow: rgba(0,0,0,0.5) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.5) 0 1px, rgba(0,0,0,0.3) -1px -2px;
-  left: 10px;
-}
-
-.input-large {
-  width:340px;
-}
-
-#invites, #guests {
-  overflow-y:auto;
-}
-
 .comments_form {
 float: right;
-width: 400px;
+width: 530px;
 height: auto;
-margin-right: 27px;
+margin-right: 15px;
   textarea {
-    width:340px;
+    width:400px;
   }
   .btn {
     position: relative;
-left: 210px;
+left: 300px;
   }
-
+  .field {
+    margin-left:10px;
+  }
 }
 
 .comment {

@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	$("div.alert").delay(5000).fadeOut(1000);
+	$("div.alert").delay(2500).fadeOut(400);
 
 // DATEPICKERDAY
 
