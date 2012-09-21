@@ -10,21 +10,28 @@
 
   <div class="invites_guests">
     <% if @event.guests_can_invite_friends? || @event.user == current_user %>
-      <p>Click to Give Invitation</p>
-      <div id="invite_raster" class="raster element">
-        <%= render partial: 'invite_raster', locals: { :event => @event } %>
+      <div class="event_show_rasters">
+        <p>Invite Friends</p>
+        <div id="invite_raster" class="raster element">
+          <%= render partial: 'invite_raster', locals: { :event => @event } %>
+        </div>
       </div>
     <% end %>
 
-    <div id="invites" class="raster element">
-      <h3>invited: <span id="invite_count"><%= @invited_users.count + @email_invites.count %></span></h3>
-      <%= render partial: 'events/invites' %>
+    <div class="event_show_rasters">
+      <p>Invited: <span id="invite_count"><%= @invited_users.count + @email_invites.count %></span></p>
+      <div id="invites" class="raster element">
+        <%= render partial: 'events/invites' %>
+      </div>
     </div>
 
-    <div class="raster element">
-      <h3>going: <%= @guests.count %></h3>
-      <%= render 'guests' %>
+    <div class="event_show_rasters">
+      <p>Going: <%= @guests.count %></p>
+      <div class="raster element">
+        <%= render 'guests' %>
+      </div>
     </div>
+
   </div>
 
   <div class="invite_by_email element">
