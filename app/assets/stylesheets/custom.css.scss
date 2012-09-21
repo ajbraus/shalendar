@@ -501,7 +501,6 @@ border-radius: 7px;
   display:block; 
   color:black;
   position: relative;
-right: 75px;
 }
 
 .layout {
@@ -1131,7 +1130,7 @@ bottom: 17px;
 /* miscellaneous */
 
 .alert {
-position: fixed;
+position: absolute;
 text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 background-color: #FCF8E3;
 border-bottom: 2px solid goldenrod;
@@ -1170,6 +1169,10 @@ font-size: 23px;
   }
 }
 
+.friends {
+  width: 800px;
+margin-left: 40px;
+}
 .user_table {
 font-size: 12px;
 height: 512px;
@@ -1986,10 +1989,13 @@ select {
 }
 
 .new_invited_events {
-  position: absolute;
-  top:0;
-  left: 200px;
-  width:100px;
-  background-color:white;
-  height:200px;
+position: absolute;
+top: 30px;
+left: 0px;
+width: 330px;
+background-color: white;
+height: auto;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
 }

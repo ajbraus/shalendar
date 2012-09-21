@@ -5,6 +5,7 @@
   <%= render 'how_it_works' %>
   <% if user_signed_in? %>
   <ul>
+    <% if user_signed_in? %>
     <% @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false') %>
     <% if @friend_requests.any? %>
       <li><a href="<%= manage_follows_path %>"><strong id="view_requests"><u> + </u><%= @friend_requests.count %> Requests</strong></a></li>
@@ -22,7 +23,6 @@
         <dt><a href="#"><%= raster_profile_picture(current_user) %></a></dt>
         <dd>
           <ul>
-            <% if user_signed_in? %>
               <li>
                 <%= link_to edit_user_registration_path do %>
                   <span class="fadeInOrange"><i class='icon-wrench user_settings'></i>settings</span>
@@ -32,10 +32,6 @@
                 <%= link_to destroy_user_session_path, :method => :delete do %>
                   <span class="fadeInRed"><i class='icon-signout logout'></i>logout</span>
                 <% end %>
-              </li>
-              <% else %>
-              <li>
-                <%= link_icon("Login", new_user_session_path,"signin","","") %>
               </li>
             <% end %>
           </ul>

@@ -1,9 +1,9 @@
-<a href="/events/<%= event.id %>">
+<a href="/events/<%= event.id %>" data-inviter-id="<%= event.inviter_id %>">
 	<% if @next_plan %>
 		<% if event.id == @next_plan.id %>
-			<div class="next_plan" data-user-id="<%= event.user.id %>">
+			<div class="next_plan">
 		<% else %>
-			<div data-user-id="<%= event.user.id %>">
+			<div>
 		<% end %>
 	<% end %>
 			<% if current_user.rsvpd?(event) %>
