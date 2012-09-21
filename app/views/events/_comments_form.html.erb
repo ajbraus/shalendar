@@ -2,7 +2,7 @@
 	<%= form_for([@event, @event.comments.build]) do |f| %>
 	  <div class="field">
 	    <%= f.label :content, "Leave an Comment" %><br />
-	    <%= f.text_area :content, rows: 2, cols: 20 %>
+	    <%= f.text_area :content, rows: 3, cols: 35 %>
 	  </div>
 	  <p><%= f.submit "Leave Comment", class: "btn btn-primary" %></p>
 	<% end %>
