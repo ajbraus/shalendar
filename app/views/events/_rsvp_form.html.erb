@@ -6,7 +6,7 @@
 		<% end %>
 	<% elsif @event.full? %>
 		Event is full
-	<% else %>
+	<% elsif current_user.invited?(@event) %>
   	<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
 		  <div><%= f.hidden_field :plan_id %></div>
 		  <%= f.submit raw("&#xf05d; I'm In"), class: "btn btn-rsvp fa-input" %>

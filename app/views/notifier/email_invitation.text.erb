@@ -4,6 +4,8 @@ Hey <% if @user.nil? == false %> <%= @user.first_name %> <% else %> there <% end
 
 <%= @event.title %>
 
+<%= @event_time %>
+
 Check out www.hoos.in/events/<%=@event.id%> to join.</td>
 
 <% if @user.nil? %>

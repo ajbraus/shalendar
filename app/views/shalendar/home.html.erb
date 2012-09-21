@@ -1,15 +1,15 @@
 <% provide(:title, " | Home") %>
-	<%= render 'layouts/logo' %>
 	<div class="dashboard">
+		<%= render 'layouts/logo' %>
 	  <%= render 'get_friends' %>
 	  <div class="grey_italics small">
-	  	Viewing: click pics to show/hide user's ideas
+	  	Click to show/hide Friends' ideas
 	  </div>
-	  <div id="raster" class="element">
+	  <div id="home_raster" class="raster element">
 	  	<%= render 'raster' %>
 	  </div>
 	  <div class="raster_nav">
-  		<a href="#" onclick="$('.toggled-off').click();">View All</a> |
+  		<a href="#" onclick="$('.toggled-off').click();">Show All</a> |
   		<a href="#" onclick="$('.toggled-on').click();">Hide All</a>
 
 		</div>
@@ -20,9 +20,7 @@
 	</div>
 	<div class="container">
 		<%= render 'ribbon', :locals => { :next_plan => @next_plan } %>
-		<div id='forecast'>
-			<%= render 'forecast' %>
-		</div>
+		<%= render 'forecast' %>
 	</div>
 </div>
 

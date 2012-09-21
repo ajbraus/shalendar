@@ -5,8 +5,8 @@ class Api::V1::ShalendarController < ApplicationController
 	def get_user_info
 
 		@user = User.find_by_id(params[:user_id])
-
-    @all_invites = Invite.where("invites.email = :current_user_email", current_user_email: @user.email)
+    #**UPDATE for invitations
+    @all_invites = EmailInvite.where("email_invites.email = :current_user_email", current_user_email: @user.email)
     @invites = []
     @all_invites.each do |i|
       @temp = {

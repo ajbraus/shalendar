@@ -1,15 +1,15 @@
-class InvitesController < ApplicationController
+class EmailInvitesController < ApplicationController
   before_filter :authenticate_user!
   
   def create
     @event = Event.find(params[:event_id])
-    @invite = @event.invites.build(params[:invite])
+    @invite = @event.email_invites.build(params[:email_invite])
     @invite.inviter_id = current_user.id 
 
     respond_to do |format|
       if @invite.save
         #Resque.enqueue(MailerCallback, "Notifier", :invitation, @invite.id, @event.id)
-        Notifier.invitation(@invite, @event).deliver
+        Notifier.email_invitation(@invite, @event).deliver
         format.html { redirect_to @event, notice: 'Invite was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
         format.js
@@ -22,13 +22,7 @@ class InvitesController < ApplicationController
   end
 
   def destroy
-    @invite = Invite.find(params[:id])
-    @event = Event.find(params[:event_id])
-    @invite.destroy
-
-    respond_to do |format|
-      format.html { redirect_to @event }
-      format.json { head :no_content }
-    end
+    @email_invite = EmailInvite.find_by_id(params[:id])
+    @email_invite.destroy
   end
 end

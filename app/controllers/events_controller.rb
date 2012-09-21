@@ -30,11 +30,6 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
-
-
-    @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
-                                         relationships.confirmed = false ", current_user_id: current_user.id)
-
   end
 
   # POST /events
@@ -44,11 +39,16 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         current_user.rsvp!(@event)
-        if(@event.min <= 1)
+        if @event.min <= 1
           @event.tipped = true
           @event.save
         end
-        if current_user.post_to_fb_wall? && session[:graph] && @event.visibility == "friends_of_friends" #&& Rails.env.production?
+        if params[:invite_all_friends] == "1"
+          current_user.invite_all_friends!(@event)
+        end
+        
+
+        if current_user.post_to_fb_wall? && session[:graph] && params[:invite_all_friends] == "1" && @event.guests_can_invite_friends? #&& Rails.env.production?
           # @graph = Koala::Facebook::API.new(session[:access_token])
           session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
                                               :link => "http://www.hoos.in/events/#{@event.id}", 
@@ -56,13 +56,9 @@ class EventsController < ApplicationController
                                               })
         end
 
-        if @event.visibility == "invite_only"
-          format.html { redirect_to @event }
-          format.json { render json: @event, status: :created, location: @event }
-        else
-          format.html { redirect_to home_path, notice: "Idea posted! #{@event.title.slice(0..40)}, #{@event.starts_at.strftime "%l:%M%P, %A %B %e"}: "}
-          format.json { render json: home_path, status: :created, location: @event }
-        end
+        format.html { redirect_to @event }
+        format.json { render json: @event, status: :created, location: @event }
+
       else
         format.html { redirect_to home_path, notice: "Idea could not be posted. Please try again." }
         format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -73,24 +69,12 @@ class EventsController < ApplicationController
   #GET /events/id
   #GET /events/id.json
   def show
-    # @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
-    #                                      relationships.confirmed = false ", current_user_id: current_user.id)
     @event = Event.find(params[:id])
     @guests = @event.guests
     @json = @event.to_gmaps4rails
-    #separating invites by email from invites who are users
-    @invites = []
-    @invited_users = []
-    @event.invites.each do |i|
-      if u = User.find_by_email(i.email)
-        @invited_users.push(u)
-      else
-        @invites.push(i)
-      end
-    end
-    @invited_users = @invited_users - @event.guests
-
-    @access_token = session[:access_token]
+    @friends = current_user.followers
+    @email_invites = @event.email_invites
+    @invited_users = @event.invited_users - @event.guests
     @graph = session[:graph]
     @comments = @event.comments.order("created_at desc")
 

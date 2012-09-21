@@ -110,8 +110,17 @@ private
                 :terms => true,
                 :remember_me => true,
                 :password => Devise.friendly_token[0,20]
-              ) 
+              )
       user.save
+      EmailInvite.where("email_invites.email = :new_user_email", new_user_email: user.email).each do |ei|
+        @inviter_id = ei.inviter_id
+        @invited_user_id = user.id
+        @event = ei.event
+        if @inviter = User.find_by_id(@inviter_id)
+          @inviter.invite!(@event, user)
+        end
+        ei.destroy
+      end
       return user
     end
   end

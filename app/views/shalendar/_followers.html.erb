@@ -1,7 +1,7 @@
 <div id="followers">
-  <h2>Viewed By</h2>
+  <h2>Friends</h2>
   <div class="user_table">
-    <% @follower_relationships.each do |fr| %>
+    <% @friendships.each do |fr| %>
     <table>        
         <tr>
           <td width="50px"><%= raster_profile_picture(fr.follower) %></td>

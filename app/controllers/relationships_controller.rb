@@ -6,54 +6,36 @@ before_filter :authenticate_user!
 
     if @user.require_confirm_follow?  && (@user.following?(current_user) == false)#autoconfirm if already following us
       current_user.follow!(@user)
-      @relationship = Relationship.last #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
+      @relationship = current_user.relationships.find_by_followed_id(@user.id) #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
       @relationship.confirmed = false
       Notifier.confirm_follow(@user, current_user).deliver
       if @relationship.save
         respond_to do |format|
-        @relationships = current_user.relationships.where('relationships.confirmed = true')
-        @follower_relationships = Relationship.where("relationships.followed_id = :current_user_id AND 
-                                                  relationships.confirmed = true ", current_user_id: current_user.id)
-        @followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
-                                                       current_user_id: current_user.id)
-        @graph = session[:graph]
-        if params[:date] 
-          @forecastevents = current_user.forecast(params[:date])
-          @date = Date.strptime(params[:date], "%Y-%m-%d")
-         else 
-          @forecastevents = current_user.forecast((Date.today).to_s)
-          @date = Date.today
-         end
-         format.html { redirect_to :back, notice: "View request sent to #{@user.name}" }
-         format.js
+          format.html { redirect_to :back, notice: "Friend request sent to #{@user.name}" }
+          format.js { render template: "create_no_reload", notice: "Friend request sent to #{@user.name}" }
         end
       else
-        redirect_to :back, notice: "Couldn't View #{@user.name}'s ideas"
+        redirect_to :back, notice: "Couldn't Friend #{@user.name}"
       end
     else
       Notifier.new_follower(@user, current_user).deliver
       current_user.follow!(@user)
-      @relationship = Relationship.last
+      @relationship = current_user.relationships.find_by_followed_id(@user.id)
       @relationship.confirmed = true
       if @relationship.save
         respond_to do |format|
-         @relationships = current_user.relationships.where('relationships.confirmed = true')
-         @follower_relationships = Relationship.where("relationships.followed_id = :current_user_id AND 
-                                                  relationships.confirmed = true ", current_user_id: current_user.id)
-         @followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
-                                                       current_user_id: current_user.id)
-         if params[:date] 
-          @forecastevents = current_user.forecast(params[:date])
-          @date = Date.strptime(params[:date], "%Y-%m-%d")
-         else 
-          @forecastevents = current_user.forecast((Date.today).to_s)
-          @date = Date.today
-         end
-         format.html { redirect_to :back, notice: "View request sent to #{@user.name}" }
-         format.js
+          @user.follow!(current_user)
+          @reverse_relationship = @user.relationships.find_by_followed_id(current_user.id)
+          @reverse_relationship.confirmed = true
+          @reverse_relationship.save
+          format.html { redirect_to :back, notice: "Friend request sent to #{@user.name}" }
+          @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
+          @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s)
+          @date = Time.now.in_time_zone(current_user.time_zone).to_date
+          format.js
         end
       else
-        redirect_to :back, notice: "Couldn't View #{@user.name}'s ideas"
+        redirect_to :back, notice: "Couldn't Friend #{@user.name}"
       end
     end
   end
@@ -61,19 +43,13 @@ before_filter :authenticate_user!
   def destroy
     @user = Relationship.find(params[:id]).followed
     current_user.unfollow!(@user)
+    @user.unfollow!(current_user)
     respond_to do |format|
-     @relationships = current_user.relationships.where('relationships.confirmed = true')
-     @followed_user_relationships = Relationship.where("relationships.follower_id = :current_user_id",
-                                                       current_user_id: current_user.id)
-     if params[:date] 
-      @forecastevents = current_user.forecast(params[:date])
-      @date = Date.strptime(params[:date], "%Y-%m-%d")
-     else 
-      @forecastevents = current_user.forecast((Date.today).to_s)
-      @date = Date.today
-     end
-     format.html { redirect_to :back, notice: "#{@user.name} can no longer view your ideas" }
-     format.js
+      @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
+      @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s)
+      @date = Time.now.in_time_zone(current_user.time_zone)
+      format.html { redirect_to :back, notice: "You are no longer friends with #{@follower.name} on hoos.in" }
+      format.js
     end
   end
 
@@ -81,8 +57,8 @@ before_filter :authenticate_user!
     @relationship = Relationship.find(params[:relationship_id])
     @follower = @relationship.follower
     @follower.unfollow!(current_user)
-    redirect_to :back, 
-                notice: "#{@follower.name} can no longer view your ideas"
+    current_user.unfollow!(@follower)
+    redirect_to :back, notice: "You are no longer friends with #{@follower.name} on hoos.in"
   end
 
   def toggle
@@ -90,41 +66,39 @@ before_filter :authenticate_user!
    @relationship.toggle!
    @relationship.save
    respond_to do |format|
-     @forecastevents = current_user.forecast((Date.today).to_s)
-     @date = Date.today     
+    format.html { redirect_to :back }
+     @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s)
+     @date = Time.now.in_time_zone(current_user.time_zone)     
      @forecastoverview = current_user.forecastoverview
      @graph = session[:graph]
-     format.html { redirect_to :back }
      format.js
    end
   end
 
-  def confirm
-    @relationship = Relationship.find(params[:relationship_id])
-    @relationship.confirm!
-    @relationship.save
-    redirect_to :back, notice: "#{@relationship.follower.name} can now view your ideas"
-  end
+  # def confirm
+  #   @relationship = Relationship.find(params[:relationship_id])
+  #   @relationship.confirm!
+  #   @relationship.save
+  #   redirect_to :back, notice: "#{@relationship.follower.name} can now view your ideas"
+  # end
 
   def confirm_and_follow
     @relationship = Relationship.find(params[:relationship_id])
     @relationship.confirm!
     @relationship.save
-
-    #@other_user = @relationship.follower
-    
     current_user.follow!(@relationship.follower)
-    @new_relationship = Relationship.last
-    # This was for when we didn't auto-confirm on follow-back, probably make a setting for this
-    # if(@relationship.follower.require_confirm_follow == true)
-    #   @new_relationship.confirmed = false
-    # else
-      @new_relationship.confirmed = true
-    # end
-    if @new_relationship.save 
-      redirect_to :back, notice: "#{@relationship.follower.name} can now view your ideas and request sent to view back"
+    @reverse_relationship = current_user.relationships.find_by_followed_id(@relationship.follower.id)
+    @reverse_relationship.confirm!
+    if @reverse_relationship.save 
+      respond_to do |format|
+        @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
+        @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s)
+        @date = Time.now.in_time_zone(current_user.time_zone)
+        format.html { redirect_to :back, notice: "You are no longer friends with #{@follower.name} on hoos.in" }
+        format.js
+      end
     else
-      redirect_to :back, notice: "Couldn't View #{@user.name}'s ideas"
+      redirect_to :back, notice: "Couldn't Friend #{@user.name}"
     end
   end
 end

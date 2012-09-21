@@ -10,23 +10,22 @@ info, support, dev, sales emails
 email signatures
 update git repo to company 
 
-
+*super limited* profile- know who someone is, maybe a short blurb, lightbox?
 
 Mike
 ------------
 
-timezone is wrong - switches to wednesday around 6pm on tuesday.
-
 Event#create post to facebook wall as background job
 
-take out attendees from invite raster
-
+Protect RSVP to only ppl invited to event
 Mailers running in background
 	took this out of Procfile in favor or a resque worker: worker: bundle
 	exec rake jobs:work
 	Auto-scale workers
 
-schedule tip cron job
+schedule tip cron job- what exactly should we do?
+
+destroy old emailInvites and invitations
 
 new follower email link not working
 
@@ -49,6 +48,11 @@ Make sure events always get served in time order
 
 Adam
 --------------
+Success, Error, Warning different dropdowns
+title floating after adding invite in event#show
+
+Devise time-outable to end session before access_token goes away (and refresh other things)
+facebook to launch immediately
 
 invite email date and time! RSVP button Image of the inviter. Address if there is one.
 
@@ -167,6 +171,8 @@ AFTER BETA LAUNCH
 			comments
 			Invitation raster
 			tip!
+
+	MEETUP API
 
 Infrastructure
 	Staging

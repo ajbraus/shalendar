@@ -14,22 +14,15 @@
 				
 				<div class="event_time"><%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>
 
-				<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
-				
-				<div class="event_blerb"><%= event.short_event_title %></div>
-				
-				<% if !event.tipped? %>
-					<div class="not_tipped guest_count">
-				<% else %>
-					<div class="guest_count">
-				<% end %>
-		      <% if event.visibility == "friends_of_friends" %>
-		        <i class="icon-bullhorn"></i>
-		      <% elsif event.visibility == "friends" %>
-		        <i class="icon-group"></i>
-		      <% elsif event.visibility == "invite_only" %>
-		        <i class="icon-envelope"></i>
-		      <% end %>
+			<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
+			
+			<div class="event_blerb"><%= event.short_event_title %></div>
+			
+			<%# **UPDATE- change displaying icon to check event.friends_can_invite_friends %>
+			<div class="guest_count">
+	      <% if event.guests_can_invite_friends? %>
+	      	<i class="icon-group"></i>
+	      <% end %>
 					<% if event.tipped? %>	
 						<span class="count"><%= event.guests.count %></span>
 					<% else %>

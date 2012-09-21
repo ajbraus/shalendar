@@ -1,8 +1,8 @@
-<% @relationships.each do |relation| %>
+<% @friendships.each do |relation| %>
   <% if relation.toggled == true %>
-    <%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put, class:"toggled-on", "data-pic-id" => "#{relation.followed.id}", title: "#{relation.followed.name}", remote: true %>
+    <%= link_to raster_profile_picture(relation.follower), relationship_toggle_path(relation), :method => :put, class:"toggled-on", "data-pic-id" => "#{relation.followed.id}", title: "#{relation.followed.name}", remote: true %>
   <% else %>
-    <%= link_to raster_profile_picture(relation.followed), relationship_toggle_path(relation), :method => :put, class:'toggled-off',  "data-pic-id" => "#{relation.followed.id}", title: "#{relation.followed.name}", remote: true %>
+    <%= link_to raster_profile_picture(relation.follower), relationship_toggle_path(relation), :method => :put, class:'toggled-off',  "data-pic-id" => "#{relation.followed.id}", title: "#{relation.followed.name}", remote: true %>
   <% end %>
 <% end %>
 

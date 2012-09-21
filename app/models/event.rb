@@ -3,10 +3,16 @@ require 'chronic'
 class Event < ActiveRecord::Base
   acts_as_gmappable :validation => false
   belongs_to :user
-  has_many :comments, dependent: :destroy
+
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
   has_many :guests, through: :rsvps
-  has_many :invites, dependent: :destroy
+
+  has_many :invitations, foreign_key: "invited_event_id", dependent: :destroy
+  has_many :invited_users, through: :invitations
+
+  has_many :comments, dependent: :destroy
+  has_many :email_invites, dependent: :destroy
+
   attr_accessible :id,
                   :starts_at, 
                   :duration,
@@ -19,10 +25,10 @@ class Event < ActiveRecord::Base
                   :longitude,
                   :chronic_starts_at,
                   :chronic_ends_at,
-                  :visibility,
                   :link,
                   :gmaps,
-                  :tipped
+                  :tipped,
+                  :guests_can_invite_friends
 
   validates :user_id,
             :title,
@@ -49,9 +55,8 @@ class Event < ActiveRecord::Base
       :guests => self.guests,
       :tipped => self.tipped
     }
-    
   end
-  
+
   def self.format_date(date_time)
     Time.at(date_time.to_i).to_formatted_s(:db)
   end
