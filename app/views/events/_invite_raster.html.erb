@@ -1,4 +1,4 @@
-<% @friendships.each do |f| %>
+<% @friends.each do |f| %>
 	<% unless f.invited?(event) || f.rsvpd?(event) %>
 		<%= form_for f.invitations.build(invited_event_id: event.id, inviter_id: current_user.id, invited_user_id: f.id), remote: true do |i|%>
 			<%= i.hidden_field :inviter_id %>

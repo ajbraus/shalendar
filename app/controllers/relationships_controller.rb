@@ -23,11 +23,18 @@ before_filter :authenticate_user!
       @relationship = current_user.relationships.find_by_followed_id(@user.id)
       @relationship.confirmed = true
       if @relationship.save
-        respond_to do |format|
-          @user.follow!(current_user)
+        current_user.add_invitations_from_user(@user)
+        unless @user.following?(current_user)
+          unless @user.request_following?(current_user) 
+            @user.follow!(current_user)
+          end
           @reverse_relationship = @user.relationships.find_by_followed_id(current_user.id)
           @reverse_relationship.confirmed = true
           @reverse_relationship.save
+          @user.add_invitations_from_user(current_user)
+          #also need to add all relevant invitations for both people at this point
+        end
+        respond_to do |format|
           format.html { redirect_to :back, notice: "Friend request sent to #{@user.name}" }
           @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
           @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s)
@@ -86,15 +93,17 @@ before_filter :authenticate_user!
     @relationship = Relationship.find(params[:relationship_id])
     @relationship.confirm!
     @relationship.save
-    current_user.follow!(@relationship.follower)
+    unless current_user.request_following?(@relationship.follower) || current_user.following?(@relationship.follower)
+      current_user.follow!(@relationship.follower)
+    end
     @reverse_relationship = current_user.relationships.find_by_followed_id(@relationship.follower.id)
     @reverse_relationship.confirm!
     if @reverse_relationship.save 
       respond_to do |format|
         @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
-        @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s)
-        @date = Time.now.in_time_zone(current_user.time_zone)
-        format.html { redirect_to :back, notice: "You are no longer friends with #{@follower.name} on hoos.in" }
+        #@forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s)
+        #@date = Time.now.in_time_zone(current_user.time_zone)
+        format.html { redirect_to :back, notice: "You are now friends with #{@relationship.follower.name} on hoos.in" }
         format.js
       end
     else

@@ -75,22 +75,21 @@ class User < ActiveRecord::Base
     }
   end
 
+  def first_name
+    name.split(' ')[0]
+  end
+
+  def last_name
+    name.split.count == 3 ? name.split(' ')[2] : name.split(' ')[1]
+  end
+
+  def middle_name
+    name.split.count == 3 ? name.split(' ')[1] : nil
+  end
+
   def send_welcome
      Notifier.welcome(self).deliver
   end
-
-  # Search indexes
-
-  # define_index do
-  #   # fields
-  #   indexes email, :sortable => true
-  #   indexes name, :sortable => true
-    
-  #   # attributes
-  #   has author_id, created_at, updated_at
-  # end
-
-  #Rsvp methods... user.plans = list of events
 
   def self.search(query)
     conditions = <<-EOS
@@ -130,15 +129,6 @@ class User < ActiveRecord::Base
     user == current_user
   end
 
-  def invited?(event)
-    # return Invitation.where('invitations.invited_user_id = :current_user_id AND invitations.invited_event_id = :eventid',
-    #                               current_user_id: self.id, eventid: event.id).any?
-    invitations.where('invitations.invited_event_id = :eventid', eventid: event.id).any?
-    #return Invite.where('invites.email = :current_user_email AND invites.event_id = :eventid',
-    #              current_user_email: self.email, eventid: event.id).any?
-    #if an invite for user at event exists
-  end
-
   #Relationship methods
   def following?(other_user)
     if r = relationships.find_by_followed_id(other_user.id)
@@ -174,18 +164,18 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(other_user.id).destroy
   end
 
-  #AUX methods
-
-  def first_name
-    name.split(' ')[0]
+  def add_invitations_from_user(other_user)
+    other_user.rsvps.each do |r|
+      if r.invite_all_friends?
+        unless self.invited?(r.plan)
+          other_user.invite!(r.plan, self)
+        end
+      end
+    end
   end
 
-  def last_name
-    name.split.count == 3 ? name.split(' ')[2] : name.split(' ')[1]
-  end
-
-  def middle_name
-    name.split.count == 3 ? name.split(' ')[1] : nil
+  def invited?(event)
+    invitations.where('invitations.invited_event_id = :eventid', eventid: event.id).any?
   end
 
   def invite_all_friends!(event)
