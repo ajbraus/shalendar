@@ -2,6 +2,7 @@
   <div class="tagline">
     Do Great Things With Friends :<a href="#howItWorks" class="howto">how it works</a>
   </div>
+  <%= render 'how_it_works' %>
   <% if user_signed_in? %>
   <ul>
     <% @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false') %>
