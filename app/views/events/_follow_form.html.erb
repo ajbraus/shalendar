@@ -3,7 +3,7 @@
 	  <% if current_user.following?(user) %>
 	  	<%= render :partial => 'events/unfollow', :locals => { :user => user } %>
 	  <% elsif current_user.request_following?(user) %>
-	  	<span>View Requested</span>
+	  	<span>Friend Request Sent</span>
 	  <% else %>
 	  	<%= render :partial => 'events/follow', :locals => { :user => user } %>
 	  <% end %>

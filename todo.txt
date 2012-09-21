@@ -48,7 +48,7 @@ Make sure events always get served in time order
 
 Adam
 --------------
-
+Success, Error, Warning different dropdowns
 title floating after adding invite in event#show
 
 Devise time-outable to end session before access_token goes away (and refresh other things)

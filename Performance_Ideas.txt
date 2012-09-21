@@ -1,6 +1,6 @@
 PERFORMANCE OPPORTUNITIES:
 
-visibility as integer
+Separate calls for manage_follows and shalendar for relationships#create (maybe something to do with :back symbol)
 SQL queries events_on_date
 javascript not hitting server 
 	serve all events in forecast and just hide and show based on which users are toggled

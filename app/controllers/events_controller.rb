@@ -30,11 +30,6 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
-
-
-    @view_requests = Relationship.where("relationships.followed_id = :current_user_id AND
-                                         relationships.confirmed = false ", current_user_id: current_user.id)
-
   end
 
   # POST /events
@@ -77,11 +72,9 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @guests = @event.guests
     @json = @event.to_gmaps4rails
-    
+    @friends = current_user.followers
     @email_invites = @event.email_invites
     @invited_users = @event.invited_users - @event.guests
-
-    @access_token = session[:access_token]
     @graph = session[:graph]
     @comments = @event.comments.order("created_at desc")
 

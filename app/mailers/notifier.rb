@@ -42,13 +42,13 @@ class Notifier < ActionMailer::Base
   def confirm_follow(user, follower)
     @user = user
     @follower = follower
-    mail to: user.email, from: "info@hoos.in", subject: "New View Request - #{@follower.name}"
+    mail to: user.email, from: "info@hoos.in", subject: "New Friend Request - #{@follower.name}"
   end
 
   def new_follower(user, follower)
     @user = user
     @follower = follower
-    mail to: user.email, from: "info@hoos.in", subject: "New Viewer - #{@follower.name}"
+    mail to: user.email, from: "info@hoos.in", subject: "New Friend - #{@follower.name}"
   end
 
   def event_tipped(event, user)
