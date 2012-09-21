@@ -1,5 +1,10 @@
 $(document).ready(function() {
 
+// INITIALLY HIDE ALL UNTOGGLED USERS
+
+  // hide all <a>s with inviter-ids = toggled-off follower.ids
+  // $('a.togged-off')
+
 	$("div.alert").delay(2500).fadeOut(400);
 
 // DATEPICKERDAY
@@ -14,17 +19,19 @@ $('.datePickerDay').click(function(){
   $('#forecast').animate({ right: forecast_day_position.left + 10 }, 1000);
 });
 
-// $('#yesterday').click(function(){
-//   fc_position = $('#forecast').position();
-//   $('#forecast').animate({ left: fc_position.left +=340 }, 1000);
-//   $('#datewindow').animate({ left: '-=38.3' }, 500);
-// });
+// YESTERDAY AND TOMORROW
 
-// $('#tomorrow').click(function(){
-//   fc_position = $('#forecast').position();
-//   $('#forecast').animate({ right: fc_position.right -=340 }, 1000);
-//   $('#datewindow').animate({ left: '+=38.3' }, 500);
-// });
+$('#yesterday').click(function(){
+  fc_position = $('#forecast').position();
+  $('#forecast').animate({ left: fc_position.left +=340 }, 1000);
+  $('#datewindow').animate({ left: '-=38.3' }, 500);
+});
+
+$('#tomorrow').click(function(){
+  fc_position = $('#forecast').position();
+  $('#forecast').animate({ right: fc_position.right -=340 }, 1000);
+  $('#datewindow').animate({ left: '+=38.3' }, 500);
+});
 
 // SETTINGS DROPDOWN
 
@@ -128,7 +135,6 @@ $(document).bind('click', function(e) {
 // onSuccess: function(transport) {}
 // });
 // });
-
 
 // INSTAGRAM HASHTAG FEED
 
