@@ -3,6 +3,10 @@
 <% elsif @event.tipped? == false %>
 <div class="title part not_tipped_title">
 <% end %>  
+  <div class="when">
+    <%= date(@event) %> <br> 
+    <%= event_start_time(@event) %> - <%= event_end_time(@event) %>
+  </div> 
   <%= @event.title %>
   <div class="title_bottom">
     <% if @event.user == current_user %>
@@ -21,5 +25,17 @@
         <i class="icon-group" title="Friends"></i>
       <% end %>
     </div>
+    <div class="event_buttons"
+    <% if @event.user == current_user %> 
+      <% unless @event.tipped? %>
+        <%= link_to event_tip_path(@event), :confirm => "Force your idea to tip? This cannot be reversed and will send notifications to all RSVPs.", :method => :put do %>
+          <span class="btn btn-primary"><i class="icon-pushpin"></i> Tip!</span>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= render 'rsvp_form' %>
+    <% end %>
+    </div>
   </div>
+</div>
 </div>

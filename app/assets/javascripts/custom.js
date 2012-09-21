@@ -6,12 +6,12 @@ $(document).ready(function() {
 
 $('.datePickerDay').click(function(){
   dw_position = $(this).position();
-  $('#datewindow').animate({ left: dw_position.left - 5}, 1700);
+  $('#datewindow').animate({ left: dw_position.left - 5}, 1000);
   date = $(this).attr('data-date');
   forecast_original_position = $('#forecast').position();
   forecast_day_position = $('dl').withDate(date).position();
   //frame_position = $('.forecast').position();
-  $('#forecast').animate({ right: forecast_day_position.left + 10 }, 1700);
+  $('#forecast').animate({ right: forecast_day_position.left + 10 }, 1000);
 });
 
 // $('#yesterday').click(function(){

@@ -79,7 +79,7 @@ class EventsController < ApplicationController
     @comments = @event.comments.order("created_at desc")
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render layout: "event_show"}
       format.json { render json: @event }
     end
   end

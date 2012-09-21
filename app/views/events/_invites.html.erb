@@ -1,14 +1,12 @@
-<div id="invites">
-  <% unless @invited_users.empty? %>
-    <% @invited_users.each do |iu| %>
-      <table>
-        <tr>
-          <td><%= raster_profile_picture(iu) %></td>
-          <td><%= iu.name %></td>
-          <td><%= render :partial => 'events/follow_form', :locals => { :user => iu } %></td>
-        </tr>
-      </table>  
-    <% end %>
+<% unless @invited_users.empty? %>
+  <% @invited_users.each do |iu| %>
+    <table>
+      <tr>
+        <td><%= raster_profile_picture(iu) %></td>
+        <td><%= iu.name %></td>
+        <td><%= render :partial => 'events/follow_form', :locals => { :user => iu } %></td>
+      </tr>
+    </table>  
   <% end %>
-  <%= render partial: 'email_invites/email_invite', collection: @email_invites %>
-</div>
+<% end %>
+<%= render partial: 'email_invites/email_invite', collection: @email_invites %>

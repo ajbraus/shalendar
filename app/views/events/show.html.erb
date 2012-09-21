@@ -1,28 +1,39 @@
 <% provide(:title, " | Idea") %>
-<div class="dashboard">
-  <%= render 'layouts/logo' %>
+<div class="event_show"> 
+  <%= render 'title' %>
+  <% if @event.user == current_user || @event.guests_can_invite_friends %>
+    <%= render 'social' %>
+  <% end %>
 
-  <% if @event.guests_can_invite_friends? || @event.user == current_user %>
+  <div class="invites_guests">
+
+    <% if @event.guests_can_invite_friends? || @event.user == current_user %>
+      <p>Click to Give Invitation</p>
+      <div id="invite_raster" class="raster element">
+        <%= render partial: 'invite_raster', locals: { :event => @event } %>
+      </div>
+    <% end %>
+
+    <div id="invites" class="raster element">
+      <h3>invited: <span id="invite_count"><%= @invited_users.count + @email_invites.count %></span></h3>
+      <%= render partial: 'events/invites' %>
+    </div>
+
+    <div class="raster part">
+      <h3>going: <%= @guests.count %></h3>
+      <%= render 'guests' %>
+    </div>
+  </div>
+  <div class="invite_by_email">
     <p>Invite friends by Email</p>
     <div id="invites_form">
         <%= form_for([@event, @event.email_invites.build]) do |f| %>
-            <%= f.text_field :email, placeholder: "Invite by Email Address" %>
+            <%= f.text_area :email, rows: "5", placeholder: "Invite by Email Address" %>
             <%= f.submit raw("&#xf0e0;"), class: "btn btn-primary fa-input" %>
         <% end %>
     </div>
-    <p>Click to Give Invitation</p>
+  </div>
 
-    <div id="invite_raster" class="raster element">
-      <%= render partial: 'invite_raster', locals: { :event => @event } %>
-    </div>
-  <% end %>
-</div>
-
-<div class="container event_show"> 
-  <%= render 'title' %>
-  <%= render 'nav_buttons' %>
-  <%= render 'social' %>
-  <%= render 'guests' %>
   <% if @event.address.length > 0 %>
     <%= render 'map' %>
   <% end %>
