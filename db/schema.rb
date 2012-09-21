@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120920142233) do
+ActiveRecord::Schema.define(:version => 20120921171556) do
 
   create_table "authentications", :force => true do |t|
     t.string   "provider"
@@ -127,8 +127,9 @@ ActiveRecord::Schema.define(:version => 20120920142233) do
   create_table "rsvps", :force => true do |t|
     t.integer  "guest_id"
     t.integer  "plan_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.boolean  "invite_all_friends", :default => false
   end
 
   add_index "rsvps", ["guest_id", "plan_id"], :name => "index_rsvps_on_guest_id_and_plan_id", :unique => true

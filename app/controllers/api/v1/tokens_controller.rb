@@ -38,7 +38,7 @@ class Api::V1::TokensController  < ApplicationController
         # access_token = @long_token
       else 
         #create a new user from the FB access token + email
-        render :status=>400, :json=>{:message=>"There was an error. Check your Facebook account status and retry."}
+        render :status=>400, :json=>{:message=>"There was an error. Please check your Facebook account status and retry."}
         return
       end
 

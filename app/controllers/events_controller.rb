@@ -39,15 +39,16 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         current_user.rsvp!(@event)
+        if params[:invite_all_friends] == "1"
+          @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
+          current_user.invite_all_friends!(@event)
+          @rsvp.invite_all_friends = true
+          @rsvp.save
+        end
         if @event.min <= 1
           @event.tipped = true
           @event.save
-        end
-        if params[:invite_all_friends] == "1"
-          current_user.invite_all_friends!(@event)
-        end
-        
-
+        end        
         if current_user.post_to_fb_wall? && session[:graph] && params[:invite_all_friends] == "1" && @event.guests_can_invite_friends? #&& Rails.env.production?
           # @graph = Koala::Facebook::API.new(session[:access_token])
           session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 

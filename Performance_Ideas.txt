@@ -11,6 +11,8 @@ Searching invitations in invited? call through all invitations.. can we change i
 
 REFACTORING OPPORTUNITIES:
 
+make all the @relationship logic go into the user model, and call a different method depending on context for confirmed or not, etc.
+
 Index DB on created_at so that the events are actually physically stored next to each other by time
 
 Events inviter_id only matters when it is served up, and is user-dependent: want a UserEvent subclass (good for mobile too)

@@ -11,6 +11,8 @@ class InvitationsController < ApplicationController
       @invited_users = @event.invited_users - @event.guests
       
       format.html { redirect_to @event }
+      @friends = current_user.followers
+
       format.js
     end
   end
