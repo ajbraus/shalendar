@@ -2,12 +2,10 @@ class ShalendarController < ApplicationController
   before_filter :authenticate_user!
   before_filter :set_time_zone
 	def home
-
     @plan_counts = []
     @invite_counts = []
 		@date = Time.now.in_time_zone(current_user.time_zone).to_date #in_time_zone("Central Time (US & Canada)")
     @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s, @plan_counts, @invite_counts)
-
     #@forecastoverview = current_user.forecastoverview
     @relationships = current_user.relationships.where('relationships.confirmed = true')
     @graph = session[:graph]
