@@ -1,8 +1,8 @@
 <div class='forecast'>
 	<div id="forecast">
-	<% for i in 0..@forecastevents.size-1 %>
-	<dl class="day">
-		<dt class="forecastDate"><%= (@date + (i - 3)).strftime("%A %B %e") %></dt>
+	<% for i in -3..16 %>
+	<dl class="day" data-date=<%= "#{Date.today + i}" %>>
+		<dt class="forecastDate"><%= (@date + (i)).strftime("%A %B %e") %></dt>
 		<dd>
 			<% for j in 0..2 %>
 			<dl>
@@ -16,7 +16,7 @@
 				<% end %>
 				</dt>
 				<dd>
-					<% @forecastevents[i][j].each do |event| %>
+					<% @forecastevents[i + 3][j].each do |event| %>
 						<%= render :partial => "shalendar/event", :locals => { :event => event } %>
 					<% end %>
 				</dd>

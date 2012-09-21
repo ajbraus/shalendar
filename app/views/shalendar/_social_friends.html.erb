@@ -1,0 +1,17 @@
+<div class="social_friends">
+	<% if session[:access_token] %>
+	<p>Find Facebook Friends in your City</p>
+	<%= link_to find_friends_path, :remote => true, class: "find_friends fancybox.ajax" do %>
+		<%= image_tag "social/fb.png", :size => "50x50" %>
+	<% end %>
+
+	<br>
+	<% else %>
+	<p>Find Friends On Facebook</p>
+		<div class="fb_button">
+			<div id="auth-status">
+	    	<a href="#" id="auth-loginlink" class="fb-login-button"><%= image_tag "social/fb.png", :size => "50x50" %></a>
+			  </div>
+		</div><br>
+	<% end %>
+</div>
