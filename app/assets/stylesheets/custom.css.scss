@@ -1135,9 +1135,10 @@ position: fixed;
 text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 background-color: #FCF8E3;
 border-bottom: 2px solid goldenrod;
+border-top: 1px solid goldenrod;
 color: goldenrod;
 z-index: 10;
-top: 0;
+top: 58px;
 height: 56px;
 line-height: 57px;
 width: 100%;
@@ -1482,45 +1483,58 @@ top: 129px;
 .title {
 height: 225px;
 width: 440px;
-font-size: 30px;
 margin: 0 0 0 6%;
 position: relative;
 background-color: white;
 float: left;
+  .event_title {
+    font-size: 30px;
+    padding:10px;
+    margin-top:10px;
+    line-height: 1;
+  }
   .event_buttons{
-    float: right;
+    font-size: 30px;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
   }
   .when {
   font-size: 21px;
-  width: 300px;
+  width: 400px;
   color: black;
   padding: 10px;
   border-radius: 9px;
   font-weight: 600;
   float: left;
+  position: absolute;
+  bottom: 80px;
   }
   .title_bottom {
   position: absolute;
   bottom:0;
   width: 94%;
-    p {
-      font-size: 15px;
-    }
-    u {
-      font-size: 35px;
-      text-decoration: none;
-      position: relative;
-      bottom:5px;
-    }
     .can_invite {
-    position: relative;
-  left: 361px;
-  bottom: 35px;
+      position: relative;
+      left: 361px;
+      bottom: 35px;
     }
   }
   .by {
-    float:right;
+    float: left;
+    width: 215px;
+    position: absolute;
+    bottom: 20px;
   }
+
+  .event_link {
+    float: left;
+    width: 215px;
+    overflow-x: hidden;
+    position: absolute;
+    bottom: 20px;
+    left: 205px;
+    }
 }
 
 .tipped_title {
@@ -1534,7 +1548,6 @@ float: left;
   -webkit-box-shadow: 0 0 10px -1px $destroy;
   box-shadow: 0 0 10px -1px $destroy;
 }
-
 
 .map {
 width: 280px;
@@ -1575,19 +1588,13 @@ height: 275px;
   font-style: italic;
 }
 
-.event_link {
-float: right;
-width: 215px;
-overflow-x: hidden;
-position: relative;
-}
-
 .social {
 width: 500px;
 position: relative;
 left: 76px;
 margin: 10px 0;
-float: left;}
+float: left;
+}
 
 .invites_guests {
   width: 900px;
@@ -1596,10 +1603,11 @@ float: left;}
   left: 26px;
   height: 465px;
   float:left;
-  .raster {
+  margin-top: 20px;
+  .event_show_rasters {
     float:left;
   }
-  .raster:nth-child(3) {
+  .event_show_rasters:nth-child(2) {
     margin:0px 55px;
   }
 }
