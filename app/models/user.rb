@@ -174,22 +174,26 @@ class User < ActiveRecord::Base
     end
   end
 
-  #this is for when you remove confirm (or could even be untoggle...)
-  #to find other events you should be invited to
-  def find_alternate_invitations(other_user)
-    other_user.plans.each do |e|
-      unless self.invited?(e)
-        e.rsvps.each do |r|
-          if self.following?(r.guest) && r.invite_all_friends?
-            unless self.invited?(e)
-              r.guest.invite!(self)
-            end
-          end
-        end
+  def delete_invitations_from_user(other_user)
+    self.invitations.where('invitations.inviter_id = :other_user_id',
+                             other_user_id: other_user.id).each do |i|
+      e = Event.find_by_id(i.invited_event_id)
+      unless e.nil? || self.invited?(e)
+        self.find_alternate_invitation_to_event(e)
+      end
+      i.destroy
+    end
+  end
+
+  def find_alternate_invitation_to_event(event)
+    event.rsvps.each do |r|
+      if r.invite_all_friends? && self.following?(r.guest)
+        r.guest.invite!(event, self)
+        return
       end
     end
   end
-  
+
   def invited?(event)
     invitations.where('invitations.invited_event_id = :eventid', eventid: event.id).any?
   end

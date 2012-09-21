@@ -52,9 +52,9 @@ before_filter :authenticate_user!
   def destroy
     @user = Relationship.find(params[:id]).followed
     current_user.unfollow!(@user)
-    current_user.find_alternate_invitations(@user)
+    current_user.delete_invitations_from_user(@user)
     @user.unfollow!(current_user)
-    @user.find_alternate_invitations(current_user)
+    @user.delete_invitations_from_user(current_user)
     respond_to do |format|
       @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
       @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s, @plan_counts, @invite_counts)
