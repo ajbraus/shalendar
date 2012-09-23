@@ -1,10 +1,5 @@
 $(document).ready(function() {
 
-// INITIALLY HIDE ALL UNTOGGLED USERS
-
-  // hide all <a>s with inviter-ids = toggled-off follower.ids
-  // $('a.togged-off')
-
 	$("div.alert").delay(2500).fadeOut(400);
 
 // DATEPICKERDAY
@@ -18,6 +13,32 @@ $('.datePickerDay').click(function(){
   //frame_position = $('.forecast').position();
   $('#forecast').animate({ right: forecast_day_position.left + 10 }, 1000);
 });
+
+$("input[type=checkbox].switch").each(function() {
+  $(this).before(
+      '<span class="switch">' +
+      '<span class="mask" /><span class="background" />' +
+      '</span>'
+    );
+  $(this).hide();
+    // Set inital state
+  if (!$(this)[0].checked) {
+      $(this).prev().find(".background").css({left: "-56px"});
+    }
+  }); // End each()
+
+// Toggle switch when clicked
+  $("span.switch").click(function() {
+    // If on, slide switch off
+    if ($(this).next()[0].checked) {
+      $(this).find(".background").animate({left: "-56px"}, 200);
+    // Otherwise, slide switch on
+    } else {
+      $(this).find(".background").animate({left: "0px"}, 200);
+    }
+    // Toggle state of checkbox
+    $(this).next()[0].checked = !$(this).next()[0].checked;
+  });
 
 // YESTERDAY AND TOMORROW
 

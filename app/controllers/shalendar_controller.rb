@@ -11,6 +11,7 @@ class ShalendarController < ApplicationController
     @graph = session[:graph]
     @event = Event.new
     @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
+    @toggled_off_ids = current_user.reverse_relationships.where('toggled = false')
 	end
 
 	def manage_follows

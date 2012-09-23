@@ -20,7 +20,9 @@
 	</div>
 	<div class="container">
 		<%= render 'ribbon', :locals => { :next_plan => @next_plan } %>
-		<%= render 'forecast' %>
+		<div class='forecast'>
+			<%= render 'forecast' %>
+		</div>
 	</div>
 </div>
 
@@ -37,3 +39,12 @@
 		document.ready(Func1Delay());
 	</script>
 <% end %>
+
+<script>
+// INITIALLY HIDE ALL UNTOGGLED USERS
+<% @toggled_off_ids.each do |toi| %>
+  document.ready(function(){
+		$('a').withInviterId("<%= toi.followed.id %>").hide();
+  });
+ <% end %>
+</script>

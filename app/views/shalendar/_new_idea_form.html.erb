@@ -35,16 +35,23 @@
 			  </span>
 			</div>
 
-			<%# **UPDATE- change this to two checkboxes for booleans: guests_can_invite_friends and invite_all_friends %>
 			<div class="invitation_options">
 			  <div class="checkbox">
     			<%= f.label "Guests can Invite Friends: " %> <span class="question_mark" title="Check this box to allow guests to give invitations to this event to their friends.">?</span>
+					<span class="switch">
+    				<span class="background"></span>
+    				<span class="mask"></span>
+    			</span>
     			<%= f.check_box :guests_can_invite_friends %>
   			</div>
 
   			<div class="checkbox">
     			<%= f.label "Invite all Friends: " %> <span class="question_mark" title="Check this box to give a new invitation to all your friends.">?</span>
-    			<%= check_box_tag :invite_all_friends %>
+    			<span class="switch">
+    				<span class="background"></span>
+    				<span class="mask"></span>
+    			</span>
+    			<%= check_box_tag :invite_all_friends, class: "switch", style: "display:none;" %>
   			</div>
   		</div>
 
