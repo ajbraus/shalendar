@@ -1,0 +1,17 @@
+var friend_requests_count = <%= @friend_requests.count %>
+$('#friend_requests').html("<%= escape_javascript(render partial: 'shalendar/friend_requests') %>");
+
+$('body').click(function() {
+	$('#friend_requests').hide();
+	if (friend_requests_count > 0){
+		$('.new_friends_count').text(friend_requests_count);
+	}
+});
+
+$('table.friend_requests').click(function(event){
+     event.stopPropagation();
+ });
+
+$("a[href$='/friend_requests']").click(function() {
+		$('#friend_requests').show();
+	});

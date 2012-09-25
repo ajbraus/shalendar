@@ -52,19 +52,35 @@ Make sure events always get served in time order
 
 Adam
 --------------
+
+	2. add share w friends icon/link on forecast and event#show
+	3. fix new_ideas button/dropdown
+	4. take away unrsvp from forecast view
+
+	5. add face to invite email
+
+
+
+put facebook friends in invites raster
+
+invite people who went to other events but without having to follow them
+
+remove invite by email in cannot invite frieds
+
+facebook friends FQL query and alphabetical
+
 Success, Error, Warning different dropdowns
 title floating after adding invite in event#show
 
 low priority-- update facebook auth message
 Devise time-outable to end session before access_token goes away (and refresh other things)
-facebook to launch immediately
 
-invite email date and time! RSVP button Image of the inviter. Address if there is one.
+RSVP button Image of the inviter. Address if there is one.
 
 I am your forecast and I live to serve
 
 Make a rescue for when someone doesn't have an email with Facebook
-you have a new confirmed! email
+you have a new confirmed friend email.
 
 users are not interacting enough because
 	1. they can't connect with each other

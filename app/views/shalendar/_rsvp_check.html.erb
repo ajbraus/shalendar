@@ -1,12 +1,10 @@
-<% if current_user.rsvpd?(event) %>
-	<%= form_for(current_user.rsvps.find_by_plan_id(event),
-           html: { method: :delete },
-           remote: true) do |f| %>
-	  <%= f.submit "in!", class: "btn_icon btn_icon_unrsvp" %>
+<% if current_user.rsvpd?(event) && event.guests_can_invite_friends %>
+	<%= link_to invite_all_friends_path(:event_id => event.id), remote: true do %>
+		<div class="btn_invite_all_friends"><i class="icon-group"></i></div>
 	<% end %>
 <% elsif event.full? %>
 	<i class="icon-ban-circle btn_icon" title="Event Full"></i>
-<% else %>
+<% elsif !current_user.rsvpd?(event) %>
 	<%= form_for(current_user.rsvps.build(plan_id: event.id),
 							 remote: true) do |f| %>
 	  <div><%= f.hidden_field :plan_id %></div>

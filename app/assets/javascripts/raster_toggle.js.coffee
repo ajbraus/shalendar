@@ -2,6 +2,10 @@ $.fn.withPicId = (id) ->
 	@filter ->
 		$(this).data('pic-id') == id
 
-$.fn.withInviterId = (uid) ->
+$.fn.withInviterId = (iid) ->
 	@filter ->
-		$(this).data('inviter-id') == uid
+		$(this).data('inviter-id') == iid
+
+$.fn.withUserId = (uid) ->
+	@filter ->
+		$(this).data('user-id') == uid

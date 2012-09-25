@@ -11,13 +11,14 @@ class ShalendarController < ApplicationController
     @graph = session[:graph]
     @event = Event.new
     @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
+    @toggled_off_ids = current_user.reverse_relationships.where('toggled = false')
 	end
 
 	def manage_follows
 		@graph = session[:graph]
 		@friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
 		#people who want to view current user
-		@friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
+    @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
     if params[:search]
       @users = User.search params[:search]
       respond_to do |f|
@@ -70,6 +71,14 @@ class ShalendarController < ApplicationController
     end
     current_user.new_invited_events_count = 0
     current_user.save
+    respond_to do |format|
+      format.js 
+    end
+  end
+
+  def invite_all_friends
+    @event = Event.find_by_id(params[:event_id])
+    current_user.invite_all_friends!(@event)
   end
 
   private

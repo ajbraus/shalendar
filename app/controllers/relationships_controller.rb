@@ -36,6 +36,7 @@ before_filter :authenticate_user!
         end
         respond_to do |format|
           format.html { redirect_to :back, notice: "Friend request sent to #{@user.name}" }
+          @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
           @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
           @plan_counts = []
           @invite_counts = []
@@ -56,20 +57,15 @@ before_filter :authenticate_user!
     @user.unfollow!(current_user)
     @user.delete_invitations_from_user(current_user)
     respond_to do |format|
+      @plan_counts = []
+      @invite_counts = []
       @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
       @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s, @plan_counts, @invite_counts)
       @date = Time.now.in_time_zone(current_user.time_zone)
+      @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
       format.html { redirect_to :back, notice: "You are no longer friends with #{@follower.name} on hoos.in" }
       format.js
     end
-  end
-
-  def remove
-    @relationship = Relationship.find(params[:relationship_id])
-    @follower = @relationship.follower
-    @follower.unfollow!(current_user)
-    current_user.unfollow!(@follower)
-    redirect_to :back, notice: "You are no longer friends with #{@follower.name} on hoos.in"
   end
 
   def toggle
@@ -87,12 +83,17 @@ before_filter :authenticate_user!
    end
   end
 
-  # def confirm
-  #   @relationship = Relationship.find(params[:relationship_id])
-  #   @relationship.confirm!
-  #   @relationship.save
-  #   redirect_to :back, notice: "#{@relationship.follower.name} can now view your ideas"
-  # end
+  def ignore
+    @relationship = Relationship.find(params[:relationship_id])
+    @relationship.destroy
+    respond_to do |format|
+      @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false') 
+      @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
+      format.html { redirect_to :back }
+      format.js
+    end
+  end
+
 
   def confirm_and_follow
     @relationship = Relationship.find(params[:relationship_id])
@@ -110,6 +111,7 @@ before_filter :authenticate_user!
 
     end
     respond_to do |format|
+      @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
       @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
       #@forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s)
       #@date = Time.now.in_time_zone(current_user.time_zone)

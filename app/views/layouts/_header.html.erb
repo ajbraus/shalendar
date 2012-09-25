@@ -2,23 +2,28 @@
   <div class="tagline">
     Do Great Things With Friends :<a href="#howItWorks" class="howto">how it works</a>
   </div>
-  <%= render 'how_it_works' %>
+  <%= render 'layouts/how_it_works' %>
   <% if user_signed_in? %>
   <ul>
     <% if user_signed_in? %>
     <% @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false') %>
-    <% if @friend_requests.any? %>
-      <li><a href="<%= manage_follows_path %>"><strong id="view_requests"><u> + </u><%= @friend_requests.count %> Requests</strong></a></li>
-    <% end %>
     <li>
       <%= link_to new_invited_events_path, :remote => true do %>
-        invitations <span id="new_invited_events_count"><%= current_user.new_invited_events_count %></span>
+        latest ideas
+        <% unless current_user.new_invited_events_count == 0 %>
+          <span id="new_invited_events_count" class="new_invited_events_count"><%= current_user.new_invited_events_count %></span>
+        <% end %>
       <% end %>
-      <span id="test"></span>
+      <span id="invitations"></span>
     </li>
-    <li><a href="<%= root_path %>">ideas <strong><%= current_user.events.count %></strong></a></li>
-    <li><a href="<%= manage_follows_path %>">friends <strong class="friends_count"><%= current_user.followers.count %></strong></a></li>
-    <li><%= current_user.name %></li>
+    <li>
+      <a href="<%= manage_follows_path %>">
+        <strong class="friend_count"><%= current_user.followers.count %></strong> <span title="manage friends">friends</span>
+        <% if @friend_requests.any? %>
+          <span class="new_friends_count"><%= @friend_requests.count %></span>
+        <% end %>
+      </a>
+    </li>
     <li><dl class="dropdown">
         <dt><a href="#"><%= raster_profile_picture(current_user) %></a></dt>
         <dd>

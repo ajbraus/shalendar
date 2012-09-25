@@ -1,7 +1,5 @@
+<div class="invited_events part">
 <% @new_invited_events.each do |e| %>
-	<div class="new_invited_events">
-		<table>
-			<%= render partial: 'shalendar/event', locals: { event: e } %>
-		</table>
-	</div>
+	<%= render partial: 'shalendar/event', locals: { event: e } %>
 <% end %>
+</div>

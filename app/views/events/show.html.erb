@@ -1,33 +1,44 @@
 <% provide(:title, " | Idea") %>
-<div class="event_show"> 
+  <div class="show_logo">
+  <%= render 'layouts/logo' %>  
+  </div>
   <%= render 'title' %>
-  <% if @event.address.length > 0 %>
-    <%= render 'map' %>
-  <% end %>
+  <%= render 'map' %>
+
   <% if @event.user == current_user || @event.guests_can_invite_friends %>
-    <%= render 'social' %>
+    <%= render 'social', locals: { :event => @event } %>
   <% end %>
 
   <div class="invites_guests">
-    <% if @event.guests_can_invite_friends? || @event.user == current_user %>
       <div class="event_show_rasters">
-        <p>Invite Friends</p>
-        <div id="invite_raster" class="raster element">
-          <%= render partial: 'invite_raster', locals: { :event => @event } %>
+    <% if @event.guests_can_invite_friends? || @event.user == current_user %>
+        <p>Share with Friends</p>
+        <div id="invite_raster" class="show_raster element">
+          <%= render partial: 'invite_raster', :locals => { :event => @event } %>
+        </div>
+      </div>
+    <% else %>
+      <div class="event_show_rasters">
+        <p>Share with Friends</p>
+        <div id="invite_raster" class="hide show_raster element">
         </div>
       </div>
     <% end %>
 
     <div class="event_show_rasters">
-      <p>Invited: <span id="invite_count"><%= @invited_users.count + @email_invites.count %></span></p>
-      <div id="invites" class="raster element">
+      <p><span id="invite_count"><%= @invited_users.count + @email_invites.count %></span> Maybes</p>
+      <div id="invites" class="show_raster element">
         <%= render partial: 'events/invites' %>
       </div>
     </div>
 
     <div class="event_show_rasters">
-      <p>Going: <%= @guests.count %></p>
-      <div class="raster element">
+      <% if @event.tipped? %>
+        <p><%= @guests.count %> Going</p>
+      <% else %>
+        <p class="destroy"><% @guests.count %> / <% @event.min %> Going</p>
+      <% end %>
+      <div class="show_raster element">
         <%= render 'guests' %>
       </div>
     </div>
@@ -35,16 +46,15 @@
   </div>
 
   <div class="invite_by_email element">
-    <p>Invite friends by Email</p>
+    <p>Share by Email</p>
     <%= form_for([@event, @event.email_invites.build]) do |f| %>
-        <%= f.text_area :email, rows: "5", placeholder: "Invite by Email Address" %>
-        <%= f.submit raw("&#xf0e0;"), class: "btn btn-primary fa-input" %>
+        <%= f.text_area :email, rows: "5", placeholder: "Seperate Emails with Comma" %>
+        <%= f.text_area :message, rows: "3", placeholder: "Message" %>
+        <%= f.submit raw("&#xf0e0; Send"), class: "btn btn-primary fa-input" %>
     <% end %>
   </div>
 
   <%= render partial: 'comments_form' %>
-
-</div>
 
 <!-- Twitter API script -->
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>

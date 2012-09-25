@@ -8,7 +8,7 @@
 		    <tr>
 		    	<td><%= raster_profile_picture(u) %></td>
 				  <td><%= u.name %></td>
-					<td><%= render  :partial => 'events/follow_form', :locals => { :user => u } %>
+					<td><%= render  :partial => 'events/just_follow_form', :locals => { :user => u } %>
 					</td>
 				</tr>
 			<% end %>

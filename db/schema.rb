@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120921171556) do
+ActiveRecord::Schema.define(:version => 20120924155618) do
 
   create_table "authentications", :force => true do |t|
     t.string   "provider"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20120921171556) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "inviter_id"
+    t.string   "message"
   end
 
   add_index "email_invites", ["event_id", "email"], :name => "index_invites_on_event_id_and_email", :unique => true

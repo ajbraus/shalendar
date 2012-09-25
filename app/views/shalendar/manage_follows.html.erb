@@ -2,9 +2,9 @@
 <div class="dashboard">
 <%= render 'layouts/logo' %>
 <%= render 'get_friends' %> 
-<h3>New Friend Requests</h3>
-<%= render 'view_requests' %>
 </div>
 <div class="container">
-  <%= render partial: 'shalendar/followers' %>
+	<div id="friends" class="part">
+  	<%= render partial: 'shalendar/friends' %>
+  </div>
 </div>

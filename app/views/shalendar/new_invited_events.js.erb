@@ -1,2 +1,14 @@
-$('#test').html("<%= escape_javascript(render partial: 'shalendar/new_invited_events') %>");
-$('#new_invited_events_count').text('0').hide();
+$('#invitations').html("<%= escape_javascript(render partial: 'shalendar/new_invited_events') %>");
+
+$('body').click(function() {
+	$('#invitations').hide()
+	$('#new_invited_events_count').text('0').hide();
+});
+
+$('div.new_invited_events').click(function(event){
+     event.stopPropagation();
+ });
+
+$("a[href$='new_invited_events']").click(function() {
+		$('#invitations').show();
+	});

@@ -1,5 +1,4 @@
-<div class='forecast'>
-	<div id="forecast">
+<div id="forecast">
 	<% for i in -3..16 %>
 	<dl class="day" data-date=<%= "#{Date.today + i}" %>>
 		<dt class="forecastDate"><%= (@date + (i)).strftime("%A %B %e") %></dt>
@@ -27,4 +26,3 @@
 	<% end %>
 </div>
 	<div class="gutter"></div>
-</div>

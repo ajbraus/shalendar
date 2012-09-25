@@ -1,0 +1,31 @@
+<% if @friend_requests.any? %>
+  <h2><span class="friend_count"><%= @friend_requests.count %></span> Friend Requests</h2>
+  <div class="user_table">
+    <% @friend_requests.each do |nf| %>
+      <table>        
+        <tr>
+          <td width="50px"><%= raster_profile_picture(nf.follower) %></td>
+          <td width="150px"><%= nf.follower.name %></td>
+          <td width="20px"><%= link_to raw("<i class='icon-remove-sign'></i>"), relationship_ignore_path(nf), title: "Ignore", method: :delete, class:"tooltip", remote: true %></td>
+          <td width="20px"><%= link_to raw("<i class='icon-check'></i>"), relationship_confirm_and_follow_path(nf), title: "Confirm", method: :put, class:"tooltip", remote: true %></td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+  <hr>
+<% end %>
+  <h2><span class="friend_count"><%= current_user.followers.count %></span> Friends</h2>
+  <div class="user_table">
+    <% @friendships.each do |fr| %>
+    <table>        
+        <tr>
+          <td width="50px"><%= raster_profile_picture(fr.follower) %></td>
+          <td width="150px"><%= fr.follower.name %></td>
+          <td>
+            <%= render partial: 'events/follow_form', :locals => { :user => fr.follower } %>
+          </td>
+        </tr>
+      </table>
+      <% end %>
+  </div>
+</div>
