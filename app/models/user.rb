@@ -200,7 +200,9 @@ class User < ActiveRecord::Base
 
   def invite_all_friends!(event)
     self.followers.each do |f|
-      self.invite!(event, f)
+      unless f.invited?(event)
+        self.invite!(event, f)
+      end
     end
     if self.rsvpd?(event)
       r = self.rsvps.find_by_plan_id(event.id)
