@@ -40,7 +40,7 @@ before_filter :authenticate_user!
           @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
           @plan_counts = []
           @invite_counts = []
-          @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s, @plan_counts, @invite_counts)
+          @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
           @date = Time.now.in_time_zone(current_user.time_zone).to_date
           format.js
         end
@@ -60,7 +60,7 @@ before_filter :authenticate_user!
       @plan_counts = []
       @invite_counts = []
       @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
-      @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s, @plan_counts, @invite_counts)
+      @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
       @date = Time.now.in_time_zone(current_user.time_zone)
       @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
       format.html { redirect_to :back, notice: "You are no longer friends with #{@follower.name} on hoos.in" }
@@ -76,7 +76,7 @@ before_filter :authenticate_user!
     format.html { redirect_to :back }
      @plan_counts = []
      @invite_counts = []
-     @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s, @plan_counts, @invite_counts)
+     @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
      @date = Time.now.in_time_zone(current_user.time_zone)     
      @graph = session[:graph]
      format.js
@@ -113,7 +113,7 @@ before_filter :authenticate_user!
     respond_to do |format|
       @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
       @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
-      #@forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s)
+      #@forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone))
       #@date = Time.now.in_time_zone(current_user.time_zone)
       format.html { redirect_to :back, notice: "You are now friends with #{@relationship.follower.name} on hoos.in" }
       format.js
