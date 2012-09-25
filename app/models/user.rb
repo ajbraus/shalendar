@@ -259,6 +259,7 @@ class User < ActiveRecord::Base
     end
     @invited_events_on_date = Event.where(starts_at: time_range).joins(:invitations)
                               .where(invitations: {invited_user_id: self.id}).order("starts_at ASC")
+    @invited_events_on_date = @invited_events_on_date - @plans_on_date
     @invited_events_on_date.each do |ie|
       ie.inviter_id = ie.invitations.find_by_invited_user_id(self.id).inviter_id
     end
