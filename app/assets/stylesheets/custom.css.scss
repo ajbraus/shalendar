@@ -914,22 +914,12 @@ background: -o-linear-gradient(top,  #e5e5e5 0%,#f7faff 100%); /* Opera 11.10+ *
 background: -ms-linear-gradient(top,  #e5e5e5 0%,#f7faff 100%); /* IE10+ */
 background: linear-gradient(to bottom,  #e5e5e5 0%,#f7faff 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#f7faff',GradientType=0 ); /* IE6-9 */
- 
- &:hover {
-    background: #f7faff; /* Old browsers */
-  background: -moz-linear-gradient(top,  #f7faff 0%, #e5e5e5 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7faff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  #f7faff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  #f7faff 0%,#e5e5e5 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  #f7faff 0%,#e5e5e5 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  #f7faff 0%,#e5e5e5 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7faff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
-  }
+
 } 
 
 .rsvpd {
   border-bottom:1px solid #E9E9E9;
-background: #f7fbfc; /* Old browsers */
+background: #e8f1ff; /* Old browsers */
 background: -moz-linear-gradient(top,  #f7fbfc 0%, #e8f1ff 68%, #afd6ff 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7fbfc), color-stop(68%,#e8f1ff), color-stop(100%,#afd6ff)); /* Chrome,Safari4+ */
 background: -webkit-linear-gradient(top,  #f7fbfc 0%,#e8f1ff 68%,#afd6ff 100%); /* Chrome10+,Safari5.1+ */
@@ -999,6 +989,9 @@ right: 48px;
 width: 70px;
   text-align: right;
   bottom:0;
+  .icon-group {
+    color:$icon_color;
+  }
 }
 
 .force_tip {
@@ -1025,11 +1018,13 @@ width: 70px;
 /* NEXT PLAN */
 
 .next_plan {
-  -webkit-box-shadow: 1px 1px 30px rgba(235, 131, 37, 1);
-  -moz-box-shadow:    1px 1px 30px rgba(235, 131, 37, 1);
-  box-shadow:         1px 1px 30px rgba(235, 131, 37, 1);
-  z-index: 100;
-  width: 306px;
+-webkit-box-shadow: 1px 1px 30px #EB8325;
+-moz-box-shadow: 1px 1px 30px #eb8325;
+box-shadow: 1px 1px 30px #EB8325;
+z-index: 100;
+width: 308px;
+height: 76px;
+position: absolute;
 }
 
 .btn_icon {
@@ -1070,11 +1065,11 @@ width: 70px;
   background-image: -moz-linear-gradient(top, #62C462, #51A351);
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
   filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-height: 76.9px;
+height: 75.9px;
 width: 38px;
 position: relative;
 left: -6px;
-top: 7px;
+top: 6px;
 font-size: 20px;
   &:hover {
       background-color: #5BB75B;
@@ -1102,11 +1097,11 @@ text-shadow: 1px 1px 1px black;
   background-color:#79bbff;
   border:1px solid #84bbf3;
   color:white;
-  height: 78px;
-  width: 38px;
-  position: relative;
-  left: -6px;
-  top: 8px;
+height: 77px;
+width: 38px;
+position: relative;
+left: -6px;
+top: 7px;
   &:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
   background:-moz-linear-gradient( center top, #378de5#79bbff 5%, #79bbff 100% );
@@ -2066,8 +2061,8 @@ select {
 
 .invited_events {
 position: absolute;
-top: 27px;
-right: 8px;
+top: 2px;
+right: 287px;
 }
 
 .instagram-placeholder {

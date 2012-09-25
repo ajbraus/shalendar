@@ -9,6 +9,8 @@ $(document).ready(function() {
     $('#new_invited_events_count').hide();
   }
 
+  if ( $('.invited_events'))
+
 
 // DATEPICKERDAY
 

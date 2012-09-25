@@ -1,5 +1,4 @@
 <div class="invited_events part">
-<% @new_invited_events.each do |e| %>
-	<%= render partial: 'shalendar/event', locals: { event: e } %>
-<% end %>
+<%= render partial: 'shalendar/event', collection: @new_invited_events, as: :event %>
 </div>
+

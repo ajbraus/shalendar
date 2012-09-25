@@ -15,9 +15,8 @@ update git repo to company
 Mike
 ------------
 
-Event#create post to facebook wall as background job
-
 Protect RSVP to only ppl invited to event
+
 Mailers running in background
 	took this out of Procfile in favor or a resque worker: worker: bundle
 	exec rake jobs:work
@@ -28,8 +27,6 @@ schedule tip cron job- what exactly should we do?
 destroy old emailInvites and invitations
 
 new follower email link not working
-
-Make sure events always get served in time order
 
 	want to destroy events after they have passed... or at least destroy RSVPs / invitations, to maintain the tables- maybe store on some hard disk somewhere for records
  
@@ -51,7 +48,6 @@ Adam
 
 	2. add share w friends icon/link on forecast and event#show
 	3. fix new_ideas button/dropdown
-	4. take away unrsvp from forecast view
 
 	5. add face to invite email
 

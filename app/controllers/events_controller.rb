@@ -128,7 +128,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to home_path, notice: 'Idea tipped!' }
-      format.json {head :no_content}
+      format.json { head :no_content }
       format.js
     end
   end
