@@ -228,7 +228,7 @@ class User < ActiveRecord::Base
       @plan_count = []
       @invite_count = []
       @events_on_date = self.events_on_date(@new_datetime, @plan_count, @invite_count)
-
+      @events_on_date.sort_by{|t| t[:starts_at]}
       @events_on_date.each do |e|
         if e.starts_at < e.starts_at.to_date + 12.hours
           @morning_events.push(e)
