@@ -195,6 +195,7 @@ class User < ActiveRecord::Base
   end
 
   def invited?(event)
+    #Invite.where(invited_event_id: event.id, invited_user_id: self.id).any?
     invitations.where('invitations.invited_event_id = :eventid', eventid: event.id).any?
   end
 
