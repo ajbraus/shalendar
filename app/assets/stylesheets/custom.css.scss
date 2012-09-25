@@ -1567,10 +1567,16 @@ top: 129px;
   z-index: -1;
 }
 .invite_all_friends_show {
-  position: absolute;
-top: 276px;
-font-size: 163px;
+position: absolute;
+top: 238px;
+font-size: 137px;
 left: 191px;
+background-color: green;
+height: 163px;
+line-height: 185px;
+border-radius: 14px;
+width: 177px;
+text-align: center;
 i{
 color: white;  
 }
