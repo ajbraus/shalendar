@@ -1,0 +1,1 @@
+$('.event').withEventId(<%= @event.id %>).rsvp_check("<%= escape_javascript(render partial: 'shalendar/event') %>")

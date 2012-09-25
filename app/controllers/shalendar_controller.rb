@@ -18,7 +18,7 @@ class ShalendarController < ApplicationController
 		@graph = session[:graph]
 		@friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
 		#people who want to view current user
-		@friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
+    @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
     if params[:search]
       @users = User.search params[:search]
       respond_to do |f|
@@ -71,6 +71,14 @@ class ShalendarController < ApplicationController
     end
     current_user.new_invited_events_count = 0
     current_user.save
+    respond_to do |format|
+      format.js 
+    end
+  end
+
+  def invite_all_friends
+    @event = Event.find_by_id(params[:event_id])
+    current_user.invite_all_friends!(@event)
   end
 
   private

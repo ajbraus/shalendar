@@ -2,6 +2,14 @@ $(document).ready(function() {
 
 	$("div.alert").delay(2500).fadeOut(400);
 
+
+// new invited events
+
+  if ( $('#new_invited_events_count').text() == 0 ) {
+    $('#new_invited_events_count').hide();
+  }
+
+
 // DATEPICKERDAY
 
 $('.datePickerDay').click(function(){
@@ -13,6 +21,8 @@ $('.datePickerDay').click(function(){
   //frame_position = $('.forecast').position();
   $('#forecast').animate({ right: forecast_day_position.left + 10 }, 1000);
 });
+
+// NEW IDEA CHECKBOX SWTICHES
 
 $("input[type=checkbox].switch").each(function() {
   $(this).before(
@@ -54,6 +64,8 @@ $('#tomorrow').click(function(){
   $('#datewindow').animate({ left: '+=38.3' }, 500);
 });
 
+$('#yt').buttonset();
+
 // SETTINGS DROPDOWN
 
 $(".dropdown dt a").click(function() {
@@ -91,10 +103,6 @@ $(document).bind('click', function(e) {
    $('#addmapp').slideToggle();
    $(".btn-new-idea").fancybox.update();
   });
-
-// VISIBILITY RADIO BUTTONSET
-
-	$( "#radio" ).buttonset();
 
 // NEW IDEA FORM VALIDATION
 	$("#new_event_form").validate({

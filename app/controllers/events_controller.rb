@@ -39,7 +39,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         current_user.rsvp!(@event)
-        if params[:invite_all_friends] == "1"
+        if params[:invite_all_friends] == "on"
           @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
           current_user.invite_all_friends!(@event)
           @rsvp.invite_all_friends = true
@@ -49,14 +49,12 @@ class EventsController < ApplicationController
           @event.tipped = true
           @event.save
         end        
-        if current_user.post_to_fb_wall? && session[:graph] && params[:invite_all_friends] == "1" && @event.guests_can_invite_friends? #&& Rails.env.production?
-          # @graph = Koala::Facebook::API.new(session[:access_token])
-          session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
-                                              :link => "http://www.hoos.in/events/#{@event.id}", 
-                                              :picture => "http://www.hoos.in/assets/icon.png",
-                                              })
-        end
-
+        # if current_user.post_to_fb_wall? && session[:graph] && params[:invite_all_friends] == "on" && @event.guests_can_invite_friends? #&& Rails.env.production?
+          # session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
+          #                                     :link => "http://www.hoos.in/events/#{@event.id}", 
+          #                                     :picture => "http://www.hoos.in/assets/icon.png",
+          #                                     })
+        # end
         format.html { redirect_to @event }
         format.json { render json: @event, status: :created, location: @event }
 
@@ -80,7 +78,7 @@ class EventsController < ApplicationController
     @comments = @event.comments.order("created_at desc")
 
     respond_to do |format|
-      format.html { render layout: "event_show"}
+      format.html 
       format.json { render json: @event }
     end
   end
@@ -126,12 +124,12 @@ class EventsController < ApplicationController
 
   def tip
     @event = Event.find(params[:event_id])
-
     @event.tip!
 
     respond_to do |format|
       format.html { redirect_to home_path, notice: 'Idea tipped!' }
       format.json {head :no_content}
+      format.js
     end
   end
 

@@ -1,6 +1,12 @@
-<div class="part map">
+<% if @event.address.length == 0 %>
+	<div class="part map nomap">
+	Address: <br><%= @event.address %><br>
+	</div>
+<% else %>
+	<div class="part map">
   Address: <br><%= @event.address %><br>
   <%= gmaps("map_options" => { "detect_location" => false, 
   														"center_on_user" => false, 
   														"zoom" => 6 },"markers" => { "data" => @json }) %>
-</div>
+	</div>
+<% end %>

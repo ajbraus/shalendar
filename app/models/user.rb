@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
                              :convert_options => { :original => '-quality 40' },
                              :storage => :s3,
                              :s3_credentials => S3_CREDENTIALS,
-                             :path => "user/:attachment/:style/:id" 
+                             :path => "user/:attachment/:style/:id"
 
                             
   validates :avatar, # :attachment_presence => true,
@@ -202,11 +202,17 @@ class User < ActiveRecord::Base
     self.followers.each do |f|
       self.invite!(event, f)
     end
+    if self.rsvpd?(event)
+      r = self.rsvps.find_by_plan_id(event.id)
+      r.invite_all_friends = true
+      r.save
+    end
   end
 
   def invite!(event, other_user)
     other_user.invitations.create!(invited_event_id: event.id, inviter_id: self.id)
     other_user.new_invited_events_count += 1
+    other_user.save
   end
 
   def forecast(load_date, plan_counts, invite_counts)
@@ -243,7 +249,6 @@ class User < ActiveRecord::Base
     # adjusted_load_date = usable_date.to_date
 
     @plans = self.plans
-    @invited_events = self.invited_events - @plans
 
     @date_plans = []
     @plans.each do |p|
@@ -252,7 +257,6 @@ class User < ActiveRecord::Base
         @date_plans.push(p)
       end
     end
-
     @date_invited_events = []
     self.invitations.each do |i|
       e = Event.find_by_id(i.invited_event_id)

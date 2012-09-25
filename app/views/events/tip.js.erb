@@ -1,1 +1,1 @@
-$('.event').withEventId("<%= @event.id %>").tip("<%= escape_javascript(render partial: 'shalendar/event') %>")
+$('.event').withEventId("<%= @event.id %>").html("<%= escape_javascript(render partial: 'shalendar/event', locals: { :event => @event }) %>")

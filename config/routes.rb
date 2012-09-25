@@ -42,8 +42,6 @@ Shalendar::Application.routes.draw do
         match '/event_details', :to => 'events#event_details', :as => "event_details", :via => :get
         match '/followed_users', :to => 'shalendar#followed_users', :as => "followed_users", :via => :get
         match '/followers', :to => 'shalendar#followers', :as => "followers", :via => :get
-        match '/remove_follower', :to => 'relationships#remove_follower', :as => 'remove_follower', :via => :delete
-        match '/confirm_follower', :to => 'relationships#confirm_follower', :as => 'confirm_follower', :via => :post
       end
     end
   end
@@ -61,25 +59,20 @@ Shalendar::Application.routes.draw do
   resources :invitations, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy, :toggle, :remove, :comfirm] do
     put :toggle
-    delete :remove
+    delete :ignore
     put :confirm
     put :confirm_and_follow
   end
 
-  # invite users from the find_friends lightbox
   match '/invite', :to => 'shalendar#invite', :as => "invite"
-
-  # shalendar#search get request 
-  # match '/search', :to => 'shalendar#search', :as => "search"
-
 
   match '/user_plans_on_date', :to => 'shalendar#user_plans_on_date', :as => "user_plans_on_date"
   match '/user_ideas_on_date', :to => 'shalendar#user_ideas_on_date', :as => "user_ideas_on_date"
   match '/user_events_on_date', :to => 'shalendar#user_events_on_date', :as => "user_events_on_date"
 
-  #mount Resque::Server.new, :at => '/resque'
-  # match '/manage_follows/remove', :to => 'relationships#remove', :as => "remove"
-
+  match 'tip' => 'events#tip'
+  match 'invite_all_friends' => 'shalendar#invite_all_friends'
+  match 'friend_requests' => 'shalendar#friend_requests'
   match 'new_invited_events' => 'shalendar#new_invited_events'
   match 'send_invitation' => 'invitation#send_invitation'
   match 'search' => 'shalendar#search'

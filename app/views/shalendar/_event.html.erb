@@ -13,26 +13,27 @@
 			<% end %>
 				
 				<div class="event_time"><%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>
-
-			<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
+<%-binding.remote_pry %>
+				<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
 			
-			<div class="event_blerb"><%= event.short_event_title %></div>
+				<div class="event_blerb"><%= event.short_event_title %></div>
 			
-			<%# **UPDATE- change displaying icon to check event.friends_can_invite_friends %>
-			<div class="guest_count">
-	      <% if event.guests_can_invite_friends? %>
-	      	<i class="icon-group"></i>
-	      <% end %>
+				<div class="guest_count">
+		      <% if current_user.rsvpd?(event) %>
+		      	<% if current_user.rsvps.find_by_plan_id(event.id).invite_all_friends? || (current_user == event.user && event.guests_can_invite_friends?) %>
+		      	<i class="icon-group"></i>
+		      	<% end %>
+		      <% end %>
 					<% if event.tipped? %>	
 						<span class="count"><%= event.guests.count %></span>
 					<% else %>
-						<span class="count"><%= event.guests.count%></span>/<%= event.min %>
+						<span class="count red"><%= event.guests.count%>/<%= event.min %></span>
 					<% end %>
 				</div>
 
 				<% if event.user == current_user && event.tipped? == false %>
 					<div class="force_tip">
-						<%= link_to raw("&#xf08d;"), event_tip_path(event), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input" %>
+						<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true %>
 					</div>
 				<% elsif event.user == current_user && event.tipped? == true %>
 					<div class="rsvp_check"></div>
@@ -45,4 +46,5 @@
 						<% end %> 
 					</div>
 			</div>
+		</div>
 </a>

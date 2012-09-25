@@ -22,16 +22,13 @@
   <div class="title_bottom">
 
     <div class="by">
-      <%= raster_profile_picture(@event.user) %> <%= @event.user.name %>
+      <%= raster_profile_picture(@event.user) %> <span><%= @event.user.name %></span>
     </div>
 
-    <% if @event.guests_can_invite_friends? %>
-      <div class="can_invite">
-        <i class="icon-group" title="Friends"></i>
-      </div>
-    <% end %>
-
     <div class="event_buttons">
+      <% if @event.guests_can_invite_friends? %>
+        <i class="icon-group" title="Friends"></i>
+      <% end %>
       <% if @event.user == current_user %> 
         <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will send an Email to all RSVPs a cancellation email.' } do %>
         <span class="fadeInRed"><i class="icon-trash icon-large"></i></span>

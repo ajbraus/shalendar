@@ -8,4 +8,4 @@ $.fn.withInviterId = (iid) ->
 
 $.fn.withUserId = (uid) ->
 	@filter ->
-		$(this).data('inviter-id') == uid
+		$(this).data('user-id') == uid
