@@ -1,1 +1,3 @@
-$('.event').withEventId("<%= @event.id %>").html("<%= escape_javascript(render partial: 'shalendar/event', locals: { :event => @event }) %>")
+$('.event').withEventId(<%= @event.id %>).children().children().children("#guestCount").children("#eventMin").remove();
+$('.event').withEventId(<%= @event.id %>).children().children().children("#guestCount").removeClass("red");
+$('.event').withEventId(<%= @event.id %>).children(".force_tip").remove();

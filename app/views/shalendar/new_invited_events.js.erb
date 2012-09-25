@@ -1,13 +1,18 @@
 $('#invitations').html("<%= escape_javascript(render partial: 'shalendar/new_invited_events') %>");
 
 $('body').click(function() {
-	$('#invitations').hide()
+	$('.invited_events').hide()
 	$('#new_invited_events_count').text('0').hide();
 });
 
 $('div.new_invited_events').click(function(event){
      event.stopPropagation();
  });
+
+$('div.new_invited_events').children().click(function(event){
+     event.stopPropagation();
+ });
+
 
 $("a[href$='new_invited_events']").click(function() {
 		$('#invitations').show();

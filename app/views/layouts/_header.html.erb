@@ -14,8 +14,8 @@
           <span id="new_invited_events_count" class="new_invited_events_count"><%= current_user.new_invited_events_count %></span>
         <% end %>
       <% end %>
-      <span id="invitations"></span>
     </li>
+    <span id="invitations"></span>
     <li>
       <a href="<%= manage_follows_path %>">
         <strong class="friend_count"><%= current_user.followers.count %></strong> <span title="manage friends">friends</span>

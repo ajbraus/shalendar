@@ -1,49 +1,49 @@
 <a href="/events/<%= event.id %>" data-inviter-id="<%= event.inviter_id %>">
-	<% if @next_plan %>
-		<% if event.id == @next_plan.id %>
-			<div class="next_plan">
-		<% else %>
-			<div>
-		<% end %>
+<% if @next_plan %>
+	<% if event.id == @next_plan.id %>
+		<div class="next_plan"></div>
 	<% end %>
-			<% if current_user.rsvpd?(event) %>
-				<div class="event rsvpd" data-event-id="<%= event.id %>">
-			<% else %>
-				<div class="event not_rsvpd" data-event-id="<%= event.id %>">
-			<% end %>
-				
-				<div class="event_time"><%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>
-				<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
+<% end %>
+		<% if current_user.rsvpd?(event) %>
+			<div class="event rsvpd" data-event-id="<%= event.id %>">
+		<% else %>
+			<div class="event not_rsvpd" data-event-id="<%= event.id %>">
+		<% end %>
 			
-				<div class="event_blerb"><%= event.short_event_title %></div>
-			
-				<div class="guest_count">
-		      <% if current_user.rsvpd?(event) %>
-		      	<% if current_user.rsvps.find_by_plan_id(event.id).invite_all_friends? || (current_user == event.user && event.guests_can_invite_friends?) %>
-		      	<i class="icon-group"></i>
-		      	<% end %>
-		      <% end %>
-					<% if event.tipped? %>	
-						<span class="count"><%= event.guests.count %></span>
-					<% else %>
-						<span class="count red"><%= event.guests.count%>/<%= event.min %></span>
-					<% end %>
-				</div>
+			<div class="event_time"><%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>
 
-				<% if event.user == current_user && event.tipped? == false %>
-					<div class="force_tip">
-						<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true %>
-					</div>
-				<% elsif event.user == current_user && event.tipped? == true %>
-					<div class="rsvp_check"></div>
+			<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
+		
+			<div class="event_blerb"><%= event.short_event_title %></div>
+		
+			<div class="guest_count">
+				<% if !current_user.rsvpd?(event) %>
+					<i class="icon-group"></i>
 				<% else %>
-					<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
+	      	<% if current_user.rsvps.find_by_plan_id(event.id).invite_all_friends? || (current_user == event.user && event.guests_can_invite_friends?) %>
+	      	<i class="icon-group"></i>
+	      	<% end %>
+	      <% end %>
+				<% if event.tipped? %>	
+					<span class="count"><%= event.guests.count %></span>
+				<% else %>
+					<span id="guestCount" class="count red"><%= event.guests.count%><span id="eventMin">/<%= event.min %></span></span>
 				<% end %>
-					<div class="host">by: <%= event.user.first_name.capitalize %> 
-						<% if event.user.last_name %>
-							<%= event.user.last_name.capitalize%>
-						<% end %> 
-					</div>
 			</div>
+
+			<% if event.user == current_user && event.tipped? == false %>
+				<div class="force_tip">
+					<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true %>
+				</div>
+			<% elsif event.user == current_user && event.tipped? == true %>
+
+			<% else %>
+				<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
+			<% end %>
+				<div class="host">by: <%= event.user.first_name.capitalize %> 
+					<% if event.user.last_name %>
+						<%= event.user.last_name.capitalize%>
+					<% end %> 
+				</div>
 		</div>
 </a>
