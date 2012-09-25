@@ -79,6 +79,9 @@ class ShalendarController < ApplicationController
   def invite_all_friends
     @event = Event.find_by_id(params[:event_id])
     current_user.invite_all_friends!(@event)
+    respond_to do |format|
+      format.js 
+    end
   end
 
   private

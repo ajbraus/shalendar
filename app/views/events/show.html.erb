@@ -9,6 +9,11 @@
     <%= render 'social', locals: { :event => @event } %>
   <% end %>
 
+  <div class="invite_all_friends_show">
+      <%= link_to invite_all_friends_path(:event_id => @event.id) do %>
+        <div class="btn_invite_all_friends_show" title="Share this Idea with All your Friends"><i class="icon-group"></i></div>
+      <% end %>
+  </div>
   <div class="invites_guests">
       <div class="event_show_rasters">
     <% if @event.guests_can_invite_friends? || @event.user == current_user %>

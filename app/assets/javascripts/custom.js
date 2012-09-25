@@ -11,7 +11,6 @@ $(document).ready(function() {
 
   if ( $('.invited_events'))
 
-
 // DATEPICKERDAY
 
 $('.datePickerDay').click(function(){

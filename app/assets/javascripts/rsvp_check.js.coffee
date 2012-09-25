@@ -11,11 +11,11 @@ $.fn.decrement = ->
 	$(@).text(value - 1)
 
 $.fn.rsvp_check = (rsvpCheckHTML, about_to_tip) ->
-  $(@).find('.count').increment()
+  $(@).find('#guestCount').increment()
   $(@).find('.rsvp_check').html(rsvpCheckHTML) 
   if $(@).hasClass("not_rsvpd")
     $(@).removeClass("not_rsvpd")
     $(@).addClass("rsvpd")
   if about_to_tip = 1
-    $(@).children().children().children("#guestCount").removeClass("red");
-    $(@).children().children().children("#guestCount").children("#eventMin").remove();
+    $(@).find("#guestCount").removeClass("red");
+    $(@).find("#eventMin").remove();

@@ -51,11 +51,13 @@ Adam
 --------------
 
 	2. add share w friends icon/link on forecast and event#show
-	3. fix new_ideas button/dropdown
 
-	5. add face to invite email
+	new friend from search doesn not put datewindow back to tuesday but it reloads the forecast. takes a hell of a long time too.
+
+	going count in event#show doesn't wokr
 
 
+add face to invite email
 
 put facebook friends in invites raster
 

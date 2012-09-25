@@ -1,8 +1,8 @@
 if ($("a").withPicId(<%= @relationship.follower.id %>).hasClass("toggled-off")) {
-	$('a').withInviterId(<%= @relationship.follower.id %>).fadeIn("slow");
+	$('div').withInviterId(<%= @relationship.follower.id %>).fadeIn("slow");
 	$("a").withPicId(<%= @relationship.follower.id %>).removeClass("toggled-off").addClass("toggled-on");
 }
 else {
-	$('a').withInviterId(<%= @relationship.follower.id %>).fadeOut("slow");
+	$('div').withInviterId(<%= @relationship.follower.id %>).fadeOut("slow");
 	$("a").withPicId(<%= @relationship.follower.id %>).removeClass("toggled-on").addClass("toggled-off");
 }

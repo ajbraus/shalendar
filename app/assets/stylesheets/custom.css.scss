@@ -989,8 +989,12 @@ right: 48px;
 width: 70px;
   text-align: right;
   bottom:0;
-  .icon-group {
+  .purple {
     color:$icon_color;
+  }
+  .gold {
+    color: #54A854;
+text-shadow: 1px 1px 1px darkgrey;
   }
 }
 
@@ -1081,13 +1085,40 @@ font-size: 20px;
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff51a351', endColorstr='#ff62c462#ff51a351', GradientType=0);
   filter: progid:dximagetransform.microsoft.gradient(enabled=false);
   }
-  .icon-group {
+  .icon {
     color: white;
 position: relative;
 top: 31px;
 left: 9px;
 text-shadow: 1px 1px 1px black;
+&:hover{
+  color:white;
+}
   }
+}
+
+.going {
+    background-color: #5BB75B;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62C462), to(#51A351));
+  background-image: -webkit-linear-gradient(top, #62C462, #51A351);
+  background-image: -o-linear-gradient(top, #62C462, #51A351);
+  background-image: linear-gradient(to bottom, #62C462, #51A351);
+  background-image: -moz-linear-gradient(top, #62C462, #51A351);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+height: 75.9px;
+width: 38px;
+position: relative;
+left: -6px;
+top: 6px;
+font-size: 20px;
+.icon-ok-circle {
+  color:white;
+  font-size: 26px;
+position: relative;
+top: 15px;
+left: 8px;
+}
 }
 
 .btn_icon_rsvp {
@@ -1535,7 +1566,17 @@ left: 190px;
 top: 129px;
   z-index: -1;
 }
+.invite_all_friends_show {
+  position: absolute;
+top: 276px;
+font-size: 163px;
+left: 191px;
+i{
+color: white;  
+}
 
+background-color: green;
+}
 .title {
 height: 225px;
 width: 440px;
@@ -1670,7 +1711,6 @@ float: left;
   left: 26px;
   height: 400px;
   float: left;
-  margin-top: 20px;
   margin-left: 56px;
   .event_show_rasters {
     float:left;
@@ -2077,4 +2117,5 @@ right: -132px;
 width: 350px;
 height: auto;
 padding: 0px;
+
 }

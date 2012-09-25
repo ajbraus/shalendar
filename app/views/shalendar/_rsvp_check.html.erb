@@ -1,13 +1,23 @@
-<% if current_user.rsvpd?(event) && event.guests_can_invite_friends %>
-	<%= link_to invite_all_friends_path(:event_id => event.id), remote: true do %>
-		<div class="btn_invite_all_friends"><i class="icon-group"></i></div>
+<% if current_user.rsvpd?(event) %>
+	
+	<% if event.guests_can_invite_friends? %>
+		
+		<% if !current_user.rsvps.find_by_plan_id(event.id).invite_all_friends? %>
+			<%= link_to invite_all_friends_path(:event_id => event.id), remote: true do %>
+				<div class="btn_invite_all_friends" title="Share this Idea with All your Friends"><i class="icon icon-group"></i></div>
+			<% end %>
+		<% else %>
+			<div class="going" title="You are Going to this Idea"><i class="icon icon-ok-circle"></i></div>
+		<% end %>
+
+	<% else %>
+	<div class="going" title="You are Going to this Idea"><i class="icon icon-ok-circle"></i></div>
 	<% end %>
-<% elsif event.full? %>
-	<i class="icon-ban-circle btn_icon" title="Event Full"></i>
-<% elsif !current_user.rsvpd?(event) %>
+
+<% else %>
 	<%= form_for(current_user.rsvps.build(plan_id: event.id),
 							 remote: true) do |f| %>
 	  <div><%= f.hidden_field :plan_id %></div>
-	  <%= f.submit "join", class:"btn_icon btn_icon_rsvp" %>
+	  <%= f.submit raw("join"), class:"btn_icon btn_icon_rsvp fa-input", title: "Go to this Idea" %>
 	<% end %>
 <% end %>
