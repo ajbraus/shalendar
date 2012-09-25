@@ -209,16 +209,16 @@ class User < ActiveRecord::Base
     other_user.new_invited_events_count += 1
   end
 
-  def forecast(load_date, plan_counts, invite_counts)
+  def forecast(load_datetime, plan_counts, invite_counts)
     @forecast = []
     (-3..16).each do |i|
       @morning_events = []
       @afternoon_events = []
       @evening_events = []
-      @new_date = Date.strptime(load_date, "%Y-%m-%d") + i
+      @new_datetime = load_datetime + i.days #Date.strptime(load_date, "%Y-%m-%d") + i
       @plan_count = []
       @invite_count = []
-      @events_on_date = self.events_on_date(@new_date, @plan_count, @invite_count)
+      @events_on_date = self.events_on_date(@new_datetime, @plan_count, @invite_count)
 
       @events_on_date.each do |e|
         if e.starts_at < e.starts_at.to_date + 12.hours
@@ -237,36 +237,42 @@ class User < ActiveRecord::Base
     return @forecast
   end
 
-  def events_on_date(load_date, plan_count, invite_count)
+  def events_on_date(load_datetime, plan_count, invite_count)
     #usable_date = load_datetime.in_time_zone("Central Time (US & Canada)")
     # usable_date = load_datetime# - 4.hours
     # adjusted_load_date = usable_date.to_date
 
-    @plans = self.plans
-    @invited_events = self.invited_events - @plans
+    time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
+    @plans_on_date = Event.where(starts_at: time_range).joins(:rsvps)
+                      .where(rsvps: {guest_id: self.id}).order("starts_at ASC")
+    
+    @invited_events_on_date = Event.where(starts_at: time_range).joins(:invitations)
+                              .where(invitations: {invited_user_id: self.id}).order("starts_at ASC")
+    invite_count.push(@invited_events_on_date.count)
+    plan_count.push(@plans_on_date.count)
 
-    @date_plans = []
-    @plans.each do |p|
-      if p.starts_at.to_date == load_date
-        p.inviter_id = p.user.id
-        @date_plans.push(p)
-      end
-    end
+    return @invited_events_on_date | @plans_on_date
+    
+    # @plans = self.plans
+    # @date_plans = []
+    # @plans.each do |p|
+    #   if p.starts_at.to_date == load_date
+    #     p.inviter_id = p.user.id
+    #     @date_plans.push(p)
+    #   end
+    # end
 
-    @date_invited_events = []
-    self.invitations.each do |i|
-      e = Event.find_by_id(i.invited_event_id)
-      if e.starts_at.to_date == load_date
-        unless self.rsvpd?(e)
-          e.inviter_id = i.inviter_id
-          @date_invited_events.push(e)
-        end
-      end
-    end
-    invite_count.push(@date_invited_events.count)
-    plan_count.push(@date_plans.count)
+    # @date_invited_events = []
+    # self.invitations.each do |i|
+    #   e = Event.find_by_id(i.invited_event_id)
+    #   if e.starts_at.to_date == load_date
+    #     unless self.rsvpd?(e)
+    #       e.inviter_id = i.inviter_id
+    #       @date_invited_events.push(e)
+    #     end
+    #   end
+    # end
 
-    return @date_invited_events | @date_plans
   end
 
   # def forecastoverview
@@ -331,47 +337,29 @@ class User < ActiveRecord::Base
     # usable_date = load_datetime# - 4.hours
     # adjusted_load_date = usable_date.to_date
 
-    @my_events = self.events
-    @date_events = []
-    @my_events.each do |e|
-      if e.starts_at.to_date == load_date #change starts_at to appropriate timezone
-        @date_events.push(e)
-      end
-    end
-
     @plans = self.plans
+
     @date_plans = []
     @plans.each do |p|
       if p.starts_at.to_date == load_date
+        p.inviter_id = p.user.id
         @date_plans.push(p)
       end
     end
 
-    @invitation_events = Event.joins('INNER JOIN invites ON events.id = invites.event_id')
-                                .where('invites.email = :current_user_email', current_user_email: self.email)
-    @date_invitation_events = []
-
-    @invitation_events.each do |ie|
-      if ie.starts_at.to_date == load_date
-        @date_invitation_events.push(ie)
-      end
-    end
-
-    @date_ideas = []
-    @followed_users = self.followed_users
-    @followed_users.each do |f|
-      f.plans.each do |fp| #for friends of friends events that are RSVPd for
-        if fp.starts_at.to_date == load_date
-          unless fp.full? || fp.visibility == "invite_only"
-            if fp.user == f || fp.visibility == "friends_of_friends"
-              @date_ideas.push(fp)
-            end
-          end
+    @date_invited_events = []
+    self.invitations.each do |i|
+      e = Event.find_by_id(i.invited_event_id)
+      if e.starts_at.to_date == load_date
+        unless self.rsvpd?(e)
+          e.inviter_id = i.inviter_id
+          @date_invited_events.push(e)
         end
       end
     end
 
-    return @date_ideas | @date_invitation_events | @date_plans | @date_events
+    return @date_invited_events | @date_plans
+  
   end
 
   private

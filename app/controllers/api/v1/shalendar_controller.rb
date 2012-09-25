@@ -26,7 +26,7 @@ class Api::V1::ShalendarController < ApplicationController
                                     :notify_r=>@user.notify_event_reminders,
                                     :post_wall=>@user.post_to_fb_wall,
                                     :followed_users=>@user.followed_users,
-                                    :invites=>@invites
+                                    :invites=>@invites #add time_zone?
                                     }
                                  }
 	end
