@@ -4,9 +4,12 @@ class Api::V1::EventsController < ApplicationController
    
    def user_events_on_date
     #receive call to : hoos.in/user_plans_on_date.json?date="DateInString"
-    raw_datetime = DateTime.parse(params[:date])
     @mobile_user = User.find_by_id(params[:user_id])
-    @events = @mobile_user.mobile_events_on_date(raw_datetime.to_date)#Need to check timezone here
+    if @mobile_user
+      Time.zone = @mobile_user.time_zone if @mobile_user.time_zone
+    end
+    raw_datetime = DateTime.parse(params[:date])
+    @events = @mobile_user.mobile_events_on_date(raw_datetime)#Need to check timezone here
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []
     @events.each do |e|
@@ -39,7 +42,9 @@ class Api::V1::EventsController < ApplicationController
     #could add invites here, and/or comments
     @event = Event.find_by_id(params[:event_id])
     @mobile_user = User.find_by_id(params[:user_id])
-
+    if @mobile_user
+      Time.zone = @mobile_user.time_zone if @mobile_user.time_zone
+    end
     if @mobile_user.nil?
       render :status => 400, :json => {:success => false}
     else

@@ -12,8 +12,12 @@ update git repo to company
 
 *super limited* profile- know who someone is, maybe a short blurb, lightbox?
 
+(new feedback)
+	comments up top, picture in comments.
+
 Mike
 ------------
+Fix new invitation counter- need to save when incremented?
 
 Protect RSVP to only ppl invited to event
 
@@ -64,6 +68,7 @@ facebook friends FQL query and alphabetical
 Success, Error, Warning different dropdowns
 title floating after adding invite in event#show
 
+low priority-- update facebook auth message
 Devise time-outable to end session before access_token goes away (and refresh other things)
 
 RSVP button Image of the inviter. Address if there is one.

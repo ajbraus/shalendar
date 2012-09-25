@@ -5,7 +5,7 @@ class ShalendarController < ApplicationController
     @plan_counts = []
     @invite_counts = []
 		@date = Time.now.in_time_zone(current_user.time_zone).to_date #in_time_zone("Central Time (US & Canada)")
-    @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone).to_s, @plan_counts, @invite_counts)
+    @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
     #@forecastoverview = current_user.forecastoverview
     @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')    
     @graph = session[:graph]
