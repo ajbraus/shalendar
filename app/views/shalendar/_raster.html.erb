@@ -1,3 +1,4 @@
+<!--
 <% @friendships.each do |relation| %>
   <% if relation.toggled == true %>
     <%= link_to raster_profile_picture(relation.follower), relationship_toggle_path(relation), :method => :put, class:"toggled-on", "data-pic-id" => "#{relation.follower.id}", title: "#{relation.follower.name}", remote: true %>
@@ -10,3 +11,4 @@
 <% if false %>
   make new "group/list"
 <% end %>
+-->
