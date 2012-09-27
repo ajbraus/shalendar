@@ -31,7 +31,7 @@ module UsersHelper
     elsif user.authentications.where(:provider == "Twitter").any?
       twitter_picture(user, type: "normal") 
     else
-      image_tag user.avatar.url, class: "profile_picture"
+      #image_tag user.avatar.url, class: "profile_picture"
     end
   end 
 
