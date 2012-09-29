@@ -145,6 +145,9 @@ $(document).bind('click', function(e) {
 // NEW IDEA FORM VALIDATION
 	$("#new_event_form").validate({
 		rules: {
+      "event[title]": {
+        maxlength: 140
+      },
 			"event[min]": {
 				number: true
 			},
@@ -169,8 +172,6 @@ $(document).bind('click', function(e) {
 
 	$( "#guest_raster" ).tabs();
 
-
-AddressPickerRails.Pickers.applyOnReady();
 
 // google map address picker
 // http://jquerybyexample.blogspot.com/2011/11/jquery-addresspicker-plugin-explained.html
