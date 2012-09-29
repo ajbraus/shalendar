@@ -60,11 +60,11 @@ class ShalendarController < ApplicationController
   end
 
   def new_invited_events
-    @new_invitations = current_user.invitations.order('created_at desc').limit(20)
+    @new_invitations = current_user.invitations.order('created_at desc').limit(15)
     @new_invited_events = []
     @new_invitations.each do |i|
       e = Event.find_by_id(i.invited_event_id)
-      unless current_user.rsvpd?(e)
+      unless current_user == e.user
         e.inviter_id = i.inviter_id
         @new_invited_events.push(e)
       end
@@ -81,6 +81,7 @@ class ShalendarController < ApplicationController
     current_user.invite_all_friends!(@event)
     respond_to do |format|
       format.js 
+      format.html { redirect_to root_path, notice: 'Idea Successfully Shared with Friends' }
     end
   end
 

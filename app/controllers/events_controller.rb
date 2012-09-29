@@ -30,6 +30,7 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
+    @event_start_time = @event.start_time
   end
 
   # POST /events
@@ -50,14 +51,18 @@ class EventsController < ApplicationController
           @event.save
         end        
         # if current_user.post_to_fb_wall? && session[:graph] && params[:invite_all_friends] == "on" && @event.guests_can_invite_friends? #&& Rails.env.production?
-          # session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
-          #                                     :link => "http://www.hoos.in/events/#{@event.id}", 
-          #                                     :picture => "http://www.hoos.in/assets/icon.png",
-          #                                     })
+        #   session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
+        #                                       :link => "http://www.hoos.in/events/#{@event.id}", 
+        #                                       :picture => "http://www.hoos.in/assets/icon.png",
+        #                                       })
         # end
+        if params[:invite_all_friends] == "on"
+          format.html { redirect_to root_path }
+          format.json { render json: @event, status: :created, location: @event }
+        else
         format.html { redirect_to @event }
         format.json { render json: @event, status: :created, location: @event }
-
+        end
       else
         format.html { redirect_to home_path, notice: "Idea could not be posted. Please try again." }
         format.json { render json: @event.errors, status: :unprocessable_entity }

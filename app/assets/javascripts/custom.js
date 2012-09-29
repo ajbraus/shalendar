@@ -3,7 +3,41 @@ $(document).ready(function() {
 	$("div.alert").delay(2500).fadeOut(400);
 
 
-// new invited events
+// LOADING AJAX
+
+
+$('#loading').ajaxStart(function(){
+  $(this).show();
+}).ajaxStop(function(){
+  $(this).hide();
+});
+
+
+// $('#someFormID')
+// .ajaxStart(function() {
+//     $('#loading').show();
+// })
+// .ajaxStop(function() {
+//     $('#loading').hide();
+// });
+
+  // var toggleLoading = function() { $("#loading").toggle() };
+
+  // $("#new_relationship").on("ajax:before", toggleLoading);
+  //   // .bind("ajax:success", function(data, status, xhr) {
+  //   //   $("#response").html(status);
+  //   // });
+
+  // $("#tipPin").ajaxStart(toggleLoading);
+
+  //   // .bind("ajax:success", function(data, status, xhr) {
+  //   //   $("#response").html(status);
+  //   // });
+
+  // $('#new_rsvp').bind("ajax:beforeSend", toggleLoading);
+
+
+// NEW INVITED EVENTS
 
   if ( $('#new_invited_events_count').text() == 0 ) {
     $('#new_invited_events_count').hide();
@@ -176,7 +210,7 @@ $(function(){
   insta_container.instagram({
       hash: 'hoosin'
     , clientId : '4b92d403b8324f2294a4aa3b7e2bf407'
-    , show : 6
+    , show : 5
     , onComplete : function (photos, data) {
       insta_next_url = data.pagination.next_url
     }

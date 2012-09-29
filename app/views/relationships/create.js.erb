@@ -1,6 +1,11 @@
 $("div").withUserId(<%= @user.id %>).html("<%= escape_javascript(render partial: 'events/just_follow_form', locals: {user:  @user}) %>")
 $("#home_raster").html("<%= escape_javascript(render partial: 'shalendar/raster') %>")
 $(".forecast").html("<%= escape_javascript(render partial: 'shalendar/forecast') %>")
+$("#datepicker").html("<%= escape_javascript(render partial: 'shalendar/datepicker') %>")
 
 $("#friends").html("<%= escape_javascript(render partial: 'shalendar/friends') %>")
-$(".friend_count").increment()
+$("#header_friend_count").increment();
+$("#managed_friend_count").increment();
+
+// $(".alert").text("You are now Friends with <%= @relationship.follower.name %>");
+// $(".alert").show(300);
