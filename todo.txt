@@ -50,18 +50,31 @@ new follower email link not working
 Adam
 --------------
 
+event#show
+map
+littletip error when rsvp, invite all friends
+remove invite by email if cannot
+
+
 	2. add share w friends icon/link on forecast and event#show
 
 	new friend from search doesn not put datewindow back to tuesday but it reloads the forecast. takes a hell of a long time too.
 
 	going count in event#show doesn't wokr
 
+	add "you are now friends with x" to relationship#create.js
 
 add face to invite email
 
-put facebook friends in invites raster
+add format.html to everything
+
+fix alert and add error styling
+
+make invitation email better (are ppl even using this?) Maybe a 'copy the link to this event' with pretty urls?
 
 invite people who went to other events but without having to follow them
+
+add beautiful dialogue box for confirm to join event
 
 remove invite by email in cannot invite frieds
 

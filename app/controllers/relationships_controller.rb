@@ -12,7 +12,7 @@ before_filter :authenticate_user!
       if @relationship.save
         respond_to do |format|
           format.html { redirect_to :back, notice: "Friend request sent to #{@user.name}" }
-          format.js { render template: "relationships/create_no_reload", notice: "Friend request sent to #{@user.name}" }
+          format.js { render template: "relationships/create_no_reload" }
         end
       else
         redirect_to :back, notice: "Couldn't Friend #{@user.name}"
@@ -35,7 +35,7 @@ before_filter :authenticate_user!
           #also need to add all relevant invitations for both people at this point
         end
         respond_to do |format|
-          format.html { redirect_to :back, notice: "Friend request sent to #{@user.name}" }
+          format.html { redirect_to :back, notice: "You are now friends with #{@user.name}" }
           @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
           @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
           @plan_counts = []

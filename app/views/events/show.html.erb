@@ -50,6 +50,7 @@
 
   </div>
 
+  <% if @event.guests_can_invite_friends? || @event.user == current_user %>
   <div class="invite_by_email element">
     <p>Share by Email</p>
     <%= form_for([@event, @event.email_invites.build]) do |f| %>
@@ -58,6 +59,16 @@
         <%= f.submit raw("&#xf0e0; Send"), class: "btn btn-primary fa-input" %>
     <% end %>
   </div>
+  <% else %>
+   <div class="hide invite_by_email element">
+    <p>Share by Email</p>
+    <%= form_for([@event, @event.email_invites.build]) do |f| %>
+        <%= f.text_area :email, rows: "5", placeholder: "Seperate Emails with Comma" %>
+        <%= f.text_area :message, rows: "3", placeholder: "Message" %>
+        <%= f.submit raw("&#xf0e0; Send"), class: "btn btn-primary fa-input" %>
+    <% end %>
+    </div>
+  <% end %>
 
   <%= render partial: 'comments_form' %>
 

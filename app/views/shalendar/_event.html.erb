@@ -27,12 +27,12 @@
 		<div class="guest_count">
 			<% if current_user.rsvpd?(event) && event.guests_can_invite_friends? %>
 				<% if current_user.rsvps.find_by_plan_id(event.id).invite_all_friends? %>
-					<i class="gold icon-group"></i>
+					<i class="gold icon-group" title="You shared this idea with your friends"></i>
 				<% else %>
-					<i class="purple icon-group"></i>
+					<i class="purple icon-group" title="You may share this idea with your friends."></i>
 				<% end %>
 			<% elsif event.guests_can_invite_friends? %>
-      	<i class="purple icon-group"></i>
+      	<i class="purple icon-group" title="You may share this idea with your friends."></i>
       <% end %>
 			<% if event.tipped? %>	
 				<span class="count" id="guestCount"><%= event.guests.count %></span>
@@ -43,7 +43,7 @@
 
 		<% if event.user == current_user && event.tipped? == false %>
 			<div class="force_tip">
-				<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true %>
+				<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true, id:"tipPin" %>
 			</div>
 		<% else %>
 			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>

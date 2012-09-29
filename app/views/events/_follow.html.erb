@@ -1,4 +1,8 @@
 <%= form_for(current_user.relationships.build(followed_id: user.id), remote: true) do |f| %>
   <div><%= f.hidden_field :followed_id %></div>
-  <%= f.submit raw("&#xf046;"), class: "fa-input", title: "friend" %>
+  <%= f.submit "Friend", class: "btn-follow" %>
 <% end %>
+
+<script>
+  $("#new_relationship").ajaxStart(toggleLoading);
+</script>

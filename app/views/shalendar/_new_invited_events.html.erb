@@ -1,4 +1,9 @@
 <div class="invited_events part">
-<%= render partial: 'shalendar/event', collection: @new_invited_events, as: :event %>
+	<% if @new_invited_events.any? %>
+		<%= render partial: 'shalendar/event', collection: @new_invited_events, as: :event %>
+	<% else %>
+	<p>No new ideas right now</p>
+	<% end %>
 </div>
+
 
