@@ -1228,7 +1228,7 @@ bottom: 17px;
 
 /* miscellaneous */
 
-.alert {
+.alert { 
 position: absolute;
 text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 background-color: #FCF8E3;
@@ -1237,10 +1237,11 @@ border-top: 1px solid goldenrod;
 color: goldenrod;
 z-index: 10;
 top: 58px;
-height: 32px;
-line-height: 34px;
-width: 100%;
-left: 0;
+height: 43px;
+line-height: 43px;
+width: 700px;
+margin: 0 auto;
+left: 24%;
 text-align: center;
 font-size: 23px;
 }

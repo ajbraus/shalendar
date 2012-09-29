@@ -11,6 +11,7 @@ $.fn.decrement = ->
 	$(@).text(value - 1)
 
 $.fn.rsvp_check = (rsvpCheckHTML, about_to_tip) ->
+  $('div#littleTIP').remove();
   $(@).find('#guestCount').eq(0).increment()
   $(@).find('#guestCount').eq(1).increment()
   $(@).find('.rsvp_check').html(rsvpCheckHTML) 
