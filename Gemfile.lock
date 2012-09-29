@@ -36,6 +36,8 @@ GEM
     activesupport (3.2.6)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    address_picker-rails (0.2.1)
+      rails (~> 3.2.0)
     addressable (2.3.2)
     airbrake (3.1.4)
       builder
@@ -332,6 +334,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  address_picker-rails
   airbrake
   annotate (~> 2.4.1.beta)
   apn_sender

@@ -3,7 +3,9 @@
   <%= render 'layouts/logo' %>  
   </div>
   <%= render 'title' %>
-  <%= render 'map' %>
+  <% if false %>
+    <%= render 'map' %>
+  <% end %>
 
 
   <% if @event.user.id == current_user.id || @event.guests_can_invite_friends? %>

@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+
+// REMOVE ALERT 
+
 	$("div.alert").delay(2500).fadeOut(400);
 
 
@@ -167,25 +170,26 @@ $(document).bind('click', function(e) {
 	$( "#guest_raster" ).tabs();
 
 
+AddressPickerRails.Pickers.applyOnReady();
+
 // google map address picker
 // http://jquerybyexample.blogspot.com/2011/11/jquery-addresspicker-plugin-explained.html
 	
-	$(function() {
-		var addresspicker = $( "#addresspicker" ).addresspicker();
-		var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
-		  elements: {
-		    map:      "#map",
-		    lat:      "#lat",
-		    lng:      "#lng",
-		    locality: '#locality',
-		    country:  '#country'
-		  }
-		});
-		var gmarker = addresspickerMap.addresspicker( "marker");
-		gmarker.setVisible(true);
-		addresspickerMap.addresspicker( "updatePosition");
-		
-	});
+// $(function() {
+//     var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
+//       elements: {
+//         map:      "#autocompleteMap",
+//         lat:      "#lat",
+//         lng:      "#lng",
+//         locality: '#locality',
+//         country:  '#country'
+//       }
+//     });
+//     var gmarker = addresspickerMap.addresspicker( "marker");
+//     gmarker.setVisible(true);
+//     addresspickerMap.addresspicker( "updatePosition");
+    
+//   });
 
 });
 
