@@ -1,8 +1,8 @@
 module UsersHelper
 
-  def default_url
-    return "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png"
-  end
+  # def default_url
+  #   return "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png"
+  # end
 
   def friends_attending(event)
     f = event.guests.select { |a| current_user.following?(a) }
@@ -35,11 +35,12 @@ module UsersHelper
     elsif user.authentications.where(:provider == "Twitter").any?
       twitter_picture(user, type: "normal") 
     else
-      # if user.avatar.url.nil?
-        image_tag default_url, class: "profile_picture"
-      # else
-      #   image_tag user.avatar.url, class: "profile_picture"
-      # end
+      if user.avatar.url.nil?
+        image_tag "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png",
+         class: "profile_picture"
+      else
+        image_tag user.avatar.url, class: "profile_picture"
+      end
     end
   end 
 
@@ -70,11 +71,12 @@ module UsersHelper
     elsif user.authentications.where(:provider == "Twitter").any?
       invite_twitter_picture(user, type: "normal") 
     else
-      # if user.avatar.url.nil?
-        image_tag default_url, class: "profile_picture"
-      # else
-      #   user.avatar.url
-      # end
+      if user.avatar.url.nil?
+        image_tag "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png",
+         class: "profile_picture"
+      else
+        user.avatar.url
+      end
       #invite_gravatar_for(user, :size => 50 )
     end
   end
