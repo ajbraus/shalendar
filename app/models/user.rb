@@ -66,11 +66,17 @@ class User < ActiveRecord::Base
   after_create :send_welcome
   
   def as_json(options = {})
+    if user.authentications.where(:provider == "Facebook").any?
+      @pic_url = user.authentications.find_by_provider("Facebook").pic_url
+    else
+      @pic_url = user.avatar.url
+    end
    {
     :uid => self.id,
     :first_name => self.first_name,
     :last_name => self.last_name,
-    :email_hex => Digest::MD5::hexdigest(self.email.downcase)
+    :pic_url => @pic_url
+    #:email_hex => Digest::MD5::hexdigest(self.email.downcase)
     #:profile_pic_url => "https://secure.gravatar.com/avatar/#{Digest::MD5::hexdigest(user.email.downcase)}?s=50"
     }
   end
@@ -161,7 +167,9 @@ class User < ActiveRecord::Base
   end
 
   def unfollow!(other_user)
-    relationships.find_by_followed_id(other_user.id).destroy
+    unless relationships.find_by_followed_id(other_user.id).nil?
+      relationships.find_by_followed_id(other_user.id).destroy
+    end
   end
 
   def add_invitations_from_user(other_user)
@@ -280,6 +288,8 @@ class User < ActiveRecord::Base
     @plans_on_date.each do |p|
       p.inviter_id = p.user.id
     end
+    @invited_events_on_date = @invited_events_on_date - @plans_on_date
+
     @invited_events_on_date = Event.where(starts_at: time_range).joins(:invitations)
                               .where(invitations: {invited_user_id: self.id}).order("starts_at ASC")
     @invited_events_on_date.each do |ie|
