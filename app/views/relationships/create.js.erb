@@ -6,6 +6,8 @@ $("#datepicker").html("<%= escape_javascript(render partial: 'shalendar/datepick
 $("#friends").html("<%= escape_javascript(render partial: 'shalendar/friends') %>")
 $("#header_friend_count").increment();
 $("#managed_friend_count").increment();
+$('#search_results').remove();
+$('#user_search_field').val('');
 
 // $(".alert").text("You are now Friends with <%= @relationship.follower.name %>");
 // $(".alert").show(300);

@@ -87,7 +87,4 @@ $(document).ready(function(){			// Script executed on DOM load
 		$('#littleTIP').remove();		// Remove littleTIP
 		this.title = this.tip;			// Use default tooltip
 	});
-
-
-
 });

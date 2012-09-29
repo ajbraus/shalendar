@@ -17,7 +17,6 @@ update git repo to company
 
 Mike
 ------------
-Fix new invitation counter- need to save when incremented?
 
 Protect RSVP to only ppl invited to event
 
@@ -50,19 +49,9 @@ new follower email link not working
 Adam
 --------------
 
-event#show
-map
-littletip error when rsvp, invite all friends
-remove invite by email if cannot
+going count in event#show doesn't work
 
-
-	2. add share w friends icon/link on forecast and event#show
-
-	new friend from search doesn not put datewindow back to tuesday but it reloads the forecast. takes a hell of a long time too.
-
-	going count in event#show doesn't wokr
-
-	add "you are now friends with x" to relationship#create.js
+add "you are now friends with x" to relationship#create.js
 
 add face to invite email
 

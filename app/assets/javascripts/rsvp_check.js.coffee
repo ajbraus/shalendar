@@ -20,3 +20,4 @@ $.fn.rsvp_check = (rsvpCheckHTML, about_to_tip) ->
   if about_to_tip = 1
     $(@).find("#guestCount").removeClass("red");
     $(@).find("#eventMin").remove();
+

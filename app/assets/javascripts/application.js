@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require jquery.ui.button
 //= require jquery.ui.tabs
+//= require address_picker-rails
 //= require_tree
