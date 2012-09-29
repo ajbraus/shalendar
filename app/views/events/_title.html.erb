@@ -26,9 +26,6 @@
     </div>
 
     <div class="event_buttons">
-      <% if @event.guests_can_invite_friends? %>
-        <i class="icon-group" title="Friends"></i>
-      <% end %>
       <% if @event.user == current_user %> 
         <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will send an Email to all RSVPs a cancellation email.' } do %>
         <span class="fadeInRed"><i class="icon-trash icon-large"></i></span>
@@ -43,6 +40,29 @@
         <% end %>
       <% else %>
         <%= render 'rsvp_form' %>
+      <% end %>
+      <% if current_user.id == @event.user.id %>
+        <% if current_user.invited_all_friends?(@event) %>
+          <i class="icon-group owner gold" title="Shared with all Friends"></i>
+        <% elsif current_user.rsvpd?(@event) %>
+          
+          <%= link_to invite_all_friends_path(:event_id => @event.id) do %>
+          <i class="icon-group owner black" title="Share idea with all Friends"></i>
+          <% end %>
+        <% else %>
+          <i class="icon-group owner black" title="Guests may share with Friends"></i>
+        <% end %>
+      <% elsif @event.guests_can_invite_friends?  %>
+        <% if current_user.invited_all_friends?(@event) %>
+          <i class="icon-group gold" title="Shared with all Friends"></i>
+        <% elsif current_user.rsvpd?(@event) %>
+          
+          <%= link_to invite_all_friends_path(:event_id => @event.id) do %>
+          <i class="icon-group black" title="Share idea with all Friends"></i>
+          <% end %>
+        <% else %>
+          <i class="icon-group black" title="Guests may share with Friends"></i>
+        <% end %>
       <% end %>
     </div>
   </div>

@@ -9,7 +9,8 @@ class Notifier < ActionMailer::Base
       "matt@womstreet.com", "marykvernon@gmail.com", "rsfenchel@gmail.com", "scott.j.resnick@gmail.com", 
       "johnbwheel@gmail.com", "acconnel7@gmail.com", "nikolaiskievaski@gmail.com",
       "nolanbjohnson@gmail.com", "drew.cohen@epic.com", "Dkevitch@gmail.com",
-      "SBwells@wisc.edu", "gstratch@gmail.com", "ohfortuna@gmail.com"]
+      "SBwells@wisc.edu", "gstratch@gmail.com", "ohfortuna@gmail.com", "mcorear@gmail.com"
+      ]
     mail bcc: @sbu_emails, from: "info@hoos.in", subject: "Ten Days In- Beta v.2"
 
   end

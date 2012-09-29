@@ -196,6 +196,14 @@ AFTER BETA LAUNCH
 
 	MEETUP API
 
+----- Improvement Ideas ----
+Forget toggle, just have an 'X' to remove any individual idea you're not interested in
+	frees up space from toggle area
+	better for mobile
+
+
+--- 
+
 Infrastructure
 	Staging
 	Tests

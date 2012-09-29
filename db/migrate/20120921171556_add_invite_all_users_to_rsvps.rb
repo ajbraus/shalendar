@@ -1,14 +1,6 @@
 class AddInviteAllUsersToRsvps < ActiveRecord::Migration
   def change
-  	add_column :rsvps, :invite_all_friends, :boolean, default: false
-  	#go through and turn all current follows into friends
 
-  	Rsvp.all.each do |r|
-  		if r.plan.guests_can_invite_friends?
-  			r.invite_all_friends = true
-  			r.save
-  		end
-  	end
 
     Relationship.all.each do |r|
     	if r.confirmed == true

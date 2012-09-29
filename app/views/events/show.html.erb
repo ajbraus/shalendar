@@ -5,15 +5,11 @@
   <%= render 'title' %>
   <%= render 'map' %>
 
-  <% if @event.user == current_user || @event.guests_can_invite_friends %>
+
+  <% if @event.user.id == current_user.id || @event.guests_can_invite_friends? %>
     <%= render 'social', locals: { :event => @event } %>
   <% end %>
 
-  <div class="invite_all_friends_show">
-      <%= link_to invite_all_friends_path(:event_id => @event.id) do %>
-        <div class="btn_invite_all_friends_show" title="Share this Idea with All your Friends"><i class="icon-group"></i></div>
-      <% end %>
-  </div>
   <div class="invites_guests">
       <div class="event_show_rasters">
     <% if @event.guests_can_invite_friends? || @event.user == current_user %>
@@ -47,10 +43,7 @@
         <%= render 'guests' %>
       </div>
     </div>
-
-  </div>
-
-  <% if @event.guests_can_invite_friends? || @event.user == current_user %>
+      <% if @event.guests_can_invite_friends? || @event.user == current_user %>
   <div class="invite_by_email element">
     <p>Share by Email</p>
     <%= form_for([@event, @event.email_invites.build]) do |f| %>
@@ -71,6 +64,9 @@
   <% end %>
 
   <%= render partial: 'comments_form' %>
+  </div>
+
+</div>
 
 <!-- Twitter API script -->
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>

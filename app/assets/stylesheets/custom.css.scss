@@ -1013,11 +1013,12 @@ width: 70px;
   .purple {
     color:$icon_color;
   }
-  .gold {
-    color: #54A854;
-text-shadow: 1px 1px 1px darkgrey;
-  }
 }
+
+.gold {
+  color: #54A854;
+  text-shadow: 1px 1px 1px darkgrey;
+  }
 
 .force_tip {
   position: absolute;
@@ -1625,6 +1626,25 @@ margin-top: 20px;
     position: absolute;
     right: 20px;
     bottom: 20px;
+    width: 185px;
+    i, div {
+      float: right;
+    }
+    .icon-group{
+      position: absolute;
+      font-size: 57px;
+      margin-top: 15px;
+    }
+    .owner{
+      position: absolute;
+      margin-right: 20px;
+      font-size: 57px;
+      left: 40px;
+      bottom: 0px;
+    }
+    .black{
+      color: black;
+    }
   }
   .when {
   font-size: 21px;
@@ -1735,7 +1755,6 @@ float: left;
   margin: 0 auto;
   position: relative;
   left: 26px;
-  height: 400px;
   float: left;
   margin-left: 56px;
   .event_show_rasters {
