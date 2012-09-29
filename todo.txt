@@ -17,7 +17,7 @@ update git repo to company
 
 Mike
 ------------
-Fix new invitation counter- need to save when incremented?
+Click someone's face to find their friends too
 
 Protect RSVP to only ppl invited to event
 
@@ -69,6 +69,8 @@ add face to invite email
 add format.html to everything
 
 fix alert and add error styling
+
+timezones in more normal format (PST)
 
 make invitation email better (are ppl even using this?) Maybe a 'copy the link to this event' with pretty urls?
 

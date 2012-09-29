@@ -35,11 +35,11 @@ module UsersHelper
     elsif user.authentications.where(:provider == "Twitter").any?
       twitter_picture(user, type: "normal") 
     else
-      if user.avatar.url.nil?
+      # if user.avatar.url.nil?
         image_tag default_url, class: "profile_picture"
-      else
-        image_tag user.avatar.url, class: "profile_picture"
-      end
+      # else
+      #   image_tag user.avatar.url, class: "profile_picture"
+      # end
     end
   end 
 
@@ -70,11 +70,11 @@ module UsersHelper
     elsif user.authentications.where(:provider == "Twitter").any?
       invite_twitter_picture(user, type: "normal") 
     else
-      if user.avatar.url.nil?
+      # if user.avatar.url.nil?
         image_tag default_url, class: "profile_picture"
-      else
-        user.avatar.url
-      end
+      # else
+      #   user.avatar.url
+      # end
       #invite_gravatar_for(user, :size => 50 )
     end
   end
