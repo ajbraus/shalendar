@@ -81,7 +81,7 @@ class ShalendarController < ApplicationController
     current_user.invite_all_friends!(@event)
     respond_to do |format|
       format.js 
-      format.html { redirect_to root_path, notice: 'Idea Successfully Shared with Friends' }
+      format.html { redirect_to @event, notice: 'Idea Successfully Shared with Friends' }
     end
   end
 

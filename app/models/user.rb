@@ -207,6 +207,16 @@ class User < ActiveRecord::Base
     invitations.where('invitations.invited_event_id = :eventid', eventid: event.id).any?
   end
 
+  def invited_all_friends?(event)
+    if self.rsvpd?(event)
+      if self.rsvps.find_by_plan_id(event.id).invite_all_friends?
+        return true
+      end
+    else
+      return false
+    end
+  end
+  
   def invite_all_friends!(event)
     self.followers.each do |f|
       unless f.invited?(event)
