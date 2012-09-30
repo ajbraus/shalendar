@@ -40,7 +40,6 @@ module UsersHelper
       #    class: "profile_picture"
       # else
         image_tag user.avatar.url, class: "profile_picture"
-      end
     end
   end 
 
@@ -76,7 +75,6 @@ module UsersHelper
       #    class: "profile_picture"
       # else
         image_tag user.avatar.url, class: "profile_picture"
-      end
       #invite_gravatar_for(user, :size => 50 )
     end
   end
