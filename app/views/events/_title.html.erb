@@ -24,14 +24,15 @@
     <div class="by">
       <%= raster_profile_picture(@event.user) %> <span><%= @event.user.name %></span>
     </div>
-    <div class="event_buttons">
-      <% if @event.user.id == current_user.id %> 
+    <ul class="event_buttons">
+      <% if @event.user == current_user %> 
         <% unless @event.tipped? %>
+        <li>
           <%= link_to event_tip_path(@event), :confirm => "Force your idea to tip? This cannot be reversed and will send notifications to all RSVPs.", :method => :put do %>
             <span class="btn btn-primary"><i class="icon-pushpin"></i> Tip!</span>
           <% end %>
-        <% end %>
         </li>
+        <% end %>
         <li class="icon">
           <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will send an Email to all RSVPs a cancellation email.' } do %>
             <span class="fadeInRed"><i class="icon-trash"></i></span>
