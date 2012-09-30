@@ -118,7 +118,7 @@ class Notifier < ActionMailer::Base
     @event_time = event.starts_at.strftime("%l:%M%P, %A %B %e")
     @inviter = User.find_by_id(@invite.inviter_id)
     @event_link = "http://www.hoos.in/events/#{@event.id}"
-    @message = email_invitation.message 
+    @message = @invite.message
     #should we include here an invited by X to make them more likely to join?
     if @user = User.find_by_email(@invite.email)
       if(@user.iPhone_user == true)
