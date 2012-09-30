@@ -52,12 +52,8 @@ module UsersHelper
   # end
 
   def fb_picture(user)
-  	if user.authentications.find_by_provider("Facebook").nil?
-      image_tag user.avatar.url
-    elsif !user.authentications.find_by_provider("Facebook").pic_url.nil?
-      facebook_url = "#{user.authentications.find_by_provider("Facebook").pic_url}"
-      image_tag(facebook_url, alt: user.name, class: "profile_picture" )
-    end
+    facebook_url = "#{user.authentications.find_by_provider("Facebook").pic_url}"
+    image_tag(facebook_url, alt: user.name, class: "profile_picture" )
   end
 
   def twitter_picture(user, options = { type: "large", })
