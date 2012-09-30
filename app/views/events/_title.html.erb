@@ -26,7 +26,7 @@
     </div>
 
     <div class="event_buttons">
-      <% if @event.user == current_user %> 
+      <% if @event.user.id == current_user.id %> 
         <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will send an Email to all RSVPs a cancellation email.' } do %>
         <span class="fadeInRed"><i class="icon-trash icon-large"></i></span>
         <% end %>
