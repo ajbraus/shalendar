@@ -18,10 +18,12 @@
 }
 
 .fancybox-wrap {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 8020;
+position: absolute;
+top: 0;
+left: 6%;
+z-index: 8020;
+width: 87%;
+margin: 0 auto;
 }
 
 .fancybox-skin {
@@ -151,13 +153,13 @@
 .fancybox-nav:hover span {
 	visibility: visible;
 }
-
+/*
 .fancybox-tmp {
 	position: absolute;
 	top: -9999px;
 	left: -9999px;
 	visibility: hidden;
-}
+}*/
 
 /* Overlay helper */
 
