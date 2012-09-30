@@ -52,13 +52,12 @@ module UsersHelper
   # end
 
   def fb_picture(user)
-    facebook_url = "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png"
   	if user.authentications.find_by_provider("Facebook").nil?
-      facebook_url = "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png"
-    else
+      image_tag user.avatar.url
+    elsif !user.authentications.find_by_provider("Facebook").pic_url.nil?
       facebook_url = "#{user.authentications.find_by_provider("Facebook").pic_url}"
+      image_tag(facebook_url, alt: user.name, class: "profile_picture" )
     end
-    image_tag(facebook_url, alt: user.name, class: "profile_picture" )
   end
 
   def twitter_picture(user, options = { type: "large", })
