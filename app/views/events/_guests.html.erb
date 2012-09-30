@@ -1,7 +1,7 @@
 <% @guests.each do |guest| %>
   <table>
   	<tr>
-      <td title="<% guest.name %>"><%= raster_profile_picture(guest) %></td>
+      <td title="<%= guest.name %>"><%= raster_profile_picture(guest) %></td>
       <td>
         <%= render partial: 'events/just_follow_form', locals: { user: guest } %>
       </td>

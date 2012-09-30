@@ -37,9 +37,9 @@
 
     <div class="event_show_rasters">
       <% if @event.tipped? %>
-        <p><%= @guests.count %> Going</p>
+        <p><%= @guests.count %> Going (Tipped!)</p>
       <% else %>
-        <p class="destroy"><% @guests.count %> / <% @event.min %> Going</p>
+        <p class="destroy"><%= @guests.count %> / <%= @event.min %> Going (Not Yet Tipped)</p>
       <% end %>
       <div class="show_raster element">
         <%= render 'guests' %>
