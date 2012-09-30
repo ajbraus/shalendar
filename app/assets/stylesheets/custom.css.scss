@@ -166,7 +166,9 @@ ul, li {
   border:1px solid #dcdcdc;
   display:inline-block;
   color:#ffffff;
-  padding: 3px 10px 3px 10px;
+  padding: 9px 12px 9px 12px;
+position: relative;
+right: 16px;
   &:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f77740), color-stop(1, #EE9100) );
   background:-moz-linear-gradient( center top, #f77740 5%, #EE9100 100% );
@@ -1770,6 +1772,10 @@ margin-bottom: 10px;
 width: 339px;
 padding: 7px;
 float: left;
+  table {
+    width:45%;
+    float:left;
+  }
 }
 .invites_guests {
   width: 1100px;
@@ -2200,7 +2206,7 @@ padding: 0px;
   background-repeat: no-repeat;
   img {
 position: absolute;
-left: 50%;
+left: 45%;
 top: 25%;
   }
 }
