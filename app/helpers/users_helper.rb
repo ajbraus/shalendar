@@ -52,7 +52,7 @@ module UsersHelper
 
   def fb_picture(user)
   	facebook_url = "#{user.authentications.find_by_provider("Facebook").pic_url}"
-  	image_tag(facebook_url, alt: user.name, class: "profile_picture" )
+  	#image_tag(facebook_url, alt: user.name, class: "profile_picture" )
   end
 
   def twitter_picture(user, options = { type: "large", })
