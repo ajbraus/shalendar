@@ -51,6 +51,8 @@ Adam
 
 going count in event#show doesn't work
 
+change default picture
+
 add "you are now friends with x" to relationship#create.js
 
 add face to invite email
