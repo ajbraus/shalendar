@@ -52,9 +52,11 @@ module UsersHelper
   # end
 
   def fb_picture(user)
-  	facebook_url = "#{user.authentications.find_by_provider("Facebook").pic_url}"
-    if facebook_url.nil? || user.authentications.find_by_provider("Facebook").nil?
+    facebook_url = ""
+  	if user.authentications.find_by_provider("Facebook").nil?
       facebook_url = "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png"
+    else
+      facebook_url = "#{user.authentications.find_by_provider("Facebook").pic_url}"
     end
     image_tag(facebook_url, alt: user.name, class: "profile_picture" )
   end
