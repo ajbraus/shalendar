@@ -39,7 +39,7 @@ module UsersHelper
       #   image_tag "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png",
       #    class: "profile_picture"
       # else
-        image_tag user.avatar.url, class: "profile_picture"
+      #image_tag user.avatar.url, class: "profile_picture"
     end
   end 
 
@@ -74,7 +74,7 @@ module UsersHelper
       #   image_tag "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png",
       #    class: "profile_picture"
       # else
-        image_tag user.avatar.url, class: "profile_picture"
+      user.avatar.url
       #invite_gravatar_for(user, :size => 50 )
     end
   end
