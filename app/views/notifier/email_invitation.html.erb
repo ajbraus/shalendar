@@ -12,11 +12,12 @@
 	<td style="padding:20px 0 10px 50px"><strong><%= @event_time %></strong></td>
 </tr>
 
-<% if @message.any? %>
+<% unless @message.nil? %>
 <tr>
 	<td style="padding:20px 0 10px 50px"><strong><%= @message %></strong></td>
 </tr>
 <% end %>
+
 
 <tr>
 	<td style="padding:20px 0 10px 10px"> Check out this idea's <a href=<%= @event_link %>>page on hoos.in</a> to join.</td>
