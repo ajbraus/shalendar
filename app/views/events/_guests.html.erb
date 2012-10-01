@@ -2,9 +2,11 @@
   <table>
   	<tr>
       <td title="<%= guest.name %>"><%= raster_profile_picture(guest) %></td>
-      <td>
-        <%= render partial: 'events/just_follow_form', locals: { user: guest } %>
-      </td>
+      <% unless current_user.following?(guest) %>
+      	<td>
+        	<%= render partial: 'events/just_follow_form', locals: { user: guest } %>
+      	</td>
+      <% end %>
     </tr>
   </table>
 <% end %>

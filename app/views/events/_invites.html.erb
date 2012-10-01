@@ -3,7 +3,9 @@
     <table>
       <tr>
         <td title="<%= iu.name %>"><%= raster_profile_picture(iu) %></td>
-        <td><%= render :partial => 'events/just_follow_form', :locals => { :user => iu } %></td>
+        <% if !current_user.following?(iu) %>
+        	<td><%= render :partial => 'events/just_follow_form', :locals => { :user => iu } %></td>
+        <% end %>
       </tr>
     </table>  
   <% end %>
