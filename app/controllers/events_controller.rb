@@ -96,9 +96,13 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.update_attributes(params[:event])
         if @start_time != @event.starts_at
+          ##NEED TO FIX RESQUE
           @event.guests.each do |g|
             Resque.enqueue(MailerCallback, "Notifier", :time_change, @event.id, g.id)
           end
+        end
+        if @event.guests > @event.min
+          @event.tip!
         end
         format.html { redirect_to @event, notice: 'Idea was successfully updated.' }
         format.json { head :no_content }
