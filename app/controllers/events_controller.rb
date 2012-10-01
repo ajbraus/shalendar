@@ -101,7 +101,7 @@ class EventsController < ApplicationController
             Resque.enqueue(MailerCallback, "Notifier", :time_change, @event.id, g.id)
           end
         end
-        if @event.guests.count > @event.min
+        if @event.guests.count >= @event.min
           @event.tip!
         end
         format.html { redirect_to @event, notice: 'Idea was successfully updated.' }
