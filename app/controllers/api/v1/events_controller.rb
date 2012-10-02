@@ -5,10 +5,13 @@ class Api::V1::EventsController < ApplicationController
    def user_events_on_date
     #receive call to : hoos.in/user_plans_on_date.json?date="DateInString"
     @mobile_user = User.find_by_id(params[:user_id])
+    puts "the param of date is: #{params[:user_id]}   "
     if @mobile_user
       Time.zone = @mobile_user.time_zone if @mobile_user.time_zone
     end
     raw_datetime = DateTime.parse(params[:date])
+    puts "the date in question is: #{raw_datetime}"
+
     @events = @mobile_user.mobile_events_on_date(raw_datetime)#Need to check timezone here
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []
