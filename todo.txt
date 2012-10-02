@@ -53,6 +53,8 @@ Adam
 
 going count in event#show doesn't work
 
+make manual tip in orange stub
+
 change default picture
 
 add "you are now friends with x" to relationship#create.js

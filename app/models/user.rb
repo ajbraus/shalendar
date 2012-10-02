@@ -67,10 +67,10 @@ class User < ActiveRecord::Base
   after_create :send_welcome
   
   def as_json(options = {})
-    if user.authentications.where(:provider == "Facebook").any?
-      @pic_url = user.authentications.find_by_provider("Facebook").pic_url
+    if self.authentications.where(:provider == "Facebook").any?
+      @pic_url = self.authentications.find_by_provider("Facebook").pic_url
     else
-      @pic_url = user.avatar.url
+      @pic_url = self.avatar.url
     end
    {
     :uid => self.id,
