@@ -67,10 +67,10 @@ class User < ActiveRecord::Base
   after_create :send_welcome
   
   def as_json(options = {})
-    if user.authentications.where(:provider == "Facebook").any?
-      @pic_url = user.authentications.find_by_provider("Facebook").pic_url
+    if self.authentications.where(:provider == "Facebook").any?
+      @pic_url = self.authentications.find_by_provider("Facebook").pic_url
     else
-      @pic_url = user.avatar.url
+      @pic_url = self.avatar.url
     end
    {
     :uid => self.id,
@@ -299,10 +299,12 @@ class User < ActiveRecord::Base
     @plans_on_date.each do |p|
       p.inviter_id = p.user.id
     end
-    @invited_events_on_date = @invited_events_on_date - @plans_on_date
 
     @invited_events_on_date = Event.where(starts_at: time_range).joins(:invitations)
                               .where(invitations: {invited_user_id: self.id}).order("starts_at ASC")
+    
+    @invited_events_on_date = @invited_events_on_date - @plans_on_date
+    
     @invited_events_on_date.each do |ie|
       ie.inviter_id = ie.invitations.find_by_invited_user_id(self.id).inviter_id
     end

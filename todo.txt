@@ -53,6 +53,10 @@ Adam
 
 going count in event#show doesn't work
 
+make manual tip in orange stub
+
+Settings-> default to NOT have to confirm friends..? I think this is better.. but we should double check w/ a few more users. Ppl don't know about settings page
+
 change default picture
 
 add "you are now friends with x" to relationship#create.js
