@@ -61,6 +61,10 @@ class Event < ActiveRecord::Base
     self.starts_at.strftime "%l:%M%P, %A %B %e"
   end
 
+  def start_date
+    self.starts_at.strftime "%A, %B %e"
+  end
+
   def self.format_date(date_time)
     Time.at(date_time.to_i).to_formatted_s(:db)
   end
