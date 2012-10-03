@@ -14,7 +14,7 @@
 
   <div class="invites_guests">
       <div class="event_show_rasters">
-    <% if @event.guests_can_invite_friends? || @event.user == current_user %>
+    <% if (@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user %>
         <p>Share with Friends</p>
         <div id="invite_raster" class="show_raster element">
           <%= render partial: 'invite_raster', :locals => { :event => @event } %>
@@ -45,7 +45,7 @@
         <%= render 'guests' %>
       </div>
     </div>
-      <% if @event.guests_can_invite_friends? || @event.user == current_user %>
+      <% if (@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user %>
   <div class="invite_by_email element">
     <p>Share by Email</p>
     <%= form_for([@event, @event.email_invites.build]) do |f| %>
