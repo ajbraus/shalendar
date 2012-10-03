@@ -313,6 +313,7 @@ background-image: linear-gradient(to bottom, #62C462, #51A351);
 background-image: -moz-linear-gradient(top, #62C462, #51A351);
 background-repeat: repeat-x;
 border-color: #51A351 #51A351 #387038;
+border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
 filter: progid:dximagetransform.microsoft.gradient(enabled=false);
   font-size: 23px;
@@ -325,7 +326,7 @@ background-image: -o-linear-gradient(top, #51A351, #62C462);
 background-image: linear-gradient(to bottom, #51A351, #62C462);
 background-image: -moz-linear-gradient(top, #51A351, #62C462);
 background-repeat: repeat-x;
-border-color: #51A351 #51A351 #387038;
+border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff51a351', endColorstr='#ff62c462', GradientType=0);
 filter: progid:dximagetransform.microsoft.gradient(enabled=false);
   }
@@ -333,6 +334,15 @@ filter: progid:dximagetransform.microsoft.gradient(enabled=false);
 
 span.red a {
   color:$destroy
+}
+
+.btn-user-search {
+  padding: 7px;
+border-radius: 4px;
+font-size: 19px;
+position: relative;
+left: 72px;
+margin-top: 5px;
 }
 
 /* tooltips */
@@ -370,11 +380,14 @@ header.header {
   -webkit-box-shadow: 0px 2px 9px rgba(50, 50, 50, 0.75);
   -moz-box-shadow:    0px 2px 9px rgba(50, 50, 50, 0.75);
   box-shadow:         0px 2px 9px rgba(50, 50, 50, 0.75);
+  .white {
+  color:white;
+}
   nav {
-  width: 980px;
-    margin: 0 auto;
-    color: white;
-    padding: 2px;
+width: 1120px;
+margin: 0 auto;
+color: white;
+padding: 2px;
   }
   .tagline {
     position: relative;
@@ -592,10 +605,9 @@ margin-bottom: 15px;
     margin:5px 0;
   }
   input[type=text] {
-    margin-right:0px;
-   width: 176px;
-    font-size: 12px;
-
+margin-right: 0px;
+width: 192px;
+font-size: 12px;
   }
 
 }
@@ -731,8 +743,9 @@ bottom: 3px;
       text-align: center;
     }
     &:hover {
-      background-color:#f2b041;
+      background-color:#FF8500;
       cursor:pointer;
+      color: white
     }
     th {
       font-size: 1em;
