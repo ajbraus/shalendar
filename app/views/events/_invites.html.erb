@@ -2,7 +2,7 @@
   <% @invited_users.each do |iu| %>
     <table>
       <tr>
-        <td title="<%= iu.name %>"><%= raster_profile_picture(iu) %></td>
+        <td title="<%= iu.name %>" width="50"><%= raster_profile_picture(iu) %></td>
         <% if !current_user.following?(iu) %>
         	<td><%= render :partial => 'events/just_follow_form', :locals => { :user => iu } %></td>
         <% end %>
