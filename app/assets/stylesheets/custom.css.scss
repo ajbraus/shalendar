@@ -1303,7 +1303,7 @@ font-size: 23px;
 
 #friends {
   width: 868px;
-min-height: 600px;
+height: 600px;
 position: relative;
 left: 40px;
 }
@@ -1311,6 +1311,7 @@ left: 40px;
 .user_table {
 font-size: 12px;
 overflow: scroll;
+height: 524px;
    table {
     width: 41%;
     float:left;
