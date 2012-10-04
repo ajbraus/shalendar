@@ -1,6 +1,9 @@
 <nav>
   <div class="tagline">
-    Do Great Things With Friends :<a href="#howItWorks" class="howto">how it works</a>
+    <%= link_to root_path, class: "white" do %>
+      Do Great Things With Friends :
+    <% end %>
+    <a href="#howItWorks" class="howto">how it works</a>
   </div>
   <%= render 'layouts/how_it_works' %>
   <% if user_signed_in? %>

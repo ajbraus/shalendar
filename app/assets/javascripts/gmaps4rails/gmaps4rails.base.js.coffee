@@ -55,7 +55,7 @@ class @Gmaps4Rails
       draggable: false         # how to modify: <%= gmaps( "markers" => { "data" => @object.to_gmaps4rails, "options" => { "draggable" => true }}) %>
       #clustering config
       do_clustering: false     # do clustering if set to true
-      randomize: false         # Google maps can't display two markers which have the same coordinates. This randomizer enables to prevent this situation from happening.
+      randomize: false         # Google maps cant display two markers which have the same coordinates. This randomizer enables to prevent this situation from happening.
       max_random_distance: 100 # in meters. Each marker coordinate could be altered by this distance in a random direction
       list_container: null     # id of the ul that will host links to all markers
       offset: 0                # used when adding_markers to an existing map. Because new markers are concated with previous one, offset is here to prevent the existing from being re-created.
@@ -89,10 +89,10 @@ class @Gmaps4Rails
 
   findUserLocation : (map_object) ->
     if (navigator.geolocation)
-      #try to retrieve user's position
+      #try to retrieve users position
       positionSuccessful = (position) ->
         map_object.userLocation = map_object.createLatLng(position.coords.latitude, position.coords.longitude)
-        #change map's center to focus on user's geoloc if asked
+        #change maps center to focus on users geoloc if asked
         if(map_object.map_options.center_on_user == true)
           map_object.centerMapOnUser()
       positionFailure = ->
@@ -100,7 +100,7 @@ class @Gmaps4Rails
 
       navigator.geolocation.getCurrentPosition( positionSuccessful, positionFailure)
     else
-      #failure but the navigator doesn't handle geolocation
+      #failure but the navigator doesnt handle geolocation
       map_object.geolocationFailure(false)
 
 
@@ -209,7 +209,7 @@ class @Gmaps4Rails
   create_polygon : (polygon) ->
     polygon_coordinates = []
 
-    #Polygon points are in an Array, that's why looping is necessary
+    #Polygon points are in an Array, thats why looping is necessary
     for point in polygon
       latlng = @createLatLng(point.lat, point.lng)
       polygon_coordinates.push(latlng)
@@ -371,7 +371,7 @@ class @Gmaps4Rails
         #from circles
         @updateBoundsWithCircles()
 
-      #in every case, I've to take into account the bounds set up by the user
+      #in every case, Ive to take into account the bounds set up by the user
       @extendMapBounds()
 
       #SECOND_STEP: ajust the map to the bounds

@@ -1,6 +1,13 @@
 <div class="invited_events part">
 	<% if @new_invited_events.any? %>
-		<%= render partial: 'shalendar/event', collection: @new_invited_events, as: :event %>
+		<dl>
+		<% @new_invited_events.each do |nie| %>
+			<dt><%= nie.start_date %></dt>
+			<dd>
+				<%= render partial: 'shalendar/event', locals: { :event => nie } %>
+			</dd>
+			<% end %>
+		</dl>
 	<% else %>
 	<p>No new ideas right now</p>
 	<% end %>

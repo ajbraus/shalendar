@@ -2,7 +2,3 @@
   <div><%= f.hidden_field :followed_id %></div>
   <%= f.submit "Friend", class: "btn-follow" %>
 <% end %>
-
-<script>
-  $("#new_relationship").ajaxStart(toggleLoading);
-</script>

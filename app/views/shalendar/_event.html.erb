@@ -1,14 +1,30 @@
 <% if Relationship.find_by_follower_id(event.inviter_id).toggled? %>
 	<% if current_user.rsvpd?(event) %>
-		<div class="event rsvpd" data-event-id="<%= event.id %>">
+		<% if event.ends_at < Time.now %>
+			<div class="event rsvpd over" data-event-id="<%= event.id %>">
+		<% else %>
+			<div class="event rsvpd" data-event-id="<%= event.id %>">
+		<% end %>
 	<% else %>
-		<div class="event not_rsvpd" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>">
+		<% if event.ends_at < Time.now %>
+			<div class="event not_rsvpd over" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>">
+		<% else %>
+			<div class="event not_rsvpd" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>">
+		<% end %>
 	<% end %>
 <% else %>
 	<% if current_user.rsvpd?(event) %>
-		<div class="event rsvpd" data-event-id="<%= event.id %>">
+		<% if event.ends_at < Time.now %>
+			<div class="event rsvpd over" data-event-id="<%= event.id %>">
+		<% else %>
+			<div class="event rsvpd" data-event-id="<%= event.id %>">
+		<% end %>
 	<% else %>
-		<div class="event not_rsvpd" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>" style="display:none;">
+		<% if event.ends_at < Time.now %>
+			<div class="event not_rsvpd over" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>" style="display:none;">
+		<% else %>
+			<div class="event not_rsvpd" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>" style="display:none;">
+		<% end %>
 	<% end %>
 <% end %>
 
