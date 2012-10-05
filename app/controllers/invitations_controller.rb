@@ -9,6 +9,7 @@ class InvitationsController < ApplicationController
 
     respond_to do |format|
       @invited_users = @event.invited_users - @event.guests
+      Notifier.invitation(@event, @user, current_user).deliver
       
       format.html { redirect_to @event }
       @friends = current_user.followers

@@ -7,7 +7,7 @@
 <% @city_friends.each do |cf| %>
 		<table>
 		<tr>
-			<td width="55px"><%= image_tag("#{cf['picture']}") %></td>
+			<td width="55px"><%= image_tag("#{cf['picture']['data']['url']}") %></td>
 			<td width="100px"><%= "#{cf['name']}" %></td>
 			<td width="100px">
 				<% if Authentication.find_by_uid(cf['id']) %>

@@ -2,9 +2,7 @@
 	<td style="padding:10px 0 10px 10px"><strong>One of your plans starts in two hours</td>
 </tr>
 
-<tr>
-	<td style="padding:20px 0 10px 50px"><strong><%= @event.title %></strong></td>
-</tr>
+<%= render 'event_details' %>
 
 <tr>
 	<td style="padding:20px 0 10px 10px">Check out this idea's <a href=<%= @event_link %>>page on hoos.in</a> to find out more.</td>

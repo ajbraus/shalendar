@@ -1,9 +1,5 @@
 module UsersHelper
 
-  # def default_url
-  #   return "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png"
-  # end
-
   def friends_attending(event)
     f = event.guests.select { |a| current_user.following?(a) }
     f.count

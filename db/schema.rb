@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120924155618) do
+ActiveRecord::Schema.define(:version => 20121004191905) do
 
   create_table "authentications", :force => true do |t|
     t.string   "provider"
@@ -164,10 +164,10 @@ ActiveRecord::Schema.define(:version => 20120924155618) do
     t.string   "name"
     t.string   "city"
     t.boolean  "terms"
-    t.boolean  "require_confirm_follow",   :default => true
+    t.boolean  "require_confirm_follow",   :default => false
     t.boolean  "allow_contact",            :default => true
     t.boolean  "notify_event_reminders",   :default => true
-    t.boolean  "post_to_fb_wall",          :default => true
+    t.boolean  "post_to_fb_wall",          :default => false
     t.string   "APNtoken"
     t.boolean  "iPhone_user",              :default => false
     t.integer  "GCMdevice_id",             :default => 0

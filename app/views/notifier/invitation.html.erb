@@ -1,0 +1,15 @@
+<td>
+	<h2 style="padding:0 0 0 10px;font-size:22px;"><%= @user.first_name %>,</h2>
+</td>
+
+<tr>
+	<td style="padding:0px 0 10px 10px">	
+		<strong><%= @inviter.name %></strong> invited you to an activity:
+	</td>
+</tr>
+
+<%= render 'event_details' %>
+
+<tr>
+	<td style="padding:20px 0 10px 20px"> Check out this idea's <a href=<%= @event_link %>>page on hoos.in</a> to join.</td>
+</tr>

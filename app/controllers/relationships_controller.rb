@@ -18,7 +18,7 @@ before_filter :authenticate_user!
         redirect_to :back, notice: "Couldn't Friend #{@user.name}"
       end
     else
-      Notifier.new_follower(@user, current_user).deliver
+      Notifier.new_friend(@user, current_user).deliver
       current_user.follow!(@user)
       @relationship = current_user.relationships.find_by_followed_id(@user.id)
       @relationship.confirmed = true

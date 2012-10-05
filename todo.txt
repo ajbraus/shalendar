@@ -6,7 +6,6 @@ tooltips explaining functionality
 
 operators agreement
 Terms & Conditions
-info, support, dev, sales emails
 email signatures
 update git repo to company 
 
@@ -19,8 +18,6 @@ Mike
 ------------
 
 Click someone's face to find their friends too
-
-Protect RSVP to only ppl invited to event
 
 Mailers running in background
 	took this out of Procfile in favor or a resque worker: worker: bundle
@@ -51,15 +48,96 @@ new follower email link not working
 Adam
 --------------
 
+push, run migrations
+test
+
+app request
+
+	add permission
+	remove permission to write to wall
+
+Close viral loop:
+	Invite friends pulls in facebook friends (FQL query for friends in city, then not on hoos.in)
+	Text message ppl invitation
+	Recieve an email every time an event is created
+	Recieve text message reminder to go to an event
+	Host can message all RSVPs, text/push/ or email
+	when you comment, host is contacted text/push or email
+
+User Helper:
+def contact
+	if app user => push
+	elsif phone number => text
+	else email
+end
+
+def remind
+	if app user => push
+	elsif phone number => text
+	else flash notification every 15 minutes on screen of homepage, play noise?
+end
+
+
+Create Vendor events
+
+vendor events require: 
+	title
+	time
+	location
+	promo-image
+
+
+Cities have vendors
+
+vendors have many users as admins through admin table
+
+users have many vendors through admin table
+
+vendors have many vendor events (a subclass with STI of the Event model)
+
+Vendor events have many events as children through children table
+
+Events belong to vendor events through children table
+
+
+views:
+	Vendor Dashboard
+	Vendor Events menu
+		list w "more" button
+	Header dropdown
+
+Methods:
+	
+	Clone
+	CRUD Suggestion events
+
+Tables:
+
+	Vendor
+
+Models:
+
+	Event
+	Event.user
+	Event.vendor
+
+
+
+
+
+Unprotect RSVP to only ppl invited to event
+
+
+
+
+
 once you invite tooltips stop working
 
 hidden settings page
 
-get AWS working! and Default URL!!! change default image
-
 add "you are now friends with x" to relationship#create.js
 
-add face to invite email
+add face to invite email, new follower email, and confirmation email
 
 add format.html to everything
 
