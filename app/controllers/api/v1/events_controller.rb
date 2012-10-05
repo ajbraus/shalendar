@@ -13,6 +13,7 @@ class Api::V1::EventsController < ApplicationController
     puts "the date in question is: #{raw_datetime}"
 
     @events = @mobile_user.mobile_events_on_date(raw_datetime.in_time_zone(@mobile_user.time_zone))#Need to check timezone here
+    @events = @events.sort_by{|t| t[:starts_at]}
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []
     @events.each do |e|
