@@ -80,12 +80,12 @@ class Api::V1::TokensController  < ApplicationController
       }
       @email_invites.push(@temp)
     end
-
     render :status=>200, :json=>{:token=>@user.authentication_token, 
                                   :user=>{
                                     :user_id=>@user.id,
                                     :first_name=>@user.first_name,
                                     :last_name=>@user.last_name,
+                                    :myself=>@user,
                                     :email_hex=> Digest::MD5::hexdigest(@user.email.downcase),
                                     :confirm_f=>@user.require_confirm_follow,
                                     :daily_d=>@user.allow_contact,
