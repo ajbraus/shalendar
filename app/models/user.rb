@@ -234,7 +234,6 @@ class User < ActiveRecord::Base
   def invite!(event, other_user)
     other_user.invitations.create!(invited_event_id: event.id, inviter_id: self.id)
     other_user.new_invited_events_count += 1
-    Notifier.new_invitation(other_user)
     other_user.save
   end
 
