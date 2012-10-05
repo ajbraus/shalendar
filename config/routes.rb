@@ -32,11 +32,12 @@ Shalendar::Application.routes.draw do
         resources :relationships, :only => [:create]
         resources :rsvps, :only => [:create]
         
-        match '/unrsvp', :to => 'rsvps#destroy', :via => :delete
-        match '/unfollow', :to => 'relationships#destroy', :via => :delete
+        #took out delete and post types bc not working from iphone http reqeust
+        match '/unrsvp', :to => 'rsvps#destroy'#, :via => :delete
+        match '/unfollow', :to => 'relationships#destroy'#, :via => :delete
         match '/get_user_info', :to => 'shalendar#get_user_info', :via => :get
-        match '/apn_user', :to=> 'tokens#apn_user', :as => "apn_user", :via => :post
-        match '/gcm_user', :to=> 'tokens#gcm_user', :as => "gcm_user", :via => :post
+        match '/apn_user', :to=> 'tokens#apn_user', :as => "apn_user"#, :via => :post
+        match '/gcm_user', :to=> 'tokens#gcm_user', :as => "gcm_user"#, :via => :post
 
         match '/user_events_on_date', :to => 'events#user_events_on_date', :as => "user_events_on_date", :via => :get
         match '/event_details', :to => 'events#event_details', :as => "event_details", :via => :get
