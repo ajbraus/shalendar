@@ -289,11 +289,9 @@ class User < ActiveRecord::Base
   end
 
   def mobile_events_on_date(load_datetime)#don't care about toggled here, do it locally on client
-    #usable_date = load_datetime.in_time_zone("Central Time (US & Canada)")
-    # usable_date = load_datetime# - 4.hours
-    # adjusted_load_date = usable_date.to_date
 
-    time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
+    Time.zone = self.time_zone
+    time_range = load_datetime.midnight - 5.hours .. load_datetime.midnight + 1.day - 5.hours
     @plans_on_date = Event.where(starts_at: time_range).joins(:rsvps)
                       .where(rsvps: {guest_id: self.id}).order("starts_at ASC")
     @plans_on_date.each do |p|
