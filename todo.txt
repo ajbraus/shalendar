@@ -48,13 +48,16 @@ new follower email link not working
 Adam
 --------------
 
-push, run migrations
-test
+	Have "Good friends" where you get contacted directly/mobile when they create an invitation
+	Text message reminder to go to events (twillio)
+	Check lists
+	Map
+	Link
 
 app request
 
-	add permission
 	remove permission to write to wall
+	then when they want to invite folks ask for permission
 
 Close viral loop:
 	Invite friends pulls in facebook friends (FQL query for friends in city, then not on hoos.in)
