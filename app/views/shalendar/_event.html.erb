@@ -64,11 +64,13 @@
 		<% else %>
 			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
 		<% end %>
+		<% unless event.user == User.find_by_id(event.inviter_id) %>
 			<div class="host">by: <%= event.user.first_name.capitalize %> 
 				<% if event.user.last_name %>
 					<%= event.user.last_name.capitalize%>
 				<% end %> 
-			</a>
-		</div>
+			</div>
+		<% end %>
+		</a>
 </div>
 

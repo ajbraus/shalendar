@@ -124,7 +124,11 @@ $(document).bind('click', function(e) {
 
 // NEW IDEA LIGHTBOX
 
-	$(".btn-new-idea").fancybox();
+	// $(".btn-new-idea").click(
+ //    var blerb = $('#new_idea_blerb').val();
+ //    $(this).fancybox();
+ //    $('#new_idea_title').text(blerb);
+ //  );
 
 	$('.find_friends').fancybox();
 
@@ -171,6 +175,8 @@ $(document).bind('click', function(e) {
 // $( '#public_tabs' ).tabs();
 
 	$( "#guest_raster" ).tabs();
+
+  $( "#suggestions" ).tabs();
 
 
 // google map address picker
