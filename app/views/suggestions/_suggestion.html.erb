@@ -1,0 +1,41 @@
+<% unless current_user.cloned?(suggestion) %>
+	<% if suggestion.ends_at < Time.now %>
+		<div class="suggestion not_rsvpd over" data-suggestion-id="<%= suggestion.id %>">
+	<% else %>
+		<div class="suggestion not_rsvpd" data-suggestion-id="<%= suggestion.id %>"
+	<% end %>
+
+	<a href="/suggestions/<%= suggestion.id %>">
+		<div class="event_time">			
+			<% if suggestion.starts_at.hour > 4 && suggestion.starts_at.hour < 12 %>
+				<%= image_tag "morning.png" %>
+			<% elsif suggestion.starts_at.hour > 12 && suggestion.starts_at.hour < 18 %>
+				<%= image_tag "noon.png" %>
+			<% elsif suggestion.starts_at.hour > 18 && suggestion.starts_at.hour < 4 %>
+				<%= image_tag "night.png" %>
+			<% end %>
+			<%= event_start_time(suggestion) %> - <%= event_end_time(suggestion) %>
+		</div></br>
+
+		<div class="event_pic"><%= raster_profile_picture(suggestion.user)) %></div>
+	
+		<div class="event_blerb"><%= suggestion.short_event_title %></div>
+	
+		<div class="guest_count">
+			<% if suggestion.guests_can_invite_friends? %>
+      	<i class="purple icon-group" title="You may share this idea with your friends."></i>
+      <% end %>
+		</div>
+		<div class="clone"></div>
+		<% end %>
+		<% unless suggestion.user == User.find_by_id(suggestion.inviter_id) %>
+			<div class="host">by: <%= suggestion.user.first_name.capitalize %> 
+				<% if suggestion.user.last_name %>
+					<%= suggestion.user.last_name.capitalize%>
+				<% end %> 
+			</div>
+		<% end %>
+		</a>
+</div>
+<% end %>
+

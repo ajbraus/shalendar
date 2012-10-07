@@ -48,13 +48,33 @@ new follower email link not working
 Adam
 --------------
 
-push, run migrations
-test
+	Have "Good friends" where you get contacted directly/mobile when they create an invitation
+	Text message reminder to go to events (twillio)
+	Check lists
+	Map
+	Link
+
+DONE
+Create Suggestions w same columns as events
+Users get boolean vendor?
+User that is vendor can create suggestion and view their suggestions in a vendor dashboard
+Suggestions have many children (class = Event)
+If user.vendor? put link to suggestions#index (vendor dashboard) in header.
+
+When you click clone it finds the suggestion and passes the elements into a new clone form (i.e. new event form) with suggested elements not actionable and blank elements actionable. 
+
+when you submit it goes to the EventsController#create method that creates an event that is a child of a suggestion using the suggestion id as the parent
+
+then behaves like a normal event
+
+
+refactor event display methods for suggestions and events
+
 
 app request
 
-	add permission
 	remove permission to write to wall
+	then when they want to invite folks ask for permission
 
 Close viral loop:
 	Invite friends pulls in facebook friends (FQL query for friends in city, then not on hoos.in)

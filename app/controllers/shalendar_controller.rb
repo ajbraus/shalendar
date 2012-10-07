@@ -12,6 +12,10 @@ class ShalendarController < ApplicationController
     @event = Event.new
     @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
     @toggled_off_ids = current_user.reverse_relationships.where('toggled = false')
+    @suggestions = current_user.suggestions.all 
+                   #or Suggestions.all.join('vendor').where('city == ?' current_user.city)
+    @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
+    @public_categories = ['active', 'culture', 'kids', 'night']
 	end
 
 	def manage_follows
@@ -83,6 +87,22 @@ class ShalendarController < ApplicationController
       format.js 
       format.html { redirect_to @event, notice: 'Idea Successfully Shared with Friends' }
     end
+  end
+
+  def allow_suggestions
+    @user = current_user
+    @user.update_attributes( vendor: true ) 
+
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to root_path, notice: 'You are now allowed to make suggestions' }
+        format.json { render json: root_path, status: :created, location: @event }
+      else
+        format.html { redirect_to(root_path, notice: 'You were not permitted to make suggestions at this time') }
+        format.json { render json: root_path.errors, status: :unprocessable_entity }
+      end
+    end
+
   end
 
   private

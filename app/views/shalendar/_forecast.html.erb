@@ -2,29 +2,14 @@
 	<% for i in -3..16 %>
 	<dl class="day" data-date=<%= "#{Date.today + i}" %>>
 		<% if @date + (i) == Date.today %>
-			<dt class="forecastDate red"><%= (@date + (i)).strftime("%A %B %e") %></dt>
+			<dt class="forecastDate red"><%= (@date + (i)).strftime("%A %b %e") %></dt>
 		<% else %>
-			<dt class="forecastDate"><%= (@date + (i)).strftime("%A %B %e") %></dt>
+			<dt class="forecastDate"><%= (@date + (i)).strftime("%A %b %e") %></dt>
 		<% end %>
 		<dd>
-			<% for j in 0..2 %>
-			<dl>
-				<dt class="part_of_day">
-				<% if j == 0 # && !@forecastevents[i][0].empty? %>
-					<%= image_tag "morning.png" %> <span class="fcTime">12:00am - 12:00pm</span><span class="fcLine"></span>
-				<% elsif j == 1 # && !@forecastevents[i][1].empty? %>
-					<%= image_tag "noon.png" %> <span class="fcTime">12:00pm - 6:00pm</span><span class="fcLine"></span>
-				<% elsif j == 2 # && !@forecastevents[i][2].empty? %>
-					<%= image_tag "night.png" %> <span class="fcTime">6:00pm - 12:00am</span></span><span class="fcLine"></span> 
-				<% end %>
-				</dt>
-				<dd>
-					<% @forecastevents[i + 3][j].each do |event| %>
-						<%= render :partial => "shalendar/event", :locals => { :event => event } %>
-					<% end %>
-				</dd>
-			</dl>
-		<% end %>
+			<% @forecastevents[i + 3].each do |event| %>
+				<%= render :partial => "shalendar/event", :locals => { :event => event } %>
+			<% end %>
 		</dd>
 	</dl>
 	<% end %>

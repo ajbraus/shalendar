@@ -10,7 +10,11 @@
   <% if user_signed_in? %>
   <ul>
     <% if user_signed_in? %>
-    <% @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false') %>
+    <% if current_user.vendor? %>
+      <li>
+        <%= link_to "Vendor Dashboard", vendor_dashboard_path %>
+      </li>
+    <% end %>
     <li>
       <%= link_to new_invited_events_path, :remote => true do %>
         latest ideas

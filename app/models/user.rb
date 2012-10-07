@@ -22,7 +22,8 @@ class User < ActiveRecord::Base
                   :notify_event_reminders,
                   :city,
                   :post_to_fb_wall,
-                  :avatar
+                  :avatar,
+                  :vendor
 
   has_attached_file :avatar, :styles => { :original => "50x50#" },
                              :convert_options => { :original => '-quality 40' },
@@ -45,7 +46,8 @@ class User < ActiveRecord::Base
   has_many :authentications, :dependent => :destroy, :uniq => true
 
   has_many :events, :dependent => :destroy
-  
+  has_many :suggestions
+
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
   has_many :plans, through: :rsvps
 
@@ -54,15 +56,12 @@ class User < ActiveRecord::Base
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
 
-  has_many :followed_users, through: :relationships, source: :followed, conditions: "confirmed = 't'"
-  has_many :pending_followed_users, through: :relationships, source: :followed, conditions: "confirmed = 'f'"
-  
+  has_many :followed_users, through: :relationships, source: :followed, conditions: "confirmed = 't'"  
 
   has_many :reverse_relationships, foreign_key: "followed_id",
                                    class_name:  "Relationship",
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower, conditions: "confirmed = 't'"
-  has_many :pending_followers, through: :reverse_relationships, source: :follower, conditions: "confirmed = 'f'"
 
   after_create :send_welcome
   
@@ -108,6 +107,13 @@ class User < ActiveRecord::Base
     where(conditions, query)
   end
 
+  def cloned?(suggestion)
+    if(events.find_by_suggestion_id(suggestion.id))
+      return true
+    else
+      return false
+    end
+  end
 
   def rsvpd?(event)
     if(rsvps.find_by_plan_id(event.id))
@@ -240,27 +246,18 @@ class User < ActiveRecord::Base
   def forecast(load_datetime, plan_counts, invite_counts)
     @forecast = []
     (-3..16).each do |i|
-      @morning_events = []
-      @afternoon_events = []
-      @evening_events = []
+      @events = []
       @new_datetime = load_datetime + i.days #Date.strptime(load_date, "%Y-%m-%d") + i
       @plan_count = []
       @invite_count = []
       @events_on_date = self.events_on_date(@new_datetime, @plan_count, @invite_count)
       @events_on_date = @events_on_date.sort_by{|t| t[:starts_at]}
       @events_on_date.each do |e|
-        if e.starts_at < e.starts_at.to_date + 12.hours
-          @morning_events.push(e)
-        elsif e.starts_at < e.starts_at.to_date + 18.hours
-          @afternoon_events.push(e)
-        else
-          @evening_events.push(e)
-        end
+        @events.push(e)
       end
       plan_counts.push(@plan_count[0])
       invite_counts.push(@invite_count[0])
-      @daycast = [@morning_events, @afternoon_events, @evening_events]
-      @forecast.push(@daycast)
+      @forecast.push(@events)
     end
     return @forecast
   end

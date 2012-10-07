@@ -4,6 +4,9 @@
 	    <ul>
 	      <li><%= link_to "About",   about_path %></li>
 	      <li><%= link_to "Opportunities", careers_path %></li>
+	      <% unless current_user.vendor? %>
+	      	<li class="red"><%= link_to "Make Suggestions", allow_suggestions_path, confirm: "are you sure?" %></li>
+	      <% end %>
 	    </ul>
 	  </nav>
 	</p>

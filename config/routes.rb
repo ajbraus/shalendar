@@ -46,7 +46,14 @@ Shalendar::Application.routes.draw do
       end
     end
   end
-  
+
+  resources :suggestions, only: [:index, :show, :create, :destroy, :update, :clone]
+
+  match '/dashboard', :to => 'suggestions#index', :as => "vendor_dashboard"
+
+
+  match 'new_suggestion', :to => "suggestions#new"
+  match 'allow_suggestions', :to => 'shalendar#allow_suggestions'
   match '/manage_follows', :to => 'shalendar#manage_follows', :as => "manage_follows"
 
   resources :events, only: [:create, :destroy, :update, :tip, :edit, :new, :show] do 

@@ -1,16 +1,19 @@
 <div id="public" style="display: none;">
 <h1><%= current_user.city %></h1>
-	<div id="public_tabs">
+	<ul>
 		<% @public_categories.each do |pc| %>
-			<div id="<%= pc %>"><%= pc %></div>
-			<% @pc.users.each do |pu| %>
+			<li><%= pc %></li>
+		<% end %>
+	</ul>
+	<div id="public_tabs">
+			<% @vendors.each do |v| %>
 					<table>
 					<tr>
-						<td width="55px"><%= raster_profile_pic(pu) %></td>
-						<td width="100px"><%= pu.name %></td>
+						<td width="55px"><%= raster_profile_pic(v) %></td>
+						<td width="100px"><%= v.name %></td>
 						<td width="100px">
 							<span id="follow_form" class="follow_btn">
-								<%= render 'events/follow_form', :locals => { :user => pu } %>
+								<%= render 'events/follow_form', :locals => { :user => v } %>
 				      </span>
 				    </td>
 					</tr> 

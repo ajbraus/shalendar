@@ -4,6 +4,12 @@
 			<textarea id="new_idea_blerb"></textarea>
 			<a class="btn btn-rsvp btn-new-idea" href="#new_idea" title="Make a New Idea"><i class="icon-cloud"></i></a>
 			<%= render 'new_idea_form' %>
+		<%if current_user.vendor? %>
+			<%= link_to new_suggestion_path, class: "btn btn-rsvp btn-new-suggestion", title: "Make a New Suggestion" do %>
+					<i class="icon-cloud"></i>
+			<% end %>
+			<div id="new_suggestion_element"></div>
+		<% end %>
 		</div>
 	  <%= render 'get_friends' %>
 	  <div id="suggestions" class="suggestions part">
@@ -12,10 +18,6 @@
 	  </div>
 	  	<%= render 'suggestions' %>
 	  </div>
-		<% if false %>
-			<a href="#public", class="public" ><%= (image_tag "madison_icon", :size => "50x50", title: "Find Friend's On Facebook") %></a>
-			<%= render 'public' %>
-		<% end %> 
 	</div>
 	<div class="container">
 		<%= render 'ribbon', :locals => { :next_plan => @next_plan } %>

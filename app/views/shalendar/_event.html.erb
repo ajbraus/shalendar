@@ -34,7 +34,16 @@
 	<% end %>
 <% end %>
 	<a href="/events/<%= event.id %>">
-		<div class="event_time"><%= event_start_time(event) %> - <%= event_end_time(event) %></div></br>
+		<div class="event_time">			
+			<% if event.starts_at.hour > 4 && event.starts_at.hour < 12 %>
+				<%= image_tag "morning.png" %>
+			<% elsif event.starts_at.hour > 12 && event.starts_at.hour < 18 %>
+				<%= image_tag "noon.png" %>
+			<% elsif event.starts_at.hour > 18 && event.starts_at.hour < 4 %>
+				<%= image_tag "night.png" %>
+			<% end %>
+			<%= event_start_time(event) %> - <%= event_end_time(event) %>
+		</div></br>
 
 		<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
 	

@@ -1,0 +1,10 @@
+<h1><%= current_user.name %>'s vendor dashboard</h2>
+
+<ul>
+	<% @suggestions.each do |s| %>
+	<li>
+		<%= s.starts_at %>
+		<%= s.title %>
+	</li>
+	<% end %>
+</ul>
