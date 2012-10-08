@@ -935,9 +935,10 @@ letter-spacing: 2px;
 
 
 .forecast {
-  overflow:hidden;
-  width: 695px;
-  min-height: 755px;
+overflow-y: auto;
+overflow-x: hidden;
+width: 695px;
+height: 724px;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;
@@ -1809,7 +1810,7 @@ float: left;
 margin-left: 277px;
 }
 
-.social_friends {
+.friends-icons {
   float:left;
   div {
     float: left;
@@ -2335,6 +2336,26 @@ margin-top: 10px;
 overflow-x: hidden;
 }
 
+.ui-tabs-nav {
+  width: 102%;
+position: relative;
+right: 8px;
+}
+
+.ui-helper-reset {
+  line-height: 1;
+}
+
+#ui-tabs-1, #ui-tabs-2 { /* events & suggestions tabs */
+
+}
+
+#tabs-nested div {
+  padding:0;
+}
+
+
+
 .suggestion {
 position: relative;
 width: 160px;
@@ -2350,7 +2371,7 @@ padding: 3px;
 }
 .event_time {
   font-size: 11px;
-width: 122px;
+width: 160px;
 span {
 display: inline-block;
 margin-bottom: 0px;

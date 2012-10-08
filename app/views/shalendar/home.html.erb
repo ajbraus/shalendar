@@ -16,13 +16,10 @@
 			<%= render 'new_idea_form' %>
 		<% end %>
 		</div>
+	  
 	  <%= render 'get_friends' %>
-	  <div id="suggestions" class="suggestions part">
-	  <div class="grey_italics small">
-	  	Suggestions
-	  </div>
-	  	<%= render 'suggestions' %>
-	  </div>
+	  <%= render 'suggestions' %>
+	
 	</div>
 	<div class="container">
 		<%= render 'ribbon', :locals => { :next_plan => @next_plan } %>

@@ -12,10 +12,20 @@ class ShalendarController < ApplicationController
     @event = Event.new
     @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
     @toggled_off_ids = current_user.reverse_relationships.where('toggled = false')
-    @suggestions = current_user.suggestions.all 
-                   #or Suggestions.all.join('vendor').where('city == ?' current_user.city)
+    @event_suggestions = Suggestion.where('starts_at IS NOT NULL').order('starts_at ASC')
+                        #needs by city
+                        #@city = current_user.city
+                        #@event_suggestions = @city.event_suggestions(Time.now.in_time_zone(current_user.time_zone))
+                        #in city model
+                        #def event_suggestions(time_now)
+                        #  silo by vendors in a city
+                        #  return an array of arrays each one a day 
+                        #  with the suggestions inside
+                        #end
+    @suggestions = Suggestion.where('starts_at IS NULL')
+                   #or Suggestion.join('user').where('city == ?' current_user.city)
     @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
-    @public_categories = ['active', 'culture', 'kids', 'night']
+    @vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
 	end
 
 	def manage_follows

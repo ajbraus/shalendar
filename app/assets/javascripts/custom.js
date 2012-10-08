@@ -135,6 +135,8 @@ $(document).bind('click', function(e) {
 
 	$(".howto").fancybox();
 
+  $('#public').fancybox();
+
 // SHOW/HIDE LINK AND MAP
 
   $("#addLink").click(function () {
@@ -171,13 +173,16 @@ $(document).bind('click', function(e) {
 
 // TABS
 
-	$( "#views_list" ).tabs();
+	$("#views_list").tabs();
 
-// $( '#public_tabs' ).tabs();
+	$("#guest_raster").tabs();
 
-	$( "#guest_raster" ).tabs();
+  $('#public').tabs();
 
-  $( "#suggestions" ).tabs();
+  $('#tabs-nested').tabs();
+  $('#events').tabs();
+  $('#suggestions').tabs();
+
 
 
 // DATETIME PICKER

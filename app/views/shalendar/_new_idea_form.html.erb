@@ -16,7 +16,7 @@
 			  <p>
 			   <%= label :starts_at, "When does it start?", name: "starts_at"%>
 			   <%= label :duration, "How Long?", name: "duration" %><br/>
-			   <%= f.text_field :chronic_starts_at, :placeholder => "7pm, tommorrow at 5pm . . .", class: "required", autocomplete: "off" %>
+			   <%= f.text_field :chronic_starts_at, id: "datepicker", class: "required", autocomplete: "off" %>
 			   <%= f.text_field :duration, placeholder:"#hrs", class: "required", autocomplete: "off"  %>
 			  </p>
 			  <p>

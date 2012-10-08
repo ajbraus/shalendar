@@ -1,23 +1,29 @@
 <div id="public" style="display: none;">
-<h1><%= current_user.city %></h1>
+	<h1><%= current_user.city %></h1>
 	<ul>
-		<% @public_categories.each do |pc| %>
-			<li><%= pc %></li>
+		<% Suggestion::CATEGORIES.each do |c| %>
+			<li>
+				<a href="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 1 %>">
+					<%= c %>
+				</a>
+			</li>
 		<% end %>
 	</ul>
-	<div id="public_tabs">
-			<% @vendors.each do |v| %>
-					<table>
-					<tr>
-						<td width="55px"><%= raster_profile_pic(v) %></td>
-						<td width="100px"><%= v.name %></td>
-						<td width="100px">
-							<span id="follow_form" class="follow_btn">
-								<%= render 'events/follow_form', :locals => { :user => v } %>
-				      </span>
-				    </td>
-					</tr> 
-				</table>
+	<% Suggestion::CATEGORIES.each do |c| %>
+	<div id="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 1 %>">
+		<% @vendors.each do |v| %>
+				<table>
+				<tr>
+					<td width="55px"><%= raster_profile_picture(v) %></td>
+					<td width="100px"><%= v.name %></td>
+					<td width="100px">
+						<span id="follow_form" class="follow_btn">
+							<%= render :partial => 'events/just_follow_form', :locals => { :user => v } %>
+			      </span>
+			    </td>
+				</tr> 
+			</table>
 		<% end %>
 	</div>
+	<% end %>
 </div>

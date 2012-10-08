@@ -1,9 +1,60 @@
-<div id="suggestions">
+<div id="tabs-nested" class="suggestions part">
 	<ul>
-		<li></li>
-		<li></li>
+		<li>
+			<a href="ui-tabs-1">Events</a>
+		</li>
+		<li>
+			<a href="ui-tabs-2">Suggestions</a>
+		</li>
 	</ul>
-	<% @suggestions.each do |s| %>
-		<%= render :partial => "suggestions/suggestion", :locals => { :suggestion => s } %>
-	<% end %>
+	<div id="ui-tabs-6">
+		<div id="events">
+			<ul>
+			<% Suggestion::CATEGORIES.each do |c| %>
+				<li>
+					<a href="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 8 %>">
+						<%= c.humanize %>
+					</a>
+				</li>
+			<% end %>
+			</ul>
+			<% Suggestion::CATEGORIES.each do |c| %>
+				<div id="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 8 %>">
+				<% @event_suggestions.each do |es| %>
+					<% if es.category == c %>
+						<dl>
+							<dt>Date</dt>
+							<dd>
+								<%= render :partial => "suggestions/suggestion", :locals => { :suggestion => es } %>
+							</dd>
+						</dl>
+					<% end %>
+				<% end %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+
+	<div id="ui-tabs-7">
+		<div id="suggestions">
+		<ul>
+		<% Suggestion::CATEGORIES.each do |c| %>
+			<li>
+				<a href="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 13 %>">
+					<%= c.humanize %>
+				</a>
+			</li>
+		<% end %>
+		</ul>
+		<% Suggestion::CATEGORIES.each do |c| %>
+			<div id="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 13 %>">
+			<% @suggestions.each do |s| %>
+				<% if s.category == c %>
+					<%= render :partial => "suggestions/suggestion", :locals => { :suggestion => s } %>
+				<% end %>
+			<% end %>
+			</div>
+		<% end %>
+		</div>
+	</div>
 </div>
