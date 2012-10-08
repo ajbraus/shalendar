@@ -54,6 +54,10 @@ Adam
 	Map
 	Link
 
+friend someone then the datepicker window stops working :o)
+
+when I click on "latest ideas" to remove them, it doesn't remove the counter!
+
 app request
 
 	remove permission to write to wall
