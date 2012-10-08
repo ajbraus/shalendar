@@ -152,7 +152,7 @@ class Notifier < ActionMailer::Base
       APN.notify(@user.APNtoken, {:alert => "Time Change - #{@event.short_event_title}", :badge => 1, :sound => true})
     end
 
-    mail to: @user.email, subject: "Time Change - #{@event.short_event_title}"
+    mail to: @user.email, from: "info@hoos.in", subject: "Time Change - #{@event.short_event_title}"
     
     rescue => ex
     Airbrake.notify(ex)
