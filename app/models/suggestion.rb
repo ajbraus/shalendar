@@ -23,6 +23,17 @@ class Suggestion < ActiveRecord::Base
                 :tipped,
                 :guests_can_invite_friends
 
+  has_attached_file :promo_img, :styles => { :original => '700x700',
+                                             :large => '400x400',
+                                             :medium => '250x250'},
+                             :convert_options => { :original => '-quality 10',
+                                                   :medium => '-quality 30' },
+                             :storage => :s3,
+                             :s3_credentials => S3_CREDENTIALS,
+                             :path => "suggestion/:attachment/:style/:id.:extension",
+                             :default_url => "https://s3.amazonaws.com/hoosin-production/suggestion/promo_img/medium/default_promo_img.png"
+
+
   validates :max, numericality: { in: 1..10000, only_integer: true }
   validates :min, numericality: { in: 1..10000, only_integer: true }
   # validates :duration, numericality: { in: 0..1000 } 

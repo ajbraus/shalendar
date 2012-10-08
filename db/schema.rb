@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121007200655) do
+ActiveRecord::Schema.define(:version => 20121008003917) do
 
   create_table "authentications", :force => true do |t|
     t.string   "provider"
@@ -152,20 +152,24 @@ ActiveRecord::Schema.define(:version => 20121007200655) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.string   "title"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.integer  "user_id"
-    t.integer  "min",        :default => 1
-    t.integer  "max",        :default => 10000
+    t.integer  "min",                    :default => 1
+    t.integer  "max",                    :default => 10000
     t.float    "duration"
-    t.integer  "inviter_id", :default => 0
-    t.boolean  "tipped",     :default => false
+    t.integer  "inviter_id",             :default => 0
+    t.boolean  "tipped",                 :default => false
     t.string   "link"
     t.string   "address"
     t.float    "longitude"
     t.float    "latitude"
     t.boolean  "gmaps"
     t.string   "category"
+    t.string   "promo_img_file_name"
+    t.string   "promo_img_content_type"
+    t.integer  "promo_img_file_size"
+    t.datetime "promo_img_updated_at"
   end
 
   create_table "users", :force => true do |t|

@@ -19,7 +19,7 @@ class CreateSuggestions < ActiveRecord::Migration
     add_column :suggestions, :longitude, :float
     add_column :suggestions, :latitude, :float
     add_column :suggestions, :gmaps, :boolean
-
+    
     add_column :suggestions, :category, :string
 
     add_column :users, :vendor, :bool, :default => false

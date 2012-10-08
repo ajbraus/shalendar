@@ -54,18 +54,32 @@ Adam
 	Map
 	Link
 
+
+
+invite, guest list: order by ppl you already friended
+facebook friends: order by ppl already on hoosin
+
+
+
+save original and raster profile images
+save original and medium promo_imgs
+
+
+
 DONE
 Create Suggestions w same columns as events
 Users get boolean vendor?
 User that is vendor can create suggestion and view their suggestions in a vendor dashboard
 Suggestions have many children (class = Event)
 If user.vendor? put link to suggestions#index (vendor dashboard) in header.
+added promo_img to suggestion data structure
+
+TODO
+Add promo_img to new suggestion form and display it in the vendor dashboard and the suggestion menu
 
 When you click clone it finds the suggestion and passes the elements into a new clone form (i.e. new event form) with suggested elements not actionable and blank elements actionable. 
 
 when you submit it goes to the EventsController#create method that creates an event that is a child of a suggestion using the suggestion id as the parent
-
-then behaves like a normal event
 
 
 refactor event display methods for suggestions and events
@@ -100,26 +114,6 @@ end
 
 Create Vendor events
 
-vendor events require: 
-	title
-	time
-	location
-	promo-image
-
-
-Cities have vendors
-
-vendors have many users as admins through admin table
-
-users have many vendors through admin table
-
-vendors have many vendor events (a subclass with STI of the Event model)
-
-Vendor events have many events as children through children table
-
-Events belong to vendor events through children table
-
-
 views:
 	Vendor Dashboard
 	Vendor Events menu
@@ -140,14 +134,6 @@ Models:
 	Event
 	Event.user
 	Event.vendor
-
-
-
-
-
-Unprotect RSVP to only ppl invited to event
-
-
 
 
 

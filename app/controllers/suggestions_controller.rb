@@ -5,7 +5,6 @@ class SuggestionsController < ApplicationController
     @suggestions = current_user.suggestions.all
   end
 
-
   def clone
     @suggestion = Suggestion.find(params[:id])
     @clone = @suggestion.events.new(user_id: current_user.id,

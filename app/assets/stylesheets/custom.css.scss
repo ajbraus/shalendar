@@ -178,13 +178,10 @@ right: 16px;
 }
 
 .btn-new-idea {
-float: left;
-position: absolute;
-left: 290px;
-top: 20px;
-height: 65px;
-line-height: 65px;
-border-radius: 0 5px 5px 0;
+  float:left;
+  position: relative;
+  top: 29px;
+  left: 9px;
 }
 
 .btn-primary {
@@ -378,7 +375,7 @@ margin-top: 5px;
 header.header {
   clear: both;
   width:100%;
-  height: 75px;
+  height:58px;
   background-color:$icon_color;
   -webkit-box-shadow: 0px 2px 9px rgba(50, 50, 50, 0.75);
   -moz-box-shadow:    0px 2px 9px rgba(50, 50, 50, 0.75);
@@ -391,7 +388,6 @@ width: 1120px;
 margin: 0 auto;
 color: white;
 padding: 2px;
-padding-top: 10px;
   }
   .tagline {
     position: relative;
@@ -454,10 +450,8 @@ padding-top: 10px;
 }
 
 .logo {
-width: 205px;
+  width: 260px;
 float: left;
-position: relative;
-bottom: 7px;
 }
 
 .howto {
@@ -533,10 +527,11 @@ border-radius: 7px;
 
 .layout {
 clear: both;
-width: 1110px;
+width: 1250px;
 min-height: 955px;
 margin: 0 auto;
 background-color: rgba(255, 255, 255, .6);
+padding-top: 20px;
 z-index: -10;
 }
 
@@ -552,9 +547,9 @@ background-color: rgba(255, 255, 255, 0.8);
 }
 
 .container {
-  width: 777px;
+  width: 1012px;
   float:right;
-  left: 55px;
+  left: 30px;
   position: relative;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
@@ -612,21 +607,21 @@ margin-bottom: 15px;
   }
   input[type=text] {
 margin-right: 0px;
-width: 230px;
+width: 192px;
 font-size: 12px;
   }
 
 }
 
 #btn_user_search {
--webkit-border-radius: 0 5px 5px 0;
--moz-border-radius: 0 5px 5px 0;
-border-radius: 0 5px 5px 0;
-font-size: 14px;
-padding: 8.5px 10px;
-position: relative;
-top: -42px;
-left: 244px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 5px 10px;
+    position: relative;
+    top: 5px;
+    left: 75px;
 }
 
 .fa-input {
@@ -639,13 +634,13 @@ left: 244px;
   height:auto;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-border-radius: 5px;
-padding: 10px;
-border: 1px solid #BBB;
-z-index: 5;
-width: 305px;
+  border-radius: 5px;
+  padding:10px;
+  border:1px solid #BBB;
+  z-index: 5;
+  width:265px;
 position: relative;
-bottom: 28px;
+bottom: -10px;
 box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, .75);
 
 }
@@ -687,15 +682,15 @@ width: 105%;
 */
 #view_search {
 float: left;
-width: 329px;
-height: 44px;
+width: 214px;
+height: 120px;
 border-bottom: 1px solid lightGrey;
 margin-bottom: 10px;
 }
 
 .get_friends {
-width: 330px;
-height: 90px;
+width: 210px;
+height: 182px;
 margin-top: 20px;
 }
 
@@ -735,14 +730,16 @@ top:7px;
 }
 
 #datepicker {
-width: 635px;
+float: right;
+width: 768px;
 font-size: 17px;
 height: 93px;
 position: relative;
-left: 66px;
+left: -70px;
+bottom: 3px;
   table{
-float: left;
-width: 5%;
+    float:left;
+    width:5%;
     td {
       text-align: center;
     }
@@ -763,13 +760,10 @@ width: 5%;
     color:black;
   }
 }       
-#yt {
-  position: absolute;
-}
 
 #datewindow {
   border: 7px solid #FF8500;
-  width: 100px;
+  width: 113px;
   height: 94px;
   position: absolute;
   left: 109px;
@@ -800,16 +794,6 @@ color: #4B9BED;
   padding:30px;
   padding-bottom:20px;
   padding-top: 14px;
-}
-
-.new_idea {
-width: 330px;
-textarea {
-font-size: 19px;
-width: 257px;
-height: 67px;
-padding-right: 10px;
-}
 }
 
 .switch {
@@ -877,7 +861,7 @@ width:6440px;
 position: relative;
 right: 977px;
    > dl {
-width: 210px;
+width: 294px;
 float: left;
 position: relative;
 top: 6px;
@@ -886,9 +870,33 @@ padding: 8px 10px 8px 12px;
 height: 100%;
 @box-sizing
   }
+    > dd {
+/*      -moz-box-shadow: inset 0 0 10px -1px #000;
+      -webkit-box-shadow: inset 0 0 10px -1px #000;
+      box-shadow: inset 0 0 10px -1px #000;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;*/
+    }
+/*  > dl:nth-child(2) {
+    border-right: 1px solid darkgrey;
+    border-left:1px solid darkgrey;
+    height: 96%;
+  }*/
   a {
     text-decoration: none;
     color:inherit;
+  }
+  dd {
+    > div {
+      margin: 7px 0;
+    }
+  }
+  .part_of_day {
+    margin-left: 17px;
+    img {
+      height: 25px;
+    }
   }
   dt span {
     color: darkgrey;
@@ -902,7 +910,7 @@ letter-spacing: 2px;
 
 .forecast {
   overflow:hidden;
-  width: 695px;
+  width: 940px;
   min-height: 755px;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
@@ -912,17 +920,17 @@ letter-spacing: 2px;
   -moz-box-shadow: 0 0 8px -1px #000;
   -webkit-box-shadow: 0 0 8px -1px #000;
   box-shadow: 0 0 8px -1px #000;
-  margin-top: 24px;
-  margin-left: 15px;
+  margin-top: 41px;
+  margin-left: 25px;
     .gutter {
-border-right: 1px solid grey;
-border-left: 1px solid grey;
+border-right: 1px solid darkgrey;
+border-left: 1px solid darkgrey;
 height: 83%;
 position: absolute;
-left: 242px;
-width: 231px;
+left: 336px;
+width: 315px;
 top: 138px;
-z-index: 0;
+z-index: -1;
   }
 }
 
@@ -936,12 +944,11 @@ padding-top: 15px;
 }
 
 .event {
-padding: 5px;
-height: 150px;
-width: 190px;
+padding: 3px;
+height: 70px;
+width: 302px;
 position: relative;
-z-index: 1;
-margin: 10px;
+margin: 7px 0;
 }
 
 .not_rsvpd {
@@ -982,11 +989,8 @@ color: white;
 background-color: #383838;
 padding: 2px 11px 0 11px;
 position: absolute;
-left:0;
+left: 60px;
 top: 1px;
-img {
-  width:20px;
-}
 }
 
 .event_pic {
@@ -994,19 +998,18 @@ img {
   margin-right:3px;
   margin-top:3px;
   position: absolute;
-  left: 7px;
-  bottom: 2px;
+left: 7px;
+top: 4px;
 }
 
 .event_blerb {
 float: left;
-height: 71px;
+width: 220px;
+height: 35px;
 position: absolute;
-top: 27px;
-color: black;
-font-size: 22px;
-line-height: .95;
-width: 158px;
+left: 62px;
+top: 23px;
+color:black;
 }
 
 .friends_attending {
@@ -1023,7 +1026,7 @@ font-style: italic;
 color: black;
 position: absolute;
 bottom: 4px;
-right: 64px;
+right: 74px;
 width: 197px;
 height: 14px;
 }
@@ -1073,8 +1076,8 @@ width: 70px;
 -moz-box-shadow: 1px 1px 30px #eb8325;
 box-shadow: 1px 1px 30px #EB8325;
 z-index: 0;
-width: 256px;
-height: 126px;
+width: 308px;
+height: 76px;
 position: absolute;
 bottom: 0px;
 left: 0px;
@@ -1118,13 +1121,12 @@ left: 0px;
   background-image: -moz-linear-gradient(top, #62C462, #51A351);
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
   filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-height: 125px;
+height: 76px;
 width: 38px;
 position: relative;
 left: -6px;
 top: 6px;
 font-size: 20px;
-line-height: 67px;
   &:hover {
       background-color: #5BB75B;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#51A351), to(#62C462));
@@ -1178,7 +1180,7 @@ left: 8px;
   background-color:#79bbff;
   border:1px solid #84bbf3;
   color:white;
-height: 126px;
+height: 77px;
 width: 38px;
 position: relative;
 left: -6px;
@@ -1329,7 +1331,7 @@ height: 524px;
 .follow_btn {
 position: relative;
 left: 16px;
-width: 116px;
+width: 100px;
 }
 
 .red {
@@ -1775,10 +1777,6 @@ left: 76px;
 margin: 16px 0;
 float: left;
 margin-left: 277px;
-}
-
-.social_friends {
-  float:left;
 }
 
 .show_raster {
@@ -2239,15 +2237,4 @@ top: 25%;
   -moz-opacity: 0.5;
   -khtml-opacity: 0.5;
   opacity: 0.5;
-}
-
-/* SUGGESTIONS */
-
-.suggestions {
-height: 624px;
-overflow-y: auto;
-margin-bottom: 10px;
-width: 354px;
-padding: 0 7px;
-margin-top: 10px;
 }
