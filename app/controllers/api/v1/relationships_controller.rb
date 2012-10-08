@@ -2,6 +2,8 @@ class Api::V1::RelationshipsController < ApplicationController
 before_filter :authenticate_user!
 respond_to :json
 
+include UsersHelper
+
   def create
     @user = User.find(params[:relationship][:followed_id])
 
@@ -19,7 +21,7 @@ respond_to :json
         redirect_to :back, notice: "Couldn't Friend #{@user.name}"
       end
     else
-      Notifier.new_follower(@user, current_user).deliver
+      Notifier.new_friend(@user, current_user).deliver
       current_user.follow!(@user)
       @relationship = current_user.relationships.find_by_followed_id(@user.id)
       @relationship.confirmed = true
@@ -71,7 +73,7 @@ respond_to :json
           return
         end
     else
-      Notifier.new_follower(@user_to_follow, @mobile_user).deliver
+      Notifier.new_friend(@user_to_follow, @mobile_user).deliver
       @mobile_user.follow!(@user_to_follow)
       @relationship = @mobile_user.relationships.find_by_followed_id(@user_to_follower.id)
       @relationship.confirmed = true

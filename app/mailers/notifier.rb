@@ -1,4 +1,6 @@
 class Notifier < ActionMailer::Base
+  include UsersHelper
+  include ActionView::Helpers::AssetTagHelper
   layout 'hoosin_email' # use email.(html|text).erb as the layout for emails
   default from: "hoos.in info@hoos.in"
 
@@ -48,12 +50,14 @@ class Notifier < ActionMailer::Base
   def confirm_follow(user, follower)
     @user = user
     @follower = follower
+    #@friend_pic = raster_profile_picture(@follower)
     mail to: user.email, subject: "New Friend Request - #{@follower.name}"
   end
 
-  def new_follower(user, follower)
+  def new_friend(user, friend)
     @user = user
-    @follower = follower
+    @follower = friend
+    #@follower_pic = raster_profile_picture(@user)
     mail to: user.email, subject: "New Friend - #{@follower.name}"
   end
 
@@ -75,7 +79,6 @@ class Notifier < ActionMailer::Base
     end
     mail to: @user.email, subject: "Untipped idea - #{@event.short_event_title}"
   end
-
 
   def cancellation(event, user)
     @user = user
@@ -107,18 +110,27 @@ class Notifier < ActionMailer::Base
       mail to: @user.email, subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
   end
 
+  def invitation(event, invitee, inviter)
+    @event = event
+    @user = invitee
+    @event_time = event.starts_at.strftime("%l:%M%P, %A %B %e")
+    @inviter = inviter
+    #@inviter_pic = raster_profile_picture(@inviter)
+    @event_link = "http://www.hoos.in/events/#{@event.id}"
+    if(@user.iPhone_user == true)
+      APN.notify(@user.APNtoken, {:alert => "#{@inviter.name} sent you an invitation!", :badge => 1, :sound => true})
+    end
+    mail to: @user.email, subject: "You're invited to #{@event.short_event_title}"
+  end
+
   def email_invitation(invite, event)
-
-    # @invite = Invite.find_by_id(args[0])
-    # @event = Event.find_by_id(args[1])
-    # @inviter = User.find_by_id(@invite.inviter_id)
-
     @invite = invite
     @event = event
     @event_time = event.starts_at.strftime("%l:%M%P, %A %B %e")
     @inviter = User.find_by_id(@invite.inviter_id)
     @event_link = "http://www.hoos.in/events/#{@event.id}"
     @message = @invite.message
+    #@inviter_pic = raster_profile_picture(@inviter)
     #should we include here an invited by X to make them more likely to join?
     if @user = User.find_by_email(@invite.email)
       if(@user.iPhone_user == true)

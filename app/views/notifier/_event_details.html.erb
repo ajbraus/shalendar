@@ -1,0 +1,20 @@
+<tr>
+	<td style="padding:20px 0 10px 70px">What: <strong style="padding-left:10px;"><%= @event.title %></strong></td>
+</tr>
+
+<tr>
+	<td style="padding:20px 0 10px 70px">When: <strong style="padding-left:10px;"><%= @event_time %></strong></td>
+</tr>
+
+<% if @event.tipped? %>
+<tr>
+	<td style="padding:20px 0 10px 70px"><strong style="color:green;">Idea tipped!</strong></td>
+</tr>
+
+<% else %>
+
+<tr>
+	<td style="padding:20px 0 10px 70px"><strong>This idea needs <span style="color:red;"><%= @event.min - @event.guests.count %></span> to tip</strong></td>
+</tr>
+
+<% end %>
