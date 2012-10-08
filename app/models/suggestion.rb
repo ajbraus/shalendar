@@ -4,6 +4,8 @@ class Suggestion < ActiveRecord::Base
   belongs_to :user
   has_many :events
 
+  CATEGORIES = %w[adventure culture night sports family]
+
   acts_as_gmappable :validation => false
 
   attr_accessible :user_id,
@@ -34,7 +36,8 @@ class Suggestion < ActiveRecord::Base
                              :path => "suggestion/:attachment/:style/:id.:extension",
                              :default_url => "https://s3.amazonaws.com/hoosin-production/suggestion/promo_img/medium/default_promo_img.png"
 
-
+  validates :title,
+            :ends_at, presence: true
   validates :max, numericality: { in: 1..10000, only_integer: true }
   validates :min, numericality: { in: 1..10000, only_integer: true }
   # validates :duration, numericality: { in: 0..1000 } 

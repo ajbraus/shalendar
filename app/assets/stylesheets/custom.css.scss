@@ -428,16 +428,17 @@ margin: 0 auto;
 color: white;
   }
   .tagline {
-    position: relative;
-    top: 18px;
-    right: 39px;
-    float:left;
-    font-size: 20px;
+position: absolute;
+top: 28px;
+left: 286px;
+float: left;
+font-size: 14px;
 }
   ul {
     float:right;
     position: relative;
     left: 60px;
+    top: 20px;
   }
   ul > li {
     display: inline;
@@ -488,6 +489,8 @@ color: white;
 .logo {
 width: 205px;
 float: left;
+position: relative;
+right: 60px;
 }
 
 .howto {
@@ -568,6 +571,7 @@ min-height: 955px;
 margin: 0 auto;
 background-color: rgba(255, 255, 255, .6);
 z-index: -10;
+padding: 10px 0px;
 }
 
 .element {
@@ -1807,6 +1811,18 @@ margin-left: 277px;
 
 .social_friends {
   float:left;
+  div {
+    float: left;
+margin: 0 2px;
+  }
+}
+
+.city-icon {
+  img {
+        -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
 }
 
 .show_raster {

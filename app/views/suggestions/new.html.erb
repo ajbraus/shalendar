@@ -23,7 +23,12 @@
 	  </p>  
 	  <p>
 	    <%= label :category, "Category" %><br/>
-	    <%= f.text_field :category, :placeholder => "Arts, Community, Culture, etc", class: "required", autocomplete: "off" %>
+	    <div id="categories">
+	    	<% Suggestion::CATEGORIES.each do |c| %>
+		      <%= radio_button_tag 'c', c, @c == c, name:"radio", id: "radio#{(Suggestion::CATEGORIES.index(c) + 1)}" %>
+		      <%= label_tag "radio#{(Suggestion::CATEGORIES.index(c) + 1)}", "#{c.humanize}" %>
+	    	<% end %>
+    	</div>
 	  </p>  
 
 <% if false %>

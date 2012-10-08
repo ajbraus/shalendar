@@ -57,6 +57,7 @@ class SuggestionsController < ApplicationController
   # POST /suggestions
   # POST /suggestions.json
   def create
+    @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
     @user = current_user
     @suggestion = @user.suggestions.build(params[:suggestion])
 

@@ -1,3 +1,9 @@
-<% @suggestions.each do |s| %>
-	<%= render :partial => "suggestions/suggestion", :locals => { :suggestion => s } %>
-<% end %>
+<div id="suggestions">
+	<ul>
+		<li></li>
+		<li></li>
+	</ul>
+	<% @suggestions.each do |s| %>
+		<%= render :partial => "suggestions/suggestion", :locals => { :suggestion => s } %>
+	<% end %>
+</div>

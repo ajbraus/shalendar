@@ -103,6 +103,7 @@ $('#tomorrow').click(function(){
 });
 
 $('#yt').buttonset();
+$('#categories').buttonset();
 
 // SETTINGS DROPDOWN
 
