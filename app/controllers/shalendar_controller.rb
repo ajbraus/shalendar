@@ -24,7 +24,6 @@ class ShalendarController < ApplicationController
                         #end
     @suggestions = Suggestion.where('starts_at IS NULL')
                    #or Suggestion.join('user').where('city == ?' current_user.city)
-    @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
     @vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
 	end
 

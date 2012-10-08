@@ -1,7 +1,4 @@
 <% provide(:title, " | Idea") %>
-  <div class="show_logo">
-  <%= render 'layouts/logo' %>  
-  </div>
   <%= render 'title' %>
   <% if false %>
     <%= render 'map' %>
@@ -16,21 +13,21 @@
       <div class="event_show_rasters">
     <% if (@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user %>
         <p>Share with Friends</p>
-        <div id="invite_raster" class="show_raster element">
+        <div id="invite_raster" class="show_raster part">
           <%= render partial: 'invite_raster', :locals => { :event => @event } %>
         </div>
       </div>
     <% else %>
       <div class="event_show_rasters">
         <p>Share with Friends</p>
-        <div id="invite_raster" class="hide show_raster element">
+        <div id="invite_raster" class="hide show_raster part">
         </div>
       </div>
     <% end %>
 
     <div class="event_show_rasters">
       <p><span id="invite_count"><%= @invited_users.count + @email_invites.count %></span> Maybes</p>
-      <div id="invites" class="show_raster element">
+      <div id="invites" class="show_raster part">
         <%= render partial: 'events/invites' %>
       </div>
     </div>
@@ -41,12 +38,12 @@
       <% else %>
         <p class="destroy"><%= @guests.count %> / <%= @event.min %> Going (Not Yet Tipped)</p>
       <% end %>
-      <div class="show_raster element">
+      <div class="show_raster part">
         <%= render 'guests' %>
       </div>
     </div>
       <% if (@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user %>
-  <div class="invite_by_email element">
+  <div class="invite_by_email part">
     <p>Share by Email</p>
     <%= form_for([@event, @event.email_invites.build]) do |f| %>
         <%= f.text_area :email, rows: "2", placeholder: "Seperate Emails with Comma" %>
@@ -55,7 +52,7 @@
     <% end %>
   </div>
   <% else %>
-   <div class="hide invite_by_email element">
+   <div class="hide invite_by_email part">
     <p>Share by Email</p>
     <%= form_for([@event, @event.email_invites.build]) do |f| %>
         <%= f.text_area :email, rows: "2", placeholder: "Seperate Emails with Comma" %>

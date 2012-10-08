@@ -27,7 +27,7 @@
     <li>
       <a href="<%= manage_follows_path %>">
         <strong id="header_friend_count" class="friend_count"><%= current_user.followers.count %></strong> <span title="manage friends">friends</span>
-        <% if @friend_requests.any? %>
+        <% if current_user.reverse_relationships.where('relationships.confirmed = false').any? %>
           <span class="new_friends_count"><%= @friend_requests.count %></span>
         <% end %>
       </a>

@@ -22,8 +22,6 @@ class Suggestion < ActiveRecord::Base
                 :chronic_ends_at,
                 :link,
                 :gmaps,
-                :tipped,
-                :guests_can_invite_friends,
                 :category
 
   has_attached_file :promo_img, :styles => { :original => '700x700',
@@ -36,11 +34,11 @@ class Suggestion < ActiveRecord::Base
                              :path => "suggestion/:attachment/:style/:id.:extension",
                              :default_url => "https://s3.amazonaws.com/hoosin-production/suggestion/promo_img/medium/default_promo_img.png"
 
-  validates :title, presence: true
   validates :max, numericality: { in: 1..10000, only_integer: true }
   validates :min, numericality: { in: 1..10000, only_integer: true }
   # validates :duration, numericality: { in: 0..1000 } 
-  validates :title, length: { maximum: 140 }
+  validates :title, length: { maximum: 140 }, presence: true
+  validates :category, presence: true
   # validates_numericality_of :lng, :lat
   @url = /^((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)?$/ 
   validates :link, :format => { :with => @url }
@@ -95,7 +93,6 @@ class Suggestion < ActiveRecord::Base
       self.ends_at = self.starts_at + self.duration*3600
     end
   end
-
 
   def gmaps4rails_address
     address

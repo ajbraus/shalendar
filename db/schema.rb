@@ -158,8 +158,6 @@ ActiveRecord::Schema.define(:version => 20121008003917) do
     t.integer  "min",                    :default => 1
     t.integer  "max",                    :default => 10000
     t.float    "duration"
-    t.integer  "inviter_id",             :default => 0
-    t.boolean  "tipped",                 :default => false
     t.string   "link"
     t.string   "address"
     t.float    "longitude"

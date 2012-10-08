@@ -12,8 +12,6 @@ class CreateSuggestions < ActiveRecord::Migration
    	add_column :suggestions, :min, :integer, :default => 1
     add_column :suggestions, :max, :integer, :default => 10000
     add_column :suggestions, :duration, :float
-    add_column :suggestions, :inviter_id, :integer, :default => 0
-    add_column :suggestions, :tipped, :bool, :default => false
     add_column :suggestions, :link, :string
     add_column :suggestions, :address, :string
     add_column :suggestions, :longitude, :float

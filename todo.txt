@@ -75,19 +75,23 @@ If user.vendor? put link to suggestions#index (vendor dashboard) in header.
 added promo_img to suggestion data structure
 
 TODO
+
+When you click clone it finds the suggestion and passes the elements into a new clone form (i.e. new event form) with suggested elements not actionable and blank elements actionable. -- suggestion is deleting itself after
+
 Add promo_img to new suggestion form and display it in the vendor dashboard and the suggestion menu
+http://css3.bradshawenterprises.com/flip/
 
-When you click clone it finds the suggestion and passes the elements into a new clone form (i.e. new event form) with suggested elements not actionable and blank elements actionable. -- not getting parent suggestion association with child event yet.
-
-make tabs for categories
+suggestions are not creating with an ends_at even though they have a duration
 
 when suggestion is created if it has a time already create an event
 
 when you submit it goes to the EventsController#create method that creates an event that is a child of a suggestion using the suggestion id as the parent
 
+make public yellow pages display and then make it load with ajax
 
 refactor event display methods for suggestions and events
 
+order things by them being your friends or not
 
 app request
 
