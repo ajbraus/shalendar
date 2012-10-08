@@ -1,4 +1,5 @@
 <div id="new_suggestion" class="event_form">
+	<h2>New Suggestion</h2>
 	 <%= form_for @suggestion, html: { id: "new_event_form" } do |f| %>
 	  <% if @suggestion.errors.any? %>
 	    <div id="error_explanation">
@@ -14,7 +15,7 @@
 	  <p>
 	   <%= label :starts_at, "When does it start?", name: "starts_at"%>
 	   <%= label :duration, "How Long?", name: "duration" %><br/>
-	   <%= f.text_field :chronic_starts_at, :placeholder => "7pm, tommorrow at 5pm . . .", class: "required", autocomplete: "off" %>
+	   <%= f.text_field :chronic_starts_at, id: "datetime", class: "required", autocomplete: "off" %>
 	   <%= f.text_field :duration, placeholder:"#hrs", class: "required", autocomplete: "off"  %>
 	  </p>
 	  <p>

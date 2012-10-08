@@ -180,6 +180,16 @@ $(document).bind('click', function(e) {
   $( "#suggestions" ).tabs();
 
 
+// DATETIME PICKER
+
+  $('#datetime').datetimepicker({
+      timeFormat: "h:mm tt",
+      ampm: true,
+      stepMinute: 15,
+      addSliderAccess: true,
+      sliderAccessArgs: { touchonly: true }
+  });
+
 // google map address picker
 // http://jquerybyexample.blogspot.com/2011/11/jquery-addresspicker-plugin-explained.html
 	

@@ -2077,8 +2077,46 @@ top: 12px;
   }
 }
 
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; }
+.ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }
+
+.ui-datepicker-next {
+  float:right;
+}
+.ui-datepicker-prev {
+  float:left;
+}
+
+.ui-datepicker-title {
+
+}
+
+.ui-datepicker-calendar {
+  width: 330px;
+}
+
+.ui-slider-horizontal {
+  position: relative;
+left: 21px;
+width: 230px;
+}
+
+.ui_tpicker_minute_slider{
+  width: 100px;
+}
 
 .event_form {
+  margin: 0 auto;
+  width: 510px;
   p{
     line-height: 1;
     margin:10px 0;
@@ -2312,7 +2350,7 @@ padding: 3px;
 }
 .event_time {
   font-size: 11px;
-width: 143px;
+width: 122px;
 span {
 display: inline-block;
 margin-bottom: 0px;
