@@ -26,12 +26,15 @@ Shalendar::Application.routes.draw do
 
     namespace :api do
       namespace :v1 do
+        #problem... POST/DELETE requests are being processed as GET..
         resources :tokens, :only => [:create, :destroy]
         resources :sessions, :only => [:create, :destroy]
         resources :registrations, :only => [:create, :destroy]
         resources :relationships, :only => [:create]
         resources :rsvps, :only => [:create]
+        #resources :events, :only => [:create] 
         
+        match '/create_event', :to => 'events#mobile_create'
         #took out delete and post types bc not working from iphone http reqeust
         match '/unrsvp', :to => 'rsvps#destroy'#, :via => :delete
         match '/unfollow', :to => 'relationships#destroy'#, :via => :delete
