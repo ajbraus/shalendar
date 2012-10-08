@@ -77,7 +77,11 @@ added promo_img to suggestion data structure
 TODO
 Add promo_img to new suggestion form and display it in the vendor dashboard and the suggestion menu
 
-When you click clone it finds the suggestion and passes the elements into a new clone form (i.e. new event form) with suggested elements not actionable and blank elements actionable. 
+When you click clone it finds the suggestion and passes the elements into a new clone form (i.e. new event form) with suggested elements not actionable and blank elements actionable. -- not getting parent suggestion association with child event yet.
+
+make tabs for categories
+
+when suggestion is created if it has a time already create an event
 
 when you submit it goes to the EventsController#create method that creates an event that is a child of a suggestion using the suggestion id as the parent
 

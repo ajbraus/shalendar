@@ -2,11 +2,11 @@ require 'chronic'
 
 class Suggestion < ActiveRecord::Base
   belongs_to :user
-  has_many :children, class_name: "event"
+  has_many :events
 
   acts_as_gmappable :validation => false
 
-  attr_accessible :id,
+  attr_accessible :user_id,
                 :starts_at, 
                 :duration,
                 :ends_at,
@@ -21,7 +21,8 @@ class Suggestion < ActiveRecord::Base
                 :link,
                 :gmaps,
                 :tipped,
-                :guests_can_invite_friends
+                :guests_can_invite_friends,
+                :category
 
   has_attached_file :promo_img, :styles => { :original => '700x700',
                                              :large => '400x400',

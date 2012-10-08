@@ -42,7 +42,7 @@
 			<% elsif event.starts_at.hour > 18 && event.starts_at.hour < 4 %>
 				<%= image_tag "night.png" %>
 			<% end %>
-			<%= event_start_time(event) %> - <%= event_end_time(event) %>
+			<span><%= event_start_time(event) %> - <%= event_end_time(event) %></span>
 		</div></br>
 
 		<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>

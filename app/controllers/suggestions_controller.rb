@@ -6,22 +6,22 @@ class SuggestionsController < ApplicationController
   end
 
   def clone
-    @suggestion = Suggestion.find(params[:id])
+    @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
+    @suggestion = Suggestion.find(params[:suggestion_id])
     @clone = @suggestion.events.new(user_id: current_user.id,
+                             suggestion_id: @suggestion.id,
                              title: @suggestion.title,
                              starts_at: @suggestion.starts_at,
                              duration: @suggestion.duration,
-                             ends_at: @suggestion.ends_at,
-                             min: @suggestion.min,
                              max: @suggestion.max,
                              address: @suggestion.address,
                              latitude: @suggestion.latitude,
                              longitude: @suggestion.longitude,
                              link: @suggestion.link,
-                             gmaps: @suggestion.gmaps,
-                             guests_can_invite_friends: @suggestion.guests_can_invite_friends
+                             gmaps: @suggestion.gmaps
                           )
     respond_to do |format|
+      format.html
       format.js
     end
   end

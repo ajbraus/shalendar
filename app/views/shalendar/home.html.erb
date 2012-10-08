@@ -1,14 +1,19 @@
 <% provide(:title, " | Home") %>
 	<div class="dashboard">
 		<div class="new_idea part">
+		<%if current_user.vendor? %>
+			<textarea id="new_idea_blerb"></textarea>
+			<a class="btn btn-rsvp btn-new-idea-vendor" href="#new_idea" title="Make New Idea"><i class="icon-cloud"></i></a>
+			<%= render 'new_idea_form' %>
+			
+			<%= link_to new_suggestion_path, class: "btn btn-new-suggestion", title: "Make New Suggestion" do %>
+					<i class="icon-bullhorn"></i>
+			<% end %>
+			<div id="new_suggestion_element"></div>
+		<% else %>
 			<textarea id="new_idea_blerb"></textarea>
 			<a class="btn btn-rsvp btn-new-idea" href="#new_idea" title="Make a New Idea"><i class="icon-cloud"></i></a>
 			<%= render 'new_idea_form' %>
-		<%if current_user.vendor? %>
-			<%= link_to new_suggestion_path, class: "btn btn-rsvp btn-new-suggestion", title: "Make a New Suggestion" do %>
-					<i class="icon-cloud"></i>
-			<% end %>
-			<div id="new_suggestion_element"></div>
 		<% end %>
 		</div>
 	  <%= render 'get_friends' %>

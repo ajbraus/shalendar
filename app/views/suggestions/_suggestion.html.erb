@@ -14,27 +14,22 @@
 			<% elsif suggestion.starts_at.hour > 18 && suggestion.starts_at.hour < 4 %>
 				<%= image_tag "night.png" %>
 			<% end %>
-			<%= event_start_time(suggestion) %> - <%= event_end_time(suggestion) %>
+			<span><%= event_start_time(suggestion) %> - <%= event_end_time(suggestion) %></span>
 		</div></br>
-
-		<div class="event_pic"><%= raster_profile_picture(suggestion.user)) %></div>
-	
+<% if false %>
+		<div class="event_pic"><%= raster_profile_picture(User.find_by_id(suggestion.user_id)) %></div>
+<% end %>
 		<div class="event_blerb"><%= suggestion.short_event_title %></div>
-	
-		<div class="guest_count">
-			<% if suggestion.guests_can_invite_friends? %>
-      	<i class="purple icon-group" title="You may share this idea with your friends."></i>
-      <% end %>
+
+		<div class="clone">
+			<%= link_to "clone", {controller: 'suggestions', action: 'clone', :suggestion_id => "#{suggestion.id}"} %>
 		</div>
-		<div class="clone"></div>
-		<% end %>
-		<% unless suggestion.user == User.find_by_id(suggestion.inviter_id) %>
-			<div class="host">by: <%= suggestion.user.first_name.capitalize %> 
+		
+		<div class="host">by: <%= suggestion.user.first_name.capitalize %> 
 				<% if suggestion.user.last_name %>
 					<%= suggestion.user.last_name.capitalize%>
 				<% end %> 
-			</div>
-		<% end %>
+		</div>
 		</a>
 </div>
 <% end %>
