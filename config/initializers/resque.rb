@@ -11,9 +11,3 @@ else
   uri = URI.parse(ENV["REDISTOGO_URL"] || "redis://localhost:6379/")
   Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
 end
-
-# after_fork do |server, worker|
-# 	if defined?(ActiveRecord::Base)
-# 		ActiveRecord::Base.establish_connection
-# 	end
-# end
