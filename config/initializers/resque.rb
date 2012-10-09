@@ -1,4 +1,5 @@
 require 'resque'
+require 'resque/server'
 
 heroku_environments = ["staging", "production"]
 rails_root = ENV['RAILS_ROOT'] || File.dirname(__FILE__) + '/../..'
