@@ -67,6 +67,7 @@ class Api::V1::EventsController < ApplicationController
 
   def mobile_create
     @mobile_user = User.find_by_id(params[:user_id])
+    
     if @mobile_user.nil?
       render :status => 400, :json => {:success => false}
       return

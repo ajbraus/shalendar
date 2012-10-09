@@ -19,7 +19,9 @@ before_filter :authenticate_user!
       end
     else
       Notifier.new_friend(@user, current_user).deliver
-      current_user.follow!(@user)
+      unless current_user.following?(@user) || current_user.request_following?(@user)
+        current_user.follow!(@user)
+      end
       @relationship = current_user.relationships.find_by_followed_id(@user.id)
       @relationship.confirmed = true
       if @relationship.save
