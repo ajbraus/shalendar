@@ -54,7 +54,7 @@
           if(response.authResponse) {
             window.location = "/user/auth/facebook/callback"
             }
-        }, {scope: "email,user_location,friends_location,publish_stream"});
+        }, {scope: "email,user_location,friends_location"});
       });
       document.getElementById('auth-logoutlink').addEventListener('click', function(){
         FB.logout();
