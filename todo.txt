@@ -54,7 +54,11 @@ Adam
 	Map
 	Link
 
+friend someone then the datepicker window stops working :o)
 
+when I click on "latest ideas" to remove them, it doesn't remove the counter!
+
+bring order to 'lastest ideas'
 
 invite, guest list: order by ppl you already friended
 facebook friends: order by ppl already on hoosin
