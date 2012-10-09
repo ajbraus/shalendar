@@ -29,7 +29,9 @@ class Api::V1::EventsController < ApplicationController
         :host => e.user,
         :plan => @mobile_user.rsvpd?(e),
         :tipped => e.tipped,
-        :gids => @guestids
+        :gids => @guestids,
+        :g_share => e.guests_can_invite_friends,
+        :share_a => current_user.invited_all_friends?(e)
         }
      	@list_events.push(@temp)
     end
@@ -60,14 +62,16 @@ class Api::V1::EventsController < ApplicationController
           :host => @event.user,
           :plan => @mobile_user.rsvpd?(@event),
           :tipped => @event.tipped,
-          :guests => @event.guests 
+          :guests => @event.guests,
+          :g_share => e.guests_can_invite_friends,
+          :share_a => current_user.invited_all_friends?(e)
         }
     end
   end
 
   def mobile_create
     @mobile_user = User.find_by_id(params[:user_id])
-    
+
     if @mobile_user.nil?
       render :status => 400, :json => {:success => false}
       return
