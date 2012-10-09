@@ -213,9 +213,8 @@ class User < ActiveRecord::Base
       if self.rsvps.find_by_plan_id(event.id).invite_all_friends?
         return true
       end
-    else
-      return false
     end
+    return false
   end
   
   def invite_all_friends!(event)
