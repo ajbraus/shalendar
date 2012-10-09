@@ -12,8 +12,8 @@ else
   Resque.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
 end
 
-after_fork do |server, worker|
-	if defined?(ActiveRecord::Base)
-		ActiveRecord::Base.establish_connection
-	end
-end
+# after_fork do |server, worker|
+# 	if defined?(ActiveRecord::Base)
+# 		ActiveRecord::Base.establish_connection
+# 	end
+# end
