@@ -77,35 +77,32 @@ User that is vendor can create suggestion and view their suggestions in a vendor
 Suggestions have many children (class = Event)
 If user.vendor? put link to suggestions#index (vendor dashboard) in header.
 added promo_img to suggestion data structure
+When you click clone it finds the suggestion and passes the elements into a new clone form (i.e. new event form) with suggested elements not actionable and blank elements actionable.
+hid suggestions you've already cloned
+when you submit it goes to the EventsController#create method that creates an event that is a child of a suggestion using the suggestion id as the parent
+Welcome email for vendors
+when suggestion is created if it has a time already create an event - creating the event but not displaying in forecast . . .?
+vendors cannot friend or follow
+ppl can only follow vendors
 
 TODO
-
-When you click clone it finds the suggestion and passes the elements into a new clone form (i.e. new event form) with suggested elements not actionable and blank elements actionable. -- suggestion is deleting itself after
 
 Add promo_img to new suggestion form and display it in the vendor dashboard and the suggestion menu
 http://css3.bradshawenterprises.com/flip/
 
-suggestions are not creating with an ends_at even though they have a duration
-
-when suggestion is created if it has a time already create an event
-
-when you submit it goes to the EventsController#create method that creates an event that is a child of a suggestion using the suggestion id as the parent
+hide suggestions of clones you have RSVPd to
 
 make public yellow pages display and then make it load with ajax
-
-refactor event display methods for suggestions and events
 
 order things by them being your friends or not
 
 app request
 
-	remove permission to write to wall
 	then when they want to invite folks ask for permission
 
 Close viral loop:
 	Invite friends pulls in facebook friends (FQL query for friends in city, then not on hoos.in)
 	Text message ppl invitation
-	Recieve an email every time an event is created
 	Recieve text message reminder to go to an event
 	Host can message all RSVPs, text/push/ or email
 	when you comment, host is contacted text/push or email
@@ -123,8 +120,7 @@ def remind
 	else flash notification every 15 minutes on screen of homepage, play noise?
 end
 
-
-Create Vendor events
+max - if nil set to 1,000,000
 
 views:
 	Vendor Dashboard

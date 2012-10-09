@@ -95,7 +95,11 @@ class User < ActiveRecord::Base
   end
 
   def send_welcome
-     Notifier.welcome(self).deliver
+    if vendor?
+      Notifier.vendor_welcome(self).deliver
+    else
+      Notifier.welcome(self).deliver
+    end
   end
 
   def self.search(query)
@@ -108,13 +112,22 @@ class User < ActiveRecord::Base
     where(conditions, query)
   end
 
-  def cloned?(suggestion)
-    if(events.find_by_suggestion_id(suggestion.id))
+  def cloned?(suggestion_id)
+    if events.find_by_suggestion_id(suggestion_id)
       return true
     else
       return false
     end
   end
+
+  def rsvpd_to_clone?(suggestion_id)
+    if rsvps.find_by_plan_id((self.events.find_by_suggestion_id(suggestion_id)).id)
+      return true
+    else
+      return false
+    end
+  end
+
 
   def rsvpd?(event)
     if(rsvps.find_by_plan_id(event.id))

@@ -1,32 +1,17 @@
-<% if Relationship.find_by_follower_id(event.inviter_id).toggled? %>
-	<% if current_user.rsvpd?(event) %>
-		<% if event.ends_at < Time.now %>
-			<div class="event rsvpd over" data-event-id="<%= event.id %>">
-		<% else %>
-			<div class="event rsvpd" data-event-id="<%= event.id %>">
-		<% end %>
+<% if current_user.rsvpd?(event) %>
+	<% if event.ends_at < Time.now %>
+		<div class="event rsvpd over" data-event-id="<%= event.id %>">
 	<% else %>
-		<% if event.ends_at < Time.now %>
-			<div class="event not_rsvpd over" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>">
-		<% else %>
-			<div class="event not_rsvpd" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>">
-		<% end %>
+		<div class="event rsvpd" data-event-id="<%= event.id %>">
 	<% end %>
 <% else %>
-	<% if current_user.rsvpd?(event) %>
-		<% if event.ends_at < Time.now %>
-			<div class="event rsvpd over" data-event-id="<%= event.id %>">
-		<% else %>
-			<div class="event rsvpd" data-event-id="<%= event.id %>">
-		<% end %>
+	<% if event.ends_at < Time.now %>
+		<div class="event not_rsvpd over" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>">
 	<% else %>
-		<% if event.ends_at < Time.now %>
-			<div class="event not_rsvpd over" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>" style="display:none;">
-		<% else %>
-			<div class="event not_rsvpd" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>" style="display:none;">
-		<% end %>
+		<div class="event not_rsvpd" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>">
 	<% end %>
 <% end %>
+
 
 <% if @next_plan %>
 	<% if event.id == @next_plan.id %>
@@ -39,7 +24,7 @@
 				<%= image_tag "morning.png" %>
 			<% elsif event.starts_at.hour > 12 && event.starts_at.hour < 18 %>
 				<%= image_tag "noon.png" %>
-			<% elsif event.starts_at.hour > 18 && event.starts_at.hour < 4 %>
+			<% else %>
 				<%= image_tag "night.png" %>
 			<% end %>
 			<span><%= event_start_time(event) %> - <%= event_end_time(event) %></span>
@@ -83,3 +68,23 @@
 		</a>
 </div>
 
+
+<% if false %>
+	<% if Relationship.find_by_follower_id(event.inviter_id).toggled? %>
+
+	<% else %>
+	<% if current_user.rsvpd?(event) %>
+		<% if event.ends_at < Time.now %>
+			<div class="event rsvpd over" data-event-id="<%= event.id %>">
+		<% else %>
+			<div class="event rsvpd" data-event-id="<%= event.id %>">
+		<% end %>
+	<% else %>
+		<% if event.ends_at < Time.now %>
+			<div class="event not_rsvpd over" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>" style="display:none;">
+		<% else %>
+			<div class="event not_rsvpd" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>" style="display:none;">
+		<% end %>
+	<% end %>
+<% end %>
+<% end %>

@@ -45,6 +45,11 @@ class Notifier < ActionMailer::Base
     mail to: user.email, subject: "welcome to hoos.in"
   end
 
+  def vendor_welcome(vendor)
+    @vendor = vendor
+    mail to: vendor.email, subject: "welcome to hoos.in"
+  end
+
   #PREFERENCE NOTIFIERS, DEFAULT YES
 
   def confirm_follow(user, follower)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121008003917) do
+ActiveRecord::Schema.define(:version => 20121009211301) do
 
   create_table "authentications", :force => true do |t|
     t.string   "provider"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20121008003917) do
     t.boolean  "gmaps"
     t.boolean  "guests_can_invite_friends"
     t.integer  "suggestion_id"
+    t.float    "price"
   end
 
   create_table "gcm_devices", :force => true do |t|
@@ -164,6 +165,8 @@ ActiveRecord::Schema.define(:version => 20121008003917) do
     t.float    "latitude"
     t.boolean  "gmaps"
     t.string   "category"
+    t.float    "price"
+    t.boolean  "family_friendly"
     t.string   "promo_img_file_name"
     t.string   "promo_img_content_type"
     t.integer  "promo_img_file_size"

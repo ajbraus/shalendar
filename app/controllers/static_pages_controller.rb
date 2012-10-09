@@ -9,4 +9,8 @@ class StaticPagesController < ApplicationController
   def contact
   	@user = current_user
   end
+  
+  def vendor_splash
+  end
+
 end

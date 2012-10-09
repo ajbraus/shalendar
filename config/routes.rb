@@ -19,7 +19,11 @@ Shalendar::Application.routes.draw do
                               sign_out: "logout", 
                               sign_up: "join"
                             } 
-                             
+  devise_scope :user do
+    match '/new_vendor', to: 'registrations#new_vendor', as: "new_vendor"
+  end
+
+
   # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
@@ -76,9 +80,9 @@ Shalendar::Application.routes.draw do
 
   match '/invite', :to => 'shalendar#invite', :as => "invite"
 
-  match '/user_plans_on_date', :to => 'shalendar#user_plans_on_date', :as => "user_plans_on_date"
-  match '/user_ideas_on_date', :to => 'shalendar#user_ideas_on_date', :as => "user_ideas_on_date"
-  match '/user_events_on_date', :to => 'shalendar#user_events_on_date', :as => "user_events_on_date"
+  # match '/user_plans_on_date', :to => 'shalendar#user_plans_on_date', :as => "user_plans_on_date"
+  # match '/user_ideas_on_date', :to => 'shalendar#user_ideas_on_date', :as => "user_ideas_on_date"
+  # match '/user_events_on_date', :to => 'shalendar#user_events_on_date', :as => "user_events_on_date"
 
   match 'tip' => 'events#tip'
   match 'invite_all_friends' => 'shalendar#invite_all_friends'
@@ -89,20 +93,11 @@ Shalendar::Application.routes.draw do
   match 'datepicker' => "shalendar#datepicker"
 
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
+  match '/home', to: 'shalendar#home', as: "home"
+
+  match '/vendor_splash', to: 'static_pages#vendor_splash', as: 'vendor_splash'
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/careers', :to => 'static_pages#careers', :as => "careers"
-  match '/home', to: 'shalendar#home', as: "home"
-  
-  match '/my_invitations', :to => 'events#my_invitations', :as => "my_invitations"
-  match '/my_events', :to => 'events#my_events', :as => "my_events"
-  match '/my_plans', :to => 'events#my_plans', :as => "my_plans"
-  match '/my_maybes', :to => 'events#my_maybes', :as => "my_maybes"
-
-  match '/my_untipped_invitations', :to => 'events#my_untipped_invitations', :as => "my_untipped_invitations"
-  match '/my_untipped_events', :to => 'events#my_untipped_events', :as => "my_untipped_events"
-  match '/my_untipped_plans', :to => 'events#my_untipped_plans', :as => "my_untipped_plans"
-  match '/my_untipped_maybes', :to => 'events#my_untipped_maybes', :as => "my_untipped_maybes"
-
 
   #FOR MOBILE W USER AUTO USER(3)
   match '/mobile_plans', :to => 'events#mobile_plans', :as => "mobile_plans"

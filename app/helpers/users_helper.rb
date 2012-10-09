@@ -32,10 +32,10 @@ module UsersHelper
       twitter_picture(user, type: "normal") 
     else
       if user.avatar.url.nil?
-        image_tag "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png",
+        image_tag "https://s3.amazonaws.com/hoosin-production/user/avatars/raster/default_profile_pic.png",
          class: "profile_picture"
       else
-        image_tag user.avatar.url, class: "profile_picture"
+        image_tag user.avatar.url(:raster), class: "profile_picture"
       end
     end
   end 
@@ -68,8 +68,7 @@ module UsersHelper
       invite_twitter_picture(user, type: "normal") 
     else
       if user.avatar.url.nil?
-        image_tag "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png",
-         class: "profile_picture"
+        "https://s3.amazonaws.com/hoosin-production/user/avatars/raster/default_profile_pic.png"
       else
         user.avatar.url
       end

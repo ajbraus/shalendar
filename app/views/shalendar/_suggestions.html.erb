@@ -1,10 +1,10 @@
 <div id="tabs-nested" class="suggestions part">
 	<ul>
 		<li>
-			<a href="ui-tabs-1">happening's</a>
+			<a href="ui-tabs-1">Events</a>
 		</li>
 		<li>
-			<a href="ui-tabs-2">could be's</a>
+			<a href="ui-tabs-2">Suggestions</a>
 		</li>
 	</ul>
 	<div id="ui-tabs-6">
@@ -23,10 +23,7 @@
 				<% @event_suggestions.each do |es| %>
 					<% if es.category == c %>
 						<dl>
-							<dt>Date</dt>
-							<dd>
 								<%= render :partial => "suggestions/suggestion", :locals => { :suggestion => es } %>
-							</dd>
 						</dl>
 					<% end %>
 				<% end %>

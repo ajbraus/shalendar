@@ -92,8 +92,7 @@ textarea:focus, input:focus {
 
 .hero-unit {
   text-align: center;
-  position: relative;
-bottom: 79px;
+  padding-top: 40px;
   p {
     font-size: 1em;
     font-weight: normal;
@@ -120,8 +119,8 @@ h1 {
 h2 {
   font-size: 1.7em;
   letter-spacing: -1px;
-  margin-top: 20px;
-  margin-bottom: 30px;
+margin-top: 10px;
+margin-bottom: 20px;
   text-align: center;
   font-weight: normal;
   color: #999;
@@ -203,17 +202,17 @@ padding: 5px 20px;
   background: -moz-linear-gradient(center top, #A53DF6 5%, #7C16CB 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a53df6', endColorstr='#7c16cb');
   background-color: #A53DF6;
-  -moz-border-radius: 0 0 6px 6px;
-  -webkit-border-radius: 0 0 6px 6px;
-border-radius: 0 0 6px 0px;
+  -moz-border-radius: 0 6px 6px 0px;
+  -webkit-border-radius: 0 6px 6px 0px;
+border-radius: 0 6px 6px 0px;
 border: 1px solid #9C33ED;
 display: inline-block;
 color: white;
 font-family: arial;
 position: absolute;
 left: 290px;
-top: 53px;
-padding: 4px 20px;
+top: 20px;
+padding: 20.5px 20px;
 }
 .btn-new-suggestion:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #7c16cb), color-stop(1, #a53df6) );
@@ -1248,11 +1247,10 @@ border-top: 1px solid lightGrey;
     float:left;
     font-size: 20px;
     color:darkgrey;
-    text-decoration: underline;
     position: relative; 
     left:20px;
     &:hover { 
-      color: lightgrey;
+      text-decoration: underline;
     }
   }  
   small { 
@@ -1265,7 +1263,8 @@ right: 9%;
 position: relative;
 z-index: 1;
 float: right;
-right: 26%;
+right: 0%;
+width: 390px;
     li {
       float: left;
       margin-left: 10px;
@@ -1276,7 +1275,7 @@ right: 26%;
 height: 24px;
   }
   nav {
-    width: 200px;
+    width: 260px;
 float: right;
 position: relative;
 right: 10%;
@@ -1334,10 +1333,12 @@ font-size: 23px;
 }
 
 #friends {
-  width: 868px;
+width: 800px;
 height: 600px;
-position: relative;
-left: 40px;
+margin: 0 auto;
+position: absolute;
+top: 155px;
+right: 171px;
 }
 
 .user_table {
@@ -1494,7 +1495,7 @@ opacity: 0.2;
 }
 
 #settings {
-width: 971px;
+width: 836px;
 height: 100%;
 margin: 0 auto;
 float: right;
@@ -2007,16 +2008,10 @@ textarea {
   font-size: 15px;
 }
 
-input[type=text], textarea, .uneditable-input {
-  width: 420px;
-}
-
 #sign_up {
   margin: 0 auto;
-  width: 550px;
-  position: relative;
-bottom: 70px;
-right: 50px;
+  width: 380px;
+
     h2 {
     width:410px;
   }
@@ -2125,7 +2120,7 @@ width: 230px;
     margin:10px 0;
   }
  textarea {
-    font-size: 18px;
+    font-size: 20px;
     line-height: 24px;
     width: 452px;
     margin-bottom: 10px;
@@ -2161,21 +2156,21 @@ width: 230px;
       width: 210px;
     }
   }
-  input[name="event[chronic_starts_at]"]{
+  input.starts_at {
     width: 361px;
     margin-top: 5px;
-    font-size: 18px;
+    font-size: 20px;
   }
-  input[name="event[duration]"] {
+  input.duration {
     width:53px;
     margin-left:5px;
-    font-size: 18px;
+    font-size: 20px;
   }
-  input[name="event[link]"] {
+  input.link {
     width: 345px;
-    margin-bottom:15px;
+    margin-bottom:18px;
   }
-  label[name="duration"]{
+  label.duration {
     margin-left: 253px;
   }
   ul {
@@ -2258,10 +2253,7 @@ select {
   width: 900px;
   margin: 0 auto;
   position: relative;
-  bottom: 40px;
-  h3 {
-
-  }
+top: 40px;
   span {
     color:$icon_color;
     font-weight: bold;
@@ -2391,4 +2383,17 @@ height: 32px;
 top: 100px;
 left: 109px;
 }
+}
+
+.dollar {
+  font-size: 44px;
+}
+
+input[type=file] {
+  font-size:20px;
+  margin:10px 10px;
+  border-top:1px solid lightgrey;
+  border-bottom:1px solid lightgrey;
+  height:70px;
+  line-height: 70px;
 }

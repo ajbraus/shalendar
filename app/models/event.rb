@@ -29,7 +29,8 @@ class Event < ActiveRecord::Base
                   :link,
                   :gmaps,
                   :tipped,
-                  :guests_can_invite_friends
+                  :guests_can_invite_friends,
+                  :price
 
   validates :user_id,
             :title,
@@ -44,6 +45,8 @@ class Event < ActiveRecord::Base
   # validates_numericality_of :lng, :lat
   @url = /^((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)?$/ 
   validates :link, :format => { :with => @url }
+  validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}
+
  
   def as_json(options = {})
     {

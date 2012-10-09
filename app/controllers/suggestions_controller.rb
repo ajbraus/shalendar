@@ -1,14 +1,12 @@
 class SuggestionsController < ApplicationController
 
   def index
-    @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
     @suggestions = current_user.suggestions.all
   end
 
   def clone
-    @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
     @suggestion = Suggestion.find(params[:suggestion_id])
-    @clone = @suggestion.events.new(user_id: current_user.id,
+    @clone = @suggestion.events.build(user_id: current_user.id,
                              suggestion_id: @suggestion.id,
                              title: @suggestion.title,
                              starts_at: @suggestion.starts_at,
@@ -28,19 +26,18 @@ class SuggestionsController < ApplicationController
 
   # GET /suggestions/1
   # GET /suggestions/1.json
-  def show
-    @suggestion = Suggestion.find(params[:id])
+  # def show
+  #   @suggestion = Suggestion.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @suggestion }
-    end
-  end
+  #   respond_to do |format|
+  #     format.html # show.html.erb
+  #     format.json { render json: @suggestion }
+  #   end
+  # end
 
   # GET /suggestions/new
   # GET /suggestions/new.json
   def new
-    @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
     @suggestion = Suggestion.new
 
     respond_to do |format|
@@ -57,12 +54,39 @@ class SuggestionsController < ApplicationController
   # POST /suggestions
   # POST /suggestions.json
   def create
-    @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
-    @user = current_user
-    @suggestion = @user.suggestions.build(params[:suggestion])
-
+    @vendor = current_user
+    @suggestion = @vendor.suggestions.build(params[:suggestion])
+    
     respond_to do |format|
       if @suggestion.save
+        unless @suggestion.starts_at.nil?
+                  @event = @vendor.events.build(title: @suggestion.title,
+                                      starts_at: @suggestion.starts_at,
+                                      ends_at: @suggestion.starts_at + @suggestion.duration*3600,
+                                      user_id: @vendor.id,
+                                      min: 1,
+                                      max: 10000,
+                                      duration: @suggestion.duration,
+                                      tipped: true,
+                                      link: @suggestion.link,
+                                      address: @suggestion.address,
+                                      longitude: @suggestion.longitude,
+                                      latitude: @suggestion.latitude,
+                                      gmaps: @suggestion.gmaps,
+                                      guests_can_invite_friends: true,
+                                      suggestion_id: @suggestion.id,
+                                      price: @suggestion.price
+                                    )
+          @event.save
+          @vendor.rsvp!(@event)
+          if params[:invite_all_friends] == "on"
+            @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
+            current_user.invite_all_friends!(@event)
+            @rsvp.invite_all_friends = true
+            @rsvp.save
+          end
+        end
+
         format.html { redirect_to vendor_dashboard_path, notice: 'suggestion was successfully created.' }
         format.json { render json: vendor_dashboard_path, status: :created, location: @suggestion }
       else

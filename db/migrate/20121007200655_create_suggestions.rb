@@ -19,6 +19,8 @@ class CreateSuggestions < ActiveRecord::Migration
     add_column :suggestions, :gmaps, :boolean
     
     add_column :suggestions, :category, :string
+    add_column :suggestions, :price, :float
+    add_column :suggestions, :family_friendly, :boolean
 
     add_column :users, :vendor, :bool, :default => false
     add_column :events, :suggestion_id, :integer

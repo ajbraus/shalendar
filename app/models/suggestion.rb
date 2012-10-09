@@ -4,7 +4,7 @@ class Suggestion < ActiveRecord::Base
   belongs_to :user
   has_many :events
 
-  CATEGORIES = %w[active creative learning night family] #adventure, culture, community
+  CATEGORIES = %w[active learning shopping night family] #adventure, culture, community
 
   acts_as_gmappable :validation => false
 
@@ -22,7 +22,10 @@ class Suggestion < ActiveRecord::Base
                 :chronic_ends_at,
                 :link,
                 :gmaps,
-                :category
+                :category,
+                :price,
+                :family_friendly,
+                :promo_img
 
   has_attached_file :promo_img, :styles => { :original => '700x700',
                                              :large => '400x400',
@@ -38,10 +41,20 @@ class Suggestion < ActiveRecord::Base
   validates :min, numericality: { in: 1..10000, only_integer: true }
   # validates :duration, numericality: { in: 0..1000 } 
   validates :title, length: { maximum: 140 }, presence: true
-  validates :category, presence: true
+  validates :category, 
+            :price, presence: true
+  validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}
   # validates_numericality_of :lng, :lat
   @url = /^((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)?$/ 
   validates :link, :format => { :with => @url }
+
+  def view_price
+    if price == 0
+      return "Free"
+    else
+      return "$#{price}"
+    end
+  end
 
   def as_json(options = {})
     {

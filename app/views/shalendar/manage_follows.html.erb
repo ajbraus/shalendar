@@ -1,7 +1,8 @@
 <% provide(:title, " | Manage Follows") %>
 <div class="dashboard">
-<%= render 'layouts/logo' %>
-<%= render 'get_friends' %> 
+<% unless current_user.vendor? %>
+	<%= render 'get_friends' %> 
+<% end %>
 </div>
 <div class="container">
 	<div id="friends" class="part">

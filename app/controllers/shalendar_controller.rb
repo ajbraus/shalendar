@@ -1,18 +1,17 @@
 class ShalendarController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: :vendor_splash
   before_filter :set_time_zone
 	def home
     @plan_counts = []
     @invite_counts = []
 		@date = Time.now.in_time_zone(current_user.time_zone).to_date #in_time_zone("Central Time (US & Canada)")
     @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
-    #@forecastoverview = current_user.forecastoverview
     @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')    
     @graph = session[:graph]
     @event = Event.new
     @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
     @toggled_off_ids = current_user.reverse_relationships.where('toggled = false')
-    @event_suggestions = Suggestion.where('starts_at IS NOT NULL').order('starts_at ASC')
+    @event_suggestions = Suggestion.where('starts_at IS NOT NULL and starts_at > ?', Time.now).order('starts_at ASC')
                         #needs by city
                         #@city = current_user.city
                         #@event_suggestions = @city.event_suggestions(Time.now.in_time_zone(current_user.time_zone))
@@ -22,7 +21,7 @@ class ShalendarController < ApplicationController
                         #  return an array of arrays each one a day 
                         #  with the suggestions inside
                         #end
-    @suggestions = Suggestion.where('starts_at IS NULL')
+    @suggestions = Suggestion.where('starts_at IS NULL').order('created_at DESC')
                    #or Suggestion.join('user').where('city == ?' current_user.city)
     @vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
 	end
@@ -32,6 +31,7 @@ class ShalendarController < ApplicationController
 		@friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
 		#people who want to view current user
     @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
+    @vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
     if params[:search]
       @users = User.search params[:search]
       respond_to do |f|
@@ -96,22 +96,6 @@ class ShalendarController < ApplicationController
       format.js 
       format.html { redirect_to @event, notice: 'Idea Successfully Shared with Friends' }
     end
-  end
-
-  def allow_suggestions
-    @user = current_user
-    @user.update_attributes( vendor: true ) 
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to root_path, notice: 'You are now allowed to make suggestions' }
-        format.json { render json: root_path, status: :created, location: @event }
-      else
-        format.html { redirect_to(root_path, notice: 'You were not permitted to make suggestions at this time') }
-        format.json { render json: root_path.errors, status: :unprocessable_entity }
-      end
-    end
-
   end
 
   private
