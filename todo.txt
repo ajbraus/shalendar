@@ -1,6 +1,5 @@
 From Feedback Fiesta
 ----------
-tooltips explaining functionality
 
 'message attendees' functionality from inside event?
 
@@ -54,7 +53,11 @@ Adam
 	Map
 	Link
 
-	
+write email_comment.html email
+
+friend someone then the datepicker window stops working :o)
+
+when I click on "latest ideas" to remove them, it doesn't remove the counter!
 
 app request
 

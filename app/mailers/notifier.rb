@@ -89,6 +89,18 @@ class Notifier < ActionMailer::Base
     mail to: @user.email, subject: "Cancellation - #{@event.event_day}, #{@event.short_event_title}" 
   end
 
+  def email_comment(event, comment, user)
+    @commenter = comment.creator
+    @event = event
+    @comment = comment
+    @comments = event.comments.order('created_at DESC').limit(4)
+    @comments.shift(1)
+    @guest = user
+    @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
+    @event_link = "http://www.hoos.in/events/#{event.id}"
+    mail to: @guest.email, subject: "New Comment - #{@event.short_event_title}"
+  end
+
   def rsvp_reminder(event, user)
     @user = user
     @event = event

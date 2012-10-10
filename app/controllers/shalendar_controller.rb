@@ -85,6 +85,9 @@ class ShalendarController < ApplicationController
     end
   end
 
+  def admin_dashboard
+  end
+
   private
 
   def set_time_zone

@@ -47,6 +47,12 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+
+        @event.guests.each do |g|
+          if g.email_comments == true
+            Notifier.email_comment(@event, @comment, g)
+          end
+        end
         format.html { redirect_to @event, notice: 'Comment was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
       else

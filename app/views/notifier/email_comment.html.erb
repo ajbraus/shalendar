@@ -1,0 +1,42 @@
+<tr>
+	<td>
+		<h2 style="padding:0 0 0 10px;font-size:22px;"><%= @guest.first_name %>,</h2>
+	</td>
+</tr>
+
+<tr>
+	<td width="400" style="padding:0px 0 10px 10px;">	
+		<strong><%= @commenter %></strong> just commented on the idea <%= @event.title %>
+	</td>
+</tr>
+
+ <!-- RECENT COMMENT -->
+<tr>
+	<td width='450' style="padding:20px 0 5px 50px; font-weight:bold; font-size:18px;"> <%= @comment.content %></td>
+</tr>
+
+<tr>
+	<td style="padding:20px 0 10px 100px; color:grey; font-size:12px;"> <%= @comment.creator %> | <%= @comment_time %> </td>
+</tr>
+
+<hr>
+
+<% @comments.each do |c| %>
+<tr>
+	<td style="padding:10px 0 5px 20px; font-size:14px;"> <%= c.content %></td>
+</tr>
+
+<tr>
+	<td style="padding:5px 0 5px 80px; color:grey; font-size:10px;"> <%= c.creator %></td> | 
+	<td style="padding:5px 0 5px 10px; color:grey; font-size:10px;"> <%= c.created_at.strftime "%l:%M%P, %A %B %e" %></td>
+</tr>
+
+<% end %>
+
+<tr>
+	<td style="padding:10px 0 5px 20px; font-size:14px;"> . . . </td>
+</tr>
+
+<tr>
+	<td width="400" style="padding:20px 0 10px 10px;"> Check out this idea's <a href=<%= @event_link %>>page on hoos.in</a> to join.</td>
+</tr>
