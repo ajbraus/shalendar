@@ -63,7 +63,7 @@ class Api::V1::EventsController < ApplicationController
           :plan => @mobile_user.rsvpd?(@event),
           :tipped => @event.tipped,
           :guests => @event.guests,
-          :g_share => e.guests_can_invite_friends,
+          :g_share => e.guests_can_invite_friends?,
           :share_a => current_user.invited_all_friends?(e)
         }
     end
