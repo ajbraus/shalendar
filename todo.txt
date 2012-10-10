@@ -54,6 +54,8 @@ Adam
 	Map
 	Link
 
+	
+
 app request
 
 	remove permission to write to wall

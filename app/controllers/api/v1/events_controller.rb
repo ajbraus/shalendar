@@ -19,6 +19,10 @@ class Api::V1::EventsController < ApplicationController
       e.guests.each do |g|
         @guestids.push(g.id)
       end
+        @g_share = true
+        if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
+          @g_share = false
+        end
         @temp = {
         :eid => e.id,
         :title => e.title,  
@@ -30,7 +34,7 @@ class Api::V1::EventsController < ApplicationController
         :plan => @mobile_user.rsvpd?(e),
         :tipped => e.tipped,
         :gids => @guestids,
-        :g_share => e.guests_can_invite_friends,
+        :g_share => @g_share,
         :share_a => current_user.invited_all_friends?(e)
         }
      	@list_events.push(@temp)
