@@ -53,7 +53,7 @@ class Api::V1::EventsController < ApplicationController
       render :status => 400, :json => {:success => false}
     else
       @g_share = true
-      if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
+      if @event.guests_can_invite_friends.nil? || @event.guests_can_invite_friends == false
         @g_share = false
       end
       render json: { 
