@@ -8,7 +8,7 @@
   <%= render 'layouts/how_it_works' %>
   <% if user_signed_in? %>
   <ul>
-    <% if user.admin? %>
+    <% if current_user.admin? %>
       <%= link_to "Admin Dashboard", admin_dashboard_path %>
     <% end %>
     <% @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false') %>
