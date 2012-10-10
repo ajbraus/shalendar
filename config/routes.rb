@@ -82,6 +82,8 @@ Shalendar::Application.routes.draw do
   match 'search' => 'shalendar#search'
   match 'datepicker' => "shalendar#datepicker"
 
+  match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
+
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/careers', :to => 'static_pages#careers', :as => "careers"

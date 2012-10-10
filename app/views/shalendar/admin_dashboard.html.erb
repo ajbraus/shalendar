@@ -1,0 +1,13 @@
+<h1> Admin Dashboard </h1>
+<h2> <%= Date.today %></h2>
+
+<%  @total_users = User.all.count
+    @new_users_last_week = User.where('created_at > ?', Time.now - 1.week)
+    @inactive_users = User.where('last_sign_in_at < ?', Time.now - 1.month)
+    @active_users = User.where('last_sign_in_at > ? AND sign_in_count > 10', Time.now - 1.month) 
+%>
+
+<p> New Users Last Week: <%= @new_users_last_week %></p>
+<p> Total Users <%= @total_users %></p>
+<p> Active Users <%= @active_users %></p>
+<p> Inactive users <%= @inactive_users %></p>

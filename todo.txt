@@ -1,6 +1,5 @@
 From Feedback Fiesta
 ----------
-tooltips explaining functionality
 
 'message attendees' functionality from inside event?
 
@@ -53,6 +52,8 @@ Adam
 	Check lists
 	Map
 	Link
+
+write email_comment.html email
 
 friend someone then the datepicker window stops working :o)
 

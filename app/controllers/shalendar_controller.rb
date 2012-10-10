@@ -85,6 +85,13 @@ class ShalendarController < ApplicationController
     end
   end
 
+  def admin_dashboard
+    @total_users = User.all.count
+    @new_users_last_week = User.where('created_at > ?', Time.now - 1.week)
+    @inactive_users = User.where('last_sign_in_at < ?', Time.now - 1.month)
+    @active_users = User.where('last_sign_in_at > ? AND sign_in_count > 10', Time.now - 1.month)
+  end
+
   private
 
   def set_time_zone
