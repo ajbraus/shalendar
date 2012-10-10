@@ -30,12 +30,15 @@ Shalendar::Application.routes.draw do
         resources :tokens, :only => [:create, :destroy]
         resources :sessions, :only => [:create, :destroy]
         resources :registrations, :only => [:create, :destroy]
-        resources :relationships, :only => [:create]
-        resources :rsvps, :only => [:create]
+        #resources :relationships, :only => [:create]
+        #resources :rsvps, :only => [:create]
         #resources :events, :only => [:create] 
+        
+        match '/relationships', :to => 'relationships#create'
         
         match '/create_event', :to => 'events#mobile_create'
         #took out delete and post types bc not working from iphone http reqeust
+        match '/rsvps', :to => 'rsvps#create'
         match '/unrsvp', :to => 'rsvps#destroy'#, :via => :delete
         match '/unfollow', :to => 'relationships#destroy'#, :via => :delete
         match '/get_user_info', :to => 'shalendar#get_user_info', :via => :get
