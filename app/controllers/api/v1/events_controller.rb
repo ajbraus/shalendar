@@ -52,10 +52,9 @@ class Api::V1::EventsController < ApplicationController
     if @mobile_user.nil?
       render :status => 400, :json => {:success => false}
     else
+      @g_share = true
       if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
         @g_share = false
-      else
-        @g_share = true
       end
       render json: { 
           :eid => @event.id,
