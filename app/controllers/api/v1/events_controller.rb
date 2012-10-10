@@ -72,7 +72,7 @@ class Api::V1::EventsController < ApplicationController
           :tipped => @event.tipped,
           :guests => @event.guests,
           :g_share => @g_share,
-          :share_a => current_user.invited_all_friends?(e)
+          :share_a => current_user.invited_all_friends?(@event)
         }
     end
   end
