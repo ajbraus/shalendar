@@ -1389,15 +1389,53 @@ opacity: 0.2;
 
 #find_friends {
   font-size: 15px;
-  height:auto;
-  overflow:scroll;
+  height: auto;
+  overflow: scroll;
   z-index: 1000000;
+  margin: 0 auto;
+  width: 900px;
   table {
-    width:30%;
-    float:left;
+    width: 24%;
+    float: left;
+    margin: 0 4px;
   }
   td {
     text-align: left;
+  }
+}
+
+.fb_invite_friends {
+margin: 0 auto;
+width: 600px;
+padding-top: 25px;
+clear: both;
+height: 258px;
+  .invitees {
+    float:left;
+    height:200px;
+    width:300px;
+    overflow-y:auto;
+    textarea {
+          background-color:#F3F3F3;
+      width: 260px;
+      height: 140px;
+    }
+  }
+  .subject_message {
+    float:left;
+    width:300px;
+    height:200px;
+    input,textarea {
+      width:270px;
+    }
+    textarea {
+      height:60px;
+    }
+  }
+  .btn-fb-invite {
+    position: relative;
+    left: 490px;
+    bottom: 10px;
   }
 }
 

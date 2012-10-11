@@ -169,6 +169,13 @@ class Notifier < ActionMailer::Base
     rescue => ex
     Airbrake.notify(ex)
   end
+
+  def fb_invite(invitee_email, subject, message)
+    @invitee_email = invitee_email
+    @subject = subject
+    @message = message
+    mail to: @invitee_email, from: "info@hoos.in", subject: @subject
+  end
   
   # def failed_to_tip(event, user)
   #   @user = user

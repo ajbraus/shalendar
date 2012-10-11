@@ -8,7 +8,7 @@
 	</div>
 	<div class="social_friends">
 		<% if session[:access_token] %>
-			<%= link_to find_friends_path, :remote => true, class: "find_friends fancybox.ajax" do %>
+			<%= link_to find_friends_path, class: "find_friends" do %>
 				<%= image_tag "social/fb.png", :size => "50x50" %>
 			<% end %>
 		<% else %>

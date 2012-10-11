@@ -28,28 +28,29 @@ class ShalendarController < ApplicationController
     end
   end
 
-  def invite
-    @graph = session[:graph]
-    @graph.put_wall_post("I just joined hoos.in and want to invite you to join too. ~#{current_user.first_name}", {:name => "Hoos.in", :link => "http://www.hoos.in"}, "#{params[:username]}")
-    render :nothing => true
-  end
-
   def find_friends
-
     @graph = session[:graph]
     @friendships = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
-
     # @city_friends = @graph.fql_query(
     #   SELECT uid, name, location, pic_square
     #   FROM user 
     #   WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me() AND location = me())
     #   )
-
     @me = @graph.get_object('me')
-
+    @invite_friends = []
+    @member_friends = []
     @city_friends = @friendships.select { |friend| friend['location'].present? && friend['location']['id'] == @me['location']['id'] }
+    @city_friends.each do |cf|
+      @authentication = Authentication.find_by_uid(cf['id'])
+      if @authentication
+        @member_friends.push(cf)
+      else
+        @invite_friends.push(cf)
+      end
+    end
     respond_to do |format|
-      format.js
+      format.html
+      #format.js
     end
   end
 
@@ -100,6 +101,17 @@ class ShalendarController < ApplicationController
     #EVENTS
     @events_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).count
   end
+
+  def fb_invite 
+    @invitees = params[:invitees].split(', ')
+    @subject = params[:subject]
+    @message = params[:message]
+    @invitees.each do |username|
+      Notifier.fb_invite(username + "@facebook.com", @subject, @message)
+    end
+    redirect_to root_path, notice: 'Message successfully sent to selected Facebook Friends'
+  end
+
 
   private
 
