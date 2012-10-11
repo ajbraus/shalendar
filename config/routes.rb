@@ -71,7 +71,7 @@ Shalendar::Application.routes.draw do
     put :confirm_and_follow
   end
 
-  match '/invite', :to => 'shalendar#invite', :as => "invite"
+  match '/fb_invite', :to => 'shalendar#fb_invite', :as => "fb_invite"
 
   match '/user_plans_on_date', :to => 'shalendar#user_plans_on_date', :as => "user_plans_on_date"
   match '/user_ideas_on_date', :to => 'shalendar#user_ideas_on_date', :as => "user_ideas_on_date"

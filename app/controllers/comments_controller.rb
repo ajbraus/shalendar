@@ -49,7 +49,7 @@ class CommentsController < ApplicationController
         if params[:contact] == "1"
           @event.guests.each do |g|
             if g.email_comments == true
-              Notifier.email_comment(@event, @comment, g)
+              Notifier.email_comment(@event, @comment, g).deliver
             end
           end
         end

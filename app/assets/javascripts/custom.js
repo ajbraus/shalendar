@@ -161,6 +161,8 @@ $(document).bind('click', function(e) {
 		}
 	});
 
+  $('#fb_invite_friends').validate();
+
 	$("#registration_form").validate();
 
 
