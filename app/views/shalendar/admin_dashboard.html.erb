@@ -1,13 +1,21 @@
+<div class="admin">
 <h1> Admin Dashboard </h1>
 <h2> <%= Date.today %></h2>
 
-<%  @total_users = User.all.count
-    @new_users_last_week = User.where('created_at > ?', Time.now - 1.week)
-    @inactive_users = User.where('last_sign_in_at < ?', Time.now - 1.month)
-    @active_users = User.where('last_sign_in_at > ? AND sign_in_count > 10', Time.now - 1.month) 
-%>
+<h1>
+	Users
+</h1>
 
-<p> New Users Last Week: <%= @new_users_last_week %></p>
-<p> Total Users <%= @total_users %></p>
-<p> Active Users <%= @active_users %></p>
-<p> Inactive users <%= @inactive_users %></p>
+<p> New Users Last Week: <strong><%= @new_users_last_week %></strong></p>
+<p> Total Users: <strong><%= @total_users %></strong></p>
+<p> Active Users: <strong><%= @active_users %></strong></p>
+<p> Inactive users: <strong><%= @inactive_users %></strong></p>
+
+<h1>
+	Events
+</h1>
+
+<p> Events Next Week: <strong><%= @events_next_week %></strong></p>
+
+</div>
+</div>

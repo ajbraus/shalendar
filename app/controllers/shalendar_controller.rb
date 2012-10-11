@@ -1,6 +1,7 @@
 class ShalendarController < ApplicationController
   before_filter :authenticate_user!
   before_filter :set_time_zone
+
 	def home
     @plan_counts = []
     @invite_counts = []
@@ -86,6 +87,18 @@ class ShalendarController < ApplicationController
   end
 
   def admin_dashboard
+    unless current_user.admin?
+      redirect_to root_path
+    end
+
+    #USERS
+    @total_users = User.all.count
+    @new_users_last_week = User.where(['created_at > ?', Time.now - 1.week]).count
+    @inactive_users = User.where(['last_sign_in_at < ?', Time.now - 1.month]).count
+    @active_users = User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.now - 1.month]).count
+    
+    #EVENTS
+    @events_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).count
   end
 
   private

@@ -9,7 +9,9 @@
   <% if user_signed_in? %>
   <ul>
     <% if current_user.admin? %>
+    <li>
       <%= link_to "Admin Dashboard", admin_dashboard_path %>
+    </li>
     <% end %>
     <% @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false') %>
     <li>

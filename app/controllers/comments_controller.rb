@@ -44,13 +44,13 @@ class CommentsController < ApplicationController
     @event = Event.find(params[:event_id])
     @comment = @event.comments.build(params[:comment])
     @comment.creator = current_user.name
-
     respond_to do |format|
       if @comment.save
-
-        @event.guests.each do |g|
-          if g.email_comments == true
-            Notifier.email_comment(@event, @comment, g)
+        if params[:contact] == "1"
+          @event.guests.each do |g|
+            if g.email_comments == true
+              Notifier.email_comment(@event, @comment, g)
+            end
           end
         end
         format.html { redirect_to @event, notice: 'Comment was successfully created.' }
