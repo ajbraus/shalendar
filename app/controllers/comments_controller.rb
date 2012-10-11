@@ -48,7 +48,6 @@ class CommentsController < ApplicationController
       if @comment.save
         if params[:contact] == "1"
           @event.guests.each do |g|
-            binding.remote_pry
             if g.email_comments == true
               Notifier.email_comment(@event, @comment, g).deliver
             end
