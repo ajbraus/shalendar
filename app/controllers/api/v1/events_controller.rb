@@ -19,6 +19,10 @@ class Api::V1::EventsController < ApplicationController
       e.guests.each do |g|
         @guestids.push(g.id)
       end
+        @g_share = true
+        if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
+          @g_share = false
+        end
         @temp = {
         :eid => e.id,
         :title => e.title,  
@@ -30,7 +34,7 @@ class Api::V1::EventsController < ApplicationController
         :plan => @mobile_user.rsvpd?(e),
         :tipped => e.tipped,
         :gids => @guestids,
-        :g_share => e.guests_can_invite_friends,
+        :g_share => @g_share,
         :share_a => current_user.invited_all_friends?(e)
         }
      	@list_events.push(@temp)
@@ -52,6 +56,10 @@ class Api::V1::EventsController < ApplicationController
     if @mobile_user.nil?
       render :status => 400, :json => {:success => false}
     else
+      @g_share = true
+      if @event.guests_can_invite_friends.nil? || @event.guests_can_invite_friends == false
+        @g_share = false
+      end
       render json: { 
           :eid => @event.id,
           :title => @event.title,  
@@ -63,8 +71,8 @@ class Api::V1::EventsController < ApplicationController
           :plan => @mobile_user.rsvpd?(@event),
           :tipped => @event.tipped,
           :guests => @event.guests,
-          :g_share => e.guests_can_invite_friends,
-          :share_a => current_user.invited_all_friends?(e)
+          :g_share => @g_share,
+          :share_a => current_user.invited_all_friends?(@event)
         }
     end
   end
