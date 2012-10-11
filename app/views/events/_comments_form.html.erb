@@ -5,8 +5,7 @@
 	    <%= f.text_area :content, rows: 3, cols: 35 %>
 	  </div>
 	  <div class="checkbox">
-	  	<%= label_tag :contact, "Email RSVPs?" %><br />
-	    <%= check_box_tag :contact %>
+	  	<%= check_box_tag :contact %><%= label_tag :contact, "Email Comment to RSVPs?" %>	    
 	  </div>
 
 	  <p><%= f.submit "Leave Comment", class: "btn btn-primary" %></p>

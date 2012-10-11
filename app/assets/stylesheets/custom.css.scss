@@ -1912,6 +1912,17 @@ top: 7px;
   .field {
     margin-left:10px;
   }
+  .checkbox {
+    position: relative;
+left: 10px;
+top: 10px;
+font-size: 24px;
+  input {
+    position: relative;
+bottom: 3px;
+width: 20px;
+  }
+  }
 }
 
 .comment {
