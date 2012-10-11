@@ -21,8 +21,15 @@ class ShalendarController < ApplicationController
                         #  return an array of arrays each one a day 
                         #  with the suggestions inside
                         #end
-    @suggestions = Suggestion.where('starts_at IS NULL').order('created_at DESC')
+    @suggestions = []
+
+    @all_suggestions = Suggestion.where('starts_at IS NULL').order('created_at DESC')
                    #or Suggestion.join('user').where('city == ?' current_user.city)
+    @all_suggestions.each do |as|
+      unless current_user.cloned?(as) || current_user.rsvpd_to_clone?(as)
+        @suggestions.push(as)
+      end
+    end
     @vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
 	end
 

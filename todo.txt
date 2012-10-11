@@ -50,8 +50,6 @@ Adam
 
 This iteration todo:
 
-calendar of suggestions
-
 hide suggestions of clones you have RSVPd to
 
 make public yellow pages display and then make it load with ajax
@@ -80,6 +78,9 @@ move original/raster images in production AS3
 run migrations in production
 
 
+
+
+calendar of suggestions
 
 	Text message reminder to go to events (twillio)
 	Check lists

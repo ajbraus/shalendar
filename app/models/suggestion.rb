@@ -29,7 +29,7 @@ class Suggestion < ActiveRecord::Base
 
   has_attached_file :promo_img, :styles => { :original => '700x700',
                                              :large => '350x350',
-                                             :medium => '170x170'},
+                                             :medium => '100x170'},
                              :storage => :s3,
                              :s3_credentials => S3_CREDENTIALS,
                              :path => "suggestion/:attachment/:style/:id.:extension",
@@ -39,8 +39,7 @@ class Suggestion < ActiveRecord::Base
   validates :min, numericality: { in: 1..10000, only_integer: true }
   # validates :duration, numericality: { in: 0..1000 } 
   validates :title, length: { maximum: 140 }, presence: true
-  validates :category, 
-            :price, presence: true
+  validates :category, presence: true
   validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}
   # validates_numericality_of :lng, :lat
   @url = /^((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)?$/ 

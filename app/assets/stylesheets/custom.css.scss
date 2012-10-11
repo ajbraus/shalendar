@@ -177,21 +177,17 @@ right: 16px;
 }
 
 .btn-new-idea {
-padding: 20.5px 20px;
-float: left;
-position: absolute;
-left: 290px;
-top: 20px;
-border-radius: 0 5px 5px 0;
-}
-
-.btn-new-idea-vendor {
-float: left;
-position: absolute;
-left: 290px;
-top: 20px;
-border-radius: 0 5px 0px 0;
-padding: 5px 20px;
+  -moz-border-radius: 0 6px 6px 0px;
+  -webkit-border-radius: 0 6px 6px 0px;
+  border-radius: 0 6px 6px 0px;
+  border: 1px solid #9C33ED;
+  display: inline-block;
+  color: white;
+  font-family: arial;
+  position: absolute;
+left: 215px;
+top: 15px;
+padding: 20.5px 12px;
 }
 
 .btn-new-suggestion {
@@ -202,17 +198,7 @@ padding: 5px 20px;
   background: -moz-linear-gradient(center top, #A53DF6 5%, #7C16CB 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a53df6', endColorstr='#7c16cb');
   background-color: #A53DF6;
-  -moz-border-radius: 0 6px 6px 0px;
-  -webkit-border-radius: 0 6px 6px 0px;
-border-radius: 0 6px 6px 0px;
-border: 1px solid #9C33ED;
-display: inline-block;
-color: white;
-font-family: arial;
-position: absolute;
-left: 290px;
-top: 20px;
-padding: 20.5px 20px;
+
 }
 .btn-new-suggestion:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #7c16cb), color-stop(1, #a53df6) );
@@ -443,7 +429,7 @@ height: 58px;
   color:white;
 }
   nav {
-width: 1021px;
+width: 940px;
 margin: 0 auto;
 color: white;
 height: 58px;
@@ -451,16 +437,13 @@ height: 58px;
   .tagline {
 float: left;
 font-size: 14px;
-position: relative;
 width: 285px;
-right: 54px;
 line-height: 72px;
 height: 100%;
 }
   ul {
-float: left;
+float: right;
 position: relative;
-left: 75px;
 padding: 20px 0 0 0px;
   }
   li {
@@ -510,10 +493,8 @@ padding: 20px 0 0 0px;
 }
 
 .logo {
-width: 129px;
+width: 164px;
 float: left;
-position: relative;
-right: 60px;
 }
 
 .howto {
@@ -566,7 +547,7 @@ position: absolute;
 top: 7px;
 left: -138px;
 width: 194px;
-height: 83px;
+height: 101px;
 z-index: 10;
 font-size: 23px;
 background-color: #FAFAFA;
@@ -593,8 +574,8 @@ border-radius: 7px;
 
 .layout {
 clear: both;
-width: 1110px;
-min-height: 955px;
+width: 960px;
+min-height: 850px;
 margin: 0 auto;
 background-color: rgba(255, 255, 255, .6);
 z-index: -10;
@@ -613,9 +594,8 @@ background-color: rgba(255, 255, 255, 0.8);
 }
 
 .container {
-  width: 777px;
+width: 618px;
   float:right;
-  left: 55px;
   position: relative;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
@@ -652,7 +632,7 @@ left: 130px;
 
 div.dashboard {
 display: inline-block;
-width: 231px;
+width: 296px;
 position: relative;
 left: 18px;
   > div, p {
@@ -783,11 +763,10 @@ top:7px;
 }
 
 #datepicker {
-width: 635px;
+width: 565px;
 font-size: 17px;
 height: 93px;
 position: relative;
-left: 66px;
   table{
 float: left;
 width: 5%;
@@ -817,10 +796,10 @@ width: 5%;
 
 #datewindow {
   border: 7px solid #FF8500;
-width: 93px;
+width: 84px;
 height: 94px;
 position: absolute;
-left: 86px;
+left: 78px;
   top: -6px;
   z-index: -1;
 }
@@ -851,10 +830,10 @@ color: #4B9BED;
 }
 
 .new_idea {
-width: 330px;
+width: 100%;
 textarea {
-font-size: 19px;
-width: 257px;
+font-size: 18px;
+width: 185px;
 height: 45px;
 padding-right: 15px;
 }
@@ -923,14 +902,14 @@ height: 85px;
 #forecast {
 width:6440px;
 position: relative;
-right: 722px;
+right: 621px;
    > dl {
-width: 210px;
+width: 185px;
 float: left;
 position: relative;
 top: 6px;
 left: 17px;
-padding: 8px 10px 8px 12px;
+padding: 4px 8px 8px 5px;
 height: 100%;
 @box-sizing
   }
@@ -951,7 +930,7 @@ letter-spacing: 2px;
 .forecast {
 overflow-y: auto;
 overflow-x: hidden;
-width: 695px;
+width: 588px;
 height: 724px;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
@@ -961,15 +940,15 @@ height: 724px;
   -moz-box-shadow: 0 0 8px -1px #000;
   -webkit-box-shadow: 0 0 8px -1px #000;
   box-shadow: 0 0 8px -1px #000;
-  margin-top: 24px;
-  margin-left: 15px;
+margin-top: 18px;
+  margin-left: 17px;
     .gutter {
 border-right: 1px solid grey;
 border-left: 1px solid grey;
 height: 83%;
 position: absolute;
-left: 242px;
-width: 231px;
+left: 210px;
+width: 199px;
 top: 138px;
 z-index: 0;
   }
@@ -986,7 +965,7 @@ padding-top: 10px;
 .event {
 padding: 5px;
 height: 150px;
-width: 190px;
+width: 170px;
 position: relative;
 z-index: 1;
 margin: 10px;
@@ -1027,9 +1006,10 @@ top: 0;
 left: 0;
 color: white;
 background-color: #383838;
-padding: 3px 38px 0 5px;
+padding: 3px 3px 0 5px;
 position: absolute;
 font-size: 17px;
+width: 173px;
 img {
   width:20px;
 }
@@ -1054,9 +1034,10 @@ height: 71px;
 position: absolute;
 top: 27px;
 color: black;
-font-size: 22px;
+font-size: 19px;
 line-height: .95;
-width: 190px;
+width: 171px;
+padding: 2px;
 }
 
 .friends_attending {
@@ -1110,52 +1091,40 @@ width: 70px;
 }
 
 .rsvp_check {
-  position: absolute;
-  right: 17px;
-  bottom: 6px;
-  width: 15px;
+position: absolute;
+right: -2px;
+bottom: 6px;
 }
 
 /* NEXT PLAN */
 
 .next_plan {
-border: 7px solid #FF8500;
+/*border: 6px solid #FF8500;*/
+box-shadow: 0px 0px 34px -6px $rsvp;
 z-index: 0;
-width: 200px;
+width: 180px;
 height: 160px;
 position: absolute;
-bottom: -7px;
-left: -7px;
+bottom: 0px;
+left: 0px;
 }
 
 .btn_icon {
+position: relative;
+left: -3px;
+top: 6px;
+cursor: pointer;
+padding: 15px 12px;
   cursor: pointer;
-  display: inline-block;
-  color: white;
-  position: absolute;
-  bottom: -3px;
-  right: -12px;
-  font-family: arial;
-  font-size: 15px;
-  font-weight: normal;
-  text-decoration: none;
-  padding: 2px;
-  border-radius: 2px;
-}
-
-/*.btn_icon_unrsvp {
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5) );
-  background:-moz-linear-gradient( center top, #79bbff 5%, #378de5 100% );
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
-  background-color:#79bbff;
-  border:1px solid #84bbf3;
-  &:hover {
-    background:#ededed;
-    border:1px solid #dcdcdc;
-    display:inline-block;
-    color:#636363;
+ i {
+    color: white;
+    position: relative;
+    text-shadow: 1px 1px 1px black;
+  &:hover{
+  color:white;
   }
-}*/
+}
+}
 
 .btn_invite_all_friends {
   background-color: #5BB75B;
@@ -1166,13 +1135,6 @@ left: -7px;
   background-image: -moz-linear-gradient(top, #62C462, #51A351);
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
   filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-height: 125px;
-width: 38px;
-position: relative;
-left: -6px;
-top: 6px;
-font-size: 20px;
-line-height: 67px;
   &:hover {
       background-color: #5BB75B;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#51A351), to(#62C462));
@@ -1182,16 +1144,6 @@ line-height: 67px;
   background-image: -moz-linear-gradient(top, #51A351, #62C462);
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff51a351', endColorstr='#ff62c462#ff51a351', GradientType=0);
   filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-  }
-  .icon {
-    color: white;
-    position: relative;
-    top: 31px;
-    left: 9px;
-    text-shadow: 1px 1px 1px black;
-&:hover{
-  color:white;
-}
   }
 }
 
@@ -1204,19 +1156,6 @@ line-height: 67px;
   background-image: -moz-linear-gradient(top, #62C462, #51A351);
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
   filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-height: 59.9px;
-width: 38px;
-position: relative;
-left: -6px;
-top: 6px;
-font-size: 20px;
-.icon-ok-circle {
-  color:white;
-  font-size: 26px;
-position: relative;
-top: 15px;
-left: 8px;
-}
 }
 
 .btn_icon_rsvp {
@@ -1226,11 +1165,6 @@ left: 8px;
   background-color:#79bbff;
   border:1px solid #84bbf3;
   color:white;
-height: 126px;
-width: 38px;
-position: relative;
-left: -6px;
-top: 6px;
   &:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
   background:-moz-linear-gradient( center top, #378de5#79bbff 5%, #79bbff 100% );
@@ -1635,7 +1569,7 @@ z-index: -10;
 }
 
 .part {
-  padding:20px;
+  padding: 15px;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;
@@ -1749,7 +1683,7 @@ font-size: 37px;
 
 .icon {
   position: relative;
-top: 19px;
+  top: 19px;
   .btn-success{
     padding: 13px 6px 13px 7px;
     line-height: 6px;
@@ -2335,7 +2269,7 @@ top: 25%;
 height: 819px;
 overflow-y: auto;
 margin-bottom: 10px;
-width: 363px;
+width: 111%;
 margin-top: 10px;
 overflow-x: hidden;
 }
@@ -2392,7 +2326,7 @@ color: black
 
 #f1_container {
 position: relative;
-width: 170px;
+width: 140px;
 float: left;
 margin: 5px;
 font-size: 16px;

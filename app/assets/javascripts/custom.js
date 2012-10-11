@@ -52,7 +52,7 @@ $('#loading').ajaxStart(function(){
 
 $('.datePickerDay').click(function(){
   dw_position = $(this).position();
-  $('#datewindow').animate({ left: dw_position.left - 5}, 1000);
+  $('#datewindow').animate({ left: dw_position.left - 6}, 1000);
   date = $(this).attr('data-date');
   forecast_original_position = $('#forecast').position();
   forecast_day_position = $('dl').withDate(date).position();
@@ -169,6 +169,8 @@ $(document).bind('click', function(e) {
 	});
 
 	$("#registration_form").validate();
+
+  $('#new_suggestion_form').validate();
 
 
 // TABS

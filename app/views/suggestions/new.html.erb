@@ -1,12 +1,12 @@
 <div id="new_suggestion" class="event_form">
 	<h2>New Suggestion</h2>
-	 <%= form_for @suggestion, html: { id: "new_event_form" } do |f| %>
+	 <%= form_for @suggestion, html: { id: "new_suggestion_form" } do |f| %>
 	  <% if @suggestion.errors.any? %>
 	    <div id="error_explanation">
 	      <h2><%= pluralize(@suggestion.errors.count, "error") %> prohibited this user from being saved:</h2>
 
 	      <ul>
-	      <% @user.errors.full_messages.each do |msg| %>
+	      <% @suggestion.errors.full_messages.each do |msg| %>
 	        <li><%= msg %></li>
 	      <% end %>
 	      </ul>
@@ -34,13 +34,13 @@
 
 	  <p>
 	<div><%= f.label :display_image %><br />
-  <%= f.file_field :promo_img %></div>
+  <%= f.file_field :promo_img, class:"required" %></div>
   	</p>
 <p>
   <div class="invitation_options" style="display: block; clear:both;">
 		<u>
 			<%= f.label "Price" %><br>
-			<span class="dollar">$ </span><%= f.text_field :price %>
+			<span class="dollar">$ </span><%= f.text_field :price, autocomplete:"false" %>
 		</u>
 
 		<u>

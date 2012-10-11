@@ -51,19 +51,21 @@
 			<% end %>
 		</div>
 
-		<% if event.user == current_user && event.tipped? == false %>
-			<div class="force_tip">
-				<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true, id:"tipPin" %>
-			</div>
-		<% else %>
-			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
-		<% end %>
-		<% unless event.user == User.find_by_id(event.inviter_id) %>
-			<div class="host">by: <%= event.user.first_name.capitalize %> 
-				<% if event.user.last_name %>
-					<%= event.user.last_name.capitalize%>
-				<% end %> 
-			</div>
+		<% unless current_user.vendor? %>
+			<% if event.user == current_user && event.tipped? == false %>
+				<div class="force_tip">
+					<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true, id:"tipPin" %>
+				</div>
+			<% else %>
+				<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
+			<% end %>
+			<% unless event.user == User.find_by_id(event.inviter_id) %>
+				<div class="host">by: <%= event.user.first_name.capitalize %> 
+					<% if event.user.last_name %>
+						<%= event.user.last_name.capitalize%>
+					<% end %> 
+				</div>
+			<% end %>
 		<% end %>
 		</a>
 </div>
