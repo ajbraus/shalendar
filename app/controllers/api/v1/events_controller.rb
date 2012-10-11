@@ -19,24 +19,29 @@ class Api::V1::EventsController < ApplicationController
       e.guests.each do |g|
         @guestids.push(g.id)
       end
-        @g_share = true
-        if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
-          @g_share = false
-        end
-        @temp = {
-        :eid => e.id,
-        :title => e.title,  
-        :start => e.starts_at,#don't do timezone here, do it local on mobile
-        :end => e.ends_at, 
-        :gcnt => e.guests.count,  
-        :tip => e.min,  
-        :host => e.user,
-        :plan => @mobile_user.rsvpd?(e),
-        :tipped => e.tipped,
-        :gids => @guestids,
-        :g_share => @g_share,
-        :share_a => current_user.invited_all_friends?(e)
-        }
+      @invitedids = []
+      e.invited_users.each do |i|
+        @invitedids.push(i.id)
+      end
+      @g_share = true
+      if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
+        @g_share = false
+      end
+      @temp = {
+      :eid => e.id,
+      :title => e.title,  
+      :start => e.starts_at,#don't do timezone here, do it local on mobile
+      :end => e.ends_at, 
+      :gcnt => e.guests.count,  
+      :tip => e.min,  
+      :host => e.user,
+      :plan => @mobile_user.rsvpd?(e),
+      :tipped => e.tipped,
+      :gids => @guestids,
+      :iids => @invitedids,
+      :g_share => @g_share,
+      :share_a => current_user.invited_all_friends?(e)
+      }
      	@list_events.push(@temp)
     end
     respond_to do |format|
