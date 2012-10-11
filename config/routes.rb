@@ -92,6 +92,7 @@ Shalendar::Application.routes.draw do
   match 'search' => 'shalendar#search'
   match 'datepicker' => "shalendar#datepicker"
 
+  match '/public', :to => 'shalendar#city_vendor', :as => "city_vendors"
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
   match '/home', to: 'shalendar#home', as: "home"
 

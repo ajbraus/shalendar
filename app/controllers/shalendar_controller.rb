@@ -47,7 +47,6 @@ class ShalendarController < ApplicationController
   end
 
   def find_friends
-
     @graph = session[:graph]
     @friendships = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
 
@@ -63,6 +62,10 @@ class ShalendarController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def city_vendors
+    @vendors = User.where('city = current_user_city vendor = true', current_user_city: current_user.city)
   end
 
   def search

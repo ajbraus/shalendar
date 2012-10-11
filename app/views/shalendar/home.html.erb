@@ -12,13 +12,7 @@
 			<%= render 'new_idea_form' %>
 		<% end %>
 		</div>
-		
-	  <% unless current_user.vendor? %>
-	  	<%= render 'get_friends' %>
-	  <% end %>
-
 	  <%= render 'suggestions' %>
-	
 	</div>
 	<div class="container">
 		<%= render 'ribbon', :locals => { :next_plan => @next_plan } %>

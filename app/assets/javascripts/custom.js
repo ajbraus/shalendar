@@ -135,7 +135,7 @@ $(document).bind('click', function(e) {
 
 	$(".howto").fancybox();
 
-  $('#public').fancybox();
+  $('.city_vendors').fancybox();
 
 // SHOW/HIDE LINK AND MAP
 

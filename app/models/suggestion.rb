@@ -4,7 +4,7 @@ class Suggestion < ActiveRecord::Base
   belongs_to :user
   has_many :events
 
-  CATEGORIES = %w[active learning shopping night family] #adventure, culture, community
+  CATEGORIES = %w[active learning shopping night] #adventure, culture, community
 
   acts_as_gmappable :validation => false
 
@@ -28,10 +28,8 @@ class Suggestion < ActiveRecord::Base
                 :promo_img
 
   has_attached_file :promo_img, :styles => { :original => '700x700',
-                                             :large => '400x400',
-                                             :medium => '250x250'},
-                             :convert_options => { :original => '-quality 10',
-                                                   :medium => '-quality 30' },
+                                             :large => '350x350',
+                                             :medium => '170x170'},
                              :storage => :s3,
                              :s3_credentials => S3_CREDENTIALS,
                              :path => "suggestion/:attachment/:style/:id.:extension",

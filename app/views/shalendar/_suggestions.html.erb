@@ -1,30 +1,37 @@
-<div id="tabs-nested" class="suggestions part">
+<div id="tabs-nested" class="suggestions">
 	<ul>
 		<li>
 			<a href="ui-tabs-1">Events</a>
 		</li>
 		<li>
-			<a href="ui-tabs-2">Suggestions</a>
+			<a href="ui-tabs-7">Suggestions</a>
 		</li>
 	</ul>
-	<div id="ui-tabs-6">
+	<div id="ui-tabs-1">
 		<div id="events">
 			<ul>
 			<% Suggestion::CATEGORIES.each do |c| %>
 				<li>
-					<a href="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 8 %>">
+					<a href="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 3 %>">
 						<%= c.humanize %>
 					</a>
 				</li>
 			<% end %>
 			</ul>
 			<% Suggestion::CATEGORIES.each do |c| %>
-				<div id="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 8 %>">
+				<div id="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 3 %>">
 				<% @event_suggestions.each do |es| %>
 					<% if es.category == c %>
-						<dl>
-								<%= render :partial => "suggestions/suggestion", :locals => { :suggestion => es } %>
-						</dl>
+						<div id="f1_container" class="hover" data-suggestion-id="<%= es.id %>">
+							<div id="f1_card">
+								<div class="front face">
+	    						<%= image_tag es.promo_img.url(:medium) %>
+	  						</div>
+								<div class="back face center">
+									<%= render :partial => "suggestions/suggestion", :locals => { :suggestion => es } %>
+								</div>
+							</div>
+						</div>
 					<% end %>
 				<% end %>
 				</div>
@@ -32,19 +39,19 @@
 		</div>
 	</div>
 
-	<div id="ui-tabs-7">
+	<div id="ui-tabs-2">
 		<div id="suggestions">
 		<ul>
 		<% Suggestion::CATEGORIES.each do |c| %>
 			<li>
-				<a href="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 13 %>">
+				<a href="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 8 %>">
 					<%= c.humanize %>
 				</a>
 			</li>
 		<% end %>
 		</ul>
 		<% Suggestion::CATEGORIES.each do |c| %>
-			<div id="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 13 %>">
+			<div id="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 8 %>">
 			<% @suggestions.each do |s| %>
 				<% if s.category == c %>
 					<%= render :partial => "suggestions/suggestion", :locals => { :suggestion => s } %>

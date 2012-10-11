@@ -48,7 +48,39 @@ new follower email link not working
 Adam
 --------------
 
-	Have "Good friends" where you get contacted directly/mobile when they create an invitation
+This iteration todo:
+
+calendar of suggestions
+
+hide suggestions of clones you have RSVPd to
+
+make public yellow pages display and then make it load with ajax
+
+order things by them being your friends or not
+
+invite folks -- ask premission to post to their stream
+
+FQL query for facebook friends, display alphabetically and if on hoosin then not
+
+max - if nil set to 1,000,000
+
+add jquery pickdatetime to event create
+
+make create event/create suggestion textfield work w button
+
+yesterday tomorrow buttons working
+
+carrot next to picture
+
+
+CUTTOVER 
+
+move original/raster images in production AS3
+
+run migrations in production
+
+
+
 	Text message reminder to go to events (twillio)
 	Check lists
 	Map
@@ -56,17 +88,17 @@ Adam
 
 friend someone then the datepicker window stops working :o)
 
+invite someone then hover stops working
+
 when I click on "latest ideas" to remove them, it doesn't remove the counter!
+
+month view
 
 bring order to 'lastest ideas'
 
 invite, guest list: order by ppl you already friended
 facebook friends: order by ppl already on hoosin
 
-
-
-save original and raster profile images
-save original and medium promo_imgs
 
 
 
@@ -85,20 +117,9 @@ when suggestion is created if it has a time already create an event - creating t
 vendors cannot friend or follow
 ppl can only follow vendors
 
-TODO
 
-Add promo_img to new suggestion form and display it in the vendor dashboard and the suggestion menu
-http://css3.bradshawenterprises.com/flip/
 
-hide suggestions of clones you have RSVPd to
 
-make public yellow pages display and then make it load with ajax
-
-order things by them being your friends or not
-
-app request
-
-	then when they want to invite folks ask for permission
 
 Close viral loop:
 	Invite friends pulls in facebook friends (FQL query for friends in city, then not on hoos.in)
@@ -120,33 +141,6 @@ def remind
 	else flash notification every 15 minutes on screen of homepage, play noise?
 end
 
-max - if nil set to 1,000,000
-
-views:
-	Vendor Dashboard
-	Vendor Events menu
-		list w "more" button
-	Header dropdown
-
-Methods:
-	
-	Clone
-	CRUD Suggestion events
-
-Tables:
-
-	Vendor
-
-Models:
-
-	Event
-	Event.user
-	Event.vendor
-
-
-
-once you invite tooltips stop working
-
 hidden settings page
 
 add "you are now friends with x" to relationship#create.js
@@ -163,32 +157,13 @@ invite people who went to other events but without having to follow them
 
 add beautiful dialogue box for confirm to join event
 
-facebook friends FQL query and alphabetical and ppl on hoosin first
-
 daily digest if new events
-
-users are not interacting enough because
-	1. they can't connect with each other
-	2. They don't know what's going on
-	3. Their friends don't know what their doing.
-
-
-lump together hide all view all
-	create routes
-	create relationship controller actions
-	create js files
-
-how many facebook friends they have in their city
-
-maps problems
 
 remove vendor/cache gems
 
-Chronic error message unclear, dealing with chronic errors
-
 operators agreement
 
-carrot next to picture
+
                                                            
                       
 Side note: put_wall_post posts to user/feeds, which doesn’t `include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)

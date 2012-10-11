@@ -1,16 +1,5 @@
-<div id="public" style="display: none;">
+<div id="city_vendors">
 	<h1><%= current_user.city %></h1>
-	<ul>
-		<% Suggestion::CATEGORIES.each do |c| %>
-			<li>
-				<a href="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 1 %>">
-					<%= c %>
-				</a>
-			</li>
-		<% end %>
-	</ul>
-	<% Suggestion::CATEGORIES.each do |c| %>
-	<div id="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 1 %>">
 		<% @vendors.each do |v| %>
 				<table>
 				<tr>
@@ -23,7 +12,5 @@
 			    </td>
 				</tr> 
 			</table>
-		<% end %>
-	</div>
 	<% end %>
 </div>

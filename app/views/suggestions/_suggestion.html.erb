@@ -1,40 +1,36 @@
 <% unless current_user.cloned?(suggestion.id) %>
-<dt><%= suggestion.start_date %></dt>
-	<% if suggestion.ends_at < Time.now %>
-		<dd class="suggestion not_rsvpd over" data-suggestion-id="<%= suggestion.id %>">
-	<% else %>
-		<dd class="suggestion not_rsvpd" data-suggestion-id="<%= suggestion.id %>"
+<dl class="suggestion"> 
+	<dt><%= suggestion.start_date %></dt>
+		<dd>
+			<div class="event_time">			
+				<% if suggestion.starts_at.hour > 4 && suggestion.starts_at.hour < 12 %>
+					<%= image_tag "morning.png" %>
+				<% elsif suggestion.starts_at.hour > 12 && suggestion.starts_at.hour < 18 %>
+					<%= image_tag "noon.png" %>
+				<% else %>
+					<%= image_tag "night.png" %>
+				<% end %>
+				<span><%= event_start_time(suggestion) %> - <%= event_end_time(suggestion) %></span>
+			</div></br>
+	<% if false %>
+			<div class="event_pic"><%= raster_profile_picture(User.find_by_id(suggestion.user_id)) %></div>
 	<% end %>
+			<div class="event_blerb"><%= suggestion.short_event_title %></div>
 
-	<a href="/suggestions/<%= suggestion.id %>">
-		<div class="event_time">			
-			<% if suggestion.starts_at.hour > 4 && suggestion.starts_at.hour < 12 %>
-				<%= image_tag "morning.png" %>
-			<% elsif suggestion.starts_at.hour > 12 && suggestion.starts_at.hour < 18 %>
-				<%= image_tag "noon.png" %>
-			<% else %>
-				<%= image_tag "night.png" %>
+			<div class="clone">
+				<%= link_to "clone", {controller: 'suggestions', action: 'clone', :suggestion_id => "#{suggestion.id}"} %>
+			</div>
+			
+			<div class="host">by: <%= suggestion.user.first_name.capitalize %> 
+					<% if suggestion.user.last_name %>
+						<%= suggestion.user.last_name.capitalize%>
+					<% end %> 
+			</div>
+			<% if suggestion.family_friendly %>
+				<div class="family_friendly"><i class="icon-home"></i></div>
 			<% end %>
-			<span><%= event_start_time(suggestion) %> - <%= event_end_time(suggestion) %></span>
-		</div></br>
-<% if false %>
-		<div class="event_pic"><%= raster_profile_picture(User.find_by_id(suggestion.user_id)) %></div>
+	</dd>
+</dl>
 <% end %>
-		<div class="event_blerb"><%= suggestion.short_event_title %></div>
 
-		<div class="clone">
-			<%= link_to "clone", {controller: 'suggestions', action: 'clone', :suggestion_id => "#{suggestion.id}"} %>
-		</div>
-		
-		<div class="host">by: <%= suggestion.user.first_name.capitalize %> 
-				<% if suggestion.user.last_name %>
-					<%= suggestion.user.last_name.capitalize%>
-				<% end %> 
-		</div>
-		<% if suggestion.family_friendly %>
-			<div class="family_friendly"><i class="icon-home"></i></div>
-		<% end %>
-	</a>
-</dd>
-<% end %>
 
