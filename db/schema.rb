@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009224307) do
+ActiveRecord::Schema.define(:version => 20121004191905) do
 
   create_table "authentications", :force => true do |t|
     t.string   "provider"
@@ -179,8 +179,6 @@ ActiveRecord::Schema.define(:version => 20121009224307) do
     t.datetime "avatar_updated_at"
     t.string   "time_zone"
     t.integer  "new_invited_events_count", :default => 0
-    t.boolean  "email_comments",           :default => true
-    t.boolean  "admin",                    :default => false
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
