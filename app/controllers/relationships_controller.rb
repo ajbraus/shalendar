@@ -4,7 +4,10 @@ before_filter :authenticate_user!
   def create
     @user = User.find(params[:relationship][:followed_id])
 
-    if @user.require_confirm_follow?  && (@user.following?(current_user) == false)#autoconfirm if already following us
+    if(current_user.following?(@user) || current_user.request_following?(@user))
+      redirect_to :back, notice: "You are already friends"
+    end
+    elsif @user.require_confirm_follow?  && (@user.following?(current_user) == false)#autoconfirm if already following us
       current_user.follow!(@user)
       @relationship = current_user.relationships.find_by_followed_id(@user.id) #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
       @relationship.confirmed = false
