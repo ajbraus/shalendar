@@ -8,7 +8,9 @@
 			<% end %>
 			<div id="new_suggestion_element"></div>
 		<% else %>
-			<a class="btn btn-rsvp btn-new-idea" href="#new_idea" title="Make a New Idea"><i class="icon-cloud"></i></a>
+			<%= link_to new_event_path, class: "btn btn-rsvp btn-new-idea", title:"Make a New Idea" do %>
+				<i class="icon-cloud"></i>
+			<% end %>
 			<%= render 'new_idea_form' %>
 		<% end %>
 		</div>

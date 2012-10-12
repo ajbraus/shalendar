@@ -56,9 +56,8 @@ Shalendar::Application.routes.draw do
 
   match '/clone', :to => 'suggestions#clone', as: "clone"
   match '/dashboard', :to => 'suggestions#index', :as => "vendor_dashboard"
-
-
-  match 'new_suggestion', :to => "suggestions#new"
+  
+  match 'new_suggestion', :to => "suggestions#new", :as => 'new_suggestion'
   match 'allow_suggestions', :to => 'shalendar#allow_suggestions'
   match '/manage_follows', :to => 'shalendar#manage_follows', :as => "manage_follows"
 

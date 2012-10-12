@@ -823,14 +823,14 @@ color:darkgrey;
 color: #4B9BED;
 }
 
-#new_idea {
+/*#new_idea {
   width:470px;
   height:auto;
   overflow:auto;
   padding:30px;
   padding-bottom:20px;
   padding-top: 14px;
-}
+}*/
 
 .new_idea {
 width: 100%;
@@ -2417,6 +2417,9 @@ background-color: white;
   text-align: center;
   line-height: 19px;
   font-size: 15px;
+  background-color: #F0F0F0;
+border-top: 1px solid lightGrey;
+margin-top: 3px;
 }
 
 .suggestion {
