@@ -57,7 +57,7 @@ body {
   color: #333;
   position: relative;
   min-height: 100%;
-  background-color:#E9E9E9;
+  background-color:#F0F0F0;
   strong {
     font-family: bariol_bold, arial, sans-serif;
     font-weight: bold;
@@ -185,7 +185,7 @@ right: 16px;
   color: white;
   font-family: arial;
   position: absolute;
-left: 215px;
+left: 261px;
 top: 15px;
 padding: 20.5px 12px;
 }
@@ -364,7 +364,7 @@ span.red a {
 -moz-border-radius: 0 5px 5px 0;
 border-radius: 0 5px 5px 0;
 font-size: 14px;
-padding: 5.2px 6px;
+padding: 5.6px 6px;
 position: relative;
 right: 5px;
 bottom:.5px;
@@ -437,14 +437,15 @@ height: 58px;
   .tagline {
 float: left;
 font-size: 14px;
-width: 285px;
-line-height: 72px;
-height: 100%;
+width: 100px;
+line-height: 16px;
+padding-top: 21px;
 }
   ul {
 float: right;
 position: relative;
 padding: 20px 0 0 0px;
+height: 39px;
   }
   li {
     display: inline;
@@ -495,14 +496,15 @@ padding: 20px 0 0 0px;
 .logo {
 width: 164px;
 float: left;
+height: 50px;
 }
 
 .howto {
 position: relative;
-left: 8px;
 color: $rsvp;
 font-size: 16px;
 font-style: normal;
+top: 34px;
   &:hover{
     text-decoration:underline;
   }
@@ -579,7 +581,7 @@ min-height: 850px;
 margin: 0 auto;
 background-color: rgba(255, 255, 255, .6);
 z-index: -10;
-padding: 10px 0px;
+padding: 15px 0px;
 }
 
 .element {
@@ -674,7 +676,7 @@ padding: 10px;
 border: 1px solid #BBB;
 z-index: 5;
 width: 305px;
-position: relative;
+position: absolute;
 box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, .75);
 
 }
@@ -763,10 +765,11 @@ top:7px;
 }
 
 #datepicker {
-width: 565px;
-font-size: 17px;
+width: 578px;
+font-size: 12px;
 height: 93px;
 position: relative;
+bottom: 7px;
   table{
 float: left;
 width: 5%;
@@ -795,12 +798,12 @@ width: 5%;
 }
 
 #datewindow {
-  border: 7px solid #FF8500;
+  border: 3px solid #FF8500;
 width: 84px;
 height: 94px;
 position: absolute;
-left: 78px;
-  top: -6px;
+left: 84px;
+top: 0px;
   z-index: -1;
 }
 
@@ -833,7 +836,7 @@ color: #4B9BED;
 width: 100%;
 textarea {
 font-size: 18px;
-width: 185px;
+width: 79%;
 height: 45px;
 padding-right: 15px;
 }
@@ -956,7 +959,7 @@ z-index: 0;
 
 .forecastDate {
 height: 25px;
-font-size: 25px;
+font-size: 20px;
 text-shadow: 0.5px 0.5px 0 #AAAFCA;
 text-align: center;
 padding-top: 10px;
@@ -1034,7 +1037,7 @@ height: 71px;
 position: absolute;
 top: 27px;
 color: black;
-font-size: 19px;
+font-size: 16px;
 line-height: .95;
 width: 171px;
 padding: 2px;
@@ -2059,7 +2062,7 @@ width: 230px;
 
 .event_form {
   margin: 0 auto;
-  width: 510px;
+  width: 442px;
   p{
     line-height: 1;
     margin:10px 0;
@@ -2067,7 +2070,7 @@ width: 230px;
  textarea {
     font-size: 20px;
     line-height: 24px;
-    width: 452px;
+    width: 418px;
     margin-bottom: 10px;
     margin-top:5px;
     -webkit-border-radius: 8px;
@@ -2102,14 +2105,19 @@ width: 230px;
     }
   }
   input.starts_at {
-    width: 361px;
-    margin-top: 5px;
-    font-size: 20px;
+width: 342px;
+float: left;
+margin-top: 5px;
+font-size: 20px;
+margin-bottom: 10px;
   }
   input.duration {
-    width:53px;
-    margin-left:5px;
-    font-size: 20px;
+    width: 50px;
+margin-left: 5px;
+font-size: 20px;
+float: right;
+margin-top: 5px;
+margin-bottom: 10px;
   }
   input.link {
     width: 345px;
@@ -2273,6 +2281,11 @@ width: 111%;
 margin-top: 10px;
 overflow-x: hidden;
 }
+.ui-state-default, 
+.ui-widget-content .ui-state-default, 
+.ui-widget-header .ui-state-default {
+font-size: 10.3px;
+}
 
 .ui-tabs {
   padding:0;
@@ -2281,10 +2294,18 @@ overflow-x: hidden;
   width: 98%;
 }
 
-#tabs-nested.ui-widget-content {
+#tabs_nested{
 border: none;
 background: none;
 color: black
+}
+
+#tabs-nested {
+  .ui-widget-content {
+border: none;
+background: none;
+color: black;
+}
 }
 
 .ui-helper-reset {
@@ -2302,10 +2323,16 @@ color: black
 
 #f1_container {
   position: relative;
-  margin: 10px auto;
-  width: 450px;
-  height: 281px;
   z-index: 1;
+  width: 150px;
+  font-size: 16px;
+  height: 184px;
+  padding: 3px;
+  float:left;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  -o-perspective: 1000px;
+  perspective: 1000px;
 }
 
 #f1_container:hover #f1_card, #f1_container.hover_effect #f1_card {
@@ -2324,27 +2351,11 @@ color: black
   box-shadow: -5px 5px 5px #aaa;
 }
 
-#f1_container {
-position: relative;
-width: 140px;
-float: left;
-margin: 5px;
-font-size: 16px;
-height: 170px;
-padding: 3px;
-}
-
 .hover, img {
 -webkit-user-select: none;
 -webkit-touch-callout: none;
 }
 
-#f1_container {
-  -webkit-perspective: 1000px;
-  -moz-perspective: 1000px;
-  -o-perspective: 1000px;
-  perspective: 1000px;
-}
 #f1_card {
   width: 100%;
   height: 100%;
@@ -2370,7 +2381,7 @@ padding: 3px;
 .face {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 101%;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -o-backface-visibility: hidden;
@@ -2387,43 +2398,72 @@ padding: 3px;
   transform: rotateY(180deg);
   box-sizing: border-box;
   padding: 10px;
-  color: white;
+color: black;
+background-color: white;
+}
+
+.suggestions_on_date {
+  padding-left: 10px;
+  ul{
+    display:inline;
+  li {
+    width: 146px;
+  }
+}
+}
+
+.suggestion_date {
+  height: 19px;
   text-align: center;
-  background-color: #AAA;
+  line-height: 19px;
+  font-size: 15px;
 }
 
 .suggestion {
 position: relative;
-height: 154px;
+height: 178px;
 float: left;
-margin: 5px;
 font-size: 16px;
-padding: 3px;
+padding: 6px;
 .event_blerb {
 font-size: 14px;
-height: 58px;
-top: 30px;
-width: 152px;
-left: 4px;
+height: 89px;
+top: 32px;
+width: 140px;
+left: 5px;
+position: relative;
 }
 .event_time {
-  font-size: 11px;
-width: 160px;
+font-size: 12px;
+width: 150px;
+height: 28px;
+line-height: 35px;
 span {
 display: inline-block;
 margin-bottom: 0px;
 }
 }
 .host {
-bottom: 21px;
-left: 8px;
-width: 152px;
-height: 32px;
+left: 6px;
+position: absolute;
+top: 146px;
+height: 29px;
+width: 95px;
 }
-.clone {
+.btn_icon {
   position: relative;
-top: 50px;
-left: 109px;
+left: -1px;
+top: -5px;
+cursor: pointer;
+padding: 15px 12px;
+cursor: pointer;
+}
+.family_friendly{
+  width: 10px;
+height: 10px;
+position: absolute;
+top: 127px;
+left: 2px;
 }
 }
 

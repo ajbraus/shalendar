@@ -50,10 +50,6 @@ Adam
 
 This iteration todo:
 
-hide suggestions of clones you have RSVPd to
-
-make public yellow pages display and then make it load with ajax
-
 order things by them being your friends or not
 
 invite folks -- ask premission to post to their stream
@@ -66,10 +62,6 @@ add jquery pickdatetime to event create
 
 make create event/create suggestion textfield work w button
 
-yesterday tomorrow buttons working
-
-carrot next to picture
-
 
 CUTTOVER 
 
@@ -79,6 +71,13 @@ run migrations in production
 
 
 
+
+
+yesterday tomorrow buttons working
+
+carrot next to picture
+
+make public yellow pages display and then make it load with ajax
 
 calendar of suggestions
 

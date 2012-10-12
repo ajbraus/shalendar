@@ -1,0 +1,32 @@
+<div class="event_time">			
+	<% if suggestion.starts_at.hour > 4 && suggestion.starts_at.hour < 12 %>
+		<%= image_tag "morning.png" %>
+	<% elsif suggestion.starts_at.hour > 12 && suggestion.starts_at.hour < 18 %>
+		<%= image_tag "noon.png" %>
+	<% else %>
+		<%= image_tag "night.png" %>
+	<% end %>
+	<span><%= event_start_time(suggestion) %> - <%= event_end_time(suggestion) %></span>
+</div>
+<div class="event_blerb"><%= suggestion.short_event_title %></div>
+
+<div class="rsvp_check">
+	<%= link_to(nil, {controller: 'suggestions', action: 'clone', :suggestion_id => "#{suggestion.id}", class:"btn_icon btn_icon_rsvp", title:"Add to Your Forecast",confirm: "Are you sure you want to add this to your calendar?"}) do %>
+		<i class="icon-share-alt"></i>
+	<% end %>
+</div>
+
+<div class="host"><%= suggestion.user.first_name.capitalize %> 
+		<% if suggestion.user.last_name %>
+			<%= suggestion.user.last_name.capitalize%>
+		<% end %> 
+</div>
+<% if suggestion.family_friendly %>
+	<div class="family_friendly"><i class="icon-home"></i></div>
+<% end %>
+<% if false %>
+<div class="event_pic"><%= raster_profile_picture(User.find_by_id(suggestion.user_id)) %></div>
+<% end %>
+
+
+

@@ -11,18 +11,35 @@ class ShalendarController < ApplicationController
     @event = Event.new
     @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
     @toggled_off_ids = current_user.reverse_relationships.where('toggled = false')
-    @event_suggestions = Suggestion.where('starts_at IS NOT NULL and starts_at > ?', Time.now).order('starts_at ASC')
-                        #needs by city
-                        #@city = current_user.city
-                        #@event_suggestions = @city.event_suggestions(Time.now.in_time_zone(current_user.time_zone))
-                        #in city model
-                        #def event_suggestions(time_now)
-                        #  silo by vendors in a city
-                        #  return an array of arrays each one a day 
-                        #  with the suggestions inside
-                        #end
+    
+    @event_suggestions = []
+    @all_event_suggestions = Suggestion.where('starts_at IS NOT NULL and starts_at > ?', Time.now).order('starts_at ASC')
+    (0..21).each do |date_index|
+      @suggestions_on_date = []
+      @date = Date.today + date_index.days
+      @all_event_suggestions.each do |es|
+        if current_user.vendor?
+          if es.starts_at.to_date == @date
+            @suggestions_on_date.push(es)
+          end
+        else
+          if es.starts_at.to_date == @date && (!current_user.cloned?(es) || !current_user.rsvpd_to_clone?(es))
+            @suggestions_on_date.push(es)
+          end
+        end
+      end
+      @event_suggestions.push(@suggestions_on_date)
+    end
+        #needs by city
+        #@city = current_user.city
+        #@event_suggestions = @city.event_suggestions(Time.now.in_time_zone(current_user.time_zone))
+        #in city model
+        #def event_suggestions(time_now)
+        #  silo by vendors in a city
+        #  return an array of arrays each one a day 
+        #  with the suggestions inside
+        #end
     @suggestions = []
-
     @all_suggestions = Suggestion.where('starts_at IS NULL').order('created_at DESC')
                    #or Suggestion.join('user').where('city == ?' current_user.city)
     @all_suggestions.each do |as|

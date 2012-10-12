@@ -121,10 +121,13 @@ class User < ActiveRecord::Base
   end
 
   def rsvpd_to_clone?(suggestion_id)
-    if rsvps.find_by_plan_id((self.events.find_by_suggestion_id(suggestion_id)).id)
-      return true
-    else
-      return false
+    @event = events.find_by_suggestion_id(suggestion_id)
+    unless @event.nil?
+      if rsvps.find_by_plan_id(@event.id).any?
+        return true
+      else
+        return false
+      end
     end
   end
 

@@ -29,7 +29,7 @@ class Suggestion < ActiveRecord::Base
 
   has_attached_file :promo_img, :styles => { :original => '700x700',
                                              :large => '350x350',
-                                             :medium => '100x170'},
+                                             :medium => '170x170'},
                              :storage => :s3,
                              :s3_credentials => S3_CREDENTIALS,
                              :path => "suggestion/:attachment/:style/:id.:extension",

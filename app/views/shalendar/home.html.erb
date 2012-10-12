@@ -3,7 +3,7 @@
 		<div class="new_idea part">
 			<textarea id="new_idea_blerb"></textarea>
 		<%if current_user.vendor? %>
-			<%= link_to new_suggestion_path, class: "btn btn-new-idea btn-new-suggestion", title: "Make New Suggestion" do %>
+			<%= link_to new_suggestion_path, class: "btn btn-new-idea btn-rsvp", title: "Make New Suggestion" do %>
 					<i class="icon-bullhorn"></i>
 			<% end %>
 			<div id="new_suggestion_element"></div>
@@ -35,12 +35,3 @@
 		document.ready(Func1Delay());
 	</script>
 <% end %>
-
-<script>
-// INITIALLY HIDE ALL UNTOGGLED USERS
-<% @toggled_off_ids.each do |toi| %>
-  document.ready(function(){
-		$('a').withInviterId("<%= toi.followed.id %>").hide();
-  });
- <% end %>
-</script>

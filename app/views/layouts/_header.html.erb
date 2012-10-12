@@ -4,8 +4,8 @@
     <%= link_to root_path, class: "white" do %>
       Do Great Things With Friends
     <% end %>
-    <a href="#howItWorks" class="howto">How it Works?</a>
   </div>
+  <a href="#howItWorks" class="howto">How it Works?</a>
   <%= render 'layouts/how_it_works' %>
   <% if user_signed_in? %>
   <ul>
@@ -52,6 +52,7 @@
           <% end %>
         <% end %>
       </li>
+      <% if false %>
       <li class="get_friends">
         <div class="city-icon">
           <%= link_to city_vendors_path, :remote => true, class:"city_vendors fancybox.ajax" do %>
@@ -59,6 +60,7 @@
           <% end %>
         </div>
       </li>
+      <% end %>
       <li class="get_friends">
         <% if session[:access_token] %>
           <%= link_to find_friends_path, :remote => true, class: "find_friends fancybox.ajax" do %>

@@ -19,8 +19,8 @@
 	  <p>
 	   <%= label :starts_at, "When does it start?" %>
 	   <%= label :duration, "How Long?", class: "duration" %><br/>
-	   <%= f.text_field :chronic_starts_at, id: "datetime", class: "required starts_at", autocomplete: "off" %>
-	   <%= f.text_field :duration, placeholder:"#hrs", class: "required duration", autocomplete: "off"  %>
+	   <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at", autocomplete: "off" %>
+	   <%= f.text_field :duration, placeholder:"#hrs", class: "duration", autocomplete: "off"  %>
 	  </p>
 	  <p>
 	    <%= label :category, "Category" %><br/>
@@ -36,19 +36,20 @@
 	<div><%= f.label :display_image %><br />
   <%= f.file_field :promo_img, class:"required" %></div>
   	</p>
-<p>
-  <div class="invitation_options" style="display: block; clear:both;">
-		<u>
-			<%= f.label "Price" %><br>
-			<span class="dollar">$ </span><%= f.text_field :price, autocomplete:"false" %>
-		</u>
+  	
+		<p>
+		  <div class="invitation_options" style="display: block; clear:both;">
+				<u>
+					<%= f.label "Price" %><br>
+					<span class="dollar">$ </span><%= f.text_field :price, autocomplete:"off" %>
+				</u>
 
-		<u>
-		  <%= f.label :max_attendees, "Max Attendees" %> <br/>
-		  <%= f.text_field :max, :class => 'input-mini', value: 50, autocomplete: "off" %>
-		</u>
-	</div>
-</p>
+				<u>
+				  <%= f.label :max_attendees, "Max Attendees" %> <br/>
+				  <%= f.text_field :max, :class => 'input-mini', value: 200, autocomplete: "off" %>
+				</u>
+			</div>
+		</p>
 
 		<p>
 	  	<%= f.label "Family Friendly?" %><br>
