@@ -66,7 +66,7 @@ Shalendar::Application.routes.draw do
 
   resources :rsvps, only: [:create, :destroy]
   resources :invitations, only: [:create, :destroy]
-  resources :relationships, only: [:create, :destroy, :toggle, :remove, :comfirm] do
+  resources :relationships, only: [:create, :destroy, :toggle, :comfirm] do
     put :toggle
     delete :ignore
     put :confirm

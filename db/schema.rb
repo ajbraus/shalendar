@@ -75,8 +75,6 @@ ActiveRecord::Schema.define(:version => 20121009224307) do
     t.float    "latitude"
     t.boolean  "gmaps"
     t.boolean  "guests_can_invite_friends"
-    t.integer  "suggestion_id"
-    t.float    "price"
   end
 
   create_table "gcm_devices", :force => true do |t|
@@ -149,30 +147,6 @@ ActiveRecord::Schema.define(:version => 20121009224307) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
-  create_table "suggestions", :force => true do |t|
-    t.datetime "starts_at"
-    t.datetime "ends_at"
-    t.string   "title"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
-    t.integer  "user_id"
-    t.integer  "min",                    :default => 1
-    t.integer  "max",                    :default => 10000
-    t.float    "duration"
-    t.string   "link"
-    t.string   "address"
-    t.float    "longitude"
-    t.float    "latitude"
-    t.boolean  "gmaps"
-    t.string   "category"
-    t.float    "price"
-    t.boolean  "family_friendly"
-    t.string   "promo_img_file_name"
-    t.string   "promo_img_content_type"
-    t.integer  "promo_img_file_size"
-    t.datetime "promo_img_updated_at"
-  end
-
   create_table "users", :force => true do |t|
     t.string   "email",                    :default => "",    :null => false
     t.string   "encrypted_password",       :default => "",    :null => false
@@ -205,7 +179,6 @@ ActiveRecord::Schema.define(:version => 20121009224307) do
     t.datetime "avatar_updated_at"
     t.string   "time_zone"
     t.integer  "new_invited_events_count", :default => 0
-    t.boolean  "vendor",                   :default => false
     t.boolean  "email_comments",           :default => true
     t.boolean  "admin",                    :default => false
   end
