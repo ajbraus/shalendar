@@ -96,6 +96,9 @@ class Notifier < ActionMailer::Base
     @comments = event.comments.order('created_at DESC').limit(4)
     @comments.shift(1)
     @guest = user
+    if(@guest.iPhone_user == true)
+      APN.notify(@guest.APNtoken, {:alert => "#{@inviter.name} sent you an invitation!", :badge => 1, :sound => true})
+    end
     @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
     @event_link = "http://www.hoos.in/events/#{event.id}"
     mail to: @guest.email, subject: "New Comment - #{@event.short_event_title}"
