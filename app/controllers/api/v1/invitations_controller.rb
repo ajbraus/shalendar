@@ -5,7 +5,7 @@ class Api::V1::InvitationsController < ApplicationController
   def create
   	@mobile_user = User.find_by_id(params[:user_id])
   	@other_user = User.find_by_id(params[:other_user_id])
-    @event = Event.find(params[:event_id])
+    @event = Event.find_by_id(params[:event_id])
 
     @mobile_user.invite!(@event, @other_user)
 
