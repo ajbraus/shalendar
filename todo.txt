@@ -16,6 +16,8 @@ update git repo to company
 Mike
 ------------
 
+Some guests_can_invite_friends bool are nil, wtf?
+
 Click someone's face to find their friends too
 
 Mailers running in background
