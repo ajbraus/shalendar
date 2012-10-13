@@ -97,7 +97,7 @@ class Notifier < ActionMailer::Base
     @comments.shift(1)
     @guest = user
     if(@guest.iPhone_user == true)
-      APN.notify(@guest.APNtoken, {:alert => "#{@commenter.name} said #{comment.content}!", :badge => 1, :sound => true})
+      APN.notify(@guest.APNtoken, {:alert => "#{@commenter} said #{comment.content}!", :badge => 1, :sound => true})
     end
     @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
     @event_link = "http://www.hoos.in/events/#{event.id}"
