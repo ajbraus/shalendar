@@ -16,7 +16,7 @@ gem 'daemons'
 #gem 'dalli'
 gem 'resque', "~> 1.22.0", :require => "resque/server"
 gem 'resque-heroku-autoscaler'
-gem 'hirefire'
+#gem 'hirefire'
 gem 'redis'
 gem 'heroku'
 gem 'gcm_on_rails', :git => "git://github.com/dondeng/gcm_on_rails.git"

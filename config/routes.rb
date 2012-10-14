@@ -27,7 +27,7 @@ Shalendar::Application.routes.draw do
     namespace :api do
       namespace :v1 do
         #problem... POST/DELETE requests are being processed as GET..
-        resources :tokens, :only => [:create, :destroy]
+        #resources :tokens, :only => [:create, :destroy]
         resources :sessions, :only => [:create, :destroy]
         resources :registrations, :only => [:create, :destroy]
         #resources :relationships, :only => [:create]
@@ -35,7 +35,7 @@ Shalendar::Application.routes.draw do
         #resources :events, :only => [:create] 
         
         match '/relationships', :to => 'relationships#create'
-        
+        match '/tokens', :to => 'tokens#create'
         match '/invitations', :to => 'invitations#create'
         match '/invite_all_friends', :to => 'invitations#invite_all_friends'
         match '/create_event', :to => 'events#mobile_create'
