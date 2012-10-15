@@ -192,7 +192,10 @@ class Notifier < ActionMailer::Base
         n.save
       end
     end
-      mail to: @user.email, subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
+    mail to: @user.email, subject: "Time change - #{@event.short_event_title}"
+    
+    rescue => ex
+    Airbrake.notify(ex)
   end
 
   # def time_change(*args)
