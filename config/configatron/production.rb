@@ -2,3 +2,4 @@
 # 
 # Example:
 #   configatron.file.storage = :s3
+RAILS_ROOT, APN::App::RAILS_ENV='production'

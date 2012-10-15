@@ -175,11 +175,23 @@ class Api::V1::TokensController  < ApplicationController
       render :json => { :success => true }
       return
     end
+
+    #do a more robust check to make sure we don't use same id and same token ever,
+    #and that we shouldn't make extra devices
     @user.APNtoken = token
     @user.iPhone_user = true
+    device = APN::Device.new
+    device.token = @user.APNtoken
+    device.save!
+    @user.apn_device_id = device.id
     @user.save!
-    
-    #APN.notify(token, {:alert => "You're now signed up for notifications", :badge => 1, :sound => true})
+
+    n = APN::Notification.new
+    n.device = APN::Device.find_by_id(@user.apn_device_id)
+    n.sound = true
+    n.badge = 3
+    n.alert = "you have registered for push"
+    n.save
 
     render :json => { :success => true, :token => token }
   end
@@ -195,7 +207,8 @@ class Api::V1::TokensController  < ApplicationController
       end
     end
     device = Gcm::Device.create(registration_id: registration_id)
-
+    device.save
+    
     notification = Gcm::Notification.new
     notification.device = device
     notification.collapse_key = "updates_available"

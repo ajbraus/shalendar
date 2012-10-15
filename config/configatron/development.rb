@@ -2,3 +2,4 @@
 # 
 # Example:
 #   configatron.file.storage = :local
+RAILS_ROOT, APN::App::RAILS_ENV='development'

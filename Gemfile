@@ -22,6 +22,7 @@ gem 'configatron'
 gem 'apn_on_rails', :git => "https://github.com/PRX/apn_on_rails.git"
 gem 'gcm_on_rails', :git => "git://github.com/dondeng/gcm_on_rails.git"
 
+gem 'delayed_job_active_record'
 
 gem 'airbrake'
 gem 'newrelic_rpm'

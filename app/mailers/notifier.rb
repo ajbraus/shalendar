@@ -6,7 +6,7 @@ class Notifier < ActionMailer::Base
 
   require 'apn_on_rails'
   require 'gcm_on_rails'
-  
+
   # AD HOC NOTIFIERS
 
   def user_update(email)
@@ -161,20 +161,54 @@ class Notifier < ActionMailer::Base
 
   end
 
-  def time_change(*args)
-
-    @event = Event.find_by_id(args[0])
-    @user = User.find_by_id(args[1])
+  def time_change(event, user)
+    @user = user
+    @event = event
+    @event_link = "http://www.hoos.in/events/#{event.id}"
 
     if(@user.iPhone_user == true)
-      APN.notify(@user.APNtoken, {:alert => "Time Change - #{@event.short_event_title}", :badge => 1, :sound => true})
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "#{@event.title} changed time!"
+        n.badge = 1
+        n.sound = true
+        n.save
+      end
     end
-
-    mail to: @user.email, from: "info@hoos.in", subject: "Time Change - #{@event.short_event_title}"
-    
-    rescue => ex
-    Airbrake.notify(ex)
+    if(@user.android_user == true)
+      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "#{@event.title} changed time!"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "#{event.title} changed time!"}}
+        n.save
+      end
+    end
+      mail to: @user.email, subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
   end
+
+  # def time_change(*args)
+
+  #   @event = Event.find_by_id(args[0])
+  #   @user = User.find_by_id(args[1])
+
+  #   if(@user.iPhone_user == true)
+  #     APN.notify(@user.APNtoken, {:alert => "Time Change - #{@event.short_event_title}", :badge => 1, :sound => true})
+  #   end
+
+  #   mail to: @user.email, from: "info@hoos.in", subject: "Time Change - #{@event.short_event_title}"
+    
+  #   rescue => ex
+  #   Airbrake.notify(ex)
+  # end
 
   def fb_invite(invitee_email, subject, message)
     @invitee_email = invitee_email
