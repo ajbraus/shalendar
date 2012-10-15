@@ -15,18 +15,17 @@ update git repo to company
 
 Mike
 ------------
+Fix so sending push notifications better than every 10 minutes (after creating, check some counter, then run the task)
+
+GCM push testing
 
 Some guests_can_invite_friends bool are nil, wtf?
 
 Click someone's face to find their friends too
 
-Mailers running in background
-
 	Auto-scale workers
 
-schedule tip cron job- what exactly should we do?
-
-destroy old emailInvites and invitations
+store and remove old emailInvites and invitations
 
 new follower email link not working
 
@@ -37,12 +36,8 @@ new follower email link not working
 		Create Event (3?)
 		Native/local Register User (4?)
 		Style (3-4)
-		Views (3-4)
-			Reload eventDetails after RSVP, display different on list 
-			Make sure can click through to event details more than once
-			Refresh button to reload event list
-			Toggling display, not just hide (bc takes up space)
 		Times (4)
+		Check load delays with broadband
 
 
 Adam
