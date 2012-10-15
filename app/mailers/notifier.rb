@@ -69,7 +69,6 @@ class Notifier < ActionMailer::Base
     @user = user
     @event_link = "http://www.hoos.in/events/#{event.id}"
     if(@user.iPhone_user == true)
-      APN.notify(@user.APNtoken, {:alert => "#{@event.user.first_name}\'s plan for #{@event.event_day} tipped!", :badge => 1, :sound => true})
     end
     mail to: @user.email, subject: "Tipped - #{@event.event_day}\'s Idea Tipped! - #{@event.short_event_title}"
   end
@@ -78,7 +77,6 @@ class Notifier < ActionMailer::Base
     @user = event.user
     @event = event
     if(@user.iPhone_user == true)
-      APN.notify(g.APNtoken, {:alert => "Untipped idea - #{@event.short_event_title}", :badge => 1, :sound => true})
     end
     mail to: @user.email, subject: "Untipped idea - #{@event.short_event_title}"
   end
@@ -87,7 +85,6 @@ class Notifier < ActionMailer::Base
     @user = user
     @event = event
     if(@user.iPhone_user == true)
-      APN.notify(@user.APNtoken, {:alert => "Canceled #{@event.title}", :badge => 1, :sound => true})
     end
     mail to: @user.email, subject: "Cancellation - #{@event.event_day}, #{@event.short_event_title}" 
   end
@@ -100,7 +97,6 @@ class Notifier < ActionMailer::Base
     @comments.shift(1)
     @guest = user
     if(@guest.iPhone_user == true)
-      APN.notify(@guest.APNtoken, {:alert => "#{@commenter} said #{comment.content}!", :badge => 1, :sound => true})
     end
     @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
     @event_link = "http://www.hoos.in/events/#{event.id}"
@@ -113,7 +109,6 @@ class Notifier < ActionMailer::Base
     @event_link = "http://www.hoos.in/events/#{event.id}"
 
     if(@user.iPhone_user == true)
-      APN.notify(@user.APNtoken, { :alert => "#{@vent.title} starting soon!", :badge => 1, :sound => true})
     elsif(@user.android_user == true)
       #need to know how Gcm::Devices behave- do they persist?
       if(Gcm::Device.find_by_id(@user.GCMdevice_id).nil? == false)#if we have a device for user
@@ -136,7 +131,6 @@ class Notifier < ActionMailer::Base
     #@inviter_pic = raster_profile_picture(@inviter)
     @event_link = "http://www.hoos.in/events/#{@event.id}"
     if(@user.iPhone_user == true)
-      APN.notify(@user.APNtoken, {:alert => "#{@inviter.name} sent you an invitation!", :badge => 1, :sound => true})
     end
     mail to: @user.email, subject: "You're invited to #{@event.short_event_title}"
   end
@@ -152,7 +146,6 @@ class Notifier < ActionMailer::Base
     #should we include here an invited by X to make them more likely to join?
     if @user = User.find_by_email(@invite.email)
       if(@user.iPhone_user == true)
-        APN.notify(@user.APNtoken, {:alert => "#{@inviter.name} sent you an invitation!", :badge => 1, :sound => true})
       end
       mail to: @user.email, subject: "You're invited to #{@event.short_event_title}"
     else
@@ -204,7 +197,6 @@ class Notifier < ActionMailer::Base
   #   @user = User.find_by_id(args[1])
 
   #   if(@user.iPhone_user == true)
-  #     APN.notify(@user.APNtoken, {:alert => "Time Change - #{@event.short_event_title}", :badge => 1, :sound => true})
   #   end
 
   #   mail to: @user.email, from: "info@hoos.in", subject: "Time Change - #{@event.short_event_title}"
@@ -224,7 +216,6 @@ class Notifier < ActionMailer::Base
   #   @user = user
   #   @event = event
   #   if(@user.iPhone_user == true)
-  #     APN.notify(@user.APNtoken, {:alert => "Failed to Tip - #{@event.event_day}, #{@event.short_event_title}", :badge => 1, :sound => true})
   #   end
   #   mail to: @user.email, subject: "Failed to Tip - #{@event.event_day}, #{@event.short_event_title}" 
   # end
