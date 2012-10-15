@@ -124,7 +124,7 @@ class EventsController < ApplicationController
       Notifier.delay.cancellation(@event, g)
     end
 
-    @event.destroy
+    #@event.destroy
 
     respond_to do |format|
       format.html { redirect_to home_path, notice: 'Idea was successfully removed' }

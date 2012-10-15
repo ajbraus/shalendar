@@ -221,6 +221,9 @@ class Notifier < ActionMailer::Base
       end
     end
     mail to: @user.email, subject: "Cancellation - #{@event.event_day}, #{@event.short_event_title}" 
+    
+    @event.destroy
+    
     rescue => ex
     Airbrake.notify(ex)
   end
