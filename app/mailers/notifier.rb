@@ -46,6 +46,8 @@ class Notifier < ActionMailer::Base
   def welcome(user)
     @user = user
     mail to: user.email, subject: "welcome to hoos.in"
+    rescue => ex
+    Airbrake.notify(ex)
   end
 
   #PREFERENCE NOTIFIERS, DEFAULT YES
@@ -81,6 +83,8 @@ class Notifier < ActionMailer::Base
     end
     #@friend_pic = raster_profile_picture(@follower)
     mail to: user.email, subject: "New Friend Request - #{@follower.name}"
+    rescue => ex
+    Airbrake.notify(ex)
   end
 
   def new_friend(user, friend)
@@ -114,6 +118,8 @@ class Notifier < ActionMailer::Base
     end
     #@follower_pic = raster_profile_picture(@user)
     mail to: user.email, subject: "New Friend - #{@follower.name}"
+    rescue => ex
+    Airbrake.notify(ex)
   end
 
   def event_tipped(event, user)
@@ -147,6 +153,8 @@ class Notifier < ActionMailer::Base
       end
     end
     mail to: @user.email, subject: "Tipped - #{@event.event_day}\'s Idea Tipped! - #{@event.short_event_title}"
+    rescue => ex
+    Airbrake.notify(ex)
   end
 
   def tip_or_destroy(event)
@@ -179,6 +187,8 @@ class Notifier < ActionMailer::Base
       end
     end
     mail to: @user.email, subject: "Untipped idea - #{@event.short_event_title}"
+    rescue => ex
+    Airbrake.notify(ex)
   end
 
   def cancellation(event, user)
@@ -211,6 +221,8 @@ class Notifier < ActionMailer::Base
       end
     end
     mail to: @user.email, subject: "Cancellation - #{@event.event_day}, #{@event.short_event_title}" 
+    rescue => ex
+    Airbrake.notify(ex)
   end
 
   def email_comment(event, comment, user)
@@ -249,6 +261,8 @@ class Notifier < ActionMailer::Base
     @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
     @event_link = "http://www.hoos.in/events/#{event.id}"
     mail to: @guest.email, subject: "New Comment - #{@event.short_event_title}"
+    rescue => ex
+    Airbrake.notify(ex)
   end
 
   def rsvp_reminder(event, user)
@@ -281,7 +295,9 @@ class Notifier < ActionMailer::Base
         n.save
       end
     end
-      mail to: @user.email, subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
+    mail to: @user.email, subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
+    rescue => ex
+    Airbrake.notify(ex)
   end
 
   def invitation(event, invitee, inviter)
@@ -318,6 +334,8 @@ class Notifier < ActionMailer::Base
       end
     end
     mail to: @user.email, subject: "You're invited to #{@event.short_event_title}"
+    rescue => ex
+    Airbrake.notify(ex)
   end
 
   def email_invitation(invite, event)
@@ -360,7 +378,8 @@ class Notifier < ActionMailer::Base
     else
       mail to: @invite.email, subject: "#{@inviter.name} sent you an invitation"
     end
-
+    rescue => ex
+    Airbrake.notify(ex)
   end
 
   def time_change(event, user)
@@ -405,6 +424,8 @@ class Notifier < ActionMailer::Base
     @subject = subject
     @message = message
     mail to: @invitee_email, from: "info@hoos.in", subject: @subject
+    rescue => ex
+    Airbrake.notify(ex)
   end
   
   # def failed_to_tip(event, user)
@@ -438,5 +459,5 @@ class Notifier < ActionMailer::Base
   #   rescue => ex
   #   Airbrake.notify(ex)
   # end
-  
+
 end

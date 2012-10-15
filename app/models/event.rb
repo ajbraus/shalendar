@@ -109,12 +109,13 @@ class Event < ActiveRecord::Base
 
   def self.check_tip_deadlines
     #want to change this to be for each event, check the deadline, if it's in the window then act
-    @tip_window_floor = Time.now + 2.hours + 50.minutes
-    @tip_window_ceiling = Time.now + 3.hours
-    @relevant_events = Event.where(':window_floor <= events.starts_at AND 
-                        events.starts_at < :window_ceiling',
-                        window_floor: @tip_window_floor, window_ceiling: @tip_window_ceiling)
-    @relevant_events.each do |re|
+    # @tip_window_floor = Time.now + 1.hour + 50.minutes
+    # @tip_window_ceiling = Time.now + 2.hours
+    # @relevant_events = Event.where(':window_floor <= events.starts_at AND 
+    #                     events.starts_at < :window_ceiling',
+    #                     window_floor: @tip_window_floor, window_ceiling: @tip_window_ceiling)
+    time_range = Time.now + 1.hour + 50.minutes .. Time.now + 2.hours
+    Event.where(starts_at: time_range).each do |re|
       if re.tipped?
         re.guests.each do |g|
           Notifier.delay.rsvp_reminder(re, g)
@@ -123,7 +124,6 @@ class Event < ActiveRecord::Base
         Notifier.delay.tip_or_destroy(re)
       end
     end
-
   end
 
   def self.clean_up
