@@ -8,8 +8,15 @@ require File.expand_path('../config/application', __FILE__)
     require 'gcm_on_rails_tasks'
   rescue MissingSourceFile => e
     puts e.message
+    Airbrake.notify(e)
   end
   
+ 	begin   
+ 		require 'apn_on_rails_tasks'   
+	rescue MissingSourceFile => e   
+ 		puts e.message
+ 		Airbrake.notify(e)  
+	end  
   
 Shalendar::Application.load_tasks
 

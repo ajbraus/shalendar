@@ -21,8 +21,7 @@ Some guests_can_invite_friends bool are nil, wtf?
 Click someone's face to find their friends too
 
 Mailers running in background
-	took this out of Procfile in favor or a resque worker: worker: bundle
-	exec rake jobs:work
+
 	Auto-scale workers
 
 schedule tip cron job- what exactly should we do?

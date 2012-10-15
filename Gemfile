@@ -11,16 +11,18 @@ gem 'koala'
 gem 'thin'
 gem 'chronic'
 gem 'twilio-rb'
-gem 'apn_sender', :require => 'apn'
-gem 'daemons'
-#gem 'dalli'
-gem 'resque', "~> 1.22.0", :require => "resque/server"
-gem 'resque-heroku-autoscaler'
-#gem 'hirefire'
-gem 'redis'
 gem 'heroku'
+
+# gem 'apn_sender', :require => 'apn'
+# gem 'daemons'
+# gem 'resque', "~> 1.22.0", :require => "resque/server"
+# gem 'resque-heroku-autoscaler'
+# gem 'redis'
+gem 'configatron'
+gem 'apn_on_rails', :git => "https://github.com/PRX/apn_on_rails.git"
 gem 'gcm_on_rails', :git => "git://github.com/dondeng/gcm_on_rails.git"
-#gem 'apn_on_rails'
+
+
 gem 'airbrake'
 gem 'newrelic_rpm'
 gem 'heroku'

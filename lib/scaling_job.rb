@@ -1,7 +1,7 @@
-class ScalingJob
-  extend HerokuResqueAutoScale
+# class ScalingJob
+#   extend HerokuResqueAutoScale
 
-  def self.perform
-    # Do something long running
-  end
-end
+#   def self.perform
+#     # Do something long running
+#   end
+# end

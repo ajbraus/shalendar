@@ -6,6 +6,15 @@ GIT
       configatron
       json
 
+GIT
+  remote: https://github.com/PRX/apn_on_rails.git
+  revision: ca98c7c130f089fba9bdf992ab4dbcea41e4b714
+  specs:
+    apn_on_rails (0.5.1)
+      actionpack
+      activerecord
+      configatron
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -41,9 +50,6 @@ GEM
       builder
       girl_friday
     annotate (2.4.1.beta1)
-    apn_sender (1.0.5)
-      resque
-      resque-access_worker_from_job
     arel (3.0.2)
     aws-sdk (1.3.9)
       httparty (~> 0.7)
@@ -217,8 +223,6 @@ GEM
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-protection (1.2.0)
-      rack
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.2)
@@ -245,19 +249,6 @@ GEM
     rake (0.9.2.2)
     rdoc (3.12)
       json (~> 1.4)
-    redis (3.0.2)
-    redis-namespace (1.2.1)
-      redis (~> 3.0.0)
-    resque (1.22.0)
-      multi_json (~> 1.0)
-      redis-namespace (~> 1.0)
-      sinatra (>= 0.9.2)
-      vegas (~> 0.1.2)
-    resque-access_worker_from_job (0.3.1)
-      resque
-    resque-heroku-autoscaler (0.2.3)
-      heroku
-      resque (>= 1.8)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rspec (2.10.0)
@@ -287,10 +278,6 @@ GEM
     sendgrid (1.0.1)
       json
       json
-    sinatra (1.3.3)
-      rack (~> 1.3, >= 1.3.6)
-      rack-protection (~> 1.2)
-      tilt (~> 1.3, >= 1.3.3)
     slop (3.3.3)
     spork (0.9.2)
     sprockets (2.1.3)
@@ -317,8 +304,6 @@ GEM
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     uuidtools (2.1.3)
-    vegas (0.1.11)
-      rack (>= 1.0.0)
     warden (1.1.1)
       rack (>= 1.0)
     whenever (0.7.3)
@@ -334,13 +319,13 @@ PLATFORMS
 DEPENDENCIES
   airbrake
   annotate (~> 2.4.1.beta)
-  apn_sender
+  apn_on_rails!
   aws-sdk (~> 1.3.4)
   capybara (= 1.1.2)
   chronic
   coffee-rails (= 3.2.2)
   coffeebeans
-  daemons
+  configatron
   devise (= 2.1.0)
   devise-i18n
   email_spec (= 1.2.1)
@@ -368,9 +353,6 @@ DEPENDENCIES
   rails (= 3.2.6)
   rails-i18n
   rails_autolink (~> 1.0.9)
-  redis
-  resque (~> 1.22.0)
-  resque-heroku-autoscaler
   rspec-rails (= 2.10.1)
   sass-rails (= 3.2.4)
   sendgrid (~> 1.0.1)

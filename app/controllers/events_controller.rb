@@ -98,7 +98,7 @@ class EventsController < ApplicationController
         if @start_time != @event.starts_at
           ##NEED TO FIX RESQUE
           @event.guests.each do |g|
-            Resque.enqueue(MailerCallback, "Notifier", :time_change, @event.id, g.id)
+            #Resque.enqueue(MailerCallback, "Notifier", :time_change, @event.id, g.id)
           end
         end
         if @event.guests.count >= @event.min
