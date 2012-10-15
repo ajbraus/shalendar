@@ -14,18 +14,14 @@ class ShalendarController < ApplicationController
     
     @event_suggestions = []
     @all_event_suggestions = Suggestion.where('starts_at IS NOT NULL and starts_at > ?', Time.now).order('starts_at ASC')
-    (0..21).each do |date_index|
+    (-3..16).each do |date_index|
       @suggestions_on_date = []
-      @date = Date.today + date_index.days
-      @all_event_suggestions.each do |es|
+      @date = Time.now.to_date + date_index.days
+      @suggestions_on_date = @all_event_suggestions.select do |es| 
         if current_user.vendor?
-          if es.starts_at.to_date == @date
-            @suggestions_on_date.push(es)
-          end
-        else
-          if es.starts_at.to_date == @date && (!current_user.cloned?(es) || !current_user.rsvpd_to_clone?(es))
-            @suggestions_on_date.push(es)
-          end
+          es.starts_at.to_date == @date 
+        else 
+          es.starts_at.to_date == @date && (!current_user.cloned?(es) || !current_user.rsvpd_to_clone?(es))
         end
       end
       @event_suggestions.push(@suggestions_on_date)
@@ -73,13 +69,11 @@ class ShalendarController < ApplicationController
   def find_friends
     @graph = session[:graph]
     @friendships = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
-
     # @city_friends = @graph.fql_query(
     #   SELECT uid, name, location, pic_square
     #   FROM user 
     #   WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me() AND location = me())
     #   )
-
     @me = @graph.get_object('me')
 
     @city_friends = @friendships.select { |friend| friend['location'].present? && friend['location']['id'] == @me['location']['id'] }

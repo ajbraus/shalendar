@@ -1,14 +1,16 @@
 <div id="datewindow"></div>
-<div class="weeks_months"></div>
 <% for i in -3..16 do %>
-	<table class="datePickerDay" data-date=<%= "#{Date.today + i}" %> <%= "class='weeks'" if i == 1 || i == 7 || i == 14 %>
-		<tr>
-			<td class='months'>
-				<%= (Date.today + i).day == 1 ? raw("#{(Date.today + i).strftime("%b")}")  : raw("&nbsp;") %>
-			</td>
+	<table class="datePickerDay" data-date=<%= "#{Time.now.to_date + i}" %> <%= "class='weeks'" if i == 1 || i == 7 || i == 14 %>
 		<tr>
 			<th>
-				<%= i == 0 ? raw("<span class='red'>#{(Date.today + i).strftime("%e") + "<br/>" + (Date.today + i).strftime(" %a").slice!(0..2) }</span>") : raw((Date.today + i).strftime("%e") + "<br/>" + (Date.today + i).strftime(" %a").slice!(0..2)) %>
+				<% case %>
+				<% when i == 0 %>
+					<%= raw("<span class='red'>#{(Time.now.to_date + i).strftime("%e") + "<br/>" + (Time.now.to_date + i).strftime(" %a").slice!(0..2) }</span>") %>
+				<% when (Time.now.to_date + i).day == 1 %>
+					<%= raw("#{(Time.now.to_date + i).strftime("%b")}") %>
+				<% else %>
+					<%= raw((Time.now.to_date + i).strftime("%e") + "<br/>" + (Time.now.to_date + i).strftime(" %a").slice!(0..2)) %>
+				<% end %>
 	  	</th>
 	  </tr>
 	  <tr>

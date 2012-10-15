@@ -4,7 +4,11 @@
 	    <ul>
 	      <li><%= link_to "About",   about_path %></li>
 	      <li><%= link_to "Opportunities", careers_path %></li>
-	      <li><%= link_to "Create a Vendor Account", vendor_splash_path, class:"red" %></li>
+	      <% if user_signed_in? %>
+	      <% if current_user.admin? %>
+	      	<li><%= link_to "Create a Vendor Account", vendor_splash_path, class:"red" %></li>
+	      <% end %>
+	      <% end %>
 	    </ul>
 	  </nav>
 	</p>

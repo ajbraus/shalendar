@@ -19,6 +19,10 @@ $grayLight:#eaeaea;
 $gray:#eaeaea;
 $grayDarker:#eaeaea;
 
+/*RESPONSIVE DESIGN*/
+
+/*@media screen and */
+
 
 /* FONTS */
 
@@ -99,6 +103,7 @@ textarea:focus, input:focus {
   }
   img {
     margin:20px 20px;
+    width: 860px;
   }
 }
 
@@ -185,8 +190,8 @@ right: 16px;
   color: white;
   font-family: arial;
   position: absolute;
-left: 261px;
-top: 15px;
+left: 255px;
+top: 0px;
 padding: 20.5px 12px;
 }
 
@@ -441,11 +446,17 @@ width: 100px;
 line-height: 16px;
 padding-top: 21px;
 }
-  ul {
+  ul.right_header {
 float: right;
 position: relative;
-padding: 20px 0 0 0px;
-height: 39px;
+bottom:37px;
+height: 0px;
+  }
+  ul.left_header {
+    float: left;
+position: relative;
+top: 18px;
+width: 300px;
   }
   li {
     display: inline;
@@ -465,6 +476,11 @@ height: 39px;
   .ceiling {
     color:darkgrey;
     font-size: 14px;
+  }
+  .get_friends {
+    float: left;
+position: relative;
+bottom: 52px;
   }
 }
 .new_friends_count {
@@ -495,8 +511,10 @@ height: 39px;
 
 .logo {
 width: 164px;
-float: left;
-height: 50px;
+margin: 0 auto;
+height: 58px;
+position: relative;
+left: 38px;
 }
 
 .howto {
@@ -549,9 +567,10 @@ position: absolute;
 top: 7px;
 left: -138px;
 width: 194px;
-height: 101px;
+height: 96px;
 z-index: 10;
 font-size: 23px;
+padding-top: 11px;
 background-color: #FAFAFA;
 -webkit-border-radius: 7px;
 -moz-border-radius: 7px;
@@ -581,7 +600,7 @@ min-height: 850px;
 margin: 0 auto;
 background-color: rgba(255, 255, 255, .6);
 z-index: -10;
-padding: 15px 0px;
+padding: 7px 0px;
 }
 
 .element {
@@ -759,17 +778,22 @@ form {
 /* Ribbon */
 
 #ribbon {
-  position: relative;
-left: 24px;
-top:7px;
+position: relative;
+top: 15px;
+height: 85px;
+border-bottom: 1px solid lightGrey;
+width: 915px;
+margin: 0 auto;
 }
 
 #datepicker {
-width: 578px;
+width: 596px;
 font-size: 12px;
-height: 93px;
+height: 75px;
 position: relative;
-bottom: 7px;
+bottom: 3px;
+float: right;
+z-index: 1;
   table{
 float: left;
 width: 5%;
@@ -798,13 +822,13 @@ width: 5%;
 }
 
 #datewindow {
-  border: 3px solid #FF8500;
-width: 84px;
-height: 94px;
+border: 3px solid #FF8500;
+width: 118px;
+height: 75px;
 position: absolute;
-left: 84px;
-top: 0px;
-  z-index: -1;
+left: 86px;
+bottom: -2px;
+z-index: -2;
 }
 
 .weeks {
@@ -833,10 +857,10 @@ color: #4B9BED;
 }*/
 
 .new_idea {
-width: 100%;
+float:left;
 textarea {
 font-size: 18px;
-width: 79%;
+width: 92%;
 height: 45px;
 padding-right: 15px;
 }
@@ -850,7 +874,7 @@ position: relative;
 width: 104px;
 height: 30px;
 vertical-align: middle;
-top: 10px;
+top: 0px;
 left: 18px;
 }
 /* Background image */
@@ -878,7 +902,7 @@ left: 18px;
   font-style: normal;
 font-size: 35px;
 position: relative;
-top: 18px;
+top: 8px;
 left: 12px;
 }
 
@@ -905,9 +929,9 @@ height: 85px;
 #forecast {
 width:6440px;
 position: relative;
-right: 621px;
+right: 701px;
    > dl {
-width: 185px;
+width: 216px;
 float: left;
 position: relative;
 top: 6px;
@@ -933,19 +957,11 @@ letter-spacing: 2px;
 .forecast {
 overflow-y: auto;
 overflow-x: hidden;
-width: 588px;
+width: 96%;
 height: 724px;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  border-radius: 7px;
-  float:left;
-  background-color: white;
-  -moz-box-shadow: 0 0 8px -1px #000;
-  -webkit-box-shadow: 0 0 8px -1px #000;
-  box-shadow: 0 0 8px -1px #000;
-margin-top: 18px;
-  margin-left: 17px;
-    .gutter {
+margin: 0 auto;
+margin-top: 15px;
+/*    .gutter {
 border-right: 1px solid grey;
 border-left: 1px solid grey;
 height: 83%;
@@ -954,7 +970,7 @@ left: 210px;
 width: 199px;
 top: 138px;
 z-index: 0;
-  }
+  }*/
 }
 
 .forecastDate {
@@ -967,11 +983,15 @@ padding-top: 10px;
 
 .event {
 padding: 5px;
-height: 150px;
-width: 170px;
+min-height: 150px;
+width: 190px;
 position: relative;
 z-index: 1;
-margin: 10px;
+margin: 5px auto;
+border: 10px solid white;
+-webkit-box-shadow: 1px 1px 4px rgba(50, 50, 50, 0.75);
+-moz-box-shadow:    1px 1px 4px rgba(50, 50, 50, 0.75);
+box-shadow:         1px 1px 4px rgba(50, 50, 50, 0.75);
 }
 
 .not_rsvpd {
@@ -989,7 +1009,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', end
 } 
 
 .rsvpd {
-  border-bottom:1px solid #E9E9E9;
 background: #e8f1ff; /* Old browsers */
 background: -moz-linear-gradient(top,  #f7fbfc 0%, #e8f1ff 68%, #afd6ff 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7fbfc), color-stop(68%,#e8f1ff), color-stop(100%,#afd6ff)); /* Chrome,Safari4+ */
@@ -1003,44 +1022,39 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7fbfc', end
 .not_tipped { 
     color:$destroy;
   }
-
+/*#suggestion {
+  cursor: -webkit-zoom-in;
+  cursor: -moz-zoom-in;
+  cursor: zoom-in;
+}*/
 .event_time {
-top: 0;
-left: 0;
 color: white;
 background-color: #383838;
-padding: 3px 3px 0 5px;
-position: absolute;
-font-size: 17px;
-width: 173px;
+padding: 1px 0px 0 8px;
+font-size: 12px;
+height: 20px;
 img {
   width:20px;
 }
 span {
 position: relative;
-bottom: 3px;
+bottom: 5px;
 }
 }
 
 .event_pic {
-  float:left;
-  margin-right:3px;
-  margin-top:3px;
-  position: absolute;
-  left: 7px;
-  bottom: 2px;
+  float: left;
+position: absolute;
+bottom: 1px;
 }
 
 .event_blerb {
-float: left;
-height: 71px;
-position: absolute;
-top: 27px;
+min-height: 30px;
 color: black;
 font-size: 16px;
 line-height: .95;
-width: 171px;
-padding: 2px;
+width: 152px;
+margin-top: 5px;
 }
 
 .friends_attending {
@@ -1055,11 +1069,21 @@ padding: 2px;
 font-size: 13px;
 font-style: italic;
 color: black;
-position: absolute;
-bottom: 4px;
-right: 64px;
-width: 197px;
-height: 14px;
+width: 155px;
+height: 30px;
+position: relative;
+top: 4px;
+}
+
+.family_friendly {
+  position: absolute;
+width: 19px;
+left: 140px;
+bottom: 2px;
+}
+
+.event_promo_img {
+  text-align: center;
 }
 
 .guest_count {
@@ -1095,8 +1119,8 @@ width: 70px;
 
 .rsvp_check {
 position: absolute;
-right: -2px;
-bottom: 6px;
+right: -3px;
+bottom: 23px;
 }
 
 /* NEXT PLAN */
@@ -1236,7 +1260,9 @@ bottom: 17px;
   }
 }
 
-
+.settings {
+  font-size: 17px;
+}
 /* miscellaneous */
 
 .alert { 
@@ -1289,9 +1315,8 @@ font-size: 23px;
 width: 800px;
 height: 600px;
 margin: 0 auto;
-position: absolute;
-top: 155px;
-right: 171px;
+position: relative;
+top: 20px;
 }
 
 .user_table {
@@ -2142,7 +2167,7 @@ margin-bottom: 10px;
   width:200px;
   float:left;
   input[type=submit]{
-    padding: 11px 142px 11px 145px;
+    padding: 11px 99px 11px 113px;
   }
 }
 
@@ -2168,10 +2193,12 @@ margin-bottom: 10px;
 
 #addmapp {
   float:left;
+  margin-bottom: 15px;
 }
 
 #addLinkp {
   float:left;
+  margin-bottom: 15px;
 }
 
 .address-picker-map {
@@ -2280,11 +2307,11 @@ margin-bottom: 10px;
 width: 111%;
 margin-top: 10px;
 overflow-x: hidden;
-}
 .ui-state-default, 
 .ui-widget-content .ui-state-default, 
 .ui-widget-header .ui-state-default {
 font-size: 10.3px;
+}
 }
 
 .ui-tabs {
@@ -2302,6 +2329,14 @@ color: black
 
 #tabs-nested {
   .ui-widget-content {
+border: none;
+background: none;
+color: black;
+}
+}
+
+.dashboard {
+    .ui-widget-content {
 border: none;
 background: none;
 color: black;
@@ -2375,7 +2410,7 @@ color: black;
 
 .front {
   img{
-    border: 9px solid white;
+    border: 4px solid white;
   }
 }
 .face {
@@ -2403,7 +2438,6 @@ background-color: white;
 }
 
 .suggestions_on_date {
-  padding-left: 10px;
   ul{
     display:inline;
   li {
@@ -2422,54 +2456,6 @@ border-top: 1px solid lightGrey;
 margin-top: 3px;
 }
 
-.suggestion {
-position: relative;
-height: 178px;
-float: left;
-font-size: 16px;
-padding: 6px;
-.event_blerb {
-font-size: 14px;
-height: 89px;
-top: 32px;
-width: 140px;
-left: 5px;
-position: relative;
-}
-.event_time {
-font-size: 12px;
-width: 150px;
-height: 28px;
-line-height: 35px;
-span {
-display: inline-block;
-margin-bottom: 0px;
-}
-}
-.host {
-left: 6px;
-position: absolute;
-top: 146px;
-height: 29px;
-width: 95px;
-}
-.btn_icon {
-  position: relative;
-left: -1px;
-top: -5px;
-cursor: pointer;
-padding: 15px 12px;
-cursor: pointer;
-}
-.family_friendly{
-  width: 10px;
-height: 10px;
-position: absolute;
-top: 127px;
-left: 2px;
-}
-}
-
 .dollar {
   font-size: 44px;
 }
@@ -2481,4 +2467,34 @@ input[type=file] {
   border-bottom:1px solid lightgrey;
   height:70px;
   line-height: 70px;
+}
+
+.vendor_dash {
+  > ul > li{
+    margin: 20px 0 0 20px;
+float:left;
+width:93%;
+min-height: 200px;
+  }
+  img {
+    float:left;
+  }
+  .suggestion_promo_img {
+    float:left;
+    height:200px;
+  }
+  p {
+    margin-left: 173px;
+  }
+  .clones {
+    float:left;
+    li {
+      height:auto;
+    table {
+      border-bottom:none;
+      float:left;
+      padding-left:20px;
+    }
+  }
+  }
 }

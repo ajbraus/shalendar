@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009211301) do
+ActiveRecord::Schema.define(:version => 20121015193027) do
 
   create_table "authentications", :force => true do |t|
     t.string   "provider"
@@ -77,6 +77,10 @@ ActiveRecord::Schema.define(:version => 20121009211301) do
     t.boolean  "guests_can_invite_friends"
     t.integer  "suggestion_id"
     t.float    "price"
+    t.string   "promo_img_file_name"
+    t.string   "promo_img_content_type"
+    t.integer  "promo_img_file_size"
+    t.datetime "promo_img_updated_at"
   end
 
   create_table "gcm_devices", :force => true do |t|
@@ -206,6 +210,8 @@ ActiveRecord::Schema.define(:version => 20121009211301) do
     t.string   "time_zone"
     t.integer  "new_invited_events_count", :default => 0
     t.boolean  "vendor",                   :default => false
+    t.boolean  "email_comments",           :default => true
+    t.boolean  "admin",                    :default => false
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

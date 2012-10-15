@@ -50,17 +50,21 @@ Adam
 
 This iteration todo:
 
-order things by them being your friends or not
+clone
+	require category with javascript
+	make toggles work on all lightbox forms
+	cloning on other suggestions
 
-invite folks -- ask premission to post to their stream
+fix js for join button from latest_ideas
+
+event show page update
+	show image,link,put comments on top, shrink invites/guests
+
+order things by them being your friends or not
 
 FQL query for facebook friends, display alphabetically and if on hoosin then not
 
 max - if nil set to 1,000,000
-
-add jquery pickdatetime to event create
-
-make create event/create suggestion textfield work w button
 
 
 CUTTOVER 
@@ -72,6 +76,8 @@ run migrations in production
 
 
 
+
+RSVP in/out
 
 yesterday tomorrow buttons working
 
@@ -118,6 +124,13 @@ vendors cannot friend or follow
 ppl can only follow vendors
 
 
+Texting
+Recurring Events
+"I'm out"
+integration with twitter
+meetup.com
+google contacts
+google calendar/ical/outlook - .ics 
 
 
 
@@ -156,6 +169,8 @@ make invitation email better (are ppl even using this?) Maybe a 'copy the link t
 invite people who went to other events but without having to follow them
 
 add beautiful dialogue box for confirm to join event
+
+http://snipplr.com/view/29911/javascript-alert-and-confirm-dialog-the-fancybox-way/
 
 daily digest if new events
 

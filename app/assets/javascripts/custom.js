@@ -57,7 +57,7 @@ $('.datePickerDay').click(function(){
   forecast_original_position = $('#forecast').position();
   forecast_day_position = $('dl').withDate(date).position();
   //frame_position = $('.forecast').position();
-  $('#forecast').animate({ right: forecast_day_position.left + 10 }, 1000);
+  $('#forecast').animate({ right: forecast_day_position.left }, 1000);
 });
 
 // NEW IDEA CHECKBOX SWTICHES
@@ -125,17 +125,12 @@ $(document).bind('click', function(e) {
 
 // NEW IDEA LIGHTBOX
 
-	// $(".btn-new-idea").click(
- //    var blerb = $('#new_idea_blerb').val();
- //    $(this).fancybox();
- //    $('#new_idea_title').text(blerb);
- //  );
-
+  $('#new_idea_button').fancybox();
+  $('#new_suggestion_button').fancybox();
 	$('.find_friends').fancybox();
-
 	$(".howto").fancybox();
-
   $('.city_vendors').fancybox();
+  $('#clone').fancybox();
 
 // SHOW/HIDE LINK AND MAP
 
@@ -171,7 +166,6 @@ $(document).bind('click', function(e) {
 	$("#registration_form").validate();
 
   $('#new_suggestion_form').validate();
-
 
 // TABS
 

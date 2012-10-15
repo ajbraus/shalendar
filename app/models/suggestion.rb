@@ -4,7 +4,7 @@ class Suggestion < ActiveRecord::Base
   belongs_to :user
   has_many :events
 
-  CATEGORIES = %w[active learning shopping night] #adventure, culture, community
+  CATEGORIES = %w[adventure learn shop night] #adventure, culture, community
 
   acts_as_gmappable :validation => false
 
@@ -27,9 +27,9 @@ class Suggestion < ActiveRecord::Base
                 :family_friendly,
                 :promo_img
 
-  has_attached_file :promo_img, :styles => { :original => '700x700',
-                                             :large => '350x350',
-                                             :medium => '170x170'},
+  has_attached_file :promo_img, :styles => { :original => '900x700',
+                                             :large => '380x520',
+                                             :medium => '190x290'},
                              :storage => :s3,
                              :s3_credentials => S3_CREDENTIALS,
                              :path => "suggestion/:attachment/:style/:id.:extension",
@@ -40,7 +40,7 @@ class Suggestion < ActiveRecord::Base
   # validates :duration, numericality: { in: 0..1000 } 
   validates :title, length: { maximum: 140 }, presence: true
   validates :category, presence: true
-  validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}
+  # validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}
   # validates_numericality_of :lng, :lat
   @url = /^((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)?$/ 
   validates :link, :format => { :with => @url }

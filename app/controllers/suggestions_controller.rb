@@ -1,7 +1,7 @@
 class SuggestionsController < ApplicationController
 
   def index
-    @suggestions = current_user.suggestions.all
+    @suggestions = current_user.suggestions.where('starts_at IS NOT NULL and starts_at > ?', Time.now).order('starts_at ASC')
   end
 
   def clone
@@ -19,7 +19,7 @@ class SuggestionsController < ApplicationController
                              gmaps: @suggestion.gmaps
                           )
     respond_to do |format|
-      format.html
+      #format.html
       format.js
     end
   end
@@ -38,11 +38,12 @@ class SuggestionsController < ApplicationController
   # GET /suggestions/new
   # GET /suggestions/new.json
   def new
-    @suggestion = Suggestion.new
+    @suggestion = current_user.suggestions.build
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @suggestion }
+      #format.html # new.html.erb
+      #format.json { render json: @suggestion }
+      format.js
     end
   end
 

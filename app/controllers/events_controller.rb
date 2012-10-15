@@ -6,14 +6,13 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
+    unless current_user.admin?
+      redirect_to root_path
+    end
+
     @events = Event.scoped
     @events = @events.after(params['start']) if (params['start'])
     @events = @events.before(params['end']) if (params['end'])
-    
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @events }
-    end
   end
 
   # GET /events/new
@@ -22,8 +21,9 @@ class EventsController < ApplicationController
     @event = current_user.events.build
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @event }
+      #format.html # new.html.erb
+      #format.json { render json: @event }
+      format.js
     end
   end
 
@@ -36,7 +36,6 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    binding.remote_pry
     @event = current_user.events.build(params[:event])
     respond_to do |format|
       if @event.save
@@ -58,14 +57,14 @@ class EventsController < ApplicationController
                                               })
         end
         if params[:invite_all_friends] == "on"
-          format.html { redirect_to root_path }
+          format.html { redirect_to root_path, notice: "Idea Posted Successfully" }
           format.json { render json: @event, status: :created, location: @event }
         else
-        format.html { redirect_to @event }
+        format.html { redirect_to @event, notice: "Idea Posted Successfully" }
         format.json { render json: @event, status: :created, location: @event }
         end
       else
-        format.html { redirect_to home_path, notice: "Idea could not be posted. Please try again." }
+        format.html { redirect_to @event, notice: "Idea could not be posted. Please try again." }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end

@@ -20,7 +20,7 @@
 				</li>
 			<% end %>
 				<li>
-					<a href="ui-tabs-8">
+					<a href="ui-tabs-7">
 						Family
 					</a>
 				</li>
@@ -57,7 +57,7 @@
 			</div>
 			<% end %>
 			<!-- FAMILY TAB -->
-			<div id="ui-tabs-8">
+			<div id="ui-tabs-7">
 				<ul>
 				<% (0..21).each do |date_index| %> 
 					<li class="suggestions_on_date">
@@ -72,7 +72,7 @@
 			    						<%= image_tag es.promo_img.url(:medium) %>
 			  						</div>
 										<div class="back face suggestion">
-											<%= render :partial => "suggestions/suggestion", :locals => { :suggestion => es } %>
+											<%= render :partial => "suggestions/event_suggestion", :locals => { :suggestion => es } %>
 										</div>
 									</div>
 								</li>

@@ -1,16 +1,26 @@
 <div id="forecast">
 	<% for i in -3..16 %>
-	<dl class="day" data-date=<%= "#{Date.today + i}" %>>
-		<% if @date + (i) == Date.today %>
-			<dt class="forecastDate red"><%= (@date + (i)).strftime("%A %b %e") %></dt>
+	<dl class="day" data-date=<%= "#{Time.now.to_date + i}" %>>
+		<% if Time.now.to_date + (i) == Time.now.to_date %>
+			<dt class="forecastDate red"><%= (Time.now.to_date + (i)).strftime("%A %b %e") %></dt>
 		<% else %>
-			<dt class="forecastDate"><%= (@date + (i)).strftime("%A %b %e") %></dt>
+			<dt class="forecastDate"><%= (Time.now.to_date + (i)).strftime("%A %b %e") %></dt>
 		<% end %>
-		<dd>
-			<% @forecastevents[i + 3].each do |event| %>
+		<% @forecastevents[i + 3].each do |event| %>
+			<dd>
 				<%= render :partial => "shalendar/event", :locals => { :event => event } %>
+			</dd>
+		<% end %>
+		<% if @event_suggestions[i +3].any? %>
+			<dt>
+				<%= image_tag "suggestion_spacer.png", width: "220px", title: "Community Events"%>
+			</dt>
+				<% @event_suggestions[i + 3].each do |es| %>
+			<dd>
+				<%= render :partial => "suggestions/event_suggestion", :locals => { :suggestion => es } %>
+			</dd>
 			<% end %>
-		</dd>
+		<% end %>
 	</dl>
 	<% end %>
 </div>

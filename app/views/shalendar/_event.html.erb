@@ -12,12 +12,16 @@
 	<% end %>
 <% end %>
 
-
+<% if false%>
 <% if @next_plan %>
+box-shadow: 0px 0px 34px -6px #388EE5;
+
 	<% if event.id == @next_plan.id %>
 		<div class="next_plan"></div>
 	<% end %>
 <% end %>
+<% end %>
+
 	<a href="/events/<%= event.id %>">
 		<div class="event_time">			
 			<% if event.starts_at.hour > 4 && event.starts_at.hour < 12 %>
@@ -30,10 +34,15 @@
 			<span><%= event_start_time(event) %> - <%= event_end_time(event) %></span>
 		</div></br>
 
-		<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
+		<% unless event.promo_img_file_size.nil? %>
+			<div class="event_promo_img">
+				<%= image_tag event.promo_img.url(:medium) %>
+			</div>
+		<% end %>
 	
 		<div class="event_blerb"><%= event.short_event_title %></div>
 	
+		<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
 		<div class="guest_count">
 			<% if current_user.rsvpd?(event) && event.guests_can_invite_friends? %>
 				<% if current_user.rsvps.find_by_plan_id(event.id).invite_all_friends? %>

@@ -1,22 +1,39 @@
 <% provide(:title, " | Home") %>
+	<% if false %>
 	<div class="dashboard">
-		<div class="new_idea part">
-			<textarea id="new_idea_blerb"></textarea>
-		<%if current_user.vendor? %>
-			<%= link_to new_suggestion_path, class: "btn btn-new-idea btn-rsvp", title: "Make New Suggestion" do %>
-					<i class="icon-bullhorn"></i>
-			<% end %>
-			<div id="new_suggestion_element"></div>
-		<% else %>
-			<%= link_to new_event_path, class: "btn btn-rsvp btn-new-idea", title:"Make a New Idea" do %>
-				<i class="icon-cloud"></i>
-			<% end %>
-			<%= render 'new_idea_form' %>
-		<% end %>
-		</div>
 	  <%= render 'suggestions' %>
 	</div>
-	<div class="container">
+	<% end %>
+
+	<% if @event %>
+		<% if @event.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+	      <ul>
+	      <% @event.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+  <% end %>
+
+  <% if @suggestion %>
+		<% if @suggestion.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@suggestion.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+	      <ul>
+	      <% @suggestion.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+  <% end %>
+
+
 		<%= render 'ribbon', :locals => { :next_plan => @next_plan } %>
 		<div class='forecast'>
 			<%= render 'forecast' %>

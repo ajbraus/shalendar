@@ -1,66 +1,13 @@
 <nav>
-  <%= render 'layouts/logo' %>
-  <div class="tagline">
-    <%= link_to root_path, class: "white" do %>
-      Do Great Things With Friends
-    <% end %>
-  </div>
-  <a href="#howItWorks" class="howto">How it Works?</a>
-  <%= render 'layouts/how_it_works' %>
-  <% if user_signed_in? %>
-  <ul>
+<ul class="left_header">
+  <% unless current_user.vendor? %>
     <% if user_signed_in? %>
-     <li><dl class="dropdown">
-        <dt><a href="#"><%= raster_profile_picture(current_user) %></a></dt>
-        <dd>
-          <ul>
-              <li class="settings">
-                <%= link_to edit_user_registration_path do %>
-                  <span class="fadeInOrange"><i class='icon-wrench user_settings'></i>settings</span>
-                <% end %>
-              </li>
-              <li class="settings">
-                <%= link_to destroy_user_session_path, :method => :delete do %>
-                  <span class="fadeInRed"><i class='icon-signout logout'></i>logout</span>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-        </dd>
-      </dl>
-    </li>
-    <span id="invitations"></span>
-    <li>
-      <a href="<%= manage_follows_path %>">
-        <strong id="header_friend_count" class="friend_count"><%= current_user.followers.count %></strong> <span title="manage friends">friends</span>
-        <% if current_user.reverse_relationships.where('relationships.confirmed = false').any? %>
-          <span class="new_friends_count"><%= @friend_requests.count %></span>
-        <% end %>
-      </a>
-    </li>
-
-    <% if current_user.vendor? %>
-      <li>
-        <%= link_to "Vendor Dashboard", vendor_dashboard_path %>
+      <li id="view_search" class="user_search">
+        <%= form_tag({:controller => 'shalendar', :action => 'search'}, {id: 'search_form', remote: true }) do %>
+          <%= text_field_tag :search, params[:search], id: "user_search_field", placeholder:"Search For Friends", autocomplete: "off" %>
+          <input type="submit" id="btn_user_search" class="fa-input btn-user-search" value="&#xf002;" title="Search for Friends">
+        <% end %> 
       </li>
-    <% else %>
-      <li>
-        <%= link_to new_invited_events_path, :remote => true do %>
-          latest ideas
-          <% unless current_user.new_invited_events_count == 0 %>
-            <span id="new_invited_events_count" class="new_invited_events_count"><%= current_user.new_invited_events_count %></span>
-          <% end %>
-        <% end %>
-      </li>
-      <% if false %>
-      <li class="get_friends">
-        <div class="city-icon">
-          <%= link_to city_vendors_path, :remote => true, class:"city_vendors fancybox.ajax" do %>
-            <%= (image_tag "madison-icon.jpeg", :wdith => "20", title: "Friend Public Profiles in Madison") %>
-          <% end %>
-        </div>
-      </li>
-      <% end %>
       <li class="get_friends">
         <% if session[:access_token] %>
           <%= link_to find_friends_path, :remote => true, class: "find_friends fancybox.ajax" do %>
@@ -74,15 +21,79 @@
           </div><br>
         <% end %>
       </li>
-      <li>
-        <div id="view_search" class="user_search">
-          <%= form_tag({:controller => 'shalendar', :action => 'search'}, {id: 'search_form', remote: true }) do %>
-            <%= text_field_tag :search, params[:search], id: "user_search_field", placeholder:"Search For Friends", autocomplete: "off" %>
-            <input type="submit" id="btn_user_search" class="fa-input btn-user-search" value="&#xf002;" title="Search for Friends">
-          <% end %> 
-        </div>
-      </li>
     <% end %>
-  </ul>
   <% end %>
+
+      <% if false %>
+    <li class="get_friends">
+      <div class="city-icon">
+        <%= link_to city_vendors_path, :remote => true, class:"city_vendors fancybox.ajax" do %>
+          <%= (image_tag "madison-icon.jpeg", :wdith => "20", title: "Friend Public Profiles in Madison") %>
+        <% end %>
+      </div>
+    </li>
+    <% end %>
+</ul>
+      <%= render 'layouts/logo' %>
+
+<ul class="right_header">
+  <% if user_signed_in? %>
+       <li>
+      <dl class="dropdown">
+        <dt><a href="#"><%= raster_profile_picture(current_user) %></a></dt>
+        <dd>
+          <ul>
+            <li class="settings">
+              <%= link_to edit_user_registration_path do %>
+                <span class="fadeInOrange"><i class='icon-wrench user_settings'></i>settings</span>
+              <% end %>
+            </li>
+            <li class="settings">
+              <%= link_to destroy_user_session_path, :method => :delete do %>
+                <span class="fadeInRed"><i class='icon-signout logout'></i>logout</span>
+              <% end %>
+            </li>
+          </ul>
+        </dd>
+      </dl>
+    </li>
+  <% if current_user.vendor? %>    
+    <li>
+      <%= link_to "Vendor Dashboard", vendor_dashboard_path %>
+    </li>
+  <% else %>
+    <li>
+      <a href="<%= manage_follows_path %>">
+        <strong id="header_friend_count" class="friend_count"><%= current_user.followers.count %></strong> friends
+        <% if current_user.reverse_relationships.where('relationships.confirmed = false').any? %>
+          <span class="new_friends_count"><%= @friend_requests.count %></span>
+        <% end %>
+      </a>
+    </li>
+        <li>
+      <%= link_to new_invited_events_path, :remote => true do %>
+        latest ideas
+        <% unless current_user.new_invited_events_count == 0 %>
+          <span id="new_invited_events_count" class="new_invited_events_count"><%= current_user.new_invited_events_count %></span>
+        <% end %>
+      <% end %>
+    </li>
+      <span id="invitations"></span>
+
+
+      <% if false %>
+  <li class="tagline">
+    <%= link_to root_path, class: "white" do %>
+      Do Great Things With Friends
+    <% end %>
+  </li>
+  <li>
+    <a href="#howItWorks" class="howto">How it Works?</a>
+    <%= render 'layouts/how_it_works' %>
+  </li>
+  <% end %>
+
+  <% end %>
+  <% end %>
+</ul>
 </nav>

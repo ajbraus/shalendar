@@ -23,7 +23,6 @@ Shalendar::Application.routes.draw do
     match '/new_vendor', to: 'registrations#new_vendor', as: "new_vendor"
   end
 
-
   # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
@@ -61,7 +60,7 @@ Shalendar::Application.routes.draw do
   match 'allow_suggestions', :to => 'shalendar#allow_suggestions'
   match '/manage_follows', :to => 'shalendar#manage_follows', :as => "manage_follows"
 
-  resources :events, only: [:create, :destroy, :update, :tip, :edit, :new, :show] do 
+  resources :events, only: [:index, :create, :destroy, :update, :tip, :edit, :new, :show] do 
     put :tip
     resources :comments, only: [:create, :destroy]
     resources :email_invites, only: [:create, :destroy]

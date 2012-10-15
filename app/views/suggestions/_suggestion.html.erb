@@ -1,16 +1,18 @@
-<div class="event_blerb"><%= suggestion.short_event_title %></div>
+<div class="suggestion">
+	<div class="event_blerb"><%= suggestion.short_event_title %></div>
 
-<div class="rsvp_check">
-	<%= link_to(nil, {controller: 'suggestions', action: 'clone', :suggestion_id => "#{suggestion.id}", class:"btn_icon btn_icon_rsvp", title:"Add to Forecast",confirm: "Are you sure you want to add this to your calendar?"}) do %>
-		<i class="icon-share-alt"></i>
+	<div class="rsvp_check">
+		<%= link_to nil, url: {controller: 'suggestions', action: 'clone', :suggestion_id => "#{suggestion.id}"}, html: { class:"btn_icon btn_icon_rsvp", title:"Add to Forecast",confirm: "Are you sure you want to add this to your calendar?"} do %>
+			<i class="icon-plus"></i>
+		<% end %>
+	</div>
+
+	<div class="host"><%= suggestion.user.first_name.capitalize %> 
+	<% if suggestion.user.last_name %>
+		<%= suggestion.user.last_name.capitalize%>
+	<% end %> 
+	</div>
+	<% if suggestion.family_friendly %>
+		<div class="family_friendly"><i class="icon-home"></i></div>
 	<% end %>
 </div>
-
-<div class="host"><%= suggestion.user.first_name.capitalize %> 
-		<% if suggestion.user.last_name %>
-			<%= suggestion.user.last_name.capitalize%>
-		<% end %> 
-</div>
-<% if suggestion.family_friendly %>
-	<div class="family_friendly"><i class="icon-home"></i></div>
-<% end %>
