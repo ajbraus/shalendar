@@ -72,7 +72,7 @@ class Event < ActiveRecord::Base
   def tip!
     if self.tipped? == false
       self.guests.each do |g|
-        Notifier.event_tipped(self, g).deliver
+        Notifier.delay.event_tipped(self, g)
       end
     end
     self.tipped = true
@@ -117,10 +117,10 @@ class Event < ActiveRecord::Base
     @relevant_events.each do |re|
       if re.tipped?
         re.guests.each do |g|
-          Notifier.rsvp_reminder(re, g).deliver
+          Notifier.delay.rsvp_reminder(re, g)
         end
       else
-        Notifier.tip_or_destroy(re).deliver
+        Notifier.delay.tip_or_destroy(re)
       end
     end
 

@@ -53,6 +53,32 @@ class Notifier < ActionMailer::Base
   def confirm_follow(user, follower)
     @user = user
     @follower = follower
+        if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "Confirm Friend - #{@follower.name}"
+        n.badge = 1
+        n.sound = true
+        n.save
+      end
+    end
+    if(@user.android_user == true)
+      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "Confirm Friend - #{@follower.name}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "Confirm Friend - #{@follower.name}"}}
+        n.save
+      end
+    end
     #@friend_pic = raster_profile_picture(@follower)
     mail to: user.email, subject: "New Friend Request - #{@follower.name}"
   end
@@ -60,6 +86,32 @@ class Notifier < ActionMailer::Base
   def new_friend(user, friend)
     @user = user
     @follower = friend
+    if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "New Friend - #{@follower.name}"
+        n.badge = 1
+        n.sound = true
+        n.save
+      end
+    end
+    if(@user.android_user == true)
+      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "New Friend - #{@follower.name}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "New Friend - #{@follower.name}"}}
+        n.save
+      end
+    end
     #@follower_pic = raster_profile_picture(@user)
     mail to: user.email, subject: "New Friend - #{@follower.name}"
   end
@@ -69,6 +121,30 @@ class Notifier < ActionMailer::Base
     @user = user
     @event_link = "http://www.hoos.in/events/#{event.id}"
     if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "#{@event.short_event_title} Tipped!"
+        n.badge = 1
+        n.sound = true
+        n.save
+      end
+    end
+    if(@user.android_user == true)
+      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "#{@event.short_event_title} Tipped!"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "#{@event.short_event_title} Tipped!"}}
+        n.save
+      end
     end
     mail to: @user.email, subject: "Tipped - #{@event.event_day}\'s Idea Tipped! - #{@event.short_event_title}"
   end
@@ -77,6 +153,30 @@ class Notifier < ActionMailer::Base
     @user = event.user
     @event = event
     if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "Untipped idea - #{@event.short_event_title}"
+        n.badge = 1
+        n.sound = true
+        n.save
+      end
+    end
+    if(@user.android_user == true)
+      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "Untipped idea - #{@event.short_event_title}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "Untipped idea - #{@event.short_event_title}"}}
+        n.save
+      end
     end
     mail to: @user.email, subject: "Untipped idea - #{@event.short_event_title}"
   end
@@ -85,6 +185,30 @@ class Notifier < ActionMailer::Base
     @user = user
     @event = event
     if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "Cancellation - #{@event.event_day}, #{@event.short_event_title}"
+        n.badge = 1
+        n.sound = true
+        n.save
+      end
+    end
+    if(@user.android_user == true)
+      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "Cancellation - #{@event.event_day}, #{@event.short_event_title}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "Cancellation - #{@event.event_day}, #{@event.short_event_title}"}}
+        n.save
+      end
     end
     mail to: @user.email, subject: "Cancellation - #{@event.event_day}, #{@event.short_event_title}" 
   end
@@ -96,7 +220,31 @@ class Notifier < ActionMailer::Base
     @comments = event.comments.order('created_at DESC').limit(4)
     @comments.shift(1)
     @guest = user
-    if(@guest.iPhone_user == true)
+    if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "New Comment - #{@event.short_event_title}"
+        n.badge = 1
+        n.sound = true
+        n.save
+      end
+    end
+    if(@user.android_user == true)
+      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "New Comment - #{@event.short_event_title}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "New Comment - #{@event.short_event_title}"}}
+        n.save
+      end
     end
     @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
     @event_link = "http://www.hoos.in/events/#{event.id}"
@@ -107,17 +255,30 @@ class Notifier < ActionMailer::Base
     @user = user
     @event = event
     @event_link = "http://www.hoos.in/events/#{event.id}"
-
     if(@user.iPhone_user == true)
-    elsif(@user.android_user == true)
-      #need to know how Gcm::Devices behave- do they persist?
-      if(Gcm::Device.find_by_id(@user.GCMdevice_id).nil? == false)#if we have a device for user
-        notification = Gcm::Notification.new
-        notification.device = Gcm::Device.find_by_id(@user.GCMdevice_id)
-        notification.collapse_key = "RSVP_Reminder"
-        notification.delay_while_idle = true
-        notification.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "#{event.title} starting soon!"}}
-        notification.save
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "#{@event.short_event_title} starts soon"
+        n.badge = 1
+        n.sound = true
+        n.save
+      end
+    end
+    if(@user.android_user == true)
+      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "#{@event.short_event_title} starts soon"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "#{@event.short_event_title} starts soon"}}
+        n.save
       end
     end
       mail to: @user.email, subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
@@ -131,6 +292,30 @@ class Notifier < ActionMailer::Base
     #@inviter_pic = raster_profile_picture(@inviter)
     @event_link = "http://www.hoos.in/events/#{@event.id}"
     if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "#{@event.user.name} Shared an idea"
+        n.badge = 1
+        n.sound = true
+        n.save
+      end
+    end
+    if(@user.android_user == true)
+      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "#{@event.user.name} Shared an idea"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "#{@event.user.name} Shared an idea"}}
+        n.save
+      end
     end
     mail to: @user.email, subject: "You're invited to #{@event.short_event_title}"
   end
@@ -146,6 +331,30 @@ class Notifier < ActionMailer::Base
     #should we include here an invited by X to make them more likely to join?
     if @user = User.find_by_email(@invite.email)
       if(@user.iPhone_user == true)
+        d = APN::Device.find_by_id(@user.apn_device_id)
+        if d.nil?
+          Airbrake.notify("thought we had an iphone user but can't find their device")
+        else
+          n = APN::Notification.new
+          n.device = d
+          n.alert = "#{@event.user.name} Shared an idea"
+          n.badge = 1
+          n.sound = true
+          n.save
+        end
+      end
+      if(@user.android_user == true)
+        d = GCM::Device.find_by_id(@user.GCMdevice_id)
+        if d.nil?
+          Airbrake.notify("thought we had an android user but can't find their device")
+        else
+          n = Gcm::Notification.new
+          n.device = d
+          n.collapse_key = "#{@event.user.name} Shared an idea"
+          n.delay_while_idle = true
+          n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "#{event.title} changed time!"}}
+          n.save
+        end
       end
       mail to: @user.email, subject: "You're invited to #{@event.short_event_title}"
     else
@@ -191,20 +400,6 @@ class Notifier < ActionMailer::Base
     Airbrake.notify(ex)
   end
 
-  # def time_change(*args)
-
-  #   @event = Event.find_by_id(args[0])
-  #   @user = User.find_by_id(args[1])
-
-  #   if(@user.iPhone_user == true)
-  #   end
-
-  #   mail to: @user.email, from: "info@hoos.in", subject: "Time Change - #{@event.short_event_title}"
-    
-  #   rescue => ex
-  #   Airbrake.notify(ex)
-  # end
-
   def fb_invite(invitee_email, subject, message)
     @invitee_email = invitee_email
     @subject = subject
@@ -229,4 +424,19 @@ class Notifier < ActionMailer::Base
   #     mail to: u.email, subject: "Your daily digest from hoos.in!"
   #   end
   # end
+
+    # def time_change(*args)
+
+  #   @event = Event.find_by_id(args[0])
+  #   @user = User.find_by_id(args[1])
+
+  #   if(@user.iPhone_user == true)
+  #   end
+
+  #   mail to: @user.email, from: "info@hoos.in", subject: "Time Change - #{@event.short_event_title}"
+    
+  #   rescue => ex
+  #   Airbrake.notify(ex)
+  # end
+  
 end

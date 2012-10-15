@@ -9,7 +9,7 @@ class EmailInvitesController < ApplicationController
     respond_to do |format|
       if @invite.save
         #Resque.enqueue(MailerCallback, "Notifier", :invitation, @invite.id, @event.id)
-        Notifier.email_invitation(@invite, @event).deliver
+        Notifier.delay.email_invitation(@invite, @event)
         format.html { redirect_to @event, notice: 'Invite was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
         format.js

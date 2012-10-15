@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
   end
 
   def send_welcome
-     Notifier.welcome(self).deliver
+     Notifier.delay.welcome(self)
   end
 
   def self.search(query)

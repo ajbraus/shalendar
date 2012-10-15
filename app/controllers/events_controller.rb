@@ -121,7 +121,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     @event.guests.each do |g|
-      Notifier.cancellation(@event, g).deliver
+      Notifier.delay.cancellation(@event, g)
     end
 
     @event.destroy
