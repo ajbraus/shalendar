@@ -232,8 +232,8 @@ class Notifier < ActionMailer::Base
     @comments = event.comments.order('created_at DESC').limit(4)
     @comments.shift(1)
     @guest = user
-    if(@user.iPhone_user == true)
-      d = APN::Device.find_by_id(@user.apn_device_id)
+    if(@guest.iPhone_user == true)
+      d = APN::Device.find_by_id(@guest.apn_device_id)
       if d.nil?
         Airbrake.notify("thought we had an iphone user but can't find their device")
       else
@@ -245,8 +245,8 @@ class Notifier < ActionMailer::Base
         n.save
       end
     end
-    if(@user.android_user == true)
-      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+    if(@guest.android_user == true)
+      d = GCM::Device.find_by_id(@guest.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
       else
@@ -254,7 +254,7 @@ class Notifier < ActionMailer::Base
         n.device = d
         n.collapse_key = "New Comment - #{@event.short_event_title}"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "New Comment - #{@event.short_event_title}"}}
+        n.data = {:registration_ids => [@guest.GCMregistration_id], :data => {:message_text => "New Comment - #{@event.short_event_title}"}}
         n.save
       end
     end
