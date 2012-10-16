@@ -95,11 +95,29 @@ class ShalendarController < ApplicationController
     #USERS
     @total_users = User.all.count
     @new_users_last_week = User.where(['created_at > ?', Time.now - 1.week]).count
-    @inactive_users = User.where(['last_sign_in_at < ?', Time.now - 1.month]).count
+    @inactive_users = User.where(['last_sign_in_at < ?', Time.now - 1.month])
     @active_users = User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.now - 1.month]).count
-    
+
     #EVENTS
     @events_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).count
+    @rsvps_last_week = Rsvp.where(['created_at > ?', Time.now - 1.week])
+    #RSVPs graph
+    @rspvs_each_day_last_week = []
+    
+    (0..6).each do |i|
+      @rsvps_per_day = Rsvp.find(:all, :conditions => [" created_at between ? AND ?", Time.zone.now.beginning_of_day - i.days, Time.zone.now.end_of_day - i.days]).count
+      @rspvs_each_day_last_week.push(@rsvps_per_day)
+    end
+
+    @rsvps_vs_events_last_week_graph = LazyHighCharts::HighChart.new('graph') do |f|
+      f.options[:chart][:defaultSeriesType] = "area"
+      f.options[:plotOptions] = {area: {pointInterval: 1.day, pointStart: 7.days.ago}}
+      f.series(:name=>'RSVPs', :data=> @rsvps_each_day_last_week)
+      #f.series(:name=>'Jane', :data=> [1, 3, 4, 3, 3, 5, 4,-46,7,8,8,9,9,0,0,9] )
+      f.xAxis(type: :datetime)
+    end
+    #SUGGESTIONS
+
   end
 
   def fb_invite 
