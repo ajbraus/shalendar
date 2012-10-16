@@ -21,7 +21,7 @@ class ShalendarController < ApplicationController
         if current_user.vendor?
           es.starts_at.to_date == @date 
         else 
-          es.starts_at.to_date == @date && (!current_user.cloned?(es) || !current_user.rsvpd_to_clone?(es))
+          es.starts_at.to_date == @date && (!current_user.cloned?(es.id) || !current_user.rsvpd_to_clone?(es.id))
         end
       end
       @event_suggestions.push(@suggestions_on_date)

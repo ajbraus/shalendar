@@ -17,11 +17,10 @@
   $.widget( "ui.addresspicker", {
     options: {
         appendAddressString: "",
-        draggableMarker: true,
+        draggableMarker: false,
         regionBias: null,
         mapOptions: {
-            zoom: 5, 
-            disableDefaultUI: true,
+            zoom: 11, 
             center: new google.maps.LatLng(43.0730517, -89.40123019999999), 
             scrollwheel: true,
             mapTypeId: google.maps.MapTypeId.HYBRID

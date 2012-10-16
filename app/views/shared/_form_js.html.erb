@@ -34,16 +34,12 @@ $('#datetime').datetimepicker({
 
  $("#addLink").click(function () {
  $("#addLinkp").slideToggle();
- $("#new_suggestion_button").fancybox.update();
- $("#new_idea_button").fancybox.update();
- $('#clone').fancybox.update();
+ $.fancybox.update();
 });
 
 $("#addmap").click(function () {
  $('#addmapp').slideToggle();
- $("#new_suggestion_button").fancybox.update();
- $("#new_idea_button").fancybox.update();
- $('#clone').fancybox.update();
+ $.fancybox.update();
 });
 
 $('#new_suggestion_form').validate();

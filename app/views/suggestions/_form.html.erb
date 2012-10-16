@@ -56,7 +56,7 @@
 			<%= f.check_box :family_friendly, class: "switch" %>
 		</p>
 
-<%= render 'shared/link_map' %>	 
+<%= render partial: 'shared/link_map', locals: { :f => f } %>	 
 
 	<span class="new_idea_button"><%= f.submit 'Post Suggestion', :class => 'btn btn-large btn-primary' %></span>
 

@@ -50,8 +50,7 @@
 		</u>
 	</div>
 
-<%= render 'shared/link_map' %>	
-
+<%= render partial: 'shared/link_map', locals: { :f => f } %>
 	<%= f.hidden_field :suggestion_id %>
 
 

@@ -43,8 +43,6 @@ new follower email link not working
 Adam
 --------------
 
-This iteration todo:
-
 clone
 	require category with javascript
 	cloning on other suggestions
@@ -52,9 +50,6 @@ clone
 fix js for join button from latest_ideas
 
 creating ideas double
-
-event show page update
-	show image,link,put comments on top, shrink invites/guests
 
 order things by them being your friends or not
 
@@ -71,7 +66,7 @@ run migrations in production
 
 
 
-
+Upon invite send facebook email
 
 RSVP in/out
 

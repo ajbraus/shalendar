@@ -123,7 +123,7 @@ $(document).bind('click', function(e) {
 	$('.find_friends').fancybox();
 	$(".howto").fancybox();
   $('.city_vendors').fancybox();
-  $('#clone').fancybox();
+  $('.clone').fancybox();
 
 // SHOW/HIDE LINK AND MAP
 

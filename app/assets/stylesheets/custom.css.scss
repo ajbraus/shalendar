@@ -1755,9 +1755,9 @@ opacity: 0.4;
 .gmaps4rails_map {
   border: 1px solid #DDD;
   display: inline-block;
-  width:327px;
-  height:220px;
-  margin: 10px 0 13px 0px;
+width: 280px;
+height: 148px;
+margin: 6px 0 13px 0px;
   -moz-box-shadow: 0 0 12px -1px #000;
   -webkit-box-shadow: 0 0 12px -1px #000;
   box-shadow: 0 0 12px -1px #000;
@@ -2083,9 +2083,14 @@ width: 230px;
   width: 100px;
 }
 
+
+
 .event_form {
   margin: 0 auto;
   width: 442px;
+  .ui-button-text {
+  font-size: 10.7px;
+}
   p{
     line-height: 1;
 margin: 0px 0px 10px 0;
@@ -2199,6 +2204,10 @@ margin-top: 10px;
 #addmapp {
   margin-bottom: 15px;
   clear: both;
+  input {
+    margin-left: 10px;
+width: 395px;
+  }
 }
 
 #addLinkp {
