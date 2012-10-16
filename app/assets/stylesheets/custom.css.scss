@@ -457,6 +457,7 @@ height: 0px;
 position: relative;
 top: 18px;
 width: 300px;
+height: 10px;
   }
   li {
     display: inline;
@@ -955,12 +956,11 @@ letter-spacing: 2px;
 
 
 .forecast {
-overflow-y: auto;
 overflow-x: hidden;
 width: 96%;
-height: 724px;
 margin: 0 auto;
 margin-top: 15px;
+overflow-y: hidden;
 /*    .gutter {
 border-right: 1px solid grey;
 border-left: 1px solid grey;

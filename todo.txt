@@ -57,6 +57,8 @@ clone
 
 fix js for join button from latest_ideas
 
+creating ideas double
+
 event show page update
 	show image,link,put comments on top, shrink invites/guests
 
