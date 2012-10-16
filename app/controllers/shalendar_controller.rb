@@ -1,5 +1,5 @@
 class ShalendarController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: :vendor_splash
   before_filter :set_time_zone
 
 	def home
@@ -7,12 +7,44 @@ class ShalendarController < ApplicationController
     @invite_counts = []
 		@date = Time.now.in_time_zone(current_user.time_zone).to_date #in_time_zone("Central Time (US & Canada)")
     @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
-    #@forecastoverview = current_user.forecastoverview
     @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')    
     @graph = session[:graph]
     @event = Event.new
     @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
     @toggled_off_ids = current_user.reverse_relationships.where('toggled = false')
+    
+    @event_suggestions = []
+    @all_event_suggestions = Suggestion.where('starts_at IS NOT NULL and starts_at > ?', Time.now).order('starts_at ASC')
+    (-3..16).each do |date_index|
+      @suggestions_on_date = []
+      @date = Time.now.to_date + date_index.days
+      @suggestions_on_date = @all_event_suggestions.select do |es| 
+        if current_user.vendor?
+          es.starts_at.to_date == @date 
+        else 
+          es.starts_at.to_date == @date && (!current_user.cloned?(es.id) || !current_user.rsvpd_to_clone?(es.id))
+        end
+      end
+      @event_suggestions.push(@suggestions_on_date)
+    end
+        #needs by city
+        #@city = current_user.city
+        #@event_suggestions = @city.event_suggestions(Time.now.in_time_zone(current_user.time_zone))
+        #in city model
+        #def event_suggestions(time_now)
+        #  silo by vendors in a city
+        #  return an array of arrays each one a day 
+        #  with the suggestions inside
+        #end
+    @suggestions = []
+    @all_suggestions = Suggestion.where('starts_at IS NULL').order('created_at DESC')
+                   #or Suggestion.join('user').where('city == ?' current_user.city)
+    @all_suggestions.each do |as|
+      unless current_user.cloned?(as) || current_user.rsvpd_to_clone?(as)
+        @suggestions.push(as)
+      end
+    end
+    @vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
 	end
 
 	def manage_follows
@@ -20,6 +52,7 @@ class ShalendarController < ApplicationController
 		@friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
 		#people who want to view current user
     @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
+    @vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
     if params[:search]
       @users = User.search params[:search]
       respond_to do |f|
@@ -52,6 +85,10 @@ class ShalendarController < ApplicationController
       format.html
       #format.js
     end
+  end
+
+  def city_vendors
+    @vendors = User.where('city = current_user_city vendor = true', current_user_city: current_user.city)
   end
 
   def search

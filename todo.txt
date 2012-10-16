@@ -1,12 +1,14 @@
 From Feedback Fiesta
 ----------
+<<<<<<< HEAD
 
 'message attendees' functionality from inside event?
 
+=======
+>>>>>>> vendors
 operators agreement
 Terms & Conditions
 email signatures
-update git repo to company 
 
 *super limited* profile- know who someone is, maybe a short blurb, lightbox?
 
@@ -43,6 +45,7 @@ new follower email link not working
 Adam
 --------------
 
+<<<<<<< HEAD
 	Have "Good friends" where you get contacted directly/mobile when they create an invitation
 	Text message reminder to go to events (twillio)
 	Check lists
@@ -54,16 +57,100 @@ write email_comment.html email
 friend someone then the datepicker window stops working :o)
 
 when I click on "latest ideas" to remove them, it doesn't remove the counter!
+=======
+clone
+	require category with javascript
+	cloning on other suggestions
+>>>>>>> vendors
 
-app request
+fix js for join button from latest_ideas
 
+<<<<<<< HEAD
 	remove permission to write to wall
 	then when they want to invite folks ask for permission
+=======
+creating ideas double
+>>>>>>> vendors
+
+order things by them being your friends or not
+
+FQL query for facebook friends, display alphabetically and if on hoosin then not
+
+max - if nil set to 1,000,000
+
+
+CUTTOVER 
+
+move original/raster images in production AS3
+
+run migrations in production
+
+
+
+Upon invite send facebook email
+
+RSVP in/out
+
+Add lat/lang to each city and then pass that to the map in forms
+
+yesterday tomorrow buttons working
+
+carrot next to picture
+
+make public yellow pages display and then make it load with ajax
+
+calendar of suggestions
+
+	Text message reminder to go to events (twillio)
+	Check lists
+	Map
+	Link
+
+friend someone then the datepicker window stops working :o)
+
+invite someone then hover stops working
+
+when I click on "latest ideas" to remove them, it doesn't remove the counter!
+
+month view
+
+bring order to 'lastest ideas'
+
+invite, guest list: order by ppl you already friended
+facebook friends: order by ppl already on hoosin
+
+
+
+
+DONE
+Create Suggestions w same columns as events
+Users get boolean vendor?
+User that is vendor can create suggestion and view their suggestions in a vendor dashboard
+Suggestions have many children (class = Event)
+If user.vendor? put link to suggestions#index (vendor dashboard) in header.
+added promo_img to suggestion data structure
+When you click clone it finds the suggestion and passes the elements into a new clone form (i.e. new event form) with suggested elements not actionable and blank elements actionable.
+hid suggestions you've already cloned
+when you submit it goes to the EventsController#create method that creates an event that is a child of a suggestion using the suggestion id as the parent
+Welcome email for vendors
+when suggestion is created if it has a time already create an event - creating the event but not displaying in forecast . . .?
+vendors cannot friend or follow
+ppl can only follow vendors
+
+
+Texting
+Recurring Events
+"I'm out"
+integration with twitter
+meetup.com
+google contacts
+google calendar/ical/outlook - .ics 
+
+
 
 Close viral loop:
 	Invite friends pulls in facebook friends (FQL query for friends in city, then not on hoos.in)
 	Text message ppl invitation
-	Recieve an email every time an event is created
 	Recieve text message reminder to go to an event
 	Host can message all RSVPs, text/push/ or email
 	when you comment, host is contacted text/push or email
@@ -81,62 +168,6 @@ def remind
 	else flash notification every 15 minutes on screen of homepage, play noise?
 end
 
-
-Create Vendor events
-
-vendor events require: 
-	title
-	time
-	location
-	promo-image
-
-
-Cities have vendors
-
-vendors have many users as admins through admin table
-
-users have many vendors through admin table
-
-vendors have many vendor events (a subclass with STI of the Event model)
-
-Vendor events have many events as children through children table
-
-Events belong to vendor events through children table
-
-
-views:
-	Vendor Dashboard
-	Vendor Events menu
-		list w "more" button
-	Header dropdown
-
-Methods:
-	
-	Clone
-	CRUD Suggestion events
-
-Tables:
-
-	Vendor
-
-Models:
-
-	Event
-	Event.user
-	Event.vendor
-
-
-
-
-
-Unprotect RSVP to only ppl invited to event
-
-
-
-
-
-once you invite tooltips stop working
-
 hidden settings page
 
 add "you are now friends with x" to relationship#create.js
@@ -153,32 +184,15 @@ invite people who went to other events but without having to follow them
 
 add beautiful dialogue box for confirm to join event
 
-facebook friends FQL query and alphabetical and ppl on hoosin first
+http://snipplr.com/view/29911/javascript-alert-and-confirm-dialog-the-fancybox-way/
 
 daily digest if new events
 
-users are not interacting enough because
-	1. they can't connect with each other
-	2. They don't know what's going on
-	3. Their friends don't know what their doing.
-
-
-lump together hide all view all
-	create routes
-	create relationship controller actions
-	create js files
-
-how many facebook friends they have in their city
-
-maps problems
-
 remove vendor/cache gems
-
-Chronic error message unclear, dealing with chronic errors
 
 operators agreement
 
-carrot next to picture
+
                                                            
                       
 Side note: put_wall_post posts to user/feeds, which doesn’t `include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)

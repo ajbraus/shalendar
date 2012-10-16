@@ -15,4 +15,7 @@
 //= require jquery.ui.button
 //= require jquery.ui.tabs
 //= require highcharts
+//= require jquery.ui.datepicker
+//= require jquery.ui.slider
+//= require jquery.ui.autocomplete
 //= require_tree

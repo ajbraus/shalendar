@@ -33,6 +33,8 @@
 
   <div><%= f.check_box :terms, checked: true %><%= f.label :terms, "Terms & Conditions- coming soon :)", class: "required" %></div><br/>
 
+  <%= f.hidden_field :vendor, value: false %>
+
   <div><%= f.submit "Sign up", :class => "btn btn-large btn-primary" %></div>
 <% end %>
 

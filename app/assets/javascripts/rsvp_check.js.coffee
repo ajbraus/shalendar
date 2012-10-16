@@ -2,6 +2,10 @@ $.fn.withEventId = (id) ->
 	@filter ->
 		$(this).data('event-id') == id
 
+$.fn.withSuggestionId = (id) ->
+  @filter ->
+    $(this).data('suggestion-id') == id
+
 $.fn.increment = ->
 	value = parseInt($(@).text())
 	$(@).text(value + 1)

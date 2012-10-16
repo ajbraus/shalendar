@@ -87,4 +87,16 @@ class RegistrationsController < Devise::RegistrationsController
       respond_with resource
     end
   end
+
+  def new_vendor
+    sign_out(current_user)
+    @all_cities = City.all
+    @cities = []
+    @all_cities.each do |c|
+      @city_name = c.name
+      @cities.push(@city_name)
+    end
+    resource = build_resource({})
+    respond_with resource
+  end
 end

@@ -1,0 +1,60 @@
+<div id="clone_form" class="event_form">
+ <%= form_for @clone, url: { controller: "events", action: "create" }, html: { id: "new_event_form" } do |f| %>
+  <% if @clone.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@clone.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+				  <p>
+	    <%= label :title, "Idea" %><br/>
+	    <%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off", readonly: true, style: "background-color:#F8F8F8;" %>
+	  </p>  
+	  <p>
+	   <%= label :starts_at, "When does it start?" %>
+	   <%= label :duration, "How Long?", class: "duration" %><br/>
+	   <% if :duration.length > 0 %>
+		   <%= f.text_field :chronic_starts_at, id: "datetime", class: "required starts_at", autocomplete: "off", readonly:true, style: "background-color:#F8F8F8;" %>
+		   <%= f.text_field :duration, placeholder:"#hrs", class: "required duration", autocomplete: "off", readonly:true, style: "background-color:#F8F8F8;"  %>
+		 <% else %>
+		 	 <%= f.text_field :chronic_starts_at, id: "datetime", class: "required starts_at", autocomplete: "off" %>
+		   <%= f.text_field :duration, placeholder:"#hrs", class: "required duration", autocomplete: "off"  %>
+		 <% end %>
+	  </p>
+
+	<div id="minmax" style="display: block; clear:both;">
+	  <u>
+	    <%= f.label :min_attendees, "Tipping point" %> <br/>
+	    <%= f.text_field :min, :class => 'input-mini', value: 1, autocomplete: "off" %>
+	  </u>
+	  <u>
+	    <%= f.label :max_attendees, "Full" %> <br/>
+	    <%= f.text_field :max, :class => 'input-mini', value: 50, autocomplete: "off" %>
+	  </u>
+	</div>
+
+	<div class="invitation_options" style="display: block; clear:both;">
+	  <u>
+			<%= f.label "Share Idea with All Your Friends" %><br>
+			<i class="icon-group questionMark"></i>
+			<input checked="checked" id="invite_all_friends" name="invite_all_friends" type="checkbox" class="switch">    			
+		</u>
+	  <u>
+	  	<%= f.label "Friends can share Idea with Friends" %><br>
+			<i class="icon-bullhorn questionMark"></i>
+			<%= f.check_box :guests_can_invite_friends, class: "switch", checked: "checked" %>
+		</u>
+	</div>
+
+<%= render partial: 'shared/link_map', locals: { :f => f } %>
+	<%= f.hidden_field :suggestion_id %>
+
+
+	<span class="new_idea_button"><%= f.submit 'Create Idea', :class => 'btn btn-large btn-primary' %></span>
+
+<% end %>
+</div>

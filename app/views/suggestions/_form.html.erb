@@ -1,0 +1,64 @@
+<div id="new_suggestion" class="event_form">
+	 <%= form_for @suggestion, html: { id: "new_suggestion_form" } do |f| %>
+	  <% if @suggestion.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@suggestion.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+	      <ul>
+	      <% @suggestion.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+	  <p>
+	    <%= label :title, "Suggestion" %><br/>
+	    <%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off" %>
+	  </p>  
+	  <p>
+	   <%= label :starts_at, "When does it start?" %>
+	   <%= label :duration, "How Long?", class: "duration" %><br/>
+	   <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at", autocomplete: "off" %>
+	   <%= f.text_field :duration, placeholder:"#hrs", class: "duration", autocomplete: "off"  %>
+	  </p>
+	  <p>
+	    <%= label :category, "Category" %><br/>
+	    <div id="categories">
+	    	<% Suggestion::CATEGORIES.each do |c| %>
+		      <%= radio_button "suggestion", :category, "#{c}", id:"radio#{(Suggestion::CATEGORIES.index(c) + 1)}" %>
+		      <%= label_tag "radio#{(Suggestion::CATEGORIES.index(c) + 1)}", "#{c.humanize}" %>
+	    	<% end %>
+    	</div>
+	  </p>  
+
+	  <p>
+	<div><%= f.label :display_image %><br />
+  <%= f.file_field :promo_img, class:"required" %></div>
+  	</p>
+  	
+		<p>
+		  <div class="invitation_options" style="display: block; clear:both;">
+				<u>
+					<%= f.label "Price" %><br>
+					<span class="dollar">$ </span><%= f.text_field :price, autocomplete:"off" %>
+				</u>
+
+				<u>
+				  <%= f.label :max_attendees, "Max Attendees" %> <br/>
+				  <%= f.text_field :max, :class => 'input-mini', value: 200, autocomplete: "off" %>
+				</u>
+			</div>
+		</p>
+
+		<p>
+	  	<%= f.label "Family Friendly?" %><br>
+			<i class="icon-home questionMark"></i>
+			<%= f.check_box :family_friendly, class: "switch" %>
+		</p>
+
+<%= render partial: 'shared/link_map', locals: { :f => f } %>	 
+
+	<span class="new_idea_button"><%= f.submit 'Post Suggestion', :class => 'btn btn-large btn-primary' %></span>
+
+	<% end %>
+</div>

@@ -52,6 +52,9 @@ margin: 0 auto;
 
 .fancybox-inner {
 	overflow: hidden;
+	/*CUSTOM*/
+	min-width:500px;
+	height:auto;
 }
 
 .fancybox-type-iframe .fancybox-inner {
@@ -174,7 +177,7 @@ margin: 0 auto;
 	overflow: hidden;
 	display: none;
 	z-index: 8010;
-	background: url('fancybox_overlay.png');
+background-color: rgba(0, 0, 0, .5);
 }
 
 .fancybox-overlay-fixed {

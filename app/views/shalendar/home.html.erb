@@ -1,24 +1,39 @@
 <% provide(:title, " | Home") %>
+	<% if false %>
 	<div class="dashboard">
-		<%= render 'layouts/logo' %>
-	  <%= render 'get_friends' %>
-	  <div class="grey_italics small">
-	  	Click to show/hide Friends' ideas
-	  </div>
-	  <div id="home_raster" class="raster element">
-	  	<%= render 'raster' %>
-	  </div>
-	  <div class="raster_nav">
-  		<a href="#" onclick="$('.toggled-off').click();">Show All</a> |
-  		<a href="#" onclick="$('.toggled-on').click();">Hide All</a>
-
-		</div>
-		<% if false %>
-			<a href="#public", class="public" ><%= (image_tag "madison_icon", :size => "50x50", title: "Find Friend's On Facebook") %></a>
-			<%= render 'public' %>
-		<% end %> 
+	  <%= render 'suggestions' %>
 	</div>
-	<div class="container">
+	<% end %>
+
+	<% if @event %>
+		<% if @event.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+	      <ul>
+	      <% @event.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+  <% end %>
+
+  <% if @suggestion %>
+		<% if @suggestion.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@suggestion.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+	      <ul>
+	      <% @suggestion.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+  <% end %>
+
+
 		<%= render 'ribbon', :locals => { :next_plan => @next_plan } %>
 		<div class='forecast'>
 			<%= render 'forecast' %>
@@ -39,12 +54,3 @@
 		document.ready(Func1Delay());
 	</script>
 <% end %>
-
-<script>
-// INITIALLY HIDE ALL UNTOGGLED USERS
-<% @toggled_off_ids.each do |toi| %>
-  document.ready(function(){
-		$('a').withInviterId("<%= toi.followed.id %>").hide();
-  });
- <% end %>
-</script>

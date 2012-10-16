@@ -1,21 +1,14 @@
 $(document).ready(function() {
-
-
 // REMOVE ALERT 
 
 	$("div.alert").delay(2500).fadeOut(400);
 
-
 // LOADING AJAX
-
-
 $('#loading').ajaxStart(function(){
   $(this).show();
 }).ajaxStop(function(){
   $(this).hide();
 });
-
-
 // $('#someFormID')
 // .ajaxStart(function() {
 //     $('#loading').show();
@@ -52,12 +45,12 @@ $('#loading').ajaxStart(function(){
 
 $('.datePickerDay').click(function(){
   dw_position = $(this).position();
-  $('#datewindow').animate({ left: dw_position.left - 5}, 1000);
+  $('#datewindow').animate({ left: dw_position.left - 2}, 1000);
   date = $(this).attr('data-date');
   forecast_original_position = $('#forecast').position();
   forecast_day_position = $('dl').withDate(date).position();
   //frame_position = $('.forecast').position();
-  $('#forecast').animate({ right: forecast_day_position.left + 10 }, 1000);
+  $('#forecast').animate({ right: forecast_day_position.left }, 1000);
 });
 
 // NEW IDEA CHECKBOX SWTICHES
@@ -103,6 +96,7 @@ $('#tomorrow').click(function(){
 });
 
 $('#yt').buttonset();
+$('#categories').buttonset();
 
 // SETTINGS DROPDOWN
 
@@ -124,22 +118,23 @@ $(document).bind('click', function(e) {
 
 // NEW IDEA LIGHTBOX
 
-	$(".btn-new-idea").fancybox();
-
+  $('#new_idea_button').fancybox();
+  $('#new_suggestion_button').fancybox();
 	$('.find_friends').fancybox();
-
 	$(".howto").fancybox();
+  $('.city_vendors').fancybox();
+  $('.clone').fancybox();
 
 // SHOW/HIDE LINK AND MAP
 
   $("#addLink").click(function () {
    $("#addLinkp").slideToggle();
-   $(".btn-new-idea").fancybox.update();
+   $("#new_idea_button").fancybox.update();
   });
 
   $("#addmap").click(function () {
    $('#addmapp').slideToggle();
-   $(".btn-new-idea").fancybox.update();
+   $("#new_idea_button").fancybox.update();
   });
 
 // NEW IDEA FORM VALIDATION
@@ -165,15 +160,31 @@ $(document).bind('click', function(e) {
 
 	$("#registration_form").validate();
 
+  $('#new_suggestion_form').validate();
 
 // TABS
 
-	$( "#views_list" ).tabs();
+	$("#views_list").tabs();
 
-// $( '#public_tabs' ).tabs();
+	$("#guest_raster").tabs();
 
-	$( "#guest_raster" ).tabs();
+  $('#public').tabs();
 
+  $('#tabs-nested').tabs();
+  $('#events').tabs();
+  $('#suggestions').tabs();
+
+
+
+// DATETIME PICKER
+
+  $('#datetime').datetimepicker({
+      timeFormat: "h:mm tt",
+      ampm: true,
+      stepMinute: 15,
+      addSliderAccess: true,
+      sliderAccessArgs: { touchonly: true }
+  });
 
 // google map address picker
 // http://jquerybyexample.blogspot.com/2011/11/jquery-addresspicker-plugin-explained.html
@@ -194,7 +205,7 @@ $(document).bind('click', function(e) {
     
 //   });
 
-});
+
 
 
 //Get local time zone- TRYING TO DO IT JavaScript
@@ -242,3 +253,4 @@ $(function(){
   }) 
 });
 
+});

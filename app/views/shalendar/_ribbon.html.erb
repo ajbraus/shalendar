@@ -1,10 +1,19 @@
 <div id="ribbon">
-	<a class="btn btn-rsvp btn-new-idea" href="#new_idea"><i class="icon-cloud"></i> New Idea</a>
-	<%= render 'new_idea_form' %>
-
+	<div class="new_idea">
+			<textarea id="new_idea_blerb"></textarea>
+		<%if current_user.vendor? %>
+			<%= link_to new_suggestion_path, id:"new_suggestion_button", class: "btn btn-new-idea btn-rsvp fancybox.ajax", title: "Make A New Suggestion", remote: true do %>
+					<i class="icon-bullhorn"></i>
+			<% end %>
+		<% else %>
+			<%= link_to new_event_path, id:"new_idea_button", class: "btn btn-rsvp btn-new-idea fancybox.ajax", title:"Make a New Idea", remote: true do %>
+				<i class="icon-cloud"></i>
+			<% end %>
+		<% end %>
+	</div>
 	<% if false %>
 	<div id="yt">
-		<a href="#yesterday" id="yesterday"><</a>
+		<a href="#yesterday" id="yesterday"><</a><br>
 		<a href="#tomorrow" id="tomorrow">></a>
 	</div>
 	<% end %>

@@ -1,0 +1,33 @@
+<div class="vendor_dash">
+<h1><%= current_user.name %>'s vendor dashboard</h2>
+
+<ul>
+	<% @suggestions.each do |s| %>
+	<li class="part">
+		<%= image_tag s.promo_img.url(:medium), class:"suggestion_promo_img" %>
+		<p>
+			<span style="font-weight:bold;"><%= s.starts_at %></span>
+		</p>
+		<p>
+			<%= s.title %>
+		</p>
+		<div class="clones">
+			<h4>Clones</h4>
+			<ul>
+				<% s.events.each do |clone| %>
+				<li>
+					<table>
+						<tr>
+							<td><%= raster_profile_picture(clone.user) %></td>
+							<td><%= clone.user.name %></td>
+							<td>Invites: <%= clone.invitations.count %></td>
+							<td>RSVPs: <%= clone.rsvps.count - 1 %></td>
+						</tr>
+					</table>
+				</li>
+				<% end %>
+		</div>
+	</li>
+	<% end %>
+</ul>
+</div>

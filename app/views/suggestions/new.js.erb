@@ -1,0 +1,9 @@
+<script>
+$('#loading').remove();
+</script>
+<%= render partial: 'suggestions/form' %>
+<%= render partial: 'shared/form_js' %>
+<script>
+	blerb = $('#new_idea_blerb').val();
+	$('#new_idea_title').text(blerb);
+</script>

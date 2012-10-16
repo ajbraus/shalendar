@@ -13,7 +13,8 @@ class Event < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :email_invites, dependent: :destroy
 
-  attr_accessible :id,
+  attr_accessible :user_id,
+                  :suggestion_id,
                   :starts_at, 
                   :duration,
                   :ends_at,
@@ -28,20 +29,33 @@ class Event < ActiveRecord::Base
                   :link,
                   :gmaps,
                   :tipped,
-                  :guests_can_invite_friends
+                  :guests_can_invite_friends,
+                  :price,
+                  :promo_img
+
+  has_attached_file :promo_img, :styles => { :original => '900x700',
+                                             :large => '380x520',
+                                             :medium => '190x290'},
+                             :storage => :s3,
+                             :s3_credentials => S3_CREDENTIALS,
+                             :path => "event/:attachment/:style/:id.:extension"
+                             #:default_url => "https://s3.amazonaws.com/hoosin-production/event/promo_img/medium/default_promo_img.png"
 
   validates :user_id,
             :title,
             :starts_at,
             :chronic_starts_at,
-            :duration, presence: true
+            :duration, 
+            :ends_at, presence: true
   validates :max, numericality: { in: 1..10000, only_integer: true }
   validates :min, numericality: { in: 1..10000, only_integer: true }
-  # validates :duration, numericality: { in: 0..1000 } 
+  validates :duration, numericality: { in: 0..1000 } 
   validates :title, length: { maximum: 140 }
   # validates_numericality_of :lng, :lat
   @url = /^((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)?$/ 
   validates :link, :format => { :with => @url }
+  #validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}
+
  
   def as_json(options = {})
     {
@@ -102,8 +116,8 @@ class Event < ActiveRecord::Base
   end
 
   def ends_at
-    if self.duration && self.starts_at
-      self.ends_at = self.starts_at + self.duration*3600
+    if duration && starts_at
+      ends_at = starts_at + duration*3600
     end
   end
 

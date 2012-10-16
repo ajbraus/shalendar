@@ -1,0 +1,144 @@
+<div id="tabs-nested" class="suggestions">
+	<ul>
+		<li>
+			<a href="ui-tabs-1">Events</a>
+		</li>
+		<li>
+			<a href="ui-tabs-2">Suggestions</a>
+		</li>
+	</ul>
+
+	<!-- EVENTS TAB -->
+	<div id="ui-tabs-1">
+		<div id="events">
+			<ul>
+			<% Suggestion::CATEGORIES.each do |c| %>
+				<li>
+					<a href="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 3 %>">
+						<%= c.humanize %>
+					</a>
+				</li>
+			<% end %>
+				<li>
+					<a href="ui-tabs-7">
+						Family
+					</a>
+				</li>
+			</ul>
+			<!-- CATEGORY TABS -->
+			<% Suggestion::CATEGORIES.each do |c| %>
+				<div id="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 3 %>">
+				<ul>
+				<% (0..21).each do |date_index| %> 
+					<li class="suggestions_on_date">
+						<div class="suggestion_date"><%= (Date.today + date_index.days).strftime("%A, %e %B") %></div>
+						<ul>
+						<% unless @event_suggestions[date_index].nil? %>
+						<% @event_suggestions[date_index].each do |es| %>
+							<% if es.category == c %>
+								<li id="f1_container" class="hover" data-suggestion-id="<%= es.id %>">
+									<div id="f1_card">
+										<div class="front face">
+			    						<%= image_tag es.promo_img.url(:medium) %>
+			  						</div>
+										<div class="back face suggestion">
+											<%= render :partial => "suggestions/event_suggestion", :locals => { :suggestion => es } %>
+										</div>
+									</div>
+								</li>
+							<% end %>
+						<% end %>
+						<% end %>
+						<div style="clear: both"></div>
+						</ul>
+					</li>
+				<% end %>
+				</ul>
+			</div>
+			<% end %>
+			<!-- FAMILY TAB -->
+			<div id="ui-tabs-7">
+				<ul>
+				<% (0..21).each do |date_index| %> 
+					<li class="suggestions_on_date">
+						<div class="suggestion_date"><%= (Date.today + date_index.days).strftime("%A, %e %B") %></div>
+						<ul>
+						<% unless @event_suggestions[date_index].nil? %>
+						<% @event_suggestions[date_index].each do |es| %>
+							<% if es.family_friendly? %>
+								<li id="f1_container" class="hover" data-suggestion-id="<%= es.id %>">
+									<div id="f1_card">
+										<div class="front face">
+			    						<%= image_tag es.promo_img.url(:medium) %>
+			  						</div>
+										<div class="back face suggestion">
+											<%= render :partial => "suggestions/event_suggestion", :locals => { :suggestion => es } %>
+										</div>
+									</div>
+								</li>
+							<% end %>
+						<% end %>
+						<% end %>
+						<div style="clear: both"></div>
+						</ul>
+					</li>
+				<% end %>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+<!-- SUGGESTIONS -->
+	<div id="ui-tabs-2">
+		<div id="suggestions">
+		<ul>
+		<% Suggestion::CATEGORIES.each do |c| %>
+			<li>
+				<a href="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 8 %>">
+					<%= c.humanize %>
+				</a>
+			</li>
+		<% end %>
+			<li>
+				<a href="ui-tabs-10">
+					Family
+				</a>
+			</li>
+		</ul>
+		<% Suggestion::CATEGORIES.each do |c| %>
+			<div id="ui-tabs-<%= Suggestion::CATEGORIES.index(c) + 8 %>">
+			<% @suggestions.each do |s| %>
+				<% if s.category == c %>
+					<li id="f1_container" class="hover" data-suggestion-id="<%= s.id %>">
+						<div id="f1_card">
+							<div class="front face">
+    						<%= image_tag s.promo_img.url(:medium) %>
+  						</div>
+							<div class="back face suggestion">
+								<%= render :partial => "suggestions/suggestion", :locals => { :suggestion => s } %>
+							</div>
+						</div>
+					</li>
+				<% end %>
+			<% end %>
+			</div>
+		<% end %>
+			<div id="ui-tabs-12">
+			<% @suggestions.each do |s| %>
+				<% if s.family_friendly? %>
+					<li id="f1_container" class="hover" data-suggestion-id="<%= s.id %>">
+						<div id="f1_card">
+							<div class="front face">
+    						<%= image_tag s.promo_img.url(:medium) %>
+  						</div>
+							<div class="back face suggestion">
+								<%= render :partial => "suggestions/suggestion", :locals => { :suggestion => s } %>
+							</div>
+						</div>
+					</li>
+				<% end %>
+			<% end %>
+			</div>
+		</div>
+	</div>
+</div>
