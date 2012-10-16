@@ -1,21 +1,14 @@
 $(document).ready(function() {
-
-
 // REMOVE ALERT 
 
 	$("div.alert").delay(2500).fadeOut(400);
 
-
 // LOADING AJAX
-
-
 $('#loading').ajaxStart(function(){
   $(this).show();
 }).ajaxStop(function(){
   $(this).hide();
 });
-
-
 // $('#someFormID')
 // .ajaxStart(function() {
 //     $('#loading').show();
@@ -136,12 +129,12 @@ $(document).bind('click', function(e) {
 
   $("#addLink").click(function () {
    $("#addLinkp").slideToggle();
-   $(".btn-new-idea").fancybox.update();
+   $("#new_idea_button").fancybox.update();
   });
 
   $("#addmap").click(function () {
    $('#addmapp').slideToggle();
-   $(".btn-new-idea").fancybox.update();
+   $("#new_idea_button").fancybox.update();
   });
 
 // NEW IDEA FORM VALIDATION
@@ -210,7 +203,7 @@ $(document).bind('click', function(e) {
     
 //   });
 
-});
+
 
 
 //Get local time zone- TRYING TO DO IT JavaScript
@@ -258,3 +251,4 @@ $(function(){
   }) 
 });
 
+});

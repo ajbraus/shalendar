@@ -32,7 +32,7 @@ box-shadow: 0px 0px 34px -6px #388EE5;
 				<%= image_tag "night.png" %>
 			<% end %>
 			<span><%= event_start_time(event) %> - <%= event_end_time(event) %></span>
-		</div></br>
+		</div>
 
 		<% unless event.promo_img_file_size.nil? %>
 			<div class="event_promo_img">
@@ -42,11 +42,11 @@ box-shadow: 0px 0px 34px -6px #388EE5;
 	
 		<div class="event_blerb"><%= event.short_event_title %></div>
 	
-		<div class="event_pic"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
+		<div class="event_pic" title="Invited by: <%= User.find_by_id(event.inviter_id).name%>"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
 		<div class="guest_count">
 			<% if current_user.rsvpd?(event) && event.guests_can_invite_friends? %>
 				<% if current_user.rsvps.find_by_plan_id(event.id).invite_all_friends? %>
-					<i class="gold icon-group" title="You shared this idea with your friends"></i>
+					<i class="gold icon-group" title="Shared With Friends"></i>
 				<% else %>
 					<i class="purple icon-group" title="You may share this idea with your friends."></i>
 				<% end %>
@@ -61,13 +61,6 @@ box-shadow: 0px 0px 34px -6px #388EE5;
 		</div>
 
 		<% unless current_user.vendor? %>
-			<% if event.user == current_user && event.tipped? == false %>
-				<div class="force_tip">
-					<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true, id:"tipPin" %>
-				</div>
-			<% else %>
-				<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
-			<% end %>
 			<% unless event.user == User.find_by_id(event.inviter_id) %>
 				<div class="host">by: <%= event.user.first_name.capitalize %> 
 					<% if event.user.last_name %>
@@ -75,27 +68,15 @@ box-shadow: 0px 0px 34px -6px #388EE5;
 					<% end %> 
 				</div>
 			<% end %>
+
+			<% if event.user == current_user && event.tipped? == false %>
+				<div class="force_tip">
+					<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true, id:"tipPin" %>
+				</div>
+			<% else %>
+			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
+			<% end %>
+
 		<% end %>
 		</a>
 </div>
-
-
-<% if false %>
-	<% if Relationship.find_by_follower_id(event.inviter_id).toggled? %>
-
-	<% else %>
-	<% if current_user.rsvpd?(event) %>
-		<% if event.ends_at < Time.now %>
-			<div class="event rsvpd over" data-event-id="<%= event.id %>">
-		<% else %>
-			<div class="event rsvpd" data-event-id="<%= event.id %>">
-		<% end %>
-	<% else %>
-		<% if event.ends_at < Time.now %>
-			<div class="event not_rsvpd over" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>" style="display:none;">
-		<% else %>
-			<div class="event not_rsvpd" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>" style="display:none;">
-		<% end %>
-	<% end %>
-<% end %>
-<% end %>

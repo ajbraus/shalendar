@@ -151,12 +151,12 @@ ul, li {
 }
 
 .btn {
-  line-height: 24px;
-  padding: 11px 20px 11px 20px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  font-size: 21px;
+line-height: 24px;
+padding: 6px 15px 6px 15px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+font-size: 15px;
 }
 
 .btn-follow {
@@ -515,7 +515,7 @@ width: 164px;
 margin: 0 auto;
 height: 58px;
 position: relative;
-left: 38px;
+left: 15px;
 }
 
 .howto {
@@ -827,7 +827,7 @@ border: 3px solid #FF8500;
 width: 118px;
 height: 75px;
 position: absolute;
-left: 86px;
+left: 87px;
 bottom: -2px;
 z-index: -2;
 }
@@ -912,7 +912,7 @@ left: 12px;
 clear: both;
 position: relative;
 left: 10px;
-height: 85px;
+height: 65px;
 }
 
 #edit_idea {
@@ -1033,6 +1033,7 @@ background-color: #383838;
 padding: 1px 0px 0 8px;
 font-size: 12px;
 height: 20px;
+margin-bottom: 4px;
 img {
   width:20px;
 }
@@ -1043,9 +1044,9 @@ bottom: 5px;
 }
 
 .event_pic {
-  float: left;
-position: absolute;
-bottom: 1px;
+  width: 50px;
+  position: relative;
+top: 5px;
 }
 
 .event_blerb {
@@ -1053,7 +1054,7 @@ min-height: 30px;
 color: black;
 font-size: 16px;
 line-height: .95;
-width: 152px;
+width: 190px;
 margin-top: 5px;
 }
 
@@ -1119,8 +1120,8 @@ width: 70px;
 
 .rsvp_check {
 position: absolute;
-right: -3px;
-bottom: 23px;
+bottom: 16px;
+right: 0px;
 }
 
 /* NEXT PLAN */
@@ -1137,12 +1138,8 @@ left: 0px;
 }
 
 .btn_icon {
-position: relative;
-left: -3px;
-top: 6px;
-cursor: pointer;
 padding: 15px 12px;
-  cursor: pointer;
+cursor: pointer;
  i {
     color: white;
     position: relative;
@@ -1584,10 +1581,8 @@ bottom: 23px;
 
 .event_show {
   margin: 0 auto;
-width: 960px;
-min-height: 1100px;
-background-color: rgba(255, 255, 255, .6);
-padding-top: 20px;
+width: 752px;
+min-height: 900px;
 z-index: -10;
 }
 
@@ -1644,16 +1639,18 @@ background-color: green;
 }
 .title {
 height: 225px;
-width: 440px;
-margin-left: 83px;
+width: 385px;
 position: relative;
 background-color: white;
 float: left;
 margin-top: 20px;
   .event_title {
-    font-size: 30px;
-    padding:10px;
-    line-height: 1;
+font-size: 27px;
+padding: 10px 0px 10px 10px;
+line-height: 1.1;
+position: absolute;
+top: 41px;
+height: 120px;
   }
   .event_buttons{
     font-size: 30px;
@@ -1670,15 +1667,16 @@ margin-top: 20px;
     }
   }
   .when {
-  font-size: 21px;
-  width: 400px;
-  color: black;
-  padding: 10px;
-  border-radius: 9px;
-  font-weight: 600;
-  float: left;
-  position: absolute;
-  bottom: 80px;
+font-size: 21px;
+width: 375px;
+color: black;
+padding: 10px 10px 10px 30px;
+font-weight: 700;
+float: left;
+border-bottom: 1px solid black;
+position: relative;
+right: 15px;
+bottom: 13px;
   }
   .title_bottom {
   position: absolute;
@@ -1696,7 +1694,7 @@ font-size: 37px;
     float: left;
     width: 215px;
     position: absolute;
-    bottom: 20px;
+    bottom: 7px;
   }
 
   .event_link {
@@ -1740,10 +1738,10 @@ font-size: 37px;
 }
 
 .map {
-width: 330px;
+width: 280px;
 float: right;
-margin-right: 22px;
-height: 265px;
+height: 227px;
+margin-top: 20px;
 }
 
 .nomap {
@@ -1802,14 +1800,14 @@ margin: 0 2px;
 }
 
 #invite_raster {
-  width: 330px;
+width: 270px;
 }
 
 .show_raster {
-height: 320px;
+height: 220px;
 overflow-y: auto;
 margin-bottom: 10px;
-width: 280px;
+width: 200px;
 padding: 7px;
 float: left;
 overflow-x: hidden;
@@ -1836,12 +1834,12 @@ clear: both;
 
 .invite_by_email {
 height: 231px;
-width: 415px;
+width: 253px;
 position: relative;
 float: left;
 margin-top:10px;
   textarea {
-    width:360px;
+    width: 90%;
   }
   input[type=submit] {
     position: absolute;
@@ -1883,11 +1881,11 @@ text-align: right;
 
 .comments_form {
 float: right;
-width: 457px;
+width: 420px;
 height: auto;
-margin-top:10px;
+margin-top: 10px;
   textarea {
-    width: 412px;
+    width: 90%;
   }
   .btn {
 position: relative;
@@ -2090,18 +2088,17 @@ width: 230px;
   width: 442px;
   p{
     line-height: 1;
-    margin:10px 0;
+margin: 0px 0px 10px 0;
   }
  textarea {
-    font-size: 20px;
-    line-height: 24px;
-    width: 418px;
-    margin-bottom: 10px;
-    margin-top:5px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    height: 87px;
+font-size: 17px;
+line-height: 24px;
+width: 418px;
+margin-top: 5px;
+-webkit-border-radius: 8px;
+-moz-border-radius: 8px;
+border-radius: 8px;
+height: 80px;
   }
   label {
     font-size: 15px;
@@ -2121,9 +2118,9 @@ width: 230px;
     margin-bottom: 20px;
     margin-left: 3px;
     input {
-      width:100px;
       text-align: center;
-      font-size: 35px;
+      font-size: 27px;
+      width: 80px;
     }
     label {
       width: 210px;
@@ -2167,8 +2164,16 @@ margin-bottom: 10px;
   width:200px;
   float:left;
   input[type=submit]{
-    padding: 11px 99px 11px 113px;
+    padding: 11px 110px 11px 110px;
+
   }
+}
+
+.new_idea_map {
+width: 440px;
+height: 200px;
+border: 1px solid #DDD;
+margin-top: 10px;
 }
 
 #radio {
@@ -2192,13 +2197,14 @@ margin-bottom: 10px;
 }
 
 #addmapp {
-  float:left;
   margin-bottom: 15px;
+  clear: both;
 }
 
 #addLinkp {
   float:left;
   margin-bottom: 15px;
+  width: 100%;
 }
 
 .address-picker-map {
@@ -2461,12 +2467,11 @@ margin-top: 3px;
 }
 
 input[type=file] {
-  font-size:20px;
-  margin:10px 10px;
-  border-top:1px solid lightgrey;
-  border-bottom:1px solid lightgrey;
-  height:70px;
-  line-height: 70px;
+font-size: 20px;
+margin: 10px 10px;
+border-bottom: 1px solid lightGrey;
+height: 35px;
+line-height: 10px;
 }
 
 .vendor_dash {

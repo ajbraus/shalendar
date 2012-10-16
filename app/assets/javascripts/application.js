@@ -16,4 +16,5 @@
 //= require jquery.ui.tabs
 //= require jquery.ui.datepicker
 //= require jquery.ui.slider
+//= require jquery.ui.autocomplete
 //= require_tree

@@ -52,6 +52,9 @@ margin: 0 auto;
 
 .fancybox-inner {
 	overflow: hidden;
+	/*CUSTOM*/
+	min-width:500px;
+	height:auto;
 }
 
 .fancybox-type-iframe .fancybox-inner {

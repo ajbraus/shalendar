@@ -4,14 +4,14 @@
 <div class="title part not_tipped_title">
 <% end %>  
 
-  <div class="event_title">
-    <%= @event.title %>
-  </div>
-
   <div class="when">
     <%= event_start_time(@event) %> - <%= event_end_time(@event) %>
     <%= date(@event) %> 
   </div> 
+  
+  <div class="event_title">
+    <%= @event.title %>
+  </div>
 
   <% if @event.link.length > 0 %>
     <div class="event_link">

@@ -1,8 +1,7 @@
 <% provide(:title, " | Idea") %>
+<div class="event_show">
   <%= render 'title' %>
-  <% if false %>
-    <%= render 'map' %>
-  <% end %>
+  <%= render 'map' %>
 
 
   <% if @event.user.id == current_user.id || @event.guests_can_invite_friends? %>
@@ -61,9 +60,8 @@
     <% end %>
     </div>
   <% end %>
-
-  <%= render partial: 'comments_form' %>
   </div>
+      <%= render partial: 'comments_form' %>
 
 </div>
 

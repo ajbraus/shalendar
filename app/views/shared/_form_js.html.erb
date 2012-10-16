@@ -1,0 +1,83 @@
+<script>
+$('#categories').buttonset();
+$("input[type=checkbox].switch").each(function() {
+  $(this).before(
+      '<span class="switch">' +
+      '<span class="mask" /><span class="background" />' +
+      '</span>'
+    );
+  $(this).hide();
+    // Set inital state
+  if (!$(this)[0].checked) {
+      $(this).prev().find(".background").css({left: "-56px"});
+    }
+  });
+// Toggle switch when clicked
+  $("span.switch").click(function() {
+    // If on, slide switch off
+    if ($(this).next()[0].checked) {
+      $(this).find(".background").animate({left: "-56px"}, 200);
+    // Otherwise, slide switch on
+    } else {
+      $(this).find(".background").animate({left: "0px"}, 200);
+    }
+    // Toggle state of checkbox
+    $(this).next()[0].checked = !$(this).next()[0].checked;
+  });
+$('#datetime').datetimepicker({
+    timeFormat: "h:mm tt",
+    ampm: true,
+    stepMinute: 15,
+    addSliderAccess: true,
+    sliderAccessArgs: { touchonly: true }
+});
+
+ $("#addLink").click(function () {
+ $("#addLinkp").slideToggle();
+ $("#new_suggestion_button").fancybox.update();
+ $("#new_idea_button").fancybox.update();
+ $('#clone').fancybox.update();
+});
+
+$("#addmap").click(function () {
+ $('#addmapp').slideToggle();
+ $("#new_suggestion_button").fancybox.update();
+ $("#new_idea_button").fancybox.update();
+ $('#clone').fancybox.update();
+});
+
+$('#new_suggestion_form').validate();
+// NEW IDEA FORM VALIDATION
+  $("#new_event_form").validate({
+    rules: {
+      "event[title]": {
+        maxlength: 140
+      },
+      "event[min]": {
+        number: true
+      },
+      "event[max]": {
+        number: true
+      },
+      "event[duration]": {
+        required: true,
+        number: true
+      }
+    }
+  });
+
+$(function() {
+    var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
+      elements: {
+        map:      "#map",
+        lat:      "#lat",
+        lng:      "#lng",
+        locality: '#locality',
+        country:  '#country'
+      }
+    });
+    var gmarker = addresspickerMap.addresspicker( "marker");
+    gmarker.setVisible(true);
+    addresspickerMap.addresspicker( "updatePosition");
+  });
+</script>
