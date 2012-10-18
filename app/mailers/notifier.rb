@@ -130,7 +130,6 @@ class Notifier < ActionMailer::Base
   def event_tipped(event, user)
     @event = event
     @user = user
-    @event_link = "http://www.hoos.in/events/#{event.id}"
     if(@user.iPhone_user == true)
       d = APN::Device.find_by_id(@user.apn_device_id)
       if d.nil?
@@ -276,7 +275,6 @@ class Notifier < ActionMailer::Base
   def rsvp_reminder(event, user)
     @user = user
     @event = event
-    @event_link = "http://www.hoos.in/events/#{event.id}"
     if(@user.iPhone_user == true)
       d = APN::Device.find_by_id(@user.apn_device_id)
       if d.nil?
@@ -311,10 +309,7 @@ class Notifier < ActionMailer::Base
   def invitation(event, invitee, inviter)
     @event = event
     @user = invitee
-    @event_time = event.starts_at.strftime("%l:%M%P, %A %B %e")
     @inviter = inviter
-    #@inviter_pic = raster_profile_picture(@inviter)
-    @event_link = "http://www.hoos.in/events/#{@event.id}"
     if(@user.iPhone_user == true)
       d = APN::Device.find_by_id(@user.apn_device_id)
       if d.nil?
