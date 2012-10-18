@@ -7,7 +7,7 @@
 				<% when i == 0 %>
 					<%= raw("<span class='red'>#{(Time.now.to_date + i).strftime("%e") + "<br/>" + (Time.now.to_date + i).strftime(" %a").slice!(0..2) }</span>") %>
 				<% when (Time.now.to_date + i).day == 1 %>
-					<%= raw("#{(Time.now.to_date + i).strftime("%b")}") %>
+					<%= raw((Time.now.to_date + i).strftime("%b") + "<br/>" + (Time.now.to_date + i).strftime(" %a").slice!(0..2)) %>
 				<% else %>
 					<%= raw((Time.now.to_date + i).strftime("%e") + "<br/>" + (Time.now.to_date + i).strftime(" %a").slice!(0..2)) %>
 				<% end %>

@@ -12,19 +12,19 @@
   <% end %>
 				  <p>
 	    <%= label :title, "Idea" %><br/>
-	    <%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off", readonly: true, style: "background-color:#F8F8F8;" %>
+	    <%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off" %>
 	  </p>  
 	  <p>
 	   <%= label :starts_at, "When does it start?" %>
 	   <%= label :duration, "How Long?", class: "duration" %><br/>
-	   <% if :duration.length > 0 %>
-		   <%= f.text_field :chronic_starts_at, id: "datetime", class: "required starts_at", autocomplete: "off", readonly:true, style: "background-color:#F8F8F8;" %>
-		   <%= f.text_field :duration, placeholder:"#hrs", class: "required duration", autocomplete: "off", readonly:true, style: "background-color:#F8F8F8;"  %>
-		 <% else %>
 		 	 <%= f.text_field :chronic_starts_at, id: "datetime", class: "required starts_at", autocomplete: "off" %>
 		   <%= f.text_field :duration, placeholder:"#hrs", class: "required duration", autocomplete: "off"  %>
-		 <% end %>
 	  </p>
+
+	      <p>
+  <div><%= f.label :display_image %><br />
+  <%= f.file_field :promo_img %></div>
+    </p>
 
 	<div id="minmax" style="display: block; clear:both;">
 	  <u>
@@ -35,6 +35,11 @@
 	    <%= f.label :max_attendees, "Full" %> <br/>
 	    <%= f.text_field :max, :class => 'input-mini', value: 50, autocomplete: "off" %>
 	  </u>
+	  <span class="dollar">$ </span>
+	  <u>
+	  	<%= f.label "Cost" %><br>
+			<%= f.text_field :price, :class => 'input-mini', autocomplete: "off" %>
+		</u>
 	</div>
 
 	<div class="invitation_options" style="display: block; clear:both;">
@@ -50,7 +55,8 @@
 		</u>
 	</div>
 
-<%= render partial: 'shared/link_map', locals: { :f => f } %>
+	<%= render partial: 'shared/link_map', locals: { :f => f } %>	 
+
 	<%= f.hidden_field :suggestion_id %>
 
 

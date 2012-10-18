@@ -1,45 +1,8 @@
 <% provide(:title, " | Home") %>
-	<% if false %>
-	<div class="dashboard">
-	  <%= render 'suggestions' %>
-	</div>
-	<% end %>
-
-	<% if @event %>
-		<% if @event.errors.any? %>
-	    <div id="error_explanation">
-	      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-	      <ul>
-	      <% @event.errors.full_messages.each do |msg| %>
-	        <li><%= msg %></li>
-	      <% end %>
-	      </ul>
-	    </div>
-	  <% end %>
-  <% end %>
-
-  <% if @suggestion %>
-		<% if @suggestion.errors.any? %>
-	    <div id="error_explanation">
-	      <h2><%= pluralize(@suggestion.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-	      <ul>
-	      <% @suggestion.errors.full_messages.each do |msg| %>
-	        <li><%= msg %></li>
-	      <% end %>
-	      </ul>
-	    </div>
-	  <% end %>
-  <% end %>
-
-
 		<%= render 'ribbon', :locals => { :next_plan => @next_plan } %>
 		<div class='forecast'>
 			<%= render 'forecast' %>
 		</div>
-	</div>
-</div>
 
 <% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
 	<script> 

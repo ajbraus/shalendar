@@ -3,7 +3,6 @@ before_filter :authenticate_user!
 
   def create
     @user = User.find(params[:relationship][:followed_id])
-
     if current_user.vendor?
       redirect_to :back, notice: "Couldn't Friend #{@user.name}"
     else
@@ -28,46 +27,36 @@ before_filter :authenticate_user!
         unless current_user.following?(@user) || current_user.request_following?(@user)
           current_user.follow!(@user)
         end
+        
         @relationship = current_user.relationships.find_by_followed_id(@user.id)
         @relationship.confirmed = true
+        
         if @relationship.save
           current_user.add_invitations_from_user(@user)
-          unless @user.following?(current_user)
+          @plan_counts = []
+          @invite_counts = []
+          @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
+          @date = Time.now.in_time_zone(current_user.time_zone).to_date
+          @event_suggestions = Suggestion.event_suggestions(current_user)
+          @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
+          @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
+          @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
+          unless @user.following?(current_user) || @user.vendor?
             unless @user.request_following?(current_user) 
               @user.follow!(current_user)
             end
-          else
-            redirect_to :back, notice: "Couldn't Friend #{@user.name}"
+            @reverse_relationship = @user.relationships.find_by_followed_id(current_user.id)
+            @reverse_relationship.confirmed = true
+            @reverse_relationship.save
+            @user.add_invitations_from_user(current_user)
+            #also need to add all relevant invitations for both people at this point
+          end
+          respond_to do |format|
+            format.html { redirect_to :back, notice: "You are now friends with #{@user.name}" }
+            format.js
           end
         else
-          Notifier.new_friend(@user, current_user).deliver
-          current_user.follow!(@user)
-          @relationship = current_user.relationships.find_by_followed_id(@user.id)
-          @relationship.confirmed = true
-          if @relationship.save
-            current_user.add_invitations_from_user(@user)
-            unless @user.following?(current_user) || @user.vendor?
-              unless @user.request_following?(current_user) 
-                @user.follow!(current_user)
-              end
-              @reverse_relationship = @user.relationships.find_by_followed_id(current_user.id)
-              @reverse_relationship.confirmed = true
-              @reverse_relationship.save
-              @user.add_invitations_from_user(current_user)
-              #also need to add all relevant invitations for both people at this point
-            end
-            respond_to do |format|
-              format.html { redirect_to :back, notice: "You are now friends with #{@user.name}" }
-              @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
-              @plan_counts = []
-              @invite_counts = []
-              @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
-              @date = Time.now.in_time_zone(current_user.time_zone).to_date
-              format.js
-            end
-          else
-            redirect_to :back, notice: "Couldn't Friend #{@user.name}"
-          end
+          redirect_to :back, notice: "Couldn't Friend #{@user.name}"
         end
       end
     end
@@ -80,11 +69,12 @@ before_filter :authenticate_user!
     @user.unfollow!(current_user)
     @user.delete_invitations_from_user(current_user)
     respond_to do |format|
-      @plan_counts = []
-      @invite_counts = []
+      # @plan_counts = []
+      # @invite_counts = []
       @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
-      @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
-      @date = Time.now.in_time_zone(current_user.time_zone)
+      # @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
+      # @date = Time.now.in_time_zone(current_user.time_zone)
+      @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
       format.html { redirect_to :back, notice: "You are no longer friends with #{@follower.name} on hoos.in" }
       format.js
     end
@@ -108,8 +98,10 @@ before_filter :authenticate_user!
   def ignore
     @relationship = Relationship.find(params[:relationship_id])
     @relationship.destroy
+
     respond_to do |format|
       @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
+      @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
       format.html { redirect_to :back }
       format.js
     end
@@ -135,6 +127,7 @@ before_filter :authenticate_user!
       @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
       #@forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone))
       #@date = Time.now.in_time_zone(current_user.time_zone)
+      @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
       format.html { redirect_to :back, notice: "You are now friends with #{@relationship.follower.name} on hoos.in" }
       format.js
     end

@@ -37,6 +37,11 @@
     <%= f.label :max_attendees, "Full" %> <br/>
     <%= f.text_field :max, :class => 'input-mini', value: 50, autocomplete: "off" %>
   </u>
+  <span class="dollar">$ </span>
+  <u>
+    <%= f.label "Cost" %><br>
+    <%= f.text_field :price, :class => 'input-mini', autocomplete: "off" %>
+  </u>
 </div>
 
 <div class="invitation_options" style="display: block; clear:both;">

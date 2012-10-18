@@ -96,9 +96,9 @@ class User < ActiveRecord::Base
 
   def send_welcome
     if vendor?
-      Notifier.delay.vendor_welcome(self).deliver
+      Notifier.delay.vendor_welcome(self)
     else
-      Notifier.delay.welcome(self).deliver
+      Notifier.delay.welcome(self)
     end
   end
 

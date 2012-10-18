@@ -13,4 +13,13 @@ class StaticPagesController < ApplicationController
   def vendor_splash
   end
 
+  def terms
+  end
+
+  def privacy
+  end
+
+  def acceptable_use
+  end
+
 end

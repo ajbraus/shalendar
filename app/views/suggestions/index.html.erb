@@ -27,6 +27,10 @@
 				</li>
 				<% end %>
 		</div>
+		<div class="delete_suggestion">
+			<%= link_to s, method: :delete, confirm: "Cofirm: DESTROY this suggestion?" do %>
+				<i class="icon-remove-sign"></i>
+			<% end %>
 	</li>
 	<% end %>
 </ul>

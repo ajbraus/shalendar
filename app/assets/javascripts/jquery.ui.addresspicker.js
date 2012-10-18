@@ -22,7 +22,7 @@
         mapOptions: {
             zoom: 11, 
             center: new google.maps.LatLng(43.0730517, -89.40123019999999), 
-            scrollwheel: true,
+            scrollwheel: false,
             mapTypeId: google.maps.MapTypeId.HYBRID
         },
         elements: {

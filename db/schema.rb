@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121015183840) do
+ActiveRecord::Schema.define(:version => 20121018154635) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -209,10 +209,10 @@ ActiveRecord::Schema.define(:version => 20121015183840) do
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.boolean  "toggled",     :default => true
-    t.boolean  "confirmed"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.boolean  "confirmed",   :default => false
+    t.boolean  "in"
   end
 
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
@@ -297,10 +297,10 @@ ActiveRecord::Schema.define(:version => 20121015183840) do
     t.datetime "avatar_updated_at"
     t.string   "time_zone"
     t.integer  "new_invited_events_count", :default => 0
-    t.integer  "apn_device_id",            :default => 0
     t.boolean  "vendor",                   :default => false
     t.boolean  "email_comments",           :default => true
     t.boolean  "admin",                    :default => false
+    t.integer  "apn_device_id",            :default => 0
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

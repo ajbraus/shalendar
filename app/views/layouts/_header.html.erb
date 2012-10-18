@@ -29,7 +29,6 @@
       <div class="city-icon">
         <%= link_to city_vendors_path, :remote => true, class:"city_vendors fancybox.ajax" do %>
           <%= (image_tag "madison-icon.jpeg", :wdith => "20", title: "Friend Public Profiles in Madison") %>
->>>>>>> vendors
         <% end %>
       </div>
     </li>
@@ -58,25 +57,21 @@
         </dd>
       </dl>
     </li>
-  <% if current_user.admin? %>
     <li>
-      <%= link_to "Admin Dashboard", admin_dashboard_path %>
+      <a href="<%= manage_follows_path %>">
+        <strong id="header_friend_count" class="friend_count"><%= current_user.followers.count %></strong> friends
+        <% if current_user.reverse_relationships.where('relationships.confirmed = false').any? %>
+        <% @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false') %>
+          <span class="new_friends_count"><%= @friend_requests.count %></span>
+        <% end %>
+      </a>
     </li>
-    <% end %>
   <% if current_user.vendor? %>    
     <li>
       <%= link_to "Vendor Dashboard", vendor_dashboard_path %>
     </li>
   <% else %>
-    <li>
-      <a href="<%= manage_follows_path %>">
-        <strong id="header_friend_count" class="friend_count"><%= current_user.followers.count %></strong> friends
-        <% if current_user.reverse_relationships.where('relationships.confirmed = false').any? %>
-          <span class="new_friends_count"><%= @friend_requests.count %></span>
-        <% end %>
-      </a>
-    </li>
-        <li>
+      <li>
       <%= link_to new_invited_events_path, :remote => true do %>
         latest ideas
         <% unless current_user.new_invited_events_count == 0 %>
@@ -85,7 +80,11 @@
       <% end %>
     </li>
       <span id="invitations"></span>
-
+    <% if current_user.admin? %>
+    <li>
+      <%= link_to "Admin Dashboard", admin_dashboard_path %>
+    </li>
+    <% end %>
 
       <% if false %>
   <li class="tagline">

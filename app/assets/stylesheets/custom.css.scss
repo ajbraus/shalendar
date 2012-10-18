@@ -156,7 +156,7 @@ padding: 6px 15px 6px 15px;
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 border-radius: 5px;
-font-size: 15px;
+font-size: 20px;
 }
 
 .btn-follow {
@@ -191,8 +191,8 @@ right: 16px;
   font-family: arial;
   position: absolute;
 left: 255px;
-top: 0px;
-padding: 20.5px 12px;
+top: -1px;
+padding: 21px 12px;
 }
 
 .btn-new-suggestion {
@@ -419,6 +419,13 @@ bottom:.5px;
         text-align: left;
         }
 
+/*TERMS*/
+
+.terms {
+  width:760px;
+  margin:0 auto;
+}
+
 
 /* HOME */
 
@@ -479,9 +486,10 @@ height: 10px;
     font-size: 14px;
   }
   .get_friends {
-    float: left;
 position: relative;
-bottom: 52px;
+float: left;
+bottom: 19px;
+
   }
 }
 .new_friends_count {
@@ -516,6 +524,7 @@ margin: 0 auto;
 height: 58px;
 position: relative;
 left: 15px;
+bottom: 2px;
 }
 
 .howto {
@@ -797,7 +806,7 @@ float: right;
 z-index: 1;
   table{
 float: left;
-width: 5%;
+width: 29px;
     td {
       text-align: center;
     }
@@ -824,7 +833,7 @@ width: 5%;
 
 #datewindow {
 border: 3px solid #FF8500;
-width: 118px;
+width: 113px;
 height: 75px;
 position: absolute;
 left: 87px;
@@ -1120,21 +1129,8 @@ width: 70px;
 
 .rsvp_check {
 position: absolute;
-bottom: 16px;
+bottom: 1px;
 right: 0px;
-}
-
-/* NEXT PLAN */
-
-.next_plan {
-/*border: 6px solid #FF8500;*/
-box-shadow: 0px 0px 34px -6px $rsvp;
-z-index: 0;
-width: 180px;
-height: 160px;
-position: absolute;
-bottom: 0px;
-left: 0px;
 }
 
 .btn_icon {
@@ -1258,26 +1254,38 @@ bottom: 17px;
 }
 
 .settings {
-  font-size: 17px;
+  font-size: 25px;
 }
 /* miscellaneous */
 
 .alert { 
-position: absolute;
 text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 background-color: #FCF8E3;
 border-bottom: 2px solid goldenrod;
 border-top: 1px solid goldenrod;
 color: goldenrod;
-z-index: 10;
-top: 58px;
-height: 43px;
-line-height: 43px;
-width: 700px;
+z-index: 20;
+height: 22px;
+line-height: 25px;
+width: 960px;
 margin: 0 auto;
-left: 24%;
 text-align: center;
-font-size: 23px;
+font-size: 17px;
+float: left;
+position: relative;
+bottom: 7px;
+}
+
+.ui-autocomplete {
+  width: 400px;
+position: relative;
+height: auto;
+line-height: 1.1;
+}
+
+.ui-item-menu {
+  padding:10px;
+  padding-left:15px;
 }
 
 .warning
@@ -1318,8 +1326,8 @@ top: 20px;
 
 .user_table {
 font-size: 12px;
-overflow: scroll;
-height: 524px;
+height: auto;
+overflow: hidden;
    table {
     width: 41%;
     float:left;
@@ -1337,7 +1345,7 @@ height: 524px;
 
 .follow_btn {
 position: relative;
-left: 16px;
+left: 55px;
 width: 100px;
 }
 
@@ -1508,14 +1516,11 @@ height: 258px;
 }
 
 #settings {
-width: 836px;
+width: 500px;
 height: 100%;
 margin: 0 auto;
-float: right;
 line-height: 1.5;
   form {
-    float:left;
-    width:70%;
     input[type=text], input[type=email], input[type=password], select {
       width:380px;
     }
@@ -1539,14 +1544,14 @@ line-height: 1.5;
 }
 
 #personal {
-  float:left;
-width: 225px;
-  margin-top:25px;
+width: 705px;
+margin-top: 25px;
+margin-bottom: 25px;
   .fb_button {
-    float: left;
-    position: relative;
-    top: 36px;
-    right: 152px;
+float: right;
+position: absolute;
+top: 116px;
+right: 580px;
   }
 }
 
@@ -2164,11 +2169,16 @@ height: 80px;
     margin-left:22px;
     margin-bottom:30px;
   }
-  div > u {
+  .dollar {
+      float: left;
+width: 27px;
+position: relative;
+top: 38px;
+    }
+  div#minmax > u {
     text-decoration: none;
-    width: 49%;
+    width: 30%;
     float: left;
-    margin-left: 20px;
     margin-bottom: 20px;
     margin-left: 3px;
     input {
@@ -2180,6 +2190,14 @@ height: 80px;
       width: 210px;
     }
   }
+  div.invitation_options > u {
+  text-decoration: none;
+  width: 49%;
+  float: left;
+  margin-bottom: 20px;
+  margin-left: 3px;
+}
+
   input.starts_at {
 width: 342px;
 float: left;
@@ -2236,7 +2254,7 @@ margin-top: 10px;
 }
 
 #minmax {
-  margin-left:45px;
+  margin-left: 20px;
 }
 
 #addLink, #addmap {
@@ -2263,6 +2281,10 @@ width: 395px;
   float:left;
   margin-bottom: 15px;
   width: 100%;
+  input {
+    margin-left: 5px;
+width: 365px;
+  }
 }
 
 .address-picker-map {
@@ -2365,6 +2387,7 @@ top: 25%;
 .admin {
   margin: 0 auto;
   width:670px;
+}
 /* SUGGESTIONS */
 
 .suggestions {
@@ -2541,13 +2564,14 @@ line-height: 10px;
 float:left;
 width:93%;
 min-height: 200px;
+position: relative;
   }
   img {
     float:left;
   }
   .suggestion_promo_img {
     float:left;
-    height:200px;
+    height: auto;
   }
   p {
     margin-left: 173px;
@@ -2560,7 +2584,16 @@ min-height: 200px;
       border-bottom:none;
       float:left;
       padding-left:20px;
+      }
     }
   }
-  }
+}
+
+.delete_suggestion {
+width: 20px;
+position: absolute;
+bottom: 10px;
+right: 16px;
+float: left;
+font-size: 20px;
 }

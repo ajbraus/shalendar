@@ -22,8 +22,8 @@
 		<div class="family_friendly"><i class="icon-home"></i></div>
 	<% end %>
 	<div class="rsvp_check">
-		<%= link_to clone_path(:suggestion_id => suggestion.id), class:"btn_icon btn_icon_rsvp fancybox.ajax clone", title:"Make Your Idea", remote:true do %>
-			<i class="icon-plus"></i>
+		<%= link_to clone_path(:suggestion_id => suggestion.id), class:"fancybox.ajax clone", title:"Make Your Idea", remote:true do %>
+			<i class="icon-plus btn_icon btn_icon_rsvp"></i>
 		<% end %>
 	</div>
 </div>

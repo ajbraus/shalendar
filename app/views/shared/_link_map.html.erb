@@ -1,14 +1,14 @@
-<div id="addLinkp" style="display: none;">
-	<%= label_tag "Link" %></br>
-	http://<%= f.text_field :link, autocomplete: "off" %>
-</div>
-
 <div id="addmapp">
   <%= label_tag "Map" %><br/>
   <i class="icon-map-marker"></i><%= f.text_field :address, id: "addresspicker_map", placeholder: "Map location..." %>
-  <%= f.hidden_field :latitude, id: "lat" %>
-  <%= f.hidden_field :longitude, id: "lng" %>
+  <%= f.hidden_field :latitude, id: "latitude" %>
+  <%= f.hidden_field :longitude, id: "longitude" %>
   <div id="map" class="new_idea_map"></div>
+</div>
+
+<div id="addLinkp" style="display: none;">
+	<%= label_tag "Link" %></br>
+	http://<%= f.text_field :link, autocomplete: "off" %>
 </div>
 
 <div>

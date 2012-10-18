@@ -3,7 +3,6 @@
   <%= render 'title' %>
   <%= render 'map' %>
 
-
   <% if @event.user.id == current_user.id || @event.guests_can_invite_friends? %>
     <%= render 'social', locals: { :event => @event } %>
   <% end %>

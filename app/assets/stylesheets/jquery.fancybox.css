@@ -177,7 +177,7 @@ margin: 0 auto;
 	overflow: hidden;
 	display: none;
 	z-index: 8010;
-background-color: rgba(0, 0, 0, .5);
+background-image:url("fancybox_overlay.png");
 }
 
 .fancybox-overlay-fixed {

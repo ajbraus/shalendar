@@ -28,4 +28,21 @@
       </table>
       <% end %>
   </div>
+  <% if @vendor_friendships.any? %>
+  <hr>
+  <h2><span class="friend_count"><%= @vendor_friendships.count %></span> Venues you Follow</h2>
+  <div class="user_table">
+    <% @vendor_friendships.each do |vf| %>
+      <table>        
+        <tr>
+          <td width="50px"><%= raster_profile_picture(vf.followed) %></td>
+          <td width="150px"><%= vf.followed.name %></td>
+          <td>
+            <%= render partial: 'events/follow_form', :locals => { :user => vf.followed } %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+<% end %>
 </div>

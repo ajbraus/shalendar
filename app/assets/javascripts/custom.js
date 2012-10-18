@@ -162,6 +162,21 @@ $(document).bind('click', function(e) {
 
   $('#new_suggestion_form').validate();
 
+
+  $('input[type=file]').fileValidator({
+  onValidation: function(files){  $(this).attr('class',''); },
+  onInvalid:    function(validationType, file){ $(this).addClass("error"); },
+  maxSize:      '500kb', //optional
+  type:         'image' //optional
+});
+    
+
+  $('input.demo').fileValidator({
+    onValidation: function(files){      $(this).attr('class','');          },
+    onInvalid:    function(type, file){ $(this).addClass('invalid '+type); }
+  });
+  
+
 // TABS
 
 	$("#views_list").tabs();

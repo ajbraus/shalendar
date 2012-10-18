@@ -35,15 +35,19 @@ class Suggestion < ActiveRecord::Base
                              :path => "suggestion/:attachment/:style/:id.:extension",
                              :default_url => "https://s3.amazonaws.com/hoosin-production/suggestion/promo_img/medium/default_promo_img.png"
 
+  validates :promo_img, # :attachment_presence => true,
+                     :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] },
+                     :attachment_size => { :in => 0..150.kilobytes }
+
   validates :max, numericality: { in: 1..10000, only_integer: true }
   validates :min, numericality: { in: 1..10000, only_integer: true }
-  # validates :duration, numericality: { in: 0..1000 } 
+  validates :duration, numericality: { in: 0..1000 }, allow_blank:true
   validates :title, length: { maximum: 140 }, presence: true
   validates :category, presence: true
-  # validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}
-  # validates_numericality_of :lng, :lat
+  validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}, allow_blank:true
+  validates_numericality_of :longitude, :latitude, allow_blank:true
   @url = /^((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)?$/ 
-  validates :link, :format => { :with => @url }
+  validates :link, :format => { :with => @url }, allow_blank:true
 
   def view_price
     if price == 0
@@ -122,5 +126,36 @@ class Suggestion < ActiveRecord::Base
     else
       self.title
     end
+  end
+
+  def self.event_suggestions(current_user)
+    @event_suggestions = []
+    @all_event_suggestions = Suggestion.where('starts_at IS NOT NULL and starts_at > ?', Time.now).order('starts_at ASC')
+    (-3..16).each do |date_index|
+      @suggestions_on_date = []
+      @date = Time.now.to_date + date_index.days
+      @suggestions_on_date = @all_event_suggestions.select do |es| 
+        if current_user.vendor?
+          es.starts_at.to_date == @date 
+        else 
+          es.starts_at.to_date == @date && (!current_user.cloned?(es.id) || !current_user.rsvpd_to_clone?(es.id))
+        end
+      end
+      @event_suggestions.push(@suggestions_on_date)
+    end
+    return @event_suggestions
+            #needs by city
+        #@city = current_user.city
+        #@event_suggestions = @city.event_suggestions(Time.now.in_time_zone(current_user.time_zone))
+        #in city model
+        #def event_suggestions(time_now)
+        #  silo by vendors in a city
+        #  return an array of arrays each one a day 
+        #  with the suggestions inside
+        #end
+  end
+
+  def not_event_suggestions
+
   end
 end

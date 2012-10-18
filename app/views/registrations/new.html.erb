@@ -1,7 +1,4 @@
 <% provide(:title, " | Join") %> 
-<div class="dashboard">
-<%= render 'layouts/logo' %>
-</div>
 <div id="sign_up">
   <h2> Join </h2>
 <%= form_for(resource, 
@@ -31,7 +28,7 @@
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation, class: "required" %></div>
 
-  <div><%= f.check_box :terms, checked: true %><%= f.label :terms, "Terms & Conditions- coming soon :)", class: "required" %></div><br/>
+  <div><%= f.check_box :terms, checked: true, class:'required' %><%= link_to "Terms & Privacy", terms_path, :html => { :target => "_blank" } %></div><br/>
 
   <%= f.hidden_field :vendor, value: false %>
 

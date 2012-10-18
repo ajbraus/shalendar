@@ -41,6 +41,10 @@ class Event < ActiveRecord::Base
                              :path => "event/:attachment/:style/:id.:extension"
                              #:default_url => "https://s3.amazonaws.com/hoosin-production/event/promo_img/medium/default_promo_img.png"
 
+  validates :promo_img, # :attachment_presence => true,
+                     :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] },
+                     :attachment_size => { :in => 0..150.kilobytes }
+
   validates :user_id,
             :title,
             :starts_at,
@@ -51,10 +55,10 @@ class Event < ActiveRecord::Base
   validates :min, numericality: { in: 1..10000, only_integer: true }
   validates :duration, numericality: { in: 0..1000 } 
   validates :title, length: { maximum: 140 }
-  # validates_numericality_of :lng, :lat
+  validates_numericality_of :longitude, :latitude, allow_blank:true
   @url = /^((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)?$/ 
-  validates :link, :format => { :with => @url }
-  #validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}
+  validates :link, :format => { :with => @url }, allow_blank:true
+  validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}, allow_blank:true
 
  
   def as_json(options = {})

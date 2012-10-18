@@ -16,7 +16,10 @@ class SuggestionsController < ApplicationController
                              latitude: @suggestion.latitude,
                              longitude: @suggestion.longitude,
                              link: @suggestion.link,
-                             gmaps: @suggestion.gmaps
+                             gmaps: @suggestion.gmaps,
+                             guests_can_invite_friends: true,
+                             price: @suggestion.price,
+                             promo_img: @suggestion.promo_img
                           )
     respond_to do |format|
       #format.html
@@ -61,37 +64,31 @@ class SuggestionsController < ApplicationController
     respond_to do |format|
       if @suggestion.save
         unless @suggestion.starts_at.nil?
-                  @event = @vendor.events.build(title: @suggestion.title,
-                                      starts_at: @suggestion.starts_at,
-                                      ends_at: @suggestion.starts_at + @suggestion.duration*3600,
-                                      user_id: @vendor.id,
-                                      min: 1,
-                                      max: 10000,
-                                      duration: @suggestion.duration,
-                                      tipped: true,
-                                      link: @suggestion.link,
-                                      address: @suggestion.address,
-                                      longitude: @suggestion.longitude,
-                                      latitude: @suggestion.latitude,
-                                      gmaps: @suggestion.gmaps,
-                                      guests_can_invite_friends: true,
-                                      suggestion_id: @suggestion.id,
-                                      price: @suggestion.price
-                                    )
+          @event = @vendor.events.build(title: @suggestion.title,
+                              starts_at: @suggestion.starts_at,
+                              ends_at: @suggestion.starts_at + @suggestion.duration*3600,
+                              user_id: @vendor.id,
+                              min: 1,
+                              max: @suggestion.max,
+                              duration: @suggestion.duration,
+                              tipped: true,
+                              link: @suggestion.link,
+                              address: @suggestion.address,
+                              longitude: @suggestion.longitude,
+                              latitude: @suggestion.latitude,
+                              gmaps: @suggestion.gmaps,
+                              guests_can_invite_friends: true,
+                              suggestion_id: @suggestion.id,
+                              price: @suggestion.price,
+                              promo_img: @suggestion.promo_img
+                            )
           @event.save
           @vendor.rsvp!(@event)
-          if params[:invite_all_friends] == "on"
-            @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
-            current_user.invite_all_friends!(@event)
-            @rsvp.invite_all_friends = true
-            @rsvp.save
-          end
         end
-
-        format.html { redirect_to vendor_dashboard_path, notice: 'suggestion was successfully created.' }
+        format.html { redirect_to vendor_dashboard_path, notice: 'Suggestion was successfully created.' }
         format.json { render json: vendor_dashboard_path, status: :created, location: @suggestion }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to root_path, notice: 'Suggestion could not be created. Please try again.' }
         format.json { render json: @suggestion.errors, status: :unprocessable_entity }
       end
     end
@@ -104,7 +101,7 @@ class SuggestionsController < ApplicationController
 
     respond_to do |format|
       if @suggestion.update_attributes(params[:suggestion])
-        format.html { redirect_to @suggestion, notice: 'suggestion was successfully updated.' }
+        format.html { redirect_to @suggestion, notice: 'Suggestion was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -120,7 +117,7 @@ class SuggestionsController < ApplicationController
     @suggestion.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url }
+      format.html { redirect_to vendor_dashboard_path, notice: 'Suggestion was successful destroyed' }
       format.json { head :no_content }
     end
   end

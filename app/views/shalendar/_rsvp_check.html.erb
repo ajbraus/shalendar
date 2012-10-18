@@ -15,6 +15,6 @@
 <% else %>
 	<%= form_for(current_user.rsvps.build(plan_id: event.id), confirm:"Are you sure you would like to JOIN this idea?", remote: true) do |f| %>
 	  <div><%= f.hidden_field :plan_id %></div>
-	  <%= f.submit raw("join"), class:"btn_icon btn_icon_rsvp fa-input", title: "Go to this Idea" %>
+	  <%= f.submit raw("join"), class:"btn_icon btn_icon_rsvp", title: "JOIN this Idea" %>
 	<% end %>
 <% end %>

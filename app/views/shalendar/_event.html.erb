@@ -1,21 +1,7 @@
 <% if current_user.rsvpd?(event) %>
-	<% if event.ends_at < Time.now %>
-		<div class="event rsvpd over" data-event-id="<%= event.id %>">
-	<% else %>
-		<div class="event rsvpd" data-event-id="<%= event.id %>">
-	<% end %>
+		<div class="event rsvpd <%= event.ends_at < Time.now ? 'over' : ''%>" data-event-id="<%= event.id %>" <%= event.id == @next_plan.id ? style="box-shadow: 0px 0px 34px -6px #388EE5;" : '' if @next_plan %>>
 <% else %>
-	<% if event.ends_at < Time.now %>
-		<div class="event not_rsvpd over" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>">
-	<% else %>
-		<div class="event not_rsvpd" data-event-id="<%= event.id %>" data-inviter-id="<%= event.inviter_id %>">
-	<% end %>
-<% end %>
-
-<% if @next_plan %>
-	<% if event.id == @next_plan.id %>
-		<div class="next_plan"></div>
-	<% end %>
+		<div class="event not_rsvpd <%= event.ends_at < Time.now ? 'over' : '' %>" data-event-id="<%= event.id %>" <%= event.id == @next_plan.id ? "style='box-shadow: 0px 0px 34px -6px #388EE5;'" : '' if @next_plan %> data-inviter-id="<%= event.inviter_id %>">
 <% end %>
 
 	<a href="/events/<%= event.id %>">
