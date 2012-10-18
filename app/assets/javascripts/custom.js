@@ -204,20 +204,20 @@ $(document).bind('click', function(e) {
   });
 
   
-$(function() {
-    var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
-      elements: {
-        map:      "#map",
-        lat:      "#latitude",
-        lng:      "#longitude",
-        locality: '#locality',
-        country:  '#country'
-      }
-    });
-    var gmarker = addresspickerMap.addresspicker( "marker");
-    gmarker.setVisible(true);
-    addresspickerMap.addresspicker( "updatePosition");
-  });
+// $(function() {
+//     var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
+//       elements: {
+//         map:      "#map",
+//         lat:      "#latitude",
+//         lng:      "#longitude",
+//         locality: '#locality',
+//         country:  '#country'
+//       }
+//     });
+//     var gmarker = addresspickerMap.addresspicker( "marker");
+//     gmarker.setVisible(true);
+//     addresspickerMap.addresspicker( "updatePosition");
+//   });
 
 
 
