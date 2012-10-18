@@ -94,8 +94,29 @@ class Api::V1::EventsController < ApplicationController
       render :status => 400, :json => {:success => false}
       return
     end
+    @event = @mobile_user.events.build
+    @event.starts_at = DateTime.parse(params[:start])
+    @event.ends_at = @event.starts_at + (params[:duration]).hours
+    @event.title = params[:title]
+    if params[:g_share] == '0'
+      @event.guests_can_invite_friends = false
+    else
+      @event.guests_can_invite_friends = true
+    end
+    @event.min = params[:min]
+    @event.max = params[:max]
     
-    @event = current_user.events.build(params[:event])
+    @mobile_user.rsvp!(@event)
+    if params[:invite_all_friends] == '1'
+      @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
+      current_user.invite_all_friends!(@event)
+      @rsvp.invite_all_friends = true
+      @rsvp.save
+    end
+    if @event.min <= 1
+      @event.tipped = true
+      @event.save
+    end 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @event }
