@@ -16,9 +16,13 @@
 			<span><%= event_start_time(event) %> - <%= event_end_time(event) %></span>
 		</div>
 
-		<% unless event.promo_img_file_size.nil? %>
+		<% if !event.promo_img_file_size.nil? %>
 			<div class="event_promo_img">
 				<%= image_tag event.promo_img.url(:medium) %>
+			</div>
+		<% elsif !event.suggestion.nil? %>
+			<div class="event_promo_img">
+				<%= image_tag event.suggestion.promo_img.url(:medium) %>
 			</div>
 		<% end %>
 	

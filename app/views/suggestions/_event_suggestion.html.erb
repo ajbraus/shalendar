@@ -26,4 +26,7 @@
 			<i class="icon-plus btn_icon btn_icon_rsvp"></i>
 		<% end %>
 	</div>
+		<% if suggestion.price %>
+		<div class="cost"><span class="dollar">$</span><%= suggestion.price %></div>
+	<% end %>
 </div>

@@ -3,6 +3,7 @@ require 'chronic'
 class Event < ActiveRecord::Base
   acts_as_gmappable :validation => false
   belongs_to :user
+  belongs_to :suggestion
 
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
   has_many :guests, through: :rsvps

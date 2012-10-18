@@ -12,7 +12,7 @@
 	    </div>
 	  <% end %>
 	  <p>
-	    <%= label :title, "Suggestion" %><br/>
+	    <%= label :title, "Suggestion*" %><br/>
 	    <%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off" %>
 	  </p>  
 	  <p>
@@ -22,7 +22,7 @@
 	   <%= f.text_field :duration, placeholder:"#hrs", class: "duration", autocomplete: "off"  %>
 	  </p>
 	  <p>
-	    <%= label :category, "Category" %><br/>
+	    <%= label :category, "Category*" %><br/>
 	    <div id="categories">
 	    	<% Suggestion::CATEGORIES.each do |c| %>
 		      <%= radio_button "suggestion", :category, "#{c}", id:"radio#{(Suggestion::CATEGORIES.index(c) + 1)}" %>
@@ -32,7 +32,7 @@
 	  </p>  
 
 	  <p>
-	<div><%= f.label :display_image %><br />
+	<div><%= f.label :display_image, "Display Image*" %><br />
   <%= f.file_field :promo_img, class:"required" %></div>
   	</p>
   	
@@ -40,7 +40,7 @@
 		  <div class="invitation_options" style="display: block; clear:both;">
 				<u>
 				  <%= f.label :max_attendees, "Max Attendees" %> <br/>
-				  <%= f.text_field :max, :class => 'input-mini', value: 200, autocomplete: "off" %>
+				  <%= f.text_field :max, :class => 'input-mini', autocomplete: "off" %>
 				</u>
 				<u>
 					<%= f.label "Cost" %><br>

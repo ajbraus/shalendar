@@ -18,4 +18,7 @@
 	<% if suggestion.family_friendly %>
 		<div class="family_friendly"><i class="icon-home"></i></div>
 	<% end %>
+	<% if suggestion.price %>
+		<div class="cost"><span class="dollar">$</span></div>
+	<% end %>
 </div>

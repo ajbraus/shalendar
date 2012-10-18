@@ -39,6 +39,10 @@ new follower email link not working
 Adam
 --------------
 
+3 day digest
+
+RSVP in/out
+
 fix FB invite page to include link back to hoos.in
 
 clone
@@ -50,8 +54,6 @@ order things by them being your friends or not
 FQL query for facebook friends, display alphabetically and if on hoosin then not
 
 CUTTOVER 
-
-move original/raster images in production AS3
 
 run migrations in production
 
