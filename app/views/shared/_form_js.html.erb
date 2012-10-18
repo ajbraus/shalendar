@@ -24,12 +24,15 @@ $("input[type=checkbox].switch").each(function() {
     // Toggle state of checkbox
     $(this).next()[0].checked = !$(this).next()[0].checked;
   });
+
 $('#datetime').datetimepicker({
     timeFormat: "h:mm tt",
     ampm: true,
     stepMinute: 15,
     addSliderAccess: true,
-    sliderAccessArgs: { touchonly: true }
+    sliderAccessArgs: { touchonly: true },
+    hour:12,
+    minute:00
 });
 
  $("#addLink").click(function () {
@@ -37,10 +40,10 @@ $('#datetime').datetimepicker({
  $.fancybox.update();
 });
 
-$("#addmap").click(function () {
- $('#addmapp').slideToggle();
- $.fancybox.update();
-});
+// $("#addmap").click(function () {
+//  $('#addmapp').slideToggle();
+//  $.fancybox.update();
+// });
 
 $('#new_suggestion_form').validate();
 // NEW IDEA FORM VALIDATION

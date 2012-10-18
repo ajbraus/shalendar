@@ -101,7 +101,7 @@ class SuggestionsController < ApplicationController
 
     respond_to do |format|
       if @suggestion.update_attributes(params[:suggestion])
-        format.html { redirect_to @suggestion, notice: 'Suggestion was successfully updated.' }
+        format.html { redirect_to vendor_dashboard_path, notice: 'Suggestion was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

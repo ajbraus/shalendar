@@ -4,7 +4,7 @@ class Suggestion < ActiveRecord::Base
   belongs_to :user
   has_many :events
 
-  CATEGORIES = %w[adventure learn sports kids community shop night] #adventure, culture, community
+  CATEGORIES = %w[adventure learn active community shop night] #adventure, culture, community
 
   acts_as_gmappable :validation => false
 

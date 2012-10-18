@@ -58,7 +58,7 @@ Shalendar::Application.routes.draw do
     end
   end
 
-  resources :suggestions, only: [:index, :show, :create, :destroy, :update, :clone] do
+  resources :suggestions, only: [:index, :show, :create, :destroy, :edit, :update, :clone] do
   end
 
   match '/clone', :to => 'suggestions#clone', as: "clone"

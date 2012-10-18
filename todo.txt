@@ -41,6 +41,16 @@ Adam
 
 3 day digest
 
+img URL
+
+"suggested by:"
+
+remove reload after expand link
+
+hide unrequired elements
+
+friend button not responding in find_friends
+
 RSVP in/out
 
 fix FB invite page to include link back to hoos.in
