@@ -451,11 +451,11 @@ class Notifier < ActionMailer::Base
     # end
 
     # @users.each do |user|
-    @events = []
-    @recent_events = user.invitations.events.where('starts_at > ?', Time.now)
-    @recent_events.each do |re|
-      re.
-    @user = user
+    # @events = []
+    # @recent_events = user.invitations.events.where('starts_at > ?', Time.now)
+    # @recent_events.each do |re|
+    #   re.
+    # @user = user
     mail to: @user.email, subject: "You Have New Ideas on Hoos.in"
   end
 
