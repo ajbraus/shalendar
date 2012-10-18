@@ -96,7 +96,10 @@ class Api::V1::EventsController < ApplicationController
     end
     
     @event = current_user.events.build(params[:event])
-
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @event }
+    end
   end
 
 end
