@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
                   :terms,
                   :require_confirm_follow,
                   :allow_contact,
+                  :digest
                   :notify_event_reminders,
                   :city,
                   :post_to_fb_wall,
@@ -36,7 +37,7 @@ class User < ActiveRecord::Base
                             
   validates :avatar, # :attachment_presence => true,
                      :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] },
-                     :attachment_size => { :in => 0..150.kilobytes }
+                     :attachment_size => { :in => 0..350.kilobytes }
 
   validates :terms,
             :name, 
