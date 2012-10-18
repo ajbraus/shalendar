@@ -200,11 +200,9 @@ class Api::V1::TokensController  < ApplicationController
     @user = User.find_by_id(params[:user_id])
 
     registration_id = params[:registration_id]
-    if @user.android_user == true && @user.GCMdevice_id != 0
-      if Gcm::Device.find_by_id(@user.GCMdevice_id).registration_id == registration_id
-        render :json => { :success => true }
-        return
-      end
+    if @user.android_user == true && @user.GCMregistration_id == registration_id
+      render :json => { :success => true }
+      return
     end
     device = Gcm::Device.new
     device.registration_id = registration_id
