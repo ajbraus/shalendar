@@ -439,8 +439,8 @@ class Notifier < ActionMailer::Base
   #   mail to: @user.email, subject: "Failed to Tip - #{@event.event_day}, #{@event.short_event_title}" 
   # end
   
-  def digest(events, user)
-    # @digest_users = User.where('users.digest = "t"')
+  def digest(user)
+    # @digest_users = User.where("users.digest = 'true'")
     
     # time_range = Time.now - 1.day .. Time.now
     # @users = []
@@ -451,10 +451,12 @@ class Notifier < ActionMailer::Base
     # end
 
     # @users.each do |user|
-    # @events = user.invitations.events.where('starts_at > ?', Time.now)
-    @events = events
-      mail to: user.email, subject: "You Have New Ideas on Hoos.in"
-    # end
+    @events = []
+    @recent_events = user.invitations.events.where('starts_at > ?', Time.now)
+    @recent_events.each do |re|
+      re.
+    @user = user
+    mail to: @user.email, subject: "You Have New Ideas on Hoos.in"
   end
 
     # def time_change(*args)
