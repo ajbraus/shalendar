@@ -41,6 +41,14 @@ Adam
 
 3 day digest
 
+img URL
+
+Remove 'kids' category
+
+remove reload after expand link
+
+hide unrequired elements
+
 RSVP in/out
 
 fix FB invite page to include link back to hoos.in

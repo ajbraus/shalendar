@@ -13,8 +13,8 @@
 	<div class="going btn_icon" title="You are going to this idea"><i class="icon-ok-circle"></i></div>
 	<% end %>
 <% else %>
-	<%= form_for(current_user.rsvps.build(plan_id: event.id), confirm:"Are you sure you would like to JOIN this idea?", remote: true) do |f| %>
+	<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 	  <div><%= f.hidden_field :plan_id %></div>
-	  <%= f.submit raw("join"), class:"btn_icon btn_icon_rsvp", title: "JOIN this Idea" %>
+	  <%= f.submit raw("join"), class:"btn_icon btn_icon_rsvp", confirm:"Are you sure you would like to JOIN this idea?", title: "JOIN this Idea" %>
 	<% end %>
 <% end %>
