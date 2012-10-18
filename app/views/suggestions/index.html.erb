@@ -27,10 +27,18 @@
 				</li>
 				<% end %>
 		</div>
-		<div class="delete_suggestion">
-			<%= link_to s, method: :delete, confirm: "Cofirm: DESTROY this suggestion?" do %>
-				<i class="icon-remove-sign"></i>
-			<% end %>
+		<ul class="suggestion_options">
+			<li>
+	      <%= link_to edit_suggestion_path(s) do %>
+	        <span class="fadeInOrange"><i class="icon-wrench"></i></span>
+	      <% end %>
+	    </li>
+	    <li>
+		<%= link_to s, method: :delete, confirm: "Cofirm: DESTROY this suggestion?" do %>
+			<span class="fadeInRed"><i class="icon-trash"></i></span>
+		<% end %>
+	    </li>
+	  </ul>
 	</li>
 	<% end %>
 </ul>

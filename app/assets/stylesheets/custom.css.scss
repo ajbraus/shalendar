@@ -2598,11 +2598,13 @@ position: relative;
   }
 }
 
-.delete_suggestion {
-width: 20px;
+.suggestion_options {
+display: inline;
 position: absolute;
-bottom: 10px;
-right: 16px;
-float: left;
-font-size: 20px;
+right: 12px;
+bottom: 20px;
+font-size: 40px;
+  li {
+    display:inline;
+  }
 }
