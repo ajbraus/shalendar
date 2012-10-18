@@ -198,7 +198,9 @@ $(document).bind('click', function(e) {
       ampm: true,
       stepMinute: 15,
       addSliderAccess: true,
-      sliderAccessArgs: { touchonly: true }
+      sliderAccessArgs: { touchonly: true },
+      hour:12,
+      minute:00
   });
 
   
