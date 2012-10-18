@@ -44,7 +44,7 @@ class Event < ActiveRecord::Base
 
   validates :promo_img, # :attachment_presence => true,
                      :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] },
-                     :attachment_size => { :in => 0..150.kilobytes }
+                     :attachment_size => { :in => 0..500.kilobytes }
 
   validates :user_id,
             :title,

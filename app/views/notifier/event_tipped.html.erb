@@ -2,18 +2,4 @@
 	<td style="padding:20px 0 0 10px">An idea tipped!</td>
 </tr>
 
-<tr>
-	<td style="padding:20px 0 10px 70px">What: <strong style="padding-left:10px;"><%= @event.title %></strong></td>
-</tr>
-
-<tr>
-	<td style="padding:20px 0 10px 70px">When: <strong style="padding-left:10px;"><%= @event_time %></strong></td>
-</tr>
-
-<tr>
-	<td style="padding:20px 0 10px 70px"><strong style="color:green;">Idea tipped!</strong></td>
-</tr>
-
-<tr>
-	<td style="padding:20px 0 10px 10px">See the activity's details <a href=<%= @event_link %>>here</a></td>
-</tr>
+<%= render 'event_details' %>

@@ -43,10 +43,6 @@ Adam
 
 img URL
 
-"suggested by:"
-
-remove reload after expand link
-
 hide unrequired elements
 
 friend button not responding in find_friends

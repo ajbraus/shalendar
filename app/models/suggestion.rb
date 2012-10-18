@@ -37,7 +37,7 @@ class Suggestion < ActiveRecord::Base
 
   validates :promo_img, # :attachment_presence => true,
                      :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] },
-                     :attachment_size => { :in => 0..150.kilobytes }
+                     :attachment_size => { :in => 0..500.kilobytes }
 
   validates :max, numericality: { in: 1..10000, only_integer: true }
   validates :min, numericality: { in: 1..10000, only_integer: true }

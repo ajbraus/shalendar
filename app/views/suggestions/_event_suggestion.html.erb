@@ -13,7 +13,7 @@
 		<%= image_tag suggestion.promo_img.url(:medium) %>
 	</div>
 	<div class="event_blerb"><%= suggestion.short_event_title %></div>
-	<div class="host">by: <%= suggestion.user.first_name.capitalize %> 
+	<div class="host">suggested by:<br> <%= suggestion.user.first_name.capitalize %> 
 			<% if suggestion.user.last_name %>
 				<%= suggestion.user.last_name.capitalize%>
 			<% end %> 

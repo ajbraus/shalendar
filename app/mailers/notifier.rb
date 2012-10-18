@@ -444,15 +444,23 @@ class Notifier < ActionMailer::Base
   #   mail to: @user.email, subject: "Failed to Tip - #{@event.event_day}, #{@event.short_event_title}" 
   # end
   
-  # def digest
-  #   @users = User.where('users.allow_contact = "t"')
+  def digest
+    @digest_users = User.where('users.digest = "t"')
+    
+    time_range = Time.now - 1.day .. Time.now
+    @users = []
+    @digest_users.each do |u|
+      if u.invitations.where(created_at: time_range).any?
+        @users.push(u)
+      end
+    end
 
-  #   @users.each do |u|
-  #     #@events = u.plans; something to send all plans, but need to lay this out
+    @users.each do |user|
+      @events = user.invitations.events.where('starts_at > ?', Time.now)
 
-  #     mail to: u.email, subject: "Your daily digest from hoos.in!"
-  #   end
-  # end
+      mail to: user.email, subject: "You Have New Ideas on Hoos.in"
+    end
+  end
 
     # def time_change(*args)
 
