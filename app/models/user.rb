@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
                   :terms,
                   :require_confirm_follow,
                   :allow_contact,
-                  :digest
+                  :digest,
                   :notify_event_reminders,
                   :city,
                   :post_to_fb_wall,

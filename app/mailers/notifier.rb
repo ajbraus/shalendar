@@ -444,22 +444,22 @@ class Notifier < ActionMailer::Base
   #   mail to: @user.email, subject: "Failed to Tip - #{@event.event_day}, #{@event.short_event_title}" 
   # end
   
-  def digest
-    @digest_users = User.where('users.digest = "t"')
+  def digest(events, user)
+    # @digest_users = User.where('users.digest = "t"')
     
-    time_range = Time.now - 1.day .. Time.now
-    @users = []
-    @digest_users.each do |u|
-      if u.invitations.where(created_at: time_range).any?
-        @users.push(u)
-      end
-    end
+    # time_range = Time.now - 1.day .. Time.now
+    # @users = []
+    # @digest_users.each do |u|
+    #   if u.invitations.where(created_at: time_range).any?
+    #     @users.push(u)
+    #   end
+    # end
 
-    @users.each do |user|
-      @events = user.invitations.events.where('starts_at > ?', Time.now)
-
+    # @users.each do |user|
+    # @events = user.invitations.events.where('starts_at > ?', Time.now)
+    @events = events
       mail to: user.email, subject: "You Have New Ideas on Hoos.in"
-    end
+    # end
   end
 
     # def time_change(*args)
