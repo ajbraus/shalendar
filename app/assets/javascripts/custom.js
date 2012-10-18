@@ -138,29 +138,29 @@ $(document).bind('click', function(e) {
   });
 
 // NEW IDEA FORM VALIDATION
-	$("#new_event_form").validate({
-		rules: {
-      "event[title]": {
-        maxlength: 140
-      },
-			"event[min]": {
-				number: true
-			},
-			"event[max]": {
-				number: true
-			},
-			"event[duration]": {
-				required: true,
-				number: true
-			}
-		}
-	});
+	// $("#new_event_form").validate({
+	// 	rules: {
+ //      "event[title]": {
+ //        maxlength: 140
+ //      },
+	// 		"event[min]": {
+	// 			number: true
+	// 		},
+	// 		"event[max]": {
+	// 			number: true
+	// 		},
+	// 		"event[duration]": {
+	// 			required: true,
+	// 			number: true
+	// 		}
+	// 	}
+	// });
 
   $('#fb_invite_friends').validate();
 
 	$("#registration_form").validate();
 
-  $('#new_suggestion_form').validate();
+  // $('#new_suggestion_form').validate();
 
 
   $('input[type=file]').fileValidator({
@@ -201,24 +201,21 @@ $(document).bind('click', function(e) {
       sliderAccessArgs: { touchonly: true }
   });
 
-// google map address picker
-// http://jquerybyexample.blogspot.com/2011/11/jquery-addresspicker-plugin-explained.html
-	
-// $(function() {
-//     var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
-//       elements: {
-//         map:      "#autocompleteMap",
-//         lat:      "#lat",
-//         lng:      "#lng",
-//         locality: '#locality',
-//         country:  '#country'
-//       }
-//     });
-//     var gmarker = addresspickerMap.addresspicker( "marker");
-//     gmarker.setVisible(true);
-//     addresspickerMap.addresspicker( "updatePosition");
-    
-//   });
+  
+$(function() {
+    var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
+      elements: {
+        map:      "#map",
+        lat:      "#latitude",
+        lng:      "#longitude",
+        locality: '#locality',
+        country:  '#country'
+      }
+    });
+    var gmarker = addresspickerMap.addresspicker( "marker");
+    gmarker.setVisible(true);
+    addresspickerMap.addresspicker( "updatePosition");
+  });
 
 
 
