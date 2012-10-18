@@ -43,7 +43,7 @@ Adam
 
 img URL
 
-Remove 'kids' category
+"suggested by:"
 
 remove reload after expand link
 

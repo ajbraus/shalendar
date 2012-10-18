@@ -10,7 +10,6 @@ class ShalendarController < ApplicationController
     @graph = session[:graph]
     @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
     @event_suggestions = Suggestion.event_suggestions(current_user)
-
     @all_suggestions = Suggestion.where('starts_at IS NULL').order('created_at DESC')
                    #or Suggestion.join('user').where('city == ?' current_user.city)
     @suggestions = @all_suggestions.reject do |as|
