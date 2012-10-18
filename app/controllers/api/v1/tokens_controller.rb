@@ -206,8 +206,11 @@ class Api::V1::TokensController  < ApplicationController
         return
       end
     end
-    device = Gcm::Device.create(registration_id: registration_id)
-    device.save
+    device = Gcm::Device.new
+    device.registration_id = registration_id
+
+    #create(registration_id: registration_id)
+    device.save!
     
     notification = Gcm::Notification.new
     notification.device = device
