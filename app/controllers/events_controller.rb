@@ -74,6 +74,12 @@ class EventsController < ApplicationController
   #GET /events/id
   #GET /events/id.json
   def show
+    # binding.remote_pry
+    # if current_user.nil?
+    #   if User.find_by_email("guest@user.com")
+    #     current_user = User.find_by_email("guest@user.com")
+    #   end
+    # end
     @event = Event.find(params[:id])
     @guests = @event.guests
     @json = @event.to_gmaps4rails
