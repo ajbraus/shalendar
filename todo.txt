@@ -43,6 +43,8 @@ Adam
 
 img URL
 
+don't send email comments to yourself
+
 hide unrequired elements
 
 friend button not responding in find_friends

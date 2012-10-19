@@ -72,13 +72,16 @@ class ShalendarController < ApplicationController
 
   def new_invited_events
     @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
-    @new_invitations = current_user.invitations.order('created_at desc').limit(15)
-    @new_invited_events = @new_invitations.select do |i|
+    @new_invitations = current_user.invitations.order('created_at desc').limit(25)
+    @new_invited_events = []
+    @new_invitations.each do |i|
       e = Event.find_by_id(i.invited_event_id)
       unless current_user == e.user && e.ends_at < Time.now
         e.inviter_id = i.inviter_id
       end
+      @new_invited_events.push(e)
     end
+    @new_invited_events = @new_invited_events.reject { |event| event.ends_at < Time.now }
     current_user.new_invited_events_count = 0
     current_user.save
     respond_to do |format|

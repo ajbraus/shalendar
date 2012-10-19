@@ -41,6 +41,7 @@ before_filter :authenticate_user!
           @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
           @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
           @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
+          @vendor_friendships = current_user.relationships.where('relationships.confirmed = true')
           unless @user.following?(current_user) || @user.vendor?
             unless @user.request_following?(current_user) 
               @user.follow!(current_user)

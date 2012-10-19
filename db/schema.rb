@@ -11,6 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+
 ActiveRecord::Schema.define(:version => 20121018233229) do
 
   create_table "apn_apps", :force => true do |t|
@@ -153,7 +154,7 @@ ActiveRecord::Schema.define(:version => 20121018233229) do
     t.datetime "updated_at",                                   :null => false
     t.integer  "user_id"
     t.integer  "min",                       :default => 1
-    t.integer  "max",                       :default => 10000
+    t.integer  "max"
     t.float    "duration"
     t.integer  "inviter_id",                :default => 0
     t.boolean  "tipped",                    :default => false
@@ -245,11 +246,11 @@ ActiveRecord::Schema.define(:version => 20121018233229) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.string   "title"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "user_id"
     t.integer  "min",                    :default => 1
-    t.integer  "max",                    :default => 10000
+    t.integer  "max"
     t.float    "duration"
     t.string   "link"
     t.string   "address"
