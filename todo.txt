@@ -39,95 +39,72 @@ new follower email link not working
 Adam
 --------------
 
-3 day digest
+Maintain Users
+	3 day digest
+	.ics file in event show and emails
+	add to google calendar link in event show and emails
 
-img URL
+Big UI Improvements
+	don't send email comments to yourself
+	friend button not responding in find_friends
+	fix FB invite page to include link back to hoos.in
+	RSVP in/out
 
-don't send email comments to yourself
-
-hide unrequired elements
-
-friend button not responding in find_friends
-
-RSVP in/out
-
-fix FB invite page to include link back to hoos.in
-
-clone
+High-Priority fixes
 	require category with javascript
-	cloning on other suggestions
+	validate image size in form w js
 
-order things by them being your friends or not
-
-FQL query for facebook friends, display alphabetically and if on hoosin then not
-
-CUTTOVER 
-
-run migrations in production
-
-
-
-Upon invite send facebook email
-
-RSVP in/out
-
-Add lat/lng to each city and then pass that to the map in forms
-
-yesterday tomorrow buttons working
-
-carrot next to picture
-
-make public yellow pages display and then make it load with ajax
-
-Text message reminder to go to events (twillio)
-
-invite someone then hover stops working
-
-when I click on "latest ideas" to remove them, it doesn't remove the counter!
-
-month view
-
-bring order to 'lastest ideas'
-	decrement new invited events count when an event expires
-	show only events that are in the future
-
-invite, guest list: order by ppl you already friended
-facebook friends: order by ppl already on hoosin
-
-
-DONE
-Create Suggestions w same columns as events
-Users get boolean vendor?
-User that is vendor can create suggestion and view their suggestions in a vendor dashboard
-Suggestions have many children (class = Event)
-If user.vendor? put link to suggestions#index (vendor dashboard) in header.
-added promo_img to suggestion data structure
-When you click clone it finds the suggestion and passes the elements into a new clone form (i.e. new event form) with suggested elements not actionable and blank elements actionable.
-hid suggestions you've already cloned
-when you submit it goes to the EventsController#create method that creates an event that is a child of a suggestion using the suggestion id as the parent
-Welcome email for vendors
-when suggestion is created if it has a time already create an event - creating the event but not displaying in forecast . . .?
-vendors cannot friend or follow
-ppl can only follow vendors
-
-
-
-Texting
-Recurring Events
-"I'm out"
-integration with twitter
-meetup.com
-google contacts
-google calendar/ical/outlook - .ics 
-
-
-
-Close viral loop:
+Close Viral Loop
+	Message a single RSVP or invited person
+	Upon invite send facebook email
+	Text reminders to rsvps
+	google contacts
 	Invite friends pulls in facebook friends (FQL query for friends in city, then not on hoos.in)
-	Text message ppl invitation
-	Recieve text message reminder to go to an event
-	Host can message all RSVPs, text/push/ or email
-	when you comment, host is contacted text/push or email
+	add face to invite email, new follower email, and confirmation email, and event images to stuff (daily digest, invitation)
+	pretty URLs
+
+Simplify Forms
+	img URL
+	hide unrequired elements
+
+Medium UI improvements
+	fix invite raster in show page friend buttons etc
+	fix alert and add error styling
+
+Small UI Improvements
+	yesterday tomorrow buttons working
+
+piddly-shit
+	order things by them being your friends or not
+	FQL query for facebook friends, display alphabetically and if on hoosin then not
+	carrot next to picture
+	invite someone then hover stops working
+	when I click on "latest ideas" to remove them, it doesn't remove the counter!
+	month view
+	decrement new invited events count when an event expires
+	add "you are now friends with x" to relationship#create.js
+	add format.html to everything
+
+Future stuff: 
+
+Silo by city
+	detect location by IP address: https://github.com/priithaamer/geoip-rails
+	hash timezone to location
+	Add lat/lng to each city and then pass that to the map in forms
+	make public yellow pages display and then make it load with ajax
+
+Vendors:
+	Provisioning/registration
+	Payment Gateway
+
+More users:
+	Twitter authentication
+	meetup.com
+
+More Events:
+	Recurring Events
+
+
 
 User Helper:
 def contact
@@ -142,17 +119,6 @@ def remind
 	else flash notification every 15 minutes on screen of homepage, play noise?
 end
 
-hidden settings page
-
-add "you are now friends with x" to relationship#create.js
-
-add face to invite email, new follower email, and confirmation email
-
-add format.html to everything
-
-fix alert and add error styling
-
-make invitation email better (are ppl even using this?) Maybe a 'copy the link to this event' with pretty urls?
 
 invite people who went to other events but without having to follow them
 
@@ -393,3 +359,21 @@ NYC-inspired daily routine
 	e.g. lunchtime email to gather ideas, 3pm to spread ideas, 6pm to tip
 
 ---------------------------------------------------
+
+
+
+
+DONE
+Create Suggestions w same columns as events
+Users get boolean vendor?
+User that is vendor can create suggestion and view their suggestions in a vendor dashboard
+Suggestions have many children (class = Event)
+If user.vendor? put link to suggestions#index (vendor dashboard) in header.
+added promo_img to suggestion data structure
+When you click clone it finds the suggestion and passes the elements into a new clone form (i.e. new event form) with suggested elements not actionable and blank elements actionable.
+hid suggestions you've already cloned
+when you submit it goes to the EventsController#create method that creates an event that is a child of a suggestion using the suggestion id as the parent
+Welcome email for vendors
+when suggestion is created if it has a time already create an event - creating the event but not displaying in forecast . . .?
+vendors cannot friend or follow
+ppl can only follow vendors

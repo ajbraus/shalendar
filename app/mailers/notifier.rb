@@ -451,12 +451,15 @@ class Notifier < ActionMailer::Base
     # end
 
     # @users.each do |user|
-    # @events = []
-    # @recent_events = user.invitations.events.where('starts_at > ?', Time.now)
-    # @recent_events.each do |re|
-    #   re.
-    # @user = user
-    mail to: @user.email, subject: "You Have New Ideas on Hoos.in"
+    @upcoming_events = []
+    (0..2).each do |day|
+      @date = Date.today + day.days
+      @events = user.events_on_date(@date, [], [])
+      @upcoming_events << @events
+    end
+    # end
+
+    mail to: user.email, subject: "You Have New Ideas on Hoos.in"
   end
 
     # def time_change(*args)

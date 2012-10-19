@@ -1,3 +1,6 @@
-<% @events.each do |event| %>
-	<%= render partial: 'event_details', locals: { :event => event } %>
+<% (0..2).each do |day| %>
+	<h3><%= Date.today + day.days %></h3>
+	<% @upcoming_events[day].each do |event| %>
+		<%= render partial: 'event_details', locals: { :event => event } %>
+	<% end %>
 <% end %>
