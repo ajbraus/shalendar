@@ -297,7 +297,7 @@ text-indent: -9999px;
 -moz-border-radius: 6px;
 border-radius: 6px;
 position: relative;
-right: 15px;
+right: 80px;
 }
 
 .btn_fb_login:hover {
@@ -1315,18 +1315,26 @@ height: 600px;
 margin: 0 auto;
 position: relative;
 top: 20px;
+overflow: scroll;
 }
 
 .user_table {
 font-size: 12px;
 height: auto;
 overflow: hidden;
+border-bottom: 1px solid lightgrey;
+padding-bottom: 20px;
+margin-bottom: 20px;
+  h2 {
+    font-size: 2.7em;
+    margin-top:10px;
+  }
    table {
-    width: 41%;
-    float:left;
+    width: 28%;
+    float: left;
     font-size: 15px;
-    padding-left: 20px;
-    margin: 0 30px;
+    padding-left: 0px;
+    margin: 0 20px;
   }
   td {
     text-align: left;
