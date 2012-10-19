@@ -70,7 +70,7 @@ module UsersHelper
       if user.avatar.url.nil?
         "https://s3.amazonaws.com/hoosin-production/user/avatars/raster/default_profile_pic.png"
       else
-        user.avatar.url
+        user.avatar.url(:raster)
       end
       #invite_gravatar_for(user, :size => 50 )
     end

@@ -1,7 +1,7 @@
 <div class="invited_events part">
-	<% if @new_invited_events.any? %>
+	<% if @new_events.any? %>
 		<dl>
-		<% @new_invited_events.each do |nie| %>
+		<% @new_events.each do |nie| %>
 			<dt><%= nie.start_date %></dt>
 			<dd>
 				<%= render partial: 'shalendar/event', locals: { :event => nie } %>
