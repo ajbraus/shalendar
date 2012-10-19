@@ -36,7 +36,7 @@ class Event < ActiveRecord::Base
 
   has_attached_file :promo_img, :styles => { :original => '900x700',
                                              :large => '380x520',
-                                             :medium => '190x290'},
+                                             :medium => '190x270'},
                              :storage => :s3,
                              :s3_credentials => S3_CREDENTIALS,
                              :path => "event/:attachment/:style/:id.:extension"
