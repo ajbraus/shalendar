@@ -11,7 +11,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121018230316) do
+
+ActiveRecord::Schema.define(:version => 20121018233229) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -211,8 +212,8 @@ ActiveRecord::Schema.define(:version => 20121018230316) do
     t.integer  "followed_id"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.boolean  "toggled",     :default => true
     t.boolean  "confirmed",   :default => false
-    t.boolean  "in"
   end
 
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
@@ -289,7 +290,6 @@ ActiveRecord::Schema.define(:version => 20121018230316) do
     t.string   "APNtoken"
     t.boolean  "iPhone_user",              :default => false
     t.integer  "GCMdevice_id",             :default => 0
-    t.integer  "GCMregistration_id",       :default => 0
     t.boolean  "android_user",             :default => false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
@@ -297,11 +297,12 @@ ActiveRecord::Schema.define(:version => 20121018230316) do
     t.datetime "avatar_updated_at"
     t.string   "time_zone"
     t.integer  "new_invited_events_count", :default => 0
-    t.boolean  "vendor",                   :default => false
     t.boolean  "email_comments",           :default => true
     t.boolean  "admin",                    :default => false
     t.integer  "apn_device_id",            :default => 0
+    t.boolean  "vendor",                   :default => false
     t.boolean  "digest",                   :default => true
+    t.string   "GCMtoken"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
