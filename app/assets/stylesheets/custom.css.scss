@@ -297,7 +297,7 @@ text-indent: -9999px;
 -moz-border-radius: 6px;
 border-radius: 6px;
 position: relative;
-right: 80px;
+left: 400px;
 }
 
 .btn_fb_login:hover {
@@ -1607,6 +1607,11 @@ right: 68px;
 bottom: 23px;
 }
 
+.login_buttons {
+  position: relative;
+top: 10px;
+}
+
 .nativeLogin {
   margin-top:25px;
   position: relative;
@@ -1742,11 +1747,11 @@ font-size: 37px;
 
   .event_link {
     float: left;
-    width: 215px;
+    width: 385px;
     overflow-x: hidden;
     position: absolute;
-    bottom: 20px;
-    left: 205px;
+    bottom: 63px;
+    left: 20px;
     }
 }
 
