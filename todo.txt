@@ -39,6 +39,10 @@ new follower email link not working
 Adam
 --------------
 
+non dev stuff
+	operators agreement
+	privacy/terms pages
+
 Maintain Users
 	3 day digest
 	.ics file in event show and emails
@@ -53,6 +57,7 @@ Big UI Improvements
 High-Priority fixes
 	require category with javascript
 	validate image size in form w js
+	Mobile local registration
 
 Close Viral Loop
 	Message a single RSVP or invited person
@@ -70,9 +75,15 @@ Simplify Forms
 Medium UI improvements
 	fix invite raster in show page friend buttons etc
 	fix alert and add error styling
+	add beautiful dialogue box for confirm to join event
+	http://snipplr.com/view/29911/javascript-alert-and-confirm-dialog-the-fancybox-way/
+	hide event/recurring event
 
 Small UI Improvements
 	yesterday tomorrow buttons working
+	drawn arrows
+	better landing page!
+
 
 piddly-shit
 	order things by them being your friends or not
@@ -84,8 +95,15 @@ piddly-shit
 	decrement new invited events count when an event expires
 	add "you are now friends with x" to relationship#create.js
 	add format.html to everything
+	remove vendor/cache gems
+	If event is full, just not showing it in maybes right now - show as full
+	Agent call - if android/iPhone download our apps	
+	keyup character counter in idea
+	
 
 Future stuff: 
+
+basic test - home, manage follows, launch the lightboxes and js is working
 
 Silo by city
 	detect location by IP address: https://github.com/priithaamer/geoip-rails
@@ -122,56 +140,23 @@ end
 
 invite people who went to other events but without having to follow them
 
-add beautiful dialogue box for confirm to join event
-
-http://snipplr.com/view/29911/javascript-alert-and-confirm-dialog-the-fancybox-way/
-
-daily digest if new events
-
-remove vendor/cache gems
-
-operators agreement
-
-
-                                                           
-                      
-Side note: put_wall_post posts to user/feeds, which doesn’t `include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
-
-P t to facebook wall . . . not for private events
-post to rsvps facebook wall of friends of RSVPs
-
-
-AFTER BETA LAUNCH
 	
--------- Features To Add ------
-
-	Public feed
 	lists
 	payment gateway
 
-	1. subscribers ?
-	2. offers accounts
-		a. event.offer?
-		c. background image on event
-		d. percentage structure (per users)
-		e. PCI compliant database (spreedly core call paypal to setup escrow payments)
 		f. tip-by date
 		g. price
 
-	4. 3 types of events
-		1. Optional contribution checklist
-		 	pop up as optional after RSVP button
-
-		2. Required contribution checklist
+			Required contribution checklist
 			in place of rsvp
 			something to contribute (good or skill or cash)
-			pay through our site if cash?
 
 		3. Commercial - payment
 			pay through our site
 
-	3. SDK - follow us on hoos.in
-	3. 	Twilio:
+SDK - follow us on hoos.in
+
+Twilio:
 		add phone number to user in DB
 		add SMS messages to notifier
 		Buy phone number
@@ -181,66 +166,13 @@ AFTER BETA LAUNCH
 
 	Add FB events - Adam
 
-		block emails from this user
-		change notification settings
-		add SMS
-
-		AJAX
-			confirmations - remove follower, cancel account
-			comments
-			Invitation raster
-			tip!
-
-	MEETUP API
-
------ Improvement Ideas ----
-Forget toggle, just have an 'X' to remove any individual idea you're not interested in
-	frees up space from toggle area
-	better for mobile
-
-
---- 
-
-Infrastructure
-	Staging
-	Tests
-
 Performance
-
 	benchmark 2 second page loads with #x users
-	mailers
-	Facebook URLs
-	Ajax
 	progressive page loading i.e. forecast with events after
 
-Mobile
-	Views
-	Only login through fb
-	New Idea
-	2 weeks 5hrs/day
-
-
-Get more users
-	
-	-Integration
-
-		twitter authentication
-		gmail authentication
-		meetup API
-		get FB events
-		couchsurfing
-
-	-Virality
 
 
 Maintain users
-	-Improved interface/design
-		-Greater connectivity w friends through out platform
-			Twillio
-			email rsvps from comment field with checkbox
-		-Improved look			
-			drawn arrows
-			
 		-Improved UXsmoothness
 			event#edit ajax lightbox
 			event#show ajax lightbox/expand the idea vertically
@@ -250,7 +182,6 @@ Maintain users
 
 		-Performance (zippiness)
 			Optimize ajax to call for less data
-			make it so you only call for the @city_friends once from the database
 
 Make money
 	Payment gateway
@@ -258,31 +189,9 @@ Make money
 		Public member
 		Upgrade account
 
-Fixes
-	fix timezone
-	all events already over turn grey
-	If event is full, just not showing it in maybes right now - show as full
-	Agent call - if android/iPhone download our apps	
-	toggling faces on and off goes back to today and doesn't move the orange rectangle
-	keyup character counter in idea
-	Mobile local registration
-	Recurring events
-	Groups/Lists of users ("Make selected viewed into list")
-	Flag user for spam (block/ignore user)
-
-
-Features
-	payment gateway
-	public feed
 	map view / list view / forecast built / 14 day forecast
-	groups/lists
 	checklist - easy to plan hard things to plan.
-
-	What do we do with already finished events in a given day? - grey out the past
-	Probably gray them out but still display? Or should we take them off the calendar as they're mostly irrelevant (but they still help for finding friends, make calendar more busy for better or worse)
 	
-	google calendar "add this to hoos.in".. and ADD THIS TO GoogleCal for rsvp'd events!
-
 	See old plans/ideas and be able to easily 'resurface' them, with guests as invites (in lightbox or some other way than scrolling back in calendar)
 	
 	OldEvents model that holds events so that main searching doesn't have to handle larger array
@@ -290,22 +199,15 @@ Features
 Node Satisfaction:
 	guest list
 
-	
-
 	SQL Table maintenance; mainly destroying events after they are done, but transferring data somewhere in a reasonable format for conducting analytics
 
-	hide event/recurring event
-
 	copy evite
-
-	List view of events/ 3 week 5 week view of events calendar
 
 
 LOW PRIORITY 
 
 	Add google calendar socket - as 'busy'
 	Map of all events? - hyperlocal NYC thing
-	refactor error messages as partial
 	library of icons -flush out use cases -sports, games, booze, playdates, 
 
 
@@ -316,11 +218,6 @@ LOW PRIORITY
 People set a price they're willing to pay- use to get group discounts on e.g. paintballing, rent a soccer field, rent equipment. could have ppl set a max, and tip on $ instead of ppl. Get enough ppl for hockey team, 'register a soccer team', 
 
 Venues/resorts/... can put up events that only happen if they get enough interest, or that are cheaper based on how many ppl join and thus everyone going has incentive to tell people while the place is guaranteed to make money or have no costs!!!!
-
-More integration with facebook -- invitation creates facebook message . . . option to create facebook message / facebook event. In app app?
-
-user experience of curating invites/groups - don't just select a new type of event
-	"Make Current Selection a Group Users" "Invite Group to event"	
 
 ** Thoughts from Eve Galanter ** LOTS OF FRIENDS THAT RUN EVENTS
 	Madison Magazine, brava, inbusiness date books (calendars), Isthmus
@@ -351,9 +248,6 @@ Monetization
 	branded event pages
 
 subdomains for every city - you can belong to multiple cities -- this strategy can be used for -- should we use heroku if we know our deployment strategy?
-
-Marketing strategy
-	private beta? 1001 ppl
 
 NYC-inspired daily routine
 	e.g. lunchtime email to gather ideas, 3pm to spread ideas, 6pm to tip
