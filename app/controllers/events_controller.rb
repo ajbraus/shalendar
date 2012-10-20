@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_filter :authenticate_user!
-  skip_before_filter :authenticate_user!, :only => :show
+  #skip_before_filter :authenticate_user!, :only => :show
 
   require 'active_support/core_ext'
 
