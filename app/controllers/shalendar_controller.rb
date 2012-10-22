@@ -142,7 +142,7 @@ class ShalendarController < ApplicationController
   def fb_invite 
     @invitees = params[:invitees].split(', ')
     @subject = params[:subject]
-    @message = params[:message]
+    @message = params[:message] + " -- www.hoos.in"
     @invitees.each do |username|
       Notifier.fb_invite(username + "@facebook.com", @subject, @message)
     end
