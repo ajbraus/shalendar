@@ -1,12 +1,13 @@
 <div id="ribbon">
 	<div class="new_idea">
-			<textarea id="new_idea_blerb"></textarea>
 		<%if current_user.vendor? %>
-			<%= link_to new_suggestion_path, id:"new_suggestion_button", class: "btn btn-new-idea btn-rsvp fancybox.ajax", placeholder: "Make a New Suggestion", remote: true do %>
+			<textarea id="new_idea_blerb" placeholder="Make a New Suggestion"></textarea>
+			<%= link_to new_suggestion_path, id:"new_suggestion_button", class: "btn btn-new-idea btn-rsvp fancybox.ajax", remote: true do %>
 					<i class="icon-bullhorn"></i>
 			<% end %>
 		<% else %>
-			<%= link_to new_event_path, id:"new_idea_button", class: "btn btn-rsvp btn-new-idea fancybox.ajax", placeholder: "Make a New Idea", remote: true do %>
+			<textarea id="new_idea_blerb" placeholder="Make a New Idea to Do with Friends"></textarea>
+			<%= link_to new_event_path, id:"new_idea_button", class: "btn btn-rsvp btn-new-idea fancybox.ajax", remote: true do %>
 				<i class="icon-cloud"></i>
 			<% end %>
 		<% end %>
