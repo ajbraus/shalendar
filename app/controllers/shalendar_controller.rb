@@ -89,7 +89,7 @@ class ShalendarController < ApplicationController
       @new_invited_events.push(e)
     end
     @new_invited_events = @new_invited_events.reject { |event| event.ends_at < Time.now }.sort_by {|e| e.starts_at }
-    @new_events = @new_invited_events.reverse
+    @new_events = @new_invited_events
     current_user.new_invited_events_count = 0
     current_user.save
     respond_to do |format|

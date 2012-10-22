@@ -4,6 +4,7 @@
     <% if current_user.authentications.find_by_provider("Facebook") == nil && current_user.avatar.present? == false %>
       <p><a href="http://gravatar.com/emails">Add or Update Gravatar Picture</a></p>
     <% end %>
+    <% unless current_user.vendor? %>
     <p><strong>Authentications</strong></p>
     <% if current_user.authentications.any? == true %>
     <p>
@@ -27,6 +28,7 @@
       </div>
     <% end %>
   </div>
+  <% end %>
 
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
     <h2>General Settings</h2>
