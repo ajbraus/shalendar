@@ -44,10 +44,7 @@ class Api::V1::EventsController < ApplicationController
       }
      	@list_events.push(@temp)
     end
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @list_events }
-    end
+    render json: @list_events
   end
 
   def event_details
@@ -120,11 +117,7 @@ class Api::V1::EventsController < ApplicationController
       @rsvp.invite_all_friends = true
       @rsvp.save
     end
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @event }
-    end
+    render json: @event
   end
 
 end
