@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_filter :authenticate_user!
-  skip_before_filter :authenticate_user!, :only => :show
+  #skip_before_filter :authenticate_user!, :only => :show
 
   require 'active_support/core_ext'
 
@@ -99,6 +99,13 @@ class EventsController < ApplicationController
         @invite_friends.push(cf)
       end
     end
+
+    # Need multi-query to get stuff by location
+    # @friendships = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
+    # @my_city = @graph.fql_query('select current_location from user  where uid=me()')
+    # @city_friends = @graph.fql_query('SELECT uid, name, pic_square FROM user WHERE uid IN (SELECT uid2, current_location FROM friend WHERE uid1 = me())')
+    # SELECT uid, name, pic_square FROM user WHERE is_app_user AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())
+    # SELECT current_location, name FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1=me()) and "New York" in current_location
     respond_to do |format|
       format.html 
       format.json { render json: @event }

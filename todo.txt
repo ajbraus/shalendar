@@ -73,6 +73,8 @@ Close Viral Loop
 	pretty URLs
 	follow up email to events ppl rsvpd to (maybe in digest)
 
+fix destroy.js.erb in shalendar views
+
 Vendor happiness
 	Branded event show pages
 

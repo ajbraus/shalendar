@@ -21,7 +21,13 @@ class ShalendarController < ApplicationController
 	def manage_follows
 		@graph = session[:graph]
 		@friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
-    @vendor_friendships = current_user.relationships.where('relationships.confirmed = true')
+    @vendor_friendships = []
+    current_user.relationships.where('relationships.confirmed = true').each do |r|
+      if r.followed.vendor?
+        @vendor_friendships << r
+      end
+    end
+
 		#people who want to view current use
     @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
     #@vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
@@ -53,6 +59,8 @@ class ShalendarController < ApplicationController
         @invite_friends.push(cf)
       end
     end
+    #friends who are app_users
+    #SELECT uid, name, pic_square FROM user WHERE is_app_user AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())
     respond_to do |format|
       #format.html
       format.js
@@ -81,7 +89,8 @@ class ShalendarController < ApplicationController
       end
       @new_invited_events.push(e)
     end
-    @new_invited_events = @new_invited_events.reject { |event| event.ends_at < Time.now }
+    @new_invited_events = @new_invited_events.reject { |event| event.ends_at < Time.now }.sort_by {|e| e.starts_at }
+    @new_events = @new_invited_events.reverse
     current_user.new_invited_events_count = 0
     current_user.save
     respond_to do |format|
@@ -134,7 +143,7 @@ class ShalendarController < ApplicationController
   def fb_app_invite 
     @invitees = params[:invitees].split(', ')
     @subject = params[:subject]
-    @message = params[:message]
+    @message = params[:message] + " -- www.hoos.in"
     @invitees.each do |username|
       Notifier.fb_invite(username + "@facebook.com", @subject, @message)
     end
