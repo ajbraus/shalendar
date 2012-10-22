@@ -21,7 +21,7 @@
 
 
 <div class="fb_invite_friends">
-	<%= form_tag('/fb_invite', id:"fb_invite_friends") %>
+	<%= form_tag('/fb_app_invite', id:"fb_invite_friends") %>
 		<%= hidden_field_tag :current_user, @me["username"] %>
 		<%= hidden_field_tag :invitees, nil, id:"invitees" %>
 		<div class="invitees">

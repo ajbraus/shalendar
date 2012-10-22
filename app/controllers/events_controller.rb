@@ -74,12 +74,6 @@ class EventsController < ApplicationController
   #GET /events/id
   #GET /events/id.json
   def show
-    # binding.remote_pry
-    # if current_user.nil?
-    #   if User.find_by_email("guest@user.com")
-    #     current_user = User.find_by_email("guest@user.com")
-    #   end
-    # end
     @event = Event.find(params[:id])
     @guests = @event.guests
     @json = @event.to_gmaps4rails
@@ -88,7 +82,23 @@ class EventsController < ApplicationController
     @invited_users = @event.invited_users - @event.guests
     @graph = session[:graph]
     @comments = @event.comments.order("created_at desc")
+    @invite_friends = []
 
+    @graph = session[:graph]
+    @friendships = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
+    # @city_friends = @graph.fql_query(
+    #   SELECT uid, name, location, pic_square
+    #   FROM user 
+    #   WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me() AND location = me())
+    #   )
+    @me = @graph.get_object('me')
+    @city_friends = @friendships.select { |friend| friend['location'].present? && friend['location']['id'] == @me['location']['id'] }
+    @city_friends.each do |cf|
+      @authentication = Authentication.find_by_uid(cf['id'])
+      unless @authentication
+        @invite_friends.push(cf)
+      end
+    end
     respond_to do |format|
       format.html 
       format.json { render json: @event }

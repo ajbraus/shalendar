@@ -8,3 +8,10 @@
 		<% end %>
   <% end %>
 <% end %>
+<hr>
+<div class="fb_friends_invite">Share with FB Friends</div>
+<% @invite_friends.each do |f| %>
+	<%= link_to nil, fb_invite_path, remote: true do |i|%>
+	  <%= image_submit_tag("#{invite_raster_picture(f)}", class: "profile_picture", title: "#{f.name}") %>
+	<% end %>
+<% end %>

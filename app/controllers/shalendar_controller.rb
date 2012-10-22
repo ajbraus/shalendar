@@ -131,7 +131,7 @@ class ShalendarController < ApplicationController
 
   end
 
-  def fb_invite 
+  def fb_app_invite 
     @invitees = params[:invitees].split(', ')
     @subject = params[:subject]
     @message = params[:message]
@@ -140,6 +140,12 @@ class ShalendarController < ApplicationController
     end
     redirect_to root_path, notice: 'Message successfully sent to selected Facebook Friends'
   end
+
+  def fb_event_invitation(event)
+    event = @event
+
+  end
+
 
 
   private

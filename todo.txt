@@ -44,40 +44,49 @@ non dev stuff
 	privacy/terms pages
 
 Maintain Users
-	3 day digest
+	3 day digest / fb message invitation (all invite) -- you just went to x idea -- connect w people who went there
 	.ics file in event show and emails
 	add to google calendar link in event show and emails
 
 Big UI Improvements
 	don't send email comments to yourself
 	friend button not responding in find_friends
-	fix FB invite page to include link back to hoos.in
 	RSVP in/out
+	Friend ideas/community ideas
+	Placeholder text
+	suggestion counter row to datepicker
+	clone page creates the event and you get invitation stuff in lightbox
+	magnifying glass
+	fix invite raster in show page friend buttons etc
+	Tooltip is f-ing with button functionality
 
 High-Priority fixes
-	require category with javascript
+	require category with javascript in suggestions
 	validate image size in form w js
-	Mobile local registration
 
 Close Viral Loop
-	Message a single RSVP or invited person
 	Upon invite send facebook email
-	Text reminders to rsvps
+	Text invitations from mobile app
 	google contacts
 	Invite friends pulls in facebook friends (FQL query for friends in city, then not on hoos.in)
 	add face to invite email, new follower email, and confirmation email, and event images to stuff (daily digest, invitation)
 	pretty URLs
+	follow up email to events ppl rsvpd to (maybe in digest)
+
+Vendor happiness
+	Branded event show pages
 
 Simplify Forms
 	img URL
 	hide unrequired elements
 
 Medium UI improvements
-	fix invite raster in show page friend buttons etc
 	fix alert and add error styling
 	add beautiful dialogue box for confirm to join event
 	http://snipplr.com/view/29911/javascript-alert-and-confirm-dialog-the-fancybox-way/
 	hide event/recurring event
+	Basic profile
+		Message a single RSVP or invited person
 
 Small UI Improvements
 	yesterday tomorrow buttons working
@@ -122,6 +131,7 @@ More users:
 More Events:
 	Recurring Events
 
+	Mobile local registration
 
 
 User Helper:
