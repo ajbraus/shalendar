@@ -95,6 +95,7 @@ class Api::V1::EventsController < ApplicationController
       return
     end
     @event = @mobile_user.events.build
+    @event.chronic_starts_at = DateTime.parse(params[:start])
     @event.starts_at = DateTime.parse(params[:start])
     @event.ends_at = @event.starts_at + Integer(params[:duration]).hours
     @event.title = params[:title]
@@ -107,8 +108,7 @@ class Api::V1::EventsController < ApplicationController
     @event.max = params[:max]
     if @event.min <= 1
       @event.tipped = true
-      @event.save
-    end 
+    end
     @event.save
     @mobile_user.rsvp!(@event)
     if params[:invite_all_friends] == '1'

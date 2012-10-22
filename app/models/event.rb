@@ -52,8 +52,8 @@ class Event < ActiveRecord::Base
             :chronic_starts_at,
             :duration, 
             :ends_at, presence: true
-  validates :max, numericality: { in: 1..10000, only_integer: true }
-  validates :min, numericality: { in: 1..10000, only_integer: true }
+  validates :max, numericality: { in: 1..1000000, only_integer: true }
+  validates :min, numericality: { in: 1..1000000, only_integer: true }
   validates :duration, numericality: { in: 0..1000 } 
   validates :title, length: { maximum: 140 }
   validates_numericality_of :longitude, :latitude, allow_blank:true
