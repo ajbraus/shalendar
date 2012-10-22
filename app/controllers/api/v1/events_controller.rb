@@ -97,7 +97,8 @@ class Api::V1::EventsController < ApplicationController
     @event = @mobile_user.events.build
     @event.chronic_starts_at = DateTime.parse(params[:start])
     @event.starts_at = DateTime.parse(params[:start])
-    @event.ends_at = @event.starts_at + Integer(params[:duration]).hours
+    @event.duration = Integer(params[:duration])
+    @event.ends_at = @event.starts_at + @event.duration.hours
     @event.title = params[:title]
     if params[:g_share] == '0'
       @event.guests_can_invite_friends = false
@@ -111,7 +112,6 @@ class Api::V1::EventsController < ApplicationController
     end
     logger.info("event is: #{@event}")
     @event.save
-    @event.errors
     @mobile_user.rsvp!(@event)
     if params[:invite_all_friends] == '1'
       @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
