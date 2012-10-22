@@ -1,13 +1,4 @@
-From Feedback Fiesta
-----------
-operators agreement
-Terms & Conditions
-email signatures
-
-*super limited* profile- know who someone is, maybe a short blurb, lightbox?
-
-(new feedback)
-	comments up top, picture in comments.
+validate starts_at is in the future
 
 Mike
 ------------
