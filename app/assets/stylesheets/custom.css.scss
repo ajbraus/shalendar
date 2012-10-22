@@ -2175,16 +2175,16 @@ height: 80px;
     margin-bottom:30px;
   }
   .dollar {
-      float: left;
-width: 27px;
-position: relative;
-top: 38px;
+display: inline;
+margin-left: 19px;
+font-size: 22px;
     }
   div.minmax {
-    width: 100%;
+width: 100%;
 float: left;
 position: relative;
 left: 94px;
+height: 81px;
     > u {
     text-decoration: none;
     width: 30%;
