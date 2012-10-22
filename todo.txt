@@ -39,6 +39,8 @@ new follower email link not working
 Adam
 --------------
 
+fix destroy.js.erb in shalendar views
+
 3 day digest
 
 img URL
