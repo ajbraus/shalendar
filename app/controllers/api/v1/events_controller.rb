@@ -110,7 +110,7 @@ class Api::V1::EventsController < ApplicationController
     if @event.min <= 1
       @event.tipped = true
     end
-    logger.info("event is: #{@event}")
+    logger.info("title: #{@event.title}, starts_at: #{@event.starts_at}")
     @event.save
     @mobile_user.rsvp!(@event)
     if params[:invite_all_friends] == '1'
