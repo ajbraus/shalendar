@@ -50,7 +50,6 @@ class ShalendarController < ApplicationController
     @me = @graph.get_object('me')
     @invite_friends = []
     @member_friends = []
-    binding.remote_pry
     @city_friends = @friendships.select { |friend| friend['location'].present? && friend['location']['id'] == @me['location']['id'] }
     @city_friends.each do |cf|
       @authentication = Authentication.find_by_uid(cf['id'])
