@@ -149,10 +149,6 @@ class Event < ActiveRecord::Base
 
   end
 
-  def gmaps4rails_address
-    address
-  end
-
   def event_day
     self.starts_at.strftime "%A"
   end

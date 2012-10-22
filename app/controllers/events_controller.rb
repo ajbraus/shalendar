@@ -75,7 +75,6 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @guests = @event.guests
-    @json = @event.to_gmaps4rails
     @friends = current_user.followers
     @email_invites = @event.email_invites
     @invited_users = @event.invited_users - @event.guests
