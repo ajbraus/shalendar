@@ -23,27 +23,6 @@
 <%= f.text_field :duration, placeholder:"#hrs", class: "required duration", autocomplete: "off"  %>
 </p>
 
-    <p>
-  <div><%= f.label :display_image %><br />
-  <%= f.file_field :promo_img %></div>
-    </p>
-
-<div id="minmax" style="display: block; clear:both;">
-  <u>
-    <%= f.label :min_attendees, "Tipping point*" %> <br/>
-    <%= f.text_field :min, :class => 'input-mini', value: 1, autocomplete: "off" %>
-  </u>
-  <u>
-    <%= f.label :max_attendees, "Full" %> <br/>
-    <%= f.text_field :max, :class => 'input-mini', value: 50, autocomplete: "off" %>
-  </u>
-  <span class="dollar">$ </span>
-  <u>
-    <%= f.label "Cost" %><br>
-    <%= f.text_field :price, :class => 'input-mini', autocomplete: "off" %>
-  </u>
-</div>
-
 <div class="invitation_options" style="display: block; clear:both;">
   <u>
 		<%= f.label "Share Idea with All Your Friends" %><br>
@@ -57,7 +36,7 @@
 	</u>
 </div>
 
-<%= render partial: 'shared/link_map', locals: { :f => f } %>
+<%= render partial: 'shared/link_map_image', locals: { :f => f } %>
  
 <span class="new_idea_button"><%= f.submit 'Post Idea', :class => 'btn btn-large btn-primary', method: :post %></span>
 

@@ -35,15 +35,75 @@ $('#datetime').datetimepicker({
     minute:00
 });
 
- $("#addLink").click(function () {
- $("#addLinkp").slideToggle();
- $.fancybox.update();
+ $("#addLink").click(function () { 
+ if ($("#addLinkp").hasClass("open")) { 
+   $("#addLinkp").slideUp();
+   $('#addLinkp').removeClass("open");
+  }
+ else {
+ $('.open').slideUp();
+ $('.open').removeClass("open");
+ $("#addLinkp").slideDown();
+ $("#addLinkp").addClass("open");
+ $("#addLink").css("color", "#EB8325")
+  }
 });
 
-// $("#addmap").click(function () {
-//  $('#addmapp').slideToggle();
-//  $.fancybox.update();
-// });
+$("#addmap").click(function () {
+ if ($("#addmapp").hasClass("open")) {
+   $("#addmapp").slideUp();
+   $('#addmapp').removeClass("open");
+ }
+ else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#addmapp').slideDown();
+   $("#addmapp").addClass("open");
+   $("#addmap").css("color", "#EB8325")
+ }
+});
+
+$("#addimg").click(function () {
+  if ($("#addimgp").hasClass("open")) {
+   $("#addimgp").slideUp();
+   $('#addimgp').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#addimgp').slideDown();
+   $("#addimgp").addClass("open");
+   $("#addimg").css("color", "#EB8325")
+  }
+});
+
+$("#addcost").click(function () {
+  if ($("#addcostp").hasClass("open")) {
+   $("#addcostp").slideUp();
+   $('#addcostp').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#addcostp').slideDown();
+   $("#addcostp").addClass("open");
+   $("#addcost").css("color", "#EB8325")
+  }
+});
+
+$("#addtipping").click(function () {
+  if ($("#addtippingp").hasClass("open")) {
+   $("#addtippingp").slideUp();
+   $('#addtippingp').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#addtippingp').slideDown();
+   $("#addtippingp").addClass("open");
+   $("#addtipping").css("color", "#EB8325")
+  }
+});
 
 $('#new_suggestion_form').validate();
 // NEW IDEA FORM VALIDATION
@@ -71,20 +131,5 @@ $('#new_suggestion_form').validate();
   maxSize:      '500kb', //optional
   type:         'image' //optional
 });
-
-$(function() {
-    var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
-      elements: {
-        map:      "#map",
-        lat:      "#latitude",
-        lng:      "#longitude",
-        locality: '#locality',
-        country:  '#country'
-      }
-    });
-    var gmarker = addresspickerMap.addresspicker( "marker");
-    gmarker.setVisible(true);
-    addresspickerMap.addresspicker( "updatePosition");
-  });
 
 </script>

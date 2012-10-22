@@ -2180,7 +2180,12 @@ width: 27px;
 position: relative;
 top: 38px;
     }
-  div#minmax > u {
+  div.minmax {
+    width: 100%;
+float: left;
+position: relative;
+left: 94px;
+    > u {
     text-decoration: none;
     width: 30%;
     float: left;
@@ -2194,6 +2199,7 @@ top: 38px;
     label {
       width: 210px;
     }
+  }
   }
   div.invitation_options > u {
   text-decoration: none;
@@ -2234,10 +2240,9 @@ margin-bottom: 10px;
     float:right;
     font-size: 20px;
     margin-top: 18px;
-    margin-right: 15px;
+margin-right: -2px;
     li {
     display: inline;
-    padding-left:7px;
     }
   }
 }
@@ -2246,7 +2251,7 @@ margin-bottom: 10px;
   width:200px;
   float:left;
   input[type=submit]{
-    padding: 11px 110px 11px 110px;
+    padding: 11px 90px 11px 90px;
 
   }
 }
@@ -2267,7 +2272,7 @@ margin-top: 10px;
   margin-left: 20px;
 }
 
-#addLink, #addmap {
+#addLink, #addmap, #addimg, #addtipping, #addcost {
   cursor:pointer;
   color:black;
   text-decoration: underline;
@@ -2278,23 +2283,31 @@ margin-top: 10px;
   }
 }
 
-#addmapp {
-  margin-bottom: 15px;
-  clear: both;
-  input {
-    margin-left: 10px;
-width: 395px;
-  }
-}
-
-#addLinkp {
+#addLinkp, #addmapp, #addimgp {
   float:left;
   margin-bottom: 15px;
   width: 100%;
   input {
     margin-left: 5px;
-width: 365px;
+width: 335px;
   }
+}
+
+#addcostp {
+  float:left;
+  margin-bottom: 15px;
+  width: 100%;
+  input {
+    margin-left: 5px;
+    width: 85px;
+  }
+}
+
+div.tippingIcon {
+  position: relative;
+right: 31px;
+float: left;
+top: 33px;
 }
 
 .address-picker-map {
