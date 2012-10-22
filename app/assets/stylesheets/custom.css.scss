@@ -33,13 +33,13 @@ $grayDarker:#eaeaea;
 
 @font-face {
   font-family: bariol_bold;
-  src: url('Bariol_Bold.otf');
+  src: url('Bariol_Bold.otf') format("opentype");
   font-style: bold;
 }
 
 @font-face {
   font-family: bariol;
-  src: url('Bariol_Regular.otf');
+  src: url('Bariol_Regular.otf') format("opentype") ;
 }
 
 /* universal */
