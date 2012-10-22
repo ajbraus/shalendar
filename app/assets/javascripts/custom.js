@@ -1,7 +1,6 @@
 $(document).ready(function() {
 // REMOVE ALERT 
-
-	$("div.alert").delay(2500).fadeOut(400);
+$("div.alert").delay(2500).fadeOut(400);
 
 // LOADING AJAX
 $('#loading').ajaxStart(function(){
@@ -83,19 +82,19 @@ $("input[type=checkbox].switch").each(function() {
 
 // YESTERDAY AND TOMORROW
 
-$('#yesterday').click(function(){
-  fc_position = $('#forecast').position();
-  $('#forecast').animate({ left: fc_position.left +=340 }, 1000);
-  $('#datewindow').animate({ left: '-=38.3' }, 500);
-});
+// $('#yesterday').click(function(){
+//   fc_position = $('#forecast').position();
+//   $('#forecast').animate({ left: fc_position.left +=340 }, 1000);
+//   $('#datewindow').animate({ left: '-=38.3' }, 500);
+// });
 
-$('#tomorrow').click(function(){
-  fc_position = $('#forecast').position();
-  $('#forecast').animate({ right: fc_position.right -=340 }, 1000);
-  $('#datewindow').animate({ left: '+=38.3' }, 500);
-});
+// $('#tomorrow').click(function(){
+//   fc_position = $('#forecast').position();
+//   $('#forecast').animate({ right: fc_position.right -=340 }, 1000);
+//   $('#datewindow').animate({ left: '+=38.3' }, 500);
+// });
 
-$('#yt').buttonset();
+//$('#yt').buttonset();
 $('#categories').buttonset();
 
 // SETTINGS DROPDOWN
@@ -121,40 +120,11 @@ $(document).bind('click', function(e) {
   $('#new_idea_button').fancybox();
   $('#new_suggestion_button').fancybox();
 	$('.find_friends').fancybox();
-	$(".howto").fancybox();
-  $('.city_vendors').fancybox();
+  //$('.city_vendors').fancybox();
   $('.clone').fancybox();
 
-// SHOW/HIDE LINK AND MAP
 
-  $("#addLink").click(function () {
-   $("#addLinkp").slideToggle();
-   $("#new_idea_button").fancybox.update();
-  });
-
-  $("#addmap").click(function () {
-   $('#addmapp').slideToggle();
-   $("#new_idea_button").fancybox.update();
-  });
-
-// NEW IDEA FORM VALIDATION
-	// $("#new_event_form").validate({
-	// 	rules: {
- //      "event[title]": {
- //        maxlength: 140
- //      },
-	// 		"event[min]": {
-	// 			number: true
-	// 		},
-	// 		"event[max]": {
-	// 			number: true
-	// 		},
-	// 		"event[duration]": {
-	// 			required: true,
-	// 			number: true
-	// 		}
-	// 	}
-	// });
+// VALIDATIONS
 
   $('#fb_invite_friends').validate();
 
@@ -189,8 +159,6 @@ $(document).bind('click', function(e) {
   $('#events').tabs();
   $('#suggestions').tabs();
 
-
-
 // DATETIME PICKER
 
   $('#datetime').datetimepicker({
@@ -202,25 +170,6 @@ $(document).bind('click', function(e) {
       hour:12,
       minute:00
   });
-
-  
-// $(function() {
-//     var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
-//       elements: {
-//         map:      "#map",
-//         lat:      "#latitude",
-//         lng:      "#longitude",
-//         locality: '#locality',
-//         country:  '#country'
-//       }
-//     });
-//     var gmarker = addresspickerMap.addresspicker( "marker");
-//     gmarker.setVisible(true);
-//     addresspickerMap.addresspicker( "updatePosition");
-//   });
-
-
-
 
 //Get local time zone- TRYING TO DO IT JavaScript
 // Event.observe(window, 'load', function(e) {
