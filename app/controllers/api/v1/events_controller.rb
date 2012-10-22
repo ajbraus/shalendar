@@ -109,7 +109,9 @@ class Api::V1::EventsController < ApplicationController
     if @event.min <= 1
       @event.tipped = true
     end
+    logger.info("event is: #{@event}")
     @event.save
+    @event.errors
     @mobile_user.rsvp!(@event)
     if params[:invite_all_friends] == '1'
       @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
