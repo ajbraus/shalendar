@@ -105,7 +105,11 @@ class Api::V1::EventsController < ApplicationController
     end
     @event.min = params[:min]
     @event.max = params[:max]
-    
+    if @event.min <= 1
+      @event.tipped = true
+      @event.save
+    end 
+    @event.save
     @mobile_user.rsvp!(@event)
     if params[:invite_all_friends] == '1'
       @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
@@ -113,10 +117,7 @@ class Api::V1::EventsController < ApplicationController
       @rsvp.invite_all_friends = true
       @rsvp.save
     end
-    if @event.min <= 1
-      @event.tipped = true
-      @event.save
-    end 
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @event }
