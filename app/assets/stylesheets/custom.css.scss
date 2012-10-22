@@ -1895,7 +1895,7 @@ text-align: right;
 .comments_form {
 float: right;
 width: 420px;
-height: auto;
+min-height: 200px;
 margin-top: 10px;
   textarea {
     width: 90%;
@@ -1903,7 +1903,7 @@ margin-top: 10px;
   .btn {
 position: relative;
 left: 243px;
-top: 7px;
+top: 20px;
   }
   .field {
     margin-left:10px;
