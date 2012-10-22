@@ -143,19 +143,23 @@ class ShalendarController < ApplicationController
   def fb_app_invite 
     @invitees = params[:invitees].split(', ')
     @subject = params[:subject]
-    @message = params[:message] + " -- www.hoos.in"
+    @message = params[:message]
     @invitees.each do |username|
-      Notifier.fb_invite(username + "@facebook.com", @subject, @message)
+      @email = username + "@facebook.com"
+      Notifier.fb_app_invite(@email, @subject, @message).deliver
     end
     redirect_to root_path, notice: 'Message successfully sent to selected Facebook Friends'
   end
 
-  def fb_event_invitation(event)
-    event = @event
-
+  def fb_event_invite
+    # if params[:username]
+    #   @event = Event.find_by_id(params[:event])
+    #   @email = params[:username] + "@facebook.com"
+    #   @name = params[:name]
+    #   Notifier.fb_event_invite(@email, @event, @name).deliver
+    # end
+    # redirect_to @event, notice: 'Message successfully sent to Facebook Friend'
   end
-
-
 
   private
 

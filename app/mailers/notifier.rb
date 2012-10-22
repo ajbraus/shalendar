@@ -422,13 +422,24 @@ class Notifier < ActionMailer::Base
     Airbrake.notify(ex)
   end
 
-  def fb_invite(invitee_email, subject, message)
+  def fb_app_invite(invitee_email, subject, message)
     @invitee_email = invitee_email
     @subject = subject
     @message = message
-    mail to: @invitee_email, from: "info@hoos.in", subject: @subject
+    mail(to: @invitee_email, from: "info@hoos.in", subject: @subject) do |format|
+      format.html { render :layout => 'fb_message' }
+    end
     rescue => ex
     Airbrake.notify(ex)
+  end
+
+  def fb_event_invite(email, event)
+    @event = event
+    @email = email 
+    binding.remote_pry
+    mail to: @email, from: "info@hoos.in", subject: "An Idea has Been Shared with You" do |format|
+      format.html { render :layout => 'fb_message' }
+    end
   end
   
   # def failed_to_tip(event, user)
@@ -464,7 +475,6 @@ class Notifier < ActionMailer::Base
           mail to: user.email, subject: "You Have New Ideas on Hoos.in"
         end
       end
-    end
   end
 
     # def time_change(*args)
