@@ -6,8 +6,6 @@ class Suggestion < ActiveRecord::Base
 
   CATEGORIES = %w[adventure learn active community shop night] #adventure, culture, community
 
-  acts_as_gmappable :validation => false
-
   attr_accessible :user_id,
                 :starts_at, 
                 :duration,

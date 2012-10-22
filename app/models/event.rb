@@ -1,7 +1,6 @@
 require 'chronic'
 
 class Event < ActiveRecord::Base
-  acts_as_gmappable :validation => false
   belongs_to :user
   belongs_to :suggestion
 

@@ -10,10 +10,10 @@
 
 	// Configurable options (change value numbers to fit your needs)
 	littleTIPdelay			=   0    ;	// Delay time before appear (in pixels)
-	littleTIPfade			=   50     ;	// Fading duration time (in pixels)
+	littleTIPfade			=   70     ;	// Fading duration time (in pixels)
 	littleTIPbackground		=   0.7     ;	// Background opacity (from 0 to 1)
 	littleTIPtext			=   1       ;	// Text opacity (from 0 to 1)
-	littleTIPx				=   -30      ;	// Horizontal distance from cursor (in pixels)
+	littleTIPx				=   -40      ;	// Horizontal distance from cursor (in pixels)
 	littleTIPy				=   15      ;	// Vertical distance from cursor (in pixels)
 
 	
