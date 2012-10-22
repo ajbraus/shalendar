@@ -59,6 +59,8 @@ class ShalendarController < ApplicationController
         @invite_friends.push(cf)
       end
     end
+    #friends who are app_users
+    #SELECT uid, name, pic_square FROM user WHERE is_app_user AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())
     respond_to do |format|
       #format.html
       format.js

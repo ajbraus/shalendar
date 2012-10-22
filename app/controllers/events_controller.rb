@@ -83,6 +83,12 @@ class EventsController < ApplicationController
     @graph = session[:graph]
     @comments = @event.comments.order("created_at desc")
 
+    #@friendships = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
+    binding.remote_pry
+    #@my_city = @graph.fql_query('select current_location from user  where uid=me()')
+    @city_friends = @graph.fql_query('SELECT uid, name, pic_square FROM user WHERE uid IN (SELECT uid2, current_location FROM friend WHERE uid1 = me())')
+    # SELECT uid, name, pic_square FROM user WHERE is_app_user AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())
+    # SELECT current_location, name FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1=me()) and "New York" in current_location
     respond_to do |format|
       format.html 
       format.json { render json: @event }
