@@ -95,6 +95,7 @@ class Api::V1::EventsController < ApplicationController
       return
     end
     @event = @mobile_user.events.build
+    @event.user_id = @mobile_user.id
     @event.chronic_starts_at = DateTime.parse(params[:start])
     @event.starts_at = DateTime.parse(params[:start])
     @event.duration = Integer(params[:duration])
