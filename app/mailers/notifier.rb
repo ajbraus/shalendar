@@ -440,26 +440,31 @@ class Notifier < ActionMailer::Base
   # end
   
   def digest(user)
-    # @digest_users = User.where("users.digest = 'true'")
-    
-    # time_range = Time.now - 1.day .. Time.now
-    # @users = []
-    # @digest_users.each do |u|
-    #   if u.invitations.where(created_at: time_range).any?
-    #     @users.push(u)
-    #   end
-    # end
-
-    # @users.each do |user|
-    @upcoming_events = []
-    (0..2).each do |day|
-      @date = Date.today + day.days
-      @events = user.events_on_date(@date, [], [])
-      @upcoming_events << @events
+    @digest_users = User.where("users.digest = 'true'")
+    time_range = Time.now .. Time.now - 1.day
+    @users = []
+    @digest_users.each do |u|
+      @user_invitations = u.invitations.where(created_at: time_range)
+      if @user_invitations.any?
+        @new_events = []
+        @user_invitations.each do |i|
+          @event = Event.find_by_id(i.invited_event_id)
+          if @event.starts_at.between?(Time.now, Time.now + 3.days)
+            @new_events.push(@event)
+          end
+        end
+        if @new_events.any?
+          @upcoming_events = []
+          (0..2).each do |day|
+            @date = Date.today + day.days
+            @events = u.events_on_date(@date, [], [])
+            @upcoming_events << @events
+            end
+          end
+          mail to: user.email, subject: "You Have New Ideas on Hoos.in"
+        end
+      end
     end
-    # end
-
-    mail to: user.email, subject: "You Have New Ideas on Hoos.in"
   end
 
     # def time_change(*args)

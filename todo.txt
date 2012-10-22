@@ -110,6 +110,7 @@ piddly-shit
 	If event is full, just not showing it in maybes right now - show as full
 	Agent call - if android/iPhone download our apps	
 	keyup character counter in idea
+	tipping point and max set to nil - model method -- if nil == default values
 	
 
 Future stuff: 
