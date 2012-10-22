@@ -44,10 +44,7 @@ class Api::V1::EventsController < ApplicationController
       }
      	@list_events.push(@temp)
     end
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @list_events }
-    end
+    render json: @list_events
   end
 
   def event_details
@@ -94,12 +91,14 @@ class Api::V1::EventsController < ApplicationController
       render :status => 400, :json => {:success => false}
       return
     end
-    @event = @mobile_user.events.build
+    @event = Event.new
+    @event.user = @mobile_user
     @event.chronic_starts_at = DateTime.parse(params[:start])
     @event.starts_at = DateTime.parse(params[:start])
     @event.duration = Integer(params[:duration])
     @event.ends_at = @event.starts_at + @event.duration.hours
     @event.title = params[:title]
+
     if params[:g_share] == '0'
       @event.guests_can_invite_friends = false
     else
@@ -110,7 +109,7 @@ class Api::V1::EventsController < ApplicationController
     if @event.min <= 1
       @event.tipped = true
     end
-    logger.info("event is: #{@event}")
+    logger.info("title: #{@event.title}, starts_at: #{@event.starts_at}")
     @event.save
     @mobile_user.rsvp!(@event)
     if params[:invite_all_friends] == '1'
@@ -119,11 +118,7 @@ class Api::V1::EventsController < ApplicationController
       @rsvp.invite_all_friends = true
       @rsvp.save
     end
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @event }
-    end
+    render json: @event
   end
 
 end
