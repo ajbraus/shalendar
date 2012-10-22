@@ -96,7 +96,7 @@ class Api::V1::EventsController < ApplicationController
     end
     @event = @mobile_user.events.build
     @event.starts_at = DateTime.parse(params[:start])
-    @event.ends_at = @event.starts_at + (params[:duration]).hours
+    @event.ends_at = @event.starts_at + Integer(params[:duration]).hours
     @event.title = params[:title]
     if params[:g_share] == '0'
       @event.guests_can_invite_friends = false
