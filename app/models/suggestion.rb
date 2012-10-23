@@ -6,8 +6,6 @@ class Suggestion < ActiveRecord::Base
 
   CATEGORIES = %w[adventure learn active community shop night] #adventure, culture, community
 
-  acts_as_gmappable :validation => false
-
   attr_accessible :user_id,
                 :starts_at, 
                 :duration,
@@ -106,10 +104,6 @@ class Suggestion < ActiveRecord::Base
     if self.duration && self.starts_at
       self.ends_at = self.starts_at + self.duration*3600
     end
-  end
-
-  def gmaps4rails_address
-    address
   end
 
   def event_day

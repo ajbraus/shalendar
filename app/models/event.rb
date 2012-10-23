@@ -1,7 +1,6 @@
 require 'chronic'
 
 class Event < ActiveRecord::Base
-  acts_as_gmappable :validation => false
   belongs_to :user
   belongs_to :suggestion
 
@@ -148,10 +147,6 @@ class Event < ActiveRecord::Base
   def self.clean_up
     #prune db of old events here.. for now that's anything older than 3 days ago
 
-  end
-
-  def gmaps4rails_address
-    address
   end
 
   def event_day

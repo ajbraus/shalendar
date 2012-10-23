@@ -33,13 +33,13 @@ $grayDarker:#eaeaea;
 
 @font-face {
   font-family: bariol_bold;
-  src: url('Bariol_Bold.otf');
+  src: url('Bariol_Bold.otf') format("opentype");
   font-style: bold;
 }
 
 @font-face {
   font-family: bariol;
-  src: url('Bariol_Regular.otf');
+  src: url('Bariol_Regular.otf') format("opentype") ;
 }
 
 /* universal */
@@ -1785,41 +1785,6 @@ font-size: 37px;
   box-shadow: 0 0 10px -1px $destroy;
 }
 
-.map {
-width: 280px;
-float: right;
-height: 227px;
-margin-top: 20px;
-}
-
-.nomap {
--ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
-filter: alpha(opacity=40);
--moz-opacity: 0.4;
--khtml-opacity: 0.4;
-opacity: 0.4;
-}
-
-.gmaps4rails_map {
-  border: 1px solid #DDD;
-  display: inline-block;
-width: 280px;
-height: 148px;
-margin: 6px 0 13px 0px;
-  -moz-box-shadow: 0 0 12px -1px #000;
-  -webkit-box-shadow: 0 0 12px -1px #000;
-  box-shadow: 0 0 12px -1px #000;
-}
-
-.bing_map {
-   position: absolute;
-   top: 20;
-   left: 10;
-   width: 400px;
-   height: 400px;
-   border:#555555 2px solid;
-}
-
 .social {
 z-index: 11;
 width: 461px;
@@ -1930,7 +1895,7 @@ text-align: right;
 .comments_form {
 float: right;
 width: 420px;
-height: auto;
+min-height: 200px;
 margin-top: 10px;
   textarea {
     width: 90%;
@@ -1938,7 +1903,7 @@ margin-top: 10px;
   .btn {
 position: relative;
 left: 243px;
-top: 7px;
+top: 20px;
   }
   .field {
     margin-left:10px;
