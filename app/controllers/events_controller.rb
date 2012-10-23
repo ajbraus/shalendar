@@ -37,7 +37,6 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = current_user.events.build(params[:event])
-    binding.remote_pry
     respond_to do |format|
       if @event.save
         current_user.rsvp!(@event)

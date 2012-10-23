@@ -86,39 +86,60 @@ class Api::V1::EventsController < ApplicationController
 
   def mobile_create
     @mobile_user = User.find_by_id(params[:user_id])
-
     if @mobile_user.nil?
-      render :status => 400, :json => {:success => false}
+      render :status => 400, :json => {:error => "could not find your user"}
       return
     end
-    @event = Event.new
-    @event.user = @mobile_user
-    @event.chronic_starts_at = DateTime.parse(params[:start])
-    @event.starts_at = DateTime.parse(params[:start])
-    @event.duration = Integer(params[:duration])
-    @event.ends_at = @event.starts_at + @event.duration.hours
-    @event.title = params[:title]
-
+    @guests_can_invite_friends = 1
     if params[:g_share] == '0'
-      @event.guests_can_invite_friends = false
+      @guests_can_invite_friends = 0
+    end
+    @min = 1
+    unless params[:min].nil?
+      @min = Integer(params[:min])
+    end
+    @max = 100000
+    unless params[:max].nil?
+      @max = Integer(params[:max])
+    end
+    logger.info("title: #{params[:title]}, min: #{@min}, max: #{@max}, 
+      @guests_can_invite_friends: #{@guests_can_invite_friends}")
+
+    @event_params = {
+      title: params[:title],
+      chronic_starts_at: DateTime.parse(params[:start]),
+      duration: Integer(params[:duration]),
+      guests_can_invite_friends: @guests_can_invite_friends,
+      min: @min,
+      max: @max,
+      link: "",
+      price: "",
+      address: ""
+    }
+
+    @event = @mobile_user.events.build(@event_params)
+    # @event.user = @mobile_user
+    # @event.chronic_starts_at = DateTime.parse(params[:start])
+    # @event.starts_at = DateTime.parse(params[:start])
+    # @event.duration = Integer(params[:duration])
+    # @event.ends_at = @event.starts_at + @event.duration.hours
+    # @event.title = params[:title]
+    # @event.min = params[:min]
+    # @event.max = params[:max]
+    if @event.save
+      if @event.min <= 1
+        @event.tipped = true
+      end
+      @mobile_user.rsvp!(@event)
+      if params[:invite_all_friends] == '1'
+        @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
+        current_user.invite_all_friends!(@event)
+        @rsvp.invite_all_friends = true
+        @rsvp.save
+      end
+      render json: @event
     else
-      @event.guests_can_invite_friends = true
-    end
-    @event.min = params[:min]
-    @event.max = params[:max]
-    if @event.min <= 1
-      @event.tipped = true
-    end
-    logger.info("title: #{@event.title}, starts_at: #{@event.starts_at}")
-    @event.save
-    @mobile_user.rsvp!(@event)
-    if params[:invite_all_friends] == '1'
-      @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
-      current_user.invite_all_friends!(@event)
-      @rsvp.invite_all_friends = true
-      @rsvp.save
-    end
-    render json: @event
+      render :status => 400, :json => {:error => "event did not save"}
   end
 
 end
