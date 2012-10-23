@@ -1,0 +1,4 @@
+predicate matcher:
+tweet.should include(x) -- to test if something is in an array or is 'had by' another resource
+
+change matcher:
