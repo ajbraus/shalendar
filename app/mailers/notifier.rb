@@ -137,7 +137,7 @@ class Notifier < ActionMailer::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "#{@event.short_event_title} Tipped!"
+        n.alert = "#{@event.title} Tipped!"
         n.badge = 1
         n.sound = true
         n.save
@@ -150,13 +150,13 @@ class Notifier < ActionMailer::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "#{@event.short_event_title} Tipped!"
+        n.collapse_key = "#{@event.title} Tipped!"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "#{@event.short_event_title} Tipped!"}}
+        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "#{@event.title} Tipped!"}}
         n.save
       end
     end
-    mail to: @user.email, subject: "Tipped - #{@event.event_day}\'s Idea Tipped! - #{@event.short_event_title}"
+    mail to: @user.email, subject: "Tipped - #{@event.event_day}\'s Idea Tipped! - #{@event.title}"
     rescue => ex
     Airbrake.notify(ex)
   end
@@ -171,7 +171,7 @@ class Notifier < ActionMailer::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "Untipped idea - #{@event.short_event_title}"
+        n.alert = "Untipped idea - #{@event.title}"
         n.badge = 1
         n.sound = true
         n.save
@@ -184,13 +184,13 @@ class Notifier < ActionMailer::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "Untipped idea - #{@event.short_event_title}"
+        n.collapse_key = "Untipped idea - #{@event.title}"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "Untipped idea - #{@event.short_event_title}"}}
+        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "Untipped idea - #{@event.title}"}}
         n.save
       end
     end
-    mail to: @user.email, subject: "Untipped idea - #{@event.short_event_title}"
+    mail to: @user.email, subject: "Untipped idea - #{@event.title}"
     rescue => ex
     Airbrake.notify(ex)
   end
@@ -205,7 +205,7 @@ class Notifier < ActionMailer::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "Cancellation - #{@event.event_day}, #{@event.short_event_title}"
+        n.alert = "Cancellation - #{@event.event_day}, #{@event.title}"
         n.badge = 1
         n.sound = true
         n.save
@@ -218,13 +218,13 @@ class Notifier < ActionMailer::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "Cancellation - #{@event.event_day}, #{@event.short_event_title}"
+        n.collapse_key = "Cancellation - #{@event.event_day}, #{@event.title}"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "Cancellation - #{@event.event_day}, #{@event.short_event_title}"}}
+        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "Cancellation - #{@event.event_day}, #{@event.title}"}}
         n.save
       end
     end
-    mail to: @user.email, subject: "Cancellation - #{@event.event_day}, #{@event.short_event_title}" 
+    mail to: @user.email, subject: "Cancellation - #{@event.event_day}, #{@event.title}" 
     
     @event.destroy
     
@@ -238,9 +238,9 @@ class Notifier < ActionMailer::Base
     @comment = comment
     @comments = event.comments.order('created_at DESC').limit(4)
     @comments.shift(1)
-    @guest = user
-    if(@guest.iPhone_user == true)
-      d = APN::Device.find_by_id(@guest.apn_device_id)
+    @user = user
+    if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
       if d.nil?
         Airbrake.notify("thought we had an iphone user but can't find their device")
       else
@@ -252,8 +252,8 @@ class Notifier < ActionMailer::Base
         n.save
       end
     end
-    if(@guest.android_user == true)
-      d = GCM::Device.find_by_id(@guest.GCMdevice_id)
+    if(@user.android_user == true)
+      d = GCM::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
       else
@@ -261,13 +261,13 @@ class Notifier < ActionMailer::Base
         n.device = d
         n.collapse_key = "New Comment - #{@event.short_event_title}"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [@guest.GCMregistration_id], :data => {:message_text => "New Comment - #{@event.short_event_title}"}}
+        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "New Comment - #{@event.short_event_title}"}}
         n.save
       end
     end
     @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
     @event_link = "http://www.hoos.in/events/#{event.id}"
-    mail to: @guest.email, subject: "New Comment - #{@event.short_event_title}"
+    mail to: @user.email, subject: "New Comment - #{@event.short_event_title}"
     rescue => ex
     Airbrake.notify(ex)
   end
@@ -422,13 +422,23 @@ class Notifier < ActionMailer::Base
     Airbrake.notify(ex)
   end
 
-  def fb_invite(invitee_email, subject, message)
+  def fb_app_invite(invitee_email, subject, message)
     @invitee_email = invitee_email
     @subject = subject
     @message = message
-    mail to: @invitee_email, from: "info@hoos.in", subject: @subject
+    mail(to: @invitee_email, from: "info@hoos.in", subject: @subject) do |format|
+      format.html { render :layout => 'fb_message' }
+    end
     rescue => ex
     Airbrake.notify(ex)
+  end
+
+  def fb_event_invite(email, event)
+    @event = event
+    @email = email 
+    mail to: @email, from: "info@hoos.in", subject: "An Idea has Been Shared with You" do |format|
+      format.html { render :layout => 'fb_message' }
+    end
   end
   
   # def failed_to_tip(event, user)
@@ -439,27 +449,20 @@ class Notifier < ActionMailer::Base
   #   mail to: @user.email, subject: "Failed to Tip - #{@event.event_day}, #{@event.short_event_title}" 
   # end
   
-  def digest(user)
-    # @digest_users = User.where("users.digest = 'true'")
-    
-    # time_range = Time.now - 1.day .. Time.now
-    # @users = []
-    # @digest_users.each do |u|
-    #   if u.invitations.where(created_at: time_range).any?
-    #     @users.push(u)
-    #   end
-    # end
-
-    # @users.each do |user|
-    # @events = []
-    # @recent_events = user.invitations.events.where('starts_at > ?', Time.now)
-    # @recent_events.each do |re|
-    #   re.
-    # @user = user
-    mail to: @user.email, subject: "You Have New Ideas on Hoos.in"
+  def digest(user, upcoming_events)
+    @user = user
+    @upcoming_events = upcoming_events
+    mail to: @user.email, from: "info@hoos.in", subject: "You Have New Ideas on Hoos.in"
   end
 
-    # def time_change(*args)
+  def follow_up(user, event, new_friends)
+    @user = user
+    @event = event
+    @new_friends = new_friends
+    mail to: @user.email, from: "info@hoos.in", subject: "Connect With People - #{@event.title}"
+  end
+
+  # def time_change(*args)
 
   #   @event = Event.find_by_id(args[0])
   #   @user = User.find_by_id(args[1])

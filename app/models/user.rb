@@ -351,4 +351,61 @@ class User < ActiveRecord::Base
 
   end
 
+  def self.digest
+    @digest_users = User.where("users.digest = 'true'")
+    @digest_users.each do |u|
+      @count = u.new_invited_events_count
+      time_range = Time.now.midnight .. Time.now.midnight + 3.days
+      if u.events.where(starts_at: time_range).any?
+        @upcoming_events = []
+        (0..2).each do |day|
+          @date = Date.today + day.days
+          @events = u.events_on_date(@date, [], [])
+          @upcoming_events << @events
+        end
+        Notifier.digest(u, @upcoming_events).deliver
+
+      elsif @count != 0 
+        @user_invitations = u.invitations.find(:all, order: 'created_at desc', limit: @count)
+        if @user_invitations.any?
+          @new_events = []
+          @user_invitations.each do |ui|
+            e = Event.find_by_id(ui.invited_event_id)
+            if e.starts_at.between?(Time.now.midnight, Time.now.midnight + 3.days)
+              @new_events.push(e)
+            end
+          end
+          if @new_events.any?
+            @upcoming_events = []
+            (0..2).each do |day|
+              @date = Date.today + day.days
+              @events = u.events_on_date(@date, [], [])
+              @upcoming_events << @events
+            end
+            Notifier.delay.digest(u, @upcoming_events)
+          end
+        end
+      end
+    end
+  end
+
+  def self.follow_up
+    @fu_events = Event.where('starts_at = ? AND tipped = ?', Date.today - 1.day, true)
+    if @fu_events
+      @fu_events.each do |fue|
+        @fu_recipients = fue.guests.select{ |g| g.follow_up == true }
+        @fu_recipients.each do |fur|
+          @new_friends = []
+          fue.guests.each do |g|
+            if !fur.following?(g) && fur != g
+              @new_friends.push(g)
+            end
+            if @new_friends.any?
+              Notifier.follow_up(fur, fue, @new_friends).deliver
+            end
+          end
+        end
+      end
+    end
+  end
 end

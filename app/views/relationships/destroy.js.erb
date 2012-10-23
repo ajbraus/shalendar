@@ -1,2 +1,2 @@
-$("#friends").html("<%= escape_javascript(render partial: 'shalendar/friends') %>")
+$('table').withUserId(<%= @user.id %>).remove();
 $('#header_friend_count').decrement();

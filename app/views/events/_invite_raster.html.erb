@@ -8,3 +8,13 @@
 		<% end %>
   <% end %>
 <% end %>
+
+<!-- TRYING TO ADD FACEBOOK INVITATIONS TO EVENT SHOW PAGE -->
+<% if false %>
+<div class="fb_friends_invite">Share with FB Friends</div>
+<% @invite_friends.each do |f| %>
+	<%= link_to fb_event_invite_path(:event => "#{@event.id}", :username => "#{f['username']}"), remote: true do |i|%>
+	  <%= image_tag("#{f['picture']['data']['url']}", class: "profile_picture", title: "#{f['name']}") %>
+	<% end %>
+<% end %>
+<% end %>
