@@ -436,7 +436,6 @@ class Notifier < ActionMailer::Base
   def fb_event_invite(email, event)
     @event = event
     @email = email 
-    binding.remote_pry
     mail to: @email, from: "info@hoos.in", subject: "An Idea has Been Shared with You" do |format|
       format.html { render :layout => 'fb_message' }
     end
@@ -456,10 +455,10 @@ class Notifier < ActionMailer::Base
     mail to: @user.email, from: "info@hoos.in", subject: "You Have New Ideas on Hoos.in"
   end
 
-  def follow_up(user, event, guests)
+  def follow_up(user, event, new_friends)
     @user = user
     @event = event
-    @guests = guests
+    @new_friends = new_friends
     mail to: @user.email, from: "info@hoos.in", subject: "Connect With People - #{@event.title}"
   end
 

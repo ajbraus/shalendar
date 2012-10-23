@@ -4,8 +4,8 @@
 
 <%= render partial: 'event_details', locals: { :event => @event, :user => @user } %>
 
-	<% left = @guests[ 0, ( @guests.size / 2.0 ).round ] %>
-	<% right = @guests[ 0, ( @guests.size / 2.0 ).round ] #@guests - left %>
+	<% left = @new_friends[ 0, ( @new_friends.size / 2.0 ).round ] %>
+	<% right = @new_friends - left %>
 
 <table style="padding: 0 0 0 20px;">
 	<tr>
@@ -19,7 +19,7 @@
 						<td><%= image_tag("#{g.avatar.url(:raster)}") %> </td>
 					<% end %>
 					<td width="60px"><%= g.name %></td>
-					<td><%= link_to "Friend", "http://www.hoos.in/relationships?user_id=#{@user.id}&other_user_id=#{g.id}" %></td>
+					<td><%= link_to "Friend", "http://www.hoos.in/events/#{@event.id}"%></td>
 				</tr>
 			</table>
 			<% end %>

@@ -382,7 +382,7 @@ class User < ActiveRecord::Base
               @events = u.events_on_date(@date, [], [])
               @upcoming_events << @events
             end
-            Notifier.digest(u, @upcoming_events).deliver
+            Notifier.delay.digest(u, @upcoming_events)
           end
         end
       end
@@ -390,12 +390,20 @@ class User < ActiveRecord::Base
   end
 
   def self.follow_up
-    @fu_events = Event.where('starts_at = ? AND guests_can_invite_friends = ? AND tipped = ?', Date.today - 3.days, true, true)
+    @fu_events = Event.where('starts_at = ? AND tipped = ?', Date.today - 1.day, true)
     if @fu_events
       @fu_events.each do |fue|
-        @fu_recipients = fue.guests.select { |g| g.follow_up == true }
+        @fu_recipients = fue.guests.select{ |g| g.follow_up == true }
         @fu_recipients.each do |fur|
-          Notifier.follow_up(fur, fue, @fu_recipients).deliver
+          @new_friends = []
+          fue.guests.each do |g|
+            if !fur.following?(g) && fur != g
+              @new_friends.push(g)
+            end
+            if @new_friends.any?
+              Notifier.follow_up(fur, fue, @new_friends).deliver
+            end
+          end
         end
       end
     end
