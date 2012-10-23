@@ -2,6 +2,8 @@ trying to send fb_message email from lightbox
 if that works then fb_message in event show
 daily_digest email
 
+suggestion ideas:
+	Essen Haus boots
 
 Mike
 ------------
@@ -38,7 +40,7 @@ non dev stuff
 	privacy/terms pages
 
 Maintain Users
-	3 day digest / fb message invitation (all invite) -- you just went to x idea -- connect w people who went there
+	follow-up email - you went to x idea yesterday -- connect w people who went there
 	.ics file in event show and emails
 	add to google calendar link in event show and emails
 
@@ -57,6 +59,8 @@ Big UI Improvements
 High-Priority fixes
 	require category with javascript in suggestions
 	validate image size in form w js
+	clones appearing on the right day. Events displayed on starts_at time
+	add price to events
 
 Close Viral Loop
 	Upon invite send facebook email
@@ -83,11 +87,13 @@ Medium UI improvements
 	hide event/recurring event
 	Basic profile
 		Message a single RSVP or invited person
+	event edit page F-ed
 
 Small UI Improvements
 	yesterday tomorrow buttons working
 	drawn arrows
 	better landing page!
+
 
 
 piddly-shit

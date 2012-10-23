@@ -157,10 +157,6 @@ class Event < ActiveRecord::Base
   def event_day
     self.starts_at.strftime "%A"
   end
-  # can't do here bc doesn't work with time zones...
-  # def start_time
-  #   starts_at.strftime "%l:%M%P, %A %B %e"
-  # end
 
   def short_event_title
     if self.title.size >=50

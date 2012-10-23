@@ -18,6 +18,14 @@ task :backup_database => :environment do
 	# end
 end
 
+task :digest => :environment do
+	User.digest
+end
+
+task :follow_up => :environment do
+	User.follow_up
+end
+
 #Should currently be accomplished with a worker through jobs:work => gcm:work
 # task :send_gcm_notifications => :environment do
 

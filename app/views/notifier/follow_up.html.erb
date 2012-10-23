@@ -1,0 +1,47 @@
+<tr>
+	<td style="padding:15px 0 0 20px;font-size:18px;">Connect with People From Yesterday</td>
+</tr>
+
+<%= render partial: 'event_details', locals: { :event => @event, :user => @user } %>
+
+	<% left = @guests[ 0, ( @guests.size / 2.0 ).round ] %>
+	<% right = @guests[ 0, ( @guests.size / 2.0 ).round ] #@guests - left %>
+
+<table style="padding: 0 0 0 20px;">
+	<tr>
+		<td>
+			<% left.each do |g| %>
+			<table style="padding: 5px 5px 0px 20px">
+				<tr>
+					<% if @fb_auth = g.authentications.where(provider: 'Facebook').first.present? %>
+						<td><%= image_tag("#{@fb_auth.pic_url}") %></td>
+					<% else %>
+						<td><%= image_tag("#{g.avatar.url(:raster)}") %> </td>
+					<% end %>
+					<td width="60px"><%= g.name %></td>
+					<td><%= link_to "Friend", "http://www.hoos.in/relationships?user_id=#{@user.id}&other_user_id=#{g.id}" %></td>
+				</tr>
+			</table>
+			<% end %>
+		</td>
+		<td>
+			<% right.each do |g| %>
+			<table style="padding: 5px 5px 0px 20px">
+				<tr>
+					<% if @fb_auth = g.authentications.where(provider: 'Facebook').first.present? %>
+						<td><%= image_tag("#{@fb_auth.pic_url}") %></td>
+					<% else %>
+						<td><%= image_tag("#{g.avatar.url(:raster)}") %> </td>
+					<% end %>
+					<td width="60px"><%= g.name %></td>
+					<td><%= link_to "Friend", "http://www.hoos.in/relationships?user_id=#{@user.id}&other_user_id=#{g.id}" %></td>
+				</tr>
+			</table>
+			<% end %>
+		</td>
+	</tr>
+</table>
+
+
+
+
