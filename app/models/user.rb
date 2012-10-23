@@ -390,7 +390,7 @@ class User < ActiveRecord::Base
   end
 
   def self.follow_up
-    @fu_events = Event.where('starts_at = ? AND tipped = ?', Date.today - 1.day, true)
+    @fu_events = Event.where(starts_at: Time.now - 3.days .. Time.now, tipped: true)
     if @fu_events
       @fu_events.each do |fue|
         @fu_recipients = fue.guests.select{ |g| g.follow_up == true }
@@ -401,7 +401,7 @@ class User < ActiveRecord::Base
               @new_friends.push(g)
             end
             if @new_friends.any?
-              Notifier.follow_up(fur, fue, @new_friends).deliver
+              Notifier.delay.follow_up(fur, fue, @new_friends)
             end
           end
         end
