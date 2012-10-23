@@ -140,6 +140,7 @@ class Api::V1::EventsController < ApplicationController
       render json: @event
     else
       render :status => 400, :json => {:error => "event did not save"}
+    end
   end
 
 end
