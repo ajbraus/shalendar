@@ -1,9 +1,3 @@
-
-validate starts_at is in the future
-
-trying to send fb_message email from lightbox
-if that works then fb_message in event show
-
 suggestion ideas:
 	Essen Haus boots
 
@@ -37,21 +31,29 @@ new follower email link not working
 Adam
 --------------
 
+Close Viral Loop
+	Upon invite ask permission to post to wall
+	add FB faces to share event#show also ask permissions to post to wall
+	
+	add face to invite email, new follower email, and confirmation email, and 
+	event images to stuff (daily digest, invitation)
+	
+	Text invitations from mobile app
+	google contacts
+	pretty URLs
+
+Maintain Users
+	.ics file in event show and emails
+	add to google calendar link in event show and emails
+
 non dev stuff
 	operators agreement
 	privacy/terms pages
 
-Maintain Users
-	follow-up email - you went to x idea yesterday -- connect w people who went there
-	.ics file in event show and emails
-	add to google calendar link in event show and emails
-
 Big UI Improvements
-	don't send email comments to yourself
+	click on suggestion to expand like pintrest
 	friend button not responding in find_friends
 	RSVP in/out
-	Friend ideas/community ideas
-	Placeholder text
 	suggestion counter row to datepicker
 	clone page creates the event and you get invitation stuff in lightbox
 	magnifying glass
@@ -63,17 +65,6 @@ High-Priority fixes
 	validate image size in form w js
 	clones appearing on the right day. Events displayed on starts_at time
 	add price to events
-
-Close Viral Loop
-	Upon invite send facebook email
-	Text invitations from mobile app
-	google contacts
-	Invite friends pulls in facebook friends (FQL query for friends in city, then not on hoos.in)
-	add face to invite email, new follower email, and confirmation email, and event images to stuff (daily digest, invitation)
-	pretty URLs
-	follow up email to events ppl rsvpd to (maybe in digest)
-
-fix destroy.js.erb in shalendar views
 
 Vendor happiness
 	Branded event show pages

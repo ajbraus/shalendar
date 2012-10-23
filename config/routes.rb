@@ -66,7 +66,7 @@ Shalendar::Application.routes.draw do
   
   match 'new_suggestion', :to => "suggestions#new", :as => 'new_suggestion'
   match 'allow_suggestions', :to => 'shalendar#allow_suggestions'
-  match '/manage_follows', :to => 'shalendar#manage_follows', :as => "manage_follows"
+  match '/manage_friends', :to => 'shalendar#manage_friends', :as => "manage_friends"
 
   resources :events, only: [:index, :create, :destroy, :update, :tip, :edit, :new, :show] do 
     put :tip

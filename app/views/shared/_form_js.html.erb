@@ -26,6 +26,8 @@ $("input[type=checkbox].switch").each(function() {
   });
 
 $('#datetime').datetimepicker({
+    minDate: 0,
+    dateFormat: "DD, d M",
     timeFormat: "h:mm tt",
     ampm: true,
     stepMinute: 15,
@@ -109,6 +111,10 @@ $('#new_suggestion_form').validate();
 // NEW IDEA FORM VALIDATION
   $("#new_event_form").validate({
     rules: {
+      "#datetime": {
+        mindate: new Date(47,3,1),
+        required: true
+      },
       "event[title]": {
         maxlength: 140
       },

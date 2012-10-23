@@ -2565,7 +2565,6 @@ margin-top: 3px;
 input[type=file] {
 font-size: 20px;
 margin: 10px 10px;
-border-bottom: 1px solid lightGrey;
 height: 35px;
 line-height: 10px;
 }
@@ -2610,4 +2609,18 @@ font-size: 40px;
   li {
     display:inline;
   }
+}
+
+.idea_type {
+  text-align: center;
+  font-size: 17px;
+  width: 95px;
+  margin-left: 62px;
+  background-color: #F8F8F8;
+}
+.idea_type_line {
+  border-bottom: 1px solid lightgrey;
+  position: relative;
+  bottom: 8px;
+  z-index: -1;
 }

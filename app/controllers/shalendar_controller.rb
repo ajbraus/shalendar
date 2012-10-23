@@ -18,7 +18,7 @@ class ShalendarController < ApplicationController
     #@vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
 	end
 
-	def manage_follows
+	def manage_friends
 		@graph = session[:graph]
 		@friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
     @vendor_friendships = []
