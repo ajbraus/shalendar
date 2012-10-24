@@ -1,8 +1,8 @@
 <tr>
 	<td style="padding:10px 0 5px 70px">What: <strong style="padding-left:10px;"><a href="http://www.hoos.in/events/<%= event.id %>"><%= event.title %></a></strong>
-		<% if @user.rsvpd?(event) && event.starts_at > Time.now %>
+		<% if user.rsvpd?(event) && event.starts_at > Time.now %>
 			<strong>  (Attending)</strong>
-		<% elsif @user.rsvpd?(event) && event.starts_at < Time.now %>
+		<% elsif user.rsvpd?(event) && event.starts_at < Time.now %>
 			<strong>  (Attended)</strong>
 		<% end %></td>
 </tr>
