@@ -117,11 +117,27 @@ $(document).bind('click', function(e) {
 
 // NEW IDEA LIGHTBOX
 
-  $('#new_idea_button').fancybox();
-  $('#new_suggestion_button').fancybox();
-	$('.find_friends').fancybox();
+  $('#new_idea_button').fancybox({
+        closeBtn    : true,
+        scrolling   : 'auto',
+        autoSize    : true
+  });
+  $('#new_suggestion_button').fancybox({
+        closeBtn    : true,
+        scrolling   : 'auto',
+        autoSize    : true
+  });
+	$('.find_friends').fancybox({
+        closeBtn    : true,
+        scrolling   : 'auto',
+        autoSize    : true
+  });
   //$('.city_vendors').fancybox();
-  $('.clone').fancybox();
+  $('.clone').fancybox({
+        closeBtn    : true,
+        scrolling   : 'auto',
+        autoSize    : true
+  });
 
 
 // VALIDATIONS

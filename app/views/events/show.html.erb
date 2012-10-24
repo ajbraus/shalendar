@@ -2,7 +2,7 @@
 <div class="event_show">
   <%= render 'title' %>
   <% if @event.promo_img_file_size %>
-    <div class="event_show_promo_img">
+    <div class="event_show_promo_img part">
       <%= image_tag("#{@event.promo_img.url(:large)}") %>
     </div>
   <% end %>

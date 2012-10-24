@@ -1,0 +1,21 @@
+<div id="eventOptions">
+	<div id="addtippingp" class="minmax" style="display:none;">
+		<div class='tippingIcon'>
+	  	<i class="icon-tasks"></i>
+		</div>
+	  <u>
+	    <%= f.label :min_attendees, "Tipping point*" %> <br/>
+	    <%= f.text_field :min, :class => 'input-mini', value: 1, autocomplete: "off" %>
+	  </u>
+	  <u>
+	    <%= f.label :max_attendees, "Full" %> <br/>
+	    <%= f.text_field :max, :class => 'input-mini', value: 50, autocomplete: "off" %>
+	  </u>
+	</div>
+</div>
+
+<div>
+	<ul>
+ 	  <li id="addtipping" title="Add a Tipping/Full"><i class="icon-tasks"></i></li>
+	</ul>
+</div>

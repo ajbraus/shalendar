@@ -64,7 +64,7 @@ class EventsController < ApplicationController
         format.json { render json: @event, status: :created, location: @event }
         end
       else
-        format.html { redirect_to @event, notice: "Idea could not be posted. Please try again." }
+        format.html { redirect_to root_path, notice: "Idea could not be posted. Please try again." }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
