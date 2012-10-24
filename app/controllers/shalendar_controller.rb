@@ -120,20 +120,27 @@ class ShalendarController < ApplicationController
     #EVENTS
     @events_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).count
     @rsvps_last_week = Rsvp.where(['created_at > ?', Time.now - 1.week])
-    #RSVPs graph
-    @rspvs_each_day_last_week = []
     
+    #RSVPs graph
+    @rsvps = []
     (0..6).each do |i|
       @rsvps_per_day = Rsvp.find(:all, :conditions => [" created_at between ? AND ?", Time.zone.now.beginning_of_day - i.days, Time.zone.now.end_of_day - i.days]).count
-      @rspvs_each_day_last_week.push(@rsvps_per_day)
+      @rsvps.push(@rsvps_per_day)
     end
 
-    @rsvps_vs_events_last_week_graph = LazyHighCharts::HighChart.new('graph') do |f|
-      f.options[:chart][:defaultSeriesType] = "area"
-      f.options[:plotOptions] = {area: {pointInterval: 1.day, pointStart: 7.days.ago}}
-      f.series(:name=>'RSVPs', :data=> @rsvps_each_day_last_week)
-      #f.series(:name=>'Jane', :data=> [1, 3, 4, 3, 3, 5, 4,-46,7,8,8,9,9,0,0,9] )
-      f.xAxis(type: :datetime)
+    @events = []
+    (0..6).each do |e|
+      @events_per_day = Event.find(:all, :conditions => ["starts_at between ? AND ?", Time.zone.now.beginning_of_day - e.days, Time.zone.now.end_of_day - e.days]).count
+      @events.push(@events_per_day)
+    end
+
+    @rsvps_v_events = LazyHighCharts::HighChart.new('graph') do |f|
+      f.options[:title][:text] = "RSVPs vs. Events Last Week"
+      f.options[:chart][:defaultSeriesType] = "line"
+      #f.options[:plotOptions] = {:area => { :pointInterval => '#{1.day}', :pointStart => '#{7.days.ago}' }}
+      f.series(:name=>'RSVPs', :data => @rsvps )
+      f.series(:name=>'Events', :data=> @events )
+      #f.xAxis(:type => 'datetime')
     end
     #SUGGESTIONS
 
