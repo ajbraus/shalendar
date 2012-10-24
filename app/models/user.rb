@@ -390,7 +390,7 @@ class User < ActiveRecord::Base
   end
 
   def self.follow_up
-    @fu_events = Event.where(starts_at: Time.now.midnight - 1.days .. Time.now.midnight, tipped: true)
+    @fu_events = Event.where(starts_at: Time.now.midnight - 1.day .. Time.now.midnight, tipped: true)
     if @fu_events
       @fu_events.each do |fue|
         @fu_recipients = fue.guests.select{ |g| g.follow_up == true }
