@@ -16,4 +16,27 @@ FactoryGirl.define do
 		vendor 'f'
 		terms 't'
 	end
+
+	factory :event do
+		user_id ''
+    suggestion_id ''
+    starts_at '#{Time.now + 1.day}'
+    duration '2'
+    ends_at ''
+    title 'Test Event'
+    min ''
+    max ''
+    address ''
+    latitude ''
+    longitude ''
+    chronic_starts_at ''
+    chronic_ends_at ''
+    link 'www.google.com'
+    gmaps 'f'
+    tipped ''
+    guests_can_invite_friends 't'
+    price '10'
+    promo_img ''
+	end
+
 end

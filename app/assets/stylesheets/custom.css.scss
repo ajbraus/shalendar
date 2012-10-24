@@ -1926,6 +1926,11 @@ width: 20px;
   }
 }
 
+#comments {
+  position: relative;
+top: 17px;
+}
+
 .comment {
   padding-left:15px;
   border-bottom: 1px solid lightgrey;
@@ -2621,4 +2626,14 @@ font-size: 40px;
   position: relative;
   bottom: 8px;
   z-index: -1;
+}
+
+.event_show_promo_img {
+  float: right;
+position: relative;
+top: 20px;
+  img {
+    max-width:310px;
+    max-height: 260px;
+  }
 }

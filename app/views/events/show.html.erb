@@ -1,6 +1,11 @@
 <% provide(:title, " | Idea") %>
 <div class="event_show">
   <%= render 'title' %>
+  <% if @event.promo_img_file_size %>
+    <div class="event_show_promo_img">
+      <%= image_tag("#{@event.promo_img.url(:large)}") %>
+    </div>
+  <% end %>
 
   <% if @event.user.id == current_user.id || @event.guests_can_invite_friends? %>
     <%= render 'social', locals: { :event => @event } %>
@@ -8,7 +13,7 @@
 
   <div class="invites_guests">
       <div class="event_show_rasters">
-    <% if (@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user %>
+    <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.starts_at < Time.now %>
         <p>Share with Friends</p>
         <div id="invite_raster" class="show_raster part">
           <%= render partial: 'invite_raster', :locals => { :event => @event } %>
