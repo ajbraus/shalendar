@@ -11,51 +11,37 @@
 	      </ul>
 	    </div>
 	  <% end %>
-	  <p>
+	  <div>
 	    <%= label :title, "Suggestion*" %><br/>
 	    <%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off" %>
-	  </p>  
-	  <p>
-	   <%= label :starts_at, "When does it start?" %>
-	   <%= label :duration, "How Long?", class: "duration" %><br/>
-	   <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at", autocomplete: "off" %>
-	   <%= f.text_field :duration, placeholder:"#hrs", class: "duration", autocomplete: "off"  %>
-	  </p>
-	  <p>
+	  </div>  
+	  <div>
+	   <%= label :starts_at, "When does it start?*" %>
+	   <%= label :duration, "How Long?*", class: "duration" %><br/>
+	   <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off" %>
+	   <%= f.text_field :duration, placeholder:"#hrs", class: "duration required", autocomplete: "off"  %>
+	  </div>
+	  <div>
 	    <%= label :category, "Category*" %><br/>
 	    <div id="categories">
 	    	<% Suggestion::CATEGORIES.each do |c| %>
-		      <%= radio_button "suggestion", :category, "#{c}", id:"radio#{(Suggestion::CATEGORIES.index(c) + 1)}" %>
+		      <%= radio_button "suggestion", :category, "#{c}", id:"radio#{(Suggestion::CATEGORIES.index(c) + 1)}", class:"required" %>
 		      <%= label_tag "radio#{(Suggestion::CATEGORIES.index(c) + 1)}", "#{c.humanize}" %>
 	    	<% end %>
     	</div>
-	  </p>  
+	  </div>  
+	<div>
+		<%= f.label :display_image, "Display Image*" %><br />
+  	<%= f.file_field :promo_img, class:"required" %>
+	</div>
 
-	  <p>
-	<div><%= f.label :display_image, "Display Image*" %><br />
-  <%= f.file_field :promo_img, class:"required" %></div>
-  	</p>
-  	
-		<p>
-		  <div class="invitation_options" style="display: block; clear:both;">
-				<u>
-				  <%= f.label :max_attendees, "Max Attendees" %> <br/>
-				  <%= f.text_field :max, :class => 'input-mini', autocomplete: "off" %>
-				</u>
-				<u>
-					<%= f.label "Cost" %><br>
-					<span class="dollar">$ </span><%= f.text_field :price, autocomplete:"off" %>
-				</u>
-			</div>
-		</p>
+	<div>
+  	<%= f.label "Family Friendly?" %><br>
+		<i class="icon-home questionMark"></i>
+		<%= f.check_box :family_friendly, class: "switch" %>
+	</div>
 
-		<p>
-	  	<%= f.label "Family Friendly?" %><br>
-			<i class="icon-home questionMark"></i>
-			<%= f.check_box :family_friendly, class: "switch" %>
-		</p>
-
-<%= render partial: 'shared/link_map', locals: { :f => f } %>	 
+<%= render partial: 'shared/suggestion_options', locals: { :f => f } %>	 
 
 	<span class="new_idea_button"><%= f.submit 'Post Suggestion', :class => 'btn btn-large btn-primary' %></span>
 

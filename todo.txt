@@ -31,8 +31,16 @@ new follower email link not working
 Adam
 --------------
 
+IMAGE URL!
+Alphabatize friends!
+	print name! Tooltip sucks balls
+Invite JS breaks!
+moon icon at 12pm
+
 Close Viral Loop
+	Email every invitation w boolean
 	Upon invite ask permission to post to wall
+	Invite all FB friends
 	add FB faces to share event#show also ask permissions to post to wall
 	
 	add face to invite email, new follower email, and confirmation email, and 
@@ -56,8 +64,6 @@ Big UI Improvements
 	friend button not responding in find_friends
 	RSVP in/out
 	suggestion counter row to datepicker
-	clone page creates the event and you get invitation stuff in lightbox
-	magnifying glass
 	fix invite raster in show page friend buttons etc
 	Tooltip is f-ing with button functionality
 
