@@ -1976,7 +1976,6 @@ label.error {
   float:left;
   color:black;
   background-color: inherit;
-  width:200px;
 }
 
 ::-webkit-input-placeholder {
@@ -2568,11 +2567,23 @@ margin-top: 3px;
 input[type=file] {
 font-size: 20px;
 margin: 10px 10px;
-height: 35px;
+height: 25px;
 line-height: 10px;
 }
 
 .vendor_dash {
+  .vendorEventDetails {
+    width: 75%;
+    float: right;
+    .suggestionTitle {
+      font-size: 25px;
+      font-weight: bold;
+      margin-top: 13px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid lightGrey;
+      min-height: 50px;
+    }
+  }
   > ul > li{
     margin: 20px 0 0 20px;
 float:left;
@@ -2586,9 +2597,6 @@ position: relative;
   .suggestion_promo_img {
     float:left;
     height: auto;
-  }
-  p {
-    margin-left: 173px;
   }
   .clones {
     float:left;
