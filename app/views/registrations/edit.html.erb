@@ -60,14 +60,14 @@
     
     
       <h2>Personal Settings</h2>
+    <div><%= f.label :email %><br />
+    <%= f.email_field :email, autocomplete: "off" %></div>
+
     <div><%= f.label :name %><br />
-    <%= f.text_field :name %></div>
+    <%= f.text_field :name, autocomplete: "off" %></div>
 
     <div><%= f.label :picture %><br />
     <%= f.file_field :avatar %></div>
-
-    <div><%= f.label :email %><br />
-    <%= f.email_field :email %></div>
 
     <div><%= f.label :city %><br />
     <%= f.select :city, @cities %></div>

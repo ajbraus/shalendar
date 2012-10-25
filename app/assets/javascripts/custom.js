@@ -354,6 +354,10 @@ $('#new_suggestion_form').validate();
     }
   });
 
+     // focus on the first text input field in the first field on the page
+    $("#new_idea_blerb").focus();
+    $("input[type=email]:first", document.forms[0]).focus();
+
 //   $('input[type=file]').fileValidator({
 //   onValidation: function(files){  $(this).attr('class',''); },
 //   onInvalid:    function(validationType, file){ $(this).addClass("error"); },
