@@ -13,7 +13,7 @@
     <%= @event.title %>
   </div>
 
-  <% if @event.link.length > 0 %>
+  <% if @event.link %>
     <div class="event_link">
       link: <%= event_link(@event) %>
     </div>
