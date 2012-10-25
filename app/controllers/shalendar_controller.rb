@@ -86,21 +86,21 @@ class ShalendarController < ApplicationController
     end
     if Rails.env.production?
       @invite_friends.each do |inf|
-        session[:graph].put_wall_post("Join me on hoos.in",
+        session[:graph].delay.put_wall_post("I'm using hoos.in to do awesome things with my friends. Check it out:",
                                         target_id: "#{inf['id']}",
                                         name: "hoos.in",
                                         link: "http://www.hoos.in/",
                                         caption: "Do Great Things With Friends",
-                                        picture: "http://www.hoos.in/assets/icon.png",
+                                        picture: "http://www.hoos.in/assets/icon.png"
                                         )
       end
     else
-      session[:graph].put_wall_post("Join me on hoos.in",
+      session[:graph].delay.put_wall_post("I'm using hoos.in to do awesome things with my friends. Check it out:",
                                     target_id: "510890387",
                                     name: "hoos.in",
                                     link: "http://www.hoos.in/",
                                     caption: "Do Great Things With Friends",
-                                    picture: "http://www.hoos.in/assets/icon.png",
+                                    picture: "http://www.hoos.in/assets/icon.png"
                                     )
     end
     respond_to do |format|
