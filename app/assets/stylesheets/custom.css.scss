@@ -1424,6 +1424,10 @@ opacity: 0.2;
   }
 }
 
+.invite_friends {
+  float: left;
+}
+
 .fb_invite_friends {
 margin: 0 auto;
 width: 600px;
@@ -2655,7 +2659,7 @@ top: 20px;
   position: relative;
   .spinOffStartsAt {
     position: absolute;
-top: 5px;
+top: 0px;
 padding: 10px;
 background-color: rgba(0, 0, 0, 0.4);
 -webkit-border-radius: 7px;

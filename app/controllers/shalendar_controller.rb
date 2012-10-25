@@ -86,22 +86,22 @@ class ShalendarController < ApplicationController
     end
     if Rails.env.production?
       @invite_friends.each do |inf|
-        session[:graph].delay.put_wall_post("I'm using hoos.in to do awesome things with my friends. Check it out:",
-                                        target_id: "#{inf['id']}",
-                                        name: "hoos.in",
-                                        link: "http://www.hoos.in/",
-                                        caption: "Do Great Things With Friends",
-                                        picture: "http://www.hoos.in/assets/icon.png"
-                                        )
+      session[:graph].delay.put_connections( inf['id'], "feed", {
+                                      :message => "I'm using hoos.in to do awesome things with my friends. Check it out:", 
+                                      :name => "hoos.in",
+                                      :link => "http://www.hoos.in/",
+                                      :caption => "Do Great Things With Friends",
+                                      :picture => "http://www.hoos.in/assets/icon.png"
+                                    })
       end
     else
-      session[:graph].delay.put_wall_post("I'm using hoos.in to do awesome things with my friends. Check it out:",
-                                    target_id: "510890387",
-                                    name: "hoos.in",
-                                    link: "http://www.hoos.in/",
-                                    caption: "Do Great Things With Friends",
-                                    picture: "http://www.hoos.in/assets/icon.png"
-                                    )
+      session[:graph].put_connections( 2232003, "feed", {
+                                      :message => "I'm using hoos.in to do awesome things with my friends. Check it out:", 
+                                      :name => "hoos.in",
+                                      :link => "http://www.hoos.in/",
+                                      :caption => "Do Great Things With Friends",
+                                      :picture => "http://www.hoos.in/assets/icon.png"
+                                    })
     end
     respond_to do |format|
       format.html { redirect_to root_path, notice: "Successfully posted invitations to hoos.in to all your facebook Friends" }
