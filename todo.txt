@@ -33,7 +33,7 @@ Adam
 
 IMAGE URL!
 Alphabatize friends!
-	print name! Tooltip sucks balls
+print name! Tooltip sucks balls
 Invite JS breaks!
 moon icon at 12pm
 more differentiation for not tipped - milky
@@ -54,6 +54,7 @@ Close Viral Loop
 
 Marketing
 	Suggestions tweet to city specific twitter account
+	Add hashtag to get instagram images from / tweet about the event
 
 Maintain Users
 	.ics file in event show and emails
