@@ -361,9 +361,9 @@ class User < ActiveRecord::Base
         (0..2).each do |day|
           @date = Date.today + day.days
           @events = u.events_on_date(@date, [], [])
-          @upcoming_events << @events
+          @upcoming_events.push(@events)
         end
-        Notifier.digest(u, @upcoming_events).deliver
+        Notifier.delay.digest(u, @upcoming_events)
 
       elsif @count != 0 
         @user_invitations = u.invitations.find(:all, order: 'created_at desc', limit: @count)
@@ -380,7 +380,7 @@ class User < ActiveRecord::Base
             (0..2).each do |day|
               @date = Date.today + day.days
               @events = u.events_on_date(@date, [], [])
-              @upcoming_events << @events
+              @upcoming_events.push(@events)
             end
             Notifier.delay.digest(u, @upcoming_events)
           end

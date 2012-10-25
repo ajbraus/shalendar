@@ -5,6 +5,9 @@
 	<h1>Your Friends in <%= current_user.city %></h1>
 <% end %>
 
+<div id="friend_all">
+	Friend All
+</div>
 
 <% @member_friends.each do |mf| %>
 		<table>
@@ -19,29 +22,9 @@
 	</table>
 <% end %>
 
+<hr>
 
-<div class="fb_invite_friends">
-	<%= form_tag('/fb_app_invite', id:"fb_invite_friends") %>
-		<%= hidden_field_tag :current_user, @me["username"] %>
-		<%= hidden_field_tag :invitees, nil, id:"invitees" %>
-		<div class="invitees">
-			<%= label_tag :invitees %></br>
-	 		<%= text_area_tag :show_invitees, nil, id:"show_invitees", readonly: true, class:"required" %>
-	 	</div>
-	 	<div class="subject_message">
-		 	<p>
-		 		<%= label_tag :subject %></br>
-		 		<%= text_field_tag :subject, nil, class:"required" %>
-		 	</p>
-		 	<p>
-		 		<%= label_tag :message %></br>
-		 		<%= text_area_tag :message, nil, class:"required" %>
-		 	</p>
-		</div>
-		<div class="submit">
-			<%= submit_tag "Send", class:"btn btn-rsvp btn-fb-invite" %>
-		</div>
-</div>
+	<%= link_to "Invite All", invite_all_fb_friends_path, class:"btn btn_primary", id:"invite_all_friends" %>
 
 <% @invite_friends.each do |inf| %>
 		<table>
@@ -49,31 +32,11 @@
 			<td width="55px"><%= image_tag("#{inf['picture']['data']['url']}") %></td>
 			<td width="100px"><%= "#{inf['name']}" %></td>
 			<td width="100px">
-		    <a href="#" class="btn btn-success invite" alt="<%=inf['username']%>" name="<%=inf['name']%>">Invite</a> 
+		    <a href="#" class="btn btn-success invite" alt="<%=inf['username']%>">Invite</a> 
 	    </td>
 		</tr> 
 	</table>
 <% end %>
 </div>
 </div>
-
-<script>
-// INVITE => INVITED IN FIND FRIENDS
-	$(".invite").click(
-    function() {
-        username = $(this).attr('alt');
-        name = $(this).attr('name');
-        if ($('#show_invitees').text().length == 0) {
-        $('#invitees').attr('value', username);
-        $('#show_invitees').text(name);
-      }
-      	else {
-      	usernames = $('#invitees').attr('value');
-      	$('#invitees').attr('value', usernames + ", " + username);
-        $('#show_invitees').append(", " + name);
-      }
-        $(this).removeClass('btn-success');
-        $(this).addClass('btn_stop_viewing');
-    });
-</script>
 

@@ -103,6 +103,10 @@ Shalendar::Application.routes.draw do
   match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
   match '/public', :to => 'shalendar#city_vendor', :as => "city_vendors"
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
+  match '/share_all_fb_friends', :to =>'shalendar#share_all_fb_friends', :as => "share_all_fb_friends"
+  match 'friend_all' => 'shalendar#friend_all'
+  match 'invite_all_fb_friends' => 'invitations#invite_all_fb_friends'
+
   match '/home', to: 'shalendar#home', as: "home"
 
   match '/vendor_splash', to: 'static_pages#vendor_splash', as: 'vendor_splash'

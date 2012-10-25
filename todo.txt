@@ -39,8 +39,15 @@ moon icon at 12pm
 more differentiation for not tipped - milky
 
 Close Viral Loop
-	Upon invite ask permission to post to wall
-	Invite all FB friends
+	Share dialogue box
+	invite dialogue box
+	dynamic meta tags
+
+	Invite all FB friends - ask for power to post to wall
+		- give to background worker
+	Friend all
+		- give to background worker
+
 	add FB faces to share event#show also ask permissions to post to wall
 	Email every invitation w boolean
 

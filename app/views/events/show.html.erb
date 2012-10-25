@@ -45,9 +45,9 @@
   <div class="invite_by_email part">
     <p>Share by Email</p>
     <%= form_for([@event, @event.email_invites.build]) do |f| %>
-        <%= f.text_area :email, rows: "2", placeholder: "Seperate Emails with Comma" %>
-        <%= f.text_area :message, rows: "3", placeholder: "Message" %>
-        <%= f.submit raw("&#xf0e0; Send"), class: "btn btn-primary fa-input" %>
+      <%= f.text_area :email, rows: "2", placeholder: "Seperate Emails with Comma" %>
+      <%= f.text_area :message, rows: "3", placeholder: "Message" %>
+      <%= f.submit raw("&#xf0e0; Send"), class: "btn btn-primary fa-input" %>
     <% end %>
   </div>
   <% else %>
