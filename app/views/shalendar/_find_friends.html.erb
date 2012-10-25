@@ -1,8 +1,8 @@
 <div id="find_friends">
 <% if @me['location'].nil? %>
-	<h1>Your hoos.in Friends: Add your <%= link_to "current city", "http://answers.yahoo.com/question/index?qid=20081007104826AAbKEzP" %> on Facebook to show nearby friends.</h1>
+	<h1>Your hoos.in friends: Add your <%= link_to "current city", "http://answers.yahoo.com/question/index?qid=20081007104826AAbKEzP" %> on Facebook to show nearby friends.</h1>
 <% else %>
-	<h1>Your hoos.in Friends in <%= current_user.city %></h1>
+	<h1>Your hoos.in friends in <%= current_user.city %></h1>
 <% end %>
 
 <% #if @member_friends.any? %>
@@ -13,7 +13,7 @@
 				<tr>
 					<td width="55px"><%= image_tag("#{mf['picture']['data']['url']}") %></td>
 					<td width="100px"><%= "#{mf['name']}" %></td>
-					<td width="100px">
+					<td width="60px">
 						<% u = Authentication.find_by_uid(mf['id']).user %>
 							<%= render :partial => 'events/follow_form', locals: { :user => u } %>
 			    </td>
@@ -27,9 +27,9 @@
 
 <% if @invite_friends.any? %>
 <% if @me['location'].nil? %>
-	<h1>Your facebook Friends Add your <%= link_to "current city", "http://answers.yahoo.com/question/index?qid=20081007104826AAbKEzP" %> on Facebook to show nearby friends.</h1>
+	<h1>Your facebook friends Add your <%= link_to "current city", "http://answers.yahoo.com/question/index?qid=20081007104826AAbKEzP" %> on Facebook to show nearby friends.</h1>
 <% else %>
-	<h1>Your facebook Friends in <%= current_user.city %></h1>
+	<h1>Your facebook friends in <%= current_user.city %></h1>
 <% end %>
 	<div class="invite_friends">
 		<div class="invite_all"><%= link_to "Invite All", share_all_fb_friends_path, class:"btn btn-primary", id:"invite_all_friends", remote: true %></div>
@@ -38,7 +38,7 @@
 				<tr>
 					<td width="55px"><%= image_tag("#{inf['picture']['data']['url']}") %></td>
 					<td width="100px"><%= "#{inf['name']}" %></td>
-					<td width="100px">
+					<td width="60px">
 				    <div class="btn btn-success invite" alt="<%=inf['username']%>">Invite</div>
 			    </td>
 				</tr> 
@@ -60,7 +60,8 @@ $(document).ready(function() {
 
 	$("div.invite").click(function(){
 	username = $(this).attr('alt');
-
+	$(this).removeClass("btn-success").removeClass("invite").addClass("btn_stop_viewing").text("Invited");
+	
 	FB.ui(
   {
     method: 'send',
