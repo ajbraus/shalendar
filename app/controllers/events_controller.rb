@@ -80,10 +80,22 @@ class EventsController < ApplicationController
     @invited_users = @event.invited_users - @event.guests
     @graph = session[:graph]
     @comments = @event.comments.order("created_at desc")
-    @invite_friends = []
 
-    # if session[:graph]
-    #   @graph = session[:graph]
+    if session[:graph]
+      @invite_friends = []
+      @graph = session[:graph]
+      @city_friends = @graph.fql_query("SELECT uid, name, pic_square, current_location FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())")
+      @city_friends.each do |cf|
+        if cf['current_location']
+          if cf['current_location']['name'] == current_user.city
+            @invite_friends.push(cf)
+          end
+        end
+      end
+    end
+    
+
+
     #   @friendships = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
     #   # @city_friends = @graph.fql_query(
     #   #   SELECT uid, name, location, pic_square

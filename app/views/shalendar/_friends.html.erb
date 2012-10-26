@@ -27,19 +27,21 @@
       </table>
       <% end %>
   </div>
-  <% if @vendor_friendships.any? %>
-  <div class="user_table">
-    <h2><span class="friend_count"><%= @vendor_friendships.count %></span> Venues you Follow</h2>
-    <% @vendor_friendships.each do |vf| %>
-      <table data-user-id="<%= vf.followed.id %>">        
-        <tr>
-          <td width="50px"><%= raster_profile_picture(vf.followed) %></td>
-          <td width="150px"><%= vf.followed.name %></td>
-          <td>
-            <%= render partial: 'events/follow_form', :locals => { :user => vf.followed } %>
-          </td>
-        </tr>
-      </table>
+  <% if !@vendor_friendships.nil? %>
+    <% if @vendor_friendships.any? %>
+      <div class="user_table">
+        <h2><span class="friend_count"><%= @vendor_friendships.count %></span> Venues you Follow</h2>
+        <% @vendor_friendships.each do |vf| %>
+          <table data-user-id="<%= vf.followed.id %>">        
+            <tr>
+              <td width="50px"><%= raster_profile_picture(vf.followed) %></td>
+              <td width="150px"><%= vf.followed.name %></td>
+              <td>
+                <%= render partial: 'events/follow_form', :locals => { :user => vf.followed } %>
+              </td>
+            </tr>
+          </table>
+        <% end %>
     <% end %>
   </div>
 <% end %>

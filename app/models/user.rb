@@ -257,6 +257,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def invite_all_fb_friends(event)
+
+  end
+
   def invite!(event, other_user)
     other_user.invitations.create!(invited_event_id: event.id, inviter_id: self.id)
     other_user.new_invited_events_count += 1

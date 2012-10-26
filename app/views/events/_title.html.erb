@@ -75,6 +75,11 @@
               <i class="icon-group" title="Share idea with all Friends"></i>
             <% end %>
           </li>
+          <li class="icon">
+            <div class="invite_all">
+              <%= link_to "Invite All", invite_all_fb_friends_path, class:"btn btn-primary", id:"invite_all_friends", remote: true %>
+            </div>
+          </li>
         <% else %>
           <li class="icon">
             <i class="icon-group black" title="Guests may share with Friends"></i>

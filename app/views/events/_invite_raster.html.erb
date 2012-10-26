@@ -8,14 +8,12 @@
 		<% end %>
   <% end %>
 <% end %>
-<% if false %>
-<div class="fb_friends_invite">Share with FB Friends</div>
-	<div>
-		Invite All facebook Friends
-	</div>
+
+<div class="fb_friends_invite">
+	<h4>Share with FB Friends</h4>
 <% @invite_friends.each do |f| %>
 	<%= link_to fb_event_invite_path(:event => "#{@event.id}", :username => "#{f['username']}"), remote: true do |i|%>
-	  <%= image_tag("#{f['picture']['data']['url']}", class: "profile_picture", title: "#{f['name']}") %>
+	  <%= image_tag("#{f['pic_square']}", class: "profile_picture", title: "#{f['name']}") %>
 	<% end %>
 <% end %>
-<% end %>
+</div>

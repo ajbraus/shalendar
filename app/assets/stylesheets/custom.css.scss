@@ -982,7 +982,7 @@ min-height: 110px;
 width: 175px;
 position: relative;
 z-index: 1;
-margin: 10px auto;
+margin: 20px auto;
 border: 10px solid white;
 -webkit-box-shadow: 1px 1px 4px rgba(50, 50, 50, 0.75);
 -moz-box-shadow:    1px 1px 4px rgba(50, 50, 50, 0.75);
@@ -1023,7 +1023,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7fbfc', end
 .event_time {
 color: white;
 background-color: #383838;
-padding: 1px 0px 0 8px;
+padding: 1px 0px 0 2px;
 font-size: 18px;
 height: 20px;
 margin-bottom: 4px;
@@ -1033,7 +1033,7 @@ img {
 span {
 position: absolute;
 top: 8px;
-right: 29px;
+right: 20px;
 }
 }
 
@@ -1823,11 +1823,11 @@ margin: 0 2px;
 }
 
 #invite_raster {
-width: 270px;
+width: 430px;
 }
 
 .show_raster {
-height: 220px;
+height: 300px;
 overflow-y: auto;
 margin-bottom: 10px;
 width: 200px;
@@ -1847,6 +1847,8 @@ float: left;
 width: 973px;
 margin: 0 auto;
 clear: both;
+position: relative;
+right: 80px;
   .event_show_rasters {
     float:left;
   }
@@ -1858,6 +1860,13 @@ clear: both;
 .hi_friends_invite {
   min-height: 24px;
 border-bottom: 1px solid lightGrey;
+}
+
+.fb_friends_invite {
+  clear:both;
+  h4{
+    clear:both;
+  }
 }
 
 .invite_by_email {
@@ -2696,4 +2705,6 @@ float: left;
   }
 }
 
-
+.community_ideas {
+  color:$destroy;
+}

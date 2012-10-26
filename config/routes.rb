@@ -72,6 +72,7 @@ Shalendar::Application.routes.draw do
     put :tip
     resources :comments, only: [:create, :destroy]
     resources :email_invites, only: [:create, :destroy]
+    resources :fb_invites, only: [:create, :destroy]
   end
   
 

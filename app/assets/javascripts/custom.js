@@ -365,4 +365,16 @@ $('#new_suggestion_form').validate();
 //   type:         'image' //optional
 // });
 
+//INVITE ALL FACEBOOK FRIENDS IN EVENT#SHOW (LINK IN _TITLE.HTML.ERB)
+
+  $("#invite_all_friends").click(function(){
+    FB.login(function(response) {
+      if(response.authResponse) {
+        window.location = "/share_all_fb_friends"
+        }
+    }, {scope: "publish_stream"});
+  });
+
+
+// END DOCUMENT.READY
 });
