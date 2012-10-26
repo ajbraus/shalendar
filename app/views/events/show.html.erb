@@ -1,6 +1,11 @@
 <% provide(:title, " | Idea") %>
 <div class="event_show">
   <%= render 'title' %>
+  <% if @event.promo_img_file_size %>
+    <div class="event_show_promo_img part">
+      <%= image_tag("#{@event.promo_img.url(:large)}") %>
+    </div>
+  <% end %>
 
   <% if @event.user.id == current_user.id || @event.guests_can_invite_friends? %>
     <%= render 'social', locals: { :event => @event } %>
@@ -8,19 +13,16 @@
 
   <div class="invites_guests">
       <div class="event_show_rasters">
-    <% if (@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user %>
+    <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.starts_at > Time.now %>
         <p>Share with Friends</p>
         <div id="invite_raster" class="show_raster part">
           <%= render partial: 'invite_raster', :locals => { :event => @event } %>
         </div>
-      </div>
     <% else %>
-      <div class="event_show_rasters">
         <p>Share with Friends</p>
-        <div id="invite_raster" class="hide show_raster part">
-        </div>
-      </div>
+        <div id="invite_raster" class="hide show_raster part"></div>
     <% end %>
+  </div>
 
     <div class="event_show_rasters">
       <p><span id="invite_count"><%= @invited_users.count + @email_invites.count %></span> Maybes</p>
@@ -39,13 +41,13 @@
         <%= render 'guests' %>
       </div>
     </div>
-      <% if (@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user %>
+      <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.starts_at > Time.now %>
   <div class="invite_by_email part">
     <p>Share by Email</p>
     <%= form_for([@event, @event.email_invites.build]) do |f| %>
-        <%= f.text_area :email, rows: "2", placeholder: "Seperate Emails with Comma" %>
-        <%= f.text_area :message, rows: "3", placeholder: "Message" %>
-        <%= f.submit raw("&#xf0e0; Send"), class: "btn btn-primary fa-input" %>
+      <%= f.text_area :email, rows: "2", placeholder: "Seperate Emails with Comma" %>
+      <%= f.text_area :message, rows: "3", placeholder: "Message" %>
+      <%= f.submit raw("&#xf0e0; Send"), class: "btn btn-primary fa-input" %>
     <% end %>
   </div>
   <% else %>

@@ -117,20 +117,33 @@ $(document).bind('click', function(e) {
 
 // NEW IDEA LIGHTBOX
 
-  $('#new_idea_button').fancybox();
-  $('#new_suggestion_button').fancybox();
-	$('.find_friends').fancybox();
+  $('#new_idea_button').fancybox({
+        closeBtn    : true,
+        scrolling   : 'auto',
+        autoSize    : true
+  });
+  $('#new_suggestion_button').fancybox({
+        closeBtn    : true,
+        scrolling   : 'auto',
+        autoSize    : true
+  });
+	$('.find_friends').fancybox({
+        closeBtn    : true,
+        scrolling   : 'auto',
+        autoSize    : true
+  });
   //$('.city_vendors').fancybox();
-  $('.clone').fancybox();
+  $('.clone').fancybox({
+        closeBtn    : true,
+        scrolling   : 'auto',
+        autoSize    : true
+  });
 
 
 // VALIDATIONS
 
   $('#fb_invite_friends').validate();
-
 	$("#registration_form").validate();
-
-  // $('#new_suggestion_form').validate();
 
 
   $('input[type=file]').fileValidator({
@@ -138,14 +151,7 @@ $(document).bind('click', function(e) {
   onInvalid:    function(validationType, file){ $(this).addClass("error"); },
   maxSize:      '500kb', //optional
   type:         'image' //optional
-});
-    
-
-  $('input.demo').fileValidator({
-    onValidation: function(files){      $(this).attr('class','');          },
-    onInvalid:    function(type, file){ $(this).addClass('invalid '+type); }
-  });
-  
+});  
 
 // TABS
 
@@ -215,5 +221,148 @@ $(function(){
     }		
   }) 
 });
+
+
+//FORM JS
+
+$('#categories').buttonset();
+$("input[type=checkbox].switch").each(function() {
+  $(this).before(
+      '<span class="switch">' +
+      '<span class="mask" /><span class="background" />' +
+      '</span>'
+    );
+  $(this).hide();
+    // Set inital state
+  if (!$(this)[0].checked) {
+      $(this).prev().find(".background").css({left: "-56px"});
+    }
+  });
+// Toggle switch when clicked
+  $("span.switch").click(function() {
+    // If on, slide switch off
+    if ($(this).next()[0].checked) {
+      $(this).find(".background").animate({left: "-56px"}, 200);
+    // Otherwise, slide switch on
+    } else {
+      $(this).find(".background").animate({left: "0px"}, 200);
+    }
+    // Toggle state of checkbox
+    $(this).next()[0].checked = !$(this).next()[0].checked;
+  });
+
+$('#datetime').datetimepicker({
+    minDate: 0,
+    dateFormat: "DD, d M",
+    timeFormat: "h:mm tt",
+    ampm: true,
+    stepMinute: 15,
+    addSliderAccess: true,
+    sliderAccessArgs: { touchonly: true },
+    hour:12,
+    minute:00
+});
+
+ $("#addLink").click(function () { 
+ if ($("#addLinkp").hasClass("open")) { 
+   $("#addLinkp").slideUp();
+   $('#addLinkp').removeClass("open");
+  }
+ else {
+ $('.open').slideUp();
+ $('.open').removeClass("open");
+ $("#addLinkp").slideDown();
+ $("#addLinkp").addClass("open");
+ $("#addLink").css("color", "#EB8325")
+  }
+});
+
+$("#addmap").click(function () {
+ if ($("#addmapp").hasClass("open")) {
+   $("#addmapp").slideUp();
+   $('#addmapp').removeClass("open");
+ }
+ else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#addmapp').slideDown();
+   $("#addmapp").addClass("open");
+   $("#addmap").css("color", "#EB8325")
+ }
+});
+
+$("#addimg").click(function () {
+  if ($("#addimgp").hasClass("open")) {
+   $("#addimgp").slideUp();
+   $('#addimgp').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#addimgp').slideDown();
+   $("#addimgp").addClass("open");
+   $("#addimg").css("color", "#EB8325")
+  }
+});
+
+$("#addcost").click(function () {
+  if ($("#addcostp").hasClass("open")) {
+   $("#addcostp").slideUp();
+   $('#addcostp').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#addcostp').slideDown();
+   $("#addcostp").addClass("open");
+   $("#addcost").css("color", "#EB8325")
+  }
+});
+
+$("#addtipping").click(function () {
+  if ($("#addtippingp").hasClass("open")) {
+   $("#addtippingp").slideUp();
+   $('#addtippingp').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#addtippingp').slideDown();
+   $("#addtippingp").addClass("open");
+   $("#addtipping").css("color", "#EB8325")
+  }
+});
+
+$('#new_suggestion_form').validate();
+
+// NEW IDEA FORM VALIDATION
+  $("#new_event_form").validate({
+    rules: {
+      "event[title]": {
+        maxlength: 140
+      },
+      "event[min]": {
+        number: true
+      },
+      "event[max]": {
+        number: true
+      },
+      "event[duration]": {
+        required: true,
+        number: true
+      }
+    }
+  });
+
+     // focus on the first text input field in the first field on the page
+    $("#new_idea_blerb").focus();
+    $("input[type=email]:first", document.forms[0]).focus();
+
+//   $('input[type=file]').fileValidator({
+//   onValidation: function(files){  $(this).attr('class',''); },
+//   onInvalid:    function(validationType, file){ $(this).addClass("error"); },
+//   maxSize:      '500kb', //optional
+//   type:         'image' //optional
+// });
 
 });

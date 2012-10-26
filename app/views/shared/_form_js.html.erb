@@ -26,6 +26,8 @@ $("input[type=checkbox].switch").each(function() {
   });
 
 $('#datetime').datetimepicker({
+    minDate: 0,
+    dateFormat: "d MM",
     timeFormat: "h:mm tt",
     ampm: true,
     stepMinute: 15,
@@ -109,6 +111,9 @@ $('#new_suggestion_form').validate();
 // NEW IDEA FORM VALIDATION
   $("#new_event_form").validate({
     rules: {
+      "#datetime": {
+        required: true
+      },
       "event[title]": {
         maxlength: 140
       },
@@ -124,6 +129,9 @@ $('#new_suggestion_form').validate();
       }
     }
   });
+   
+// focus on the first text input field in the first field on the page
+  $("textarea").focus();
 
 //   $('input[type=file]').fileValidator({
 //   onValidation: function(files){  $(this).attr('class',''); },
@@ -131,5 +139,4 @@ $('#new_suggestion_form').validate();
 //   maxSize:      '500kb', //optional
 //   type:         'image' //optional
 // });
-
 </script>

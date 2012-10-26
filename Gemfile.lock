@@ -193,8 +193,8 @@ GEM
     omniauth (1.1.1)
       hashie (~> 1.2)
       rack
-    omniauth-facebook (1.4.0)
-      omniauth-oauth2 (~> 1.0.2)
+    omniauth-facebook (1.2.0)
+      omniauth-oauth2 (~> 1.0.0)
     omniauth-oauth (1.0.1)
       oauth
       omniauth (~> 1.0)
@@ -350,7 +350,7 @@ DEPENDENCIES
   koala
   lazy_high_charts
   newrelic_rpm
-  omniauth-facebook (= 1.4.0)
+  omniauth-facebook (= 1.2.0)
   omniauth-twitter
   paperclip (~> 3.0)
   pg

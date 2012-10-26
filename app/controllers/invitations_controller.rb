@@ -23,4 +23,12 @@ class InvitationsController < ApplicationController
     @invitation.destroy
   end
 
+  def invite_all_friends 
+    
+  end
+
+  def invite_all_fb_friends
+  end
+
+
 end

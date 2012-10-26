@@ -59,7 +59,7 @@
       </dl>
     </li>
     <li>
-      <a href="<%= manage_follows_path %>">
+      <a href="<%= manage_friends_path %>">
         <strong id="header_friend_count" class="friend_count"><%= current_user.followers.count %></strong> friends
         <% if current_user.reverse_relationships.where('relationships.confirmed = false').any? %>
         <% @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false') %>

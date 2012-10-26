@@ -18,7 +18,7 @@ class ShalendarController < ApplicationController
     #@vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
 	end
 
-	def manage_follows
+	def manage_friends
 		@graph = session[:graph]
 		@friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
     @vendor_friendships = []
@@ -59,11 +59,84 @@ class ShalendarController < ApplicationController
         @invite_friends.push(cf)
       end
     end
+    #friends who are app_users
+    #SELECT uid, name, pic_square FROM user WHERE is_app_user AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())
     respond_to do |format|
       #format.html
       format.js
     end
   end
+
+  def share_all_fb_friends
+    @graph = session[:graph]
+    @friendships = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
+    # @city_friends = @graph.fql_query(
+    #   SELECT uid, name, location, pic_square
+    #   FROM user 
+    #   WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me() AND location = me())
+    #   )
+    @me = @graph.get_object('me')
+    @invite_friends = []
+    @city_friends = @friendships.select { |friend| friend['location'].present? && friend['location']['id'] == @me['location']['id'] }
+    @city_friends.each do |cf|
+      @authentication = Authentication.find_by_uid(cf['id'])
+      if @authentication.nil?
+        @invite_friends.push(cf)
+      end
+    end
+    if Rails.env.production?
+      @invite_friends.each do |inf|
+      session[:graph].delay.put_connections( inf['id'], "feed", {
+                                      :message => "I'm using hoos.in to do awesome things with my friends. Check it out:", 
+                                      :name => "hoos.in",
+                                      :link => "http://www.hoos.in/",
+                                      :caption => "Do Great Things With Friends",
+                                      :picture => "http://www.hoos.in/assets/icon.png"
+                                    })
+      end
+    else
+      session[:graph].put_connections( 2232003, "feed", {
+                                      :message => "I'm using hoos.in to do awesome things with my friends. Check it out:", 
+                                      :name => "hoos.in",
+                                      :link => "http://www.hoos.in/",
+                                      :caption => "Do Great Things With Friends",
+                                      :picture => "http://www.hoos.in/assets/icon.png"
+                                    })
+    end
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: "Successfully posted invitations to hoos.in to all your facebook Friends" }
+      format.js
+    end
+  end
+
+  def friend_all
+    @graph = session[:graph]
+    @friendships = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
+    # @city_friends = @graph.fql_query(
+    #   SELECT uid, name, location, pic_square
+    #   FROM user 
+    #   WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me() AND location = me())
+    #   )
+    @me = @graph.get_object('me')
+    @member_friends = []
+    @city_friends = @friendships.select { |friend| friend['location'].present? && friend['location']['id'] == @me['location']['id'] }
+    @city_friends.each do |cf|
+      @authentication = Authentication.find_by_uid(cf['id'])
+      if @authentication
+        @member_friends.push(cf)
+      end
+    end
+    @member_friends.each do |mf|
+      unless current_user.following?(mf)
+        current_user.follow!(mf)
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: "Successfully Friended all facebook Friends on hoos.in"}
+      format.js
+    end
+  end
+
 
   def city_vendors
     @vendors = User.where('city = current_user_city vendor = true', current_user_city: current_user.city)
@@ -118,35 +191,52 @@ class ShalendarController < ApplicationController
     #EVENTS
     @events_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).count
     @rsvps_last_week = Rsvp.where(['created_at > ?', Time.now - 1.week])
-    #RSVPs graph
-    @rspvs_each_day_last_week = []
     
+    #RSVPs graph
+    @rsvps = []
     (0..6).each do |i|
       @rsvps_per_day = Rsvp.find(:all, :conditions => [" created_at between ? AND ?", Time.zone.now.beginning_of_day - i.days, Time.zone.now.end_of_day - i.days]).count
-      @rspvs_each_day_last_week.push(@rsvps_per_day)
+      @rsvps.push(@rsvps_per_day)
     end
 
-    @rsvps_vs_events_last_week_graph = LazyHighCharts::HighChart.new('graph') do |f|
-      f.options[:chart][:defaultSeriesType] = "area"
-      f.options[:plotOptions] = {area: {pointInterval: 1.day, pointStart: 7.days.ago}}
-      f.series(:name=>'RSVPs', :data=> @rsvps_each_day_last_week)
-      #f.series(:name=>'Jane', :data=> [1, 3, 4, 3, 3, 5, 4,-46,7,8,8,9,9,0,0,9] )
-      f.xAxis(type: :datetime)
+    @events = []
+    (0..6).each do |e|
+      @events_per_day = Event.find(:all, :conditions => ["starts_at between ? AND ?", Time.zone.now.beginning_of_day - e.days, Time.zone.now.end_of_day - e.days]).count
+      @events.push(@events_per_day)
+    end
+
+    @rsvps_v_events = LazyHighCharts::HighChart.new('graph') do |f|
+      f.options[:title][:text] = "RSVPs vs. Events Last Week"
+      f.options[:chart][:defaultSeriesType] = "line"
+      #f.options[:plotOptions] = {:area => { :pointInterval => '#{1.day}', :pointStart => '#{7.days.ago}' }}
+      f.series(:name=>'RSVPs', :data => @rsvps )
+      f.series(:name=>'Events', :data=> @events )
+      #f.xAxis(:type => 'datetime')
     end
     #SUGGESTIONS
 
   end
 
-  def fb_invite 
+  def fb_app_invite 
     @invitees = params[:invitees].split(', ')
     @subject = params[:subject]
-    @message = params[:message] + " -- www.hoos.in"
+    @message = params[:message]
     @invitees.each do |username|
-      Notifier.fb_invite(username + "@facebook.com", @subject, @message)
+      @email = username + "@facebook.com"
+      Notifier.fb_app_invite(@email, @subject, @message).deliver
     end
     redirect_to root_path, notice: 'Message successfully sent to selected Facebook Friends'
   end
 
+  def fb_event_invite
+    # if params[:username]
+    #   @event = Event.find_by_id(params[:event])
+    #   @email = params[:username] + "@facebook.com"
+    #   @name = params[:name]
+    #   Notifier.fb_event_invite(@email, @event, @name).deliver
+    # end
+    # redirect_to @event, notice: 'Message successfully sent to Facebook Friend'
+  end
 
   private
 

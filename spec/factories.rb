@@ -1,18 +1,42 @@
 FactoryGirl.define do
 	factory :user do
-    sequence(:name)  { |n| "User Number #{n}" }
-    sequence(:email) { |n| "person_#{n}@example.com"} 
+    sequence(:name)  { |n| "Test #{n}" }
+    sequence(:email) { |n| "test@#{n}.com"} 
 		password 'please'
 		password_confirmation 'please'
+		remember_me 'f'
+		time_zone "Central Time (US & Canada)"
+		require_confirm_follow 'f'
+		allow_contact 't'
+		digest 't'
+		notify_event_reminders 't'
+		city 'Madison, Wisconsin'
+		post_to_fb_wall 'f'
+		avatar nil
+		vendor 'f'
+		terms 't'
 	end
 
 	factory :event do
-		user
+		user_id ''
+    suggestion_id ''
+    starts_at '#{Time.now + 1.day}'
+    duration '2'
+    ends_at ''
+    title 'Test Event'
+    min ''
+    max ''
+    address ''
+    latitude ''
+    longitude ''
+    chronic_starts_at ''
+    chronic_ends_at ''
+    link 'www.google.com'
+    gmaps 'f'
+    tipped ''
+    guests_can_invite_friends 't'
+    price '10'
+    promo_img ''
 	end
 
-	factory :comment do
-		creator 'Test User'
-		content 'Ill be 10 min late'
-	end
-	
 end

@@ -66,7 +66,7 @@ Shalendar::Application.routes.draw do
   
   match 'new_suggestion', :to => "suggestions#new", :as => 'new_suggestion'
   match 'allow_suggestions', :to => 'shalendar#allow_suggestions'
-  match '/manage_follows', :to => 'shalendar#manage_follows', :as => "manage_follows"
+  match '/manage_friends', :to => 'shalendar#manage_friends', :as => "manage_friends"
 
   resources :events, only: [:index, :create, :destroy, :update, :tip, :edit, :new, :show] do 
     put :tip
@@ -84,7 +84,9 @@ Shalendar::Application.routes.draw do
     put :confirm_and_follow
   end
 
-  match '/fb_invite', :to => 'shalendar#fb_invite', :as => "fb_invite"
+  match '/fb_app_invite', :to => 'shalendar#fb_app_invite', :as => "fb_app_invite"
+
+  match '/fb_event_invite', :to => 'shalendar#fb_event_invite', :as => 'fb_event_invite'
 
   # match '/user_plans_on_date', :to => 'shalendar#user_plans_on_date', :as => "user_plans_on_date"
   # match '/user_ideas_on_date', :to => 'shalendar#user_ideas_on_date', :as => "user_ideas_on_date"
@@ -101,6 +103,10 @@ Shalendar::Application.routes.draw do
   match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
   match '/public', :to => 'shalendar#city_vendor', :as => "city_vendors"
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
+  match '/share_all_fb_friends', :to =>'shalendar#share_all_fb_friends', :as => "share_all_fb_friends"
+  match 'friend_all' => 'shalendar#friend_all'
+  match 'invite_all_fb_friends' => 'invitations#invite_all_fb_friends'
+
   match '/home', to: 'shalendar#home', as: "home"
 
   match '/vendor_splash', to: 'static_pages#vendor_splash', as: 'vendor_splash'

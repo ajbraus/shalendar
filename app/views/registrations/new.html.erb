@@ -7,14 +7,14 @@
                       :html => { multipart: true, id: "registration_form" }) do |f| %>
   <%= devise_error_messages! %>
 
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email, class: "required", autocomplete: "off" %></div>
+
   <div><%= f.label :name %><br />
-  <%= f.text_field :name, class: "required" %></div>
+  <%= f.text_field :name, class: "required", autocomplete: "off" %></div>
 
   <div><%= f.label :picture %><br />
   <%= f.file_field :avatar, class: "required" %></div>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, class: "required" %></div>
 
   <div><%= f.label :city %><br />
   <%= f.select :city, @cities, class: "required" %></div>

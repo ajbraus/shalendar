@@ -1,41 +1,19 @@
-<div id="clone_form" class="event_form">
+<div id="clone_form" class="event_form clone_form">
  <%= form_for @clone, url: { controller: "events", action: "create" }, html: { id: "new_event_form" } do |f| %>
-  <% if @clone.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@clone.errors.count, "error") %> prohibited this user from being saved:</h2>
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-		<p>
-	    <%= label :title, "Idea*" %><br/>
-	    <%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off" %>
-	  </p>  
-	  <p>
-		   <%= label :starts_at, "When does it start?*" %>
-		   <%= label :duration, "How Long?*", class: "duration" %><br/>
-			 	 <%= f.text_field :chronic_starts_at, id: "datetime", class: "required starts_at", autocomplete: "off" %>
-			   <%= f.text_field :duration, placeholder:"#hrs", class: "required duration", autocomplete: "off"  %>
-	  </p>
-
-	<div id="minmax" style="display: block; clear:both;">
-	  <u>
-	    <%= f.label :min_attendees, "Tipping point*" %> <br/>
-	    <%= f.text_field :min, :class => 'input-mini', value: 1, autocomplete: "off" %>
-	  </u>
-	  <u>
-	    <%= f.label :max_attendees, "Full" %> <br/>
-	    <%= f.text_field :max, :class => 'input-mini', value: 50, autocomplete: "off" %>
-	  </u>
-	  <span class="dollar">$ </span>
-	  <u>
-	  	<%= f.label "Cost" %><br>
-			<%= f.text_field :price, :class => 'input-mini', autocomplete: "off" %>
-		</u>
-	</div>
+		<div class="spinOffImg">
+			<div class="spinOffStartsAt">
+				<%= @clone[:starts_at].strftime("%l:%M%P, %a %b %e") %> for <%= @clone[:duration] %>hrs
+				<%= f.hidden_field :chronic_starts_at, value:"#{@clone[:starts_at]}" %>
+				<%= f.hidden_field :duration, value:"#{@clone[:duration]}" %>
+			</div>
+			
+			<%= image_tag "#{@clone.suggestion.promo_img.url(:large)}" %>
+			
+			<div class="spinOffTitle">
+	    	<%= @clone[:title] %>
+	    	<%= f.hidden_field :title, value:"#{@clone[:title]}" %>
+	  	</div> 
+		</div> 
 
 	<div class="invitation_options" style="display: block; clear:both;">
 	  <u>
@@ -50,12 +28,10 @@
 		</u>
 	</div>
 
-	<%= render partial: 'shared/link_map', locals: { :f => f } %>	 
+	<%= render partial: 'shared/clone_options', locals: { :f => f } %>
 
 	<%= f.hidden_field :suggestion_id %>
 
-
 	<span class="new_idea_button"><%= f.submit 'Create Idea', :class => 'btn btn-large btn-primary' %></span>
-
 <% end %>
 </div>

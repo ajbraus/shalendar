@@ -1,3 +1,47 @@
-<% provide(:title, ' | Edit Idea') %>
+<% provide(:title, " | Edit") %>
+<div id="edit_idea">
+  <div class="event_form">
+   <%= form_for @event, html: { id: "new_event_form" } do |f| %>
+    <% if @event.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-<%= render 'edit_form' %>
+        <ul>
+        <% @event.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <p>
+      <%= label :title, "Idea" %><br/>
+      <%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off" %>
+    </p>  
+    <p>
+     <%= label :starts_at, "When does it start?" %>
+     <%= label :duration, "How Long?", class: "duration" %><br/>
+     <%= f.text_field :chronic_starts_at, id: "datetime", class: "required starts_at", autocomplete: "off" %>
+     <%= f.text_field :duration, placeholder:"#hrs", class: "required duration", autocomplete: "off"  %>
+    </p>
+
+    <div class="invitation_options" style="display: block; clear:both;">
+  <u>
+    <%= f.label "Share Idea with All Your Friends" %><br>
+    <i class="icon-group questionMark"></i>
+    <input checked="checked" id="invite_all_friends" name="invite_all_friends" type="checkbox" class="switch">          
+  </u>
+  <u>
+    <%= f.label "Friends can share Idea with Friends" %><br>
+    <i class="icon-bullhorn questionMark"></i>
+    <%= f.check_box :guests_can_invite_friends, class: "switch", checked: "checked" %>
+  </u>
+</div>
+
+<%= render partial: 'shared/idea_options', locals: { :f => f } %>
+ 
+  <span class="new_idea_button"><%= f.submit 'Update', :class => 'btn btn-large btn-primary' %></span>
+
+  <% end %>
+  </div>
+</div>

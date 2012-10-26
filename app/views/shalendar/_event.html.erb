@@ -8,7 +8,7 @@
 		<div class="event_time">			
 			<% if event.starts_at.hour > 4 && event.starts_at.hour < 12 %>
 				<%= image_tag "morning.png" %>
-			<% elsif event.starts_at.hour > 12 && event.starts_at.hour < 18 %>
+			<% elsif event.starts_at.hour >= 12 && event.starts_at.hour < 18 %>
 				<%= image_tag "noon.png" %>
 			<% else %>
 				<%= image_tag "night.png" %>
@@ -26,7 +26,7 @@
 			</div>
 		<% end %>
 	
-		<div class="event_blerb"><%= event.short_event_title %></div>
+		<div class="event_blerb"><%= event.title %></div>
 	
 		<div class="event_pic" title="Invited by: <%= User.find_by_id(event.inviter_id).name%>"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
 		<div class="guest_count">
