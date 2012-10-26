@@ -288,7 +288,6 @@ class User < ActiveRecord::Base
     # adjusted_load_date = usable_date.to_date
 
     time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
-    logger.info("time range from web:  #{time_range}")
     @plans_on_date = Event.where(starts_at: time_range).joins(:rsvps)
                       .where(rsvps: {guest_id: self.id}).order("starts_at ASC")
     @plans_on_date.each do |p|

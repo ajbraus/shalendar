@@ -7,6 +7,8 @@ class Api::V1::EventsController < ApplicationController
     @mobile_user = User.find_by_id(params[:user_id])
     if @mobile_user
       Time.zone = @mobile_user.time_zone if @mobile_user.time_zone
+    else
+      render :status => 400, :json => {:error => "could not find your user"}
     end
     raw_datetime = DateTime.parse(params[:date])
 
@@ -29,7 +31,8 @@ class Api::V1::EventsController < ApplicationController
         :start => e.starts_at,#don't do timezone here, do it local on mobile
         :end => e.ends_at, 
         :gcnt => e.guests.count,  
-        :tip => e.min,  
+        :tip => e.min,
+        :image => e.promo_img.url(:medium), 
         :host => e.user,
         :plan => @mobile_user.rsvpd?(e),
         :tipped => e.tipped,
@@ -51,7 +54,7 @@ class Api::V1::EventsController < ApplicationController
       Time.zone = @mobile_user.time_zone if @mobile_user.time_zone
     end
     if @mobile_user.nil?
-      render :status => 400, :json => {:success => false}
+      render :status => 400, :json => {:error => "could not find your user"}
     else
       @g_share = true
       if @event.guests_can_invite_friends.nil? || @event.guests_can_invite_friends == false
@@ -162,5 +165,4 @@ class Api::V1::EventsController < ApplicationController
       render :status => 400, :json => {:error => "Idea did not Save"}
     end
   end
-
 end
