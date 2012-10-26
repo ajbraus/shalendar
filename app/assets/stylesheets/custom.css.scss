@@ -979,10 +979,10 @@ padding-top: 10px;
 .event {
 padding: 5px;
 min-height: 110px;
-width: 190px;
+width: 175px;
 position: relative;
 z-index: 1;
-margin: 5px auto;
+margin: 10px auto;
 border: 10px solid white;
 -webkit-box-shadow: 1px 1px 4px rgba(50, 50, 50, 0.75);
 -moz-box-shadow:    1px 1px 4px rgba(50, 50, 50, 0.75);
@@ -1079,6 +1079,9 @@ bottom: 2px;
 
 .event_promo_img {
   text-align: center;
+  img {
+    width:170px;
+  }
 }
 
 .guest_count {

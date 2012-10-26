@@ -32,7 +32,6 @@ Adam
 --------------
 
 black and green group
-night, day
 
 meta-data to event is in gutter
 
