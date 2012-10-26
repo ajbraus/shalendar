@@ -1,5 +1,4 @@
-suggestion ideas:
-	Essen Haus boots
+validate starts_at is in the future
 
 Mike
 ------------
@@ -27,126 +26,111 @@ new follower email link not working
 		Times (4)
 		Check load delays with broadband
 
+		Skip login screen on reopen if still logged in
+		Make it look like Pinterest
+			Make back arrow.
+			Box shadow on corners of images
+			swipe between days
+			make top and bottom nav bars disappear when you scroll
+		Comments
+		Delete events
+		Suggestions
+		
 
 Adam
 --------------
 
-black and green group
+fix destroy.js.erb in shalendar views
 
-meta-data to event is in gutter
+3 day digest
 
-IMAGE URL!
-Alphabatize friends!
-print name! Tooltip sucks balls
-Invite JS breaks!
-more differentiation for not tipped - milky
+img URL
 
-Close Viral Loop
-	dynamic meta tags
-	add FB faces to share event#show also ask permissions to post to wall
-	invite dialogue box
-	
-	Email every invitation w boolean
+don't send email comments to yourself
 
-	add face to invite email, new follower email, and confirmation email, and 
-	event images to stuff (daily digest, invitation)
-	
-	Text invitations from mobile app
-	google contacts
-	- custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid	
-	Send email invite on invite all
+hide unrequired elements
 
-Marketing
-	Suggestions tweet to city specific twitter account
-	Add hashtag to get instagram images from / tweet about the event
+friend button not responding in find_friends
 
-Maintain Users
-	.ics file in event show and emails
-	add to google calendar link in event show and emails
+RSVP in/out
 
-non dev stuff
-	operators agreement
-	privacy/terms pages
+fix FB invite page to include link back to hoos.in
 
-Big UI Improvements
-	friend button not responding in find_friends
-	RSVP in/out
-	suggestion counter row to datepicker or add suggestions to ideas
-	fix invite raster in show page friend buttons etc
-	Tooltip is f-ing with button functionality
+clone
+	require category with javascript
+	cloning on other suggestions
 
-High-Priority fixes
+order things by them being your friends or not
 
-	clones appearing on the right day. Events displayed on starts_at time
-	add price to events
+FQL query for facebook friends, display alphabetically and if on hoosin then not
 
-Vendor happiness
-	Branded event show pages
+CUTTOVER 
 
-Simplify Forms
-	img URL
-	require category with javascript in suggestions
-	validate image size in form w js
-
-Medium UI improvements
-	fix alert and add error styling
-	add beautiful dialogue box for confirm to join event
-	http://snipplr.com/view/29911/javascript-alert-and-confirm-dialog-the-fancybox-way/
-	hide event/recurring event
-	Basic profile
-	Message a single RSVP or invited person
-	event edit page F-ed
-	event#edit ajax lightbox
-	event#show ajax lightbox/expand the idea vertically
-
-Small UI Improvements
-	yesterday tomorrow buttons working
-	drawn arrows
-	better landing page!
+run migrations in production
 
 
 
-piddly-shit
-	order things by them being your friends or not
-	FQL query for facebook friends, display alphabetically and if on hoosin then not
-	carrot next to picture
-	invite someone then hover stops working
-	when I click on "latest ideas" to remove them, it doesn't remove the counter!
-	month view
+Upon invite send facebook email
+
+RSVP in/out
+
+Add lat/lng to each city and then pass that to the map in forms
+
+yesterday tomorrow buttons working
+
+carrot next to picture
+
+make public yellow pages display and then make it load with ajax
+
+Text message reminder to go to events (twillio)
+
+invite someone then hover stops working
+
+when I click on "latest ideas" to remove them, it doesn't remove the counter!
+
+month view
+
+bring order to 'lastest ideas'
 	decrement new invited events count when an event expires
-	add "you are now friends with x" to relationship#create.js
-	add format.html to everything
-	remove vendor/cache gems
-	If event is full, just not showing it in maybes right now - show as full
-	Agent call - if android/iPhone download our apps	
-	keyup character counter in idea
-	tipping point and max set to nil - model method -- if nil == default values
-	
+	show only events that are in the future
 
-Future stuff: 
+invite, guest list: order by ppl you already friended
+facebook friends: order by ppl already on hoosin
 
-basic test - launch the lightboxes and js is working.
 
-bing maps 
+DONE
+Create Suggestions w same columns as events
+Users get boolean vendor?
+User that is vendor can create suggestion and view their suggestions in a vendor dashboard
+Suggestions have many children (class = Event)
+If user.vendor? put link to suggestions#index (vendor dashboard) in header.
+added promo_img to suggestion data structure
+When you click clone it finds the suggestion and passes the elements into a new clone form (i.e. new event form) with suggested elements not actionable and blank elements actionable.
+hid suggestions you've already cloned
+when you submit it goes to the EventsController#create method that creates an event that is a child of a suggestion using the suggestion id as the parent
+Welcome email for vendors
+when suggestion is created if it has a time already create an event - creating the event but not displaying in forecast . . .?
+vendors cannot friend or follow
+ppl can only follow vendors
 
-Silo by city
-	detect location by IP address: https://github.com/priithaamer/geoip-rails
-	hash timezone to location
-	make public yellow pages display and then make it load with ajax
 
-Vendors:
-	Provisioning/registration
-	Payment Gateway
 
-More users:
-	Twitter authentication
-	meetup.com
+Texting
+Recurring Events
+"I'm out"
+integration with twitter
+meetup.com
+google contacts
+google calendar/ical/outlook - .ics 
 
-More Events:
-	Recurring Events
 
-	Mobile local registration
 
+Close viral loop:
+	Invite friends pulls in facebook friends (FQL query for friends in city, then not on hoos.in)
+	Text message ppl invitation
+	Recieve text message reminder to go to an event
+	Host can message all RSVPs, text/push/ or email
+	when you comment, host is contacted text/push or email
 
 User Helper:
 def contact
@@ -161,26 +145,70 @@ def remind
 	else flash notification every 15 minutes on screen of homepage, play noise?
 end
 
+hidden settings page
+
+add "you are now friends with x" to relationship#create.js
+
+add face to invite email, new follower email, and confirmation email
+
+add format.html to everything
+
+fix alert and add error styling
+
+make invitation email better (are ppl even using this?) Maybe a 'copy the link to this event' with pretty urls?
 
 invite people who went to other events but without having to follow them
 
+add beautiful dialogue box for confirm to join event
+
+http://snipplr.com/view/29911/javascript-alert-and-confirm-dialog-the-fancybox-way/
+
+daily digest if new events
+
+remove vendor/cache gems
+
+operators agreement
+
+
+                                                           
+                      
+Side note: put_wall_post posts to user/feeds, which doesn’t `include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
+
+P t to facebook wall . . . not for private events
+post to rsvps facebook wall of friends of RSVPs
+
+
+AFTER BETA LAUNCH
 	
+-------- Features To Add ------
+
+	Public feed
 	lists
 	payment gateway
 
+	1. subscribers ?
+	2. offers accounts
+		a. event.offer?
+		c. background image on event
+		d. percentage structure (per users)
+		e. PCI compliant database (spreedly core call paypal to setup escrow payments)
 		f. tip-by date
 		g. price
 
-			Required contribution checklist
+	4. 3 types of events
+		1. Optional contribution checklist
+		 	pop up as optional after RSVP button
+
+		2. Required contribution checklist
 			in place of rsvp
 			something to contribute (good or skill or cash)
+			pay through our site if cash?
 
 		3. Commercial - payment
 			pay through our site
 
-SDK - follow us on hoos.in
-
-Twilio:
+	3. SDK - follow us on hoos.in
+	3. 	Twilio:
 		add phone number to user in DB
 		add SMS messages to notifier
 		Buy phone number
@@ -188,20 +216,78 @@ Twilio:
 		add user boolean for receiving text messages
 		Text message invitations to join calenshare for an event
 
-	Add FB events
+	Add FB events - Adam
+
+		block emails from this user
+		change notification settings
+		add SMS
+
+		AJAX
+			confirmations - remove follower, cancel account
+			comments
+			Invitation raster
+			tip!
+
+	MEETUP API
+
+----- Improvement Ideas ----
+Forget toggle, just have an 'X' to remove any individual idea you're not interested in
+	frees up space from toggle area
+	better for mobile
+
+
+--- 
+
+Infrastructure
+	Staging
+	Tests
 
 Performance
+
 	benchmark 2 second page loads with #x users
+	mailers
+	Facebook URLs
+	Ajax
 	progressive page loading i.e. forecast with events after
 
+Mobile
+	Views
+	Only login through fb
+	New Idea
+	2 weeks 5hrs/day
+
+
+Get more users
+	
+	-Integration
+
+		twitter authentication
+		gmail authentication
+		meetup API
+		get FB events
+		couchsurfing
+
+	-Virality
 
 
 Maintain users
+	-Improved interface/design
+		-Greater connectivity w friends through out platform
+			Twillio
+			email rsvps from comment field with checkbox
+		-Improved look			
+			drawn arrows
+			
 		-Improved UXsmoothness
+			event#edit ajax lightbox
+			event#show ajax lightbox/expand the idea vertically
+			Make focus fall on first text field on new idea form
 			List view
+			- custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid
 
 		-Performance (zippiness)
 			Optimize ajax to call for less data
+			make it so you only call for the @city_friends once from the database
 
 Make money
 	Payment gateway
@@ -209,9 +295,31 @@ Make money
 		Public member
 		Upgrade account
 
+Fixes
+	fix timezone
+	all events already over turn grey
+	If event is full, just not showing it in maybes right now - show as full
+	Agent call - if android/iPhone download our apps	
+	toggling faces on and off goes back to today and doesn't move the orange rectangle
+	keyup character counter in idea
+	Mobile local registration
+	Recurring events
+	Groups/Lists of users ("Make selected viewed into list")
+	Flag user for spam (block/ignore user)
+
+
+Features
+	payment gateway
+	public feed
 	map view / list view / forecast built / 14 day forecast
+	groups/lists
 	checklist - easy to plan hard things to plan.
+
+	What do we do with already finished events in a given day? - grey out the past
+	Probably gray them out but still display? Or should we take them off the calendar as they're mostly irrelevant (but they still help for finding friends, make calendar more busy for better or worse)
 	
+	google calendar "add this to hoos.in".. and ADD THIS TO GoogleCal for rsvp'd events!
+
 	See old plans/ideas and be able to easily 'resurface' them, with guests as invites (in lightbox or some other way than scrolling back in calendar)
 	
 	OldEvents model that holds events so that main searching doesn't have to handle larger array
@@ -219,15 +327,22 @@ Make money
 Node Satisfaction:
 	guest list
 
+	
+
 	SQL Table maintenance; mainly destroying events after they are done, but transferring data somewhere in a reasonable format for conducting analytics
 
+	hide event/recurring event
+
 	copy evite
+
+	List view of events/ 3 week 5 week view of events calendar
 
 
 LOW PRIORITY 
 
 	Add google calendar socket - as 'busy'
 	Map of all events? - hyperlocal NYC thing
+	refactor error messages as partial
 	library of icons -flush out use cases -sports, games, booze, playdates, 
 
 
@@ -238,6 +353,11 @@ LOW PRIORITY
 People set a price they're willing to pay- use to get group discounts on e.g. paintballing, rent a soccer field, rent equipment. could have ppl set a max, and tip on $ instead of ppl. Get enough ppl for hockey team, 'register a soccer team', 
 
 Venues/resorts/... can put up events that only happen if they get enough interest, or that are cheaper based on how many ppl join and thus everyone going has incentive to tell people while the place is guaranteed to make money or have no costs!!!!
+
+More integration with facebook -- invitation creates facebook message . . . option to create facebook message / facebook event. In app app?
+
+user experience of curating invites/groups - don't just select a new type of event
+	"Make Current Selection a Group Users" "Invite Group to event"	
 
 ** Thoughts from Eve Galanter ** LOTS OF FRIENDS THAT RUN EVENTS
 	Madison Magazine, brava, inbusiness date books (calendars), Isthmus
@@ -269,25 +389,10 @@ Monetization
 
 subdomains for every city - you can belong to multiple cities -- this strategy can be used for -- should we use heroku if we know our deployment strategy?
 
+Marketing strategy
+	private beta? 1001 ppl
+
 NYC-inspired daily routine
 	e.g. lunchtime email to gather ideas, 3pm to spread ideas, 6pm to tip
 
 ---------------------------------------------------
-
-
-
-
-DONE
-Create Suggestions w same columns as events
-Users get boolean vendor?
-User that is vendor can create suggestion and view their suggestions in a vendor dashboard
-Suggestions have many children (class = Event)
-If user.vendor? put link to suggestions#index (vendor dashboard) in header.
-added promo_img to suggestion data structure
-When you click clone it finds the suggestion and passes the elements into a new clone form (i.e. new event form) with suggested elements not actionable and blank elements actionable.
-hid suggestions you've already cloned
-when you submit it goes to the EventsController#create method that creates an event that is a child of a suggestion using the suggestion id as the parent
-Welcome email for vendors
-when suggestion is created if it has a time already create an event - creating the event but not displaying in forecast . . .?
-vendors cannot friend or follow
-ppl can only follow vendors
