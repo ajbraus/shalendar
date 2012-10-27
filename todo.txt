@@ -36,6 +36,14 @@ password renew email from calenshare
 
 black and green group
 
+bug with noon,morning icons
+bug with create idea
+bug with timezone
+find_friends friend button
+
+Your friend "M" just joined hoos.in
+
+
 meta-data to event is in gutter
 
 IMAGE URL!
@@ -47,6 +55,14 @@ more differentiation for not tipped - milky
 Close Viral Loop
 	dynamic meta tags
 	add FB faces to share event#show also ask permissions to post to wall
+		Invite all -- send dynamic image/title
+		invite fb -- 
+			create fb_invite (like email_invite)
+			save fb pic_url
+			when someone creates a user replace fb_invite with new user
+			display FB invites in invited users
+			Launch dialogue box
+
 	invite dialogue box
 	
 	Email every invitation w boolean

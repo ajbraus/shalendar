@@ -81,7 +81,7 @@ class EventsController < ApplicationController
     @graph = session[:graph]
     @comments = @event.comments.order("created_at desc")
     @invite_friends = current_user.fb_friends(session[:graph])[1]
-    
+
     respond_to do |format|
       format.html 
       format.json { render json: @event }
