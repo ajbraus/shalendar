@@ -6,7 +6,7 @@
 		<% end %>
 	<% elsif @event.full? %>
 		Event is full
-	<% elsif @event.ends_at < Time.now %>
+	<% elsif @event.ends_at < Time.now.in_time_zone(current_user.time_zone) %>
 	
 	<% else %>
   	<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>

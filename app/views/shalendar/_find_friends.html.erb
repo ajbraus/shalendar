@@ -11,11 +11,10 @@
 			<% @member_friends.each do |mf| %>
 					<table>
 					<tr>
-						<td width="55px"><%= image_tag("#{mf['picture']['data']['url']}") %></td>
-						<td width="100px"><%= "#{mf['name']}" %></td>
+						<td width="55px"><%= raster_profile_picture(mf) %></td>
+						<td width="100px"><%= mf.name %></td>
 						<td width="60px">
-							<% u = Authentication.find_by_uid(mf['id']).user %>
-								<%= render  :partial => 'events/just_follow_form', :locals => { :user => u } %>
+								<%= render  :partial => 'events/just_follow_form', :locals => { :user => mf } %>
 				    </td>
 					</tr> 
 				</table>
@@ -27,7 +26,7 @@
 
 <% if @invite_friends.any? %>
 	<% if @me['location'].nil? %>
-		<h1>Your facebook friends Add your <%= link_to "current city", "http://answers.yahoo.com/question/index?qid=20081007104826AAbKEzP" %> on Facebook to show nearby friends.</h1>
+		<h1>To see your facebook friends add your current location on Facebook to show nearby friends.</h1>
 	<% else %>
 		<h1>Your facebook friends in <%= current_user.city %></h1>
 	<% end %>
@@ -36,7 +35,7 @@
 		<% @invite_friends.each do |inf| %>
 				<table>
 				<tr>
-					<td width="55px"><%= image_tag("#{inf['picture']['data']['url']}") %></td>
+					<td width="55px"><%= image_tag("#{inf['pic_square']}") %></td>
 					<td width="100px"><%= "#{inf['name']}" %></td>
 					<td width="60px">
 				    <div class="btn btn-success invite" alt="<%=inf['username']%>">Invite</div>

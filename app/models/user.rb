@@ -329,32 +329,11 @@ class User < ActiveRecord::Base
     return @invited_events_on_date | @plans_on_date
   end
 
-  private
 
-  def password_required? 
-    new_record? 
-  end
-
-  def send_gcm_notification(message, params)
-    if self.android_user == false
-      logger.info("Tried to send gcm notification to non-android user")
-      return
-    end
-
-    device = Gcm::Device.find_by_id(self.GCMdevice_id)
-    notification = Gcm::Notification.new
-    notification.device = device
-    notification.collapse_key = "updates_available"
-    notification.delay_while_idle = true
-    notification.data = { :data => message}
-    notification.save
-
-  end
 
   def self.digest
     @digest_users = User.where("users.digest = 'true'")
     @digest_users.each do |u|
-      @count = u.new_invited_events_count
       time_range = Time.now.midnight .. Time.now.midnight + 3.days
       if u.events.where(starts_at: time_range).any?
         @upcoming_events = []
@@ -364,9 +343,8 @@ class User < ActiveRecord::Base
           @upcoming_events.push(@events)
         end
         Notifier.delay.digest(u, @upcoming_events)
-
-      elsif @count != 0 
-        @user_invitations = u.invitations.find(:all, order: 'created_at desc', limit: @count)
+      else
+        @user_invitations = u.invitations.find(:all, order: 'created_at desc')
         if @user_invitations.any?
           @new_events = []
           @user_invitations.each do |ui|
@@ -417,5 +395,52 @@ class User < ActiveRecord::Base
       end
     end
     return @vendor_friendships
+  end
+
+  def fb_friends(graph)
+    #RETURNS AN ARRAY [[HOOSIN_USERS][NOT_HOOSIN_USERS(FB_USERS)]]
+    @fb_friends = []
+    
+    @hoosin_user = []
+    @not_hoosin_user = []
+
+    @graph = graph
+    @facebook_friends = @graph.fql_query("SELECT current_location, pic_square, name, username, uid FROM user WHERE current_location AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())")
+    @city_friends = @facebook_friends.reject { |ff| ff['current_location']['name'] != self.city } 
+    @city_friends.each do |cf|
+      @authentication = Authentication.find_by_uid("#{cf['uid']}")
+      if @authentication
+        user = @authentication.user
+        @hoosin_user << user
+      else
+        @not_hoosin_user << cf
+      end
+    end
+    @fb_friends << @hoosin_user
+    @fb_friends << @not_hoosin_user
+    return @fb_friends
+  end
+
+
+  private
+
+  def password_required? 
+    new_record? 
+  end
+
+  def send_gcm_notification(message, params)
+    if self.android_user == false
+      logger.info("Tried to send gcm notification to non-android user")
+      return
+    end
+
+    device = Gcm::Device.find_by_id(self.GCMdevice_id)
+    notification = Gcm::Notification.new
+    notification.device = device
+    notification.collapse_key = "updates_available"
+    notification.delay_while_idle = true
+    notification.data = { :data => message}
+    notification.save
+
   end
 end

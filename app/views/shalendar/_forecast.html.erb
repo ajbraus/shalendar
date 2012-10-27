@@ -1,10 +1,10 @@
 <div id="forecast">
 	<% for i in -3..16 %>
-	<dl class="day" data-date=<%= "#{Time.now.to_date + i}" %>>
-		<% if Time.now.to_date + (i) == Time.now.to_date %>
-			<dt class="forecastDate red"><%= (Time.now.to_date + (i)).strftime("%A %b %e") %></dt>
+	<dl class="day" data-date=<%= "#{Time.now.in_time_zone(current_user.time_zone).to_date + i}" %>>
+		<% if Time.now.in_time_zone(current_user.time_zone).to_date + (i) == Time.now.to_date %>
+			<dt class="forecastDate red"><%= (Time.now.in_time_zone(current_user.time_zone).to_date + (i)).strftime("%A %b %e") %></dt>
 		<% else %>
-			<dt class="forecastDate"><%= (Time.now.to_date + (i)).strftime("%A %b %e") %></dt>
+			<dt class="forecastDate"><%= (Time.now.in_time_zone(current_user.time_zone).to_date + (i)).strftime("%A %b %e") %></dt>
 		<% end %>
 			<div class="idea_type">Friend Ideas</div>
 			<div class="idea_type_line"></div>

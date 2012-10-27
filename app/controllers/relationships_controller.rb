@@ -31,7 +31,6 @@ before_filter :authenticate_user!
       end
       @relationship = current_user.relationships.find_by_followed_id(@user.id)
       @relationship.confirmed = true
-      
       if @relationship.save
         current_user.add_invitations_from_user(@user)
         @plan_counts = []

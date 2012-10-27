@@ -1,4 +1,4 @@
-$("div").withUserId(<%= @user.id %>).html("<%= escape_javascript(render partial: 'events/just_follow_form', locals: {user:  @user}) %>")
+$("div").withUserId(<%= @user.id %>).html("<div class='btn btn_stop_viewing' style='cursor:arrow;'>Friended</div>")
 $(".forecast").html("<%= escape_javascript(render partial: 'shalendar/forecast') %>")
 $("#datepicker").html("<%= escape_javascript(render partial: 'shalendar/datepicker') %>")
 

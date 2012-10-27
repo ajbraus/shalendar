@@ -80,31 +80,8 @@ class EventsController < ApplicationController
     @invited_users = @event.invited_users - @event.guests
     @graph = session[:graph]
     @comments = @event.comments.order("created_at desc")
-    @invite_friends = []
-
-    # if session[:graph]
-    #   @graph = session[:graph]
-    #   @friendships = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
-    #   # @city_friends = @graph.fql_query(
-    #   #   SELECT uid, name, location, pic_square
-    #   #   FROM user 
-    #   #   WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me() AND location = me())
-    #   #   )
-    #   @me = @graph.get_object('me')
-    #   @city_friends = @friendships.select { |friend| friend['location'].present? && friend['location']['id'] == @me['location']['id'] }
-    #   @city_friends.each do |cf|
-    #     @authentication = Authentication.find_by_uid(cf['id'])
-    #     unless @authentication
-    #       @invite_friends.push(cf)
-    #     end
-    #   end
-    # end
-    # Need multi-query to get stuff by location
-    # @friendships = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
-    # @my_city = @graph.fql_query('select current_location from user  where uid=me()')
-    # @city_friends = @graph.fql_query('SELECT uid, name, pic_square FROM user WHERE uid IN (SELECT uid2, current_location FROM friend WHERE uid1 = me())')
-    # SELECT uid, name, pic_square FROM user WHERE is_app_user AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())
-    # SELECT current_location, name FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1=me()) and "New York" in current_location
+    @invite_friends = current_user.fb_friends(session[:graph])[1]
+    
     respond_to do |format|
       format.html 
       format.json { render json: @event }
