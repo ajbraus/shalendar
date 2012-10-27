@@ -69,9 +69,6 @@ Close Viral Loop
 	invite dialogue box
 	
 	Email every invitation w boolean
-=======
-don't send email comments to yourself
->>>>>>> 4298c1d53a46a938de4abb976820fa019411d4c4
 
 hide unrequired elements
 
