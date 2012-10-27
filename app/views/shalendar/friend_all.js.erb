@@ -1,0 +1,6 @@
+$("#follow_form").html("Request Sent")
+$(".forecast").html("<%= escape_javascript(render partial: 'shalendar/forecast') %>")
+$("#datepicker").html("<%= escape_javascript(render partial: 'shalendar/datepicker') %>")
+
+$("#friends").html("<%= escape_javascript(render partial: 'shalendar/friends') %>")
+$("#header_friend_count").increment();

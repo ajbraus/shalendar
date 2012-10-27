@@ -18,5 +18,4 @@ class Relationship < ActiveRecord::Base
 	def confirmed?
 		self.confirmed
 	end
-	
 end

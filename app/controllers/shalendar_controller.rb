@@ -123,7 +123,8 @@ class ShalendarController < ApplicationController
     @city_friends.each do |cf|
       @authentication = Authentication.find_by_uid(cf['id'])
       if @authentication
-        @member_friends.push(cf)
+        user = @authentication.user
+        @member_friends.push(user)
       end
     end
     @member_friends.each do |mf|

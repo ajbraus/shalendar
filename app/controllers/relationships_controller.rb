@@ -3,67 +3,63 @@ before_filter :authenticate_user!
 
   def create
     @user = User.find(params[:relationship][:followed_id])
+    #IF VENDOR
     if current_user.vendor?
       redirect_to :back, notice: "Couldn't Friend #{@user.name}"
-    else
-      if(current_user.following?(@user) || current_user.request_following?(@user))
-        redirect_to :back, notice: "You are already friends"
-
-      elsif @user.require_confirm_follow?  && (@user.following?(current_user) == false)#autoconfirm if already following us
-        current_user.follow!(@user)
-        @relationship = current_user.relationships.find_by_followed_id(@user.id) #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
-        @relationship.confirmed = false
-        Notifier.delay.confirm_follow(@user, current_user)
-        if @relationship.save
-          respond_to do |format|
-            format.html { redirect_to :back, notice: "Friend request sent to #{@user.name}" }
-            format.js { render template: "relationships/create_no_reload" }
-          end
-        else
-          redirect_to :back, notice: "Couldn't Friend #{@user.name}"
+    #IF ALREADY FOLLOWING OR REQUESTED TO FOLLOW
+    elsif current_user.following?(@user) || current_user.request_following?(@user)
+      redirect_to :back, notice: "You are already friends"
+    #IF REQUIRES CONFIRM FOLLOW
+    elsif @user.require_confirm_follow?  && @user.following?(current_user) == false #autoconfirm if already following us
+      current_user.follow!(@user)
+      @relationship = current_user.relationships.find_by_followed_id(@user.id) #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
+      @relationship.confirmed = false
+      Notifier.delay.confirm_follow(@user, current_user)
+      if @relationship.save
+        respond_to do |format|
+          format.html { redirect_to :back, notice: "Friend request sent to #{@user.name}" }
+          format.js { render template: "relationships/create_no_reload" }
         end
       else
-        Notifier.delay.new_friend(@user, current_user)
-        unless current_user.following?(@user) || current_user.request_following?(@user)
-          current_user.follow!(@user)
-        end
+        redirect_to :back, notice: "Couldn't Friend #{@user.name}"
+      end
+    #OTHERWISE - IS NOT VENDOR AND DOES NOT REQUIRE CONFIMER FOLLOW
+    else
+      Notifier.delay.new_friend(@user, current_user)
+      unless current_user.following?(@user) || current_user.request_following?(@user)
+        current_user.follow!(@user)
+      end
+      @relationship = current_user.relationships.find_by_followed_id(@user.id)
+      @relationship.confirmed = true
+      
+      if @relationship.save
+        current_user.add_invitations_from_user(@user)
+        @plan_counts = []
+        @invite_counts = []
+        @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
+        @date = Time.now.in_time_zone(current_user.time_zone).to_date
+        @event_suggestions = Suggestion.event_suggestions(current_user)
+        @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
+        @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
+        @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
+        @vendor_friendships = current_user.vendor_friendships
         
-        @relationship = current_user.relationships.find_by_followed_id(@user.id)
-        @relationship.confirmed = true
-        
-        if @relationship.save
-          current_user.add_invitations_from_user(@user)
-          @plan_counts = []
-          @invite_counts = []
-          @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
-          @date = Time.now.in_time_zone(current_user.time_zone).to_date
-          @event_suggestions = Suggestion.event_suggestions(current_user)
-          @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
-          @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
-          @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
-          @vendor_friendships = []
-          current_user.relationships.where('relationships.confirmed = true').each do |r|
-            if r.followed.vendor?
-              @vendor_friendships << r
-            end
+        unless @user.following?(current_user) || @user.vendor?
+          unless @user.request_following?(current_user) 
+            @user.follow!(current_user)
           end
-          unless @user.following?(current_user) || @user.vendor?
-            unless @user.request_following?(current_user) 
-              @user.follow!(current_user)
-            end
-            @reverse_relationship = @user.relationships.find_by_followed_id(current_user.id)
-            @reverse_relationship.confirmed = true
-            @reverse_relationship.save
-            @user.add_invitations_from_user(current_user)
-            #also need to add all relevant invitations for both people at this point
-          end
-          respond_to do |format|
-            format.html { redirect_to :back, notice: "You are now friends with #{@user.name}" }
-            format.js
-          end
-        else
-          redirect_to :back, notice: "Couldn't Friend #{@user.name}"
+          @reverse_relationship = @user.relationships.find_by_followed_id(current_user.id)
+          @reverse_relationship.confirmed = true
+          @reverse_relationship.save
+          @user.add_invitations_from_user(current_user)
+          #also need to add all relevant invitations for both people at this point
         end
+        respond_to do |format|
+          format.html { redirect_to :back, notice: "You are now friends with #{@user.name}" }
+          format.js
+        end
+      else
+        redirect_to :back, notice: "Couldn't Friend #{@user.name}"
       end
     end
   end

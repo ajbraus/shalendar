@@ -408,4 +408,14 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def vendor_friendships
+    @vendor_friendships = []
+    self.relationships.where('relationships.confirmed = true').each do |r|
+      if r.followed.vendor?
+        @vendor_friendships << r
+      end
+    end
+    return @vendor_friendships
+  end
 end

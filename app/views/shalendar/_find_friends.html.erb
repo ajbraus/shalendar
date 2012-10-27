@@ -1,25 +1,25 @@
 <div id="find_friends">
-<% if @me['location'].nil? %>
-	<h1>Your hoos.in friends: Add your <%= link_to "current city", "http://answers.yahoo.com/question/index?qid=20081007104826AAbKEzP" %> on Facebook to show nearby friends.</h1>
-<% else %>
-	<h1>Your hoos.in friends in <%= current_user.city %></h1>
-<% end %>
-
 <% if @member_friends.any? %>
-	<div class="invite_friends">
-		<div class="invite_all"><%= link_to "Friend All", friend_all_path, class:"btn btn-primary", remote: true %></div>
-		<% @member_friends.each do |mf| %>
-				<table>
-				<tr>
-					<td width="55px"><%= image_tag("#{mf['picture']['data']['url']}") %></td>
-					<td width="100px"><%= "#{mf['name']}" %></td>
-					<td width="60px">
-						<% u = Authentication.find_by_uid(mf['id']).user %>
-							<%= render :partial => 'events/follow_form', locals: { :user => u } %>
-			    </td>
-				</tr> 
-			</table>
-		<% end %>
+	<div class="member_friends">
+	<% if @me['location'].nil? %>
+		<h1>Your hoos.in friends: Add your <%= link_to "current city", "http://answers.yahoo.com/question/index?qid=20081007104826AAbKEzP" %> on Facebook to show nearby friends.</h1>
+	<% else %>
+		<h1>Your hoos.in friends in <%= current_user.city %></h1>
+	<% end %>
+		<div class="invite_friends">
+			<div class="invite_all"><%= link_to "Friend All", friend_all_path, class:"btn btn-primary", remote: true %></div>
+			<% @member_friends.each do |mf| %>
+					<table>
+					<tr>
+						<td width="55px"><%= image_tag("#{mf['picture']['data']['url']}") %></td>
+						<td width="100px"><%= "#{mf['name']}" %></td>
+						<td width="60px">
+							<% u = Authentication.find_by_uid(mf['id']).user %>
+								<%= render  :partial => 'events/just_follow_form', :locals => { :user => u } %>
+				    </td>
+					</tr> 
+				</table>
+			<% end %>
 	</div>
 
 	<hr>

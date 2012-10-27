@@ -1023,7 +1023,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7fbfc', end
 .event_time {
 color: white;
 background-color: #383838;
-padding: 1px 0px 0 8px;
+padding: 1px 0px 0 2px;
 font-size: 18px;
 height: 20px;
 margin-bottom: 4px;
@@ -1033,7 +1033,7 @@ img {
 span {
 position: absolute;
 top: 8px;
-right: 29px;
+right: 20px;
 }
 }
 
@@ -1427,6 +1427,8 @@ opacity: 0.2;
 
 .invite_friends {
   float: left;
+  clear: both;
+width: 100%;
 }
 
 .fb_invite_friends {
