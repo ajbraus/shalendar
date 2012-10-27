@@ -42,7 +42,9 @@ before_filter :authenticate_user!
         @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
         @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
         @vendor_friendships = current_user.vendor_friendships
-        
+        @member_friends = current_user.fb_friends(session[:graph])[0]
+        @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }
+
         unless @user.following?(current_user) || @user.vendor?
           unless @user.request_following?(current_user) 
             @user.follow!(current_user)

@@ -1,5 +1,5 @@
 <% unless current_user == user || current_user.vendor? %>
-	<div id="follow_form" class="follow_btn" data-user-id="<%= user.id %>">
+	<div id="follow_form" data-user-id="<%= user.id %>">
 	  <% if current_user.request_following?(user) %>
 			Request<br>Sent
 	  <% elsif !current_user.following?(user) %>

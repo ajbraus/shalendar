@@ -1,6 +1,7 @@
 $("div").withUserId(<%= @user.id %>).html("<div class='btn btn_stop_viewing' style='cursor:arrow;'>Friended</div>")
 $(".forecast").html("<%= escape_javascript(render partial: 'shalendar/forecast') %>")
 $("#datepicker").html("<%= escape_javascript(render partial: 'shalendar/datepicker') %>")
+$(".friend_suggestions").html("<%= escape_javascript(render partial: 'shalendar/friend_suggestions') %>")
 
 $("#friends").html("<%= escape_javascript(render partial: 'shalendar/friends') %>")
 $("#header_friend_count").increment();

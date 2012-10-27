@@ -13,7 +13,7 @@
     <%= @event.title %>
   </div>
 
-  <% if @event.link %>
+  <% if @event.link.length > 0 %>
     <div class="event_link">
       link: <%= event_link(@event) %>
     </div>
@@ -49,6 +49,11 @@
         </li>
       <% end %>
       <% if current_user.id == @event.user.id %>
+          <li class="icon">
+            <div class="invite_all">
+              <%= link_to "X", invite_all_fb_friends_path, class:"btn btn-primary", id:"invite_all_friends", title:"Invite FB Friends", remote: true %>
+            </div>
+          </li>
         <% if current_user.invited_all_friends?(@event) %>
           <li class="icon">
             <i class="icon-group gold" title="Shared with all Friends"></i>

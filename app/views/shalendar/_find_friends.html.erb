@@ -38,7 +38,7 @@
 					<td width="55px"><%= image_tag("#{inf['pic_square']}") %></td>
 					<td width="100px"><%= "#{inf['name']}" %></td>
 					<td width="60px">
-				    <div class="btn btn-success invite" alt="<%=inf['username']%>">Invite</div>
+				    <div class="btn btn-success invite" alt="<%=inf['uid']%>">Invite</div>
 			    </td>
 				</tr> 
 			</table>
@@ -58,27 +58,28 @@ $(document).ready(function() {
 	});
 
 	$("div.invite").click(function(){
-	username = $(this).attr('alt');
-	$(this).removeClass("btn-success").removeClass("invite").addClass("btn_stop_viewing").text("Invited");
-	
-	FB.ui(
-  {
-    method: 'send',
-    name: 'hoos.in',
-    to: username,
-    link: 'http://www.hoos.in',
-    picture: 'https://s3.amazonaws.com/hoosin-production/logos/icon.png',
-    description: 'Do Great Things With Friends'
-  },
-  function(response) {
-    if (response && response.post_id) {
-      alert('Post was published.');
-    } else {
-      alert('Post was not published.');
-    }
-  }
-);
-});
+		uid = $(this).attr('alt');	
+		FB.ui(
+	  {
+	    method: 'send',
+	    to: uid,
+	    name: 'Join hoos.in',
+	    link: 'http://www.hoos.in',
+	    picture: 'https://s3.amazonaws.com/hoosin-production/logos/icon.png',
+	    description: 'Do Great Things With Friends'
+	  },
+	  function(response) {
+	    if (response && response.post_id) {
+	    	alert('Post was published');
+	      // $(this).removeClass("btn-success")
+	      //        .removeClass("invite")
+	      //        .addClass("btn_stop_viewing")
+	      //        .text("Invited");
+	    } else {
+	      alert('Post was not published.');
+	    }
+	  });
+	});
 });
 </script>
 

@@ -375,6 +375,13 @@ $('#new_suggestion_form').validate();
     }, {scope: "publish_stream"});
   });
 
+// TOGGLE FRIEND BUTTON FOR NAME
+
+  $(".friend").hover(function(){
+    $(this).children("#friend_name").toggle();
+    $(this).children("#friend_button").toggle();
+  });
 
 // END DOCUMENT.READY
 });
+

@@ -2,8 +2,9 @@ class FbInvitesController < ApplicationController
   before_filter :authenticate_user!
   
   def create
+    binding.remote_pry
     @event = Event.find(params[:event_id])
-    @invite = @event.fb_invites.build(params[:email_invite])
+    @invite = @event.fb_invites.build({uid:  :inviter_id, :fb_pic_url})
     @invite.inviter_id = current_user.id 
 
     respond_to do |format|

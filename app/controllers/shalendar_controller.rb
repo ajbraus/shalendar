@@ -15,7 +15,8 @@ class ShalendarController < ApplicationController
     @suggestions = @all_suggestions.reject do |as|
       !current_user.cloned?(as) || !current_user.rsvpd_to_clone?(as)
     end
-    
+    @member_friends = current_user.fb_friends(session[:graph])[0]
+    @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.first(3)
     #@vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
 	end
 
@@ -74,8 +75,8 @@ class ShalendarController < ApplicationController
   def friend_all
     @member_friends = current_user.fb_friends(session[:graph])[0] #RETURNS AN ARRAY [[HOOSIN_USERS][NOT_HOOSIN_USERS(FB_USERS)]]
     @member_friends.each do |mf|
-      unless current_user.following?(mf)
-        Relationship.create("followed_id" => "#{mf.id}"})
+      unless current_user.following?(mf) || mf.vendor? || current_user.request_following?(mf)
+          current_user.friend!(mf)
       end
     end
     @plan_counts = []
@@ -132,6 +133,30 @@ class ShalendarController < ApplicationController
     end
   end
 
+   def invite_all_fb_friends(event)
+    @invite_friends.each do |inf|
+      if Rails.env.production?
+        @invite_friends.each do |inf|
+        session[:graph].delay.put_connections( inf['id'], "feed", {
+                                        :message => "I'm using hoos.in to do awesome things with my friends. Check it out:", 
+                                        :name => "hoos.in",
+                                        :link => "http://www.hoos.in/",
+                                        :caption => "Do Great Things With Friends",
+                                        :picture => "http://www.hoos.in/assets/icon.png"
+                                      })
+        end
+      else
+        session[:graph].put_connections( 2232003, "feed", {
+                                        :message => "I'm using hoos.in to do awesome things with my friends. Check it out:", 
+                                        :name => "hoos.in",
+                                        :link => "http://www.hoos.in/",
+                                        :caption => "Do Great Things With Friends",
+                                        :picture => "http://www.hoos.in/assets/icon.png"
+                                      })
+      end
+    end
+  end
+
   def admin_dashboard
     unless current_user.admin?
       redirect_to root_path
@@ -170,27 +195,6 @@ class ShalendarController < ApplicationController
     end
     #SUGGESTIONS
 
-  end
-
-  def fb_app_invite 
-    @invitees = params[:invitees].split(', ')
-    @subject = params[:subject]
-    @message = params[:message]
-    @invitees.each do |username|
-      @email = username + "@facebook.com"
-      Notifier.fb_app_invite(@email, @subject, @message).deliver
-    end
-    redirect_to root_path, notice: 'Message successfully sent to selected Facebook Friends'
-  end
-
-  def fb_event_invite
-    # if params[:username]
-    #   @event = Event.find_by_id(params[:event])
-    #   @email = params[:username] + "@facebook.com"
-    #   @name = params[:name]
-    #   Notifier.fb_event_invite(@email, @event, @name).deliver
-    # end
-    # redirect_to @event, notice: 'Message successfully sent to Facebook Friend'
   end
 
   private

@@ -1,12 +1,5 @@
-FB.ui({
-		to: 
-    method: 'send',
-    name: 'Facebook Dialogs',
-    link: 'https://developers.facebook.com/docs/reference/dialogs/'
-    });
-}
+
 
 $('#invite_raster').html("<%= escape_javascript(render partial: 'events/invite_raster', locals: { :event => @event }) %>");
 $('#invites').html("<%= escape_javascript(render partial: 'events/invites' ) %>");
 $('#invite_count').increment();
-$('#littleTIP').hide();

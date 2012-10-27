@@ -77,7 +77,8 @@ class EventsController < ApplicationController
     @guests = @event.guests
     @friends = current_user.followers
     @email_invites = @event.email_invites
-    @invited_users = @event.invited_users - @event.guests
+    #@fb_invites = @event.fb_invites
+    @invited_users = @event.invited_users - @event.guests 
     @graph = session[:graph]
     @comments = @event.comments.order("created_at desc")
     @invite_friends = current_user.fb_friends(session[:graph])[1]

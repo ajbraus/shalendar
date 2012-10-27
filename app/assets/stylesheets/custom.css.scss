@@ -153,27 +153,23 @@ ul, li {
 
 .btn {
 line-height: 24px;
-padding: 6px 15px 6px 15px;
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 border-radius: 5px;
-font-size: 20px;
+font-size: 14px;
+padding: 0px 8px 0px 8px;
 }
 
 .btn-follow {
-  border-radius: 5px;
-  font-size: 21px;
-  color:white;
-  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #EE9100), color-stop(1, #f77740) );
-  background:-moz-linear-gradient( center top, #EE9100 5%, #f77740 100% );
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0976e', endColorstr='#f77740');
-  background-color:#EE9100;
-  border:1px solid #dcdcdc;
-  display:inline-block;
-  color:#ffffff;
-  padding: 9px 12px 9px 12px;
-position: relative;
-right: 16px;
+border-radius: 5px;
+color: white;
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #EE9100), color-stop(1, #F77740));
+background: -moz-linear-gradient(center top, #EE9100 5%, #F77740 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0976e', endColorstr='#f77740');
+background-color: #EE9100;
+border: 1px solid gainsboro;
+display: inline-block;
+color: white;
   &:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f77740), color-stop(1, #EE9100) );
   background:-moz-linear-gradient( center top, #f77740 5%, #EE9100 100% );
@@ -264,7 +260,7 @@ padding: 21px 12px;
   border:1px solid #dcdcdc;
   display:inline-block;
   color:#636363;
-  font-size: 12px;
+  font-size: 15px;
 }
 .btn_stop_viewing:hover {
   background-color:#ededed;
@@ -800,17 +796,17 @@ margin: 0 auto;
 }
 
 #datepicker {
-width: 596px;
+width: 405px;
 font-size: 12px;
 height: 75px;
 position: absolute;
 bottom: 13px;
 float: right;
 z-index: 1;
-left: 340px;
+left: 510px;
   table{
 float: left;
-width: 29px;
+width: 20px;
     td {
       text-align: center;
     }
@@ -837,12 +833,19 @@ width: 29px;
 
 #datewindow {
 border: 3px solid #FF8500;
-width: 113px;
+width: 76px;
 height: 75px;
 position: absolute;
-left: 83px;
+left: 80px;
 bottom: -2px;
 z-index: -2;
+}
+
+.friend_suggestions {
+position: absolute;
+left: 305px;
+top: -6px;
+width: 199px;
 }
 
 .weeks {
@@ -1337,12 +1340,6 @@ margin-bottom: 20px;
   }
 }
 
-.follow_btn {
-position: relative;
-left: 14px;
-width: 100px;
-}
-
 .red {
   color:$destroy;
 }
@@ -1801,7 +1798,7 @@ font-size: 37px;
 z-index: 11;
 width: 461px;
 position: relative;
-margin: -5px 0;
+margin: 8px 0;
 margin-left: 17px;
 height: 40px;
 float: left;
@@ -1840,10 +1837,6 @@ overflow-x: hidden;
     width:18%;
     float:left;
   }
-  form {
-    width: 57px;
-float: left;
-  }
 }
 .invites_guests {
 width: 973px;
@@ -1857,6 +1850,14 @@ right: 80px;
   .event_show_rasters:nth-child(2) {
     margin:0px 20px;
   }
+}
+
+.event_show_friend {
+float: left;
+width: 70px;
+text-align: center;
+height: 110px;
+font-size: 14px;
 }
 
 .hi_friends_invite {

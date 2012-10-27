@@ -41,14 +41,13 @@ Adam
 --------------
 Digest troubleshoot
 
+Wire up invite_all_fb_friends in shalendar controller
+
+tabs for hi invites and fb invites
+
 password renew email from calenshare
 
-fix destroy.js.erb in shalendar views
-
-bug with noon,morning icons
 bug with create idea
-bug with timezone
-find_friends friend button
 
 Your friend "M" just joined hoos.in
 
@@ -57,22 +56,17 @@ meta-data to event is in gutter
 
 Close Viral Loop
 	dynamic meta tags
+	tab view of hi friends and fb friends
+
 	add FB faces to share event#show also ask permissions to post to wall
-		Invite all -- send dynamic image/title
 		invite fb -- 
 			create fb_invite (like email_invite)
 			save fb pic_url
 			when someone creates a user replace fb_invite with new user
 			display FB invites in invited users
 			Launch dialogue box
-
-	invite dialogue box
-	
+			count invites fb_invites + email_invites + hoosin invitations
 	Email every invitation w boolean
-
-hide unrequired elements
-
-friend button not responding in find_friends
 
 RSVP in/out
 
@@ -119,21 +113,6 @@ bring order to 'lastest ideas'
 invite, guest list: order by ppl you already friended
 facebook friends: order by ppl already on hoosin
 
-
-DONE
-Create Suggestions w same columns as events
-Users get boolean vendor?
-User that is vendor can create suggestion and view their suggestions in a vendor dashboard
-Suggestions have many children (class = Event)
-If user.vendor? put link to suggestions#index (vendor dashboard) in header.
-added promo_img to suggestion data structure
-When you click clone it finds the suggestion and passes the elements into a new clone form (i.e. new event form) with suggested elements not actionable and blank elements actionable.
-hid suggestions you've already cloned
-when you submit it goes to the EventsController#create method that creates an event that is a child of a suggestion using the suggestion id as the parent
-Welcome email for vendors
-when suggestion is created if it has a time already create an event - creating the event but not displaying in forecast . . .?
-vendors cannot friend or follow
-ppl can only follow vendors
 
 
 

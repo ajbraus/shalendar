@@ -10,4 +10,16 @@
     </table>  
   <% end %>
 <% end %>
+<% if false %>
+<!-- FB_INVITES -->
+<% unless @fb_invites.empty? %>
+  <% @fb_invites.each do |fbi|  %>
+    <table>
+      <tr>
+        <td title="<%= fbi['name'] %>" width="50"><%= image_tag "#{fbi.fb_pic_url}" %></td>
+      </tr>
+    </table>  
+  <% end %>
+<% end %>
+<% end %>
 <%= render partial: 'email_invites/email_invite', collection: @email_invites %>

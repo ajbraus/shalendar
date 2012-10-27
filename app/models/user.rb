@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  default_scope :order => 'name'
   # Include default devise modules. Others available are:
   # :confirmable,
   # :lockable, :timeoutable
@@ -200,6 +201,38 @@ class User < ActiveRecord::Base
     end
   end
 
+  def friend!(other_user)
+    if other_user.require_confirm_follow? && other_user.following?(self) == false #autoconfirm if already following us 
+      self.follow!(other_user)
+      @relationship = self.relationships.find_by_followed_id(other_user.id) #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
+      @relationship.confirmed = false
+      @relationship.save
+      Notifier.delay.confirm_follow(other_user, self)
+    else
+      unless self.following?(other_user) || self.request_following?(other_user)
+        self.follow!(other_user)
+      end
+      @relationship = self.relationships.find_by_followed_id(other_user.id)
+      @relationship.confirmed = true
+      @relationship.save
+      Notifier.delay.new_friend(other_user, self)
+      self.friend_back!(other_user)
+    end
+  end
+
+  def friend_back!(other_user)
+    unless other_user.following?(self) || other_user.vendor?
+      unless other_user.request_following?(self) 
+        other_user.follow!(self)
+      end
+      @reverse_relationship = other_user.relationships.find_by_followed_id(self.id)
+      @reverse_relationship.confirmed = true
+      @reverse_relationship.save
+      other_user.add_invitations_from_user(self)
+      #also need to add all relevant invitations for both people at this point
+    end
+  end
+
   def add_invitations_from_user(other_user)
     other_user.rsvps.each do |r|
       if r.invite_all_friends?
@@ -255,10 +288,6 @@ class User < ActiveRecord::Base
       r.invite_all_friends = true
       r.save
     end
-  end
-
-  def invite_all_fb_friends(event)
-
   end
 
   def invite!(event, other_user)

@@ -12,6 +12,7 @@ class Event < ActiveRecord::Base
 
   has_many :comments, dependent: :destroy
   has_many :email_invites, dependent: :destroy
+  has_many :fb_invites, dependent: :destroy
 
   attr_accessible :user_id,
                   :suggestion_id,
