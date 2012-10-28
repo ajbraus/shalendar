@@ -7,7 +7,7 @@ development:
   :enable_starttls_auto: true
 production:
   :user_name: hoosin
-  :password: "h00$.in1@#"
+  :password: "hoosin1@#"
   :domain: hoos.in
   :address: smtp.sendgrid.net
   :port: 587
