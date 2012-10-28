@@ -165,6 +165,8 @@ $(document).bind('click', function(e) {
   $('#events').tabs();
   $('#suggestions').tabs();
 
+  $('#invite_raster').tabs();
+
 // DATETIME PICKER
 
   $('#datetime').datetimepicker({
@@ -381,6 +383,8 @@ $('#new_suggestion_form').validate();
     $(this).children("#friend_name").toggle();
     $(this).children("#friend_button").toggle();
   });
+
+
 
 // END DOCUMENT.READY
 });

@@ -1357,6 +1357,24 @@ margin-bottom: 20px;
   }
 }
 
+.fadeInGreen {
+    color:lightGrey;
+  &:hover{
+  color:$happening;
+  -webkit-transition: color .25s linear .1s;
+  transition: color .25s linear .1s;
+  }
+}
+
+.fadeInFBBlue {
+    color:lightGrey;
+  &:hover{
+  color:#3A5998;
+  -webkit-transition: color .25s linear .1s;
+  transition: color .25s linear .1s;
+  }
+}
+
 .destroy {
   color:$destroy;
 }
@@ -1695,7 +1713,7 @@ color: white;
 background-color: green;
 }
 .title {
-height: 225px;
+height: 220px;
 width: 385px;
 position: relative;
 background-color: white;
@@ -1710,12 +1728,11 @@ top: 41px;
 height: 120px;
   }
   .event_buttons{
-    font-size: 30px;
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-    width: 270px;
-    height: 33px;
+font-size: 30px;
+position: absolute;
+right: 5px;
+float: right;
+bottom: 8px;
     li {
       float:right;
     }
@@ -1735,51 +1752,27 @@ position: relative;
 right: 15px;
 bottom: 13px;
   }
-  .title_bottom {
-  position: absolute;
-  bottom:0;
-  width: 94%;
-    .can_invite {
-     position: relative;
-left: 250px;
-bottom: 19px;
-width: 10px;
-font-size: 37px;
+  .event_link {
+float: left;
+width: 385px;
+overflow-x: hidden;
+position: absolute;
+bottom: 63px;
+left: 43px;
     }
+  .event_location{
+position: absolute;
+top: 154px;
+left: 15px;
   }
+.title_bottom {
   .by {
     float: left;
     width: 215px;
     position: absolute;
     bottom: 7px;
   }
-
-  .event_link {
-    float: left;
-    width: 385px;
-    overflow-x: hidden;
-    position: absolute;
-    bottom: 63px;
-    left: 20px;
-    }
 }
-
-.icon {
-  position: relative;
-  top: 19px;
-  .btn-success{
-    padding: 13px 6px 13px 7px;
-    line-height: 6px;
-    position: relative;
-    bottom: 5px;
-    left: 0px;
-    -webkit-border-radius: 7px;
-    -moz-border-radius: 7px;
-    border-radius: 7px;
-  }
-  .icon-group {
-    font-size: 40px;
-  }
 }
 
 .tipped_title {
@@ -1854,7 +1847,7 @@ right: 80px;
 
 .event_show_friend {
 float: left;
-width: 70px;
+width: 82px;
 text-align: center;
 height: 110px;
 font-size: 14px;
@@ -2445,6 +2438,10 @@ font-size: 10.3px;
 }
 .ui-tabs-nav {
   width: 98%;
+}
+
+.ui-tabs .ui-tabs-panel {
+  padding: 1em .2em;
 }
 
 #tabs_nested{

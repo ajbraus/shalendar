@@ -40,16 +40,186 @@ new follower email link not working
 Adam
 --------------
 Digest troubleshoot
-
 Wire up invite_all_fb_friends in shalendar controller
-
-tabs for hi invites and fb invites
-
+	Invite all -- send dynamic image/title
+	fb_invite 
+		create fb_invite (like email_invite)
+		save fb pic_url
+		when someone creates a user replace fb_invite with new user
+		display FB invites in invited users
+		Launch dialogue box
 password renew email from calenshare
 
 bug with create idea
+bug email comment
+Upon create invitation tabs not reloading -- create partial
 
 Your friend "M" just joined hoos.in
+
+JoyRide
+
+Suggested friends
+	user.rb
+	has_many :suggested_friends, through: :suggested_friends
+	belongs_to user, through :suggested_friends
+	migration creates linking table
+	data migration, fb_friends who they are not hi_friends with yet
+	create suggested_friend for other users when new user is created
+	remove suggested_friend when 
+		user clicks "X" on suggested friend in home page
+		relationship is created between the two users
+	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
+
+meta-data to event is in gutter
+
+IMAGE URL!
+
+Close Viral Loop
+	dynamic meta tags
+	
+	Email every invitation w boolean
+	add face to invite email, new follower email, and confirmation email, and 
+	event images to stuff (daily digest, invitation)
+	google contacts
+	- custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid	
+
+Marketing
+	Suggestions tweet to city specific twitter account
+	Add hashtag to get instagram images from / tweet about the event
+
+Maintain Users
+	.ics file in event show and emails
+	add to google calendar link in event show and emails
+
+non dev stuff
+	operators agreement
+	privacy/terms pages
+
+Big UI Improvements
+	friend button not responding in find_friends
+	RSVP in/out
+	suggestion counter row to datepicker or add suggestions to ideas
+	fix invite raster in show page friend buttons etc
+	Tooltip is f-ing with button functionality
+
+High-Priority fixes
+
+	clones appearing on the right day. Events displayed on starts_at time
+	add price to events
+
+Vendor happiness
+	Branded event show pages
+
+Simplify Forms
+	img URL
+	require category with javascript in suggestions
+	validate image size in form w js
+
+Medium UI improvements
+	fix alert and add error styling
+	add beautiful dialogue box for confirm to join event
+	http://snipplr.com/view/29911/javascript-alert-and-confirm-dialog-the-fancybox-way/
+	hide event/recurring event
+	Basic profile
+	Message a single RSVP or invited person
+	event edit page F-ed
+	event#edit ajax lightbox
+	event#show ajax lightbox/expand the idea vertically
+
+Small UI Improvements
+	yesterday tomorrow buttons working
+	drawn arrows
+	better landing page!
+
+
+
+piddly-shit
+	order things by them being your friends or not
+	FQL query for facebook friends, display alphabetically and if on hoosin then not
+	carrot next to picture
+	invite someone then hover stops working
+	when I click on "latest ideas" to remove them, it doesn't remove the counter!
+	month view
+	decrement new invited events count when an event expires
+	add "you are now friends with x" to relationship#create.js
+	add format.html to everything
+	remove vendor/cache gems
+	If event is full, just not showing it in maybes right now - show as full
+	Agent call - if android/iPhone download our apps	
+	keyup character counter in idea
+	tipping point and max set to nil - model method -- if nil == default values
+	
+
+Future stuff: 
+
+basic test - launch the lightboxes and js is working.
+
+bing maps 
+
+Silo by city
+	detect location by IP address: https://github.com/priithaamer/geoip-rails
+	hash timezone to location
+	make public yellow pages display and then make it load with ajax
+
+Vendors:
+	Provisioning/registration
+	Payment Gateway
+
+More users:
+	Twitter authentication
+	meetup.com
+
+More Events:
+	Recurring Events
+
+	Mobile local registration
+
+
+User Helper:
+def contact
+	if app user => push
+	elsif phone number => text
+	else email
+end
+
+def remind
+	if app user => push
+	elsif phone number => text
+	else flash notification every 15 minutes on screen of homepage, play noise?
+end
+
+
+invite people who went to other events but without having to follow them
+
+	
+	lists
+	payment gateway
+
+		f. tip-by date
+		g. price
+
+			Required contribution checklist
+			in place of rsvp
+			something to contribute (good or skill or cash)
+
+		3. Commercial - payment
+			pay through our site
+
+SDK - follow us on hoos.in
+
+Twilio:
+		add phone number to user in DB
+		add SMS messages to notifier
+		Buy phone number
+		add phone number in settings page
+		add user boolean for receiving text messages
+		Text message invitations to join calenshare for an event
+
+	Add FB events
+
+Performance
+	benchmark 2 second page loads with #x users
+	progressive page loading i.e. forecast with events after
 
 
 meta-data to event is in gutter
@@ -160,23 +330,42 @@ make invitation email better (are ppl even using this?) Maybe a 'copy the link t
 
 invite people who went to other events but without having to follow them
 
-add beautiful dialogue box for confirm to join event
-
-http://snipplr.com/view/29911/javascript-alert-and-confirm-dialog-the-fancybox-way/
-
-daily digest if new events
-
-remove vendor/cache gems
-
-operators agreement
+add beautiful dialogue box for confirm to join event http://snipplr.com/view/29911/javascript-alert-and-confirm-dialog-the-fancybox-way/
 
 
-                                                           
-                      
-Side note: put_wall_post posts to user/feeds, which doesn’t `include a Share button. To get one when posting a link, you can use put_connections(user, “links”, hash_of_details)
+Maintain users
+		-Improved UXsmoothness
+			List view
 
-P t to facebook wall . . . not for private events
-post to rsvps facebook wall of friends of RSVPs
+		-Performance (zippiness)
+			Optimize ajax to call for less data
+
+Make money
+	Payment gateway
+		Deals
+		Public member
+		Upgrade account
+
+	map view / list view / forecast built / 14 day forecast
+	checklist - easy to plan hard things to plan.
+	
+	See old plans/ideas and be able to easily 'resurface' them, with guests as invites (in lightbox or some other way than scrolling back in calendar)
+	
+	OldEvents model that holds events so that main searching doesn't have to handle larger array
+
+Node Satisfaction:
+	guest list
+
+	SQL Table maintenance; mainly destroying events after they are done, but transferring data somewhere in a reasonable format for conducting analytics
+
+	copy evite
+
+
+LOW PRIORITY 
+
+	Add google calendar socket - as 'busy'
+	Map of all events? - hyperlocal NYC thing
+	library of icons -flush out use cases -sports, games, booze, playdates, 
 
 
 AFTER BETA LAUNCH
@@ -297,11 +486,8 @@ Make money
 		Upgrade account
 
 Fixes
-	fix timezone
-	all events already over turn grey
 	If event is full, just not showing it in maybes right now - show as full
 	Agent call - if android/iPhone download our apps	
-	toggling faces on and off goes back to today and doesn't move the orange rectangle
 	keyup character counter in idea
 	Mobile local registration
 	Recurring events

@@ -1,19 +1,25 @@
-<% @friends.each do |f| %>
-	<% unless f.invited?(event) || f.rsvpd?(event) %>
-		<%= form_for f.invitations.build(invited_event_id: event.id, inviter_id: current_user.id, invited_user_id: f.id), remote: true do |i|%>
-			<%= i.hidden_field :inviter_id %>
-			<%= i.hidden_field :invited_event_id %>
-			<%= i.hidden_field :invited_user_id %>
-		  <div class="event_show_friend">
-		  	<%= image_submit_tag("#{invite_raster_picture(f)}", class: "profile_picture") %>
- 				<div id="friend_name"><%= f.name %></div>
-		 	</div>
-		<% end %>
-  <% end %>
-<% end %>
+<ul>
+    <li><a href="#tabs-1">hoos.in</a></li>
+    <li><a href="#tabs-2">facebook</a></li>
+</ul>
+<div id="tabs-1">
+	<% @friends.each do |f| %>
+		<% unless f.invited?(event) || f.rsvpd?(event) %>
+			<%= form_for f.invitations.build(invited_event_id: event.id, inviter_id: current_user.id, invited_user_id: f.id), remote: true do |i|%>
+				<%= i.hidden_field :inviter_id %>
+				<%= i.hidden_field :invited_event_id %>
+				<%= i.hidden_field :invited_user_id %>
+			  <div class="event_show_friend friend">
+			  	<%= image_submit_tag("#{invite_raster_picture(f)}", class: "profile_picture") %>
+	 				<div id="friend_name"><%= f.name %></div>
+	 			<%= i.submit "Invite", id:"friend_button", class:"btn btn-success", style:"display:none;" %>
+			 	</div>
+			<% end %>
+	  <% end %>
+	<% end %>
+</div>
 
-<div class="fb_friends_invite">
-	<p>Share with facebook Friends</p>
+<div id="tabs-2" class="fb_friends_invite">
 <% @invite_friends.each do |f| %>
 	<% if false %>
 	<% unless FbInvite.find_by_uid(f['id']) %>
@@ -21,10 +27,9 @@
 	<% end %>
 		  <div class="event_show_friend friend">
 			  <%= image_tag("#{f['pic_square']}", class: "profile_picture", alt: "#{f['uid']}" ) %>
- 					<div id="friend_name"><%= f['name'] %></div>
- 					<div id="friend_button" class="btn btn-success fb_event_invite" alt="<%=f['uid']%>" style="display:none;">
- 					Invite
- 				</div>
+ 				<div id="friend_name"><%= f['name'] %></div>
+ 				<div id="friend_button" class="btn btn-success fb_event_invite" alt="<%=f['uid']%>" style="display:none;">
+ 					Invite</div>
 		 	</div>
 <% end %>
 </div>
@@ -43,14 +48,7 @@ $(document).ready(function() {
     name: "<%= @event.title %>",
     link: "http://www.hoos.in/events/" + event_id,
     picture: "<%= @event.promo_img.url(:medium) %>"
-  	},
-  function(response) {
-    if (response && response.post_id) {
-      alert('Post was published.');
-    } else {
-      alert('Post was published.');
-    }
-  }
+  	}
 );
 
  //  function(response) {

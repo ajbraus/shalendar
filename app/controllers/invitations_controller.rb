@@ -9,11 +9,10 @@ class InvitationsController < ApplicationController
 
     respond_to do |format|
       @invited_users = @event.invited_users - @event.guests
-      Notifier.delay.invitation(@event, @user, current_user)
-      
-      format.html { redirect_to @event }
+      @invite_friends = current_user.fb_friends(session[:graph])[1]
       @friends = current_user.followers
-
+      Notifier.delay.invitation(@event, @user, current_user)
+      format.html { redirect_to @event }
       format.js
     end
   end
