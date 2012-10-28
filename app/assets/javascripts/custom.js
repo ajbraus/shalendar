@@ -44,7 +44,7 @@ $('#loading').ajaxStart(function(){
 
 $('.datePickerDay').click(function(){
   dw_position = $(this).position();
-  $('#datewindow').animate({ left: dw_position.left - 2}, 1000);
+  $('#datewindow').animate({ left: dw_position.left }, 1000);
   date = $(this).attr('data-date');
   forecast_original_position = $('#forecast').position();
   forecast_day_position = $('dl').withDate(date).position();

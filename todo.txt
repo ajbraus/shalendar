@@ -39,7 +39,8 @@ new follower email link not working
 
 Adam
 --------------
-Digest troubleshoot
+Digest troubleshoot -- look at scheduler and delayed job might not be sending emails at all.
+
 Wire up invite_all_fb_friends in shalendar controller
 	Invite all -- send dynamic image/title
 	fb_invite 
@@ -48,15 +49,18 @@ Wire up invite_all_fb_friends in shalendar controller
 		when someone creates a user replace fb_invite with new user
 		display FB invites in invited users
 		Launch dialogue box
+
 password renew email from calenshare
 
 bug with create idea
 bug email comment
 Upon create invitation tabs not reloading -- create partial
 
-Your friend "M" just joined hoos.in
+---------------------------------------------------
 
-JoyRide
+dynamic meta tags
+
+--------------------------------------------------
 
 Suggested friends
 	user.rb
@@ -70,13 +74,30 @@ Suggested friends
 		relationship is created between the two users
 	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
 
-meta-data to event is in gutter
+-------------------------------------------------------
+
+Your friend "M" just joined hoos.in
+
+---------------------------------------------------------
+
+JoyRide
+
+-------------------------------------------------------
 
 IMAGE URL!
 
+--------------------------------------------------------
+
+	.ics file in event show and emails
+	add to google calendar link in event show and emails
+
+----------------------------------------------------------
+
+meta-data to event is in gutter and comments
+
+
+
 Close Viral Loop
-	dynamic meta tags
-	
 	Email every invitation w boolean
 	add face to invite email, new follower email, and confirmation email, and 
 	event images to stuff (daily digest, invitation)
@@ -86,10 +107,6 @@ Close Viral Loop
 Marketing
 	Suggestions tweet to city specific twitter account
 	Add hashtag to get instagram images from / tweet about the event
-
-Maintain Users
-	.ics file in event show and emails
-	add to google calendar link in event show and emails
 
 non dev stuff
 	operators agreement

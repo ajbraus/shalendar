@@ -3,7 +3,7 @@ class FbInvitesController < ApplicationController
   
   def create
     @event = Event.find(params[:event_id])
-    @invite = @event.fb_invites.build({uid:  :inviter_id, :fb_pic_url})
+    #@invite = @event.fb_invites.build({uid:  :inviter_id, :fb_pic_url})
     @invite.inviter_id = current_user.id 
 
     respond_to do |format|

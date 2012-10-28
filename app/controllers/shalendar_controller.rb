@@ -7,7 +7,6 @@ class ShalendarController < ApplicationController
     @invite_counts = []
 		@date = Time.now.in_time_zone(current_user.time_zone).to_date #in_time_zone("Central Time (US & Canada)")
     @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
-    @graph = session[:graph]
     @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
     @event_suggestions = Suggestion.event_suggestions(current_user)
     @all_suggestions = Suggestion.where('starts_at IS NULL').order('created_at DESC')
@@ -15,8 +14,12 @@ class ShalendarController < ApplicationController
     @suggestions = @all_suggestions.reject do |as|
       !current_user.cloned?(as) || !current_user.rsvpd_to_clone?(as)
     end
-    @member_friends = current_user.fb_friends(session[:graph])[0]
-    @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.first(3)
+    @graph = session[:graph]
+    if @graph
+      @member_friends = current_user.fb_friends(@graph)[0]
+      @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.first(3)
+    end
+    
     #@vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
 	end
 
