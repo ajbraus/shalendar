@@ -1,4 +1,5 @@
 <div id="forecast">
+	<% Time.zone = current_user.time_zone %>
 	<% for i in -3..16 %>
 	<dl class="day" data-date=<%= "#{Time.now.to_date + i}" %>>
 		<% if Time.now.to_date + (i) == Time.now.to_date %>
