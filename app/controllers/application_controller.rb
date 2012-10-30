@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   # before_filter :adjust_format_for_iphone
-  before_filter :set_time_zone 
+  before_filter :set_time_zone
 
   private
 

@@ -15,6 +15,13 @@
 </dd> 
 
 <dt>
+	Users per week since inception
+</dt>
+<dd>
+	<%= high_chart("users_per_week", @users_per_week_graph) %>
+</dd>
+
+<dt>
  Total Users: <strong><%= @total_users %></strong>
 </dt>
 <dd>
@@ -32,11 +39,13 @@
 </dt>
 <dd>
 	User.where(['last_sign_in_at < ?', Time.now.in_time_zone(current_user.time_zone) - 1.month])
+	<% if false %>
 	<ul>
 		<% @inactive_users.each do |iau| %>
 			<li><%= iau.name %>, <%= iau.email %>, <%= iau.created_at.strftime("%A, %b %e") %></li>
 		<% end %>
 	</ul>
+	<% end %>
 </dd>
 </dl>
 <h1>

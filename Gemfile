@@ -71,6 +71,7 @@ group :test do
 	gem 'guard-rspec', '1.1.0'
 	gem "spork", '0.9.2'
 	gem 'guard-spork', '1.1.0'
+  gem 'jasmine'
 end
 
 

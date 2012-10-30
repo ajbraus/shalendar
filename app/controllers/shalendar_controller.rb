@@ -52,7 +52,7 @@ class ShalendarController < ApplicationController
     @invite_friends = current_user.fb_friends(session[:graph])[1]
     if Rails.env.production?
       @invite_friends.each do |inf|
-      session[:graph].delay.put_connections( inf['id'], "feed", {
+      session[:graph].delay.put_connections( inf['uid'], "feed", {
                                       :message => "I'm using hoos.in to do awesome things with my friends. Check it out:", 
                                       :name => "hoos.in",
                                       :link => "http://www.hoos.in/",
@@ -126,37 +126,13 @@ class ShalendarController < ApplicationController
       format.js 
     end
   end
-
+  
   def invite_all_friends
     @event = Event.find_by_id(params[:event_id])
     current_user.invite_all_friends!(@event)
     respond_to do |format|
       format.js 
       format.html { redirect_to @event, notice: 'Idea Successfully Shared with Friends' }
-    end
-  end
-
-   def invite_all_fb_friends(event)
-    @invite_friends.each do |inf|
-      if Rails.env.production?
-        @invite_friends.each do |inf|
-        session[:graph].delay.put_connections( inf['id'], "feed", {
-                                        :message => "I'm using hoos.in to do awesome things with my friends. Check it out:", 
-                                        :name => "hoos.in",
-                                        :link => "http://www.hoos.in/",
-                                        :caption => "Do Great Things With Friends",
-                                        :picture => "http://www.hoos.in/assets/icon.png"
-                                      })
-        end
-      else
-        session[:graph].put_connections( 2232003, "feed", {
-                                        :message => "I'm using hoos.in to do awesome things with my friends. Check it out:", 
-                                        :name => "hoos.in",
-                                        :link => "http://www.hoos.in/",
-                                        :caption => "Do Great Things With Friends",
-                                        :picture => "http://www.hoos.in/assets/icon.png"
-                                      })
-      end
     end
   end
 
@@ -171,6 +147,25 @@ class ShalendarController < ApplicationController
     @inactive_users = User.where(['last_sign_in_at < ?', Time.now - 1.month])
     @active_users = User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.now - 1.month]).count
 
+    @users_per_week = []
+    @start_date = User.unscoped.order('created_at asc').first.created_at.to_date
+    @today = Date.today
+    @weeks = (@today- @start_date).round/7
+
+    @users = User.all
+    (0..@weeks).each do |week|
+      @user_one_week = @users.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
+      @users_per_week << @user_one_week
+    end
+
+    @users_per_week_graph = LazyHighCharts::HighChart.new('graph') do |f|
+      f.options[:title][:text] = "New Users Per Week Since Inception"
+      f.options[:chart][:defaultSeriesType] = "line"
+      f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
+      f.series(:name=>'Users', :data => @users_per_week )
+      f.xAxis(:type => 'datetime')
+    end
+    
     #EVENTS
     @events_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).count
     @rsvps_last_week = Rsvp.where(['created_at > ?', Time.now - 1.week])

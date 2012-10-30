@@ -1,6 +1,6 @@
 <% @friend_suggestions.each do |fs| %>
 	<div class="event_show_friend friend">
-  	<%= image_submit_tag("#{invite_raster_picture(fs)}", class: "profile_picture") %>
+  	<%= image_tag("#{invite_raster_picture(fs)}", class: "profile_picture") %>
  			<div id="friend_name"><%= fs.name %></div>
  			<div id="friend_button" style="display:none;">
 			<%= render  :partial => 'events/just_follow_form', :locals => { :user => fs } %>

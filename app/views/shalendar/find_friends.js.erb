@@ -2,5 +2,11 @@
 $('#loading').remove();
 </script>
 <%= render partial: 'shalendar/find_friends' %>
+<script>
+$(".friend").hover(function(){
+  $(this).children("#friend_name").toggle();
+  $(this).children("#friend_button").toggle();
+});
+</script>
 
 

@@ -156,15 +156,11 @@ $(document).bind('click', function(e) {
 // TABS
 
 	$("#views_list").tabs();
-
 	$("#guest_raster").tabs();
-
   $('#public').tabs();
-
   $('#tabs-nested').tabs();
   $('#events').tabs();
   $('#suggestions').tabs();
-
   $('#invite_raster').tabs();
 
 // DATETIME PICKER
@@ -356,9 +352,22 @@ $('#new_suggestion_form').validate();
     }
   });
 
-     // focus on the first text input field in the first field on the page
+// FOCUS ON FIRST TEXT FIELD OF PAGES
+
     $("#new_idea_blerb").focus();
     $("input[type=email]:first", document.forms[0]).focus();
+
+// CARRIAGE RETURN IN NEW IDEA BOX SUBMITS FORM
+
+$('#new_idea_blerb').keydown(function (e) {
+  var keyCode = e.keyCode || e.which;
+
+  if (keyCode == 13) {
+    $("#new_idea_button").click();
+    return false;
+  }
+});
+
 
 //   $('input[type=file]').fileValidator({
 //   onValidation: function(files){  $(this).attr('class',''); },
@@ -367,15 +376,15 @@ $('#new_suggestion_form').validate();
 //   type:         'image' //optional
 // });
 
-//INVITE ALL FACEBOOK FRIENDS IN EVENT#SHOW (LINK IN _TITLE.HTML.ERB)
+// //INVITE ALL FACEBOOK FRIENDS IN EVENT#SHOW (LINK IN _TITLE.HTML.ERB)
 
-  $("#invite_all_friends").click(function(){
-    FB.login(function(response) {
-      if(response.authResponse) {
-        window.location = "/share_all_fb_friends"
-        }
-    }, {scope: "publish_stream"});
-  });
+//   $("#invite_all_friends").click(function(){
+//     FB.login(function(response) {
+//       if(response.authResponse) {
+//         window.location = "/invite_all_fb_friends"
+//         }
+//     }, {scope: "publish_stream"});
+//   });
 
 // TOGGLE FRIEND BUTTON FOR NAME
 

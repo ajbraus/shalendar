@@ -361,8 +361,6 @@ class User < ActiveRecord::Base
     return @invited_events_on_date | @plans_on_date
   end
 
-
-
   def self.digest
     @digest_users = User.where("users.digest = 'true'")
     @digest_users.each do |u|
@@ -429,16 +427,23 @@ class User < ActiveRecord::Base
     return @vendor_friendships
   end
 
+  def fb_user?
+    if self.authentications.find_by_provider("Facebook")
+      return true
+    else
+      return false
+    end
+  end
+
   def fb_friends(graph)
     #RETURNS AN ARRAY [[HOOSIN_USERS][NOT_HOOSIN_USERS(FB_USERS)]]
     @fb_friends = []
     
     @hoosin_user = []
     @not_hoosin_user = []
-
     @graph = graph
-    @facebook_friends = @graph.fql_query("SELECT current_location, pic_square, name, username, uid FROM user WHERE current_location AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())")
-    @city_friends = @facebook_friends.reject { |ff| ff['current_location']['name'] != self.city } 
+    @facebook_friends = @graph.fql_query("select current_location, pic_square, name, username, uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())")
+    @city_friends = @facebook_friends.reject { |ff| !ff['current_location'] || ff['current_location']['name'] != self.city } 
     @city_friends.each do |cf|
       @authentication = Authentication.find_by_uid("#{cf['uid']}")
       if @authentication
@@ -453,6 +458,14 @@ class User < ActiveRecord::Base
     return @fb_friends
   end
 
+  def permits_wall_posts?(graph)
+    @publish = graph.fql_query("select publish_stream from permissions where uid = me()")
+    if @publish[0]["publish_stream"] == 1
+      return true
+    else
+      return false
+    end
+  end
 
   private
 

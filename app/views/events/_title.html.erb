@@ -53,18 +53,20 @@
       </li>
     <% end %>
     <% if current_user.id == @event.user.id %>
-        <li>
-          <%= link_to invite_all_fb_friends_path, id:"invite_all_friends", title:"Share idea with all FB Friends", remote: true do %>
-              <span class="fadeInFBBlue"><i class="icon-facebook-sign"></i></span>
-          <% end %>
-        </li>
+        <% if current_user.fb_user? %>
+          <li>
+            <%= link_to "Invite All", invite_all_fb_friends_path(:id => @event.id), class:"fadeInFBBlue", confirm: "Post idea to ALL friends walls in #{current_user.city}?", remote: true do %>
+              <i class="icon-facebook-sign"></i>
+            <% end %>
+          </li>
+        <% end %>
       <% if current_user.invited_all_friends?(@event) %>
         <li>
           <i class="icon-group gold" title="Shared with all Friends"></i>
         </li>
       <% elsif current_user.rsvpd?(@event) %>
         <li>
-          <%= link_to invite_all_friends_path(:event_id => @event.id), title:"Share idea with all Friends" do %>
+          <%= link_to invite_all_friends_path(:id => @event.id), title:"Share idea with all Friends", confirm: "Share with ALL hoos.in friends in #{current_user.city}?", remote:true do %>
             <span class="fadeInGreen"><i class="icon-group"></i></span>
           <% end %>
         </li>
@@ -80,17 +82,19 @@
         </li>
       <% elsif current_user.rsvpd?(@event) %>
         <li>
-          <div class="invite_all">
-            <%= link_to "Invite All", invite_all_fb_friends_path, class:"btn btn-primary", id:"invite_all_friends", remote: true %>
-          </div>
-        </li>
-        <li>
-          <%= link_to invite_all_friends_path(:event_id => @event.id), class: "btn-success" do %>
-            <i class="icon-group" title="Share with all Friends"></i>
+          <%= link_to invite_all_friends_path(:id => @event.id), confirm: "Post idea to ALL friends walls in #{current_user.city}?", remote: true do %>
+            <span class="fadeInGreen"><i class="icon-group"></i></span>
           <% end %>
         </li>
+        <% if current_user.fb_user? %>
+          <li>
+            <%= link_to invite_all_fb_friends_path(:id => @event.id), class:"fadeInFBBlue" , confirm:"Invite ALL hoos.in friends?", title:"Post to all #{current_user.city} facebook friends walls", remote: true do %>
+              <i class="icon-facebook-sign"></i>
+            <% end %>
+          </li>
+        <% end %>
       <% else %>
-        <li class="icon">
+        <li>
           <i class="icon-group black" title="Guests may share with Friends"></i>
         </li>
       <% end %>

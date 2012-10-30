@@ -160,6 +160,10 @@ font-size: 14px;
 padding: 0px 8px 0px 8px;
 }
 
+.btn-large{
+  padding: 10px 10px;
+}
+
 .btn-follow {
 border-radius: 5px;
 color: white;
@@ -190,6 +194,7 @@ color: white;
 left: 243px;
 top: -1px;
 padding: 21px 12px;
+font-size: 20px;
 }
 
 .btn-new-suggestion {
@@ -1557,14 +1562,6 @@ line-height: 1.5;
   }
 }
 
-.user_settings {
-
-}
-
-.logout {
-
-}
-
 #user-settings {
   width:240px;
   height:140px;
@@ -1575,10 +1572,10 @@ width: 705px;
 margin-top: 25px;
 margin-bottom: 25px;
   .fb_button {
-float: right;
-position: absolute;
-top: 116px;
-right: 580px;
+    float: right;
+    position: absolute;
+    top: 116px;
+    right: 580px;
   }
 }
 
@@ -1650,14 +1647,12 @@ top: 10px;
   left: 0px;
 }
 
-
-
 /* EVENT#SHOW */
 
 .event_show {
   margin: 0 auto;
 width: 752px;
-min-height: 900px;
+min-height: 980px;
 z-index: -10;
 }
 

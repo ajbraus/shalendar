@@ -37,6 +37,9 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = current_user.events.build(params[:event])
+    if @event.min <= 1
+      @event.tipped = true
+    end
     respond_to do |format|
       if @event.save
         current_user.rsvp!(@event)
@@ -45,10 +48,6 @@ class EventsController < ApplicationController
           current_user.invite_all_friends!(@event)
           @rsvp.invite_all_friends = true
           @rsvp.save
-        end
-        if @event.min <= 1
-          @event.tipped = true
-          @event.save
         end        
         if current_user.post_to_fb_wall? && session[:graph] && params[:invite_all_friends] == "on" && @event.guests_can_invite_friends? && Rails.env.production?
           session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
@@ -56,15 +55,10 @@ class EventsController < ApplicationController
                                               :picture => "http://www.hoos.in/assets/icon.png",
                                               })
         end
-        if params[:invite_all_friends] == "on"
-          format.html { redirect_to root_path, notice: "Idea Posted Successfully" }
-          format.json { render json: @event, status: :created, location: @event }
-        else
         format.html { redirect_to @event, notice: "Idea Posted Successfully" }
         format.json { render json: @event, status: :created, location: @event }
-        end
       else
-        format.html { redirect_to root_path, notice: "Idea could not be posted. Please try again." }
+        format.html { redirect_to root_path, notice: "#{@event.errors.count} Errors prevented this idea from being posted. Please try again." }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
@@ -77,11 +71,13 @@ class EventsController < ApplicationController
     @guests = @event.guests
     @friends = current_user.followers
     @email_invites = @event.email_invites
-    #@fb_invites = @event.fb_invites
     @invited_users = @event.invited_users - @event.guests 
-    @graph = session[:graph]
     @comments = @event.comments.order("created_at desc")
-    @invite_friends = current_user.fb_friends(session[:graph])[1]
+    @graph = session[:graph]
+    if @graph
+      @invite_friends = current_user.fb_friends(session[:graph])[1].reject { |inf| FbInvite.find_by_uid(inf['uid'].to_s) }
+      @fb_invites = @event.fb_invites
+    end
 
     respond_to do |format|
       format.html 
@@ -126,7 +122,7 @@ class EventsController < ApplicationController
     #@event.destroy
 
     respond_to do |format|
-      format.html { redirect_to home_path, notice: 'Idea was successfully removed' }
+      format.html { redirect_to root_path, notice: 'Idea was successfully removed' }
       format.json { head :no_content }
     end
   end
@@ -136,7 +132,7 @@ class EventsController < ApplicationController
     @event.tip!
 
     respond_to do |format|
-      format.html { redirect_to home_path, notice: 'Idea tipped!' }
+      format.html { redirect_to root_path, notice: 'Idea tipped!' }
       format.json { head :no_content }
       format.js
     end
@@ -152,7 +148,7 @@ end
   #   @event.destroy
 
   #   respond_to do |format|
-  #     format.html { redirect_to home_path }
+  #     format.html { redirect_to root_path }
   #     format.json { head :no_content }
   #   end
   # end

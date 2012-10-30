@@ -52,8 +52,8 @@ class Event < ActiveRecord::Base
             :chronic_starts_at,
             :duration, 
             :ends_at, presence: true
-  validates :max, numericality: { in: 1..1000000, only_integer: true }
-  validates :min, numericality: { in: 1..1000000, only_integer: true }
+  validates :max, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true
+  validates :min, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true
   validates :duration, numericality: { in: 0..1000 } 
   validates :title, length: { maximum: 140 }
   validates_numericality_of :longitude, :latitude, allow_blank:true
@@ -99,7 +99,13 @@ class Event < ActiveRecord::Base
   end
 
   def full?
-    self.guests.count >= self.max
+    if self.max == nil
+      return false
+    elsif self.guests.count >= self.max
+      return false
+    else 
+      return true
+    end
   end
 
   def chronic_starts_at

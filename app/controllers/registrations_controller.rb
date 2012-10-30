@@ -12,7 +12,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource
-
     @all_cities = City.all
     @cities = []
     @all_cities.each do |c|
@@ -31,6 +30,19 @@ class RegistrationsController < Devise::RegistrationsController
         end
         ei.destroy
       end
+
+      # TURN ALL FB_INVITES INTO INVITIATTIONS HERE 
+      Fb_Invite.where("fb_invite.uid = :new_user_uid", new_user_uid: resource.authentication.where("provider = 'Facebook'").uid).each do |fbi|
+        @inviter_id = fbi.inviter_id
+        @invited_user_id = resource.id
+        @event = fbi.event
+        if @inviter = User.find_by_id(@inviter_id)
+          @inviter.invite!(@event, resource)
+        end
+        fbi.destroy
+      end
+
+
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
@@ -81,7 +93,7 @@ class RegistrationsController < Devise::RegistrationsController
       #   set_flash_message :notice, flash_key
       # end
       sign_in resource_name, resource, :bypass => true
-      respond_with resource, :location => home_path
+      respond_with resource, :location => root_path
     else
       clean_up_passwords resource
       respond_with resource

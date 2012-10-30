@@ -1,12 +1,15 @@
 <% @guests.each do |guest| %>
-  <table>
-  	<tr>
-      <td title="<%= guest.name %>" width="50"><%= raster_profile_picture(guest) %></td>
-      <% unless current_user.following?(guest) %>
-      	<td>
-        	<%= render partial: 'events/just_follow_form', locals: { user: guest } %>
-      	</td>
-      <% end %>
-    </tr>
-  </table>
+  <% if current_user.following?(guest) || guest == current_user %>
+    <div class="event_show_friend">
+      <%= image_tag("#{invite_raster_picture(guest)}", class: "profile_picture") %>
+      <div id="friend_name"><%= guest.name %></div>
+    </div> 
+  <% else %>
+    <div class="event_show_friend friend">
+    <%= image_tag("#{invite_raster_picture(guest)}", class: "profile_picture") %>
+      <div id="friend_name"><%= guest.name %></div>
+      <div id="friend_button" style="display:none;">
+      <%= render  :partial => 'events/just_follow_form', :locals => { :user => guest } %>
+    </div>
+  <% end %>
 <% end %>

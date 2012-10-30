@@ -1,5 +1,5 @@
 <tr>
-	<td style="padding:10px 0 5px 70px">What: <strong style="padding-left:10px;"><a href="http://www.hoos.in/events/<%= event.id %>"><%= event.title %></a></strong>
+	<td style="padding:10px 0 5px 50px">What: <strong style="padding-left:10px;"><a href="http://www.hoos.in/events/<%= event.id %>"><%= event.title %></a></strong>
 		<% if user.rsvpd?(event) && event.starts_at > Time.now.in_time_zone(user.time_zone) %>
 			<strong>  (Attending)</strong>
 		<% elsif user.rsvpd?(event) && event.starts_at < Time.now.in_time_zone(user.time_zone) %>
@@ -8,18 +8,18 @@
 </tr>
 
 <tr>
-	<td style="padding:5px 0 5px 70px">When: <strong style="padding-left:10px;"><%= event.starts_at.strftime("%l:%M%P, %A %B %e") %></strong></td>
+	<td style="padding:5px 0 5px 50px">When: <strong style="padding-left:10px;"><%= event.starts_at.strftime("%l:%M%P, %A %B %e") %></strong></td>
 </tr>
 
 <% if event.tipped? %>
 <tr>
-	<td style="padding:5px 0 20px 70px"><strong style="color:green;">Idea tipped!</strong></td>
+	<td style="padding:5px 0 20px 50px"><strong style="color:green;">Idea tipped!</strong></td>
 </tr>
 
 <% else %>
 
 <tr>
-	<td style="padding:5px 0 5px 70px"><strong>This idea needs <span style="color:red;"><%= event.min - event.guests.count %></span> to tip</strong></td>
+	<td style="padding:5px 0 5px 50px"><strong>This idea needs <span style="color:red;"><%= event.min - event.guests.count %></span> to tip</strong></td>
 </tr>
 
 <% end %>

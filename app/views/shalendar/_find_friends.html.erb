@@ -9,15 +9,15 @@
 		<div class="invite_friends">
 			<div class="invite_all"><%= link_to "Friend All", friend_all_path, class:"btn btn-primary", remote: true %></div>
 			<% @member_friends.each do |mf| %>
-					<table>
-					<tr>
-						<td width="55px"><%= raster_profile_picture(mf) %></td>
-						<td width="100px"><%= mf.name %></td>
-						<td width="60px">
-								<%= render  :partial => 'events/just_follow_form', :locals => { :user => mf } %>
-				    </td>
-					</tr> 
-				</table>
+				<% unless current_user.following?(mf) %>
+					<div class="event_show_friend friend">
+					  <%= raster_profile_picture(mf) %>
+		 				<div id="friend_name"><%= mf.name %></div>
+		 				<div id="friend_button" style="display:none;">
+							<%= render  :partial => 'events/just_follow_form', :locals => { :user => mf } %>
+						</div>
+					</div>
+				<% end %>
 			<% end %>
 	</div>
 
@@ -33,15 +33,12 @@
 	<div class="invite_friends">
 		<div class="invite_all"><%= link_to "Invite All", share_all_fb_friends_path, class:"btn btn-primary", id:"invite_all_friends", remote: true %></div>
 		<% @invite_friends.each do |inf| %>
-				<table>
-				<tr>
-					<td width="55px"><%= image_tag("#{inf['pic_square']}") %></td>
-					<td width="100px"><%= "#{inf['name']}" %></td>
-					<td width="60px">
-				    <div class="btn btn-success invite" alt="<%=inf['uid']%>">Invite</div>
-			    </td>
-				</tr> 
-			</table>
+		  <div class="event_show_friend friend">
+			  <%= image_tag("#{inf['pic_square']}", class: "profile_picture", alt: "#{inf['uid']}" ) %>
+ 				<div id="friend_name"><%= inf['name'] %></div>
+ 				<div id="friend_button" class="btn btn-success invite" alt="<%=inf['uid']%>" style="display:none;">
+ 					Invite</div>
+		 	</div>
 		<% end %>
 	</div>
 <% end %>

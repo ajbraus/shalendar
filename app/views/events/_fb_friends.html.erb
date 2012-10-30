@@ -1,0 +1,17 @@
+<% @invite_friends.each do |f| %>
+	<% unless FbInvite.find_by_uid(f['id']) %>
+	  <div class="event_show_friend friend">
+		  <%= image_tag "#{f['pic_square']}", class: "profile_picture" %>
+			<div id="friend_name"><%= f['name'] %></div>
+			<div id="friend_button" style="display:none;">
+				<%= form_for [event, event.fb_invites.build], remote: true do |i|%>
+					<%= i.hidden_field :inviter_id, value: current_user.id %>
+					<%= i.hidden_field :fb_pic_url, value: f['pic_square'] %>
+					<%= i.hidden_field :name, value: f['name'] %>
+					<%= i.hidden_field :uid, value: f['uid'] %>
+					<%= i.submit "Invite", class:"btn btn-success" %>
+				<% end %>
+			</div>
+	 	</div>
+	<% end %>
+<% end %>
