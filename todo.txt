@@ -2,6 +2,14 @@ validate starts_at is in the future
 
 Mike
 ------------
+iPhone 
+
+	needs before release:
+		all images done
+		testing push notifications, error messages, ...
+
+Design coherence
+
 Fix so sending push notifications better than every 10 minutes (after creating, check some counter, then run the task)
 
 GCM push testing
@@ -20,13 +28,10 @@ new follower email link not working
  
 	iPhone TODO:
 		Settings / Confirm viewers (3)
-		Create Event (3?)
 		Native/local Register User (4?)
 		Style (3-4)
-		Times (4)
 		Check load delays with broadband
 
-		Skip login screen on reopen if still logged in
 		Make it look like Pinterest
 			Make back arrow.
 			Box shadow on corners of images
@@ -36,7 +41,6 @@ new follower email link not working
 		Delete events
 		Suggestions
 		
-
 Adam
 --------------
 
@@ -215,6 +219,12 @@ AFTER BETA LAUNCH
 		add phone number in settings page
 		add user boolean for receiving text messages
 		Text message invitations to join calenshare for an event
+
+Tipping:
+	Set deadline for tip
+	Pick requirements for tip (checklist)
+
++1 functionality (bring guests, maybe with a lightbox/drop-down on RSVP click or something)
 
 	Add FB events - Adam
 

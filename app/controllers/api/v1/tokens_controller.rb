@@ -174,12 +174,16 @@ class Api::V1::TokensController  < ApplicationController
       return
     end
 
+    logger.info("get here in the APN user method")
+    logger.info("the token is: #{token}")
+
     #do a more robust check to make sure we don't use same id and same token ever,
     #and that we shouldn't make extra devices
     @user.APNtoken = token
     @user.iPhone_user = true
     device = APN::Device.new
     device.token = @user.APNtoken
+    logger.info("device token is: #{device.token}")
     device.save!
     @user.apn_device_id = device.id
     @user.save!
