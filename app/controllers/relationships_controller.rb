@@ -131,6 +131,7 @@ before_filter :authenticate_user!
       #@forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone))
       #@date = Time.now.in_time_zone(current_user.time_zone)
       @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
+      @vendor_friendships = current_user.vendor_friendships
       format.html { redirect_to :back, notice: "You are now friends with #{@relationship.follower.name} on hoos.in" }
       format.js
     end

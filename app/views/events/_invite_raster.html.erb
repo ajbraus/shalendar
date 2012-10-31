@@ -1,8 +1,8 @@
 <ul>
-  <li><a href="#tabs-1">hoos.in <%= @friends.count %></a></li>
+  <li><a href="#tabs-1">hoos.in <%= @friends.count if @friends.any? %></a></li>
   <% if current_user.fb_user? %>
   	<li>
-			<a href="#tabs-2">facebook <%= @invite_friends.count %></a>
+			<a href="#tabs-2">facebook <%= @invite_friends.count if @invite_friends.any? %></a>
 		</li>
   <% end %>
 </ul>
