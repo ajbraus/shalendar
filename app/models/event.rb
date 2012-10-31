@@ -76,6 +76,14 @@ class Event < ActiveRecord::Base
     }
   end
 
+  def url_starts_at
+    starts_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
+  end
+
+  def url_ends_at
+    ends_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
+  end
+
   def start_time
     self.starts_at.strftime "%l:%M%P, %A %B %e"
   end

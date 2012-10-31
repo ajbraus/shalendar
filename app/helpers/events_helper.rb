@@ -4,4 +4,8 @@ module EventsHelper
 	      truncate text, :length => 45
 	  end
 	end
+
+	def url_encode(text)
+		URI.escape("#{text}")
+	end
 end
