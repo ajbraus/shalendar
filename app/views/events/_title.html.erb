@@ -3,7 +3,6 @@
 <% elsif @event.tipped? == false %>
 <div class="title part not_tipped_title">
 <% end %>  
-
   <div class="when">
     <%= event_start_time(@event) %> - <%= event_end_time(@event) %>
     <%= date(@event) %> 
@@ -13,75 +12,82 @@
     <%= @event.title %>
   </div>
 
-  <% if @event.link %>
+  <% if @event.link.length > 0 %>
     <div class="event_link">
       link: <%= event_link(@event) %>
     </div>
   <% end %>
 
-  <div class="title_bottom">
-
-    <div class="by">
-      <%= raster_profile_picture(@event.user) %> <span><%= @event.user.name %></span>
+  <% if @event.address.length > 0 %>
+    <div class="event_location">
+      location: <%= @event.address %>
     </div>
-    <ul class="event_buttons">
-      <% if @event.user == current_user %> 
-        <% unless @event.tipped? %>
+  <% end %>
+<div class="title_bottom">
+  <div class="by">
+    <%= raster_profile_picture(@event.user) %> <span><%= @event.user.name %></span>
+  </div>
+  <ul class="event_buttons">
+    <% if @event.user == current_user %> 
+
+      <% unless @event.tipped? %>
+      <li>
+        <%= link_to event_tip_path(@event), :confirm => "Force your idea to tip? This cannot be reversed and will send notifications to all RSVPs", title: "Tip Manually", :method => :put do %>
+          <span class="fadeInOrange"><i class="icon-pushpin"></i></span>
+        <% end %>
+      </li>
+      <% end %>
+      <li>
+        <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will send an Email to all RSVPs a cancellation email.' }, title: "Delete Idea" do %>
+          <span class="fadeInRed"><i class="icon-trash"></i></span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to edit_event_path(@event), title:"Edit Idea" do %>
+          <span class="fadeInOrange"><i class="icon-wrench"></i></span>
+        <% end %>
+      </li>
+
+    <% else %>
+      <li>
+        <%= render 'rsvp_form' %>
+      </li>
+    <% end %>
+    <% if @event.guests_can_invite_friends? || @event.user == current_user %>
+      <% if current_user.rsvpd?(@event) %>
+
+        <% if current_user.invited_all_friends?(@event) %>
         <li>
-          <%= link_to event_tip_path(@event), :confirm => "Force your idea to tip? This cannot be reversed and will send notifications to all RSVPs.", :method => :put do %>
-            <span class="btn btn-primary"><i class="icon-pushpin"></i> Tip!</span>
+          <i class="icon-group gold" title="Shared with all Friends"></i>
+        </li>
+        <% else %>
+        <li>
+          <%= link_to invite_all_friends_path(:event_id => @event.id), confirm: "Post idea to ALL friends walls in #{current_user.city}?" do %>
+            <span class="fadeInGreen"><i class="icon-group"></i></span>
           <% end %>
         </li>
         <% end %>
-        <li class="icon">
-          <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will send an Email to all RSVPs a cancellation email.' } do %>
-            <span class="fadeInRed"><i class="icon-trash"></i></span>
-          <% end %>
+
+        <!-- #FACEBOOK -->
+        <% if current_user.fb_user? %>
+          <li>
+            <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Invite Local Facebook Friends", remote: true do %>
+              <i class="icon-facebook-sign"></i>
+            <% end %>
+          </li>
+        <% end %>
+
+        <!-- #TWITTER -->
+        <li>
+          <a href="https://twitter.com/share" data-text="<%= @event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this idea" target="_blank"><i class="icon-twitter"></i></a>
         </li>
-        <li class="icon">
-          <%= link_to edit_event_path(@event) do %>
-            <span class="fadeInOrange"><i class="icon-wrench"></i></span>
-          <% end %>
-        </li>
+
       <% else %>
         <li>
-          <%= render 'rsvp_form' %>
+          <i class="icon-group black" title="Join the Idea and Share with Friends"></i>
         </li>
       <% end %>
-      <% if current_user.id == @event.user.id %>
-        <% if current_user.invited_all_friends?(@event) %>
-          <li class="icon">
-            <i class="icon-group gold" title="Shared with all Friends"></i>
-          </li>
-        <% elsif current_user.rsvpd?(@event) %>
-          <li class="icon">
-            <%= link_to invite_all_friends_path(:event_id => @event.id), class: "btn-success" do %>
-              <i class="icon-group" title="Share idea with all Friends"></i>
-            <% end %>
-          </li>
-        <% else %>
-          <li class="icon">
-            <i class="icon-group black" title="Guests may share with Friends"></i>
-          </li>
-        <% end %>
-      <% elsif @event.guests_can_invite_friends?  %>
-        <% if current_user.invited_all_friends?(@event) %>
-          <li class="icon">
-            <i class="icon-group gold" title="Shared with all Friends"></i>
-          </li>
-        <% elsif current_user.rsvpd?(@event) %>
-          <li class="icon">
-            <%= link_to invite_all_friends_path(:event_id => @event.id), class: "btn-success" do %>
-              <i class="icon-group" title="Share idea with all Friends"></i>
-            <% end %>
-          </li>
-        <% else %>
-          <li class="icon">
-            <i class="icon-group black" title="Guests may share with Friends"></i>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
+    <% end %>
+  </ul>
   </div>
-
 </div>

@@ -1,4 +1,4 @@
-<% if event.ends_at < Time.now %>
+<% if event.ends_at < Time.now.in_time_zone(current_user.time_zone) %>
 <div class="btn-over"></div>
 <% elsif current_user.rsvpd?(event) %>
 	<% if event.guests_can_invite_friends? %>

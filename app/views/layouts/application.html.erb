@@ -12,11 +12,21 @@
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
-    <meta property="fb:app_id" content="327936950625049"
-    <meta property="og:title" content="hoos.in"/>
-    <meta property="og:site_name" content="hoos.in"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:image" content="http://hoos.in/assets/icon.png"/>
+    <% if @event %>
+      <meta property="fb:app_id" content="327936950625049"/>
+      <meta property="og:title" content="<%= @event.title %>"/>
+      <meta property="og:url" content="http://www.hoos.in/<%= event_path(@event) %>" />
+      <meta property="og:site_name" content="hoos.in"/>
+      <meta property="og:type" content="website"/>
+      <meta property="og:image" content="<%= @event.promo_img.url(:medium) %>"/>
+    <% else %>
+      <meta property="fb:app_id" content="327936950625049"/>
+      <meta property="og:title" content="hoos.in"/>
+      <meta property="og:url" content="http://www.hoos.in" />
+      <meta property="og:site_name" content="hoos.in"/>
+      <meta property="og:type" content="website"/>
+      <meta property="og:image" content="http://hoos.in/assets/icon.png"/>
+    <% end %>    
     <!-- FOR RESPONSIVE DESIGN -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--[if lt IE 9]>

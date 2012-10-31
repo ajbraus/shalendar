@@ -1,0 +1,12 @@
+<% friends.each do |f| %>
+	<%= form_for f.invitations.build(invited_event_id: event.id, inviter_id: current_user.id, invited_user_id: f.id), remote: true do |i|%>
+		<%= i.hidden_field :inviter_id %>
+		<%= i.hidden_field :invited_event_id %>
+		<%= i.hidden_field :invited_user_id %>
+	  <div class="event_show_friend friend">
+	  	<%= image_tag("#{invite_raster_picture(f)}", class: "profile_picture") %>
+				<div id="friend_name"><%= f.name %></div>
+			<%= i.submit "Invite", id:"friend_button", class:"btn btn-success", style:"display:none;" %>
+	 	</div>
+  <% end %>
+<% end %>

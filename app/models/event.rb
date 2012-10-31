@@ -12,6 +12,7 @@ class Event < ActiveRecord::Base
 
   has_many :comments, dependent: :destroy
   has_many :email_invites, dependent: :destroy
+  has_many :fb_invites, dependent: :destroy
 
   attr_accessible :user_id,
                   :suggestion_id,
@@ -51,8 +52,8 @@ class Event < ActiveRecord::Base
             :chronic_starts_at,
             :duration, 
             :ends_at, presence: true
-  validates :max, numericality: { in: 1..1000000, only_integer: true }
-  validates :min, numericality: { in: 1..1000000, only_integer: true }
+  validates :max, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true
+  validates :min, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true
   validates :duration, numericality: { in: 0..1000 } 
   validates :title, length: { maximum: 140 }
   validates_numericality_of :longitude, :latitude, allow_blank:true
@@ -98,7 +99,13 @@ class Event < ActiveRecord::Base
   end
 
   def full?
-    self.guests.count >= self.max
+    if self.max == nil
+      return false
+    elsif self.guests.count >= self.max
+      return true
+    else 
+      return false
+    end
   end
 
   def chronic_starts_at
@@ -160,5 +167,46 @@ class Event < ActiveRecord::Base
       self.title
     end
   end
+
+  def has_promo_img 
+    if self.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"
+      return false
+    else
+      return true
+    end
+  end
+
+  def post_to_fb_wall(uid, graph)
+    if Rails.env.production?
+      if self.has_promo_img
+        graph.delay.put_connections( uid, "feed", {
+                                        :name => self.title,
+                                        :link => "http://www.hoos.in/events/#{self.id}",
+                                        :picture => self.promo_img.url(:medium)
+                                      })
+      else
+        graph.delay.put_connections( uid, "feed", {
+                                        :name => self.title,
+                                        :link => "http://www.hoos.in/events/#{self.id}"
+                                      })       
+      end
+    else
+      if self.has_promo_img
+        graph.put_connections( 2232003, "feed", {
+                                        :name => self.title,
+                                        :link => "http://www.hoos.in/events/#{self.id}",
+                                        :picture => self.promo_img.url(:medium)
+                                      })
+      else
+        graph.put_connections( 2232003, "feed", {
+                                        :name => self.title,
+                                        :link => "http://www.hoos.in/events/#{self.id}"
+                                      })
+      end
+    end
+  end
+
+
+# END OF CLASS
 end
 

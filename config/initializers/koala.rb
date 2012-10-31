@@ -20,3 +20,12 @@ Koala::Facebook::OAuth.class_eval do
 
   alias_method_chain :initialize, :default_settings 
 end
+
+Koala::Facebook::API::GraphCollection.module_eval do
+  class << self
+    def parse_page_url_with_unescaped_url(url)
+      parse_page_url_without_unescaped_url(url.gsub('|', URI.escape('|')))
+    end
+    alias_method_chain :parse_page_url, :unescaped_url
+  end
+end

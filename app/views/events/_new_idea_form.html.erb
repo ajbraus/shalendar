@@ -14,7 +14,7 @@
 
 	  <p>
 <%= label :title, "Idea*" %><br/>
-<%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off" %>
+<%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
 </p>  
 <p>
 <%= label :starts_at, "When does it start?*" %>

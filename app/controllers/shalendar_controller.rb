@@ -7,7 +7,6 @@ class ShalendarController < ApplicationController
     @invite_counts = []
 		@date = Time.now.in_time_zone(current_user.time_zone).to_date #in_time_zone("Central Time (US & Canada)")
     @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
-    @graph = session[:graph]
     @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
     @event_suggestions = Suggestion.event_suggestions(current_user)
     @all_suggestions = Suggestion.where('starts_at IS NULL').order('created_at DESC')
@@ -15,21 +14,21 @@ class ShalendarController < ApplicationController
     @suggestions = @all_suggestions.reject do |as|
       !current_user.cloned?(as) || !current_user.rsvpd_to_clone?(as)
     end
+    @graph = session[:graph]
+    if @graph
+      @member_friends = current_user.fb_friends(@graph)[0]
+      @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.first(3)
+    end
+    
     #@vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
 	end
 
 	def manage_friends
 		@graph = session[:graph]
 		@friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
-    @vendor_friendships = []
-    current_user.relationships.where('relationships.confirmed = true').each do |r|
-      if r.followed.vendor?
-        @vendor_friendships << r
-      end
-    end
-
-		#people who want to view current use
+    @vendor_friendships = current_user.vendor_friendships
     @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
+    
     #@vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
     if params[:search]
       @users = User.search params[:search]
@@ -40,27 +39,9 @@ class ShalendarController < ApplicationController
   end
 
   def find_friends
-    @graph = session[:graph]
-    @friendships = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
-    # @city_friends = @graph.fql_query(
-    #   SELECT uid, name, location, pic_square
-    #   FROM user 
-    #   WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me() AND location = me())
-    #   )
-    @me = @graph.get_object('me')
-    @invite_friends = []
-    @member_friends = []
-    @city_friends = @friendships.select { |friend| friend['location'].present? && friend['location']['id'] == @me['location']['id'] }
-    @city_friends.each do |cf|
-      @authentication = Authentication.find_by_uid(cf['id'])
-      if @authentication
-        @member_friends.push(cf)
-      else
-        @invite_friends.push(cf)
-      end
-    end
-    #friends who are app_users
-    #SELECT uid, name, pic_square FROM user WHERE is_app_user AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())
+    @member_friends = current_user.fb_friends(session[:graph])[0]
+    @invite_friends = current_user.fb_friends(session[:graph])[1]
+    @me = session[:graph].get_object("me")
     respond_to do |format|
       #format.html
       format.js
@@ -68,25 +49,10 @@ class ShalendarController < ApplicationController
   end
 
   def share_all_fb_friends
-    @graph = session[:graph]
-    @friendships = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
-    # @city_friends = @graph.fql_query(
-    #   SELECT uid, name, location, pic_square
-    #   FROM user 
-    #   WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me() AND location = me())
-    #   )
-    @me = @graph.get_object('me')
-    @invite_friends = []
-    @city_friends = @friendships.select { |friend| friend['location'].present? && friend['location']['id'] == @me['location']['id'] }
-    @city_friends.each do |cf|
-      @authentication = Authentication.find_by_uid(cf['id'])
-      if @authentication.nil?
-        @invite_friends.push(cf)
-      end
-    end
+    @invite_friends = current_user.fb_friends(session[:graph])[1]
     if Rails.env.production?
       @invite_friends.each do |inf|
-      session[:graph].delay.put_connections( inf['id'], "feed", {
+      session[:graph].delay.put_connections( inf['uid'], "feed", {
                                       :message => "I'm using hoos.in to do awesome things with my friends. Check it out:", 
                                       :name => "hoos.in",
                                       :link => "http://www.hoos.in/",
@@ -95,7 +61,7 @@ class ShalendarController < ApplicationController
                                     })
       end
     else
-      session[:graph].put_connections( 2232003, "feed", {
+      session[:graph].put_connections( 510890387, "feed", {
                                       :message => "I'm using hoos.in to do awesome things with my friends. Check it out:", 
                                       :name => "hoos.in",
                                       :link => "http://www.hoos.in/",
@@ -110,33 +76,26 @@ class ShalendarController < ApplicationController
   end
 
   def friend_all
-    @graph = session[:graph]
-    @friendships = @graph.get_connections('me','friends',:fields => "name,picture,location,id,username")
-    # @city_friends = @graph.fql_query(
-    #   SELECT uid, name, location, pic_square
-    #   FROM user 
-    #   WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me() AND location = me())
-    #   )
-    @me = @graph.get_object('me')
-    @member_friends = []
-    @city_friends = @friendships.select { |friend| friend['location'].present? && friend['location']['id'] == @me['location']['id'] }
-    @city_friends.each do |cf|
-      @authentication = Authentication.find_by_uid(cf['id'])
-      if @authentication
-        @member_friends.push(cf)
-      end
-    end
+    @member_friends = current_user.fb_friends(session[:graph])[0] #RETURNS AN ARRAY [[HOOSIN_USERS][NOT_HOOSIN_USERS(FB_USERS)]]
     @member_friends.each do |mf|
-      unless current_user.following?(mf)
-        current_user.follow!(mf)
+      unless current_user.following?(mf) || mf.vendor? || current_user.request_following?(mf)
+          current_user.friend!(mf)
       end
     end
+    @plan_counts = []
+    @invite_counts = []
+    @date = Time.now.in_time_zone(current_user.time_zone).to_date #in_time_zone("Central Time (US & Canada)")
+    @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
+    @event_suggestions = Suggestion.event_suggestions(current_user)
+    @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
+    @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
+    @vendor_friendships = current_user.vendor_friendships   
+
     respond_to do |format|
       format.html { redirect_to root_path, notice: "Successfully Friended all facebook Friends on hoos.in"}
       format.js
     end
   end
-
 
   def city_vendors
     @vendors = User.where('city = current_user_city vendor = true', current_user_city: current_user.city)
@@ -167,7 +126,7 @@ class ShalendarController < ApplicationController
       format.js 
     end
   end
-
+  
   def invite_all_friends
     @event = Event.find_by_id(params[:event_id])
     current_user.invite_all_friends!(@event)
@@ -188,6 +147,25 @@ class ShalendarController < ApplicationController
     @inactive_users = User.where(['last_sign_in_at < ?', Time.now - 1.month])
     @active_users = User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.now - 1.month]).count
 
+    @users_per_week = []
+    @start_date = User.unscoped.order('created_at asc').first.created_at.to_date
+    @today = Date.today
+    @weeks = (@today- @start_date).round/7
+
+    @users = User.all
+    (0..@weeks).each do |week|
+      @user_one_week = @users.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
+      @users_per_week << @user_one_week
+    end
+
+    @users_per_week_graph = LazyHighCharts::HighChart.new('graph') do |f|
+      f.options[:title][:text] = "New Users Per Week Since Inception"
+      f.options[:chart][:defaultSeriesType] = "line"
+      f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
+      f.series(:name=>'Users', :data => @users_per_week )
+      f.xAxis(:type => 'datetime')
+    end
+    
     #EVENTS
     @events_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).count
     @rsvps_last_week = Rsvp.where(['created_at > ?', Time.now - 1.week])
@@ -215,27 +193,6 @@ class ShalendarController < ApplicationController
     end
     #SUGGESTIONS
 
-  end
-
-  def fb_app_invite 
-    @invitees = params[:invitees].split(', ')
-    @subject = params[:subject]
-    @message = params[:message]
-    @invitees.each do |username|
-      @email = username + "@facebook.com"
-      Notifier.fb_app_invite(@email, @subject, @message).deliver
-    end
-    redirect_to root_path, notice: 'Message successfully sent to selected Facebook Friends'
-  end
-
-  def fb_event_invite
-    # if params[:username]
-    #   @event = Event.find_by_id(params[:event])
-    #   @email = params[:username] + "@facebook.com"
-    #   @name = params[:name]
-    #   Notifier.fb_event_invite(@email, @event, @name).deliver
-    # end
-    # redirect_to @event, notice: 'Message successfully sent to Facebook Friend'
   end
 
   private

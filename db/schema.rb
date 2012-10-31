@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121023183930) do
+ActiveRecord::Schema.define(:version => 20121030175320) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -171,6 +171,20 @@ ActiveRecord::Schema.define(:version => 20121023183930) do
     t.datetime "promo_img_updated_at"
   end
 
+  create_table "fb_invites", :force => true do |t|
+    t.string   "uid"
+    t.string   "fb_pic_url"
+    t.string   "name"
+    t.integer  "inviter_id"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "fb_invites", ["event_id", "uid"], :name => "index_fb_invites_on_event_id_and_uid", :unique => true
+  add_index "fb_invites", ["event_id"], :name => "index_fb_invites_on_event_id"
+  add_index "fb_invites", ["uid"], :name => "index_fb_invites_on_uid"
+
   create_table "gcm_devices", :force => true do |t|
     t.string   "registration_id",    :null => false
     t.datetime "last_registered_at"
@@ -303,6 +317,7 @@ ActiveRecord::Schema.define(:version => 20121023183930) do
     t.boolean  "digest",                   :default => true
     t.string   "GCMtoken"
     t.boolean  "follow_up"
+    t.boolean  "can_post_to_fb_wall",      :default => false
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

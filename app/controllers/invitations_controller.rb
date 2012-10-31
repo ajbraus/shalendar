@@ -9,11 +9,14 @@ class InvitationsController < ApplicationController
 
     respond_to do |format|
       @invited_users = @event.invited_users - @event.guests
-      Notifier.delay.invitation(@event, @user, current_user)
-      
-      format.html { redirect_to @event }
+      @invite_friends = current_user.fb_friends(session[:graph])[1]
       @friends = current_user.followers
-
+      @graph = session[:graph]
+      if @graph
+        @fb_invites = @event.fb_invites
+      end
+      Notifier.delay.invitation(@event, @user, current_user)
+      format.html { redirect_to @event }
       format.js
     end
   end
@@ -22,13 +25,4 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.find(params[:id])
     @invitation.destroy
   end
-
-  def invite_all_friends 
-    
-  end
-
-  def invite_all_fb_friends
-  end
-
-
 end

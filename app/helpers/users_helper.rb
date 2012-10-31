@@ -91,8 +91,8 @@ module UsersHelper
   def output_once(name, &block)
     @output_once_blocks ||= []
     unless @output_once_blocks.include?(name)
-        @output_once_blocks << name
-        concat(capture(block), block.binding)
+      @output_once_blocks << name
+      concat(capture(block), block.binding)
     end
   end
 

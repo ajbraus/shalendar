@@ -52,7 +52,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
       #   set_flash_message :notice, flash_key
       # end
       sign_in resource_name, resource, :bypass => true
-      respond_with resource, :location => home_path
+      respond_with resource, :location => root_path
     else
       clean_up_passwords resource
       respond_with resource

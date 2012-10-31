@@ -1,17 +1,15 @@
-<div id="rsvp_form">
-	<% if current_user.rsvpd?(@event) %>
-  	<%= form_for(current_user.rsvps.find_by_plan_id(@event),
-             html: { method: :delete }) do |f| %>
-		  <%= f.submit "I'm Not In", class: "btn btn_stop_viewing" %>
-		<% end %>
-	<% elsif @event.full? %>
-		Event is full
-	<% elsif @event.ends_at < Time.now %>
-	
-	<% else %>
-  	<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
-		  <div><%= f.hidden_field :plan_id %></div>
-		  <%= f.submit raw("&#xf05d; I'm In"), class: "btn btn-rsvp fa-input" %>
-		<% end %>
+<% if current_user.rsvpd?(@event) %>
+	<%= form_for(current_user.rsvps.find_by_plan_id(@event),
+           html: { method: :delete }) do |f| %>
+	  <%= f.submit "Not In", class: "btn btn_stop_viewing" %>
 	<% end %>
-</div>
+<% elsif @event.full? %>
+	(Idea full)
+<% elsif @event.ends_at < Time.now.in_time_zone(current_user.time_zone) %>
+  (Idea over)
+<% else %>
+	<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
+	  <div><%= f.hidden_field :plan_id %></div>
+	  <%= f.submit raw("&#xf05d; In"), class: "btn btn-rsvp fa-input" %>
+	<% end %>
+<% end %>

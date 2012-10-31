@@ -12,6 +12,13 @@
 			<% end %>
 		<% end %>
 	</div>
+	<% if @graph %>
+		<div class="friend_suggestions">
+			<div>Suggested Friends</div>
+			<%= render 'shalendar/friend_suggestions' %>
+		</div>
+	<% end %>
+	
 	<% if false %>
 	<div id="yt">
 		<a href="#yesterday" id="yesterday"><</a><br>

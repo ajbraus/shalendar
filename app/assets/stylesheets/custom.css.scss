@@ -80,6 +80,10 @@ section {
   top:20px;
 } 
 
+a img {
+  border:none;
+}
+
 textarea {
   resize: vertical;
 }
@@ -153,27 +157,27 @@ ul, li {
 
 .btn {
 line-height: 24px;
-padding: 6px 15px 6px 15px;
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 border-radius: 5px;
-font-size: 20px;
+font-size: 14px;
+padding: 0px 8px 0px 8px;
+}
+
+.btn-large{
+  padding: 10px 10px;
 }
 
 .btn-follow {
-  border-radius: 5px;
-  font-size: 21px;
-  color:white;
-  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #EE9100), color-stop(1, #f77740) );
-  background:-moz-linear-gradient( center top, #EE9100 5%, #f77740 100% );
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0976e', endColorstr='#f77740');
-  background-color:#EE9100;
-  border:1px solid #dcdcdc;
-  display:inline-block;
-  color:#ffffff;
-  padding: 9px 12px 9px 12px;
-position: relative;
-right: 16px;
+border-radius: 5px;
+color: white;
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #EE9100), color-stop(1, #F77740));
+background: -moz-linear-gradient(center top, #EE9100 5%, #F77740 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0976e', endColorstr='#f77740');
+background-color: #EE9100;
+border: 1px solid gainsboro;
+display: inline-block;
+color: white;
   &:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f77740), color-stop(1, #EE9100) );
   background:-moz-linear-gradient( center top, #f77740 5%, #EE9100 100% );
@@ -194,6 +198,7 @@ right: 16px;
 left: 243px;
 top: -1px;
 padding: 21px 12px;
+font-size: 20px;
 }
 
 .btn-new-suggestion {
@@ -264,7 +269,7 @@ padding: 21px 12px;
   border:1px solid #dcdcdc;
   display:inline-block;
   color:#636363;
-  font-size: 12px;
+  font-size: 15px;
 }
 .btn_stop_viewing:hover {
   background-color:#ededed;
@@ -800,17 +805,17 @@ margin: 0 auto;
 }
 
 #datepicker {
-width: 596px;
+width: 405px;
 font-size: 12px;
 height: 75px;
 position: absolute;
 bottom: 13px;
 float: right;
 z-index: 1;
-left: 340px;
+left: 510px;
   table{
 float: left;
-width: 29px;
+width: 20px;
     td {
       text-align: center;
     }
@@ -837,12 +842,22 @@ width: 29px;
 
 #datewindow {
 border: 3px solid #FF8500;
-width: 113px;
+width: 76px;
 height: 75px;
 position: absolute;
-left: 83px;
+left: 80px;
 bottom: -2px;
 z-index: -2;
+}
+
+.friend_suggestions {
+position: absolute;
+left: 308px;
+top: -21px;
+width: 204px;
+  > div {
+    text-align: center;
+  }
 }
 
 .weeks {
@@ -982,7 +997,7 @@ min-height: 110px;
 width: 175px;
 position: relative;
 z-index: 1;
-margin: 10px auto;
+margin: 20px auto;
 border: 10px solid white;
 -webkit-box-shadow: 1px 1px 4px rgba(50, 50, 50, 0.75);
 -moz-box-shadow:    1px 1px 4px rgba(50, 50, 50, 0.75);
@@ -1023,7 +1038,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7fbfc', end
 .event_time {
 color: white;
 background-color: #383838;
-padding: 1px 0px 0 8px;
+padding: 1px 0px 0 2px;
 font-size: 18px;
 height: 20px;
 margin-bottom: 4px;
@@ -1033,7 +1048,7 @@ img {
 span {
 position: absolute;
 top: 8px;
-right: 29px;
+right: 20px;
 }
 }
 
@@ -1046,7 +1061,7 @@ top: 5px;
 .event_blerb {
 min-height: 30px;
 color: black;
-font-size: 22px;
+font-size: 20px;
 line-height: 1;
 width: 190px;
 margin-top: 5px;
@@ -1337,12 +1352,6 @@ margin-bottom: 20px;
   }
 }
 
-.follow_btn {
-position: relative;
-left: 14px;
-width: 100px;
-}
-
 .red {
   color:$destroy;
 }
@@ -1355,6 +1364,33 @@ width: 100px;
   color:lightGrey;
   &:hover{
   color:$destroy;
+  -webkit-transition: color .25s linear .1s;
+  transition: color .25s linear .1s;
+  }
+}
+
+.fadeInGreen {
+    color:lightGrey;
+  &:hover{
+  color:$happening;
+  -webkit-transition: color .25s linear .1s;
+  transition: color .25s linear .1s;
+  }
+}
+
+.fadeInFBBlue {
+    color:lightGrey;
+  &:hover{
+  color:#3A5998;
+  -webkit-transition: color .25s linear .1s;
+  transition: color .25s linear .1s;
+  }
+}
+
+.fadeInTwitter {
+    color:lightGrey;
+  &:hover{
+  color:#01CBFB;
   -webkit-transition: color .25s linear .1s;
   transition: color .25s linear .1s;
   }
@@ -1427,6 +1463,8 @@ opacity: 0.2;
 
 .invite_friends {
   float: left;
+  clear: both;
+width: 100%;
 }
 
 .fb_invite_friends {
@@ -1540,14 +1578,6 @@ line-height: 1.5;
   }
 }
 
-.user_settings {
-
-}
-
-.logout {
-
-}
-
 #user-settings {
   width:240px;
   height:140px;
@@ -1558,10 +1588,10 @@ width: 705px;
 margin-top: 25px;
 margin-bottom: 25px;
   .fb_button {
-float: right;
-position: absolute;
-top: 116px;
-right: 580px;
+    float: right;
+    position: absolute;
+    top: 116px;
+    right: 580px;
   }
 }
 
@@ -1633,14 +1663,12 @@ top: 10px;
   left: 0px;
 }
 
-
-
 /* EVENT#SHOW */
 
 .event_show {
   margin: 0 auto;
 width: 752px;
-min-height: 900px;
+min-height: 980px;
 z-index: -10;
 }
 
@@ -1696,7 +1724,7 @@ color: white;
 background-color: green;
 }
 .title {
-height: 225px;
+height: 240px;
 width: 385px;
 position: relative;
 background-color: white;
@@ -1711,12 +1739,11 @@ top: 41px;
 height: 120px;
   }
   .event_buttons{
-    font-size: 30px;
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-    width: 270px;
-    height: 33px;
+font-size: 30px;
+position: absolute;
+right: 5px;
+float: right;
+bottom: 8px;
     li {
       float:right;
     }
@@ -1736,51 +1763,27 @@ position: relative;
 right: 15px;
 bottom: 13px;
   }
-  .title_bottom {
-  position: absolute;
-  bottom:0;
-  width: 94%;
-    .can_invite {
-     position: relative;
-left: 250px;
-bottom: 19px;
-width: 10px;
-font-size: 37px;
+  .event_link {
+float: left;
+width: 385px;
+overflow-x: hidden;
+position: absolute;
+bottom: 63px;
+left: 43px;
     }
+  .event_location{
+position: absolute;
+top: 171px;
+left: 15px;
   }
+.title_bottom {
   .by {
     float: left;
     width: 215px;
     position: absolute;
     bottom: 7px;
   }
-
-  .event_link {
-    float: left;
-    width: 385px;
-    overflow-x: hidden;
-    position: absolute;
-    bottom: 63px;
-    left: 20px;
-    }
 }
-
-.icon {
-  position: relative;
-  top: 19px;
-  .btn-success{
-    padding: 13px 6px 13px 7px;
-    line-height: 6px;
-    position: relative;
-    bottom: 5px;
-    left: 0px;
-    -webkit-border-radius: 7px;
-    -moz-border-radius: 7px;
-    border-radius: 7px;
-  }
-  .icon-group {
-    font-size: 40px;
-  }
 }
 
 .tipped_title {
@@ -1799,8 +1802,8 @@ font-size: 37px;
 z-index: 11;
 width: 461px;
 position: relative;
-margin: 11px 0;
-margin-left: 97px;
+margin: 8px 0;
+margin-left: 17px;
 height: 40px;
 float: left;
 }
@@ -1823,11 +1826,11 @@ margin: 0 2px;
 }
 
 #invite_raster {
-width: 270px;
+width: 430px;
 }
 
 .show_raster {
-height: 220px;
+height: 300px;
 overflow-y: auto;
 margin-bottom: 10px;
 width: 200px;
@@ -1838,15 +1841,14 @@ overflow-x: hidden;
     width:18%;
     float:left;
   }
-  form {
-    width: 57px;
-float: left;
-  }
 }
 .invites_guests {
 width: 973px;
 margin: 0 auto;
 clear: both;
+position: relative;
+right: 80px;
+top: 30px;
   .event_show_rasters {
     float:left;
   }
@@ -1855,9 +1857,24 @@ clear: both;
   }
 }
 
+.event_show_friend {
+float: left;
+width: 82px;
+text-align: center;
+height: 110px;
+font-size: 14px;
+}
+
 .hi_friends_invite {
   min-height: 24px;
 border-bottom: 1px solid lightGrey;
+}
+
+.fb_friends_invite {
+  clear:both;
+  h4{
+    clear:both;
+  }
 }
 
 .invite_by_email {
@@ -1865,7 +1882,7 @@ height: 231px;
 width: 253px;
 position: relative;
 float: left;
-margin-top:10px;
+margin-top:40px;
   textarea {
     width: 90%;
   }
@@ -1911,7 +1928,7 @@ text-align: right;
 float: right;
 width: 420px;
 min-height: 200px;
-margin-top: 10px;
+margin-top: 40px;
   textarea {
     width: 90%;
   }
@@ -2435,6 +2452,10 @@ font-size: 10.3px;
   width: 98%;
 }
 
+.ui-tabs .ui-tabs-panel {
+  padding: 1em .2em;
+}
+
 #tabs_nested{
 border: none;
 background: none;
@@ -2696,4 +2717,6 @@ float: left;
   }
 }
 
-
+.community_ideas {
+  color:$destroy;
+}

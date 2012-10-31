@@ -1,0 +1,8 @@
+$('#tabs-2').html("<%= escape_javascript(render partial: 'events/fb_friends', locals: { :friends => @friends, :event => @event }) %>");
+$('#invites').html("<%= escape_javascript(render partial: 'events/invites' ) %>");
+$('#invite_count').increment();
+
+$(".friend").hover(function(){
+  $(this).children("#friend_name").toggle();
+  $(this).children("#friend_button").toggle();
+});

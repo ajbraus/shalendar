@@ -58,22 +58,20 @@ Shalendar::Application.routes.draw do
     end
   end
 
-  resources :suggestions, only: [:index, :show, :create, :destroy, :edit, :update, :clone] do
+  resources :suggestions, only: [:index, :new, :show, :create, :destroy, :edit, :update, :clone] do
   end
 
   match '/clone', :to => 'suggestions#clone', as: "clone"
+
   match '/dashboard', :to => 'suggestions#index', :as => "vendor_dashboard"
-  
-  match 'new_suggestion', :to => "suggestions#new", :as => 'new_suggestion'
-  match 'allow_suggestions', :to => 'shalendar#allow_suggestions'
   match '/manage_friends', :to => 'shalendar#manage_friends', :as => "manage_friends"
 
   resources :events, only: [:index, :create, :destroy, :update, :tip, :edit, :new, :show] do 
     put :tip
     resources :comments, only: [:create, :destroy]
     resources :email_invites, only: [:create, :destroy]
+    resources :fb_invites, only: [:create, :destroy]
   end
-  
 
   resources :rsvps, only: [:create, :destroy]
   resources :invitations, only: [:create, :destroy]
@@ -84,30 +82,21 @@ Shalendar::Application.routes.draw do
     put :confirm_and_follow
   end
 
-  match '/fb_app_invite', :to => 'shalendar#fb_app_invite', :as => "fb_app_invite"
-
-  match '/fb_event_invite', :to => 'shalendar#fb_event_invite', :as => 'fb_event_invite'
-
-  # match '/user_plans_on_date', :to => 'shalendar#user_plans_on_date', :as => "user_plans_on_date"
-  # match '/user_ideas_on_date', :to => 'shalendar#user_ideas_on_date', :as => "user_ideas_on_date"
-  # match '/user_events_on_date', :to => 'shalendar#user_events_on_date', :as => "user_events_on_date"
-
   match 'tip' => 'events#tip'
   match 'invite_all_friends' => 'shalendar#invite_all_friends'
+  match 'invite_all_fb_friends' => 'fb_invites#invite_all_fb_friends'
+  match 'post_to_own_fb_wall' => 'events#post_to_own_fb_wall'
+  match 'post_to_wall_permissions' => 'shalendar#post_to_wall_permissions'
   match 'friend_requests' => 'shalendar#friend_requests'
   match 'new_invited_events' => 'shalendar#new_invited_events'
-  match 'send_invitation' => 'invitation#send_invitation'
   match 'search' => 'shalendar#search'
   match 'datepicker' => "shalendar#datepicker"
 
   match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
-  match '/public', :to => 'shalendar#city_vendor', :as => "city_vendors"
+  match '/public', :to => 'shalendar#city_vendors', :as => "city_vendors"
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
-  match '/share_all_fb_friends', :to =>'shalendar#share_all_fb_friends', :as => "share_all_fb_friends"
+  match 'share_all_fb_friends' =>'shalendar#share_all_fb_friends'
   match 'friend_all' => 'shalendar#friend_all'
-  match 'invite_all_fb_friends' => 'invitations#invite_all_fb_friends'
-
-  match '/home', to: 'shalendar#home', as: "home"
 
   match '/vendor_splash', to: 'static_pages#vendor_splash', as: 'vendor_splash'
   match '/about', :to => 'static_pages#about', :as => "about"

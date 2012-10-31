@@ -6,8 +6,8 @@
 		</tr>
 		<% else @users.each do |u| %>
 		    <tr>
-		    	<td><%= raster_profile_picture(u) %></td>
-				  <td><%= u.name %></td>
+		    	<td width="70"><%= raster_profile_picture(u) %></td>
+				  <td width="250"><%= u.name %></td>
 					<td><%= render  :partial => 'events/just_follow_form', :locals => { :user => u } %>
 					</td>
 				</tr>

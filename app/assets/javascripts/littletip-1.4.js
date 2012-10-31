@@ -13,8 +13,8 @@
 	littleTIPfade			=   70     ;	// Fading duration time (in pixels)
 	littleTIPbackground		=   0.7     ;	// Background opacity (from 0 to 1)
 	littleTIPtext			=   1       ;	// Text opacity (from 0 to 1)
-	littleTIPx				=   -40      ;	// Horizontal distance from cursor (in pixels)
-	littleTIPy				=   15      ;	// Vertical distance from cursor (in pixels)
+	littleTIPx				=   -30      ;	// Horizontal distance from cursor (in pixels)
+	littleTIPy				=   30      ;	// Vertical distance from cursor (in pixels)
 
 	
 
