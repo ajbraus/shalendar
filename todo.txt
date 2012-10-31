@@ -1,3 +1,26 @@
+Timeline 10/31
+
+Nov 1 - Iphone submitted
+
+Nov 7 - Android and iPhone in store
+
+Nov 14 - Payment Gateway - pay when you rsvp peer-to-peer w invoice at end of month - 
+				 QR code generation
+
+Nov 21 - 
+
+December 1 - Tipping payments 
+
+Dec 1 - Iphone/Android version 2
+				doorman app 
+				QR codes in user apps
+
+Dec 2 - Box office solution
+
+Customer Satisfaction
+	Aaron contact
+
+
 Mike
 ------------
 Fix so sending push notifications better than every 10 minutes (after creating, check some counter, then run the task)
@@ -37,18 +60,86 @@ new follower email link not working
 
 Adam
 
+ 	tests
+
+ 	payment strategy
+ 		escrow per tipping
+ 		peer-2-peer (attendee => host)
+ 		monthly payments to venues. . .
+ 	
+ 	ticket redeptions strategy -- bar code
+ 		barcode reader app (for doormen)
+ 		#snowshoe 
+
+ 	box office strategy
+ 		ipad app
+ 		email signup
+
 --------------------------------------------------------
 
 	.ics file in event show and emails
 	add to google calendar link in event show and emails
 
-	remove picture from new ideas dropdown
+----------------------------------------------------------
+
+	Tipping Date
+
+	IMAGE URL!
+
+	validate image size in form w js
+
+	turn off popup fb friends
 
 	add price to events
 
-	goers - my plans? planners - month view?
+----------------------------------------------------------
+	
+	remove picture from new ideas dropdown
 
---------------------------------------------------
+----------------------------------------------------------
+
+	Digest every 3 days
+
+	images in emails
+
+----------------------------------------------------------
+
+	Suggested friends shuffle
+
+----------------------------------------------------------
+
+	month view
+
+----------------------------------------------------------
+
+	JoyRide
+
+	Landing page rebuild
+
+	drawn arrows
+
+----------------------------------------------------------
+
+Agent call - if android/iPhone download our apps
+
+----------------------------------------------------------
+
+keyup character counter in idea
+
+----------------------------------------------------------
+
+Payment gateway
+event#show not protected
+
+----------------------------------------------------------
+
+ticket creation/authentication
+box office behavior
+Suggestion#show
+
+----------------------------------------------------------
+
+
 
 Suggested friends
 	user.rb
@@ -62,27 +153,9 @@ Suggested friends
 		relationship is created between the two users
 	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
 
--------------------------------------------------------
 
-Your friend "M" just joined hoos.in
-JoyRide
-IMAGE URL!
-drawn arrows
-better landing page!
+	require category with javascript in suggestions
 
-----------------------------------------------------------
-
-Payment gateway
-event#show not protected
-tip-by date
-
-----------------------------------------------------------
-
-ticket creation/authentication
-box office behavior
-Suggestion#show
-
-----------------------------------------------------------
 
 meta-data to event is in gutter and comments
 
@@ -95,6 +168,10 @@ Close Viral Loop
 	google contacts
 	twitter authentication
 	- custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid	
+
+Network Density
+	Your friend "M" just joined hoos.in
+
 
 Marketing
 	Suggestions tweet to city specific twitter account
@@ -112,10 +189,6 @@ Big UI Improvements
 Vendor happiness
 	Branded event show pages
 
-Simplify Forms
-	require category with javascript in suggestions
-	validate image size in form w js
-
 Medium UI improvements
 	fix alert and add error styling
 	add beautiful dialogue box for confirm to join event
@@ -123,7 +196,6 @@ Medium UI improvements
 	hide event/recurring event
 	Basic profile
 	Message a single RSVP or invited person
-	event edit page F-ed
 	event#edit ajax lightbox
 	event#show ajax lightbox/expand the idea vertically
 
@@ -139,8 +211,7 @@ piddly-shit
 	add format.html to everything
 	remove vendor/cache gems
 	If event is full, just not showing it in maybes right now - show as full
-	Agent call - if android/iPhone download our apps	
-	keyup character counter in idea
+
 	
 
 Future stuff: 

@@ -44,6 +44,8 @@ gem "paperclip", "~> 3.0"
 gem 'aws-sdk', '~> 1.3.4'
 gem 'coffeebeans'
 gem 'lazy_high_charts'
+#gem "rqrcode", "~> 0.4.2"
+
 
 group :development, :test do
   gem 'faker', '1.0.1'
