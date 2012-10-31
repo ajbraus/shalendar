@@ -6,3 +6,5 @@ exclude:
   - Rakefile
   - Gemfile
   - .gitignore
+
+#https://github.com/mojombo/jekyll/wiki/configuration
