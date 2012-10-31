@@ -848,9 +848,12 @@ z-index: -2;
 
 .friend_suggestions {
 position: absolute;
-left: 305px;
-top: -6px;
-width: 199px;
+left: 299px;
+top: -21px;
+width: 221px;
+  > div {
+    text-align: center;
+  }
 }
 
 .weeks {
