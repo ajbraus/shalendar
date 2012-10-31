@@ -102,9 +102,9 @@ class Event < ActiveRecord::Base
     if self.max == nil
       return false
     elsif self.guests.count >= self.max
-      return false
-    else 
       return true
+    else 
+      return false
     end
   end
 
