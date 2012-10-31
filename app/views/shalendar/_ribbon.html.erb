@@ -2,8 +2,11 @@
 	<div class="new_idea">
 		<%if current_user.vendor? %>
 			<textarea id="new_idea_blerb" placeholder="Make a New Suggestion"></textarea>
-			<%= link_to new_suggestion_path, id:"new_suggestion_button", class: "btn btn-new-idea btn-rsvp fancybox.ajax", remote: true do %>
+			<%= link_to new_suggestion_path, id:"new_suggestion_button", class: "btn btn-new-idea btn-new-suggestion fancybox.ajax", remote: true do %>
 					<i class="icon-bullhorn"></i>
+			<% end %>
+			<%= link_to new_event_path, id:"new_idea_button", class: "btn btn-rsvp btn-new-vendor-idea fancybox.ajax", remote: true do %>
+				<i class="icon-cloud"></i>
 			<% end %>
 		<% else %>
 			<textarea id="new_idea_blerb" placeholder="Describe Your Fun Idea"></textarea>
