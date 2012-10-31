@@ -44,11 +44,6 @@
 
     <h2>Email Notification Settings</h2>
     <p>
-      <%= f.check_box :allow_contact %>
-      <label for="allow_contact"><strong>Stay in touch</strong> - Recieve news and (infrequent) announcements from hoos.in </label>
-    </p>
-
-    <p>
       <%= f.check_box :email_comments %>
       <label for="email_comments"><strong>Keep those Comments Coming </strong> Recieve emails when a comment is posted to an event you've joined.</label>
     </p>
@@ -59,6 +54,14 @@
     <p>
       <%= f.check_box :notify_event_reminders %>
       <label for="notify_event_reminders"><strong>Remind me, Please</strong> - Recieve reminders for your upcomming plans.</label>
+    </p>
+    <p>
+      <%= f.check_box :digest %>
+      <label for="digest"><strong>New Ideas Digest</strong> - Recieve an email when you have new ideas in the next three days. </label>
+    </p>
+    <p>
+      <%= f.check_box :allow_contact %>
+      <label for="allow_contact"><strong>Stay in touch</strong> - Recieve news and (infrequent) announcements from hoos.in </label>
     </p>
     
     

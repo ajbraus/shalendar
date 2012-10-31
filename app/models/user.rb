@@ -361,35 +361,37 @@ class User < ActiveRecord::Base
   end
 
   def self.digest
-    @digest_users = User.where("users.digest = 'true'")
-    @digest_users.each do |u|
-      time_range = Time.now.midnight .. Time.now.midnight + 3.days
-      if u.events.where(starts_at: time_range).any?
-        @upcoming_events = []
-        (0..2).each do |day|
-          @date = Date.today + day.days
-          @events = u.events_on_date(@date, [], [])
-          @upcoming_events.push(@events)
-        end
-        Notifier.delay.digest(u, @upcoming_events)
-      else
-        @user_invitations = u.invitations.find(:all, order: 'created_at desc')
-        if @user_invitations.any?
-          @new_events = []
-          @user_invitations.each do |ui|
-            e = Event.find_by_id(ui.invited_event_id)
-            if e.starts_at.between?(Time.now.midnight, Time.now.midnight + 3.days)
-              @new_events.push(e)
-            end
+    if Date.today.days_to_week_start == (0 || 2 || 4)
+      @digest_users = User.where("users.digest = 'true'")
+      @digest_users.each do |u|
+        time_range = Time.now.midnight .. Time.now.midnight + 3.days
+        if u.events.where(starts_at: time_range).any?
+          @upcoming_events = []
+          (0..2).each do |day|
+            @date = Date.today + day.days
+            @events = u.events_on_date(@date, [], [])
+            @upcoming_events.push(@events)
           end
-          if @new_events.any?
-            @upcoming_events = []
-            (0..2).each do |day|
-              @date = Date.today + day.days
-              @events = u.events_on_date(@date, [], [])
-              @upcoming_events.push(@events)
+          Notifier.delay.digest(u, @upcoming_events)
+        else
+          @user_invitations = u.invitations.find(:all, order: 'created_at desc')
+          if @user_invitations.any?
+            @new_events = []
+            @user_invitations.each do |ui|
+              e = Event.find_by_id(ui.invited_event_id)
+              if e.starts_at.between?(Time.now.midnight, Time.now.midnight + 3.days)
+                @new_events.push(e)
+              end
             end
-            Notifier.delay.digest(u, @upcoming_events)
+            if @new_events.any?
+              @upcoming_events = []
+              (0..2).each do |day|
+                @date = Date.today + day.days
+                @events = u.events_on_date(@date, [], [])
+                @upcoming_events.push(@events)
+              end
+              Notifier.delay.digest(u, @upcoming_events)
+            end
           end
         end
       end
