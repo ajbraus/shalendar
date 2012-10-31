@@ -5,6 +5,11 @@ class Api::V1::ShalendarController < ApplicationController
 	def get_user_info
 
 		@user = User.find_by_id(params[:user_id])
+    if @user.nil?
+      render :status=>400, :json=>{
+        :error => "user was not found."
+      }
+    end
     #**UPDATE for invitations
     @all_invites = EmailInvite.where("email_invites.email = :current_user_email", current_user_email: @user.email)
     @invites = []
@@ -34,6 +39,12 @@ class Api::V1::ShalendarController < ApplicationController
 	def followed_users
 		@mobile_user = User.find_by_id(params[:id])
 
+    if @mobile_user.nil?
+      render :status=>400, :json=>{
+        :error => "user was not found."
+      }
+    end
+
 		respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @mobile_user.followed_users }
@@ -42,7 +53,11 @@ class Api::V1::ShalendarController < ApplicationController
 
   def followers
   	@mobile_user = User.find_by_id(params[:id])
-
+    if @mobile_user.nil?
+      render :status=>400, :json=>{
+        :error => "user was not found."
+      }
+    end
 		respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @mobile_user.followers }

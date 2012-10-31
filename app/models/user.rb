@@ -297,6 +297,7 @@ class User < ActiveRecord::Base
   end
 
   def forecast(load_datetime, plan_counts, invite_counts)
+    Time.zone = self.time_zone
     @forecast = []
     (-3..16).each do |i|
       @events = []
@@ -319,7 +320,7 @@ class User < ActiveRecord::Base
     #usable_date = load_datetime.in_time_zone("Central Time (US & Canada)")
     # usable_date = load_datetime# - 4.hours
     # adjusted_load_date = usable_date.to_date
-
+    Time.zone = self.time_zone
     time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
     @plans_on_date = Event.where(starts_at: time_range).joins(:rsvps)
                       .where(rsvps: {guest_id: self.id}).order("starts_at ASC")
@@ -340,10 +341,8 @@ class User < ActiveRecord::Base
 
   def mobile_events_on_date(load_datetime)#don't care about toggled here, do it locally on client
 
-    logger.info("loading events on date: #{load_datetime}")
     Time.zone = self.time_zone
     time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
-    logger.info("time range from mobile:   #{time_range}")
     @plans_on_date = Event.where(starts_at: time_range).joins(:rsvps)
                       .where(rsvps: {guest_id: self.id}).order("starts_at ASC")
     @plans_on_date.each do |p|

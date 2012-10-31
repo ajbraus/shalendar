@@ -7,13 +7,13 @@ class Api::V1::TokensController  < ApplicationController
       # Handle login from mobile FB
       if params[:email].nil?
          render :status=>400,
-                :json=>{:message=>"The request must contain the user email and FB access token."}
+                :json=>{:error=>"The request must contain the user email and FB access token."}
          return
       end
       email = params[:email]
       if params[:fbid].nil?
          render :status=>400,
-                :json=>{:message=>"The request must contain the user FBID"}
+                :json=>{:error=>"The request must contain the user FBID"}
          return
       end
       fbid = params[:fbid]
@@ -21,7 +21,7 @@ class Api::V1::TokensController  < ApplicationController
       fb_json = HTTParty.get("https://graph.facebook.com/#{fbid}?access_token=#{params[:access_token]}")
       
       if email != fb_json["email"]
-        render :json=>{:message => "Email doesn't match the facebook email"}
+        render :json=>{:error => "Email doesn't match the facebook email"}
         return
       end
       @user = find_for_oauth("Facebook", fb_json, params[:access_token])   
@@ -38,7 +38,7 @@ class Api::V1::TokensController  < ApplicationController
         # access_token = @long_token
       else 
         #create a new user from the FB access token + email
-        render :status=>400, :json=>{:message=>"There was an error. Please check your Facebook account status and retry."}
+        render :status=>400, :json=>{:error=>"There was an error. Please check your Facebook account status and retry."}
         return
       end
 
@@ -52,21 +52,19 @@ class Api::V1::TokensController  < ApplicationController
    
       if email.nil? or password.nil?
          render :status=>400,
-                :json=>{:message=>"The request must contain the user email and password."}
+                :json=>{:error =>"The request must contain the user email and password."}
          return
       end
       @user=User.find_by_email(email.downcase)
-      logger.info("User #{@user.id} found.")
+
       if @user.nil?
-        logger.info("User #{email} failed signin, user cannot be found.")
-        render :status=>401, :json=>{:message=>"Invalid email or passoword."}
+        render :status=>400, :json=>{error: "Invalid email/password combination"}
         return
       end
       # http://rdoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable
       @user.ensure_authentication_token!
       if not @user.valid_password?(password)
-        logger.info("User #{email} failed signin, password \"#{password}\" is invalid")
-        render :status=>401, :json=>{:message=>"Invalid email or password."}
+        render :status=>400, :json=>{:error =>"Invalid email or password."}
         return
       end
     end
@@ -103,7 +101,7 @@ class Api::V1::TokensController  < ApplicationController
     @user=User.find_by_authentication_token(params[:id])
     if @user.nil?
       logger.info("Token not found.")
-      render :status=>404, :json=>{:message=>"Invalid token."}
+      render :status=>404, :json=>{:error=>"Invalid token."}
     else
       @user.reset_authentication_token!
       render :status=>200, :json=>{:token=>params[:id]}
@@ -169,7 +167,7 @@ class Api::V1::TokensController  < ApplicationController
     @user = User.find_by_id(params[:user_id])
 
     if @user.nil?
-      render :json => { :success => false }
+      render :json => { :error => "user could not be found." }
       return
     elsif @user.iPhone_user == true && @user.APNtoken == token
       render :json => { :success => true }
@@ -229,7 +227,7 @@ class Api::V1::TokensController  < ApplicationController
     if @user.save!
       render :json => {:success => true }
     else
-      render :status => 400, :json => {:success => false}
+      render :status => 400, :json => {:error => "user did not save"}
     end
   end
 end
