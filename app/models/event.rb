@@ -167,5 +167,46 @@ class Event < ActiveRecord::Base
       self.title
     end
   end
+
+  def has_promo_img 
+    if self.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"
+      return false
+    else
+      return true
+    end
+  end
+
+  def post_to_fb_wall(uid, graph)
+    if Rails.env.production?
+      if self.has_promo_img
+        graph.delay.put_connections( uid, "feed", {
+                                        :name => self.title,
+                                        :link => "http://www.hoos.in/events/#{self.id}",
+                                        :picture => self.promo_img.url(:medium)
+                                      })
+      else
+        graph.delay.put_connections( uid, "feed", {
+                                        :name => self.title,
+                                        :link => "http://www.hoos.in/events/#{self.id}"
+                                      })       
+      end
+    else
+      if self.has_promo_img
+        graph.put_connections( 2232003, "feed", {
+                                        :name => self.title,
+                                        :link => "http://www.hoos.in/events/#{self.id}",
+                                        :picture => self.promo_img.url(:medium)
+                                      })
+      else
+        graph.put_connections( 2232003, "feed", {
+                                        :name => self.title,
+                                        :link => "http://www.hoos.in/events/#{self.id}"
+                                      })
+      end
+    end
+  end
+
+
+# END OF CLASS
 end
 

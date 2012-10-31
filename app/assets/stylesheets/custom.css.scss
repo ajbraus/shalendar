@@ -1380,6 +1380,15 @@ margin-bottom: 20px;
   }
 }
 
+.fadeInTwitter {
+    color:lightGrey;
+  &:hover{
+  color:#01CBFB;
+  -webkit-transition: color .25s linear .1s;
+  transition: color .25s linear .1s;
+  }
+}
+
 .destroy {
   color:$destroy;
 }

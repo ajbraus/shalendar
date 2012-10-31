@@ -85,6 +85,7 @@ Shalendar::Application.routes.draw do
   match 'tip' => 'events#tip'
   match 'invite_all_friends' => 'shalendar#invite_all_friends'
   match 'invite_all_fb_friends' => 'fb_invites#invite_all_fb_friends'
+  match 'post_to_own_fb_wall' => 'events#post_to_own_fb_wall'
   match 'post_to_wall_permissions' => 'shalendar#post_to_wall_permissions'
   match 'friend_requests' => 'shalendar#friend_requests'
   match 'new_invited_events' => 'shalendar#new_invited_events'

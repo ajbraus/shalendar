@@ -393,6 +393,12 @@ $('#new_idea_blerb').keydown(function (e) {
     $(this).children("#friend_button").toggle();
   });
 
+//Turn TWITTER BLUE
+
+  $('.icon-twitter').click(function(){
+    $(this).css("color", "#01CBFB");
+  });
+
 
 
 // END DOCUMENT.READY

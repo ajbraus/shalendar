@@ -37,12 +37,6 @@ new follower email link not working
 
 Adam
 
-Invite fb friend by posting to their walls
-	go to fb_invite#create
-	there determine if the user has permission to post to fb_walls
-
-Post to own FB wall button
-
 --------------------------------------------------------
 
 	.ics file in event show and emails

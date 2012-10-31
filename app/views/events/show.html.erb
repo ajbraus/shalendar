@@ -1,14 +1,12 @@
 <% provide(:title, " | Idea") %>
 <div class="event_show">
-  <%= render 'title' %>
+  <div id="event_title">
+    <%= render 'title' %>
+  </div>
   <% if @event.promo_img_file_size %>
     <div class="event_show_promo_img part">
       <%= image_tag("#{@event.promo_img.url(:large)}") %>
     </div>
-  <% end %>
-
-  <% if @event.user.id == current_user.id || @event.guests_can_invite_friends? %>
-    <%= render 'social', locals: { :event => @event } %>
   <% end %>
 
   <div class="invites_guests">

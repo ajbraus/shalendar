@@ -40,27 +40,24 @@ class EventsController < ApplicationController
     if @event.min <= 1
       @event.tipped = true
     end
-    respond_to do |format|
-      if @event.save
-        current_user.rsvp!(@event)
-        if params[:invite_all_friends] == "on"
-          @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
-          current_user.invite_all_friends!(@event)
-          @rsvp.invite_all_friends = true
-          @rsvp.save
-        end        
-        if current_user.post_to_fb_wall? && session[:graph] && params[:invite_all_friends] == "on" && @event.guests_can_invite_friends? && Rails.env.production?
-          session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
-                                              :link => "http://www.hoos.in/events/#{@event.id}", 
-                                              :picture => "http://www.hoos.in/assets/icon.png",
-                                              })
-        end
-        format.html { redirect_to @event, notice: "Idea Posted Successfully" }
-        format.json { render json: @event, status: :created, location: @event }
-      else
-        format.html { redirect_to root_path, notice: "#{@event.errors.count} Errors prevented this idea from being posted. Please try again." }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+    if @event.save
+      current_user.rsvp!(@event)
+      if params[:invite_all_friends] == "on"
+        @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
+        current_user.invite_all_friends!(@event)
+        @rsvp.invite_all_friends = true
+        @rsvp.save
+      end        
+      if current_user.post_to_fb_wall? && session[:graph] && params[:invite_all_friends] == "on" && @event.guests_can_invite_friends? && Rails.env.production?
+        session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
+                                            :link => "http://www.hoos.in/events/#{@event.id}", 
+                                            :picture => "http://www.hoos.in/assets/icon.png",
+                                            })
       end
+    end
+    respond_to do |format|
+      format.html { redirect_to @event, notice: "Idea Posted Successfully" }
+      format.json { render json: @event, status: :created, location: @event }
     end
   end
 
@@ -69,7 +66,7 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @guests = @event.guests
-    @friends = current_user.followers
+    @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event) }
     @email_invites = @event.email_invites
     @invited_users = @event.invited_users - @event.guests 
     @comments = @event.comments.order("created_at desc")
@@ -138,6 +135,22 @@ class EventsController < ApplicationController
     end
   end
 
+  def post_to_own_fb_wall
+    @event = Event.find_by_id(params[:event_id])
+    if current_user.permits_wall_posts?(session[:graph]) == true
+      @uid = current_user.authentications.find_by_provider("Facebook").uid
+      @event.post_to_fb_wall(@uid, session[:graph])
+      respond_to do |format|
+        format.html { redirect_to @event, notice: "Successfully posted event to your facebook wall" }
+        format.js
+      end 
+    else
+      respond_to do |format|
+        format.html { redirect_to @event, notice: "It was not possible to post this idea to your facebook wall" }
+        format.js { render template: "fb_invites/extend_permissions" }
+      end 
+    end
+  end
 end
 
 
