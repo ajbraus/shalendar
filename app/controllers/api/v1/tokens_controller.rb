@@ -31,12 +31,12 @@ class Api::V1::TokensController  < ApplicationController
       # access_token = params[:access_token]
       # access_token = env["omniauth.auth"]
       # auth_attr = { :uid => uid, :token => access_token, :secret => nil }
-      if @user.present?
+      if @user.nil?
         #I think we get the long access token already on the mobile app
         # @short_token = access_token
         # @long_token = HTTParty.get("https://graph.facebook.com/oauth/access_token?client_id=327936950625049&client_secret=4d3de0cbf2ce211f66733f377b5e3816&grant_type=fb_exchange_token&fb_exchange_token=#{@short_token}")
         # access_token = @long_token
-      else 
+
         #create a new user from the FB access token + email
         render :status=>400, :json=>{:error=>"There was an error. Please check your Facebook account status and retry."}
         return
@@ -167,12 +167,15 @@ class Api::V1::TokensController  < ApplicationController
     @user = User.find_by_id(params[:user_id])
 
     if @user.nil?
-      render :json => { :error => "user could not be found." }
+      render status: 400, :json => { :error => "user could not be found." }
       return
     elsif @user.iPhone_user == true && @user.APNtoken == token
-      render :json => { :success => true }
+      render status: 200, :json => { :success => true }
       return
     end
+
+    logger.info("get here in the APN user method for user: #{@user.id}")
+    logger.info("the token is: #{token}")
 
     #do a more robust check to make sure we don't use same id and same token ever,
     #and that we shouldn't make extra devices
@@ -180,6 +183,7 @@ class Api::V1::TokensController  < ApplicationController
     @user.iPhone_user = true
     device = APN::Device.new
     device.token = @user.APNtoken
+    logger.info("device token is: #{device.token}")
     device.save!
     @user.apn_device_id = device.id
     @user.save!

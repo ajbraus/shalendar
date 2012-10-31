@@ -3,7 +3,7 @@
   configatron.apn.passphrase = 'C0nn3ction'
   configatron.apn.port = 2195
   configatron.apn.host = 'gateway.sandbox.push.apple.com'
-  configatron.apn.cert = File.join(Rails.root, 'config', 'apn_development.pem')
+  configatron.apn.cert = File.join(Rails.root, 'config', 'apn_production.pem')
   
   # # production (delivery):
   # configatron.apn.host # => 'gateway.push.apple.com'
