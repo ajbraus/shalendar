@@ -35,11 +35,14 @@ $grayDarker:#eaeaea;
   font-family: bariol_bold;
   src: url('Bariol_Bold.otf') format("opentype");
   font-style: bold;
+  font-weight: bold;
 }
 
 @font-face {
   font-family: bariol;
   src: url('Bariol_Regular.otf') format("opentype") ;
+  font-weight: normal;
+  font-style: normal;
 }
 
 /* universal */
@@ -859,10 +862,10 @@ width: 20px;
 
 #datewindow {
 border: 3px solid #FF8500;
-width: 76px;
+width: 80px;
 height: 75px;
 position: absolute;
-left: 80px;
+left: 81px;
 bottom: -2px;
 z-index: -2;
 }
@@ -979,9 +982,10 @@ height: 100%;
   a {
     text-decoration: none;
     color:inherit;
-    cursor: -webkit-zoom-in;
+    cursor: pointer;
+/*    cursor: -webkit-zoom-in;
     cursor: -moz-zoom-in;
-    cursor: zoom-in;
+    cursor: zoom-in;*/
   }
   dt span {
     color: darkgrey;
@@ -1048,9 +1052,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7fbfc', end
     color:$destroy;
   }
 #suggestion {
-  cursor: -webkit-zoom-in;
+  cursor:pointer;
+/*  cursor: -webkit-zoom-in;
   cursor: -moz-zoom-in;
-  cursor: zoom-in;
+  cursor: zoom-in;*/
 }
 .event_time {
 color: white;

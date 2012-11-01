@@ -12,11 +12,9 @@
     <%= @event.title %>
   </div>
 
-  <% if @event.link.length > 0 %>
-    <div class="event_link">
-      link: <%= event_link(@event) %>
-    </div>
-  <% end %>
+  <div class="event_link">
+    link: <%= event_link(@event) %>
+  </div>
 
   <% if @event.address.length > 0 %>
     <div class="event_location">
