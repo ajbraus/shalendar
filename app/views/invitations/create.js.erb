@@ -2,7 +2,9 @@ $('#tabs-1').html("<%= escape_javascript(render partial: 'events/hoosin_friends'
 $('#invites').html("<%= escape_javascript(render partial: 'events/invites' ) %>");
 $('#invite_count').increment();
 
+<script>
 $(".friend").hover(function(){
   $(this).children("#friend_name").toggle();
   $(this).children("#friend_button").toggle();
 });
+</script>
