@@ -1,77 +1,67 @@
 <% provide(:title, " | Idea") %>
-  <% if current_user.rsvpd?(@event) %>
-    <ul class="addToCalendar">
-      <li>
-        <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fevents%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
-          <%= image_tag("gcalendar.png", width: '30') %>
-        </a>
-      </li>
-      <li>
-        <%= link_to :controller => 'events', :action => :show, :format => :ics do %>
-          <%= image_tag "ical-icon.png", width: '30', title: "Add to Your iCal" %>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to :controller => 'events', :action => :show, :format => :ics do %>
-          <%= image_tag "outlook-icon.png", width: '30', title: "Add to Your Outlook Calendar" %>
-        <% end %>
-      </li>
-    </ul>
-  <% end %>
-<div class="event_show">
-  <div id="event_title">
-    <%= render 'title' %>
-  </div>
-  <% if @event.promo_img_file_size %>
-    <div class="event_show_promo_img part">
-      <%= image_tag("#{@event.promo_img.url(:large)}") %>
-    </div>
-  <% end %>
-  <div class="invites_guests">
-      <div class="event_show_rasters">
-    <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.starts_at > Time.now %>
-        <p>Share with Friends</p>
-        <div id="invite_raster" class="show_raster part">
-          <%= render partial: 'invite_raster', :locals => { :event => @event } %>
-        </div>
-    <% else %>
-        <p>Share with Friends</p>
-        <div id="invite_raster" class="hide show_raster part"></div>
-    <% end %>
-  </div>
+<% if current_user.rsvpd?(@event) %>
+  <%= render 'events/event_buttons' %>
+<% end %>
+<div class="rsvp_button">
+    <%= render 'rsvp_form' %>
+</div>
 
-    <div class="event_show_rasters">
+<div class="event_show">
+
+  <div class="host">
+	  <%= raster_profile_picture(@event.user) %> <div>hosted by: <br><%= @event.user.name %></div>
+	</div>
+	<div class="when">
+	  <%= event_start_time(@event) %> - <%= event_end_time(@event) %>
+	  <%= date(@event) %> 
+	</div>
+
+	<% if @event.promo_img_file_size %>
+	<div class="promo_img">
+	  <%= image_tag("#{@event.promo_img.url(:large)}") %>
+	</div>
+	<% end %>
+
+	<div class="event_title">
+	  <%= @event.title %>
+	</div>
+
+	<% unless @event.address == '' %>
+	  <div class="event_location">
+	    <%= link_to "http://mapof.it/#{@event.address}", target: "_blank", title:"View in Google Maps" do %>
+	      <span class="fadeInOrange"><i class="icon-map-marker"></i></span>
+	    <% end %>
+	    <%= @event.address %>
+	  </div>
+	<% end %>
+
+	<!-- COMMENTS -->
+  <%= render partial: 'comments_form' %>
+  
+  <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.starts_at > Time.now %>
+      <p>Share with Friends</p>
+      <div id="invite_raster" class="show_raster">
+        <%= render partial: 'invite_raster', :locals => { :event => @event } %>
+      </div>
+  <% end %>
+  
+    <div class="maybes padding">
       <p><span id="invite_count"><%= @invited_users.count + @email_invites.count %> </span> Maybes</p>
-      <div id="invites" class="show_raster part">
+      <div id="invites" class="show_raster">
         <%= render partial: 'events/invites' %>
       </div>
     </div>
 
-    <div class="event_show_rasters">
+    <div class="guests padding">
       <% if @event.tipped? %>
         <p><%= @guests.count %> Going (Tipped!)</p>
       <% else %>
         <p class="destroy"><%= @guests.count %> / <%= @event.min %> Going (Not Yet Tipped)</p>
       <% end %>
-      <div class="show_raster part">
+      <div class="show_raster">
         <%= render 'guests' %>
       </div>
     </div>
-  </div>
-  <div>
-  <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.starts_at > Time.now %>
-    <div class="invite_by_email part">
-  <% else %>
-    <div class="hide invite_by_email part">
-  <% end %>
-      <label>Share by Email</label>
-      <%= form_for([@event, @event.email_invites.build]) do |f| %>
-        <%= f.text_area :email, rows: "2", placeholder: "Seperate Emails with Comma" %>
-        <%= f.text_area :message, rows: "3", placeholder: "Message" %>
-        <%= f.submit raw("Send"), class: "btn btn-primary" %>
-      <% end %>
-    </div>
-      <%= render partial: 'comments_form' %>
   </div>
 </div>
 

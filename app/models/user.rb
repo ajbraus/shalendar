@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
                                    class_name:  "Relationship",
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower, conditions: "confirmed = 't'"
+  has_many :comments
 
   after_create :send_welcome
   

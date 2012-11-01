@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121030175320) do
+ActiveRecord::Schema.define(:version => 20121101172858) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(:version => 20121030175320) do
     t.integer  "event_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
 
   add_index "comments", ["event_id"], :name => "index_comments_on_event_id"

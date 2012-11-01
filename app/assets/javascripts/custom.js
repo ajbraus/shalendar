@@ -112,23 +112,51 @@ $(document).bind('click', function(e) {
 
 // NEW IDEA LIGHTBOX
 
+  $('#eventFancyBox').fancybox({
+    autoSize : true,
+    fitToView : false,
+    mouseWheel : false,
+    openEffect : 'elastic',
+    closeEffect : 'fade'
+  });
+
   $('#new_idea_button').fancybox({
         closeBtn    : true,
         scrolling   : 'auto',
-        autoSize    : true
+        autoSize    : true,
+        mouseWheel : false
   });
   $('#new_suggestion_button').fancybox({
         closeBtn    : true,
         scrolling   : 'auto',
-        autoSize    : true
+        autoSize    : true,
+        mouseWheel : false
   });
 	$('.find_friends').fancybox({
         closeBtn    : true,
         scrolling   : 'auto',
-        autoSize    : true
+        autoSize    : true,
+        mouseWheel : false
   });
   //$('.city_vendors').fancybox();
   $('.clone').fancybox({
+        closeBtn    : true,
+        scrolling   : 'auto',
+        autoSize    : true,
+        mouseWheel : false
+  });
+
+
+
+
+  // {
+  //   'transitionIn'    : 'none',
+  //   'transitionOut'   : 'none',
+  //   'titlePosition'   : 'over',
+  //   'titleFormat'       : function(title, currentArray, currentIndex, currentOpts) {
+  //       return '<span id="fancybox-title-over">Image ' +  (currentIndex + 1) + ' / ' + currentArray.length + ' ' + title + '</span>';
+  //   }
+  $('#shareByEmail').fancybox({
         closeBtn    : true,
         scrolling   : 'auto',
         autoSize    : true
@@ -156,6 +184,8 @@ $(document).bind('click', function(e) {
   $('#tabs-nested').tabs();
   $('#events').tabs();
   $('#suggestions').tabs();
+
+
   $('#invite_raster').tabs();
 
 // DATETIME PICKER

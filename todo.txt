@@ -21,6 +21,31 @@ Customer Satisfaction
 	Aaron contact
 
 
+Feature list for ticketing
+
+	Ticket generation - $10 + $2 fee
+		hoosin event
+		Max
+		on RSVP launch payment gateway funnel
+		Send email / display qr on page
+		display qr on iphone
+
+	Audit
+		at door sales - lower fee? + facility fee
+		day of show - $13 + $2 = $15
+		online sales
+
+	promo-code
+	invite only
+
+
+	Like/Tweet the venue
+	venue branded page
+
+	high noon saloon
+
+
+
 Mike
 ------------
 iPhone 
@@ -84,6 +109,19 @@ Adam
 	make invite all fb_friends
 	fix show/hide of friend/friended button in find_friends
 	fix show/hide of friend button cross browsers
+
+----------------------------------------------------------
+
+hover on items
+logo on left
+click pic to invite/friend
+fix link
+public ideas
+suggestions pic is broken
+picture w/ comments
+hover not in
+title and description
+removing invited person when not friending them
 
 ----------------------------------------------------------
 

@@ -77,6 +77,7 @@ class EventsController < ApplicationController
     end
 
     respond_to do |format|
+      format.js
       format.html 
       format.json { render json: @event }
       format.ics do

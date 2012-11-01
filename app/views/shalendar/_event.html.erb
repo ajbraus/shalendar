@@ -4,7 +4,7 @@
 		<div class="event not_rsvpd <%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) ? 'over' : '' %>" data-event-id="<%= event.id %>" <%= event.id == @next_plan.id ? "style='box-shadow: 0px 0px 34px -6px #388EE5;'" : '' if @next_plan %> data-inviter-id="<%= event.inviter_id %>">
 <% end %>
 
-	<a href="/events/<%= event.id %>">
+	<%= link_to event_path(event) do %>
 		<div class="event_time">			
 			<% if event.starts_at.hour > 4 && event.starts_at.hour < 12 %>
 				<%= image_tag "morning.png" %>
@@ -62,7 +62,7 @@
 			<% else %>
 			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
 			<% end %>
-
 		<% end %>
-		</a>
+	<!-- ENDING LINK_TO -->
+	<% end %>
 </div>

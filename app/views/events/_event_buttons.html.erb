@@ -1,0 +1,99 @@
+<ul class="event_buttons">
+  <% if @event.user == current_user %> 
+    <% unless @event.tipped? %>
+    <li>
+      <%= link_to event_tip_path(@event), :confirm => "Force your idea to tip? This cannot be reversed and will send notifications to all RSVPs", title: "Tip Manually", :method => :put do %>
+        <span class="fadeInOrange"><i class="icon-pushpin"></i></span>
+      <% end %>
+    </li>
+    <% end %>
+    <li>
+      <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will send an Email to all RSVPs a cancellation email.' }, title: "Delete Idea" do %>
+        <span class="fadeInRed"><i class="icon-trash"></i></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to edit_event_path(@event), title:"Edit Idea" do %>
+        <span class="fadeInOrange"><i class="icon-wrench"></i></span>
+      <% end %>
+    </li>
+  <% end %>
+  
+  <% if @event.guests_can_invite_friends? || @event.user == current_user %>
+    <% if current_user.rsvpd?(@event) %>
+
+      <% if current_user.invited_all_friends?(@event) %>
+      <li>
+        <i class="icon-group gold" title="Shared with all Friends"></i>
+      </li>
+      <% else %>
+      <li>
+        <%= link_to invite_all_friends_path(:event_id => @event.id), confirm: "Post idea to ALL friends walls in #{current_user.city}?", title: "Invite All Friends" do %>
+          <span class="fadeInGreen"><i class="icon-group"></i></span>
+        <% end %>
+      </li>
+      <% end %>
+
+      <!-- #FACEBOOK -->
+      <% if current_user.fb_user? %>
+        <li>
+          <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Post to your Facebook wall", remote: true do %>
+            <i class="icon-facebook-sign"></i>
+          <% end %>
+        </li>
+      <% end %>
+
+      <!-- #TWITTER -->
+      <li>
+        <a href="https://twitter.com/share" data-text="<%= @event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this idea" target="_blank"><i class="icon-twitter"></i></a>
+      </li>
+
+    <% else %>
+      <li>
+        <i class="icon-group black" title="Join the Idea and Share with Friends"></i>
+      </li>
+    <% end %>
+  <% end %>
+
+  <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.starts_at > Time.now %>
+    <li>
+      <a id="shareByEmail" href="#shareByEmailShow"><span class="fadeInOrange"><i class="icon-envelope-alt" title="Share Idea by Email"></i></span></a>
+    </li>
+  <% end %>
+
+
+  <% unless @event.link == '' %>
+    <li>
+      <%= link_to "http://#{@event.link}", target: "_blank" do %>
+        <span class="fadeInOrange" title="Idea's Website"><i class="icon-link"></i></span>
+      <% end %>
+    </li>
+  <% end %>
+
+  <li>
+    <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fevents%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
+      <%= image_tag("gcalendar.png", width: '30') %>
+    </a>
+  </li>
+  <li>
+    <%= link_to :controller => 'events', :action => :show, :format => :ics do %>
+      <%= image_tag "ical-icon.png", width: '30', title: "Add to Your iCal" %>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to :controller => 'events', :action => :show, :format => :ics do %>
+      <%= image_tag "outlook-icon.png", width: '30', title: "Add to Your Outlook Calendar" %>
+    <% end %>
+  </li>
+</ul>
+
+<div style="display:none;">
+<div class="invite_by_email" id="shareByEmailShow">
+  <label>Share by Email</label>
+  <%= form_for([@event, @event.email_invites.build]) do |f| %>
+    <%= f.text_area :email, rows: "2", placeholder: "Seperate Emails with Comma" %>
+    <%= f.text_area :message, rows: "3", placeholder: "Message" %>
+    <%= f.submit raw("Send"), class: "btn btn-primary" %>
+  <% end %>
+</div>
+</div>
