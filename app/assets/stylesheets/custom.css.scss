@@ -201,6 +201,22 @@ padding: 21px 12px;
 font-size: 20px;
 }
 
+.btn-new-vendor-idea {
+  position: relative;
+  -moz-border-radius: 0 6px 6px 0px;
+  -webkit-border-radius: 0 6px 6px 0px;
+  border-radius: 0 6px 6px 0px;
+  border: 1px solid #9C33ED;
+  display: inline-block;
+  color: white;
+  font-family: arial;
+  position: absolute;
+  left: 243px;
+  top: 33px;
+  padding: 4px 12px;
+  font-size: 20px;
+}
+
 .btn-new-suggestion {
   -moz-box-shadow: inset 0px 1px 0px 0px #d197fe;
   -webkit-box-shadow: inset 0px 1px 0px 0px #D197FE;
@@ -209,6 +225,7 @@ font-size: 20px;
   background: -moz-linear-gradient(center top, #A53DF6 5%, #7C16CB 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a53df6', endColorstr='#7c16cb');
   background-color: #A53DF6;
+  padding: 4px 12px;
 
 }
 .btn-new-suggestion:hover {
@@ -1667,7 +1684,7 @@ top: 10px;
 
 .event_show {
   margin: 0 auto;
-width: 752px;
+width: 820px;
 min-height: 980px;
 z-index: -10;
 }
@@ -1725,7 +1742,7 @@ background-color: green;
 }
 .title {
 height: 240px;
-width: 385px;
+width: 415px;
 position: relative;
 background-color: white;
 float: left;
@@ -1753,7 +1770,7 @@ bottom: 8px;
   }
   .when {
 font-size: 21px;
-width: 375px;
+width: 405px;
 color: black;
 padding: 10px 10px 10px 30px;
 font-weight: 700;
@@ -1847,7 +1864,7 @@ width: 973px;
 margin: 0 auto;
 clear: both;
 position: relative;
-right: 80px;
+right: 40px;
 top: 30px;
   .event_show_rasters {
     float:left;
@@ -2672,8 +2689,8 @@ background-color: #F8F8F8;
 position: relative;
 top: 20px;
   img {
-    max-width: 290px;
-    max-height: 260px;
+    max-width: 260px;
+    max-height: 290px;
   }
 }
 
@@ -2719,4 +2736,12 @@ float: left;
 
 .community_ideas {
   color:$destroy;
+}
+
+
+.addToCalendar {
+position: relative;
+top: 44px;
+float: left;
+right: 300px;
 }
