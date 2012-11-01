@@ -46,6 +46,8 @@ gem 'coffeebeans'
 gem 'lazy_high_charts'
 #gem "rqrcode", "~> 0.4.2"
 
+gem 'icalendar'
+
 gem 'bloggy', '0.1.1'
 
 

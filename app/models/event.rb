@@ -1,4 +1,5 @@
 require 'chronic'
+require 'icalendar'
 
 class Event < ActiveRecord::Base
   belongs_to :user
@@ -214,6 +215,20 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def to_ics
+    @ics_event = Icalendar::Event.new
+    @ics_event.start = self.starts_at.strftime("%Y%m%dT%H%M%S")
+    @ics_event.end = self.ends_at.strftime("%Y%m%dT%H%M%S")
+    @ics_event.summary = self.title
+    #@event.description = self.description
+    @ics_event.location = self.address if self.address
+    @ics_event.klass = "PUBLIC"
+    @ics_event.created = self.created_at
+    @ics_event.last_modified = self.updated_at
+    @ics_event.uid = @ics_event.url = "http://www.hoos.in/events/#{self.id}"
+    #@ics_event.add_comment("AF83 - Shake your digital, we do WowWare")
+    @ics_event
+  end
 
 # END OF CLASS
 end

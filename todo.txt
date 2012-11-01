@@ -218,7 +218,7 @@ piddly-shit
 	add format.html to everything
 	remove vendor/cache gems
 	If event is full, just not showing it in maybes right now - show as full
-
+	event destroy does not destroy because of background job -- maybe can clone the object and 		delete the parent?
 	
 
 Future stuff: 

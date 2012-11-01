@@ -2740,7 +2740,8 @@ float: left;
 
 
 .addToCalendar {
-  position: absolute;
-top: 363px;
-left: 590px;
+position: relative;
+top: 44px;
+float: left;
+right: 300px;
 }
