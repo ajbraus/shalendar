@@ -87,6 +87,8 @@ Adam
 
 ----------------------------------------------------------
 
+	Datepicker loads 1 day to the right when I click the hoos.in icon to go home.
+
 	Tipping Date
 
 	IMAGE URL!
@@ -104,6 +106,8 @@ Adam
 ----------------------------------------------------------
 
 	Digest every 3 days
+
+	Prune email messages / make only push or email
 
 	images in emails
 
