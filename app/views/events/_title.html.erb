@@ -71,7 +71,7 @@
         <!-- #FACEBOOK -->
         <% if current_user.fb_user? %>
           <li>
-            <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Invite Local Facebook Friends", remote: true do %>
+            <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Post to your Facebook wall", remote: true do %>
               <i class="icon-facebook-sign"></i>
             <% end %>
           </li>
