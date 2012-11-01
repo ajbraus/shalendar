@@ -64,7 +64,7 @@
   <% else %>
     <div class="hide invite_by_email part">
   <% end %>
-      <p>Share by Email</p>
+      <label>Share by Email</label>
       <%= form_for([@event, @event.email_invites.build]) do |f| %>
         <%= f.text_area :email, rows: "2", placeholder: "Seperate Emails with Comma" %>
         <%= f.text_area :message, rows: "3", placeholder: "Message" %>

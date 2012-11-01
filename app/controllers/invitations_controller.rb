@@ -10,7 +10,7 @@ class InvitationsController < ApplicationController
     respond_to do |format|
       @invited_users = @event.invited_users - @event.guests
       @invite_friends = current_user.fb_friends(session[:graph])[1]
-      @friends = current_user.followers
+      @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event) }
       @graph = session[:graph]
       if @graph
         @fb_invites = @event.fb_invites
