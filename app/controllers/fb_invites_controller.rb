@@ -7,9 +7,9 @@ class FbInvitesController < ApplicationController
       @fb_invite = @event.fb_invites.build(params[:fb_invite])
       @fb_invite.save
       @event.post_to_fb_wall(@fb_invite.uid, session[:graph])
-      @invite_friends = current_user.fb_friends(session[:graph])[1].reject { |inf| FbInvite.find_by_uid(inf['uid'].to_s) }
       @fb_invites = @event.fb_invites
       @invited_users = @event.invited_users - @event.guests
+      @invite_friends = current_user.fb_friends(session[:graph])[1].reject { |inf| FbInvite.find_by_uid(inf['uid'].to_s) }
       respond_to do |format|
         format.html { redirect_to @event, notice: 'fb_invite was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }

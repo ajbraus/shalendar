@@ -10,7 +10,7 @@
       <div class="event_show_friend friend">
         <%= image_tag("#{invite_raster_picture(iu)}", class: "profile_picture") %>
         <div id="friend_name"><%= iu.name %></div>
-        <div id="friend_button">
+        <div id="friend_button" style="display:none;">
           <%= render :partial => 'events/follow_form', locals: { :user => iu } %>
         </div>
       </div> 
