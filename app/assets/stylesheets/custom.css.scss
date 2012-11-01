@@ -1748,12 +1748,9 @@ background-color: white;
 float: left;
 margin-top: 20px;
   .event_title {
-font-size: 27px;
-padding: 10px 0px 10px 10px;
-line-height: 1.1;
-position: absolute;
-top: 41px;
-height: 120px;
+font-size: 26px;
+position: relative;
+height: 134px;
   }
   .event_buttons{
 font-size: 30px;
@@ -1865,7 +1862,7 @@ margin: 0 auto;
 clear: both;
 position: relative;
 right: 40px;
-top: 30px;
+top: 0px;
   .event_show_rasters {
     float:left;
   }
@@ -2741,7 +2738,8 @@ float: left;
 
 .addToCalendar {
 position: relative;
-top: 44px;
 float: left;
-right: 300px;
+clear: left;
+left: 159px;
+top: 5px;
 }
