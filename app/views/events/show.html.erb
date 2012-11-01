@@ -1,4 +1,23 @@
 <% provide(:title, " | Idea") %>
+  <% if current_user.rsvpd?(@event) %>
+    <ul class="addToCalendar">
+      <li>
+        <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fevents%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
+          <%= image_tag("gcalendar.png", width: '30') %>
+        </a>
+      </li>
+      <li>
+        <%= link_to :controller => 'events', :action => :show, :format => :ics do %>
+          <%= image_tag "ical-icon.png", width: '30', title: "Add to Your iCal" %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to :controller => 'events', :action => :show, :format => :ics do %>
+          <%= image_tag "outlook-icon.png", width: '30', title: "Add to Your Outlook Calendar" %>
+        <% end %>
+      </li>
+    </ul>
+  <% end %>
 <div class="event_show">
   <div id="event_title">
     <%= render 'title' %>
@@ -8,22 +27,11 @@
       <%= image_tag("#{@event.promo_img.url(:large)}") %>
     </div>
   <% end %>
-  <div class="addToCalendar">
-    <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fevents%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
-      <%= image_tag("gcalendar.png", width: '40') %>
-    </a>
-    <%= link_to :controller => 'events', :action => :show, :format => :ics do %>
-      <%= image_tag "ical-icon.png", width: '40', title: "Add to Your iCal" %>
-    <% end %>
-    <%= link_to :controller => 'events', :action => :show, :format => :ics do %>
-      <%= image_tag "outlook-icon.png", width: '40', title: "Add to Your Outlook Calendar" %>
-    <% end %>
-  </div>
   <div class="invites_guests">
       <div class="event_show_rasters">
     <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.starts_at > Time.now %>
         <p>Share with Friends</p>
-        <div id="invite_raster" class="show_raster">
+        <div id="invite_raster" class="show_raster part">
           <%= render partial: 'invite_raster', :locals => { :event => @event } %>
         </div>
     <% else %>
@@ -50,26 +58,19 @@
       </div>
     </div>
   </div>
-
+  <div>
   <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.starts_at > Time.now %>
     <div class="invite_by_email part">
+  <% else %>
+    <div class="hide invite_by_email part">
+  <% end %>
       <p>Share by Email</p>
       <%= form_for([@event, @event.email_invites.build]) do |f| %>
         <%= f.text_area :email, rows: "2", placeholder: "Seperate Emails with Comma" %>
         <%= f.text_area :message, rows: "3", placeholder: "Message" %>
-        <%= f.submit raw("&#xf0e0;" + "Message"), class: "btn btn-primary fa-input" %>
+        <%= f.submit raw("Send"), class: "btn btn-primary" %>
       <% end %>
     </div>
-  <% else %>
-    <div class="hide invite_by_email part">
-      <p>Share by Email</p>
-      <%= form_for([@event, @event.email_invites.build]) do |f| %>
-          <%= f.text_area :email, rows: "2", placeholder: "Seperate Emails with Comma" %>
-          <%= f.text_area :message, rows: "3", placeholder: "Message" %>
-          <%= f.submit raw("Send"), class: "btn btn-primary" %>
-      <% end %>
-    </div>
-  <% end %>
       <%= render partial: 'comments_form' %>
   </div>
 </div>

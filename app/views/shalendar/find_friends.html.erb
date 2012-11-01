@@ -15,8 +15,7 @@
 			<td width="55px"><%= image_tag("#{mf['picture']['data']['url']}") %></td>
 			<td width="100px"><%= "#{mf['name']}" %></td>
 			<td width="100px">
-				<% u = Authentication.find_by_uid(mf['id']).user %>
-					<%= render :partial => 'events/follow_form', locals: { :user => u } %>
+				<%= render :partial => 'events/follow_form', locals: { :user => mf } %>
 	    </td>
 		</tr> 
 	</table>

@@ -62,7 +62,7 @@
         </li>
         <% else %>
         <li>
-          <%= link_to invite_all_friends_path(:event_id => @event.id), confirm: "Post idea to ALL friends walls in #{current_user.city}?" do %>
+          <%= link_to invite_all_friends_path(:event_id => @event.id), confirm: "Post idea to ALL friends walls in #{current_user.city}?", title: "Invite All Friends" do %>
             <span class="fadeInGreen"><i class="icon-group"></i></span>
           <% end %>
         </li>

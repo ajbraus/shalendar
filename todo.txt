@@ -81,11 +81,9 @@ Adam
 
 --------------------------------------------------------
 
-	.ics file in event show and emails
-	add to google calendar link in event show and emails
-
-	fix fb_share sending twice
 	make invite all fb_friends
+	fix show/hide of friend/friended button in find_friends
+	fix show/hide of friend button cross browsers
 
 ----------------------------------------------------------
 
