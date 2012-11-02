@@ -16,7 +16,7 @@
     link: <%= event_link(@event) %>
   </div>
 
-  <% unless @event.address == "" %>
+  <% unless @event.address == "" || @event.address.nil? %>
     <div class="event_location">
       location: <%= @event.address %>
     </div>
