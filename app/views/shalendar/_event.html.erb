@@ -4,7 +4,7 @@
 		<div class="event not_rsvpd <%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) ? 'over' : '' %>" data-event-id="<%= event.id %>" <%= event.id == @next_plan.id ? "style='box-shadow: 0px 0px 34px -6px #388EE5;'" : '' if @next_plan %> data-inviter-id="<%= event.inviter_id %>">
 <% end %>
 
-	<a href="/events/<%= event.id %>">
+	<%= link_to event_path(event) do %>
 		<div class="event_time">			
 			<% if event.starts_at.hour > 4 && event.starts_at.hour < 12 %>
 				<%= image_tag "morning.png" %>
@@ -16,10 +16,15 @@
 			<span><%= event_start_time(event) %> - <%= event_end_time(event) %></span>
 		</div>
 
-		<% if !event.promo_img_file_size.nil? %>
-			<div class="event_promo_img">
-				<%= image_tag event.promo_img.url(:medium) %>
-			</div>
+
+    <% if !event.promo_url.nil? && event.promo_url != "" %>
+      <div class="promo_img">
+        <%= image_tag("#{event.promo_url}") %>
+      </div>
+    <% elsif !event.promo_img_file_size.nil? %>
+      <div class="promo_img">
+        <%= image_tag("#{event.promo_img.url(:large)}") %>
+      </div>
 		<% elsif !event.suggestion.nil? %>
 			<div class="event_promo_img">
 				<%= image_tag event.suggestion.promo_img.url(:medium) %>
@@ -46,6 +51,14 @@
 			<% end %>
 		</div>
 
+		<% if !event.promo_vid.nil? && event.promo_vid != "" %>
+			<div class="event_video">
+				<i class="purple icon-facetime-video"></i>
+			</div>
+		<% end %>
+
+
+
 		<% unless current_user.vendor? %>
 			<% unless event.user == User.find_by_id(event.inviter_id) %>
 				<div class="host">by: <%= event.user.first_name.capitalize %> 
@@ -62,7 +75,7 @@
 			<% else %>
 			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
 			<% end %>
-
 		<% end %>
-		</a>
+	<!-- ENDING LINK_TO -->
+	<% end %>
 </div>

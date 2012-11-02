@@ -1,5 +1,5 @@
 <% @guests.each do |guest| %>
-  <% if current_user.following?(guest) || guest == current_user %>
+  <% if !user_signed_in? || (current_user.following?(guest) || guest == current_user) %>
     <div class="event_show_friend">
       <%= image_tag("#{invite_raster_picture(guest)}", class: "profile_picture") %>
       <div id="friend_name"><%= guest.name %></div>

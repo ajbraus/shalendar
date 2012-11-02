@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_filter :authenticate_user!
-  #skip_before_filter :authenticate_user!, :only => :show
+  skip_before_filter :authenticate_user!, :only => :show
 
   require 'active_support/core_ext'
 
@@ -71,17 +71,21 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @guests = @event.guests
-    @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event) }
     @email_invites = @event.email_invites
     @invited_users = @event.invited_users - @event.guests 
     @comments = @event.comments.order("created_at desc")
     @graph = session[:graph]
+    if user_signed_in?
+      @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event) }
+    end
+    
     if @graph
       @invite_friends = current_user.fb_friends(session[:graph])[1].reject { |inf| FbInvite.find_by_uid(inf['uid'].to_s) }
       @fb_invites = @event.fb_invites
     end
 
     respond_to do |format|
+      format.js
       format.html 
       format.json { render json: @event }
       format.ics do

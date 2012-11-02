@@ -33,7 +33,9 @@ class Event < ActiveRecord::Base
                   :tipped,
                   :guests_can_invite_friends,
                   :price,
-                  :promo_img
+                  :promo_img,
+                  :promo_vid,
+                  :promo_url
 
   has_attached_file :promo_img, :styles => { :original => '900x700',
                                              :large => '380x520',
@@ -44,8 +46,8 @@ class Event < ActiveRecord::Base
                              #:default_url => "https://s3.amazonaws.com/hoosin-production/event/promo_img/medium/default_promo_img.png"
 
   validates :promo_img, # :attachment_presence => true,
-                     :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] },
-                     :attachment_size => { :in => 0..500.kilobytes }
+                     :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] }
+                     #:attachment_size => { :in => 0..500.kilobytes }
 
   validates :user_id,
             :title,
@@ -59,7 +61,9 @@ class Event < ActiveRecord::Base
   validates :title, length: { maximum: 140 }
   validates_numericality_of :longitude, :latitude, allow_blank:true
   @url = /^((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)?$/ 
-  validates :link, :format => { :with => @url }, allow_blank:true
+  validates :link, :promo_url, :format => { :with => @url }, allow_blank:true
+  @youtube_url = /(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?(\w{10,})/
+  validates :promo_vid, :format => { :with => @youtube_url }, allow_blank:true
   validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}, allow_blank:true
 
  

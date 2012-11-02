@@ -112,23 +112,51 @@ $(document).bind('click', function(e) {
 
 // NEW IDEA LIGHTBOX
 
+  $('#eventFancyBox').fancybox({
+    autoSize : true,
+    fitToView : false,
+    mouseWheel : false,
+    openEffect : 'elastic',
+    closeEffect : 'fade'
+  });
+
   $('#new_idea_button').fancybox({
         closeBtn    : true,
         scrolling   : 'auto',
-        autoSize    : true
+        autoSize    : true,
+        mouseWheel : false
   });
   $('#new_suggestion_button').fancybox({
         closeBtn    : true,
         scrolling   : 'auto',
-        autoSize    : true
+        autoSize    : true,
+        mouseWheel : false
   });
 	$('.find_friends').fancybox({
         closeBtn    : true,
         scrolling   : 'auto',
-        autoSize    : true
+        autoSize    : true,
+        mouseWheel : false
   });
   //$('.city_vendors').fancybox();
   $('.clone').fancybox({
+        closeBtn    : true,
+        scrolling   : 'auto',
+        autoSize    : true,
+        mouseWheel : false
+  });
+
+
+
+
+  // {
+  //   'transitionIn'    : 'none',
+  //   'transitionOut'   : 'none',
+  //   'titlePosition'   : 'over',
+  //   'titleFormat'       : function(title, currentArray, currentIndex, currentOpts) {
+  //       return '<span id="fancybox-title-over">Image ' +  (currentIndex + 1) + ' / ' + currentArray.length + ' ' + title + '</span>';
+  //   }
+  $('#shareByEmail').fancybox({
         closeBtn    : true,
         scrolling   : 'auto',
         autoSize    : true
@@ -139,6 +167,25 @@ $(document).bind('click', function(e) {
 
   $('#fb_invite_friends').validate();
 	$("#registration_form").validate();
+
+  $("#new_comment").validate({
+    rules: {
+      'comment[content]': {
+        required: true,
+        maxlength: 250,
+        minlength: 1
+      }
+    }
+  });
+
+  $.validator.addMethod(
+        "regex",
+        function(value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(value);
+        },
+        "Please check your input."
+  );
 
 
   $('input[type=file]').fileValidator({
@@ -156,6 +203,8 @@ $(document).bind('click', function(e) {
   $('#tabs-nested').tabs();
   $('#events').tabs();
   $('#suggestions').tabs();
+
+
   $('#invite_raster').tabs();
 
 // DATETIME PICKER
@@ -298,6 +347,21 @@ $("#addimg").click(function () {
   }
 });
 
+
+$("#addvid").click(function () {
+  if ($("#addvidp").hasClass("open")) {
+   $("#addvidp").slideUp();
+   $('#addvidp').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#addvidp').slideDown();
+   $("#addvidp").addClass("open");
+   $("#addvid").css("color", "#EB8325")
+  }
+});
+
 $("#addcost").click(function () {
   if ($("#addcostp").hasClass("open")) {
    $("#addcostp").slideUp();
@@ -359,6 +423,15 @@ $('#new_idea_blerb').keydown(function (e) {
 
   if (keyCode == 13) {
     $("#new_idea_button").click();
+    return false;
+  }
+});
+
+$('#comment_content').keydown(function (e) {
+  var keyCode = e.keyCode || e.which;
+
+  if (keyCode == 13) {
+    $("#new_comment_button").click();
     return false;
   }
 });
