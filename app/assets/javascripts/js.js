@@ -170,13 +170,22 @@ $(document).bind('click', function(e) {
 
   $("#new_comment").validate({
     rules: {
-      field: {
+      'comment[content]': {
         required: true,
         maxlength: 250,
         minlength: 1
       }
     }
   });
+
+  $.validator.addMethod(
+        "regex",
+        function(value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(value);
+        },
+        "Please check your input."
+  );
 
 
   $('input[type=file]').fileValidator({
@@ -335,6 +344,21 @@ $("#addimg").click(function () {
    $('#addimgp').slideDown();
    $("#addimgp").addClass("open");
    $("#addimg").css("color", "#EB8325")
+  }
+});
+
+
+$("#addvid").click(function () {
+  if ($("#addvidp").hasClass("open")) {
+   $("#addvidp").slideUp();
+   $('#addvidp').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#addvidp').slideDown();
+   $("#addvidp").addClass("open");
+   $("#addvid").css("color", "#EB8325")
   }
 });
 

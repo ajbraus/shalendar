@@ -21,19 +21,6 @@
   
   <% if @event.guests_can_invite_friends? || @event.user == current_user %>
     <% if current_user.rsvpd?(@event) %>
-
-      <% if current_user.invited_all_friends?(@event) %>
-      <li>
-        <i class="icon-group gold" title="Shared with all Friends"></i>
-      </li>
-      <% else %>
-      <li>
-        <%= link_to invite_all_friends_path(:event_id => @event.id), confirm: "Post idea to ALL friends walls in #{current_user.city}?", title: "Invite All Friends" do %>
-          <span class="fadeInGreen"><i class="icon-group"></i></span>
-        <% end %>
-      </li>
-      <% end %>
-
       <!-- #FACEBOOK -->
       <% if current_user.fb_user? %>
         <li>

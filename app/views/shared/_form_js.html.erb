@@ -79,6 +79,20 @@ $("#addimg").click(function () {
   }
 });
 
+$("#addvid").click(function () {
+  if ($("#addvidp").hasClass("open")) {
+   $("#addvidp").slideUp();
+   $('#addvidp').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#addvidp').slideDown();
+   $("#addvidp").addClass("open");
+   $("#addvid").css("color", "#EB8325")
+  }
+});
+
 $("#addcost").click(function () {
   if ($("#addcostp").hasClass("open")) {
    $("#addcostp").slideUp();
@@ -126,10 +140,26 @@ $('#new_suggestion_form').validate();
       "event[duration]": {
         required: true,
         number: true
+      },
+      "event[promo_url]": {
+        url: true
       }
     }
   });
-   
+
+  $.validator.addMethod(
+        "regex",
+        function(value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(value);
+        },
+        "Must be a valid Youtube URL"
+  );
+
+$("#event_promo_vid").rules("add", { 
+  regex: "/(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?(\w{10,})/"
+  });
+
 // focus on the first text input field in the first field on the page
   $("textarea").focus();
 

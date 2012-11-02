@@ -1,6 +1,8 @@
 <% provide(:title, " | Idea") %>
-<% if current_user.rsvpd?(@event) %>
-  <%= render 'events/event_buttons' %>
+<% if user_signed_in? %>
+  <% if current_user.rsvpd?(@event) %>
+    <%= render 'events/event_buttons' %>
+  <% end %>
 <% end %>
 <div class="rsvp_button">
     <%= render 'rsvp_form' %>
@@ -30,28 +32,38 @@
 	  <%= date(@event) %> 
 	</div>
 
-	<% if @event.promo_img_file_size %>
-	<div class="promo_img">
-	  <%= image_tag("#{@event.promo_img.url(:large)}") %>
-	</div>
-	<% end %>
-
+    <% if !@event.promo_url.nil? && @event.promo_url != "" %>
+      <div class="promo_img">
+        <%= image_tag("#{@event.promo_url}") %>
+      </div>
+    <% elsif !@event.promo_img_file_size.nil? %>
+      <div class="promo_img">
+        <%= image_tag("#{@event.promo_img.url(:large)}") %>
+      </div>
+    <% end %>
 	<div class="event_title">
 	  <%= @event.title %>
 	</div>
 
+  <% if !@event.promo_vid.nil? && @event.promo_vid != "" %>
+    <div class="promo_vid">
+      <%= raw(youtube_embed(@event.promo_vid)) %>
+    </div>
+  <% end %>
+
+<% if user_signed_in? %>
 	<!-- COMMENTS -->
   <%= render partial: 'comments_form' %>
   
   <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.ends_at > Time.now %>
-      <div class="left_label share_with_friends event_label">Share with Friends</div>
       <div id="invite_raster">
         <%= render partial: 'invite_raster', :locals => { :event => @event } %>
       </div>
   <% end %>
-  
+<% end %>
+
     <div class="maybes">
-      <div id="invite_count" class="left_label event_label"><%= @invited_users.count + @email_invites.count %> Maybes </div> 
+      <div id="invite_count" class="left_label event_label"><%= @fb_friends.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_friends.count %> Maybes </div> 
       <div id="invites" class="show_raster">
         <%= render partial: 'events/invites' %>
       </div>

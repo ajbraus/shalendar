@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121101172858) do
+ActiveRecord::Schema.define(:version => 20121102152346) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -170,6 +170,8 @@ ActiveRecord::Schema.define(:version => 20121101172858) do
     t.string   "promo_img_content_type"
     t.integer  "promo_img_file_size"
     t.datetime "promo_img_updated_at"
+    t.string   "promo_url"
+    t.string   "promo_vid"
   end
 
   create_table "fb_invites", :force => true do |t|

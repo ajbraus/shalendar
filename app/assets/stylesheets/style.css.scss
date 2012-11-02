@@ -396,25 +396,22 @@ span.red a {
 -moz-border-radius: 0 5px 5px 0;
 border-radius: 0 5px 5px 0;
 font-size: 14px;
-padding: 5.6px 6px;
+padding: 6.5px 6px;
 position: relative;
 right: 5px;
-bottom:.5px;
-  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
-  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
-  box-shadow:inset 0px 1px 0px 0px #ffffff;
-  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
-  background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
-  background-color:#ededed;
-  border:1px solid #dcdcdc;
-  display:inline-block;
-  color:#777777;
-  font-family:arial;
-  font-size:15px;
-  font-weight:bold;
-  text-decoration:none;
-  text-shadow:1px 1px 0px #ffffff;
+bottom: 1px;
+-moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+-webkit-box-shadow: inset 0px 1px 0px 0px white;
+box-shadow: inset 0px 1px 0px 0px white;
+background-color: #EDEDED;
+border: 1px solid gainsboro;
+display: inline-block;
+color: #777;
+font-family: arial;
+font-size: 15px;
+font-weight: bold;
+text-decoration: none;
+text-shadow: 1px 1px 0px white;
 }
 .btn-user-search:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
@@ -459,19 +456,21 @@ bottom:.5px;
 header {
   clear: both;
   width:100%;
-height: 58px;
-  background-color:$icon_color;
-  -webkit-box-shadow: 0px 2px 9px rgba(50, 50, 50, 0.75);
+height: 72px;
+  /*background-color:$icon_color;*/
+/*  -webkit-box-shadow: 0px 2px 9px rgba(50, 50, 50, 0.75);
   -moz-box-shadow:    0px 2px 9px rgba(50, 50, 50, 0.75);
-  box-shadow:         0px 2px 9px rgba(50, 50, 50, 0.75);
+  box-shadow:         0px 2px 9px rgba(50, 50, 50, 0.75);*/
   .white {
   color:white;
 }
   nav {
-width: 940px;
+width: 960px;
 margin: 0 auto;
 color: white;
-height: 58px;
+height: 72px;
+background-color: rgba(255, 255, 255, .6);
+border-bottom:1px solid $divider;
   }
   .tagline {
 float: left;
@@ -483,15 +482,25 @@ padding-top: 21px;
   ul.right_header {
 float: right;
 position: relative;
-bottom:37px;
 height: 0px;
+right: 25px;
+top: 38px;
+font-size: 15px;
+  a{
+    color: $icon_color;
+    &:hover {
+      text-decoration:underline;
+      color:$icon_color;
+    }
+  }
   }
   ul.left_header {
-    float: left;
+float: left;
 position: relative;
-top: 18px;
+top: 34px;
 width: 300px;
 height: 10px;
+left: -22px;
   }
   li {
     display: inline;
@@ -515,9 +524,9 @@ height: 10px;
   .get_friends {
 position: relative;
 float: left;
-bottom: 6px;
-
-  }
+bottom: -4px;
+left: 295px;
+}
 }
 .new_friends_count {
   position: relative;
@@ -547,11 +556,11 @@ bottom: 6px;
 
 .logo {
 width: 164px;
-margin: 0 auto;
-height: 58px;
+height: 72px;
 position: relative;
-left: 15px;
-bottom: 2px;
+left: 25px;
+float: left;
+top: 3px;
 }
 
 .howto {
@@ -574,6 +583,8 @@ top: 34px;
 /* General dropdown styles */  
 .dropdown {
   display: inline;
+  position: relative;
+bottom: 10px;
 }     
 .dropdown dd, .dropdown dt, .dropdown ul { 
 
@@ -777,13 +788,12 @@ width: 105%;
 }
 */
 .user_search {
-    position: relative;
-bottom: 5px;
 input[type=text] {
   border-radius: 0;
 width: 200px;
 padding: 6px;
 font-size: 12px;
+border: 1px solid lightGrey;
 }
 }
 
@@ -863,10 +873,10 @@ width: 20px;
 
 #datewindow {
 border: 3px solid #FF8500;
-width: 80px;
-height: 75px;
+width: 74px;
+height: 73px;
 position: absolute;
-left: 81px;
+left: 86px;
 bottom: -2px;
 z-index: -2;
 }
@@ -1024,6 +1034,12 @@ border: 10px solid white;
 -webkit-box-shadow: 1px 1px 4px rgba(50, 50, 50, 0.75);
 -moz-box-shadow:    1px 1px 4px rgba(50, 50, 50, 0.75);
 box-shadow:         1px 1px 4px rgba(50, 50, 50, 0.75);
+.promo_img {
+  img{
+    max-height: 320px;
+    width: 175px;
+  }
+}
 }
 
 .event_promo_img {
@@ -1086,6 +1102,13 @@ right: 20px;
   width: 50px;
   position: relative;
 top: 5px;
+}
+
+.event_video {
+  float: left;
+position: relative;
+left: 57px;
+bottom: 12px;
 }
 
 .event_blerb {
@@ -1275,7 +1298,7 @@ bottom: 17px;
 .alert { 
 text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 background-color: #FCF8E3;
-border-bottom: 2px solid goldenrod;
+border-bottom: 1px solid goldenrod;
 border-top: 1px solid goldenrod;
 color: goldenrod;
 z-index: 20;
@@ -1286,8 +1309,8 @@ margin: 0 auto;
 text-align: center;
 font-size: 17px;
 float: left;
-position: relative;
-bottom: 7px;
+position: absolute;
+top: 65px;
 }
 
 .ui-autocomplete {
@@ -1681,19 +1704,28 @@ top: 10px;
 .event_show {
 margin: 0 auto;
 width: 580px;
-min-height: 1600px;
 z-index: -10;
 border-left:1px solid $divider;
 border-right:1px solid $divider;
 background-color: white;
+border-bottom: 1px solid $divider;
+border-top: 1px solid $divider;
+overflow: hidden;
   .promo_img {
     text-align: center;
+    margin-bottom:-90px;
     img {
-      max-width: 600px;
-      max-height: 360px;
-      min-width: 380px;
-      min-height: 330px;
+      max-width: 560px;
+      max-height: 540px;
+      min-width: 250px;
+      min-height: 310px;
     }
+  }
+  .promo_vid {
+    text-align: center;
+    margin-bottom: -14px;
+    position: relative;
+    right: 10px;
   }
   > div {
     padding: 10px;
@@ -1810,6 +1842,7 @@ line-height: 1.2;
   .when {
 font-size: 27px;
 height: 20px;
+margin-bottom: 10px;
   }
 
 .event_location{
@@ -1827,28 +1860,27 @@ top: 15px;
   float: right;
 position: relative;
 top: 82px;
-right: 180px;
+right: 260px;
 }
 .event_title {
 float: left;
 font-size: 26px;
 height: 90px;
 line-height: 1.2;
-width:560px;
+width: 560px;
 background-color: rgba(0, 0, 0, 0.5);
 color: white;
 font-weight: 600;
-position: absolute;
-top: 465px;
+position: relative;
 border-bottom: 1px solid $divider;
 }
 
 .event_buttons{
 font-size: 28px;
 line-height: 1.3;
-position: relative;
+position: absolute;
 float: right;
-right: 140px;
+right: 275px;
 }
 
 .tipped_title {
@@ -1902,23 +1934,22 @@ border-bottom:1px solid $divider;
 }
 
 .maybes {
-  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-  box-sizing: border-box;         /* Opera/IE 8+ */
-  float:left;
-  width:48%;
-  border-right:1px solid $divider;
-  min-height: 495px;
-  position: relative;
-  top: 0px;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+float: left;
+width: 48%;
+border-right: 1px solid #D1CDCD;
+min-height: 270px;
+position: relative;
+overflow: hidden;
 }
 .guests {
   float:left;
   width:48%;
-  min-height: 515px;
-    position: relative;
-  top: 0px;
-
+  min-height: 270px;
+  position: relative;
+  overflow: hidden;
 }
 
 .right_label {
@@ -1930,7 +1961,7 @@ margin-bottom: 10px;
 
 .event_label {
 font-size: 16px;
-color: #B9B9B9;
+color: grey;
 font-weight: 700;
 text-align: left;
 }
@@ -1944,16 +1975,35 @@ left: 2px;
 .share_with_friends {
 float: right;
 position: relative;
-top: 47px;
 left: -5px;
+margin-bottom: -40px;
+z-index: 1;
+.icon-group {
+  font-size: 29px;
+  position: relative;
+  top: 4px;
+}
+.fadeInGreen {
+      color:lightGrey;
+  &:hover{
+  color:$happening;
+  -webkit-transition: color .25s linear .1s;
+  transition: color .25s linear .1s;
+    }
+  }
+#green {
+  color:$happening;
+}
 }
 
 .event_show_friend {
 float: left;
 width: 81px;
 text-align: center;
-height: 110px;
+height: 107px;
 font-size: 14px;
+top: 16px;
+position: relative;
 }
 
 .hi_friends_invite {
@@ -2028,7 +2078,6 @@ background-color: #ECECEC;
 position: relative;
 z-index: 0;
 left: 0px;
-top: 47px;
 border-bottom:1px solid $divider;
 form {
   float: left;
@@ -2037,7 +2086,7 @@ form {
     float:left;
   }
   input[type=text] {
-width: 60%;
+  width: 370px;
 float: left;
 border-radius: 0;
 position: relative;
@@ -2049,7 +2098,6 @@ padding-left: 6px;
   }
   .btn {
 position: relative;
-bottom: -1px;
 padding: 3px 7px 3px 7px;
 right: 46px;
 -webkit-border-radius: 0 7px 7px 0;
@@ -2398,7 +2446,7 @@ margin-top: 10px;
   margin-left: 20px;
 }
 
-#addLink, #addmap, #addimg, #addtipping, #addcost {
+#addLink, #addmap, #addimg, #addtipping, #addcost, #addvid {
   cursor:pointer;
   color:black;
   text-decoration: underline;
@@ -2409,7 +2457,7 @@ margin-top: 10px;
   }
 }
 
-#addLinkp, #addmapp, #addimgp {
+#addLinkp, #addmapp, #addimgp, #addvidp {
   float:left;
   margin-bottom: 15px;
   width: 100%;
