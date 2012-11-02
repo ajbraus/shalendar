@@ -1116,8 +1116,9 @@ min-height: 30px;
 color: black;
 font-size: 20px;
 line-height: 1;
-width: 190px;
+width: 189px;
 margin-top: 5px;
+overflow: hidden;
 }
 
 .friends_attending {
@@ -1719,7 +1720,7 @@ bottom: 25px;
       max-width: 560px;
       max-height: 540px;
       min-width: 250px;
-      min-height: 310px;
+      min-height: 90px;
     }
   }
   .promo_vid {

@@ -5,4 +5,12 @@ class Comment < ActiveRecord::Base
 
   validates :content, length: { maximum: 240 }
 
+
+  def user_name
+  	if !comment.user.nil?
+  		comment.user.name
+  	else
+  		comment.creator
+  	end
+  end
 end
