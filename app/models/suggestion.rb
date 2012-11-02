@@ -34,8 +34,8 @@ class Suggestion < ActiveRecord::Base
                              :default_url => "https://s3.amazonaws.com/hoosin-production/suggestion/promo_img/medium/default_promo_img.png"
 
   validates :promo_img, # :attachment_presence => true,
-                     :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] },
-                     :attachment_size => { :in => 0..500.kilobytes }
+                     :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] }
+                     #:attachment_size => { :in => 0..500.kilobytes }
 
   validates :max, numericality: { in: 1..10000, only_integer: true }
   validates :min, numericality: { in: 1..10000, only_integer: true }

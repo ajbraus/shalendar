@@ -8,9 +8,23 @@
 
 <div class="event_show">
 
-  <div class="host">
-	  <%= raster_profile_picture(@event.user) %> <div>hosted by: <br><%= @event.user.name %></div>
-	</div>
+  <div class="event_top">
+    <div class="host">
+	   <%= raster_profile_picture(@event.user) %> 
+     <div>
+      hosted by: <br><%= @event.user.name %>
+     </div>
+    </div>
+    <% unless @event.address == '' %>
+      <div class="event_location">
+        <%= link_to "http://mapof.it/#{@event.address}", target: "_blank", title:"View in Google Maps" do %>
+          <span class="fadeInOrange"><i class="icon-map-marker"></i></span>
+        <% end %>
+        <%= @event.address %>
+      </div>
+    <% end %>
+  </div>
+
 	<div class="when">
 	  <%= event_start_time(@event) %> - <%= event_end_time(@event) %>
 	  <%= date(@event) %> 
@@ -26,37 +40,28 @@
 	  <%= @event.title %>
 	</div>
 
-	<% unless @event.address == '' %>
-	  <div class="event_location">
-	    <%= link_to "http://mapof.it/#{@event.address}", target: "_blank", title:"View in Google Maps" do %>
-	      <span class="fadeInOrange"><i class="icon-map-marker"></i></span>
-	    <% end %>
-	    <%= @event.address %>
-	  </div>
-	<% end %>
-
 	<!-- COMMENTS -->
   <%= render partial: 'comments_form' %>
   
-  <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.starts_at > Time.now %>
-      <p>Share with Friends</p>
-      <div id="invite_raster" class="show_raster">
+  <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.ends_at > Time.now %>
+      <div class="left_label share_with_friends event_label">Share with Friends</div>
+      <div id="invite_raster">
         <%= render partial: 'invite_raster', :locals => { :event => @event } %>
       </div>
   <% end %>
   
-    <div class="maybes padding">
-      <p><span id="invite_count"><%= @invited_users.count + @email_invites.count %> </span> Maybes</p>
+    <div class="maybes">
+      <div id="invite_count" class="left_label event_label"><%= @invited_users.count + @email_invites.count %> Maybes </div> 
       <div id="invites" class="show_raster">
         <%= render partial: 'events/invites' %>
       </div>
     </div>
 
-    <div class="guests padding">
+    <div class="guests">
       <% if @event.tipped? %>
-        <p><%= @guests.count %> Going (Tipped!)</p>
+        <div class="right_label event_label"><%= @guests.count %> Going (Tipped!)</div>
       <% else %>
-        <p class="destroy"><%= @guests.count %> / <%= @event.min %> Going (Not Yet Tipped)</p>
+        <div class="destroy right_label event_label"><%= @guests.count %> / <%= @event.min %> Going (Not Yet Tipped)</div>
       <% end %>
       <div class="show_raster">
         <%= render 'guests' %>
