@@ -4,16 +4,16 @@
 	<% elsif @event.ends_at < Time.now %>
 	  (Idea over)
 	<% else %>
-		<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
-	  	<div><%= f.hidden_field :plan_id %></div>
-	  	<%= f.submit raw("&#xf05d; In"), class: "btn btn-rsvp fa-input" %>
-		<% end %>
+		<%= link_to "Join", new_user_session_path, class:"btn btn-rsvp" %>
 	<% end %>
 <% else %>
 	<% if current_user.rsvpd?(@event) %>
 		<%= form_for(current_user.rsvps.find_by_plan_id(@event),
 	           html: { method: :delete }) do |f| %>
-		  <%= f.submit "Not In", class: "btn btn_stop_viewing" %>
+		  <%= f.submit "Unrsvp", class: "btn btn_stop_viewing" %>
+		  <span class="shareable">
+        <i class="icon-group black" title="Join the Idea and Share with Friends"></i>
+      </span>
 		<% end %>
 	<% elsif @event.full? %>
 		(Idea full)
@@ -22,7 +22,7 @@
 	<% else %>
 		<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
 		  <div><%= f.hidden_field :plan_id %></div>
-		  <%= f.submit raw("&#xf05d; In"), class: "btn btn-rsvp fa-input" %>
+		  <%= f.submit "Join", class: "btn btn-rsvp" %>
 		<% end %>
 	<% end %>
 <% end %>

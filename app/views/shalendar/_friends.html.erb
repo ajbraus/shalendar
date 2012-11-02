@@ -1,4 +1,4 @@
-<% unless @friend_requests.nil? %>
+<% unless @friend_requests.nil? || @friend_requests == [] %>
   <div class="user_table">
     <h2><span class="friend_count"><%= @friend_requests.count %></span> Friend Requests</h2>
     <% @friend_requests.each do |nf| %>

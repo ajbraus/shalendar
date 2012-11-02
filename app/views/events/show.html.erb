@@ -1,8 +1,6 @@
 <% provide(:title, " | Idea") %>
 <% if user_signed_in? %>
-  <% if current_user.rsvpd?(@event) %>
-    <%= render 'events/event_buttons' %>
-  <% end %>
+  <%= render 'events/event_buttons' %>
 <% end %>
 <div class="rsvp_button">
     <%= render 'rsvp_form' %>
@@ -25,6 +23,9 @@
         <%= @event.address %>
       </div>
     <% end %>
+    <div class="cost">
+      <%= @event.nice_price %>
+    </div>
   </div>
 
 	<div class="when">
@@ -32,15 +33,16 @@
 	  <%= date(@event) %> 
 	</div>
 
-    <% if !@event.promo_url.nil? && @event.promo_url != "" %>
-      <div class="promo_img">
-        <%= image_tag("#{@event.promo_url}") %>
-      </div>
-    <% elsif !@event.promo_img_file_size.nil? %>
-      <div class="promo_img">
-        <%= image_tag("#{@event.promo_img.url(:large)}") %>
-      </div>
-    <% end %>
+  <% if !@event.promo_url.nil? && @event.promo_url != "" %>
+    <div class="promo_img">
+      <%= image_tag("#{@event.promo_url}") %>
+    </div>
+  <% elsif !@event.promo_img_file_size.nil? %>
+    <div class="promo_img">
+      <%= image_tag("#{@event.promo_img.url(:large)}") %>
+    </div>
+  <% end %>
+
 	<div class="event_title">
 	  <%= @event.title %>
 	</div>
@@ -55,7 +57,7 @@
 	<!-- COMMENTS -->
   <%= render partial: 'comments_form' %>
   
-  <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.ends_at > Time.now %>
+  <% if (current_user.rsvpd?(@event) && @event.guests_can_invite_friends? || @event.user == current_user) && @event.ends_at < Time.now %>
       <div id="invite_raster">
         <%= render partial: 'invite_raster', :locals => { :event => @event } %>
       </div>
@@ -81,6 +83,12 @@
     </div>
   </div>
 </div>
+
+<% if false %>
+  <div class="shareable">
+    <i class="icon-group black" title="Join the Idea and Share with Friends"></i>
+  </div>
+<% end %>
 
 <!-- Twitter API script -->
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>

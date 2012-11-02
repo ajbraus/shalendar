@@ -234,6 +234,12 @@ class Event < ActiveRecord::Base
     @ics_event
   end
 
+  def nice_price
+    if price
+      "$" + "%.2f" % price
+    end
+  end
+
 # END OF CLASS
 end
 

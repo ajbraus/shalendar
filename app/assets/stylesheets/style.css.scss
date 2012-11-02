@@ -1704,13 +1704,14 @@ top: 10px;
 .event_show {
 margin: 0 auto;
 width: 580px;
-z-index: -10;
-border-left:1px solid $divider;
-border-right:1px solid $divider;
+border-left: 1px solid #D1CDCD;
+border-right: 1px solid #D1CDCD;
 background-color: white;
-border-bottom: 1px solid $divider;
-border-top: 1px solid $divider;
+border-bottom: 1px solid #D1CDCD;
+border-top: 1px solid #D1CDCD;
 overflow: hidden;
+position: relative;
+bottom: 25px;
   .promo_img {
     text-align: center;
     margin-bottom:-90px;
@@ -1856,12 +1857,26 @@ top: 15px;
     }
   }
 
-.rsvp_button {
+.cost {
   float: right;
 position: relative;
-top: 82px;
-right: 260px;
+top: 19px;
+  }
+
+.rsvp_button {
+  position: relative;
+  top: 86px;
+  left: 650px;
+  width: 100px;
+  z-index: 1;
 }
+
+.shareable {
+  font-size: 21px;
+position: relative;
+top: 3px;
+}
+
 .event_title {
 float: left;
 font-size: 26px;
@@ -1878,9 +1893,10 @@ border-bottom: 1px solid $divider;
 .event_buttons{
 font-size: 28px;
 line-height: 1.3;
-position: absolute;
+position: relative;
+right: 135px;
 float: right;
-right: 275px;
+margin-left: -30px;
 }
 
 .tipped_title {

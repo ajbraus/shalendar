@@ -114,9 +114,7 @@ Adam
 
 Datepicker loads 1 day to the right when I click the hoos.in icon to go home.
 hover on items
-logo on left
 click pic to invite/friend
-fix link
 public ideas
 suggestions pic is broken
 picture w/ comments
@@ -124,9 +122,9 @@ hover not in
 title and description
 removing invited person when not friending them
 
-	Tipping Date
 
-	IMAGE URL!
+
+	Tipping Date
 
 	validate image size in form w js
 
