@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102152346) do
+ActiveRecord::Schema.define(:version => 20121102210513) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -109,7 +109,6 @@ ActiveRecord::Schema.define(:version => 20121102152346) do
 
   create_table "comments", :force => true do |t|
     t.string   "content"
-    t.string   "creator"
     t.integer  "event_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

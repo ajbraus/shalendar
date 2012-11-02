@@ -1,5 +1,6 @@
 class SuggestionsController < ApplicationController
-
+  before_filter :authenticate_user!
+  
   def index
     @suggestions = current_user.suggestions.where('starts_at IS NOT NULL and starts_at > ?', Time.now).order('starts_at ASC')
   end

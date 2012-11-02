@@ -830,7 +830,7 @@ form {
 position: relative;
 top: 15px;
 height: 85px;
-border-bottom: 1px solid lightGrey;
+border-bottom: 1px solid $divider;
 width: 915px;
 margin: 0 auto;
 }
@@ -1034,6 +1034,7 @@ border: 10px solid white;
 -webkit-box-shadow: 1px 1px 4px rgba(50, 50, 50, 0.75);
 -moz-box-shadow:    1px 1px 4px rgba(50, 50, 50, 0.75);
 box-shadow:         1px 1px 4px rgba(50, 50, 50, 0.75);
+overflow: hidden;
 .promo_img {
   img{
     max-height: 320px;
@@ -2116,11 +2117,12 @@ padding-left: 6px;
   }
   .btn {
 position: relative;
-padding: 3px 7px 3px 7px;
-right: 46px;
+padding: 4px 7px 4px 7px;
+right: 15px;
 -webkit-border-radius: 0 7px 7px 0;
 -moz-border-radius: 0 7px 7px 0;
 border-radius: 0 7px 7px 0;
+bottom: 19px;
   }
   .field {
     margin-left:10px;

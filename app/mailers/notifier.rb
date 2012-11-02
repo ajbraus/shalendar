@@ -233,7 +233,7 @@ class Notifier < ActionMailer::Base
   end
 
   def email_comment(event, comment, user)
-    @commenter = comment.creator
+    @commenter = comment.user.name
     @event = event
     @comment = comment
     @comments = event.comments.order('created_at DESC').limit(4)
