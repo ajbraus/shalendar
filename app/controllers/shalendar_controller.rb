@@ -1,25 +1,30 @@
 class ShalendarController < ApplicationController
-  before_filter :authenticate_user!, except: :vendor_splash
+  before_filter :authenticate_user!, except: [ :vendor_splash, :home ]
   before_filter :set_time_zone
 
 	def home
-    @plan_counts = []
-    @invite_counts = []
-		@date = Time.now.in_time_zone(current_user.time_zone).to_date #in_time_zone("Central Time (US & Canada)")
-    @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
-    @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
-    @event_suggestions = Suggestion.event_suggestions(current_user)
-    @all_suggestions = Suggestion.where('starts_at IS NULL').order('created_at DESC')
-                   #or Suggestion.join('user').where('city == ?' current_user.city)
-    @suggestions = @all_suggestions.reject do |as|
-      !current_user.cloned?(as) || !current_user.rsvpd_to_clone?(as)
-    end
-    @graph = session[:graph]
-    if @graph
-      @member_friends = current_user.fb_friends(@graph)[0]
-      @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.first(3)
-    end
-    
+    if user_signed_in?
+      @plan_counts = []
+      @invite_counts = []
+      @time_in_zone = Time.now.in_time_zone(current_user.time_zone)
+  		@date = @time_in_zone.to_date #in_time_zone("Central Time (US & Canada)")
+      @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
+      @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
+      @graph = session[:graph]
+      if @graph
+        @member_friends = current_user.fb_friends(@graph)[0]
+        @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.first(3)
+      end
+    end  
+    @public_events = Event.public_forecast(Time.now)
+    @time_in_zone = Time.now.in_time_zone("Central Time (US & Canada)")
+
+    #@event_suggestions = Suggestion.event_suggestions(current_user)
+    #@all_suggestions = Suggestion.where('starts_at IS NULL').order('created_at DESC')
+    #               #or Suggestion.join('user').where('city == ?' current_user.city)
+    #@suggestions = @all_suggestions.reject do |as|
+    #  !current_user.cloned?(as) || !current_user.rsvpd_to_clone?(as)
+    #end    
     #@vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
 	end
 

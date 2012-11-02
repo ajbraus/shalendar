@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102210513) do
+ActiveRecord::Schema.define(:version => 20121102215542) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -163,7 +163,6 @@ ActiveRecord::Schema.define(:version => 20121102210513) do
     t.float    "latitude"
     t.boolean  "gmaps"
     t.boolean  "guests_can_invite_friends"
-    t.integer  "suggestion_id"
     t.float    "price"
     t.string   "promo_img_file_name"
     t.string   "promo_img_content_type"
@@ -171,6 +170,9 @@ ActiveRecord::Schema.define(:version => 20121102210513) do
     t.datetime "promo_img_updated_at"
     t.string   "promo_url"
     t.string   "promo_vid"
+    t.boolean  "is_public",                 :default => false
+    t.string   "category"
+    t.boolean  "family_friendly",           :default => false
   end
 
   create_table "fb_invites", :force => true do |t|

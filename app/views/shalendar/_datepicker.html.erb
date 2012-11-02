@@ -1,18 +1,19 @@
 <div id="datewindow"></div>
 <% for i in -3..16 do %>
-	<table class="datePickerDay" data-date=<%= "#{Time.now.to_date + i}" %> <%= "class='weeks'" if i == 1 || i == 7 || i == 14 %>
+	<table class="datePickerDay" data-date=<%= "#{@time_in_zone.to_date + i}" %> <%= "class='weeks'" if i == 1 || i == 7 || i == 14 %>
 		<tr>
 			<th>
 				<% case %>
 				<% when i == 0 %>
-					<%= raw("<span class='red'>#{(Time.now.in_time_zone(current_user.time_zone).to_date + i).strftime("%e") + "<br/>" + (Time.now.in_time_zone(current_user.time_zone).to_date + i).strftime(" %a").slice!(0..2) }</span>") %>
-				<% when (Time.now.in_time_zone(current_user.time_zone).to_date + i).day == 1 %>
-					<%= raw((Time.now.in_time_zone(current_user.time_zone).to_date + i).strftime("%b") + "<br/>" + (Time.now.to_date + i).strftime(" %a").slice!(0..2)) %>
+					<%= raw("<span class='red'>#{(@time_in_zone.to_date + i).strftime("%e") + "<br/>" + (@time_in_zone.to_date + i).strftime(" %a").slice!(0..2) }</span>") %>
+				<% when (@time_in_zone.to_date + i).day == 1 %>
+					<%= raw((@time_in_zone.to_date + i).strftime("%b") + "<br/>" + (@time_in_zone.to_date + i).strftime(" %a").slice!(0..2)) %>
 				<% else %>
-					<%= raw((Time.now.in_time_zone(current_user.time_zone).to_date + i).strftime("%e") + "<br/>" + (Time.now.to_date + i).strftime(" %a").slice!(0..2)) %>
+					<%= raw((@time_in_zone.to_date + i).strftime("%e") + "<br/>" + (@time_in_zone.to_date + i).strftime(" %a").slice!(0..2)) %>
 				<% end %>
 	  	</th>
 	  </tr>
+	  <% if user_signed_in? %>
 	  <tr>
 	  	<td class="plan_box">
 	  		<%= @plan_counts[i+3] %>
@@ -22,5 +23,6 @@
 	  		<%= @invite_counts[i+3] %>
 	  	</td>
 	  </tr>
+	 	<% end %>
 	</table>
 	<% end %>	

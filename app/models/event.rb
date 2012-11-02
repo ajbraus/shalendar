@@ -2,6 +2,9 @@ require 'chronic'
 require 'icalendar'
 
 class Event < ActiveRecord::Base
+  
+  CATEGORIES = %w[adventure learn active community night music]
+  
   belongs_to :user
   belongs_to :suggestion
 
@@ -143,6 +146,22 @@ class Event < ActiveRecord::Base
     if duration && starts_at
       ends_at = starts_at + duration*3600
     end
+  end
+
+
+  def self.public_forecast(load_datetime)
+    #get time zone from city
+    Time.zone =  "Central Time (US & Canada)"
+    @public_forecast = []
+    (-3..16).each do |i|
+      @new_datetime = load_datetime + i.days 
+      @time_range = @new_datetime.midnight .. @new_datetime.midnight + 1.day
+      @public_events_on_date = Event.where(starts_at: @time_range, is_public: true).order("starts_at ASC")
+      @public_events_on_date = @public_events_on_date.sort_by{|t| t[:starts_at]}
+
+      @public_forecast.push(@public_events_on_date)
+    end
+    return @public_forecast
   end
 
   def self.check_tip_deadlines

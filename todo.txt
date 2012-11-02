@@ -104,11 +104,44 @@ Adam
  		ipad app
  		email signup
 
---------------------------------------------------------
 
-	make invite all fb_friends
-	fix show/hide of friend/friended button in find_friends
-	fix show/hide of friend button cross browsers
+public ideas
+	family friendly bool in user
+ 
+	wire up new public idea form template to launch from ribbon
+
+	wire up venue dashboard
+
+	create suggestions
+
+	require category with javascript in suggestions
+
+	correct validations on URL, VID, and Link
+
+	filter by category ( add links to header that hide those )
+
+	put family friendly bool into user
+
+	set family friendly bool in Settings
+
+	link to that in categories
+
+	set family friendly bool based on age in demographics table
+
+	turn off popup fb friends
+
+	idicate public event in event#show
+
+	your invites -- all invites
+
+	your friends attending -- all attending
+
+	your friends maybes -- all maybes
+
+------------------------------------------------------------
+
+
+ajax scrolling for user list view?
 
 ----------------------------------------------------------
 
@@ -116,25 +149,21 @@ Datepicker loads 1 day to the right when I click the hoos.in icon to go home.
 hover on items
 click pic to invite/friend
 public ideas
-suggestions pic is broken
 picture w/ comments
 hover not in
-title and description
 removing invited person when not friending them
 
-	Tipping Date
+visual indicator of ppl you are not friends with on hoos.in yet
+
+	Tip by Date
 
 	validate image size in form w js
-
-	turn off popup fb friends
 
 ----------------------------------------------------------
 	
 	remove picture from new ideas dropdown
 
 ----------------------------------------------------------
-
-	Digest every 3 days
 
 	Prune email messages / make only push or email
 
@@ -167,13 +196,18 @@ keyup character counter in idea
 ----------------------------------------------------------
 
 Payment gateway
-event#show not protected
 
 ----------------------------------------------------------
 
+Vendors:
+	Provisioning/registration
+
+	Branded event show pages
+		Vendor can upload background-image
+
 ticket creation/authentication
 box office behavior
-Suggestion#show
+
 
 ----------------------------------------------------------
 
@@ -191,12 +225,6 @@ Suggested friends
 		relationship is created between the two users
 	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
 
-
-	require category with javascript in suggestions
-
-
-meta-data to event is in gutter and comments
-
 clarify visual difference bewteen friends and community events
 
 Close Viral Loop
@@ -210,7 +238,6 @@ Close Viral Loop
 Network Density
 	Your friend "M" just joined hoos.in
 
-
 Marketing
 	Suggestions tweet to city specific twitter account
 	Add hashtag to get instagram images from / tweet about the event
@@ -223,9 +250,6 @@ non dev stuff
 Big UI Improvements
 	friend button not responding in find_friends
 	RSVP in/out	
-
-Vendor happiness
-	Branded event show pages
 
 Medium UI improvements
 	fix alert and add error styling
@@ -262,9 +286,6 @@ Silo by city
 	detect location by IP address: https://github.com/priithaamer/geoip-rails
 	hash timezone to location
 	make public yellow pages display and then make it load with ajax
-
-Vendors:
-	Provisioning/registration
 
 
 More Events:
@@ -313,20 +334,8 @@ Performance
 	progressive page loading i.e. forecast with events after
 
 
-meta-data to event is in gutter
-
 Close Viral Loop
 	dynamic meta tags
-	tab view of hi friends and fb friends
-
-	add FB faces to share event#show also ask permissions to post to wall
-		invite fb -- 
-			create fb_invite (like email_invite)
-			save fb pic_url
-			when someone creates a user replace fb_invite with new user
-			display FB invites in invited users
-			Launch dialogue box
-			count invites fb_invites + email_invites + hoosin invitations
 	Email every invitation w boolean
 
 Add lat/lng to each city and then pass that to the map in forms

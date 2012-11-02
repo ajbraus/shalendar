@@ -11,9 +11,9 @@
   <div class="event_top">
     <div class="host">
 	   <%= raster_profile_picture(@event.user) %> 
-     <span>
+     <div>
       hosted by: <br><%= @event.user.name %>
-     </span>
+     </div>
     </div>
     <% unless @event.address == '' %>
       <div class="event_location">

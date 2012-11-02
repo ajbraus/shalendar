@@ -201,7 +201,7 @@ color: white;
   position: absolute;
 left: 243px;
 top: -1px;
-padding: 21px 12px;
+padding: 20.5px 12px;
 font-size: 20px;
 }
 
@@ -828,11 +828,18 @@ form {
 
 #ribbon {
 position: relative;
-top: 15px;
-height: 85px;
-border-bottom: 1px solid $divider;
-width: 915px;
+top: 5px;
+height: 75px;
 margin: 0 auto;
+width:910px;
+}
+
+.ribbon_bottom {
+  border-bottom: 1px solid $divider;
+width: 960px;
+position: relative;
+top: 15px;
+z-index: -1;
 }
 
 #datepicker {
@@ -840,7 +847,7 @@ width: 405px;
 font-size: 12px;
 height: 75px;
 position: absolute;
-bottom: 13px;
+bottom: 3px;
 float: right;
 z-index: 1;
 left: 510px;
@@ -908,11 +915,12 @@ color: #4B9BED;
 }
 
 .new_idea {
-position: absolute;
+position: relative;
 left: 18px;
+float: left;
 textarea {
 font-size: 18px;
-width: 92%;
+width: 230px;
 height: 45px;
 padding-right: 15px;
 }
@@ -1004,6 +1012,8 @@ font-size: 15px;
 position: relative;
 bottom: 6px;
 letter-spacing: 2px;
+  }
+  dd {
   }
 }
 
@@ -1834,11 +1844,10 @@ line-height: 1.2;
     float:left;
   }
   div {
-  float: left;
-  vertical-align: top;
-  position: relative;
-  top: 2px;
-  padding-left: 10px;
+float: left;
+vertical-align: top;
+position: relative;
+padding-left: 10px;
   }
 }
 
@@ -1955,17 +1964,17 @@ border-bottom:1px solid $divider;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
 float: left;
-width: 47%;
+width: 49%;
 border-right: 1px solid #D1CDCD;
-min-height: 290px;
+min-height: 280px;
 position: relative;
 overflow: auto;
 max-height: 400px;
 }
 .guests {
   float:left;
-  width:48%;
-  min-height: 270px;
+  width:46%;
+  min-height: 260px;
   position: relative;
   overflow: auto;
   max-height:400px;
@@ -2921,4 +2930,12 @@ top: 17px;
 .small_pic {
   width:30px;
   height:30px;
+}
+.today {
+height: 990px;
+position: absolute;
+top: -7px;
+left: -4px;
+  border-left:1px solid $divider;
+  z-index: -1;
 }

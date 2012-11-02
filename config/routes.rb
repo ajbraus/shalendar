@@ -7,6 +7,8 @@ Shalendar::Application.routes.draw do
     root :to => 'shalendar#home'
   end
 
+  match '/madison', :to => 'shalendar#home', :as => "city"
+  
   root :to => 'static_pages#landing'
 
   devise_for :users, 
