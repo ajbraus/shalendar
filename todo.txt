@@ -122,15 +122,11 @@ hover not in
 title and description
 removing invited person when not friending them
 
-
-
 	Tipping Date
 
 	validate image size in form w js
 
 	turn off popup fb friends
-
-	add price to events
 
 ----------------------------------------------------------
 	
