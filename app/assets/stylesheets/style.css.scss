@@ -1825,7 +1825,7 @@ clear: left;
 font-size: 19px;
 color: black;
 position: relative;
-width: 40%;
+width: 51%;
 float:left;
 line-height: 1.2;
   img {
@@ -1849,9 +1849,8 @@ margin-bottom: 10px;
 .event_location{
   position: relative;
 float: right;
-width: 59%;
+width: 45%;
 text-align: right;
-top: 15px;
     i {
       font-size: 28px;
     }
@@ -1954,18 +1953,20 @@ border-bottom:1px solid $divider;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
 float: left;
-width: 48%;
+width: 47%;
 border-right: 1px solid #D1CDCD;
 min-height: 290px;
 position: relative;
-overflow: hidden;
+overflow: auto;
+max-height: 400px;
 }
 .guests {
   float:left;
   width:48%;
   min-height: 270px;
   position: relative;
-  overflow: hidden;
+  overflow: auto;
+  max-height:400px;
 }
 
 .right_label {

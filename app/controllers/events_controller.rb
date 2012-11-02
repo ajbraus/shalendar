@@ -60,7 +60,7 @@ class EventsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to root_path, notice: "#{pluralize(@user.errors.count, 'error')} prevented Your Idea from Posting" }
+        format.html { redirect_to root_path, notice: "An Error prevented Your Idea from Posting" }
       end
     end
   end
