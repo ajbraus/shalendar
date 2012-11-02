@@ -166,4 +166,19 @@ class Api::V1::EventsController < ApplicationController
       render :status => 400, :json => {:error => "Idea did not Save"}
     end
   end
+
+  def add_photo
+    @mobile_user = User.find_by_id(params[:user_id])
+    @event = Event.find_by_id(params[:event_id])
+    if @mobile_user.nil? || @event.nil?
+      render :status => 400, :json => {:error => "couldn't find event or user"}
+    end
+    if @mobile_user.id != @event.user.id
+      render :status => 400, :json => {:error => "thinks that your user is not the host of the event"}
+    end
+
+    @userfile = params[:userfile]
+
+    render :status => 200, :json => {:success => "got here at least"}
+  end
 end
