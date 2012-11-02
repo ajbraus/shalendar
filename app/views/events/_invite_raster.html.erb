@@ -1,5 +1,5 @@
 <ul>
-  <li><a href="#tabs-1">hoos.in <%= @friends.count if @friends.any? %></a></li>
+  <li><a href="#tabs-1">hoos.in <%= @friends.count if @friends.any? && !@friends.nil? %></a></li>
   <% unless @invite_friends.nil? %>
   	<li>
 			<a href="#tabs-2">facebook <%= @invite_friends.count %></a>
