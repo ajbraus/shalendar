@@ -54,12 +54,17 @@ class EventsController < ApplicationController
                                             :picture => "http://www.hoos.in/assets/icon.png",
                                             })
       end
-    end
-    respond_to do |format|
-      format.html { redirect_to @event, notice: "Idea Posted Successfully" }
-      format.json { render json: @event, status: :created, location: @event }
+      respond_to do |format|
+        format.html { redirect_to @event, notice: "Idea Posted Successfully" }
+        format.json { render json: @event, status: :created, location: @event }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: "#{pluralize(@user.errors.count, 'error')} prevented Your Idea from Posting" }
+      end
     end
   end
+
 
   #GET /events/id
   #GET /events/id.json
@@ -98,7 +103,9 @@ class EventsController < ApplicationController
         if @start_time != @event.starts_at
           ##NEED TO FIX RESQUE
           @event.guests.each do |g|
-            Notifier.delay.time_change(@event, g)
+            unless g == @event.user
+              Notifier.delay.time_change(@event, g)
+            end
             #Resque.enqueue(MailerCallback, "Notifier", :time_change, @event.id, g.id)
           end
         end
@@ -120,7 +127,9 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     @event.guests.each do |g|
-      Notifier.delay.cancellation(@event, g)
+      unless g == @event.user
+        Notifier.delay.cancellation(@event, g)
+      end
     end
     #@event.destroy
 
