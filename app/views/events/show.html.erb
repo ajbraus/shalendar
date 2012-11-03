@@ -56,7 +56,7 @@
 <% if user_signed_in? %>
 	<!-- COMMENTS -->
   <%= render partial: 'comments_form' %>
-  <% if ((current_user.rsvpd?(@event) && @event.guests_can_invite_friends?) || @event.user == current_user) && @event.ends_at < Time.now %>
+  <% if ((current_user.rsvpd?(@event) && @event.guests_can_invite_friends?) || @event.user == current_user) && @event.ends_at > Time.now %>
       <div id="invite_raster">
         <%= render partial: 'invite_raster', :locals => { :event => @event } %>
       </div>
