@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121030175320) do
+ActiveRecord::Schema.define(:version => 20121102164750) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -153,7 +153,7 @@ ActiveRecord::Schema.define(:version => 20121030175320) do
     t.datetime "updated_at",                                   :null => false
     t.integer  "user_id"
     t.integer  "min",                       :default => 1
-    t.integer  "max"
+    t.integer  "max",                       :default => 10000
     t.float    "duration"
     t.integer  "inviter_id",                :default => 0
     t.boolean  "tipped",                    :default => false
@@ -225,8 +225,8 @@ ActiveRecord::Schema.define(:version => 20121030175320) do
     t.integer  "followed_id"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.boolean  "toggled",     :default => true
     t.boolean  "confirmed",   :default => false
-    t.boolean  "in"
   end
 
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
@@ -259,11 +259,11 @@ ActiveRecord::Schema.define(:version => 20121030175320) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.string   "title"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.integer  "user_id"
     t.integer  "min",                    :default => 1
-    t.integer  "max"
+    t.integer  "max",                    :default => 10000
     t.float    "duration"
     t.string   "link"
     t.string   "address"
@@ -310,14 +310,15 @@ ActiveRecord::Schema.define(:version => 20121030175320) do
     t.datetime "avatar_updated_at"
     t.string   "time_zone"
     t.integer  "new_invited_events_count", :default => 0
-    t.boolean  "vendor",                   :default => false
     t.boolean  "email_comments",           :default => true
     t.boolean  "admin",                    :default => false
     t.integer  "apn_device_id",            :default => 0
+    t.boolean  "vendor",                   :default => false
     t.boolean  "digest",                   :default => true
     t.string   "GCMtoken"
     t.boolean  "follow_up"
-    t.boolean  "can_post_to_fb_wall",      :default => false
+    t.boolean  "female"
+    t.datetime "birthday"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
