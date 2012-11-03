@@ -31,7 +31,7 @@ class FbInvitesController < ApplicationController
   #     @invite_friends.each do |inf|
   #       if Rails.env.production?
   #         @invite_friends.each do |inf|
-  #           if @event.has_promo_img
+  #           if @event.has_promo_img?
   #             session[:graph].delay.put_connections( inf['id'], "feed", {
   #                                             :name => @event.title,
   #                                             :link => "http://www.hoos.in/events/#{@event.id}/",
@@ -51,7 +51,7 @@ class FbInvitesController < ApplicationController
   #           @fb_invite.save
   #         end
   #       else
-  #         if @event.has_promo_img
+  #         if @event.has_promo_img?
   #           session[:graph].put_connections( 2232003, "feed", {
   #                                           :name => @event.title,
   #                                           :link => "http://www.hoos.in/events/#{@event.id}/",

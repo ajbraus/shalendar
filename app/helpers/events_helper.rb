@@ -15,5 +15,13 @@ module EventsHelper
  		%Q{<iframe title="YouTube video player" width="580" height="350" src="http://www.youtube.com/embed/#{ youtube_id }" frameborder="0" allowfullscreen></iframe>}
  	end
 
+  def promo_image_url(event)
+    if event.promo_url  && event.promo_url != ''
+      return event.promo_url
+    elsif !event.promo_img_file_size.nil?
+      return event.promo_img.url(:medium)
+    end
+  end
+
 # END OF CLASS
 end

@@ -181,7 +181,7 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def has_promo_img 
+  def has_promo_img
     if self.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"
       return false
     else
