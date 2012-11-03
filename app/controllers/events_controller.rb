@@ -82,7 +82,12 @@ class EventsController < ApplicationController
     if @graph
       @invite_friends = current_user.fb_friends(session[:graph])[1].reject { |inf| FbInvite.find_by_uid(inf['uid'].to_s) }
       @fb_invites = @event.fb_invites
+    else
+      #to fix so that these exist in the calls.
+      @invite_friends = []
+      @fb_invites = []
     end
+
 
     respond_to do |format|
       format.js
