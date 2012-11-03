@@ -1,4 +1,4 @@
-<% if @friend_requests.any? %>
+<% unless @friend_requests.nil? || @friend_requests == [] %>
   <div class="user_table">
     <h2><span class="friend_count"><%= @friend_requests.count %></span> Friend Requests</h2>
     <% @friend_requests.each do |nf| %>
@@ -27,7 +27,7 @@
       </table>
       <% end %>
   </div>
-  <% if !@vendor_friendships.nil? %>
+  <% unless @vendor_friendships.nil? %>
     <% if @vendor_friendships.any? %>
       <div class="user_table">
         <h2><span class="friend_count"><%= @vendor_friendships.count %></span> Venues you Follow</h2>

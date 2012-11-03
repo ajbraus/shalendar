@@ -1,17 +1,8 @@
-<div class="comments_form part">
+<div class="comments_form">
+	<%= render :partial => 'comments/comment', collection: @comments %>
 	<%= form_for([@event, @event.comments.build]) do |f| %>
-	  <div class="field">
-	    <%= f.label :content, "Leave a Comment" %><br />
-	    <%= f.text_area :content, rows: 3, cols: 35 %>
-	  </div>
-	  <div class="checkbox">
-	  	<%= check_box_tag :contact %><%= label_tag :contact, "Email Comment to RSVPs?" %>	    
-	  </div>
-
-	  <p><%= f.submit "Leave Comment", class: "btn btn-primary" %></p>
+	  <%= small_profile_picture(current_user) %> <%= f.text_field :content, placeholder: "Leave a Comment", autocomplete: "off" %>
+	  <span class="checkbox"><%= check_box_tag :contact %><i class="icon-envelope-alt" title="Email Comment to All Guests"></i></span>	    
+	 	<%= f.submit "w", class: "btn btn-primary fa-input", id:"new_comment_button" %>
 	<% end %>
-
-	<div id="comments">
-	  <%= render :partial => 'comments/comment', collection: @comments %>
-	</div>
 </div>

@@ -1,9 +1,17 @@
 <div id="eventOptions">
+
 	<div id="addimgp" style="display:none;">
-	  <div><%= f.label :display_image %><br />
-	  <i class="icon-camera-retro"></i><%= f.file_field :promo_img %></div>
+	  <div><%= f.label :display_image %></div>
+	 	  <i class="icon-link"></i><%= f.text_field :promo_url, autocomplete: "off", placeholder: "Image URL" %><br>
+	  or<br>
+	  	<i class="icon-camera-retro"></i><%= f.file_field :promo_img %>
 	</div>
 	
+	<div id="addvidp" style="display:none;">
+		<div><%= f.label :event_video %></div>
+		<i class="icon-facetime-video"></i><%= f.text_field :promo_vid, autocomplete: "off", placeholder: "You Tube URL" %>
+	</div>
+
 	<div id="addtippingp" class="minmax" style="display:none;">
 		<div class='tippingIcon'>
 	  	<i class="icon-tasks"></i>
@@ -37,6 +45,7 @@
 <div>
 	<ul>
 		<li id="addimg" title="Add an Image"><i class="icon-camera-retro"></i></li>
+		<li id="addvid" title="Add a video"><i class="icon-facetime-video"></i></li>
  	  <li id="addtipping" title="Add a Tipping/Full"><i class="icon-tasks"></i></li>
 	  <li id="addLink" title="Add a Link"><i class="icon-link"></i></li>
 	  <li id="addmap" title="Add a Location"><i class="icon-map-marker"></i></li>

@@ -56,5 +56,7 @@ FactoryGirl.define do
     guests_can_invite_friends 't'
     price '10'
     promo_img nil
+    promo_url ''
+    promo_vid ''
 	end
 end

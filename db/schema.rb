@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20121102164750) do
 
+
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
     t.text     "apn_prod_cert"
@@ -109,10 +110,10 @@ ActiveRecord::Schema.define(:version => 20121102164750) do
 
   create_table "comments", :force => true do |t|
     t.string   "content"
-    t.string   "creator"
     t.integer  "event_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
 
   add_index "comments", ["event_id"], :name => "index_comments_on_event_id"
@@ -169,6 +170,8 @@ ActiveRecord::Schema.define(:version => 20121102164750) do
     t.string   "promo_img_content_type"
     t.integer  "promo_img_file_size"
     t.datetime "promo_img_updated_at"
+    t.string   "promo_url"
+    t.string   "promo_vid"
   end
 
   create_table "fb_invites", :force => true do |t|

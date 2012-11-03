@@ -11,5 +11,4 @@ class FbInvite < ActiveRecord::Base
       :uid => self.inviter_id
     }
   end
-
 end

@@ -233,7 +233,7 @@ class Notifier < ActionMailer::Base
   end
 
   def email_comment(event, comment, user)
-    @commenter = comment.creator
+    @commenter = comment.user.name
     @event = event
     @comment = comment
     @comments = event.comments.order('created_at DESC').limit(4)
@@ -350,39 +350,7 @@ class Notifier < ActionMailer::Base
     @message = @invite.message
     #@inviter_pic = raster_profile_picture(@inviter)
     #should we include here an invited by X to make them more likely to join?
-    if @user = User.find_by_email(@invite.email)
-      if(@user.iPhone_user == true)
-        d = APN::Device.find_by_id(@user.apn_device_id)
-        if d.nil?
-          Airbrake.notify("thought we had an iphone user but can't find their device")
-        else
-          n = APN::Notification.new
-          n.device = d
-          n.alert = "#{@event.user.name} Shared an idea"
-          n.badge = 1
-          n.sound = true
-          n.save
-        end
-      end
-      if(@user.android_user == true)
-        d = GCM::Device.find_by_id(@user.GCMdevice_id)
-        if d.nil?
-          Airbrake.notify("thought we had an android user but can't find their device")
-        else
-          n = Gcm::Notification.new
-          n.device = d
-          n.collapse_key = "#{@event.user.name} Shared an idea"
-          n.delay_while_idle = true
-          n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "#{event.title} changed time!"}}
-          n.save
-        end
-      end
-      mail to: @user.email, subject: "You're invited to #{@event.short_event_title}"
-    else
-      mail to: @invite.email, subject: "#{@inviter.name} sent you an invitation"
-    end
-    rescue => ex
-    Airbrake.notify(ex)
+    mail to: @invite.email, subject: "#{@inviter.name} sent you an invitation"
   end
 
   def time_change(event, user)

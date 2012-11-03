@@ -43,7 +43,8 @@ class CommentsController < ApplicationController
   def create
     @event = Event.find(params[:event_id])
     @comment = @event.comments.build(params[:comment])
-    @comment.creator = current_user.name
+    @comment.user_id = current_user.id
+    
     respond_to do |format|
       if @comment.save
         if params[:contact] == "1"

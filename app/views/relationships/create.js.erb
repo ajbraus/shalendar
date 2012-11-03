@@ -8,5 +8,15 @@ $("#header_friend_count").increment();
 $('#search_results').html("You have a new friend!");
 $('#user_search_field').val('');
 
+$('.datePickerDay').click(function(){
+  dw_position = $(this).position();
+  $('#datewindow').animate({ left: dw_position.left - 2 }, 1000);
+  date = $(this).attr('data-date');
+  forecast_original_position = $('#forecast').position();
+  forecast_day_position = $('dl').withDate(date).position();
+  //frame_position = $('.forecast').position();
+  $('#forecast').animate({ right: forecast_day_position.left }, 1000);
+});
+
 // $(".alert").text("You are now Friends with <%= @relationship.follower.name %>");
 // $(".alert").show(300);

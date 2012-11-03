@@ -1,11 +1,16 @@
 <%= div_for comment do %>
-  <p class="comment_content">
-    <%= auto_link(comment.content) %>
-  </p>
+  <div class="comment_picture">
+  	<%= small_profile_picture(comment.user) %>
+  </div>
+  <div class="comment_content">
+		<%= auto_link(comment.content) %>
+  </div>
   <div class="comment_data">
-  	<span class="comment_creator"><%= comment.creator %></span> | <span class="comment_created_at"><%= comment.created_at.strftime "%l:%M%P, %A %B %e"%></span> |
-		<% if current_user.name == comment.creator %>
-			<%= link_to 'Remove', event_comment_path(@event, comment), :method => :delete %>
+  	<span class="comment_creator"><%= comment.user.name %></span> <span class="comment_created_at"><%= comment.created_at.strftime "%l:%M%P, %A %B %e"%></span>
+		<% if current_user == comment.user %>
+			<%= link_to event_comment_path(@event, comment), :method => :delete do %>
+				<i class="icon-remove"></i>
+			<% end %>
 		<% end %>
 	</div>
 <% end %>

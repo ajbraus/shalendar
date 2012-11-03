@@ -1,7 +1,7 @@
 <!-- HOOSINVITES -->
 <% unless @invited_users.empty? %>
   <% @invited_users.each do |iu| %>
-    <% if current_user.following?(iu) %>
+    <% if !user_signed_in? || current_user.following?(iu) %>
       <div class="event_show_friend">
         <%= image_tag("#{invite_raster_picture(iu)}", class: "profile_picture") %>
         <div id="friend_name"><%= iu.name %></div>
@@ -18,19 +18,22 @@
   <% end %>
 <% end %>
 
-<!-- FB_INVITES -->
-<% if current_user.fb_user? %>
-  <% unless @fb_invites.empty? %>
-    <% @fb_invites.each do |fbi|  %>
-      <% unless fbi.id == nil %>
-        <div class="event_show_friend">
-          <%= image_tag(fbi.fb_pic_url, alt: fbi.name, class: "profile_picture" ) %>
-          <div id="friend_name"><%= fbi.name %></div>
-        </div> 
+<% if user_signed_in? %>
+  <!-- FB_INVITES -->
+  <% if current_user.fb_user? %>
+    <% unless @fb_invites.empty? %>
+      <% @fb_invites.each do |fbi|  %>
+        <% unless fbi.id == nil %>
+          <div class="event_show_friend">
+            <%= image_tag(fbi.fb_pic_url, alt: fbi.name, class: "profile_picture" ) %>
+            <div id="friend_name"><%= fbi.name %></div>
+          </div> 
+        <% end %>
       <% end %>
     <% end %>
   <% end %>
 <% end %>
+
 
 <!-- EMAIL INVITES -->
 <%= render partial: 'email_invites/email_invite', collection: @email_invites %>
