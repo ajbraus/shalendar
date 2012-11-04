@@ -89,6 +89,15 @@ new follower email link not working
 		
 Adam
 
+***
+new friend not reloading hoosin friends partial -- need to make this lighter weight! only reloading what's on that page -- or doing just javascript!
+
+inviting hoosin friend not updating the maybes
+
+"free" if price = 0
+
+
+
  	tests
 
  	payment strategy
@@ -103,6 +112,8 @@ Adam
  	box office strategy
  		ipad app
  		email signup
+
+
 
 --------------------------------------------------------
 
