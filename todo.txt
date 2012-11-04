@@ -114,6 +114,8 @@ inviting hoosin friend not updating the maybes
  		email signup
 
 
+send message with cancellation
+
 
 --------------------------------------------------------
 
