@@ -208,6 +208,7 @@ class Notifier < ActionMailer::Base
         n.alert = "Cancellation - #{@event.event_day}, #{@event.title}"
         n.badge = 1
         n.sound = true
+        n.custom_properties = {:test_action => "#{@event.id}"}
         n.save
       end
     end
