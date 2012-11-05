@@ -201,35 +201,36 @@ class Notifier < ActionMailer::Base
   def cancellation(event)
     @event = event
     @event.guests.each do |user|
-    if(user.iPhone_user == true)
-      d = APN::Device.find_by_id(user.apn_device_id)
-      if d.nil?
-        Airbrake.notify("thought we had an iphone user but can't find their device")
-      else
-        n = APN::Notification.new
-        n.device = d
-        n.alert = "Cancellation - #{@event.event_day}, #{@event.title}"
-        n.badge = 1
-        n.sound = true
-        n.custom_properties = {:type => "cancel", :event => "#{@event.id}"}
-        n.save
+      if(user.iPhone_user == true)
+        d = APN::Device.find_by_id(user.apn_device_id)
+        if d.nil?
+          Airbrake.notify("thought we had an iphone user but can't find their device")
+        else
+          n = APN::Notification.new
+          n.device = d
+          n.alert = "Cancellation - #{@event.event_day}, #{@event.title}"
+          n.badge = 1
+          n.sound = true
+          n.custom_properties = {:type => "cancel", :event => "#{@event.id}"}
+          n.save
+        end
       end
-    end
-    if(user.android_user == true)
-      d = GCM::Device.find_by_id(user.GCMdevice_id)
-      if d.nil?
-        Airbrake.notify("thought we had an android user but can't find their device")
-      else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = "Cancellation - #{@event.event_day}, #{@event.title}"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [user.GCMregistration_id], :data => {:message_text => "Cancellation - #{@event.event_day}, #{@event.title}"}}
-        n.save
+      if(user.android_user == true)
+        d = GCM::Device.find_by_id(user.GCMdevice_id)
+        if d.nil?
+          Airbrake.notify("thought we had an android user but can't find their device")
+        else
+          n = Gcm::Notification.new
+          n.device = d
+          n.collapse_key = "Cancellation - #{@event.event_day}, #{@event.title}"
+          n.delay_while_idle = true
+          n.data = {:registration_ids => [user.GCMregistration_id], :data => {:message_text => "Cancellation - #{@event.event_day}, #{@event.title}"}}
+          n.save
+        end
       end
-    end
-    unless user == @event.user
-      mail to: user.email, subject: "Cancellation - #{@event.event_day}, #{@event.title}" 
+      unless user == @event.user
+        mail to: user.email, subject: "Cancellation - #{@event.event_day}, #{@event.title}" 
+      end
     end
     @event.destroy
     
