@@ -62,6 +62,9 @@ new follower email link not working
 		Delete events
 		Suggestions
 		
+
+
+
 Adam
 
  	tests
@@ -109,11 +112,10 @@ Adam
 
 	Prune email messages / make only push or email
 
-	images in emails
+	images in emails (host/inviter/promo_url)
 
-----------------------------------------------------------
+	guest count in emails
 
-	Suggested friends shuffle
 
 ----------------------------------------------------------
 

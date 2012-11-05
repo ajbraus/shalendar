@@ -17,7 +17,8 @@ class ShalendarController < ApplicationController
     @graph = session[:graph]
     if @graph
       @member_friends = current_user.fb_friends(@graph)[0]
-      @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.first(3)
+      @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }
+      @friend_suggestions = @friend_suggestions.shuffle.first(3)
     end
     
     #@vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
