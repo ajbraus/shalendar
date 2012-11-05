@@ -42,7 +42,8 @@ Shalendar::Application.routes.draw do
         match '/invitations', :to => 'invitations#create'
         match '/invite_all_friends', :to => 'invitations#invite_all_friends'
         match '/create_event', :to => 'events#mobile_create'
-        match '/add_photo_to_event', :to => 'events#add_photo'
+        #match '/add_photo_to_event', :to => 'events#add_photo'
+        match '/add_comment', :to => 'events#add_comment'
         #took out delete and post types bc not working from iphone http reqeust
         match '/rsvps', :to => 'rsvps#create'
         match '/unrsvp', :to => 'rsvps#destroy'#, :via => :delete

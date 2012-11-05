@@ -174,6 +174,27 @@ class Api::V1::EventsController < ApplicationController
     end
   end
 
+  def add_comment
+    #could add invites here, and/or comments
+    @event = Event.find_by_id(params[:event_id])
+    @mobile_user = User.find_by_id(params[:user_id])
+    if @mobile_user.nil?
+      render :status => 400, :json => {:error => "could not find your user"}
+    elsif @event.nil?
+      render :status => 400, :json => {:error => "could not find your event"}
+    else
+      @message = params[:comment]
+      @comment = @event.comments.new
+      @comment.user = @mobile_user
+      @comment.content = @message
+      if @comment.save
+        render :status => 200, :json => {:success => true}
+      else
+        render :status => 400, :json => {:error => "could not save comment"}
+      end
+    end
+  end
+
   # def add_photo
   #   @mobile_user = User.find_by_id(params[:user_id])
   #   @event = Event.find_by_id(params[:event_id])
