@@ -149,13 +149,29 @@ $('#new_suggestion_form').validate();
         function(value, element, regexp) {
             var re = new RegExp(regexp);
             return this.optional(element) || re.test(value);
-        },
-        "Must be a valid Youtube URL"
+        }
   );
 
-// $("#event_promo_vid").rules("add", { 
-//   regex: "/(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?(\w{10,})/"
-//   });
+$("#event_promo_vid").rules("add", { 
+  regex: "(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?(.{10,})",
+  messages: {
+    regex: "Please Enter a Valid YouTube URL"
+  }
+  });
+
+$("#event_link").rules("add", {
+  regex: "^(((ftp|https?):\/\/)?(www\.)?)?[a-z0-9\-\.]{3,}\.[a-z]{3}(.{0,})?",
+  messages: {
+    regex: "Please Enter a Valid URL"
+  }
+  });
+
+$("#event_promo_url").rules("add", {
+  regex: "\.(png|jpg|jpeg|gif)$",
+  messages: {
+    regex: "Please Enter a Valid URL"
+  }
+})
 
 // focus on the first text input field in the first field on the page
   $("textarea").focus();
