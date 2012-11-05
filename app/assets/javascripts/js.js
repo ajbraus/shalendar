@@ -178,35 +178,6 @@ $(document).bind('click', function(e) {
     }
   });
 
-  $.validator.addMethod(
-        "regex",
-        function(value, element, regexp) {
-            var re = new RegExp(regexp);
-            return this.optional(element) || re.test(value);
-        }
-  );
-
-$("#event_promo_vid").rules("add", { 
-  regex: "(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?(.{10,})",
-  messages: {
-    regex: "Please Enter a Valid YouTube URL"
-  }
-  });
-
-$("#event_link").rules("add", {
-  regex: "^(((ftp|https?):\/\/)?(www\.)?)?[a-z0-9\-\.]{3,}\.[a-z]{3}(.{0,})?",
-  messages: {
-    regex: "Please Enter a Valid URL"
-  }
-  });
-
-$("#event_promo_url").rules("add", {
-  regex: "\.(png|jpg|jpeg|gif)$",
-  messages: {
-    regex: "Please Enter a Valid URL"
-  }
-})
-
   $('input[type=file]').fileValidator({
   onValidation: function(files){  $(this).attr('class',''); },
   onInvalid:    function(validationType, file){ $(this).addClass("error"); },
