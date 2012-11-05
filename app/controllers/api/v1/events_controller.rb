@@ -65,6 +65,11 @@ class Api::V1::EventsController < ApplicationController
       @event.invited_users.each do |i|
         @invitedids.push(i.id)
       end
+      @comments = []
+      @event.comments.each do |c|
+        @c = {msg: c.content, name: c.user.name, date: c.created_at}
+        @comments.push(@c)
+      end
       render json: { 
           :eid => @event.id,
           :title => @event.title,  
@@ -78,6 +83,7 @@ class Api::V1::EventsController < ApplicationController
           :guests => @event.guests,
           :iids => @invitedids,
           :g_share => @g_share,
+          :comments => @comments,
           :image => @event.promo_img.url(:medium), 
           :share_a => @mobile_user.invited_all_friends?(@event)
         }
@@ -165,6 +171,27 @@ class Api::V1::EventsController < ApplicationController
       render json: @response
     else
       render :status => 400, :json => {:error => "Idea did not Save"}
+    end
+  end
+
+  def add_comment
+    #could add invites here, and/or comments
+    @event = Event.find_by_id(params[:event_id])
+    @mobile_user = User.find_by_id(params[:user_id])
+    if @mobile_user.nil?
+      render :status => 400, :json => {:error => "could not find your user"}
+    elsif @event.nil?
+      render :status => 400, :json => {:error => "could not find your event"}
+    else
+      @message = params[:comment]
+      @comment = @event.comments.new
+      @comment.user = @mobile_user
+      @comment.content = @message
+      if @comment.save
+        render :status => 200, :json => {:success => true, comment: {msg: c.content, name: c.user.name, date: c.created_at}}
+      else
+        render :status => 400, :json => {:error => "could not save comment"}
+      end
     end
   end
 
