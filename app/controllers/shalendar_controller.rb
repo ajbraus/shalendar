@@ -17,7 +17,8 @@ class ShalendarController < ApplicationController
     @graph = session[:graph]
     if @graph
       @member_friends = current_user.fb_friends(@graph)[0]
-      @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.first(3)
+      @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }
+      @friend_suggestions = @friend_suggestions.shuffle.first(3)
     end
     
     #@vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
@@ -171,12 +172,14 @@ class ShalendarController < ApplicationController
     @rsvps_last_week = Rsvp.where(['created_at > ?', Time.now - 1.week])
     
     #RSVPs graph
+    @rsvps_per_week = []
     @rsvps = Rsvp.all
     (0..@weeks).each do |week|
       @rsvps_one_week = Rsvp.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
-      @rsvps_per_week << @rsvps_per_day
+      @rsvps_per_week << @rsvps_one_week
     end
 
+    @events_per_week = []
     @events = Event.all
     (0..@weeks).each do |week|
       @events_one_week = Event.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
@@ -187,8 +190,8 @@ class ShalendarController < ApplicationController
       f.options[:title][:text] = "RSVPs vs. Events Last Week"
       f.options[:chart][:defaultSeriesType] = "line"
       f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
-      f.series(:name=>'RSVPs', :data => @rsvps )
-      f.series(:name=>'Events', :data=> @events )
+      f.series(:name=>'RSVPs', :data => @rsvps_per_week )
+      f.series(:name=>'Events', :data=> @events_per_week )
       f.xAxis(:type => 'datetime')
     end
     #SUGGESTIONS
