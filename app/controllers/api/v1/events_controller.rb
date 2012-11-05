@@ -78,6 +78,7 @@ class Api::V1::EventsController < ApplicationController
           :guests => @event.guests,
           :iids => @invitedids,
           :g_share => @g_share,
+          :image => @event.promo_img.url(:medium), 
           :share_a => @mobile_user.invited_all_friends?(@event)
         }
     end
@@ -178,8 +179,8 @@ class Api::V1::EventsController < ApplicationController
   #   end
 
   #   @userfile = params[:userfile]
-    
-    
+
+
   #   render :status => 200, :json => {:success => "got here at least"}
   # end
 end
