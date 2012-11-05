@@ -21,31 +21,6 @@ Customer Satisfaction
 	Aaron contact
 
 
-Feature list for ticketing
-
-	Ticket generation - $10 + $2 fee
-		hoosin event
-		Max
-		on RSVP launch payment gateway funnel
-		Send email / display qr on page
-		display qr on iphone
-
-	Audit
-		at door sales - lower fee? + facility fee
-		day of show - $13 + $2 = $15
-		online sales
-
-	promo-code
-	invite only
-
-
-	Like/Tweet the venue
-	venue branded page
-
-	high noon saloon
-
-
-
 Mike
 ------------
 iPhone 
@@ -89,15 +64,6 @@ new follower email link not working
 		
 Adam
 
-***
-new friend not reloading hoosin friends partial -- need to make this lighter weight! only reloading what's on that page -- or doing just javascript!
-
-inviting hoosin friend not updating the maybes
-
-"free" if price = 0
-
-
-
  	tests
 
  	payment strategy
@@ -113,10 +79,6 @@ inviting hoosin friend not updating the maybes
  		ipad app
  		email signup
 
-
-send message with cancellation
-
-
 --------------------------------------------------------
 
 	make invite all fb_friends
@@ -125,27 +87,21 @@ send message with cancellation
 
 ----------------------------------------------------------
 
-Datepicker loads 1 day to the right when I click the hoos.in icon to go home.
-hover on items
-click pic to invite/friend
-public ideas
-suggestions pic is broken
-picture w/ comments
-hover not in
-title and description
-removing invited person when not friending them
+	Datepicker loads 1 day to the right when I click the hoos.in icon to go home.
 
 	Tipping Date
+
+	IMAGE URL!
 
 	validate image size in form w js
 
 	turn off popup fb friends
 
+	add price to events
+
 ----------------------------------------------------------
 	
 	remove picture from new ideas dropdown
-
-	add # tags to events and then add every event tag to our homepage
 
 ----------------------------------------------------------
 
@@ -183,8 +139,9 @@ keyup character counter in idea
 
 Payment gateway
 event#show not protected
+event search
 
-----------------------------------------------------------
+---------------------------------------------------------
 
 ticket creation/authentication
 box office behavior

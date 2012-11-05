@@ -65,6 +65,11 @@ class Api::V1::EventsController < ApplicationController
       @event.invited_users.each do |i|
         @invitedids.push(i.id)
       end
+      @comments = []
+      @event.comments.each do |c|
+        @c = {msg: c.content, name: c.user.name, date: c.created_at}
+        @comments.push(@c)
+      end
       render json: { 
           :eid => @event.id,
           :title => @event.title,  
@@ -78,6 +83,7 @@ class Api::V1::EventsController < ApplicationController
           :guests => @event.guests,
           :iids => @invitedids,
           :g_share => @g_share,
+          :comments => @comments,
           :image => @event.promo_img.url(:medium), 
           :share_a => @mobile_user.invited_all_friends?(@event)
         }
