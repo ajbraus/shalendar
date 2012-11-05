@@ -5,15 +5,15 @@
 			<a href="#tabs-2" >facebook <%= @invite_friends.count if @invite_friends.any? %></a>
 		</li>
   <% end %>
-        <div class="share_with_friends event_label">
-        <% if current_user.invited_all_friends?(@event) %>  
-          <span id="green" class="fadeInGreen"><i class="icon-group"></i> Share with Friends</span>
-        <% elsif @event.guests_can_invite_friends? || @event.user == current_user %>
-          <%= link_to invite_all_friends_path(:event_id => @event.id), confirm: "Post idea to ALL friends walls in #{current_user.city}?" do %>
-              <span class="fadeInGreen"><i class="icon-group"></i> Share with Friends</span>
-          <% end %>
-        <% end %>
-      </div>
+    <div class="share_with_friends event_label">
+    <% if current_user.invited_all_friends?(@event) %>  
+      <span id="green" class="fadeInGreen"><i class="icon-group"></i> Share with Friends</span>
+    <% elsif @event.guests_can_invite_friends? || @event.user == current_user %>
+      <%= link_to invite_all_friends_path(:event_id => @event.id), confirm: "Invite all friends in #{current_user.city}?" do %>
+          <span class="fadeInGreen"><i class="icon-group"></i> Share with Friends</span>
+      <% end %>
+    <% end %>
+  </div>
 </ul>
 
 <div id="tabs-1">

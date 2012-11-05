@@ -7,9 +7,12 @@
   <% else %>
     <div class="event_show_friend friend">
     <%= image_tag("#{invite_raster_picture(guest)}", class: "profile_picture") %>
-      <div id="friend_name"><%= guest.name %></div>
+      <div id="friend_name">
+        <%= guest.name %>
+      </div>
       <div id="friend_button" style="display:none;">
-      <%= render  :partial => 'events/just_follow_form', :locals => { :user => guest } %>
+        <%= render  :partial => 'events/just_follow_form', :locals => { :user => guest } %>
+      </div>
     </div>
   <% end %>
 <% end %>

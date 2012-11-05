@@ -4,12 +4,16 @@
     <% if !user_signed_in? || current_user.following?(iu) %>
       <div class="event_show_friend">
         <%= image_tag("#{invite_raster_picture(iu)}", class: "profile_picture") %>
-        <div id="friend_name"><%= iu.name %></div>
+        <div id="friend_name">
+          <%= iu.name %>
+        </div>
       </div> 
     <% else %>
       <div class="event_show_friend friend">
         <%= image_tag("#{invite_raster_picture(iu)}", class: "profile_picture") %>
-        <div id="friend_name"><%= iu.name %></div>
+        <div id="friend_name">
+          <%= iu.name %>
+        </div>
         <div id="friend_button" style="display:none;">
           <%= render :partial => 'events/follow_form', locals: { :user => iu } %>
         </div>
@@ -21,12 +25,14 @@
 <% if user_signed_in? %>
   <!-- FB_INVITES -->
   <% if current_user.fb_user? %>
-    <% unless @fb_invites.empty? %>
+    <% unless @fb_invites.nil? || @fb_invites.empty? %>
       <% @fb_invites.each do |fbi|  %>
         <% unless fbi.id == nil %>
           <div class="event_show_friend">
             <%= image_tag(fbi.fb_pic_url, alt: fbi.name, class: "profile_picture" ) %>
-            <div id="friend_name"><%= fbi.name %></div>
+            <div id="friend_name">
+              <%= fbi.name %>
+            </div>
           </div> 
         <% end %>
       <% end %>
