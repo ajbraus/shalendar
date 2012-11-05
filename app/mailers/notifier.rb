@@ -208,7 +208,7 @@ class Notifier < ActionMailer::Base
         n.alert = "Cancellation - #{@event.event_day}, #{@event.title}"
         n.badge = 1
         n.sound = true
-        n.custom_properties = {:test_action => "#{@event.id}"}
+        n.custom_properties = {:type => "cancel", :event => "#{@event.id}"}
         n.save
       end
     end
@@ -225,8 +225,9 @@ class Notifier < ActionMailer::Base
         n.save
       end
     end
-    mail to: @user.email, subject: "Cancellation - #{@event.event_day}, #{@event.title}" 
-    
+    unless @user == @event.user
+      mail to: @user.email, subject: "Cancellation - #{@event.event_day}, #{@event.title}" 
+    end
     @event.destroy
     
     rescue => ex

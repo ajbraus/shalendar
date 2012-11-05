@@ -136,9 +136,7 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     @event.guests.each do |g|
-      unless g == @event.user
-        Notifier.delay.cancellation(@event, g)
-      end
+      Notifier.delay.cancellation(@event, g)
     end
     #@event.destroy
 
