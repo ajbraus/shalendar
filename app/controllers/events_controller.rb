@@ -135,9 +135,9 @@ class EventsController < ApplicationController
   # DELETE /events/1.json
   def destroy
     @event = Event.find(params[:id])
-    @event.guests.each do |g|
-      Notifier.delay.cancellation(@event, g)
-    end
+
+    Notifier.delay.cancellation(@event)
+
     #@event.destroy
 
     respond_to do |format|

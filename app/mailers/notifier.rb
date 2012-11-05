@@ -60,32 +60,32 @@ class Notifier < ActionMailer::Base
   def confirm_follow(user, follower)
     @user = user
     @follower = follower
-        if(@user.iPhone_user == true)
-      d = APN::Device.find_by_id(@user.apn_device_id)
-      if d.nil?
-        Airbrake.notify("thought we had an iphone user but can't find their device")
-      else
-        n = APN::Notification.new
-        n.device = d
-        n.alert = "Confirm Friend - #{@follower.name}"
-        n.badge = 1
-        n.sound = true
-        n.save
-      end
-    end
-    if(@user.android_user == true)
-      d = GCM::Device.find_by_id(@user.GCMdevice_id)
-      if d.nil?
-        Airbrake.notify("thought we had an android user but can't find their device")
-      else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = "Confirm Friend - #{@follower.name}"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "Confirm Friend - #{@follower.name}"}}
-        n.save
-      end
-    end
+    # if(@user.iPhone_user == true)
+    #   d = APN::Device.find_by_id(@user.apn_device_id)
+    #   if d.nil?
+    #     Airbrake.notify("thought we had an iphone user but can't find their device")
+    #   else
+    #     n = APN::Notification.new
+    #     n.device = d
+    #     n.alert = "Confirm Friend - #{@follower.name}"
+    #     n.badge = 1
+    #     n.sound = true
+    #     n.save
+    #   end
+    # end
+    # if(@user.android_user == true)
+    #   d = GCM::Device.find_by_id(@user.GCMdevice_id)
+    #   if d.nil?
+    #     Airbrake.notify("thought we had an android user but can't find their device")
+    #   else
+    #     n = Gcm::Notification.new
+    #     n.device = d
+    #     n.collapse_key = "Confirm Friend - #{@follower.name}"
+    #     n.delay_while_idle = true
+    #     n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "Confirm Friend - #{@follower.name}"}}
+    #     n.save
+    #   end
+    # end
     #@friend_pic = raster_profile_picture(@follower)
     mail to: user.email, subject: "New Friend Request - #{@follower.name}"
     rescue => ex
@@ -105,6 +105,7 @@ class Notifier < ActionMailer::Base
         n.alert = "New Friend - #{@follower.name}"
         n.badge = 1
         n.sound = true
+        n.custom_properties = {:type => "new_friend", :friend => "#{@follower}"}
         n.save
       end
     end
@@ -140,6 +141,7 @@ class Notifier < ActionMailer::Base
         n.alert = "#{@event.title} Tipped!"
         n.badge = 1
         n.sound = true
+        n.custom_properties = {:type => "tipped", :event => "#{@event.id}"}
         n.save
       end
     end
@@ -174,6 +176,7 @@ class Notifier < ActionMailer::Base
         n.alert = "Untipped idea - #{@event.title}"
         n.badge = 1
         n.sound = true
+        n.custom_properties = {:type => "tip_or_destroy", :event => "#{@event.id}"}
         n.save
       end
     end
@@ -195,11 +198,11 @@ class Notifier < ActionMailer::Base
     Airbrake.notify(ex)
   end
 
-  def cancellation(event, user)
-    @user = user
+  def cancellation(event)
     @event = event
-    if(@user.iPhone_user == true)
-      d = APN::Device.find_by_id(@user.apn_device_id)
+    @event.guests.each do |user|
+    if(user.iPhone_user == true)
+      d = APN::Device.find_by_id(user.apn_device_id)
       if d.nil?
         Airbrake.notify("thought we had an iphone user but can't find their device")
       else
@@ -212,8 +215,8 @@ class Notifier < ActionMailer::Base
         n.save
       end
     end
-    if(@user.android_user == true)
-      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+    if(user.android_user == true)
+      d = GCM::Device.find_by_id(user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
       else
@@ -221,12 +224,12 @@ class Notifier < ActionMailer::Base
         n.device = d
         n.collapse_key = "Cancellation - #{@event.event_day}, #{@event.title}"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "Cancellation - #{@event.event_day}, #{@event.title}"}}
+        n.data = {:registration_ids => [user.GCMregistration_id], :data => {:message_text => "Cancellation - #{@event.event_day}, #{@event.title}"}}
         n.save
       end
     end
-    unless @user == @event.user
-      mail to: @user.email, subject: "Cancellation - #{@event.event_day}, #{@event.title}" 
+    unless user == @event.user
+      mail to: user.email, subject: "Cancellation - #{@event.event_day}, #{@event.title}" 
     end
     @event.destroy
     
@@ -251,6 +254,7 @@ class Notifier < ActionMailer::Base
         n.alert = "New Comment - #{@event.short_event_title}"
         n.badge = 1
         n.sound = true
+        n.custom_properties = {:type => "new_comment", :friend => "#{@event.id}"}
         n.save
       end
     end
@@ -287,6 +291,7 @@ class Notifier < ActionMailer::Base
         n.alert = "#{@event.short_event_title} starts soon"
         n.badge = 1
         n.sound = true
+        n.custom_properties = {:type => "reminder", :event => "#{@event.id}"}
         n.save
       end
     end
@@ -322,6 +327,7 @@ class Notifier < ActionMailer::Base
         n.alert = "#{@event.user.name} Shared an idea"
         n.badge = 1
         n.sound = true
+        n.custom_properties = {:type => "invitation", :event => "#{@event.id}"}
         n.save
       end
     end
@@ -370,6 +376,7 @@ class Notifier < ActionMailer::Base
         n.alert = "#{@event.title} changed time!"
         n.badge = 1
         n.sound = true
+        n.custom_properties = {:type => "time_change", :event => "#{@event.id}"}
         n.save
       end
     end
