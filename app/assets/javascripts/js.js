@@ -178,16 +178,6 @@ $(document).bind('click', function(e) {
     }
   });
 
-  $.validator.addMethod(
-        "regex",
-        function(value, element, regexp) {
-            var re = new RegExp(regexp);
-            return this.optional(element) || re.test(value);
-        },
-        "Please check your input."
-  );
-
-
   $('input[type=file]').fileValidator({
   onValidation: function(files){  $(this).attr('class',''); },
   onInvalid:    function(validationType, file){ $(this).addClass("error"); },
