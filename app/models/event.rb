@@ -236,6 +236,18 @@ class Event < ActiveRecord::Base
     @ics_event
   end
 
+  def image(size)
+    if !self.promo_url.nil? && self.promo_url != ""
+      self.promo_url
+    elsif !self.promo_img_file_size.nil?
+      if size == "medium"
+        self.promo_img.url(:medium)
+      else
+        self.promo_img.url(:large)
+      end
+    end
+  end
+
   def nice_price
     if price
       "$" + "%.2f" % price
