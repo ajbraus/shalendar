@@ -188,7 +188,7 @@ class Api::V1::EventsController < ApplicationController
       @comment.user = @mobile_user
       @comment.content = @message
       if @comment.save
-        render :status => 200, :json => {:success => true, comment: {msg: c.content, name: c.user.name, date: c.created_at}}
+        render :status => 200, :json => {:success => true, comment: {msg: @comment.content, name: @comment.user.name, date: @comment.created_at}}
       else
         render :status => 400, :json => {:error => "could not save comment"}
       end
