@@ -198,9 +198,9 @@ class Notifier < ActionMailer::Base
     Airbrake.notify(ex)
   end
 
-  def cancellation(event)
+  def cancellation(event, guests)
     @event = event
-    @event.guests.each do |user|
+    guests.each do |user|
       if(user.iPhone_user == true)
         d = APN::Device.find_by_id(user.apn_device_id)
         if d.nil?

@@ -27,7 +27,9 @@ iPhone
 
 	needs before release:
 		all images done
-		testing push notifications, error messages, ...
+		open push notifications to right place
+		times on reminders- how to format correctly for json?
+			want just the string literal
 
 Design coherence
 

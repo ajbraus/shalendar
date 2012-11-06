@@ -84,7 +84,7 @@ class Api::V1::EventsController < ApplicationController
           :iids => @invitedids,
           :g_share => @g_share,
           :comments => @comments,
-          :image => @event.promo_img.url(:medium), 
+          :image => @event.image("medium"),
           :share_a => @mobile_user.invited_all_friends?(@event)
         }
     end
@@ -208,7 +208,7 @@ class Api::V1::EventsController < ApplicationController
     if @mobile_user != @event.user
       render :status=>300, :json=>{:error => "you don't have the authority to cancel this event"}
     end
-    Notifier.delay.cancellation(@event)
+    Notifier.delay.cancellation(@event, @event.guests)
         render :json=> { :success => true
         }, :status=>200
   end

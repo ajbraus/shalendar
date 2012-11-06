@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102164750) do
-
+ActiveRecord::Schema.define(:version => 20121102210513) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"

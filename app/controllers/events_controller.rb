@@ -113,7 +113,6 @@ class EventsController < ApplicationController
             unless g == @event.user
               Notifier.delay.time_change(@event, g)
             end
-            #Resque.enqueue(MailerCallback, "Notifier", :time_change, @event.id, g.id)
           end
         end
         if @event.guests.count >= @event.min
@@ -133,10 +132,12 @@ class EventsController < ApplicationController
   # DELETE /events/1.json
   def destroy
     @event = Event.find(params[:id])
-
-    Notifier.delay.cancellation(@event)
-
-    #@event.destroy
+    @event_copy = @event
+    @event_guests = @event.guests
+    @event_copy.guests = nil
+    @event.destroy
+    @event_copy.save
+    Notifier.delay.cancellation(@event_copy, @event_guests)
 
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Idea was successfully removed' }
