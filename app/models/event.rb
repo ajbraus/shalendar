@@ -69,18 +69,17 @@ class Event < ActiveRecord::Base
   validates :duration, numericality: { in: 0..1000 } 
   validates :title, length: { maximum: 140 }
   validates_numericality_of :longitude, :latitude, allow_blank:true
-  #@url = /^((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)?$/ 
-  #validates :link, :format => { :with => @url }, allow_blank:true
-<<<<<<< HEAD
-  #@img_url = /^((https?:\/\/)?.*\.*\.*\.(?:png|jpg|jpeg|gif))$/i
-  #validates :promo_url, :format => { :with => @img_url }, allow_blank:true
-  @youtube_url = /(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?(\w{10,})/
-  validates :promo_vid, :format => { :with => @youtube_url }, allow_blank:true
-=======
+  validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}, allow_blank:true
+  
   #@youtube_url = /(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?(\w{10,})/
   #validates :promo_vid, :format => { :with => @youtube_url }, allow_blank:true
->>>>>>> nuking_suggestions
-  validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}, allow_blank:true
+  
+  #@url = /^((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)?$/ 
+  #validates :link, :format => { :with => @url }, allow_blank:true
+  
+  #@img_url = /^((https?:\/\/)?.*\.*\.*\.(?:png|jpg|jpeg|gif))$/i
+  #validates :promo_url, :format => { :with => @img_url }, allow_blank:true
+  
 
  
   def as_json(options = {})
@@ -221,10 +220,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-<<<<<<< HEAD
-  def has_promo_img
-    if self.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"
-=======
   def has_category?
     unless category.nil? || category == ""
       return true
@@ -234,7 +229,6 @@ class Event < ActiveRecord::Base
 
   def has_image?
     if self.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"  && (self.promo_url == "" || self.promo_url.nil?)
->>>>>>> nuking_suggestions
       return false
     else
       return true

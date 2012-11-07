@@ -11,12 +11,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20121102164750) do
-
-=======
 ActiveRecord::Schema.define(:version => 20121105214844) do
->>>>>>> nuking_suggestions
+
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -327,13 +323,10 @@ ActiveRecord::Schema.define(:version => 20121105214844) do
     t.boolean  "digest",                   :default => true
     t.string   "GCMtoken"
     t.boolean  "follow_up"
-<<<<<<< HEAD
     t.boolean  "female"
     t.datetime "birthday"
-=======
     t.boolean  "can_post_to_fb_wall",      :default => false
     t.boolean  "family_filter"
->>>>>>> nuking_suggestions
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
