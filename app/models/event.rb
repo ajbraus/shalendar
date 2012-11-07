@@ -95,6 +95,10 @@ class Event < ActiveRecord::Base
     self.starts_at.strftime "%l:%M%P, %A %B %e"
   end
 
+  def start_time_no_date
+    self.starts_at.strftime "%l:%M%P"
+  end
+  
   def start_date
     self.starts_at.strftime "%A, %B %e"
   end
