@@ -30,7 +30,6 @@ gem 'newrelic_rpm'
 gem 'heroku'
 gem 'rails-i18n'
 gem 'devise-i18n'
-gem 'whenever', :require => false
 gem 'pry', :group => :development
 gem 'pry-debugger', :group => :development
 gem 'pry-remote', :group => :development

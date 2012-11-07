@@ -27,7 +27,9 @@ iPhone
 
 	needs before release:
 		all images done
-		testing push notifications, error messages, ...
+		open push notifications to right place
+		times on reminders- how to format correctly for json?
+			want just the string literal
 
 Design coherence
 
@@ -89,6 +91,8 @@ Adam
 	test relationship
 	test rsvp
 
+	add method to invite new friends to invite_all_friends events
+
 ------------------------------------------------------------
 
 	make group after rsvped
@@ -102,7 +106,7 @@ invite
 
 ------------------------------------------------------------
 
-friends vs. not friends (yet :o)
+friends vs. not friends (yet :o) divide
 
 ------------------------------------------------------------
 

@@ -78,16 +78,15 @@ class EventsController < ApplicationController
     @graph = session[:graph]
     if user_signed_in?
       @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event) }
+      if @graph
+        @invite_friends = current_user.fb_friends(session[:graph])[1].reject { |inf| FbInvite.find_by_uid(inf['uid'].to_s) }
+        @fb_invites = @event.fb_invites
+      else
+        #to fix so that these exist in the calls.
+        @invite_friends = []
+        @fb_invites = []
+      end
     end
-    if @graph
-      @invite_friends = current_user.fb_friends(session[:graph])[1].reject { |inf| FbInvite.find_by_uid(inf['uid'].to_s) }
-      @fb_invites = @event.fb_invites
-    else
-      #to fix so that these exist in the calls.
-      @invite_friends = []
-      @fb_invites = []
-    end
-
 
     respond_to do |format|
       format.js
@@ -115,7 +114,6 @@ class EventsController < ApplicationController
             unless g == @event.user
               Notifier.delay.time_change(@event, g)
             end
-            #Resque.enqueue(MailerCallback, "Notifier", :time_change, @event.id, g.id)
           end
         end
         if @event.guests.count >= @event.min
@@ -135,12 +133,14 @@ class EventsController < ApplicationController
   # DELETE /events/1.json
   def destroy
     @event = Event.find(params[:id])
-    @event.guests.each do |g|
-      unless g == @event.user
-        Notifier.delay.cancellation(@event, g)
-      end
+    @event_guests = @event.guests
+    Notifier.delay.cancellation(@event, @event_guests)
+    @event.rsvps.each do |r|
+      r.destroy
     end
-    #@event.destroy
+    @event.invitations.each do |i|
+      i.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Idea was successfully removed' }

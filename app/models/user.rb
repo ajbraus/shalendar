@@ -240,7 +240,7 @@ class User < ActiveRecord::Base
   def add_invitations_from_user(other_user)
     other_user.rsvps.each do |r|
       if r.invite_all_friends?
-        unless self.invited?(r.plan) || r.plan.starts_at < (Time.now - 1.day)
+        unless self.invited?(r.plan) || r.plan.starts_at < (Time.now - 3.days)
           other_user.invite!(r.plan, self)
         end
       end

@@ -111,7 +111,6 @@ before_filter :authenticate_user!
       @reverse_relationship.confirm!
       @reverse_relationship.save
       @reverse_relationship.follower.add_invitations_from_user(@relationship.followed)
-
     end
     respond_to do |format|
       @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
