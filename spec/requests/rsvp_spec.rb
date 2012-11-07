@@ -22,7 +22,7 @@ describe "Pages after sign up / sign in" do
       @event = Factory(:event, :user_id => user.id, 
                        :chronic_starts_at => "Tomorrow at 3pm")
       visit event_path(@event)
-      click_button "join"
+      click_button "btn-rsvp"
     end
 
     it "should have element with class 'unrsvp'" do
