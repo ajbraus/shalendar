@@ -37,9 +37,10 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = current_user.events.build(params[:event])
-    if @event.min <= 1
-      @event.tipped = true
-    end
+    
+    @event.tipped = true                    if @event.min <= 1
+    @event.parent_id = params[:parent_id]   if params[:parent_id]
+
     if @event.save
       current_user.rsvp!(@event)
       if params[:invite_all_friends] == "on"
@@ -78,7 +79,6 @@ class EventsController < ApplicationController
     if user_signed_in?
       @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event) }
     end
-    
     if @graph
       @invite_friends = current_user.fb_friends(session[:graph])[1].reject { |inf| FbInvite.find_by_uid(inf['uid'].to_s) }
       @fb_invites = @event.fb_invites
@@ -175,6 +175,59 @@ class EventsController < ApplicationController
       end 
     end
   end
+
+  def make_a_group
+    @event = Event.find_by_id(params[:event_id])
+    @user = current_user
+    @group = @event.groups.build(user_id: current_user.id,
+                             title: @event.title,
+                             starts_at: @event.starts_at,
+                             duration: @event.duration,
+                             max: @event.max,
+                             address: @event.address,
+                             link: @event.link,
+                             guests_can_invite_friends: true,
+                             promo_img: @event.promo_img,
+                             promo_url: @event.promo_url,
+                             promo_vid: @event.promo_vid,
+                             is_public: false,
+                             category: @event.category,
+                             family_friendly: @event.family_friendly,
+                             price: @event.price
+                          )
+    respond_to do |format|
+      #format.html
+      format.js
+    end
+  end
+
+  def repeat
+    @event = Event.find_by_id(params[:event_id])
+    @user = current_user
+    @new_event = @user.events.build(
+                             title: @event.title,
+                             starts_at: @event.starts_at,
+                             duration: @event.duration,
+                             min: @event.min,
+                             max: @event.max,
+                             address: @event.address,
+                             link: @event.link,
+                             guests_can_invite_friends: @event.guests_can_invite_friends,
+                             promo_img: @event.promo_img,
+                             promo_url: @event.promo_url,
+                             promo_vid: @event.promo_vid,
+                             is_public: false,
+                             category: @event.category,
+                             family_friendly: @event.family_friendly,
+                             price: @event.price
+                          )
+    respond_to do |format|
+      #format.html
+      format.js
+    end
+  end
+
+  # END CLASS
 end
 
 

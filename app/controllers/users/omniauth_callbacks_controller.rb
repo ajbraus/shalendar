@@ -74,6 +74,17 @@ private
     if auth.nil?
       user = nil
     end
+             # TURN ALL FB_INVITES INTO INVITIATTIONS HERE 
+    FbInvite.where("uid = ?", uid).each do |fbi|
+      @inviter_id = fbi.inviter_id
+      @invited_user_id = resource.id
+      @event = fbi.event
+      if @inviter = User.find_by_id(@inviter_id)
+        @inviter.invite!(@event, resource)
+      end
+      fbi.destroy
+    end
+
     return user
   end
 

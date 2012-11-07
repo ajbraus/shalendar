@@ -1,18 +1,6 @@
 <div class="event_form">
- <%= form_for @event, html: { id: "new_event_form" } do |f| %>
-  <% if @event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-	  <p>
+ <%= form_for @group, html: { id: "new_event_form" } do |f| %>
+<p>
 <%= label :title, "Idea*" %><br/>
 <%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
 </p>  
@@ -25,9 +13,12 @@
   <%= f.text_field :duration, placeholder:"#hrs", class: "required", autocomplete: "off"  %>
 </div>
 
-<%= render partial: 'shared/idea_options', locals: { :f => f } %>
+<%= f.hidden_field :family_friendly, value: @group.family_friendly %>
+<%= f.hidden_field :parent_id, value: @group.parent_id %>
+
+<%= render partial: 'shared/group_options', locals: { :f => f } %>
  
 <span class="new_idea_button"><%= f.submit 'Post Idea', :class => 'btn btn-large btn-primary', method: :post %></span>
+</div>
 
 <% end %>
-</div>

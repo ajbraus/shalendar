@@ -1,31 +1,30 @@
 <div id="forecast">
-	<% Time.zone = current_user.time_zone %>
 	<% for i in -3..16 %>
-	<dl class="day" data-date=<%= "#{Time.now.in_time_zone(current_user.time_zone).to_date + i}" %>>
-		<% if Time.now.in_time_zone(current_user.time_zone).to_date + (i) == Time.now.to_date %>
-			<dt class="forecastDate red"><%= (Time.now.in_time_zone(current_user.time_zone).to_date + (i)).strftime("%A %b %e") %></dt>
+	<dl class="day" data-date=<%= "#{@time_in_zone.to_date + i}" %>>
+		<% if @time_in_zone.to_date + (i) == @time_in_zone.to_date %>
+			<dt class="forecastDate red"><%= (@time_in_zone.to_date + (i)).strftime("%A %b %e") %></dt>
 		<% else %>
-			<dt class="forecastDate"><%= (Time.now.in_time_zone(current_user.time_zone).to_date + (i)).strftime("%A %b %e") %></dt>
+			<dt class="forecastDate"><%= (@time_in_zone.to_date + (i)).strftime("%A %b %e") %></dt>
 		<% end %>
-			<div class="idea_type">Friend Ideas</div>
-			<div class="idea_type_line"></div>
-		<% @forecastevents[i + 3].each do |event| %>
-			<dd>
-				<%= render :partial => "shalendar/event", :locals => { :event => event } %>
-			</dd>
+		<div class="today"></div>
+		<% if user_signed_in? %>
+			<% @forecastevents[i + 3].each do |event| %>
+				<dd>
+					<%= render :partial => "shalendar/event", :locals => { :event => event } %>
+				</dd>
+			<% end %>
 		<% end %>
-		<% if @event_suggestions[i +3].any? %>
+		<% if @public_events[i + 3].any? %>
 			<dt>
-				<div class="idea_type community_ideas">Community Ideas</div>
+				<div class="idea_type community_ideas">Public Ideas</div>
 				<div class="idea_type_line"></div>
 			</dt>
-				<% @event_suggestions[i + 3].each do |es| %>
+				<% @public_events[i + 3].each do |pe| %>
 			<dd>
-				<%= render :partial => "suggestions/event_suggestion", :locals => { :suggestion => es } %>
+				<%= render :partial => "shalendar/event", :locals => { :event => pe } %>
 			</dd>
 			<% end %>
 		<% end %>
 	</dl>
 	<% end %>
 </div>
-	<div class="gutter"></div>

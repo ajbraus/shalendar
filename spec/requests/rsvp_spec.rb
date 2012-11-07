@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe "Pages after sign up / sign in" do
 
-	let(:vendor) { FactoryGirl.create(:vendor) }
+	let(:user) { FactoryGirl.create(:user) }
+  let(:vendor) { FactoryGirl.create(:vendor) }
 
   before(:all) { 30.times { FactoryGirl.create(:user) } }
   after(:all)  { User.delete_all }
@@ -16,10 +17,21 @@ describe "Pages after sign up / sign in" do
   
   after(:each) { Event.delete_all }
 
-  describe "Vendor Home Page" do
-    it "should have the Date" do
+  describe "joining an idea" do
+    before do 
+      @event = Factory(:event, :user_id => user.id, 
+                       :chronic_starts_at => "Tomorrow at 3pm")
+      visit event_path(@event)
+      click_button "join"
+    end
+
+    it "should have element with class 'unrsvp'" do
       page.should_not have_content("Vendor Dashboard")
       page.should have_content("#{Time.now.strftime('%A')}")
     end
   end
+
+  # describe "removing myself from an idea" do
+
+  # end
 end

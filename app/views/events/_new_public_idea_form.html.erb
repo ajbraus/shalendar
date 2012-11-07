@@ -1,0 +1,49 @@
+<div id="new_suggestion" class="event_form">
+	 <%= form_for @suggestion, html: { id: "new_suggestion_form" } do |f| %>
+	  <% if @suggestion.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@suggestion.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+	      <ul>
+	      <% @suggestion.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
+	  <div>
+	    <%= label :title, "Suggestion*" %><br/>
+	    <%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
+	  </div>  
+	  <div>
+	   <%= label :starts_at, "When does it start?*" %>
+	   <%= label :duration, "How Long?*", class: "duration" %><br/>
+	   <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off" %>
+	   <%= f.text_field :duration, placeholder:"#hrs", class: "duration required", autocomplete: "off"  %>
+	  </div>
+	  <div>
+	    <%= label :category, "Category*" %><br/>
+	    <div id="categories">
+	    	<% Suggestion::CATEGORIES.each do |c| %>
+		      <%= radio_button "suggestion", :category, "#{c}", id:"radio#{(Suggestion::CATEGORIES.index(c) + 1)}", class:"required" %>
+		      <%= label_tag "radio#{(Suggestion::CATEGORIES.index(c) + 1)}", "#{c.humanize}" %>
+	    	<% end %>
+    	</div>
+	  </div>  
+	<div>
+		<%= f.label :display_image, "Display Image*" %><br />
+  	<%= f.file_field :promo_img, class:"required" %>
+	</div>
+
+	<div>
+  	<%= f.label "Family Friendly?" %><br>
+		<i class="icon-home questionMark"></i>
+		<%= f.check_box :family_friendly, class: "switch" %>
+	</div>
+
+<%= render partial: 'shared/suggestion_options', locals: { :f => f } %>	 
+
+	<span class="new_idea_button"><%= f.submit 'Post Suggestion', :class => 'btn btn-large btn-primary' %></span>
+
+	<% end %>
+</div>

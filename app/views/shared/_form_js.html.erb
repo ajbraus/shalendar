@@ -37,6 +37,19 @@ $('#datetime').datetimepicker({
     minute:00
 });
 
+$("#visibility").click(function () {
+  if ($("#visibilityp").hasClass("open")) {
+   $("#visibilityp").slideUp();
+   $('#visibilityp').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#visibilityp').slideDown();
+   $("#visibilityp").addClass("open");
+  }
+});
+
  $("#addLink").click(function () { 
  if ($("#addLinkp").hasClass("open")) { 
    $("#addLinkp").slideUp();
@@ -76,6 +89,20 @@ $("#addimg").click(function () {
    $('#addimgp').slideDown();
    $("#addimgp").addClass("open");
    $("#addimg").css("color", "#EB8325")
+  }
+});
+
+$("#addcategories").click(function () {
+  if ($("#addcategoriesp").hasClass("open")) {
+   $("#addcategoriesp").slideUp();
+   $('#addcategoriesp').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#addcategoriesp').slideDown();
+   $("#addcategoriesp").addClass("open");
+   $("#addcategories").css("color", "#EB8325")
   }
 });
 
@@ -132,14 +159,23 @@ $('#new_suggestion_form').validate();
         maxlength: 140
       },
       "event[min]": {
-        number: true
+        number: true,
+        min: 0
       },
       "event[max]": {
-        number: true
+        number: true,
+        max: 1000000
       },
       "event[duration]": {
         required: true,
         number: true
+      },
+      "event[link]": {
+        maxlength:255
+      },
+      "event[price]": {
+        number: true,
+        max: 10000
       }
     }
   });

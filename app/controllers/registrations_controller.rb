@@ -31,18 +31,6 @@ class RegistrationsController < Devise::RegistrationsController
         ei.destroy
       end
 
-      # TURN ALL FB_INVITES INTO INVITIATTIONS HERE 
-      Fb_Invite.where("fb_invite.uid = :new_user_uid", new_user_uid: resource.authentication.where("provider = 'Facebook'").uid).each do |fbi|
-        @inviter_id = fbi.inviter_id
-        @invited_user_id = resource.id
-        @event = fbi.event
-        if @inviter = User.find_by_id(@inviter_id)
-          @inviter.invite!(@event, resource)
-        end
-        fbi.destroy
-      end
-
-
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
