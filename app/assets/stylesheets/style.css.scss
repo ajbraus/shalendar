@@ -170,6 +170,7 @@ padding: 0px 8px 0px 8px;
 
 .btn-large{
   padding: 10px 10px;
+  font-size:20px;
 }
 
 .btn-follow {
@@ -201,7 +202,7 @@ color: white;
   position: absolute;
 left: 243px;
 top: -1px;
-padding: 21px 12px;
+padding: 20.5px 12px;
 font-size: 20px;
 }
 
@@ -371,8 +372,13 @@ border-color: #51A351 #51A351 #387038;
 border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
 filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-  font-size: 18px;
   cursor: pointer;
+    border:1px solid #84bbf3;
+  display:inline-block;
+  color:#ffffff;
+  font-family:arial;
+  text-decoration:none;
+  text-shadow:1px 1px 0px #528ecc;
   &:hover {
     background-color: #5BB75B;
 background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#51A351), to(#62C462));
@@ -489,7 +495,6 @@ font-size: 15px;
   a{
     color: $icon_color;
     &:hover {
-      text-decoration:underline;
       color:$icon_color;
     }
   }
@@ -644,7 +649,7 @@ border-radius: 7px;
 .layout {
 clear: both;
 width: 960px;
-min-height: 850px;
+min-height: 540px;
 margin: 0 auto;
 background-color: rgba(255, 255, 255, .6);
 z-index: -10;
@@ -828,11 +833,18 @@ form {
 
 #ribbon {
 position: relative;
-top: 15px;
-height: 85px;
-border-bottom: 1px solid $divider;
-width: 915px;
+top: 5px;
+height: 75px;
 margin: 0 auto;
+width:910px;
+}
+
+.ribbon_bottom {
+  border-bottom: 1px solid $divider;
+width: 960px;
+position: relative;
+top: 15px;
+z-index: -1;
 }
 
 #datepicker {
@@ -840,7 +852,7 @@ width: 405px;
 font-size: 12px;
 height: 75px;
 position: absolute;
-bottom: 13px;
+bottom: 3px;
 float: right;
 z-index: 1;
 left: 510px;
@@ -876,7 +888,7 @@ border: 3px solid #FF8500;
 width: 77px;
 height: 73px;
 position: absolute;
-left: 78px;
+left: 59px;
 bottom: -2px;
 z-index: -2;
 }
@@ -908,11 +920,12 @@ color: #4B9BED;
 }
 
 .new_idea {
-position: absolute;
+position: relative;
 left: 18px;
+float: left;
 textarea {
 font-size: 18px;
-width: 92%;
+width: 230px;
 height: 45px;
 padding-right: 15px;
 }
@@ -927,7 +940,6 @@ width: 104px;
 height: 30px;
 vertical-align: middle;
 top: 0px;
-left: 18px;
 }
 /* Background image */
 .switch .background {
@@ -955,7 +967,6 @@ left: 18px;
 font-size: 35px;
 position: relative;
 top: 8px;
-left: 12px;
 }
 
 .invitation_options {
@@ -964,6 +975,23 @@ clear: both;
 position: relative;
 left: 10px;
 height: 65px;
+}
+
+.venue_invitation_options {
+display: block;
+clear: both;
+position: relative;
+left: 10px;
+height: 65px;
+width: 105%;
+  u {
+    width: 33%;
+    float: left;
+    text-decoration: none;
+    position: relative;
+    right: 9px;
+    min-width: 160px;
+  }
 }
 
 #edit_idea {
@@ -1005,6 +1033,8 @@ position: relative;
 bottom: 6px;
 letter-spacing: 2px;
   }
+  dd {
+  }
 }
 
 .forecast {
@@ -1016,11 +1046,11 @@ overflow-y: hidden;
 }
 
 .forecastDate {
-height: 25px;
-font-size: 20px;
+height: 10px;
+font-size: 18px;
 text-shadow: 0.5px 0.5px 0 #AAAFCA;
-text-align: center;
-padding-top: 10px;
+text-align: left;
+padding-left: 8px;
 }
 
 .event {
@@ -1084,11 +1114,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7fbfc', end
 }
 .event_time {
 color: white;
-background-color: #383838;
-padding: 1px 0px 0 2px;
+background-color: rgba(0, 0, 0, .6);
+padding: 3px 2px 8px 3px;
 font-size: 18px;
-height: 20px;
-margin-bottom: 4px;
+height: 16px;
+position: relative;
+width: 180px;
+right: 5px;
+bottom: 5px;
 img {
   width:20px;
 }
@@ -1113,13 +1146,24 @@ bottom: 12px;
 }
 
 .event_blerb {
-min-height: 30px;
+min-height: 37px;
 color: black;
 font-size: 20px;
 line-height: 1;
-width: 189px;
-margin-top: 5px;
+width: 185px;
+margin-top: 6px;
 overflow: hidden;
+background-color: rgba(255, 255, 255, 1);
+position: relative;
+right: 5px;
+padding-left: 4px;
+padding-top: 4px;
+}
+
+.event_shield_icons {
+position: absolute;
+bottom: 36px;
+left: 60px;
 }
 
 .friends_attending {
@@ -1138,14 +1182,13 @@ bottom: 2px;
 }
 
 .guest_count {
-  position:absolute;
-right: 48px;
-width: 70px;
-  text-align: right;
-  bottom:0;
-  color: black;
+position: absolute;
+bottom: 1px;
+left: 56px;
+text-align: right;
+width: 78px;
   .purple {
-    color:$icon_color;
+    color:black;
   }
 }
 
@@ -1251,7 +1294,7 @@ footer {
   opacity: 0.75;
 clear: both;
 margin: 0px auto;
-width: 1220px;
+width: 960px;
 border-top: 1px solid lightGrey;
 
   a {
@@ -1287,13 +1330,18 @@ height: 24px;
   nav {
 float: right;
 position: relative;
-right: 10%;
+right: 5%;
 bottom: 17px;
   }
 }
 
-.settings {
+li.settings {
   font-size: 25px;
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 /* miscellaneous */
 
@@ -1416,6 +1464,15 @@ margin-bottom: 20px;
   }
 }
 
+.fadeInBlue {
+    color:lightGrey;
+  &:hover{
+  color:$rsvp;
+  -webkit-transition: color .25s linear .1s;
+  transition: color .25s linear .1s;
+  }
+}
+
 .fadeInFBBlue {
     color:lightGrey;
   &:hover{
@@ -1445,6 +1502,7 @@ margin-bottom: 20px;
 .fadeInOrange {
   color:lightGrey;
   &:hover{
+    text-decoration:none;
   color:$dark_orange;
   -webkit-transition: color .25s linear .1s;
   transition: color .25s linear .1s;
@@ -1713,7 +1771,6 @@ border-bottom: 1px solid #D1CDCD;
 border-top: 1px solid #D1CDCD;
 overflow: hidden;
 position: relative;
-bottom: 25px;
   .promo_img {
     text-align: center;
     margin-bottom:-90px;
@@ -1834,11 +1891,10 @@ line-height: 1.2;
     float:left;
   }
   div {
-  float: left;
-  vertical-align: top;
-  position: relative;
-  top: 2px;
-  padding-left: 10px;
+float: left;
+vertical-align: top;
+position: relative;
+padding-left: 10px;
   }
 }
 
@@ -1864,12 +1920,23 @@ position: relative;
 top: 19px;
   }
 
-.rsvp_button {
-  position: relative;
-  top: 86px;
-  left: 650px;
-  width: 100px;
-  z-index: 1;
+.join_group_buttons {
+position: absolute;
+left: 384px;
+width: 190px;
+z-index: 1;
+height: 30px;
+top: 80px;
+  .rsvp_button {
+    float:right;
+    margin-right:7px;
+  }
+  .group_button {
+    float:right;
+  }
+  .ursvp_button{
+    float: right;
+  }
 }
 
 .shareable {
@@ -1880,13 +1947,13 @@ top: 3px;
 
 .event_title {
 float: left;
-font-size: 26px;
-height: 90px;
-line-height: 1.2;
+font-size: 34px;
+min-height: 80px;
+line-height: 1.1;
 width: 560px;
 background-color: rgba(0, 0, 0, 0.5);
 color: white;
-font-weight: 600;
+font-weight: 400;
 position: relative;
 border-bottom: 1px solid $divider;
 }
@@ -1955,17 +2022,17 @@ border-bottom:1px solid $divider;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
 float: left;
-width: 47%;
+width: 49%;
 border-right: 1px solid #D1CDCD;
-min-height: 290px;
+min-height: 280px;
 position: relative;
 overflow: auto;
 max-height: 400px;
 }
 .guests {
   float:left;
-  width:48%;
-  min-height: 270px;
+  width:46%;
+  min-height: 260px;
   position: relative;
   overflow: auto;
   max-height:400px;
@@ -2110,28 +2177,33 @@ float: left;
 border-radius: 0;
 position: relative;
 left: 10px;
-margin-right: 19px;
+margin-right: 8px;
 height: 30px;
 padding: 0;
 padding-left: 6px;
   }
   .btn {
 position: relative;
-padding: 4px 7px 4px 7px;
-right: 15px;
+padding: 3px 7px 4px 7px;
 -webkit-border-radius: 0 7px 7px 0;
 -moz-border-radius: 0 7px 7px 0;
 border-radius: 0 7px 7px 0;
-bottom: 19px;
+float: left;
   }
   .field {
     margin-left:10px;
   }
   .checkbox {
 position: relative;
-right: -28px;
-top: 6px;
 font-size: 22px;
+float: right;
+left: 10px;
+top: 9px;
+    i {
+      position: relative;
+      top: 3px;
+      left: 2px;
+    }
   }
 }
 
@@ -2266,6 +2338,10 @@ width: 400px;
   }
 }
 
+.family_filter {
+  text-align: center;
+}
+
 #recaptcha {
   margin-left:25px;
 }
@@ -2310,7 +2386,7 @@ top: 12px;
 .ui-timepicker-rtl{ direction: rtl; }
 .ui-timepicker-rtl dl { text-align: right; }
 .ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }
-
+/*
 .ui-datepicker-next {
   float:right;
 }
@@ -2320,11 +2396,11 @@ top: 12px;
 
 .ui-datepicker-title {
 
-}
+}*/
 
-.ui-datepicker-calendar {
+/*.ui-datepicker-calendar {
   width: 330px;
-}
+}*/
 
 .ui-slider-horizontal {
   position: relative;
@@ -2340,9 +2416,13 @@ width: 230px;
 
 .event_form {
   margin: 0 auto;
-  width: 442px;
+  width: 100%;
+  max-width: 460px;
+  overflow: hidden;
+  padding:0 7px;
   .ui-button-text {
-  font-size: 10.7px;
+  font-size: 12px;
+  color: white
 }
   p{
     line-height: 1;
@@ -2351,7 +2431,7 @@ margin: 0px 0px 10px 0;
  textarea {
 font-size: 17px;
 line-height: 24px;
-width: 418px;
+width: 87%;
 margin-top: 5px;
 -webkit-border-radius: 8px;
 -moz-border-radius: 8px;
@@ -2377,7 +2457,6 @@ font-size: 22px;
 width: 100%;
 float: left;
 position: relative;
-left: 94px;
 height: 81px;
     > u {
     text-decoration: none;
@@ -2386,9 +2465,9 @@ height: 81px;
     margin-bottom: 20px;
     margin-left: 3px;
     input {
-      text-align: center;
-      font-size: 27px;
-      width: 80px;
+text-align: center;
+font-size: 27px;
+width: 64%;
     }
     label {
       width: 210px;
@@ -2407,34 +2486,39 @@ height: 81px;
       width: 80px;
     }
 }
-
-  input.starts_at {
-width: 342px;
+.starts_at {
+width: 74%;
 float: left;
 margin-top: 5px;
 font-size: 20px;
 margin-bottom: 10px;
+input {
+  width: 90%;
+}
   }
-  input.duration {
-    width: 50px;
+.duration {
+    width: 24%;
 margin-left: 5px;
 font-size: 20px;
-float: right;
+float: left;
 margin-top: 5px;
 margin-bottom: 10px;
+  input {
+    width: 45%;
+    margin: 7px 0;
+  }
+
   }
   input.link {
     width: 345px;
     margin-bottom:18px;
   }
-  label.duration {
-    margin-left: 244px;
-  }
   ul {
-    float:right;
-    font-size: 20px;
-    margin-top: 18px;
-margin-right: -2px;
+float: left;
+font-size: 20px;
+margin-top: 20px;
+margin-right: 12px;
+margin-bottom: 14px;
     li {
     display: inline;
     }
@@ -2445,8 +2529,9 @@ margin-right: -2px;
   width:200px;
   float:left;
   input[type=submit]{
-    padding: 11px 90px 11px 90px;
-
+padding: 11px 60px 11px 60px;
+font-size: 20px;
+float:left;
   }
 }
 
@@ -2466,7 +2551,7 @@ margin-top: 10px;
   margin-left: 20px;
 }
 
-#addLink, #addmap, #addimg, #addtipping, #addcost, #addvid {
+#addLink, #addmap, #addimg, #addtipping, #addcost, #addvid, #addcategories, #visibility {
   cursor:pointer;
   color:black;
   text-decoration: underline;
@@ -2477,13 +2562,13 @@ margin-top: 10px;
   }
 }
 
-#addLinkp, #addmapp, #addimgp, #addvidp {
+#addLinkp, #addmapp, #addimgp, #addvidp, #addcategoriesp {
   float:left;
   margin-bottom: 15px;
   width: 100%;
   input {
     margin-left: 5px;
-width: 335px;
+    width: 82%;
   }
 }
 
@@ -2498,10 +2583,12 @@ width: 335px;
 }
 
 div.tippingIcon {
-  position: relative;
-right: 31px;
-float: left;
-top: 33px;
+width: 16%;
+position: relative;
+top: 31px;
+text-align: right;
+margin-right: 20px;
+float:left;
 }
 
 .address-picker-map {
@@ -2921,4 +3008,25 @@ top: 17px;
 .small_pic {
   width:30px;
   height:30px;
+}
+.today {
+height: 990px;
+position: absolute;
+top: -7px;
+left: -4px;
+  border-left:1px solid $divider;
+  z-index: -1;
+}
+
+.eventIcons {
+  position: absolute;
+bottom: 0px;
+right: 10px;
+}
+
+.fb-login-button {
+  img {
+    position: relative;
+bottom: 18px;
+  }
 }

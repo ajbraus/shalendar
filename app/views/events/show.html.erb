@@ -2,12 +2,8 @@
 <% if user_signed_in? %>
   <%= render 'events/event_buttons' %>
 <% end %>
-<div class="rsvp_button">
-    <%= render 'rsvp_form' %>
-</div>
 
 <div class="event_show">
-
   <div class="event_top">
     <div class="host">
 	   <%= raster_profile_picture(@event.user) %> 
@@ -29,22 +25,34 @@
   </div>
 
 	<div class="when">
-	  <%= event_start_time(@event) %> - <%= event_end_time(@event) %>
-	  <%= date(@event) %> 
+	  <%= event_start_time(@event) %> <%= date(@event) %> - <%= @event.nice_duration %> hrs
+      <div class="join_group_buttons">
+        <%= render 'rsvp_form' %>
+      </div>
 	</div>
 
-  <% if !@event.promo_url.nil? && @event.promo_url != "" %>
+  <% if @event.has_image? %>
     <div class="promo_img">
-      <%= image_tag("#{@event.promo_url}") %>
-    </div>
-  <% elsif !@event.promo_img_file_size.nil? %>
-    <div class="promo_img">
-      <%= image_tag("#{@event.promo_img.url(:large)}") %>
+      <%= image_tag("#{@event.image(:large)}") %>
     </div>
   <% end %>
 
 	<div class="event_title">
 	  <%= @event.title %>
+      <div class="eventIcons">
+      <% if @event.has_category? %>
+        <%= @event.category.capitalize %> | 
+      <% end %>
+      <% if @event.is_public? %>
+        <i class="icon-bullhorn" title="Public"></i>
+      <% end %>
+      <% if @event.family_friendly? %>
+        <i class="icon-home" title="Family Friendly"></i>
+      <% end %>
+      <% if @event.guests_can_invite_friends? %>
+        <i class="icon-plus" title="Guest can Share with Friends"></i>
+      <% end %>
+      </div>
 	</div>
 
   <% if !@event.promo_vid.nil? && @event.promo_vid != "" %>
@@ -85,7 +93,7 @@
 
 <% if false %>
   <div class="shareable">
-    <i class="icon-group black" title="Join the Idea and Share with Friends"></i>
+    <i class="icon-group black" title="Join and Share with Friends"></i>
   </div>
 <% end %>
 
@@ -102,6 +110,8 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
+
+<% if false %>
 <% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now.in_time_zone(current_user.time_zone) - 7.seconds %>
 
   <%= link_to find_friends_path, :remote => true, class: "find_friends fancybox.ajax", style: "display:none;" do %>
@@ -119,4 +129,5 @@
       }
     document.ready(Func1Delay());
   </script>
+<% end %>
 <% end %>

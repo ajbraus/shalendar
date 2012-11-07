@@ -1,37 +1,21 @@
-<% provide(:title, "| Settings") %> 
+<% provide(:title, " | Settings") %> 
 <div id="settings">
   <div id="personal">
     <% if current_user.authentications.find_by_provider("Facebook") == nil && current_user.avatar.present? == false %>
       <p><a href="http://gravatar.com/emails">Add or Update Gravatar Picture</a></p>
     <% end %>
     <% unless current_user.vendor? %>
-    <p><strong>Authentications</strong></p>
-    <% if current_user.authentications.any? == true %>
-    <p>
-      <% current_user.authentications.each do |a| %>
-      <p>
-        <table>
-          <tr>
-            <td width="100px"><%= a.provider %></td>
-            <td width="50px"><%= link_to raw("<i class='icon-remove-sign'></i>"), a, confirm: 'Are you sure you want to remove your Facebook authentication?', method: :delete %></td>
-          </tr>
-        </table>
-      </p>
-      <% end %>
-    </p>
-    <% else %>
-      <p>Add Facebook Authentication</p>
-      <div class="fb_button">
-        <div id="auth-status">
-          <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
+      <% unless current_user.authentications.any? == true %>
+        <p><strong>Authentications</strong></p>
+        <p>Add Facebook Authentication</p>
+        <div class="fb_button">
+          <div id="auth-status">
+            <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
+          </div>
         </div>
-      </div>
-<!--       <fb:login-button scope="publish_stream">
-        Invite Facebook Friends 
-      </fb:login-button> 
- -->    <% end %>
+      <% end %>
+    <% end %>
   </div>
-  <% end %>
 
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
     <h2>General Settings</h2>
@@ -40,6 +24,13 @@
       <%= f.check_box :require_confirm_follow %> 
       <label for="require_confirm_follow"><strong>Authorize Subscribers</strong> - Confirm each subscriber before they can view your ideas. </label>
     </p>
+    <p>
+      <div class="family_filter">
+        <%= f.label "Family Friendly Filter" %><br>
+        <i class="icon-home questionMark"></i>
+        <%= f.check_box :family_filter, class: "switch" %>
+      </div>
+    </p>         
     <br>
 
     <h2>Email Notification Settings</h2>
@@ -87,8 +78,25 @@
     <div><%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation %></div>
 
-    <div><%= f.submit "Update", :class => "btn btn-warning" %></div>
+    <div><%= f.submit "Update", :class => "btn btn-warning btn-large" %></div>
+    <% end %>
+
     <p><%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete, :class => "fadeInRed" %></p>
-  <% end %>
+
+    <% if current_user.authentications.any? == true %>
+    <p>Remove Authentications</p>
+    <p>
+      <% current_user.authentications.each do |a| %>
+      <p>
+        <table>
+          <tr>
+            <td width="100px"><%= a.provider %></td>
+            <td width="50px"><%= link_to raw("<i class='icon-remove-sign'></i>"), a, confirm: 'Are you sure you want to remove your Facebook authentication?', method: :delete %></td>
+          </tr>
+        </table>
+      </p>
+      <% end %>
+    </p>
+    <% end %>
 
 </div>

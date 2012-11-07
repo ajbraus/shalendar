@@ -25,7 +25,10 @@ class User < ActiveRecord::Base
                   :city,
                   :post_to_fb_wall,
                   :avatar,
-                  :vendor
+                  :vendor,
+                  :family_filter,
+                  :email_comments,
+                  :follow_up
 
   has_attached_file :avatar, :styles => { :original => "150x150#",
                                           :raster => "50x50#" },
@@ -237,7 +240,7 @@ class User < ActiveRecord::Base
   def add_invitations_from_user(other_user)
     other_user.rsvps.each do |r|
       if r.invite_all_friends?
-        unless self.invited?(r.plan) || r.plan.starts_at < (Time.now - 1.day)
+        unless self.invited?(r.plan) || r.plan.starts_at < (Time.now - 3.days)
           other_user.invite!(r.plan, self)
         end
       end
@@ -268,6 +271,29 @@ class User < ActiveRecord::Base
     #Invite.where(invited_event_id: event.id, invited_user_id: self.id).any?
     invitations.where('invitations.invited_event_id = :eventid', eventid: event.id).any?
   end
+
+  def invited_to_an_events_group?(parent_event)
+    if parent_event.groups.any?
+      parent_event.groups.each do |child|
+        if invitations.where('invitations.invited_event_id = :eventid', eventid: child.id).any?
+          return true
+        end
+      end
+    end
+    return false
+  end
+
+  def made_a_group?(parent_event)
+    self.events.each do |e|
+      parent_event.groups.each do |peg|
+        if e.id == peg.id
+          return true
+        end
+      end
+    end
+    return false
+  end
+
 
   def invited_all_friends?(event)
     if self.rsvpd?(event)

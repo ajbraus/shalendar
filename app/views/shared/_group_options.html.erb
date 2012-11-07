@@ -1,0 +1,61 @@
+<div id="eventOptions">
+	<div class="invitation_options open" id="visibilityp">
+	  <u>
+			<%= f.label "Share with Friends" %><br>
+			<i class="icon-group questionMark"></i>
+			<input checked="checked" id="invite_all_friends" name="invite_all_friends" type="checkbox" class="switch">    			
+		</u>
+	  <u>
+	  	<%= f.label "Friends Can Share" %><br>
+			<i class="icon-plus questionMark"></i>
+			<%= f.check_box :guests_can_invite_friends, class: "switch", checked: "checked" %>
+		</u>
+	</div>
+
+	<div id="addimgp" style="display:none;">
+	  <div><%= f.label :display_image %></div>
+	 	  <i class="icon-link"></i><%= f.text_field :promo_url, autocomplete: "off", placeholder: "Image URL" %><br>
+	  or<br>
+	  	<i class="icon-camera-retro"></i><%= f.file_field :promo_img %>
+	</div>
+	
+	<div id="addvidp" style="display:none;">
+		<div><%= f.label :event_video %></div>
+		<i class="icon-facetime-video"></i><%= f.text_field :promo_vid, autocomplete: "off", placeholder: "You Tube URL" %>
+	</div>
+
+	<div id="addtippingp" class="minmax" style="display:none;">
+		<div class='tippingIcon'>
+	  	<i class="icon-tasks"></i>
+		</div>
+	  <u>
+	    <%= f.label :min_attendees, "Tipping point*" %> <br/>
+	    <%= f.text_field :min, :class => 'input-mini', autocomplete: "off" %>
+	  </u>
+	  <u>
+	    <%= f.label :max_attendees, "Full" %> <br/>
+	    <%= f.text_field :max, :class => 'input-mini', autocomplete: "off" %>
+	  </u>
+	</div>
+
+	<div id="addmapp" style="display: none;">
+	  <%= label_tag "Location" %><br/>
+	  <i class="icon-map-marker"></i><%= f.text_field :address, autocomplete: "off" %>
+	</div>
+
+	<div id="addLinkp" style="display: none;">
+		<%= label_tag "Link" %></br>
+		<i class="icon-link"></i> http://<%= f.text_field :link, autocomplete: "off" %>
+	</div>
+</div>
+
+<div>
+	<ul>
+		<li id="visibility" title="Share" style="color:#EB8325;"><i class="icon-group"></i></li>
+		<li id="addimg" title="Add an Image"><i class="icon-camera-retro"></i></li>
+		<li id="addvid" title="Add a video"><i class="icon-facetime-video"></i></li>
+ 	  <li id="addtipping" title="Add a Tipping/Full"><i class="icon-tasks"></i></li>
+	  <li id="addLink" title="Add a Link"><i class="icon-link"></i></li>
+	  <li id="addmap" title="Add a Location"><i class="icon-map-marker"></i></li>
+	</ul>
+</div>

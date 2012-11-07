@@ -84,7 +84,7 @@ class Api::V1::EventsController < ApplicationController
           :iids => @invitedids,
           :g_share => @g_share,
           :comments => @comments,
-          :image => @event.image("medium"),
+          :image => @event.image(:medium),
           :share_a => @mobile_user.invited_all_friends?(@event)
         }
     end

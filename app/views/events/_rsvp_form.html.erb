@@ -4,37 +4,50 @@
 	<% elsif @event.ends_at < Time.now %>
 	  (Idea over)
 	<% else %>
-		<%= link_to "Join", new_user_session_path, class:"btn btn-rsvp" %>
-		<% if @event.guests_can_invite_friends? %>
-		  <div class="shareable">
-        <i class="icon-group black" title="Join the Idea and Share with Friends"></i>
-      </div>
-    <% end %>
+		<% if @event.is_public? %>
+			<div class="group_button">
+				<%= link_to new_user_session_path(:event => @event.id), class:"btn btn-success", title:"Login to Create a Group to Go to This Idea" do %>
+					<i class="icon-copy"></i> Make a Group
+				<% end %>
+			</div>
+		<% end %>
+		<div class="rsvp_button">
+			<%= link_to "Join", new_user_session_path(:event => @event.id), class:"btn btn-rsvp", title: "Login to Join this Public Idea" %>
+		</div>
 	<% end %>
 <% else %>
-	<% if current_user.rsvpd?(@event) %>
-		<%= form_for(current_user.rsvps.find_by_plan_id(@event),
-	           html: { method: :delete }) do |f| %>
-		  <%= f.submit "Unrsvp", class: "btn btn_stop_viewing" %>
-		 <% if @event.guests_can_invite_friends? %>
-		  <span class="shareable">
-        <i class="icon-group black" title="Guest can Share this Idea with Friends"></i>
-      </span>
-     <% end %>
-		<% end %>
-	<% elsif @event.full? %>
-		(Idea full)
-	<% elsif @event.ends_at < Time.now.in_time_zone(current_user.time_zone) %>
-	  (Idea over)
-	<% else %>
-		<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
-		  <div><%= f.hidden_field :plan_id %></div>
-		  <%= f.submit "Join", class: "btn btn-rsvp" %>
-		<% if @event.guests_can_invite_friends? %>
-		  <span class="shareable">
-        <i class="icon-group black" title="Join the Idea and Share with Friends"></i>
-      </span>
-    <% end %>
+	<% unless current_user.vendor? %>
+		<% if current_user.rsvpd?(@event) %>
+			<%= form_for(current_user.rsvps.find_by_plan_id(@event),
+		           html: { method: :delete }) do |f| %>
+			  <%= f.submit "Flake Out", class: "btn btn_stop_viewing ursvp_button", title:"Are you sure you can't make it?" %>
+			<% end %>
+		<% elsif @event.full? %>
+			(Idea full)
+		<% elsif @event.ends_at < Time.now.in_time_zone(current_user.time_zone) %>
+		  (Idea over)
+		<% else %>
+			<% if @event.is_public?%>
+				<div class="group_button">
+				<% if current_user.made_a_group?(@event) %>
+		 			<%= link_to event_path(@event.groups.where(:user_id => current_user.id)[0]), class:"btn btn-success" do %>
+							<i class="icon-upload-alt"></i> Your Group
+					<% end %>
+				<% else %>
+					<%= link_to make_a_group_path(:event_id => @event.id), id:"makeAGroup", class:"btn btn-success fancybox.ajax", remote: true, title:"Create a Private Idea Based on This Public One" do %>
+						<i class="icon-copy"></i> Make a Group
+					<% end %>
+				<% end %>
+				</div>
+			<% end %>
+			<% unless current_user.made_a_group?(@event) %>
+				<div class="rsvp_button">
+					<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
+			  		<%= f.hidden_field :plan_id %>
+			  		<%= f.submit "Join", class: "btn btn-rsvp", confirm: "Are you sure you would like to join this idea?" %>
+					<% end %>
+				</div>
+			<% end %>
 		<% end %>
 	<% end %>
 <% end %>

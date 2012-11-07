@@ -61,7 +61,7 @@
         </li>
         <% else %>
         <li>
-          <%= link_to invite_all_friends_path(:event_id => @event.id), confirm: "Post idea to ALL friends walls in #{current_user.city}?", title: "Invite All Friends" do %>
+          <%= link_to invite_all_friends_path(:event_id => @event.id), confirm: "Share with all friends", title: "Invite All Friends" do %>
             <span class="fadeInGreen"><i class="icon-group"></i></span>
           <% end %>
         </li>
@@ -83,7 +83,7 @@
 
       <% else %>
         <li>
-          <i class="icon-group black" title="Join the Idea and Share with Friends"></i>
+          <i class="icon-group black" title="Join and Share with Friends"></i>
         </li>
       <% end %>
     <% end %>

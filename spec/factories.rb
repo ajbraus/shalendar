@@ -35,10 +35,9 @@ FactoryGirl.define do
     terms 't'
   end
 
-	factory :event do
-    id '1'
+  factory :event do
     user_id ''
-    suggestion_id ''
+    parent_id ''
     starts_at ''
     duration '2'
     ends_at ''
@@ -50,11 +49,11 @@ FactoryGirl.define do
     longitude ''
     chronic_starts_at ''
     chronic_ends_at ''
-    link 'www.google.com'
+    link ''
     gmaps 'f'
     tipped 't'
     guests_can_invite_friends 't'
-    price '10'
+    price ''
     promo_img nil
     promo_url ''
     promo_vid ''
