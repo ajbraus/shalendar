@@ -16,12 +16,12 @@
 		<% end %>
 		<% if @public_events[i + 3].any? %>
 			<dt>
-				<div class="idea_type community_ideas">Community Ideas</div>
+				<div class="idea_type community_ideas">Public Ideas</div>
 				<div class="idea_type_line"></div>
 			</dt>
 				<% @public_events[i + 3].each do |pe| %>
 			<dd>
-				<%= render :partial => "shalendar/event", :locals => { :suggestion => pe } %>
+				<%= render :partial => "shalendar/event", :locals => { :event => pe } %>
 			</dd>
 			<% end %>
 		<% end %>

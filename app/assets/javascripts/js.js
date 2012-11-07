@@ -120,18 +120,13 @@ $(document).bind('click', function(e) {
     closeEffect : 'fade'
   });
 
-  $('#new_idea_button').fancybox({
+  $('#newIdeaButton').fancybox({
         closeBtn    : true,
         scrolling   : 'auto',
         autoSize    : true,
         mouseWheel : false
   });
-  $('#new_suggestion_button').fancybox({
-        closeBtn    : true,
-        scrolling   : 'auto',
-        autoSize    : true,
-        mouseWheel : false
-  });
+
 	$('.find_friends').fancybox({
         closeBtn    : true,
         scrolling   : 'auto',
@@ -139,13 +134,20 @@ $(document).bind('click', function(e) {
         mouseWheel : false
   });
   //$('.city_vendors').fancybox();
-  $('.clone').fancybox({
+  
+  $('#makeAGroup').fancybox({
         closeBtn    : true,
         scrolling   : 'auto',
         autoSize    : true,
         mouseWheel : false
   });
 
+  $('#eventRepeat').fancybox({
+        closeBtn    : true,
+        scrolling   : 'auto',
+        autoSize    : true,
+        mouseWheel : false
+  });
 
 
 
@@ -316,6 +318,20 @@ $('#datetime').datetimepicker({
  $("#addLinkp").slideDown();
  $("#addLinkp").addClass("open");
  $("#addLink").css("color", "#EB8325")
+  }
+});
+
+$("#addcategories").click(function () {
+  if ($("#addcategoriesp").hasClass("open")) {
+   $("#addcategoriesp").slideUp();
+   $('#addcategoriesp').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#addcategoriesp').slideDown();
+   $("#addcategoriesp").addClass("open");
+   $("#addcategories").css("color", "#EB8325")
   }
 });
 

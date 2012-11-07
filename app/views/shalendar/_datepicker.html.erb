@@ -1,6 +1,10 @@
 <div id="datewindow"></div>
 <% for i in -3..16 do %>
-	<table class="datePickerDay" data-date=<%= "#{@time_in_zone.to_date + i}" %> <%= "class='weeks'" if i == 1 || i == 7 || i == 14 %>
+	<% if i == 0 || i == 7 || i == 14 %>
+	<table class="datePickerDay weeks" data-date=<%= "#{@time_in_zone.to_date + i}" %> >
+	<% else %>
+		<table class="datePickerDay" data-date=<%= "#{@time_in_zone.to_date + i}" %> >
+	<% end %>
 		<tr>
 			<th>
 				<% case %>

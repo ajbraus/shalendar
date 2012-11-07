@@ -2,17 +2,8 @@
 	<div class="new_idea">
 		<textarea id="new_idea_blerb" placeholder="Describe Your Fun Idea"></textarea>
 		<% if user_signed_in? %>
-			<%if current_user.vendor? %>
-				<%= link_to new_public_event_path, id:"new_suggestion_button", class: "btn btn-new-idea btn-new-suggestion fancybox.ajax", remote: true do %>
-						<i class="icon-bullhorn"></i>
-				<% end %>
-				<%= link_to new_event_path, id:"new_idea_button", class: "btn btn-rsvp btn-new-vendor-idea fancybox.ajax", remote: true do %>
-					<i class="icon-cloud"></i>
-				<% end %>
-			<% else %>
-				<%= link_to new_event_path, id:"new_idea_button", class: "btn btn-rsvp btn-new-idea fancybox.ajax", remote: true do %>
-					<i class="icon-cloud"></i>
-				<% end %>
+			<%= link_to new_event_path, id:"newIdeaButton", class: "btn btn-rsvp btn-new-idea fancybox.ajax", remote: true do %>
+				<i class="icon-cloud"></i>
 			<% end %>
 		<% else %>
 			<%= link_to new_user_session_path, class: "btn btn-rsvp btn-new-idea" do %>

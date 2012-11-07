@@ -1,7 +1,13 @@
-<% if current_user.rsvpd?(event) %>
-		<div class="event rsvpd <%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) ? 'over' : ''%>" data-event-id="<%= event.id %>" <%= event.id == @next_plan.id ? style="box-shadow: 0px 0px 34px -6px #388EE5;" : '' if @next_plan %>>
+<% if user_signed_in? %>
+	<% if current_user.rsvpd?(event) %>
+			<div class="event rsvpd <%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) ? 'over' : ''%>" data-event-id="<%= event.id %>" <%= event.id == @next_plan.id ? style="box-shadow: 0px 0px 34px -6px #388EE5;" : '' if @next_plan %>>
+	<% elsif event.is_public? %>
+		<div class="event <%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) ? 'over' : '' %>" data-event-id="<%= event.id %>">
+	<% else %>
+			<div class="event not_rsvpd <%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) ? 'over' : '' %>" data-event-id="<%= event.id %>" <%= event.id == @next_plan.id ? "style='box-shadow: 0px 0px 34px -6px #388EE5;'" : '' if @next_plan %> data-inviter-id="<%= event.inviter_id %>">
+	<% end %>
 <% else %>
-		<div class="event not_rsvpd <%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) ? 'over' : '' %>" data-event-id="<%= event.id %>" <%= event.id == @next_plan.id ? "style='box-shadow: 0px 0px 34px -6px #388EE5;'" : '' if @next_plan %> data-inviter-id="<%= event.inviter_id %>">
+	<div class="event <%= event.ends_at < @time_in_zone ? 'over' : '' %>" data-event-id="<%= event.id %>">
 <% end %>
 
 	<%= link_to event_path(event) do %>
@@ -15,7 +21,6 @@
 			<% end %>
 			<span><%= event_start_time(event) %> - <%= event_end_time(event) %></span>
 		</div>
-
 
     <% if !event.promo_url.nil? && event.promo_url != "" %>
       <div class="promo_img">
@@ -33,33 +38,31 @@
 	
 		<div class="event_blerb"><%= event.title %></div>
 	
-		<div class="event_pic" title="Invited by: <%= User.find_by_id(event.inviter_id).name%>"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
-		<div class="guest_count">
-			<% if current_user.rsvpd?(event) && event.guests_can_invite_friends? %>
-				<% if current_user.rsvps.find_by_plan_id(event.id).invite_all_friends? %>
-					<i class="gold icon-group" title="Shared With Friends"></i>
-				<% else %>
-					<i class="purple icon-group" title="You may share this idea with your friends."></i>
-				<% end %>
-			<% elsif event.guests_can_invite_friends? %>
-      	<i class="purple icon-group" title="You may share this idea with your friends."></i>
-      <% end %>
-			<% if event.tipped? %>	
-				<span class="count" id="guestCount"><%= event.guests.count %></span>
-			<% else %>
-				<span id="guestCount" class="count red"><%= event.guests.count%><span id="eventMin">/<%= event.min %></span></span>
-			<% end %>
-		</div>
-
-		<% if !event.promo_vid.nil? && event.promo_vid != "" %>
-			<div class="event_video">
-				<i class="purple icon-facetime-video"></i>
-			</div>
+		<% if event.is_public? %>
+			<div class="event_pic" title="Created by: <%= event.user.name %>"><%= raster_profile_picture(event.user) %></div>
+		<% else %>
+			<div class="event_pic" title="Invited by: <%= User.find_by_id(event.inviter_id).name%>"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
 		<% end %>
 
-
-
-		<% unless current_user.vendor? %>
+		<div class="event_shield_icons">
+			<% if event.family_friendly? %>
+				<i class="purple icon-home"></i>
+			<% end %>
+			<% if event.is_public? %>
+				<i class="purple icon-bullhorn"></i>
+			<% end %>
+			<% if event.guests_can_invite_friends? %>
+	     	<i class="purple icon-plus" title="Guests may Share with Friends"></i>
+	    <% end %>
+	  </div>
+		<div class="guest_count">
+			<% if event.tipped? %>	
+				<i class="purple icon-group"></i> <span class="count" id="guestCount"><%= event.guests.count %></span>
+			<% else %>
+				<i class="purple icon-group"></i> <span id="guestCount" class="count red"><%= event.guests.count%><span id="eventMin">/<%= event.min %></span></span>
+			<% end %>
+		</div>
+		<% unless event.is_public? %>
 			<% unless event.user == User.find_by_id(event.inviter_id) %>
 				<div class="host">by: <%= event.user.first_name.capitalize %> 
 					<% if event.user.last_name %>
@@ -72,6 +75,8 @@
 				<div class="force_tip">
 					<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true, id:"tipPin" %>
 				</div>
+			<% elsif event.is_public? %>
+
 			<% else %>
 			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
 			<% end %>

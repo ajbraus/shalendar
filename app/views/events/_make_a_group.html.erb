@@ -1,0 +1,24 @@
+<div class="event_form">
+ <%= form_for @group, html: { id: "new_event_form" } do |f| %>
+<p>
+<%= label :title, "Idea*" %><br/>
+<%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
+</p>  
+<div class="starts_at">
+  <%= label :starts_at, "When does it start?*" %>
+  <%= f.text_field :chronic_starts_at, id: "datetime", class: "required starts_at", autocomplete: "off" %>
+</div>
+<div class="duration">
+  <%= label :duration, "How Long?*" %>
+  <%= f.text_field :duration, placeholder:"#hrs", class: "required", autocomplete: "off"  %>
+</div>
+
+<%= f.hidden_field :family_friendly, value: @group.family_friendly %>
+<%= f.hidden_field :parent_id, value: @group.parent_id %>
+
+<%= render partial: 'shared/group_options', locals: { :f => f } %>
+ 
+<span class="new_idea_button"><%= f.submit 'Post Idea', :class => 'btn btn-large btn-primary', method: :post %></span>
+</div>
+
+<% end %>

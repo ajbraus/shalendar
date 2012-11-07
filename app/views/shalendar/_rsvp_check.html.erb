@@ -3,7 +3,7 @@
 <% elsif current_user.rsvpd?(event) %>
 	<% if event.guests_can_invite_friends? %>
 		<% if !current_user.rsvps.find_by_plan_id(event.id).invite_all_friends? %>
-			<%= link_to invite_all_friends_path(:event_id => event.id), remote: true, confirm: "Are you sure you want to share this idea with ALL your friends?" do %>
+			<%= link_to invite_all_friends_path(:event_id => event.id), remote: true, confirm: "Share this idea with all friends?" do %>
 				<div class="btn_invite_all_friends btn_icon" title="Share this Idea with All your Friends"><i class="icon-group"></i></div>
 			<% end %>
 		<% else %>
@@ -15,6 +15,6 @@
 <% else %>
 	<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 	  <div><%= f.hidden_field :plan_id %></div>
-	  <%= f.submit raw("join"), class:"btn_icon btn_icon_rsvp", confirm:"Are you sure you would like to JOIN this idea?", title: "JOIN this Idea" %>
+	  <%= f.submit raw("join"), class:"btn_icon btn_icon_rsvp", confirm:"Are you sure you would like to join this idea?" %>
 	<% end %>
 <% end %>

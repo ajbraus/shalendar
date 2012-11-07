@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102215542) do
+ActiveRecord::Schema.define(:version => 20121105214844) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -173,6 +173,7 @@ ActiveRecord::Schema.define(:version => 20121102215542) do
     t.boolean  "is_public",                 :default => false
     t.string   "category"
     t.boolean  "family_friendly",           :default => false
+    t.integer  "parent_id"
   end
 
   create_table "fb_invites", :force => true do |t|
@@ -322,6 +323,7 @@ ActiveRecord::Schema.define(:version => 20121102215542) do
     t.string   "GCMtoken"
     t.boolean  "follow_up"
     t.boolean  "can_post_to_fb_wall",      :default => false
+    t.boolean  "family_filter"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

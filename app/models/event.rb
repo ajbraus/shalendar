@@ -18,6 +18,9 @@ class Event < ActiveRecord::Base
   has_many :email_invites, dependent: :destroy
   has_many :fb_invites, dependent: :destroy
 
+  belongs_to :parent, :foreign_key => "parent_id", :class_name => "Event"
+  has_many :groups, :foreign_key => "parent_id", :class_name => "Event"
+
   attr_accessible :user_id,
                   :suggestion_id,
                   :starts_at, 
@@ -38,10 +41,13 @@ class Event < ActiveRecord::Base
                   :price,
                   :promo_img,
                   :promo_vid,
-                  :promo_url
+                  :promo_url,
+                  :category,
+                  :family_friendly,
+                  :is_public,
+                  :parent_id
 
-  has_attached_file :promo_img, :styles => { :original => '900x700',
-                                             :large => '380x520',
+  has_attached_file :promo_img, :styles => { :large => '380x520',
                                              :medium => '190x270'},
                              :storage => :s3,
                              :s3_credentials => S3_CREDENTIALS,
@@ -63,8 +69,8 @@ class Event < ActiveRecord::Base
   validates :duration, numericality: { in: 0..1000 } 
   validates :title, length: { maximum: 140 }
   validates_numericality_of :longitude, :latitude, allow_blank:true
-  @url = /^((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)?$/ 
-  validates :link, :promo_url, :format => { :with => @url }, allow_blank:true
+  #@url = /^((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)?$/ 
+  #validates :link, :format => { :with => @url }, allow_blank:true
   #@youtube_url = /(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?(\w{10,})/
   #validates :promo_vid, :format => { :with => @youtube_url }, allow_blank:true
   validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}, allow_blank:true
@@ -149,14 +155,22 @@ class Event < ActiveRecord::Base
   end
 
 
-  def self.public_forecast(load_datetime)
+  def self.public_forecast(load_datetime, current_user)
     #get time zone from city
     Time.zone =  "Central Time (US & Canada)"
     @public_forecast = []
     (-3..16).each do |i|
       @new_datetime = load_datetime + i.days 
       @time_range = @new_datetime.midnight .. @new_datetime.midnight + 1.day
-      @public_events_on_date = Event.where(starts_at: @time_range, is_public: true).order("starts_at ASC")
+      if current_user.nil?
+        @public_events_on_date = Event.where(starts_at: @time_range, is_public: true).order("starts_at ASC")
+      else
+        if current_user.family_filter?
+          @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, family_friendly: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e)}
+        else 
+          @public_events_on_date = Event.where(starts_at: @time_range, is_public: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e)}
+        end
+      end
       @public_events_on_date = @public_events_on_date.sort_by{|t| t[:starts_at]}
 
       @public_forecast.push(@public_events_on_date)
@@ -200,21 +214,40 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def has_promo_img 
-    if self.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"
+  def has_category?
+    unless category.nil? || category == ""
+      return true
+    end
+    return false
+  end
+
+  def has_image?
+    if self.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"  && (self.promo_url == "" || self.promo_url.nil?)
       return false
     else
       return true
     end
   end
 
+  def image(size)
+    if !self.promo_url.nil? && self.promo_url != "" 
+      return promo_url
+    elsif !self.promo_img_file_size.nil?
+      if size == "medium"
+        self.promo_img.url(:medium)
+      else 
+        self.promo_img.url(:large)
+      end
+    end
+  end
+
   def post_to_fb_wall(uid, graph)
     if Rails.env.production?
-      if self.has_promo_img
+      if self.has_image?
         graph.delay.put_connections( uid, "feed", {
                                         :name => self.title,
                                         :link => "http://www.hoos.in/events/#{self.id}",
-                                        :picture => self.promo_img.url(:medium)
+                                        :picture => self.image
                                       })
       else
         graph.delay.put_connections( uid, "feed", {
@@ -223,11 +256,11 @@ class Event < ActiveRecord::Base
                                       })       
       end
     else
-      if self.has_promo_img
+      if self.has_image?
         graph.put_connections( 2232003, "feed", {
                                         :name => self.title,
                                         :link => "http://www.hoos.in/events/#{self.id}",
-                                        :picture => self.promo_img.url(:medium)
+                                        :picture => self.image
                                       })
       else
         graph.put_connections( 2232003, "feed", {
@@ -258,6 +291,42 @@ class Event < ActiveRecord::Base
       "$" + "%.2f" % price
     end
   end
+
+  def nice_duration
+    duration.to_s.split(/\.0/)[0]
+  end
+
+  def is_group?
+    unless self.parent.nil?
+      if self.parent.is_public?
+        return true
+      end
+    end
+    return false
+  end
+
+  def groups_your_invited_to
+    @invited_events = []
+    if self.is_public? && self.groups.any?
+      self.groups.each do |group|
+        group.invited_users.each do |iu|
+          if iu == current_user
+            @invited_event << group
+          end
+        end
+      end
+    end
+    return @invited_events
+  end
+
+  def has_parent?
+    if self.parent.nil?
+      return false
+    else
+      return true
+    end
+  end
+
 
 # END OF CLASS
 end

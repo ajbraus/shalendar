@@ -104,41 +104,72 @@ Adam
  		ipad app
  		email signup
 
+-------------------------------------------------------------
 
-public ideas
-	family friendly bool in user
- 
-	wire up new public idea form template to launch from ribbon
+	fix the callback to two url's ago
 
-	wire up venue dashboard
+	test relationship
+	test rsvp
 
-	create suggestions
+------------------------------------------------------------
 
-	require category with javascript in suggestions
+	make group after rsvped
 
-	correct validations on URL, VID, and Link
+-------------------------------------------------------------
+
+invite 
+	js.js listern to remove friends as you click invite
+	no ajax loading screen
+	ajax response template addends those individual images to the maybes div
+
+------------------------------------------------------------
+
+friends vs. not friends (yet :o)
+
+------------------------------------------------------------
+
+List view for new ideas
+
+------------------------------------------------------------
+
+make signin a lightbox
+
+------------------------------------------------------------
+
+
+	background branding
+
+	display when full?
+
+	next plan
+
+	hovering putting a box around idea shields
+
+------------------------------------------------------------
 
 	filter by category ( add links to header that hide those )
-
-	put family friendly bool into user
-
-	set family friendly bool in Settings
 
 	link to that in categories
 
 	set family friendly bool based on age in demographics table
 
-	turn off popup fb friends
-
-	idicate public event in event#show
-
-	your invites -- all invites
+	wire up venue dashboard
 
 	your friends attending -- all attending
 
 	your friends maybes -- all maybes
 
+
+	validate links are not more than 255 characters
+
 ------------------------------------------------------------
+
+to speed up registration (and probably rsvp too!) js load different js templates depending on the rquest.referer
+
+session[:return_to] ||= request.referer
+
+
+-----------------------------------------------------------
 
 
 ajax scrolling for user list view?

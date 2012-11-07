@@ -6,19 +6,24 @@ class ShalendarController < ApplicationController
     if user_signed_in?
       @plan_counts = []
       @invite_counts = []
-      @time_in_zone = Time.now.in_time_zone(current_user.time_zone)
+      if current_user.time_zone.nil?
+        @time_in_zone = Time.now.in_time_zone("Central Time (US & Canada)")
+      else
+        @time_in_zone = Time.now.in_time_zone(current_user.time_zone) 
+      end
   		@date = @time_in_zone.to_date #in_time_zone("Central Time (US & Canada)")
       @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
       @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
+      @public_events = Event.public_forecast(@time_in_zone, current_user)
       @graph = session[:graph]
       if @graph
         @member_friends = current_user.fb_friends(@graph)[0]
-        @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.first(3)
+        @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.shuffle.first(3)
       end
-    end  
-    @public_events = Event.public_forecast(Time.now)
-    @time_in_zone = Time.now.in_time_zone("Central Time (US & Canada)")
-
+    else  
+      @time_in_zone = Time.now.in_time_zone("Central Time (US & Canada)")
+      @public_events = Event.public_forecast(@time_in_zone, nil)
+    end 
     #@event_suggestions = Suggestion.event_suggestions(current_user)
     #@all_suggestions = Suggestion.where('starts_at IS NULL').order('created_at DESC')
     #               #or Suggestion.join('user').where('city == ?' current_user.city)

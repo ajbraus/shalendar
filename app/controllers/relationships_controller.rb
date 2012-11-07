@@ -33,20 +33,6 @@ before_filter :authenticate_user!
       @relationship.confirmed = true
       if @relationship.save
         current_user.add_invitations_from_user(@user)
-        @plan_counts = []
-        @invite_counts = []
-        @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
-        @date = Time.now.in_time_zone(current_user.time_zone).to_date
-        @event_suggestions = Suggestion.event_suggestions(current_user)
-        @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
-        @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
-        @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
-        @vendor_friendships = current_user.vendor_friendships
-        if current_user.fb_user?
-          @member_friends = current_user.fb_friends(session[:graph])[0]
-          @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }
-        end
-
         unless @user.following?(current_user) || @user.vendor?
           unless @user.request_following?(current_user) 
             @user.follow!(current_user)

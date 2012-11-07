@@ -1,4 +1,50 @@
 <div id="eventOptions">
+	<% if current_user.vendor? %>
+		<div class="venue_invitation_options open" id="visibilityp">
+		  <u>
+		  	<%= f.label "Public Idea" %><br>
+				<i class="icon-bullhorn questionMark"></i>
+				<%= f.check_box :is_public, class: "switch", checked: "checked" %>
+			</u>
+		  <u>
+				<%= f.label "Share with Friends" %><br>
+				<i class="icon-group questionMark"></i>
+				<input checked="checked" id="invite_all_friends" name="invite_all_friends" type="checkbox" class="switch">    			
+			</u>
+		  <u>
+		  	<%= f.label "Guests Can Share" %><br>
+				<i class="icon-plus questionMark"></i>
+				<%= f.check_box :guests_can_invite_friends, class: "switch", checked: "checked" %>
+			</u>
+		</div>
+		<div class="idea_categories" style="display:none;" id="addcategoriesp">
+	    <%= label :category, "Category" %>
+	    <div id="categories">
+	    	<% Event::CATEGORIES.each do |c| %>
+		      <%= radio_button "event", :category, "#{c}", id:"radio#{(Event::CATEGORIES.index(c) + 1)}" %>
+		      <%= label_tag "radio#{(Event::CATEGORIES.index(c) + 1)}", "#{c.humanize}" %>
+	    	<% end %>
+    	</div>
+    	<div class="family_friendly_checkbox">
+    		<%= f.label "Family Friendly?" %><br>
+				<i class="icon-home questionMark"></i>
+				<%= f.check_box :family_friendly, class: "switch" %>
+	  	</div>  
+	  </div>
+	<% else %>
+		<div class="invitation_options open" id="visibilityp">
+		  <u>
+				<%= f.label "Share with All Friends" %><br>
+				<i class="icon-group questionMark"></i>
+				<input checked="checked" id="invite_all_friends" name="invite_all_friends" type="checkbox" class="switch">    			
+			</u>
+		  <u>
+		  	<%= f.label "Friends Share with Friends" %><br>
+				<i class="icon-plus questionMark"></i>
+				<%= f.check_box :guests_can_invite_friends, class: "switch", checked: "checked" %>
+			</u>
+		</div>
+	<% end %>
 
 	<div id="addimgp" style="display:none;">
 	  <div><%= f.label :display_image %></div>
@@ -37,13 +83,19 @@
 	</div>
 
 	<div id="addcostp" style="display:none;">
-	    <%= f.label "Cost" %><br>
-	    <i class="icon-money"></i><div class="dollar">$</div><%= f.text_field :price, :class => 'input-mini', autocomplete: "off", placeholder: "$0.00" %>
+    <%= f.label "Cost" %><br>
+    <i class="icon-money"></i><div class="dollar">$</div><%= f.text_field :price, :class => 'input-mini', autocomplete: "off", placeholder: "0.00" %>
 	</div>
 </div>
 
 <div>
 	<ul>
+		<% if current_user.vendor? %>
+			<li id="visibility" title="Share" style="color:#EB8325;"><i class="icon-bullhorn"></i></li>
+			<li id="addcategories" title="Add a Category"><i class="icon-tag"></i></li>
+		<% else %>
+			<li id="visibility" title="Share" style="color:#EB8325;"><i class="icon-group"></i></li>
+		<% end %>
 		<li id="addimg" title="Add an Image"><i class="icon-camera-retro"></i></li>
 		<li id="addvid" title="Add a video"><i class="icon-facetime-video"></i></li>
  	  <li id="addtipping" title="Add a Tipping/Full"><i class="icon-tasks"></i></li>

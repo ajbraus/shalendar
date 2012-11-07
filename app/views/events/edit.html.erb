@@ -25,21 +25,6 @@
      <%= f.text_field :duration, placeholder:"#hrs", class: "required duration", autocomplete: "off"  %>
     </p>
 
-<div class="invitation_options" style="display: block; clear:both;">
-  <% if false %>
-  <u>
-    <%= f.label "Share Idea with All Your Friends" %><br>
-    <i class="icon-group questionMark"></i>
-    <input checked="checked" id="invite_all_friends" name="invite_all_friends" type="checkbox" class="switch">          
-  </u>
-  <% end %>
-  <u>
-    <%= f.label "Friends can share Idea with Friends" %><br>
-    <i class="icon-bullhorn questionMark"></i>
-    <%= f.check_box :guests_can_invite_friends, class: "switch", checked: "checked" %>
-  </u>
-</div>
-
 <%= render partial: 'shared/idea_options', locals: { :f => f } %>
  
   <span class="new_idea_button"><%= f.submit 'Update', :class => 'btn btn-large btn-primary' %></span>

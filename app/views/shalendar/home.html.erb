@@ -3,6 +3,7 @@
 	<%= render 'forecast' %>
 </div>
 
+<% if false %>
 <% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now.in_time_zone(current_user.time_zone) - 7.seconds %>
 	<script> 
 		function Func1() { 
@@ -15,4 +16,5 @@
 			}
 		document.ready(Func1Delay());
 	</script>
+<% end %>
 <% end %>

@@ -61,10 +61,14 @@ Shalendar::Application.routes.draw do
     end
   end
 
-  resources :suggestions, only: [:index, :new, :show, :create, :destroy, :edit, :update, :clone] do
-  end
+  # resources :suggestions, only: [:index, :new, :show, :create, :destroy, :edit, :update, :clone] do
+  # end
 
-  match '/clone', :to => 'suggestions#clone', as: "clone"
+
+  # match '/clone', :to => 'suggestions#clone', as: "clone"
+
+  match '/make_a_group', :to => 'events#make_a_group', :as => 'make_a_group'
+  match '/repeat', :to => 'events#repeat', :as => 'repeat_event'
 
   match '/dashboard', :to => 'suggestions#index', :as => "vendor_dashboard"
   match '/manage_friends', :to => 'shalendar#manage_friends', :as => "manage_friends"
