@@ -84,14 +84,15 @@ Adam
  		ipad app
  		email signup
 
+
+
+
 -------------------------------------------------------------
 
 	fix the callback to two url's ago
 
 	test relationship
 	test rsvp
-
-	add method to invite new friends to invite_all_friends events
 
 ------------------------------------------------------------
 

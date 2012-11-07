@@ -33,7 +33,7 @@
 
   <% if @event.has_image? %>
     <div class="promo_img">
-      <%= image_tag("#{@event.image(nil)}") %>
+      <%= image_tag("#{@event.image(:large)}") %>
     </div>
   <% end %>
 

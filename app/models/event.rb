@@ -240,9 +240,9 @@ class Event < ActiveRecord::Base
       return promo_url
     elsif !self.promo_img_file_size.nil?
       if size == "medium"
-        self.promo_img.url(:medium)
+        return self.promo_img.url(:medium)
       else 
-        self.promo_img.url(:large)
+        return self.promo_img.url(:large)
       end
     end
   end
@@ -253,7 +253,7 @@ class Event < ActiveRecord::Base
         graph.delay.put_connections( uid, "feed", {
                                         :name => self.title,
                                         :link => "http://www.hoos.in/events/#{self.id}",
-                                        :picture => self.image
+                                        :picture => self.image(:medium)
                                       })
       else
         graph.delay.put_connections( uid, "feed", {
@@ -266,7 +266,7 @@ class Event < ActiveRecord::Base
         graph.put_connections( 2232003, "feed", {
                                         :name => self.title,
                                         :link => "http://www.hoos.in/events/#{self.id}",
-                                        :picture => self.image
+                                        :picture => self.image(:medium)
                                       })
       else
         graph.put_connections( 2232003, "feed", {
