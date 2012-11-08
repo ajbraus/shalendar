@@ -70,22 +70,19 @@ new follower email link not working
 Adam
 
  	tests
- 		comments
  		rsvps
  		relationships
 
  	no event of that id save
 	fix the callback to two url's ago
 
- 		validate links are not more than 255 characters
-
 		background branding
 
 		Tip by Date
 
-	visual indicator of ppl you are not friends with on hoos.in yet
+		visual indicator of ppl you are not friends with on hoos.in yet
 
-	suggested friends -- ppl that you saw at a party
+		suggested friends -- ppl that you saw at a party
 
 ---------------------------------------------------------
 

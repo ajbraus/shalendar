@@ -1,13 +1,13 @@
 $(document).ready(function() {
 // REMOVE ALERT 
-$("div.alert").delay(2500).fadeOut(400);
+$("div.alert").delay(3000).fadeOut(400);
 
 // LOADING AJAX
-$('#loading').ajaxStart(function(){
-  $(this).show();
-}).ajaxStop(function(){
-  $(this).hide();
-});
+// $('#loading').ajaxStart(function(){
+//   $(this).show();
+// }).ajaxStop(function(){
+//   $(this).hide();
+// });
 // $('#someFormID')
 // .ajaxStart(function() {
 //     $('#loading').show();
