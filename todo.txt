@@ -70,6 +70,30 @@ new follower email link not working
 Adam
 
  	tests
+ 		rsvps
+ 		relationships
+
+ 	no event of that id save
+	fix the callback to two url's ago
+
+		background branding
+
+		Tip by Date
+
+		visual indicator of ppl you are not friends with on hoos.in yet
+
+		suggested friends -- ppl that you saw at a party
+
+---------------------------------------------------------
+
+invite 
+	js.js listern to remove friends as you click invite
+	no ajax loading screen
+	ajax response template addends those individual images to the maybes div
+
+------------------------------------------------------------
+
+Payment gateway
 
  	payment strategy
  		escrow per tipping
@@ -85,27 +109,31 @@ Adam
  		email signup
 
 
-
-
 -------------------------------------------------------------
-
-	fix the callback to two url's ago
-
-	test relationship
-	test rsvp
-
-------------------------------------------------------------
 
 	make group after rsvped
+	let private events make groups
 
--------------------------------------------------------------
+--------------------------------------------------------------
 
-invite 
-	js.js listern to remove friends as you click invite
-	no ajax loading screen
-	ajax response template addends those individual images to the maybes div
+	images in emails (host/inviter/promo_url)
 
-------------------------------------------------------------
+	guest count in emails
+
+---------------------------------------------------------------
+
+	Agent call - if android/iPhone download our apps
+
+	Prune email messages / make only push or email
+
+----------------------------------------------------------
+
+download qr code
+http://qrtools.removeubyforge.org/qrtools/
+download flyer
+
+ssl
+
 
 friends vs. not friends (yet :o) divide
 
@@ -118,9 +146,6 @@ List view for new ideas
 make signin a lightbox
 
 ------------------------------------------------------------
-
-
-	background branding
 
 	display when full?
 
@@ -142,55 +167,22 @@ make signin a lightbox
 
 	your friends maybes -- all maybes
 
-
-	validate links are not more than 255 characters
-
-------------------------------------------------------------
-
-to speed up registration (and probably rsvp too!) js load different js templates depending on the rquest.referer
-
-session[:return_to] ||= request.referer
-
-
 -----------------------------------------------------------
-
 
 ajax scrolling for user list view?
 
 ----------------------------------------------------------
 
 Datepicker loads 1 day to the right when I click the hoos.in icon to go home.
-hover on items
 click pic to invite/friend
-public ideas
-picture w/ comments
 hover not in
 removing invited person when not friending them
 
-visual indicator of ppl you are not friends with on hoos.in yet
-
-	Tip by Date
-
 	validate image size in form w js
-
-	add price to events
 
 ----------------------------------------------------------
 	
 	remove picture from new ideas dropdown
-
-----------------------------------------------------------
-
-	Prune email messages / make only push or email
-
-	images in emails (host/inviter/promo_url)
-
-	guest count in emails
-
-
-----------------------------------------------------------
-
-	month view
 
 ----------------------------------------------------------
 
@@ -202,17 +194,13 @@ visual indicator of ppl you are not friends with on hoos.in yet
 
 ----------------------------------------------------------
 
-Agent call - if android/iPhone download our apps
-
-----------------------------------------------------------
-
 keyup character counter in idea
 
 ----------------------------------------------------------
 
-Payment gateway
+ 		going - hover over name - friend/message -- launches an email
 
----------------------------------------------------------
+
 
 Vendors:
 	Provisioning/registration
@@ -226,6 +214,15 @@ box office behavior
 
 ----------------------------------------------------------
 
+Silo by city
+	detect location by IP address: https://github.com/priithaamer/geoip-rails
+	hash timezone to location
+	make public yellow pages display and then make it load with ajax
+
+
+-----------------------------------------------------------
+
+list view/old ideas
 
 
 Suggested friends
@@ -239,8 +236,6 @@ Suggested friends
 		user clicks "X" on suggested friend in home page
 		relationship is created between the two users
 	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
-
-clarify visual difference bewteen friends and community events
 
 Close Viral Loop
 	Email every invitation w boolean
@@ -270,8 +265,6 @@ Medium UI improvements
 	fix alert and add error styling
 	add beautiful dialogue box for confirm to join event
 	http://snipplr.com/view/29911/javascript-alert-and-confirm-dialog-the-fancybox-way/
-	hide event/recurring event
-	Basic profile
 	Message a single RSVP or invited person
 	event#edit ajax lightbox
 	event#show ajax lightbox/expand the idea vertically
@@ -296,12 +289,6 @@ Future stuff:
 basic test - launch the lightboxes and js is working.
 
 bing maps 
-
-Silo by city
-	detect location by IP address: https://github.com/priithaamer/geoip-rails
-	hash timezone to location
-	make public yellow pages display and then make it load with ajax
-
 
 More Events:
 	Recurring Events
@@ -448,31 +435,8 @@ Tipping:
 
 	MEETUP API
 
------ Improvement Ideas ----
-Forget toggle, just have an 'X' to remove any individual idea you're not interested in
-	frees up space from toggle area
-	better for mobile
-
-
---- 
-
-Infrastructure
-	Staging
-	Tests
-
 Performance
-
-	benchmark 2 second page loads with #x users
-	mailers
-	Facebook URLs
-	Ajax
 	progressive page loading i.e. forecast with events after
-
-Mobile
-	Views
-	Only login through fb
-	New Idea
-	2 weeks 5hrs/day
 
 
 Get more users
@@ -530,11 +494,6 @@ Features
 	groups/lists
 	checklist - easy to plan hard things to plan.
 
-	What do we do with already finished events in a given day? - grey out the past
-	Probably gray them out but still display? Or should we take them off the calendar as they're mostly irrelevant (but they still help for finding friends, make calendar more busy for better or worse)
-	
-	google calendar "add this to hoos.in".. and ADD THIS TO GoogleCal for rsvp'd events!
-
 	See old plans/ideas and be able to easily 'resurface' them, with guests as invites (in lightbox or some other way than scrolling back in calendar)
 	
 	OldEvents model that holds events so that main searching doesn't have to handle larger array
@@ -545,13 +504,6 @@ Node Satisfaction:
 	
 
 	SQL Table maintenance; mainly destroying events after they are done, but transferring data somewhere in a reasonable format for conducting analytics
-
-	hide event/recurring event
-
-	copy evite
-
-	List view of events/ 3 week 5 week view of events calendar
-
 
 LOW PRIORITY 
 

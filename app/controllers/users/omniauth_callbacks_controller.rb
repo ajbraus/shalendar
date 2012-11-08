@@ -55,7 +55,7 @@ private
     if resource.nil?
       if email
         user = find_for_oauth_by_email(email, access_token, resource)
-      else uid
+      else 
         user = find_for_oauth_by_uid(uid, access_token, resource)
       end
     else

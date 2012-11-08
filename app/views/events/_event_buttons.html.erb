@@ -6,12 +6,14 @@
       <% end %>
     </li>
   <% end %>
-  <% if @event.ends_at < Time.now %>
+  <% if @event.ends_at < Time.now || current_user == @event.user %>
+    <% unless @event.is_group? %>
     <li>
       <%= link_to repeat_event_path(:event_id => @event.id), title:"Repeat Idea", class:"fancybox.ajax", id:"eventRepeat", remote:true do %>
         <span class="fadeInGreen"><i class="icon-repeat"></i></span>
       <% end %>
     </li>
+    <% end %>
   <% end %>
   <% if @event.user == current_user %> 
     <% unless @event.tipped? %>
@@ -32,6 +34,13 @@
       <% end %>
     </li>
   <% end %>
+      <% unless @event.link == '' %>
+      <li>
+        <%= link_to "http://#{@event.link}", target: "_blank" do %>
+          <span class="fadeInOrange" title="Idea's Website"><i class="icon-link"></i></span>
+        <% end %>
+      </li>
+    <% end %>
     <% if current_user.rsvpd?(@event) || current_user == @event.user %>
       <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.starts_at > Time.now %>
         <!-- #FACEBOOK -->
@@ -52,17 +61,8 @@
         </li>
       <% end %>
 
-
-    <% unless @event.link == '' %>
-      <li>
-        <%= link_to "http://#{@event.link}", target: "_blank" do %>
-          <span class="fadeInOrange" title="Idea's Website"><i class="icon-link"></i></span>
-        <% end %>
-      </li>
-    <% end %>
-
   <li>
-    <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fevents%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
+    <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&details=<%= event_url(@event) %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fevents%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
       <%= image_tag("gcalendar.png", width: '30') %>
     </a>
   </li>

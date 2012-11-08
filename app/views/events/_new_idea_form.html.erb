@@ -31,3 +31,13 @@
 
 <% end %>
 </div>
+
+<script>
+  $(function() {
+    return $('form').submit(function() {
+      return $(':submit', this).click(function() {
+        return false;
+      });
+    });
+  })
+</script>

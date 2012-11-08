@@ -1,9 +1,18 @@
 ---
 layout: default
 ---
-<div id="post">
-{{ content }}
-</div>
+<article class="post">
+  <header>
+  <h2 class="entry-title">
+  	{{ post.title }}
+  </h2>
+	<p class="meta">
+    {{ post.time | date_to_string }}
+  </p>
+    <img src="http://www.smashingapps.com/wp-content/uploads/2009/02/pretty-in-pink.jpg" />
+  </header>
+
+  {{ content }}
 
 <div id="related">
   <h2>Related Posts</h2>
