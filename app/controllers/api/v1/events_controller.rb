@@ -33,7 +33,7 @@ class Api::V1::EventsController < ApplicationController
         :end => e.ends_at, 
         :gcnt => e.guests.count,  
         :tip => e.min,
-        :image => e.promo_img.url(:medium), 
+        :image => e.image(:medium), 
         :host => e.user,
         :plan => @mobile_user.rsvpd?(e),
         :tipped => e.tipped,
