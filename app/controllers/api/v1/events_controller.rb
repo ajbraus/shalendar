@@ -91,6 +91,7 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def mobile_create
+    logger.info("#{params}")
     @mobile_user = User.find_by_id(params[:user_id])
     if @mobile_user.nil?
       render :status => 400, :json => {:error => "could not find your user"}
