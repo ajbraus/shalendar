@@ -43,6 +43,16 @@ class Notifier < ActionMailer::Base
   end
   #AUTOMATIC NOTIFIERS
 
+  def hoosin_update(user)
+    @user = user
+
+    if @user.allow_contact?
+      mail to: @user.email, subject: "Mobile apps, train cars and blogs, oh my!"
+    end
+    rescue => ex
+    Airbrake.notify(ex)
+  end
+
   def welcome(user)
     @user = user
     mail to: user.email, subject: "welcome to hoos.in"
@@ -289,7 +299,7 @@ class Notifier < ActionMailer::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "#{@event.short_event_title} starts soon"
+        n.alert = "#{@event.short_event_title} starts at #{@event.start_time_no_date}"
         n.badge = 1
         n.sound = true
         n.custom_properties = {:type => "reminder", :event => "#{@event.id}"}
