@@ -1,43 +1,45 @@
 require 'spec_helper'
 
-describe "Pages after sign up / sign in" do
+describe "Relationships" do
 
-  let(:follower) { FactoryGirl.create(:user) }
-  let(:followed) { FactoryGirl.create(:user) }
-  let(:follwed_vendor) { FactoryGirl.create(:vendor) }
-  let(:relationship) { follower.relationships.build(followed_id: followed.id) }
+  let(:user)          { FactoryGirl.create(:user) }
+  let(:other_user)    { FactoryGirl.create(:user) }
+  let(:vendor)        { FactoryGirl.create(:vendor) }
+  let(:relationship)  { user.relationships.build(followed_id: other_user.id) }
 
-  subject { relationship }
+  after(:all)         { User.delete_all }
 
-  after(:all)  { User.delete_all }
+  subject { user }
 
   before(:each) do
     visit new_user_session_path
-    fill_in "Email",    with: vendor.email
-    fill_in "Password", with: vendor.password
+    fill_in "Email",    with: user.email
+    fill_in "Password", with: user.password
     click_button "Sign in"
   end
-  
-  after(:each) { Event.delete_all }
 
-  describe "friending" do
-    let(:other_user) { FactoryGirl.create(:user) }    
+  describe "friending" do    
     before do
-      @user.save
-      @user.follow!(other_user)
+      user.follow!(other_user)
     end
 
-    it { should be_following(other_user) }
-    its(:followed_users) { should include(other_user) }
-
-    describe "and unfollowing" do
-      before { @user.unfollow!(other_user) }
-
-      it { should_not be_following(other_user) }
-      its(:followed_users) { should_not include(other_user) }
+    it "should be friends with other_user" do
+      user.should be_following(other_user)
+      user.followed_users.should include(other_user)
     end
   end
 
+  describe "removing a friendship" do
+    before do
+      user.follow!(other_user)
+      user.unfollow!(other_user)
+    end
+
+    it "should not be friends with other_user" do
+      user.should_not be_following(other_user)
+      user.followed_users.should_not include(other_user)
+    end
+  end
   # describe "Friending a user" do
   #   before do 
   #     visit manage_friends_path
@@ -61,4 +63,5 @@ describe "Pages after sign up / sign in" do
  
   # end
 
+# END OF SPEC
 end

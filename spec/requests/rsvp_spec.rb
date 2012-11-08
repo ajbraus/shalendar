@@ -1,37 +1,39 @@
 require 'spec_helper'
 
-describe "Pages after sign up / sign in" do
+describe "Users" do
 
 	let(:user) { FactoryGirl.create(:user) }
-  let(:vendor) { FactoryGirl.create(:vendor) }
-
-  before(:all) { 30.times { FactoryGirl.create(:user) } }
-  after(:all)  { User.delete_all }
+  let(:event) { FactoryGirl.create(:event, :user_id => user.id, :chronic_starts_at => "Tomorrow at 3pm")}
 
   before(:each) do
     visit new_user_session_path
-    fill_in "Email",    with: vendor.email
-    fill_in "Password", with: vendor.password
-    click_button "Sign in"
+    fill_in "Email",    with: user.email
+    fill_in "Password", with: user.password
+    click_on "Sign in"
   end
-  
-  after(:each) { Event.delete_all }
 
   describe "joining an idea" do
     before do 
-      @event = Factory(:event, :user_id => user.id, 
-                       :chronic_starts_at => "Tomorrow at 3pm")
-      visit event_path(@event)
-      click_button "btn-rsvp"
+      visit event_path(event)
+      click_on "Join"
     end
 
-    it "should have element with class 'unrsvp'" do
-      page.should_not have_content("Vendor Dashboard")
-      page.should have_content("#{Time.now.strftime('%A')}")
+    it "should have 'Flake Out'" do
+      page.should have_content "Flake Out"
+      page.should_not have_content "Join"
     end
   end
 
-  # describe "removing myself from an idea" do
+  describe "flaking from an idea" do
+    before do 
+      user.rsvp!(event)
+      visit event_path(event)
+      click_on "Flake Out"
+    end
 
-  # end
+    it "should have element 'Join'" do
+      page.should have_content("Join")
+      page.should_not have_content("Flake Out")
+    end
+  end
 end

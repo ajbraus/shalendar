@@ -149,8 +149,6 @@ $(document).bind('click', function(e) {
         mouseWheel : false
   });
 
-
-
   // {
   //   'transitionIn'    : 'none',
   //   'transitionOut'   : 'none',
@@ -163,7 +161,6 @@ $(document).bind('click', function(e) {
         scrolling   : 'auto',
         autoSize    : true
   });
-
 
 // VALIDATIONS
 
@@ -195,8 +192,6 @@ $(document).bind('click', function(e) {
   $('#tabs-nested').tabs();
   $('#events').tabs();
   $('#suggestions').tabs();
-
-
   $('#invite_raster').tabs();
 
 // DATETIME PICKER
@@ -428,7 +423,7 @@ $('#new_idea_blerb').keydown(function (e) {
   var keyCode = e.keyCode || e.which;
 
   if (keyCode == 13) {
-    $("#new_idea_button").click();
+    $("#newIdeaButton").click();
     return false;
   }
 });

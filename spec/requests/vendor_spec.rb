@@ -3,7 +3,9 @@ require 'spec_helper'
 describe "Pages after sign up / sign in" do
 
 	let(:vendor) { FactoryGirl.create(:vendor) }
-
+  let(:user) { FactoryGirl.create(:user) }
+  let(:event) { FactoryGirl.create(:event, :user_id => user.id, 
+                       :chronic_starts_at => "Tomorrow at 3pm")}
   before(:all) { 30.times { FactoryGirl.create(:user) } }
   after(:all)  { User.delete_all }
 
@@ -22,4 +24,17 @@ describe "Pages after sign up / sign in" do
       page.should have_content("#{Time.now.strftime('%A')}")
     end
   end
+
+  describe "trying to join an idea" do
+    before do 
+      visit event_path(event)
+    end
+
+    it "should not have element with content 'Join'" do
+      page.should_not have_content("Join")
+    end
+  end
+
+  # describe "creating a public event" do
+  # end
 end

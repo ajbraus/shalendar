@@ -7,13 +7,12 @@ layout: default
   	{{ post.title }}
   </h2>
 	<p class="meta">
-  	<time datetime="2012-10-31T15:31:00-05:00" pubdate="" data-updated="true">Oct 31<span>st</span>, 2012</time>
+    {{ post.time | date_to_string }}
   </p>
+    <img src="http://www.smashingapps.com/wp-content/uploads/2009/02/pretty-in-pink.jpg" />
   </header>
 
   {{ content }}
-
-</div>
 
 <div id="related">
   <h2>Related Posts</h2>

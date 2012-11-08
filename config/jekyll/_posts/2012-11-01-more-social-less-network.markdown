@@ -2,6 +2,7 @@
 layout: post
 published: true
 title: More Social, Less Network
+image: /images/pretty-in-pink.jpg
 ---
 
 Here's the deal. There are a lot of people in the world, we're all really connected, and most of us want to lead a kick-ass social life full of creativity and adventure.
