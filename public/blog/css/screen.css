@@ -80,8 +80,12 @@ h2{font-size:20px;font-weight:600;margin-top:20px}
 a,a:visited{color:#080808;text-decoration:none;outline:0}
 li{line-height:18px;margin-bottom:12px}
 ul{display:block;list-style-type:none}
-aside#logo div a{background:url(/assets/icon.png) center center no-repeat;background-size:100% 100%}
-ul#menu a{color:#999}#octopress_linkback{background-color:rgba(255,255,255,0.7)}
+aside#logo div a {
+  background:url(/assets/icon.png) center center no-repeat;
+  background-size:100% 100%
+}
+ul#menu a{color:#999}
+#octopress_linkback{background-color:rgba(255,255,255,0.7)}
 article a:link,article a:visited,article a:hover,article a:active{text-decoration:none;border-bottom:1px solid #CCC;border-bottom:1px solid #CCC;color:#002e03}
 article h2{color:black;text-decoration:none;font-family:"Rokkitt", serif;font-size:22px;line-height:32px;font-weight:700;-webkit-font-smoothing:antialiased}
 article h2 a:link,article h2 a:hover,article h2 a:visited,article h2 a:active{color:black;text-decoration:none;border-bottom:1px solid #CCC;font-family:"Rokkitt", serif;font-size:22px;line-height:32px;font-weight:700;-webkit-font-smoothing:antialiased}
@@ -90,7 +94,13 @@ article h2 a:link,article h2 a:hover,article h2 a:visited,article h2 a:active{co
 .mono,pre,code,tt,p code,li code{font-family:Menlo,Monaco,"Andale Mono","lucida console","Courier New",monospace}
 body>header h1{font-size:2.2em;font-family:"PT Serif","Georgia","Helvetica Neue",Arial,sans-serif;font-weight:normal;line-height:1.2em;margin-bottom:0.6667em}
 body>header h2{font-family:"PT Serif","Georgia","Helvetica Neue",Arial,sans-serif}body{line-height:1.5em;color:#222}
-h1{font-size:2.2em;line-height:1.2em}@media only screen and (min-width: 992px){body{font-size:1.15em}
+h1{font-size:2.2em;line-height:1.2em}
+ul, li {
+  list-style: none;
+}
+
+
+@media only screen and (min-width: 992px){body{font-size:1.15em}
 h1{font-size:2.6em;line-height:1.2em}}
 h1,h2,h3,h4,h5,h6{text-rendering:optimizelegibility;margin-bottom:1em;font-weight:bold}
 h2,section h1{font-size:1.5em}
@@ -125,34 +135,56 @@ blockquote{font-style:italic;position:relative;font-size:1.2em;line-height:1.5em
 blockquote cite{font-style:italic}
 blockquote cite a{color:#aaa !important;word-wrap:break-word}
 blockquote cite:before{content:'\2014';padding-right:.3em;padding-left:.3em;color:#aaa}
+
+
 @media only screen and (min-width: 992px){blockquote{padding-left:1.5em;border-left-width:4px}}
 .pullquote-right:before,.pullquote-left:before{padding:0;border:none;content:attr(data-pullquote);float:right;width:45%;margin:.5em 0 1em 1.5em;position:relative;top:7px;font-size:1.4em;line-height:1.45em}
 .pullquote-left:before{float:left;margin:.5em 1.5em 1em 0}
 .force-wrap{white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;white-space:pre-wrap;word-wrap:break-word}body{min-width:895px;font-size:1em;line-height:1.4}
 #sidebar{width:27%;padding-left:1.5%;min-width:240px;position:fixed;min-height:100%;z-index:1}
 aside#logo{position:relative;display:block;width:110px;height:110px;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;margin-left:30px;margin-top:40px}
-aside#logo div{border-radius:50%;-moz-border-radius:50%;-webkit-border-radius:50%;width:90px;height:90px;text-indent:-9999px;margin:0 auto;margin-top:10px;clear:both}
-aside#logo div a{display:block;clear:both;width:78px;height:78px;margin:0 auto;margin-top:6px}
-ul#menu{clear:both;margin:0;padding:0;margin-left:30px;width:75%}
+aside#logo div {
+text-indent:-9999px;
+margin:0 auto;
+margin-top:10px;
+clear:both
+}
+ul.posts {
+  padding-top:45px;
+}
+aside#logo div a { 
+  display:block;
+  clear:both;
+  width:117px;
+  height:117px;
+  margin:0 auto;
+}
+ul#menu {clear:both;margin:0;padding:0;margin-left:30px;width:95%}
 ul#menu li{display:block;clear:both;margin:0;padding:0;margin-bottom:15px}
 ul#menu a{display:inline-block;font-size:15px;line-height:14px;z-index:999;padding:7px;padding-left:33px;padding-right:12px;margin-left:-15px;font-weight:600;position:relative}
 ul#menu li.title{margin-bottom:0}
 ul#menu li.subtitle{margin-top:0}
-header#sidebar h1#title{font-weight:bold;margin-top:20px;margin-bottom:15px}
-#octopress_linkback{position:fixed;left:30px;bottom:30px;font-size:15px;letter-spacing:0;text-transform:uppercase;font-family:"Rokkitt",serif;font-weight:900;line-height:15px;padding:10px;height:30px;z-index:9999;border-radius:5px}
+header#sidebar h1#title{font-weight:bold;margin-top:40px;margin-bottom:15px}
+#octopress_linkback{position:absolute;right:30px;bottom:0px;font-size:15px;letter-spacing:0;text-transform:uppercase;font-family:"Rokkitt",serif;font-weight:900;line-height:15px;padding:10px;height:30px;z-index:9999;border-radius:5px}
 #main{border-left:1px solid #e3e3e3;margin-left:27%;min-height:900px;min-width:658px;position:relative;z-index:9999}
 header#sidebar h1#title a{font-family:sans-serif;font-weight:900;font-size:30px;line-height:30px;border:none;padding:0;display:block;color:black;margin-left:0}
 header#sidebar h2#subtitle{font-weight:300;font-size:16px;line-height:23px;color:#585C60;-webkit-font-smoothing:antialiased;max-width:none;margin-top:5px;margin-bottom:25px}
-@media only screen and (min-width: 1300px){#sidebar{margin-left:0;padding-left:2%}
-aside#logo{width:165px;height:165px}
-aside#logo div{width:135px;height:135px;margin-top:15px}
-aside#logo div a{width:117px;height:117px;margin-top:9px}
-ul#menu{max-width:300px;width:65%}
-header#sidebar h1#title a{font-size:35px;line-height:35px}
-header#sidebar h2#subtitle{font-size:20px;line-height:25px}}
+
+@media only screen and (min-width: 1300px){
+  #sidebar{margin-left:0;padding-left:2%}
+  aside#logo{width:165px;height:165px}
+  aside#logo div{width:135px;height:135px;margin-top:15px}
+  aside#logo div a{width:117px;height:117px;margin-top:9px}
+  ul#menu{max-width:300px;width:65%}
+  header#sidebar h1#title a{font-size:35px;line-height:35px}
+  header#sidebar h2#subtitle{font-size:20px;line-height:25px}
+}
+
+
 @media only screen and (max-height: 650px){#sidebar{position:absolute}
-#octopress_linkback{top:700px;position:absolute}}
-@media only screen and (max-width: 630px), (device-height: 1024px) and (device-width: 768px) and (orientation: portrait){body{min-width:0}
+}
+
+@media only screen and (max-width: 730px), (device-height: 1024px) and (device-width: 768px) and (orientation: portrait){body{min-width:0}
 #sidebar{position:relative;width:100%;text-align:center;margin:0;padding:0}
 aside#logo{margin:0 auto;position:relative;left:auto;right:auto;margin-top:20px;margin-bottom:0}
 ul#menu{width:auto;margin:0 auto;padding:0;text-align:center}
@@ -165,7 +197,7 @@ section#main article h2{margin-top:0}
 article.post{width:auto;padding-left:0;padding-top:30px;padding-bottom:15px;overflow:hidden}
 article.post figure{padding-right:10px;padding-left:15px;width:90%}
 aside#octopress_linkback{display:none}}
-article.post{width:auto;position:relative;padding-left:50px;padding-top:40px;padding-bottom:40px;border-top:1px solid #E2E2E2;min-height:130px}
+article.post{width:auto;position:relative;padding-left:50px;padding-top:10px;padding-bottom:40px;border-top:1px solid #E2E2E2;min-height:130px}
 section.comments{width:auto;position:relative;padding-left:50px;overflow-x:hidden}
 article.post h2,article.post p{max-width:500px}
 article.post figure{max-width:500px}
@@ -178,7 +210,8 @@ p.meta+.sharing-box{padding-top:1em;padding-left:0}
 div.sharing-box{width:100px;position:absolute;left:570px;top:60px}#fb-root{display:none}
 .highlight,html .gist .gist-file .gist-syntax .gist-highlight{border:1px solid #05232b !important}
 .highlight table td.code,html .gist .gist-file .gist-syntax .gist-highlight table td.code{width:100%}
-.highlight .line-numbers,html .gist .gist-file .gist-syntax .gist-highlight .line-numbers{text-align:right;font-size:13px;line-height:1.45em;background:#073642 url('/images/noise.png?1341945045') top left !important;border-right:1px solid #00232c !important;-webkit-box-shadow:#083e4b -1px 0 inset;-moz-box-shadow:#083e4b -1px 0 inset;box-shadow:#083e4b -1px 0 inset;text-shadow:#021014 0 -1px;padding:.8em !important;-webkit-border-radius:0;-moz-border-radius:0;-ms-border-radius:0;-o-border-radius:0;border-radius:0}.highlight .line-numbers span,html .gist .gist-file .gist-syntax .gist-highlight .line-numbers span{color:#586e75 !important}figure.code,.gist-file,pre{-webkit-box-shadow:rgba(0,0,0,0.06) 0 0 10px;-moz-box-shadow:rgba(0,0,0,0.06) 0 0 10px;box-shadow:rgba(0,0,0,0.06) 0 0 10px}figure.code .highlight pre,.gist-file .highlight pre,pre .highlight pre{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none}html .gist .gist-file{margin-bottom:1.8em;position:relative;border:none;padding-top:26px !important}
+.highlight .line-numbers,html .gist .gist-file .gist-syntax .gist-highlight .line-numbers{text-align:right;font-size:13px;line-height:1.45em;background:#073642 url('/images/noise.png?1341945045') top left !important;border-right:1px solid #00232c !important;-webkit-box-shadow:#083e4b -1px 0 inset;-moz-box-shadow:#083e4b -1px 0 inset;box-shadow:#083e4b -1px 0 inset;text-shadow:#021014 0 -1px;padding:.8em !important;-webkit-border-radius:0;-moz-border-radius:0;-ms-border-radius:0;-o-border-radius:0;border-radius:0}.highlight .line-numbers span,html .gist .gist-file .gist-syntax .gist-highlight .line-numbers span{color:#586e75 !important}
+figure.code,.gist-file,pre{-webkit-box-shadow:rgba(0,0,0,0.06) 0 0 10px;-moz-box-shadow:rgba(0,0,0,0.06) 0 0 10px;box-shadow:rgba(0,0,0,0.06) 0 0 10px}figure.code .highlight pre,.gist-file .highlight pre,pre .highlight pre{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none}html .gist .gist-file{margin-bottom:1.8em;position:relative;border:none;padding-top:26px !important}
 html .gist .gist-file .gist-syntax{border-bottom:0 !important;background:none !important}
 html .gist .gist-file .gist-syntax .gist-highlight{background:#002b36 !important}
 html .gist .gist-file .gist-meta{padding:.6em 0.8em;border:1px solid #083e4b !important;color:#586e75;font-size:.7em !important;background:#073642 url('/images/noise.png?1341945045') top left;line-height:1.5em}

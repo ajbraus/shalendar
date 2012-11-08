@@ -4,21 +4,12 @@
  <title>BLOG_NAME</title>
  <link href="YOUR_URL/atom.xml" rel="self"/>
  <link href="YOUR_URL"/>
- <updated>2012-10-31T16:51:59-05:00</updated>
+ <updated>2012-11-07T18:17:10-06:00</updated>
  <id>BLOG_URL</id>
  <author>
    <name>BLOG_NAME</name>
  </author>
 
- 
- <entry>
-   <title>initial_post</title>
-   <link href="YOUR_URL/initial-post.html"/>
-   <updated>2012-10-31T00:00:00-05:00</updated>
-   <id>BLOG_URL/initial-post</id>
-   <content type="html">&lt;p&gt;fasdfadsfadf&lt;/p&gt;
-</content>
- </entry>
  
  
 </feed>

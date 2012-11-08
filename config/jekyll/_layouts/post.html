@@ -1,8 +1,18 @@
 ---
 layout: default
 ---
-<div id="post">
-{{ content }}
+<article class="post">
+  <header>
+  <h2 class="entry-title">
+  	{{ post.title }}
+  </h2>
+	<p class="meta">
+  	<time datetime="2012-10-31T15:31:00-05:00" pubdate="" data-updated="true">Oct 31<span>st</span>, 2012</time>
+  </p>
+  </header>
+
+  {{ content }}
+
 </div>
 
 <div id="related">
