@@ -901,7 +901,7 @@ color: #4B9BED;
 
 .new_idea {
 position: relative;
-left: 18px;
+left: 4px;
 float: left;
   textarea {
   font-size: 18px;
@@ -1103,9 +1103,8 @@ img {
   width:20px;
 }
 span {
-position: absolute;
-top: 8px;
-right: 20px;
+padding-left: 6px;
+position: relative;
 }
 }
 
@@ -2175,7 +2174,7 @@ height: auto;
 margin-bottom: 4px;
 border-bottom: 1px solid lightGrey;
 float: left;
-width: 560px;
+width: 100%;
 }
 
 .comment_content {
@@ -2183,12 +2182,12 @@ font-size: 1.1em;
 min-height: 31px;
 float: left;
 padding-left: 8px;
-width: 67%;
+width: auto;
 }
 
 .comment_data {
 float: right;
-width:25%;
+width:auto;
 text-align: right;
 a{
   color:lightgrey;

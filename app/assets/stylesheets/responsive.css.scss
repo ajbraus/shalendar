@@ -50,6 +50,7 @@ body {
 
 	.new_idea {
 		width: 74%;
+		margin-right: -30px;
 	}
 
 // LAYOUT IS PROPORTIONAL
@@ -100,7 +101,7 @@ body {
 
 	#friends {
 		margin: 10px 0 20px 7px;
-		width: 39%;
+		width: 89%;
 	}		
 
 // EVENT SHOW
@@ -118,9 +119,14 @@ body {
 		}
 		.promo_vid {
 			iframe {
-				width: 410px;
+				width: 106%;
 				height: 248px;
 			}
+		}
+	}
+	.event_time {
+		span {
+			bottom:-4px;
 		}
 	}
 
@@ -187,13 +193,19 @@ body {
 		}
 	}
 
-			.guest_count {
+		.guest_count {
 			bottom: 1px;
 			left: 56px;
 		}
 
 		header {
 			width: 960px;
+		}
+
+		.event_time {
+			span {
+				bottom:2px;
+			}
 		}
 
 }
