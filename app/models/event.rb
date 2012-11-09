@@ -243,13 +243,12 @@ class Event < ActiveRecord::Base
     if !self.promo_url.nil? && self.promo_url != "" 
       return promo_url
     elsif !self.promo_img_file_size.nil?
-      if size == "medium"
+      if size == :medium
         return self.promo_img.url(:medium)
       else 
         return self.promo_img.url(:large)
       end
     end
-    return "/promo_imgs/original/missing.png"
   end
 
   def post_to_fb_wall(uid, graph)
