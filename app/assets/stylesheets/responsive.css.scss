@@ -1,0 +1,227 @@
+/***************************************/
+/*** Mobile - Portrait *****************/
+/***************************************/
+@media only screen and (max-width: 479px) {
+
+// REMOVE OVERFLOW ON BODY
+body {
+	overflow-x:hidden;
+}
+// REMOVE SOME STUFF
+	#feedback {
+		display:none;
+	}
+	#datepicker {
+		display:none;
+	}
+	.friend_suggestions {
+		display:none;
+	}
+	.user_search {
+		display:none;
+	}
+	ul.left_header {
+		display:none;
+	}
+	#headerText {
+		display:none;
+	}
+	.event_time {
+		img {
+			display:none;
+		}
+	}
+
+// SHRINK HEADER STUFF
+
+	.logo {
+		left:4px;
+	}
+
+	#ribbon {
+		right:35px;
+	}
+
+	ul.right_header {
+		position: absolute;
+		right: 97px;
+	}
+
+	.new_idea {
+		width: 156px;
+		.btn-new-idea {
+			left: 163px;
+		}
+	}
+
+
+// INCLUDE YESTERDAY TOMORROW BUTTONS
+
+	#yt {
+		display:block;
+	}
+
+// TIGHTEN UP FORECAST
+	.forecast {
+		width:100%;
+	}
+
+	#forecast {
+		right: 502px;
+		> dl {
+			width: 2.3%;
+		}
+	}
+
+	.today {
+		left: 0px;
+	}
+
+	.event {
+		width: 123px;
+		.promo_img {
+			position: relative;
+			right: 4px;
+			img {
+				max-width: 131px;
+			}
+		}
+		.guest_count {
+			bottom: 47px;
+			left: 53px;
+		}
+	}	
+
+
+// MANAGE FRIENDS 
+
+	#friends {
+		margin: 10px 0 20px 7px;
+		width: 39%;
+	}		
+
+// EVENT SHOW
+
+	.event_show {
+		margin:0;
+		width: 408px;
+		left: 7px;
+		.promo_img {
+			img {
+				max-width: 401px;
+				position:relative;
+    		right: 10px;
+			}
+		}
+		.promo_vid {
+			iframe {
+				width: 410px;
+				height: 248px;
+			}
+		}
+	}
+
+}
+
+
+// END MOBILE PORTRAIT
+
+@media only screen and (min-width:480px) {
+
+	#yt {
+		display:none;
+	}
+
+	.btn-today {
+		display:none;
+	}
+
+	.logo {
+		left: 25px;
+	}
+
+	.event {
+		width: 175px;
+	}
+
+	#forecast {
+		right: 693px;
+		> dl {
+			width: 3.3%;
+		}
+	}
+
+	.today {
+		left: -2px;
+	}
+
+	.user_search input[type=text] {
+		width: 200px;
+	}
+
+	ul.right_header {
+		position: relative;
+		right: 25px;
+	}
+
+	#friends {
+		margin: 10px auto 20px auto;
+		width: 640px;
+	}
+
+	.event_show {
+		margin: 0 auto;
+		width: 580px;
+		.promo_img {
+			img {
+				max-width: 560px;
+			}
+		}
+	}
+
+			.guest_count {
+			bottom: 1px;
+			left: 56px;
+		}
+
+
+}
+
+/***************************************/
+/*** Mobile  - Landscape****************/
+/***************************************/
+@media only screen and (min-width: 480px) and (max-width: 599px) {
+
+	
+}
+
+/***************************************/
+/*** 7" Tablet *************************/
+/***************************************/
+@media only screen and (min-width: 600px) and (max-width: 759px) {
+
+	
+}
+
+/***************************************/
+/*** Tablet - iPad *********************/
+/***************************************/
+@media only screen and (min-width: 760px) and (max-width: 959px) {
+
+	.forecast {
+		width: 95%;
+	}
+
+}
+
+/***************************************/
+/*** Widescreen ************************/
+/***************************************/
+@media only screen and (min-width: 960px) {
+
+	.forecast {
+		width: 95%;
+	}
+
+
+}

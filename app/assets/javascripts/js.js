@@ -40,18 +40,6 @@ $("div.alert").delay(3000).fadeOut(400);
 
   if ( $('.invited_events'))
 
-// DATEPICKERDAY
-
-$('.datePickerDay').click(function(){
-  dw_position = $(this).position();
-  $('#datewindow').animate({ left: dw_position.left - 2 }, 1000);
-  date = $(this).attr('data-date');
-  forecast_original_position = $('#forecast').position();
-  forecast_day_position = $('dl').withDate(date).position();
-  //frame_position = $('.forecast').position();
-  $('#forecast').animate({ right: forecast_day_position.left }, 1000);
-});
-
 // NEW IDEA CHECKBOX SWTICHES
 
 $("input[type=checkbox].switch").each(function() {
@@ -75,21 +63,6 @@ $("input[type=checkbox].switch").each(function() {
     $(this).next()[0].checked = !$(this).next()[0].checked;
   });
 
-// YESTERDAY AND TOMORROW
-
-// $('#yesterday').click(function(){
-//   fc_position = $('#forecast').position();
-//   $('#forecast').animate({ left: fc_position.left +=340 }, 1000);
-//   $('#datewindow').animate({ left: '-=38.3' }, 500);
-// });
-
-// $('#tomorrow').click(function(){
-//   fc_position = $('#forecast').position();
-//   $('#forecast').animate({ right: fc_position.right -=340 }, 1000);
-//   $('#datewindow').animate({ left: '+=38.3' }, 500);
-// });
-
-//$('#yt').buttonset();
 $('#categories').buttonset();
 
 // SETTINGS DROPDOWN
@@ -215,41 +188,6 @@ $(document).bind('click', function(e) {
 // onSuccess: function(transport) {}
 // });
 // });
-
-// INSTAGRAM HASHTAG FEED
-
-$(function(){
-  var
-    insta_container = $(".instagram")
-  , insta_next_url
-
-  insta_container.instagram({
-      hash: 'hoosin'
-    , clientId : '4b92d403b8324f2294a4aa3b7e2bf407'
-    , show : 6
-    , onComplete : function (photos, data) {
-      insta_next_url = data.pagination.next_url
-    }
-  })
-
-  $('#instaButton').on('click', function(){
-    var 
-      button = $(this)
-    , text = button.text()
-
-    if (button.text() != 'Loading…'){
-      button.text('Loading…')
-      insta_container.instagram({
-          next_url : insta_next_url
-        , show : 6
-        , onComplete : function(photos, data) {
-          insta_next_url = data.pagination.next_url
-          button.text(text)
-        }
-      })
-    }		
-  }) 
-});
 
 
 //FORM JS

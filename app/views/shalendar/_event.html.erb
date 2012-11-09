@@ -19,7 +19,7 @@
 			<% else %>
 				<%= image_tag "night.png" %>
 			<% end %>
-			<span><%= event_start_time(event) %> - <%= event_end_time(event) %></span>
+			<span><%= event_start_time(event) %> - <%= event.nice_duration %> hrs</span>
 		</div>
 
     <% if !event.promo_url.nil? && event.promo_url != "" %>
@@ -45,11 +45,11 @@
 		<% end %>
 
 		<div class="event_shield_icons">
-			<% if event.family_friendly? %>
-				<i class="purple icon-home"></i>
-			<% end %>
 			<% if event.is_public? %>
 				<i class="purple icon-bullhorn"></i>
+				<% if event.family_friendly? %>
+					<i class="purple icon-home"></i>
+				<% end %>
 			<% end %>
 			<% if event.guests_can_invite_friends? %>
 	     	<i class="purple icon-plus" title="Guests may Share with Friends"></i>

@@ -60,7 +60,6 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '3.2.4'
   gem 'uglifier', '1.2.3'
   gem 'font-awesome-sass-rails'
   gem 'jquery-ui-rails'
@@ -68,6 +67,8 @@ group :assets do
   gem 'jquery-rails'#, '2.0.0'
 end
 
+  gem 'sass-rails',   '3.2.4'
+  
 group :test do
   gem 'faker', '1.0.1'
   gem 'capybara', '1.1.2'
