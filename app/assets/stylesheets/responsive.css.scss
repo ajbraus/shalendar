@@ -39,12 +39,17 @@ body {
 	}
 
 	#ribbon {
-		right:35px;
+		max-width: 45%;
+		min-width: 36%;
+		margin:0;
+	}
+
+	header {
+		width: 100%;
 	}
 
 	ul.right_header {
-		position: absolute;
-		right: 97px;
+		position:relative;
 	}
 
 	.new_idea {
@@ -67,14 +72,14 @@ body {
 	}
 
 	#forecast {
-		right: 502px;
+		right: 517px;
 		> dl {
-			width: 2.3%;
+			width: 2.4%;
 		}
 	}
 
 	.today {
-		left: 0px;
+		left: -2px;
 	}
 
 	.event {
@@ -184,6 +189,14 @@ body {
 			left: 56px;
 		}
 
+		header {
+			width: 960px;
+		}
+
+		#ribbon {
+			width:910px;
+			margin: 0 auto;
+		}
 
 }
 
