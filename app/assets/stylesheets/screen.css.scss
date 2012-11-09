@@ -808,7 +808,7 @@ width: 20px;
 #yt {
 float:right;
 height: 70px;
-width: 100px;
+width: 98px;
 text-align: center;
 }
 
@@ -1426,7 +1426,7 @@ margin-bottom: 20px;
 }
 
 .fadeInGreen {
-    color:lightGrey;
+  color:lightgrey;
   &:hover{
   color:$happening;
   -webkit-transition: color .25s linear .1s;
@@ -1435,7 +1435,7 @@ margin-bottom: 20px;
 }
 
 .fadeInBlue {
-    color:lightGrey;
+color:lightgrey;
   &:hover{
   color:$rsvp;
   -webkit-transition: color .25s linear .1s;
@@ -1859,7 +1859,6 @@ padding-left: 10px;
 }
 
   .when {
-font-size: 27px;
 height: 20px;
 margin-bottom: 10px;
   }
@@ -1882,12 +1881,10 @@ top: 19px;
   }
 
 .join_group_buttons {
-position: absolute;
-left: 384px;
 width: 190px;
 z-index: 1;
 height: 30px;
-top: 80px;
+float: right;
   .rsvp_button {
     float:right;
     margin-right:7px;
@@ -1920,7 +1917,6 @@ border-bottom: 1px solid $divider;
 }
 
 .event_buttons{
-font-size: 28px;
 line-height: 1.3;
 position: relative;
 right: 135px;
@@ -1992,7 +1988,7 @@ max-height: 400px;
 }
 .guests {
   float:left;
-  width:46%;
+  width:44%;
   min-height: 260px;
   position: relative;
   overflow: auto;
@@ -2031,7 +2027,6 @@ z-index: 1;
   top: 4px;
 }
 .fadeInGreen {
-      color:lightGrey;
   &:hover{
   color:$happening;
   -webkit-transition: color .25s linear .1s;
@@ -2045,9 +2040,9 @@ z-index: 1;
 
 .event_show_friend {
 float: left;
-width: 81px;
+width: 68px;
 text-align: center;
-height: 107px;
+height: 116px;
 font-size: 14px;
 top: 16px;
 position: relative;
@@ -2654,189 +2649,6 @@ top: 25%;
 .admin {
   margin: 0 auto;
   width:670px;
-}
-/* SUGGESTIONS */
-
-.suggestion {
-  background-color: white;
-  .dollar {
-    font-size:14px;
-  }
-  .cost {
-    width: 100px;
-    float: left;
-    position: relative;
-    left: 100px;
-    bottom: 42px;
-  }
-  .host {
-    top: 2px;
-  }
-}
-
-.suggestions {
-height: 819px;
-overflow-y: auto;
-margin-bottom: 10px;
-width: 111%;
-margin-top: 10px;
-overflow-x: hidden;
-.ui-state-default, 
-.ui-widget-content .ui-state-default, 
-.ui-widget-header .ui-state-default {
-font-size: 10.3px;
-}
-}
-
-.ui-tabs {
-  padding:0;
-}
-.ui-tabs-nav {
-  width: 98%;
-}
-
-.ui-tabs .ui-tabs-nav {
-margin: 0;
-padding: 0;
-}
-
-.ui-tabs .ui-tabs-panel {
-  padding: 1em .2em;
-}
-
-#tabs_nested{
-border: none;
-background: none;
-color: black
-}
-
-#tabs-nested {
-  .ui-widget-content {
-border: none;
-background: none;
-color: black;
-}
-}
-
-.dashboard {
-    .ui-widget-content {
-border: none;
-background: none;
-color: black;
-}
-}
-
-.ui-helper-reset {
-  font-size: 57%;
-}
-
-#ui-tabs-1, #ui-tabs-2 { /* events & suggestions tabs */
-  line-height: .8;
-  padding: 0.2em 1.2em 0;
-}
-
-#tabs-nested div {
-  padding:0;
-}
-
-#f1_container {
-  position: relative;
-  z-index: 1;
-  width: 150px;
-  font-size: 16px;
-  height: 184px;
-  padding: 3px;
-  float:left;
-  -webkit-perspective: 1000px;
-  -moz-perspective: 1000px;
-  -o-perspective: 1000px;
-  perspective: 1000px;
-}
-
-#f1_container:hover #f1_card, #f1_container.hover_effect #f1_card {
-  -webkit-transform: rotateY(180deg);
-  -moz-transform: rotateY(180deg);
-  -o-transform: rotateY(180deg);
-  transform: rotateY(180deg);
-  
-  -o-transition-duration: .3s; 
-  -webkit-transition-duration: .3s; 
-  -moz-transition-duration: .3s; 
-  transition-duration: .3s; 
-
-  -webkit-box-shadow: -5px 5px 5px #aaa;
-  -moz-box-shadow: -5px 5px 5px #aaa;
-  box-shadow: -5px 5px 5px #aaa;
-}
-
-.hover, img {
--webkit-user-select: none;
--webkit-touch-callout: none;
-}
-
-#f1_card {
-  width: 100%;
-  height: 100%;
-  -webkit-transform-style: preserve-3d;
-  -webkit-transition: all .3s linear;
-  -moz-transform-style: preserve-3d;
-  -moz-transition: all .3s linear;
-  -o-transform-style: preserve-3d;
-  -o-transition: all .3s linear;
-  transform-style: preserve-3d;
-  transition: all .3s linear;
-}
-#f1_container:hover #f1_card {
-  transform: rotateY(180deg);
-  box-shadow: -5px 5px 5px #aaa;
-}
-
-.front {
-  img{
-    border: 4px solid white;
-  }
-}
-.face {
-  position: absolute;
-  width: 100%;
-  height: 101%;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  -o-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-.face.back {
-  display: block;
-  -webkit-transform: rotateY(180deg);
-  -webkit-box-sizing: border-box;
-  -moz-transform: rotateY(180deg);
-  -moz-box-sizing: border-box;
-  -o-transform: rotateY(180deg);
-  -o-box-sizing: border-box;
-  transform: rotateY(180deg);
-  box-sizing: border-box;
-  padding: 10px;
-color: black;
-background-color: white;
-}
-
-.suggestions_on_date {
-  ul{
-    display:inline;
-  li {
-    width: 146px;
-  }
-}
-}
-
-.suggestion_date {
-  height: 19px;
-  text-align: center;
-  line-height: 19px;
-  font-size: 15px;
-  background-color: #F0F0F0;
-border-top: 1px solid lightGrey;
-margin-top: 3px;
 }
 
 .dollar {
