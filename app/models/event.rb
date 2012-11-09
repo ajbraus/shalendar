@@ -249,6 +249,7 @@ class Event < ActiveRecord::Base
         return self.promo_img.url(:large)
       end
     end
+    return "/promo_imgs/original/missing.png"
   end
 
   def post_to_fb_wall(uid, graph)
