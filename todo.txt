@@ -69,12 +69,22 @@ new follower email link not working
 
 Adam
 
- 	tests
- 		rsvps
- 		relationships
+	TEXTS & MOBILE
+
+	App Images
 
  	no event of that id save
 	fix the callback to two url's ago
+
+	Twillio
+	Responisive Event#Show
+	Download our App
+
+
+
+ 	tests
+ 		rsvps
+ 		relationships
 
 		background branding
 
@@ -83,13 +93,6 @@ Adam
 		visual indicator of ppl you are not friends with on hoos.in yet
 
 		suggested friends -- ppl that you saw at a party
-
----------------------------------------------------------
-
-invite 
-	js.js listern to remove friends as you click invite
-	no ajax loading screen
-	ajax response template addends those individual images to the maybes div
 
 ------------------------------------------------------------
 

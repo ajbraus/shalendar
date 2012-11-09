@@ -1,10 +1,11 @@
 <div id="forecast">
 	<% for i in -3..16 %>
-	<dl class="day" data-date=<%= "#{@time_in_zone.to_date + i}" %>>
 		<% if @time_in_zone.to_date + (i) == @time_in_zone.to_date %>
-			<dt class="forecastDate red"><%= (@time_in_zone.to_date + (i)).strftime("%A %b %e") %></dt>
+			<dl class="day marker" id="today" data-date=<%= "#{@time_in_zone.to_date + i}" %>>
+				<dt class="forecastDate red"><%= (@time_in_zone.to_date + (i)).strftime("%A %b %e") %></dt>
 		<% else %>
-			<dt class="forecastDate"><%= (@time_in_zone.to_date + (i)).strftime("%A %b %e") %></dt>
+			<dl class="day" data-date=<%= "#{@time_in_zone.to_date + i}" %>>
+				<dt class="forecastDate"><%= (@time_in_zone.to_date + (i)).strftime("%A %b %e") %></dt>
 		<% end %>
 		<div class="today"></div>
 		<% if user_signed_in? %>

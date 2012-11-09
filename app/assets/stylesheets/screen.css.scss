@@ -202,7 +202,7 @@ color: white;
   position: absolute;
 left: 243px;
 top: -1px;
-padding: 20.5px 12px;
+padding: 21px 12px;
 font-size: 20px;
 }
 
@@ -402,10 +402,8 @@ span.red a {
 -moz-border-radius: 0 5px 5px 0;
 border-radius: 0 5px 5px 0;
 font-size: 14px;
-padding: 6.5px 6px;
 position: relative;
 right: 5px;
-bottom: 1px;
 -moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
 -webkit-box-shadow: inset 0px 1px 0px 0px white;
 box-shadow: inset 0px 1px 0px 0px white;
@@ -418,6 +416,8 @@ font-size: 15px;
 font-weight: bold;
 text-decoration: none;
 text-shadow: 1px 1px 0px white;
+height: 27px;
+width: 25px;
 }
 .btn-user-search:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
@@ -462,7 +462,6 @@ text-shadow: 1px 1px 0px white;
 header {
   clear: both;
   width:100%;
-height: 72px;
   /*background-color:$icon_color;*/
 /*  -webkit-box-shadow: 0px 2px 9px rgba(50, 50, 50, 0.75);
   -moz-box-shadow:    0px 2px 9px rgba(50, 50, 50, 0.75);
@@ -487,11 +486,9 @@ padding-top: 21px;
 }
   ul.right_header {
 float: right;
-position: relative;
 height: 0px;
-right: 25px;
-top: 38px;
-font-size: 15px;
+top: 42px;
+font-size: 16px;
   a{
     color: $icon_color;
     &:hover {
@@ -529,7 +526,7 @@ left: -22px;
   .get_friends {
 position: relative;
 float: left;
-bottom: -4px;
+bottom: -8px;
 left: 295px;
 }
 }
@@ -563,7 +560,6 @@ left: 295px;
 width: 164px;
 height: 72px;
 position: relative;
-left: 25px;
 float: left;
 top: 3px;
 }
@@ -618,7 +614,7 @@ display: none;
 list-style: none;
 position: absolute;
 top: 7px;
-left: -138px;
+left: -148px;
 width: 194px;
 height: 96px;
 z-index: 10;
@@ -756,78 +752,16 @@ box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, .75);
 }
 
 
-/* stats */
-
-/*
-.stats {
-  margin:10px 0 0px 0;
-  font-size: 14.5px;
-width: 105%;
-    font-family: Arial,verdana,sans-serif;
-  a {
-    width:32%;
-    text-decoration: none;
-    float: left;
-    padding: 0 10px;
-    border-left: 1px solid $grayLighter;
-    color: gray;
-    &:first-child {
-      margin-right:-36px;
-      border: 0;
-      padding-left:2px;
-      }
-    &:last-child {
-      padding-right:0px;
-      }
-    &:hover {
-      text-decoration: none;
-      color: black;
-    }
-  }
-  strong {
-    display: block;
-    color:black;
-    font-weight: 600;
-    font-size: 19px;
-  }
-}
-*/
 .user_search {
+  position: relative;
+top: 4px;
 input[type=text] {
   border-radius: 0;
-width: 200px;
 padding: 6px;
 font-size: 12px;
 border: 1px solid lightGrey;
 }
 }
-
-/* raster */
-
-.raster {
-height: 396px;
-overflow-y: auto;
-margin-bottom: 10px;
-width: 234px;
-padding: 7px;
-float:left;
-form {
-  width:53px;
-  float:left;
-  img{
-      border-radius: 7px;
-    }
-}
-}
-
-.raster_nav {
-  margin:15px 0;
-  text-align: center;
-  a {
-    padding:0px 10px;
-  }
-}
-
 
 /* Ribbon */
 
@@ -880,7 +814,63 @@ width: 20px;
   }
 }       
 #yt {
-  position: absolute;
+position: absolute;
+left: 318px;
+top: -1px;
+height: 70px;
+width: 100px;
+text-align: center;
+}
+
+.btn-today {
+  margin-bottom: 2px;
+  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  box-shadow:inset 0px 1px 0px 0px #ffffff;
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+  background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+  background-color:#ededed;
+  -moz-border-radius:6px;
+  -webkit-border-radius:6px;
+  border-radius:6px;
+  border:1px solid #dcdcdc;
+  display:inline-block;
+  color:#777777;
+  font-family:arial;
+  font-size:15px;
+  font-weight:bold;
+  padding:6px 24px;
+  text-decoration:none;
+  text-shadow:1px 1px 0px #ffffff;
+}
+.btn-today:hover {
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+  background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+  background-color:#dfdfdf;
+}
+.btn-yt {
+padding: 7px 17px;
+margin-left: 0px;
+}
+
+.btn-yesterday {
+-webkit-border-top-left-radius: 7px;
+-webkit-border-bottom-left-radius: 7px;
+-moz-border-radius-topleft: 7px;
+-moz-border-radius-bottomleft: 7px;
+border-top-left-radius: 7px;
+border-bottom-left-radius: 7px;
+}
+
+.btn-tomorrow {
+-webkit-border-top-right-radius: 7px;
+-webkit-border-bottom-right-radius: 7px;
+-moz-border-radius-topright: 7px;
+-moz-border-radius-bottomright: 7px;
+border-top-right-radius: 7px;
+border-bottom-right-radius: 7px;
 }
 
 #datewindow {
@@ -1007,9 +997,7 @@ width: 105%;
 #forecast {
 width:6440px;
 position: relative;
-right: 701px;
    > dl {
-width: 216px;
 float: left;
 position: relative;
 top: 6px;
@@ -1039,7 +1027,6 @@ letter-spacing: 2px;
 
 .forecast {
 overflow-x: hidden;
-width: 95%;
 margin: 0 auto;
 margin-top: 15px;
 overflow-y: hidden;
@@ -1056,7 +1043,6 @@ padding-left: 8px;
 .event {
 padding: 5px;
 min-height: 110px;
-width: 175px;
 position: relative;
 z-index: 1;
 margin: 20px auto;
@@ -1114,12 +1100,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7fbfc', end
 }
 .event_time {
 color: white;
-background-color: rgba(0, 0, 0, .6);
+background-color: rgba(0, 0, 0, 0.6);
 padding: 3px 2px 8px 3px;
-font-size: 18px;
+font-size: 1em;
 height: 16px;
 position: relative;
-width: 180px;
+width: 103%;
 right: 5px;
 bottom: 5px;
 img {
@@ -1150,7 +1136,7 @@ min-height: 37px;
 color: black;
 font-size: 20px;
 line-height: 1;
-width: 185px;
+width: 103%;
 margin-top: 6px;
 overflow: hidden;
 position: relative;
@@ -1403,11 +1389,8 @@ line-height: 1.1;
 }
 
 #friends {
-width: 800px;
 height: 600px;
-margin: 0 auto;
 position: relative;
-top: 20px;
 overflow: scroll;
 }
 
@@ -1416,7 +1399,7 @@ font-size: 12px;
 height: auto;
 overflow: hidden;
 border-bottom: 1px solid lightgrey;
-padding-bottom: 20px;
+padding-bottom: 40px;
 margin-bottom: 20px;
   h2 {
     font-size: 2.7em;
@@ -1754,8 +1737,6 @@ top: 10px;
 /* EVENT#SHOW */
 
 .event_show {
-margin: 0 auto;
-width: 580px;
 border-left: 1px solid #D1CDCD;
 border-right: 1px solid #D1CDCD;
 background-color: white;
@@ -1767,7 +1748,6 @@ position: relative;
     text-align: center;
     margin-bottom:-90px;
     img {
-      max-width: 560px;
       max-height: 540px;
       min-width: 250px;
       min-height: 90px;
@@ -2152,7 +2132,7 @@ text-align: right;
 
 .comments_form {
 float: left;
-width: 560px;
+width: 97%;
 background-color: #ECECEC;
 position: relative;
 z-index: 0;
@@ -2160,12 +2140,13 @@ left: 0px;
 border-bottom:1px solid $divider;
 form {
   float: left;
+  width: 90%;
 }
   img {
     float:left;
   }
   input[type=text] {
-  width: 370px;
+  width: 70%;
 float: left;
 border-radius: 0;
 position: relative;
@@ -2209,7 +2190,7 @@ width: 560px;
 }
 
 .comment_content {
-font-size: 14px;
+font-size: 1.1em;
 min-height: 31px;
 float: left;
 padding-left: 8px;
@@ -2634,8 +2615,8 @@ top: 40px;
 
 .invited_events {
 position: absolute;
-top: 20px;
-right: 146px;
+top: 30px;
+right: 71px;
 z-index: 100000;
 min-width: 232px;
 }
@@ -3006,7 +2987,7 @@ top: 17px;
 height: 990px;
 position: absolute;
 top: -7px;
-left: -4px;
+left: -3px;
   border-left:1px solid $divider;
   z-index: -1;
 }

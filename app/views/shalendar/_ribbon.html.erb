@@ -13,19 +13,16 @@
 	</div>
 
 	<% if user_signed_in? %>
-		<% if @graph %>
-			<div class="friend_suggestions">
-				<%= render 'shalendar/friend_suggestions' %>
-			</div>
-		<% end %>
+		<div class="friend_suggestions">
+			<%= render 'shalendar/friend_suggestions' %>
+		</div>
 	<% end %>
 
-	<% if false %>
 	<div id="yt">
-		<a href="#yesterday" id="yesterday"><</a><br>
-		<a href="#tomorrow" id="tomorrow">></a>
+		<div id="todayButton" class="btn-today">Today</div>
+		<a href="#" id="yesterday" class="btn-yt btn-yesterday btn-primary"><</a>
+		<a href="#" id="tomorrow" class="btn-yt btn-tomorrow btn-primary">></a>
 	</div>
-	<% end %>
 
 	<div id="datepicker">
 		<%= render 'datepicker' %>
