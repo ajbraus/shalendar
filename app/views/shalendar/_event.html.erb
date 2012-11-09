@@ -45,11 +45,11 @@
 		<% end %>
 
 		<div class="event_shield_icons">
-			<% if event.family_friendly? %>
-				<i class="purple icon-home"></i>
-			<% end %>
 			<% if event.is_public? %>
 				<i class="purple icon-bullhorn"></i>
+				<% if event.family_friendly? %>
+					<i class="purple icon-home"></i>
+				<% end %>
 			<% end %>
 			<% if event.guests_can_invite_friends? %>
 	     	<i class="purple icon-plus" title="Guests may Share with Friends"></i>

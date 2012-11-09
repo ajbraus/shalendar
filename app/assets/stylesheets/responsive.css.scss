@@ -20,8 +20,16 @@ body {
 	.user_search {
 		display:none;
 	}
-	.get_friends {
+	ul.left_header {
 		display:none;
+	}
+	#headerText {
+		display:none;
+	}
+	.event_time {
+		img {
+			display:none;
+		}
 	}
 
 // SHRINK HEADER STUFF
@@ -36,8 +44,16 @@ body {
 
 	ul.right_header {
 		position: absolute;
-		right: -3px;
+		right: 97px;
 	}
+
+	.new_idea {
+		width: 156px;
+		.btn-new-idea {
+			left: 163px;
+		}
+	}
+
 
 // INCLUDE YESTERDAY TOMORROW BUTTONS
 
@@ -51,20 +67,28 @@ body {
 	}
 
 	#forecast {
-		right: 656px;
+		right: 502px;
 		> dl {
-			width: 3.1%;
+			width: 2.3%;
 		}
 	}
 
+	.today {
+		left: 0px;
+	}
+
 	.event {
-		width: 167px;
+		width: 123px;
 		.promo_img {
 			position: relative;
 			right: 4px;
 			img {
-				width: 155px;
+				max-width: 131px;
 			}
+		}
+		.guest_count {
+			bottom: 47px;
+			left: 53px;
 		}
 	}	
 
@@ -127,6 +151,10 @@ body {
 		}
 	}
 
+	.today {
+		left: -2px;
+	}
+
 	.user_search input[type=text] {
 		width: 200px;
 	}
@@ -150,6 +178,11 @@ body {
 			}
 		}
 	}
+
+			.guest_count {
+			bottom: 1px;
+			left: 56px;
+		}
 
 
 }
