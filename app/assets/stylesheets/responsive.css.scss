@@ -1,7 +1,7 @@
 /***************************************/
 /*** Mobile - Portrait *****************/
 /***************************************/
-@media only screen and (max-width: 479px) {
+@media only screen and (max-width: 599px) {
 
 // REMOVE OVERFLOW ON BODY
 body {
@@ -38,27 +38,25 @@ body {
 		left:4px;
 	}
 
-	#ribbon {
-		max-width: 45%;
-		min-width: 36%;
-		margin:0;
-	}
-
 	header {
 		width: 100%;
 	}
 
 	ul.right_header {
-		position:relative;
+		position: absolute;
+		right: 6px;
+		top: 39px;
 	}
 
 	.new_idea {
-		width: 156px;
-		.btn-new-idea {
-			left: 163px;
-		}
+		width: 74%;
 	}
 
+// LAYOUT IS PROPORTIONAL
+
+	.layout {
+		width:100%
+	}
 
 // INCLUDE YESTERDAY TOMORROW BUTTONS
 
@@ -72,7 +70,7 @@ body {
 	}
 
 	#forecast {
-		right: 513px;
+		right: 510px;
 		> dl {
 			width: 2.4%;
 		}
@@ -109,7 +107,7 @@ body {
 
 	.event_show {
 		margin:0;
-		width: 408px;
+		width: 96%;
 		left: 7px;
 		.promo_img {
 			img {
@@ -131,7 +129,11 @@ body {
 
 // END MOBILE PORTRAIT
 
-@media only screen and (min-width:480px) {
+@media only screen and (min-width:600px) {
+
+	.layout {
+		width: 960px;
+	}
 
 	#yt {
 		display:none;
@@ -167,6 +169,7 @@ body {
 	ul.right_header {
 		position: relative;
 		right: 25px;
+		top: 43px;
 	}
 
 	#friends {
@@ -191,11 +194,6 @@ body {
 
 		header {
 			width: 960px;
-		}
-
-		#ribbon {
-			width:910px;
-			margin: 0 auto;
 		}
 
 }

@@ -192,18 +192,13 @@ color: white;
 }
 
 .btn-new-idea {
-  -moz-border-radius: 0 6px 6px 0px;
-  -webkit-border-radius: 0 6px 6px 0px;
-  border-radius: 0 6px 6px 0px;
-  border: 1px solid #9C33ED;
-  display: inline-block;
-  color: white;
-  font-family: arial;
-  position: absolute;
-left: 243px;
-top: -1px;
+-moz-border-radius: 0 6px 6px 0px;
+-webkit-border-radius: 0 6px 6px 0px;
+border-radius: 0 6px 6px 0px;
 padding: 21px 12px;
 font-size: 20px;
+float: left;
+margin-left: -10px;
 }
 
 .btn-new-vendor-idea {
@@ -642,7 +637,6 @@ border-radius: 7px;
 
 .layout {
 clear: both;
-width: 960px;
 min-height: 540px;
 margin: 0 auto;
 background-color: rgba(255, 255, 255, .6);
@@ -764,6 +758,8 @@ border: 1px solid lightGrey;
 /* Ribbon */
 
 #ribbon {
+  margin:0 auto;
+  width:94%;
 position: relative;
 top: 5px;
 height: 75px;
@@ -810,9 +806,7 @@ width: 20px;
   }
 }       
 #yt {
-position: absolute;
-left: 234px;
-top: -1px;
+float:right;
 height: 70px;
 width: 100px;
 text-align: center;
@@ -909,12 +903,13 @@ color: #4B9BED;
 position: relative;
 left: 18px;
 float: left;
-textarea {
-font-size: 18px;
-width: 93%;
-height: 45px;
-padding-right: 15px;
-}
+  textarea {
+  font-size: 18px;
+  width: 65%;
+  height: 45px;
+  padding-right: 15px;
+  float: left;
+  }
 }
 
 .switch {
