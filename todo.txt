@@ -71,7 +71,44 @@ Adam
 
 	TEXTS & MOBILE
 
-	App Images
+Mobile site squeeze
+Access RSVP and other buttons
+URL shortener
+Link to start text message (if mobile)
+Fix the sign up redirect problem
+Twillio
+Prompt users for phone number lightbox on login one time
+Text invitations, reminders auto to friends phone number
+
+doorman screens and methods
+Generate encrypted qr code
+Read it and decrypt it 
+return true or false 
+mark that its been used now
+and checked them in to the event
+(Build a test for this?)
+Take a picture
+
+Cost (required for RSVP?)
+Click join:
+if cost required-redirect to payment funnel
+Authorize payment
+If tipped-
+Capture payment
+Else wait till tipped, tip by date or 30 days
+Warning email/text that 
+
+Make a group 
+Make it, (conditional RSVP in event create)
+RSVP to it
+Payment funnel
+Same
+If no authorization kill it
+
+Tip by date
+All events can make groups
+
+
 
  	no event of that id save
 	fix the callback to two url's ago

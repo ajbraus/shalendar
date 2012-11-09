@@ -1,0 +1,126 @@
+// END MOBILE PORTRAIT
+
+@media only screen and (min-width:600px) {
+
+	.layout {
+		width: 960px;
+	}
+
+	#yt {
+		display:none;
+	}
+
+	.btn-today {
+		display:none;
+	}
+
+	.logo {
+		left: 25px;
+	}
+
+	.event {
+		width: 175px;
+	}
+
+	#forecast {
+		right: 693px;
+		> dl {
+			width: 3.3%;
+		}
+	}
+
+	.today {
+		left: -2px;
+	}
+
+	.user_search input[type=text] {
+		width: 200px;
+	}
+
+	ul.right_header {
+		position: relative;
+		right: 25px;
+		top: 43px;
+	}
+
+	#friends {
+		margin: 10px auto 20px auto;
+		width: 640px;
+	}
+
+	.event_show {
+		margin: 0 auto;
+		width: 580px;
+		.promo_img {
+			img {
+				max-width: 560px;
+			}
+		}
+		.when {
+			font-size: 27px;
+		}
+	}
+
+		.guest_count {
+			bottom: 1px;
+			left: 56px;
+		}
+
+		header {
+			width: 960px;
+		}
+
+		.event_time {
+			span {
+				bottom:2px;
+			}
+		}
+
+		.fadeInBlue, .fadeInGreen {
+			color:lightGrey;
+		}
+
+		.event_button {
+			font-size: 28px;
+		}
+
+}
+
+/***************************************/
+/*** Mobile  - Landscape****************/
+/***************************************/
+@media only screen and (min-width: 480px) and (max-width: 599px) {
+
+	
+}
+
+/***************************************/
+/*** 7" Tablet *************************/
+/***************************************/
+@media only screen and (min-width: 600px) and (max-width: 759px) {
+
+	
+}
+
+/***************************************/
+/*** Tablet - iPad *********************/
+/***************************************/
+@media only screen and (min-width: 760px) and (max-width: 959px) {
+
+	.forecast {
+		width: 95%;
+	}
+
+}
+
+/***************************************/
+/*** Widescreen ************************/
+/***************************************/
+@media only screen and (min-width: 960px) {
+
+	.forecast {
+		width: 95%;
+	}
+
+
+}

@@ -6,7 +6,7 @@
 		<%= auto_link(comment.content) %>
   </div>
   <div class="comment_data">
-  	<span class="comment_creator"><%= comment.user.name %></span> <span class="comment_created_at"><%= comment.created_at.strftime "%l:%M%P, %A %B %e"%></span>
+  	<span class="comment_creator"><%= comment.user.name %></span> <span class="comment_created_at"><%= comment.created_at.strftime "%l:%M%P, %a %b %e"%></span>
 		<% if current_user == comment.user %>
 			<%= link_to event_comment_path(@event, comment), :method => :delete, id:"delete_comment" do %>
 				<i class="icon-remove"></i>
