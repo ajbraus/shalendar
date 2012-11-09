@@ -33,7 +33,7 @@ class Api::V1::EventsController < ApplicationController
         :end => e.ends_at, 
         :gcnt => e.guests.count,  
         :tip => e.min,
-        :image => e.promo_img.url(:medium), 
+        :image => e.image(:medium), 
         :host => e.user,
         :plan => @mobile_user.rsvpd?(e),
         :tipped => e.tipped,
@@ -91,6 +91,7 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def mobile_create
+    logger.info("#{params}")
     @mobile_user = User.find_by_id(params[:user_id])
     if @mobile_user.nil?
       render :status => 400, :json => {:error => "could not find your user"}
