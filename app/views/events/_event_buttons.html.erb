@@ -61,8 +61,8 @@
       </li>
     <% end %>
     <% if @event.guests_can_invite_friends? && !@event.short_url.nil? %>
-      <li>
-        <a href="sms:?body=<%= @event.title + "-" + @event.short_url %>"><span class="fadeInOrange"><i class="icon-phone"></i></span></a>
+      <li id="textMsg">
+        <a href="sms:?body=<%= url_encode(@event.title + " - " + @event.short_url) %>"><span class="fadeInOrange"><i class="icon-phone"></i></span></a>
       </li>  
     <% end %>
 

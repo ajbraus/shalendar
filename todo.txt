@@ -71,7 +71,6 @@ Adam
 
 	TEXTS & MOBILE
 
-URL shortener
 Link to start text message (if mobile)
 Fix the sign up redirect problem
 Twillio
