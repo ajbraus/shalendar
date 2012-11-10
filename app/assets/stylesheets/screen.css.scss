@@ -1837,16 +1837,17 @@ clear: left;
 
 .event_top {
   border-bottom: 1px solid $divider;
-  height:50px;
+  height:auto;
 }
 
 .host {
 font-size: 19px;
 color: black;
 position: relative;
-width: 51%;
-float:left;
 line-height: 1.2;
+height: 52px;
+float: left;
+width: 48%;
   img {
     float:left;
   }
@@ -1864,20 +1865,19 @@ margin-bottom: 10px;
   }
 
 .event_location{
-  position: relative;
-float: right;
-width: 45%;
+position: relative;
 text-align: right;
-max-height: 20px;
+padding-left: 175px;
+margin-top: 21px;
     i {
       font-size: 28px;
     }
   }
 
 .cost {
-  float: right;
-position: relative;
-top: 19px;
+position: absolute;
+top: 9px;
+right: 8px;
   }
 
 .join_group_buttons {

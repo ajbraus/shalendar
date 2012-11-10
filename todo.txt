@@ -71,7 +71,6 @@ Adam
 
 	TEXTS & MOBILE
 
-Link to start text message (if mobile)
 Fix the sign up redirect problem
 Twillio
 Prompt users for phone number lightbox on login one time
