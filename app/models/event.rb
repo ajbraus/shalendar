@@ -45,6 +45,7 @@ class Event < ActiveRecord::Base
                   :category,
                   :family_friendly,
                   :is_public,
+                  :short_url,
                   :parent_id
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
@@ -351,7 +352,8 @@ class Event < ActiveRecord::Base
 
   def save_shortened_url
     @bitly = Bitly.new("devhoosin", "R_6d6b17c2324d119af1bcc30d03e852e9")
-    @b = @bitly.shorten(event_url(self))
+    @url = Rails.application.routes.url_helpers.event_url(self, :host => "hoos.in")
+    @b = @bitly.shorten(@url)
     self.short_url = @b.short_url
     self.save
   end
