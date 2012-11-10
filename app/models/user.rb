@@ -72,6 +72,8 @@ class User < ActiveRecord::Base
   has_many :comments
 
   after_create :send_welcome
+
+  HOOSIN = +16088074732
   
   def as_json(options = {})
     if self.authentications.where(:provider == "Facebook").any?
@@ -494,6 +496,22 @@ class User < ActiveRecord::Base
       return false
     end
   end
+
+  # CONTACT FOR INVITATION
+  # def contact(event)
+  #   if app user
+  #     push notification
+  #   elsif phone number && allows texts
+  #     Twilio::SMS.create :to => '#{self.phone}', :from => 'HOOSIN',
+  #                 :body => "#{event.title - event.short_url}"
+  #   elsif allows emails
+  #     email
+  #   end
+  # end
+
+  # contact for digest
+  # contact for s/o rsvped to their event
+  # contact for 
 
   private
 

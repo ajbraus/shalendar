@@ -34,13 +34,6 @@
       <% end %>
     </li>
   <% end %>
-  <% unless @event.link == '' %>
-    <li>
-      <%= link_to "http://#{@event.link}", target: "_blank" do %>
-        <span class="fadeInOrange" title="Idea's Website"><i class="icon-link"></i></span>
-      <% end %>
-    </li>
-  <% end %>
   <% if current_user.rsvpd?(@event) || current_user == @event.user %>
     <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.starts_at > Time.now %>
       <!-- #FACEBOOK -->

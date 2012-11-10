@@ -1,5 +1,5 @@
-$rsvp: #388EE5;
-$happening: #0C7908;
+@import "fonts";
+@import "colors";
 
 /***************************************/
 /*** Mobile - Portrait & Landscape *****************/
@@ -47,7 +47,7 @@ body {
 	}
 
 	#textMsg {
-		display:inline;
+		display:none;
 	}
 
 // SHRINK HEADER STUFF
@@ -165,6 +165,10 @@ body {
 
 	.ui-datepicker {
 		width:16em;
+	}
+
+	#sign_in {
+		left:10px;
 	}
 
 }

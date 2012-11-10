@@ -207,7 +207,7 @@ class EventsController < ApplicationController
     @user = current_user
     @new_event = @user.events.build(
                              title: @event.title,
-                             starts_at: @event.starts_at,
+                             starts_at: '',
                              duration: @event.duration,
                              min: @event.min,
                              max: @event.max,
