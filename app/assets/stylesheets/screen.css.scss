@@ -2129,7 +2129,7 @@ form {
     float:left;
   }
   input[type=text] {
-  width: 70%;
+  width: 65%;
 float: left;
 border-radius: 0;
 position: relative;
@@ -2177,7 +2177,8 @@ font-size: 1.1em;
 min-height: 31px;
 float: left;
 padding-left: 8px;
-width: auto;
+width: 89%;
+line-height:1;
 }
 
 .comment_data {
@@ -2803,4 +2804,8 @@ right: 10px;
     position: relative;
 bottom: 18px;
   }
+}
+
+.ui-datepicker {
+  width:16em;
 }

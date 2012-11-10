@@ -44,10 +44,9 @@ gem 'aws-sdk', '~> 1.3.4'
 gem 'coffeebeans'
 gem 'lazy_high_charts'
 #gem "rqrcode", "~> 0.4.2"
-
 gem 'icalendar'
-
 gem 'bloggy', '0.1.1'
+gem 'bitly'
 
 
 group :development, :test do

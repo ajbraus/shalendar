@@ -349,6 +349,13 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def save_shortened_url
+    @bitly = Bitly.new("devhoosin", "R_6d6b17c2324d119af1bcc30d03e852e9")
+    @b = @bitly.shorten(event_url(self))
+    self.short_url = @b.short_url
+    self.save
+  end
+
 
 # END OF CLASS
 end

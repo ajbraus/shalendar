@@ -71,8 +71,6 @@ Adam
 
 	TEXTS & MOBILE
 
-Mobile site squeeze
-Access RSVP and other buttons
 URL shortener
 Link to start text message (if mobile)
 Fix the sign up redirect problem
