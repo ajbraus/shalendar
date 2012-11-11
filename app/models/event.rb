@@ -123,7 +123,7 @@ class Event < ActiveRecord::Base
 
   def tip!
     if self.tipped? == false
-      unless self.ends_at > Time.now
+      unless self.ends_at < Time.now
         self.guests.each do |g|
           Notifier.delay.event_tipped(self, g)
         end

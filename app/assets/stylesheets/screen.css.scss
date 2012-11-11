@@ -221,14 +221,16 @@ margin-left: -10px;
 }
 
 .btn_stop_viewing {
-  background-color:#ededed;
-  -moz-border-radius:6px;
-  -webkit-border-radius:6px;
-  border-radius:6px;
-  border:1px solid #dcdcdc;
-  display:inline-block;
-  color:#636363;
-  font-size: 15px;
+  background-color: #EDEDED;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  border: 1px solid gainsboro;
+  display: inline-block;
+  color: #636363;
+  font-size: 12px;
+  padding: 0px 1px;
+  line-height: 17px;
 }
 .btn_stop_viewing:hover {
   background-color:#ededed;

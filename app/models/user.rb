@@ -390,7 +390,8 @@ class User < ActiveRecord::Base
   end
 
   def self.digest
-    if Date.today.days_to_week_start == (0 || 2 || 4)
+    @day = Date.today.days_to_week_start
+    if @day == 0 || @day == 2 || @day == 4
       @digest_users = User.where("users.digest = 'true'")
       @digest_users.each do |u|
         time_range = Time.now.midnight .. Time.now.midnight + 3.days
@@ -431,7 +432,7 @@ class User < ActiveRecord::Base
     @fu_events = Event.where(starts_at: Time.now.midnight - 1.day .. Time.now.midnight, tipped: true)
     if @fu_events
       @fu_events.each do |fue|
-        @fu_recipients = fue.guests.select{ |g| g.follow_up == true }
+        @fu_recipients = fue.guests.select{ |g| g.follow_up? }
         @fu_recipients.each do |fur|
           @new_friends = []
           fue.guests.each do |g|
@@ -439,7 +440,7 @@ class User < ActiveRecord::Base
               @new_friends.push(g)
             end
             if @new_friends.any?
-              Notifier.delay.follow_up(fur, fue, @new_friends)
+              Notifier.follow_up(fur, fue, @new_friends).deliver
             end
           end
         end
