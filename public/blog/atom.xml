@@ -4,7 +4,7 @@
  <title>BLOG_NAME</title>
  <link href="YOUR_URL/atom.xml" rel="self"/>
  <link href="YOUR_URL"/>
- <updated>2012-11-09T15:52:48-06:00</updated>
+ <updated>2012-11-09T16:09:38-06:00</updated>
  <id>BLOG_URL</id>
  <author>
    <name>BLOG_NAME</name>
@@ -26,24 +26,25 @@ Step 3. Enjoy!&lt;/p&gt;
 
 &lt;p&gt;iPhone / iPod touch&lt;/p&gt;
 
-&lt;p&gt;Step 1: Email us your device ID.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;a. Connect your phone and launch iTunes.
+&lt;p&gt;Step 1: Email us your device ID.
+a. Connect your phone and launch iTunes.
 b. Click your device from the left sidebar
 c. Click where it says &quot;Serial Number&quot;, which turns it into Identifier (UDID)
-d. Copy this 40-character string and email it to info(at)hoos.in
-&lt;/code&gt;&lt;/pre&gt;
+d. Copy this 40-character string and email it to info(at)hoos.in&lt;/p&gt;
 
 &lt;p&gt;Step 2: We send you an email with a pre-release app in a day or two&lt;/p&gt;
 
 &lt;p&gt;Step 3: Download and install the App&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;a. Download the zip file from our email
-b. unzip the file.. there will be a '.ipa' file and a '.mobileprovision' file
-c. drag-and-drop both file into the Applications folder in your iTunes library
-d. in iTunes, select your device and open the Applications tab. Sync applications with the hoos.in app checked.
-e. Sync your iPhone
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;a. Download the zip file from our email&lt;/p&gt;
+
+&lt;p&gt;b. unzip the file.. there will be a '.ipa' file and a '.mobileprovision' file&lt;/p&gt;
+
+&lt;p&gt;c. drag-and-drop both file into the Applications folder in your iTunes library&lt;/p&gt;
+
+&lt;p&gt;d. in iTunes, select your device and open the Applications tab. Sync applications with the hoos.in app checked.&lt;/p&gt;
+
+&lt;p&gt;e. Sync your iPhone&lt;/p&gt;
 
 &lt;p&gt;Step 4: Enjoy!&lt;/p&gt;
 </content>
