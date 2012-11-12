@@ -37,11 +37,12 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = current_user.events.build(params[:event])
-    
     @event.tipped = true                    if @event.min <= 1
     @event.parent_id = params[:parent_id]   if params[:parent_id]
-
     if @event.save
+      #save shortened url
+      @event.save_shortened_url
+
       current_user.rsvp!(@event)
       if params[:invite_all_friends] == "on"
         @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
@@ -206,7 +207,7 @@ class EventsController < ApplicationController
     @user = current_user
     @new_event = @user.events.build(
                              title: @event.title,
-                             starts_at: @event.starts_at,
+                             starts_at: '',
                              duration: @event.duration,
                              min: @event.min,
                              max: @event.max,

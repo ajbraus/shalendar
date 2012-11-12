@@ -1,52 +1,7 @@
 @import "font-awesome";
 
-/* mixins, variables, etc. */
-
-$icon_color: #372C8B;
-$divider: #D1CDCD;
-$background_one: white;
-$background_two: #E6E6E6; /*gray*/
-
-$light_orange: #F2B041;
-$dark_orange: #EB8325;
-$destroy: #CD0000;
-$rsvp: #388EE5;
-$happening: #0C7908;
-$fbblue: #3A5998;
-
-$grayMediumLight: #eaeaea;
-$grayLighter: #eaeaea;
-$grayLight:#eaeaea;
-$gray:#eaeaea;
-$grayDarker:#eaeaea;
-
-/*RESPONSIVE DESIGN*/
-
-/*@media screen and */
-
-
-/* FONTS */
-
-@font-face {
-  font-family: typewriter;
-  src: url('Moms_typewriter.ttf');
-}
-
-@font-face {
-  font-family: bariol_bold;
-  src: url('Bariol_Bold.otf') format("opentype");
-  font-style: bold;
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: bariol;
-  src: url('Bariol_Regular.otf') format("opentype") ;
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* universal */
+@import "colors";
+@import "fonts";
 
 * {
   margin:0;
@@ -100,19 +55,6 @@ textarea:focus, input:focus {
   text-align: center;
   h1 {
     margin-bottom: 10px;
-  }
-}
-
-.hero-unit {
-  text-align: center;
-  padding-top: 40px;
-  p {
-    font-size: 1em;
-    font-weight: normal;
-  }
-  img {
-    margin:20px 20px;
-    width: 860px;
   }
 }
 
@@ -279,14 +221,16 @@ margin-left: -10px;
 }
 
 .btn_stop_viewing {
-  background-color:#ededed;
-  -moz-border-radius:6px;
-  -webkit-border-radius:6px;
-  border-radius:6px;
-  border:1px solid #dcdcdc;
-  display:inline-block;
-  color:#636363;
-  font-size: 15px;
+  background-color: #EDEDED;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  border: 1px solid gainsboro;
+  display: inline-block;
+  color: #636363;
+  font-size: 12px;
+  padding: 0px 1px;
+  line-height: 17px;
 }
 .btn_stop_viewing:hover {
   background-color:#ededed;
@@ -451,6 +395,11 @@ width: 25px;
   margin:0 auto;
 }
 
+/*LANDING*/
+
+.hero-unit {
+  text-align: center;
+}
 
 /* HOME */
 
@@ -781,7 +730,7 @@ position: absolute;
 bottom: 3px;
 float: right;
 z-index: 1;
-left: 510px;
+left: 490px;
   table{
 float: left;
 width: 20px;
@@ -875,9 +824,10 @@ z-index: -2;
 
 .friend_suggestions {
 position: absolute;
-left: 308px;
+left: 290px;
 top: -21px;
 width: 204px;
+overflow: hidden;
   > div {
     text-align: center;
   }
@@ -1649,8 +1599,8 @@ margin-bottom: 25px;
   .fb_button {
     float: right;
     position: absolute;
-    top: 116px;
-    right: 580px;
+top: 130px;
+right: 520px;
   }
 }
 
@@ -1835,18 +1785,25 @@ clear: left;
 }
 }
 
+.event_link {
+      position: absolute;
+right: 6px;
+top: 40px;
+font-size: 23px;
+}
+
 .event_top {
   border-bottom: 1px solid $divider;
-  height:50px;
+  height:auto;
 }
 
 .host {
 font-size: 19px;
 color: black;
 position: relative;
-width: 51%;
-float:left;
 line-height: 1.2;
+height: 52px;
+width: 48%;
   img {
     float:left;
   }
@@ -1864,20 +1821,19 @@ margin-bottom: 10px;
   }
 
 .event_location{
-  position: relative;
-float: right;
-width: 45%;
+position: relative;
 text-align: right;
-max-height: 20px;
+padding-left: 175px;
+margin-top: 5px;
     i {
       font-size: 28px;
     }
   }
 
 .cost {
-  float: right;
-position: relative;
-top: 19px;
+position: absolute;
+top: 9px;
+right: 8px;
   }
 
 .join_group_buttons {
@@ -1908,7 +1864,7 @@ float: left;
 font-size: 34px;
 min-height: 80px;
 line-height: 1.1;
-width: 560px;
+width: 97%;
 background-color: rgba(0, 0, 0, 0.35);
 color: white;
 font-weight: 400;
@@ -2129,7 +2085,7 @@ form {
     float:left;
   }
   input[type=text] {
-  width: 70%;
+  width: 65%;
 float: left;
 border-radius: 0;
 position: relative;
@@ -2177,7 +2133,8 @@ font-size: 1.1em;
 min-height: 31px;
 float: left;
 padding-left: 8px;
-width: auto;
+width: 89%;
+line-height:1;
 }
 
 .comment_data {
@@ -2308,7 +2265,6 @@ width: 550px;
 margin: 0 auto;
 position: relative;
 bottom: 70px;
-left: 60px;
 top: 12px;
 
   h2 {
@@ -2803,4 +2759,8 @@ right: 10px;
     position: relative;
 bottom: 18px;
   }
+}
+
+.ui-datepicker {
+  width:16em;
 }

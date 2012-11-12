@@ -45,6 +45,7 @@ class Event < ActiveRecord::Base
                   :category,
                   :family_friendly,
                   :is_public,
+                  :short_url,
                   :parent_id
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
@@ -122,8 +123,10 @@ class Event < ActiveRecord::Base
 
   def tip!
     if self.tipped? == false
-      self.guests.each do |g|
-        Notifier.delay.event_tipped(self, g)
+      unless self.ends_at < Time.now
+        self.guests.each do |g|
+          Notifier.delay.event_tipped(self, g)
+        end
       end
     end
     self.tipped = true
@@ -347,6 +350,14 @@ class Event < ActiveRecord::Base
     else
       return true
     end
+  end
+
+  def save_shortened_url
+    @bitly = Bitly.new("devhoosin", "R_6d6b17c2324d119af1bcc30d03e852e9")
+    @url = Rails.application.routes.url_helpers.event_url(self, :host => "hoos.in")
+    @b = @bitly.shorten(@url)
+    self.short_url = @b.short_url
+    self.save
   end
 
 

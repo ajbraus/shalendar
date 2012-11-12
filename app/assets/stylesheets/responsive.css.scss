@@ -1,5 +1,5 @@
-$rsvp: #388EE5;
-$happening: #0C7908;
+@import "fonts";
+@import "colors";
 
 /***************************************/
 /*** Mobile - Portrait & Landscape *****************/
@@ -33,6 +33,21 @@ body {
 		img {
 			display:none;
 		}
+	}
+	.hero-unit {
+		h1 {
+			margin-bottom:50px;
+		}
+		img {
+			display:none;
+		}
+	}
+	.instagramFeed {
+		display:none;
+	}
+
+	#textMsg {
+		display:none;
 	}
 
 // SHRINK HEADER STUFF
@@ -102,10 +117,10 @@ body {
 		}
 	}	
 	ul.event_buttons {
-		width:100%;
+		width:96%;
 		float:left;
-		right:-38px;
-		font-size: 27px;
+		right:-33px;
+		font-size: 26px;
 		li {
 			display: inline;
 			a img {
@@ -130,7 +145,7 @@ body {
 		left: 7px;
 		.promo_img {
 			img {
-				max-width: 401px;
+				max-width: 106%;
 				position:relative;
     		right: 10px;
 			}
@@ -146,6 +161,14 @@ body {
 		span {
 			bottom:-4px;
 		}
+	}
+
+	.ui-datepicker {
+		width:16em;
+	}
+
+	#sign_in {
+		left:10px;
 	}
 
 }

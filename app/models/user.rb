@@ -72,6 +72,8 @@ class User < ActiveRecord::Base
   has_many :comments
 
   after_create :send_welcome
+
+  HOOSIN = +16088074732
   
   def as_json(options = {})
     if self.authentications.where(:provider == "Facebook").any?
@@ -388,7 +390,8 @@ class User < ActiveRecord::Base
   end
 
   def self.digest
-    if Date.today.days_to_week_start == (0 || 2 || 4)
+    @day = Date.today.days_to_week_start
+    if @day == 0 || @day == 2 || @day == 4
       @digest_users = User.where("users.digest = 'true'")
       @digest_users.each do |u|
         time_range = Time.now.midnight .. Time.now.midnight + 3.days
@@ -427,18 +430,18 @@ class User < ActiveRecord::Base
 
   def self.follow_up
     @fu_events = Event.where(starts_at: Time.now.midnight - 1.day .. Time.now.midnight, tipped: true)
-    if @fu_events
+    if @fu_events.any?
       @fu_events.each do |fue|
-        @fu_recipients = fue.guests.select{ |g| g.follow_up == true }
+        @fu_recipients = fue.guests.select{ |g| g.follow_up? }
         @fu_recipients.each do |fur|
           @new_friends = []
           fue.guests.each do |g|
             if !fur.following?(g) && fur != g
               @new_friends.push(g)
             end
-            if @new_friends.any?
-              Notifier.delay.follow_up(fur, fue, @new_friends)
-            end
+          end
+          if @new_friends.any?
+            Notifier.delay.follow_up(fur, fue, @new_friends)
           end
         end
       end
@@ -494,6 +497,22 @@ class User < ActiveRecord::Base
       return false
     end
   end
+
+  # CONTACT FOR INVITATION
+  # def contact(event)
+  #   if app user
+  #     push notification
+  #   elsif phone number && allows texts
+  #     Twilio::SMS.create :to => '#{self.phone}', :from => 'HOOSIN',
+  #                 :body => "#{event.title - event.short_url}"
+  #   elsif allows emails
+  #     email
+  #   end
+  # end
+
+  # contact for digest
+  # contact for s/o rsvped to their event
+  # contact for 
 
   private
 

@@ -1,22 +1,26 @@
 <% unless @friend_requests.nil? || @friend_requests == [] %>
   <div class="user_table">
-    <h2><span class="friend_count"><%= @friend_requests.count %></span> Friend Requests</h2>
+    <h2><span class="friend_count" id="friend_request_count"><%= @friend_requests.count %></span> Friend Requests</h2>
     <% @friend_requests.each do |nf| %>
-      <table>        
+      <table data-user-id="<%= nf.follower.id %>">    
         <tr>
           <td width="50px"><%= raster_profile_picture(nf.follower) %></td>
           <td width="150px"><%= nf.follower.name %></td>
-          <td width="20px"><%= link_to raw("<i class='icon-remove-sign'></i>"), relationship_ignore_path(nf), title: "Ignore", method: :delete, class:"tooltip", remote: true %></td>
-          <td width="20px"><%= link_to raw("<i class='icon-check'></i>"), relationship_confirm_and_follow_path(nf), title: "Confirm", method: :put, class:"tooltip", remote: true %></td>
+          <td width="20px"><%= link_to raw("<i class='icon-remove-sign'></i>"), relationship_ignore_path(:relationship_id => nf.id), method: :delete, class:"tooltip", remote: true %></td>
+          <td width="20px"><%= link_to raw("<i class='icon-check'></i>"), relationship_confirm_and_follow_path(:relationship_id => nf.id), method: :put, class:"tooltip", remote: true %></td>
         </tr>
       </table>
+      <div class="event_show_friend" data-user-id="<%= nf.follower.id %>" style='display:none;'>
+        <%= raster_profile_picture(nf.follower) %>
+        <div id="friend_name"><%= nf.follower.name %></div>
+      </div>
     <% end %>
   </div>
 <% end %>
-  <div class="user_table">
+  <div class="user_table" id="friendsTable">
     <h2><span id="managed_friend_count" class="friend_count"><%= current_user.followers.count %></span> Friends</h2>
     <% @friendships.each do |fr| %>
-      <div class="event_show_friend">
+      <div class="event_show_friend" data-user-id="<%= fr.id %>">
         <%= raster_profile_picture(fr.follower) %>
         <div id="friend_name"><%= fr.follower.name %></div>
         <div id="friend_button">
@@ -27,10 +31,10 @@
   </div>
   <% unless @vendor_friendships.nil? %>
     <% if @vendor_friendships.any? %>
-      <div class="user_table">
+      <div class="user_table" id="venuesTable">
         <h2><span class="friend_count"><%= @vendor_friendships.count %></span> Venues you Follow</h2>
         <% @vendor_friendships.each do |vf| %>
-          <div class="event_show_friend">        
+          <div class="event_show_friend" data-user-id="<%= vf.id %>">        
             <%= raster_profile_picture(vf.followed) %>
             <div id="friend_name"><%= vf.followed.name %></div>
             <div id="friend_button">

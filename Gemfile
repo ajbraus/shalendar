@@ -5,7 +5,6 @@ gem 'rails', '3.2.6'
 # gem 'will_paginate', '3.0.3'
 # gem 'bootstrap-will_paginate', '0.0.6'
 gem 'devise', '2.1.0'
-#gem "omniauth", "~> 1.1.1"
 #gem "omniauth-facebook", "~> 1.4.0"
 gem 'omniauth-facebook', '1.2.0'
 gem 'omniauth-twitter'
@@ -44,10 +43,9 @@ gem 'aws-sdk', '~> 1.3.4'
 gem 'coffeebeans'
 gem 'lazy_high_charts'
 #gem "rqrcode", "~> 0.4.2"
-
 gem 'icalendar'
-
 gem 'bloggy', '0.1.1'
+gem 'bitly'
 
 
 group :development, :test do

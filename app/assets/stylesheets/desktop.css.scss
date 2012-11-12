@@ -1,9 +1,16 @@
+@import "fonts";
+@import "colors";
+
 // END MOBILE PORTRAIT
 
 @media only screen and (min-width:600px) {
 
 	.layout {
 		width: 960px;
+	}
+
+	.forecast {
+		width: 93%;
 	}
 
 	#yt {
@@ -80,8 +87,20 @@
 			color:lightGrey;
 		}
 
-		.event_button {
-			font-size: 28px;
+		.event_buttons {
+			font-size: 30px;
+		}
+
+		#textMsg {
+		display:none;
+		}
+
+		#sign_in {
+			left:60px;
+		}
+
+		.new_idea {
+			width: 38%;
 		}
 
 }
@@ -107,9 +126,6 @@
 /***************************************/
 @media only screen and (min-width: 760px) and (max-width: 959px) {
 
-	.forecast {
-		width: 95%;
-	}
 
 }
 
@@ -117,10 +133,6 @@
 /*** Widescreen ************************/
 /***************************************/
 @media only screen and (min-width: 960px) {
-
-	.forecast {
-		width: 95%;
-	}
 
 
 }

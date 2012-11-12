@@ -34,32 +34,30 @@
       <% end %>
     </li>
   <% end %>
-      <% unless @event.link == '' %>
-      <li>
-        <%= link_to "http://#{@event.link}", target: "_blank" do %>
-          <span class="fadeInOrange" title="Idea's Website"><i class="icon-link"></i></span>
-        <% end %>
-      </li>
-    <% end %>
-    <% if current_user.rsvpd?(@event) || current_user == @event.user %>
-      <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.starts_at > Time.now %>
-        <!-- #FACEBOOK -->
-        <% if current_user.fb_user? %>
-          <li>
-            <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Post to your Facebook wall", remote: true do %>
-              <i class="icon-facebook-sign"></i>
-            <% end %>
-          </li>
-        <% end %>
-
-        <!-- #TWITTER -->
+  <% if current_user.rsvpd?(@event) || current_user == @event.user %>
+    <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.starts_at > Time.now %>
+      <!-- #FACEBOOK -->
+      <% if current_user.fb_user? %>
         <li>
-          <a href="https://twitter.com/share" data-text="<%= @event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this idea" target="_blank"><i class="icon-twitter"></i></a>
-        </li>
-        <li>
-          <a id="shareByEmail" href="#shareByEmailShow"><span class="fadeInOrange"><i class="icon-envelope-alt" title="Share Idea by Email"></i></span></a>
+          <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Post to your Facebook wall", remote: true do %>
+            <i class="icon-facebook-sign"></i>
+          <% end %>
         </li>
       <% end %>
+
+      <!-- #TWITTER -->
+      <li>
+        <a href="https://twitter.com/share" data-text="<%= @event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this idea" target="_blank"><i class="icon-twitter"></i></a>
+      </li>
+      <li>
+        <a id="shareByEmail" href="#shareByEmailShow"><span class="fadeInOrange"><i class="icon-envelope-alt" title="Share Idea by Email"></i></span></a>
+      </li>
+    <% end %>
+    <% if @event.guests_can_invite_friends? && !@event.short_url.nil? %>
+      <li id="textMsg">
+        <a href="sms:?body=<%= url_encode(@event.title + " - " + @event.short_url) %>"><span class="fadeInOrange"><i class="icon-phone"></i></span></a>
+      </li>  
+    <% end %>
 
   <li>
     <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&details=<%= event_url(@event) %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fevents%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
@@ -68,12 +66,7 @@
   </li>
   <li>
     <%= link_to :controller => 'events', :action => :show, :format => :ics do %>
-      <%= image_tag "ical-icon.png", width: '30', title: "Add to Your iCal" %>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to :controller => 'events', :action => :show, :format => :ics do %>
-      <%= image_tag "outlook-icon.png", width: '30', title: "Add to Your Outlook Calendar" %>
+      <%= image_tag "ical-icon.png", width: '30', title: "Add to Your Calendar" %>
     <% end %>
   </li>
   <% end %>

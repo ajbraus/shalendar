@@ -1,4 +1,4 @@
-<% provide(:title, " | Idea") %>
+<% provide(:title, " | #{@event.title}" ) %>
 <% if user_signed_in? %>
   <%= render 'events/event_buttons' %>
 <% end %>
@@ -11,7 +11,14 @@
       hosted by: <br><%= @event.user.name %>
      </div>
     </div>
-    <% unless @event.address == '' %>
+    <% unless @event.link == '' %>
+    <div class="event_link">
+      <%= link_to "http://#{@event.link}", target: "_blank" do %>
+        <span class="fadeInOrange" title="Idea's Website"><i class="icon-link"></i></span> link
+      <% end %>
+    </div>
+    <% end %>
+    <% unless @event.address == '' || @event.address.nil? %>
       <div class="event_location">
         <%= link_to "http://mapof.it/#{@event.address}", target: "_blank", title:"View in Google Maps" do %>
           <span class="fadeInOrange"><i class="icon-map-marker"></i></span>
