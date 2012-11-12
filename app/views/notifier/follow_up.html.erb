@@ -29,7 +29,8 @@
 			<% right.each do |g| %>
 			<table style="padding: 5px 5px 0px 20px">
 				<tr>
-					<% if @fb_auth = g.authentications.where(provider: 'Facebook').first.present? %>
+					<% if g.authentications.where(provider: 'Facebook').first.any? %>
+						<% @fb_auth = g.authentications.where(:provider == 'Facebook').first %>
 						<td><%= image_tag("#{@fb_auth.pic_url}") %></td>
 					<% else %>
 						<td><%= image_tag("#{g.avatar.url(:raster)}") %> </td>

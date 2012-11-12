@@ -430,7 +430,7 @@ class User < ActiveRecord::Base
 
   def self.follow_up
     @fu_events = Event.where(starts_at: Time.now.midnight - 1.day .. Time.now.midnight, tipped: true)
-    if @fu_events
+    if @fu_events.any?
       @fu_events.each do |fue|
         @fu_recipients = fue.guests.select{ |g| g.follow_up? }
         @fu_recipients.each do |fur|
@@ -439,9 +439,9 @@ class User < ActiveRecord::Base
             if !fur.following?(g) && fur != g
               @new_friends.push(g)
             end
-            if @new_friends.any?
-              Notifier.follow_up(fur, fue, @new_friends).deliver
-            end
+          end
+          if @new_friends.any?
+            Notifier.follow_up(fur, fue, @new_friends).deliver
           end
         end
       end
