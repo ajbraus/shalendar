@@ -2,7 +2,7 @@
   <div class="user_table">
     <h2><span class="friend_count"><%= @friend_requests.count %></span> Friend Requests</h2>
     <% @friend_requests.each do |nf| %>
-      <table>        
+      <table data-user-id="<%= nf.follower.id %>">    
         <tr>
           <td width="50px"><%= raster_profile_picture(nf.follower) %></td>
           <td width="150px"><%= nf.follower.name %></td>

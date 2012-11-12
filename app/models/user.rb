@@ -441,7 +441,7 @@ class User < ActiveRecord::Base
             end
           end
           if @new_friends.any?
-            Notifier.follow_up(fur, fue, @new_friends).deliver
+            Notifier.delay.follow_up(fur, fue, @new_friends)
           end
         end
       end

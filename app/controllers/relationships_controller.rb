@@ -91,8 +91,6 @@ before_filter :authenticate_user!
     @relationship.destroy
 
     respond_to do |format|
-      @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
-      @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
       format.html { redirect_to :back }
       format.js
     end
