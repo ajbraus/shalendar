@@ -1,1 +1,3 @@
-$("#friends").html("<%= escape_javascript(render partial: 'shalendar/friends') %>")
+$('table').withUserId(<%= @relationship.follower.id %>).remove();
+$("#header_friend_count").increment();
+$('#managed_friend_count').increment();
