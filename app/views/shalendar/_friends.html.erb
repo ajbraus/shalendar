@@ -6,7 +6,7 @@
         <tr>
           <td width="50px"><%= raster_profile_picture(nf.follower) %></td>
           <td width="150px"><%= nf.follower.name %></td>
-          <td width="20px"><%= link_to raw("<i class='icon-remove-sign'></i>"), relationship_ignore_path(nf), title: "Ignore", method: :delete, class:"tooltip", remote: true %></td>
+          <td width="20px"><%= link_to raw("<i class='icon-remove-sign'></i>"), relationship_ignore_path(:relationship_id => nf.id), title: "Ignore", method: :delete, class:"tooltip", remote: true %></td>
           <td width="20px"><%= link_to raw("<i class='icon-check'></i>"), relationship_confirm_and_follow_path(nf), title: "Confirm", method: :put, class:"tooltip", remote: true %></td>
         </tr>
       </table>
