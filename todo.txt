@@ -69,21 +69,7 @@ new follower email link not working
 
 Adam
 
-	TEXTS & MOBILE
-
 Fix the sign up redirect problem
-Twillio
-Prompt users for phone number lightbox on login one time
-Text invitations, reminders auto to friends phone number
-
-doorman screens and methods
-Generate encrypted qr code
-Read it and decrypt it 
-return true or false 
-mark that its been used now
-and checked them in to the event
-(Build a test for this?)
-Take a picture
 
 Cost (required for RSVP?)
 Click join:
@@ -247,6 +233,21 @@ Vendors:
 ticket creation/authentication
 box office behavior
 
+------------------------------------------------------------------------
+
+Suggested friends
+	user.rb
+	has_many :suggested_friends, through: :suggested_friends
+	belongs_to user, through :suggested_friends
+	migration creates linking table
+	data migration, fb_friends who they are not hi_friends with yet
+	create suggested_friend for other users when new user is created
+	remove suggested_friend when 
+		user clicks "X" on suggested friend in home page
+		relationship is created between the two users
+	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
+
+
 
 ----------------------------------------------------------
 
@@ -261,17 +262,22 @@ Silo by city
 list view/old ideas
 
 
-Suggested friends
-	user.rb
-	has_many :suggested_friends, through: :suggested_friends
-	belongs_to user, through :suggested_friends
-	migration creates linking table
-	data migration, fb_friends who they are not hi_friends with yet
-	create suggested_friend for other users when new user is created
-	remove suggested_friend when 
-		user clicks "X" on suggested friend in home page
-		relationship is created between the two users
-	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
+
+Twillio
+Prompt users for phone number lightbox on login one time
+Text invitations, reminders auto to friends phone number
+
+doorman screens and methods
+Generate encrypted qr code
+Read it and decrypt it 
+return true or false 
+mark that its been used now
+and checked them in to the event
+(Build a test for this?)
+Take a picture
+
+
+
 
 Close Viral Loop
 	Email every invitation w boolean
