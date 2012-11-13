@@ -46,6 +46,7 @@ gem 'lazy_high_charts'
 gem 'icalendar'
 gem 'bloggy', '0.1.1'
 gem 'bitly'
+gem 'balanced'
 
 
 group :development, :test do

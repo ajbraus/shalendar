@@ -68,13 +68,23 @@ new follower email link not working
 
 Adam
 
------------------------------------------------------------
-
-Vendor can upload background-image
-
 ------------------------------------------------------------
 
 ssl
+
+payment gateway
+
+	Vendor - create
+		create a merchant
+
+	user - create
+		create a buyer
+		buyer = Balanced::Marketplace.my_marketplace.create_buyer("buyer@example.org",
+        card.uri)
+
+	form with balanced.js
+
+
 
 Payment gateway
 
