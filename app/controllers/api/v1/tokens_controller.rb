@@ -58,7 +58,7 @@ class Api::V1::TokensController  < ApplicationController
       @user=User.find_by_email(email.downcase)
 
       if @user.nil?
-        render :status=>402, :json=>{error: "Invalid email/password combination, to use the app you must first register on the website. Sorry for the inconvenience."}
+        render :status=>402, :json=>{error: "Invalid email/password combination, to use the app you must first register on the website or use FB. Sorry for the inconvenience."}
         return
       end
       # http://rdoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable
