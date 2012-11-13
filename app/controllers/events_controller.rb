@@ -37,12 +37,13 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = current_user.events.build(params[:event])
+    @event.ends_at = params[:event][:chronic_starts_at] + params[:event][:duration]*3600
     @event.tipped = true                    if @event.min <= 1
     @event.parent_id = params[:parent_id]   if params[:parent_id]
     if @event.save
       #save shortened url
       @event.save_shortened_url
-
+      
       current_user.rsvp!(@event)
       if params[:invite_all_friends] == "on"
         @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
@@ -106,6 +107,7 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
     @event = Event.find(params[:id])
+    @event.ends_at = params[:event][:chronic_starts_at] + params[:event][:duration]*3600
     @start_time = @event.starts_at #don't worry about timezone here bc only on server
     respond_to do |format|
       if @event.update_attributes(params[:event])

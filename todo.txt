@@ -71,6 +71,17 @@ Adam
 
 Fix the sign up redirect problem
 
+activity page
+	past events
+	
+	if friend - 
+		future events
+
+	friend view 
+
+	public
+
+
 Cost (required for RSVP?)
 Click join:
 if cost required-redirect to payment funnel

@@ -60,11 +60,11 @@
       </dl>
     </li>
   <% if current_user.vendor? %>    
-    <% if false %>
     <li>
-      <%= link_to "Vendor Dashboard", vendor_dashboard_path %>
+      <%= link_to activity_path do %>
+        <span class="fadeInOrange"><i class="icon-dashboard"></i> <span id="headerText"> activity</span>
+      <% end %>
     </li>
-    <% end %>
   <% else %>
     <li>
       <%= link_to new_invited_events_path, :remote => true do %>

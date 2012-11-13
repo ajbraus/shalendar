@@ -15,15 +15,17 @@
     <% end %>
 
     <p>
-      <%= label :title, "Idea" %><br/>
-      <%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off" %>
-    </p>  
-    <p>
-     <%= label :starts_at, "When does it start?" %>
-     <%= label :duration, "How Long?", class: "duration" %><br/>
-     <%= f.text_field :chronic_starts_at, id: "datetime", class: "required starts_at", autocomplete: "off" %>
-     <%= f.text_field :duration, placeholder:"#hrs", class: "required duration", autocomplete: "off"  %>
-    </p>
+<%= label :title, "Idea*" %><br/>
+<%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
+</p>  
+<div class="starts_at">
+  <%= label :starts_at, "When does it start?*" %>
+  <%= f.text_field :chronic_starts_at, id: "datetime", class: "required starts_at", autocomplete: "off" %>
+</div>
+<div class="duration">
+  <%= label :duration, "How Long?*" %>
+  <%= f.text_field :duration, placeholder:"#hrs", class: "required", autocomplete: "off"  %>
+</div>
 
 <%= render partial: 'shared/idea_options', locals: { :f => f } %>
  

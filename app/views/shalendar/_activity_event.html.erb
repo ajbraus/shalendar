@@ -1,0 +1,70 @@
+<li class="part activities">
+	<% if event.has_image? %>
+		<span class="activity_event"><%= image_tag event.image(:medium), class:"suggestion_promo_img" %></span>
+	<% end %>
+	<div class="vendorEventDetails">
+		<div class="activity_time"><%= event.start_time %></div>
+		<div class="suggestionTitle">
+			<%= event.title %>
+		</div>
+		<%= render partial: "shalendar/activity_details", locals: { :event => event } %>
+	</div>
+	<ul class="suggestion_options">
+		<li>
+    	<%= link_to event_path(event) do %>
+      	<span class="fadeInBlue" title="View Public Idea"><i class="icon-bullhorn"></i></span>
+    	<% end %>
+  	</li>
+		<li>
+    	<%= link_to repeat_event_path(:event_id => event.id), title:"Repeat Idea", class:"fancybox.ajax", id:"eventRepeat", remote:true do %>
+      	<span class="fadeInGreen"><i class="icon-repeat"></i></span>
+    	<% end %>
+    </li>
+    <li>
+      <a href="https://twitter.com/share" data-text="<%= event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this idea" target="_blank"><i class="icon-twitter"></i></a>
+    </li>
+    <li>
+    	    <span id='fb-root'></span>
+  <script src='http://connect.facebook.net/en_US/all.js'></script>
+  <span><a onclick='postToFeed(); return false;'><span class="fadeInFBBlue" title="Post to Your Facebook Wall"><i class="icon-facebook-sign"></i></span></a></span>
+  <span id='msg'></span>
+
+  <script> 
+    FB.init({appId: "327936950625049", status: true, cookie: true});
+
+    function postToFeed() {
+
+      // calling the API ...
+      var obj = {
+        method: 'feed',
+        link: '<%= event_url(event) %>',
+        picture: '<%= event.image(:large) %>',
+        name: '<%= event.title %>',
+        // caption: '',
+        description: '<%= event.user.name %>'
+      };
+
+      function callback(response) {
+        document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
+      }
+
+      FB.ui(obj, callback);
+    }
+  
+  </script>
+		</li>
+    <li>
+      <a id="shareByEmail" href="#shareByEmailShow"><span class="fadeInOrange"><i class="icon-envelope-alt" title="Share Idea by Email"></i></span></a>
+    </li>
+		<li>
+      <%= link_to edit_event_path(event) do %>
+        <span class="fadeInOrange" title="Edit Idea"><i class="icon-wrench"></i></span>
+      <% end %>
+    </li>
+    <li>
+	<%= link_to event, method: :delete, confirm: "Cofirm: DESTROY this idea?" do %>
+		<span class="fadeInRed" title="Cancel Idea"><i class="icon-trash"></i></span>
+	<% end %>
+    </li>
+  </ul>
+</li>

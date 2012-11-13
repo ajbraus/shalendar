@@ -1,0 +1,24 @@
+<div>
+	<div class="activity_guests">
+		<% if event.rsvps.any? %>
+			<h4>Guests <%= event.total_guests %></h4>
+			<ul>
+				<% event.guests.each do |g| %>
+					<li><%= g.name %></li>
+				<% end %>
+				<% event.groups.each do |group| %>
+					<% group.guests.each do |guest| %>
+						<li><%= guest.name %> </li>
+					<% end %>
+				<% end %>
+			</ul>
+		<% end %>
+	</div>
+<div class="groups">
+	<% if event.groups.any? %>
+		<h4>Groups</h4>
+			<% event.groups.each do |group| %>
+				<%= render partial: 'shalendar/group', locals: { :group => group } %>
+			<% end %>
+	<% end %>
+</div>
