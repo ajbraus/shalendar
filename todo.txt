@@ -73,6 +73,8 @@ Adam
 ssl
 
 payment gateway
+	verify our account
+	initialize gem
 
 	Vendor - create
 		create a merchant
