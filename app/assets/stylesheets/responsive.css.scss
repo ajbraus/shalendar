@@ -171,5 +171,28 @@ body {
 		left:10px;
 	}
 
+
+// Activity
+
+.vendor_dash {
+	.activity_event {
+		img {
+			width: 100%;
+		}
+	}
+	.vendorEventDetails {
+		width: 100%;
+		.suggestionTitle {
+			margin-top:10px;
+		}
+	}
+}
+
+.activities {
+	margin: 20px 0 0 20px;
+  width:73%;
+}
+
+
 }
 

@@ -982,7 +982,7 @@ padding-left: 8px;
 }
 
 .event {
-padding: 5px;
+  padding:5px;
 min-height: 110px;
 position: relative;
 z-index: 1;
@@ -2619,9 +2619,9 @@ line-height: 10px;
 }
 
 .vendor_dash {
+      line-height: 1.2;
+    font-size:20px;
   .vendorEventDetails {
-    width: 75%;
-    float: right;
     .suggestionTitle {
       font-size: 25px;
       font-weight: bold;
@@ -2631,39 +2631,70 @@ line-height: 10px;
       min-height: 50px;
     }
   }
-  > ul > li{
-    margin: 20px 0 0 20px;
-float:left;
-width:93%;
-min-height: 200px;
-position: relative;
-  }
-  img {
-    float:left;
-  }
   .suggestion_promo_img {
     float:left;
     height: auto;
   }
-  .clones {
-    float:left;
-    li {
-      height:auto;
-    table {
-      border-bottom:none;
-      float:left;
-      padding-left:20px;
-      }
-    }
+}
+
+.guests_groups {
+  clear:both;
+}
+
+.activities {
+    min-height: 150px;
+    position: relative;
+    overflow: hidden;
+}
+
+.activity_guests {
+  min-height:120px;
+  overflow:auto;
+  > ul > li {
+    margin-left: 20px;
+  }
+}
+
+.group {
+    text-align: center;
+    float: left;
+    width: 96px;
+    height: 180px;
+}
+
+.groups {
+  clear:both;
+  }
+
+
+.activity_time {
+  margin-top:20px;
+  font-weight: bold;
+}
+
+.future_events {
+  clear:both;
+  h3 {
+    position: relative;
+    left:30px;
+  }
+}
+.past_events {
+  clear: both;
+border-top: 1px solid $divider;
+margin-top: 50px;
+  h3 {
+    position: relative;
+    left: 30px;
   }
 }
 
 .suggestion_options {
 display: inline;
 position: absolute;
-right: 12px;
-bottom: 20px;
-font-size: 40px;
+bottom: 10px;
+right: 11px;
+font-size:30px;
   li {
     display:inline;
   }
@@ -2672,7 +2703,8 @@ font-size: 40px;
 .idea_type {
 text-align: center;
 font-size: 17px;
-width: 125px;
+width: 121px;
+margin-top: 20px;
 margin-left: 49px;
 background-color: #F8F8F8;
 }
@@ -2681,6 +2713,7 @@ background-color: #F8F8F8;
   position: relative;
   bottom: 8px;
   z-index: -1;
+  margin-bottom: -10px;
 }
 
 .spinOffImg {

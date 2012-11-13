@@ -181,7 +181,7 @@ class Event < ActiveRecord::Base
         if current_user.family_filter?
           @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, family_friendly: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e)}
         else 
-          @public_events_on_date = Event.where(starts_at: @time_range, is_public: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e)}
+          @public_events_on_date = Event.where(starts_at: @time_range, is_public: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e) || current_user.made_a_group?(e) }
         end
       end
       @public_events_on_date = @public_events_on_date.sort_by{|t| t[:starts_at]}
@@ -360,6 +360,19 @@ class Event < ActiveRecord::Base
     self.save
   end
 
+  def total_guests
+    if self.groups.any?
+      @event_group_guests_count = 0
+      self.groups.each do |g|
+        @guests_count = g.guests.count 
+          @event_group_guests_count += @guests_count
+      end
+      @total = self.guests.count + @event_group_guests_count
+    else
+      @total = self.guests.count 
+    end
+    return @total 
+  end
 
 # END OF CLASS
 end

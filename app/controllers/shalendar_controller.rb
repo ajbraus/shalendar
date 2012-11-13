@@ -146,6 +146,16 @@ class ShalendarController < ApplicationController
     end
   end
 
+  def activity 
+    if current_user.vendor?     
+      @events = current_user.events.where("starts_at > :now", now: Time.now).order('starts_at asc')
+      @past_events = current_user.events.where("starts_at < :now", now: Time.now).order('starts_at asc')
+    else
+      @events = current_user.plans.where("starts_at > :now", now: Time.now).order('starts_at asc')
+      @past_events = current_user.plans.where("starts_at < :now", now: Time.now).order('starts_at asc')
+    end
+  end
+
   def admin_dashboard
     unless current_user.admin?
       redirect_to root_path
