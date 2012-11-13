@@ -20,11 +20,9 @@ General
 	How it works section??
 
 --------------- DB / Server -------------
-Silo by city
-	Design architecture with mom's guidance
+Silo by city **check make cities file in silo_by_city branch
 	Put city logic into the events serving methods
 	Select city dropdown
-	Separate databases by city???
 
 DB pruning
 	don't make cancel events destroy it, just move it to different table, or just add bool to see if it's still good / over (can do just bool and use it the same for old events)
@@ -35,6 +33,25 @@ DB pruning
 Make it understandable + OVERLY SIMPLE
 	?'s next to anything that's ambiguous
 	JoyRide implementation?
+
+How it works:
+
+	hoos.in is here to help you live a creative, adventurous and generally awesome social life. 
+
+	Check your calendar to see what your friends are up to and to find creative ideas from your community for what you can do together. 
+
+	Click on an idea to see the details and who's going. Join one or add your own idea to the mix- either way, invite your friends along and see who's in .
+
+	Up top in the header you can find new friends through the search bar or Facebook- and you can also see upcoming plans and the newest ideas your friends have shared.
+
+	We're a start-up based in Madison, WI and our mission is to make it easy for everyone to do great things with friends. We'd love to in feedback or opportunities of any kind. Email us at info@hoos.in.
+
+	Do something great today!
+
+
+
+Public Ideas '?'
+	We fill your hoos.in calendar with great things happening in your city so that anytime you want to do something fun, you know what's going on.
 
 Instructions for venues (and a how-to for casual users)
 

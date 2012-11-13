@@ -5,12 +5,13 @@ class Api::V1::TokensController  < ApplicationController
   def create
     if params[:access_token]
       # Handle login from mobile FB
-      if params[:email].nil?
-         render :status=>400,
-                :json=>{:error=>"The request must contain the user email and FB access token."}
-         return
-      end
-      email = params[:email]
+      #take out for android
+      # if params[:email].nil?
+      #    render :status=>400,
+      #           :json=>{:error=>"The request must contain the user email and FB access token."}
+      #    return
+      # end
+      # email = params[:email]
       if params[:fbid].nil?
          render :status=>400,
                 :json=>{:error=>"The request must contain the user FBID"}
@@ -20,10 +21,11 @@ class Api::V1::TokensController  < ApplicationController
       # email_handle = params[:email].slice('@')
       fb_json = HTTParty.get("https://graph.facebook.com/#{fbid}?access_token=#{params[:access_token]}")
       
-      if email != fb_json["email"]
-        render :json=>{:error => "Email doesn't match the facebook email"}
-        return
-      end
+      #take out for android login
+      # if email != fb_json["email"]
+      #   render :json=>{:error => "Email doesn't match the facebook email"}
+      #   return
+      # end
       @user = find_for_oauth("Facebook", fb_json, params[:access_token])   
 
       # uid = auth.uid
@@ -58,7 +60,7 @@ class Api::V1::TokensController  < ApplicationController
       @user=User.find_by_email(email.downcase)
 
       if @user.nil?
-        render :status=>400, :json=>{error: "Invalid email/password combination"}
+        render :status=>402, :json=>{error: "Invalid email/password combination. If you have not yet registered for hoos.in, you have to do so either through facebook or on the website to use the app. Sorry for the inconvenience!"}
         return
       end
       # http://rdoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable
@@ -201,6 +203,7 @@ class Api::V1::TokensController  < ApplicationController
   def gcm_user
     @user = User.find_by_id(params[:user_id])
 
+    logger.info("Registration id: #{params[:registration_id]}")
     registration_id = params[:registration_id]
     if @user.android_user == true && @user.GCMtoken == registration_id
       render :json => { :success => true }
