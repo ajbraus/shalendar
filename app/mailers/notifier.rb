@@ -92,7 +92,7 @@ class Notifier < ActionMailer::Base
     #     n.device = d
     #     n.collapse_key = "Confirm Friend - #{@follower.name}"
     #     n.delay_while_idle = true
-    #     n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "Confirm Friend - #{@follower.name}"}}
+    #     n.data = {:registration_ids => [@user.GCMtoken], :data => {:message_text => "Confirm Friend - #{@follower.name}"}}
     #     n.save
     #   end
     # end
@@ -128,7 +128,7 @@ class Notifier < ActionMailer::Base
         n.device = d
         n.collapse_key = "New Friend - #{@follower.name}"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "New Friend - #{@follower.name}"}}
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "New Friend - #{@follower.name}"}}
         n.save
       end
     end
@@ -164,7 +164,7 @@ class Notifier < ActionMailer::Base
         n.device = d
         n.collapse_key = "#{@event.title} Tipped!"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "#{@event.title} Tipped!"}}
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.title} Tipped!"}}
         n.save
       end
     end
@@ -199,7 +199,7 @@ class Notifier < ActionMailer::Base
         n.device = d
         n.collapse_key = "Untipped idea - #{@event.title}"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "Untipped idea - #{@event.title}"}}
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "Untipped idea - #{@event.title}"}}
         n.save
       end
     end
@@ -234,7 +234,7 @@ class Notifier < ActionMailer::Base
           n.device = d
           n.collapse_key = "Cancellation - #{@event.event_day}, #{@event.title}"
           n.delay_while_idle = true
-          n.data = {:registration_ids => [user.GCMregistration_id], :data => {:message_text => "Cancellation - #{@event.event_day}, #{@event.title}"}}
+          n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "Cancellation - #{@event.event_day}, #{@event.title}"}}
           n.save
         end
       end
@@ -278,7 +278,7 @@ class Notifier < ActionMailer::Base
         n.device = d
         n.collapse_key = "New Comment - #{@event.short_event_title}"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "New Comment - #{@event.short_event_title}"}}
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "New Comment - #{@event.short_event_title}"}}
         n.save
       end
     end
@@ -315,7 +315,7 @@ class Notifier < ActionMailer::Base
         n.device = d
         n.collapse_key = "#{@event.short_event_title} starts soon"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "#{@event.short_event_title} starts soon"}}
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.short_event_title} starts soon"}}
         n.save
       end
     end
@@ -351,7 +351,7 @@ class Notifier < ActionMailer::Base
         n.device = d
         n.collapse_key = "#{@event.user.name} Shared an idea"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "#{@event.user.name} Shared an idea"}}
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.user.name} Shared an idea"}}
         n.save
       end
     end
@@ -400,7 +400,7 @@ class Notifier < ActionMailer::Base
         n.device = d
         n.collapse_key = "#{@event.title} changed time!"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMregistration_id], :data => {:message_text => "#{event.title} changed time!"}}
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{event.title} changed time!"}}
         n.save
       end
     end

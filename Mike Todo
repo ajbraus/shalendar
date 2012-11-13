@@ -1,0 +1,70 @@
+
+------------- Mobile Apps --------------
+
+Android App
+	GCM messages
+	Get to beta testers
+	Keep working with Jeff to get contacts integration, etc.
+
+iPhone App
+	Push messages in production (certificate?)
+	GET DUNS FUCKING NUMBER worked out with Apple
+	Collect UDIDs for mobile users for beta
+	contact integration
+	picture for events
+
+Users
+	Send out email to users about signing up for the beta app (once android is ready)
+
+General
+	How it works section??
+
+--------------- DB / Server -------------
+Silo by city
+	Design architecture with mom's guidance
+	Put city logic into the events serving methods
+	Select city dropdown
+	Separate databases by city???
+
+DB pruning
+	don't make cancel events destroy it, just move it to different table, or just add bool to see if it's still good / over (can do just bool and use it the same for old events)
+	Work with scheduler to keep tables manageable for events, invitations, rsvps
+
+------------- Desktop ------------------
+
+Make it understandable + OVERLY SIMPLE
+	?'s next to anything that's ambiguous
+	JoyRide implementation?
+
+Instructions for venues (and a how-to for casual users)
+
+-------------- Board / Investors -------------
+5-page plan
+	What are we doing (specifics)
+	How are we going to do it
+	Why?
+
+Presentation
+	meet with Niko to get an idea how to structure presentation
+	Early hook / intro
+	Selling points
+	Current Numbers
+	Plan
+
+Get in touch with:
+	Monty
+	Pavan
+	Jason
+	Justin Beck
+	Jesse
+
+--------------- Blog / Social Media ---------------
+Styling
+	Learn Jekyll / markdown
+	Add at least a few images
+	'about' and other subpages
+
+Write at least 1 post per week
+	Have Alex compile ~3 posts
+	Have Alex start up our Twitter
+
