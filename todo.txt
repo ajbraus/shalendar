@@ -1,8 +1,15 @@
-Timeline 10/31
+Adam todo from 11/12 meeting:
 
-Nov 1 - Iphone submitted
+week of 11/12
+	venue dashboard (activity)
+	branded event page
+	payment gateway (not worrying about tipping)
 
-Nov 7 - Android and iPhone in store
+week of 11/19
+	Link + image that venues can embed for hoos.in
+	ticketing solution (just give names for now..)
+
+------- Timeline for Ludlow Thieves --------
 
 Nov 14 - Payment Gateway - pay when you rsvp peer-to-peer w invoice at end of month - 
 				 QR code generation
@@ -25,11 +32,6 @@ Mike
 ------------
 iPhone 
 
-	needs before release:
-		all images done
-		open push notifications to right place
-		times on reminders- how to format correctly for json?
-			want just the string literal
 
 Design coherence
 
@@ -52,7 +54,6 @@ new follower email link not working
 	iPhone TODO:
 		Settings / Confirm viewers (3)
 		Native/local Register User (4?)
-		Style (3-4)
 		Check load delays with broadband
 
 		Make it look like Pinterest

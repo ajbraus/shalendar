@@ -202,7 +202,7 @@ class Api::V1::TokensController  < ApplicationController
     @user = User.find_by_id(params[:user_id])
 
     registration_id = params[:registration_id]
-    if @user.android_user == true && @user.GCMregistration_id == registration_id
+    if @user.android_user == true && @user.GCMtoken == registration_id
       render :json => { :success => true }
         notification = Gcm::Notification.new
         notification.device = Gcm::Device.find(@user.GCMdevice_id)
@@ -225,7 +225,7 @@ class Api::V1::TokensController  < ApplicationController
     notification.data = {:registration_id => registration_id, :data => {:message_text => "Happy afternoon!"}}
     notification.save
 
-    @user.GCMregistration_id = registration_id
+    @user.GCMtoken = registration_id
     @user.GCMdevice_id = device.id
     @user.android_user = true
     if @user.save!
