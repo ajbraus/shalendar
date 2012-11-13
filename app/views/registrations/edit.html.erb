@@ -63,8 +63,13 @@
     <div><%= f.label :name %><br />
     <%= f.text_field :name, autocomplete: "off" %></div>
 
-    <div><%= f.label :picture %><br />
+    <div><%= f.label :profile_picture %><br />
     <%= f.file_field :avatar %></div>
+
+    <% if current_user.vendor? %>
+      <div><%= f.label :background_image %><br />
+      <%= f.file_field :background %></div>
+    <% end %>
 
     <div><%= f.label :city %><br />
     <%= f.select :city, @cities %></div>

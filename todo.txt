@@ -67,27 +67,9 @@ new follower email link not working
 
 Adam
 
-fix the callback to two url's ago
-
 -----------------------------------------------------------
 
 Vendor can upload background-image
-
-activity page
-	past events
-
-	if friend - 
-		future events
-
-	friend view 
-
-	public
-
-activity page is serving f-ed data
-
-slide left and right for overflow in mobile app
-
-shrink max height of images to save vertical space
 
 ------------------------------------------------------------
 
@@ -124,6 +106,23 @@ Payment funnel
 	- custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid	
 
 	SDK - follow us on hoos.in "Our events on hoos.in" button and icon
+
+-----------------------------------------------------------------------
+
+activity page
+	past events
+
+	if friend - 
+		future events
+
+	friend view 
+
+	public
+
+slide left and right for overflow in mobile app
+
+shrink max height of images to save vertical space
+
 
 ----------------------------------------------------------------
 
