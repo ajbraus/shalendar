@@ -28,7 +28,8 @@ class User < ActiveRecord::Base
                   :vendor,
                   :family_filter,
                   :email_comments,
-                  :follow_up
+                  :follow_up,
+                  :background
 
   has_attached_file :avatar, :styles => { :original => "150x150#",
                                           :raster => "50x50#" },
@@ -38,6 +39,15 @@ class User < ActiveRecord::Base
                              :path => "user/:attachment/:style/:id.:extension",
                              :default_url => "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png"
 
+  has_attached_file :background, :styles => { :original => { :geometry => '1024x640#', :format => 'PJPEG' } },
+                             :convert_options => { :original => '-interlace Plane', :original => '-quality 100' },
+                             :storage => :s3,
+                             :s3_credentials => S3_CREDENTIALS,
+                             :path => "user/:attachment/:style/:id.:extension",
+                             :default_url => "https://s3.amazonaws.com/hoosin-production/user/backgrounds/original/default_profile_pic.png"
+
+  validates :background, #:attachment_presence => true,
+                        :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] }
                             
   validates :avatar, # :attachment_presence => true,
                      :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] },

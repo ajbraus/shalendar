@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121109231920) do
+ActiveRecord::Schema.define(:version => 20121113181933) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -327,6 +327,10 @@ ActiveRecord::Schema.define(:version => 20121109231920) do
     t.boolean  "family_filter"
     t.boolean  "female"
     t.datetime "birthday"
+    t.string   "background_file_name"
+    t.string   "background_content_type"
+    t.integer  "background_file_size"
+    t.datetime "background_updated_at"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

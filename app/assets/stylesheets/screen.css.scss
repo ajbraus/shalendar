@@ -405,7 +405,7 @@ width: 25px;
 
 header {
 height: 72px;
-background-color: rgba(255, 255, 255, 0.6);
+background-color: rgba(255, 255, 255, 0.8);
 border-bottom: 1px solid #D1CDCD;
 clear: both;
 margin: 0 auto;
@@ -588,7 +588,7 @@ border-radius: 7px;
 clear: both;
 min-height: 540px;
 margin: 0 auto;
-background-color: rgba(255, 255, 255, .6);
+background-color: rgba(255, 255, 255, .8);
 z-index: -10;
 padding: 7px 0px;
 }
@@ -700,7 +700,7 @@ input[type=text] {
   border-radius: 0;
 padding: 6px;
 font-size: 12px;
-border: 1px solid lightGrey;
+border: 1px solid $divider;
 }
 }
 
@@ -1218,7 +1218,7 @@ footer {
 clear: both;
 margin: 0px auto;
 width: 960px;
-border-top: 1px solid lightGrey;
+border-top: 1px solid $divider;
 
   a {
     float:left;
@@ -1336,7 +1336,7 @@ overflow: scroll;
 font-size: 12px;
 height: auto;
 overflow: hidden;
-border-bottom: 1px solid lightgrey;
+border-bottom: 1px solid $divider;
 padding-bottom: 40px;
 margin-bottom: 20px;
   h2 {
@@ -1367,7 +1367,7 @@ margin-bottom: 20px;
 }
 
 .fadeInRed {
-  color:lightGrey;
+  color:$before_hover;
   &:hover{
   color:$destroy;
   -webkit-transition: color .25s linear .1s;
@@ -1376,7 +1376,7 @@ margin-bottom: 20px;
 }
 
 .fadeInGreen {
-  color:lightgrey;
+  color:$before_hover;
   &:hover{
   color:$happening;
   -webkit-transition: color .25s linear .1s;
@@ -1385,7 +1385,7 @@ margin-bottom: 20px;
 }
 
 .fadeInBlue {
-color:lightgrey;
+color:$before_hover;
   &:hover{
   color:$rsvp;
   -webkit-transition: color .25s linear .1s;
@@ -1394,7 +1394,7 @@ color:lightgrey;
 }
 
 .fadeInFBBlue {
-    color:lightGrey;
+    color:$before_hover;
   &:hover{
   color:#3A5998;
   -webkit-transition: color .25s linear .1s;
@@ -1403,7 +1403,7 @@ color:lightgrey;
 }
 
 .fadeInTwitter {
-    color:lightGrey;
+    color:$before_hover;
   &:hover{
   color:#01CBFB;
   -webkit-transition: color .25s linear .1s;
@@ -1420,7 +1420,7 @@ color:lightgrey;
 }
 
 .fadeInOrange {
-  color:lightGrey;
+  color:$before_hover;
   &:hover{
     text-decoration:none;
   color:$dark_orange;
@@ -2123,7 +2123,7 @@ top: 9px;
 .comment {
 height: auto;
 margin-bottom: 4px;
-border-bottom: 1px solid lightGrey;
+border-bottom: 1px solid $divider;
 float: left;
 width: 100%;
 }
@@ -2627,7 +2627,7 @@ line-height: 10px;
       font-weight: bold;
       margin-top: 13px;
       margin-bottom: 10px;
-      border-bottom: 1px solid lightGrey;
+      border-bottom: 1px solid $divider;
       min-height: 50px;
     }
   }
@@ -2709,7 +2709,7 @@ margin-left: 49px;
 background-color: #F8F8F8;
 }
 .idea_type_line {
-  border-bottom: 1px solid lightgrey;
+  border-bottom: 1px solid $divider;
   position: relative;
   bottom: 8px;
   z-index: -1;
@@ -2796,4 +2796,8 @@ bottom: 18px;
 
 .ui-datepicker {
   width:16em;
+}
+
+.background-img {
+
 }

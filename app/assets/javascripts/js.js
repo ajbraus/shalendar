@@ -150,12 +150,12 @@ $(document).bind('click', function(e) {
     }
   });
 
-  $('input[type=file]').fileValidator({
-  onValidation: function(files){  $(this).attr('class',''); },
-  onInvalid:    function(validationType, file){ $(this).addClass("error"); },
-  maxSize:      '500kb', //optional
-  type:         'image' //optional
-});  
+//   $('input[type=file]').fileValidator({
+//   onValidation: function(files){  $(this).attr('class',''); },
+//   onInvalid:    function(validationType, file){ $(this).addClass("error"); },
+//   maxSize:      '500kb', //optional
+//   type:         'image' //optional
+// });  
 
 // TABS
 

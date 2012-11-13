@@ -15,6 +15,7 @@ FactoryGirl.define do
 		avatar nil
 		vendor 'f'
 		terms 't'
+        background nil
 	end
 
   factory :vendor do
@@ -33,6 +34,7 @@ FactoryGirl.define do
     avatar nil
     vendor 't'
     terms 't'
+    background nil
   end
 
   factory :event do
