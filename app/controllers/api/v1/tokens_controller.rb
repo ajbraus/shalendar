@@ -201,6 +201,7 @@ class Api::V1::TokensController  < ApplicationController
   def gcm_user
     @user = User.find_by_id(params[:user_id])
 
+    logger.info("Registration id: #{params[:registration_id]}")
     registration_id = params[:registration_id]
     if @user.android_user == true && @user.GCMtoken == registration_id
       render :json => { :success => true }
