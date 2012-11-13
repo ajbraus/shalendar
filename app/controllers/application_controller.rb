@@ -1,44 +1,25 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_time_zone
-#   after_filter :store_location
+  after_filter :store_location
 
-# protected 
+  def store_location
+    session[:previous_urls] ||= []
+    # store unique urls only
+    session[:previous_urls].prepend request.fullpath if session[:previous_urls].first != request.fullpath && request.fullpath != "/user" && request.fullpath != "/user/login" && request.fullpath != "/" && request.fullpath != "/user/logout" && request.fullpath != "/user/join" && request.fullpath != "/user/auth/facebook/callback"
+    # For Rails < 3.2
+    # session[:previous_urls].unshift request.fullpath if session[:previous_urls].first != request.fullpath 
+    session[:previous_urls].pop if session[:previous_urls].count > 3
+  end
 
-#   def after_sign_in_path_for(resource) 
-#     session[:previous_urls].reverse.each do |url|
-#       unless url == nil
-#         redirect_to url
-#       else
-#         redirect_to root_path
-#       end
-#     end
-#   end
-
-
-    #redirect_to stored_location_for(:user) || root_path
-  #end 
-
-  # def store_location
-  #   session[:previous_urls] ||= []
-  #   # store unique urls only
-  #   session[:previous_urls].prepend request.fullpath if session[:previous_urls].first != request.fullpath && request.fullpath != "/user/login" && request.fullpath != "/user/logout" && request.fullpath != "/user/join"
-  #   # For Rails < 3.2
-  #   # session[:previous_urls].unshift request.fullpath if session[:previous_urls].first != request.fullpath 
-  #   session[:previous_urls].pop if session[:previous_urls].count > 3
-  # end
-
-# def after_sign_in_path_for(resource)
-#   session[:previous_urls].reverse.each do |url|
-#     if url != root_path && url != nil
-#       redirect_to url
-#       break
-#     else
-#       redirect_to root_path
-#     end
-#   end
-# end
-
+  def after_sign_in_path_for(resource) 
+    @url = session[:previous_urls].reverse.first
+    if @url != nil
+      "http://www.hoos.in" + @url
+    else
+      root_path
+    end
+  end
 
   private
 
