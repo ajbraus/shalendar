@@ -8,8 +8,10 @@ We have Android and iPhone apps available to distribute to our beta users! These
 
 Android
 
-Step 1. Download this.
+Step 1. <a href="www.google.com">Download this.</a>
+
 Step 2. Enable applications downloaded from websites in developer options
+
 Step 3. Enjoy!
 
 iPhone / iPod touch

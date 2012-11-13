@@ -43,7 +43,6 @@ include UsersHelper
           @reverse_relationship.confirmed = true
           @reverse_relationship.save
           @user_to_follow.add_invitations_from_user(@mobile_user)
-          #also need to add all relevant invitations for both people at this point
         end
         render :status=>200, :json=>{:success=>true, :fu=>@user_to_follow}
         return
