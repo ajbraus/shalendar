@@ -59,13 +59,11 @@
         </dd>
       </dl>
     </li>
-  <% if current_user.vendor? %>    
     <li>
       <%= link_to activity_path do %>
         <span class="fadeInOrange"><i class="icon-dashboard"></i> <span id="headerText"> activity</span>
       <% end %>
     </li>
-  <% else %>
     <li>
       <%= link_to new_invited_events_path, :remote => true do %>
         <span class="fadeInBlue"><i class="icon-cloud"></i><span id="headerText">new ideas</span></span>
@@ -75,7 +73,6 @@
       <% end %>
     </li>
       <span id="invitations"></span>
-  <% end %>
     <% if current_user.admin? %>
     <li>
       <%= link_to admin_dashboard_path do %>

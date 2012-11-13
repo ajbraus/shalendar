@@ -148,10 +148,11 @@ class ShalendarController < ApplicationController
 
   def activity 
     if current_user.vendor?     
-      @events = current_user.events.where("ends_at > :now", now: Time.now)
+      @events = current_user.events.where("starts_at > :now", now: Time.now)
       @past_events = current_user.events.where("starts_at < :now", now: Time.now)
     else
-      @events = current_user.events.where("ends_at > :now", now: Time.now) | current_user.rspvs.where("ends_at >= :now", now: Time.now)
+      @events = current_user.events.where("starts_at > :now", now: Time.now) | current_user.plans.where("starts_at > :now", now: Time.now)
+      @past_events = current_user.events.where("starts_at < :now", now: Time.now) | current_user.plans.where("starts_at < :now", now: Time.now)
     end
   end
 

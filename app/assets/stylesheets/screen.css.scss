@@ -2637,14 +2637,18 @@ line-height: 10px;
   }
 }
 
+.guests_groups {
+  clear:both;
+}
+
 .activities {
-    min-height: 130px;
+    min-height: 150px;
     position: relative;
     overflow: hidden;
 }
 
 .activity_guests {
-  max-height:200px;
+  min-height:120px;
   overflow:auto;
   > ul > li {
     margin-left: 20px;
