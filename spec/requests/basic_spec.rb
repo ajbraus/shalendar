@@ -44,6 +44,15 @@ describe "Pages after sign up / sign in" do
     end
   end
 
+  describe "Activity page" do 
+    before do 
+      visit activity_path
+    end
+    it "should have the content 'upcoming ideas'" do
+      page.should have_content("Upcoming Ideas")
+    end
+  end
+
   describe "Basic Event#Show" do
     before do
       @event = Factory(:event, :user_id => user.id, 

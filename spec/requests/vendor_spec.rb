@@ -25,6 +25,16 @@ describe "Pages after sign up / sign in" do
     end
   end
 
+  describe "Activity page" do
+    before do
+      visit activity_path 
+    end
+
+    it "should have the content 'Upcoming Ideas'" do
+      page.should have_content('Upcoming Ideas')
+    end
+  end
+
   describe "trying to join an idea" do
     before do 
       visit event_path(event)
@@ -32,6 +42,7 @@ describe "Pages after sign up / sign in" do
 
     it "should not have element with content 'Join'" do
       page.should_not have_content("Join")
+      page.should have_content("#{(Time.now + 1.day).strftime('%A')}")
     end
   end
 

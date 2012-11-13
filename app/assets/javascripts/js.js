@@ -176,7 +176,7 @@ $(document).bind('click', function(e) {
       addSliderAccess: true,
       sliderAccessArgs: { touchonly: true },
       hour:12,
-      minute:00
+      minute:00,
   });
 
 //Get local time zone- TRYING TO DO IT JavaScript
