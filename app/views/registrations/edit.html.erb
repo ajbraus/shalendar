@@ -18,6 +18,35 @@
   </div>
 
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+
+        <h2>Personal Settings</h2>
+    <div><%= f.label :email %><br />
+    <%= f.email_field :email, autocomplete: "off" %></div>
+
+    <div><%= f.label :name %><br />
+    <%= f.text_field :name, autocomplete: "off" %></div>
+
+    <div><%= f.label :profile_picture %><br />
+    <%= f.file_field :avatar %></div>
+
+    <% if current_user.vendor? %>
+      <div><%= f.label :background_image %><br />
+      <%= f.file_field :background %></div>
+    <% end %>
+
+    <div><%= f.label :city %><br />
+    <%= f.select :city, @cities %></div>
+
+    <div><%= f.label :time_zone %><br />
+    <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)" %></div>
+
+    <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.password_field :password, :autocomplete => "off" %></div>
+
+    <div><%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %></div>
+
+    
     <h2>General Settings</h2>
     <%= devise_error_messages! %>
     <p>
@@ -54,34 +83,6 @@
       <%= f.check_box :allow_contact %>
       <label for="allow_contact"><strong>Stay in touch</strong> - Recieve news and (infrequent) announcements from hoos.in </label>
     </p>
-    
-    
-      <h2>Personal Settings</h2>
-    <div><%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "off" %></div>
-
-    <div><%= f.label :name %><br />
-    <%= f.text_field :name, autocomplete: "off" %></div>
-
-    <div><%= f.label :profile_picture %><br />
-    <%= f.file_field :avatar %></div>
-
-    <% if current_user.vendor? %>
-      <div><%= f.label :background_image %><br />
-      <%= f.file_field :background %></div>
-    <% end %>
-
-    <div><%= f.label :city %><br />
-    <%= f.select :city, @cities %></div>
-
-    <div><%= f.label :time_zone %><br />
-    <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)" %></div>
-
-    <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, :autocomplete => "off" %></div>
-
-    <div><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation %></div>
 
     <div><%= f.submit "Update", :class => "btn btn-warning btn-large" %></div>
     <% end %>

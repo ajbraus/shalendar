@@ -68,6 +68,8 @@ new follower email link not working
 
 Adam
 
+
+add add-to with font awesome ical and google calendar to activity.
 ------------------------------------------------------------
 
 ssl
