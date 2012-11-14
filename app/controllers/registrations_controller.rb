@@ -90,6 +90,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def new_vendor
     sign_out(current_user)
+
     @all_cities = City.all
     @cities = []
     @all_cities.each do |c|

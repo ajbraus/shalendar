@@ -1,0 +1,62 @@
+balanced.init(marketplaceUri);
+
+<% if Rails.env = production %>
+    var marketplaceUri = '/v1/marketplaces/MPpuawQPO8n4d58Ck8P7YqX';
+<% else %>
+    var marketplaceUri = '/v1/marketplaces/TEST-MP10TSB6XeLZAdyQIwZ0WdQj';
+<% end %>
+
+// CREATE BANK ACCOUNT 
+
+var form = $('#bank_account');
+
+var bankAccountData = {
+    name: $form.find('[name="name"]').val(),
+    account_number: $form.find('[name="account_number"]').val(),
+    bank_code: $form.find('[name="bank_code"]').val()
+};
+
+balanced.bankAccount.create(bankAccountData, callback);
+
+//END 
+
+// ##################################################################
+
+// CREATE CARD 
+
+var form = $('#payment');
+
+var cardData = {
+    card_number: form.find('[name="card_number"]').val(),
+    expiration_month: form.find('[name="expiration_month"]').val(),
+    expiration_year: form.find('[name="expiration_year"]').val(),
+    security_code: form.find('[name="security_code"]').val()
+};
+
+balanced.card.create(cardData, callback);
+
+//END
+
+// ##################################################################
+
+// CALLBACK RESPONSE
+
+
+//MARKETPLACE CALLBACK RESPONSE
+function callback(response) {
+    switch (response.status) {
+        case 400:
+            // missing field - check response.error for details
+            break;
+        case 409:
+            // some of the data didnt make sense, check the bank code is valid
+            break
+        case 404:
+            // your marketplace URI is incorrect
+            break;
+        case 201:
+            // WOO HOO!
+            // response.data.uri == uri of the card or bank account resource
+            $.post('/url/to/create_account', response.data);
+    }
+}

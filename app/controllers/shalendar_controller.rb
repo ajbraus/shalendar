@@ -214,8 +214,8 @@ class ShalendarController < ApplicationController
       f.xAxis(:type => 'datetime')
     end
     #SUGGESTIONS
-
   end
+
 
   private
 

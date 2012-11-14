@@ -1,0 +1,31 @@
+  <div>Credit Card info</div>
+
+    add_column :users, :type, :string
+    add_column :users, :street_address, :string
+    add_column :users, :postal_code, :string
+    add_column :users, :country, :string #ISO-3166-3 three character country code.
+    add_column :users, :phone_number, :string #E.164 formatted phone number. Length must be <= 15. "+16505551234"
+    add_column :users, :balanced_uri, :string
+    
+  <form id="bank_account">
+    <div class="field">
+        <label for="name">Name on account</label>
+        <input type="text" name="name">
+    </div>
+    <div class="field">
+        <label for="account_number">Bank Account Number</label>
+        <input type="text" name="account_number">
+    </div>
+    <div class="field">
+        <label for="bank_code">Bank Code (Routing number in the USA)</label>
+        <input type="text" name="bank_code">
+    </div>
+    <div class="field">
+        <label for="type">Checking</label>
+        <input type="radio" name="type">
+        <label for="type">Savings</label>
+        <input type="radio" name="type">
+    </div>
+    <button>submit</button>
+  </form>
+

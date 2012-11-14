@@ -68,13 +68,68 @@ new follower email link not working
 
 Adam
 
+write vendor terms and conditions
+fix privacy
+fix user terms and conditions
 
 add add-to with font awesome ical and google calendar to activity.
+
+add friend to host in event#show
+
 ------------------------------------------------------------
 
 ssl
 
 payment gateway
+
+how can I display the last 4 of a card to a user?
+
+	create merchant
+		venue wants to sign up
+		enters bank account info - tokenized 
+		create merchant through Balanced API
+
+			I need to :
+				ask for their hoos.in data
+				ask for their identity info and bank account and pass that all to a controller that creates their account in balanced
+
+	first payment
+		user tries to rsvp
+		take card - tokenize it through balanced.js
+		ask if we can save it for later
+		create a buyer in Balanced through API
+		Retrieve buyer through API
+		create debits on that buyer for the event's merchant
+
+	second payment
+		user tries to rsvp again
+		if saved for later
+			retrieve account by email
+			debit account to merchant
+		else 
+			ask for card again
+			find account by card_uri
+			debit account to merchant
+		end
+
+	refund
+		merchant recieves complain
+		merchant wants to initiate a refund
+
+		hoosin recieve a complaint to support@hoos.in
+		hoosin contacts merchant with complaint
+		if merchant won't refund
+		charge the merchant back 
+		warn both parties that the funds are under investigation for 60 days
+		we do an investigation 
+		give the money to whomever we think is more ligit
+
+
+
+	10%
+
+	refund
+
 	verify our account
 	initialize gem
 

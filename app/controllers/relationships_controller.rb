@@ -71,21 +71,6 @@ before_filter :authenticate_user!
     end
   end
 
-  # def toggle
-  #  @relationship = Relationship.find(params[:relationship_id])
-  #  @relationship.toggle!
-  #  @relationship.save
-  #  respond_to do |format|
-  #   format.html { redirect_to :back }
-  #    @plan_counts = []
-  #    @invite_counts = []
-  #    @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
-  #    @date = Time.now.in_time_zone(current_user.time_zone)     
-  #    @graph = session[:graph]
-  #    format.js
-  #  end
-  # end
-
   def ignore
     @relationship = Relationship.find(params[:relationship_id])
     @relationship.destroy
