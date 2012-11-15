@@ -1,6 +1,10 @@
 <% provide(:title, " | #{@event.title}" ) %>
-<% if @event.is_public? && @event.user.background_file_size != nil %>
-  <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
+<% unless @event.user.background_file_size.nil? %>
+  <% if @event.has_parent? %>
+        <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.parent.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div> 
+  <% else %>
+        <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
+  <% end %>
 <% end %>
 <% if user_signed_in? %>
   <%= render 'events/event_buttons' %>
@@ -16,7 +20,7 @@
     <% unless @event.link == '' %>
     <div class="event_link">
       <%= link_to "http://#{@event.link}", target: "_blank" do %>
-        <span class="fadeInOrange" title="Idea's Website"><i class="icon-link"></i></span> link
+        <span class="fadeInOrange" title="Idea's Website"><i class="icon-link"></i> link</span>
       <% end %>
     </div>
     <% end %>
