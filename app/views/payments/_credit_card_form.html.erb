@@ -1,40 +1,18 @@
-<form id="payment">
-    <div class="row">
-        <label for="card_number">Card Number</label>
-        <input type="text" name="card_number">
+<h3>credit card</h3>
+<div class='cards'></div>
+<form id="payment" class="credit_card_form">
+    <div class="card_number">
+        <label for="card_number">card number*</label>
+        <input type="text" name="card_number" placeholder="card number">
     </div>
-    <div class="row">
-        <label for="expiration_month">Expiration</label>
-        <input type="text" name="expiration_month"> /
-        <input type="text" name="expiration_year">
-    </div>
-    <div class="row">
-        <label for="security_code">Security Code</label>
+    <div class="security_code">
+        <label for="security_code">3 digit security code*</label><br>
         <input type="text" name="security_code">
+    </div>
+    <div class="expiration_month_year">
+        <label for="expiration_month">expiration*</label><br>
+        <input type="text" name="expiration_month" placeholder="mm"> /
+        <input type="text" name="expiration_year" placeholder="yyyy">
     </div>
     <button>submit</button>
 </form>
-
-<script>
-
-
-function callback(response) {
-    switch (response.status) {
-        case 400:
-            // missing field - check response.error for details
-            break;
-        case 402:
-            // we couldn't authorize the buyer's credit card
-            // check response.error for details
-            break
-        case 404:
-            // your marketplace URI is incorrect
-            break;
-        case 201:
-            // WOO HOO!
-            // response.data.uri == uri of the card or bank account resource
-            $.post('/url/to/create_account', response.data);
-    }
-}
-
-</script>

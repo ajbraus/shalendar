@@ -12,6 +12,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource
+    
     @all_cities = City.all
     @cities = []
     @all_cities.each do |c|
@@ -19,8 +20,6 @@ class RegistrationsController < Devise::RegistrationsController
       @cities.push(@city_name)
     end
 
-    current_user.create_buyer(params[:uri])
-        
     if resource.save
       #turn all email_invites into invitations here **UPDATE
       EmailInvite.where("email_invites.email = :new_user_email", new_user_email: resource.email).each do |ei|
@@ -36,7 +35,7 @@ class RegistrationsController < Devise::RegistrationsController
       if resource.active_for_authentication?
         if params[:vendor]
           sign_in(resource_name, resource)
-          redirect_to new_merchant_path
+          redirect_to credit_card_path
           #respond_with resource, :location => after_vendor_sign_up_path_for(resource)
         end
         set_flash_message :notice, :signed_up if is_navigational_format?

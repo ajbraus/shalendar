@@ -1,12 +1,41 @@
 class PaymentsController < ApplicationController
-	def debit
-	end
+  def new_card
 
-	def credit
-	end
+  end
 
-	def refund
-	end
+  def create_card
+    @user = current_user
+    card_uri = params[:uri]
+    email_address = 'buyer@example.org'
+
+    # for a new account
+    begin
+      buyer = Balanced::Marketplace.my_marketplace.create_buyer(
+          email_address,
+          card_uri)
+    rescue Balanced::Conflict => ex
+      unless ex.category_code == 'duplicate-email-address'
+        raise
+      end
+      # notice extras? it includes some helpful additionals.
+      puts "This account already exists on Balanced! Here it is #{ex.extras[:account_uri]}"
+      buyer = Balanced::Account.find ex.extras[:account_uri]
+      buyer.add_card card_uri
+    rescue Balanced::BadRequest => ex
+      # what exactly went wrong?
+      puts ex
+      raise
+    end
+  end
+
+  def debit
+  end
+
+  def credit
+  end
+
+  def refund
+  end
 
   def recurring_billing
     #something like this!
@@ -15,6 +44,7 @@ class PaymentsController < ApplicationController
       balanced_account.debit(amount=account.monthly_charge)
     end
   end
+
 
   def new_merchant
     @user = current_user

@@ -63,7 +63,8 @@ Shalendar::Application.routes.draw do
     end
   end
 
-  match '/new_merchant', :to => 'payments#new_merchant', :as => 'new_merchant'
+  match '/collect_payments', :to => 'payments#new_merchant', :as => 'new_merchant'
+  match '/payment', :to => 'payments#new_card', :as => 'new_card'
 
   match '/make_a_group', :to => 'events#make_a_group', :as => 'make_a_group'
   match '/repeat', :to => 'events#repeat', :as => 'repeat_event'

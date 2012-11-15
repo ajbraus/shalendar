@@ -515,31 +515,6 @@ class User < ActiveRecord::Base
     end
   end
 
-
-  def create_buyer(uri)
-    card_uri = uri
-    email_address = self.email
-
-    # for a new account
-    begin
-      buyer = Balanced::Marketplace.my_marketplace.create_buyer(
-          email_address,
-          card_uri)
-    rescue Balanced::Conflict => ex
-      unless ex.category_code == 'duplicate-email-address'
-        raise
-      end
-      # notice extras? it includes some helpful additionals.
-      puts "This account already exists on Balanced! Here it is #{ex.extras[:account_uri]}"
-      buyer = Balanced::Account.find ex.extras[:account_uri]
-      buyer.add_card card_uri
-    rescue Balanced::BadRequest => ex
-      # what exactly went wrong?
-      puts ex
-      raise
-    end
-  end
-
   # CONTACT FOR INVITATION
   # def contact(event)
   #   if app user

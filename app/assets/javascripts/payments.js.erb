@@ -16,33 +16,6 @@ balanced.init(marketplaceUri);
         debug('code', 'You need to set the marketplaceUri variable');
     }
 
-// CREATE VENUE CARD 
-
-    var tokenizeCard = function(e) {
-        e.preventDefault();
-
-        var $form = $('form#venueSignUp');
-        var cardData = {
-            card_number: $form.find('[name="card_number"]').val(),
-            expiration_month: $form.find('[name="expiration_month"]').val(),
-            expiration_year: $form.find('[name="expiration_year"]').val(),
-            security_code: $form.find('[name="security_code"]').val()
-        };
-        var venueData = {
-            //grab the rest of the form data
-        };
-
-        balanced.card.create(cardData, creditCardCallback);
-    };
-
-    $('form#venueSignUp').submit(tokenizeCard);
-
-    if (window.location.protocol === 'file:') {
-        alert("balanced.js does not work when included in pages served over file:// URLs. Try serving this page over a webserver. Contact support@balancedpayments.com if you need assistance.");
-    }
-
-//END
-
 // CREATE BUYER CARD
 
     var tokenizeCard = function(e) {
@@ -98,10 +71,10 @@ function creditCardCallback(response) {
 
         var $form = $('form#bankAccount');
         var bankAccountData = {
-            name: form.find('[name="name"]').val(),
-            account_number: form.find('[name="account_number"]').val(),
-            bank_code: form.find('[name="bank_code"]').val(),
-            type: form.find('[name="type"]').val()
+            name: $form.find('[name="name"]').val(),
+            account_number: $form.find('[name="account_number"]').val(),
+            bank_code: $form.find('[name="bank_code"]').val(),
+            type: $form.find('[name="type"]').val()
         };
 
         balanced.bankAccount.create(bankAccountData, merchantCallback);
