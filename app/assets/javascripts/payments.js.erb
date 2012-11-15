@@ -1,6 +1,6 @@
 balanced.init(marketplaceUri);
 
-<% if Rails.env = production %>
+<% if Rails.env.production? %>
     var marketplaceUri = '/v1/marketplaces/MPpuawQPO8n4d58Ck8P7YqX';
 <% else %>
     var marketplaceUri = '/v1/marketplaces/TEST-MP10TSB6XeLZAdyQIwZ0WdQj';
