@@ -26,8 +26,8 @@ private
       @uid = env["omniauth.auth"].uid
       @user.authentications.find_by_uid(@uid).token = session[:access_token]
       @city = env["omniauth.auth"].info.location
-      unless City.find_by_name(@city) #we add their city, but don't auto-change
-        c = City.new(name: @city, timezone: timezone_for_utc_offset(access_token.extra.raw_info.timezone)
+      if City.find_by_name(@city).nil? #we add their city, but don't auto-change
+        c = City.new(name: @city, timezone: timezone_for_utc_offset(access_token.extra.raw_info.timezone))
         c.save
       end
 
