@@ -102,7 +102,7 @@ private
       location = access_token.info.location
       @city = City.find_by_name(location)
       if @city.nil?
-        c = City.new(name: location, timezone: timezone_for_utc_offset(access_token.extra.raw_info.timezone)
+        c = City.new(name: location, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone)
         c.save
         @city = c
       end
