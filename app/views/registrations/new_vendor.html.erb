@@ -1,42 +1,82 @@
-<% provide(:title, " | Vendor") %> 
-<div id="sign_up">
-  <h2> Vendor Sign Up </h2>
+<% provide(:title, " | Venue") %> 
+<div id="vendorSignUp" class="sign_up">
+  <h2> Venue Sign Up </h2>
   <%= form_for(resource, 
         :as => resource_name, 
         :url => registration_path(resource_name),
         :html => { multipart: true, id: "registration_form" }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, class: "required" %></div>
-  
-  <div><%= f.label :name %><br />
-  <%= f.text_field :name, class: "required" %></div>
+  <div><%= f.label :type, "type*" %><br />
+  <%= radio_button "user", "type", "person", class: "required" %> person 
+  <%= radio_button "user", "type", "business", class: "required" %> business </div>
 
-  <div><%= f.label :profile_picture %><br />
-  <%= f.file_field :avatar, class: "required" %></div>
+  <div><%= f.label :name, "name*" %><br />
+  <%= f.text_field :name, class: "required", placeholder: "name" %></div>
 
-  <div><%= f.label :background_image %><br />
-  <%= f.file_field :background %></div>
+  <div><%= f.label :email, "email*" %><br />
+  <%= f.email_field :email, class: "required", placeholder: 'email' %></div>
 
-  <div><%= f.label :city %><br />
+  <div><%= f.label :profile_picture, "profile picture (square)*" %><br />
+  <%= f.file_field :avatar, multiple: true, class: "required files" %>
+  <output id="list"></output></div>
+
+  <div><%= f.label :background_image, "background image (1024 x 600)" %> <br />
+  <%= f.file_field :background, class: "files" %></div>
+
+  <div><%= f.label :city, "city*" %><br />
   <%= f.select :city, @cities, class: "required" %></div>
 
   <div><%= f.label :time_zone %><br />
   <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)", class: "required" %></div>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password, class: "required" %></div>
+  <div class="divider_line"></div>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation, class: "required" %></div>
+  <h3>credit card</h3>
+  <div class='cards'></div>
+  <div class="credit_card_form">
+    <div class="card_number">
+        <label for="card_number">card number</label>
+        <input type="text" name="card_number" placeholder="card number">
+    </div>
+    <div class="security_code">
+        <label for="security_code">3 digit security code</label><br>
+        <input type="text" name="security_code">
+    </div>
+    <div class="expiration_month_year">
+        <label for="expiration_month">expiration</label><br>
+        <input type="text" name="expiration_month" placeholder="mm"> /
+        <input type="text" name="expiration_year" placeholder="yyyy">
+    </div>
+  </div>
+
+  <div class="divider_line"></div>
+
+  <div><%= f.label :password, 'password*' %><br />
+  <%= f.password_field :password, class: "required", placeholder: "password" %></div>
+
+  <div><%= f.label :password_confirmation, 'please re-enter password*' %><br />
+  <%= f.password_field :password_confirmation, class: "required", placeholder: 'confirm password' %></div>
 
   <div><%= f.check_box :terms, checked: true %><%= f.label :terms, "Vendor Terms & Conditions", class: "required" %></div><br/>
 
   <%= f.hidden_field :vendor, value: true %>
 
-  <div><%= f.submit "Sign up", :class => "btn btn-large btn-primary" %></div>
+  <div><%= f.submit "Signup", :class => "btn btn-large btn-primary" %></div>
 <% end %>
-
-<%= render :partial => "devise/shared/links_no_fb" %>
 </div>
+
+<script>
+  window.onbeforeunload = function(){
+    var inputs = document.getElementsByTagName('input');
+    var unfinished = 'false';
+    for (var i=0; i<inputs.length; ++i) {
+      if ( inputs[i].value != '' ) {
+        unfinished = 'true';
+      }
+    }
+    if ( unfinished == 'true' ) {
+      return 'Your progress cannot be saved. Are you sure you want to leave?';
+    }
+  }
+</script>

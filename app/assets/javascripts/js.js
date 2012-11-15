@@ -350,6 +350,17 @@ $('#new_suggestion_form').validate();
     }
   });
 
+
+// NEW REGISTRATION VALIDATION
+
+  $('#signUp').validate();
+
+  $('#vendorSignUp').validate({
+    rules: {
+
+    }
+  });
+
 // FOCUS ON FIRST TEXT FIELD OF PAGES
 
     $("#new_idea_blerb").focus();
@@ -411,6 +422,7 @@ $('#comment_content').keydown(function (e) {
     $(this).css("color", "#01CBFB");
   });
 
+  // PREVIEW IMAGES
 
 
 // END DOCUMENT.READY

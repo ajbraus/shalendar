@@ -29,7 +29,14 @@ class User < ActiveRecord::Base
                   :family_filter,
                   :email_comments,
                   :follow_up,
-                  :background
+                  :background,
+                  :type,
+                  :street_address,
+                  :postal_code,
+                  :country,
+                  :phone_number,
+                  :bank_account,
+                  :credit_card
 
   has_attached_file :avatar, :styles => { :original => "150x150#",
                                           :raster => "50x50#" },
@@ -505,6 +512,31 @@ class User < ActiveRecord::Base
       return true
     else
       return false
+    end
+  end
+
+
+  def create_buyer(uri)
+    card_uri = uri
+    email_address = self.email
+
+    # for a new account
+    begin
+      buyer = Balanced::Marketplace.my_marketplace.create_buyer(
+          email_address,
+          card_uri)
+    rescue Balanced::Conflict => ex
+      unless ex.category_code == 'duplicate-email-address'
+        raise
+      end
+      # notice extras? it includes some helpful additionals.
+      puts "This account already exists on Balanced! Here it is #{ex.extras[:account_uri]}"
+      buyer = Balanced::Account.find ex.extras[:account_uri]
+      buyer.add_card card_uri
+    rescue Balanced::BadRequest => ex
+      # what exactly went wrong?
+      puts ex
+      raise
     end
   end
 

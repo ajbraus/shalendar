@@ -1,0 +1,44 @@
+ <%= form_for @user, id="bankAccount" do |f| %>
+	<div class="divider_line"></div>
+
+	  <h3>venue account</h3>
+
+	  <div class="field">
+	    <label>type*</label><br>
+	      <label for="type">checking</label>
+	      <input type="radio" name="type">
+	      <label for="type">savings</label>
+	      <input type="radio" name="type">
+	  </div>
+
+	  <div class="field">
+	      <label for="name">Name on account</label>
+	      <input type="text" name="name" placeholder="name" class="required">
+	  </div>
+
+	  <div><%= f.label :street_address, "account street address*" %><br />
+	  <%= f.text_field :street_address, class: "required", placeholder: "street address" %></div>
+
+	  <div class="zip"><%= f.label :postal_code, "account zip*" %><br />
+	  <%= f.text_field :postal_code, class: "required zip", placeholder: 'zip' %></div>
+
+	  <div class="country"><%= f.label :country, "account country*" %><br />
+	  <%= f.select :country, ['USA'], class: "required country" %></div>
+
+	  <div class="phone_number"><%= f.label :phone_number, "account phone number*" %><br />
+	  <%= f.text_field :phone_number, class: "required phone_number", placeholder: "(000) 123-1234" %></div>
+
+	  <div class="field">
+	      <label for="account_number">bank account number*</label>
+	      <input type="text" name="account_number" placeholder="account number" class="required">
+	  </div>
+	  <div class="field">
+	      <label for="bank_code">bank code (routing number in the USA)*</label>
+	      <input type="text" name="bank_code" placeholder="routing number" class="required">
+	  </div>
+
+	  <div class="routing_number">
+	    <%= image_tag "routing-number.png" %>
+	  </div>
+	<%= f.submit, "Create Account" %>
+<% end %>

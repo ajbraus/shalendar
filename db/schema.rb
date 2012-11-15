@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121113181933) do
+ActiveRecord::Schema.define(:version => 20121114171918) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -331,6 +331,14 @@ ActiveRecord::Schema.define(:version => 20121113181933) do
     t.string   "background_content_type"
     t.integer  "background_file_size"
     t.datetime "background_updated_at"
+    t.string   "type"
+    t.string   "street_address"
+    t.string   "postal_code"
+    t.string   "country"
+    t.string   "phone_number"
+    t.string   "balanced_uri"
+    t.boolean  "bank_account"
+    t.boolean  "credit_card"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

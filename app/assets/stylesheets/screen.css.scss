@@ -723,7 +723,7 @@ z-index: -1;
 }
 
 #datepicker {
-width: 405px;
+width: 415px;
 font-size: 12px;
 height: 75px;
 position: absolute;
@@ -2218,14 +2218,14 @@ textarea {
   font-size: 15px;
 }
 
-#sign_up {
+.sign_up {
   margin: 0 auto;
   width: 380px;
 
     h2 {
     width:410px;
   }
-  input {
+  input[type=email], input[type=text], input[type=submit], input[type=password]{
     font-size: 23px;
     width:380px;
     margin-bottom: 10px;
@@ -2250,7 +2250,34 @@ textarea {
     height: 40px;
 width: 400px;
   }
+  input[type=radio] {
+    margin: 20px 10px;
+  }
+  input[type=text].zip {
+    width: 72px;
+    float:left;
+    margin-right:20px;
+  }
+  select {
+    font-size:21px;
+    height: 45px;
+    margin: 8px 0 10px 0px;
+  }
+  .zip {
+    float:left;
+  }
+  .country {
+    float:right;
+  }
+  .phone_number {
+    clear:both;
+  }
+  .routing_number {
+    position: relative;
+right: 50px;
+  }
 }
+
 
 .family_filter {
   text-align: center;
@@ -2613,7 +2640,7 @@ top: 25%;
 
 input[type=file] {
 font-size: 20px;
-margin: 10px 10px;
+margin: 14px 36px;
 height: 25px;
 line-height: 10px;
 }
@@ -2798,6 +2825,41 @@ bottom: 18px;
   width:16em;
 }
 
-.background-img {
-
+.divider_line {
+  border-bottom: 1px solid $divider;
+margin: 30px 0px;
+clear:both;
 }
+
+.cards {
+  background-image: url("credit_card_logos_homepage.png");
+  background-repeat: no-repeat;
+  width: 380px;
+  height: 30px;
+  background-position-x: center;
+}
+
+.credit_card_form {
+  clear:both;
+  .card_number {
+
+  }
+  .expiration_month_year {
+    float:left;
+    input {
+      width:45px;
+    }
+  }
+  .security_code {
+    float:right;
+    margin-left: 30px;
+    input {
+      width:45px;
+    }
+    img {
+      position: absolute;
+      right:0;
+    }
+  }
+}
+
