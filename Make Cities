@@ -1,0 +1,22 @@
+Silo by City Plan
+
+Shorter term:
+
+hoos.in Cities are a data structure with a name string and a timezone string
+
+When someone signs up, they select their city. If it's not there, they can request a new city be added. 
+
+hi cities are separate from FB cities, but eventually we'll make a hash that connects the two.
+
+All FB actions (search, invite) are separated by FB city
+
+Events belong to cities
+Users belong to cities through city_id, which changes easily based on the dropdown menu.
+
+Invitations (invite all, etc) are silo'd by hoos.in city, but there is a 'globe' image somewhere on screen to make the event/invitations global
+
+Manage friends is tabbed by city
+
+Longer term:
+separate DB's by city which split up events, RSVPs, comments and potentially invitations.
+One DB that has just users and relationships.

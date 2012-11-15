@@ -41,7 +41,6 @@ class Notifier < ActionMailer::Base
 
     mail bcc: @friend_emails, from: "info@hoos.in", subject: "hoos.in Launch!"
   end
-  #AUTOMATIC NOTIFIERS
 
   def hoosin_update(user)
     @user = user
@@ -52,6 +51,10 @@ class Notifier < ActionMailer::Base
     rescue => ex
     Airbrake.notify(ex)
   end
+
+  #AUTOMATIC NOTIFIERS
+
+
 
   def welcome(user)
     @user = user
