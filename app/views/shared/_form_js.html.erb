@@ -148,7 +148,6 @@ $("#addtipping").click(function () {
   }
 });
 
-$('#new_suggestion_form').validate();
 // NEW IDEA FORM VALIDATION
   $("#new_event_form").validate({
     rules: {
@@ -182,8 +181,12 @@ $('#new_suggestion_form').validate();
       "event[price]": {
         number: true,
         max: 10000
-      }
+      },
+      submitHandler: function(f){
+        $('form input[type=submit]').attr('disabled', 'disabled');
+        form.submit();
     }
+  }
   });
 
   $.validator.addMethod(

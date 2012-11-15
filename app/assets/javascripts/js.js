@@ -137,8 +137,22 @@ $(document).bind('click', function(e) {
 
 // VALIDATIONS
 
-  $('#fb_invite_friends').validate();
-	$("#registration_form").validate();
+  $('#fb_invite_friends').validate({
+    rules: {
+    submitHandler: function(f){
+        $('form input[type=submit]').attr('disabled', 'disabled');
+        form.submit();
+    }
+  }
+  });
+	$("#registration_form").validate({
+    rules: {
+    submitHandler: function(f){
+        $('form input[type=submit]').attr('disabled', 'disabled');
+        form.submit();
+    }
+  }
+  });
 
   $("#new_comment").validate({
     rules: {
@@ -146,8 +160,12 @@ $(document).bind('click', function(e) {
         required: true,
         maxlength: 250,
         minlength: 1
-      }
+      },
+    submitHandler: function(f){
+        $('form input[type=submit]').attr('disabled', 'disabled');
+        form.submit();
     }
+  }
   });
 
 //   $('input[type=file]').fileValidator({
