@@ -1,6 +1,5 @@
- <%= form_for @user, id="bankAccount" do |f| %>
-	<div class="divider_line"></div>
-
+<div class="sign_up">
+	<form id="bankAccount">
 	  <h3>venue account</h3>
 
 	  <div class="field">
@@ -12,21 +11,21 @@
 	  </div>
 
 	  <div class="field">
-	      <label for="name">Name on account</label>
+	      <label for="name">name on account*</label>
 	      <input type="text" name="name" placeholder="name" class="required">
 	  </div>
 
-	  <div><%= f.label :street_address, "account street address*" %><br />
-	  <%= f.text_field :street_address, class: "required", placeholder: "street address" %></div>
+	  <div><%= label_tag :street_address, "account street address*" %><br />
+	  <%= text_field_tag :street_address, nil, class: "required", placeholder: "street address" %></div>
 
-	  <div class="zip"><%= f.label :postal_code, "account zip*" %><br />
-	  <%= f.text_field :postal_code, class: "required zip", placeholder: 'zip' %></div>
+	  <div class="zip"><%= label_tag :postal_code, "account zip*" %><br />
+	  <%= text_field_tag :postal_code, nil, class: "required zip", placeholder: 'zip' %></div>
 
-	  <div class="country"><%= f.label :country, "account country*" %><br />
-	  <%= f.select :country, ['USA'], class: "required country" %></div>
+	  <div class="country"><%= label_tag :country, "account country*" %><br />
+	  <%= select_tag :country, ['USA'], class: "required country" %></div>
 
-	  <div class="phone_number"><%= f.label :phone_number, "account phone number*" %><br />
-	  <%= f.text_field :phone_number, class: "required phone_number", placeholder: "(000) 123-1234" %></div>
+	  <div class="phone_number"><%= label_tag :phone_number, "account phone number*" %><br />
+	  <%= text_field_tag :phone_number, nil, class: "required phone_number", placeholder: "(000) 123-1234" %></div>
 
 	  <div class="field">
 	      <label for="account_number">bank account number*</label>
@@ -40,5 +39,5 @@
 	  <div class="routing_number">
 	    <%= image_tag "routing-number.png" %>
 	  </div>
-	<%= f.submit, "Create Account" %>
-<% end %>
+	<%= submit_tag "Create Account", class:"btn btn-primary btn-large" %>
+</div>

@@ -33,11 +33,6 @@ class RegistrationsController < Devise::RegistrationsController
       end
 
       if resource.active_for_authentication?
-        if params[:vendor] == true
-          sign_in(resource_name, resource)
-          redirect_to credit_card_path
-          #respond_with resource, :location => after_vendor_sign_up_path_for(resource)
-        end
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
         respond_with resource, :location => after_sign_up_path_for(resource)

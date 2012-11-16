@@ -1,3 +1,5 @@
+$(document).ready(function() {
+
 <% if Rails.env.production? %>
     var marketplaceUri = '/v1/marketplaces/MPpuawQPO8n4d58Ck8P7YqX';
 <% else %>
@@ -44,22 +46,24 @@ balanced.init(marketplaceUri);
 function creditCardCallback(response) {
     switch (response.status) {
         case 400:
-            alert('fuck you 400 error, check response.error for deets')
+            console.log(response.error)
+            alert('check response.error for deets')
             // missing field - check response.error for details
             break;
         case 409:
-            alert('fuck you 409, check valid bank code')
+            alert('check valid bank code')
             // some of the data didnt make sense, check the bank code is valid
             break
         case 404:
-            alert('fuck you, incorrect marketplace URI')
+            alert('incorrect marketplace URI')
             // your marketplace URI is incorrect
             break;
         case 201:
-            alert('woo hoo success')
+            console.log(response.data)
+            // alert('woo hoo success')
             // WOO HOO!
             // response.data.uri == uri of the card or bank account resource
-            //$.post('/users', response.data);
+            $.post('/create_card', response.data);
     }
 }
 
@@ -81,7 +85,7 @@ function creditCardCallback(response) {
         balanced.bankAccount.create(bankAccountData, merchantCallback);
     };
 
-    $('#payment').submit(tokenizeBankAccount);
+    $('#bankAccount').submit(tokenizeBankAccount);
 
     if (window.location.protocol === 'file:') {
       alert("balanced.js does not work when included in pages served over file:// URLs. Try serving this page over a webserver. Contact support@balancedpayments.com if you need assistance.");
@@ -96,19 +100,27 @@ function creditCardCallback(response) {
 function merchantCallback(response) {
     switch (response.status) {
         case 400:
+            console.log(response.errors)
+            alert("missing field see log for details")
             // missing field - check response.error for details
             break;
         case 409:
+            alert('check the bank code is valid')
             // some of the data didnt make sense, check the bank code is valid
             break
         case 404:
+            alert("marketplace URI is incorrect")
             // your marketplace URI is incorrect
             break;
         case 201:
+            console.log(response.data)
+            alert("WOO HOO!")
             // WOO HOO!
             // response.data.uri == uri of the card or bank account resource
-            $.post('/url/to/create_account', response.data);
+            //$.post('/create_merchant', response.data);
     }
 }
 
 // ##################################################################
+
+});

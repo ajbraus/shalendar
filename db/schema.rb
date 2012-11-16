@@ -336,7 +336,7 @@ ActiveRecord::Schema.define(:version => 20121114171918) do
     t.string   "postal_code"
     t.string   "country"
     t.string   "phone_number"
-    t.string   "balanced_uri"
+    t.string   "account_uri"
     t.boolean  "bank_account"
     t.boolean  "credit_card"
   end

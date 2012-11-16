@@ -6,7 +6,7 @@ class PaymentsController < ApplicationController
   def create_card
     @user = current_user
     card_uri = params[:uri]
-    email_address = 'buyer@example.org'
+    email_address = @user.email
 
     # for a new account
     begin
@@ -18,13 +18,30 @@ class PaymentsController < ApplicationController
         raise
       end
       # notice extras? it includes some helpful additionals.
-      puts "This account already exists on Balanced! Here it is #{ex.extras[:account_uri]}"
+      # puts "This account already exists on Balanced! Here it is #{ex.extras[:account_uri]}"
       buyer = Balanced::Account.find ex.extras[:account_uri]
       buyer.add_card card_uri
     rescue Balanced::BadRequest => ex
       # what exactly went wrong?
       puts ex
       raise
+    end
+    
+    @user.account_uri = Balanced::Card.find(card_uri).account.uri
+    @user.credit_card = true
+
+    if @user.vendor?
+      if @user.save
+        render :js => "window.location = '/collect_payments'"
+      else
+        format.html { redirect_to :back, notice: 'We could not add your credit card at this time. Please review and try again.' }
+      end
+    else
+      if @user.save
+        render :js => "window.location = '/'"
+      else
+        format.html { redirect_to :back, notice: 'We could not add your credit card at this time. Please review and try again.' }
+      end
     end
   end
 

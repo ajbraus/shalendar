@@ -80,26 +80,27 @@ add friend to host in event#show
 
 ssl
 
-payment gateway
+Users have_one Account
+Accounts 
+	URI
+	has_many Bank_Accounts
+		URI
+		address
+	has_many Credit_cards
+		URI
+		expiration
+		last 4
+
 
 how can I display the last 4 of a card to a user?
 
-	create merchant
-		venue wants to sign up
-		enters bank account info - tokenized 
-		create merchant through Balanced API
+	5%
 
-			I need to :
-				ask for their hoos.in data
-				ask for their identity info and bank account and pass that all to a controller that creates their account in balanced
+	verify our account
 
-	first payment
-		user tries to rsvp
-		take card - tokenize it through balanced.js
-		ask if we can save it for later
-		create a buyer in Balanced through API
-		Retrieve buyer through API
-		create debits on that buyer for the event's merchant
+rescue from Balanced in payments controller
+
+
 
 	second payment
 		user tries to rsvp again
@@ -123,25 +124,6 @@ how can I display the last 4 of a card to a user?
 		warn both parties that the funds are under investigation for 60 days
 		we do an investigation 
 		give the money to whomever we think is more ligit
-
-
-
-	10%
-
-	refund
-
-	verify our account
-	initialize gem
-
-	Vendor - create
-		create a merchant
-
-	user - create
-		create a buyer
-		buyer = Balanced::Marketplace.my_marketplace.create_buyer("buyer@example.org",
-        card.uri)
-
-	form with balanced.js
 
 
 

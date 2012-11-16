@@ -329,6 +329,8 @@ $("#addtipping").click(function () {
   }
 });
 
+$('form#bankAccount').validate();
+
 $('#new_suggestion_form').validate();
 
 // NEW IDEA FORM VALIDATION
@@ -364,7 +366,7 @@ $('#new_suggestion_form').validate();
 // FOCUS ON FIRST TEXT FIELD OF PAGES
 
     $("#new_idea_blerb").focus();
-    $("input[type=email]:first", document.forms[0]).focus();
+    $("input:first", document.forms[0]).focus();
 
 // CARRIAGE RETURN IN NEW IDEA BOX SUBMITS FORM
 
