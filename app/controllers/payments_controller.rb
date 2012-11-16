@@ -39,7 +39,7 @@ class PaymentsController < ApplicationController
 
   def recurring_billing
     #something like this!
-    for account in db.query.accounts.all():
+    for account in db.query.accounts.all()
       balanced_account = Balanced.Account.find(account.balanced_account_uri)
       balanced_account.debit(amount=account.monthly_charge)
     end
@@ -59,7 +59,7 @@ class PaymentsController < ApplicationController
         format.html { redirect_to root_path, notice: 'You may now collect payments with hoos.in' }
         format.json { render json: @user, status: :created, location: @user }
       else
-        format.html { redirect_to :back, notice: 'We could not add merchant services to your account.') }
+        format.html { redirect_to :back, notice: 'We could not add merchant services to your account.' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end 

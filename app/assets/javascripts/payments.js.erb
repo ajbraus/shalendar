@@ -28,9 +28,6 @@ balanced.init(marketplaceUri);
             expiration_year: $form.find('[name="expiration_year"]').val(),
             security_code: $form.find('[name="security_code"]').val()
         };
-        var venueData = {
-            //grab the rest of the form data
-        };
 
         balanced.card.create(cardData, creditCardCallback);
     };
@@ -47,18 +44,22 @@ balanced.init(marketplaceUri);
 function creditCardCallback(response) {
     switch (response.status) {
         case 400:
+            alert('fuck you 400 error, check response.error for deets')
             // missing field - check response.error for details
             break;
         case 409:
+            alert('fuck you 409, check valid bank code')
             // some of the data didnt make sense, check the bank code is valid
             break
         case 404:
+            alert('fuck you, incorrect marketplace URI')
             // your marketplace URI is incorrect
             break;
         case 201:
+            alert('woo hoo success')
             // WOO HOO!
             // response.data.uri == uri of the card or bank account resource
-            $.post('/users', response.data);
+            //$.post('/users', response.data);
     }
 }
 
