@@ -110,9 +110,7 @@ Shalendar::Application.routes.draw do
   match '/vendor_splash', to: 'static_pages#vendor_splash', as: 'vendor_splash'
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/careers', :to => 'static_pages#careers', :as => "careers"
-  match '/privacy', :to => 'static_pages#privacy', :as => "privacy"
-  match '/terms', :to => 'static_pages#terms', :as => "terms"
-  match '/acceptable_use', :to => 'static_pages#acceptable_use', :as => "acceptable_use"
+  match '/terms', :to => 'static_pages#terms_header', :as => "terms"
 
   #FOR MOBILE W USER AUTO USER(3)
   match '/mobile_plans', :to => 'events#mobile_plans', :as => "mobile_plans"

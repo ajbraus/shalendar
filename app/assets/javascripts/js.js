@@ -184,6 +184,7 @@ $(document).bind('click', function(e) {
   $('#events').tabs();
   $('#suggestions').tabs();
   $('#invite_raster').tabs();
+  $('#terms').tabs();
 
 // DATETIME PICKER
 
