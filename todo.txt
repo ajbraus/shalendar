@@ -71,15 +71,12 @@ Adam
 
 add add-to with font awesome ical and google calendar to activity.
 
-if you click anywhere else on the screen reactivate submit buttons
-
 ------------------------------------------------------------
 
 ssl
 
 payment gateway
 	verify our account
-	initialize gem
 
 	Vendor - create
 		create a merchant
