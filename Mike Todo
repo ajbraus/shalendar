@@ -20,6 +20,7 @@ General
 	How it works section??
 
 --------------- DB / Server -------------
+
 Silo by city **check make cities file in silo_by_city branch
 	Put city logic into the events serving methods
 	Select city dropdown
@@ -28,6 +29,8 @@ DB pruning
 	don't make cancel events destroy it, just move it to different table, or just add bool to see if it's still good / over (can do just bool and use it the same for old events)
 	Work with scheduler to keep tables manageable for events, invitations, rsvps
 
+Invite only events
+	Block anyone else from seeing the event page (just check if their current user has an invitation)
 ------------- Desktop ------------------
 
 Make it understandable + OVERLY SIMPLE
@@ -95,4 +98,13 @@ Styling
 Write at least 1 post per week
 	Have Alex compile ~3 posts
 	Have Alex start up our Twitter
+
+	------------- Venues ----------------
+
+	Instruction email w/ screenshots - Review Adam's
+	Pricing DONE
+	Contact / customer service solution- Ricky
+	Ticketing / Dashboard - Adam
+	Complete functionality list
+
 
