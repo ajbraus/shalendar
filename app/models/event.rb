@@ -82,6 +82,13 @@ class Event < ActiveRecord::Base
   #validates :promo_url, :format => { :with => @img_url }, allow_blank:true
   
 
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
+  def should_generate_new_friendly_id?
+    new_record?
+  end
+
  
   def as_json(options = {})
     {

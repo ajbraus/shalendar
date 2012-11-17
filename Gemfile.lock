@@ -147,6 +147,7 @@ GEM
     font-awesome-sass-rails (2.0.0.0)
       railties (>= 3.1.1)
       sass-rails (>= 3.1.1)
+    friendly_id (4.0.9)
     girl_friday (0.10.0)
       connection_pool (~> 0.9.0)
     guard (1.4.0)
@@ -386,6 +387,7 @@ DEPENDENCIES
   factory_girl_rails (= 1.4.0)
   faker (= 1.0.1)
   font-awesome-sass-rails
+  friendly_id (~> 4.0.1)
   gcm_on_rails!
   guard-rspec (= 1.1.0)
   guard-spork (= 1.1.0)

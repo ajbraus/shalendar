@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121113181933) do
+ActiveRecord::Schema.define(:version => 20121117180614) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(:version => 20121113181933) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "timezone"
   end
 
   add_index "cities", ["name"], :name => "index_cities_on_name"
@@ -175,7 +176,11 @@ ActiveRecord::Schema.define(:version => 20121113181933) do
     t.boolean  "family_friendly",           :default => false
     t.integer  "parent_id"
     t.string   "short_url"
+    t.boolean  "require_payment"
+    t.string   "slug"
   end
+
+  add_index "events", ["slug"], :name => "index_events_on_slug"
 
   create_table "fb_invites", :force => true do |t|
     t.string   "uid"
@@ -331,6 +336,16 @@ ActiveRecord::Schema.define(:version => 20121113181933) do
     t.string   "background_content_type"
     t.integer  "background_file_size"
     t.datetime "background_updated_at"
+    t.string   "type"
+    t.string   "street_address"
+    t.string   "postal_code"
+    t.string   "country"
+    t.string   "phone_number"
+    t.string   "account_uri"
+    t.string   "bank_account_uri"
+    t.string   "credits_uri"
+    t.string   "credit_card_uri"
+    t.string   "debits_uri"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
