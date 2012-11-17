@@ -115,10 +115,6 @@ RSVP to it
 Payment funnel
 
 ---------------------------------------------------------------
-	
-	Vendor Provisioning/registration w/ credit card data
-
-	- custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid	
 
 	SDK - follow us on hoos.in "Our events on hoos.in" button and icon
 
@@ -143,13 +139,11 @@ shrink max height of images to save vertical space
 
 	Download our App
 
-
 -----------------------------------------------------------
 
 make x to close the latest ideas
 List view for new ideas
 remove picture from new ideas dropdown
-
 
 ---------------------------------------------------------------
 

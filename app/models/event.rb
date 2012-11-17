@@ -46,7 +46,8 @@ class Event < ActiveRecord::Base
                   :family_friendly,
                   :is_public,
                   :short_url,
-                  :parent_id
+                  :parent_id,
+                  :slug
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
                                              :medium => '190x270'},
