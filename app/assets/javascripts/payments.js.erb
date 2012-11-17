@@ -113,11 +113,19 @@ function merchantCallback(response) {
             // your marketplace URI is incorrect
             break;
         case 201:
-            console.log(response.data)
-            alert("WOO HOO!")
             // WOO HOO!
             // response.data.uri == uri of the card or bank account resource
-            //$.post('/create_merchant', response.data);
+            var $form = $('form#bankAccount');
+            var extra = {
+                street_address: $form.find('[name="street_address"]').val(),
+                postal_code: $form.find('[name="postal_code"]').val(),
+                country: $form.find('[name="country"]').val(),
+                phone_number: $form.find('[name="phone_number"]').val()
+            };
+            //console.log(jQuery.extend(response.data, extra));
+            var data = jQuery.extend(response.data, extra)
+            $.post('/create_merchant', data);
+
     }
 }
 

@@ -101,7 +101,10 @@ GEM
     configatron (2.9.1)
       yamler (>= 0.1.0)
     connection_pool (0.9.2)
+    countries (0.8.4)
+      currencies (>= 0.4.0)
     crack (0.3.1)
+    currencies (0.4.0)
     daemons (1.1.9)
     debugger (1.1.4)
       columnize (>= 0.3.1)
@@ -251,6 +254,11 @@ GEM
       cocaine (~> 0.4.0)
       mime-types
     pg (0.14.1)
+    phony (1.7.12)
+    phony_rails (0.1.10)
+      activerecord (~> 3.0)
+      countries (~> 0.8.2)
+      phony (~> 1.7.7)
     polyglot (0.3.3)
     posix-spawn (0.3.6)
     powder (0.1.8)
@@ -401,6 +409,7 @@ DEPENDENCIES
   omniauth-twitter
   paperclip (~> 3.0)
   pg
+  phony_rails
   powder
   powify
   pry

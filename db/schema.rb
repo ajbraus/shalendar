@@ -175,6 +175,7 @@ ActiveRecord::Schema.define(:version => 20121114171918) do
     t.boolean  "family_friendly",           :default => false
     t.integer  "parent_id"
     t.string   "short_url"
+    t.boolean  "require_payment"
   end
 
   create_table "fb_invites", :force => true do |t|
@@ -337,8 +338,10 @@ ActiveRecord::Schema.define(:version => 20121114171918) do
     t.string   "country"
     t.string   "phone_number"
     t.string   "account_uri"
-    t.boolean  "bank_account"
-    t.boolean  "credit_card"
+    t.string   "bank_account_uri"
+    t.string   "credits_uri"
+    t.string   "credit_card_uri"
+    t.string   "debits_uri"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

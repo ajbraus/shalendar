@@ -1,6 +1,5 @@
 class PaymentsController < ApplicationController
   def new_card
-
   end
 
   def create_card
@@ -27,8 +26,11 @@ class PaymentsController < ApplicationController
       raise
     end
     
-    @user.account_uri = Balanced::Card.find(card_uri).account.uri
-    @user.credit_card = true
+    @card = Balanced::Card.find(params[:uri])
+    @account = Balanced::Card.find(params[:uri]).account
+    @user.account_uri = @account.uri
+    @user.debits_uri = @account.debits_uri
+    @user.credit_card_uri = @card.uri
 
     if @user.vendor?
       if @user.save
@@ -45,13 +47,17 @@ class PaymentsController < ApplicationController
     end
   end
 
-  def debit
+  def debit(user, debit)
+
   end
 
-  def credit
+  def credit(user, credit)
+    bank_account = Balanced::BankAccount.find(user.bank_account_uri)
+    bank_account.credit(credit)
   end
 
-  def refund
+  def refund(user, amount)
+    
   end
 
   def recurring_billing
@@ -64,22 +70,22 @@ class PaymentsController < ApplicationController
 
 
   def new_merchant
-    @user = current_user
   end
 
   def create_merchant
     @user = current_user
-    @user.update_attributes(params)
-    @user.bank_account = true
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to root_path, notice: 'You may now collect payments with hoos.in' }
-        format.json { render json: @user, status: :created, location: @user }
-      else
-        format.html { redirect_to :back, notice: 'We could not add merchant services to your account.' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end 
+    @user.phone_number = params[:phone_number]
+    @user.postal_code = params[:postal_code]
+    @user.street_address = params[:street_address]
+    @user.bank_account_uri = params[:uri]
+    @user.credits_uri = params[:credits_uri]
+    @user.account_uri = Balanced::Account.find_by_email(@user.email)
+
+    if @user.save
+      render :js => "window.location = '/'"
+    else
+      format.html { redirect_to :back, notice: 'We could not add merchant services to your account.' }
+    end
   end
 
 end

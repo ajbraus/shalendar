@@ -60,6 +60,8 @@ class User < ActiveRecord::Base
                      :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] },
                      :attachment_size => { :in => 0..350.kilobytes }
 
+  validates_plausible_phone :phone_number
+  
   validates :terms,
             :name, 
             :time_zone, presence: true
@@ -89,6 +91,8 @@ class User < ActiveRecord::Base
   has_many :comments
 
   after_create :send_welcome
+
+  phony_normalized_method :phone_number, :default_country_code => 'US'
 
   HOOSIN = +16088074732
   

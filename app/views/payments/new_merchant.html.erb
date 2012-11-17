@@ -22,7 +22,7 @@
 	  <%= text_field_tag :postal_code, nil, class: "required zip", placeholder: 'zip' %></div>
 
 	  <div class="country"><%= label_tag :country, "account country*" %><br />
-	  <%= select_tag :country, ['USA'], class: "required country" %></div>
+	  <%= select_tag :country, "<option>USA</option>".html_safe, class: "required country" %></div>
 
 	  <div class="phone_number"><%= label_tag :phone_number, "account phone number*" %><br />
 	  <%= text_field_tag :phone_number, nil, class: "required phone_number", placeholder: "(000) 123-1234" %></div>

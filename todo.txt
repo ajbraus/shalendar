@@ -69,8 +69,6 @@ new follower email link not working
 Adam
 
 write vendor terms and conditions
-fix privacy
-fix user terms and conditions
 
 add add-to with font awesome ical and google calendar to activity.
 
@@ -91,6 +89,8 @@ Accounts
 		expiration
 		last 4
 
+
+fix saving phone number w phony
 
 how can I display the last 4 of a card to a user?
 
@@ -158,6 +158,8 @@ Payment funnel
 	- custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid	
 
 	SDK - follow us on hoos.in "Our events on hoos.in" button and icon
+
+	hoosin facebook tabs on the side of the share area
 
 -----------------------------------------------------------------------
 
