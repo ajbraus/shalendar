@@ -9,6 +9,10 @@ week of 11/19
 	Link + image that venues can embed for hoos.in
 	ticketing solution (just give names for now..)
 
+*** adding facebook after already have an account doesn't seem to work
+
+Also, mobile registration through facebook doesn't seem to work either, let's pair on this.
+
 ------- Timeline for Ludlow Thieves --------
 
 Nov 14 - Payment Gateway - pay when you rsvp peer-to-peer w invoice at end of month - 
