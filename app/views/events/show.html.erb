@@ -1,9 +1,11 @@
 <% provide(:title, " | #{@event.title}" ) %>
-<% unless @event.user.background_file_size.nil? %>
-  <% if @event.has_parent? %>
-        <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.parent.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div> 
-  <% else %>
-        <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
+<% if @event.has_parent? %>
+  <% unless @event.parent.user.background_file_size.nil? %>
+      <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.parent.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
+  <% end %> 
+<% else %>
+  <% unless @event.user.background_file_size.nil? %>
+      <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
   <% end %>
 <% end %>
 <% if user_signed_in? %>
