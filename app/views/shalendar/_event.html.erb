@@ -20,21 +20,16 @@
 				<%= image_tag "night.png" %>
 			<% end %>
 			<span><%= event_start_time(event) %> - <%= event.nice_duration %> hrs</span>
+			<% if current_user.rsvpd?(event) %>
+				<div class="rsvp_dot"></div>
+			<% end %>
 		</div>
 
-    <% if !event.promo_url.nil? && event.promo_url != "" %>
-      <div class="promo_img">
-        <%= image_tag("#{event.promo_url}") %>
-      </div>
-    <% elsif !event.promo_img_file_size.nil? %>
-      <div class="promo_img">
-        <%= image_tag("#{event.promo_img.url(:large)}") %>
-      </div>
-		<% elsif !event.suggestion.nil? %>
-			<div class="event_promo_img">
-				<%= image_tag event.suggestion.promo_img.url(:medium) %>
-			</div>
-		<% end %>
+	<% if event.has_image? %>
+		<div class="promo_img">
+			<%= image_tag("#{event.image(:large)}") %>
+		</div>
+	<% end %>
 	
 		<div class="event_blerb"><%= event.title %></div>
 	
