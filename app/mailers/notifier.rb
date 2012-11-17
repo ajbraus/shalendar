@@ -214,6 +214,7 @@ class Notifier < ActionMailer::Base
   def cancellation(event, guests)
     @event = event
     guests.each do |user|
+      @user = user #for local variable in views
       if(user.iPhone_user == true)
         d = APN::Device.find_by_id(user.apn_device_id)
         if d.nil?
