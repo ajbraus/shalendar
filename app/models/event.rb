@@ -244,13 +244,13 @@ class Event < ActiveRecord::Base
 
   def has_image?
     if self.parent.nil?
-      if self.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"  && (self.promo_url == "" || self.promo_url.nil?)
+      if self.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"  && self.promo_url.blank?
         return false
       else
         return true
       end
     else
-      if self.parent.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"  && (self.parent.promo_url == "" || self.parent.promo_url.nil?)
+      if self.parent.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"  && self.parent.promo_url.blank?
         return false
       else
         return true
