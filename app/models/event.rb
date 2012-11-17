@@ -260,7 +260,7 @@ class Event < ActiveRecord::Base
 
   def image(size)
     if self.parent.nil?
-      if !self.promo_url.nil? && self.promo_url != "" 
+      if !self.promo_url.blank?
         return promo_url
       elsif !self.promo_img_file_size.nil?
         if size == :medium
@@ -268,9 +268,11 @@ class Event < ActiveRecord::Base
         else 
           return self.promo_img.url(:large)
         end
+      else
+        return nil
       end
     else
-      if !self.parent.promo_url.nil? && self.parent.promo_url != "" 
+      if !self.parent.promo_url.blank?
         return parent.promo_url
       elsif !self.parent.promo_img_file_size.nil?
         if size == :medium
@@ -278,6 +280,8 @@ class Event < ActiveRecord::Base
         else 
           return self.parent.promo_img.url(:large)
         end
+      else 
+        return nil
       end
     end
   end
