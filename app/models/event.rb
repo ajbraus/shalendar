@@ -235,21 +235,41 @@ class Event < ActiveRecord::Base
   end
 
   def has_image?
-    if self.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"  && (self.promo_url == "" || self.promo_url.nil?)
-      return false
+    if self.parent.nil?
+      if self.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"  && (self.promo_url == "" || self.promo_url.nil?)
+        return false
+      else
+        return true
+      end
     else
-      return true
+      if self.parent.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"  && (self.parent.promo_url == "" || self.parent.promo_url.nil?)
+        return false
+      else
+        return true
+      end
     end
   end
 
   def image(size)
-    if !self.promo_url.nil? && self.promo_url != "" 
-      return promo_url
-    elsif !self.promo_img_file_size.nil?
-      if size == :medium
-        return self.promo_img.url(:medium)
-      else 
-        return self.promo_img.url(:large)
+    if self.parent.nil?
+      if !self.promo_url.nil? && self.promo_url != "" 
+        return promo_url
+      elsif !self.promo_img_file_size.nil?
+        if size == :medium
+          return self.promo_img.url(:medium)
+        else 
+          return self.promo_img.url(:large)
+        end
+      end
+    else
+      if !self.parent.promo_url.nil? && self.parent.promo_url != "" 
+        return parent.promo_url
+      elsif !self.parent.promo_img_file_size.nil?
+        if size == :medium
+          return self.parent.promo_img.url(:medium)
+        else 
+          return self.parent.promo_img.url(:large)
+        end
       end
     end
   end
