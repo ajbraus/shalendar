@@ -90,12 +90,6 @@ class EventsController < ApplicationController
       end
     end
     
-    #rescue if record not found
-    rescue ActiveRecord::RecordNotFound  
-    flash[:notice] = "Idea Not Found"
-    redirect_to root_path
-    return
-
     respond_to do |format|
       format.js
       format.html 
@@ -107,6 +101,11 @@ class EventsController < ApplicationController
         render :text => calendar.to_ical
       end
     end
+    #rescue if record not found
+    rescue ActiveRecord::RecordNotFound  
+    flash[:notice] = "Idea Not Found"
+    redirect_to root_path
+    return
   end
 
   # PUT /events/1
