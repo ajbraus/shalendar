@@ -50,6 +50,15 @@ body {
 		display:none;
 	}
 
+	#new_idea_blerb {
+		display: none;
+	}
+
+
+	.ajax-new-idea {
+		display: none;
+	}
+
 // SHRINK HEADER STUFF
 
 	.logo {
@@ -69,6 +78,16 @@ body {
 	.new_idea {
 		width: 74%;
 		margin-right: -55px;
+	}
+
+	.btn-new-idea {
+		float:right;
+		padding: 6px 32px;
+		border-radius: 6px;
+	}
+
+	#ribbon {
+		height:25px;
 	}
 
 // LAYOUT IS PROPORTIONAL

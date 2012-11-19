@@ -7,9 +7,11 @@
 
 	.layout {
 		width: 960px;
+		padding: 7px 0px;
 	}
 
 	.forecast {
+		overflow-x: hidden;
 		width: 93%;
 	}
 
@@ -127,6 +129,22 @@
 
 		.alert {
 			width: 960px;
+		}
+
+		#ribbon {
+			height: 75px;
+		}
+
+		.btn-new-idea {
+			-moz-border-radius: 0 6px 6px 0px;
+-webkit-border-radius: 0 6px 6px 0px;
+border-radius: 0 6px 6px 0px;
+padding: 23px 12px;
+float: left;
+		}
+
+		.html-new-idea {
+			display:none;
 		}
 
 }

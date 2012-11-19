@@ -75,7 +75,7 @@ Shalendar::Application.routes.draw do
   match '/activity', :to => 'shalendar#activity', :as => "activity"
   match '/manage_friends', :to => 'shalendar#manage_friends', :as => "manage_friends"
 
-  resources :events, only: [:index, :create, :destroy, :update, :tip, :edit, :new, :show] do 
+  resources :events, only: [:create, :destroy, :update, :tip, :edit, :new, :show] do #:index,
     put :tip
     resources :comments, only: [:create, :destroy]
     resources :email_invites, only: [:create, :destroy]

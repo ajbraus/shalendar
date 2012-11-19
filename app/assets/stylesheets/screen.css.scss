@@ -134,12 +134,7 @@ color: white;
 }
 
 .btn-new-idea {
--moz-border-radius: 0 6px 6px 0px;
--webkit-border-radius: 0 6px 6px 0px;
-border-radius: 0 6px 6px 0px;
-padding: 21px 12px;
 font-size: 20px;
-float: left;
 margin-left: -10px;
 }
 
@@ -207,7 +202,6 @@ margin-left: -10px;
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
   background-color:#79bbff;
   border:1px solid #84bbf3;
-  display:inline-block;
   color:#ffffff;
   font-family:arial;
   text-decoration:none;
@@ -595,7 +589,6 @@ min-height: 540px;
 margin: 0 auto;
 background-color: rgba(255, 255, 255, .45);
 z-index: -10;
-padding: 7px 0px;
 }
 
 .element {
@@ -716,7 +709,6 @@ border: 1px solid $divider;
   width:94%;
 position: relative;
 top: 5px;
-height: 75px;
 }
 
 .ribbon_bottom {
@@ -760,9 +752,7 @@ width: 20px;
   }
 }       
 #yt {
-float:right;
-height: 70px;
-width: 98px;
+float:left;
 text-align: center;
 }
 
@@ -972,14 +962,13 @@ letter-spacing: 2px;
 }
 
 .forecast {
-overflow-x: hidden;
 margin: 0 auto;
 margin-top: 15px;
 overflow-y: hidden;
 }
 
 .forecastDate {
-height: 10px;
+height: 20px;
 font-size: 18px;
 text-shadow: 0.5px 0.5px 0 #AAAFCA;
 text-align: left;
@@ -2769,10 +2758,6 @@ float: left;
 
 .community_ideas {
   color:$happening;
-}
-
-dd {
-  margin-top: 20px;
 }
 
 .divider_border {
