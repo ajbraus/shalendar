@@ -60,7 +60,11 @@ class User < ActiveRecord::Base
                      :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] },
                      :attachment_size => { :in => 0..350.kilobytes }
 
-  validates_plausible_phone :phone_number
+  # Normalizes the attribute itself before 
+  #phony_normalize :phone_number, :default_country_code => 'US'
+  #phony_normalize :phone_number, :as => :phone_number_normalized_version, :default_country_code => 'US' 
+  #validates :phone_number, :phony_plausible => true
+  #phony_normalized_method :phone_number, :default_country_code => 'US'
   
   validates :terms,
             :name, 
@@ -91,8 +95,6 @@ class User < ActiveRecord::Base
   has_many :comments
 
   after_create :send_welcome
-
-  phony_normalized_method :phone_number, :default_country_code => 'US'
 
   HOOSIN = +16088074732
   
@@ -517,6 +519,19 @@ class User < ActiveRecord::Base
     else
       return false
     end
+  end
+
+  def debit(amount)
+
+  end
+
+  def credit(amount)
+    bank_account = Balanced::BankAccount.find(user.bank_account_uri)
+    bank_account.credit(credit)
+  end
+
+  def refund(amount)
+    
   end
 
   # CONTACT FOR INVITATION

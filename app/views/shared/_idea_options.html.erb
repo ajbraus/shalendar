@@ -87,10 +87,8 @@
 	<div id="addcostp" style="display:none;">
     <%= f.label "Cost" %><br>
     <i class="icon-money"></i><div class="dollar">$</div><%= f.text_field :price, :class => 'input-mini', autocomplete: "off", placeholder: "0.00" %>
-    <% if current_user.credit_card_uri %>
+    <% if current_user.vendor? %>
     	<%= f.check_box :require_payment %> <%= f.label "Require Payment to Join" %>
-    <% else %>
-    	To get paid through hoos.in <%= link_to "upgrade your account", upgrade_account_path %>
     <% end %>
 	</div>
 </div>

@@ -47,19 +47,6 @@ class PaymentsController < ApplicationController
     end
   end
 
-  def debit(user, debit)
-
-  end
-
-  def credit(user, credit)
-    bank_account = Balanced::BankAccount.find(user.bank_account_uri)
-    bank_account.credit(credit)
-  end
-
-  def refund(user, amount)
-    
-  end
-
   def recurring_billing
     #something like this!
     for account in db.query.accounts.all()
@@ -86,6 +73,11 @@ class PaymentsController < ApplicationController
     else
       format.html { redirect_to :back, notice: 'We could not add merchant services to your account.' }
     end
+  end
+
+  def upgrade
+    @user = current_user
+    #upgrade a user to a merchant
   end
 
 end
