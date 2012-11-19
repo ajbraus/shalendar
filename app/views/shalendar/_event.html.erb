@@ -19,7 +19,7 @@
 			<% else %>
 				<%= image_tag "night.png" %>
 			<% end %>
-			<span><%= event_start_time(event) %> - <%= event.nice_duration %> hrs</span>
+			<span><%= event_start_time(event) %> (<%= event.nice_duration %> hr)</span>
 			<% if current_user.rsvpd?(event) %>
 				<div class="rsvp_dot"></div>
 			<% end %>
