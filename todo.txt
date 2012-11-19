@@ -143,6 +143,11 @@ shrink max height of images to save vertical space
 
 	Download our App
 
+
+----------------------------------------------------------------
+
+private idea
+
 -----------------------------------------------------------
 
 make x to close the latest ideas

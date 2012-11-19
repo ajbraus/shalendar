@@ -13,12 +13,23 @@
 <% end %>
 <div class="event_show">
   <div class="event_top">
-    <div class="host">
+    <div class="host friend">
 	   <%= raster_profile_picture(@event.user) %> 
-     <div>
-      hosted by: <br><%= @event.user.name %>
-     </div>
+      <div>hosted by: </div><br>
+      <% if !user_signed_in? || (current_user.following?(@event.user) || current_user == @event.user) %>
+        <div>
+          <%= @event.user.name %>
+        </div>
+      <% else %>
+        <div id="friend_name">
+          <%= @event.user.name %>
+        </div>
+        <div id="friend_button" style="display:none;">
+          <%= render  :partial => 'events/just_follow_form', :locals => { :user => @event.user } %>
+        </div>
+      <% end %>
     </div>
+
     <% unless @event.link == '' %>
     <div class="event_link">
       <%= link_to "http://#{@event.link}", target: "_blank" do %>
