@@ -46,8 +46,7 @@ class Event < ActiveRecord::Base
                   :family_friendly,
                   :is_public,
                   :short_url,
-                  :parent_id,
-                  :slug
+                  :parent_id
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
                                              :medium => '190x270'},
@@ -82,14 +81,6 @@ class Event < ActiveRecord::Base
   #@img_url = /^((https?:\/\/)?.*\.*\.*\.(?:png|jpg|jpeg|gif))$/i
   #validates :promo_url, :format => { :with => @img_url }, allow_blank:true
   
-
-  extend FriendlyId
-  friendly_id :title, use: :slugged
-
-  def should_generate_new_friendly_id?
-    new_record? || slug.blank?
-  end
-
  
   def as_json(options = {})
     {
