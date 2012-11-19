@@ -106,7 +106,7 @@ class Event < ActiveRecord::Base
 
   def url_starts_at
     starts_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
-  end
+  end 
 
   def url_ends_at
     ends_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
