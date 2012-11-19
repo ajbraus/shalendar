@@ -82,7 +82,6 @@ class Event < ActiveRecord::Base
   #@img_url = /^((https?:\/\/)?.*\.*\.*\.(?:png|jpg|jpeg|gif))$/i
   #validates :promo_url, :format => { :with => @img_url }, allow_blank:true
   
-
   extend FriendlyId
   friendly_id :title, use: :slugged
 
@@ -90,7 +89,7 @@ class Event < ActiveRecord::Base
     new_record? || slug.blank?
   end
 
- 
+
   def as_json(options = {})
     {
       :id => self.id,
@@ -107,7 +106,7 @@ class Event < ActiveRecord::Base
 
   def url_starts_at
     starts_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
-  end
+  end 
 
   def url_ends_at
     ends_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
@@ -115,6 +114,10 @@ class Event < ActiveRecord::Base
 
   def start_time
     self.starts_at.strftime "%l:%M%P, %A %B %e"
+  end
+
+  def start_date_time
+    self.starts_at.strftime "%A %B %e, %l:%M%P"
   end
 
   def start_time_no_date

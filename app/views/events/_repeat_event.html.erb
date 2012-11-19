@@ -1,5 +1,5 @@
 <div class="event_form">
-  <%= form_for @event, html: { id: "new_event_form" } do |f| %>
+  <%= form_for @new_event, html: { id: "new_event_form" } do |f| %>
   <p>
   <%= label :title, "Idea*" %><br/>
   <%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
