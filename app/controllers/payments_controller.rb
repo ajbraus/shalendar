@@ -18,6 +18,7 @@ class PaymentsController < ApplicationController
   end
 
   def create_card
+        binding.remote_pry
     @user = current_user
     card_uri = params[:uri]
     email_address = @user.email
@@ -46,6 +47,9 @@ class PaymentsController < ApplicationController
     @user.account_uri = @account.uri
     @user.debits_uri = @account.debits_uri
     @user.credit_card_uri = @card.uri
+
+    @event = Event.find_by_id(params[:id]) if params[:id]
+    current_user.rsvp!(@event) if @event.present?
 
     if @user.vendor?
       if @user.save

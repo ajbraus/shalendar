@@ -1,5 +1,6 @@
 <form id="payment" class="credit_card_form sign_up">
 <% if @event.present? %>
+    <div id="event_id" name="<%= @event.id %>"></div>
     <h3><strong>What:</strong> <%= @event.title %></h3>
     <h3><strong>When:</strong> <%= @event.start_time %></h3>
     <br>

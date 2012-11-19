@@ -59,11 +59,15 @@ function creditCardCallback(response) {
             // your marketplace URI is incorrect
             break;
         case 201:
-            console.log(response.data)
-            // alert('woo hoo success')
+            var $form = $('form#payment');
+            var extra = {
+                street_address: $form.find('div#event_id').attr('name');
+            };
+            //console.log(jQuery.extend(response.data, extra));
+            var data = jQuery.extend(response.data, extra)
             // WOO HOO!
             // response.data.uri == uri of the card or bank account resource
-            $.post('/create_card', response.data);
+            $.post('/create_card', data);
     }
 }
 
