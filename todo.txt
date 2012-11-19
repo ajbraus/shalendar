@@ -100,6 +100,15 @@ how can I display the last 4 of a card to a user? - save it when the card data c
 
 rescue from Balanced in payments controller if requires more info
 
+create group -- create the event, then pay for rsvp . . . 
+
+confirm and pay -> pass an event id and in create_card rsvp if there is an event ID present.
+
+join with a credit card already on file
+	confirm and pay displays card data, name, address, last four
+		link to update data
+		confirm and pay -> submits payment and rsvps them to the id of the event.
+
 
 	    	<% else %>
 	    	To share costs <%= link_to "upgrade", upgrade_path %>

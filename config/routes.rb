@@ -66,8 +66,13 @@ Shalendar::Application.routes.draw do
   match '/collect_payments', :to => 'payments#new_merchant', :as => 'new_merchant'
   match '/create_merchant', :to => 'payments#create_merchant', :as => 'create_merchant'
 
+
+  match '/confirm_payment', :to => 'payments#confirm_payment', :as => "confirm_payment"
+  match '/submit_paytment', :to => 'payments#submit_payment', :as => "submit_payment"
+
   match '/payment', :to => 'payments#new_card', :as => 'new_card'
   match '/create_card', :to => 'payments#create_card', :as => 'create_card'
+
 
   match '/upgrade', :to => 'payments#upgrade', :as => 'upgrade'
 

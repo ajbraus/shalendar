@@ -521,16 +521,17 @@ class User < ActiveRecord::Base
     end
   end
 
-  def debit(amount)
-
+  def debit!(amount)
+    credit_card = Balanced::Card.find(self.credit_card_uri)
+    credit_card.debit(amount)
   end
 
-  def credit(amount)
+  def credit!(user, amount)
     bank_account = Balanced::BankAccount.find(user.bank_account_uri)
-    bank_account.credit(credit)
+    bank_account.credit(amount)
   end
 
-  def refund(amount)
+  def refund!(amount)
     
   end
 

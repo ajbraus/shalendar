@@ -41,12 +41,18 @@
 				</div>
 			<% end %>
 			<% unless current_user.made_a_group?(@event) %>
-				<div class="rsvp_button">
-					<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
-			  		<%= f.hidden_field :plan_id %>
-			  		<%= f.submit "Join", class: "btn btn-rsvp", confirm: "Are you sure you would like to join this idea?", id:"Join" %>
-					<% end %>
-				</div>
+				<% if @event.require_payment? && current_user.credit_card_uri.blank? %>
+					<%= link_to "Join", new_card_path(:id => @event.id), class: "btn btn-rsvp", confirm: "Are you sure you would like to join this idea?", id:"Join" %>
+				<% elsif @event.require_payment? && current_user.credit_card_uri.present? %>
+					<%= link_to "Join", confirm_payment_path(:id => @event.id), class: "btn btn-rsvp", confirm: "Are you sure you would like to join this idea?", id:"Join" %>
+				<% else %>
+					<div class="rsvp_button">
+						<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
+				  		<%= f.hidden_field :plan_id %>
+				  		<%= f.submit "Join", class: "btn btn-rsvp", confirm: "Are you sure you would like to join this idea?", id:"Join" %>
+						<% end %>
+					</div>
+				<% end %>
 			<% end %>
 		<% end %>
 	<% end %>

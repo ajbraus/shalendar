@@ -1,5 +1,20 @@
 class PaymentsController < ApplicationController
+  def confirm_payment
+    @event = Event.find_by_id(params[:id])
+    @user = current_user
+    @card_details = Balanced::Card.find(current_user.credit_card_uri)
+    @name = @card_details.name
+    @last_four = @card_details.last_four
+  end
+
+  def submit_payment(event)
+    @event = event
+    current_user.debit!(@event.price)
+    current_user.rsvp!(@event)
+  end
+
   def new_card
+    @event = Event.find_by_id(params[:id]) if params[:id]
   end
 
   def create_card
@@ -47,7 +62,7 @@ class PaymentsController < ApplicationController
     end
   end
 
-  def recurring_billing
+  def self.recurring_billing
     #something like this!
     for account in db.query.accounts.all()
       balanced_account = Balanced.Account.find(account.balanced_account_uri)

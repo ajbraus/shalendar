@@ -2840,7 +2840,13 @@ clear:both;
 }
 
 .credit_card_form {
-  clear:both;
+margin: 0 auto;
+width: 400px;
+background-color: white;
+border: 1px solid $divider;
+padding: 30px;
+min-height: 470px;
+position: relative;
   .card_number {
 
   }
@@ -2862,6 +2868,8 @@ clear:both;
     }
   }
   button {
-    clear:both;
+    position: absolute;
+right: 30px;
+bottom: 20px;
   }
 }
