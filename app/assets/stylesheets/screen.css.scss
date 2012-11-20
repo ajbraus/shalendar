@@ -706,7 +706,7 @@ border: 1px solid $divider;
 
 #ribbon {
   margin:0 auto;
-  width:94%;
+  width:90%;
 position: relative;
 top: 5px;
 }
@@ -938,7 +938,6 @@ float: left;
 position: relative;
 top: 6px;
 left: 17px;
-padding: 4px 8px 8px 5px;
 height: 100%;
 @box-sizing
   }
@@ -992,7 +991,7 @@ margin-top: -5px;
 padding-top: 7px;
   img{
     max-height: 200px;
-    max-width: 175px;
+    max-width: 190px;
   }
 }
 }
@@ -2701,17 +2700,16 @@ font-size:30px;
 }
 
 .idea_type {
-text-align: center;
-font-size: 17px;
-width: 121px;
-margin-top: 20px;
-margin-left: 49px;
+  text-align: center;
+font-size: 19px;
+width: 91px;
 background-color: #F8F8F8;
+margin: 10px auto;
 }
 .idea_type_line {
   border-bottom: 1px solid $divider;
   position: relative;
-  bottom: 8px;
+  bottom: 30px;
   z-index: -1;
   margin-bottom: -10px;
 }
