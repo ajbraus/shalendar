@@ -10,6 +10,7 @@ week of 11/19
 	ticketing solution (just give names for now..)
 
 *** adding facebook after already have an account doesn't seem to work
+** have to double click all buttons with tooltips when from mobile
 
 Also, mobile registration through facebook doesn't seem to work either, let's pair on this.
 

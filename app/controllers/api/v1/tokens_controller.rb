@@ -166,6 +166,7 @@ class Api::V1::TokensController  < ApplicationController
 
   def apn_user
     token = params[:apn_token]
+    logger.info("token is: #{token}")
     @user = User.find_by_id(params[:user_id])
 
     if @user.nil?
