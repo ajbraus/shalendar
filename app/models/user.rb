@@ -500,11 +500,15 @@ class User < ActiveRecord::Base
   end
 
   def permits_wall_posts?(graph)
-    @publish = graph.fql_query("select publish_stream from permissions where uid = me()")
-    if @publish[0]["publish_stream"] == 1
-      return true
-    else
+    if graph.nil?
       return false
+    else
+      @publish = graph.fql_query("select publish_stream from permissions where uid = me()")
+      if @publish[0]["publish_stream"] == 1
+        return true
+      else
+        return false
+      end
     end
   end
 
