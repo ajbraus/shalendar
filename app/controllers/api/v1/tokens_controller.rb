@@ -190,12 +190,12 @@ class Api::V1::TokensController  < ApplicationController
     @user.apn_device_id = device.id
     @user.save!
 
-    n = APN::Notification.new
-    n.device = APN::Device.find_by_id(@user.apn_device_id)
-    n.sound = true
-    n.badge = 3
-    n.alert = "you have registered for push"
-    n.save
+    # n = APN::Notification.new
+    # n.device = APN::Device.find_by_id(@user.apn_device_id)
+    # n.sound = true
+    # n.badge = 1
+    # n.alert = "you have registered for push"
+    # n.save
 
     render :json => { :success => true, :token => token }
   end
