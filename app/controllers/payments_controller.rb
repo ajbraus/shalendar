@@ -18,7 +18,6 @@ class PaymentsController < ApplicationController
   end
 
   def create_card
-        binding.remote_pry
     @user = current_user
     card_uri = params[:uri]
     email_address = @user.email
@@ -29,27 +28,51 @@ class PaymentsController < ApplicationController
           email_address,
           card_uri)
     rescue Balanced::Conflict => ex
-      unless ex.category_code == 'duplicate-email-address'
-        raise
-      end
+      # unless ex.category_code == 'duplicate-email-address'
+      #   raise
+      # end
       # notice extras? it includes some helpful additionals.
       # puts "This account already exists on Balanced! Here it is #{ex.extras[:account_uri]}"
-      buyer = Balanced::Account.find ex.extras[:account_uri]
-      buyer.add_card card_uri
+      @account = Balanced::Account.find ex.extras[:account_uri]
+      @account.add_card card_uri
+      @user.account_uri = @account.uri
+      @user.debits_uri = @account.debits_uri
+      @user.credit_card_uri = card_uri
+
+      @event = Event.find_by_id(params[:id]) if params[:id]
+      current_user.rsvp!(@event) if @event
+
+      if @user.vendor?
+        if @user.save
+          render :js => "window.location = '/collect_payments'"
+        else
+          format.html { redirect_to :back, notice: 'We could not add your credit card at this time. Please review and try again.' }
+        end
+      else
+        if @user.save
+          render :js => "window.location = '/'"
+        else
+          format.html { redirect_to :back, notice: 'We could not add your credit card at this time. Please review and try again.' }
+        end
+      end
+    return
+    
     rescue Balanced::BadRequest => ex
       # what exactly went wrong?
-      puts ex
-      raise
+      flash[:notice] = "There was an error processing your card details. Please review and try again."
+      redirect_to :back
+      #puts ex
+      #raise
     end
-    
-    @card = Balanced::Card.find(params[:uri])
-    @account = Balanced::Card.find(params[:uri]).account
+
+    @card = Balanced::Card.find(card_uri)
+    @account = Balanced::Card.find(card_uri).account
     @user.account_uri = @account.uri
     @user.debits_uri = @account.debits_uri
     @user.credit_card_uri = @card.uri
 
     @event = Event.find_by_id(params[:id]) if params[:id]
-    current_user.rsvp!(@event) if @event.present?
+    current_user.rsvp!(@event) if @event
 
     if @user.vendor?
       if @user.save
@@ -85,7 +108,7 @@ class PaymentsController < ApplicationController
     @user.street_address = params[:street_address]
     @user.bank_account_uri = params[:uri]
     @user.credits_uri = params[:credits_uri]
-    @user.account_uri = Balanced::Account.find_by_email(@user.email)
+    @user.account_uri = Balanced::Account.find_by_email(@user.email).uri
 
     if @user.save
       render :js => "window.location = '/'"

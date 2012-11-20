@@ -61,10 +61,12 @@ function creditCardCallback(response) {
         case 201:
             var $form = $('form#payment');
             var extra = {
-                street_address: $form.find('div#event_id').attr('name');
+                street_address: $form.find('div#event_id').attr('name')
             };
+            
             //console.log(jQuery.extend(response.data, extra));
-            var data = jQuery.extend(response.data, extra)
+            
+            var data = jQuery.extend(response.data, extra);
             // WOO HOO!
             // response.data.uri == uri of the card or bank account resource
             $.post('/create_card', data);
@@ -89,7 +91,7 @@ function creditCardCallback(response) {
         balanced.bankAccount.create(bankAccountData, merchantCallback);
     };
 
-    $('#bankAccount').submit(tokenizeBankAccount);
+    $('form#bankAccount').submit(tokenizeBankAccount);
 
     if (window.location.protocol === 'file:') {
       alert("balanced.js does not work when included in pages served over file:// URLs. Try serving this page over a webserver. Contact support@balancedpayments.com if you need assistance.");

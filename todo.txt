@@ -90,6 +90,9 @@ Accounts
 		last 4
 
 
+http://stackoverflow.com/questions/2567133/work-with-rescue-in-rails
+
+
 fix saving phone number w phony
 
 how can I display the last 4 of a card to a user? - save it when the card data comes back
@@ -103,6 +106,10 @@ rescue from Balanced in payments controller if requires more info
 create group -- create the event, then pay for rsvp . . . 
 
 confirm and pay -> pass an event id and in create_card rsvp if there is an event ID present.
+
+already created a card, has card_uri but
+@account = Balanced::Card.find(params[:uri]).account = nil???
+
 
 join with a credit card already on file
 	confirm and pay displays card data, name, address, last four

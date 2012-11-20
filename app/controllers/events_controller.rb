@@ -42,6 +42,20 @@ class EventsController < ApplicationController
     @event.parent_id = params[:parent_id]   if params[:parent_id]
     if @event.save
       @event.save_shortened_url
+
+      if params[:parent_id]
+        if @event.require_payment? && current_user.credit_card_uri.nil?
+          redirect_to confirm_payment_path(@event)
+        elsif @event.require_payment? && !current_user.credit_card_uri.nil?
+          current_user.debit!(@event.price)
+          current_user.rsvp!(@event)
+        else
+          current_user.rsvp!(@event)       
+        end
+      else
+        current_user.rsvp!(@event)
+      end
+
       if params[:invite_all_friends] == "on"
         @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
         current_user.invite_all_friends!(@event)
@@ -54,16 +68,6 @@ class EventsController < ApplicationController
                                             :picture => "http://www.hoos.in/assets/icon.png",
                                             })
       end
-
-      if @event.require_payment? && current_user.credit_card_uri.nil?
-        redirect_to confirm_payment_path(@event)
-      elsif @event.require_payment? && !current_user.credit_card_uri.nil?
-        current_user.debit!(@event.price)
-        current_user.rsvp!(@event)
-      else
-        current_user.rsvp!(@event)       
-      end
-      
       respond_to do |format|
         format.html { redirect_to @event, notice: "Idea Posted Successfully" }
         format.json { render json: @event, status: :created, location: @event }
