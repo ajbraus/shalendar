@@ -450,6 +450,21 @@ class Notifier < ActionMailer::Base
     mail to: @user.email, from: "info@hoos.in", subject: "Connect With People - #{@event.title}"
   end
 
+  def recurring_receipt(user, amount)
+    @user = user
+    @amount = "$" + "%.2f" % amount
+    mail to: @user.email, from: "info@hoos.in", subject: "Successful Monthly Payment"
+  end
+
+  def downgrade(user)
+    @user = user
+    mail to: @user.email, from: "info@hoos.in", subject: "Your Account is now Private"
+  end
+
+  def missing_bank_account(user)
+    @user = user
+    mail to: @user.email, from: "info@hoos.in", subject: "Missing Account Data"
+  end
 
 ###########################################################################
 ########################## METHODS FOR MARKETPLACE ########################

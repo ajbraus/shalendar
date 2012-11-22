@@ -72,11 +72,24 @@ write vendor terms and conditions
 
 add "if current_user.vendor? && current_user.bank_account.blank?" alert
 
+root = pick city => forecast of that city
+
+make recurring_receipt email (should have like blog stuff in it)
+
+survey why they are downgrading their account
+
+add /new_venue to the list of urls we don't save
+
 
 
 ------------------------------------------------------------
 
+
 ssl
+
+
+------------------------------------------------------------
+
 
 Users have_one Account
 Accounts 
@@ -89,53 +102,27 @@ Accounts
 		expiration
 		last 4
 
-DONE
-day after event -- pay merchant
-onboard merchant
-	put in card
-	redirected to put in bank account
-checkbox for 'require_payment' in create idea form
 
+MARKETPLACE PAYMENTS TO DO
 
 type:person/bussiness with dynamic fields
-
 fix saving phone number w phony
-
 disable flaking out if you pay? fees for flaking out
-
 cost of refund? 50% :o)
-
 put hold upon rsvp and capture payment at event start time
-
 display merchant fees to the venues when signing up => 30c
-
 	1% + 30c fee per rsvp
-
 verify our account in chase
-
 rescue from Balanced in payments controller if requires more info
-
 pass in name for card
-
 put the balanced key into a yml file and read it in dev. gitignore that yml file
-
 already created a card, has card_uri but
 @account = Balanced::Card.find(params[:uri]).account = nil???
-
 If a card is expired request new card
-
 User has_many CreditCards
-
 delete user deletes credit cards and bank account with balanced
-
 no account on the debit, and no description -- should be hoos.in - event.date event.title
-
-add qr tag to reciept create a qr code per rsvp
-
-
-	    	<% else %>
-	    	To share costs <%= link_to "upgrade", upgrade_path %>
-
+add qr tag to reciept create a qr code per rsvp\
 
 	second payment
 		user tries to rsvp again
@@ -160,8 +147,6 @@ add qr tag to reciept create a qr code per rsvp
 		we do an investigation 
 		give the money to whomever we think is more ligit
 
-
-
 Payment gateway
 
  	payment strategy
@@ -176,17 +161,12 @@ Payment gateway
  		ipad app
  		email signup
 
-Cost (required for RSVP?)
-Click join:
-if cost required-redirect to payment funnel
-Authorize payment/capture payment
-
-Make a group 
-Make it, (conditional RSVP in event create)
-RSVP to it
-Payment funnel
-
-ribbon on the corner of ideas your rsvpd to
+DONE
+day after event -- pay merchant
+onboard merchant
+	put in card
+	redirected to put in bank account
+checkbox for 'require_payment' in create idea form 
 
 ---------------------------------------------------------------
 	

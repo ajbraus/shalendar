@@ -105,4 +105,13 @@
     </p>
     <% end %>
 
+    <% if current_user.vendor? %>
+    <p>
+      <%= link_to raw("<i class='icon-remove-sign'></i> Remove Vendor Privileges"), downgrade_path, confirm: 'Are you sure? You will no longer be able to post community ideas or represent your brand.' %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to "Become a Venue User", new_card_path %>
+    </p>
+    <% end %>
 </div>

@@ -12,8 +12,9 @@
           <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
       </div>
       <div class="nativeLogin">
-        <p><%= link_to "Login", new_user_session_path %></p>
-        <p>or, <%= link_to "Join here", new_user_registration_path %></p>
+        <p><%= link_to "Login", new_user_session_path, class:"btn btn-landing btn-primary btn-large" %></p>
+        <p>or, <%= link_to "Join", new_user_registration_path, class:"btn btn-join" %></p>
+        <p><%= link_to "Start A Free Venue Trial", vendor_splash_path, class:"btn btn-success btn-large btn-start-trial" %>
       </div>
     </div>
 </div>

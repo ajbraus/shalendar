@@ -1,4 +1,16 @@
 class PaymentsController < ApplicationController
+  
+  def downgrade
+    current_user.vendor = false
+    if current_user.save
+      Notifier.delay.downgrade(v)
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: "Your account is now a private account" }
+        format.js
+      end
+    end
+  end
+
   def new_card
     @event = Event.find_by_id(params[:id]) if params[:id]
   end
@@ -24,6 +36,10 @@ class PaymentsController < ApplicationController
       @user.account_uri = @account.uri
       @user.debits_uri = @account.debits_uri
       @user.credit_card_uri = card_uri
+
+      unless @user.vendor?
+        @user.vendor = true
+      end
 
       @event = Event.find_by_id(params[:id]) if params[:id]
       current_user.rsvp!(@event) if @event
@@ -51,6 +67,10 @@ class PaymentsController < ApplicationController
       #raise
     end
 
+    unless @user.vendor?
+      @user.vendor = true
+    end
+
     @card = Balanced::Card.find(card_uri)
     @account = Balanced::Card.find(card_uri).account
     @user.account_uri = @account.uri
@@ -75,12 +95,21 @@ class PaymentsController < ApplicationController
   end
 
   def self.recurring_billing
-    #something like this!
-    for account in db.query.accounts.all()
-      balanced_account = Balanced.Account.find(account.balanced_account_uri)
-      balanced_account.debit(amount=account.monthly_charge)
-      send notifier receipt
+    @venues_to_charge = User.all.select { |u| u.vendor? && u.account_uri.present? && u.created_at > Date.today - 1.month }
+    @venues_to_charge.each do |v|
+      @amount = 2500
+      @account = Balanced::Account.find(v.account_uri)
+      @account.debit(@amount)
+      Notifier.delay.recurring_receipt(v, @amount)
     end
+    @venues_to_downgrade = User.all.select { |u| u.vendor? && u.account_uri.blank? }
+    @venues_to_downgrade.each do |v|
+      v.vendor = false
+      if v.save
+        Notifier.delay.missing_bank_account(v)
+      end
+    end
+    
   end
 
 ###########################################################################
@@ -147,7 +176,7 @@ class PaymentsController < ApplicationController
   end
 
   def upgrade
-    @user = current_user
+    current_user.vendor = true
     #upgrade a user to a merchant
   end
 

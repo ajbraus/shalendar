@@ -72,6 +72,7 @@ Shalendar::Application.routes.draw do
   match '/payment', :to => 'payments#new_card', :as => 'new_card'
   match '/create_card', :to => 'payments#create_card', :as => 'create_card'
 
+  match '/downgrade', :to => 'payments#downgrade', :as =>'downgrade'
 
   match '/upgrade', :to => 'payments#upgrade', :as => 'upgrade'
 
@@ -113,7 +114,7 @@ Shalendar::Application.routes.draw do
   match 'share_all_fb_friends' =>'shalendar#share_all_fb_friends'
   match 'friend_all' => 'shalendar#friend_all'
 
-  match '/vendor', to: 'static_pages#vendor_splash', as: 'vendor_splash'
+  match '/venue', to: 'static_pages#vendor_splash', as: 'vendor_splash'
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/careers', :to => 'static_pages#careers', :as => "careers"
   match '/privacy', :to => 'static_pages#privacy', :as => "privacy"
