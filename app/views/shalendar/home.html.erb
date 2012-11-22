@@ -1,7 +1,4 @@
-<%= render 'ribbon', :locals => { :next_plan => @next_plan } %>
-<div class='forecast'>
-	<%= render 'forecast' %>
-</div>
+<%= render 'vertical' %>
 
 <% if false %>
 <% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now.in_time_zone(current_user.time_zone) - 7.seconds %>

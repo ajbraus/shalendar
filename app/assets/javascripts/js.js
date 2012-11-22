@@ -2,36 +2,6 @@ $(document).ready(function() {
 // REMOVE ALERT 
 $("div.alert").delay(3000).fadeOut(400);
 
-// LOADING AJAX
-// $('#loading').ajaxStart(function(){
-//   $(this).show();
-// }).ajaxStop(function(){
-//   $(this).hide();
-// });
-// $('#someFormID')
-// .ajaxStart(function() {
-//     $('#loading').show();
-// })
-// .ajaxStop(function() {
-//     $('#loading').hide();
-// });
-
-  // var toggleLoading = function() { $("#loading").toggle() };
-
-  // $("#new_relationship").on("ajax:before", toggleLoading);
-  //   // .bind("ajax:success", function(data, status, xhr) {
-  //   //   $("#response").html(status);
-  //   // });
-
-  // $("#tipPin").ajaxStart(toggleLoading);
-
-  //   // .bind("ajax:success", function(data, status, xhr) {
-  //   //   $("#response").html(status);
-  //   // });
-
-  // $('#new_rsvp').bind("ajax:beforeSend", toggleLoading);
-
-
 // NEW INVITED EVENTS
 
   if ( $('#new_invited_events_count').text() == 0 ) {
@@ -371,8 +341,8 @@ $('#new_suggestion_form').validate();
 
 // FOCUS ON FIRST TEXT FIELD OF PAGES
 
-    $("#new_idea_blerb").focus();
-    $("input[type=email]:first", document.forms[0]).focus();
+    //$("#new_idea_blerb").focus();
+    $("input[type=text]:first", document.forms[0]).focus();
 
 // CARRIAGE RETURN IN NEW IDEA BOX SUBMITS FORM
 

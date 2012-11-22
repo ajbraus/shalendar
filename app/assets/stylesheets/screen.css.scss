@@ -407,7 +407,7 @@ height: 72px;
 background-color: rgba(255, 255, 255, 0.45);
 border-bottom: 1px solid #D1CDCD;
 clear: both;
-margin: 0 auto;
+margin-left:3%;
   /*background-color:$icon_color;*/
 /*  -webkit-box-shadow: 0px 2px 9px rgba(50, 50, 50, 0.75);
   -moz-box-shadow:    0px 2px 9px rgba(50, 50, 50, 0.75);
@@ -416,7 +416,6 @@ margin: 0 auto;
   color:white;
 }
   nav {
-margin: 0 auto;
 color: white;
   }
   .tagline {
@@ -586,9 +585,9 @@ border-radius: 7px;
 .layout {
 clear: both;
 min-height: 540px;
-margin: 0 auto;
-background-color: rgba(255, 255, 255, .45);
+background-color: rgba(255, 255, 255, 0.45);
 z-index: -10;
+margin-left: 3%;
 }
 
 .element {
@@ -705,10 +704,10 @@ border: 1px solid $divider;
 /* Ribbon */
 
 #ribbon {
-  margin:0 auto;
+  position: relative;
+  top: 5px;
+  margin-left:3%;
   width:90%;
-position: relative;
-top: 5px;
 }
 
 .ribbon_bottom {
@@ -722,7 +721,7 @@ z-index: -1;
 #datepicker {
 width: 415px;
 font-size: 12px;
-height: 75px;
+height: 35px;
 position: absolute;
 bottom: 3px;
 float: right;
@@ -754,6 +753,8 @@ width: 20px;
 #yt {
 float:left;
 text-align: center;
+position: relative;
+top: 5px;
 }
 
 .btn-today {
@@ -809,11 +810,11 @@ border-bottom-right-radius: 7px;
 
 #datewindow {
 border: 3px solid #FF8500;
-width: 77px;
-height: 73px;
+width: 19px;
+height: 36px;
 position: absolute;
 left: 59px;
-bottom: -2px;
+bottom: -4px;
 z-index: -2;
 }
 
@@ -851,7 +852,7 @@ float: left;
   textarea {
   font-size: 18px;
   width: 65%;
-  height: 45px;
+  height: 21px;
   padding-right: 15px;
   float: left;
   }
@@ -930,40 +931,11 @@ width: 105%;
 
 /* Forecast */
 
-#forecast {
-width:6440px;
-position: relative;
-   > dl {
-float: left;
-position: relative;
-top: 6px;
-left: 17px;
-height: 100%;
-@box-sizing
-  }
-  a {
-    text-decoration: none;
-    color:inherit;
-    cursor: pointer;
-/*    cursor: -webkit-zoom-in;
-    cursor: -moz-zoom-in;
-    cursor: zoom-in;*/
-  }
-  dt span {
-    color: darkgrey;
-font-size: 15px;
-position: relative;
-bottom: 6px;
-letter-spacing: 2px;
-  }
-  dd {
-  }
-}
-
-.forecast {
-margin: 0 auto;
-margin-top: 15px;
-overflow-y: hidden;
+.vertical {
+padding: 0px 10px 10px 10px;
+overflow: hidden;
+width: 95%;
+margin-top: -8px;
 }
 
 .forecastDate {
@@ -974,11 +946,65 @@ text-align: left;
 padding-left: 8px;
 }
 
+.floatingHeader {
+  position: fixed;
+  top: 0;
+  visibility: hidden;
+  z-index: 10;
+}
+
+.floating_logo {
+position: absolute;
+left: 24px;
+top: 0;
+}
+
+.floating_nav_buttons {
+
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+} 
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    zoom: 1; /* For IE 6/7 (trigger hasLayout) */
+}
+
+.date {
+clear: both;
+border-bottom: 1px solid $divider;
+width: 100%;
+padding: 15px 140px;
+border-top: 1px solid $divider;
+font-size: 27px;
+background:white;
+}
+
+.each_day {
+  clear:both;
+}
+
+.sidebar {
+  width:170px;
+  height:100%;
+  float:left;
+}
+
+.idea_container {
+  width:80%;
+}
+
 .event {
+margin: 5px;
+float:left;
 min-height: 110px;
 position: relative;
 z-index: 1;
-margin: 8px auto;
 border: 10px solid white;
 -webkit-box-shadow: 1px 1px 4px rgba(50, 50, 50, 0.75);
 -moz-box-shadow:    1px 1px 4px rgba(50, 50, 50, 0.75);
@@ -1814,11 +1840,6 @@ padding-left: 10px;
   }
 }
 
-  .when {
-height: 20px;
-margin-bottom: 10px;
-  }
-
 .event_location{
 position: relative;
 text-align: right;
@@ -2247,7 +2268,7 @@ textarea {
   }
   #user_city, #user_time_zone {
     height: 40px;
-width: 400px;
+    width: 400px;
   }
 }
 

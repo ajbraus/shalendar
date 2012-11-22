@@ -12,9 +12,10 @@ class ShalendarController < ApplicationController
         @time_in_zone = Time.now.in_time_zone(current_user.time_zone) 
       end
   		@date = @time_in_zone.to_date #in_time_zone("Central Time (US & Canada)")
-      @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
+      #@forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone))
+      @events = current_user.events(Time.now.in_time_zone(current_user.time_zone))
+      @my_plans = @events.select { |e| e.each { |eagain| current_user.plans.include?(eagain) } }
       @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
-      @public_events = Event.public_forecast(@time_in_zone, current_user)
       @graph = session[:graph]
       if @graph
         @member_friends = current_user.fb_friends(@graph)[0]
@@ -22,7 +23,7 @@ class ShalendarController < ApplicationController
       end
     else  
       @time_in_zone = Time.now.in_time_zone("Central Time (US & Canada)")
-      @public_events = Event.public_forecast(@time_in_zone, nil)
+      @events = Event.public_forecast(@time_in_zone, nil)
     end 
     #@event_suggestions = Suggestion.event_suggestions(current_user)
     #@all_suggestions = Suggestion.where('starts_at IS NULL').order('created_at DESC')

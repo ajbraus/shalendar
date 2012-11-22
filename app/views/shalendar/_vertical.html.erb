@@ -1,0 +1,72 @@
+<div class="vertical">
+<% for i in -3..16 %>
+	<div class="each_day persist-area clearfix">
+		<% if @time_in_zone.to_date + (i) == @time_in_zone.to_date %>
+			<div class="date marker persist-header red" id="today" data-date=<%= "#{@time_in_zone.to_date + i}" %>><%= (@time_in_zone.to_date + (i)).strftime("%A %b %e") %>
+			</div>
+		<% else %>
+			<div class="date persist-header" data-date=<%= "#{@time_in_zone.to_date + i}" %>><%= (@time_in_zone.to_date + (i)).strftime("%A %b %e") %></div>
+		<% end %>
+		<div class="sidebar">
+			<% if @my_plans[i + 3].any? %>
+				<% @my_plans[i + 3].each do |mp| %>
+					<%= render partial: 'shalendar/mini_event', locals: { :event => mp } %>
+				<% end %>
+			<% end %>
+		</div>
+		<div id="ideaContainer" class="idea_container">
+			<% if @events[i + 3].any? %>
+				<% @events[i + 3].each do |e| %>
+					<%= render :partial => "shalendar/event", :locals => { :event => e } %>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+<% end %>
+</div>
+
+<script>
+function UpdateTableHeaders() {
+   $(".persist-area").each(function() {
+   
+       var el             = $(this),
+           offset         = el.offset(),
+           scrollTop      = $(window).scrollTop(),
+           floatingHeader = $(".floatingHeader", this)
+       
+       if ((scrollTop > offset.top) && (scrollTop < offset.top + el.height())) {
+           floatingHeader.css({
+            "visibility": "visible"
+           });
+
+       } else {
+           floatingHeader.css({
+            "visibility": "hidden"
+           });      
+       };
+   });
+}
+
+// DOM Ready      
+$(function() {
+
+   var clonedHeaderRow;
+
+   $(".persist-area").each(function() {
+       clonedHeaderRow = $(".persist-header", this);
+       clonedHeaderRow
+         .before(clonedHeaderRow.clone())
+         .css("width", '95%')
+         .addClass("floatingHeader")
+         .prepend('<div class="floating_logo"><img alt="Logo_beta" src="/assets/logo_beta.png" width="100"></div>')
+         .append("<%= escape_javascript(render partial: 'shalendar/new_idea_button') %>")
+         .append("<div class='date_nav_buttons'>blerp</div>");
+         
+   });
+   
+   $(window)
+    .scroll(UpdateTableHeaders)
+    .trigger("scroll");
+   
+});
+</script>

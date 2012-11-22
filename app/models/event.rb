@@ -179,6 +179,10 @@ class Event < ActiveRecord::Base
   end
 
 
+  def self.events(load_datetime, current_user)
+    
+  end
+
   def self.public_forecast(load_datetime, current_user)
     #get time zone from city
     Time.zone =  "Central Time (US & Canada)"

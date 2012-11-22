@@ -17,16 +17,5 @@
 				<% end %>
 	  	</th>
 	  </tr>
-	  <% if user_signed_in? %>
-	  <tr>
-	  	<td class="plan_box">
-	  		<%= @plan_counts[i+3] %>
-	  	</td>		  	
-	  </tr>
-	  	<td class="ideas_cloud">
-	  		<%= @invite_counts[i+3] %>
-	  	</td>
-	  </tr>
-	 	<% end %>
 	</table>
 	<% end %>	

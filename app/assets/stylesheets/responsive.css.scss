@@ -50,10 +50,6 @@ body {
 		display:none;
 	}
 
-	#new_idea_blerb {
-		display: none;
-	}
-
 
 	.ajax-new-idea {
 		display: none;
@@ -80,15 +76,20 @@ body {
 		margin-right: -55px;
 	}
 
-	.btn-new-idea {
-		float:right;
-		padding: 6px 32px;
-		border-radius: 6px;
+	#new_idea_blerb {
+		position: relative;
+		left: 40px;
 	}
 
-	#ribbon {
-		height:25px;
+	.btn-new-idea {
+		float:right;
+		padding: 11px 14px;
+		-moz-border-radius: 0 6px 6px 0px;
+		-webkit-border-radius: 0 6px 6px 0px;
+		border-radius: 0 6px 6px 0px;
+		position: relative;
 	}
+
 
 // LAYOUT IS PROPORTIONAL
 
@@ -135,6 +136,24 @@ body {
 			font-size: 22px;
 		}
 	}	
+
+		.event {
+		max-width: 180px;
+		max-height: 300px;
+		min-width: 160px;
+		min-height: 110px;
+		right: 1px;
+	}
+
+	.sidebar {
+  width:auto;
+  height:auto;
+	}
+
+	.idea_container {
+		width:98%;
+	}
+
 	ul.event_buttons {
 		width:96%;
 		float:left;
