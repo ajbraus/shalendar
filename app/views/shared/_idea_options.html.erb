@@ -58,7 +58,6 @@
 		<i class="icon-facetime-video"></i><%= f.text_field :promo_vid, autocomplete: "off", placeholder: "You Tube URL" %>
 	</div>
 
-<% if false %>
 	<div id="addtippingp" class="minmax" style="display:none;">
 		<div class='tippingIcon'>
 	  	<i class="icon-tasks"></i>
@@ -72,7 +71,6 @@
 	    <%= f.text_field :max, :class => 'input-mini', autocomplete: "off" %>
 	  </u>
 	</div>
-<% end %>
 
 	<div id="addmapp" style="display: none;">
 	  <%= label_tag "Location" %><br/>
@@ -87,8 +85,10 @@
 	<div id="addcostp" style="display:none;">
     <%= f.label "Cost" %><br>
     <i class="icon-money"></i><div class="dollar">$</div><%= f.text_field :price, :class => 'input-mini', autocomplete: "off", placeholder: "0.00" %>
-    <% if current_user.vendor? %>
+    <% if current_user.bank_account_uri %>
     	<%= f.check_box :require_payment %> <%= f.label "Require Payment to Join" %>
+    <% else %>
+    	<%= link_to "Enable ticketing and payments", new_merchant_path, target: "_blank" %>
     <% end %>
 	</div>
 </div>
@@ -101,9 +101,7 @@
 		<% else %>
 			<li id="visibility" title="Share" style="color:#EB8325;"><i class="icon-group"></i></li>
 		<% end %>
-		<% if false %>
  	  <li id="addtipping" title="Add a Tipping/Full"><i class="icon-tasks"></i></li>
- 	  <% end %>
 	  <li id="addLink" title="Add a Link"><i class="icon-link"></i></li>
 	  <li id="addmap" title="Add a Location"><i class="icon-map-marker"></i></li>
 	  <li id="addimg" title="Add an Image"><i class="icon-camera-retro"></i></li>

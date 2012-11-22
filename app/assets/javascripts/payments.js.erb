@@ -22,9 +22,10 @@ balanced.init(marketplaceUri);
 
     var tokenizeCard = function(e) {
         e.preventDefault();
-
+        $('.ajax_loader').toggle();
         var $form = $('form#payment');
         var cardData = {
+            name: $form.find('[name="name"]').val(),
             card_number: $form.find('[name="card_number"]').val(),
             expiration_month: $form.find('[name="expiration_month"]').val(),
             expiration_year: $form.find('[name="expiration_year"]').val(),
@@ -46,22 +47,28 @@ balanced.init(marketplaceUri);
 function creditCardCallback(response) {
     switch (response.status) {
         case 400:
+            $('.ajax_loader').toggle();
             console.log(response.error)
-            alert('check response.error for deets')
+            //alert('check response.error for deets')
+            // if (response.error.card_number) {
+
+            // };
             // missing field - check response.error for details
             break;
         case 409:
+            $('.ajax_loader').toggle();
             alert('check valid bank code')
             // some of the data didnt make sense, check the bank code is valid
             break
         case 404:
+            $('.ajax_loader').toggle();
             alert('incorrect marketplace URI')
             // your marketplace URI is incorrect
             break;
         case 201:
             var $form = $('form#payment');
             var extra = {
-                street_address: $form.find('div#event_id').attr('name')
+                id: $form.find('div#event_id').attr('name')
             };
             
             //console.log(jQuery.extend(response.data, extra));
@@ -79,6 +86,7 @@ function creditCardCallback(response) {
 
     var tokenizeBankAccount = function(e) {
         e.preventDefault();
+        $('.ajax_loader').toggle();
 
         var $form = $('form#bankAccount');
         var bankAccountData = {
@@ -106,15 +114,18 @@ function creditCardCallback(response) {
 function merchantCallback(response) {
     switch (response.status) {
         case 400:
+            $('.ajax_loader').toggle(); 
             console.log(response.errors)
             alert("missing field see log for details")
             // missing field - check response.error for details
             break;
         case 409:
+            $('.ajax_loader').toggle();
             alert('check the bank code is valid')
             // some of the data didnt make sense, check the bank code is valid
             break
         case 404:
+            $('.ajax_loader').toggle();
             alert("marketplace URI is incorrect")
             // your marketplace URI is incorrect
             break;

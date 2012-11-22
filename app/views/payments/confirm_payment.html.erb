@@ -1,1 +1,33 @@
-confirm payments
+<div class="credit_card_form sign_up">
+	<% if @event.present? %>
+    <div id="event_id" name="<%= @event.id %>"></div>
+    <h3><strong>What:</strong> <%= @event.title %></h3>
+    <h3><strong>When:</strong> <%= @event.start_time %></h3>
+    <br>
+    <h3 style="text-align:right;"><strong>Cost: <%= @event.nice_price %></strong></h3>
+    <div class="divider_line"></div>
+	<% end %>
+	<div class="credit_cards">
+			<h3>Credit Cards</h3>
+		<table>
+			<tr height="50px">
+				<th width="10px"></th>
+				<th width="23%">Name</th>
+				<th width="23%">Card Type</th>
+				<th width="23%">Expiration</th>
+				<th width="24%">last 4</th>
+			</tr>
+			<tr height="30px">
+				<td width="10px"><input type="radio" checked="checked"/></td>
+				<td width="23%"><%= current_user.name %></td>
+				<td width="23%"><%= @card_details.card_type.capitalize %></td>
+				<td width="24%"><%= @card_details.expiration_month %> / <%= @card_details.expiration_year %></td>
+				<td><%= @card_details.last_four %></td>
+			</tr>
+		</table>
+		<%= link_to "change cards", new_card_path(:id => @event.id) %>
+	</div>
+
+<%= link_to "Confirm and Pay", submit_payment_path(:id => @event.id), class:"btn btn-large btn-success" %>
+
+</div>

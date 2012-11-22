@@ -405,7 +405,7 @@ width: 25px;
 
 header {
 height: 72px;
-background-color: rgba(255, 255, 255, 0.6);
+background-color: rgba(255, 255, 255, 0.8);
 border-bottom: 1px solid #D1CDCD;
 clear: both;
 margin: 0 auto;
@@ -588,7 +588,7 @@ border-radius: 7px;
 clear: both;
 min-height: 540px;
 margin: 0 auto;
-background-color: rgba(255, 255, 255, .6);
+background-color: rgba(255, 255, 255, .8);
 z-index: -10;
 padding: 7px 0px;
 }
@@ -1684,7 +1684,7 @@ overflow: hidden;
 position: relative;
   .promo_img {
     text-align: center;
-    margin-bottom:-90px;
+    margin-bottom:0px;
     img {
       max-height: 540px;
       min-width: 250px;
@@ -2220,7 +2220,6 @@ textarea {
 
 .sign_up {
   margin: 0 auto;
-  width: 380px;
 
     h2 {
     width:410px;
@@ -2559,13 +2558,53 @@ select {
   @extend .error;
 }
 
+  .top {
+    border-bottom:1px solid $divider;
+  }
+  .middle {
+    border-bottom:1px solid $divider;
+    padding:40px 0;
+    p {
+    margin:0 auto;
+    width:66%;
+    text-indent:50px;
+    }
+    h3 {
+      margin: 9px auto;
+width: 66%;
+    }
+  }
+
+  .bottom {
+    margin:0 auto;
+    padding:40px 0;
+    p {
+      width:66%;
+    }
+  }
+
+  .message {
+    position: relative;
+    bottom: 495px;
+    margin-bottom: -350px;
+    width: 66%;
+    margin: 0 auto;
+    background-color: rgba(250, 250, 250, 0.95);
+    padding: 20px;
+    p {
+      margin:0 auto;
+      width: 90%;
+      text-indent:40px;
+    }
+  }
+
 .instagramFeed {
-  width: 900px;
+  width: 100%;
   margin: 0 auto;
   position: relative;
-top: 40px;
+  height: 410px;
   span {
-    color:$icon_color;
+    color:white;
     font-weight: bold;
     font-size: 30px;
   }
@@ -2574,9 +2613,24 @@ top: 40px;
     top:131px; 
   }
   p {
-    position: relative;
-    top:124px; 
+    text-ident:20px;
   }
+}
+
+.instagram-placeholder {
+  float: left;
+  height: 97px;
+}
+
+.instagram {
+  height: 560px;
+  overflow:hidden;
+}
+
+.hoosinstagram {
+  position: absolute;
+bottom: 15px;
+right: 20px;
 }
 
 .invited_events {
@@ -2585,12 +2639,6 @@ top: 30px;
 right: 71px;
 z-index: 100000;
 min-width: 232px;
-}
-
-.instagram-placeholder {
-  float: left;
-  margin-right: 5px;
-  height: 210px;
 }
 
 .invitations{
@@ -2827,7 +2875,7 @@ bottom: 18px;
 
 .divider_line {
   border-bottom: 1px solid $divider;
-margin: 30px 0px;
+margin: 25px 0px;
 clear:both;
 }
 
@@ -2841,11 +2889,10 @@ clear:both;
 
 .credit_card_form {
 margin: 0 auto;
-width: 400px;
 background-color: white;
 border: 1px solid $divider;
-padding: 30px;
-min-height: 470px;
+padding: 15px 30px 15px 30px;
+min-height: 570px;
 position: relative;
   .card_number {
 
@@ -2872,4 +2919,21 @@ position: relative;
 right: 30px;
 bottom: 20px;
   }
+}
+
+.credit_cards {
+  td, th {
+    text-align: center;
+  }
+}
+
+.ajax_loader {
+background-image: url("ajax_loader.gif");
+position: absolute;
+left: 197px;
+bottom: 27px;
+background-size: 32px;
+width: 33px;
+height: 33px;
+background-repeat: no-repeat;
 }

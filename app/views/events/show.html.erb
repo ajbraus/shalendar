@@ -33,10 +33,7 @@
       </div>
     <% end %>
     <div class="cost">
-      <% if @event.require_payment %>
-        <i class="icon-money"></i>
-      <% end %>
-      <%= @event.nice_price %>
+      <i class="icon-money"></i> <%= @event.nice_price %>
     </div>
   </div>
 

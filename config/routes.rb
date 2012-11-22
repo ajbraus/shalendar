@@ -22,7 +22,7 @@ Shalendar::Application.routes.draw do
                               sign_up: "join"
                             } 
   devise_scope :user do
-    match '/new_vendor', to: 'registrations#new_vendor', as: "new_vendor"
+    match '/new_venue', to: 'registrations#new_vendor', as: "new_vendor"
   end
 
   # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
@@ -65,7 +65,6 @@ Shalendar::Application.routes.draw do
 
   match '/collect_payments', :to => 'payments#new_merchant', :as => 'new_merchant'
   match '/create_merchant', :to => 'payments#create_merchant', :as => 'create_merchant'
-
 
   match '/confirm_payment', :to => 'payments#confirm_payment', :as => "confirm_payment"
   match '/submit_paytment', :to => 'payments#submit_payment', :as => "submit_payment"
@@ -114,7 +113,7 @@ Shalendar::Application.routes.draw do
   match 'share_all_fb_friends' =>'shalendar#share_all_fb_friends'
   match 'friend_all' => 'shalendar#friend_all'
 
-  match '/vendor_splash', to: 'static_pages#vendor_splash', as: 'vendor_splash'
+  match '/vendor', to: 'static_pages#vendor_splash', as: 'vendor_splash'
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/careers', :to => 'static_pages#careers', :as => "careers"
   match '/privacy', :to => 'static_pages#privacy', :as => "privacy"
