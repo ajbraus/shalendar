@@ -37,10 +37,17 @@ task :test_notifications => :environment do
 	n.data = {:registration_ids => [android_user.GCMtoken], :data => {:message_text => "Happy afternoon!"}}
 	n.save
 
-end
+	iphone_user = User.find(3) #michael's iPhone
+	ios_device = APN::Device.find_by_id(iphone_user.apn_device_id)
+	n = APN::Notification.new
+  n.device = ios_device
+  n.alert = "Test Generated Push"
+  n.badge = 5
+  n.sound = true
+  n.custom_properties = {:type => "test_push"}
+  n.save
 
-#Should currently be accomplished with a worker through jobs:work => gcm:work
-# task :send_gcm_notifications => :environment do
+end
 
 #To clear cache each week, from railscast on cron jobs
 # every :friday, :at => "4am" do
