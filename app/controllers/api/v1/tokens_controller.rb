@@ -26,7 +26,7 @@ class Api::V1::TokensController  < ApplicationController
         render :json=>{:error => "Email doesn't match the facebook email"}
         return
       end
-      @user = find_for_oauth("Facebook", fb_json, params[:access_token])   
+      @user = find_for_oauth("Facebook", fb_json)   
 
       # uid = auth.uid
       # provider = auth.provider
