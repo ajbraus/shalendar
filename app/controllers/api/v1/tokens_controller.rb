@@ -53,9 +53,12 @@ class Api::V1::TokensController  < ApplicationController
       end
       @user=User.find_by_email(email.downcase)
 
-      if @user.nil?
-        render :status=>402, :json=>{error: "Invalid email/password combination. If you have not yet registered for hoos.in, you have to do so either through facebook or on the website to use the app. Sorry for the inconvenience!"}
-        return
+      if @user.nil? #create a new user
+
+
+
+        # render :status=>402, :json=>{error: "Invalid email/password combination. If you have not yet registered for hoos.in, you have to do so either through facebook or on the website to use the app. Sorry for the inconvenience!"}
+        # return
       end
       # http://rdoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable
       @user.ensure_authentication_token!
@@ -105,14 +108,14 @@ class Api::V1::TokensController  < ApplicationController
   end
 
 
-  def find_for_oauth(provider, access_token, resource=nil)
+  def find_for_oauth(provider, fb_info, access_token, resource=nil)
     user, email, name, uid, auth_attr = nil, nil, nil, nil, {}
     case provider
     when "Facebook"
       logger.info("#{access_token}")
-      uid = access_token.uid
-      email = access_token.info.email
-      token = access_token.credentials.token
+      uid = fb_info.id
+      email = fb_info.email
+      token = access_token
       @graph = Koala::Facebook::API.new
       pic_url = @graph.get_picture(uid)
       auth_attr = { :uid => uid, :token => token, :secret => nil, :pic_url => pic_url }
@@ -121,9 +124,9 @@ class Api::V1::TokensController  < ApplicationController
     end
     if resource.nil?
       if email
-        user = find_for_oauth_by_email(email, access_token, resource)
+        user = find_for_oauth_by_email(email, fb_info, resource)
       else 
-        user = find_for_oauth_by_uid(uid, access_token, resource)
+        user = find_for_oauth_by_uid(uid, fb_info, resource)
       end
     else
       user = resource
@@ -155,7 +158,7 @@ class Api::V1::TokensController  < ApplicationController
     return user
   end
 
-  def find_for_oauth_by_uid(uid, access_token, resource=nil)
+  def find_for_oauth_by_uid(uid, fb_info, resource=nil)
     user = nil
     if auth = Authentication.find_by_uid(uid.to_s)
       user = auth.user
@@ -163,11 +166,11 @@ class Api::V1::TokensController  < ApplicationController
     return user
   end
 
-  def find_for_oauth_by_email(email, access_token, resource=nil)
+  def find_for_oauth_by_email(email, fb_info, resource=nil)
     if user = User.find_by_email(email)
-      email = access_token.info.email
-      name = access_token.info.name
-      location = access_token.info.location
+      email = fb_info.email
+      name = fb_info.name
+      location = fb_info.location
       @city = City.find_by_name(location)
       if @city.nil?
         c = City.new(name: location, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone)
@@ -183,9 +186,9 @@ class Api::V1::TokensController  < ApplicationController
       return user
 
     else
-      email = access_token.info.email
-      name = access_token.info.name
-      city = access_token.info.location
+      email = fb_info.email
+      name = fb_info.name
+      city = fb_info.location
       time_zone = "Central Time (US & Canada)"  # timezone_for_utc_offset(access_token.extra.raw_info.timezone)
 
       user = User.new(:email => email, 

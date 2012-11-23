@@ -45,6 +45,7 @@ private
       uid = access_token.uid
       email = access_token.info.email
       token = access_token.credentials.token
+      logger.info("the token from FB is: #{token}")
       @graph = Koala::Facebook::API.new
       pic_url = @graph.get_picture(uid)
       auth_attr = { :uid => uid, :token => token, :secret => nil, :pic_url => pic_url }
