@@ -109,6 +109,7 @@ class Api::V1::TokensController  < ApplicationController
     user, email, name, uid, auth_attr = nil, nil, nil, nil, {}
     case provider
     when "Facebook"
+      logger.info("#{access_token}")
       uid = access_token.uid
       email = access_token.info.email
       token = access_token.credentials.token
