@@ -55,10 +55,8 @@ class Api::V1::TokensController  < ApplicationController
 
       if @user.nil? #create a new user
 
-
-
-        # render :status=>402, :json=>{error: "Invalid email/password combination. If you have not yet registered for hoos.in, you have to do so either through facebook or on the website to use the app. Sorry for the inconvenience!"}
-        # return
+        render :status=>402, :json=>{error: "Invalid email/password combination. If you have not yet registered for hoos.in, you have to do so either through facebook or at www.hoos.in. Sorry for the inconvenience!"}
+        return
       end
       # http://rdoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable
       @user.ensure_authentication_token!
