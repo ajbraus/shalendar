@@ -408,6 +408,8 @@ background-color: rgba(255, 255, 255, 0.45);
 border-bottom: 1px solid #D1CDCD;
 clear: both;
 margin-left:3%;
+  position: fixed;
+  top:0;
   /*background-color:$icon_color;*/
 /*  -webkit-box-shadow: 0px 2px 9px rgba(50, 50, 50, 0.75);
   -moz-box-shadow:    0px 2px 9px rgba(50, 50, 50, 0.75);
@@ -588,6 +590,7 @@ min-height: 540px;
 background-color: rgba(255, 255, 255, 0.45);
 z-index: -10;
 margin-left: 3%;
+margin-top:72px;
 }
 
 .element {
@@ -932,7 +935,7 @@ width: 105%;
 /* Forecast */
 
 .vertical {
-padding: 0px 10px 10px 10px;
+padding: 0px 10px 10px 0px;
 overflow: hidden;
 width: 95%;
 margin-top: -8px;
@@ -948,7 +951,7 @@ padding-left: 8px;
 
 .floatingHeader {
   position: fixed;
-  top: 0;
+  top: 70px;
   visibility: hidden;
   z-index: 10;
 }
@@ -975,7 +978,7 @@ top: 0;
     zoom: 1; /* For IE 6/7 (trigger hasLayout) */
 }
 
-.date {
+.date_bar {
 clear: both;
 border-bottom: 1px solid $divider;
 width: 100%;
@@ -983,6 +986,13 @@ padding: 15px 140px;
 border-top: 1px solid $divider;
 font-size: 27px;
 background:white;
+.date {
+  float:left;
+}
+}
+
+#today {
+  color: $destroy;
 }
 
 .each_day {
