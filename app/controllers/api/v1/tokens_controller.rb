@@ -25,7 +25,7 @@ class Api::V1::TokensController  < ApplicationController
       #   render :json=>{:error => "Email doesn't match the facebook email"}
       #   return
       # end
-      @user = find_for_oauth("Facebook", fb_json)   
+      @user = find_for_oauth("Facebook", fb_json, params[:access_token])   
 
       if @user.nil?
         #I think we get the long access token already on the mobile app
