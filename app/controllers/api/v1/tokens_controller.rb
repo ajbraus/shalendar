@@ -218,11 +218,10 @@ class Api::V1::TokensController  < ApplicationController
     if @user.nil?
       render status: 400, :json => { :error => "user could not be found." }
       return
-    elsif @user.iPhone_user == true && @user.APNtoken == token
-      render status: 200, :json => { :success => true }
-      return
+    # elsif @user.iPhone_user == true && @user.APNtoken == token
+    #   render status: 200, :json => { :success => true }
+    #   return
     end
-    logger.info("the token is: #{token}")
 
     #do a more robust check to make sure we don't use same id and same token ever,
     #and that we shouldn't make extra devices
@@ -251,22 +250,17 @@ class Api::V1::TokensController  < ApplicationController
     @user = User.find_by_id(params[:user_id])
 
     logger.info("Registration id: #{params[:registration_id]}")
+    
     registration_id = params[:registration_id]
     if @user.android_user == true && @user.GCMtoken == registration_id
       render :json => { :success => true }
-        notification = Gcm::Notification.new
-        notification.device = Gcm::Device.find(@user.GCMdevice_id)
-        notification.collapse_key = "updates_available"
-        notification.delay_while_idle = true
-        notification.data = {:registration_id => registration_id, :data => {:message_text => "Happy afternoon!"}}
-        notification.save
       return
     end
-    device = Gcm::Device.new
-    device.registration_id = registration_id
 
-    #create(registration_id: registration_id)
-    device.save!
+    # device = Gcm::Device.new
+    # device.registration_id = registration_id
+    # device.save!
+    device = Gcm::Device.create(:registration_id => registration_id)
     
     notification = Gcm::Notification.new
     notification.device = device

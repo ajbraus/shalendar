@@ -130,7 +130,6 @@ class Api::V1::EventsController < ApplicationController
     @event.ends_at = @event.starts_at + @event.duration.hours
     @event.duration = Float(params[:duration])
     
-    logger.info("Event: #{@event}")
     # @event.title = params[:title]
     # @event.min = params[:min]
     # @event.max = params[:max]
