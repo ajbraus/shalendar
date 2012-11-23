@@ -25,6 +25,7 @@ class Api::V1::TokensController  < ApplicationController
       #   render :json=>{:error => "Email doesn't match the facebook email"}
       #   return
       # end
+      logger.info("the FBID is: #{fbid}")
       @user = find_for_oauth("Facebook", fb_json, params[:access_token])   
 
       if @user.nil?
@@ -112,9 +113,9 @@ class Api::V1::TokensController  < ApplicationController
     user, email, name, uid, auth_attr = nil, nil, nil, nil, {}
     case provider
     when "Facebook"
-      logger.info("#{access_token}")
-      uid = fb_info.id
-      email = fb_info.email
+      logger.info("#{fb_info}")
+      uid = fb_info[:id]
+      email = fb_info[:email]
       token = access_token
       @graph = Koala::Facebook::API.new
       pic_url = @graph.get_picture(uid)
@@ -168,9 +169,9 @@ class Api::V1::TokensController  < ApplicationController
 
   def find_for_oauth_by_email(email, fb_info, resource=nil)
     if user = User.find_by_email(email)
-      email = fb_info.email
-      name = fb_info.name
-      location = fb_info.location
+      email = fb_info[:email]
+      name = fb_info[:name]
+      location = fb_info[:location][:name]
       @city = City.find_by_name(location)
       if @city.nil?
         c = City.new(name: location, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone)
