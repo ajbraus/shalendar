@@ -236,13 +236,6 @@ class Api::V1::TokensController  < ApplicationController
     @user.apn_device_id = device.id
     @user.save!
 
-    # n = APN::Notification.new
-    # n.device = APN::Device.find_by_id(@user.apn_device_id)
-    # n.sound = true
-    # n.badge = 1
-    # n.alert = "you have registered for push"
-    # n.save
-
     render :json => { :success => true, :token => token }
   end
 
@@ -252,9 +245,12 @@ class Api::V1::TokensController  < ApplicationController
     logger.info("Registration id: #{params[:registration_id]}")
     
     registration_id = params[:registration_id]
-    if @user.android_user == true && @user.GCMtoken == registration_id
-      render :json => { :success => true }
+    if @user.nil?
+      render status: 400, :json => { :error => "user could not be found." }
       return
+    # if @user.android_user == true && @user.GCMtoken == registration_id
+    #   render :json => { :success => true }
+    #   return
     end
 
     # device = Gcm::Device.new
