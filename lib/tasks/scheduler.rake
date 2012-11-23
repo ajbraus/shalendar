@@ -26,6 +26,19 @@ task :follow_up => :environment do
 	User.follow_up
 end
 
+task :test_notifications => :environment do
+
+	android_user = User.find(140)
+	gcm_device = Gcm::Device.find(android_user.GCMdevice_id)
+	n = Gcm::Notification.new
+	n.device = gcm_device
+	n.collapse_key = "test generated push"
+	n.delay_while_idle = true
+	n.data = {:registration_ids => [android_user.GCMtoken], :data => {:message_text => "Happy afternoon!"}}
+	n.save
+
+end
+
 #Should currently be accomplished with a worker through jobs:work => gcm:work
 # task :send_gcm_notifications => :environment do
 
