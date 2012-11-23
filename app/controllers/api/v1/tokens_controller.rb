@@ -182,7 +182,7 @@ class Api::V1::TokensController  < ApplicationController
     device = APN::Device.find_by_token(token)
     if device.nil?
       device = APN::Device.new
-      device.token = @user.APNtoken
+      device.token = token
       device.save!
     end
     @user.APNtoken = token
