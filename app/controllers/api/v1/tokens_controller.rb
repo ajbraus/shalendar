@@ -27,11 +27,6 @@ class Api::V1::TokensController  < ApplicationController
       # end
       @user = find_for_oauth("Facebook", fb_json)   
 
-      # uid = auth.uid
-      # provider = auth.provider
-      # access_token = params[:access_token]
-      # access_token = env["omniauth.auth"]
-      # auth_attr = { :uid => uid, :token => access_token, :secret => nil }
       if @user.nil?
         #I think we get the long access token already on the mobile app
         # @short_token = access_token
@@ -109,21 +104,25 @@ class Api::V1::TokensController  < ApplicationController
     end
   end
 
-  def find_for_oauth(provider, fb_json, resource=nil, access_token)
+
+  def find_for_oauth(provider, access_token, resource=nil)
     user, email, name, uid, auth_attr = nil, nil, nil, nil, {}
     case provider
     when "Facebook"
-      uid = fb_json["id"]
-      email = fb_json["email"]
-      auth_attr = { :uid => uid, :token => access_token, :secret => nil }
+      uid = access_token.uid
+      email = access_token.info.email
+      token = access_token.credentials.token
+      @graph = Koala::Facebook::API.new
+      pic_url = @graph.get_picture(uid)
+      auth_attr = { :uid => uid, :token => token, :secret => nil, :pic_url => pic_url }
     else
       raise 'Provider #{provider} not handled'
     end
     if resource.nil?
       if email
-        user = find_for_oauth_by_email(email, fb_json)
-      else
-        user = nil
+        user = find_for_oauth_by_email(email, access_token, resource)
+      else 
+        user = find_for_oauth_by_uid(uid, access_token, resource)
       end
     else
       user = resource
@@ -141,24 +140,71 @@ class Api::V1::TokensController  < ApplicationController
     if auth.nil?
       user = nil
     end
+             # TURN ALL FB_INVITES INTO INVITIATTIONS HERE 
+    FbInvite.where("uid = ?", uid).each do |fbi|
+      @inviter_id = fbi.inviter_id
+      @invited_user_id = user.id
+      @event = fbi.event
+      if @inviter = User.find_by_id(@inviter_id)
+        @inviter.invite!(@event, user)
+      end
+      fbi.destroy
+    end
+
     return user
   end
 
-  def find_for_oauth_by_email(email, fb_json)
+  def find_for_oauth_by_uid(uid, access_token, resource=nil)
+    user = nil
+    if auth = Authentication.find_by_uid(uid.to_s)
+      user = auth.user
+    end
+    return user
+  end
+
+  def find_for_oauth_by_email(email, access_token, resource=nil)
     if user = User.find_by_email(email)
+      email = access_token.info.email
+      name = access_token.info.name
+      location = access_token.info.location
+      @city = City.find_by_name(location)
+      if @city.nil?
+        c = City.new(name: location, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone)
+        c.save
+        @city = c
+      end
+
+      time_zone = "Central Time (US & Canada)" #timezone_for_utc_offset(access_token.extra.raw_info.timezone)
+
+      user_attr = { email: email, name: name, city: location, time_zone: time_zone }
+      user.update_attributes user_attr
+      
       return user
+
     else
-      email = fb_json["email"]
-      name = fb_json["name"]
-      city = fb_json["location"]
+      email = access_token.info.email
+      name = access_token.info.name
+      city = access_token.info.location
+      time_zone = "Central Time (US & Canada)"  # timezone_for_utc_offset(access_token.extra.raw_info.timezone)
+
       user = User.new(:email => email, 
                 :name => name,
                 :city => city,
+                :time_zone => time_zone,
                 :terms => true,
                 :remember_me => true,
                 :password => Devise.friendly_token[0,20]
-              ) 
+              )
       user.save
+      EmailInvite.where("email_invites.email = :new_user_email", new_user_email: user.email).each do |ei|
+        @inviter_id = ei.inviter_id
+        @invited_user_id = user.id
+        @event = ei.event
+        if @inviter = User.find_by_id(@inviter_id)
+          @inviter.invite!(@event, user)
+        end
+        ei.destroy
+      end
       return user
     end
   end
