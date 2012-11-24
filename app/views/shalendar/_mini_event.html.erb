@@ -1,5 +1,5 @@
 <%= link_to event_path(event) do %>
-<div class="mini_event">
+<div class="mini_event <%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) ? 'over' : ''%>" >
 		<div class="event_time">			
 			<% if event.starts_at.hour > 4 && event.starts_at.hour < 12 %>
 				<%= image_tag "morning.png" %>

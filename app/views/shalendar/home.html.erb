@@ -8,14 +8,16 @@
       <div class="date"><%= (@time_in_zone.to_date + (i)).strftime("%A %b %e") %></div>
 		</div>
     <div class="day_container clearfix">
-  		<div class="sidebar">
+  		<% if user_signed_in? %>
+      <div class="sidebar">
   			<% if @my_plans[i + 3].any? %>
   				<% @my_plans[i + 3].each do |mp| %>
   					<%= render partial: 'shalendar/mini_event', locals: { :event => mp } %>
   				<% end %>
   			<% end %>
   		</div>
-  		<div id="ideaContainer" class="idea_container">
+      <% end %>
+  		<div id="ideaContainer" class="idea_container clearfix">
   			<% if @events[i + 3].any? %>
   				<% @events[i + 3].each do |e| %>
   					<%= render :partial => "shalendar/event", :locals => { :event => e } %>

@@ -6,7 +6,7 @@
 @media only screen and (min-width:600px) {
 
 	.layout {
-		width: 100%;
+		width: 97%;
 		padding: 7px 0px;
 	}
 
@@ -28,11 +28,15 @@
 	}
 
 	.event {
-		max-width: 180px;
-		max-height: 300px;
-		min-width: 160px;
+		max-width: 190px;
+		min-width: 130px;
 		min-height: 110px;
 		right: 1px;
+		.promo_img {
+			img {
+				max-width: 200px;
+			}
+		}
 	}
 
 .sidebar {
@@ -44,9 +48,9 @@
 }
 
 .idea_container {
-	margin-left: 10px;
-  width:77%;
-  float:left;
+	position: relative;
+left: 10px;
+width: 98%;
 }
 
 

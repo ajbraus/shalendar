@@ -92,7 +92,7 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       format.js
-      format.html 
+      format.html { render layout: "event_show"}
       format.json { render json: @event }
       format.ics do
         calendar = Icalendar::Calendar.new

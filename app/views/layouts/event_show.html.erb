@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= user_signed_in? ? " " + current_user.name : "hoos.in #{yield(:title)}" %></title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    
+    <link rel="apple-touch-icon" href="/assets/iphone_icons/57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/iphone_icons/72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/iphone_icons/114.png" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/iphone_icons/114.png" />
+
+    <%= stylesheet_link_tag    "application", media: "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <% if @event %>
+      <meta property="fb:app_id" content="327936950625049"/>
+      <meta property="og:title" content="<%= @event.title %>"/>
+      <meta property="og:url" content="http://www.hoos.in<%= event_path(@event) %>" />
+      <meta property="og:site_name" content="hoos.in"/>
+      <meta property="og:type" content="website"/>
+      <meta property="og:image" content="<%= @event.image(:medium) %>"/>
+    <% else %>
+      <meta property="fb:app_id" content="327936950625049"/>
+      <meta property="og:title" content="hoos.in"/>
+      <meta property="og:url" content="http://www.hoos.in" />
+      <meta property="og:site_name" content="hoos.in"/>
+      <meta property="og:type" content="website"/>
+      <meta property="og:image" content="http://hoos.in/assets/icon.png"/>
+    <% end %>    
+    <!-- FOR RESPONSIVE DESIGN -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if lt IE 9]>
+      <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+    <%= render 'layouts/shim' %>  
+    <%= render 'layouts/google_analytics' %>
+  </head>
+  <body>
+    <%= render 'layouts/fb_script' %> 
+    <div id="loading" style="display:none;"><%= image_tag('ajax-loader.gif') %></div> 
+    <%= render 'layouts/show_header' %> 
+    <div class="show_layout"> 
+      <%= render 'layouts/alerts' %>
+      <%= yield %>
+    </div>
+      <%= render 'layouts/footer' %>
+      <% if user_signed_in? %>
+        <div id='feedback'><a href="mailto:info@hoos.in" target="_blank"> Feedback</a></div>
+      <% end %>
+    </div>
+    <%= yield :scripts %>
+  </body>
+</html>
