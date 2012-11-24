@@ -335,7 +335,7 @@ class User < ActiveRecord::Base
     other_user.save
   end
 
-  def events(load_datetime)
+  def forecast(load_datetime)
     Time.zone = self.time_zone
     @forecast = []
     (-3..16).each do |i|

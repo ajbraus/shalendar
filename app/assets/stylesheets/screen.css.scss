@@ -404,12 +404,13 @@ width: 25px;
 
 header {
 height: 72px;
-background-color: rgba(255, 255, 255, 0.45);
+background-color: #F6F6F6;
 border-bottom: 1px solid #D1CDCD;
 clear: both;
 margin-left:3%;
   position: fixed;
   top:0;
+  z-index: 2;
   /*background-color:$icon_color;*/
 /*  -webkit-box-shadow: 0px 2px 9px rgba(50, 50, 50, 0.75);
   -moz-box-shadow:    0px 2px 9px rgba(50, 50, 50, 0.75);
@@ -587,7 +588,7 @@ border-radius: 7px;
 .layout {
 clear: both;
 min-height: 540px;
-background-color: rgba(255, 255, 255, 0.45);
+background-color: #F0F0F0;
 z-index: -10;
 margin-left: 3%;
 margin-top:72px;
@@ -722,17 +723,20 @@ z-index: -1;
 }
 
 #datepicker {
-width: 415px;
+width: 20px;
 font-size: 12px;
-height: 35px;
-position: absolute;
-bottom: 3px;
+height: 100%;
+bottom: -3px;
 float: right;
 z-index: 1;
-left: 490px;
+position: fixed;
+right: 37px;
+top: 150px;
   table{
 float: left;
-width: 20px;
+width: 46px;
+position: relative;
+right: 4px;
     td {
       text-align: center;
     }
@@ -754,10 +758,11 @@ width: 20px;
   }
 }       
 #yt {
-float:left;
+float: right;
 text-align: center;
 position: relative;
-top: 5px;
+top: 2px;
+right: 7%;
 }
 
 .btn-today {
@@ -778,9 +783,10 @@ top: 5px;
   font-family:arial;
   font-size:15px;
   font-weight:bold;
-  padding:6px 24px;
+  padding: 10px 7px;
   text-decoration:none;
   text-shadow:1px 1px 0px #ffffff;
+  float:right;
 }
 .btn-today:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
@@ -813,12 +819,12 @@ border-bottom-right-radius: 7px;
 
 #datewindow {
 border: 3px solid #FF8500;
-width: 19px;
-height: 36px;
+width: 45px;
+height: 20px;
 position: absolute;
-left: 59px;
-bottom: -4px;
+right: -23px;
 z-index: -2;
+top: 59px;
 }
 
 .friend_suggestions {
@@ -833,7 +839,8 @@ overflow: hidden;
 }
 
 .weeks {
-  border-left: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  border-top: 1px solid lightgray;
 }
 
 .months {
@@ -934,7 +941,7 @@ width: 105%;
 
 /* Forecast */
 
-.vertical {
+.home {
 padding: 0px 10px 10px 0px;
 overflow: hidden;
 width: 95%;
@@ -953,7 +960,11 @@ padding-left: 8px;
   position: fixed;
   top: 70px;
   visibility: hidden;
-  z-index: 10;
+  z-index: 2;
+  width:98%;
+  -webkit-box-shadow: 0px 3px 4px rgba(50, 50, 50, 0.22);
+-moz-box-shadow:    0px 3px 6px rgba(50, 50, 50, 0.22);
+box-shadow:         0px 3px 6px rgba(50, 50, 50, 0.22);
 }
 
 .floating_logo {
@@ -979,34 +990,85 @@ top: 0;
 }
 
 .date_bar {
+  padding: 3px 0;
 clear: both;
 border-bottom: 1px solid $divider;
-width: 100%;
-padding: 15px 140px;
+width: 96%;
 border-top: 1px solid $divider;
 font-size: 27px;
-background:white;
+background: #F6F6F6;
+text-align: center;
 .date {
-  float:left;
+padding: 8px 0px;
+font-size: 22px;
 }
-}
-
-#today {
-  color: $destroy;
 }
 
 .each_day {
   clear:both;
 }
 
-.sidebar {
-  width:170px;
-  height:100%;
-  float:left;
+.day_container {
+clear: both;
+margin-top: 7px;
+width: 97%;
 }
 
-.idea_container {
-  width:80%;
+.sidebar {
+    height:100%;
+  float:left;
+  margin-top:6px;
+}
+
+.mini_event {
+  position: relative;
+  float:left;
+  width:100%;
+  margin: 0 0px 5px 0;
+  background-color: white;
+  -webkit-box-shadow: 1px 1px 4px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    1px 1px 4px rgba(50, 50, 50, 0.75);
+  box-shadow:         1px 1px 4px rgba(50, 50, 50, 0.75);
+  border:2px solid white;
+  img {
+max-width: 42%;
+max-height: 80%;
+float: left;
+  }
+  .event_time {
+    color: black;
+background-color: white;
+padding: 3px 2px 1px 5px;
+font-size: 1em;
+height: auto;
+position: relative;
+width: auto;
+right: 0;
+border-bottom: 1px solid #D1CDCD;
+bottom: 0;
+  }
+  .event_blerb {
+color: black;
+font-size: 19px;
+line-height: 1;
+position: relative;
+float: left;
+width: 50%;
+
+min-height: 0;
+overflow: hidden;
+right: 0;
+padding-left: 5px;
+padding-top: 5px;
+background-color: white;
+bottom: 0;
+margin-bottom: 0;
+padding-bottom: 0;
+  }
+  .guest_count {
+    bottom: 0;
+left: 149px;
+  }
 }
 
 .event {
@@ -1026,7 +1088,7 @@ background-color: white;
 margin-top: -5px;
 padding-top: 7px;
   img{
-    max-height: 200px;
+    max-height: 167px;
     max-width: 190px;
   }
 }
@@ -1105,7 +1167,7 @@ bottom: 12px;
 }
 
 .event_blerb {
-min-height: 37px;
+min-height: 20px;
 color: black;
 font-size: 20px;
 line-height: 1;
@@ -1313,12 +1375,12 @@ color: goldenrod;
 z-index: 20;
 height: 22px;
 line-height: 25px;
-margin: 0 auto;
 text-align: center;
 font-size: 17px;
-float: left;
 position: absolute;
-top: 65px;
+top: 0px;
+margin: 0 auto;
+width: 96%;
 }
 
 .ui-autocomplete {
@@ -1654,16 +1716,11 @@ right: 520px;
 }
 
 #feedback {
-    position: fixed;
-    bottom: 55%;
-    right: 0;
-    width:31px;
-    z-index: 1000;
-    transform: rotate(-90deg);
-    -webkit-transform: rotate(-90deg); 
-    -moz-transform: rotate(-90deg); 
-    -o-transform: rotate(-90deg); 
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+position: fixed;
+bottom: 7px;
+right: 88px;
+width: 31px;
+z-index: 1000;
     a {
       background: #EB8325; 
       height: 15px; 

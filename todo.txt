@@ -72,10 +72,11 @@ new follower email link not working
 
 Adam
 
+make post to facebook wall a dialogue not a programatic thing
 
 if mobile remove lil'tip
 
-add add-to with font awesome ical and google calendar to activity.
+make share with facebook friends ajax so event show is fast!
 
 ------------------------------------------------------------
 

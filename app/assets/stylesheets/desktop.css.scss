@@ -35,15 +35,18 @@
 		right: 1px;
 	}
 
-	.sidebar {
-  width:19%;
-  height:100%;
-  float:left;
+.sidebar {
+  width:22%;
+}
+
+.mini_event {
+	height: 110px;
 }
 
 .idea_container {
-  width:80%;
-  float:right;
+	margin-left: 10px;
+  width:77%;
+  float:left;
 }
 
 
@@ -120,6 +123,7 @@
 
 		.new_idea {
 			width: 38%;
+			margin-right: -420px;
 		}
 
 		.vendor_dash {
@@ -193,9 +197,5 @@
 /*** Widescreen ************************/
 /***************************************/
 @media only screen and (min-width: 960px) {
-
-	.event {
-		max-width:250px;
-	}
 
 }

@@ -346,15 +346,6 @@ $('#new_suggestion_form').validate();
 
 // CARRIAGE RETURN IN NEW IDEA BOX SUBMITS FORM
 
-$('#new_idea_blerb').keydown(function (e) {
-  var keyCode = e.keyCode || e.which;
-
-  if (keyCode == 13) {
-    $("#newIdeaButton").click();
-    return false;
-  }
-});
-
 $('#comment_content').keydown(function (e) {
   var keyCode = e.keyCode || e.which;
 

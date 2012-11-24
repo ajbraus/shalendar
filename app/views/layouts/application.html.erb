@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>hoos.in<%= yield(:title) %></title>
+    <title><%= user_signed_in? ? " " + current_user.name : "hoos.in #{yield(:title)}" %></title>
     <link rel="shortcut icon" href="/favicon.ico" />
     
     <link rel="apple-touch-icon" href="/assets/iphone_icons/57.png" />
