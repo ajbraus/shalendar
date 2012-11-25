@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Pages after sign up / sign in" do
 
-	let(:vendor) { FactoryGirl.create(:vendor) }
+	let(:venue) { FactoryGirl.create(:user, :vendor => true) }
   let(:user) { FactoryGirl.create(:user) }
   let(:event) { FactoryGirl.create(:event, :user_id => user.id, 
                        :chronic_starts_at => "Tomorrow at 3pm")}
@@ -11,16 +11,27 @@ describe "Pages after sign up / sign in" do
 
   before(:each) do
     visit new_user_session_path
-    fill_in "Email",    with: vendor.email
-    fill_in "Password", with: vendor.password
+    fill_in "Email",    with: venue.email
+    fill_in "Password", with: venue.password
     click_button "Sign in"
   end
   
   after(:each) { Event.delete_all }
 
-  describe "Vendor Home Page" do
+  describe "venue onboarding" do
+    it "should ask for credit card after signing up" do
+      page.should have_content("Credit Card")
+    end
+  end
+
+
+  describe "venue Home Page" do
+    before do 
+      visit root_path
+    end
+
     it "should have the Date" do
-      page.should_not have_content("Vendor Dashboard")
+      page.should_not have_content("venue Dashboard")
       page.should have_content("#{Time.now.strftime('%A')}")
     end
   end

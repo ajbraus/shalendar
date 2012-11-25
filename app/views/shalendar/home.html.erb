@@ -1,6 +1,8 @@
+<%= render partial: 'shalendar/new_idea_button' %>
 <div id='datepicker'>
   <%= render partial: 'shalendar/datepicker' %>
 </div>
+<div id='yt'><a href='#<%= @time_in_zone.to_date %>' id='todayButton' class='btn-today'>Today</a></div>
 <div class="home" id="scrollContainer">
 <% for i in -3..16 %>
 	<div class="each_day persist-area clearfix">		
@@ -43,7 +45,6 @@ function UpdateTableHeaders() {
             "visibility": "visible"
            });
            $('.new_idea_blerb').css("height", "21px");
-           $('.btn-new-idea').css('padding', '11px 12px');
            floatingHeader.siblings('.not_floating').css({
             "visibility": "hidden"
            })
@@ -67,10 +68,7 @@ $(function() {
        clonedHeaderRow = $(".persist-header", this);
        clonedHeaderRow
          .before(clonedHeaderRow.clone())
-         .css("width", '96%').css("background-color","white")
-         .addClass("floatingHeader")
-         .prepend("<%= escape_javascript(render partial: 'shalendar/new_idea_button') %>")
-         .append("<div id='yt'><a href='#<%= @time_in_zone.to_date %>' id='todayButton' class='btn-today'>Today</a></div>");
+         .addClass("floatingHeader");
    });
    
    $(window)

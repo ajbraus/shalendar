@@ -12,7 +12,7 @@
 			<% end %>
 		<% end %>
 	</div>
-
+ <% if false %>
 	<% if user_signed_in? && !current_user.vendor? %>
 		<div class="friend_suggestions">
 			<%= render 'shalendar/friend_suggestions' %>
@@ -22,5 +22,6 @@
 	<div id="datepicker">
 		<%= render 'datepicker' %>
 	</div>
+<% end %>
 </div>
 <div class="ribbon_bottom"></div>

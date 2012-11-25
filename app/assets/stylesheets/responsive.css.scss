@@ -70,29 +70,19 @@ body {
 		top: 39px;
 	}
 
-	.new_idea {
-		margin-left: 20px;
-	}
-
-
-
-	.date {
-		float: left;
-position: relative;
-left: 68px;
-	}
-
-	.new_idea_blerb {
-		display:none;
+	.floatingHeader {
+		left: 36%;
 	}
 
 	.btn-new-idea {
-		float:right;
-		padding: 11px 14px;
-		-moz-border-radius: 6px;
-		-webkit-border-radius: 6px;
-		border-radius: 6px;
-		position: relative;
+		padding: 12px 20px;
+	}
+
+	.new_idea {
+		position: fixed;
+		right: 2px;
+		top: 88px;
+		z-index: 2;
 	}
 
 

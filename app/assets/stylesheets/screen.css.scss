@@ -208,8 +208,10 @@ color: white;
 }
 
 .btn-new-idea {
-font-size: 20px;
-margin-left: -10px;
+    font-size: 20px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
 }
 
 .btn-new-vendor-idea {
@@ -938,11 +940,10 @@ right: 4px;
   }
 }       
 #yt {
-float: right;
-text-align: center;
-position: relative;
-top: 2px;
-right: 7%;
+position: fixed;
+right: 70px;
+z-index: 2;
+top: 75px;
 }
 
 .btn-today {
@@ -963,7 +964,7 @@ right: 7%;
   font-family:arial;
   font-size:15px;
   font-weight:bold;
-  padding: 10px 7px;
+  padding: 12px 7px;
   text-decoration:none;
   text-shadow:1px 1px 0px #ffffff;
   float:right;
@@ -1036,15 +1037,8 @@ color: #4B9BED;
 }
 
 .new_idea {
-position: relative;
-left: 4px;
-float: left;
-  textarea {
-  font-size: 18px;
-  width: 65%;
-  height: 21px;
-  padding-right: 15px;
-  float: left;
+  i{
+color:white;
   }
 }
 
@@ -1137,14 +1131,10 @@ padding-left: 8px;
 }
 
 .floatingHeader {
-  position: fixed;
-  top: 70px;
-  visibility: hidden;
-  z-index: 2;
-  width:98%;
-  -webkit-box-shadow: 0px 3px 4px rgba(50, 50, 50, 0.22);
--moz-box-shadow:    0px 3px 6px rgba(50, 50, 50, 0.22);
-box-shadow:         0px 3px 6px rgba(50, 50, 50, 0.22);
+position: fixed;
+top: 0;
+visibility: hidden;
+z-index: 2;
 }
 
 .floating_logo {
@@ -1170,16 +1160,10 @@ top: 0;
 }
 
 .date_bar {
-  padding: 3px 0;
+padding: 10px 0px 0 0;
 clear: both;
-border-bottom: 1px solid $divider;
-width: 96%;
-border-top: 1px solid $divider;
-font-size: 27px;
-background: #F6F6F6;
 text-align: center;
 .date {
-padding: 8px 0px;
 font-size: 22px;
 }
 }
@@ -3158,7 +3142,7 @@ margin: 0 auto;
 background-color: white;
 border: 1px solid $divider;
 padding: 15px 30px 15px 30px;
-min-height: 570px;
+min-height: 380px;
 position: relative;
   .card_number {
 

@@ -1,5 +1,10 @@
 require 'rubygems'
 require 'spork'
+#balanced
+require 'bundler/setup'
+require 'balanced'
+require 'vcr'
+
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
@@ -17,8 +22,22 @@ Spork.prefork do
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-
+  
+  VCR.configure do |c|
+    c.cassette_library_dir = 'spec/cassettes'
+    c.hook_into :faraday
+  end
+  
   RSpec.configure do |config|
+    #BALANCED
+    config.extend VCR::RSpec::Macros
+    # @return [Balanced::Marketplace]
+    def make_marketplace
+      api_key = Balanced::ApiKey.new.save
+      Balanced.configure api_key.secret
+      Balanced::Marketplace.new.save
+    end
+
     config.include(EmailSpec::Helpers)
     config.include(EmailSpec::Matchers)
     # ## Mock Framework
@@ -43,6 +62,15 @@ Spork.prefork do
     config.infer_base_class_for_anonymous_controllers = false
   end
 
+ACCOUNTS_URI_REGEX = /\/v1\/marketplaces\/TEST-\w*\/accounts/
+MERCHANT_URI_REGEX = /\/v1\/marketplaces\/TEST-\w*\/accounts\/\w*/
+HOLDS_URI_REGEX = /\/v1\/marketplaces\/TEST-\w*\/accounts\/\w*\/holds/
+BANK_ACCOUNTS_URI_REGEX = /\/v1\/marketplaces\/TEST-\w*\/accounts\/\w*\/bank_accounts/
+REFUNDS_URI_REGEX = /\/v1\/marketplaces\/TEST-\w*\/accounts\/\w*\/refunds/
+DEBITS_URI_REGEX = /\/v1\/marketplaces\/TEST-\w*\/accounts\/\w*\/debits/
+TRANSACTIONS_URI_REGEX = /\/v1\/marketplaces\/TEST-\w*\/accounts\/\w*\/transactions/
+CREDITS_URI_REGEX = /\/v1\/marketplaces\/TEST-\w*\/accounts\/\w*\/credits/
+CARDS_URI_REGEX = /\/v1\/marketplaces\/TEST-\w*\/accounts\/\w*\/cards/
 end
 
 Spork.each_run do

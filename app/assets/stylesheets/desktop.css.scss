@@ -126,11 +126,6 @@ width: 98%;
 			left:60px;
 		}
 
-		.new_idea {
-			width: 38%;
-			margin-right: -420px;
-		}
-
 		.vendor_dash {
   		.activity_event img {
     		float:left;
@@ -153,6 +148,10 @@ width: 98%;
 
 		.sign_up {
 			width:400px;
+		}
+
+		.floatingHeader {
+			left: 45%;
 		}
 
 		.instagramFeed {
@@ -184,11 +183,12 @@ width: 98%;
 		}
 
 		.btn-new-idea {
-			-moz-border-radius: 0 6px 6px 0px;
-			-webkit-border-radius: 0 6px 6px 0px;
-			border-radius: 0 6px 6px 0px;
-			padding: 11px 12px;
-			float: left;
+			padding: 12px 15px;
+		}
+		.new_idea {
+			position: fixed;
+			right: 15px;
+			top: 100px;
 		}
 
 		.html-new-idea {
