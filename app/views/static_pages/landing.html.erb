@@ -1,21 +1,52 @@
 <% provide(:title, "") %>
-<div class="hero-unit">
-  <h1>
-  	Do Great Things With Friends.
-  </h1>
-
-  <%= image_tag('hoosin_landing.png') %>
-
-
-  	<div class="login_buttons">
+<div class="top">
+  <div class="instagramFeed">
+    <div class="instagram">
+      <span class="hoosinstagram">#hoosin</span>
+    </div>
+    <div class="message">
+      <h1>Do Great Things With Friends</h1>
+      <h2>To Explore:</h2>
+      <div style="text-align:center; margin-top:20px;">
+        <div class="pick_city">
+          <%= select_tag :city, options_for_select([['Madison, Wisconsin']]), :prompt => "Pick Your City", id:"pickCity" %>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:20px;">
       <div id="auth-status" class="fb_button fb_login_button">
           <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
       </div>
       <div class="nativeLogin">
-        <p><%= link_to "Login", new_user_session_path, class:"btn btn-landing btn-primary btn-large" %></p>
-        <p>or, <%= link_to "Join", new_user_registration_path, class:"btn btn-join" %></p>
-        <p><%= link_to "Start A Free Venue Trial", vendor_splash_path, class:"btn btn-success btn-large btn-start-trial" %>
+        <%= link_to "Login", new_user_session_path, class:"btn btn-landing btn-primary" %></p>
+        <%= link_to "Join for Free", new_user_registration_path, class:"btn btn-landing btn-join" %></p>
+        <%= link_to "Start A Free Venue Trial", vendor_splash_path, class:"btn btn-success btn-landing" %>
       </div>
     </div>
+  </div>
+</div>
+</div>
+
+<div class="middle">
+  <h3>Work hard, Play hard</h3>
+  <p>If you are busy and you want to have a great social life then you are in the right place. Sign up and see how easy it is to plan great adventures with friends, from nights on the town, to ski trips, to naked rooftop pillow fights.</p>
+</div>
+<div class="middle">
+  <h3>More Social, Less Network</h3>
+  <p>You're already busy, we covered that, and social networks are asking you to spend even more time on your computer. Not us, we want you in and out, and having fun with friends.</p>
+</div>
+<div class="middle">  
+  <h3>Privacy, privacy, privacy</h3>
+  <p>Your upcoming plans and ideas are not searchable or discoverable to anyone who isn't included. Also you can make any idea private, so only those you include can ever see it on the web. This keeps you safe, but also (we've found) works very well for surprises.</p>
+</div>    
+<div class="middle">
+  <h3>Split the Bill (Coming soon!)</h3>
+  <p>We are working with multiple beta users already to allow friends to split the costs of adventures up front. This helps friends focus on the fun and not on the who paid for what.</p>
+</div>
+<div class="bottom">
+  <div style="text-align:center;">
+    <h3 style="margin-bottom:40px">Join for Free</h3>
+    <%= link_to "Join", new_user_registration_path, class:"btn btn-landing btn-join" %></p>
+    <%= link_to "Start A Free Venue Trial", vendor_splash_path, class:"btn btn-success btn-landing" %>
+  </div>
 </div>
 

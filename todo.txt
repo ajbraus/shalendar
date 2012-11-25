@@ -72,11 +72,10 @@ new follower email link not working
 
 Adam
 
-<<<<<<< HEAD
 write vendor terms and conditions
 
 add "if current_user.vendor? && current_user.bank_account.blank?" alert
-=======
+
 if mobile remove lil'tip (remove all titles?)
 
 new landing page

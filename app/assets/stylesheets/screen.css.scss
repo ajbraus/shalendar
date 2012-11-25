@@ -87,6 +87,28 @@ line-height: 27px;
 font-size: 22px;
 }
 
+select {
+  -webkit-appearance: button;
+  -webkit-border-radius: 2px;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-padding-end: 20px;
+  -webkit-padding-start: 2px;
+  -webkit-user-select: none;
+  background-image: url(../images/select-arrow.png), 
+    -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+  background-position: center right;
+  background-repeat: no-repeat;
+  border: 1px solid #AAA;
+  color: #555;
+  font-size: inherit;
+  margin: 0;
+  overflow: hidden;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 p {
   font-size: 1.1em;
   line-height: 1.7em;
@@ -99,6 +121,43 @@ a {
 
 ul, li {
   list-style: none;
+}
+
+
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  
+  border-bottom: 5px solid black;
+}
+
+.arrow-down {
+  width: 0; 
+  height: 0; 
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  
+  border-top: 20px solid #f00;
+}
+
+.arrow-right {
+  width: 0; 
+  height: 0; 
+  border-top: 60px solid transparent;
+  border-bottom: 60px solid transparent;
+  
+  border-left: 60px solid green;
+}
+
+.arrow-left {
+  width: 0; 
+  height: 0; 
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent; 
+  
+  border-right:10px solid blue; 
 }
 
 .btn {
@@ -116,9 +175,12 @@ padding: 0px 8px 0px 8px;
 }
 
 .btn-landing {
-  padding: 10px 113px;
+  width:257px;
 position: relative;
-left: 12px;
+height: 40px;
+line-height: 40px;
+font-size:18px;
+margin:5px 5px;
 }
 
 .btn-start-trial {
@@ -217,11 +279,8 @@ border: 1px solid #7A71C9;
 display: inline-block;
 color: white;
 font-family: arial;
-font-size: 18px;
 font-weight: normal;
-padding: 10px 122px;
 text-decoration: none;
-margin: 6px 2px;
 }.btn-join:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #372c8b), color-stop(1, #5b549e) );
   background:-moz-linear-gradient( center top, #372c8b 5%, #5b549e 100% );
@@ -433,8 +492,11 @@ width: 25px;
 
 /*LANDING*/
 
-.hero-unit {
-  text-align: center;
+.pick_city {
+  select {
+    width:auto;
+    font-size: 30px;
+  }
 }
 
 /* HOME */
@@ -707,7 +769,6 @@ margin-top:72px;
 .show_layout {
 clear: both;
 min-height: 540px;
->>>>>>> new-home
 z-index: -10;
 margin-left: 1%;
 margin-top:72px;
@@ -1862,7 +1923,6 @@ z-index: 1000;
 
 .fb_login_button {
   position: relative;
-right: 68px;
 bottom: 23px;
 }
 
@@ -2790,7 +2850,7 @@ width: 66%;
 
   .message {
     position: relative;
-    bottom: 495px;
+    bottom: 425px;
     margin-bottom: -350px;
     width: 66%;
     margin: 0 auto;
@@ -2804,7 +2864,6 @@ width: 66%;
   }
 
 .instagramFeed {
-  width: 100%;
   margin: 0 auto;
   position: relative;
   height: 410px;
@@ -2828,14 +2887,15 @@ width: 66%;
 }
 
 .instagram {
-  height: 560px;
+  position: relative;
+  height: 500px;
   overflow:hidden;
 }
 
 .hoosinstagram {
   position: absolute;
 bottom: 15px;
-right: 20px;
+right: 8px;
 }
 
 .invited_events {

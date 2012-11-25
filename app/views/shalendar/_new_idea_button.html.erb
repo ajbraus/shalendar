@@ -29,5 +29,13 @@ $(document).ready(function(){
       padding: '11px 12px'
     }, 100);
   });
+  $('.new_idea_blerb').keydown(function (e) {
+  var keyCode = e.keyCode || e.which;
+
+  if (keyCode == 13) {
+    $(this).siblings(".btn-new-idea").click();
+    return false;
+  }
+  });
 });
 </script>
