@@ -49,7 +49,7 @@ gem 'icalendar'
 gem 'bloggy', '0.1.1'
 gem 'bitly'
 gem 'balanced'
-
+gem "friendly_id", "~> 4.0.1"
 
 group :development, :test do
   gem 'faker', '1.0.1'

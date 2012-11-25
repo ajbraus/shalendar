@@ -9,6 +9,10 @@ week of 11/19
 	Link + image that venues can embed for hoos.in
 	ticketing solution (just give names for now..)
 
+*** adding facebook after already have an account doesn't seem to work
+
+Also, mobile registration through facebook doesn't seem to work either, let's pair on this.
+
 ------- Timeline for Ludlow Thieves --------
 
 Nov 14 - Payment Gateway - pay when you rsvp peer-to-peer w invoice at end of month - 
@@ -68,13 +72,70 @@ new follower email link not working
 
 Adam
 
+<<<<<<< HEAD
 write vendor terms and conditions
 
 add "if current_user.vendor? && current_user.bank_account.blank?" alert
+=======
+if mobile remove lil'tip (remove all titles?)
+
+new landing page
+
+if first time loggin in => joyride
+
+if not logged in - explain hoos.in in event page and home
+
+payment tests
+
+think up categories
+
+categories picker
+
+make share with facebook friends ajax so event show is fast!
+
+silo by city
+
+ticket/rsvp link
+
+deleting group delete's public idea until you reload
+
+custom group image is not avaialbe looks to parent
+
+---------------------------------------------------------------
+
+	SDK - follow us on hoos.in "Our events on hoos.in" button and icon
+
+----------------------------------------------------------------
+
+------------------------------------------------------------
+
+private idea
+
+make signin a lightbox
+
+	Download our App
+
+click and drag ideas into plans
+
+make post to facebook wall a dialogue not a programatic thing
+
+put footer stuff into hoosin icon dropdown
+
+shrink words out of headers sooner
+
+use logo w no name in responsive and keep find friends search bar
+
+------------------------------------------------------------
+>>>>>>> new-home
 
 root = pick city => forecast of that city
 
+<<<<<<< HEAD
 make recurring_receipt email (should have like blog stuff in it)
+=======
+payment gateway
+	verify our account
+>>>>>>> new-home
 
 survey why they are downgrading their account
 
@@ -168,13 +229,6 @@ onboard merchant
 	redirected to put in bank account
 checkbox for 'require_payment' in create idea form 
 
----------------------------------------------------------------
-	
-	Vendor Provisioning/registration w/ credit card data
-
-	- custom url w title of the event. www.calenshare/AdamBraus/Hanging_at_my_house - http://railscasts.com/episodes/314-pretty-urls-with-friendlyid	
-
-	SDK - follow us on hoos.in "Our events on hoos.in" button and icon
 
 	hoosin facebook tabs on the side of the share area
 
@@ -190,22 +244,11 @@ activity page
 
 	public
 
-slide left and right for overflow in mobile app
-
-shrink max height of images to save vertical space
-
-
-----------------------------------------------------------------
-
-	Download our App
-
-
 -----------------------------------------------------------
 
 make x to close the latest ideas
 List view for new ideas
 remove picture from new ideas dropdown
-
 
 ---------------------------------------------------------------
 
@@ -251,9 +294,6 @@ download flyer
 visual indicator of ppl you are not friends with on hoos.in yet
 suggested friends -- ppl that you saw at a party
 
-------------------------------------------------------------
-
-make signin a lightbox
 
 ------------------------------------------------------------
 
@@ -277,10 +317,6 @@ removing invited person when not friending them
 	validate image size in form w js
 
 ----------------------------------------------------------
-
-	JoyRide
-
-	Landing page rebuild
 
 	drawn arrows
 
@@ -310,15 +346,12 @@ Suggested friends
 		relationship is created between the two users
 	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
 
-
-
 ----------------------------------------------------------
 
 Silo by city
 	detect location by IP address: https://github.com/priithaamer/geoip-rails
 	hash timezone to location
 	make public yellow pages display and then make it load with ajax
-
 
 -----------------------------------------------------------
 

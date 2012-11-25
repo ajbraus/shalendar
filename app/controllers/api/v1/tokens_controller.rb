@@ -5,13 +5,13 @@ class Api::V1::TokensController  < ApplicationController
   def create
     if params[:access_token]
       # Handle login from mobile FB
-      #take out for android
-      # if params[:email].nil?
-      #    render :status=>400,
-      #           :json=>{:error=>"The request must contain the user email and FB access token."}
-      #    return
-      # end
-      # email = params[:email]
+      # take out for android
+      if params[:email].nil?
+        render :status=>400,
+               :json=>{:error=>"The request must contain the user email and FB access token."}
+        return
+      end
+      email = params[:email]
       if params[:fbid].nil?
          render :status=>400,
                 :json=>{:error=>"The request must contain the user FBID"}
@@ -22,10 +22,10 @@ class Api::V1::TokensController  < ApplicationController
       fb_json = HTTParty.get("https://graph.facebook.com/#{fbid}?access_token=#{params[:access_token]}")
       
       #take out for android login
-      # if email != fb_json["email"]
-      #   render :json=>{:error => "Email doesn't match the facebook email"}
-      #   return
-      # end
+      if email != fb_json["email"]
+        render :json=>{:error => "Email doesn't match the facebook email"}
+        return
+      end
       @user = find_for_oauth("Facebook", fb_json, params[:access_token])   
 
       # uid = auth.uid
@@ -190,12 +190,12 @@ class Api::V1::TokensController  < ApplicationController
     @user.apn_device_id = device.id
     @user.save!
 
-    n = APN::Notification.new
-    n.device = APN::Device.find_by_id(@user.apn_device_id)
-    n.sound = true
-    n.badge = 3
-    n.alert = "you have registered for push"
-    n.save
+    # n = APN::Notification.new
+    # n.device = APN::Device.find_by_id(@user.apn_device_id)
+    # n.sound = true
+    # n.badge = 1
+    # n.alert = "you have registered for push"
+    # n.save
 
     render :json => { :success => true, :token => token }
   end

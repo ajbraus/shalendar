@@ -1,0 +1,33 @@
+<div class='new_idea'>
+  <textarea class='new_idea_blerb' placeholder='Post Your Own Idea'></textarea>
+  <% if user_signed_in? %>
+    <%= link_to new_event_path(:format => :js), id:'newIdeaButton', class: 'btn-rsvp btn-new-idea fancybox.ajax', remote: true do %>
+      <i class='icon-cloud'></i>
+    <% end %>
+  <% else %>
+    <%= link_to new_user_session_path, class: 'btn btn-rsvp btn-new-idea' do %>
+      <i class='icon-cloud'></i>
+    <% end %>
+  <% end %>
+</div>
+
+<script>
+$(document).ready(function(){
+  $('.new_idea_blerb').focus(function() {
+    $(this).animate({
+      height: '45px'
+    }, 100);
+    $('.btn-new-idea').animate({
+      padding: '23px 12px'
+    }, 100);
+  });
+  $('.new_idea_blerb').blur(function() {
+    $(this).animate({
+      height: '21px'
+    }, 100);
+    $('.btn-new-idea').animate({
+      padding: '11px 12px'
+    }, 100);
+  });
+});
+</script>

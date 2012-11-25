@@ -2,36 +2,6 @@ $(document).ready(function() {
 // REMOVE ALERT 
 $("div.alert").delay(3000).fadeOut(400);
 
-// LOADING AJAX
-// $('#loading').ajaxStart(function(){
-//   $(this).show();
-// }).ajaxStop(function(){
-//   $(this).hide();
-// });
-// $('#someFormID')
-// .ajaxStart(function() {
-//     $('#loading').show();
-// })
-// .ajaxStop(function() {
-//     $('#loading').hide();
-// });
-
-  // var toggleLoading = function() { $("#loading").toggle() };
-
-  // $("#new_relationship").on("ajax:before", toggleLoading);
-  //   // .bind("ajax:success", function(data, status, xhr) {
-  //   //   $("#response").html(status);
-  //   // });
-
-  // $("#tipPin").ajaxStart(toggleLoading);
-
-  //   // .bind("ajax:success", function(data, status, xhr) {
-  //   //   $("#response").html(status);
-  //   // });
-
-  // $('#new_rsvp').bind("ajax:beforeSend", toggleLoading);
-
-
 // NEW INVITED EVENTS
 
   if ( $('#new_invited_events_count').text() == 0 ) {
@@ -137,8 +107,22 @@ $(document).bind('click', function(e) {
 
 // VALIDATIONS
 
-  $('#fb_invite_friends').validate();
-	$("#registration_form").validate();
+  $('#fb_invite_friends').validate({
+    rules: {
+    submitHandler: function(f){
+        $('form input[type=submit]').attr('disabled', 'disabled');
+        form.submit();
+    }
+  }
+  });
+	$("#registration_form").validate({
+    rules: {
+    submitHandler: function(f){
+        $('form input[type=submit]').attr('disabled', 'disabled');
+        form.submit();
+    }
+  }
+  });
 
   $("#new_comment").validate({
     rules: {
@@ -146,8 +130,12 @@ $(document).bind('click', function(e) {
         required: true,
         maxlength: 250,
         minlength: 1
-      }
+      },
+    submitHandler: function(f){
+        $('form input[type=submit]').attr('disabled', 'disabled');
+        form.submit();
     }
+  }
   });
 
 //   $('input[type=file]').fileValidator({
@@ -166,6 +154,7 @@ $(document).bind('click', function(e) {
   $('#events').tabs();
   $('#suggestions').tabs();
   $('#invite_raster').tabs();
+  $('#terms').tabs();
 
 // DATETIME PICKER
 
@@ -365,19 +354,10 @@ $('#new_suggestion_form').validate();
 
 // FOCUS ON FIRST TEXT FIELD OF PAGES
 
-    $("#new_idea_blerb").focus();
-    $("input:first", document.forms[0]).focus();
+    //$("#new_idea_blerb").focus();
+    $("input[type=text]:first", document.forms[0]).focus();
 
 // CARRIAGE RETURN IN NEW IDEA BOX SUBMITS FORM
-
-$('#new_idea_blerb').keydown(function (e) {
-  var keyCode = e.keyCode || e.which;
-
-  if (keyCode == 13) {
-    $("#newIdeaButton").click();
-    return false;
-  }
-});
 
 $('#comment_content').keydown(function (e) {
   var keyCode = e.keyCode || e.which;

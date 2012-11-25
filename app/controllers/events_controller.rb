@@ -21,7 +21,7 @@ class EventsController < ApplicationController
   def new
     @event = current_user.events.build
     respond_to do |format|
-      #format.html # new.html.erb
+      format.html # new.html.erb
       #format.json { render json: @event }
       format.js
     end
@@ -101,15 +101,9 @@ class EventsController < ApplicationController
       end
     end
     
-    #rescue if record not found
-    rescue ActiveRecord::RecordNotFound  
-    flash[:notice] = "Idea Not Found"
-    redirect_to root_path
-    return
-
     respond_to do |format|
       format.js
-      format.html 
+      format.html { render layout: "event_show"}
       format.json { render json: @event }
       format.ics do
         calendar = Icalendar::Calendar.new
@@ -118,6 +112,11 @@ class EventsController < ApplicationController
         render :text => calendar.to_ical
       end
     end
+    #rescue if record not found
+    rescue ActiveRecord::RecordNotFound  
+    flash[:notice] = "Idea Not Found"
+    redirect_to root_path
+    return
   end
 
   # PUT /events/1

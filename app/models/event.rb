@@ -47,7 +47,8 @@ class Event < ActiveRecord::Base
                   :is_public,
                   :short_url,
                   :parent_id,
-                  :require_payment
+                  :require_payment,
+                  :slug
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
                                              :medium => '190x270'},
@@ -82,8 +83,14 @@ class Event < ActiveRecord::Base
   #@img_url = /^((https?:\/\/)?.*\.*\.*\.(?:png|jpg|jpeg|gif))$/i
   #validates :promo_url, :format => { :with => @img_url }, allow_blank:true
   
+  extend FriendlyId
+  friendly_id :title, use: :slugged
 
- 
+  def should_generate_new_friendly_id?
+    new_record? || slug.blank?
+  end
+
+
   def as_json(options = {})
     {
       :id => self.id,
@@ -100,7 +107,7 @@ class Event < ActiveRecord::Base
 
   def url_starts_at
     starts_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
-  end
+  end 
 
   def url_ends_at
     ends_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
@@ -108,6 +115,10 @@ class Event < ActiveRecord::Base
 
   def start_time
     self.starts_at.strftime "%l:%M%P, %A %B %e"
+  end
+
+  def start_date_time
+    self.starts_at.strftime "%A %B %e, %l:%M%P"
   end
 
   def start_time_no_date
@@ -168,6 +179,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+
+  def self.events(load_datetime, current_user)
+    
+  end
 
   def self.public_forecast(load_datetime, current_user)
     #get time zone from city
@@ -236,21 +251,45 @@ class Event < ActiveRecord::Base
   end
 
   def has_image?
-    if self.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"  && (self.promo_url == "" || self.promo_url.nil?)
-      return false
+    if self.parent.nil?
+      if self.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"  && self.promo_url.blank?
+        return false
+      else
+        return true
+      end
     else
-      return true
+      if self.parent.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"  && self.parent.promo_url.blank?
+        return false
+      else
+        return true
+      end
     end
   end
 
   def image(size)
-    if !self.promo_url.nil? && self.promo_url != "" 
-      return promo_url
-    elsif !self.promo_img_file_size.nil?
-      if size == :medium
-        return self.promo_img.url(:medium)
+    if self.parent.nil?
+      if !self.promo_url.blank?
+        return promo_url
+      elsif !self.promo_img_file_size.nil?
+        if size == :medium
+          return self.promo_img.url(:medium)
+        else 
+          return self.promo_img.url(:large)
+        end
+      else
+        return nil
+      end
+    else
+      if !self.parent.promo_url.blank?
+        return parent.promo_url
+      elsif !self.parent.promo_img_file_size.nil?
+        if size == :medium
+          return self.parent.promo_img.url(:medium)
+        else 
+          return self.parent.promo_img.url(:large)
+        end
       else 
-        return self.promo_img.url(:large)
+        return nil
       end
     end
   end

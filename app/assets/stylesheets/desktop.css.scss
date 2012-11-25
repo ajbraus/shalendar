@@ -6,10 +6,12 @@
 @media only screen and (min-width:600px) {
 
 	.layout {
-		width: 960px;
+		width: 97%;
+		padding: 7px 0px;
 	}
 
 	.forecast {
+		overflow-x: hidden;
 		width: 93%;
 	}
 
@@ -26,13 +28,36 @@
 	}
 
 	.event {
-		width: 175px;
+		max-width: 190px;
+		min-width: 130px;
+		min-height: 110px;
+		right: 1px;
+		.promo_img {
+			img {
+				max-width: 200px;
+			}
+		}
 	}
+
+.sidebar {
+  width:22%;
+}
+
+.mini_event {
+	height: 110px;
+}
+
+.idea_container {
+	position: relative;
+left: 10px;
+width: 98%;
+}
+
 
 	#forecast {
 		right: 693px;
 		> dl {
-			width: 3.3%;
+			width: 3.5%;
 		}
 	}
 
@@ -74,7 +99,7 @@
 		}
 
 		header {
-			width: 960px;
+			width: 96%;
 		}
 
 		.event_time {
@@ -90,6 +115,7 @@
 		.event_buttons {
 			top:23px;
 			font-size: 30px;
+			top: 23px;
 		}
 
 		#textMsg {
@@ -102,6 +128,7 @@
 
 		.new_idea {
 			width: 38%;
+			margin-right: -420px;
 		}
 
 		.vendor_dash {
@@ -128,11 +155,35 @@
 			width:400px;
 		}
 
-.instagram-placeholder img {
-width: 106px;
-}
+		.instagram-placeholder img {
+			width: 106px;
+		}
 		.top {
 			height:505px;
+
+		.rsvp_dot {
+			right: 10px;
+  		top: 10px;
+		}
+
+		.alert {
+			width: 960px;
+		}
+
+		#ribbon {
+
+		}
+
+		.btn-new-idea {
+			-moz-border-radius: 0 6px 6px 0px;
+			-webkit-border-radius: 0 6px 6px 0px;
+			border-radius: 0 6px 6px 0px;
+			padding: 11px 12px;
+			float: left;
+		}
+
+		.html-new-idea {
+			display:none;
 		}
 
 }
@@ -165,6 +216,5 @@ width: 106px;
 /*** Widescreen ************************/
 /***************************************/
 @media only screen and (min-width: 960px) {
-
 
 }

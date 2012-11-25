@@ -25,22 +25,21 @@ private
       session[:graph] = Koala::Facebook::API.new(session[:access_token]) 
       @uid = env["omniauth.auth"].uid
       @user.authentications.find_by_uid(@uid).token = session[:access_token]
-
       @city = env["omniauth.auth"].info.location
-        unless City.find_by_name(@city)
-          c = City.new(name: @city)
-          c.save
-        end
+      if City.find_by_name(@city).nil? #we add their city, but don't auto-change
+        c = City.new(name: @city, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone))
+        c.save
+      end
 
       # session["devise.#{kind.downcase}_data"] = env["omniauth.auth"]
       sign_in_and_redirect @user, :event => :authentication
     else
       redirect_to :back, notice: 'There was an error with Facebook. Check your Facebook account status.'
-    end   
+    end
   end
 
   def find_for_oauth(provider, access_token, resource=nil)
-    user, email, name, uid, auth_attr = nil, nil, nil, {}
+    user, email, name, uid, auth_attr = nil, nil, nil, nil, {}
     case provider
     when "Facebook"
       uid = access_token.uid
@@ -101,6 +100,13 @@ private
       email = access_token.info.email
       name = access_token.info.name
       location = access_token.info.location
+      @city = City.find_by_name(location)
+      if @city.nil?
+        c = City.new(name: location, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone)
+        c.save
+        @city = c
+      end
+
       time_zone = "Central Time (US & Canada)" #timezone_for_utc_offset(access_token.extra.raw_info.timezone)
 
       user_attr = { email: email, name: name, city: location, time_zone: time_zone }

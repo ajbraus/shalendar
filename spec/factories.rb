@@ -60,5 +60,6 @@ FactoryGirl.define do
     promo_url ''
     promo_vid ''
     short_url ''
+    slug ''
 	end
 end

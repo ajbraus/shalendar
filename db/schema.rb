@@ -11,7 +11,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121114171918) do
+
+ActiveRecord::Schema.define(:version => 20121117180614) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -103,6 +104,7 @@ ActiveRecord::Schema.define(:version => 20121114171918) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "timezone"
   end
 
   add_index "cities", ["name"], :name => "index_cities_on_name"
@@ -176,7 +178,10 @@ ActiveRecord::Schema.define(:version => 20121114171918) do
     t.integer  "parent_id"
     t.string   "short_url"
     t.boolean  "require_payment"
+    t.string   "slug"
   end
+
+  add_index "events", ["slug"], :name => "index_events_on_slug"
 
   create_table "fb_invites", :force => true do |t|
     t.string   "uid"

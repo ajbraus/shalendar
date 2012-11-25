@@ -1,9 +1,11 @@
 <% provide(:title, " | #{@event.title}" ) %>
-<% unless @event.user.background_file_size.nil? %>
-  <% if @event.has_parent? %>
-        <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.parent.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div> 
-  <% else %>
-        <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
+<% if @event.has_parent? %>
+  <% unless @event.parent.user.background_file_size.nil? %>
+      <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.parent.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
+  <% end %> 
+<% else %>
+  <% unless @event.user.background_file_size.nil? %>
+      <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
   <% end %>
 <% end %>
 <% if user_signed_in? %>
@@ -11,12 +13,23 @@
 <% end %>
 <div class="event_show">
   <div class="event_top">
-    <div class="host">
+    <div class="host friend">
 	   <%= raster_profile_picture(@event.user) %> 
-     <div>
-      hosted by: <br><%= @event.user.name %>
-     </div>
+      <div>hosted by: </div><br>
+      <% if !user_signed_in? || (current_user.following?(@event.user) || current_user == @event.user) %>
+        <div>
+          <%= @event.user.name %>
+        </div>
+      <% else %>
+        <div id="friend_name">
+          <%= @event.user.name %>
+        </div>
+        <div id="friend_button" style="display:none;">
+          <%= render  :partial => 'events/just_follow_form', :locals => { :user => @event.user } %>
+        </div>
+      <% end %>
     </div>
+
     <% unless @event.link == '' %>
     <div class="event_link">
       <%= link_to "http://#{@event.link}", target: "_blank" do %>
@@ -46,7 +59,19 @@
 
   <% if @event.has_image? %>
     <div class="promo_img">
-      <%= image_tag("#{@event.image(:large)}") %>
+      <% if @event.parent.blank? %>
+        <% if !@event.promo_url.blank? %>
+          <%= image_tag("#{@event.promo_url}") %>
+        <% elsif @event.promo_img_file_size != nil %>
+          <%= image_tag("#{@event.promo_img.url(:large)}") %>
+        <% end %>
+      <% else %>
+        <% if !@event.parent.promo_url.blank? %>
+          <%= image_tag("#{@event.parent.promo_url}") %>
+        <% elsif @event.parent.promo_img_file_size != nil %>
+          <%= image_tag("#{@event.parent.promo_img.url(:medium)}") %>
+        <% end %>
+      <% end %>
     </div>
   <% end %>
 
@@ -123,6 +148,9 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
+ <script>
+//   $('.layout').css('width', '700px');
+// </script>
 
 <% if false %>
 <% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now.in_time_zone(current_user.time_zone) - 7.seconds %>

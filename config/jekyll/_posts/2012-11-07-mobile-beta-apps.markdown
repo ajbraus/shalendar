@@ -1,20 +1,10 @@
 --- 
 layout: post
 published: true
-title: mobile_beta_apps
+title: Mobile Beta Apps
 ---
 
-We have Android and iPhone apps available to distribute to our beta users! These are not yet in the stores.. so to get them to you it takes a couple steps. It's simple, but please make sure to follow the steps precisely to make sure your app works :).
-
-Android
-
-Step 1. <a href="www.google.com">Download this.</a>
-
-Step 2. Enable applications downloaded from websites in developer options
-
-Step 3. Enjoy!
-
-iPhone / iPod touch
+We have iPhone apps available to distribute to our beta users! These are not yet in the stores.. so to get them to you it takes a couple steps. It's simple, but please make sure to follow the steps precisely to make sure your app works :).
 
 Step 1: Email us your device ID.
 	a. Connect your phone and launch iTunes.
@@ -33,4 +23,7 @@ Step 3: Download and install the App
 
 Step 4: Enjoy!
 
+--
+
+Android Coming soon!
 

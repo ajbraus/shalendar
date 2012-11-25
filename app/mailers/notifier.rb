@@ -41,7 +41,6 @@ class Notifier < ActionMailer::Base
 
     mail bcc: @friend_emails, from: "info@hoos.in", subject: "hoos.in Launch!"
   end
-  #AUTOMATIC NOTIFIERS
 
   def hoosin_update(user)
     @user = user
@@ -52,6 +51,10 @@ class Notifier < ActionMailer::Base
     rescue => ex
     Airbrake.notify(ex)
   end
+
+  #AUTOMATIC NOTIFIERS
+
+
 
   def welcome(user)
     @user = user
@@ -211,6 +214,7 @@ class Notifier < ActionMailer::Base
   def cancellation(event, guests)
     @event = event
     guests.each do |user|
+      @user = user #for local variable in views
       if(user.iPhone_user == true)
         d = APN::Device.find_by_id(user.apn_device_id)
         if d.nil?
@@ -283,7 +287,7 @@ class Notifier < ActionMailer::Base
       end
     end
     @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
-    @event_link = "http://www.hoos.in/events/#{event.id}"
+    @event_link = event_url(@event)
     mail to: @user.email, subject: "New Comment - #{@event.short_event_title}"
     rescue => ex
     Airbrake.notify(ex)
@@ -365,7 +369,7 @@ class Notifier < ActionMailer::Base
     @event = event
     @event_time = event.starts_at.strftime("%l:%M%P, %A %B %e")
     @inviter = User.find_by_id(@invite.inviter_id)
-    @event_link = "http://www.hoos.in/events/#{@event.id}"
+    @event_link = event_url(@event)
     @message = @invite.message
     #@inviter_pic = raster_profile_picture(@inviter)
     #should we include here an invited by X to make them more likely to join?
@@ -375,7 +379,7 @@ class Notifier < ActionMailer::Base
   def time_change(event, user)
     @user = user
     @event = event
-    @event_link = "http://www.hoos.in/events/#{event.id}"
+    @event_link = event_url(@event)
 
     if(@user.iPhone_user == true)
       d = APN::Device.find_by_id(@user.apn_device_id)

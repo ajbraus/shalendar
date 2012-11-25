@@ -85,6 +85,7 @@ class Api::V1::EventsController < ApplicationController
           :g_share => @g_share,
           :comments => @comments,
           :image => @event.image(:medium),
+          :url => @event.short_url,
           :share_a => @mobile_user.invited_all_friends?(@event)
         }
     end
@@ -103,17 +104,17 @@ class Api::V1::EventsController < ApplicationController
     end
     @min = 1
     unless params[:min] == ""
-      @min = Integer(params[:min])
+      @min = Float(params[:min])
     end
     @max = 100000
     unless params[:max] == ""
-      @max = Integer(params[:max])
+      @max = Float(params[:max])
     end
 
     @event_params = {
       title: params[:title],
       #chronic_starts_at: DateTime.parse(params[:start]),
-      duration: Integer(params[:duration]),
+      duration: Float(params[:duration]),
       guests_can_invite_friends: @guests_can_invite_friends,
       min: @min,
       max: @max,

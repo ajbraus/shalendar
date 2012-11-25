@@ -37,9 +37,9 @@
   </head>
   <body>
     <%= render 'layouts/fb_script' %> 
-    <div id="loading" style="display:none;"><%= image_tag('ajax_loader.gif') %></div> 
-    <%= render 'layouts/header' %> 
-    <div class="layout"> 
+    <div id="loading" style="display:none;"><%= image_tag('ajax-loader.gif') %></div> 
+    <%= render 'layouts/show_header' %> 
+    <div class="show_layout"> 
       <%= render 'layouts/alerts' %>
       <%= yield %>
     </div>
