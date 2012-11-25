@@ -76,10 +76,6 @@ write vendor terms and conditions
 
 add "if current_user.vendor? && current_user.bank_account.blank?" alert
 
-if mobile remove lil'tip (remove all titles?)
-
-new landing page
-
 if first time loggin in => joyride
 
 if not logged in - explain hoos.in in event page and home
