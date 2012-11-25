@@ -26,8 +26,28 @@ task :follow_up => :environment do
 	User.follow_up
 end
 
-#Should currently be accomplished with a worker through jobs:work => gcm:work
-# task :send_gcm_notifications => :environment do
+task :test_notifications => :environment do
+
+	android_user = User.find(140)
+	gcm_device = Gcm::Device.find(android_user.GCMdevice_id)
+	n = Gcm::Notification.new
+	n.device = gcm_device
+	n.collapse_key = "test generated push"
+	n.delay_while_idle = true
+	n.data = {:registration_ids => [android_user.GCMtoken], :data => {:message_text => "Happy afternoon!"}}
+	n.save
+
+	iphone_user = User.find(3) #michael's iPhone
+	ios_device = APN::Device.find_by_id(iphone_user.apn_device_id)
+	n = APN::Notification.new
+  n.device = ios_device
+  n.alert = "Test Generated Push"
+  n.badge = 5
+  n.sound = true
+  n.custom_properties = {:type => "test_push"}
+  n.save
+
+end
 
 #To clear cache each week, from railscast on cron jobs
 # every :friday, :at => "4am" do

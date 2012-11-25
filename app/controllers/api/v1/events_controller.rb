@@ -114,7 +114,7 @@ class Api::V1::EventsController < ApplicationController
     @event_params = {
       title: params[:title],
       #chronic_starts_at: DateTime.parse(params[:start]),
-      duration: Float(params[:duration]),
+      #duration: Float(params[:duration]),
       guests_can_invite_friends: @guests_can_invite_friends,
       min: @min,
       max: @max,
@@ -128,7 +128,7 @@ class Api::V1::EventsController < ApplicationController
     # @event.chronic_starts_at = DateTime.parse(params[:start])
     @event.starts_at = DateTime.parse(params[:start])
     @event.ends_at = @event.starts_at + @event.duration.hours
-    # @event.duration = Integer(params[:duration])
+    @event.duration = Float(params[:duration])
     
     # @event.title = params[:title]
     # @event.min = params[:min]
