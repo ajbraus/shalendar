@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121117180614) do
+ActiveRecord::Schema.define(:version => 20121123233631) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20121117180614) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "pic_url"
+    t.string   "city"
   end
 
   add_index "authentications", ["uid"], :name => "index_authentications_on_uid", :unique => true
@@ -154,7 +155,7 @@ ActiveRecord::Schema.define(:version => 20121117180614) do
     t.datetime "updated_at",                                   :null => false
     t.integer  "user_id"
     t.integer  "min",                       :default => 1
-    t.integer  "max"
+    t.integer  "max",                       :default => 10000
     t.float    "duration"
     t.integer  "inviter_id",                :default => 0
     t.boolean  "tipped",                    :default => false
@@ -176,11 +177,12 @@ ActiveRecord::Schema.define(:version => 20121117180614) do
     t.boolean  "family_friendly",           :default => false
     t.integer  "parent_id"
     t.string   "short_url"
-    t.boolean  "require_payment"
     t.string   "slug"
+    t.integer  "city_id"
   end
 
   add_index "events", ["slug"], :name => "index_events_on_slug"
+  add_index "events", ["starts_at"], :name => "index_events_on_starts_at"
 
   create_table "fb_invites", :force => true do |t|
     t.string   "uid"
@@ -236,8 +238,8 @@ ActiveRecord::Schema.define(:version => 20121117180614) do
     t.integer  "followed_id"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.boolean  "toggled",     :default => true
     t.boolean  "confirmed",   :default => false
-    t.boolean  "in"
   end
 
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
@@ -270,11 +272,11 @@ ActiveRecord::Schema.define(:version => 20121117180614) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.string   "title"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.integer  "user_id"
     t.integer  "min",                    :default => 1
-    t.integer  "max"
+    t.integer  "max",                    :default => 10000
     t.float    "duration"
     t.string   "link"
     t.string   "address"
@@ -305,7 +307,6 @@ ActiveRecord::Schema.define(:version => 20121117180614) do
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
     t.string   "name"
-    t.string   "city"
     t.boolean  "terms"
     t.boolean  "require_confirm_follow",   :default => false
     t.boolean  "allow_contact",            :default => true
@@ -321,31 +322,21 @@ ActiveRecord::Schema.define(:version => 20121117180614) do
     t.datetime "avatar_updated_at"
     t.string   "time_zone"
     t.integer  "new_invited_events_count", :default => 0
-    t.boolean  "vendor",                   :default => false
     t.boolean  "email_comments",           :default => true
     t.boolean  "admin",                    :default => false
     t.integer  "apn_device_id",            :default => 0
+    t.boolean  "vendor",                   :default => false
     t.boolean  "digest",                   :default => true
     t.string   "GCMtoken"
     t.boolean  "follow_up"
-    t.boolean  "can_post_to_fb_wall",      :default => false
-    t.boolean  "family_filter"
     t.boolean  "female"
     t.datetime "birthday"
+    t.boolean  "family_filter"
     t.string   "background_file_name"
     t.string   "background_content_type"
     t.integer  "background_file_size"
     t.datetime "background_updated_at"
-    t.string   "type"
-    t.string   "street_address"
-    t.string   "postal_code"
-    t.string   "country"
-    t.string   "phone_number"
-    t.string   "account_uri"
-    t.string   "bank_account_uri"
-    t.string   "credits_uri"
-    t.string   "credit_card_uri"
-    t.string   "debits_uri"
+    t.integer  "city_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

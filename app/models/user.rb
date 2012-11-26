@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
                   :allow_contact,
                   :digest,
                   :notify_event_reminders,
-                  :city,
+                  :city_id,
                   :post_to_fb_wall,
                   :avatar,
                   :vendor,
@@ -81,7 +81,13 @@ class User < ActiveRecord::Base
   has_many :followers, through: :reverse_relationships, source: :follower, conditions: "confirmed = 't'"
   has_many :comments
 
+  belongs_to :city
+
+#  has_and_belongs_to_many :categories
+
   after_create :send_welcome
+
+
 
   HOOSIN = +16088074732
   
@@ -319,7 +325,10 @@ class User < ActiveRecord::Base
   def invite_all_friends!(event)
     self.followers.each do |f|
       unless f.invited?(event)
-        self.invite!(event, f)
+        #silo by city, so that invite all only does relevant friends
+        if self.city == City.find_by_name("Everywhere Else") || f.city == self.city
+          self.invite!(event, f)
+        end
       end
     end
     if self.rsvpd?(event)
@@ -356,11 +365,20 @@ class User < ActiveRecord::Base
   end
 
   def events_on_date(load_datetime, plan_count, invite_count)
-    #usable_date = load_datetime.in_time_zone("Central Time (US & Canada)")
-    # usable_date = load_datetime# - 4.hours
-    # adjusted_load_date = usable_date.to_date
     Time.zone = self.time_zone
     time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
+    
+    #CATEGORY TODO
+    # loop through categories and add all relevant events from city + category
+    # @interest_events = []
+    # @toggled_categories.each do |c|
+    #   @category_events = Event.where(starts_at: time_range).select{|idea| idea.category == c && idea.city == self.city}
+    #   @interest_events = @interest_events | @category_events
+    # end
+    # @interest_events.each do |inte|
+    #   inte.inviter_id = nil
+    # end
+
     @plans_on_date = Event.where(starts_at: time_range).joins(:rsvps)
                       .where(rsvps: {guest_id: self.id}).order("starts_at ASC")
     @plans_on_date.each do |p|
@@ -375,7 +393,7 @@ class User < ActiveRecord::Base
     invite_count.push(@invited_events_on_date.count)
     plan_count.push(@plans_on_date.count)
 
-    return @invited_events_on_date | @plans_on_date
+    return @invited_events_on_date | @plans_on_date #| @interest_events
   end
 
   def mobile_events_on_date(load_datetime)#don't care about toggled here, do it locally on client
@@ -484,7 +502,7 @@ class User < ActiveRecord::Base
     @not_hoosin_user = []
     @graph = graph
     @facebook_friends = @graph.fql_query("select current_location, pic_square, name, username, uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())")
-    @city_friends = @facebook_friends.reject { |ff| !ff['current_location'] || ff['current_location']['name'] != self.city } 
+    @city_friends = @facebook_friends.reject { |ff| !ff['current_location'] || ff['current_location']['name'] != self.authentications.select{|auth| auth.provider == "Facebook"}.first.city } 
     @city_friends.each do |cf|
       @authentication = Authentication.find_by_uid("#{cf['uid']}")
       if @authentication
