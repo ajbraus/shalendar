@@ -4,7 +4,7 @@
 	<% if @me['location'].nil? %>
 		<h1>Your hoos.in friends: Add your <%= link_to "current city", "http://answers.yahoo.com/question/index?qid=20081007104826AAbKEzP" %> on Facebook to show nearby friends.</h1>
 	<% else %>
-		<h1>Your hoos.in friends in <%= current_user.city %></h1>
+		<h1>Your hoos.in friends in <%= current_user.authentications.select{|auth| auth.provider == "Facebook"}.first.city %></h1>
 	<% end %>
 		<div class="invite_friends">
 			<div class="invite_all"><%= link_to "Friend All", friend_all_path, class:"btn btn-primary", remote: true %></div>
@@ -28,7 +28,7 @@
 	<% if @me['location'].nil? %>
 		<h1>To see your facebook friends add your current location on Facebook to show nearby friends.</h1>
 	<% else %>
-		<h1>Your facebook friends in <%= current_user.city %></h1>
+		<h1>Your facebook friends in <%= current_user.authentications.select{|auth| auth.provider == "Facebook"}.first.city %></h1>
 	<% end %>
 	<div class="invite_friends">
 		<div class="invite_all"><%= link_to "Invite All", share_all_fb_friends_path, class:"btn btn-primary", id:"invite_all_friends", remote: true %></div>

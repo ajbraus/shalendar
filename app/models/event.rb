@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
   CATEGORIES = %w[adventure learn active community night music]
   
   belongs_to :user
-  belongs_to :suggestion
+  belongs_to :city
 
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
   has_many :guests, through: :rsvps
@@ -20,6 +20,9 @@ class Event < ActiveRecord::Base
 
   belongs_to :parent, :foreign_key => "parent_id", :class_name => "Event"
   has_many :groups, :foreign_key => "parent_id", :class_name => "Event"
+
+  has_many :categorizations
+  has_many :categories, through: :categorizations
 
   attr_accessible :user_id,
                   :suggestion_id,
@@ -179,28 +182,31 @@ class Event < ActiveRecord::Base
     end
   end
 
-
-  def self.events(load_datetime, current_user)
-    
-  end
-
-  def self.public_forecast(load_datetime, current_user)
-    #get time zone from city
-    Time.zone =  "Central Time (US & Canada)"
+  def self.public_forecast(load_datetime, city, toggled_categories)
+    if city == City.find_by_name("Everywhere Else") || city.nil?
+      if session[:current_time_zone].nil?
+        timezone = "Central Time (US & Canada)"
+      else
+        timezone = session[:current_time_zone]
+      end
+    else
+      timezone = city.timezone
+    end
+    Time.zone = timezone
     @public_forecast = []
-    (-3..16).each do |i|
+    (-3..26).each do |i|
       @new_datetime = load_datetime + i.days 
       @time_range = @new_datetime.midnight .. @new_datetime.midnight + 1.day
-      if current_user.nil?
-        @public_events_on_date = Event.where(starts_at: @time_range, is_public: true).order("starts_at ASC")
-      else
-        if current_user.family_filter?
-          @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, family_friendly: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e)}
-        else 
-          @public_events_on_date = Event.where(starts_at: @time_range, is_public: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e) || current_user.made_a_group?(e) }
-        end
-      end
-      @public_events_on_date = @public_events_on_date.sort_by{|t| t[:starts_at]}
+
+      @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, city: city).joins(:categories).where(categories: {id: toggled_categories} ).order("starts_at ASC")
+      
+      #Previous stuff while this included a signed in user
+      #   if current_user.family_filter?
+      #     @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, family_friendly: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e)}
+      #   else 
+      #     @public_events_on_date = Event.where(starts_at: @time_range, is_public: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e) || current_user.made_a_group?(e) }
+      #   end
+      # @public_events_on_date = @public_events_on_date.sort_by{|t| t[:starts_at]}
 
       @public_forecast.push(@public_events_on_date)
     end

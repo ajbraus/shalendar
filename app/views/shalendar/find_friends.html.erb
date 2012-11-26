@@ -1,8 +1,9 @@
 <div id="find_friends">
+
 <% if @me['location'].nil? %>
 	<h1>Your Friends: Add your current city on Facebook to show nearby friends.</h1>
 <% else %>
-	<h1>Your Friends in <%= current_user.city %></h1>
+	<h1>Your Friends in <%= current_user.authentications.select{|auth| auth.provider == "Facebook"}.first.city %></h1>
 <% end %>
 
 <div id="friend_all">

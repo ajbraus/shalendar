@@ -110,7 +110,7 @@
 <% end %>
 
     <div class="maybes">
-      <div class="left_label event_label"><span id="invite_count"><%= @fb_friends.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_friends.count %></span> Maybes </div> 
+      <div class="left_label event_label"><span id="invite_count"><%= @fb_friends.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_friends.count %></span> Included </div> 
       <div id="invites" class="show_raster">
         <%= render partial: 'events/invites' %>
       </div>

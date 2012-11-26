@@ -125,16 +125,13 @@ shrink words out of headers sooner
 use logo w no name in responsive and keep find friends search bar
 
 ------------------------------------------------------------
->>>>>>> new-home
 
 root = pick city => forecast of that city
 
-<<<<<<< HEAD
 make recurring_receipt email (should have like blog stuff in it)
-=======
+
 payment gateway
 	verify our account
->>>>>>> new-home
 
 survey why they are downgrading their account
 

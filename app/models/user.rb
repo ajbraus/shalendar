@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
                   :allow_contact,
                   :digest,
                   :notify_event_reminders,
-                  :city,
+                  :city_id,
                   :post_to_fb_wall,
                   :avatar,
                   :vendor,
@@ -94,7 +94,14 @@ class User < ActiveRecord::Base
   has_many :followers, through: :reverse_relationships, source: :follower, conditions: "confirmed = 't'"
   has_many :comments
 
+  has_many :interests
+  has_many :categories, through: :interests
+
+  belongs_to :city
+
   after_create :send_welcome
+
+
 
   HOOSIN = +16088074732
   
@@ -332,7 +339,10 @@ class User < ActiveRecord::Base
   def invite_all_friends!(event)
     self.followers.each do |f|
       unless f.invited?(event)
-        self.invite!(event, f)
+        #silo by city, so that invite all only does relevant friends
+        if self.city == City.find_by_name("Everywhere Else") || f.city == self.city
+          self.invite!(event, f)
+        end
       end
     end
     if self.rsvpd?(event)
@@ -351,7 +361,7 @@ class User < ActiveRecord::Base
   def forecast(load_datetime)
     Time.zone = self.time_zone
     @forecast = []
-    (-3..16).each do |i|
+    (-3..26).each do |i|
       @events = []
       @new_datetime = load_datetime + i.days #Date.strptime(load_date, "%Y-%m-%d") + i
       @events_on_date = self.events_on_date(@new_datetime)
@@ -364,18 +374,28 @@ class User < ActiveRecord::Base
     return @forecast
   end
 
-  def events_on_date(load_datetime)
-    #usable_date = load_datetime.in_time_zone("Central Time (US & Canada)")
-    # usable_date = load_datetime# - 4.hours
-    # adjusted_load_date = usable_date.to_date
+  def events_on_date(load_datetime, plan_count, invite_count)
     Time.zone = self.time_zone
     time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
+    
+    #CATEGORY TODO
+    toggled_category_ids = []
+    Self.categories.each do |c|
+      toggled_category_ids.push(c.id)
+    end
+    # loop through categories and add all relevant events from city + category
+    @interest_events_on_date = Event.where(starts_at: @time_range, is_public: true, city: Self.city)
+      .joins(:categories).where(categories: {id: toggled_category_ids} ).order("starts_at ASC")
+
+    @interest_events_on_date.each do |inte|
+      inte.inviter_id = inte.user.id
+    end
+
     @plans_on_date = Event.where(starts_at: time_range).joins(:rsvps)
                       .where(rsvps: {guest_id: self.id}).order("starts_at ASC")
     @plans_on_date.each do |p|
       p.inviter_id = p.user.id
     end
-    @public_events_on_date = Event.where(starts_at: time_range, is_public: true).order("starts_at ASC")
     @invited_events_on_date = Event.where(starts_at: time_range).joins(:invitations)
                               .where(invitations: {invited_user_id: self.id}).order("starts_at ASC")
     @invited_events_on_date = @invited_events_on_date - @plans_on_date
@@ -383,7 +403,7 @@ class User < ActiveRecord::Base
       ie.inviter_id = ie.invitations.find_by_invited_user_id(self.id).inviter_id
     end
 
-    return @invited_events_on_date | @plans_on_date | @public_events_on_date
+    return @invited_events_on_date | @plans_on_date | @interest_events
   end
 
   def mobile_events_on_date(load_datetime)#don't care about toggled here, do it locally on client
@@ -492,7 +512,7 @@ class User < ActiveRecord::Base
     @not_hoosin_user = []
     @graph = graph
     @facebook_friends = @graph.fql_query("select current_location, pic_square, name, username, uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())")
-    @city_friends = @facebook_friends.reject { |ff| !ff['current_location'] || ff['current_location']['name'] != self.city } 
+    @city_friends = @facebook_friends.reject { |ff| !ff['current_location'] || ff['current_location']['name'] != self.authentications.select{|auth| auth.provider == "Facebook"}.first.city } 
     @city_friends.each do |cf|
       @authentication = Authentication.find_by_uid("#{cf['uid']}")
       if @authentication
