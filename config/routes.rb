@@ -7,7 +7,8 @@ Shalendar::Application.routes.draw do
     root :to => 'shalendar#home'
   end
 
-  match '/madison', :to => 'shalendar#home', :as => "city"
+  match '/madison', :to => 'shalendar#home', :as => "madison", :city => "Madison, Wisconsin"
+  match '/everywhere_else', :to => 'shalendar#home', :as => "everwhere_else", :city => "Everywhere Else"
   
   root :to => 'static_pages#landing'
 

@@ -74,9 +74,14 @@ Adam
 
 fix serving of events so that you don't see things your rsvpd to and you do see public events.
 
-add "if current_user.vendor? && current_user.bank_account.blank?" alert
+city dropdown
 
+categories dropdown
 
+drag and drop
+
+plans vs ideas
+black gutter for plans
 
 
 if not logged in - explain hoos.in in event page and home
@@ -87,14 +92,7 @@ make share with facebook friends ajax so event show is fast!
 
 ticket/rsvp link
 
-
 write vendor terms and conditions
-
-think up categories
-
-categories picker
-
-silo by city
 
 deleting group delete's public idea until you reload
 

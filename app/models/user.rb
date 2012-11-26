@@ -520,6 +520,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_valid_credit_card?
+    if credit_card_uri.blank?
+      return false
+    else
+      return true 
+    end
+  end
+
   def credit!(user, amount)
     bank_account = Balanced::BankAccount.find(user.bank_account_uri)
     bank_account.credit(amount)

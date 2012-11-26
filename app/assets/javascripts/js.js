@@ -1,6 +1,6 @@
 $(document).ready(function() {
 // REMOVE ALERT 
-$("div.alert").delay(3000).fadeOut(400);
+$("div.alert").delay(6000).fadeOut(400);
 
 // NEW INVITED EVENTS
 

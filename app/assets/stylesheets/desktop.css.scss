@@ -50,7 +50,7 @@
 .idea_container {
 	position: relative;
 left: 10px;
-width: 98%;
+width: 94%;
 }
 
 
@@ -72,7 +72,7 @@ width: 98%;
 	ul.right_header {
 		position: relative;
 		right: 25px;
-		top: 43px;
+		top: 13px;
 	}
 
 	#friends {
@@ -95,7 +95,7 @@ width: 98%;
 
 		.guest_count {
 			bottom: 1px;
-			left: 56px;
+			right: 6px;
 		}
 
 		header {
@@ -150,8 +150,15 @@ width: 98%;
 			width:400px;
 		}
 
+		ul.right_header {
+			font-size: 16px;
+		}
+
+		.date_bar {
+			width: 99%;
+			top: 35px;
+		}
 		.floatingHeader {
-			left: 45%;
 		}
 
 		.instagramFeed {
@@ -187,7 +194,7 @@ width: 98%;
 		}
 		.new_idea {
 			position: fixed;
-			right: 15px;
+			right: 44px;
 			top: 100px;
 		}
 

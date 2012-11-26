@@ -58,6 +58,9 @@ body {
 
 	.logo {
 		left:4px;
+		img {
+			width: 105px;
+		}
 	}
 
 	header {
@@ -65,13 +68,17 @@ body {
 	}
 
 	ul.right_header {
-		position: absolute;
-		right: 6px;
-		top: 39px;
+position: absolute;
+right: 10px;
+top: 12px;
+font-size: 20px;
+	img {
+		width:45px;
+		height:45px;
+	}
 	}
 
 	.floatingHeader {
-		left: 36%;
 	}
 
 	.btn-new-idea {
