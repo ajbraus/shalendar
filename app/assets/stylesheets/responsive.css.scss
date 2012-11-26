@@ -42,27 +42,25 @@ body {
 			display:none;
 		}
 	}
-	.instagramFeed {
-		display:none;
-	}
 
 	#textMsg {
 		display:none;
 	}
 
-	#new_idea_blerb {
-		display: none;
-	}
-
-
 	.ajax-new-idea {
 		display: none;
+	}
+	.mini_event.over {
+		display:none;
 	}
 
 // SHRINK HEADER STUFF
 
 	.logo {
 		left:4px;
+		img {
+			width: 105px;
+		}
 	}
 
 	header {
@@ -70,25 +68,30 @@ body {
 	}
 
 	ul.right_header {
-		position: absolute;
-		right: 6px;
-		top: 39px;
+position: absolute;
+right: 10px;
+top: 12px;
+font-size: 20px;
+	img {
+		width:45px;
+		height:45px;
+	}
 	}
 
-	.new_idea {
-		width: 74%;
-		margin-right: -55px;
+	.floatingHeader {
 	}
 
 	.btn-new-idea {
-		float:right;
-		padding: 6px 32px;
-		border-radius: 6px;
+		padding: 12px 20px;
 	}
 
-	#ribbon {
-		height:25px;
+	.new_idea {
+		position: fixed;
+		right: 2px;
+		top: 88px;
+		z-index: 2;
 	}
+
 
 // LAYOUT IS PROPORTIONAL
 
@@ -124,7 +127,7 @@ body {
 			position: relative;
 			right: 4px;
 			img {
-				max-width: 131px;
+				max-width: 164px;
 			}
 		}
 		.guest_count {
@@ -135,11 +138,33 @@ body {
 			font-size: 22px;
 		}
 	}	
+
+		.event {
+		max-width: 180px;
+		max-height: 300px;
+		min-width: 160px;
+		min-height: 110px;
+		right: 1px;
+	}
+
+	.sidebar {
+	width:98%;
+	}
+
+	.mini_event {
+		height:80px;
+	}
+
+	.idea_container {
+		width:98%;
+	}
+
 	ul.event_buttons {
 		width:96%;
 		float:left;
 		right:-33px;
 		font-size: 26px;
+		top:0;
 		li {
 			display: inline;
 			a img {
@@ -212,6 +237,29 @@ body {
   width:73%;
 }
 
+.credit_card_form {
+	width: 75%;
+}
+
+.sign_up {
+	width: 75%;
+}
+
+.instagramFeed {
+	width:87%;
+}
+
+.instagram-placeholder img {
+width: 115px;
+}
+
+.fb_login_button {
+right: 58px;
+}
+
+.top {
+	height:575px;
+}
 
 #calendars {
 	float:right;

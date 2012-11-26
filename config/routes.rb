@@ -7,7 +7,8 @@ Shalendar::Application.routes.draw do
     root :to => 'shalendar#home'
   end
 
-  match '/madison', :to => 'shalendar#home', :as => "city"
+  match '/madison', :to => 'shalendar#home', :as => "madison", :city => "Madison, Wisconsin"
+  match '/everywhere_else', :to => 'shalendar#home', :as => "everwhere_else", :city => "Everywhere Else"
   
   root :to => 'static_pages#landing'
 
@@ -22,7 +23,7 @@ Shalendar::Application.routes.draw do
                               sign_up: "join"
                             } 
   devise_scope :user do
-    match '/new_vendor', to: 'registrations#new_vendor', as: "new_vendor"
+    match '/new_venue', to: 'registrations#new_vendor', as: "new_vendor"
   end
 
   # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
@@ -63,11 +64,18 @@ Shalendar::Application.routes.draw do
     end
   end
 
-  # resources :suggestions, only: [:index, :new, :show, :create, :destroy, :edit, :update, :clone] do
-  # end
+  match '/collect_payments', :to => 'payments#new_merchant', :as => 'new_merchant'
+  match '/create_merchant', :to => 'payments#create_merchant', :as => 'create_merchant'
 
+  match '/confirm_payment', :to => 'payments#confirm_payment', :as => "confirm_payment"
+  match '/submit_paytment', :to => 'payments#submit_payment', :as => "submit_payment"
 
-  # match '/clone', :to => 'suggestions#clone', as: "clone"
+  match '/payment', :to => 'payments#new_card', :as => 'new_card'
+  match '/create_card', :to => 'payments#create_card', :as => 'create_card'
+
+  match '/downgrade', :to => 'payments#downgrade', :as =>'downgrade'
+
+  match '/upgrade', :to => 'payments#upgrade', :as => 'upgrade'
 
   match '/make_a_group', :to => 'events#make_a_group', :as => 'make_a_group'
   match '/repeat', :to => 'events#repeat', :as => 'repeat_event'
@@ -107,7 +115,7 @@ Shalendar::Application.routes.draw do
   match 'share_all_fb_friends' =>'shalendar#share_all_fb_friends'
   match 'friend_all' => 'shalendar#friend_all'
 
-  match '/vendor_splash', to: 'static_pages#vendor_splash', as: 'vendor_splash'
+  match '/venue', to: 'static_pages#vendor_splash', as: 'vendor_splash'
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/careers', :to => 'static_pages#careers', :as => "careers"
   match '/terms', :to => 'static_pages#terms_header', :as => "terms"

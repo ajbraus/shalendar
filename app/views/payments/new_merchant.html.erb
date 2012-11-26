@@ -1,0 +1,43 @@
+<div class="sign_up">
+	<form id="bankAccount">
+	  <h3>venue account</h3>
+
+	  <div class="field">
+	    <label>type*</label><br>
+	      <label for="type">checking</label>
+	      <input type="radio" name="type">
+	      <label for="type">savings</label>
+	      <input type="radio" name="type">
+	  </div>
+
+	  <div class="field">
+	      <label for="name">name on account*</label>
+	      <input type="text" name="name" placeholder="name" class="required">
+	  </div>
+
+	  <div><%= label_tag :street_address, "account street address*" %><br />
+	  <%= text_field_tag :street_address, nil, class: "required", placeholder: "street address" %></div>
+
+	  <div class="zip"><%= label_tag :postal_code, "account zip*" %><br />
+	  <%= text_field_tag :postal_code, nil, class: "required zip", placeholder: 'zip' %></div>
+
+	  <div class="country"><%= label_tag :country, "account country*" %><br />
+	  <%= select_tag :country, "<option>USA</option>".html_safe, class: "required country" %></div>
+
+	  <div class="phone_number"><%= label_tag :phone_number, "account phone number*" %><br />
+	  <%= text_field_tag :phone_number, nil, class: "required phone_number", placeholder: "(000) 123-1234" %></div>
+
+	  <div class="field">
+	      <label for="account_number">bank account number*</label>
+	      <input type="text" name="account_number" placeholder="account number" class="required">
+	  </div>
+	  <div class="field">
+	      <label for="bank_code">bank code (routing number in the USA)*</label>
+	      <input type="text" name="bank_code" placeholder="routing number" class="required">
+	  </div>
+
+	  <div class="routing_number">
+	    <%= image_tag "routing-number.png", width:"480px" %>
+	  </div>
+	<%= submit_tag "Create Account", class:"btn btn-primary btn-large" %>
+</div>

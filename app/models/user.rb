@@ -29,7 +29,14 @@ class User < ActiveRecord::Base
                   :family_filter,
                   :email_comments,
                   :follow_up,
-                  :background
+                  :background,
+                  :type,
+                  :street_address,
+                  :postal_code,
+                  :country,
+                  :phone_number,
+                  :bank_account,
+                  :credit_card
 
   has_attached_file :avatar, :styles => { :original => "150x150#",
                                           :raster => "50x50#" },
@@ -53,6 +60,12 @@ class User < ActiveRecord::Base
                      :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] },
                      :attachment_size => { :in => 0..350.kilobytes }
 
+  # Normalizes the attribute itself before 
+  #phony_normalize :phone_number, :default_country_code => 'US'
+  #phony_normalize :phone_number, :as => :phone_number_normalized_version, :default_country_code => 'US' 
+  #validates :phone_number, :phony_plausible => true
+  #phony_normalized_method :phone_number, :default_country_code => 'US'
+  
   validates :terms,
             :name, 
             :time_zone, presence: true
@@ -335,27 +348,23 @@ class User < ActiveRecord::Base
     other_user.save
   end
 
-  def forecast(load_datetime, plan_counts, invite_counts)
+  def forecast(load_datetime)
     Time.zone = self.time_zone
     @forecast = []
     (-3..16).each do |i|
       @events = []
       @new_datetime = load_datetime + i.days #Date.strptime(load_date, "%Y-%m-%d") + i
-      @plan_count = []
-      @invite_count = []
-      @events_on_date = self.events_on_date(@new_datetime, @plan_count, @invite_count)
+      @events_on_date = self.events_on_date(@new_datetime)
       @events_on_date = @events_on_date.sort_by{|t| t[:starts_at]}
       @events_on_date.each do |e|
         @events.push(e)
       end
-      plan_counts.push(@plan_count[0])
-      invite_counts.push(@invite_count[0])
       @forecast.push(@events)
     end
     return @forecast
   end
 
-  def events_on_date(load_datetime, plan_count, invite_count)
+  def events_on_date(load_datetime)
     #usable_date = load_datetime.in_time_zone("Central Time (US & Canada)")
     # usable_date = load_datetime# - 4.hours
     # adjusted_load_date = usable_date.to_date
@@ -366,16 +375,15 @@ class User < ActiveRecord::Base
     @plans_on_date.each do |p|
       p.inviter_id = p.user.id
     end
+    @public_events_on_date = Event.where(starts_at: time_range, is_public: true).order("starts_at ASC")
     @invited_events_on_date = Event.where(starts_at: time_range).joins(:invitations)
                               .where(invitations: {invited_user_id: self.id}).order("starts_at ASC")
     @invited_events_on_date = @invited_events_on_date - @plans_on_date
     @invited_events_on_date.each do |ie|
       ie.inviter_id = ie.invitations.find_by_invited_user_id(self.id).inviter_id
     end
-    invite_count.push(@invited_events_on_date.count)
-    plan_count.push(@plans_on_date.count)
 
-    return @invited_events_on_date | @plans_on_date
+    return @invited_events_on_date | @plans_on_date | @public_events_on_date
   end
 
   def mobile_events_on_date(load_datetime)#don't care about toggled here, do it locally on client
@@ -510,6 +518,23 @@ class User < ActiveRecord::Base
         return false
       end
     end
+  end
+
+  def has_valid_credit_card?
+    if credit_card_uri.blank?
+      return false
+    else
+      return true 
+    end
+  end
+
+  def credit!(user, amount)
+    bank_account = Balanced::BankAccount.find(user.bank_account_uri)
+    bank_account.credit(amount)
+  end
+
+  def refund!(amount)
+    
   end
 
   # CONTACT FOR INVITATION

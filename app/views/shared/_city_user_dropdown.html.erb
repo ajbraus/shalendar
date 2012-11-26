@@ -1,0 +1,5 @@
+<%= form_for(current_user, :as => :resource, :url => registration_path(current_user), :html => { :method => :put }) do |f| %>
+
+	<%= f.select(options_for_select([Cities.all]), prompt: "#{current_user.city.name}") %>
+
+<% end %>

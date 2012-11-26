@@ -1,0 +1,8 @@
+<div id="interests" style="display:none;">
+	<%= form_for(current_user, :as => :resource, :url => registration_path(current_user), :html => { :method => :put }) do |f| %>
+
+		<%= f.input :interests, :as => :check_boxes, :collection => Categories.all %>
+
+	  <div><%= f.submit "Update", :class => "btn btn-warning btn-large" %></div>
+	<% end %>
+</div>

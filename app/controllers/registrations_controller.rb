@@ -12,13 +12,14 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource
+    
     @all_cities = City.all
     @cities = []
     @all_cities.each do |c|
       @city_name = c.name
       @cities.push(@city_name)
     end
-    
+
     if resource.save
       #turn all email_invites into invitations here **UPDATE
       EmailInvite.where("email_invites.email = :new_user_email", new_user_email: resource.email).each do |ei|
@@ -89,7 +90,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def new_vendor
-    sign_out(current_user)
     @all_cities = City.all
     @cities = []
     @all_cities.each do |c|

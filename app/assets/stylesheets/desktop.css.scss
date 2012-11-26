@@ -6,7 +6,7 @@
 @media only screen and (min-width:600px) {
 
 	.layout {
-		width: 960px;
+		width: 97%;
 		padding: 7px 0px;
 	}
 
@@ -28,9 +28,31 @@
 	}
 
 	.event {
-		width: 190px;
-right: 1px;
+		max-width: 190px;
+		min-width: 130px;
+		min-height: 110px;
+		right: 1px;
+		.promo_img {
+			img {
+				max-width: 200px;
+			}
+		}
 	}
+
+.sidebar {
+  width:22%;
+}
+
+.mini_event {
+	height: 110px;
+}
+
+.idea_container {
+	position: relative;
+left: 10px;
+width: 94%;
+}
+
 
 	#forecast {
 		right: 693px;
@@ -50,7 +72,7 @@ right: 1px;
 	ul.right_header {
 		position: relative;
 		right: 25px;
-		top: 43px;
+		top: 13px;
 	}
 
 	#friends {
@@ -73,11 +95,11 @@ right: 1px;
 
 		.guest_count {
 			bottom: 1px;
-			left: 56px;
+			right: 6px;
 		}
 
 		header {
-			width: 960px;
+			width: 96%;
 		}
 
 		.event_time {
@@ -91,6 +113,7 @@ right: 1px;
 		}
 
 		.event_buttons {
+			top:23px;
 			font-size: 30px;
 			top: 23px;
 		}
@@ -104,10 +127,6 @@ right: 1px;
 			input {
 				width:380px;
 			}
-		}
-
-		.new_idea {
-			width: 38%;
 		}
 
 		.vendor_dash {
@@ -126,6 +145,40 @@ right: 1px;
 			margin:20px auto;
 		}
 
+		.credit_card_form {
+			width:400px;
+		}
+
+		.sign_up {
+			width:400px;
+		}
+
+		ul.right_header {
+			font-size: 16px;
+		}
+
+		.date_bar {
+			width: 99%;
+			top: 35px;
+		}
+		.floatingHeader {
+		}
+
+		.instagramFeed {
+			width: 960px;
+		}
+
+		.fb_login_button {
+			right: 80px;
+		}
+
+		.instagram-placeholder img {
+			width: 106px;
+		}
+
+		.top {
+			height:505px;
+		}
 		.rsvp_dot {
 			right: 10px;
   		top: 10px;
@@ -136,15 +189,16 @@ right: 1px;
 		}
 
 		#ribbon {
-			height: 75px;
+
 		}
 
 		.btn-new-idea {
-			-moz-border-radius: 0 6px 6px 0px;
-			-webkit-border-radius: 0 6px 6px 0px;
-			border-radius: 0 6px 6px 0px;
-			padding: 23px 12px;
-			float: left;
+			padding: 12px 15px;
+		}
+		.new_idea {
+			position: fixed;
+			right: 44px;
+			top: 100px;
 		}
 
 		.html-new-idea {
@@ -182,6 +236,5 @@ right: 1px;
 /*** Widescreen ************************/
 /***************************************/
 @media only screen and (min-width: 960px) {
-
 
 }

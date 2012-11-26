@@ -3,9 +3,7 @@
   <%= render 'layouts/logo' %>
 
 <% if user_signed_in? %>
-  
   <ul class="left_header">
-    
     <% unless current_user.vendor? %> <!-- ALL USERS EXCEPT VENDORS -->
       <li id="view_search" class="user_search">
         <%= form_tag({:controller => 'shalendar', :action => 'search'}, {id: 'search_form', remote: true }) do %>
@@ -38,6 +36,15 @@
               </li>
             <% end %>
   </ul>
+  <ul class="browse_dropdowns">
+    <li>
+      <%= render 'shared/city_user_dropdown' %>
+    </li>
+    <li>
+      <div id="interestsDropdown">interests <i class="icon-sort-down"></i></div>
+      <%= render 'shared/intersts_user_dropdown' %>
+    </li>
+  </ul>
 
   <ul class="right_header">
        <li>
@@ -61,7 +68,7 @@
     </li>
     <li>
       <%= link_to activity_path do %>
-        <span class="fadeInOrange"><i class="icon-dashboard"></i> <span id="headerText"> activity</span>
+        <span class="fadeInOrange"><i class="icon-dashboard"></i> <span id="headerText"> my plans</span>
       <% end %>
     </li>
     <li>
@@ -92,6 +99,9 @@
 </ul>
 
 <% else %> <!-- IF NOT SIGNED IN -->
+  <ul class="browse">
+    <li><%= render 'shared/city_session_dropdown' %>
+  </ul>
   <ul class="right_header">
     <li>
       <%= link_to "login", new_user_session_path %>

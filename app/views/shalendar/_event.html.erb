@@ -20,9 +20,11 @@
 				<%= image_tag "night.png" %>
 			<% end %>
 			<span><%= event_start_time(event) %> (<%= event.nice_duration %> hr)</span>
+		<% if user_signed_in? %>
 			<% if current_user.rsvpd?(event) %>
-				<div class="rsvp_dot"></div>
+				<div class="invited_ribbon"></div>
 			<% end %>
+		<% end %>
 		</div>
 
 	<% if event.has_image? %>

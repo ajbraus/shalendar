@@ -47,6 +47,7 @@ class Event < ActiveRecord::Base
                   :is_public,
                   :short_url,
                   :parent_id,
+                  :require_payment,
                   :slug
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
@@ -178,6 +179,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+
+  def self.events(load_datetime, current_user)
+    
+  end
 
   def self.public_forecast(load_datetime, current_user)
     #get time zone from city

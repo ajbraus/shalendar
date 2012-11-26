@@ -4,17 +4,22 @@ $ ->
 			$(this).data('date') == date
 
 	# DATEPICKERDAY
+	$('html, body').scrollTop($('#today').offset().top - 80 );
+	$('.datePickerToday').css('color','red')
 	$('.datePickerDay').click ->
-  	pos = $(this).position();
-  	$('#datewindow').animate({ left: pos.left - 2 }, 1000);
-  	date = $(this).attr('data-date');
-  	day_pos = $('dl').withDate(date).position();
-  	$('#forecast').animate({ right: day_pos.left }, 1000);
+		pos = $(this).position();
+		$('#datewindow').animate({ top: pos.top - 2 }, 500);
+		date = $(this).attr('data-date');
+		elOffset = $('div').withDate(date).offset().top - 40
+		$('html, body').animate({ scrollTop: elOffset }, 'fast', 'swing');
+	
+  	#date = $(this).attr('data-date');
+  	#day_pos = $('dl').withDate(date).position();
+  	#$('#forecast').animate({ right: day_pos.left }, 1000);
 
 	# YESTERDAY AND TOMORROW
 	
 	forecast = $('#forecast');
-
 
 	$('#yesterday').click ->	
 		today = $("dl.marker")
@@ -36,10 +41,10 @@ $ ->
 			tomorrow.addClass("marker")
 		return false;
 
-	$('#todayButton').click ->
-		today = $('dl#today')
-		today_pos = today.position();
-		forecast.animate({ right: today_pos.left }, 300);
-		$('.marker').removeClass('marker')
-		today.addClass('marker')
-		return false;
+	# $('#todayButton').click ->
+	# 	today = $('dl#today')
+	# 	today_pos = today.position();
+	# 	forecast.animate({ right: today_pos.left }, 300);
+	# 	$('.marker').removeClass('marker')
+	# 	today.addClass('marker')
+	# 	return false;

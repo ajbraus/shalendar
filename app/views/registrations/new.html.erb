@@ -1,5 +1,5 @@
 <% provide(:title, " | Join") %> 
-<div id="sign_up">
+<div id="signUp" class="sign_up">
   <h2> Join </h2>
 <%= form_for(resource, 
                       :as => resource_name, 
@@ -8,7 +8,7 @@
   <%= devise_error_messages! %>
 
   <div><%= f.label :email %><br />
-  <%= f.email_field :email, class: "required", autocomplete: "off" %></div>
+  <%= f.email_field :email, class: "required email", autocomplete: "off" %></div>
 
   <div><%= f.label :name %><br />
   <%= f.text_field :name, class: "required", autocomplete: "off" %></div>

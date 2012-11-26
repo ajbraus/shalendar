@@ -1,36 +1,6 @@
 $(document).ready(function() {
 // REMOVE ALERT 
-$("div.alert").delay(3000).fadeOut(400);
-
-// LOADING AJAX
-// $('#loading').ajaxStart(function(){
-//   $(this).show();
-// }).ajaxStop(function(){
-//   $(this).hide();
-// });
-// $('#someFormID')
-// .ajaxStart(function() {
-//     $('#loading').show();
-// })
-// .ajaxStop(function() {
-//     $('#loading').hide();
-// });
-
-  // var toggleLoading = function() { $("#loading").toggle() };
-
-  // $("#new_relationship").on("ajax:before", toggleLoading);
-  //   // .bind("ajax:success", function(data, status, xhr) {
-  //   //   $("#response").html(status);
-  //   // });
-
-  // $("#tipPin").ajaxStart(toggleLoading);
-
-  //   // .bind("ajax:success", function(data, status, xhr) {
-  //   //   $("#response").html(status);
-  //   // });
-
-  // $('#new_rsvp').bind("ajax:beforeSend", toggleLoading);
-
+$("div.alert").delay(6000).fadeOut(400);
 
 // NEW INVITED EVENTS
 
@@ -348,6 +318,8 @@ $("#addtipping").click(function () {
   }
 });
 
+$('form#bankAccount').validate();
+
 $('#new_suggestion_form').validate();
 
 // NEW IDEA FORM VALIDATION
@@ -369,21 +341,23 @@ $('#new_suggestion_form').validate();
     }
   });
 
+
+// NEW REGISTRATION VALIDATION
+
+  $('#signUp').validate();
+
+  $('#vendorSignUp').validate({
+    rules: {
+
+    }
+  });
+
 // FOCUS ON FIRST TEXT FIELD OF PAGES
 
-    $("#new_idea_blerb").focus();
-    $("input[type=email]:first", document.forms[0]).focus();
+    //$("#new_idea_blerb").focus();
+    $("input[type=text]:first", document.forms[0]).focus();
 
 // CARRIAGE RETURN IN NEW IDEA BOX SUBMITS FORM
-
-$('#new_idea_blerb').keydown(function (e) {
-  var keyCode = e.keyCode || e.which;
-
-  if (keyCode == 13) {
-    $("#newIdeaButton").click();
-    return false;
-  }
-});
 
 $('#comment_content').keydown(function (e) {
   var keyCode = e.keyCode || e.which;
@@ -430,6 +404,7 @@ $('#comment_content').keydown(function (e) {
     $(this).css("color", "#01CBFB");
   });
 
+  // PREVIEW IMAGES
 
 
 // END DOCUMENT.READY

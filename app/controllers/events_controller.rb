@@ -41,16 +41,27 @@ class EventsController < ApplicationController
     @event.tipped = true                    if @event.min <= 1
     @event.parent_id = params[:parent_id]   if params[:parent_id]
     if @event.save
-      #save shortened url
       @event.save_shortened_url
-      
-      current_user.rsvp!(@event)
+
+      if params[:parent_id]
+        if @event.require_payment? && current_user.credit_card_uri.nil?
+          redirect_to confirm_payment_path(@event)
+        elsif @event.require_payment? && !current_user.credit_card_uri.nil?
+          current_user.debit!(@event.price)
+          current_user.rsvp!(@event)
+        else
+          current_user.rsvp!(@event)       
+        end
+      else
+        current_user.rsvp!(@event)
+      end
+
       if params[:invite_all_friends] == "on"
         @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
         current_user.invite_all_friends!(@event)
         @rsvp.invite_all_friends = true
         @rsvp.save
-      end        
+      end 
       if current_user.post_to_fb_wall? && session[:graph] && params[:invite_all_friends] == "on" && @event.guests_can_invite_friends? && Rails.env.production?
         session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
                                             :link => "http://www.hoos.in/events/#{@event.id}", 
@@ -92,7 +103,7 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       format.js
-      format.html 
+      format.html { render layout: "event_show"}
       format.json { render json: @event }
       format.ics do
         calendar = Icalendar::Calendar.new

@@ -1,0 +1,69 @@
+<% provide(:title, ' | Payment') %>
+<form id="payment" class="credit_card_form sign_up clearfix">
+<% if @event.present? %>
+    <div id="event_id" name="<%= @event.id %>"></div>
+    <h3><strong>What:</strong> <%= @event.title %></h3>
+    <h3><strong>When:</strong> <%= @event.start_time %></h3>
+    <br>
+    <h3 style="text-align:right;"><strong>Cost: <%= @event.nice_price %></strong></h3>
+    <div class="divider_line"></div>
+    <% if !current_user.rsvpd?(@event) %>
+        <h3>Credit Card</h3>
+    <div class='cards'></div>
+        <div class="card_name">
+            <label for="name">name on card*</label>
+            <input type="text" name="name" placeholder="name on card">
+        </div>
+        <div class="card_number">
+            <label for="card_number">card number*</label>
+            <input type="text" name="card_number" placeholder="card number">
+        </div>
+        <div class="security_code">
+            <label for="security_code">3 digit security code*</label><br>
+            <input type="text" name="security_code">
+        </div>
+        <div class="expiration_month_year">
+            <label for="expiration_month">expiration*</label><br>
+            <input type="text" name="expiration_month" placeholder="mm"> /
+            <input type="text" name="expiration_year" placeholder="yyyy">
+        </div>
+        <% if @event.present? %>
+          <button class="btn btn-large btn-success">Add Card and Pay</button>
+        <% else %>
+          <button class="btn btn-large btn-success">Add Card</button>
+        <% end %>
+        <div class="ajax_loader" style="display:none;"></div>
+    </form>
+    <% else %>
+
+        You have already Joined this idea (<%= link_to "back", event_path(@event) %>)
+
+    <% end %>
+<% else %>
+    <h3>Credit Card</h3>
+<div class='cards'></div>
+    <div class="card_name">
+        <label for="name">name on card*</label>
+        <input type="text" name="name" placeholder="name on card">
+    </div>
+    <div class="card_number">
+        <label for="card_number">card number*</label>
+        <input type="text" name="card_number" placeholder="card number">
+    </div>
+    <div class="security_code">
+        <label for="security_code">3 digit security code*</label><br>
+        <input type="text" name="security_code">
+    </div>
+    <div class="expiration_month_year">
+        <label for="expiration_month">expiration*</label><br>
+        <input type="text" name="expiration_month" placeholder="mm"> /
+        <input type="text" name="expiration_year" placeholder="yyyy">
+    </div>
+    <% if @event.present? %>
+      <button class="btn btn-large btn-success">Add Card and Pay</button>
+    <% else %>
+      <button class="btn btn-large btn-success">Add Card</button>
+    <% end %>
+    <div class="ajax_loader" style="display:none;"></div>
+</form>
+<% end %>

@@ -11,12 +11,26 @@
 	<td style="padding:5px 0 5px 50px">When: <strong style="padding-left:10px;"><%= event.starts_at.strftime("%l:%M%P, %A %B %e") %></strong></td>
 </tr>
 
-<% if event.tipped? %>
+<% if @event.require_payment? && @user.rsvpd?(@event) %>
+	<tr>
+		<td style="padding:5px 0 5px 50px">Cost*: <%= @event.nice_price %> <strong style="color:green;"> (Paid)</strong></td>
+	</tr>
+<% elsif @event.require_payment? && !@user.rsvpd?(@event) %>
+	<tr>
+		<td style="padding:5px 0 5px 50px">Cost*: <%= @event.nice_price %></td>
+	</tr>
+<% elsif !@event.require_payment && @event.price.present? %>
+	<tr>
+		<td style="padding:5px 0 5px 50px">Cost: <%= @event.nice_price %></td>
+	</tr>
+<% end %>
+
+<% if false #event.tipped? %>
 <tr>
 	<td style="padding:5px 0 20px 50px"><strong style="color:green;">Idea tipped!</strong></td>
 </tr>
 
-<% else %>
+
 
 <tr>
 	<td style="padding:5px 0 5px 50px"><strong>This idea needs <span style="color:red;"><%= event.min - event.guests.count %></span> to tip</strong></td>

@@ -1,0 +1,11 @@
+<div class='new_idea'>
+  <% if user_signed_in? %>
+    <%= link_to new_event_path(:format => :js), id:'newIdeaButton', class: 'btn-rsvp btn-new-idea fancybox.ajax', remote: true do %>
+      <i class='icon-cloud'></i>
+    <% end %>
+  <% else %>
+    <%= link_to new_user_session_path, class: 'btn btn-rsvp btn-new-idea' do %>
+      <i class='icon-cloud'></i>
+    <% end %>
+  <% end %>
+</div>
