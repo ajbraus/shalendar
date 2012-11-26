@@ -21,6 +21,8 @@ class Event < ActiveRecord::Base
   belongs_to :parent, :foreign_key => "parent_id", :class_name => "Event"
   has_many :groups, :foreign_key => "parent_id", :class_name => "Event"
 
+  has_many :categorizations
+  has_many :categories, through: :categorizations
 
   attr_accessible :user_id,
                   :suggestion_id,
@@ -179,7 +181,8 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def self.public_forecast(load_datetime, city)
+  def self.public_forecast(load_datetime, city, toggled_categories)
+
     if city == City.find_by_name("Everywhere Else") || city.nil?
       if session[:current_time_zone].nil?
         timezone = "Central Time (US & Canada)"
@@ -191,10 +194,11 @@ class Event < ActiveRecord::Base
     end
     Time.zone = timezone
     @public_forecast = []
-    (-3..16).each do |i|
+    (-3..26).each do |i|
       @new_datetime = load_datetime + i.days 
       @time_range = @new_datetime.midnight .. @new_datetime.midnight + 1.day
-      @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, city_id: city.id).order("starts_at ASC")
+
+      @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, city: city).joins(:categories).where(categories: {id: toggled_categories} ).order("starts_at ASC")
       
       #Previous stuff while this included a signed in user
       #   if current_user.family_filter?

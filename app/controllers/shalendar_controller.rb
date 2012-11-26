@@ -24,8 +24,10 @@ class ShalendarController < ApplicationController
       else
         @time_in_zone = Time.now.in_time_zone(session[:current_time_zone])
       end
-      @city = session[:current_city]
-      @events = Event.public_forecast(@time_in_zone, @city)
+      @cityname = params[:city]
+      @city = City.find_by_name(@cityname)
+      @toggled_categories = session[:toggled_categories]
+      @events = Event.public_forecast(@time_in_zone, @city, @toggled_categories)
     end 
     # Beginning of Yellow Pages
     #@vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)

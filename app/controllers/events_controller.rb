@@ -40,8 +40,9 @@ class EventsController < ApplicationController
     @event.ends_at = params[:event][:chronic_starts_at] + params[:event][:duration]*3600
     @event.tipped = true                    if @event.min <= 1
     @event.parent_id = params[:parent_id]   if params[:parent_id]
+    @event.city = current_user.city
     if @event.save
-      #save shortened url
+
       @event.save_shortened_url
       
       current_user.rsvp!(@event)

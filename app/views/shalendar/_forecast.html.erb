@@ -1,5 +1,5 @@
 <div id="forecast">
-	<% for i in -3..16 %>
+	<% for i in -3..26 %>
 		<% if @time_in_zone.to_date + (i) == @time_in_zone.to_date %>
 			<dl class="day marker" id="today" data-date=<%= "#{@time_in_zone.to_date + i}" %>>
 				<dt class="forecastDate red"><%= (@time_in_zone.to_date + (i)).strftime("%A %b %e") %></dt>

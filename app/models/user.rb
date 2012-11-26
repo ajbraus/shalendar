@@ -81,9 +81,10 @@ class User < ActiveRecord::Base
   has_many :followers, through: :reverse_relationships, source: :follower, conditions: "confirmed = 't'"
   has_many :comments
 
-  belongs_to :city
+  has_many :interests
+  has_many :categories, through: :interests
 
-#  has_and_belongs_to_many :categories
+  belongs_to :city
 
   after_create :send_welcome
 
@@ -347,7 +348,7 @@ class User < ActiveRecord::Base
   def forecast(load_datetime, plan_counts, invite_counts)
     Time.zone = self.time_zone
     @forecast = []
-    (-3..16).each do |i|
+    (-3..26).each do |i|
       @events = []
       @new_datetime = load_datetime + i.days #Date.strptime(load_date, "%Y-%m-%d") + i
       @plan_count = []
@@ -369,15 +370,17 @@ class User < ActiveRecord::Base
     time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
     
     #CATEGORY TODO
+    toggled_category_ids = []
+    Self.categories.each do |c|
+      toggled_category_ids.push(c.id)
+    end
     # loop through categories and add all relevant events from city + category
-    # @interest_events = []
-    # @toggled_categories.each do |c|
-    #   @category_events = Event.where(starts_at: time_range).select{|idea| idea.category == c && idea.city == self.city}
-    #   @interest_events = @interest_events | @category_events
-    # end
-    # @interest_events.each do |inte|
-    #   inte.inviter_id = nil
-    # end
+    @interest_events_on_date = Event.where(starts_at: @time_range, is_public: true, city: Self.city)
+      .joins(:categories).where(categories: {id: toggled_category_ids} ).order("starts_at ASC")
+
+    @interest_events_on_date.each do |inte|
+      inte.inviter_id = inte.user.id
+    end
 
     @plans_on_date = Event.where(starts_at: time_range).joins(:rsvps)
                       .where(rsvps: {guest_id: self.id}).order("starts_at ASC")
