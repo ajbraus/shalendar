@@ -3,8 +3,6 @@ require 'icalendar'
 
 class Event < ActiveRecord::Base
   
-  CATEGORIES = %w[adventure learn active community night music]
-  
   belongs_to :user
   belongs_to :city
 
@@ -21,7 +19,7 @@ class Event < ActiveRecord::Base
   belongs_to :parent, :foreign_key => "parent_id", :class_name => "Event"
   has_many :groups, :foreign_key => "parent_id", :class_name => "Event"
 
-  has_many :categorizations
+  has_many :categorizations, dependent: :destroy
   has_many :categories, through: :categorizations
 
   attr_accessible :user_id,
@@ -69,6 +67,7 @@ class Event < ActiveRecord::Base
             :starts_at,
             :chronic_starts_at,
             :duration, 
+            :city_id,
             :ends_at, presence: true
   validates :max, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true
   validates :min, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true
@@ -182,12 +181,12 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def self.public_forecast(load_datetime, city, toggled_categories)
+  def self.public_forecast(load_datetime, time_zone, city, toggled_categories)
     if city == City.find_by_name("Everywhere Else") || city.nil?
-      if session[:current_time_zone].nil?
+      if time_zone.nil?
         timezone = "Central Time (US & Canada)"
       else
-        timezone = session[:current_time_zone]
+        timezone = time_zone
       end
     else
       timezone = city.timezone
@@ -198,7 +197,7 @@ class Event < ActiveRecord::Base
       @new_datetime = load_datetime + i.days 
       @time_range = @new_datetime.midnight .. @new_datetime.midnight + 1.day
 
-      @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, city: city).joins(:categories).where(categories: {id: toggled_categories} ).order("starts_at ASC")
+      @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, city_id: city.id).joins(:categories).where(categories: {id: toggled_categories} ).order("starts_at ASC")
       
       #Previous stuff while this included a signed in user
       #   if current_user.family_filter?

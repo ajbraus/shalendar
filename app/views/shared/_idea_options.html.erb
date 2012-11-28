@@ -20,8 +20,8 @@
 		<div class="idea_categories" style="display:none;" id="addcategoriesp">
 	    <%= label :category, "Category" %>
 	    <div id="categories">
-	    	<% Event::CATEGORIES.each do |c| %>
-		      <%= radio_button "event", :category, "#{c}", id:"radio#{(Event::CATEGORIES.index(c) + 1)}" %>
+	    	<% Category.all.each do |c| %>
+		      <%= radio_button "event", :category, "#{c}", id:"radio#{(c.id)}" %>
 		      <%= label_tag "radio#{(Event::CATEGORIES.index(c) + 1)}", "#{c.humanize}" %>
 	    	<% end %>
     	</div>

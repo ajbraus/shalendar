@@ -12,8 +12,8 @@ class ShalendarController < ApplicationController
         @time_in_zone = Time.now.in_time_zone(current_user.time_zone) 
       end
   		@date = @time_in_zone.to_date #in_time_zone("Central Time (US & Canada)")
+      @events = current_user.forecast(Time.now.in_time_zone(current_user.time_zone))
       @my_plans = @events.select { |e| e.each { |eagain| current_user.plans.include?(eagain) } }
-      @events = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
       @graph = session[:graph]
       if @graph
         @member_friends = current_user.fb_friends(@graph)[0]
@@ -27,8 +27,8 @@ class ShalendarController < ApplicationController
       end
       @cityname = params[:city]
       @city = City.find_by_name(@cityname)
-      @toggled_categories = session[:toggled_categories]
-      @events = Event.public_forecast(@time_in_zone, @city, @toggled_categories)
+      session[:toggled_categories] = params[:category_ids]
+      @events = Event.public_forecast(@time_in_zone, session[:current_time_zone], @city, session[:toggled_categories])
     end 
     # Beginning of Yellow Pages
     #@vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)

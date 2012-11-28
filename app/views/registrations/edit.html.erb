@@ -1,5 +1,6 @@
 <% provide(:title, " | Settings") %> 
 <div id="settings">
+  <%= devise_error_messages! %>
   <div id="personal">
     <% if current_user.authentications.find_by_provider("Facebook") == nil && current_user.avatar.present? == false %>
       <p><a href="http://gravatar.com/emails">Add or Update Gravatar Picture</a></p>
@@ -35,7 +36,7 @@
     <% end %>
 
     <div><%= f.label :city %><br />
-    <%= f.select :city, @cities %></div>
+    <%= f.select :city_id, options_from_collection_for_select(City.all, 'id', 'name'), id:"citySelect", prompt: "#{current_user.city.name}" %></div>
 
     <div><%= f.label :time_zone %><br />
     <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)" %></div>
@@ -48,7 +49,6 @@
 
     
     <h2>General Settings</h2>
-    <%= devise_error_messages! %>
     <p>
       <%= f.check_box :require_confirm_follow %> 
       <label for="require_confirm_follow"><strong>Authorize Subscribers</strong> - Confirm each subscriber before they can view your ideas. </label>

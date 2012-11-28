@@ -1,7 +1,10 @@
 $(function(){
   $('.idea_container').masonry({
     itemSelector : '.event',
-    cornerStampSelector: '.sidebar',
     isAnimated: true
+    columnWidth: 240,
+  	animationOptions: {
+    duration: 400
+  	}
   });
 });

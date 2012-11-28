@@ -43,7 +43,9 @@ class EventsController < ApplicationController
     @event.city = current_user.city
     if @event.save
       @event.save_shortened_url
-
+      params[:category_ids].each do |cid|
+        Categorization.create(event_id: @event.id, category_id: cid)
+      end
       if params[:parent_id]
         if @event.require_payment? && current_user.credit_card_uri.nil?
           redirect_to confirm_payment_path(@event)

@@ -39,12 +39,9 @@
 		}
 	}
 
-.sidebar {
-  width:22%;
-}
-
 .mini_event {
 	height: 110px;
+	width:31%;
 }
 
 .idea_container {
@@ -213,6 +210,9 @@ width: 94%;
 /***************************************/
 @media only screen and (min-width: 480px) and (max-width: 599px) {
 
+	#headerText {
+		display:none;
+	}
 	
 }
 
@@ -221,7 +221,12 @@ width: 94%;
 /***************************************/
 @media only screen and (min-width: 600px) and (max-width: 759px) {
 
-	
+		#headerText {
+		display:none;
+	}
+		ul.left_header {
+		display:none;
+	}
 }
 
 /***************************************/

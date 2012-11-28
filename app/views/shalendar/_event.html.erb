@@ -60,11 +60,6 @@
 					<i class="purple icon-home"></i>
 				<% end %>
 			<% end %>
-			<% if event.guests_can_invite_friends? %>
-				<% unless event.is_public? %>
-	     		<i class="purple icon-plus" title="Guests may Share with Friends"></i>
-	     	<% end %>
-	    <% end %>
 	  </div>
 		<div class="guest_count">
 			<% if event.tipped? %>	

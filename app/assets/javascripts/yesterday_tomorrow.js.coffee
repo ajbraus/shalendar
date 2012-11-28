@@ -10,7 +10,7 @@ $ ->
 		pos = $(this).position();
 		$('#datewindow').animate({ top: pos.top - 2 }, 500);
 		date = $(this).attr('data-date');
-		elOffset = $('div').withDate(date).offset().top - 40
+		elOffset = $('div').withDate(date).offset().top - 20
 		$('html, body').animate({ scrollTop: elOffset }, 'fast', 'swing');
 	
   	#date = $(this).attr('data-date');

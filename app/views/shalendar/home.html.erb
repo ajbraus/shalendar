@@ -4,23 +4,25 @@
 </div>
 <div id='yt'><a href='#<%= @time_in_zone.to_date %>' id='todayButton' class='btn-today'>Today</a></div>
 <div class="home" id="scrollContainer">
-<% for i in -3..16 %>
+<% for i in -3..26 %>
 	<div class="each_day persist-area clearfix">		
 		<div class="date_bar marker persist-header clearfix not_floating <% if i == 0 %> red <% end %>" <% if i == 0 %> id="today" <% end %> data-date=<%= "#{@time_in_zone.to_date + i}" %>>
       <div class="date"><%= (@time_in_zone.to_date + (i)).strftime("%A %b %e") %></div>
 		</div>
     <div class="day_container clearfix">
-  		<% if user_signed_in? %>
+      <% if user_signed_in? %>
       <div class="sidebar">
-  			<% if @my_plans[i + 3].any? %>
-  				<% @my_plans[i + 3].each do |mp| %>
-  					<%= render partial: 'shalendar/mini_event', locals: { :event => mp } %>
-  				<% end %>
-  			<% end %>
-  		</div>
+        <% if @my_plans[i + 3].any? %>
+        <div class="label">plans</div>
+          <% @my_plans[i + 3].each do |mp| %>
+            <%= render partial: 'shalendar/mini_event', locals: { :event => mp } %>
+          <% end %>
+        <% end %>
+      </div>
       <% end %>
   		<div id="ideaContainer" class="idea_container clearfix">
-  			<% if @events[i + 3].any? %>
+        <% if @events[i + 3].any? %>
+        <div class="label">ideas</div>
   				<% @events[i + 3].each do |e| %>
   					<%= render :partial => "shalendar/event", :locals => { :event => e } %>
   				<% end %>
@@ -42,9 +44,11 @@ function UpdateTableHeaders() {
        
        if ((scrollTop > offset.top) && (scrollTop < offset.top + el.height())) {
            floatingHeader.css({
-            "visibility": "visible"
+            "visibility": "visible",
+            "width":"20%",
+            "left":"40%",
+            "margin":"0"
            });
-           $('.new_idea_blerb').css("height", "21px");
            floatingHeader.siblings('.not_floating').css({
             "visibility": "hidden"
            })

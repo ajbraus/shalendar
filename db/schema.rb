@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20121123233631) do
+ActiveRecord::Schema.define(:version => 20121126151400) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -101,6 +100,24 @@ ActiveRecord::Schema.define(:version => 20121123233631) do
   add_index "authentications", ["uid"], :name => "index_authentications_on_uid", :unique => true
   add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "categories", ["name"], :name => "index_categories_on_name"
+
+  create_table "categorizations", :force => true do |t|
+    t.integer  "category_id"
+    t.integer  "event_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "categorizations", ["category_id"], :name => "index_categorizations_on_category_id"
+  add_index "categorizations", ["event_id"], :name => "index_categorizations_on_event_id"
+
   create_table "cities", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -156,7 +173,7 @@ ActiveRecord::Schema.define(:version => 20121123233631) do
     t.datetime "updated_at",                                   :null => false
     t.integer  "user_id"
     t.integer  "min",                       :default => 1
-    t.integer  "max",                       :default => 10000
+    t.integer  "max"
     t.float    "duration"
     t.integer  "inviter_id",                :default => 0
     t.boolean  "tipped",                    :default => false
@@ -178,12 +195,12 @@ ActiveRecord::Schema.define(:version => 20121123233631) do
     t.boolean  "family_friendly",           :default => false
     t.integer  "parent_id"
     t.string   "short_url"
+    t.boolean  "require_payment"
     t.string   "slug"
     t.integer  "city_id"
   end
 
   add_index "events", ["slug"], :name => "index_events_on_slug"
-  add_index "events", ["starts_at"], :name => "index_events_on_starts_at"
 
   create_table "fb_invites", :force => true do |t|
     t.string   "uid"
@@ -221,6 +238,16 @@ ActiveRecord::Schema.define(:version => 20121123233631) do
 
   add_index "gcm_notifications", ["device_id"], :name => "index_gcm_notifications_on_device_id"
 
+  create_table "interests", :force => true do |t|
+    t.integer  "category_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "interests", ["category_id"], :name => "index_interests_on_category_id"
+  add_index "interests", ["user_id"], :name => "index_interests_on_user_id"
+
   create_table "invitations", :force => true do |t|
     t.integer  "invited_user_id"
     t.integer  "invited_event_id"
@@ -239,8 +266,8 @@ ActiveRecord::Schema.define(:version => 20121123233631) do
     t.integer  "followed_id"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
-    t.boolean  "toggled",     :default => true
     t.boolean  "confirmed",   :default => false
+    t.boolean  "in"
   end
 
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
@@ -273,11 +300,11 @@ ActiveRecord::Schema.define(:version => 20121123233631) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.string   "title"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "user_id"
     t.integer  "min",                    :default => 1
-    t.integer  "max",                    :default => 10000
+    t.integer  "max"
     t.float    "duration"
     t.string   "link"
     t.string   "address"
@@ -323,20 +350,31 @@ ActiveRecord::Schema.define(:version => 20121123233631) do
     t.datetime "avatar_updated_at"
     t.string   "time_zone"
     t.integer  "new_invited_events_count", :default => 0
+    t.boolean  "vendor",                   :default => false
     t.boolean  "email_comments",           :default => true
     t.boolean  "admin",                    :default => false
     t.integer  "apn_device_id",            :default => 0
-    t.boolean  "vendor",                   :default => false
     t.boolean  "digest",                   :default => true
     t.string   "GCMtoken"
     t.boolean  "follow_up"
+    t.boolean  "can_post_to_fb_wall",      :default => false
+    t.boolean  "family_filter"
     t.boolean  "female"
     t.datetime "birthday"
-    t.boolean  "family_filter"
     t.string   "background_file_name"
     t.string   "background_content_type"
     t.integer  "background_file_size"
     t.datetime "background_updated_at"
+    t.string   "type"
+    t.string   "street_address"
+    t.string   "postal_code"
+    t.string   "country"
+    t.string   "phone_number"
+    t.string   "account_uri"
+    t.string   "bank_account_uri"
+    t.string   "credits_uri"
+    t.string   "credit_card_uri"
+    t.string   "debits_uri"
     t.integer  "city_id"
   end
 

@@ -473,8 +473,9 @@ font-size: 15px;
 font-weight: bold;
 text-decoration: none;
 text-shadow: 1px 1px 0px white;
-height: 27px;
 width: 25px;
+padding: 6px 0;
+bottom: 1px;
 }
 .btn-user-search:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
@@ -559,6 +560,55 @@ width: 100px;
 line-height: 16px;
 padding-top: 21px;
 }
+  .browse_dropdowns {
+position: absolute;
+left: 176px;
+top: 47px;
+width: auto;
+  select {
+    height:20px;
+    padding:0;
+    border:0;
+    -webkit-border-radius: 0px;
+-moz-border-radius: 0px;
+border-radius: 0px;
+-webkit-appearance: none;
+-webkit-border-radius: 0px;
+-webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1);
+-webkit-padding-end: 0px;
+-webkit-padding-start: 0px;
+-webkit-user-select: none;
+background-image: url(../images/select-arrow.png);
+outline: none;
+background-position: none;
+background-repeat: no-repeat;
+border: 0px solid #AAA;
+color: black;
+font-size: 16px;
+margin: 0;
+overflow: hidden;
+padding-top: 0px;
+padding-bottom: 0px;
+text-overflow: ellipsis;
+white-space: nowrap;
+background-color:inherit;
+font-family: inherit;
+width: 150px;
+}
+  .interests_dropdown, .choose_city {
+    float:left;
+    color:black;
+    cursor:pointer;
+    font-size: 16px;
+    font-family:inherit;
+    margin-left: -58px;
+  }
+  .choose_city {
+    width: 166px;
+    margin-left:15px;
+  }
+
+  }
   ul.right_header {
 float: right;
 height: 0px;
@@ -600,8 +650,24 @@ left: -22px;
 position: relative;
 float: left;
 bottom: 20px;
-left: 295px;
+left: 277px;
 }
+}
+
+.up_arrow {
+  float: right;
+position: relative;
+bottom: 10px;
+}
+
+.interests {
+width: 120px;
+position: absolute;
+left: 57px;
+top: 30px;
+}
+.interest_checkbox {
+  margin:10px 0;
 }
 
 .show_header {
@@ -907,6 +973,7 @@ box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, .75);
 .user_search {
 position: relative;
 bottom: 24px;
+right: 14px;
 input[type=text] {
   border-radius: 0;
 padding: 6px;
@@ -933,15 +1000,17 @@ z-index: -1;
 }
 
 #datepicker {
-width: 20px;
+width: 42px;
 font-size: 12px;
-height: 100%;
-bottom: -3px;
+height: 70%;
 float: right;
 z-index: 1;
 position: fixed;
-right: 69px;
-top: 152px;
+right: 39px;
+top: 138px;
+overflow: hidden;
+padding-left: 7px;
+padding-right: 10px;
   table{
 float: left;
 width: 46px;
@@ -1031,9 +1100,9 @@ border: 3px solid #FF8500;
 width: 45px;
 height: 20px;
 position: absolute;
-right: -23px;
+right: 7px;
 z-index: -2;
-top: 59px;
+top: 60px;
 }
 
 .friend_suggestions {
@@ -1193,8 +1262,9 @@ clear: both;
 text-align: center;
       width: 99%;
       top: 35px;
+      margin-top: 13px;
 .date {
-font-size: 22px;
+font-size: 1.8em;
 }
 }
 
@@ -1209,16 +1279,22 @@ width: 97%;
 }
 
 .sidebar {
-    height:100%;
-  float:left;
-  margin-top:6px;
+height: 100%;
+float: left;
+margin-top: 13px;
+width: 97%;
+margin-left: 14px;
+}
+
+.label {
+  font-size: 1.5em;
+  margin: 10px 34px;
 }
 
 .mini_event {
   position: relative;
   float:left;
-  width:100%;
-  margin: 0 0px 5px 0;
+  margin: 0 11px 5px 0;
   background-color: white;
   -webkit-box-shadow: 1px 1px 4px rgba(50, 50, 50, 0.75);
   -moz-box-shadow:    1px 1px 4px rgba(50, 50, 50, 0.75);
@@ -1240,6 +1316,12 @@ width: auto;
 right: 0;
 border-bottom: 1px solid #D1CDCD;
 bottom: 0;
+    img {
+      width: 7%;
+      margin-bottom: -5px;
+      position: relative;
+      bottom: 4px;
+    }
   }
   .event_blerb {
 color: black;
@@ -3217,7 +3299,7 @@ bottom: 20px;
 }
 
 .ajax_loader {
-background-image: url("ajax_loader.gif");
+background-image: url("ajax-loader.gif");
 position: absolute;
 left: 197px;
 bottom: 27px;
@@ -3228,10 +3310,26 @@ background-repeat: no-repeat;
 
 }
 
+.small_ajax_loader {
+background-image: url("ajax-loader.gif");
+position: absolute;
+left: -2px;
+top: 1px;
+background-size: 15px;
+width: 23px;
+height: 23px;
+background-repeat: no-repeat;
+}
+
 .rsvp_dot {
   background-color: $rsvp;
   border-radius:100px;
   width:10px;
   height:10px;
   position: absolute;
+}
+
+.hidden{
+  position: absolute; 
+  left:-99999px;
 }

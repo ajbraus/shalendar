@@ -2,10 +2,9 @@ class SeparateCityFromFacebook < ActiveRecord::Migration
   def change
   	add_column :users, :city_id, :int
     add_column :authentications, :city, :string
-    add_index :events, :starts_at
 
     City.all.each do |c|
-      c.delete
+      c.destroy
     end
 
     City.create(name: "Everywhere Else", timezone: nil)
@@ -17,11 +16,11 @@ class SeparateCityFromFacebook < ActiveRecord::Migration
         auth.save
       end
       if u.city == "Madison, Wisconsin" || u.city == "Middleton, Wisconsin" || u.city == "La Crosse, Wisconsin" || u.city == "Appleton, Wisconsin" || u.city == "Whitewater, Wisconsin" || u.city == "Platteville, Wisconsin"
-        u.city_id = City.find_by_name("Madison, Wisconsin").city_id
-        u.timezone = "Central Time (US & Canada)"
+        u.city_id = City.find_by_name("Madison, Wisconsin").id
+        u.time_zone = "Central Time (US & Canada)"
       else
         u.city_id = City.find_by_name("Everywhere Else").id
-        u.timezone = nil
+        u.time_zone = nil
       end
       u.save
   	end

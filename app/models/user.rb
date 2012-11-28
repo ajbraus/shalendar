@@ -68,14 +68,12 @@ class User < ActiveRecord::Base
   
   validates :terms,
             :name, 
+            :city_id,
             :time_zone, presence: true
-
-  #validates :city, presence: true if Rails.env.production?
 
   has_many :authentications, :dependent => :destroy, :uniq => true
 
   has_many :events, :dependent => :destroy
-  has_many :suggestions
 
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
   has_many :plans, through: :rsvps
@@ -92,9 +90,9 @@ class User < ActiveRecord::Base
                                    class_name:  "Relationship",
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower, conditions: "confirmed = 't'"
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
-  has_many :interests
+  has_many :interests, dependent: :destroy
   has_many :categories, through: :interests
 
   belongs_to :city
@@ -374,17 +372,17 @@ class User < ActiveRecord::Base
     return @forecast
   end
 
-  def events_on_date(load_datetime, plan_count, invite_count)
+  def events_on_date(load_datetime)
     Time.zone = self.time_zone
     time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
     
     #CATEGORY TODO
     toggled_category_ids = []
-    Self.categories.each do |c|
+    self.categories.each do |c|
       toggled_category_ids.push(c.id)
     end
     # loop through categories and add all relevant events from city + category
-    @interest_events_on_date = Event.where(starts_at: @time_range, is_public: true, city: Self.city)
+    @interest_events_on_date = Event.where(starts_at: @time_range, is_public: true, city_id: self.city.id)
       .joins(:categories).where(categories: {id: toggled_category_ids} ).order("starts_at ASC")
 
     @interest_events_on_date.each do |inte|
@@ -403,7 +401,7 @@ class User < ActiveRecord::Base
       ie.inviter_id = ie.invitations.find_by_invited_user_id(self.id).inviter_id
     end
 
-    return @invited_events_on_date | @plans_on_date | @interest_events
+    return @invited_events_on_date | @plans_on_date | @interest_events_on_date
   end
 
   def mobile_events_on_date(load_datetime)#don't care about toggled here, do it locally on client

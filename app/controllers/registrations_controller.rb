@@ -31,6 +31,9 @@ class RegistrationsController < Devise::RegistrationsController
         end
         ei.destroy
       end
+      Category.all.each do |cat|
+        Interest.create(user_id: resource.id, category_id: cat.id)
+      end
 
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
@@ -48,13 +51,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
 	def edit
-    @all_cities = City.all
-    @cities = []
-    @all_cities.each do |c|
-      @city_name = c.name
-      @cities.push(@city_name)
-    end
-
 		@graph = session[:graph]		
 		super
 	end
@@ -63,12 +59,19 @@ class RegistrationsController < Devise::RegistrationsController
   	@graph = session[:graph]
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     
-    @all_cities = City.all
-    @cities = []
-    @all_cities.each do |c|
-      @city_name = c.name
-      @cities.push(@city_name)
+    if params[:resource][:city_id]
+      resource.city = City.find_by_id(params[:resource][:city_id])
+      resource.save
     end
+
+    if params[:category_ids]
+      resource.interests.each do |interest|
+        interest.destroy
+      end
+      params[:category_ids].each do |catid|
+        Interest.create(user_id: resource.id, category_id: catid)
+      end
+    end        
 
     if resource.respond_to?(:unconfirmed_email)
       prev_unconfirmed_email = resource.unconfirmed_email 
