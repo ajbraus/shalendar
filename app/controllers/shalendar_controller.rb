@@ -13,7 +13,7 @@ class ShalendarController < ApplicationController
       end
   		@date = @time_in_zone.to_date #in_time_zone("Central Time (US & Canada)")
       @events = current_user.forecast(Time.now.in_time_zone(current_user.time_zone))
-      @my_plans = @events.select { |e| e.each { |eagain| current_user.plans.include?(eagain) } }
+      @my_plans = current_user.plans.where('starts_at > ?', Time.now.in_time_zone(current_user.time_zone)).order('starts_at desc')
       @graph = session[:graph]
       if @graph
         @member_friends = current_user.fb_friends(@graph)[0]
@@ -113,8 +113,16 @@ class ShalendarController < ApplicationController
     end
   end
 
-  def city_vendors
-    @vendors = User.where('city = current_user_city vendor = true', current_user_city: current_user.city)
+  def discover
+    if user_signed_in?
+      @ideas = Event.where('city_id = ? AND is_public = ? AND starts_at > ?', current_user.city, true, Time.now.in_time_zone(current_user.time_zone))
+    else
+      @ideas = Event.where('city_id = ? AND is_public = ? AND starts_at > ?', current_user.city, true, Time.now)
+    end
+  end
+
+  def yellow_pages
+    @venues = User.where('city = ? AND vendor = ?', current_user.city, true)
   end
 
   def search
@@ -160,6 +168,10 @@ class ShalendarController < ApplicationController
       @events = current_user.plans.where("starts_at > :now", now: Time.now).order('starts_at asc')
       @past_events = current_user.plans.where("starts_at < :now", now: Time.now).order('starts_at asc')
     end
+  end
+
+  def what_is_hoosin
+
   end
 
   def admin_dashboard

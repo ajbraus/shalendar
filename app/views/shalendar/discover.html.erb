@@ -1,0 +1,7 @@
+<div id="ideaContainer" class="idea_container clearfix">
+  <% if @ideas %>
+		<% @ideas.each do |i| %>
+			<%= render :partial => "shalendar/event", :locals => { :event => i } %>
+		<% end %>
+	<% end %>
+</div>

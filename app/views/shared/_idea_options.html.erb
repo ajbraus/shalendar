@@ -22,7 +22,7 @@
 	    <div id="categories">
 	    	<% Category.all.each do |c| %>
 		      <%= radio_button "event", :category, "#{c}", id:"radio#{(c.id)}" %>
-		      <%= label_tag "radio#{(Event::CATEGORIES.index(c) + 1)}", "#{c.humanize}" %>
+		      <%= label_tag "radio#{(c.id)}", "#{c.humanize}" %>
 	    	<% end %>
     	</div>
     	<div class="family_friendly_checkbox">
@@ -95,12 +95,8 @@
 
 <div>
 	<ul>
-		<% if current_user.vendor? %>
-			<li id="visibility" title="Share" style="color:#EB8325;"><i class="icon-bullhorn"></i></li>
-			<li id="addcategories" title="Add a Category"><i class="icon-tag"></i></li>
-		<% else %>
-			<li id="visibility" title="Share" style="color:#EB8325;"><i class="icon-group"></i></li>
-		<% end %>
+		<li id="visibility" title="Share" style="color:#EB8325;"><i class="icon-bullhorn"></i></li>
+		<li id="addcategories" title="Add a Category"><i class="icon-tag"></i></li>
  	  <li id="addtipping" title="Add a Tipping/Full"><i class="icon-tasks"></i></li>
 	  <li id="addLink" title="Add a Link"><i class="icon-link"></i></li>
 	  <li id="addmap" title="Add a Location"><i class="icon-map-marker"></i></li>

@@ -5,9 +5,12 @@
 
 @media only screen and (min-width:600px) {
 
+	.my_plans {
+		display:none;
+	}
+
 	.layout {
 		width: 97%;
-		padding: 7px 0px;
 	}
 
 	.forecast {
@@ -41,13 +44,12 @@
 
 .mini_event {
 	height: 110px;
-	width:31%;
 }
 
 .idea_container {
 	position: relative;
 left: 10px;
-width: 94%;
+width: 100%;
 }
 
 
@@ -66,15 +68,13 @@ width: 94%;
 		width: 200px;
 	}
 
-	ul.right_header {
-		position: relative;
-		right: 25px;
-		top: 13px;
+	.right_header {
+		top: 10px;
 	}
 
 	#friends {
-		margin: 10px auto 20px auto;
-		width: 640px;
+width: 60%;
+left: 20px;
 	}
 
 	.event_show {
@@ -190,18 +190,21 @@ width: 94%;
 		}
 
 		.btn-new-idea {
-			padding: 12px 15px;
+			padding: 7px 9px;
+			right: 10px;
+			position: relative;
+			bottom: 11px;
 		}
 		.new_idea {
-			position: fixed;
-			right: 44px;
-			top: 100px;
 		}
 
 		.html-new-idea {
 			display:none;
 		}
 
+		.sidebar {
+			width: 280px;
+		}
 
 }
 

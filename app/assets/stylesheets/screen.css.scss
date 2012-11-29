@@ -124,7 +124,6 @@ ul, li {
   list-style: none;
 }
 
-
 .masonry,
 .masonry .masonry-brick {
   -webkit-transition-duration: 0.7s;
@@ -235,9 +234,9 @@ color: white;
 
 .btn-new-idea {
     font-size: 20px;
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
+    -moz-border-radius: 0 6px 6px 0;
+    -webkit-border-radius: 0 6px 6px 0;
+    border-radius: 0 6px 6px 0;
 }
 
 .btn-new-vendor-idea {
@@ -336,6 +335,7 @@ text-decoration: none;
   background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
   background-color:#378de5;
+  color:white;
 }
 
 .btn_stop_viewing {
@@ -534,67 +534,18 @@ bottom: 1px;
 
 /* HOME */
 
-.header {
-height: 72px;
-background-color: #F6F6F6;
-border-bottom: 1px solid #D1CDCD;
-clear: both;
-margin-left:3%;
+header {
+  height: 72px;
+  background-color: #F6F6F6;
+  border-bottom: 1px solid #D1CDCD;
+  clear: both;
+  margin-left:3%;
   position: fixed;
   top:0;
-  z-index: 2;
-  /*background-color:$icon_color;*/
-/*  -webkit-box-shadow: 0px 2px 9px rgba(50, 50, 50, 0.75);
-  -moz-box-shadow:    0px 2px 9px rgba(50, 50, 50, 0.75);
-  box-shadow:         0px 2px 9px rgba(50, 50, 50, 0.75);*/
-  .white {
-  color:white;
-}
-  nav {
-color: white;
-  }
-  .tagline {
-float: left;
-font-size: 14px;
-width: 100px;
-line-height: 16px;
-padding-top: 21px;
-}
-  .browse_dropdowns {
-position: absolute;
-left: 176px;
-top: 47px;
-width: auto;
-  select {
-    height:20px;
-    padding:0;
-    border:0;
-    -webkit-border-radius: 0px;
--moz-border-radius: 0px;
-border-radius: 0px;
--webkit-appearance: none;
--webkit-border-radius: 0px;
--webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1);
--webkit-padding-end: 0px;
--webkit-padding-start: 0px;
--webkit-user-select: none;
-background-image: url(../images/select-arrow.png);
-outline: none;
-background-position: none;
-background-repeat: no-repeat;
-border: 0px solid #AAA;
-color: black;
-font-size: 16px;
-margin: 0;
-overflow: hidden;
-padding-top: 0px;
-padding-bottom: 0px;
-text-overflow: ellipsis;
-white-space: nowrap;
-background-color:inherit;
-font-family: inherit;
-width: 150px;
-}
+   z-index: 2;
+   -webkit-box-shadow: 2px 0px 3px rgba(50, 50, 50, 0.72);
+-moz-box-shadow:    2px 0px 3px rgba(50, 50, 50, 0.72);
+box-shadow:         2px 0px 3px rgba(50, 50, 50, 0.72);
   .interests_dropdown, .choose_city {
     float:left;
     color:black;
@@ -603,15 +554,58 @@ width: 150px;
     font-family:inherit;
     margin-left: -58px;
   }
+  .interests_dropdown {
+    position: relative;
+    top: 17px;
+    right: 61px;
+  }
   .choose_city {
-    width: 166px;
-    margin-left:15px;
+position: relative;
+top: 13px;
+right: 12px;
   }
-
-  }
-  ul.right_header {
+  .right_header {
 float: right;
-height: 0px;
+width: 610px;
+position: absolute;
+right: 16px;
+    > div {
+      float:right;
+    }
+  select,option {
+    text-align: right;
+  }
+  select {
+    cursor:pointer;
+    height:25px;
+    padding:0;
+    border:0;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0px;
+    -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1);
+    -webkit-padding-end: 0px;
+    -webkit-padding-start: 0px;
+    -webkit-user-select: none;
+    background-image: url(../images/select-arrow.png);
+    outline: none;
+    background-position: none;
+    background-repeat: no-repeat;
+    border: 0px solid #AAA;
+    color: black;
+    font-size: 16px;
+    margin: 0;
+    overflow: hidden;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color:inherit;
+    font-family: inherit;
+    width: 150px;
+    }
   a{
     color: $icon_color;
     &:hover {
@@ -623,9 +617,11 @@ height: 0px;
 float: left;
 position: relative;
 top: 34px;
-width: 300px;
-height: 10px;
-left: -22px;
+  #new_idea_blerb {
+    position:relative;
+    bottom: 12px;
+    padding: 9.1px;
+  }
   }
   li {
     display: inline;
@@ -633,7 +629,7 @@ left: -22px;
     float: right;
     height: 47px;
     a {
-      color:white;
+      color:black;
       &:hover {
         color:#3E92E8;
         .ceiling {
@@ -646,12 +642,6 @@ left: -22px;
     color:darkgrey;
     font-size: 14px;
   }
-  .get_friends {
-position: relative;
-float: left;
-bottom: 20px;
-left: 277px;
-}
 }
 
 .up_arrow {
@@ -663,8 +653,8 @@ bottom: 10px;
 .interests {
 width: 120px;
 position: absolute;
-left: 57px;
-top: 30px;
+right: 203px;
+top: 46px;
 }
 .interest_checkbox {
   margin:10px 0;
@@ -705,14 +695,6 @@ height: 0px;
       color:$icon_color;
     }
   }
-  }
-  ul.left_header {
-float: left;
-position: relative;
-top: 34px;
-width: 300px;
-height: 10px;
-left: -22px;
   }
   li {
     display: inline;
@@ -859,7 +841,7 @@ min-height: 540px;
 background-color: rgba(255, 255, 255, 0.3);
 z-index: -10;
 margin-left: 3%;
-margin-top:72px;
+margin-top: 113px;
 }
 
 .show_layout {
@@ -965,21 +947,36 @@ border: 1px solid #BBB;
 z-index: 5;
 width: 305px;
 position: absolute;
+top: 36px;
+right: 10px;
 box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, .75);
 
 }
 
-
 .user_search {
 position: relative;
-bottom: 24px;
-right: 14px;
-input[type=text] {
+right: 144px;
+width: 270px;
+top: 10px;
+  input[type=text] {
   border-radius: 0;
 padding: 6px;
 font-size: 12px;
 border: 1px solid $divider;
 }
+  .get_friends {
+    float:left;
+}
+form {
+  float:right;
+}
+
+}
+
+.fb-icon {
+float: left;
+position: relative;
+top: 5px;
 }
 
 /* Ribbon */
@@ -1002,12 +999,12 @@ z-index: -1;
 #datepicker {
 width: 42px;
 font-size: 12px;
-height: 70%;
+height: 100%;
 float: right;
 z-index: 1;
 position: fixed;
 right: 39px;
-top: 138px;
+top: 78px;
 overflow: hidden;
 padding-left: 7px;
 padding-right: 10px;
@@ -1133,12 +1130,6 @@ color:darkgrey;
 color: #4B9BED;
 }
 
-.new_idea {
-  i{
-color:white;
-  }
-}
-
 .switch {
 cursor: pointer;
 display: inline-block;
@@ -1213,10 +1204,12 @@ width: 105%;
 /* Forecast */
 
 .home {
-padding: 0px 10px 10px 0px;
+padding: 0px 0px 10px 0px;
 overflow: hidden;
-width: 98%;
-margin-top: -8px;
+margin-top: -40px;
+-webkit-box-shadow: inset 2px 0px 3px rgba(50, 50, 50, 0.72);
+-moz-box-shadow: inset 2px 0px 3px rgba(50, 50, 50, 0.72);
+box-shadow: inset 2px 0px 3px rgba(50, 50, 50, 0.72);
 }
 
 .forecastDate {
@@ -1257,12 +1250,12 @@ top: 0;
 }
 
 .date_bar {
-padding: 10px 0px 0 0;
-clear: both;
+padding: 10px;
 text-align: center;
-      width: 99%;
-      top: 35px;
-      margin-top: 13px;
+width: 89%;
+background-color: white;
+top: 73px;
+margin-left: 4px;
 .date {
 font-size: 1.8em;
 }
@@ -1281,10 +1274,33 @@ width: 97%;
 .sidebar {
 height: 100%;
 float: left;
-margin-top: 13px;
-width: 97%;
-margin-left: 14px;
+background-color: #F6F6F6;
+padding: 10px;
+
 }
+
+.stats {
+  position: relative;
+  height: 110px;
+  border-bottom:1px solid $divider;
+  ul {
+    margin: 20px 20px 20px 0;
+  }
+  li {
+    display:inline;
+    border-right:1px solid $divider;
+    padding: 15px;
+  }
+  .new_idea {
+    position: absolute;
+    bottom: 16px;
+    right: 6px;
+    i {
+      color:white;
+    }
+  }
+}
+
 
 .label {
   font-size: 1.5em;
@@ -1292,6 +1308,7 @@ margin-left: 14px;
 }
 
 .mini_event {
+  width:100%;
   position: relative;
   float:left;
   margin: 0 11px 5px 0;
@@ -1350,7 +1367,6 @@ padding-bottom: 0;
 .event {
 margin: 5px;
 float:left;
-min-height: 110px;
 position: relative;
 z-index: 1;
 border: 10px solid white;
@@ -2272,10 +2288,10 @@ margin: 0 2px;
 
 .city-icon {
   img {
-        -webkit-border-radius: 5px;
+    -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    width: 31px;
+    width: 53px;
   }
 }
 
@@ -3005,10 +3021,10 @@ right: 8px;
 
 .invited_events {
 position: absolute;
-top: 30px;
-right: 71px;
+top: 113px;
+right: 21px;
 z-index: 100000;
-min-width: 232px;
+min-width: 282px;
 }
 
 .invitations{

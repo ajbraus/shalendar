@@ -50,8 +50,9 @@ body {
 	.ajax-new-idea {
 		display: none;
 	}
-	.mini_event.over {
-		display:none;
+
+	.city-icon {
+		display: none;
 	}
 
 // SHRINK HEADER STUFF
@@ -67,11 +68,8 @@ body {
 		width: 100%;
 	}
 
-	ul.right_header {
-position: absolute;
-right: 10px;
-top: 12px;
-font-size: 20px;
+	.right_header {
+top: 34px;
 	img {
 		width:45px;
 		height:45px;
@@ -86,10 +84,6 @@ font-size: 20px;
 	}
 
 	.new_idea {
-		position: fixed;
-		right: 2px;
-		top: 88px;
-		z-index: 2;
 	}
 
 
@@ -149,7 +143,6 @@ font-size: 20px;
 
 	.mini_event {
 		height:80px;
-		width:100%;
 	}
 
 	.idea_container {
@@ -275,6 +268,10 @@ right: 58px;
 	input {
 		width:60%;
 	}
+}
+
+.sidebar {
+	display:none;
 }
 
 

@@ -74,7 +74,6 @@ Shalendar::Application.routes.draw do
   match '/create_card', :to => 'payments#create_card', :as => 'create_card'
 
   match '/downgrade', :to => 'payments#downgrade', :as =>'downgrade'
-
   match '/upgrade', :to => 'payments#upgrade', :as => 'upgrade'
 
   match '/make_a_group', :to => 'events#make_a_group', :as => 'make_a_group'
@@ -109,8 +108,10 @@ Shalendar::Application.routes.draw do
   match 'search' => 'shalendar#search'
   match 'datepicker' => "shalendar#datepicker"
 
+  match '/what_is_hoosin', :to => 'shalendar#what_is_hoosin', :as => "what_is_hoosin"
+  match '/discover', :to => 'shalendar#discover', :as => "discover"
   match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
-  match '/public', :to => 'shalendar#city_vendors', :as => "city_vendors"
+  match '/yellow_pages', :to => 'shalendar#yellow_pages', :as => "yellow_pages"
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
   match 'share_all_fb_friends' =>'shalendar#share_all_fb_friends'
   match 'friend_all' => 'shalendar#friend_all'

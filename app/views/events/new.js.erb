@@ -1,6 +1,6 @@
 <%= render partial: 'events/new_idea_form' %>
 <%= render partial: 'shared/form_js' %>
 <%= coffee_script_tag do %>
-	blerb = $('.new_idea_blerb').val();
+	blerb = $('#new_idea_blerb').val();
 	$('#new_idea_title').text(blerb);
 <% end %>

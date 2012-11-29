@@ -368,6 +368,15 @@ $('#comment_content').keydown(function (e) {
   }
 });
 
+$('#new_idea_blerb').keydown(function (e) {
+  var keyCode = e.keyCode || e.which;
+  var text = $(this).val();
+
+  if (keyCode == 13) {
+    $("#newIdeaButton").click();
+    return false;
+  }
+});
 
 //   $('input[type=file]').fileValidator({
 //   onValidation: function(files){  $(this).attr('class',''); },

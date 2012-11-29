@@ -78,12 +78,24 @@ new follower email link not working
 Adam
 
 Build sidebar
-Build public idea page
+Build public idea page add join
+create public idea 
 Make banners (Home Discover)
 Build yellow pages
 Add category to user for venues
+if going add banner
+if tipped add banner
+if costs money add banner
+add city icon for yellowbook
+add hashtag to event and show instagram pictures
+serve discovery ideas in order of # of ppl going already
 
 
+add settings and logout links
+
+
+
+rsvp lightbox -- add to calendar, share with facebook twitter linkedin etc
 
 fix serving of events so that you don't see things your rsvpd to and you do see public events.
 
@@ -128,7 +140,7 @@ private idea
 
 make signin a lightbox
 
-	Download our App
+Download our App
 
 click and drag ideas into plans
 
@@ -152,8 +164,6 @@ payment gateway
 survey why they are downgrading their account
 
 add /new_venue to the list of urls we don't save
-
-
 
 ------------------------------------------------------------
 

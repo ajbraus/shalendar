@@ -8,7 +8,7 @@
 			<% else %>
 				<%= image_tag "night.png" %>
 			<% end %>
-			<span><%= event_start_time(event) %> (<%= event.nice_duration %> hr)</span>
+			<span><%= event.mini_start_date_time %> (<%= event.nice_duration %> hr)</span>
 			<% if current_user.rsvpd?(event) %>
 				<div class="invited_ribbon"></div>
 			<% end %>
@@ -33,9 +33,9 @@
 	
 			<div class="guest_count">
 			<% if event.tipped? %>	
-				<i class="purple icon-group"></i> <span class="count" id="guestCount"><%= event.guests.count %></span>
+				<span class="count" id="guestCount"><%= event.guests.count %></span>
 			<% else %>
-				<i class="purple icon-group"></i> <span id="guestCount" class="count red"><%= event.guests.count%><span id="eventMin">/<%= event.min %></span></span>
+				<span id="guestCount" class="count red"><%= event.guests.count%><span id="eventMin">/<%= event.min %></span></span>
 			<% end %>
 		</div>
 </div>

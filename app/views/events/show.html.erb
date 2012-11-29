@@ -79,7 +79,7 @@
 	  <%= @event.title %>
       <div class="eventIcons">
       <% if @event.has_category? %>
-        <%= @event.category.capitalize %> | 
+        <%= @event.category.name.capitalize %> | 
       <% end %>
       <% if @event.is_public? %>
         <i class="icon-bullhorn" title="Public"></i>

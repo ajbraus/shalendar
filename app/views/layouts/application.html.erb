@@ -44,9 +44,7 @@
       <%= yield %>
     </div>
       <%= render 'layouts/footer' %>
-      <% if user_signed_in? %>
-        <div id='feedback'><a href="mailto:info@hoos.in" target="_blank"> Feedback</a></div>
-      <% end %>
+      <div id='feedback'><a href="mailto:info@hoos.in" target="_blank"> Feedback</a></div>
     </div>
     <%= yield :scripts %>
   </body>

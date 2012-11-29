@@ -126,6 +126,10 @@ class Event < ActiveRecord::Base
   def start_time_no_date
     self.starts_at.strftime "%l:%M%P"
   end
+
+  def mini_start_date_time
+    self.starts_at.strftime "%a, %b %e, %l:%M%P"
+  end
   
   def start_date
     self.starts_at.strftime "%A, %B %e"

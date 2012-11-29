@@ -1,13 +1,7 @@
 <% if user_signed_in? %>
-	<% if current_user.rsvpd?(event) %>
-			<div class="event rsvpd <%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) ? 'over' : ''%>" data-event-id="<%= event.id %>" <%= event.id == @next_plan.id ? style="box-shadow: 0px 0px 34px -6px #388EE5;" : '' if @next_plan %>>
-	<% elsif event.is_public? %>
-		<div class="event <%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) ? 'over' : '' %>" data-event-id="<%= event.id %>">
-	<% else %>
-			<div class="event not_rsvpd <%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) ? 'over' : '' %>" data-event-id="<%= event.id %>" <%= event.id == @next_plan.id ? "style='box-shadow: 0px 0px 34px -6px #388EE5;'" : '' if @next_plan %> data-inviter-id="<%= event.inviter_id %>">
-	<% end %>
+	<div class="event <%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) and !event.is_public? ? 'over' : '' %>" data-event-id="<%= event.id %>">
 <% else %>
-	<div class="event <%= event.ends_at < @time_in_zone ? 'over' : '' %>" data-event-id="<%= event.id %>">
+	<div class="event <%= event.ends_at < @time_in_zone ? 'over' : '' %>">
 <% end %>
 
 	<%= link_to event_path(event) do %>
@@ -45,27 +39,26 @@
 		</div>
 	<% end %>
 	
-		<div class="event_blerb"><%= event.title %></div>
-	
-		<% if event.is_public? %>
+		<div class="event_blerb">
+			<%= event.title %>
+		</div>
+
+		<% if event.is_public? || current_user.following?(User.find_by_id(event.inviter_id)) %>
 			<div class="event_pic" title="Created by: <%= event.user.name %>"><%= raster_profile_picture(event.user) %></div>
 		<% else %>
 			<div class="event_pic" title="Invited by: <%= User.find_by_id(event.inviter_id).name%>"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
 		<% end %>
 
 		<div class="event_shield_icons">
-			<% if event.is_public? %>
-				<i class="purple icon-bullhorn"></i>
-				<% if event.family_friendly? %>
-					<i class="purple icon-home"></i>
-				<% end %>
+			<% if event.family_friendly? %>
+				<i class="purple icon-home"></i>
 			<% end %>
 	  </div>
 		<div class="guest_count">
 			<% if event.tipped? %>	
-				<i class="purple icon-group"></i> <span class="count" id="guestCount"><%= event.guests.count %></span>
+				<span class="count" id="guestCount"><%= event.guests.count %></span>
 			<% else %>
-				<i class="purple icon-group"></i> <span id="guestCount" class="count red"><%= event.guests.count%><span id="eventMin">/<%= event.min %></span></span>
+				<span id="guestCount" class="count red"><%= event.guests.count%><span id="eventMin">/<%= event.min %></span></span>
 			<% end %>
 		</div>
 		<% unless event.is_public? %>
