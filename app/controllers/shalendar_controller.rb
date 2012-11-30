@@ -1,5 +1,5 @@
 class ShalendarController < ApplicationController
-  before_filter :authenticate_user!, except: [ :vendor_splash, :home ]
+  before_filter :authenticate_user!, except: [ :vendor_splash, :home, :discover ]
   before_filter :set_time_zone
 
 	def home
@@ -39,6 +39,7 @@ class ShalendarController < ApplicationController
 		@friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
     @vendor_friendships = current_user.vendor_friendships
     @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
+    @my_plans = current_user.plans.where('starts_at > ?', Time.now.in_time_zone(current_user.time_zone)).order('starts_at desc')
     if @graph
       @member_friends = current_user.fb_friends(@graph)[0]
       @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.shuffle.first(3)
@@ -157,16 +158,6 @@ class ShalendarController < ApplicationController
     respond_to do |format|
       format.js 
       format.html { redirect_to @event, notice: 'Idea Successfully Shared with Friends' }
-    end
-  end
-
-  def activity 
-    if current_user.vendor?     
-      @events = current_user.events.where("starts_at > :now", now: Time.now).order('starts_at asc')
-      @past_events = current_user.events.where("starts_at < :now", now: Time.now).order('starts_at asc')
-    else
-      @events = current_user.plans.where("starts_at > :now", now: Time.now).order('starts_at asc')
-      @past_events = current_user.plans.where("starts_at < :now", now: Time.now).order('starts_at asc')
     end
   end
 

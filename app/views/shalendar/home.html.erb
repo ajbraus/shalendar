@@ -6,7 +6,7 @@
 <div class="home" id="scrollContainer">
 <% for i in -3..26 %>
 	<div class="each_day persist-area clearfix">		
-		<div class="date_bar marker persist-header clearfix not_floating <% if i == 0 %> red <% end %>" <% if i == 0 %> id="today" <% end %> data-date=<%= "#{@time_in_zone.to_date + i}" %>>
+		<div class="date_bar marker persist-header clearfix shield <% if i == 0 %> red <% end %>" <% if i == 0 %> id="today" <% end %> data-date=<%= "#{@time_in_zone.to_date + i}" %>>
       <div class="date"><%= (@time_in_zone.to_date + (i)).strftime("%A %b %e") %></div>
 		</div>
     <div class="day_container clearfix">
@@ -33,8 +33,7 @@ function UpdateTableHeaders() {
        
        if ((scrollTop > offset.top) && (scrollTop < offset.top + el.height())) {
            floatingHeader.css({
-            "visibility": "visible",
-            "width":"66.2%"
+            "visibility": "visible"
            });
            floatingHeader.siblings('.not_floating').css({
             "visibility": "hidden"

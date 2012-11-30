@@ -7,6 +7,8 @@ Shalendar::Application.routes.draw do
     root :to => 'shalendar#home'
   end
 
+  resources :users, :only => [:show]
+
   match '/madison', :to => 'shalendar#home', :as => "madison", :city => "Madison, Wisconsin"
   match '/everywhere_else', :to => 'shalendar#home', :as => "everwhere_else", :city => "Everywhere Else"
   
@@ -19,8 +21,7 @@ Shalendar::Application.routes.draw do
                             }, 
              path: "user",
              path_names:    { sign_in: "login",
-                              sign_out: "logout", 
-                              sign_up: "join"
+                              sign_out: "logout"
                             } 
   devise_scope :user do
     match '/new_venue', to: 'registrations#new_vendor', as: "new_vendor"
@@ -29,7 +30,7 @@ Shalendar::Application.routes.draw do
   # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
-
+    
     namespace :api do
       namespace :v1 do
         #problem... POST/DELETE requests are being processed as GET..

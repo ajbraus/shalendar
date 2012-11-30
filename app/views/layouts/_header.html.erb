@@ -2,17 +2,19 @@
   <%= render 'layouts/logo' %>
 
 <% if user_signed_in? %>
+
   <ul class="left_header">
-    <li><%= render 'shared/new_idea_button' %></li>
     <li><%= link_to "discover", discover_path %></li>    
-    <li><%= link_to 'what is hoos.in', what_is_hoosin_path %></li>
+    <li><%= link_to 'explain', what_is_hoosin_path %></li>
   </ul>
 
   <div class="right_header">
     <div class="responsive_profile_pic">
+      <%= render 'shared/picture_dropdown' %>
+    </div>
     <div class="city-icon">
       <%= link_to yellow_pages_path, :remote => true, class:"city_vendors fancybox.ajax" do %>
-        <%= (image_tag "madison-icon.jpeg", :wdith => "20", title: "Friend Public Profiles in Madison") %>
+        <%= image_tag current_user.city.icon.url(:icon) %>
       <% end %>
     </div>
     <%= render 'shared/city_user_dropdown' %>
@@ -25,22 +27,12 @@
 
   <ul class="left_header">
     <li><%= link_to "discover", discover_path %></li>  
-    <li><%= link_to 'what is hoos.in', what_is_hoosin_path %></li>
+    <li><%= link_to 'what is hoos.in?', what_is_hoosin_path %></li>
   </ul>
 
   <div class="right_header">
     <div>
       <%= link_to "login", new_user_session_path %>
-    </div>
-    <div>
-      <%= render 'shared/city_session_dropdown' %>
-    </div>
-    <div>
-      <div id="interestsDropdown" class="interests_dropdown">interests<i class="icon-caret-down"></i></div>
-      <%= render 'shared/interest_session_dropdown' %>
-    </div>
-    <div>
-      <%= render partial: 'shared/new_idea_button' %>
     </div>
   </div>
 <% end %>

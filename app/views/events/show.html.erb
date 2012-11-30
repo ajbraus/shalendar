@@ -14,7 +14,9 @@
 <div class="event_show">
   <div class="event_top">
     <div class="host friend">
-	   <%= raster_profile_picture(@event.user) %> 
+      <%= link_to user_path(@event.user), target: "blank" do %>
+        <%= raster_profile_picture(@event.user) %> 
+      <% end %>
       <div>hosted by: </div><br>
       <% if !user_signed_in? || (current_user.following?(@event.user) || current_user == @event.user) %>
         <div>

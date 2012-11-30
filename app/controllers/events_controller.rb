@@ -43,8 +43,10 @@ class EventsController < ApplicationController
     @event.city = current_user.city
     if @event.save
       @event.save_shortened_url
-      params[:category_ids].each do |cid|
-        Categorization.create(event_id: @event.id, category_id: cid)
+      if params[:category_ids]
+        params[:category_ids].each do |cid|
+          Categorization.create(event_id: @event.id, category_id: cid)
+        end
       end
       if params[:parent_id]
         if @event.require_payment? && current_user.credit_card_uri.nil?
@@ -110,7 +112,7 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       format.js
-      format.html { render layout: "event_show"}
+      format.html
       format.json { render json: @event }
       format.ics do
         calendar = Icalendar::Calendar.new

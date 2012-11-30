@@ -20,4 +20,5 @@ class City < ActiveRecord::Base
   # my_model_instance = MyModel.new
 	# my_model_instance.attachment = File.open(file_path)
 	# my_model_instance.save!
+  # mad.icon = File.open('app/assets/images/madison-icon.jpeg')
 end

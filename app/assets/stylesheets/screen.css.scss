@@ -539,7 +539,6 @@ header {
   background-color: #F6F6F6;
   border-bottom: 1px solid #D1CDCD;
   clear: both;
-  margin-left:3%;
   position: fixed;
   top:0;
    z-index: 2;
@@ -644,6 +643,16 @@ top: 34px;
   }
 }
 
+.responsive_profile_pic {
+position: absolute;
+top: -28px;
+right: 4px;
+  img {
+    width:38px;
+    height:38px;
+  }
+}
+
 .up_arrow {
   float: right;
 position: relative;
@@ -653,7 +662,6 @@ bottom: 10px;
 .interests {
 width: 120px;
 position: absolute;
-right: 203px;
 top: 46px;
 }
 .interest_checkbox {
@@ -737,16 +745,15 @@ left: 295px;
 }
 
 .new_invited_events_count {
-  position: relative;
-  right: 12px;
-  background-color: $rsvp;
-  color: white;
-  border-radius: 151px;
-  bottom: 12px;
-  font-size: 12px;
-  padding: 2px 7px 1px 5px;
-  border: 3px solid white;
-  text-align: center;
+position: relative;
+background-color:$rsvp;
+color: white;
+border-radius: 151px;
+font-size: 16px;
+padding: 2px 7px 1px 5px;
+border: 2px solid white;
+text-align: center;
+bottom: 1px;
 }
 
 .logo {
@@ -806,8 +813,6 @@ background: white;
 display: none;
 list-style: none;
 position: absolute;
-top: 7px;
-left: -148px;
 width: 194px;
 height: 96px;
 z-index: 10;
@@ -838,10 +843,8 @@ border-radius: 7px;
 .layout {
 clear: both;
 min-height: 540px;
-background-color: rgba(255, 255, 255, 0.3);
 z-index: -10;
-margin-left: 3%;
-margin-top: 113px;
+margin-top: 73px;
 }
 
 .show_layout {
@@ -1003,7 +1006,7 @@ height: 100%;
 float: right;
 z-index: 1;
 position: fixed;
-right: 39px;
+right: 20px;
 top: 78px;
 overflow: hidden;
 padding-left: 7px;
@@ -1035,8 +1038,8 @@ right: 4px;
 }       
 #yt {
 position: fixed;
-right: 70px;
-z-index: 2;
+right: 4px;
+z-index: 1;
 top: 75px;
 }
 
@@ -1206,10 +1209,6 @@ width: 105%;
 .home {
 padding: 0px 0px 10px 0px;
 overflow: hidden;
-margin-top: -40px;
--webkit-box-shadow: inset 2px 0px 3px rgba(50, 50, 50, 0.72);
--moz-box-shadow: inset 2px 0px 3px rgba(50, 50, 50, 0.72);
-box-shadow: inset 2px 0px 3px rgba(50, 50, 50, 0.72);
 }
 
 .forecastDate {
@@ -1256,9 +1255,6 @@ width: 89%;
 background-color: white;
 top: 73px;
 margin-left: 4px;
-.date {
-font-size: 1.8em;
-}
 }
 
 .each_day {
@@ -1274,22 +1270,28 @@ width: 97%;
 .sidebar {
 height: 100%;
 float: left;
-background-color: #F6F6F6;
+background-color: white;
 padding: 10px;
-
+margin-top:15px;
+margin-right: 10px;
 }
 
 .stats {
   position: relative;
-  height: 110px;
-  border-bottom:1px solid $divider;
+  .name {
+    position: absolute;
+    top: 5px;
+    left: 55px;
+  }
   ul {
     margin: 20px 20px 20px 0;
+    height:30px;
   }
   li {
-    display:inline;
-    border-right:1px solid $divider;
-    padding: 15px;
+    border-right: 1px solid #D1CDCD;
+    display: inline;
+    float: left;
+    padding: 0px 17px;
   }
   .new_idea {
     position: absolute;
@@ -1313,10 +1315,7 @@ padding: 10px;
   float:left;
   margin: 0 11px 5px 0;
   background-color: white;
-  -webkit-box-shadow: 1px 1px 4px rgba(50, 50, 50, 0.75);
-  -moz-box-shadow:    1px 1px 4px rgba(50, 50, 50, 0.75);
-  box-shadow:         1px 1px 4px rgba(50, 50, 50, 0.75);
-  border:2px solid white;
+  border-bottom:1px solid $divider;
   img {
 max-width: 42%;
 max-height: 80%;
@@ -1668,7 +1667,6 @@ line-height: 25px;
 text-align: center;
 font-size: 17px;
 position: absolute;
-top: 0px;
 margin: 0 auto;
 width: 96%;
 }
@@ -2063,6 +2061,7 @@ border-bottom: 1px solid #D1CDCD;
 border-top: 1px solid #D1CDCD;
 overflow: hidden;
 position: relative;
+top: 10px;
   .promo_img {
     text-align: center;
     margin-bottom:0px;
@@ -2251,7 +2250,7 @@ border-bottom: 1px solid $divider;
 .event_buttons{
 line-height: 1.3;
 position: relative;
-right: 48px;
+right: 18px;
 float: right;
 margin-left: -30px;
 }
@@ -2935,7 +2934,6 @@ select {
 
   .top {
     border-bottom:1px solid $divider;
-    width: 80%;
 margin: 0 auto;
   }
   .middle {
@@ -2968,7 +2966,6 @@ margin: 0 auto;
     position: relative;
     bottom: 425px;
     margin-bottom: -350px;
-    width: 66%;
     margin: 0 auto;
     background-color: rgba(250, 250, 250, 0.95);
     padding: 20px;
@@ -3020,11 +3017,15 @@ right: 8px;
 }
 
 .invited_events {
-position: absolute;
-top: 113px;
-right: 21px;
-z-index: 100000;
-min-width: 282px;
+z-index: 4;
+position: fixed;
+left: 286px;
+max-height: 400px;
+top: 100px;
+max-width: 60%;
+  li {
+    float:left;
+  }
 }
 
 .invitations{
@@ -3348,4 +3349,9 @@ background-repeat: no-repeat;
 .hidden{
   position: absolute; 
   left:-99999px;
+}
+
+#new_idea_blerb {
+  width: 78%;
+  height:21px;
 }

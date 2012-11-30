@@ -91,6 +91,7 @@ top: 34px;
 
 	.layout {
 		width:100%
+
 	}
 
 // INCLUDE YESTERDAY TOMORROW BUTTONS
@@ -100,6 +101,25 @@ top: 34px;
 	}
 
 // TIGHTEN UP FORECAST
+	.home {
+
+	}
+
+	.date_bar {
+		.date {
+			font-size: 1.1em;
+		}
+	}
+
+	.dropdown dd ul {
+		top: 7px;
+		left: -148px;
+	}
+
+	.interests {
+		right: 153px;
+	}
+
 	.forecast {
 		width:100%;
 	}
@@ -149,12 +169,16 @@ top: 34px;
 		width:98%;
 	}
 
+	header {
+
+	}
+
 	ul.event_buttons {
 		width:96%;
 		float:left;
 		right:-33px;
 		font-size: 26px;
-		top:0;
+		top: 6px;
 		li {
 			display: inline;
 			a img {
@@ -163,6 +187,13 @@ top: 34px;
 			}
 	}
 
+	.message {
+		width: 80%;
+	}
+
+	.instagram-placeholder img {
+		width: 111px;
+	}
 
 // MANAGE FRIENDS 
 
@@ -237,10 +268,6 @@ top: 34px;
 
 .instagramFeed {
 	width:87%;
-}
-
-.instagram-placeholder img {
-width: 115px;
 }
 
 .fb_login_button {

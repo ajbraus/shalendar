@@ -80,20 +80,23 @@ Adam
 Build sidebar
 Build public idea page add join
 create public idea 
-Make banners (Home Discover)
+Make banner (Discover)
 Build yellow pages
 Add category to user for venues
 if going add banner
 if tipped add banner
-if costs money add banner
-add city icon for yellowbook
 add hashtag to event and show instagram pictures
 serve discovery ideas in order of # of ppl going already
 
+in user#show only show upcoming stuff your invited to
 
-add settings and logout links
+Create discoverables
 
+landing - see discoverables 
+					Sign Up
+					pick city, pick interest, submit both to session and load home
 
+if costs money add banner
 
 rsvp lightbox -- add to calendar, share with facebook twitter linkedin etc
 
@@ -107,10 +110,11 @@ interests dropdown
 	session - 
 	user - done
 
-plans vs ideas
-black gutter for plans
-
 if not logged in - explain hoos.in in event page and home
+
+add suggested friends to friends page
+
+signup => pick venues 
 
 if first time loggin in => joyride
 
@@ -269,8 +273,6 @@ activity page
 -----------------------------------------------------------
 
 make x to close the latest ideas
-List view for new ideas
-remove picture from new ideas dropdown
 
 ---------------------------------------------------------------
 

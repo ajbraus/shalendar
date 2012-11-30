@@ -54,8 +54,6 @@ class Notifier < ActionMailer::Base
 
   #AUTOMATIC NOTIFIERS
 
-
-
   def welcome(user)
     @user = user
     mail to: user.email, subject: "welcome to hoos.in"

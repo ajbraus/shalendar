@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
-	<div class="event <%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) and !event.is_public? ? 'over' : '' %>" data-event-id="<%= event.id %>">
+	<div class="event shield <%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) and !event.is_public? ? 'over' : '' %>" data-event-id="<%= event.id %>">
 <% else %>
-	<div class="event <%= event.ends_at < @time_in_zone ? 'over' : '' %>">
+	<div class="event shield <%= event.ends_at < @time_in_zone ? 'over' : '' %>">
 <% end %>
 
 	<%= link_to event_path(event) do %>

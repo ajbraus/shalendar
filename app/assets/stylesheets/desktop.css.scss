@@ -5,17 +5,36 @@
 
 @media only screen and (min-width:600px) {
 
+	header {
+		  margin-left:3%;
+	}
+
 	.my_plans {
 		display:none;
 	}
 
+	.responsive_profile_pic {
+		display: none;
+	}
+
 	.layout {
-		width: 97%;
+		width: 95%;
+		margin-left:3%;
 	}
 
 	.forecast {
 		overflow-x: hidden;
 		width: 93%;
+	}
+
+	.top {
+		width: 80%;
+	}
+	.instagram-placeholder img {
+		width: 111px;
+	}
+	.message {
+		width:66%;
 	}
 
 	#yt {
@@ -110,7 +129,6 @@ left: 20px;
 		}
 
 		.event_buttons {
-			top:23px;
 			font-size: 30px;
 			top: 23px;
 		}
@@ -157,7 +175,20 @@ left: 20px;
 		.date_bar {
 			width: 99%;
 			top: 35px;
+			.date {
+				font-size: 1.8em;
+			}
 		}
+		
+		.dropdown dd ul {
+		top: 0px;
+		left: 0px;
+		}
+
+		.interests {
+			right: 203px;
+		}
+
 		.floatingHeader {
 		}
 
@@ -190,10 +221,10 @@ left: 20px;
 		}
 
 		.btn-new-idea {
-			padding: 7px 9px;
-			right: 10px;
+			padding: 9.5px 10px;
+			right: 15px;
 			position: relative;
-			bottom: 11px;
+			bottom: 14px;
 		}
 		.new_idea {
 		}
@@ -206,6 +237,10 @@ left: 20px;
 			width: 280px;
 		}
 
+		.home {
+
+		}
+
 }
 
 /***************************************/
@@ -213,21 +248,15 @@ left: 20px;
 /***************************************/
 @media only screen and (min-width: 480px) and (max-width: 599px) {
 
-	#headerText {
-		display:none;
-	}
+
 	
 }
 
 /***************************************/
 /*** 7" Tablet *************************/
 /***************************************/
-@media only screen and (min-width: 600px) and (max-width: 759px) {
-
-		#headerText {
-		display:none;
-	}
-		ul.left_header {
+@media only screen and (min-width: 600px) and (max-width: 980px) {
+		.user_search {
 		display:none;
 	}
 }
@@ -235,9 +264,11 @@ left: 20px;
 /***************************************/
 /*** Tablet - iPad *********************/
 /***************************************/
-@media only screen and (min-width: 760px) and (max-width: 959px) {
+@media only screen and (min-width: 600px) and (max-width: 699px) {
 
-
+		ul.left_header {
+		display:none;
+	}
 }
 
 /***************************************/
