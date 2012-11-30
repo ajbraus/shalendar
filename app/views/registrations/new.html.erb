@@ -17,7 +17,7 @@
   <%= f.file_field :avatar, class: "required" %></div>
 
   <div><%= f.label :city %><br />
-  <%= f.select :city, @cities, class: "required" %></div>
+  <%= f.collection_select :city_id, @cities, :id, :name, { prompt: true }, { class: "required" } %></div>
 
   <div><%= f.label :time_zone %><br />
   <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)", class: "required" %></div>

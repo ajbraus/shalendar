@@ -371,11 +371,11 @@ class User < ActiveRecord::Base
     
     #CATEGORY TODO
     toggled_category_ids = []
-    Self.categories.each do |c|
+    self.categories.each do |c|
       toggled_category_ids.push(c.id)
     end
     # loop through categories and add all relevant events from city + category
-    @interest_events_on_date = Event.where(starts_at: @time_range, is_public: true, city: Self.city)
+    @interest_events_on_date = Event.where(starts_at: @time_range, is_public: true, city: self.city)
       .joins(:categories).where(categories: {id: toggled_category_ids} ).order("starts_at ASC")
 
     @interest_events_on_date.each do |inte|

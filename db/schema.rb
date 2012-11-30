@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121123233631) do
+ActiveRecord::Schema.define(:version => 20121126151400) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -99,6 +99,24 @@ ActiveRecord::Schema.define(:version => 20121123233631) do
 
   add_index "authentications", ["uid"], :name => "index_authentications_on_uid", :unique => true
   add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "categories", ["name"], :name => "index_categories_on_name"
+
+  create_table "categorizations", :id => false, :force => true do |t|
+    t.integer  "category_id"
+    t.integer  "event_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "categorizations", ["category_id"], :name => "index_categorizations_on_category_id"
+  add_index "categorizations", ["event_id"], :name => "index_categorizations_on_event_id"
 
   create_table "cities", :force => true do |t|
     t.string   "name"
@@ -220,6 +238,16 @@ ActiveRecord::Schema.define(:version => 20121123233631) do
 
   add_index "gcm_notifications", ["device_id"], :name => "index_gcm_notifications_on_device_id"
 
+  create_table "interests", :force => true do |t|
+    t.integer  "category_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "interests", ["category_id"], :name => "index_interests_on_category_id"
+  add_index "interests", ["user_id"], :name => "index_interests_on_user_id"
+
   create_table "invitations", :force => true do |t|
     t.integer  "invited_user_id"
     t.integer  "invited_event_id"
@@ -322,10 +350,10 @@ ActiveRecord::Schema.define(:version => 20121123233631) do
     t.datetime "avatar_updated_at"
     t.string   "time_zone"
     t.integer  "new_invited_events_count", :default => 0
+    t.boolean  "vendor",                   :default => false
     t.boolean  "email_comments",           :default => true
     t.boolean  "admin",                    :default => false
     t.integer  "apn_device_id",            :default => 0
-    t.boolean  "vendor",                   :default => false
     t.boolean  "digest",                   :default => true
     t.string   "GCMtoken"
     t.boolean  "follow_up"

@@ -10,7 +10,7 @@ FactoryGirl.define do
 		allow_contact 't'
 		digest 't'
 		notify_event_reminders 't'
-		city 'Madison, Wisconsin'
+		city_id '4'
 		post_to_fb_wall 'f'
 		avatar nil
 		vendor 'f'
@@ -29,7 +29,7 @@ FactoryGirl.define do
     allow_contact 't'
     digest 't'
     notify_event_reminders 't'
-    city 'Madison, Wisconsin'
+    city_id '4'
     post_to_fb_wall 'f'
     avatar nil
     vendor 't'

@@ -1,16 +1,12 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def new
-    @all_cities = City.all
-    @cities = []
-    @all_cities.each do |c|
-      @city_name = c.name
-      @cities.push(@city_name)
-    end
+    @cities = City.all
     super
   end
 
   def create
+    binding.pry
     build_resource
     @all_cities = City.all
     @cities = []
@@ -47,13 +43,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
 	def edit
-    @all_cities = City.all
-    @cities = []
-    @all_cities.each do |c|
-      @city_name = c.name
-      @cities.push(@city_name)
-    end
-
+    @cities = City.all
 		@graph = session[:graph]		
 		super
 	end
