@@ -14,6 +14,7 @@
 			<% end %>
 		</div>
 		<% if event.has_image? %>
+			<div class="promo_img">
 			<% if event.parent.blank? %>
 				<% if !event.promo_url.blank? %>
 					<%= image_tag("#{event.promo_url}") %>
@@ -27,10 +28,25 @@
 					<%= image_tag("#{event.parent.promo_img.url(:medium)}") %>
 				<% end %>
 			<% end %>
+			</div>
 		<% end %>
 
 	 <div class="event_blerb"><%= event.title %></div>
-	
+		
+		<% if event.is_public? || current_user.rsvpd?(event) || current_user.following?(User.find_by_id(event.inviter_id)) %>
+		  <div class="inviter">
+		  	<%= link_to user_path(event.user), target: "blank" do %>
+		  		<%= event.user.name %>
+      	<% end %>
+      </div>
+		<% else %>
+			<div class="inviter">
+				<%= link_to user_path(User.find_by_id(event.inviter_id)), target: "blank" do %>
+					<%= User.find_by_id(event.inviter_id).name %>
+				<% end %>
+			</div>
+		<% end %>
+
 			<div class="guest_count">
 			<% if event.tipped? %>	
 				<span class="count" id="guestCount"><%= event.guests.count %></span>
