@@ -1,21 +1,41 @@
 FactoryGirl.define do
-  factory :user do
-  sequence(:name)  { |n| "Test #{n}" }
-  sequence(:email) { |n| "test@#{n}.com"} 
-  	password 'please'
-  	password_confirmation 'please'
-  	remember_me 'f'
-  	time_zone "Central Time (US & Canada)"
-  	require_confirm_follow 'f'
-  	allow_contact 't'
-  	digest 't'
-  	notify_event_reminders 't'
-  	city 'Madison, Wisconsin'
-  	post_to_fb_wall 'f'
-  	avatar nil
-  	vendor 'f'
-  	terms 't'
-      background nil
+	factory :user do
+    sequence(:name)  { |n| "Test #{n}" }
+    sequence(:email) { |n| "test@#{n}.com"} 
+		password 'please'
+		password_confirmation 'please'
+		remember_me 'f'
+		time_zone "Central Time (US & Canada)"
+		require_confirm_follow 'f'
+		allow_contact 't'
+		digest 't'
+		notify_event_reminders 't'
+		city_id '4'
+		post_to_fb_wall 'f'
+		avatar nil
+		vendor 'f'
+		terms 't'
+    background nil
+	end
+
+  factory :vendor do
+    name 'Vendor Test'
+    email 'Vendor@test.com'
+    password 'please'
+    password_confirmation 'please'
+    remember_me 'f'
+    time_zone "Central Time (US & Canada)"
+    require_confirm_follow 'f'
+    allow_contact 't'
+    digest 't'
+    notify_event_reminders 't'
+    city_id '4'
+    post_to_fb_wall 'f'
+    avatar nil
+    vendor 't'
+    terms 't'
+    background nil
+>>>>>>> 0f7ec5ef805441612bdbdf37b60b9995b7e29835
   end
 
   factory :event do

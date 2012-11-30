@@ -108,6 +108,25 @@ ActiveRecord::Schema.define(:version => 20121128222412) do
 
   add_index "categories", ["name"], :name => "index_categories_on_name"
 
+  create_table "categorizations", :id => false, :force => true do |t|
+    t.integer  "category_id"
+    t.integer  "event_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "categorizations", ["category_id"], :name => "index_categorizations_on_category_id"
+  add_index "categorizations", ["event_id"], :name => "index_categorizations_on_event_id"
+
+  create_table "cities", :force => true do |t|
+>>>>>>> 0f7ec5ef805441612bdbdf37b60b9995b7e29835
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "categories", ["name"], :name => "index_categories_on_name"
+
   create_table "categorizations", :force => true do |t|
     t.integer  "category_id"
     t.integer  "event_id"
