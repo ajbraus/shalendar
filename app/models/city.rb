@@ -12,7 +12,7 @@ class City < ActiveRecord::Base
                              #:default_url => "https://s3.amazonaws.com/hoosin-production/event/icon/medium/default_promo_img.png"
 
   validates :icon,   # :attachment_presence => true,
-                     :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] }
+                     :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] } if Rails.env.production?
                      # :attachment_size => { :in => 0..500.kilobytes }
 
   # add paperclip attachment from CLI

@@ -177,7 +177,7 @@ ActiveRecord::Schema.define(:version => 20121130234422) do
     t.datetime "updated_at",                                   :null => false
     t.integer  "user_id"
     t.integer  "min",                       :default => 1
-    t.integer  "max"
+    t.integer  "max",                       :default => 10000
     t.float    "duration"
     t.integer  "inviter_id",                :default => 0
     t.boolean  "tipped",                    :default => false
@@ -271,8 +271,8 @@ ActiveRecord::Schema.define(:version => 20121130234422) do
     t.integer  "followed_id"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.boolean  "toggled",     :default => true
     t.boolean  "confirmed",   :default => false
-    t.boolean  "in"
   end
 
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
@@ -305,11 +305,11 @@ ActiveRecord::Schema.define(:version => 20121130234422) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.string   "title"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.integer  "user_id"
     t.integer  "min",                    :default => 1
-    t.integer  "max"
+    t.integer  "max",                    :default => 10000
     t.float    "duration"
     t.string   "link"
     t.string   "address"
@@ -362,10 +362,9 @@ ActiveRecord::Schema.define(:version => 20121130234422) do
     t.boolean  "digest",                   :default => true
     t.string   "GCMtoken"
     t.boolean  "follow_up"
-    t.boolean  "can_post_to_fb_wall",      :default => false
-    t.boolean  "family_filter"
     t.boolean  "female"
     t.datetime "birthday"
+    t.boolean  "family_filter"
     t.string   "background_file_name"
     t.string   "background_content_type"
     t.integer  "background_file_size"
