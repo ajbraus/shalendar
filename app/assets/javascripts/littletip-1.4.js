@@ -19,6 +19,10 @@
 	
 
 $(document).ready(function(){			// Script executed on DOM load
+	if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i)) {
+
+	}
+	else {
 	var elT = $("[title]");			// Store all title attributes in a variable for further usage
 
 	elT.mouseover(function(){					// Function applied to title attribute on mouse over
@@ -87,4 +91,5 @@ $(document).ready(function(){			// Script executed on DOM load
 		$('#littleTIP').remove();		// Remove littleTIP
 		this.title = this.tip;			// Use default tooltip
 	});
+	}
 });
