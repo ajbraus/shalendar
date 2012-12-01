@@ -116,9 +116,9 @@ class ShalendarController < ApplicationController
 
   def discover
     if user_signed_in?
-      @ideas = Event.where('city_id = ? AND is_public = ? AND starts_at > ?', current_user.city, true, Time.now.in_time_zone(current_user.time_zone))
+      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, current_user.city, Time.now.in_time_zone(current_user.time_zone))
     else
-      @ideas = Event.where('city_id = ? AND is_public = ? AND starts_at > ?', current_user.city, true, Time.now)
+      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, session[:city_id], Time.now)
     end
   end
 

@@ -49,7 +49,8 @@ class Event < ActiveRecord::Base
                   :short_url,
                   :parent_id,
                   :require_payment,
-                  :slug
+                  :slug,
+                  :is_big_idea
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
                                              :medium => '190x270'},

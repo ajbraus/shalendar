@@ -95,9 +95,11 @@
 
 <div>
 	<ul>
-		<li id="visibility" title="Share" style="color:#EB8325;"><i class="icon-bullhorn"></i></li>
 		<% if current_user.vendor? %>
+			<li id="visibility" title="Share" style="color:#EB8325;"><i class="icon-bullhorn"></i></li>
 			<li id="addcategories" title="Add a Category"><i class="icon-tag"></i></li>
+		<% else %>
+			<li id="visibility" title="Share" style="color:#EB8325;"><i class="icon-group"></i></li>
 		<% end %>
  	  <li id="addtipping" title="Add a Tipping/Full"><i class="icon-tasks"></i></li>
 	  <li id="addLink" title="Add a Link"><i class="icon-link"></i></li>

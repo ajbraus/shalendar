@@ -27,6 +27,15 @@ class EventsController < ApplicationController
     end
   end
 
+  def new_big_idea
+
+    respond_to do |format|
+      format.html # new.html.erb
+      #format.json { render json: @event }
+      format.js
+    end
+  end
+
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])

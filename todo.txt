@@ -77,10 +77,8 @@ new follower email link not working
 
 Adam
 
-Build sidebar
-Build public idea page add join
-create public idea 
-Make banner (Discover)
+progress bar for tipping
+
 Build yellow pages
 Add category to user for venues
 if going add banner

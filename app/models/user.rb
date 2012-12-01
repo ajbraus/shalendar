@@ -389,12 +389,12 @@ class User < ActiveRecord::Base
       inte.inviter_id = inte.user.id
     end
 
-    @plans_on_date = Event.where(starts_at: time_range).joins(:rsvps)
+    @plans_on_date = Event.where(starts_at: @time_range).joins(:rsvps)
                       .where(rsvps: {guest_id: self.id}).order("starts_at ASC")
     @plans_on_date.each do |p|
       p.inviter_id = p.user.id
     end
-    @invited_events_on_date = Event.where(starts_at: time_range).joins(:invitations)
+    @invited_events_on_date = Event.where(starts_at: @time_range).joins(:invitations)
                               .where(invitations: {invited_user_id: self.id}).order("starts_at ASC")
     @invited_events_on_date = @invited_events_on_date - @plans_on_date
     @invited_events_on_date.each do |ie|

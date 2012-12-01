@@ -15,20 +15,6 @@
       </a>
     </li>
 
-    <!-- #FACEBOOK -->
-    <% if current_user.fb_user? %>
-      <li>
-        <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Post to your Facebook wall", remote: true do %>
-          <i class="icon-facebook-sign"></i>
-        <% end %>
-      </li>
-    <% end %>
-
-    <!-- #TWITTER -->
-    <li>
-      <a href="https://twitter.com/share" data-text="<%= @event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this idea" target="_blank"><i class="icon-twitter"></i></a>
-    </li>
-
     <% if @event.guests_can_invite_friends? && !@event.short_url.nil? %>
       <li id="textMsg">
         <a href="sms:?body=<%= url_encode(@event.title + " - " + @event.short_url) %>"><span class="fadeInOrange"><i class="icon-phone"></i></span></a>
