@@ -234,11 +234,13 @@ left: 20px;
 		}
 
 		.sidebar {
-			width: 280px;
+			width: 255px;
 		}
 
 		.home {
-
+			width: 74%;
+			left: 294px;
+			position: relative;
 		}
 
 }
@@ -259,6 +261,10 @@ left: 20px;
 		.user_search {
 		display:none;
 	}
+
+		.home {
+			width: 63%;
+		}
 }
 
 /***************************************/

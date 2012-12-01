@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
-<div class="sidebar part">
+<div class="sidebar part" id="sidebar">
   <%= render partial: 'layouts/stats' %>
-  <div class="label"><%= @my_plans.count %> upcoming plans</div>
+  <div class="label">You're in on <%= @my_plans.count %> ideas</div>
   <% if @my_plans.present? %>
     <% @my_plans.each do |mp| %>
       <%= render partial: 'shalendar/mini_event', locals: { :event => mp } %>
