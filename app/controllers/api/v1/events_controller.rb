@@ -127,8 +127,9 @@ class Api::V1::EventsController < ApplicationController
     # @event.user = @mobile_user
     # @event.chronic_starts_at = DateTime.parse(params[:start])
     @event.starts_at = DateTime.parse(params[:start])
-    @event.ends_at = @event.starts_at + @event.duration.hours
     @event.duration = Float(params[:duration])
+    @event.ends_at = @event.starts_at + @event.duration.hours
+    
     
     # @event.title = params[:title]
     # @event.min = params[:min]
