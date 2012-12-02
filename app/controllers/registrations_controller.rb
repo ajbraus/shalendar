@@ -6,16 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    binding.pry
     build_resource
-    
-    @all_cities = City.all
-    @cities = []
-    @all_cities.each do |c|
-      @city_name = c.name
-      @cities.push(@city_name)
-    end
-
     if resource.save
       #turn all email_invites into invitations here **UPDATE
       EmailInvite.where("email_invites.email = :new_user_email", new_user_email: resource.email).each do |ei|
@@ -90,13 +81,23 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def new_vendor
-    @all_cities = City.all
-    @cities = []
-    @all_cities.each do |c|
-      @city_name = c.name
-      @cities.push(@city_name)
+    
+    @cities = City.all
+    resource = build_resource
+
+    if resource.save
+      if resource.active_for_authentication?
+        set_flash_message :notice, :signed_up if is_navigational_format?
+        sign_in(resource_name, resource)
+        respond_with resource, :location => after_sign_up_path_for(resource)
+      else
+        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
+        expire_session_data_after_sign_in!
+        respond_with resource, :location => after_inactive_sign_up_path_for(resource)
+      end
+    else
+      clean_up_passwords resource
+      respond_with resource
     end
-    resource = build_resource({})
-    respond_with resource
   end
 end

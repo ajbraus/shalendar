@@ -25,7 +25,7 @@ class ShalendarController < ApplicationController
       else
         @time_in_zone = Time.now.in_time_zone(session[:current_time_zone])
       end
-      @cityname = params[:city]
+      session[:city] = params[:city]
       @city = City.find_by_name(@cityname)
       session[:toggled_categories] = params[:category_ids]
       @events = Event.public_forecast(@time_in_zone, session[:current_time_zone], @city, session[:toggled_categories])

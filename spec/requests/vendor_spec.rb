@@ -13,7 +13,7 @@ describe "Pages after sign up / sign in" do
     visit new_user_session_path
     fill_in "Email",    with: venue.email
     fill_in "Password", with: venue.password
-    click_button "Sign in"
+    click_button "Login"
   end
   
   after(:each) { Event.delete_all }

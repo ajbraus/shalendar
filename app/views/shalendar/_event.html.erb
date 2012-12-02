@@ -1,5 +1,8 @@
 <% if user_signed_in? %>
-	<div class="event shield <%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) and !event.is_public? ? 'over' : '' %>" data-event-id="<%= event.id %>">
+	<div class="event shield 
+		<%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) and !event.is_public? ? 'over' : '' %> 
+		<%= event.is_public? ? 'public' : '' %>
+		data-event-id="<%= event.id %>">
 <% else %>
 	<div class="event shield <%= event.ends_at < @time_in_zone ? 'over' : '' %>">
 <% end %>
@@ -54,13 +57,18 @@
 				<i class="purple icon-home"></i>
 			<% end %>
 	  </div>
-		<div class="guest_count">
 			<% if event.tipped? %>	
-				<span class="count" id="guestCount"><%= event.guests.count %></span>
+				<div class="meter animate">
+					<span style="width: <%= (event.guests.count.to_f/event.min.to_f*100).round %>%;"><span></span></span>
+				</div>
+				<span class="guests"><%= event.guests.count %></span>
 			<% else %>
-				<span id="guestCount" class="count red"><%= event.guests.count%><span id="eventMin">/<%= event.min %></span></span>
+				<div class="meter animate orange">
+					<span style="width: <%= (event.guests.count.to_f/event.min.to_f*100).round %>%;"><span></span></span>
+				</div>
+				<span class="guests"><%= event.guests.count %></span>
+				<span class="tipping_point"><%= event.min %></span>
 			<% end %>
-		</div>
 		<% unless event.is_public? %>
 			<% unless event.user == User.find_by_id(event.inviter_id) %>
 				<div class="host">by: <%= event.user.first_name.capitalize %> 
@@ -70,7 +78,7 @@
 				</div>
 			<% end %>
 
-			<% if event.user == current_user && event.tipped? == false %>
+			<% if event.user == current_user && event.tipped? == false && event.tipped? == true %>
 				<div class="force_tip">
 					<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true, id:"tipPin" %>
 				</div>

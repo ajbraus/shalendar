@@ -77,26 +77,56 @@ new follower email link not working
 
 Adam
 
-progress bar for tipping
+RSVP button and add to calendar
+in rsvpd banner
+carrot by name
+pitch in a crowd idea
+Social share buttons in event show
+put footer in header
 
-Build yellow pages
+one click turn public ideas off
+invited ideas have ribbon with envelope
+blue ribbon in corner of friend's ideas
+landing page
+serve crowd ideas by rsvp count
+Onboarding
+	contact info
+	interests
+	joyride
+
+profile, broadcast, dashboard
+
+
+rsvp out button
+
+custom group image is not avaialbe looks to parent
+
+payments
+
+Create discoverables
+landing - see discoverables 
+					Sign Up
+					pick city, pick interest, submit both to session and load home
 Add category to user for venues
+signup flow -- pick interests, a few venues, and suggested friends.
+in user#show only show upcoming stuff your invited to
+add suggested friends to friends page
+Build yellow pages
+
 if going add banner
 if tipped add banner
 add hashtag to event and show instagram pictures
 serve discovery ideas in order of # of ppl going already
 
-in user#show only show upcoming stuff your invited to
+SEAN:
+make share with facebook friends ajax so event show is fast!
+rsvp button bigger and green with hover
+rsvp ajax
+rsvp lightbox -- add to calendar, share with facebook twitter linkedin etc
+ticket/rsvp link
 
-Create discoverables
-
-landing - see discoverables 
-					Sign Up
-					pick city, pick interest, submit both to session and load home
 
 if costs money add banner
-
-rsvp lightbox -- add to calendar, share with facebook twitter linkedin etc
 
 fix serving of events so that you don't see things your rsvpd to and you do see public events.
 
@@ -110,21 +140,11 @@ interests dropdown
 
 if not logged in - explain hoos.in in event page and home
 
-add suggested friends to friends page
-
 signup => pick venues 
-
-if first time loggin in => joyride
-
-make share with facebook friends ajax so event show is fast!
-
-ticket/rsvp link
 
 write vendor terms and conditions
 
 deleting group delete's public idea until you reload
-
-custom group image is not avaialbe looks to parent
 
 ---------------------------------------------------------------
 
@@ -150,13 +170,7 @@ make post to facebook wall a dialogue not a programatic thing
 
 put footer stuff into hoosin icon dropdown
 
-shrink words out of headers sooner
-
-use logo w no name in responsive and keep find friends search bar
-
 ------------------------------------------------------------
-
-root = pick city => forecast of that city
 
 make recurring_receipt email (should have like blog stuff in it)
 

@@ -1,0 +1,151 @@
+--- 
+http_interactions: 
+- request: 
+    method: post
+    uri: https://api.balancedpayments.com/v1/api_keys
+    body: 
+      encoding: UTF-8
+      string: "{}"
+    headers: 
+      User-Agent: 
+      - balanced-ruby/0.3.11
+      Content-Type: 
+      - application/json
+  response: 
+    status: 
+      code: 201
+      message: 
+    headers: 
+      content-type: 
+      - application/json
+      date: 
+      - Sun, 02 Dec 2012 22:29:33 GMT
+      location: 
+      - http://api.balancedpayments.com/v1/api_keys/AK5NYizm3o9tNXiN3owZ3jJ5
+      server: 
+      - nginx/1.0.15
+      x-balanced-guru: 
+      - OHMbe9a24563ccf11e2b134026ba7d31e6f
+      x-balanced-host: 
+      - balanced-api-06
+      x-balanced-version: 
+      - dcff59f7713e5e47fee0c5488d626f2f13014fe7
+      content-length: 
+      - "890"
+      connection: 
+      - Close
+    body: 
+      encoding: US-ASCII
+      string: |-
+        {
+          "merchant": {
+            "phone_number": "+16505551212", 
+            "city": "Nowhere", 
+            "marketplace": null, 
+            "name": "William Henry Cavendish III", 
+            "type": "person", 
+            "created_at": "2012-12-02T22:29:33.011519Z", 
+            "uri": "/v1/merchants/TEST-MR5NStkYRuQFSJYRi2cW3uyP", 
+            "accounts_uri": "/v1/merchants/TEST-MR5NStkYRuQFSJYRi2cW3uyP/accounts", 
+            "meta": {
+              "meta data": "goes here"
+            }, 
+            "postal_code": "90210", 
+            "country_code": "USA", 
+            "balance": 0, 
+            "email_address": "whc@example.org", 
+            "id": "TEST-MR5NStkYRuQFSJYRi2cW3uyP", 
+            "street_address": "123 Fake St", 
+            "api_keys_uri": "/v1/merchants/TEST-MR5NStkYRuQFSJYRi2cW3uyP/api_keys"
+          }, 
+          "secret": "bec395d43ccf11e2b134026ba7d31e6f", 
+          "meta": {}, 
+          "created_at": "2012-12-02T22:29:33.094613Z", 
+          "uri": "/v1/api_keys/AK5NYizm3o9tNXiN3owZ3jJ5", 
+          "id": "AK5NYizm3o9tNXiN3owZ3jJ5"
+        }
+    http_version: 
+  recorded_at: Sun, 02 Dec 2012 22:29:33 GMT
+- request: 
+    method: post
+    uri: https://api.balancedpayments.com/v1/marketplaces
+    body: 
+      encoding: UTF-8
+      string: "{}"
+    headers: 
+      User-Agent: 
+      - balanced-ruby/0.3.11
+      Authorization: 
+      - Basic YmVjMzk1ZDQzY2NmMTFlMmIxMzQwMjZiYTdkMzFlNmY6
+      Content-Type: 
+      - application/json
+  response: 
+    status: 
+      code: 201
+      message: 
+    headers: 
+      content-type: 
+      - application/json
+      date: 
+      - Sun, 02 Dec 2012 22:29:34 GMT
+      location: 
+      - http://api.balancedpayments.com/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC
+      server: 
+      - nginx/1.0.15
+      x-balanced-guru: 
+      - OHMbf3533ba3ccf11e2be64026ba7c1aba6
+      x-balanced-host: 
+      - balanced-api-04
+      x-balanced-marketplace: 
+      - TEST-MP5OK3biWsq6SuyV0Wy9L5SC
+      x-balanced-merchant: 
+      - TEST-MR5NStkYRuQFSJYRi2cW3uyP
+      x-balanced-version: 
+      - dcff59f7713e5e47fee0c5488d626f2f13014fe7
+      content-length: 
+      - "2080"
+      connection: 
+      - Close
+    body: 
+      encoding: US-ASCII
+      string: |-
+        {
+          "support_email_address": "support@example.com", 
+          "accounts_uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/accounts", 
+          "owner_account": {
+            "holds_uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/accounts/AC5OKQ4bi6fZUMvFGv3ppBc2/holds", 
+            "name": "William Henry Cavendish III", 
+            "roles": [
+              "merchant", 
+              "buyer"
+            ], 
+            "created_at": "2012-12-02T22:29:33.782998Z", 
+            "uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/accounts/AC5OKQ4bi6fZUMvFGv3ppBc2", 
+            "bank_accounts_uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/accounts/AC5OKQ4bi6fZUMvFGv3ppBc2/bank_accounts", 
+            "refunds_uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/accounts/AC5OKQ4bi6fZUMvFGv3ppBc2/refunds", 
+            "meta": {}, 
+            "debits_uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/accounts/AC5OKQ4bi6fZUMvFGv3ppBc2/debits", 
+            "transactions_uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/accounts/AC5OKQ4bi6fZUMvFGv3ppBc2/transactions", 
+            "email_address": "whc@example.org", 
+            "id": "AC5OKQ4bi6fZUMvFGv3ppBc2", 
+            "credits_uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/accounts/AC5OKQ4bi6fZUMvFGv3ppBc2/credits", 
+            "cards_uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/accounts/AC5OKQ4bi6fZUMvFGv3ppBc2/cards"
+          }, 
+          "holds_uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/holds", 
+          "meta": {}, 
+          "transactions_uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/transactions", 
+          "bank_accounts_uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/bank_accounts", 
+          "id": "TEST-MP5OK3biWsq6SuyV0Wy9L5SC", 
+          "credits_uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/credits", 
+          "cards_uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/cards", 
+          "in_escrow": 0, 
+          "domain_url": "example.com", 
+          "name": "Test Marketplace", 
+          "uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC", 
+          "support_phone_number": "+16505551234", 
+          "refunds_uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/refunds", 
+          "debits_uri": "/v1/marketplaces/TEST-MP5OK3biWsq6SuyV0Wy9L5SC/debits"
+        }
+    http_version: 
+  recorded_at: Sun, 02 Dec 2012 22:29:35 GMT
+recorded_with: VCR 2.3.0

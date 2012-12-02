@@ -14,7 +14,13 @@
     </div>
     <div class="city-icon">
       <%= link_to yellow_pages_path, :remote => true, class:"city_vendors fancybox.ajax" do %>
-        <%= image_tag current_user.city.icon.url(:icon) %>
+        <% if user_signed_in? %>
+          <%= image_tag current_user.city.icon.url(:icon) %>
+        <% elsif session[:city].present? %>
+          <%= image_tag session[:city].icon.url(:icon) %>
+        <% else %>
+          <%= image_tag City.find_by_id('1').icon.url(:icon) %>
+        <% end %>
       <% end %>
     </div>
     <%= render 'shared/city_user_dropdown' %>
