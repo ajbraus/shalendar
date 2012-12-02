@@ -8,9 +8,11 @@ class AddPublicBoolToEvents < ActiveRecord::Migration
     	s.destroy
     end
 
-   	User.find_by_email("info@hoos.in").events.each do |e|
-   		e.is_public = true
-   	end
+    unless User.find_by_email("info@hoos.in").nil?
+     	User.find_by_email("info@hoos.in").events.each do |e|
+     		e.is_public = true
+     	end
+    end
 
     remove_column :events, :suggestion_id
   end
