@@ -60,6 +60,36 @@ Shalendar::Application.routes.draw do
         match '/followed_users', :to => 'shalendar#followed_users', :as => "followed_users", :via => :get
         match '/followers', :to => 'shalendar#followers', :as => "followers", :via => :get
       end
+      namespace :v2 do
+        #problem... POST/DELETE requests are being processed as GET..
+        #resources :tokens, :only => [:create, :destroy]
+        resources :sessions, :only => [:create, :destroy]
+        resources :registrations, :only => [:create, :destroy]
+        #resources :relationships, :only => [:create]
+        #resources :rsvps, :only => [:create]
+        #resources :events, :only => [:create] 
+        
+        match '/relationships', :to => 'relationships#create'
+        match '/tokens', :to => 'tokens#create'
+        match '/invitations', :to => 'invitations#create'
+        match '/invite_all_friends', :to => 'invitations#invite_all_friends'
+        match '/create_event', :to => 'events#mobile_create'
+        #match '/add_photo_to_event', :to => 'events#add_photo'
+        match '/add_comment', :to => 'events#add_comment'
+        match '/cancel_idea', :to => 'events#cancel_idea'
+        #took out delete and post types bc not working from iphone http reqeust
+        match '/rsvps', :to => 'rsvps#create'
+        match '/unrsvp', :to => 'rsvps#destroy'#, :via => :delete
+        match '/unfollow', :to => 'relationships#destroy'#, :via => :delete
+        match '/get_user_info', :to => 'shalendar#get_user_info', :via => :get
+        match '/apn_user', :to=> 'tokens#apn_user', :as => "apn_user"#, :via => :post
+        match '/gcm_user', :to=> 'tokens#gcm_user', :as => "gcm_user"#, :via => :post
+
+        match '/user_events_on_date', :to => 'events#user_events_on_date', :as => "user_events_on_date", :via => :get
+        match '/event_details', :to => 'events#event_details', :as => "event_details", :via => :get
+        match '/followed_users', :to => 'shalendar#followed_users', :as => "followed_users", :via => :get
+        match '/followers', :to => 'shalendar#followers', :as => "followers", :via => :get
+      end
     end
   end
 

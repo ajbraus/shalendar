@@ -1,4 +1,4 @@
-class Api::V1::EventsController < ApplicationController
+class Api::V2::EventsController < ApplicationController
    before_filter :authenticate_user!
    respond_to :json
    
@@ -84,6 +84,7 @@ class Api::V1::EventsController < ApplicationController
           :iids => @invitedids,
           :g_share => @g_share,
           :comments => @comments,
+          :address => @event.address,
           :image => @event.image(:medium),
           :url => @event.short_url,
           :share_a => @mobile_user.invited_all_friends?(@event)
