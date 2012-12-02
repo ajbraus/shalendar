@@ -122,7 +122,7 @@ class Api::V2::EventsController < ApplicationController
       max: @max,
       link: "",
       price: "",
-      address: ""city
+      address: ""
     }
 
     @event = @mobile_user.events.build(@event_params)
