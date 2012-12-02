@@ -8,9 +8,11 @@
 	<div class="each_day persist-area clearfix">		
 		<div class="date_bar marker persist-header clearfix shield <% if i == 0 %> red <% end %>" <% if i == 0 %> id="today" <% end %> data-date=<%= "#{@time_in_zone.to_date + i}" %>>
       <div class="date"><%= (@time_in_zone.to_date + (i)).strftime("%A %b %e") %></div>
+      <% if false %>
       <div id="hidePublic" class="friend_only" title="View only Friends Ideas">
       	<i class="icon-envelope-alt"></i> 
       </div>
+      <% end %>
 		</div>
     <div class="day_container clearfix">
   		<div class="idea_container clearfix">

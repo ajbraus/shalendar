@@ -63,12 +63,12 @@ class Event < ActiveRecord::Base
                      :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] }
                      #:attachment_size => { :in => 0..500.kilobytes }
 
+  validates :city_id, presence: true if Rails.env.production?
   validates :user_id,
             :title,
             :starts_at,
             :chronic_starts_at,
             :duration, 
-            :city_id,
             :ends_at, presence: true
   validates :max, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true
   validates :min, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true

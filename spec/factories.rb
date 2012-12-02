@@ -10,7 +10,7 @@ FactoryGirl.define do
 		allow_contact 't'
 		digest 't'
 		notify_event_reminders 't'
-		city_id '4'
+		city_id '2'
 		post_to_fb_wall 'f'
 		avatar nil
 		vendor 'f'
@@ -29,7 +29,7 @@ FactoryGirl.define do
     allow_contact 't'
     digest 't'
     notify_event_reminders 't'
-    city_id '4'
+    city_id '2'
     post_to_fb_wall 'f'
     avatar nil
     vendor 't'
@@ -61,5 +61,6 @@ FactoryGirl.define do
     promo_vid ''
     short_url ''
     slug ''
+    city_id '2'
 	end
 end

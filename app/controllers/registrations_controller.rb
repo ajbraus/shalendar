@@ -81,7 +81,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def new_vendor
-    
+    sign_out_current
     @cities = City.all
     resource = build_resource
 
