@@ -139,6 +139,7 @@ class Api::V2::EventsController < ApplicationController
 
  
     if @event.save
+      @event.save_shortened_url
       @mobile_user.rsvp!(@event)
       if params[:invite_all_friends] == '1'
         @rsvp = @mobile_user.rsvps.find_by_plan_id(@event.id)
