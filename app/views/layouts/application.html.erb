@@ -38,13 +38,6 @@
   <body>
     <%= render 'layouts/fb_script' %> 
     <%= render 'layouts/header' %> 
-    <% unless user_signed_in? %>
-      <div class="not_signed_in_pitch">
-        hoos.in is for finding and planning creative adventurous things with your friends.
-        <%= link_to "login", new_user_session_path, class:"btn btn-success" %>
-        <%= link_to "sign up", root_path, class:"btn btn-success" %>
-      </div>
-    <% end %>
     <div class="layout"> 
       <%= render 'layouts/alerts' %>
       <%= yield %>

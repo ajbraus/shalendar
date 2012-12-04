@@ -7,3 +7,9 @@
   </select>
 </form>
 </div>
+
+<% if false %>
+	<form>
+	<%= select_tag :city_id, options_from_collection_for_select(City.all, :id, :name), { :name => "URL", :onchange => "window.location.href= this.form.URL.options[this.form.URL.selectedIndex].value"} %>
+</form>
+<% end %>

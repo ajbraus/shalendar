@@ -201,8 +201,8 @@ class Event < ActiveRecord::Base
     (-3..26).each do |i|
       @new_datetime = load_datetime + i.days 
       @time_range = @new_datetime.midnight .. @new_datetime.midnight + 1.day
-
-      @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, city_id: city.id).joins(:categories).where(categories: {id: toggled_categories} ).order("starts_at ASC")
+      
+      @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, city_id: city.id).order("starts_at ASC") #.joins(:categories).where(categories: {id: toggled_categories} )
       
       #Previous stuff while this included a signed in user
       #   if current_user.family_filter?
