@@ -20,8 +20,10 @@
 				<%= image_tag "night.png" %>
 			<% end %>
 			<span><%= event_start_time(event) %> (<%= event.nice_duration %> hr)</span>
-			<% if current_user.rsvpd?(event) %>
-				<div class="rsvp_dot"></div>
+			<% if user_signed_in? %>
+				<% if current_user.rsvpd?(event) %>
+					<div class="rsvp_dot"></div>
+				<% end %>
 			<% end %>
 		</div>
 
@@ -79,11 +81,13 @@
 					<% end %> 
 				</div>
 			<% end %>
-
-			<% if event.user == current_user && event.tipped? == false %>
-				<div class="force_tip">
-					<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true, id:"tipPin" %>
-				</div>
+			<% if user_signed_in? %>
+				<% if event.user == current_user && event.tipped? == false %>
+					<div class="force_tip">
+						<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true, id:"tipPin" %>
+					</div>
+				<% end %>
+			<% end %>
 			<% elsif event.is_public? %>
 
 			<% else %>
