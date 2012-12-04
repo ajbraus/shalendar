@@ -168,7 +168,10 @@ class Api::V1::TokensController  < ApplicationController
     if user = User.find_by_email(email)
       email = fb_info["email"]
       name = fb_info["name"]
-      location = fb_info["location"]["name"]
+      location = "Madison, Wisconsin"
+      unless fb_info["location"].nil?
+        location = fb_info["location"]["name"]
+      end
       @city = City.find_by_name(location)
       if @city.nil?
         c = City.new(name: location, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone)
@@ -256,15 +259,17 @@ class Api::V1::TokensController  < ApplicationController
     # device = Gcm::Device.new
     # device.registration_id = registration_id
     # device.save!
-    device = Gcm::Device.create(:registration_id => registration_id)
-    device.save
-
-    notification = Gcm::Notification.new
-    notification.device = device
-    notification.collapse_key = "updates_available"
-    notification.delay_while_idle = true
-    notification.data = {:registration_ids => [registration_id], :data => {:message_text => "Happy afternoon!"}}
-    notification.save
+    device = GCM::Device.find_by_registration_id(registration_id)
+    if device.nil?
+      device = Gcm::Device.create(:registration_id => registration_id)
+      device.save
+    end
+    # notification = Gcm::Notification.new
+    # notification.device = device
+    # notification.collapse_key = "updates_available"
+    # notification.delay_while_idle = true
+    # notification.data = {:registration_ids => [registration_id], :data => {:message_text => "Happy afternoon!"}}
+    # notification.save
 
     @user.GCMtoken = registration_id
     @user.GCMdevice_id = device.id
