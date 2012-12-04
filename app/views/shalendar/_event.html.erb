@@ -88,11 +88,7 @@
 					</div>
 				<% end %>
 			<% end %>
-			<% elsif event.is_public? %>
-
-			<% else %>
 			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
-			<% end %>
 		<% end %>
 	<!-- ENDING LINK_TO -->
 	<% end %>
