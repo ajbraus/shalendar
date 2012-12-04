@@ -71,6 +71,9 @@ left: 10px;
 width: 100%;
 }
 
+.show_skin {
+	height: 1000px;
+}
 
 	#forecast {
 		right: 693px;
@@ -99,6 +102,7 @@ left: 20px;
 	.event_show {
 		margin: 0 auto;
 		width: 580px;
+		top:10px;
 		.promo_img {
 			img {
 				max-width: 580px;
@@ -131,6 +135,9 @@ left: 20px;
 		.event_buttons {
 			font-size: 30px;
 			top: 23px;
+			text-align: right;
+			position: relative;
+			margin-right: 9px;
 		}
 
 		#textMsg {

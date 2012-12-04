@@ -5,8 +5,9 @@
         :as => resource_name, 
         :url => registration_path(resource_name),
         :html => { multipart: true, id: "registration_form" }) do |f| %>
+  <% if false %>
   <%= devise_error_messages! %>
-  
+  <% end %>
   <div><%= f.label :name, "Name*" %><br />
   <%= f.text_field :name, class: "required", placeholder:"name" %></div>
 

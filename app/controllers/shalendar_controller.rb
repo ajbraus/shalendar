@@ -11,10 +11,15 @@ class ShalendarController < ApplicationController
       else
         @time_in_zone = Time.now.in_time_zone(current_user.time_zone) 
       end
+
   		@date = @time_in_zone.to_date #in_time_zone("Central Time (US & Canada)")
       @events = current_user.forecast(Time.now.in_time_zone(current_user.time_zone))
       @my_plans = current_user.plans.where('starts_at > ?', Time.now.in_time_zone(current_user.time_zone)).order('starts_at desc')
-      @graph = session[:graph]
+      if current_user.authentications.find_by_provider("Facebook").present?
+        @graph = session[:graph] 
+      else 
+        session[:graph] = nil
+      end
       if @graph
         @member_friends = current_user.fb_friends(@graph)[0]
         @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.shuffle.first(3)

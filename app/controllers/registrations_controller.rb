@@ -46,12 +46,16 @@ class RegistrationsController < Devise::RegistrationsController
   def update
   	@graph = session[:graph]
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
-    
-    if params[:resource][:city_id]
-      resource.city = City.find_by_id(params[:resource][:city_id])
-      resource.save
+
+    #update city if user is changing city
+    if params[:resource]
+      if params[:resource][:city_id]
+        resource.city = City.find_by_id(params[:resource][:city_id])
+        resource.save
+      end
     end
 
+    #update interests if changing interests
     if params[:category_ids]
       resource.interests.each do |interest|
         interest.destroy
@@ -81,7 +85,9 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def new_vendor
-    sign_out_current
+    sign_out current_user
+    session[:graph] = nil if session[:graph].present?
+
     @cities = City.all
     resource = build_resource
 

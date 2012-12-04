@@ -140,6 +140,11 @@ private
                 :password => Devise.friendly_token[0,20]
               )
       user.save
+
+      Category.all.each do |cat|
+        Interest.create(user_id: user.id, category_id: cat.id)
+      end
+
       EmailInvite.where("email_invites.email = :new_user_email", new_user_email: user.email).each do |ei|
         @inviter_id = ei.inviter_id
         @invited_user_id = user.id

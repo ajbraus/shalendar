@@ -22,7 +22,7 @@
 	    <div id="categories">
 	    	<% Category.all.each do |c| %>
 		      <%= radio_button "event", :category, "#{c}", id:"radio#{(c.id)}" %>
-		      <%= label_tag "radio#{(c.id)}", "#{c.humanize}" %>
+		      <%= label_tag "radio#{(c.id)}", "#{c.name}" %>
 	    	<% end %>
     	</div>
     	<div class="family_friendly_checkbox">

@@ -8,7 +8,7 @@ $(function(){
   });
 
   $('.idea_container').masonry({
-    itemSelector : '.sheild',
+    itemSelector : '.shield',
     isAnimated: true,
   	animationOptions: {
     duration: 200

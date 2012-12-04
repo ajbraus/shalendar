@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   def store_location
     session[:previous_urls] ||= []
     # store unique urls only
-    session[:previous_urls].prepend request.fullpath if session[:previous_urls].first != request.fullpath && request.fullpath != "/everywhere_else" && request.fullpath != "/payment" && request.fullpath != "/venue" && request.fullpath != "/new_vendor" && request.fullpath != "/user" && request.fullpath != "/user/login" && request.fullpath != "/" && request.fullpath != "/user/logout" && request.fullpath != "/user/join" && request.fullpath != "/user/auth/facebook/callback"
+    session[:previous_urls].prepend request.fullpath if session[:previous_urls].first != request.fullpath && request.fullpath != "/user/sign_up" && request.fullpath != "/everywhere_else" && request.fullpath != "/payment" && request.fullpath != "/venue" && request.fullpath != "/new_vendor" && request.fullpath != "/user" && request.fullpath != "/user/login" && request.fullpath != "/" && request.fullpath != "/user/logout" && request.fullpath != "/user/join" && request.fullpath != "/user/auth/facebook/callback"
     # For Rails < 3.2
     # session[:previous_urls].unshift request.fullpath if session[:previous_urls].first != request.fullpath 
     session[:previous_urls].pop if session[:previous_urls].count > 3
@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   def check_venue_card
     if user_signed_in?
       if current_user.vendor?
-        unless current_user.has_valid_credit_card?
+        unless current_user.has_valid_credit_card? && current_user.sign_in_count == 1
           flash[:notice] = "Our records show you must update your credit card data"
         end
       end

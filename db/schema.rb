@@ -380,6 +380,7 @@ ActiveRecord::Schema.define(:version => 20121201202151) do
     t.string   "credit_card_uri"
     t.string   "debits_uri"
     t.integer  "city_id"
+    t.integer  "category_id"
     t.string   "slug"
   end
 

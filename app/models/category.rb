@@ -1,8 +1,7 @@
 class Category < ActiveRecord::Base
   attr_accessible :name
 
-  has_many :categorizations
-  has_many :events, through: :categorizations
+  belongs_to :event
 
   has_many :categories, :through => :interests
   has_many :users, through: :interests

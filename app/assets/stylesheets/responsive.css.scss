@@ -174,11 +174,11 @@ top: 34px;
 	}
 
 	ul.event_buttons {
-		width:96%;
-		float:left;
-		right:-33px;
-		font-size: 26px;
-		top: 6px;
+		width: 53%;
+		float: left;
+		font-size: 34px;
+		position: relative;
+		left: 3px;
 		li {
 			display: inline;
 			a img {
@@ -208,6 +208,7 @@ top: 34px;
 		margin:0;
 		width: 96%;
 		left: 7px;
+		bottom: 10px;
 		.promo_img {
 			img {
 				max-width: 106%;
@@ -226,6 +227,10 @@ top: 34px;
 		span {
 			bottom:-4px;
 		}
+	}
+
+	.show_skin {
+		height: 46px;
 	}
 
 	.ui-datepicker {

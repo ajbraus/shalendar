@@ -53,7 +53,11 @@ class PaymentsController < ApplicationController
       # else
       if @user.save
         #redirect_to event_url(@event), notice: "You successfully joined this idea"
-        render :js => "window.location = '#{event_path(@event)}'"
+        if @event
+          render :js => "window.location = '#{event_path(@event)}'" 
+        else
+          render :js => "window.location = '#{root_path}'"
+        end
       else
         format.html { redirect_to :back, notice: 'We could not add your credit card at this time. Please review and try again.' }
       end

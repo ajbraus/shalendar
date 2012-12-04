@@ -97,6 +97,8 @@ class User < ActiveRecord::Base
 
   belongs_to :city
 
+  has_many :credit_cards
+
   after_create :send_welcome
 
   extend FriendlyId
@@ -381,7 +383,7 @@ class User < ActiveRecord::Base
   def events_on_date(load_datetime)
     Time.zone = self.time_zone
     @time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
-    
+
     #CATEGORY TODO
     toggled_category_ids = self.categories.all
     
@@ -395,6 +397,7 @@ class User < ActiveRecord::Base
 
     @plans_on_date = Event.where(starts_at: @time_range).joins(:rsvps)
                       .where(rsvps: {guest_id: self.id}).order("starts_at ASC")
+    
     @plans_on_date.each do |p|
       p.inviter_id = p.user.id
     end

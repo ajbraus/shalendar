@@ -52,10 +52,8 @@ class EventsController < ApplicationController
     @event.city = current_user.city
     if @event.save
       @event.save_shortened_url
-      if params[:category_ids]
-        params[:category_ids].each do |cid|
-          Categorization.create(event_id: @event.id, category_id: cid)
-        end
+      if params[:category]
+        Categorization.create(event_id: @event.id, category_id: params[:category])
       end
       if params[:parent_id]
         if @event.require_payment? && current_user.credit_card_uri.nil?
@@ -102,7 +100,11 @@ class EventsController < ApplicationController
     @email_invites = @event.email_invites
     @invited_users = @event.invited_users - @event.guests 
     @comments = @event.comments.order("created_at desc")
-    @graph = session[:graph]
+    if current_user.authentications.find_by_provider("Facebook").present?
+      @graph = session[:graph] 
+    else 
+      session[:graph] = nil
+    end
     if user_signed_in?
       @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event)}
       #if a user is 'everywhere else' then we don't silo their invitations...

@@ -8,9 +8,11 @@
       <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
   <% end %>
 <% end %>
+  <div class="show_skin">
 <% if user_signed_in? %>
   <%= render 'events/event_buttons' %>
 <% end %>
+</div>
 <div class="event_show">
   <div class="event_top">
     <div class="host friend">
@@ -62,16 +64,18 @@
         <%= @event.address %>
       </div>
     <% end %>
-    <div class="cost">
-      <i class="icon-money"></i> <%= @event.nice_price %>
-    </div>
+    <% if @event.price.present? %>
+      <div class="cost">
+        <i class="icon-money"></i> <%= @event.nice_price %>
+      </div>
+    <% end %>
   </div>
 
 	<div class="when">
 	  <%= event_start_time(@event) %> <%= date(@event) %> - <%= @event.nice_duration %> hrs
-      <div class="join_group_buttons">
-        <%= render 'rsvp_form' %>
-      </div>
+    <div class="join_group_buttons">
+      <%= render 'rsvp_form' %>
+    </div>
 	</div>
 
   <% if @event.has_image? %>
@@ -95,17 +99,16 @@
 	<div class="event_title">
 	  <%= @event.title %>
       <div class="eventIcons">
-      <% if @event.has_category? %>
-        <%= @event.category.name.capitalize %> | 
+      <% if @event.categories.any? %>
+        <%= @event.categories.each do |cat| %>
+          <%= cat.name %>
+        <% end %>
       <% end %>
       <% if @event.is_public? %>
         <i class="icon-bullhorn" title="Public"></i>
       <% end %>
       <% if @event.family_friendly? %>
         <i class="icon-home" title="Family Friendly"></i>
-      <% end %>
-      <% if @event.guests_can_invite_friends? %>
-        <i class="icon-plus" title="Guest can Share with Friends"></i>
       <% end %>
       </div>
 	</div>

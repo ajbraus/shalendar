@@ -20,7 +20,7 @@ class Event < ActiveRecord::Base
   has_many :groups, :foreign_key => "parent_id", :class_name => "Event"
 
   has_many :categorizations, dependent: :destroy
-  has_many :categories, through: :categorizations
+  has_many :categories, :through => :categorizations
 
   attr_accessible :user_id,
                   :suggestion_id,
@@ -251,13 +251,6 @@ class Event < ActiveRecord::Base
     else
       self.title
     end
-  end
-
-  def has_category?
-    unless category.nil? || category == ""
-      return true
-    end
-    return false
   end
 
   def has_image?

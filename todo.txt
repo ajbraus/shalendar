@@ -77,6 +77,19 @@ new follower email link not working
 
 Adam
 
+Onboarding
+	venue
+		paperclip upload in background for background image
+
+	user
+		ask for timezone when signing up from fb, or logging in and it is not set
+
+	not seeing public ideas created by venue@test.com
+
+	contact info
+	interests
+	joyride
+
 RSVP button and add to calendar
 in rsvpd banner
 carrot by name
@@ -89,13 +102,9 @@ invited ideas have ribbon with envelope
 blue ribbon in corner of friend's ideas
 landing page
 serve crowd ideas by rsvp count
-Onboarding
-	contact info
-	interests
-	joyride
+
 
 profile, broadcast, dashboard
-
 
 rsvp out button
 
@@ -183,12 +192,9 @@ add /new_venue to the list of urls we don't save
 
 ------------------------------------------------------------
 
-
 ssl
 
-
 ------------------------------------------------------------
-
 
 Users have_one Account
 Accounts 

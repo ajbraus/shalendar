@@ -6,6 +6,7 @@ class CreateCategories < ActiveRecord::Migration
       t.timestamps
     end
     add_index :categories, :name
+    add_column :users, :category_id, :integer #to sort venues
 
     create_table :interests do |t|
     	t.integer :category_id
@@ -28,7 +29,7 @@ class CreateCategories < ActiveRecord::Migration
     Category.create(id:1,name:"Adventure")
     Category.create(id:2,name:"Learn")
     Category.create(id:3,name:"Creative")
-    Category.create(id:4,name:"Nightlife")
+    Category.create(id:4,name:"Night life")
     Category.create(id:5,name:"Active")
 
   end
