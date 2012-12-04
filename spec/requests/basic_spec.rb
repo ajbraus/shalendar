@@ -5,7 +5,8 @@ describe "Pages after sign up / sign in" do
   let(:user) { FactoryGirl.create(:user) }
   let(:vendor) { FactoryGirl.create(:vendor) }
 
-  before(:all) { 30.times { FactoryGirl.create(:user) } }
+
+  #before(:all) { 30.times { FactoryGirl.create(:user) } }
   after(:all)  { User.delete_all }
 
   before(:each) do
@@ -19,10 +20,17 @@ describe "Pages after sign up / sign in" do
 
   describe "Home Page" do
     before do
+      @event = Factory(:event, :user_id => user.id, 
+                       :chronic_starts_at => "Tomorrow at 3pm",
+                       :title => "Test Event")
+      @rsvp = Factory(:rsvp, :plan => @event, :guest => user)
       visit root_path
     end
     it "should have the content 'Date Today'" do
       page.should have_content("#{Time.now.strftime('%A')}")
+    end
+    it "should have the content 'Test Event'" do
+      page.should have_content("Test Event")
     end
   end
 

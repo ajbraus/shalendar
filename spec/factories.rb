@@ -15,7 +15,7 @@ FactoryGirl.define do
 		avatar nil
 		vendor 'f'
 		terms 't'
-        background nil
+    background nil
 	end
 
   factory :vendor do
@@ -44,7 +44,7 @@ FactoryGirl.define do
     duration '2'
     ends_at ''
     title 'Test Event'
-    min ''
+    min '1'
     max ''
     address ''
     latitude ''
@@ -61,5 +61,12 @@ FactoryGirl.define do
     promo_vid ''
     short_url ''
     slug ''
+    is_public ''
 	end
+
+  factory :rsvp do  
+    plan_id ''
+    guest_id ''
+  end
+
 end

@@ -19,8 +19,8 @@ describe "Users" do
     end
 
     it "should have 'Flake Out'" do
-      page.should have_content "Flake Out"
-      page.should_not have_content "Join"
+      page.should have_selector('.unrsvp_button')
+      page.should_not have_selector('.btn-rsvp')
     end
   end
 
@@ -32,8 +32,8 @@ describe "Users" do
     end
 
     it "should have element 'Join'" do
-      page.should have_content("Join")
-      page.should_not have_content("Flake Out")
+      page.should have_selector('.btn-rsvp')
+      page.should_not have_selector('.unrsvp_button')
     end
   end
 end

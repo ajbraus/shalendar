@@ -20,7 +20,7 @@
 		<% if current_user.rsvpd?(@event) %>
 			<%= form_for(current_user.rsvps.find_by_plan_id(@event),
 		           html: { method: :delete }) do |f| %>
-			  <%= f.submit "Flake Out", class: "btn btn_stop_viewing ursvp_button", confirm: "Are you sure you can't make it?", id:"unRsvp" %>
+			  <%= f.submit "Flake Out", class: "btn btn_stop_viewing unrsvp_button", confirm: "Are you sure you can't make it?", id:"unRsvp" %>
 			<% end %>
 		<% elsif @event.full? %>
 			(Idea full)
