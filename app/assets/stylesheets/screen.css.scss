@@ -191,7 +191,7 @@ line-height: 24px;
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 border-radius: 5px;
-font-size: 14px;
+font-size: 18px;
 }
 
 .btn-large{
@@ -347,7 +347,6 @@ text-decoration: none;
   display: inline-block;
   color: #636363;
   font-size: 12px;
-  padding: 0px 1px;
   line-height: 17px;
 }
 .btn_stop_viewing:hover {
@@ -2148,14 +2147,24 @@ background:none;
     position: relative;
     float: left;
   }
+  .when {
+    .date {
+      width:80%;
+      float:left;
+    }
+    .join_group_buttons {
+      width:19%;
+      float:right;
+    }
+  }
 }
 
 .show_skin {
 background-color: rgba(255, 255, 255, 0.8);
 width: 694px;
-margin: 0 auto;
+margin-left: auto;
+margin-right: auto;
 text-align: left;
-margin-bottom: -1000px;
 }
 
 .show_logo {
@@ -2277,10 +2286,9 @@ right: 8px;
   }
 
 .join_group_buttons {
-width: 190px;
 z-index: 1;
-height: 30px;
-float: right;
+position: relative;
+bottom: 4px;
   .rsvp_button {
     float:right;
     margin-right:7px;
@@ -2302,7 +2310,7 @@ top: 3px;
 .event_title {
 float: left;
 font-size: 34px;
-min-height: 80px;
+height: auto;
 line-height: 1.1;
 width: 97%;
 background-color: rgba(0, 0, 0, 0.5);
@@ -2358,7 +2366,8 @@ margin: 0 2px;
 #invite_raster {
 float: left;
 width: 100%;
-height: 300px;
+min-height: 91px;
+max-height: 318px;
 overflow-y: auto;
 overflow-x: hidden;
 position: relative;

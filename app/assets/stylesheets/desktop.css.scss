@@ -73,6 +73,7 @@ width: 100%;
 
 .show_skin {
 	height: 1000px;
+	margin-bottom: -1000px;
 }
 
 	#forecast {
@@ -251,6 +252,10 @@ left: 20px;
 			width: 74%;
 			left: 294px;
 			position: relative;
+		}
+
+		.rsvp_button {
+			padding: 10px 20px;
 		}
 
 }
