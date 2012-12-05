@@ -317,7 +317,7 @@ class Notifier < ActionMailer::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "#{@event.short_event_title} starts soon"
+        n.collapse_key = "#{@event.short_event_title} starts at #{@event.start_time_no_date}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.short_event_title} starts soon"}}
         n.save
@@ -339,7 +339,7 @@ class Notifier < ActionMailer::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "#{@event.user.name} Shared an idea"
+        n.alert = "#{@inviter.name} included you in an idea: #{@event.title}"
         n.badge = 1
         n.sound = true
         n.custom_properties = {:type => "invitation", :event => "#{@event.id}"}
@@ -353,13 +353,13 @@ class Notifier < ActionMailer::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "#{@event.user.name} Shared an idea"
+        n.collapse_key = "#{@inviter.name} included you in an idea: #{@event.title}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.user.name} Shared an idea"}}
         n.save
       end
     end
-    mail to: @user.email, subject: "You're invited to #{@event.short_event_title}"
+    mail to: @user.email, subject: "#{@inviter.name} invited to #{@event.short_event_title}"
     rescue => ex
     Airbrake.notify(ex)
   end
@@ -388,7 +388,7 @@ class Notifier < ActionMailer::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "#{@event.title} changed time!"
+        n.alert = "#{@event.title} changed time to #{@event.start_time}!"
         n.badge = 1
         n.sound = true
         n.custom_properties = {:type => "time_change", :event => "#{@event.id}"}
@@ -402,7 +402,7 @@ class Notifier < ActionMailer::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "#{@event.title} changed time!"
+        n.collapse_key = "#{@event.title} changed time to #{@event.start_time}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{event.title} changed time!"}}
         n.save
@@ -453,19 +453,5 @@ class Notifier < ActionMailer::Base
     @new_friends = new_friends
     mail to: @user.email, from: "info@hoos.in", subject: "Connect With People - #{@event.title}"
   end
-
-  # def time_change(*args)
-
-  #   @event = Event.find_by_id(args[0])
-  #   @user = User.find_by_id(args[1])
-
-  #   if(@user.iPhone_user == true)
-  #   end
-
-  #   mail to: @user.email, from: "info@hoos.in", subject: "Time Change - #{@event.short_event_title}"
-    
-  #   rescue => ex
-  #   Airbrake.notify(ex)
-  # end
 
 end
