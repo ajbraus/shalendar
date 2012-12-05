@@ -259,7 +259,7 @@ class Api::V1::TokensController  < ApplicationController
     # device = Gcm::Device.new
     # device.registration_id = registration_id
     # device.save!
-    device = GCM::Device.find_by_registration_id(registration_id)
+    device = Gcm::Device.find_by_registration_id(registration_id)
     if device.nil?
       device = Gcm::Device.create(:registration_id => registration_id)
       device.save
