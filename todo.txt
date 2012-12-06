@@ -71,27 +71,177 @@ new follower email link not working
 		Suggestions
 
 
+========================================================================
+========================================================================
+========================================================================
+
 Adam
 
+invited ribbon
+crowd idea ribbon
+
+Create discoverables
+fix serving of events so that you don't see things your rsvpd to and you do see public events.
+
+joyride
+---------------------------------------------------------------
+
+
+rsvp ajax
+rsvp lightbox -- add to calendar, share with facebook twitter linkedin etc
+ticket/rsvp link
+
+carrot by name
+
+one click turn public ideas off
+invited ideas have ribbon with envelope
+blue ribbon in corner of friend's ideas
+
+serve crowd ideas by rsvp count
+
+
+profile, broadcast, dashboard
+
+venues:
+	Add category to user for venues
+	signup flow -- pick interests, a few venues, and suggested friends.
+	Build yellow pages
+
+add progress bar to event/show
+rsvp out button
+payments
+
+in user#show only show upcoming stuff your invited to
+add suggested friends to friends page
+
+
+if going add banner
+if tipped add banner
+add hashtag to event and show instagram pictures
+serve discovery ideas in order of # of ppl going already
+
+SEAN:
+make share with facebook friends ajax so event show is fast!
+
+
+------------------------------------------------------------
+
+if costs money add banner
+
+
+
+city dropdown
+	session - done
+	user - done
+
+interests dropdown
+	session - 
+	user - done
+
+if not logged in - explain hoos.in in event page and home
+
+signup => pick venues 
+
+write vendor terms and conditions
+
+deleting group delete's public idea until you reload
+
+---------------------------------------------------------------
+
+	SDK - follow us on hoos.in "Our events on hoos.in" button and icon
+
+----------------------------------------------------------------
+
+analytics - past ideas, how many rsvpd? how many invites (reach)
+
+check in, flake, geofence around the location, rsvp out, rsvp in
+
+------------------------------------------------------------
+
+private idea
+
+make signin a lightbox
+
+Download our App
+
+click and drag ideas into plans
+
+make post to facebook wall a dialogue not a programatic thing
+
+put footer stuff into hoosin icon dropdown
+
+------------------------------------------------------------
+
+make recurring_receipt email (should have like blog stuff in it)
+
+payment gateway
+	verify our account
+
+survey why they are downgrading their account
+
+add /new_venue to the list of urls we don't save
 
 ------------------------------------------------------------
 
 ssl
 
-payment gateway
-	verify our account
+------------------------------------------------------------
 
-	Vendor - create
-		create a merchant
+Users have_one Account
+Accounts 
+	URI
+	has_many Bank_Accounts
+		URI
+		address
+	has_many Credit_cards
+		URI
+		expiration
+		last 4
 
-	user - create
-		create a buyer
-		buyer = Balanced::Marketplace.my_marketplace.create_buyer("buyer@example.org",
-        card.uri)
 
-	form with balanced.js
+MARKETPLACE PAYMENTS TO DO
 
+type:person/bussiness with dynamic fields
+fix saving phone number w phony
+disable flaking out if you pay? fees for flaking out
+cost of refund? 50% :o)
+put hold upon rsvp and capture payment at event start time
+display merchant fees to the venues when signing up => 30c
+	1% + 30c fee per rsvp
+verify our account in chase
+rescue from Balanced in payments controller if requires more info
+pass in name for card
+put the balanced key into a yml file and read it in dev. gitignore that yml file
+already created a card, has card_uri but
+@account = Balanced::Card.find(params[:uri]).account = nil???
+If a card is expired request new card
+User has_many CreditCards
+delete user deletes credit cards and bank account with balanced
+no account on the debit, and no description -- should be hoos.in - event.date event.title
+add qr tag to reciept create a qr code per rsvp\
 
+	second payment
+		user tries to rsvp again
+		if saved for later
+			retrieve account by email
+			debit account to merchant
+		else 
+			ask for card again
+			find account by card_uri
+			debit account to merchant
+		end
+
+	refund
+		merchant recieves complain
+		merchant wants to initiate a refund
+
+		hoosin recieve a complaint to support@hoos.in
+		hoosin contacts merchant with complaint
+		if merchant won't refund
+		charge the merchant back 
+		warn both parties that the funds are under investigation for 60 days
+		we do an investigation 
+		give the money to whomever we think is more ligit
 
 Payment gateway
 
@@ -107,19 +257,15 @@ Payment gateway
  		ipad app
  		email signup
 
-Cost (required for RSVP?)
-Click join:
-if cost required-redirect to payment funnel
-Authorize payment/capture payment
+DONE
+day after event -- pay merchant
+onboard merchant
+	put in card
+	redirected to put in bank account
+checkbox for 'require_payment' in create idea form 
 
-Make a group 
-Make it, (conditional RSVP in event create)
-RSVP to it
-Payment funnel
 
----------------------------------------------------------------
-
-	SDK - follow us on hoos.in "Our events on hoos.in" button and icon
+	hoosin facebook tabs on the side of the share area
 
 -----------------------------------------------------------------------
 
@@ -133,25 +279,9 @@ activity page
 
 	public
 
-slide left and right for overflow in mobile app
-
-shrink max height of images to save vertical space
-
-
-----------------------------------------------------------------
-
-	Download our App
-
-
-----------------------------------------------------------------
-
-private idea
-
 -----------------------------------------------------------
 
 make x to close the latest ideas
-List view for new ideas
-remove picture from new ideas dropdown
 
 ---------------------------------------------------------------
 
@@ -197,9 +327,6 @@ download flyer
 visual indicator of ppl you are not friends with on hoos.in yet
 suggested friends -- ppl that you saw at a party
 
-------------------------------------------------------------
-
-make signin a lightbox
 
 ------------------------------------------------------------
 
@@ -223,10 +350,6 @@ removing invited person when not friending them
 	validate image size in form w js
 
 ----------------------------------------------------------
-
-	JoyRide
-
-	Landing page rebuild
 
 	drawn arrows
 
@@ -256,15 +379,12 @@ Suggested friends
 		relationship is created between the two users
 	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
 
-
-
 ----------------------------------------------------------
 
 Silo by city
 	detect location by IP address: https://github.com/priithaamer/geoip-rails
 	hash timezone to location
 	make public yellow pages display and then make it load with ajax
-
 
 -----------------------------------------------------------
 

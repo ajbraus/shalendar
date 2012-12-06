@@ -1,0 +1,15 @@
+<span class="choose_city">
+<form>
+  <select name="URL" onchange="window.location.href= this.form.URL.options[this.form.URL.selectedIndex].value">
+    <option value="/">pick your city</option>
+    <option value="/madison">Madison, Wisconsin</option>
+    <option value="/everywhere_else">Everywhere Else</option>
+  </select>
+</form>
+</span>
+
+<% if false %>
+	<form>
+	<%= select_tag :city_id, options_from_collection_for_select(City.all, :id, :name), { :name => "URL", :onchange => "window.location.href= this.form.URL.options[this.form.URL.selectedIndex].value"} %>
+</form>
+<% end %>

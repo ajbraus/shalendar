@@ -2,14 +2,22 @@ require 'spec_helper'
 
 describe "Relationships" do
 
-  let(:user)          { FactoryGirl.create(:user) }
-  let(:other_user)    { FactoryGirl.create(:user) }
-  let(:vendor)        { FactoryGirl.create(:vendor) }
+  let(:city) { FactoryGirl.create(:city)}
+  let(:user) { FactoryGirl.create(:user, :city => city) }
+  let(:other_user)    { FactoryGirl.create(:user, :city => city) }
+  let(:venue) { FactoryGirl.create(:user, :vendor => true, :city => city) }
   let(:relationship)  { user.relationships.build(followed_id: other_user.id) }
 
   after(:all)         { User.delete_all }
 
   subject { user }
+
+  before(:each) do
+    visit new_user_session_path
+    fill_in "Email",    with: user.email
+    fill_in "Password", with: user.password
+    click_button "Login"
+  end
 
   describe "friending" do    
     before do
@@ -39,12 +47,12 @@ describe "Relationships" do
   #   end
 
   #   it "should have the Date" do
-  #     page.should_not have_content("Vendor Dashboard")
+  #     page.should_not have_content("venue Dashboard")
   #     page.should have_content("#{Time.now.strftime('%A')}")
   #   end
   # end
 
-  # describe "Friending a Vendor" do
+  # describe "Friending a venue" do
 
   # end
 
@@ -52,7 +60,7 @@ describe "Relationships" do
 
   # end
 
-  # describe "removing a vendor friend" do
+  # describe "removing a venue friend" do
  
   # end
 

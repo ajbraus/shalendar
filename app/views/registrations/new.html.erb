@@ -1,31 +1,33 @@
 <% provide(:title, " | Join") %> 
-<div id="sign_up">
-  <h2> Join </h2>
+<div id="signUp" class="sign_up">
+  <h2> Sign up </h2>
 <%= form_for(resource, 
                       :as => resource_name, 
                       :url => registration_path(resource_name),
                       :html => { multipart: true, id: "registration_form" }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, class: "required", autocomplete: "off" %></div>
-
-  <div><%= f.label :name %><br />
+  <div><%= f.label :name, "full name*" %><br />
   <%= f.text_field :name, class: "required", autocomplete: "off" %></div>
 
-  <div><%= f.label :picture %><br />
+  <div><%= f.label :email, "email" %><br />
+  <%= f.email_field :email, class: "required email", autocomplete: "off" %></div>
+
+  <div><%= f.label :picture, "profile picture*" %><br />
   <%= f.file_field :avatar, class: "required" %></div>
 
-  <div><%= f.label :city %><br />
-  <%= f.select :city, @cities, class: "required" %></div>
+  <div><%= f.label :city, "city*" %><br />
+  <%= f.collection_select :city_id, @cities, :id, :name, { prompt: true }, { class: "required" } %></div>
 
-  <div><%= f.label :time_zone %><br />
+<% if false %>
+  <div><%= f.label :time_zone, "time zone*" %><br />
   <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)", class: "required" %></div>
+<% end %>
 
-  <div><%= f.label :password %><br />
+  <div><%= f.label :password, "password*" %><br />
   <%= f.password_field :password, class: "required" %></div>
 
-  <div><%= f.label :password_confirmation %><br />
+  <div><%= f.label :password_confirmation, "confirm password*" %><br />
   <%= f.password_field :password_confirmation, class: "required" %></div>
 
   <div><%= f.check_box :terms, checked: true, class:'required' %><%= link_to "Terms & Privacy", terms_path, :html => { :target => "_blank" } %></div><br/>

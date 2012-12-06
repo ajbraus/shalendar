@@ -1,0 +1,17 @@
+<div id="interests" class="interests part" style="display:none;">
+	<div class="up_arrow"><i class="icon-caret-up"></i></div>
+	<%= form_for(current_user, :as => :resource, :url => registration_path(current_user), :html => { :method => :put }) do |f| %>
+		  <% Category.all.each do |cat| %>
+		  	<div class="interest_checkbox">
+		      <% if current_user.categories.include? cat %>
+		      	<%= check_box_tag 'category_ids[]', cat.id, checked: true %>
+		      <% else %>
+		      	<%= check_box_tag 'category_ids[]', cat.id %>
+		      <% end %>
+		      	
+		      <%= h cat.name -%>
+		    </div>
+		  <% end %>
+	  <div><%= f.submit "Update Interests", :class => "btn btn-success" %></div>
+	<% end %>
+</div>

@@ -5,14 +5,36 @@
 
 @media only screen and (min-width:600px) {
 
+	header {
+		  margin-left:3%;
+	}
+
+	.my_plans {
+		display:none;
+	}
+
+	.responsive_profile_pic {
+		display: none;
+	}
+
 	.layout {
-		width: 960px;
-		padding: 7px 0px;
+		width: 95%;
+		margin-left:3%;
 	}
 
 	.forecast {
 		overflow-x: hidden;
 		width: 93%;
+	}
+
+	.top {
+		width: 80%;
+	}
+	.instagram-placeholder img {
+		width: 111px;
+	}
+	.message {
+		width:66%;
 	}
 
 	#yt {
@@ -28,9 +50,27 @@
 	}
 
 	.event {
-		width: 190px;
-right: 1px;
+		.promo_img {
+			img {
+				max-width: 200px;
+			}
+		}
 	}
+
+.mini_event {
+	height: 110px;
+}
+
+.idea_container {
+	position: relative;
+left: 10px;
+width: 100%;
+}
+
+.show_skin {
+	height: 1000px;
+	margin-bottom: -1000px;
+}
 
 	#forecast {
 		right: 693px;
@@ -47,23 +87,22 @@ right: 1px;
 		width: 200px;
 	}
 
-	ul.right_header {
-		position: relative;
-		right: 25px;
-		top: 43px;
+	.right_header {
+		top: 10px;
 	}
 
 	#friends {
-		margin: 10px auto 20px auto;
-		width: 640px;
+width: 60%;
+left: 20px;
 	}
 
 	.event_show {
 		margin: 0 auto;
 		width: 580px;
+		top:10px;
 		.promo_img {
 			img {
-				max-width: 560px;
+				max-width: 580px;
 			}
 		}
 		.when {
@@ -73,11 +112,11 @@ right: 1px;
 
 		.guest_count {
 			bottom: 1px;
-			left: 56px;
+			right: 6px;
 		}
 
 		header {
-			width: 960px;
+			width: 96%;
 		}
 
 		.event_time {
@@ -93,6 +132,9 @@ right: 1px;
 		.event_buttons {
 			font-size: 30px;
 			top: 23px;
+			text-align: right;
+			position: relative;
+			margin-right: 9px;
 		}
 
 		#textMsg {
@@ -104,10 +146,6 @@ right: 1px;
 			input {
 				width:380px;
 			}
-		}
-
-		.new_idea {
-			width: 38%;
 		}
 
 		.vendor_dash {
@@ -126,6 +164,56 @@ right: 1px;
 			margin:20px auto;
 		}
 
+		.credit_card_form {
+			width:400px;
+		}
+
+		.sign_up {
+			width:400px;
+		}
+
+		ul.right_header {
+			font-size: 16px;
+		}
+
+		.date_bar {
+			width: 99%;
+			top: 35px;
+			.date {
+				font-size: 1.8em;
+				font-size: 1.8em;
+				top: 9px;
+				position: relative;
+			}
+		}
+		
+		.dropdown dd ul {
+top: 0px;
+left: -140px;
+		}
+
+		.interests {
+			right: 192px;
+		}
+
+		.floatingHeader {
+		}
+
+		.instagramFeed {
+			width: 960px;
+		}
+
+		.fb_login_button {
+			right: 80px;
+		}
+
+		.instagram-placeholder img {
+			width: 106px;
+		}
+
+		.top {
+			height:505px;
+		}
 		.rsvp_dot {
 			right: 10px;
   		top: 10px;
@@ -136,21 +224,35 @@ right: 1px;
 		}
 
 		#ribbon {
-			height: 75px;
+
 		}
 
 		.btn-new-idea {
-			-moz-border-radius: 0 6px 6px 0px;
-			-webkit-border-radius: 0 6px 6px 0px;
-			border-radius: 0 6px 6px 0px;
-			padding: 23px 12px;
-			float: left;
+			padding: 9.5px 10px;
+			right: 15px;
+			position: relative;
+			bottom: 14px;
+		}
+		.new_idea {
 		}
 
 		.html-new-idea {
 			display:none;
 		}
 
+		.sidebar {
+			width: 255px;
+		}
+
+		.home {
+			width: 74%;
+			left: 294px;
+			position: relative;
+		}
+
+		.rsvp_button {
+			padding: 10px 20px;
+		}
 
 }
 
@@ -159,29 +261,36 @@ right: 1px;
 /***************************************/
 @media only screen and (min-width: 480px) and (max-width: 599px) {
 
+
 	
 }
 
 /***************************************/
 /*** 7" Tablet *************************/
 /***************************************/
-@media only screen and (min-width: 600px) and (max-width: 759px) {
+@media only screen and (min-width: 600px) and (max-width: 980px) {
+		.user_search {
+		display:none;
+	}
 
-	
+		.home {
+			width: 63%;
+		}
 }
 
 /***************************************/
 /*** Tablet - iPad *********************/
 /***************************************/
-@media only screen and (min-width: 760px) and (max-width: 959px) {
+@media only screen and (min-width: 600px) and (max-width: 699px) {
 
-
+		ul.left_header {
+		display:none;
+	}
 }
 
 /***************************************/
 /*** Widescreen ************************/
 /***************************************/
 @media only screen and (min-width: 960px) {
-
 
 }

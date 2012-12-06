@@ -3,10 +3,8 @@ require 'icalendar'
 
 class Event < ActiveRecord::Base
   
-  CATEGORIES = %w[adventure learn active community night music]
-  
   belongs_to :user
-  belongs_to :suggestion
+  belongs_to :city
 
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
   has_many :guests, through: :rsvps
@@ -20,6 +18,9 @@ class Event < ActiveRecord::Base
 
   belongs_to :parent, :foreign_key => "parent_id", :class_name => "Event"
   has_many :groups, :foreign_key => "parent_id", :class_name => "Event"
+
+  has_many :categorizations, dependent: :destroy
+  has_many :categories, :through => :categorizations
 
   attr_accessible :user_id,
                   :suggestion_id,
@@ -47,7 +48,9 @@ class Event < ActiveRecord::Base
                   :is_public,
                   :short_url,
                   :parent_id,
-                  :slug
+                  :require_payment,
+                  :slug,
+                  :is_big_idea
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
                                              :medium => '190x270'},
@@ -60,6 +63,7 @@ class Event < ActiveRecord::Base
                      :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] }
                      #:attachment_size => { :in => 0..500.kilobytes }
 
+  validates :city_id, presence: true if Rails.env.production?
   validates :user_id,
             :title,
             :starts_at,
@@ -123,6 +127,10 @@ class Event < ActiveRecord::Base
   def start_time_no_date
     self.starts_at.strftime "%l:%M%P"
   end
+
+  def mini_start_date_time
+    self.starts_at.strftime "%a, %b %e, %l:%M%P"
+  end
   
   def start_date
     self.starts_at.strftime "%A, %B %e"
@@ -178,24 +186,21 @@ class Event < ActiveRecord::Base
     end
   end
 
-
-  def self.public_forecast(load_datetime, current_user)
-    #get time zone from city
-    Time.zone =  "Central Time (US & Canada)"
+  def self.public_forecast(load_datetime, city, toggled_categories)
     @public_forecast = []
-    (-3..16).each do |i|
+    (-3..26).each do |i|
       @new_datetime = load_datetime + i.days 
       @time_range = @new_datetime.midnight .. @new_datetime.midnight + 1.day
-      if current_user.nil?
-        @public_events_on_date = Event.where(starts_at: @time_range, is_public: true).order("starts_at ASC")
-      else
-        if current_user.family_filter?
-          @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, family_friendly: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e)}
-        else 
-          @public_events_on_date = Event.where(starts_at: @time_range, is_public: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e) || current_user.made_a_group?(e) }
-        end
-      end
-      @public_events_on_date = @public_events_on_date.sort_by{|t| t[:starts_at]}
+      
+      @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, city_id: city.id).order("starts_at ASC") #.joins(:categories).where(categories: {id: toggled_categories} )
+      
+      #Previous stuff while this included a signed in user
+      #   if current_user.family_filter?
+      #     @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, family_friendly: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e)}
+      #   else 
+      #     @public_events_on_date = Event.where(starts_at: @time_range, is_public: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e) || current_user.made_a_group?(e) }
+      #   end
+      # @public_events_on_date = @public_events_on_date.sort_by{|t| t[:starts_at]}
 
       @public_forecast.push(@public_events_on_date)
     end
@@ -236,13 +241,6 @@ class Event < ActiveRecord::Base
     else
       self.title
     end
-  end
-
-  def has_category?
-    unless category.nil? || category == ""
-      return true
-    end
-    return false
   end
 
   def has_image?

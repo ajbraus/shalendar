@@ -12,6 +12,8 @@ gem 'koala'
 gem 'thin'
 gem 'chronic'
 gem 'twilio-rb'
+gem 'phony_rails'
+
 
 # gem 'apn_sender', :require => 'apn'
 # gem 'daemons'
@@ -54,6 +56,7 @@ group :development, :test do
   gem 'rspec-rails', '2.10.1'
   gem 'annotate', '~> 2.4.1.beta'
   gem 'awesome_print'
+  gem 'vcr'
 end
 
 # Gems used only for assets and not required
@@ -69,7 +72,6 @@ end
   gem 'sass-rails',   '3.2.4'
   
 group :test do
-  gem 'faker', '1.0.1'
   gem 'capybara', '1.1.2'
 	gem 'factory_girl_rails', '1.4.0'
 	gem 'email_spec', '1.2.1'

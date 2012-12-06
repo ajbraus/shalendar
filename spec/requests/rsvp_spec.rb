@@ -2,14 +2,15 @@ require 'spec_helper'
 
 describe "Users" do
 
-	let(:user) { FactoryGirl.create(:user) }
+  let(:city) { FactoryGirl.create(:city)}
+  let(:user) { FactoryGirl.create(:user, :city => city) }
   let(:event) { FactoryGirl.create(:event, :user_id => user.id, :chronic_starts_at => "Tomorrow at 3pm")}
 
   before(:each) do
     visit new_user_session_path
     fill_in "Email",    with: user.email
     fill_in "Password", with: user.password
-    click_on "Sign in"
+    click_on "Login"
   end
 
   describe "joining an idea" do

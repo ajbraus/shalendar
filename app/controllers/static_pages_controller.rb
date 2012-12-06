@@ -1,6 +1,13 @@
 class StaticPagesController < ApplicationController
   
   def landing
+    @cities = City.all
+    if session[:current_time_zone].nil?
+      @time_in_zone = Time.now.in_time_zone("Central Time (US & Canada)")
+    else
+      @time_in_zone = Time.now.in_time_zone(session[:current_time_zone])
+    end
+    @ideas = Event.where('is_big_idea = ? AND starts_at > ?', true, Time.now).limit(4)
   end
 
   def about

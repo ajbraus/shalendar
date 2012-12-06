@@ -7,7 +7,10 @@ Shalendar::Application.routes.draw do
     root :to => 'shalendar#home'
   end
 
-  match '/madison', :to => 'shalendar#home', :as => "city"
+  resources :users, :only => [:show]
+
+  match '/madison', :to => 'shalendar#home', :as => "madison", :city => "Madison, Wisconsin"
+  match '/everywhere_else', :to => 'shalendar#home', :as => "everwhere_else", :city => "Everywhere Else"
   
   root :to => 'static_pages#landing'
 
@@ -18,17 +21,16 @@ Shalendar::Application.routes.draw do
                             }, 
              path: "user",
              path_names:    { sign_in: "login",
-                              sign_out: "logout", 
-                              sign_up: "join"
+                              sign_out: "logout"
                             } 
   devise_scope :user do
-    match '/new_vendor', to: 'registrations#new_vendor', as: "new_vendor"
+    match '/new_venue', to: 'registrations#new_vendor', as: "new_vendor"
   end
 
   # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
-
+    
     namespace :api do
       namespace :v1 do
         #problem... POST/DELETE requests are being processed as GET..
@@ -93,14 +95,23 @@ Shalendar::Application.routes.draw do
     end
   end
 
-  # resources :suggestions, only: [:index, :new, :show, :create, :destroy, :edit, :update, :clone] do
-  # end
+  match '/set_time_zone', :to => 'users#set_time_zone', :as => 'set_time_zone'
 
+  match '/collect_payments', :to => 'payments#new_merchant', :as => 'new_merchant'
+  match '/create_merchant', :to => 'payments#create_merchant', :as => 'create_merchant'
 
-  # match '/clone', :to => 'suggestions#clone', as: "clone"
+  match '/confirm_payment', :to => 'payments#confirm_payment', :as => "confirm_payment"
+  match '/submit_paytment', :to => 'payments#submit_payment', :as => "submit_payment"
+
+  match '/payment', :to => 'payments#new_card', :as => 'new_card'
+  match '/create_card', :to => 'payments#create_card', :as => 'create_card'
+
+  match '/downgrade', :to => 'payments#downgrade', :as =>'downgrade'
+  match '/upgrade', :to => 'payments#upgrade', :as => 'upgrade'
 
   match '/make_a_group', :to => 'events#make_a_group', :as => 'make_a_group'
   match '/repeat', :to => 'events#repeat', :as => 'repeat_event'
+  match '/big_idea', :to => 'events#new_big_idea', :as => 'new_big_idea'
 
   match '/activity', :to => 'shalendar#activity', :as => "activity"
   match '/manage_friends', :to => 'shalendar#manage_friends', :as => "manage_friends"
@@ -131,13 +142,15 @@ Shalendar::Application.routes.draw do
   match 'search' => 'shalendar#search'
   match 'datepicker' => "shalendar#datepicker"
 
+  match '/what_is_hoosin', :to => 'shalendar#what_is_hoosin', :as => "what_is_hoosin"
+  match '/discover', :to => 'shalendar#discover', :as => "discover"
   match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
-  match '/public', :to => 'shalendar#city_vendors', :as => "city_vendors"
+  match '/yellow_pages', :to => 'shalendar#yellow_pages', :as => "yellow_pages"
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
   match 'share_all_fb_friends' =>'shalendar#share_all_fb_friends'
   match 'friend_all' => 'shalendar#friend_all'
 
-  match '/vendor_splash', to: 'static_pages#vendor_splash', as: 'vendor_splash'
+  match '/venue', to: 'static_pages#vendor_splash', as: 'vendor_splash'
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/careers', :to => 'static_pages#careers', :as => "careers"
   match '/terms', :to => 'static_pages#terms_header', :as => "terms"

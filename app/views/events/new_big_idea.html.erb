@@ -1,0 +1,83 @@
+<div class="new_big_idea clearfix">
+	<div class="event_form">
+	  <%= form_for current_user.events.build, url: { :controller => 'events', :action => 'create' }, html: { id: "new_event_form" } do |f| %>
+	  <p>
+	  <%= label :title, "Idea*" %><br/>
+	  <%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
+	  </p>  
+<input type="checkbox" name="knowTime" value="#" id="knowTime"> I know when this idea will take place
+	<div id="timeDuration" style="display:none;">
+	  <div class="starts_at">
+	    <%= label :starts_at, "When does it start?" %>
+	    <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at", autocomplete: "off" %>
+	  </div>
+	  <div class="duration">
+	    <%= label :duration, "How Long?" %>
+	    <%= f.text_field :duration, placeholder:"#hrs", autocomplete: "off"  %>
+	  </div>
+	</div>
+	  
+	<div id="addtippingp" class="border_bottom minmax">
+		<div class='tippingIcon'>
+	  	<i class="icon-tasks"></i>
+		</div>
+	  <u>
+	    <%= f.label :min_attendees, "Tipping Point*" %> <br/>
+	    <%= f.text_field :min, :class => 'input-mini', autocomplete: "off", :value => 100 %>
+	  </u>
+	  <u>
+	    <%= f.label :max_attendees, "Full" %> <br/>
+	    <%= f.text_field :max, :class => 'input-mini', autocomplete: "off" %>
+	  </u>
+	</div>
+	<div id="addcostp" class="border_bottom">
+    <%= f.label "Cost" %><br>
+    <i class="icon-money"></i><div class="dollar">$</div><%= f.text_field :price, :class => 'input-mini', autocomplete: "off", placeholder: "0.00" %>
+	<% if false %>    
+    <% if current_user.bank_account_uri %>
+    	<%= f.check_box :require_payment %> <%= f.label "Require Payment to Join" %>
+    <% else %>
+    	<%= link_to "crowd fund your event?", new_merchant_path, target: "_blank" %>
+    <% end %>
+  <% end %>
+	</div>
+
+	<div id="addmapp" class="border_bottom">
+	  <%= label_tag "Location" %><br/>
+	  <i class="icon-map-marker"></i><%= f.text_field :address, autocomplete: "off" %>
+	</div>
+
+	<div id="addLinkp" class="border_bottom">
+		<%= label_tag "Link" %></br>
+		<i class="icon-link"></i> <%= f.text_field :link, autocomplete: "off" %>
+	</div>
+
+		<div class="idea_categories border_bottom" id="addcategoriesp">
+    	<div class="family_friendly_checkbox">
+    		<%= f.label "Family Friendly?" %><br>
+				<i class="icon-home questionMark"></i>
+				<%= f.check_box :family_friendly, class: "switch" %>
+	  	</div>  
+	  </div>
+
+	<div id="addimgp" class="border_bottom">
+	  <div><%= f.label :display_image %></div>
+	 	  <i class="icon-link"></i><%= f.text_field :promo_url, autocomplete: "off", placeholder: "Image URL" %><br>
+	  or<br>
+	  	<i class="icon-camera-retro"></i><%= f.file_field :promo_img %>
+	</div>
+	
+	<div id="addvidp" class="border_bottom">
+		<div><%= f.label :event_video %></div>
+		<i class="icon-facetime-video"></i><%= f.text_field :promo_vid, autocomplete: "off", placeholder: "You Tube URL" %>
+	</div>
+	   <%= f.hidden_field :is_big_idea, value: true %>
+	   
+	  <span class="new_idea_button"><%= f.submit 'Post Idea', :class => 'btn btn-large btn-primary', method: :post %></span>
+
+	  <% end %>
+	</div>
+	<div class="idea_preview">
+		<%= image_tag "eventshow.png" %>
+	</div>
+</div>

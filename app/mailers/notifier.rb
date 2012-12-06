@@ -54,8 +54,6 @@ class Notifier < ActionMailer::Base
 
   #AUTOMATIC NOTIFIERS
 
-
-
   def welcome(user)
     @user = user
     mail to: user.email, subject: "welcome to hoos.in"
@@ -452,6 +450,39 @@ class Notifier < ActionMailer::Base
     @event = event
     @new_friends = new_friends
     mail to: @user.email, from: "info@hoos.in", subject: "Connect With People - #{@event.title}"
+  end
+
+  def recurring_receipt(user, amount)
+    @user = user
+    @amount = "$" + "%.2f" % amount
+    mail to: @user.email, from: "info@hoos.in", subject: "Successful Monthly Payment"
+  end
+
+  def downgrade(user)
+    @user = user
+    mail to: @user.email, from: "info@hoos.in", subject: "Your Account is now Private"
+  end
+
+  def missing_bank_account(user)
+    @user = user
+    mail to: @user.email, from: "info@hoos.in", subject: "Missing Account Data"
+  end
+
+###########################################################################
+########################## METHODS FOR MARKETPLACE ########################
+###########################################################################
+
+  def receipt(user, event)
+    @user = user
+    @event = event
+    mail to: @user.email, from: "info@hoos.in", subject: "Your Receipt for #{@event.title}"
+  end
+
+  def venue_receipt(user, events, amount)
+    @user = user
+    @events = events
+    @amount = amount
+    mail to: @user.email, from: "info@hoos.in", subject: "Payment for today's ideas on hoos.in"
   end
 
   # def time_change(*args)

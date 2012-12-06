@@ -122,34 +122,4 @@ class Suggestion < ActiveRecord::Base
     end
   end
 
-  def self.event_suggestions(current_user)
-    @event_suggestions = []
-    @all_event_suggestions = Suggestion.where('starts_at IS NOT NULL and starts_at > ?', Time.now).order('starts_at ASC')
-    (-3..16).each do |date_index|
-      @suggestions_on_date = []
-      @date = Time.now.to_date + date_index.days
-      @suggestions_on_date = @all_event_suggestions.select do |es| 
-        if current_user.vendor?
-          es.starts_at.to_date == @date 
-        else 
-          es.starts_at.to_date == @date && (!current_user.cloned?(es.id) || !current_user.rsvpd_to_clone?(es.id))
-        end
-      end
-      @event_suggestions.push(@suggestions_on_date)
-    end
-    return @event_suggestions
-            #needs by city
-        #@city = current_user.city
-        #@event_suggestions = @city.event_suggestions(Time.now.in_time_zone(current_user.time_zone))
-        #in city model
-        #def event_suggestions(time_now)
-        #  silo by vendors in a city
-        #  return an array of arrays each one a day 
-        #  with the suggestions inside
-        #end
-  end
-
-  def not_event_suggestions
-
-  end
 end

@@ -25,11 +25,11 @@ private
       session[:graph] = Koala::Facebook::API.new(session[:access_token]) 
       @uid = env["omniauth.auth"].uid
       @user.authentications.find_by_uid(@uid).token = session[:access_token]
-      @city = env["omniauth.auth"].info.location
-      if City.find_by_name(@city).nil? #we add their city, but don't auto-change
-        c = City.new(name: @city, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone))
-        c.save
-      end
+
+      # if City.find_by_name(@city).nil? #we add their city, but don't auto-change
+      #   c = City.new(name: @city, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone))
+      #   c.save
+      # end
 
       # session["devise.#{kind.downcase}_data"] = env["omniauth.auth"]
       sign_in_and_redirect @user, :event => :authentication
@@ -45,10 +45,15 @@ private
       uid = access_token.uid
       email = access_token.info.email
       token = access_token.credentials.token
-      logger.info("the token from FB is: #{token}")
       @graph = Koala::Facebook::API.new
       pic_url = @graph.get_picture(uid)
-      auth_attr = { :uid => uid, :token => token, :secret => nil, :pic_url => pic_url }
+      cityname = access_token.info.location
+      # if cityname == "Madison, Wisconsin" || cityname == "Middleton, Wisconsin" || cityname == "La Crosse, Wisconsin" || cityname == "Appleton, Wisconsin" || cityname == "Whitewater, Wisconsin" || cityname == "Platteville, Wisconsin"
+      #   city = City.find_by_name("Madison, Wisconsin")
+      # else
+      #   city = City.find_by_name("Everywhere Else")
+      # end
+      auth_attr = { :uid => uid, :token => token, :secret => nil, :pic_url => pic_url, :city => cityname }
     else
       raise 'Provider #{provider} not handled'
     end
@@ -61,7 +66,6 @@ private
     else
       user = resource
     end
-    
     auth = user.authentications.find_by_provider(provider)
     if auth.nil? && Authentication.find_by_uid(uid).nil?     
       auth = user.authentications.build(:provider => provider)
@@ -100,17 +104,17 @@ private
     if user = User.find_by_email(email)
       email = access_token.info.email
       name = access_token.info.name
-      location = access_token.info.location
-      @city = City.find_by_name(location)
-      if @city.nil?
-        c = City.new(name: location, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone)
-        c.save
-        @city = c
-      end
 
-      time_zone = "Central Time (US & Canada)" #timezone_for_utc_offset(access_token.extra.raw_info.timezone)
+      #location = access_token.info.location
+      # @city = City.find_by_name(location)
+      # if @city.nil?
+      #   c = City.new(name: location, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone)
+      #   c.save
+      #   @city = c
+      # end
 
-      user_attr = { email: email, name: name, city: location, time_zone: time_zone }
+      # no longer update city or timezone here
+      user_attr = { email: email, name: name }
       user.update_attributes user_attr
       
       return user
@@ -118,18 +122,29 @@ private
     else
       email = access_token.info.email
       name = access_token.info.name
-      city = access_token.info.location
-      time_zone = "Central Time (US & Canada)"  # timezone_for_utc_offset(access_token.extra.raw_info.timezone)
+      cityname = access_token.info.location
+      if cityname == "Madison, Wisconsin" || cityname == "Middleton, Wisconsin" || cityname == "La Crosse, Wisconsin" || cityname == "Appleton, Wisconsin" || cityname == "Whitewater, Wisconsin" || cityname == "Platteville, Wisconsin" || cityname == "Fitchburg, Wisconsin" || cityname == "Sun Prairie, Wisconsin" || cityname == "Verona, Wisconsin"
+        city = City.find_by_name("Madison, Wisconsin")
+      else
+        city = City.find_by_name("Everywhere Else")
+      end
+      #time_zone = "Central Time (US & Canada)"  # timezone_for_utc_offset(access_token.extra.raw_info.timezone)
 
+      #CITY TODO: whenever a user logs in from 'everywhere else' we want to ask for their timezone and double check city
       user = User.new(:email => email, 
                 :name => name,
-                :city => city,
-                :time_zone => time_zone,
+                :city_id => city.id,
+                #no longer update time_zone from FB
                 :terms => true,
                 :remember_me => true,
                 :password => Devise.friendly_token[0,20]
               )
       user.save
+
+      Category.all.each do |cat|
+        Interest.create(user_id: user.id, category_id: cat.id)
+      end
+
       EmailInvite.where("email_invites.email = :new_user_email", new_user_email: user.email).each do |ei|
         @inviter_id = ei.inviter_id
         @invited_user_id = user.id

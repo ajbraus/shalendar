@@ -1,0 +1,51 @@
+<div class="stats">
+  <div>
+    <%= link_to user_path(current_user) do %>
+      <%= raster_profile_picture(current_user) %>
+    <% end %>
+    <div class="name"><%= current_user.name %>
+      <% if current_user.admin? %>
+        <%= link_to admin_dashboard_path do %>
+          <span class="fadeInRed"><i class="icon-magic"></i></span>
+        <% end %>
+      <% end %>
+      <p><%= link_to "view your activity", user_path(current_user) %></p>
+    </div>
+  </div>
+  <ul>
+    <li>
+      <%= link_to user_path(current_user) do %>
+        <span class="fadeInBlue">
+          <%= current_user.events.count %> <i class="icon-cloud"></i> 
+          <br>
+          ideas
+        </span>
+      <% end %>
+    </li>
+        <li>
+      <a href="<%= manage_friends_path %>"> 
+        <span class="fadeInGreen">
+          <strong id="header_friend_count" class="friend_count"><%= current_user.followers.count %></strong>  <i class="icon-group"></i>
+          <br>
+          <span id="headerText">friends</span></span>
+        <% if current_user.reverse_relationships.where('relationships.confirmed = false').any? %>
+        <% @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false') %>
+          <span class="new_friends_count"><%= @friend_requests.count %></span>
+        <% end %>
+      </a>
+    </li>
+    <li>
+      <span id="invitations"></span>
+      <%= link_to new_invited_events_path, :remote => true do %>
+        <% unless current_user.new_invited_events_count == 0 %>
+          <span id="new_invited_events_count" class="new_invited_events_count"><%= current_user.new_invited_events_count %></span>
+        <% end %>
+        <span class="fadeInBlue">
+          <i class="icon-envelope-alt"></i>
+          <br>
+          <span id="headerText">invites</span></span>
+      <% end %>
+    </li>
+  </ul>
+  <div><%= render 'shared/new_idea_button' %></div>
+</div>

@@ -12,16 +12,21 @@
 			</div>
 		<% end %>
 		<div class="rsvp_button">
-			<%= link_to "Join", new_user_session_path(:event => @event.id), class:"btn btn-rsvp", title: "Login to Join this Public Idea" %>
+			<%= link_to "Join", new_user_session_path(:event => @event.id), class:"btn btn-rsvp rsvp_button", title: "Login to Join this Public Idea" %>
 		</div>
 	<% end %>
 <% else %>
 	<% unless current_user.vendor? %>
 		<% if current_user.rsvpd?(@event) %>
-			<%= form_for(current_user.rsvps.find_by_plan_id(@event),
-		           html: { method: :delete }) do |f| %>
-			  <%= f.submit "Flake Out", class: "btn btn_stop_viewing unrsvp_button", confirm: "Are you sure you can't make it?", id:"unRsvp" %>
-			<% end %>
+			<div id="inButton">
+				<div id="in" class="btn btn-rsvp rsvp_button"><i class="icon-ok-circle"></i> in</div>
+				<div id="flakeOut" style="display:none">
+					<%= form_for(current_user.rsvps.find_by_plan_id(@event),
+				           html: { method: :delete }) do |f| %>
+					  <%= f.submit "Flake Out", class: "btn rsvp_button btn_stop_viewing ursvp_button", confirm: "Are you sure you can't make it?", id:"unRsvp" %>
+					<% end %>
+				</div>
+			</div>
 		<% elsif @event.full? %>
 			(Idea full)
 		<% elsif @event.ends_at < Time.now.in_time_zone(current_user.time_zone) %>
@@ -41,6 +46,14 @@
 				</div>
 			<% end %>
 			<% unless current_user.made_a_group?(@event) %>
+				<% if false %>
+					<% if @event.require_payment? && current_user.credit_card_uri.blank? %>
+						<%= link_to "Join", new_card_path(:id => @event.id), class: "btn btn-rsvp rsvp_button", confirm: "Are you sure you would like to join this idea?", id:"Join" %>
+					<% elsif @event.require_payment? && current_user.credit_card_uri.present? %>
+						<%= link_to "Join", confirm_payment_path(:id => @event.id), class: "btn rsvp_button btn-rsvp", confirm: "Are you sure you would like to join this idea?", id:"Join" %>
+					<% else %>
+					<% end %>
+				<% end %>
 				<div class="rsvp_button">
 					<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
 			  		<%= f.hidden_field :plan_id %>

@@ -2,9 +2,13 @@ require 'spec_helper'
 
 describe "Without loging in" do
 
-  let(:user) { FactoryGirl.create(:user) }
-  let(:vendor) { FactoryGirl.create(:vendor) }
   let(:private_event) { FactoryGirl.create(:event, :user => user) }
+  let(:city) { FactoryGirl.create(:city)}
+  let(:user) { FactoryGirl.create(:user, :city => city) }
+  let(:venue) { FactoryGirl.create(:user, :vendor => true, :city => city) }
+
+  before(:all) { 30.times { FactoryGirl.create(:user) } }
+  after(:all)  { User.delete_all }
 
   after(:each) { Event.delete_all }
 
@@ -19,7 +23,7 @@ describe "Without loging in" do
 
   describe "City home page" do
     before do 
-      @public_event = Factory(:event, :chronic_starts_at => "Tomorrow at 3pm", :is_public => true, :user => vendor, :title => "Test Public Event")
+      @public_event = Factory(:event, :chronic_starts_at => "Tomorrow at 3pm", :is_public => true, :user => venue, :title => "Test Public Event")
       visit "/madison"
     end
     it "should have date time" do

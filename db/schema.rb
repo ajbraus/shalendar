@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121117180614) do
+ActiveRecord::Schema.define(:version => 20121201202151) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -94,16 +94,39 @@ ActiveRecord::Schema.define(:version => 20121117180614) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "pic_url"
+    t.string   "city"
   end
 
   add_index "authentications", ["uid"], :name => "index_authentications_on_uid", :unique => true
   add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
-  create_table "cities", :force => true do |t|
+  create_table "categories", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  add_index "categories", ["name"], :name => "index_categories_on_name"
+
+  create_table "categorizations", :force => true do |t|
+    t.integer  "category_id"
+    t.integer  "event_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "categorizations", ["category_id"], :name => "index_categorizations_on_category_id"
+  add_index "categorizations", ["event_id"], :name => "index_categorizations_on_event_id"
+
+  create_table "cities", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.string   "timezone"
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
   end
 
   add_index "cities", ["name"], :name => "index_cities_on_name"
@@ -177,6 +200,8 @@ ActiveRecord::Schema.define(:version => 20121117180614) do
     t.integer  "parent_id"
     t.string   "short_url"
     t.string   "slug"
+    t.integer  "city_id"
+    t.boolean  "is_big_idea"
   end
 
   add_index "events", ["slug"], :name => "index_events_on_slug"
@@ -216,6 +241,16 @@ ActiveRecord::Schema.define(:version => 20121117180614) do
   end
 
   add_index "gcm_notifications", ["device_id"], :name => "index_gcm_notifications_on_device_id"
+
+  create_table "interests", :force => true do |t|
+    t.integer  "category_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "interests", ["category_id"], :name => "index_interests_on_category_id"
+  add_index "interests", ["user_id"], :name => "index_interests_on_user_id"
 
   create_table "invitations", :force => true do |t|
     t.integer  "invited_user_id"
@@ -304,7 +339,6 @@ ActiveRecord::Schema.define(:version => 20121117180614) do
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
     t.string   "name"
-    t.string   "city"
     t.boolean  "terms"
     t.boolean  "require_confirm_follow",   :default => false
     t.boolean  "allow_contact",            :default => true
@@ -334,10 +368,24 @@ ActiveRecord::Schema.define(:version => 20121117180614) do
     t.string   "background_content_type"
     t.integer  "background_file_size"
     t.datetime "background_updated_at"
+    t.string   "type"
+    t.string   "street_address"
+    t.string   "postal_code"
+    t.string   "country"
+    t.string   "phone_number"
+    t.string   "account_uri"
+    t.string   "bank_account_uri"
+    t.string   "credits_uri"
+    t.string   "credit_card_uri"
+    t.string   "debits_uri"
+    t.integer  "city_id"
+    t.integer  "category_id"
+    t.string   "slug"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["slug"], :name => "index_users_on_slug"
 
 end
