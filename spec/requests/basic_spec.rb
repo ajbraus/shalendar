@@ -4,7 +4,7 @@ describe "Pages after sign up / sign in" do
 
   let(:city) { FactoryGirl.create(:city)}
   let(:user) { FactoryGirl.create(:user, :city => city) }
-  let(:venue) { FactoryGirl.create(:venue, :city => city) }
+  let(:venue) { FactoryGirl.create(:user, :vendor => true, :city => city) }
 
   before(:all) { 30.times { FactoryGirl.create(:user) } }
   after(:all)  { User.delete_all }

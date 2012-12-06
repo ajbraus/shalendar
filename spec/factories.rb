@@ -21,6 +21,11 @@ FactoryGirl.define do
 		vendor 'f'
 		terms 't'
     background nil
+    account_uri ''
+    bank_account_uri ''
+    credits_uri ''
+    credit_card_uri ''
+    debits_uri ''
 	end
 
   factory :venue do
@@ -40,6 +45,11 @@ FactoryGirl.define do
     vendor 't'
     terms 't'
     background nil
+    account_uri ''
+    bank_account_uri ''
+    credits_uri ''
+    credit_card_uri ''
+    debits_uri ''
   end
 
   factory :event do

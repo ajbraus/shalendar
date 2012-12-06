@@ -5,7 +5,7 @@ describe "Relationships" do
   let(:city) { FactoryGirl.create(:city)}
   let(:user) { FactoryGirl.create(:user, :city => city) }
   let(:other_user)    { FactoryGirl.create(:user, :city => city) }
-  let(:venue)        { FactoryGirl.create(:venue, :city => city) }
+  let(:venue) { FactoryGirl.create(:user, :vendor => true, :city => city) }
   let(:relationship)  { user.relationships.build(followed_id: other_user.id) }
 
   after(:all)         { User.delete_all }

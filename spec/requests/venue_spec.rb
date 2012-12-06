@@ -1,12 +1,13 @@
 require 'spec_helper'
 
-describe "Pages after sign up / sign in" do
+describe "Venue" do
 
   let(:city) { FactoryGirl.create(:city)}
-	let(:venue) { FactoryGirl.create(:venue, :city => city) }
+	let(:venue) { FactoryGirl.create(:user, :vendor => true, :city => city) }
   let(:user) { FactoryGirl.create(:user, :city => city) }
   let(:event) { FactoryGirl.create(:event, :user_id => user.id, 
                        :chronic_starts_at => "Tomorrow at 3pm")}
+  
   before(:all) { 30.times { FactoryGirl.create(:user) } }
   after(:all)  { User.delete_all }
 
@@ -19,14 +20,14 @@ describe "Pages after sign up / sign in" do
   
   after(:each) { Event.delete_all }
 
-  describe "venue onboarding" do
+  describe "onboarding" do
     it "should ask for credit card after signing up" do
       page.should have_content("Credit Card")
     end
   end
 
 
-  describe "venue Home Page" do
+  describe "visit Home Page" do
     before do 
       visit root_path
     end
@@ -37,13 +38,16 @@ describe "Pages after sign up / sign in" do
     end
   end
 
-  describe "Activity page" do
+  describe "visit profile page" do
     before do
-      visit activity_path 
+      visit user_path(venue) 
     end
 
     it "should have the content 'Upcoming Ideas'" do
       page.should have_content('Upcoming Ideas')
+    end
+    it "should have the content 'venue name'" do
+      page.should have_content("#{venue.name}")
     end
   end
 
@@ -57,6 +61,29 @@ describe "Pages after sign up / sign in" do
       page.should have_content("#{(Time.now + 1.day).strftime('%A')}")
     end
   end
+
+  describe "without valid credit card" do
+    before do
+      venue.sign_in_count = 10
+      venue.credit_card_uri = ""
+      visit event_path(event)
+    end
+    it "should show that the venue's credit card data needs to be updated" do
+      page.should have_selector ".alert"
+    end
+  end
+
+  describe "with valid credit card" do
+    before do
+      venue.sign_in_count = 10
+      venue.credit_card_uri = "123"
+      visit event_path(event)
+    end
+    it "should not see this warning" do
+      page.should_not have_selector ".alert"
+    end
+  end
+
 
   # describe "creating a public event" do
   # end

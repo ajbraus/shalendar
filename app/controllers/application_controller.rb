@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   def check_venue_card
     if user_signed_in?
       if current_user.vendor?
-        unless current_user.has_valid_credit_card? && current_user.sign_in_count == 1
+        if !current_user.has_valid_credit_card? && current_user.sign_in_count != 1
           flash[:notice] = "Our records show you must update your credit card data"
         end
       end

@@ -34,8 +34,11 @@ class User < ActiveRecord::Base
                   :postal_code,
                   :country,
                   :phone_number,
-                  :bank_account,
-                  :credit_card
+                  :account_uri,
+                  :bank_account_uri,
+                  :credits_uri,
+                  :credit_card_uri,
+                  :debits_uri
 
   has_attached_file :avatar, :styles => { :original => "150x150#",
                                           :raster => "50x50#" },
