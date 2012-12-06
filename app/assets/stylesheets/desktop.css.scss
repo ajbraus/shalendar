@@ -50,10 +50,6 @@
 	}
 
 	.event {
-		max-width: 190px;
-		min-width: 130px;
-		min-height: 110px;
-		right: 1px;
 		.promo_img {
 			img {
 				max-width: 200px;
@@ -192,12 +188,12 @@ left: 20px;
 		}
 		
 		.dropdown dd ul {
-			top: -20px;
-			left: 0px;
+top: 0px;
+left: -140px;
 		}
 
 		.interests {
-			right: 203px;
+			right: 192px;
 		}
 
 		.floatingHeader {

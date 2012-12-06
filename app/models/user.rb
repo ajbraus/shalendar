@@ -15,7 +15,6 @@ class User < ActiveRecord::Base
   								:password, 
   								:password_confirmation, 
   								:remember_me, 
-                  :time_zone,
                   :name,
                   :terms,
                   :require_confirm_follow,
@@ -68,8 +67,7 @@ class User < ActiveRecord::Base
   
   validates :terms,
             :name, 
-            :city_id,
-            :time_zone, presence: true
+            :city_id, presence: true
 
   has_many :authentications, :dependent => :destroy, :uniq => true
 

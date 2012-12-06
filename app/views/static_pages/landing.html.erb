@@ -5,8 +5,8 @@
       <span class="hoosinstagram">#hoosin</span>
     </div>
     <div class="message">
-      <h2 class="pick_city">Explore:  
-        Pick City: <%= render 'shared/city_session_dropdown' %>
+      <h2 class="pick_city">Explore: 
+        <%= render 'shared/city_session_dropdown' %>
         <% if false %>
         Pick Interests: <div id="interestsDropdown" class="interests_dropdown">interests <i class="icon-caret-down"></i></div>
          <%= render 'shared/interests_session_dropdown' %>
@@ -32,6 +32,14 @@
 </div>
 </div>
 
+<div class="middle clearfix">
+  <h2> Trending Crowd Ideas </h2>
+  <% if @ideas %>
+    <% @ideas.each do |i| %>
+      <%= render :partial => "shalendar/event", :locals => { :event => i } %>
+    <% end %>
+  <% end %>
+</div>
 <div class="middle">
   <h3>Work hard, Play hard</h3>
   <p>If you are busy and you want to have a great social life then you are in the right place. Sign up and see how easy it is to plan great adventures with friends, from nights on the town, to ski trips, to naked rooftop pillow fights.</p>

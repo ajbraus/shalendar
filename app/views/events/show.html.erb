@@ -1,6 +1,6 @@
 <% provide(:title, " | #{@event.title}" ) %>
 <% unless user_signed_in? %>
-  <div class="not_signed_in_pitch">
+  <div class="not_signed_in_pitch part">
     hoos.in is for finding and planning creative adventurous things with your friends.
     <%= link_to "login", new_user_session_path, class:"btn btn-success" %>
     <%= link_to "sign up", root_path, class:"btn btn-success" %>
@@ -104,6 +104,20 @@
       <% end %>
       </div>
 	</div>
+      <% if false %>
+      <% if @event.tipped? %>  
+        <div class="meter animate">
+          <span style="width: <%= (@event.guests.count.to_f/@event.min.to_f*100).round %>%;"><span></span></span>
+        </div>
+        <span class="guests"><%= @event.guests.count %></span>
+      <% else %>
+        <div class="meter animate orange">
+          <span style="width: <%= (@event.guests.count.to_f/@event.min.to_f*100).round %>%;"><span></span></span>
+        </div>
+        <span class="guests"><%= @event.guests.count %></span>
+        <span class="tipping_point"><%= event.min %></span>
+      <% end %>
+      <% end %>
 
   <% if !@event.promo_vid.nil? && @event.promo_vid != "" %>
     <div class="promo_vid">

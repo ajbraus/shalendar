@@ -77,50 +77,40 @@ new follower email link not working
 
 Adam
 
-Onboarding
-	venue
-		paperclip upload in background for background image
+Create discoverables
+fix serving of events so that you don't see things your rsvpd to and you do see public events.
 
-	user
-		ask for timezone when signing up from fb, or logging in and it is not set
+joyride
+---------------------------------------------------------------
 
-	not seeing public ideas created by venue@test.com
 
-	contact info
-	interests
-	joyride
+rsvp ajax
+rsvp lightbox -- add to calendar, share with facebook twitter linkedin etc
+ticket/rsvp link
 
-RSVP button and add to calendar
-in rsvpd banner
 carrot by name
-pitch in a crowd idea
-Social share buttons in event show
-put footer in header
 
 one click turn public ideas off
 invited ideas have ribbon with envelope
 blue ribbon in corner of friend's ideas
-landing page
+
 serve crowd ideas by rsvp count
 
 
 profile, broadcast, dashboard
 
+venues:
+	Add category to user for venues
+	signup flow -- pick interests, a few venues, and suggested friends.
+	Build yellow pages
+
+add progress bar to event/show
 rsvp out button
-
-custom group image is not avaialbe looks to parent
-
 payments
 
-Create discoverables
-landing - see discoverables 
-					Sign Up
-					pick city, pick interest, submit both to session and load home
-Add category to user for venues
-signup flow -- pick interests, a few venues, and suggested friends.
 in user#show only show upcoming stuff your invited to
 add suggested friends to friends page
-Build yellow pages
+
 
 if going add banner
 if tipped add banner
@@ -129,15 +119,13 @@ serve discovery ideas in order of # of ppl going already
 
 SEAN:
 make share with facebook friends ajax so event show is fast!
-rsvp button bigger and green with hover
-rsvp ajax
-rsvp lightbox -- add to calendar, share with facebook twitter linkedin etc
-ticket/rsvp link
 
+
+------------------------------------------------------------
 
 if costs money add banner
 
-fix serving of events so that you don't see things your rsvpd to and you do see public events.
+
 
 city dropdown
 	session - done

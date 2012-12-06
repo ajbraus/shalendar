@@ -3,7 +3,12 @@
 	<%= form_for(current_user, :as => :resource, :url => registration_path(current_user), :html => { :method => :put }) do |f| %>
 		  <% Category.all.each do |cat| %>
 		  	<div class="interest_checkbox">
-		      <%= check_box_tag 'category_ids[]', cat.id, checked:true %>
+		      <% if current_user.categories.include? cat %>
+		      	<%= check_box_tag 'category_ids[]', cat.id, checked: true %>
+		      <% else %>
+		      	<%= check_box_tag 'category_ids[]', cat.id %>
+		      <% end %>
+		      	
 		      <%= h cat.name -%>
 		    </div>
 		  <% end %>

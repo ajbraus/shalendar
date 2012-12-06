@@ -23,7 +23,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       #format.json { render json: @event }
-      format.js
+      format.js # new.js.erb
     end
   end
 
@@ -100,12 +100,12 @@ class EventsController < ApplicationController
     @email_invites = @event.email_invites
     @invited_users = @event.invited_users - @event.guests 
     @comments = @event.comments.order("created_at desc")
-    if current_user.authentications.find_by_provider("Facebook").present?
-      @graph = session[:graph] 
-    else 
-      session[:graph] = nil
-    end
     if user_signed_in?
+      if current_user.authentications.find_by_provider("Facebook").present?
+        @graph = session[:graph] 
+      else 
+        session[:graph] = nil
+      end
       @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event)}
       #if a user is 'everywhere else' then we don't silo their invitations...
       unless current_user.city == City.find_by_name("Everywhere Else")

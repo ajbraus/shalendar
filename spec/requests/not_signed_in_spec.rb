@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe "Pages after sign up / sign in" do
 
-  let(:user) { FactoryGirl.create(:user) }
-  let(:vendor) { FactoryGirl.create(:vendor) }
+  let(:city) { FactoryGirl.create(:city)}
+  let(:user) { FactoryGirl.create(:user, :city => city) }
+  let(:venue) { FactoryGirl.create(:venue, :city => city) }
 
   before(:all) { 30.times { FactoryGirl.create(:user) } }
   after(:all)  { User.delete_all }
@@ -21,10 +22,14 @@ describe "Pages after sign up / sign in" do
 
   describe "City home page" do
     before do 
+      @public_event = Factory(:event, :user_id => venue.id, :chronic_starts_at => "Tomorrow at 3pm", :is_public => true, :title => "Test Public Event")
       visit "/madison"
     end
     it "should have date time" do
       page.should have_content("#{Time.now.strftime("%A")}")
+    end
+    it "should have public event" do
+      page.should have_content("Test Public Event")
     end
   end
 

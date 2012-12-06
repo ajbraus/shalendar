@@ -334,10 +334,13 @@ $('#new_suggestion_form').validate();
       "event[max]": {
         number: true
       },
-      "event[duration]": {
-        required: true,
-        number: true
+      "event[min]": {
+        min: 100
       }
+      // "event[duration]": {
+      //   required: true,
+      //   number: true
+      // }
     }
   });
 

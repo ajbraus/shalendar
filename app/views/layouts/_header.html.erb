@@ -9,20 +9,18 @@
   </ul>
 
   <div class="right_header">
-    <div class="responsive_profile_pic">
+    <div>
       <%= render 'shared/picture_dropdown' %>
     </div>
+
+<% if false %>
+    <!-- CITY ICON -->
     <div class="city-icon">
       <%= link_to yellow_pages_path, :remote => true, class:"city_vendors fancybox.ajax" do %>
-        <% if user_signed_in? %>
-          <%= image_tag current_user.city.icon.url(:icon) %>
-        <% elsif session[:city].present? %>
-          <%= image_tag session[:city].icon.url(:icon) %>
-        <% else %>
-          <%= image_tag City.find_by_id('1').icon.url(:icon) %>
-        <% end %>
+        <%= image_tag current_user.city.icon.url(:icon) %>
       <% end %>
     </div>
+<% end %>
     <%= render 'shared/city_user_dropdown' %>
     <div id="interestsDropdown" class="interests_dropdown">interests <i class="icon-caret-down"></i></div>
     <%= render 'shared/interests_user_dropdown' %>
@@ -30,16 +28,22 @@
   </div>
 
 <% else %> <!-- IF NOT SIGNED IN -->
+  <% unless params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
+    <ul class="left_header">
+      <li><%= link_to "discover", discover_path %></li>  
+      <li><%= link_to 'what is hoos.in?', what_is_hoosin_path %></li>
+    </ul>
 
-  <ul class="left_header">
-    <li><%= link_to "discover", discover_path %></li>  
-    <li><%= link_to 'what is hoos.in?', what_is_hoosin_path %></li>
-  </ul>
-
-  <div class="right_header">
-    <div>
-      <%= link_to "login", new_user_session_path %>
+    <div class="city_title">
+      <h2><%= params[:city] %></h2>
     </div>
-  </div>
+
+    <div class="right_header">
+      <div class="login">
+        <%= link_to "login", new_user_session_path %>
+      </div>
+        <%= render 'shared/city_session_dropdown' %>
+    </div>
+  <% end %>
 <% end %>
 </header>

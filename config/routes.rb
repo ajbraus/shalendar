@@ -65,6 +65,8 @@ Shalendar::Application.routes.draw do
     end
   end
 
+  match '/set_time_zone', :to => 'users#set_time_zone', :as => 'set_time_zone'
+
   match '/collect_payments', :to => 'payments#new_merchant', :as => 'new_merchant'
   match '/create_merchant', :to => 'payments#create_merchant', :as => 'create_merchant'
 

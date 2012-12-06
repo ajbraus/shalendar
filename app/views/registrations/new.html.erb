@@ -19,8 +19,10 @@
   <div><%= f.label :city, "city*" %><br />
   <%= f.collection_select :city_id, @cities, :id, :name, { prompt: true }, { class: "required" } %></div>
 
+<% if false %>
   <div><%= f.label :time_zone, "time zone*" %><br />
   <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)", class: "required" %></div>
+<% end %>
 
   <div><%= f.label :password, "password*" %><br />
   <%= f.password_field :password, class: "required" %></div>

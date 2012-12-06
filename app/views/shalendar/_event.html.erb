@@ -46,12 +46,8 @@
 			<%= event.title %>
 		</div>
 
-		<% if event.is_public? || current_user.rsvpd?(event) || current_user.following?(User.find_by_id(event.inviter_id)) %>
-			<div class="event_pic" title="Created by: <%= event.user.name %>"><%= raster_profile_picture(event.user) %></div>
-		<% else %>
-			<div class="event_pic" title="Invited by: <%= User.find_by_id(event.inviter_id).name%>"><%= raster_profile_picture(User.find_by_id(event.inviter_id)) %></div>
-		<% end %>
 
+		<div class="event_pic" title="Created by: <%= event.user.name %>"><%= raster_profile_picture(event.user) %></div>
 		<div class="event_shield_icons">
 			<% if event.family_friendly? %>
 				<i class="purple icon-home"></i>

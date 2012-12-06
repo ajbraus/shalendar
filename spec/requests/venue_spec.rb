@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe "Pages after sign up / sign in" do
 
-	let(:venue) { FactoryGirl.create(:user, :vendor => true) }
-  let(:user) { FactoryGirl.create(:user) }
+  let(:city) { FactoryGirl.create(:city)}
+	let(:venue) { FactoryGirl.create(:venue, :city => city) }
+  let(:user) { FactoryGirl.create(:user, :city => city) }
   let(:event) { FactoryGirl.create(:event, :user_id => user.id, 
                        :chronic_starts_at => "Tomorrow at 3pm")}
   before(:all) { 30.times { FactoryGirl.create(:user) } }
@@ -31,7 +32,7 @@ describe "Pages after sign up / sign in" do
     end
 
     it "should have the Date" do
-      page.should_not have_content("venue Dashboard")
+      page.should_not have_content("Venue Dashboard")
       page.should have_content("#{Time.now.strftime('%A')}")
     end
   end

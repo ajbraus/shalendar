@@ -63,6 +63,7 @@ class RegistrationsController < Devise::RegistrationsController
       params[:category_ids].each do |catid|
         Interest.create(user_id: resource.id, category_id: catid)
       end
+      #redirect_to root_path, :notice => "Successfully updated your interests"
     end        
 
     if resource.respond_to?(:unconfirmed_email)

@@ -1,4 +1,9 @@
 FactoryGirl.define do
+  factory :city do
+    name 'Madison, Wisconsin'
+    timezone 'Central Time (US & Canada)'
+  end
+
 	factory :user do
     sequence(:name)  { |n| "Test #{n}" }
     sequence(:email) { |n| "test@#{n}.com"} 
@@ -15,12 +20,12 @@ FactoryGirl.define do
 		avatar nil
 		vendor 'f'
 		terms 't'
-        background nil
+    background nil
 	end
 
-  factory :vendor do
-    name 'Vendor Test'
-    email 'Vendor@test.com'
+  factory :venue do
+    name 'Venue Test'
+    email 'Venue@test.com'
     password 'please'
     password_confirmation 'please'
     remember_me 'f'
@@ -62,5 +67,7 @@ FactoryGirl.define do
     short_url ''
     slug ''
     city_id '2'
+    is_public ''
 	end
+
 end

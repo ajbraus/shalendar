@@ -4,7 +4,7 @@ $ ->
 			$(this).data('date') == date
 
 	# DATEPICKERDAY
-	$('html, body').scrollTop($('#today').offset().top - 80 );
+	$('html, body').scrollTop($('#today').offset().top - 100 );
 	$('.datePickerToday').css('color','red')
 	$('.datePickerDay').click ->
 		pos = $(this).position();

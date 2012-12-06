@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :set_time_zone, :check_venue_card
+  before_filter :check_venue_card, :set_time_zone
   after_filter :store_location
 
   def store_location
@@ -27,8 +27,10 @@ class ApplicationController < ActionController::Base
   private
 
   def set_time_zone
-    if current_user
-      Time.zone = current_user.time_zone if current_user.time_zone
+    if user_signed_in?
+      Time.zone = current_user.city.timezone
+    elsif session[:city]
+      Time.zone = City.find_by_name(session[:city]).timezone
     end
   end
   

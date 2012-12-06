@@ -85,10 +85,12 @@
 	<div id="addcostp" style="display:none;">
     <%= f.label "Cost" %><br>
     <i class="icon-money"></i><div class="dollar">$</div><%= f.text_field :price, :class => 'input-mini', autocomplete: "off", placeholder: "0.00" %>
-    <% if current_user.bank_account_uri %>
-    	<%= f.check_box :require_payment %> <%= f.label "Require Payment to Join" %>
-    <% else %>
-    	<%= link_to "Enable ticketing and payments", new_merchant_path, target: "_blank" %>
+    <% if false %>
+    	<% if current_user.bank_account_uri %>
+    		<%= f.check_box :require_payment %> <%= f.label "Require Payment to Join" %>
+    	<% else %>
+    		<%= link_to "Enable ticketing and payments", new_merchant_path, target: "_blank" %>
+    	<% end %>
     <% end %>
 	</div>
 </div>

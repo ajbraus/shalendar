@@ -123,7 +123,7 @@ private
       email = access_token.info.email
       name = access_token.info.name
       cityname = access_token.info.location
-      if cityname == "Madison, Wisconsin" || cityname == "Middleton, Wisconsin" || cityname == "La Crosse, Wisconsin" || cityname == "Appleton, Wisconsin" || cityname == "Whitewater, Wisconsin" || cityname == "Platteville, Wisconsin"
+      if cityname == "Madison, Wisconsin" || cityname == "Middleton, Wisconsin" || cityname == "La Crosse, Wisconsin" || cityname == "Appleton, Wisconsin" || cityname == "Whitewater, Wisconsin" || cityname == "Platteville, Wisconsin" || cityname == "Fitchburg, Wisconsin" || cityname == "Sun Prairie, Wisconsin" || cityname == "Verona, Wisconsin"
         city = City.find_by_name("Madison, Wisconsin")
       else
         city = City.find_by_name("Everywhere Else")

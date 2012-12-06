@@ -5,7 +5,8 @@
 	  <%= label :title, "Idea*" %><br/>
 	  <%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
 	  </p>  
-
+<input type="checkbox" name="knowTime" value="#" id="knowTime"> I know when this idea will take place
+	<div id="timeDuration" style="display:none;">
 	  <div class="starts_at">
 	    <%= label :starts_at, "When does it start?" %>
 	    <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at", autocomplete: "off" %>
@@ -14,14 +15,15 @@
 	    <%= label :duration, "How Long?" %>
 	    <%= f.text_field :duration, placeholder:"#hrs", autocomplete: "off"  %>
 	  </div>
+	</div>
 	  
 	<div id="addtippingp" class="border_bottom minmax">
 		<div class='tippingIcon'>
 	  	<i class="icon-tasks"></i>
 		</div>
 	  <u>
-	    <%= f.label :min_attendees, "Tilt Point*" %> <br/>
-	    <%= f.text_field :min, :class => 'input-mini', autocomplete: "off" %>
+	    <%= f.label :min_attendees, "Tipping Point*" %> <br/>
+	    <%= f.text_field :min, :class => 'input-mini', autocomplete: "off", :value => 100 %>
 	  </u>
 	  <u>
 	    <%= f.label :max_attendees, "Full" %> <br/>
@@ -31,11 +33,13 @@
 	<div id="addcostp" class="border_bottom">
     <%= f.label "Cost" %><br>
     <i class="icon-money"></i><div class="dollar">$</div><%= f.text_field :price, :class => 'input-mini', autocomplete: "off", placeholder: "0.00" %>
+	<% if false %>    
     <% if current_user.bank_account_uri %>
     	<%= f.check_box :require_payment %> <%= f.label "Require Payment to Join" %>
     <% else %>
     	<%= link_to "crowd fund your event?", new_merchant_path, target: "_blank" %>
     <% end %>
+  <% end %>
 	</div>
 
 	<div id="addmapp" class="border_bottom">

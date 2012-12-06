@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe "Pages after sign up / sign in" do
 
-  let(:user) { FactoryGirl.create(:user) }
-  let(:vendor) { FactoryGirl.create(:vendor) }
+  let(:city) { FactoryGirl.create(:city)}
+  let(:user) { FactoryGirl.create(:user, :city => city) }
+  let(:venue) { FactoryGirl.create(:venue, :city => city) }
 
   before(:all) { 30.times { FactoryGirl.create(:user) } }
   after(:all)  { User.delete_all }
@@ -46,10 +47,13 @@ describe "Pages after sign up / sign in" do
 
   describe "Activity page" do 
     before do 
-      visit activity_path
+      visit user_path(user)
     end
     it "should have the content 'upcoming ideas'" do
       page.should have_content("Upcoming Ideas")
+    end
+    it "should have the content 'user name'" do
+      page.should have_content("#{user.name}")
     end
   end
 

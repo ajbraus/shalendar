@@ -186,17 +186,7 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def self.public_forecast(load_datetime, time_zone, city, toggled_categories)
-    if city == City.find_by_name("Everywhere Else") || city.nil?
-      if time_zone.nil?
-        timezone = "Central Time (US & Canada)"
-      else
-        timezone = time_zone
-      end
-    else
-      timezone = city.timezone
-    end
-    Time.zone = timezone
+  def self.public_forecast(load_datetime, city, toggled_categories)
     @public_forecast = []
     (-3..26).each do |i|
       @new_datetime = load_datetime + i.days 

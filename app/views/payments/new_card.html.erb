@@ -18,15 +18,18 @@
             <label for="card_number">card number*</label>
             <input type="text" name="card_number" placeholder="card number">
         </div>
-        <div class="security_code">
-            <label for="security_code">3 digit security code*</label><br>
-            <input type="text" name="security_code">
-        </div>
-        <div class="expiration_month_year">
-            <label for="expiration_month">expiration*</label><br>
-            <input type="text" name="expiration_month" placeholder="mm"> /
-            <input type="text" name="expiration_year" placeholder="yyyy">
-        </div>
+    <div class="expiration_month_year">
+        <label for="expiration_month">expiration*</label><br>
+        <input type="text" name="expiration_month" class="month" placeholder="mm"> /
+        <input type="text" name="expiration_year" class="year" placeholder="yyyy">
+    </div>
+    <div class="security_code">
+        <label for="security_code">3 digit security code*</label><br>
+        <input type="text" name="security_code" placeholder="###">
+        <%= image_tag "cvv.jpg" %>
+    </div>
+
+
         <% if @event.present? %>
           <button class="btn btn-large btn-success">Add Card and Pay</button>
         <% else %>
@@ -50,14 +53,15 @@
         <label for="card_number">card number*</label>
         <input type="text" name="card_number" placeholder="card number">
     </div>
-    <div class="security_code">
-        <label for="security_code">3 digit security code*</label><br>
-        <input type="text" name="security_code">
-    </div>
     <div class="expiration_month_year">
         <label for="expiration_month">expiration*</label><br>
-        <input type="text" name="expiration_month" placeholder="mm"> /
-        <input type="text" name="expiration_year" placeholder="yyyy">
+        <input type="text" name="expiration_month" class="month" placeholder="mm"> /
+        <input type="text" name="expiration_year" class="year" placeholder="yyyy">
+    </div>
+    <div class="security_code">
+        <label for="security_code">3 digit security code*</label><br>
+        <input type="text" name="security_code" placeholder="###">
+        <%= image_tag "cvv.jpg" %>
     </div>
     <% if @event.present? %>
       <button class="btn btn-large btn-success">Add Card and Pay</button>

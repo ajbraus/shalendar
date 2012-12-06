@@ -10,7 +10,7 @@
       <!-- SHARE BY EMAIL -->
       
     <li>
-      <a href="mailto:?subject=Come along! <%= @event.start_time %>&body=Hey,%0a%0aHere's the plan.%0a%0a    What:  <%= @event.title %>%0a%0a    When:  <%= @event.start_date_time %>%0a%0aAre you in? respond here: <%= event_url(@event) %>%0a%0a<%= current_user.first_name %>">
+      <a href="mailto:?subject=Come along! <%= @event.start_time %>&body=Hey,%0a%0aHere's the plan.%0a%0a    What:  <%= @event.title %>%0a%0a    When:  <%= @event.start_date_time %>%0a%0ahoos.in? respond here: <%= event_url(@event) %>%0a%0a<%= current_user.first_name %>">
         <span class="fadeInOrange"><i class="icon-envelope-alt" title="Share Idea by Email"></i></span>
       </a>
     </li>

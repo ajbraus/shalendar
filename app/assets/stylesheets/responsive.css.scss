@@ -71,8 +71,10 @@ body {
 	.right_header {
 top: 34px;
 	img {
-		width:45px;
-		height:45px;
+width: 45px;
+height: 45px;
+bottom: 28px;
+position: relative;
 	}
 	}
 
@@ -112,9 +114,9 @@ top: 34px;
 	}
 
 	.dropdown dd ul {
-		top: 7px;
-		left: -148px;
-	}
+top: -33px;
+left: -148px;
+}
 
 	.interests {
 		right: 153px;

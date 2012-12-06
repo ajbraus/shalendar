@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe "Users" do
 
-	let(:user) { FactoryGirl.create(:user) }
+  let(:city) { FactoryGirl.create(:city)}
+  let(:user) { FactoryGirl.create(:user, :city => city) }
   let(:event) { FactoryGirl.create(:event, :user_id => user.id, :chronic_starts_at => "Tomorrow at 3pm")}
 
   before(:each) do

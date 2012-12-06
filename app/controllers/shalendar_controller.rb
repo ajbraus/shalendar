@@ -1,20 +1,17 @@
 class ShalendarController < ApplicationController
-  before_filter :authenticate_user!, except: [ :vendor_splash, :home, :discover ]
+  before_filter :authenticate_user!, except: [ :vendor_splash, :home, :discover, :what_is_hoosin ]
   before_filter :set_time_zone
 
 	def home
     if user_signed_in?
       @plan_counts = []
       @invite_counts = []
-      if current_user.time_zone.nil?
-        @time_in_zone = Time.now.in_time_zone("Central Time (US & Canada)")
-      else
-        @time_in_zone = Time.now.in_time_zone(current_user.time_zone) 
-      end
-
+      @city = current_user.city
+      @time_zone = @city.timezone
+      @time_in_zone = Time.now.in_time_zone(@time_zone)
   		@date = @time_in_zone.to_date #in_time_zone("Central Time (US & Canada)")
-      @events = current_user.forecast(Time.now.in_time_zone(current_user.time_zone))
-      @my_plans = current_user.plans.where('starts_at > ?', Time.now.in_time_zone(current_user.time_zone)).order('starts_at desc')
+      @events = current_user.forecast(@date)
+      @my_plans = current_user.plans.where('starts_at > ?', @date).order('starts_at desc')
       if current_user.authentications.find_by_provider("Facebook").present?
         @graph = session[:graph] 
       else 
@@ -25,13 +22,20 @@ class ShalendarController < ApplicationController
         @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.shuffle.first(3)
       end
     else
-      if session[:current_time_zone].nil?
+      if params[:city]
+        @city = City.find_by_name(params[:city])
+      else
+        @city = City.find_by_name("Everywhere Else")
+      end
+
+      if @city.name == "Everywhere Else"
         @time_in_zone = Time.now.in_time_zone("Central Time (US & Canada)")
       else
-        @time_in_zone = Time.now.in_time_zone(session[:current_time_zone])
+        @time_in_zone = Time.now.in_time_zone(@city.timezone)
       end
-      @city = City.find_by_name(params[:city])
-      @events = Event.public_forecast(@time_in_zone, session[:current_time_zone], @city, session[:toggled_categories])
+
+      @time_in_zone = Time.now.in_time_zone(@time_zone)
+      @events = Event.public_forecast(@time_in_zone, @city, session[:toggled_categories])
     end 
     # Beginning of Yellow Pages
     #@vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
@@ -120,8 +124,10 @@ class ShalendarController < ApplicationController
   def discover
     if user_signed_in?
       @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, current_user.city, Time.now.in_time_zone(current_user.time_zone))
+    elsif session[:city]
+      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name(session[:city]), Time.now)
     else
-      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, session[:city_id], Time.now)
+      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name("Everywhere Else"), Time.now)
     end
   end
 
