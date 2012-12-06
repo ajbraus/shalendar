@@ -87,7 +87,7 @@ class Notifier < ActionMailer::Base
     #   end
     # end
     # if(@user.android_user == true)
-    #   d = GCM::Device.find_by_id(@user.GCMdevice_id)
+    #   d = Gcm::Device.find_by_id(@user.GCMdevice_id)
     #   if d.nil?
     #     Airbrake.notify("thought we had an android user but can't find their device")
     #   else
@@ -123,7 +123,7 @@ class Notifier < ActionMailer::Base
       end
     end
     if(@user.android_user == true)
-      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
       else
@@ -159,7 +159,7 @@ class Notifier < ActionMailer::Base
       end
     end
     if(@user.android_user == true)
-      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
       else
@@ -194,7 +194,7 @@ class Notifier < ActionMailer::Base
       end
     end
     if(@user.android_user == true)
-      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
       else
@@ -230,7 +230,7 @@ class Notifier < ActionMailer::Base
         end
       end
       if(user.android_user == true)
-        d = GCM::Device.find_by_id(user.GCMdevice_id)
+        d = Gcm::Device.find_by_id(user.GCMdevice_id)
         if d.nil?
           Airbrake.notify("thought we had an android user but can't find their device")
         else
@@ -274,7 +274,7 @@ class Notifier < ActionMailer::Base
       end
     end
     if(@user.android_user == true)
-      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
       else
@@ -311,7 +311,7 @@ class Notifier < ActionMailer::Base
       end
     end
     if(@user.android_user == true)
-      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
       else
@@ -347,7 +347,7 @@ class Notifier < ActionMailer::Base
       end
     end
     if(@user.android_user == true)
-      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
       else
@@ -396,7 +396,7 @@ class Notifier < ActionMailer::Base
       end
     end
     if(@user.android_user == true)
-      d = GCM::Device.find_by_id(@user.GCMdevice_id)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
       else
