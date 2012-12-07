@@ -323,7 +323,9 @@ class Notifier < ActionMailer::Base
         n.save
       end
     end
-    mail to: @user.email, subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
+    unless @user == User.find_by_email("info@hoos.in")
+      mail to: @user.email, subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
+    end
     rescue => ex
     Airbrake.notify(ex)
   end
