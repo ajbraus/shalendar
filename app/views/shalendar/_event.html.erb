@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
 	<div class="event shield 
-		<%= event.ends_at < Time.now.in_time_zone(current_user.time_zone) and !event.is_public? ? 'over' : '' %> 
+		<%= event.ends_at < @time_in_zone ? 'over' : '' %> 
 		<%= event.is_public? ? 'public' : '' %>
 		data-event-id='<%= event.id %>' ">
 <% else %>

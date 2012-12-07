@@ -98,8 +98,6 @@ class User < ActiveRecord::Base
 
   belongs_to :city
 
-  has_many :credit_cards
-
   after_create :send_welcome
 
   extend FriendlyId
@@ -561,6 +559,11 @@ class User < ActiveRecord::Base
 
   def refund!(amount)
     
+  end
+
+  def fb_authentication
+    @auth = authentications.where("provider = ?", "Facebook").last
+    return @auth
   end
 
   # CONTACT FOR INVITATION

@@ -32,5 +32,4 @@ class City < ActiveRecord::Base
     end
   end
   
->>>>>>> new-interface
 end

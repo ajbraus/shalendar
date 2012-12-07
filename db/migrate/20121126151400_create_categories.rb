@@ -32,5 +32,17 @@ class CreateCategories < ActiveRecord::Migration
     Category.create(id:4,name:"Night life")
     Category.create(id:5,name:"Active")
 
+    add_column :events, :category_id 
+
+    # Event.all.each do |e|
+    #   Category.all.each do |cat|
+    #     if e.category == cat.name
+    #         e.category_id = cat.id 
+    #     end
+    #   end
+    # end
+
+    remove_column :events, :category
+    
   end
 end

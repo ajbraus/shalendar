@@ -23,7 +23,7 @@ describe "Without loging in" do
 
   describe "City home page" do
     before do 
-      @public_event = Factory(:event, :chronic_starts_at => "Tomorrow at 3pm", :is_public => true, :user => venue, :title => "Test Public Event")
+      @public_event = Factory(:event, :chronic_starts_at => "Tomorrow at 3pm", :is_public => true, :user => venue, :title => "Test Public Event", :city => city)
       visit "/madison"
     end
     it "should have date time" do

@@ -40,6 +40,20 @@ module UsersHelper
     end
   end 
 
+  def large_profile_picture(user)
+    if user.authentications.where(:provider == "Facebook").any?
+      image_tag "https://graph.facebook.com/#{user.fb_authentication.uid}/picture?type=large" 
+    elsif user.authentications.where(:provider == "Twitter").any?
+      twitter_picture(user, type: "large") 
+    else
+      if user.avatar.url.nil?
+        image_tag "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png"
+      else
+        image_tag user.avatar.url(:original)
+      end
+    end
+  end
+
   def small_profile_picture(user)
     if user.authentications.where(:provider == "Facebook").any?
       facebook_url = "#{user.authentications.find_by_provider("Facebook").pic_url}"

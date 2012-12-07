@@ -24,7 +24,9 @@
     <%= render 'shared/city_user_dropdown' %>
     <div id="interestsDropdown" class="interests_dropdown">interests <i class="icon-caret-down"></i></div>
     <%= render 'shared/interests_user_dropdown' %>
-    <%= render 'shared/friend_search' %>
+    <% unless current_user.vendor? %>
+      <%= render 'shared/friend_search' %>
+    <% end %>
   </div>
 
 <% else %> <!-- IF NOT SIGNED IN -->

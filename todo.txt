@@ -81,7 +81,7 @@ invited ribbon
 crowd idea ribbon
 
 Create discoverables
-fix serving of events so that you don't see things your rsvpd to and you do see public events.
+fix category problem with events
 
 joyride
 ---------------------------------------------------------------

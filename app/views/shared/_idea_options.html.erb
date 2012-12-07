@@ -16,12 +16,11 @@
 				<i class="icon-plus questionMark"></i>
 				<%= f.check_box :guests_can_invite_friends, class: "switch", checked: "checked" %>
 			</u>
-		</div>
-		<div class="idea_categories" style="display:none;" id="addcategoriesp">
-	    <%= label :category, "Category" %>
+			<div class="idea_categories" id="addcategoriesp">
+			<%= label :category, "Category*" %>
 	    <div id="categories">
 	    	<% Category.all.each do |c| %>
-		      <%= radio_button "event", :category, "#{c}", id:"radio#{(c.id)}" %>
+		      <%= radio_button "event", :category, "#{c}", id:"radio#{(c.id)}", class:"required" %>
 		      <%= label_tag "radio#{(c.id)}", "#{c.name}" %>
 	    	<% end %>
     	</div>
@@ -29,8 +28,10 @@
     		<%= f.label "Family Friendly?" %><br>
 				<i class="icon-home questionMark"></i>
 				<%= f.check_box :family_friendly, class: "switch" %>
-	  	</div>  
-	  </div>
+	  	</div> 
+	  	</div> 
+		</div>
+
 	<% else %>
 		<div class="invitation_options open" id="visibilityp">
 		  <u>
@@ -99,7 +100,6 @@
 	<ul>
 		<% if current_user.vendor? %>
 			<li id="visibility" title="Share" style="color:#EB8325;"><i class="icon-bullhorn"></i></li>
-			<li id="addcategories" title="Add a Category"><i class="icon-tag"></i></li>
 		<% else %>
 			<li id="visibility" title="Share" style="color:#EB8325;"><i class="icon-group"></i></li>
 		<% end %>

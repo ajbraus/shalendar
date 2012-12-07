@@ -3198,7 +3198,20 @@ line-height: 10px;
   font-weight: bold;
 }
 
+.profile {
+  width: 90%;
+  margin: 100px auto;
+  img {
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    width:150px;
+    height:150px;
+  }
+}
+
 .future_events {
+  margin-top: 40px;
   clear:both;
   h3 {
     position: relative;
@@ -3639,4 +3652,7 @@ z-index: -1;
 .login {
   position: relative;
   top: 18px;
+}
+.idea_categories {
+  margin-top: 19px;
 }

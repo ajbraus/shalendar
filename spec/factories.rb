@@ -21,14 +21,11 @@ FactoryGirl.define do
 		vendor 'f'
 		terms 't'
     background nil
-<<<<<<< HEAD
-=======
     account_uri ''
     bank_account_uri ''
     credits_uri ''
     credit_card_uri ''
     debits_uri ''
->>>>>>> new-interface
 	end
 
   factory :venue do
@@ -79,8 +76,8 @@ FactoryGirl.define do
     promo_vid ''
     short_url ''
     slug ''
-<<<<<<< HEAD
     is_public ''
+    city_id '2'
 	end
 
   factory :rsvp do  
@@ -88,10 +85,4 @@ FactoryGirl.define do
     guest_id ''
   end
 
-=======
-    city_id '2'
-    is_public ''
-	end
-
->>>>>>> new-interface
 end
