@@ -256,15 +256,12 @@ class Api::V2::TokensController  < ApplicationController
     # device = Gcm::Device.new
     # device.registration_id = registration_id
     # device.save!
-    device = Gcm::Device.create(:registration_id => registration_id)
-    device.save
 
-    notification = Gcm::Notification.new
-    notification.device = device
-    notification.collapse_key = "updates_available"
-    notification.delay_while_idle = true
-    notification.data = {:registration_ids => [registration_id], :data => {:message_text => "Happy afternoon!"}}
-    notification.save
+    device = Gcm::Device.find_by_registration_id(registration_id)
+    if device.nil?
+      device = Gcm::Device.create(:registration_id => registration_id)
+      device.save
+    end
 
     @user.GCMtoken = registration_id
     @user.GCMdevice_id = device.id

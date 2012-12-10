@@ -6,15 +6,18 @@ class Api::V1::EventsController < ApplicationController
     #receive call to : hoos.in/user_plans_on_date.json?date="DateInString"
     @mobile_user = User.find_by_id(params[:user_id])
 
-    #FIX TIMEZONE FOR MOBILE
-    if @mobile_user
+    if @mobile_user.present?
       Time.zone = @mobile_user.time_zone if @mobile_user.time_zone
     else
       render :status => 400, :json => {:error => "could not find your user"}
     end
     raw_datetime = DateTime.parse(params[:date])
 
-    @events = @mobile_user.mobile_events_on_date(raw_datetime.in_time_zone(@mobile_user.time_zone))#Need to check timezone here
+    if @mobile_user.time_zone.present?
+      @events = @mobile_user.mobile_events_on_date(raw_datetime.in_time_zone(@mobile_user.time_zone))#Need to check timezone here
+    else
+      @events = @mobile_user.mobile_events_on_date(raw_datetime.in_time_zone("Central Time (US & Canada)"))#Need to check timezone here
+    end
     @events = @events.sort_by{|t| t[:starts_at]}
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []
