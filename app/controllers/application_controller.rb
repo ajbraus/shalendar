@@ -32,6 +32,9 @@ class ApplicationController < ActionController::Base
     elsif session[:city]
       Time.zone = City.find_by_name(session[:city]).timezone
     end
+    if Time.zone.nil?
+      Time.zone = "Central Time (US & Canada)"
+    end
   end
   
   def ios_user_agent?

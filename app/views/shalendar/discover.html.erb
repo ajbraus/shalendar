@@ -1,3 +1,4 @@
+<%= render 'layouts/sidebar' %>
 <div id="ideaContainer" class="idea_container clearfix">
 	<div class="part discover_title">
 		<div class="name" >
@@ -11,7 +12,7 @@
 				<span class="btn btn-new-big-idea btn-large"><i class="icon-cloud"></i> New Crowd Idea </span>
 			<% end %>
 	</div>
-  <% if @ideas %>
+  <% if @ideas.any? %>
 		<% @ideas.each do |i| %>
 			<%= render :partial => "shalendar/event", :locals => { :event => i } %>
 		<% end %>

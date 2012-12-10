@@ -1,15 +1,13 @@
 class ShalendarController < ApplicationController
   before_filter :authenticate_user!, except: [ :vendor_splash, :home, :discover, :what_is_hoosin ]
-  before_filter :set_time_zone
 
 	def home
     if user_signed_in?
       @plan_counts = []
       @invite_counts = []
       @city = current_user.city
-      @time_zone = @city.timezone
-      @time_in_zone = Time.now.in_time_zone(@time_zone)
-  		@date = @time_in_zone.to_date #in_time_zone("Central Time (US & Canada)")
+      @time_in_zone = Time.now
+  		@date = @time_in_zone.to_date
       @events = current_user.forecast(@date)
       @my_plans = current_user.plans.where('starts_at > ?', @date).order('starts_at desc')
       if current_user.authentications.find_by_provider("Facebook").present?
@@ -22,7 +20,7 @@ class ShalendarController < ApplicationController
         @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.shuffle.first(3)
       end
     else
-      if params[:city]
+      if params[:city].present?
         @city = City.find_by_name(params[:city])
       else
         @city = City.find_by_name("Everywhere Else")
@@ -34,7 +32,7 @@ class ShalendarController < ApplicationController
         @time_in_zone = Time.now.in_time_zone(@city.timezone)
       end
 
-      @time_in_zone = Time.now.in_time_zone(@time_zone)
+      @time_in_zone = Time.now
       @events = Event.public_forecast(@time_in_zone, @city, session[:toggled_categories])
     end 
     # Beginning of Yellow Pages
@@ -46,7 +44,7 @@ class ShalendarController < ApplicationController
 		@friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
     @vendor_friendships = current_user.vendor_friendships
     @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
-    @my_plans = current_user.plans.where('starts_at > ?', Time.now.in_time_zone(current_user.time_zone)).order('starts_at desc')
+    @my_plans = current_user.plans.where('starts_at > ?', Time.now.order('starts_at desc'))
     if @graph
       @member_friends = current_user.fb_friends(@graph)[0]
       @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.shuffle.first(3)
@@ -108,8 +106,8 @@ class ShalendarController < ApplicationController
     end
     @plan_counts = []
     @invite_counts = []
-    @date = Time.now.in_time_zone(current_user.time_zone).to_date #in_time_zone("Central Time (US & Canada)")
-    @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
+    @date = Time.now.to_date #in_time_zone("Central Time (US & Canada)")
+    @forecastevents = current_user.forecast(Time.now, @plan_counts, @invite_counts)
     @event_suggestions = Suggestion.event_suggestions(current_user)
     @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
     @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
@@ -123,11 +121,30 @@ class ShalendarController < ApplicationController
 
   def discover
     if user_signed_in?
-      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, current_user.city, Time.now.in_time_zone(current_user.time_zone))
-    elsif session[:city]
-      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name(session[:city]), Time.now)
+      @my_plans = current_user.plans.where('starts_at > ?', @date).order('starts_at desc')
+      @city = current_user.city
+    elsif params[:city].present?
+        @city = City.find_by_name(params[:city])
     else
-      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name("Everywhere Else"), Time.now)
+      @city = City.find_by_name("Everywhere Else")
+    end
+
+
+
+    @time_in_zone = Time.now
+    @date = @time_in_zone.to_date
+    if user_signed_in?
+
+      # Example from SO: Tag.joins(:taggings).select('tags.*, count(tag_id) as "tag_count"').group(:tag_id).order(' tag_count desc')
+      #Attempt at real AR / SQL query - will be faster if we have lots of crowd ideas
+      # @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, current_user.city.id, Time.now)
+      #           .joins(:rsvps).select('events.*, count(plan_id) as "plan_count"').group(:plan_id).order(' plan_count desc')
+      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, current_user.city.id, Time.now).sort_by{ |i| -i.guests.count}
+      #@ideas.sort_by { |i| -i.guests.count }
+    elsif session[:city]
+      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name(session[:city]).id, Time.now).sort_by{ |i| -i.guests.count}
+    else
+      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name("Everywhere Else").id, Time.now).sort_by{ |i| -i.guests.count}
     end
   end
 
@@ -237,9 +254,4 @@ class ShalendarController < ApplicationController
 
   private
 
-  def set_time_zone
-    if current_user
-      Time.zone = current_user.time_zone if current_user.time_zone
-    end
-  end
 end

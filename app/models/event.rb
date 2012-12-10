@@ -65,11 +65,7 @@ class Event < ActiveRecord::Base
 
   validates :city_id, presence: true if Rails.env.production?
   validates :user_id,
-            :title,
-            :starts_at,
-            :chronic_starts_at,
-            :duration, 
-            :ends_at, presence: true
+            :title, presence: true
   validates :max, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true
   validates :min, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true
   validates :duration, numericality: { in: 0..1000 } 

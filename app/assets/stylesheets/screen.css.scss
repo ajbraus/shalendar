@@ -347,7 +347,7 @@ text-decoration: none;
   display: inline-block;
   color: #636363;
   font-size: 12px;
-  line-height: 17px;
+line-height: 24px;
 }
 .btn_stop_viewing:hover {
   background-color:#ededed;
@@ -2147,8 +2147,8 @@ border-radius: 0px/*{cornerRadius}*/;
 background:none;
   }
   .guests {
-    position: relative;
-    float: left;
+float: right;
+width: 47%;
   }
   .when {
     .date {
@@ -2659,7 +2659,7 @@ textarea {
 }
 
 .sign_up {
-  margin: 0 auto;
+  margin: 95px auto;
 
     h2 {
     width:410px;
@@ -3623,12 +3623,7 @@ box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
     bottom: 4px;
     color: white;
   }
-  .guests {
-    position: absolute;
-    left: 23px;
-    bottom: 4px;
-    color: black;
-  }
+
 
   .not_signed_in_pitch {
 margin: 10px auto;
@@ -3655,4 +3650,12 @@ z-index: -1;
 }
 .idea_categories {
   margin-top: 19px;
+}
+
+.dropdown_caret {
+  margin:10px;
+}
+.idea_container {
+  position: relative;
+height: 0px;
 }

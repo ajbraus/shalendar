@@ -63,8 +63,6 @@ before_filter :authenticate_user!
       # @plan_counts = []
       # @invite_counts = []
       @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
-      # @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
-      # @date = Time.now.in_time_zone(current_user.time_zone)
       @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
       format.html { redirect_to :back, notice: "You are no longer friends with #{@user.name} on hoos.in" }
       format.js

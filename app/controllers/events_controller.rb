@@ -46,10 +46,15 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = current_user.events.build(params[:event])
-    @event.ends_at = params[:event][:chronic_starts_at] + params[:event][:duration]*3600
+    if params[:event][:chronic_starts_at].present?
+      @event.ends_at = params[:event][:chronic_starts_at] + params[:event][:duration]*3600
+    end
     @event.tipped = true                    if @event.min <= 1
     @event.parent_id = params[:parent_id]   if params[:parent_id]
     @event.city = current_user.city
+    if duration && starts_at
+      @event.ends_at = starts_at + duration*3600
+    end
     if @event.save
       @event.save_shortened_url
       if params[:category]

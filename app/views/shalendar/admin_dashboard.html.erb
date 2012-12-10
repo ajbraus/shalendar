@@ -11,7 +11,7 @@
 	New Users Last Week: <strong><%= @new_users_last_week %></strong>
 </dt>
 <dd>
-	User.where(['created_at > ?', Time.now.in_time_zone(current_user.time_zone) - 1.week])
+	User.where(['created_at > ?', Time.now - 1.week])
 </dd> 
 
 <dt>
@@ -31,14 +31,14 @@
 	Active Users: <strong><%= @active_users %></strong>
 </dt>
 <dd>
-	User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.now.in_time_zone(current_user.time_zone) - 1.month])
+	User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.now - 1.month])
 </dd>
 
 <dt>
 	Inactive users: <strong><%= @inactive_users.count %></strong>
 </dt>
 <dd>
-	User.where(['last_sign_in_at < ?', Time.now.in_time_zone(current_user.time_zone) - 1.month])
+	User.where(['last_sign_in_at < ?', Time.now - 1.month])
 	<% if false %>
 	<ul>
 		<% @inactive_users.each do |iau| %>

@@ -18,8 +18,13 @@ class RegistrationsController < Devise::RegistrationsController
         end
         ei.destroy
       end
+
       Category.all.each do |cat|
         Interest.create(user_id: resource.id, category_id: cat.id)
+      end
+
+      if params[:category_id]
+        resource.classification_id = params[:category_id]
       end
 
       if resource.active_for_authentication?

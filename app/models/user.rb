@@ -98,6 +98,8 @@ class User < ActiveRecord::Base
 
   belongs_to :city
 
+  has_one :classification, :class_name => "Category"
+
   after_create :send_welcome
 
   extend FriendlyId
@@ -364,7 +366,6 @@ class User < ActiveRecord::Base
   end
 
   def forecast(load_datetime)
-    Time.zone = self.time_zone
     @forecast = []
     (-3..26).each do |i|
       @events = []
@@ -380,7 +381,6 @@ class User < ActiveRecord::Base
   end
 
   def events_on_date(load_datetime)
-    Time.zone = self.time_zone
     @time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
 
     #CATEGORY TODO
@@ -412,7 +412,6 @@ class User < ActiveRecord::Base
 
   def mobile_events_on_date(load_datetime)#don't care about toggled here, do it locally on client
 
-    Time.zone = self.time_zone
     time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
     @plans_on_date = Event.where(starts_at: time_range).joins(:rsvps)
                       .where(rsvps: {guest_id: self.id}).order("starts_at ASC")

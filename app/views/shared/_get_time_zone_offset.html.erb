@@ -1,3 +1,4 @@
+<% if false %>
 <% if !user_signed_in? || current_user.city.name == "Everywhere Else" %>
 <%= coffee_script_tag do %>
 $ ->
@@ -5,5 +6,6 @@ $ ->
 	data = { time_zone_offset: offset };
 	console.log(data);
 	$.post('/set_time_zone', data);
+<% end %>
 <% end %>
 <% end %>

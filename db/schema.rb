@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121201202151) do
+ActiveRecord::Schema.define(:version => 20121207203142) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -120,13 +120,9 @@ ActiveRecord::Schema.define(:version => 20121201202151) do
 
   create_table "cities", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "timezone"
-    t.string   "icon_file_name"
-    t.string   "icon_content_type"
-    t.integer  "icon_file_size"
-    t.datetime "icon_updated_at"
   end
 
   add_index "cities", ["name"], :name => "index_cities_on_name"
@@ -195,13 +191,14 @@ ActiveRecord::Schema.define(:version => 20121201202151) do
     t.string   "promo_url"
     t.string   "promo_vid"
     t.boolean  "is_public",                 :default => false
-    t.string   "category"
     t.boolean  "family_friendly",           :default => false
     t.integer  "parent_id"
     t.string   "short_url"
+    t.boolean  "require_payment"
     t.string   "slug"
     t.integer  "city_id"
     t.boolean  "is_big_idea"
+    t.string   "description"
   end
 
   add_index "events", ["slug"], :name => "index_events_on_slug"
@@ -352,7 +349,6 @@ ActiveRecord::Schema.define(:version => 20121201202151) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.string   "time_zone"
     t.integer  "new_invited_events_count", :default => 0
     t.boolean  "vendor",                   :default => false
     t.boolean  "email_comments",           :default => true
@@ -379,7 +375,7 @@ ActiveRecord::Schema.define(:version => 20121201202151) do
     t.string   "credit_card_uri"
     t.string   "debits_uri"
     t.integer  "city_id"
-    t.integer  "category_id"
+    t.integer  "classification_id"
     t.string   "slug"
   end
 

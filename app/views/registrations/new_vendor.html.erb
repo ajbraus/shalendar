@@ -1,6 +1,6 @@
 <% provide(:title, " | Venue") %> 
 <div id="sign_up" class="sign_up">
-  <h2> Venue Sign Up </h2>
+  <h2> Tell Us About Yourself </h2>
   <%= form_for(resource, 
         :as => resource_name, 
         :url => registration_path(resource_name),
@@ -8,32 +8,36 @@
   <% if false %>
   <%= devise_error_messages! %>
   <% end %>
-  <div><%= f.label :name, "Name*" %><br />
+  <div><%= f.label :name, "Name*" %>
   <%= f.text_field :name, class: "required", placeholder:"name" %></div>
 
-  <div><%= f.label :email, "Email*" %><br />
+  <div><%= f.label :email, "Email*" %>
   <%= f.email_field :email, class: "required", placeholder:"email@example.com" %></div>
 
-  <div><%= f.label :profile_picture, "Profile Picture*" %><br />
+  <div><%= f.label :profile_picture, "Profile Picture*" %>
   <%= f.file_field :avatar, class: "required" %></div>
 
-  <div><%= f.label :background_image, "Background Image (1024x600)" %><br />
+  <div><%= f.label :background_image, "Background Image (1024x600)" %>
   <%= f.file_field :background %></div>
 
-  <div><%= f.label :city, "City*" %><br />
+  <div><%= f.label :city, "City*" %>
   <%= f.collection_select :city_id, @cities, :id, :name, { prompt: true }, { class: "required" } %></div>
 
-  <div><%= f.label :time_zone, "Time Zone*" %><br />
-  <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)", class: "required" %></div>
+  <div><%= label_tag :category_id, "Category*" %>
+  <%= select_tag :category_id, options_from_collection_for_select(Category.all, :id, :name), {  prompt: "pick your category", class: "required"} %></div>
 
-  <div><%= f.label :password, "Password*" %><br />
+<% if false %>
+  <div><%= f.label :time_zone, "Time Zone*" %>
+  <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)", class: "required" %></div>
+<% end %>
+
+  <div><%= f.label :password, "Password*" %>
   <%= f.password_field :password, class: "required" %></div>
 
-  <div><%= f.label :password_confirmation, "Retype Password*" %><br />
+  <div><%= f.label :password_confirmation, "Retype Password*" %>
   <%= f.password_field :password_confirmation, class: "required" %></div>
 
-  <div><%= f.check_box :terms, checked: true %><%= f.label :terms, "Vendor Terms & Conditions*", class: "required" %></div><br/>
-
+  <div><%= f.check_box :terms, checked: true %><%= f.label :terms, "Vendor Terms & Conditions*", class: "required" %></div>
   <%= f.hidden_field :vendor, value: true %>
 
   <div><%= f.submit "Sign up", :class => "btn btn-large btn-primary" %></div>

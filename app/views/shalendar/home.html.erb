@@ -8,11 +8,9 @@
 	<div class="each_day persist-area clearfix">		
 		<div class="date_bar marker persist-header clearfix shield <% if i == 0 %> red <% end %>" <% if i == 0 %> id="today" <% end %> data-date=<%= "#{@time_in_zone.to_date + i}" %>>
       <div class="date"><%= (@time_in_zone.to_date + (i)).strftime("%A %b %e") %></div>
-      <% if false %>
       <div id="hidePublic" class="friend_only" title="View only Friends Ideas">
       	<i class="icon-envelope-alt"></i> 
       </div>
-      <% end %>
 		</div>
     <div class="day_container clearfix">
   		<div class="idea_container clearfix">
@@ -73,7 +71,7 @@
 </script>
 
 <% if false %>
-<% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now.in_time_zone(current_user.time_zone) - 7.seconds %>
+<% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
 	<script> 
 		function Func1() { 
 			//alert("ahh!")

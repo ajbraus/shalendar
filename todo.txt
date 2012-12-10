@@ -77,28 +77,43 @@ new follower email link not working
 
 Adam
 
+one click turn public ideas off
+
+Create crowd ideas ala kickstarter
+
+add event description (display only in show)
+
+add sidebar to crowd ideas page
+
+joyride
+
+stats/reputation/broadcast on user#show page
+
+Event ends_at is F'ed- it's switching day and month, and time is off
+	also, we should compare ends_at instead of starts_at to decide what to display
+
+Events aren't creating if they don't have a time put in- tried taking out validations of presence but didn't solve yet
+
 invited ribbon
 crowd idea ribbon
 
-Create discoverables
-fix category problem with events
+remake the event.html shield 
 
-joyride
 ---------------------------------------------------------------
-
 
 rsvp ajax
 rsvp lightbox -- add to calendar, share with facebook twitter linkedin etc
 ticket/rsvp link
 
-carrot by name
+rsvp out/in
+Rsvp - checked_in? boolean with mobile api to check in.
 
-one click turn public ideas off
+---------------------------------------------------------------
+
 invited ideas have ribbon with envelope
 blue ribbon in corner of friend's ideas
 
-serve crowd ideas by rsvp count
-
+pull events from their calendars/websites
 
 profile, broadcast, dashboard
 
