@@ -11,6 +11,9 @@ body {
 	overflow-x:hidden;
 }
 // REMOVE SOME STUFF
+	footer {
+		display:none;
+	}
 	#feedback {
 		display:none;
 	}
@@ -41,6 +44,10 @@ body {
 		img {
 			display:none;
 		}
+	}
+
+	.only {
+		display: none;
 	}
 
 	#textMsg {
@@ -168,6 +175,10 @@ left: -148px;
 	}
 
 	.idea_container {
+		width:98%;
+	}
+
+	.crowd_ideas {
 		width:98%;
 	}
 
@@ -310,6 +321,16 @@ right: 58px;
 
 .rsvp_button {
 	padding: 2px 10px;
+}
+
+.new_big_idea {
+	width: 83%;
+	.event_form {
+		width:100%;
+	}
+	.idea_preview {
+		display:none;
+	}
 }
 
 }

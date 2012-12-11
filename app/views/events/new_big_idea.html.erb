@@ -2,8 +2,12 @@
 	<div class="event_form">
 	  <%= form_for current_user.events.build, url: { :controller => 'events', :action => 'create' }, html: { id: "new_event_form" } do |f| %>
 	  <p>
-	  <%= label :title, "Idea*" %><br/>
-	  <%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
+		  <%= label :title, "Idea*" %><br/>
+	  	<%= f.text_field :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off" %>
+		</p>
+	  <p>
+	  	<%= label :description, "Description" %><br/>
+	  	<%= f.text_area :description, rows: 2, autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
 	  </p>  
 <input type="checkbox" name="knowTime" value="#" id="knowTime"> I know when this idea will take place
 	<div id="timeDuration" style="display:none;">

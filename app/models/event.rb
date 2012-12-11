@@ -68,7 +68,7 @@ class Event < ActiveRecord::Base
             :title, presence: true
   validates :max, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true
   validates :min, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true
-  validates :duration, numericality: { in: 0..1000 } 
+  validates :duration, numericality: { in: 0..1000 }, allow_blank: true 
   validates :title, length: { maximum: 140 }
   validates_numericality_of :longitude, :latitude, allow_blank:true
   validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}, allow_blank:true
@@ -113,23 +113,43 @@ class Event < ActiveRecord::Base
   end
 
   def start_time
-    self.starts_at.strftime "%l:%M%P, %A %B %e"
+    if starts_at.present?
+      self.starts_at.strftime "%l:%M%P, %A %B %e"
+    else
+      "TBD"
+    end
   end
 
   def start_date_time
-    self.starts_at.strftime "%A %B %e, %l:%M%P"
+    if starts_at.present?
+      self.starts_at.strftime "%A %B %e, %l:%M%P"
+    else
+      "TBD"
+    end
   end
 
   def start_time_no_date
-    self.starts_at.strftime "%l:%M%P"
+    if starts_at.present?
+      self.starts_at.strftime "%l:%M%P"
+    else
+      "TBD"
+    end
   end
 
   def mini_start_date_time
-    self.starts_at.strftime "%a, %b %e, %l:%M%P"
+    if starts_at.present?
+      self.starts_at.strftime "%a, %b %e, %l:%M%P"
+    else
+      "TBD"
+    end
   end
   
   def start_date
-    self.starts_at.strftime "%A, %B %e"
+    if starts_at.present?
+      self.starts_at.strftime "%A, %B %e"
+    else
+      "TBD"
+    end
   end
 
   def self.format_date(date_time)

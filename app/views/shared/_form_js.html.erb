@@ -218,6 +218,11 @@ $("#event_promo_url").rules("add", {
   }
 });
 
+$('#isPublic').click(function(){
+  $("#addcategoriesp").toggle();
+  $('.category_radio').addClass("required");
+});
+
 // focus on the first text input field in the first field on the page
   $("textarea").focus();
 

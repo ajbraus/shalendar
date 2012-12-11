@@ -7,11 +7,7 @@
 				<%= link_to invite_all_friends_path(:event_id => event.id), remote: true, confirm: "Share this idea with all friends?" do %>
 					<div class="btn_invite_all_friends btn_icon" title="Share this Idea with All your Friends"><i class="icon-group"></i></div>
 				<% end %>
-			<% else %>
-				<div class="going btn_icon" title="You're In"><i class="icon-ok-circle"></i></div>
 			<% end %>
-		<% else %>
-		<div class="going btn_icon" title="You are going to this idea"><i class="icon-ok-circle"></i></div>
 		<% end %>
 	<% else %>
 		<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>

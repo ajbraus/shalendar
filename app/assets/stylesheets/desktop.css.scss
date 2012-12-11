@@ -63,7 +63,10 @@
 
 .idea_container {
 position: relative;
-margin-left: 290px;
+}
+
+.crowd_ideas {
+	margin-left: 290px;
 width: 77%;
 }
 
@@ -241,17 +244,33 @@ left: -121px;
 		}
 
 		.sidebar {
-			width: 255px;
+			width: 235px;
 		}
 
 		.home {
-			width: 74%;
-			left: 294px;
-			position: relative;
+position: relative;
+margin-right: -25px;
+margin-left: 270px;
 		}
 
 		.rsvp_button {
 			padding: 10px 20px;
+		}
+
+		.new_big_idea {
+			width: 69%;
+			.event_form {
+				width:58%;
+			}
+			.idea_preview {
+				width: 30%;
+				right: 13%;
+				position: fixed;
+				top: 140px;
+				  img {
+      		width:100%;
+    		}
+			}
 		}
 
 }

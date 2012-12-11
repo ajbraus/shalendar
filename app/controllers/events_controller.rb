@@ -52,9 +52,6 @@ class EventsController < ApplicationController
     @event.tipped = true                    if @event.min <= 1
     @event.parent_id = params[:parent_id]   if params[:parent_id]
     @event.city = current_user.city
-    if duration && starts_at
-      @event.ends_at = starts_at + duration*3600
-    end
     if @event.save
       @event.save_shortened_url
       if params[:category]
@@ -88,6 +85,10 @@ class EventsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to @event, notice: "Idea Posted Successfully" }
         format.json { render json: @event, status: :created, location: @event }
+      end
+    elsif @event.is_big_idea?
+      respond_to do |format|
+        format.html { redirect_to discover_path, notice: "An Error prevented Your Idea from Posting" }
       end
     else
       respond_to do |format|

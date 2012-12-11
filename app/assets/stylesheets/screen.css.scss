@@ -915,8 +915,8 @@ left: 130px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   background-color: white;
-  width: 50px;
-height: 50px;
+width: 35px;
+height: 35px;
 }
 
 .profile_pic_home {
@@ -1323,11 +1323,11 @@ overflow: auto;
     left: 55px;
   }
   ul {
-    margin: 20px 20px 20px 0;
+    margin: 20px 0px 20px 0;
     height:30px;
   }
   li {
-    border-right: 1px solid #D1CDCD;
+    border-right: 1px solid $divider;
     display: inline;
     float: left;
     padding: 0px 13px;
@@ -1417,6 +1417,9 @@ padding-bottom: 0;
 }
 
 .event {
+min-width: 165px;
+min-height: 110px;
+  background-color:white;
 margin: 5px;
 float:left;
 position: relative;
@@ -1428,12 +1431,19 @@ box-shadow:         1px 1px 4px rgba(50, 50, 50, 0.75);
 overflow: hidden;
 .promo_img {
   text-align: center;
-background-color: white;
-margin-top: -5px;
-padding-top: 7px;
+  background-color: white;
   img{
     max-height: 167px;
   }
+}
+.guests {
+float: right;
+position: relative;
+top: 12px;
+padding-right: 5px;
+}
+a {
+  color:black;
 }
 }
 
@@ -1510,26 +1520,28 @@ bottom: 12px;
 }
 
 .event_blerb {
-min-height: 20px;
+min-height: 38px;
 color: black;
-font-size: 20px;
+font-size: 17px;
 line-height: 1;
 width: 103%;
 overflow: hidden;
 position: relative;
 right: 5px;
-padding-left: 8px;
-padding-top: 6px;
+padding-left: 5px;
+padding-top: 2px;
 background-color: white;
-bottom: 5px;
-margin-bottom: -9px;
-padding-bottom: 8px;
+padding-bottom: 2px;
+  .title {
+    padding: 0 0 0 5px;
+    vertical-align: top;
+  }
 }
 
 .event_shield_icons {
 position: absolute;
-bottom: 4px;
-left: 60px;
+bottom: 0;
+left: 0;
 }
 
 .friends_attending {
@@ -1577,13 +1589,13 @@ margin-bottom: 3px;
 }
 
 .rsvp_check {
-position: absolute;
-bottom: 31px;
-right: 0px;
+float: right;
+position: relative;
+top: 4px;
 }
 
 .btn_icon {
-padding: 15px 12px;
+padding: 5px 13px;
 cursor: pointer;
  i {
     color: white;
@@ -1657,10 +1669,10 @@ footer {
   -moz-opacity: 0.75;
   -khtml-opacity: 0.75;
   opacity: 0.75;
-clear: both;
-margin: 0px auto;
-width: 960px;
-border-top: 1px solid $divider;
+  clear: both;
+  margin: 0px auto;
+  width: 960px;
+  border-top: 1px solid $divider;
 
   a {
     float:left;
@@ -3435,7 +3447,7 @@ background-repeat: no-repeat;
 }
 
 #new_idea_blerb {
-width: 75%;
+width: 72%;
   height:21px;
 }
 
@@ -3451,24 +3463,14 @@ width: 75%;
 
 .new_big_idea {
 margin: 0 auto;
-width: 69%;
 height: 100%;
 background-color: rgba(255, 255, 255, 0.5);
 padding: 0 7%;
   .event_form {
-    width:58%;
-    float:left;
+    float: left;
     position: relative;
-top: 20px;
-  }
-  .idea_preview {
-    width:40%;
-    float:left;
-    position: relative;
-top: 130px;
-    img {
-      width:100%;
-    }
+    margin-top: 20px;
+    padding-bottom: 20px;
   }
 }
 
@@ -3478,17 +3480,8 @@ padding: 12px 0;
 }
 
     .meter { 
-height: 12px;
+height: 5px;
 position: relative;
-margin: 6px 0px 6px 33px;
-background: #555;
--moz-border-radius: 25px;
--webkit-border-radius: 25px;
-border-radius: 25;
-padding: 3px 3px 3px 3px;
--webkit-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
--moz-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
     }
     .meter > span {
       display: block;
@@ -3535,7 +3528,7 @@ box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
       content: "";
       position: absolute;
       top: 0; left: 0; bottom: 0; right: 0;
-      background-image: 
+/*      background-image: 
          -webkit-gradient(linear, 0 0, 100% 100%, 
             color-stop(.25, rgba(255, 255, 255, .2)), 
             color-stop(.25, transparent), color-stop(.5, transparent), 
@@ -3553,7 +3546,7 @@ box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
             rgba(255, 255, 255, .2) 75%, 
             transparent 75%, 
             transparent
-         );
+         );*/
       z-index: 1;
       -webkit-background-size: 50px 50px;
       -moz-background-size: 50px 50px;
@@ -3658,4 +3651,30 @@ z-index: -1;
 .idea_container {
   position: relative;
 height: 0px;
+}
+
+.warm_orange {
+  color: #EB8325;
+}
+
+.status_icon {
+  position: absolute;
+right: 5px;
+top: 5px;
+z-index: 1;
+font-size: 22px;
+}
+
+.green {
+  color: $happening;
+}
+.orange {
+  color: $dark_orange;
+}
+.blue {
+  color: $rsvp;
+}
+
+.shield_bottom {
+  height:22px;
 }

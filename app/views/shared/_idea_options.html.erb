@@ -1,38 +1,37 @@
 <div id="eventOptions">
-	<% if current_user.vendor? %>
 		<div class="venue_invitation_options open" id="visibilityp">
 		  <u>
-		  	<%= f.label "Public Idea" %><br>
+		  	<%= f.label :is_public, "Invite #{current_user.city.name.split(",")[0].to_s.capitalize}" %><br>
 				<i class="icon-bullhorn questionMark"></i>
-				<%= f.check_box :is_public, class: "switch", checked: "checked" %>
+				<span id="isPublic"><%= f.check_box :is_public, class: "switch" %></span>
 			</u>
 		  <u>
-				<%= f.label "Share with Friends" %><br>
+				<%= f.label "Invite My Friends" %><br>
 				<i class="icon-group questionMark"></i>
 				<input checked="checked" id="invite_all_friends" name="invite_all_friends" type="checkbox" class="switch">    			
 			</u>
 		  <u>
-		  	<%= f.label "Guests Can Share" %><br>
+		  	<%= f.label "Sharable" %><br>
 				<i class="icon-plus questionMark"></i>
 				<%= f.check_box :guests_can_invite_friends, class: "switch", checked: "checked" %>
 			</u>
-			<div class="idea_categories" id="addcategoriesp">
-			<%= label :category, "Category*" %>
-	    <div id="categories">
-	    	<% Category.all.each do |c| %>
-		      <%= radio_button "event", :category, "#{c}", id:"radio#{(c.id)}", class:"required" %>
-		      <%= label_tag "radio#{(c.id)}", "#{c.name}" %>
-	    	<% end %>
-    	</div>
-    	<div class="family_friendly_checkbox">
-    		<%= f.label "Family Friendly?" %><br>
-				<i class="icon-home questionMark"></i>
-				<%= f.check_box :family_friendly, class: "switch" %>
-	  	</div> 
+			<div class="idea_categories" id="addcategoriesp" style="display:none;">
+				<%= label :category, "Category*" %>
+		    <div id="categories">
+		    	<% Category.all.each do |c| %>
+			      <%= radio_button_tag "category", :category, "#{c.name}", id:"radio#{(c.id)}", class:"category_radio" %>
+			      <%= label_tag "radio#{(c.id)}", "#{c.name}" %>
+		    	<% end %>
+	    	</div>
+	    	<div class="family_friendly_checkbox">
+	    		<%= f.label "Family Friendly?" %><br>
+					<i class="icon-home questionMark"></i>
+					<%= f.check_box :family_friendly, class: "switch" %>
+		  	</div> 
 	  	</div> 
 		</div>
 
-	<% else %>
+<% if false %>
 		<div class="invitation_options open" id="visibilityp">
 		  <u>
 				<%= f.label "Share with All Friends" %><br>
@@ -45,7 +44,7 @@
 				<%= f.check_box :guests_can_invite_friends, class: "switch", checked: "checked" %>
 			</u>
 		</div>
-	<% end %>
+<% end %>
 
 	<div id="addimgp" style="display:none;">
 	  <div><%= f.label :display_image %></div>

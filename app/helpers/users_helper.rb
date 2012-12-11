@@ -6,23 +6,43 @@ module UsersHelper
   end
 
   def start_time(event)
-    event.starts_at.strftime "%l:%M%P, %A %B %e"
+    if event.starts_at.present?
+      event.starts_at.strftime "%l:%M%P, %A %B %e"
+    else
+      "TBD"
+    end
   end
 
   def date(event)
-    event.starts_at.strftime "%A, %b %e"
+    if event.starts_at.present?
+      event.starts_at.strftime "%A, %b %e"
+    else
+      "TBD"
+    end
   end
 
   def event_start_time(event)
-    event.starts_at.strftime("%l:%M%P")
+    if event.starts_at.present?
+      event.starts_at.strftime("%l:%M%P")
+    else
+      "TBD"
+    end
   end
 
   def event_end_time(event)
-    event.ends_at.strftime("%l:%M%P")
+    if event.ends_at.present?
+      event.ends_at.strftime("%l:%M%P")
+    else
+      "TBD"
+    end
   end 
 
   def next_event_date(event)
-    event.starts_at.strftime("%a %b %e")
+    if event.starts_at.present?
+      event.starts_at.strftime("%a %b %e")
+    else
+      "TBD"
+    end
   end
 
   def raster_profile_picture(user)

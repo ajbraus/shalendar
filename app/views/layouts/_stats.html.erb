@@ -35,7 +35,6 @@
       </a>
     </li>
     <li>
-      <span id="invitations"></span>
       <%= link_to new_invited_events_path, :remote => true do %>
         <% unless current_user.new_invited_events_count == 0 %>
           <span id="new_invited_events_count" class="new_invited_events_count"><%= current_user.new_invited_events_count %></span>

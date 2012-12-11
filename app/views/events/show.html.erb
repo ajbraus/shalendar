@@ -64,7 +64,11 @@
   </div>
 
 	<div class="when">
-	  <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> - <%= @event.nice_duration %> hrs</div>
+	  <% if @event.starts_at.present? %>
+      <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> - <%= @event.nice_duration %> hrs</div>
+    <% else %>
+      <div class="date"><strong>When: To Be Decided (TBD) </strong></div>
+    <% end %>
     <div class="join_group_buttons">
       <%= render 'rsvp_form' %>
     </div>
@@ -128,10 +132,12 @@
 <% if user_signed_in? %>
 	<!-- COMMENTS -->
   <%= render partial: 'comments_form' %>
-  <% if ((current_user.rsvpd?(@event) && @event.guests_can_invite_friends?) || @event.user == current_user) && @event.ends_at > Time.now %>
-      <div id="invite_raster">
-        <%= render partial: 'invite_raster', :locals => { :event => @event } %>
-      </div>
+  <% if @event.starts_at.present? %>
+    <% if ((current_user.rsvpd?(@event) && @event.guests_can_invite_friends?) || @event.user == current_user) && @event.ends_at > Time.now %>
+        <div id="invite_raster">
+          <%= render partial: 'invite_raster', :locals => { :event => @event } %>
+        </div>
+    <% end %>
   <% end %>
 <% end %>
 

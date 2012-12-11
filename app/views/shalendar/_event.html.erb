@@ -1,13 +1,21 @@
-<% if user_signed_in? %>
+		<% if user_signed_in? %>
 	<div class="event shield 
 		<%= event.ends_at < @time_in_zone ? 'over' : '' %> 
-		<%= event.is_public? ? 'public' : '' %>
+		<%= event.is_public? && !current_user.invited?(event) ? 'public' : '' %>
 		data-event-id='<%= event.id %>' ">
 <% else %>
 	<div class="event shield <%= event.ends_at < @time_in_zone ? 'over' : '' %>">
 <% end %>
-
 	<%= link_to event_path(event) do %>
+		<% if user_signed_in? %>
+			<div class="status_icon">
+				<% if current_user.rsvpd?(event) %>
+					<i class="icon-ok-sign blue"></i>
+				<% elsif current_user.invited?(event) %>
+					<i class="icon-envelope blue"></i>
+				<% end %>
+			</div>
+		<% end %>
 		<div class="event_time">			
 			<% if event.starts_at.hour > 4 && event.starts_at.hour < 12 %>
 				<%= image_tag "morning.png" %>
@@ -17,13 +25,20 @@
 				<%= image_tag "night.png" %>
 			<% end %>
 			<span><%= event_start_time(event) %> (<%= event.nice_duration %> hr)</span>
-		<% if user_signed_in? %>
-			<% if current_user.rsvpd?(event) %>
-				<div class="invited_ribbon"></div>
-			<% end %>
-		<% end %>
 		</div>
 
+		<div class="event_blerb">
+			<span title="Created by: <%= event.user.name %>"><%= raster_profile_picture(event.user) %></span><span class="title"><%= event.title %></span>
+		</div>
+				<% if event.tipped? %>	
+				<div class="meter">
+					<span style="width: <%= (event.guests.count.to_f/event.min.to_f*100).round %>%;"><span></span></span>
+				</div>
+			<% else %>
+				<div class="meter animate orange">
+					<span style="width: <%= (event.guests.count.to_f/event.min.to_f*100).round %>%;"><span></span></span>
+				</div>
+			<% end %>
 	<% if event.has_image? %>
 		<div class="promo_img">
 			<% if event.parent.blank? %>
@@ -41,29 +56,37 @@
 			<% end %>
 		</div>
 	<% end %>
-	
-		<div class="event_blerb">
-			<%= event.title %>
-		</div>
-
-
-		<div class="event_pic" title="Created by: <%= event.user.name %>"><%= raster_profile_picture(event.user) %></div>
+<div class="shield_bottom">
 		<div class="event_shield_icons">
+			<% if event.categories.any? %>
+				<%= event.categories.first.name.capitalize %>
+			<% end %>
 			<% if event.family_friendly? %>
-				<i class="purple icon-home"></i>
+				<i class="icon-home"></i>
+			<% end %>
+			<% if event.promo_vid.present? %>
+				<i class="icon-video"></i>
+			<% end %>
+			<% if event.is_big_idea? %>
+				<i class="icon-cloud"></i>
 			<% end %>
 	  </div>
-			<% if event.tipped? %>	
-				<div class="meter animate">
-					<span style="width: <%= (event.guests.count.to_f/event.min.to_f*100).round %>%;"><span></span></span>
+
+		<% unless event.is_public? %>
+		<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
+		<% end %>	
+	  <div class="guests"><i class="icon-group"></i> <%= event.guests.count %></div>
+
+	</div>
+	<!-- ENDING LINK_TO -->
+	<% end %>
+</div>
+
+<% if false %>
+			<% if event.user == current_user && event.tipped? == false && event.tipped? == true %>
+				<div class="force_tip">
+					<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true, id:"tipPin" %>
 				</div>
-				<span class="guests"><%= event.guests.count %></span>
-			<% else %>
-				<div class="meter animate orange">
-					<span style="width: <%= (event.guests.count.to_f/event.min.to_f*100).round %>%;"><span></span></span>
-				</div>
-				<span class="guests"><%= event.guests.count %></span>
-				<span class="tipping_point"><%= event.min %></span>
 			<% end %>
 		<% unless event.is_public? %>
 			<% unless event.user == User.find_by_id(event.inviter_id) %>
@@ -73,19 +96,5 @@
 					<% end %> 
 				</div>
 			<% end %>
-
-			<% if event.user == current_user && event.tipped? == false && event.tipped? == true %>
-				<div class="force_tip">
-					<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true, id:"tipPin" %>
-				</div>
-			<% elsif event.is_public? %>
-
-			<% else %>
-			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
-
-			<% end %>
-			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
 		<% end %>
-	<!-- ENDING LINK_TO -->
-	<% end %>
-</div>
+<% end %>

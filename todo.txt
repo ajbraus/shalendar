@@ -77,27 +77,29 @@ new follower email link not working
 
 Adam
 
-one click turn public ideas off
+facebook feed dialogue
+facebook message dialogue
+linked in share dialogue
+twitter share dialogue
+pin share dialogue
 
 Create crowd ideas ala kickstarter
 
 add event description (display only in show)
 
-add sidebar to crowd ideas page
-
 joyride
 
 stats/reputation/broadcast on user#show page
 
-Event ends_at is F'ed- it's switching day and month, and time is off
-	also, we should compare ends_at instead of starts_at to decide what to display
+make today button work
 
-Events aren't creating if they don't have a time put in- tried taking out validations of presence but didn't solve yet
+show new idea button in responsive
 
 invited ribbon
 crowd idea ribbon
 
-remake the event.html shield 
+remake the event.html shield
+
 
 ---------------------------------------------------------------
 
@@ -109,6 +111,8 @@ rsvp out/in
 Rsvp - checked_in? boolean with mobile api to check in.
 
 ---------------------------------------------------------------
+
+facebook load ajax
 
 invited ideas have ribbon with envelope
 blue ribbon in corner of friend's ideas
