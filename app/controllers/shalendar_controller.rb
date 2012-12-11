@@ -23,16 +23,11 @@ class ShalendarController < ApplicationController
       if params[:city].present?
         @city = City.find_by_name(params[:city])
       else
-        @city = City.find_by_name("Everywhere Else")
+        @city = City.find_by_name("Madison, Wisconsin")
       end
 
-      if @city.name == "Everywhere Else"
-        @time_in_zone = Time.now.in_time_zone("Central Time (US & Canada)")
-      else
-        @time_in_zone = Time.now.in_time_zone(@city.timezone)
-      end
+      @time_in_zone = Time.now.in_time_zone(@city.timezone)
 
-      @time_in_zone = Time.now
       @events = Event.public_forecast(@time_in_zone, @city, session[:toggled_categories])
     end 
     # Beginning of Yellow Pages
@@ -75,7 +70,7 @@ class ShalendarController < ApplicationController
     if Rails.env.production?
       @invite_friends.each do |inf|
       session[:graph].delay.put_connections( inf['uid'], "feed", {
-                                      :message => "I'm using hoos.in to do awesome things with my friends. Check it out:", 
+                                      :message => "hoos.in for some fun?", 
                                       :name => "hoos.in",
                                       :link => "http://www.hoos.in/",
                                       :caption => "Do Great Things With Friends",
@@ -84,7 +79,7 @@ class ShalendarController < ApplicationController
       end
     else
       session[:graph].put_connections( 510890387, "feed", {
-                                      :message => "I'm using hoos.in to do awesome things with my friends. Check it out:", 
+                                      :message => "hoos.in for some fun?", 
                                       :name => "hoos.in",
                                       :link => "http://www.hoos.in/",
                                       :caption => "Do Great Things With Friends",
@@ -92,7 +87,7 @@ class ShalendarController < ApplicationController
                                     })
     end
     respond_to do |format|
-      format.html { redirect_to root_path, notice: "Successfully posted invitations to hoos.in to all your facebook Friends" }
+      format.html { redirect_to root_path, notice: ".invited your Facebook friends to hoos.in" }
       format.js
     end
   end
@@ -114,7 +109,7 @@ class ShalendarController < ApplicationController
     @vendor_friendships = current_user.vendor_friendships   
 
     respond_to do |format|
-      format.html { redirect_to root_path, notice: "Successfully Friended all facebook Friends on hoos.in"}
+      format.html { redirect_to root_path, notice: "you are now friends with your Facebook friends who are .in"}
       format.js
     end
   end
@@ -123,13 +118,12 @@ class ShalendarController < ApplicationController
     if user_signed_in?
       @my_plans = current_user.plans.where('starts_at > ?', @date).order('starts_at desc')
       @city = current_user.city
-    elsif params[:city].present?
+    end
+    if params[:city].present? || @city.nil?
         @city = City.find_by_name(params[:city])
     else
-      @city = City.find_by_name("Everywhere Else")
+      @city = City.find_by_name("Madison, Wisconsin")
     end
-
-
 
     @time_in_zone = Time.now
     @date = @time_in_zone.to_date
@@ -144,7 +138,7 @@ class ShalendarController < ApplicationController
     elsif session[:city]
       @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name(session[:city]).id, Time.now).sort_by{ |i| -i.guests.count}
     else
-      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name("Everywhere Else").id, Time.now).sort_by{ |i| -i.guests.count}
+      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name("Madison, Wisconsin").id, Time.now).sort_by{ |i| -i.guests.count}
     end
   end
 

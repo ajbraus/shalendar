@@ -5,7 +5,7 @@
 
   <ul class="left_header">
     <% if false %><li><%= link_to "crowd ideas", discover_path %></li><% end %>
-    <li><%= link_to 'explain', what_is_hoosin_path %></li>
+    <li><%= link_to 'help', what_is_hoosin_path %></li>
   </ul>
 
   <div class="right_header">
@@ -22,7 +22,7 @@
     </div>
 <% end %>
     <%= render 'shared/city_user_dropdown' %>
-    <div id="interestsDropdown" class="interests_dropdown">interests <i class="icon-caret-down"></i></div>
+    <div id="interestsDropdown" class="interests_dropdown">.interests <i class="icon-caret-down"></i></div>
     <%= render 'shared/interests_user_dropdown' %>
     <% unless current_user.vendor? %>
       <%= render 'shared/friend_search' %>

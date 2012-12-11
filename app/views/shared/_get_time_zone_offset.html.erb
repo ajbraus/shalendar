@@ -1,5 +1,5 @@
 <% if false %>
-<% if !user_signed_in? || current_user.city.name == "Everywhere Else" %>
+<% if !user_signed_in?  %>
 <%= coffee_script_tag do %>
 $ ->
 	offset = new Date().getTimezoneOffset()/60

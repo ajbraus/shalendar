@@ -28,7 +28,7 @@ class City < ActiveRecord::Base
     elsif session[:city]
       City.find_by_name(session[:city])
     else 
-      City.find_by_name("Everywhere Else")
+      City.find_by_name("Madison, Wisconsin")
     end
   end
   

@@ -1,0 +1,69 @@
+have_header: checking for vm_core.h... -------------------- no
+
+"clang -o conftest -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin11.4.0 -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/Users/Fenchel/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe conftest.c  -L. -L/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/lib -L/Users/Fenchel/.rvm/usr/lib -L.      -lruby.1.9.1  -lpthread -ldl -lobjc "
+clang: warning: argument unused during compilation: '-ggdb'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"clang -E -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin11.4.0 -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/Users/Fenchel/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe  conftest.c -o conftest.i"
+clang: warning: argument unused during compilation: '-ggdb'
+conftest.c:3:10: fatal error: 'vm_core.h' file not found
+#include <vm_core.h>
+         ^
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <vm_core.h>
+/* end */
+
+--------------------
+
+have_header: checking for vm_core.h... -------------------- no
+
+"clang -E -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin11.4.0 -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby-1.9.3-p125  -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe  conftest.c -o conftest.i"
+clang: warning: argument unused during compilation: '-ggdb'
+conftest.c:3:10: fatal error: 'vm_core.h' file not found
+#include <vm_core.h>
+         ^
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <vm_core.h>
+/* end */
+
+--------------------
+
+have_header: checking for vm_core.h... -------------------- yes
+
+"clang -E -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin11.4.0 -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/Users/Fenchel/Desktop/shalendar/vendor/cache/ruby/1.9.1/gems/debugger-ruby_core_source-1.1.3/lib/debugger/ruby_core_source/ruby-1.9.3-p125  -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe  conftest.c -o conftest.i"
+clang: warning: argument unused during compilation: '-ggdb'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <vm_core.h>
+/* end */
+
+--------------------
+
+have_header: checking for version.h... -------------------- yes
+
+"clang -E -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/x86_64-darwin11.4.0 -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1/ruby/backward -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p125/include/ruby-1.9.1 -I. -I/Users/Fenchel/Desktop/shalendar/vendor/cache/ruby/1.9.1/gems/debugger-ruby_core_source-1.1.3/lib/debugger/ruby_core_source/ruby-1.9.3-p125  -O3 -ggdb -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe  conftest.c -o conftest.i"
+clang: warning: argument unused during compilation: '-ggdb'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <version.h>
+/* end */
+
+--------------------
+

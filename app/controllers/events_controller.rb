@@ -122,9 +122,8 @@ class EventsController < ApplicationController
       end
       @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event)}
       #if a user is 'everywhere else' then we don't silo their invitations...
-      unless current_user.city == City.find_by_name("Everywhere Else")
-        @friends = @friends.reject { |f| f.city != current_user.city }
-      end
+      @friends = @friends.reject { |f| f.city != current_user.city }
+
       if @graph
         @invite_friends = current_user.fb_friends(session[:graph])[1].reject { |inf| FbInvite.find_by_uid(inf['uid'].to_s) }
         @fb_invites = @event.fb_invites
