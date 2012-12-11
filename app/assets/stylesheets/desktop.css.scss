@@ -49,6 +49,10 @@
 		left: 25px;
 	}
 
+	.responsive_new_idea {
+		display: none;
+	}
+
 	.event {
 		.promo_img {
 			img {
@@ -232,6 +236,9 @@ left: -121px;
 			right: 15px;
 			position: relative;
 			bottom: 14px;
+			-moz-border-radius: 0 6px 6px 0;
+    	-webkit-border-radius: 0 6px 6px 0;
+    	border-radius: 0 6px 6px 0;
 		}
 		.new_idea {
 		}

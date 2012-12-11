@@ -9,13 +9,13 @@ class SeparateCityFromFacebook < ActiveRecord::Migration
       end
     end
 
-    City.create(name: "Everywhere Else", timezone: nil)
+    #City.create(name: "Everywhere Else", timezone: nil)
     City.create(name: "Madison, Wisconsin", timezone: "Central Time (US & Canada)")
-    # City.create(name: "Chicago, Illinois", timezone: "Central Time (US & Canada)")
-    # City.create(name: "New York, New York", timezone: "Eastern Time (US & Canada)")
-    # City.create(name: "Milwaukee, Wisconsin", timezone: "Central Time (US & Canada)")
-    # City.create(name: "Minneapolis, Minnesota", timezone: "Central Time (US & Canada)")
-    # City.create(name: "Göteborg, Sweden", timezone: "Paris")
+    City.create(name: "Chicago, Illinois", timezone: "Central Time (US & Canada)")
+    City.create(name: "New York, New York", timezone: "Eastern Time (US & Canada)")
+    City.create(name: "Milwaukee, Wisconsin", timezone: "Central Time (US & Canada)")
+    City.create(name: "Minneapolis, Minnesota", timezone: "Central Time (US & Canada)")
+    City.create(name: "Stockholm, Sweden", timezone: "Paris")
 
     if User.all.any?
     	User.all.each do |u|

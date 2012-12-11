@@ -80,7 +80,7 @@ top: 34px;
 	img {
 width: 45px;
 height: 45px;
-bottom: 28px;
+bottom: 11px;
 position: relative;
 	}
 	}
@@ -89,10 +89,18 @@ position: relative;
 	}
 
 	.btn-new-idea {
-		padding: 12px 20px;
+		padding: 11px 19px;
+		position: fixed;
+		top: 76px;
+		right: 70px;
+		-moz-border-radius: 6px;
+		-webkit-border-radius: 6px;
+		border-radius: 6px;
+		z-index: 10000;
 	}
 
-	.new_idea {
+	#new_idea_blerb {
+		display: none;
 	}
 
 
@@ -117,13 +125,20 @@ position: relative;
 	.date_bar {
 		.date {
 			font-size: 1.1em;
+			position: relative;
+			top: 7px;
 		}
 	}
 
 	.dropdown dd ul {
-top: -33px;
-left: -148px;
+top: -8px;
+left: -125px;
 }
+	.dropdown i.icon-caret-down {
+		position: relative;
+		bottom: 10px;
+		color: black;
+	}
 
 	.interests {
 		right: 153px;
