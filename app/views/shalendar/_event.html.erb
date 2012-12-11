@@ -1,7 +1,8 @@
 		<% if user_signed_in? %>
 	<div class="event shield 
 		<%= event.ends_at < @time_in_zone ? 'over' : '' %> 
-		<%= event.is_public? && !current_user.invited?(event) ? 'public' : '' %>
+		<%= event.is_public? && !current_user.invited?(event) && !current_user.rsvpd?(event) ? 'public' : '' %>
+		<%= current_user.rsvpd?(event) ? 'rsvpd' : '' %>
 		data-event-id='<%= event.id %>' ">
 <% else %>
 	<div class="event shield <%= event.ends_at < @time_in_zone ? 'over' : '' %>">
@@ -58,6 +59,9 @@
 	<% end %>
 <div class="shield_bottom">
 		<div class="event_shield_icons">
+			<% if event.is_public? %>
+				<i class="icon-bullhorn"></i>
+			<% end %>
 			<% if event.categories.any? %>
 				<%= event.categories.first.name.capitalize %>
 			<% end %>
@@ -75,7 +79,7 @@
 		<% unless event.is_public? %>
 		<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
 		<% end %>	
-	  <div class="guests"><i class="icon-group"></i> <%= event.guests.count %></div>
+	  <div class="guests <%= !event.tipped? ? 'not_tipped' : '' %>"><i class="icon-group"></i> <%= event.guests.count %></div>
 
 	</div>
 	<!-- ENDING LINK_TO -->

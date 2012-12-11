@@ -308,6 +308,7 @@ color: white;
 font-family: arial;
 font-weight: normal;
 text-decoration: none;
+text-align: center;
 }.btn-join:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #372c8b), color-stop(1, #5b549e) );
   background:-moz-linear-gradient( center top, #372c8b 5%, #5b549e 100% );
@@ -1137,8 +1138,7 @@ overflow: hidden;
 }
 
 .weeks {
-  border-bottom: 1px solid lightgray;
-  border-top: 1px solid lightgray;
+  border-bottom: 1px solid $divider;
 }
 
 .months {
@@ -1314,7 +1314,7 @@ overflow: auto;
 
 .stats {
   position: relative;
-  height: 180px;
+  height: 160px;
   border-bottom: 1px solid $divider;
 
   .name {
@@ -1354,7 +1354,9 @@ overflow: auto;
   float:left;
   margin: 0 11px 5px 0;
   background-color: white;
-  border-bottom:1px solid $divider;
+  a {
+    color:black;
+  }
   .inviter {
     position: absolute;
 bottom: 0px;
@@ -1418,7 +1420,9 @@ padding-bottom: 0;
 
 .event {
 min-width: 165px;
+max-width: 280px;
 min-height: 110px;
+max-height: 330px;
   background-color:white;
 margin: 5px;
 float:left;
@@ -1439,8 +1443,8 @@ overflow: hidden;
 .guests {
 float: right;
 position: relative;
-top: 12px;
 padding-right: 5px;
+top: 4px;
 }
 a {
   color:black;
@@ -1454,31 +1458,8 @@ max-height: 300px;
   }
 }
 
-.not_rsvpd {
-  background: #e5e5e5; /* Old browsers */
-background: -moz-linear-gradient(top,  #e5e5e5 0%, #f7faff 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e5e5e5), color-stop(100%,#f7faff)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #e5e5e5 0%,#f7faff 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #e5e5e5 0%,#f7faff 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #e5e5e5 0%,#f7faff 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #e5e5e5 0%,#f7faff 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#f7faff',GradientType=0 ); /* IE6-9 */
-
-} 
-
-.rsvpd {
-background: #e8f1ff; /* Old browsers */
-background: -moz-linear-gradient(top,  #f7fbfc 0%, #e8f1ff 68%, #afd6ff 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7fbfc), color-stop(68%,#e8f1ff), color-stop(100%,#afd6ff)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #f7fbfc 0%,#e8f1ff 68%,#afd6ff 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #f7fbfc 0%,#e8f1ff 68%,#afd6ff 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #f7fbfc 0%,#e8f1ff 68%,#afd6ff 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #f7fbfc 0%,#e8f1ff 68%,#afd6ff 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7fbfc', endColorstr='#afd6ff',GradientType=0 ); /* IE6-9 */
-}
-
 .not_tipped { 
-    color:$destroy;
+    color:$dark_orange;
   }
 #suggestion {
   cursor:pointer;
@@ -1539,9 +1520,9 @@ padding-bottom: 2px;
 }
 
 .event_shield_icons {
-position: absolute;
-bottom: 0;
-left: 0;
+float:left;
+position: relative;
+top: 4px;
 }
 
 .friends_attending {
@@ -1591,7 +1572,6 @@ margin-bottom: 3px;
 .rsvp_check {
 float: right;
 position: relative;
-top: 4px;
 }
 
 .btn_icon {
@@ -2744,11 +2724,10 @@ margin: 0 auto;
 position: relative;
 bottom: 70px;
 top: 12px;
-
   h2 {
     width:410px;
   }
-  input {
+  input[type=email],input[type=password],input[type=text] {
     font-size: 23px;
     margin-bottom: 10px;
     margin-top:5px;
@@ -3676,5 +3655,6 @@ font-size: 22px;
 }
 
 .shield_bottom {
-  height:22px;
+height: 17px;
+padding-top: 3px;
 }
