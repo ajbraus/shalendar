@@ -91,12 +91,6 @@ We have just released a new version and here are the enhancements that we think 
 
 Adam
 
-facebook feed dialogue
-facebook message dialogue
-linked in share dialogue
-twitter share dialogue
-pin share dialogue
-
 if not logged in - explain hoos.in in event page and home
 
 SEAN:
@@ -108,6 +102,11 @@ crowd ideas digest
 only digest monday thursday
 
 
+facebook feed dialogue
+facebook message dialogue
+linked in share dialogue
+twitter share dialogue
+pin share dialogue
 
 ---------------------------------------------------------------
 

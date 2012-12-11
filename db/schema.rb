@@ -194,8 +194,8 @@ ActiveRecord::Schema.define(:version => 20121207203142) do
     t.boolean  "family_friendly",           :default => false
     t.integer  "parent_id"
     t.string   "short_url"
-    t.string   "slug"
     t.boolean  "require_payment"
+    t.string   "slug"
     t.integer  "city_id"
     t.boolean  "is_big_idea"
     t.string   "description"
@@ -375,8 +375,8 @@ ActiveRecord::Schema.define(:version => 20121207203142) do
     t.string   "credit_card_uri"
     t.string   "debits_uri"
     t.integer  "city_id"
-    t.string   "slug"
     t.integer  "classification_id"
+    t.string   "slug"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

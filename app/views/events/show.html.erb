@@ -1,10 +1,6 @@
 <% provide(:title, " | #{@event.title}" ) %>
 <% unless user_signed_in? %>
-  <div class="not_signed_in_pitch part">
-    hoos.in is for finding and planning creative adventurous things with your friends.
-    <%= link_to "login", new_user_session_path, class:"btn btn-success" %>
-    <%= link_to "sign up", root_path, class:"btn btn-success" %>
-  </div>
+  <%= render 'shared/not_signed_in_pitch' %>
 <% end %>
 <% if @event.has_parent? %>
   <% unless @event.parent.user.background_file_size.nil? %>
