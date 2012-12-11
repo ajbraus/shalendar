@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
                              :default_url => "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png"
 
   has_attached_file :background, :styles => { :original => { :geometry => '1024x640#', :format => 'PJPEG' } },
-                             :convert_options => { :original => '-interlace Plane', :original => '-quality 100' },
+                             :convert_options => { :original => '-interlace Plane', :original => '-quality 80' },
                              :storage => :s3,
                              :s3_credentials => S3_CREDENTIALS,
                              :path => "user/:attachment/:style/:id.:extension",

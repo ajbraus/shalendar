@@ -93,7 +93,9 @@
   <% end %>
 
 	<div class="event_title">
-	  <%= @event.title %>
+	  <div><%= @event.title %></div>
+    <div><%= @event.description %></div>
+
       <div class="eventIcons">
       <% if @event.categories.any? %>
         <%= @event.categories.each do |cat| %>

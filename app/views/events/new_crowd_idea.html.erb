@@ -1,4 +1,4 @@
-<div class="new_big_idea clearfix">
+<div class="new_crowd_idea clearfix">
 	<div class="event_form">
 	  <%= form_for current_user.events.build, url: { :controller => 'events', :action => 'create' }, html: { id: "new_event_form" } do |f| %>
 	  <p>
@@ -81,7 +81,9 @@
 
 	  <% end %>
 	</div>
+	<% if false %>
 	<div class="idea_preview">
-		<%= image_tag "eventshow.png" %>
+		<%= render partial: 'sample_idea' %>
 	</div>
+	<% end %>
 </div>

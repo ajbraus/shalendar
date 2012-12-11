@@ -29,11 +29,9 @@
 
     <div><%= f.label :profile_picture %><br />
     <%= f.file_field :avatar %></div>
-
-    <% if current_user.vendor? %>
-      <div><%= f.label :background_image %><br />
-      <%= f.file_field :background %></div>
-    <% end %>
+    
+    <div><%= f.label :background_image %><br />
+    <%= f.file_field :background %></div>
 
     <div><%= f.label :city %><br />
     <%= f.select :city_id, options_from_collection_for_select(City.all, 'id', 'name'), id:"citySelect", prompt: "#{current_user.city.name}" %></div>

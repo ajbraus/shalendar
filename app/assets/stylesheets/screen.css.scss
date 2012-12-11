@@ -40,6 +40,10 @@ section {
   top:20px;
 } 
 
+i {
+  font-style: normal;
+}
+
 a img {
   border:none;
 }
@@ -398,7 +402,7 @@ background-position: -4px -2px;
 border-radius: 6px;
 }
 
-.btn-new-big-idea {
+.btn-new-crowd-idea {
   float:right;
   color: white;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
@@ -916,9 +920,11 @@ left: 130px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   background-color: white;
-width: 35px;
-height: 35px;
+width: 50px;
+height: 50px;
 }
+
+
 
 .profile_pic_home {
     img {
@@ -1314,7 +1320,7 @@ overflow: auto;
 
 .stats {
   position: relative;
-  height: 160px;
+  height: 180px;
   border-bottom: 1px solid $divider;
 
   .name {
@@ -1439,6 +1445,14 @@ overflow: hidden;
   img{
     max-height: 167px;
   }
+}
+.profile_picture {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background-color: white;
+width: 35px;
+height: 35px;
 }
 .guests {
 float: right;
@@ -3190,14 +3204,35 @@ line-height: 10px;
 }
 
 .profile {
-  width: 90%;
-  margin: 100px auto;
+width: 90%;
+margin: 100px auto -10px auto;
+height: 240px;
+background-color: rgba(255, 255, 255, 0.8);
+border-radius: 7px;
+-webkit-border-radius: 7px;
+-moz-border-radius: 7px;
+position: relative;
   img {
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
     border-radius: 7px;
     width:150px;
     height:150px;
+    margin:20px;
+  }
+  .profile_stats {
+    text-align: right;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 40px;
+    margin: 20px;
+  }
+  .name {
+position: relative;
+left: 20px;
+font-size: 30px;
+bottom: 10px;
   }
 }
 
@@ -3440,13 +3475,12 @@ width: 72%;
   }
 }
 
-.new_big_idea {
+.new_crowd_idea {
 margin: 0 auto;
 height: 100%;
 background-color: rgba(255, 255, 255, 0.5);
 padding: 0 7%;
   .event_form {
-    float: left;
     position: relative;
     margin-top: 20px;
     padding-bottom: 20px;

@@ -111,7 +111,7 @@ Shalendar::Application.routes.draw do
 
   match '/make_a_group', :to => 'events#make_a_group', :as => 'make_a_group'
   match '/repeat', :to => 'events#repeat', :as => 'repeat_event'
-  match '/big_idea', :to => 'events#new_big_idea', :as => 'new_big_idea'
+  match '/new_crowd_idea', :to => 'events#new_crowd_idea', :as => 'new_crowd_idea'
 
   match '/activity', :to => 'shalendar#activity', :as => "activity"
   match '/manage_friends', :to => 'shalendar#manage_friends', :as => "manage_friends"

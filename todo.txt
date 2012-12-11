@@ -75,6 +75,20 @@ new follower email link not working
 ========================================================================
 ========================================================================
 
+Dear hoos.in users,
+
+We have just released a new version and here are the enhancements that we think you'll like:
+
+1) New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.
+
+2) Post ideas to your whole city! We decided that pretty much anyone has something to share with their city, so you can now choose to post "Public" ideas 
+
+3) Your own custom background for your events. Just click on your face in the upper right hand corner, select "Settings", and upload a large image (at least 1024x640 recommended) to the "Background" field.
+
+4) Your own profile page with your past ideas, and stats. For privacy your upcoming ideas are only visible to invites.
+
+5) Better sharing. 
+
 Adam
 
 facebook feed dialogue
@@ -84,10 +98,18 @@ twitter share dialogue
 pin share dialogue
 
 Create crowd ideas ala kickstarter
+	onkeyup add text to shield
+		$('#eventStartsAtAndDuration').text(); (starts_at time "%l:%M%P" (duration) hrs)
+		$('#eventTitle').text();
+	add these elements:
+	 $('.event_shield_icons').append();
+			<i class="icon-bullhorn"></i>
+			<%= event.categories.first.name.capitalize %>
+			<i class="icon-home"></i>
+			<i class="icon-video"></i>
+	add image
 
 add event description (display only in show)
-
-allow user background image upload
 
 100 cities w/ timezones
 

@@ -27,7 +27,7 @@ class EventsController < ApplicationController
     end
   end
 
-  def new_big_idea
+  def new_crowd_idea
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +35,14 @@ class EventsController < ApplicationController
       format.js
     end
   end
+
+  # def update_idea_in_form
+  #   @event = current_user.events.build(params[:event])
+
+  #   respond_to do |format|
+  #     format.js
+  #   end
+  # end
 
   # GET /events/1/edit
   def edit

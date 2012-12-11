@@ -16,6 +16,9 @@
   <div><%= f.label :picture, "profile picture*" %><br />
   <%= f.file_field :avatar, class: "required" %></div>
 
+  <div><%= f.label :background_image, "Background Image (1024x600)" %>
+  <%= f.file_field :background %></div>
+
   <div><%= f.label :city, "city*" %><br />
   <%= f.collection_select :city_id, @cities, :id, :name, { prompt: true }, { class: "required" } %></div>
 
