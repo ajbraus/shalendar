@@ -12,7 +12,7 @@ describe 'Comments' do
     fill_in "Email",    with: user.email
     fill_in "Password", with: user.password
     click_button "Login"
-    visit event_path(event)
+    visit idea_path(event)
   end
 
 	describe 'Create Comment' do 

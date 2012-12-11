@@ -53,7 +53,7 @@ describe "Venue" do
 
   describe "trying to join an idea" do
     before do 
-      visit event_path(event)
+      visit idea_path(event)
     end
 
     it "should not have element with content 'Join'" do
@@ -66,7 +66,7 @@ describe "Venue" do
     before do
       venue.sign_in_count = 10
       venue.credit_card_uri = ""
-      visit event_path(event)
+      visit idea_path(event)
     end
     it "should show that the venue's credit card data needs to be updated" do
       page.should have_selector ".alert"
@@ -77,7 +77,7 @@ describe "Venue" do
     before do
       venue.sign_in_count = 10
       venue.credit_card_uri = "123"
-      visit event_path(event)
+      visit idea_path(event)
     end
     it "should not see this warning" do
       page.should_not have_selector ".alert"

@@ -15,7 +15,7 @@ describe "Users" do
 
   describe "joining an idea" do
     before do 
-      visit event_path(event)
+      visit idea_path(event)
       click_on "Join"
     end
 
@@ -28,7 +28,7 @@ describe "Users" do
   describe "flaking from an idea" do
     before do 
       user.rsvp!(event)
-      visit event_path(event)
+      visit idea_path(event)
       click_on "Flake Out"
     end
 

@@ -284,7 +284,7 @@ class Notifier < ActionMailer::Base
       end
     else
       @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
-      @event_link = event_url(@event)
+      @event_link = idea_url(@event)
       mail to: @user.email, subject: "New Comment - #{@event.short_event_title}"
     end
       rescue => ex
@@ -369,7 +369,7 @@ class Notifier < ActionMailer::Base
     @event = event
     @event_time = event.starts_at.strftime("%l:%M%P, %A %B %e")
     @inviter = User.find_by_id(@invite.inviter_id)
-    @event_link = event_url(@event)
+    @event_link = idea_url(@event)
     @message = @invite.message
     #@inviter_pic = raster_profile_picture(@inviter)
     #should we include here an invited by X to make them more likely to join?
@@ -379,7 +379,7 @@ class Notifier < ActionMailer::Base
   def time_change(event, user)
     @user = user
     @event = event
-    @event_link = event_url(@event)
+    @event_link = idea_url(@event)
 
     if(@user.iPhone_user == true)
       d = APN::Device.find_by_id(@user.apn_device_id)

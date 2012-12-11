@@ -1,15 +1,15 @@
 <ul class="event_buttons">
   <% if @event.is_group? %>
     <li>
-      <%= link_to event_path(@event.parent) do %>
+      <%= link_to idea_path(@event.parent) do %>
         <span class="fadeInBlue" title="View Public Idea"><i class="icon-bullhorn"></i></span>
       <% end %>
     </li>
   <% end %>
-  <% if (@event.guests_can_invite_friends? || @event.is_public?) && @event.starts_at > Time.now %>
+  <% if (@event.guests_can_invite_friends? || @event.is_public? || @event.user = current_user) && @event.ends_at > Time.now %>
       <!-- SHARE BY EMAIL -->
     <li>
-      <a href="mailto:?subject=You in? <%= @event.start_time %>&body=Hey,%0a%0aHere's the idea:%0a%0a    What:  <%= @event.title %>%0a%0a    When:  <%= @event.start_date_time %>%0a%0aYou in? respond here: <%= event_url(@event) %>%0a%0a<%= current_user.first_name %>">
+      <a href="mailto:?subject=You in? <%= @event.start_time %>&body=Hey,%0a%0aHere's the idea:%0a%0a    What:  <%= @event.title %>%0a%0a    When:  <%= @event.start_date_time %>%0a%0aYou in? respond here: <%= idea_url(@event) %>%0a%0a<%= current_user.first_name %>">
         <span class="fadeInOrange"><i class="icon-envelope-alt" title="Share Idea by Email"></i></span>
       </a>
     </li>
@@ -26,6 +26,11 @@
     <!-- #TWITTER -->
     <li>
       <a href="https://twitter.com/share" data-text="<%= @event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this idea" target="_blank"><i class="icon-twitter"></i></a>
+    </li>
+
+    <!-- PINTREST -->
+    <li>
+      <a data-pin-config="above" href="//pinterest.com/pin/create/button/?url=<%= idea_url(@event) %>&media=<%= @event.image(:large) %>&description=<%= @event.title %>" data-pin-do="buttonPin" class="fadeInPinterest" target="_blank"><i class="icon-pinterest-sign"></i></a>
     </li>
 
 
@@ -53,12 +58,12 @@
     </li>
     <% end %>
     <li>
-      <%= link_to edit_event_path(@event), title:"Edit Idea" do %>
+      <%= link_to edit_idea_path(@event), title:"Edit Idea" do %>
         <span class="fadeInOrange"><i class="icon-edit"></i></span>
       <% end %>
     </li>
     <li>
-      <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will send an Email to all RSVPs a cancellation email.' }, title: "Delete Idea" do %>
+      <%= link_to idea_path(@event), method: :delete, data: { confirm: 'Are you sure? This will send an Email to all RSVPs a cancellation email.' }, title: "Delete Idea" do %>
         <span class="fadeInRed"><i class="icon-trash"></i></span>
       <% end %>
     </li>
@@ -70,7 +75,7 @@
 
       <ul id="calendars" style="display:none;">
         <li>
-        <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&details=<%= event_url(@event) %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fevents%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
+        <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&details=<%= idea_url(@event) %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fevents%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
           <%= image_tag("gcalendar.png", width: '30') %>
         </a>
       </li>

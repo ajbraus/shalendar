@@ -35,15 +35,21 @@ describe "Without loging in" do
     it "should not have the private event" do
       page.should_not have_content("Test Event")
     end
+    it "should have pitch" do 
+      page.should have_selector('.not_signed_in_pitch')
+    end
   end
 
   describe "Event#Show" do
     before do
       @event = Factory(:event, :user => user, :chronic_starts_at => "Tomorrow at 3pm")
-      visit event_path(@event)
+      visit idea_path(@event)
     end 
     it "should have the content Date Tomorrow" do
       page.should have_content((Time.now + 1.day).strftime('%A'))
+    end
+    it "should have pitch" do 
+      page.should have_selector('.not_signed_in_pitch')
     end
   end
 end

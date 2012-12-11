@@ -2,7 +2,7 @@
 
 	<div class="new_idea">
 		<textarea id="new_idea_blerb" placeholder="Post Your Own Idea"></textarea>
-			<%= link_to new_event_path(:format => :js), id:"newIdeaButton", class: "btn-rsvp btn-new-idea fancybox.ajax", remote: true do %>
+			<%= link_to new_idea_path(:format => :js), id:"newIdeaButton", class: "btn-rsvp btn-new-idea fancybox.ajax", remote: true do %>
 				<i class="icon-cloud"></i>
 			<% end %>
 	</div>

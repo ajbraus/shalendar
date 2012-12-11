@@ -14,7 +14,7 @@
       </h2>
       <h1>Do Great Things With Friends</h1>
 
-      <div style="text-align:center;">
+      <div class="login_sign_up">
         <div class="nativeLogin" style="margin-bottom:20px;">
           <div class="left">
             <%= link_to "Login", new_user_session_path, class:"btn btn-landing btn-primary" %>
@@ -61,8 +61,11 @@
 <div class="bottom">
   <div style="text-align:center;">
     <h3 style="margin-bottom:40px">Sign up for Free</h3>
+    <%= link_to "Login", new_user_session_path, class:"btn btn-landing btn-primary" %>
     <%= link_to "Sign up", new_user_registration_path, class:"btn btn-landing btn-join" %></p>
+    <% if false %>
     <%= link_to "Start A Free Venue Trial", vendor_splash_path, class:"btn btn-success btn-landing" %>
+    <% end %>
   </div>
 </div>
 

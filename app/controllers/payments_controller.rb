@@ -52,9 +52,9 @@ class PaymentsController < ApplicationController
       #   end
       # else
       if @user.save
-        #redirect_to event_url(@event), notice: "You successfully joined this idea"
+        #redirect_to idea_url(@event), notice: "You successfully joined this idea"
         if @event
-          render :js => "window.location = '#{event_path(@event)}'" 
+          render :js => "window.location = '#{idea_path(@event)}'" 
         else
           render :js => "window.location = '#{root_path}'"
         end
