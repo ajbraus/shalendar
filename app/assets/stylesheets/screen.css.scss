@@ -210,6 +210,15 @@ height: 40px;
 line-height: 40px;
 font-size:18px;
 margin:5px 5px;
+text-align: center;
+}
+
+.btn-pitch {
+width: 96px;
+  font-size:20px;
+  text-align: center;
+  height: 40px;
+line-height: 40px;
 }
 
 .btn-start-trial {
@@ -1062,7 +1071,7 @@ right: 4px;
 }       
 #yt {
 position: fixed;
-right: 4px;
+left: 69px;
 z-index: 1;
 top: 75px;
 z-index: 10000;
@@ -3630,11 +3639,17 @@ position: relative;
   }
 
 
-  .not_signed_in_pitch {
+.not_signed_in_pitch {
 margin: 10px auto;
 max-width: 420px;
 position: relative;
 top: 4px;
+font-size: 27px;
+line-height: 1;
+}
+
+.not_signed_in_buttons {
+  text-align: center;
 }
 
 .city_title {
