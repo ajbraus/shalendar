@@ -119,7 +119,6 @@ class Notifier < ActionMailer::Base
         n.custom_properties = {:type => "new_friend", :friend => "#{@follower}"}
         n.save
       end
-    end
     elsif(@user.android_user == true)
       d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
