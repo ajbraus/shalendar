@@ -109,11 +109,13 @@ class SeparateCityFromFacebook < ActiveRecord::Migration
     end
     add_column :events, :city_id, :int
 
-    Event.all.each do |e|
-      if e.user.nil?
-        e.city_id = City.find_by_name("Everywhere Else").id
-      else
-        e.city_id = e.user.city_id
+    if Event.all.any?
+      Event.all.each do |e|
+        if e.user.nil?
+          e.city_id = City.find_by_name("Everywhere Else").id
+        else
+          e.city_id = e.user.city_id
+        end
       end
     end
 
