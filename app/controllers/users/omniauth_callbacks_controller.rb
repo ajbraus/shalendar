@@ -53,20 +53,19 @@ private
       raise 'Provider #{provider} not handled'
     end
     if resource.nil?
-      if email
-        user = find_for_oauth_by_email(email, access_token, resource)
-      else 
+      user = find_for_oauth_by_email(email, access_token, resource)
+      if user.nil? 
         user = find_for_oauth_by_uid(uid, access_token, resource)
       end
     else
       user = resource
     end
-    
     auth = user.authentications.find_by_provider(provider)
     if auth.nil? && Authentication.find_by_uid(uid).nil?     
       auth = user.authentications.build(:provider => provider)
       user.authentications << auth
     end
+      
     if auth.present?
       auth.update_attributes auth_attr
     end
