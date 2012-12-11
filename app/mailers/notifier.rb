@@ -4,6 +4,7 @@ class Notifier < ActionMailer::Base
   layout 'hoosin_email' # use email.(html|text).erb as the layout for emails
   default from: "hoos.in info@hoos.in"
 
+
   require 'apn_on_rails'
   require 'gcm_on_rails'
 
@@ -71,6 +72,8 @@ class Notifier < ActionMailer::Base
   def confirm_follow(user, follower)
     @user = user
     @follower = follower
+    @image_url = @follower.profile_picture_url
+    #@image_url = self.email_profile_picture_url(@follower)
     # if(@user.iPhone_user == true)
     #   d = APN::Device.find_by_id(@user.apn_device_id)
     #   if d.nil?
@@ -106,6 +109,7 @@ class Notifier < ActionMailer::Base
   def new_friend(user, friend)
     @user = user
     @follower = friend
+    @image_url = @follower.profile_picture_url
     if(@user.iPhone_user == true)
       d = APN::Device.find_by_id(@user.apn_device_id)
       if d.nil?

@@ -207,6 +207,20 @@ class User < ActiveRecord::Base
     user == current_user
   end
 
+  #get user's profile picture
+  def profile_picture_url
+    if self.authentications.where(:provider == "Facebook").any?
+      "#{user.authentications.find_by_provider("Facebook").pic_url}"
+    else
+      if self.avatar.url.nil?
+        "https://s3.amazonaws.com/hoosin-production/user/avatars/raster/default_profile_pic.png"
+      else
+        self.avatar.url(:raster)
+      end
+    end
+  end 
+
+
   #Relationship methods
   def following?(other_user)
     if r = relationships.find_by_followed_id(other_user.id)

@@ -45,6 +45,7 @@ module UsersHelper
     end
   end
 
+  #refactor: method exist in user, profile_picture_url, deprecate this
   def raster_profile_picture(user)
     if user.authentications.where(:provider == "Facebook").any?
       fb_picture(user)
