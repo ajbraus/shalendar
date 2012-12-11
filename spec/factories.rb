@@ -1,4 +1,9 @@
 FactoryGirl.define do
+  factory :city do
+    name 'Madison, Wisconsin'
+    timezone 'Central Time (US & Canada)'
+  end
+
 	factory :user do
     sequence(:name)  { |n| "Test #{n}" }
     sequence(:email) { |n| "test@#{n}.com"} 
@@ -10,17 +15,22 @@ FactoryGirl.define do
 		allow_contact 't'
 		digest 't'
 		notify_event_reminders 't'
-		city 'Madison, Wisconsin'
+		city_id '2'
 		post_to_fb_wall 'f'
 		avatar nil
 		vendor 'f'
 		terms 't'
-        background nil
+    background nil
+    account_uri ''
+    bank_account_uri ''
+    credits_uri ''
+    credit_card_uri ''
+    debits_uri ''
 	end
 
-  factory :vendor do
-    name 'Vendor Test'
-    email 'Vendor@test.com'
+  factory :venue do
+    name 'Venue Test'
+    email 'Venue@test.com'
     password 'please'
     password_confirmation 'please'
     remember_me 'f'
@@ -29,12 +39,17 @@ FactoryGirl.define do
     allow_contact 't'
     digest 't'
     notify_event_reminders 't'
-    city 'Madison, Wisconsin'
+    city_id '2'
     post_to_fb_wall 'f'
     avatar nil
     vendor 't'
     terms 't'
     background nil
+    account_uri ''
+    bank_account_uri ''
+    credits_uri ''
+    credit_card_uri ''
+    debits_uri ''
   end
 
   factory :event do
@@ -44,7 +59,7 @@ FactoryGirl.define do
     duration '2'
     ends_at ''
     title 'Test Event'
-    min ''
+    min '1'
     max ''
     address ''
     latitude ''
@@ -61,5 +76,13 @@ FactoryGirl.define do
     promo_vid ''
     short_url ''
     slug ''
+    is_public ''
+    city_id '2'
 	end
+
+  factory :rsvp do  
+    plan_id ''
+    guest_id ''
+  end
+
 end

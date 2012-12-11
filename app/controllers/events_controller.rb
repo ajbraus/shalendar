@@ -23,9 +23,26 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       #format.json { render json: @event }
+      format.js # new.js.erb
+    end
+  end
+
+  def new_crowd_idea
+
+    respond_to do |format|
+      format.html # new.html.erb
+      #format.json { render json: @event }
       format.js
     end
   end
+
+  # def update_idea_in_form
+  #   @event = current_user.events.build(params[:event])
+
+  #   respond_to do |format|
+  #     format.js
+  #   end
+  # end
 
   # GET /events/1/edit
   def edit
@@ -37,20 +54,36 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = current_user.events.build(params[:event])
-    @event.ends_at = params[:event][:chronic_starts_at] + params[:event][:duration]*3600
+    if params[:event][:chronic_starts_at].present?
+      @event.ends_at = params[:event][:chronic_starts_at] + params[:event][:duration]*3600
+    end
     @event.tipped = true                    if @event.min <= 1
     @event.parent_id = params[:parent_id]   if params[:parent_id]
+    @event.city = current_user.city
     if @event.save
-      #save shortened url
       @event.save_shortened_url
-      
-      current_user.rsvp!(@event)
+      if params[:category]
+        Categorization.create(event_id: @event.id, category_id: params[:category])
+      end
+      if params[:parent_id]
+        if @event.require_payment? && current_user.credit_card_uri.nil?
+          redirect_to confirm_payment_path(@event)
+        elsif @event.require_payment? && !current_user.credit_card_uri.nil?
+          current_user.debit!(@event.price)
+          current_user.rsvp!(@event)
+        else
+          current_user.rsvp!(@event)       
+        end
+      else
+        current_user.rsvp!(@event)
+      end
+
       if params[:invite_all_friends] == "on"
         @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
         current_user.invite_all_friends!(@event)
         @rsvp.invite_all_friends = true
         @rsvp.save
-      end        
+      end 
       if current_user.post_to_fb_wall? && session[:graph] && params[:invite_all_friends] == "on" && @event.guests_can_invite_friends? && Rails.env.production?
         session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
                                             :link => "http://www.hoos.in/events/#{@event.id}", 
@@ -60,6 +93,10 @@ class EventsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to @event, notice: "Idea Posted Successfully" }
         format.json { render json: @event, status: :created, location: @event }
+      end
+    elsif @event.is_big_idea?
+      respond_to do |format|
+        format.html { redirect_to discover_path, notice: "An Error prevented Your Idea from Posting" }
       end
     else
       respond_to do |format|
@@ -77,9 +114,17 @@ class EventsController < ApplicationController
     @email_invites = @event.email_invites
     @invited_users = @event.invited_users - @event.guests 
     @comments = @event.comments.order("created_at desc")
-    @graph = session[:graph]
     if user_signed_in?
-      @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event) }
+      if current_user.authentications.find_by_provider("Facebook").present?
+        @graph = session[:graph] 
+      else 
+        session[:graph] = nil
+      end
+      @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event)}
+      #if a user is 'everywhere else' then we don't silo their invitations...
+      unless current_user.city == City.find_by_name("Everywhere Else")
+        @friends = @friends.reject { |f| f.city != current_user.city }
+      end
       if @graph
         @invite_friends = current_user.fb_friends(session[:graph])[1].reject { |inf| FbInvite.find_by_uid(inf['uid'].to_s) }
         @fb_invites = @event.fb_invites
@@ -92,7 +137,7 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       format.js
-      format.html 
+      format.html
       format.json { render json: @event }
       format.ics do
         calendar = Icalendar::Calendar.new

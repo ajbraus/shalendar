@@ -2,27 +2,36 @@ require 'spec_helper'
 
 describe "Pages after sign up / sign in" do
 
-  let(:user) { FactoryGirl.create(:user) }
-  let(:vendor) { FactoryGirl.create(:vendor) }
+  let(:city) { FactoryGirl.create(:city)}
+  let(:user) { FactoryGirl.create(:user, :city => city) }
+  let(:venue) { FactoryGirl.create(:user, :vendor => true, :city => city) }
 
-  before(:all) { 30.times { FactoryGirl.create(:user) } }
+
+  #before(:all) { 30.times { FactoryGirl.create(:user) } }
   after(:all)  { User.delete_all }
 
   before(:each) do
     visit new_user_session_path
     fill_in "Email",    with: user.email
     fill_in "Password", with: user.password
-    click_button "Sign in"
+    click_button "Login"
   end
 
   after(:each) { Event.delete_all }
 
   describe "Home Page" do
     before do
+      @event = Factory(:event, :user_id => user.id, 
+                       :chronic_starts_at => "Tomorrow at 3pm",
+                       :title => "Test Event")
+      @rsvp = Factory(:rsvp, :plan => @event, :guest => user)
       visit root_path
     end
     it "should have the content 'Date Today'" do
       page.should have_content("#{Time.now.strftime('%A')}")
+    end
+    it "should have the content 'Test Event'" do
+      page.should have_content("Test Event")
     end
   end
 
@@ -46,10 +55,13 @@ describe "Pages after sign up / sign in" do
 
   describe "Activity page" do 
     before do 
-      visit activity_path
+      visit user_path(user)
     end
     it "should have the content 'upcoming ideas'" do
       page.should have_content("Upcoming Ideas")
+    end
+    it "should have the content 'user name'" do
+      page.should have_content("#{user.name}")
     end
   end
 

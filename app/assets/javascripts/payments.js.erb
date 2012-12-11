@@ -1,0 +1,151 @@
+$(document).ready(function() {
+
+<% if Rails.env.production? %>
+    var marketplaceUri = '/v1/marketplaces/MPpuawQPO8n4d58Ck8P7YqX';
+<% else %>
+    var marketplaceUri = '/v1/marketplaces/TEST-MP10TSB6XeLZAdyQIwZ0WdQj';
+<% end %>
+
+balanced.init(marketplaceUri);
+
+    var debug = function (tag, content) {
+        $('<' + tag + '>' + content + '</' + tag + '>').appendTo('#result');
+    };
+
+    try {
+        balanced.init(marketplaceUri);
+    } catch (e) {
+        debug('code', 'You need to set the marketplaceUri variable');
+    }
+
+// CREATE BUYER CARD
+
+    var tokenizeCard = function(e) {
+        e.preventDefault();
+        $('.ajax_loader').toggle();
+        var $form = $('form#payment');
+        var cardData = {
+            name: $form.find('[name="name"]').val(),
+            card_number: $form.find('[name="card_number"]').val(),
+            expiration_month: $form.find('[name="expiration_month"]').val(),
+            expiration_year: $form.find('[name="expiration_year"]').val(),
+            security_code: $form.find('[name="security_code"]').val()
+        };
+
+        balanced.card.create(cardData, creditCardCallback);
+    };
+
+    $('form#payment').submit(tokenizeCard);
+
+    if (window.location.protocol === 'file:') {
+        alert("balanced.js does not work when included in pages served over file:// URLs. Try serving this page over a webserver. Contact support@balancedpayments.com if you need assistance.");
+    }
+
+//END
+
+// CREDIT CARD CALLBACK RESPONSE
+function creditCardCallback(response) {
+    switch (response.status) {
+        case 400:
+            $('.ajax_loader').toggle();
+            console.log(response.error)
+            //alert('check response.error for deets')
+            // if (response.error.card_number) {
+
+            // };
+            // missing field - check response.error for details
+            break;
+        case 409:
+            $('.ajax_loader').toggle();
+            alert('check valid bank code')
+            // some of the data didnt make sense, check the bank code is valid
+            break
+        case 404:
+            $('.ajax_loader').toggle();
+            alert('incorrect marketplace URI')
+            // your marketplace URI is incorrect
+            break;
+        case 201:
+            var $form = $('form#payment');
+            var extra = {
+                id: $form.find('div#event_id').attr('name')
+            };
+            
+            //console.log(jQuery.extend(response.data, extra));
+            
+            var data = jQuery.extend(response.data, extra);
+            // WOO HOO!
+            // response.data.uri == uri of the card or bank account resource
+            $.post('/create_card', data);
+    }
+}
+
+// ##################################################################
+
+// TOKENIZE BANK ACCOUNT 
+
+    var tokenizeBankAccount = function(e) {
+        e.preventDefault();
+        $('.ajax_loader').toggle();
+
+        var $form = $('form#bankAccount');
+        var bankAccountData = {
+            name: $form.find('[name="name"]').val(),
+            account_number: $form.find('[name="account_number"]').val(),
+            bank_code: $form.find('[name="bank_code"]').val(),
+            type: $form.find('[name="type"]').val()
+        };
+
+        balanced.bankAccount.create(bankAccountData, merchantCallback);
+    };
+
+    $('form#bankAccount').submit(tokenizeBankAccount);
+
+    if (window.location.protocol === 'file:') {
+      alert("balanced.js does not work when included in pages served over file:// URLs. Try serving this page over a webserver. Contact support@balancedpayments.com if you need assistance.");
+    }
+
+
+//END
+
+
+// BANK ACCOUNT CALLBACK RESPONSE
+    //CAREFUL BALANCED CAN REQUIRE MORE INFORMATION MEANING ANOTHER STEP
+function merchantCallback(response) {
+    switch (response.status) {
+        case 400:
+            $('.ajax_loader').toggle(); 
+            console.log(response.errors)
+            alert("missing field see log for details")
+            // missing field - check response.error for details
+            break;
+        case 409:
+            $('.ajax_loader').toggle();
+            alert('check the bank code is valid')
+            // some of the data didnt make sense, check the bank code is valid
+            break
+        case 404:
+            $('.ajax_loader').toggle();
+            alert("marketplace URI is incorrect")
+            // your marketplace URI is incorrect
+            break;
+        case 201:
+            // WOO HOO!
+            // response.data.uri == uri of the card or bank account resource
+            var $form = $('form#bankAccount');
+            var extra = {
+                street_address: $form.find('[name="street_address"]').val(),
+                postal_code: $form.find('[name="postal_code"]').val(),
+                country: $form.find('[name="country"]').val(),
+                phone_number: $form.find('[name="phone_number"]').val()
+            };
+            //console.log(jQuery.extend(response.data, extra));
+            var data = jQuery.extend(response.data, extra)
+            $.post('/create_merchant', data);
+
+    }
+}
+
+// ##################################################################
+
+});

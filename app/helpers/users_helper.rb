@@ -6,23 +6,43 @@ module UsersHelper
   end
 
   def start_time(event)
-    event.starts_at.strftime "%l:%M%P, %A %B %e"
+    if event.starts_at.present?
+      event.starts_at.strftime "%l:%M%P, %A %B %e"
+    else
+      "TBD"
+    end
   end
 
   def date(event)
-    event.starts_at.strftime "%A, %b %e"
+    if event.starts_at.present?
+      event.starts_at.strftime "%A, %b %e"
+    else
+      "TBD"
+    end
   end
 
   def event_start_time(event)
-    event.starts_at.strftime("%l:%M%P")
+    if event.starts_at.present?
+      event.starts_at.strftime("%l:%M%P")
+    else
+      "TBD"
+    end
   end
 
   def event_end_time(event)
-    event.ends_at.strftime("%l:%M%P")
+    if event.ends_at.present?
+      event.ends_at.strftime("%l:%M%P")
+    else
+      "TBD"
+    end
   end 
 
   def next_event_date(event)
-    event.starts_at.strftime("%a %b %e")
+    if event.starts_at.present?
+      event.starts_at.strftime("%a %b %e")
+    else
+      "TBD"
+    end
   end
 
   def raster_profile_picture(user)
@@ -39,6 +59,20 @@ module UsersHelper
       end
     end
   end 
+
+  def large_profile_picture(user)
+    if user.authentications.where(:provider == "Facebook").any?
+      image_tag "https://graph.facebook.com/#{user.fb_authentication.uid}/picture?type=large" 
+    elsif user.authentications.where(:provider == "Twitter").any?
+      twitter_picture(user, type: "large") 
+    else
+      if user.avatar.url.nil?
+        image_tag "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png"
+      else
+        image_tag user.avatar.url(:original)
+      end
+    end
+  end
 
   def small_profile_picture(user)
     if user.authentications.where(:provider == "Facebook").any?

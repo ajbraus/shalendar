@@ -6,22 +6,16 @@
       <% end %>
     </li>
   <% end %>
-  <% if current_user.rsvpd?(@event) || current_user == @event.user %>
-    <% if ((@event.guests_can_invite_friends? && current_user.rsvpd?(@event)) || @event.user == current_user) && @event.starts_at > Time.now %>
+  <% if (@event.guests_can_invite_friends? || @event.is_public?) && @event.starts_at > Time.now %>
       <!-- SHARE BY EMAIL -->
-      
-      <li>
-        <a href="mailto:?subject=Come along! <%= @event.start_time %>&body=Hey,%0a%0aHere's the plan.%0a%0a    What:  <%= @event.title %>%0a%0a    When:  <%= @event.start_date_time %>%0a%0aAre you in? respond here: <%= event_url(@event) %>%0a%0a<%= current_user.first_name %>">
-          <span class="fadeInOrange"><i class="icon-envelope-alt" title="Share Idea by Email"></i></span>
-        </a>
-      </li>
+    <li>
+      <a href="mailto:?subject=You in? <%= @event.start_time %>&body=Hey,%0a%0aHere's the idea:%0a%0a    What:  <%= @event.title %>%0a%0a    When:  <%= @event.start_date_time %>%0a%0aYou in? respond here: <%= event_url(@event) %>%0a%0a<%= current_user.first_name %>">
+        <span class="fadeInOrange"><i class="icon-envelope-alt" title="Share Idea by Email"></i></span>
+      </a>
+    </li>
 
-<!--       <li>
-        <a id="shareByEmail" href="#shareByEmailShow"><span class="fadeInOrange"><i class="icon-envelope-alt" title="Share Idea by Email"></i></span></a>
-      </li> -->
-
-      <!-- #FACEBOOK -->
-      <% if current_user.fb_user? %>
+    <!-- #FACEBOOK -->
+      <% if user_signed_in? && current_user.fb_user? %>
         <li>
           <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Post to your Facebook wall", remote: true do %>
             <i class="icon-facebook-sign"></i>
@@ -34,22 +28,22 @@
         <a href="https://twitter.com/share" data-text="<%= @event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this idea" target="_blank"><i class="icon-twitter"></i></a>
       </li>
 
-        <% if @event.guests_can_invite_friends? && !@event.short_url.nil? %>
-    <li id="textMsg">
-      <a href="sms:?body=<%= url_encode(@event.title + " - " + @event.short_url) %>"><span class="fadeInOrange"><i class="icon-phone"></i></span></a>
-    </li>  
-  <% end %>
-    <% end %>
 
-<% if @event.ends_at < Time.now || current_user == @event.user %>
-    <% unless @event.is_group? %>
+    <% if @event.guests_can_invite_friends? && !@event.short_url.nil? %>
+      <li id="textMsg">
+        <a href="sms:?body=<%= url_encode(@event.title + " - " + @event.short_url) %>"><span class="fadeInOrange"><i class="icon-phone"></i></span></a>
+      </li> 
+    <% end %> 
+  <% end %>
+
+  <% unless @event.is_group? %>
     <li>
       <%= link_to repeat_event_path(:event_id => @event.id), title:"Repeat Idea", class:"fancybox.ajax", id:"eventRepeat", remote:true do %>
         <span class="fadeInGreen"><i class="icon-repeat"></i></span>
       <% end %>
     </li>
-    <% end %>
   <% end %>
+
   <% if @event.user == current_user %> 
     <% unless @event.tipped? %>
     <li>
@@ -69,6 +63,7 @@
       <% end %>
     </li>
   <% end %>
+  <% if @event.starts_at.present? && @event.starts_at > Time.now %>
     <li>
       <span class="fadeInBlue" title="Add to Your Calendar"><i class="icon-calendar" id="calendar"></i></span>
     </li>

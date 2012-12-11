@@ -3,7 +3,8 @@ namespace :db do
   task populate: :environment do
     make_users
     make_relationships
-    make_events
+    make_private_events
+    make_public_events
   end
 end
 
@@ -24,6 +25,24 @@ def make_users
   end
 end
 
+def make_venues
+  20.times do |n|
+    name = Faker::Name.name
+    email = "venue-#{n+1}@gmail.com"
+    password = "password"
+    terms = true
+    vendor = true
+    User.create!(name:name,
+                 email:email,
+                 password:password,
+                 password_confirmation:password,
+                 terms:terms,
+                 vendor:vendor
+                 )
+  end
+end
+
+
 def make_relationships
   users = User.all
   user  = users.first
@@ -33,7 +52,7 @@ def make_relationships
   followers.each      { |follower| follower.follow!(user) }
 end
 
-def make_events
+def make_private_events
   users = User.all(limit: 7)
   rsvps1 = users[0..3]
   rsvps2 = users[4..6]
@@ -56,6 +75,35 @@ def make_events
     users[e+1].rsvp!(@event)
   end
 end
+
+def make_public_events
+  users = User.all(limit: 7)
+  rsvps1 = users[0..3]
+  rsvps2 = users[4..6]
+  5.times do |e|
+    id = e
+    title = "Public Fun #{e+1}"
+    starts_at = Time.now + (e).days - (e).hours
+    ends_at = Time.now + (e).days - (e-2).hours
+    address = "location location #{e+1}"
+    promo_url = "http://uhaweb.hartford.edu/aschmidt/kitten11.jpg"
+    min = 2
+    max = 20
+    is_public = true
+    @event = users[e].events.build(
+                        id: id,
+                        title: title,
+                        starts_at: starts_at,
+                        ends_at: ends_at,
+                        min: min,
+                        max: max,
+                        is_public:is_public
+                        )
+    @event.save
+    users[e+1].rsvp!(@event)
+  end
+end
+
 #MORE COMPLICATED EVENT MAKING
   # users.each do |user|
   #   5.times do |e|

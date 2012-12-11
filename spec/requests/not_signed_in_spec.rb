@@ -1,9 +1,11 @@
 require 'spec_helper'
 
-describe "Pages after sign up / sign in" do
+describe "Without loging in" do
 
-  let(:user) { FactoryGirl.create(:user) }
-  let(:vendor) { FactoryGirl.create(:vendor) }
+  let(:private_event) { FactoryGirl.create(:event, :user => user) }
+  let(:city) { FactoryGirl.create(:city)}
+  let(:user) { FactoryGirl.create(:user, :city => city) }
+  let(:venue) { FactoryGirl.create(:user, :vendor => true, :city => city) }
 
   before(:all) { 30.times { FactoryGirl.create(:user) } }
   after(:all)  { User.delete_all }
@@ -21,16 +23,23 @@ describe "Pages after sign up / sign in" do
 
   describe "City home page" do
     before do 
+      @public_event = Factory(:event, :chronic_starts_at => "Tomorrow at 3pm", :is_public => true, :user => venue, :title => "Test Public Event", :city => city)
       visit "/madison"
     end
     it "should have date time" do
       page.should have_content("#{Time.now.strftime("%A")}")
     end
+    it "should have the public event" do
+      page.should have_content("Test Public Event")
+    end
+    it "should not have the private event" do
+      page.should_not have_content("Test Event")
+    end
   end
 
   describe "Event#Show" do
     before do
-      @event = Factory(:event, :user_id => user.id, :chronic_starts_at => "Tomorrow at 3pm")
+      @event = Factory(:event, :user => user, :chronic_starts_at => "Tomorrow at 3pm")
       visit event_path(@event)
     end 
     it "should have the content Date Tomorrow" do

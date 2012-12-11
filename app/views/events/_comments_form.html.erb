@@ -1,8 +1,7 @@
 <div class="comments_form">
 	<%= render :partial => 'comments/comment', collection: @comments.reverse %>
 	<%= form_for([@event, @event.comments.build]) do |f| %>
-	  <%= small_profile_picture(current_user) %> <%= f.text_field :content, placeholder: "Leave a Comment", autocomplete: "off" %>
-	  <span class="checkbox"><%= check_box_tag :contact %><i class="icon-envelope-alt" title="Email Comment to All Guests"></i></span>	    
-	 	<%= f.submit "w", class: "btn btn-primary fa-input", id:"new_comment_button" %>
+	  <%= small_profile_picture(current_user) %> <%= f.text_field :content, placeholder: "Chat with Guests", autocomplete: "off" %>
+	 	<%= f.submit raw('w'), class: "btn btn-primary fa-input", id:"new_comment_button" %>
 	<% end %>
 </div>

@@ -15,21 +15,30 @@ class User < ActiveRecord::Base
   								:password, 
   								:password_confirmation, 
   								:remember_me, 
-                  :time_zone,
                   :name,
                   :terms,
                   :require_confirm_follow,
                   :allow_contact,
                   :digest,
                   :notify_event_reminders,
-                  :city,
+                  :city_id,
                   :post_to_fb_wall,
                   :avatar,
                   :vendor,
                   :family_filter,
                   :email_comments,
                   :follow_up,
-                  :background
+                  :background,
+                  :type,
+                  :street_address,
+                  :postal_code,
+                  :country,
+                  :phone_number,
+                  :account_uri,
+                  :bank_account_uri,
+                  :credits_uri,
+                  :credit_card_uri,
+                  :debits_uri
 
   has_attached_file :avatar, :styles => { :original => "150x150#",
                                           :raster => "50x50#" },
@@ -40,7 +49,7 @@ class User < ActiveRecord::Base
                              :default_url => "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png"
 
   has_attached_file :background, :styles => { :original => { :geometry => '1024x640#', :format => 'PJPEG' } },
-                             :convert_options => { :original => '-interlace Plane', :original => '-quality 100' },
+                             :convert_options => { :original => '-interlace Plane', :original => '-quality 80' },
                              :storage => :s3,
                              :s3_credentials => S3_CREDENTIALS,
                              :path => "user/:attachment/:style/:id.:extension",
@@ -53,16 +62,19 @@ class User < ActiveRecord::Base
                      :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] },
                      :attachment_size => { :in => 0..350.kilobytes }
 
+  # Normalizes the attribute itself before 
+  #phony_normalize :phone_number, :default_country_code => 'US'
+  #phony_normalize :phone_number, :as => :phone_number_normalized_version, :default_country_code => 'US' 
+  #validates :phone_number, :phony_plausible => true
+  #phony_normalized_method :phone_number, :default_country_code => 'US'
+  
   validates :terms,
             :name, 
-            :time_zone, presence: true
-
-  #validates :city, presence: true if Rails.env.production?
+            :city_id, presence: true
 
   has_many :authentications, :dependent => :destroy, :uniq => true
 
   has_many :events, :dependent => :destroy
-  has_many :suggestions
 
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
   has_many :plans, through: :rsvps
@@ -79,9 +91,24 @@ class User < ActiveRecord::Base
                                    class_name:  "Relationship",
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower, conditions: "confirmed = 't'"
-  has_many :comments
+  has_many :comments, dependent: :destroy
+
+  has_many :interests, dependent: :destroy
+  has_many :categories, through: :interests
+
+  belongs_to :city
+
+  has_one :classification, :class_name => "Category"
 
   after_create :send_welcome
+
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
+  def should_generate_new_friendly_id?
+    new_record? || slug.blank?
+  end
+
 
   HOOSIN = +16088074732
   
@@ -319,7 +346,10 @@ class User < ActiveRecord::Base
   def invite_all_friends!(event)
     self.followers.each do |f|
       unless f.invited?(event)
-        self.invite!(event, f)
+        #silo by city, so that invite all only does relevant friends
+        if self.city == City.find_by_name("Everywhere Else") || f.city == self.city
+          self.invite!(event, f)
+        end
       end
     end
     if self.rsvpd?(event)
@@ -337,52 +367,53 @@ class User < ActiveRecord::Base
     end
   end
 
-  def forecast(load_datetime, plan_counts, invite_counts)
-    Time.zone = self.time_zone
+  def forecast(load_datetime)
     @forecast = []
-    (-3..16).each do |i|
+    (-3..26).each do |i|
       @events = []
       @new_datetime = load_datetime + i.days #Date.strptime(load_date, "%Y-%m-%d") + i
-      @plan_count = []
-      @invite_count = []
-      @events_on_date = self.events_on_date(@new_datetime, @plan_count, @invite_count)
+      @events_on_date = self.events_on_date(@new_datetime)
       @events_on_date = @events_on_date.sort_by{|t| t[:starts_at]}
       @events_on_date.each do |e|
         @events.push(e)
       end
-      plan_counts.push(@plan_count[0])
-      invite_counts.push(@invite_count[0])
       @forecast.push(@events)
     end
     return @forecast
   end
 
-  def events_on_date(load_datetime, plan_count, invite_count)
-    #usable_date = load_datetime.in_time_zone("Central Time (US & Canada)")
-    # usable_date = load_datetime# - 4.hours
-    # adjusted_load_date = usable_date.to_date
-    Time.zone = self.time_zone
-    time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
-    @plans_on_date = Event.where(starts_at: time_range).joins(:rsvps)
+  def events_on_date(load_datetime)
+    @time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
+
+    #CATEGORY TODO
+    toggled_category_ids = self.categories.all
+    
+    # loop through categories and add all relevant events from city + category
+    @interest_events_on_date = Event.where(starts_at: @time_range, is_public: true, city_id: self.city.id)
+      .joins(:categories).where(categories: {id: toggled_category_ids} ).order("starts_at ASC")
+
+    @interest_events_on_date.each do |inte|
+      inte.inviter_id = inte.user.id
+    end
+
+    @plans_on_date = Event.where(starts_at: @time_range).joins(:rsvps)
                       .where(rsvps: {guest_id: self.id}).order("starts_at ASC")
+    
     @plans_on_date.each do |p|
       p.inviter_id = p.user.id
     end
-    @invited_events_on_date = Event.where(starts_at: time_range).joins(:invitations)
+    @invited_events_on_date = Event.where(starts_at: @time_range).joins(:invitations)
                               .where(invitations: {invited_user_id: self.id}).order("starts_at ASC")
     @invited_events_on_date = @invited_events_on_date - @plans_on_date
     @invited_events_on_date.each do |ie|
       ie.inviter_id = ie.invitations.find_by_invited_user_id(self.id).inviter_id
     end
-    invite_count.push(@invited_events_on_date.count)
-    plan_count.push(@plans_on_date.count)
 
-    return @invited_events_on_date | @plans_on_date
+    return @invited_events_on_date | @plans_on_date | @interest_events_on_date
   end
 
   def mobile_events_on_date(load_datetime)#don't care about toggled here, do it locally on client
 
-    Time.zone = self.time_zone
     time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
     @plans_on_date = Event.where(starts_at: time_range).joins(:rsvps)
                       .where(rsvps: {guest_id: self.id}).order("starts_at ASC")
@@ -486,7 +517,7 @@ class User < ActiveRecord::Base
     @not_hoosin_user = []
     @graph = graph
     @facebook_friends = @graph.fql_query("select current_location, pic_square, name, username, uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())")
-    @city_friends = @facebook_friends.reject { |ff| !ff['current_location'] || ff['current_location']['name'] != self.city } 
+    @city_friends = @facebook_friends.reject { |ff| !ff['current_location'] || ff['current_location']['name'] != self.authentications.select{|auth| auth.provider == "Facebook"}.first.city } 
     @city_friends.each do |cf|
       @authentication = Authentication.find_by_uid("#{cf['uid']}")
       if @authentication
@@ -512,6 +543,28 @@ class User < ActiveRecord::Base
         return false
       end
     end
+  end
+
+  def has_valid_credit_card?
+    if credit_card_uri.blank?
+      return false
+    else
+      return true 
+    end
+  end
+
+  def credit!(user, amount)
+    bank_account = Balanced::BankAccount.find(user.bank_account_uri)
+    bank_account.credit(amount)
+  end
+
+  def refund!(amount)
+    
+  end
+
+  def fb_authentication
+    @auth = authentications.where("provider = ?", "Facebook").last
+    return @auth
   end
 
   # CONTACT FOR INVITATION

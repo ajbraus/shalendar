@@ -47,11 +47,9 @@ class CommentsController < ApplicationController
     
     respond_to do |format|
       if @comment.save
-        if params[:contact] == "1"
-          @event.guests.each do |g|
-            if g.email_comments == true && g != current_user
-              Notifier.delay.email_comment(@event, @comment, g)
-            end
+        @event.guests.each do |g|
+          if g.email_comments == true && g != current_user
+            Notifier.delay.email_comment(@event, @comment, g)
           end
         end
         format.html { redirect_to @event, notice: 'Comment was successfully created.' }

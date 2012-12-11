@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe 'Comments' do 
 	
-	let(:user) { FactoryGirl.create(:user) }
+  let(:city) { FactoryGirl.create(:city)}
+  let(:user) { FactoryGirl.create(:user, :city => city) }
   let(:event) { FactoryGirl.create(:event, :user_id => user.id, 
                        :chronic_starts_at => "Tomorrow at 3pm") }
 
@@ -10,7 +11,7 @@ describe 'Comments' do
     visit new_user_session_path
     fill_in "Email",    with: user.email
     fill_in "Password", with: user.password
-    click_button "Sign in"
+    click_button "Login"
     visit event_path(event)
   end
 

@@ -1,4 +1,11 @@
 <% provide(:title, " | #{@event.title}" ) %>
+<% unless user_signed_in? %>
+  <div class="not_signed_in_pitch part">
+    hoos.in is for finding and planning creative adventurous things with your friends.
+    <%= link_to "login", new_user_session_path, class:"btn btn-success" %>
+    <%= link_to "sign up", root_path, class:"btn btn-success" %>
+  </div>
+<% end %>
 <% if @event.has_parent? %>
   <% unless @event.parent.user.background_file_size.nil? %>
       <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.parent.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
@@ -8,13 +15,17 @@
       <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
   <% end %>
 <% end %>
+  <div class="show_skin">
 <% if user_signed_in? %>
   <%= render 'events/event_buttons' %>
 <% end %>
-<div class="event_show">
+</div>
+<div class="event_show clearfix">
   <div class="event_top">
     <div class="host friend">
-	   <%= raster_profile_picture(@event.user) %> 
+      <%= link_to user_path(@event.user), target: "blank" do %>
+        <%= raster_profile_picture(@event.user) %> 
+      <% end %>
       <div>hosted by: </div><br>
       <% if !user_signed_in? || (current_user.following?(@event.user) || current_user == @event.user) %>
         <div>
@@ -45,16 +56,22 @@
         <%= @event.address %>
       </div>
     <% end %>
-    <div class="cost">
-      <%= @event.nice_price %>
-    </div>
+    <% if @event.price.present? %>
+      <div class="cost">
+        <i class="icon-money"></i> <%= @event.nice_price %>
+      </div>
+    <% end %>
   </div>
 
 	<div class="when">
-	  <%= event_start_time(@event) %> <%= date(@event) %> - <%= @event.nice_duration %> hrs
-      <div class="join_group_buttons">
-        <%= render 'rsvp_form' %>
-      </div>
+	  <% if @event.starts_at.present? %>
+      <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> - <%= @event.nice_duration %> hrs</div>
+    <% else %>
+      <div class="date"><strong>When: To Be Decided (TBD) </strong></div>
+    <% end %>
+    <div class="join_group_buttons">
+      <%= render 'rsvp_form' %>
+    </div>
 	</div>
 
   <% if @event.has_image? %>
@@ -76,10 +93,14 @@
   <% end %>
 
 	<div class="event_title">
-	  <%= @event.title %>
+	  <div><%= @event.title %></div>
+    <div><%= @event.description %></div>
+
       <div class="eventIcons">
-      <% if @event.has_category? %>
-        <%= @event.category.capitalize %> | 
+      <% if @event.categories.any? %>
+        <%= @event.categories.each do |cat| %>
+          <%= cat.name %>
+        <% end %>
       <% end %>
       <% if @event.is_public? %>
         <i class="icon-bullhorn" title="Public"></i>
@@ -87,11 +108,22 @@
       <% if @event.family_friendly? %>
         <i class="icon-home" title="Family Friendly"></i>
       <% end %>
-      <% if @event.guests_can_invite_friends? %>
-        <i class="icon-plus" title="Guest can Share with Friends"></i>
-      <% end %>
       </div>
 	</div>
+      <% if false %>
+      <% if @event.tipped? %>  
+        <div class="meter animate">
+          <span style="width: <%= (@event.guests.count.to_f/@event.min.to_f*100).round %>%;"><span></span></span>
+        </div>
+        <span class="guests"><%= @event.guests.count %></span>
+      <% else %>
+        <div class="meter animate orange">
+          <span style="width: <%= (@event.guests.count.to_f/@event.min.to_f*100).round %>%;"><span></span></span>
+        </div>
+        <span class="guests"><%= @event.guests.count %></span>
+        <span class="tipping_point"><%= event.min %></span>
+      <% end %>
+      <% end %>
 
   <% if !@event.promo_vid.nil? && @event.promo_vid != "" %>
     <div class="promo_vid">
@@ -102,15 +134,17 @@
 <% if user_signed_in? %>
 	<!-- COMMENTS -->
   <%= render partial: 'comments_form' %>
-  <% if ((current_user.rsvpd?(@event) && @event.guests_can_invite_friends?) || @event.user == current_user) && @event.ends_at > Time.now %>
-      <div id="invite_raster">
-        <%= render partial: 'invite_raster', :locals => { :event => @event } %>
-      </div>
+  <% if @event.starts_at.present? %>
+    <% if ((current_user.rsvpd?(@event) && @event.guests_can_invite_friends?) || @event.user == current_user) && @event.ends_at > Time.now %>
+        <div id="invite_raster">
+          <%= render partial: 'invite_raster', :locals => { :event => @event } %>
+        </div>
+    <% end %>
   <% end %>
 <% end %>
 
     <div class="maybes">
-      <div class="left_label event_label"><span id="invite_count"><%= @fb_friends.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_friends.count %></span> Maybes </div> 
+      <div class="left_label event_label"><span id="invite_count"><%= @fb_friends.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_friends.count %></span> Included </div> 
       <div id="invites" class="show_raster">
         <%= render partial: 'events/invites' %>
       </div>

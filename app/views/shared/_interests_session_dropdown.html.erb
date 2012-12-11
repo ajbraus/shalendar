@@ -1,0 +1,12 @@
+<div id="interests" class="interests part" style="display:none;">
+	<div class="up_arrow"><i class="icon-caret-up"></i></div>
+	<form>
+	  <% Category.all.each do |cat| %>
+		 	<div class="interest_checkbox">
+		    <%= check_box_tag 'category_ids[]', cat.id, checked:true %>
+		    <%= h cat.name -%>
+		  </div>
+		<% end %>
+	  <div><%= submit_tag "Update Interests", :class => "btn btn-success" %></div>
+	</form>
+</div> 

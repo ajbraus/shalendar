@@ -71,27 +71,286 @@ new follower email link not working
 		Suggestions
 
 
+========================================================================
+========================================================================
+========================================================================
+
+Dear hoos.in users,
+
+We have just released a new version and here are the enhancements that we think you'll like:
+
+1) New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.
+
+2) Post ideas to your whole city! We decided that pretty much anyone has something to share with their city, so you can now choose to post "Public" ideas 
+
+3) Your own custom background for your events. Just click on your face in the upper right hand corner, select "Settings", and upload a large image (at least 1024x640 recommended) to the "Background" field.
+
+4) Your own profile page with your past ideas, and stats. For privacy your upcoming ideas are only visible to invites.
+
+5) Better sharing. 
+
 Adam
 
+facebook feed dialogue
+facebook message dialogue
+linked in share dialogue
+twitter share dialogue
+pin share dialogue
+
+Create crowd ideas ala kickstarter
+	onkeyup add text to shield
+		$('#eventStartsAtAndDuration').text(); (starts_at time "%l:%M%P" (duration) hrs)
+		$('#eventTitle').text();
+	add these elements:
+	 $('.event_shield_icons').append();
+			<i class="icon-bullhorn"></i>
+			<%= event.categories.first.name.capitalize %>
+			<i class="icon-home"></i>
+			<i class="icon-video"></i>
+	add image
+
+add event description (display only in show)
+
+100 cities w/ timezones
+
+add suggested friends to friends page
+
+stats/reputation/broadcast on user#show page
+
+signup walkthrough
+
+if not logged in - explain hoos.in in event page and home
+
+show new idea button in responsive
+need my-plans/my-forecast pages in responsive
+
+joyride
+
+SEAN:
+email images of ppl and ideas
+crowd ideas digest
+guest count in emails
+hoos.in? (who is already rsvpd? face-pile)
+only digest monday thursday
+Download our iphone and android App link in emails
+
+
+---------------------------------------------------------------
+
+rsvp ajax
+rsvp lightbox -- add to calendar, share with facebook twitter linkedin etc
+ticket/rsvp link
+
+rsvp out/in
+Rsvp - checked_in? boolean with mobile api to check in.
+
+---------------------------------------------------------------
+
+facebook load ajax
+
+	SDK - follow us on hoos.in "Our events on hoos.in" button and icon
+
+pull events from their calendars/websites
+
+rsvp out button
+
+marketplace payments
+yellow book
+payments to be listed
 
 ------------------------------------------------------------
 
+make x to close the latest ideas
+
+activity page
+	past events
+
+	if friend - 
+		future events
+
+	friend view 
+
+	public
+
+	analytics - past ideas, how many rsvpd? how many invites (reach)
+
+
+---------------------------------------------------------------
+
+
+----------------------------------------------------------------
+
+check in
+
+------------------------------------------------------------
+
+add hashtag to event and show instagram pictures
+
+private idea
+
+make signin a lightbox
+
+click and drag ideas into plans
+
+make post to facebook wall a dialogue not a programatic thing
+
+put footer stuff into hoosin icon dropdown
+
 ssl
 
-payment gateway
-	verify our account
+------------------------------------------------------------
 
-	Vendor - create
-		create a merchant
+survey why they are downgrading their account
 
-	user - create
-		create a buyer
-		buyer = Balanced::Marketplace.my_marketplace.create_buyer("buyer@example.org",
-        card.uri)
+add /new_venue to the list of urls we don't save
 
-	form with balanced.js
+------------------------------------------------------------
+------------------------------------------------------------------------
+
+Suggested friends
+	user.rb
+	has_many :suggested_friends, through: :suggested_friends
+	belongs_to user, through :suggested_friends
+	migration creates linking table
+	data migration, fb_friends who they are not hi_friends with yet
+	create suggested_friend for other users when new user is created
+	remove suggested_friend when 
+		user clicks "X" on suggested friend in home page
+		relationship is created between the two users
+	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
+
+----------------------------------------------------------
 
 
+-----------------------------------------------------------
+
+
+
+---------------------------------------------------------------
+
+ 	tests
+ 		rsvps
+ 		relationships
+ 		groups
+
+------------------------------------------------------------
+
+	set family friendly bool based on age in demographics table
+
+	your friends attending -- all attending
+
+	your friends maybes -- all maybes
+
+--------------------------------------------------------------
+
+	more beautiful bug page
+
+--------------------------------------------------------------
+
+	
+
+---------------------------------------------------------------
+
+
+----------------------------------------------------------
+
+download qr code
+http://qrtools.removeubyforge.org/qrtools/
+download flyer
+
+-------------------------------------------------------------
+
+visual indicator of ppl you are not friends with on hoos.in yet
+suggested friends -- ppl that you saw at a party
+
+------------------------------------------------------------
+
+	display when full?
+
+	next plan
+
+	hovering putting a box around idea shields
+
+-----------------------------------------------------------
+
+	ajax scrolling for home
+
+----------------------------------------------------------
+
+Datepicker loads 1 day to the right when I click the hoos.in icon to go home.
+click pic to invite/friend
+hover not in
+removing invited person when not friending them
+
+	validate image size in form w js
+
+----------------------------------------------------------
+
+	drawn arrows
+
+----------------------------------------------------------
+
+keyup character counter in idea
+
+----------------------------------------------------------
+
+------------------------------------------------------------
+
+Users have_one Account
+Accounts 
+	URI
+	has_many Bank_Accounts
+		URI
+		address
+	has_many Credit_cards
+		URI
+		expiration
+		last 4
+
+
+MARKETPLACE PAYMENTS TO DO
+
+type:person/bussiness with dynamic fields
+fix saving phone number w phony
+disable flaking out if you pay? fees for flaking out
+cost of refund? 50% :o)
+put hold upon rsvp and capture payment at event start time
+display merchant fees to the venues when signing up => 30c
+	1% + 30c fee per rsvp
+verify our account in chase
+rescue from Balanced in payments controller if requires more info
+pass in name for card
+put the balanced key into a yml file and read it in dev. gitignore that yml file
+already created a card, has card_uri but
+@account = Balanced::Card.find(params[:uri]).account = nil???
+If a card is expired request new card
+User has_many CreditCards
+delete user deletes credit cards and bank account with balanced
+no account on the debit, and no description -- should be hoos.in - event.date event.title
+add qr tag to reciept create a qr code per rsvp\
+
+	second payment
+		user tries to rsvp again
+		if saved for later
+			retrieve account by email
+			debit account to merchant
+		else 
+			ask for card again
+			find account by card_uri
+			debit account to merchant
+		end
+
+	refund
+		merchant recieves complain
+		merchant wants to initiate a refund
+
+		hoosin recieve a complaint to support@hoos.in
+		hoosin contacts merchant with complaint
+		if merchant won't refund
+		charge the merchant back 
+		warn both parties that the funds are under investigation for 60 days
+		we do an investigation 
+		give the money to whomever we think is more ligit
 
 Payment gateway
 
@@ -107,134 +366,7 @@ Payment gateway
  		ipad app
  		email signup
 
-Cost (required for RSVP?)
-Click join:
-if cost required-redirect to payment funnel
-Authorize payment/capture payment
-
-Make a group 
-Make it, (conditional RSVP in event create)
-RSVP to it
-Payment funnel
-
----------------------------------------------------------------
-
-	SDK - follow us on hoos.in "Our events on hoos.in" button and icon
-
 -----------------------------------------------------------------------
-
-activity page
-	past events
-
-	if friend - 
-		future events
-
-	friend view 
-
-	public
-
-slide left and right for overflow in mobile app
-
-shrink max height of images to save vertical space
-
-
-----------------------------------------------------------------
-
-	Download our App
-
-
-----------------------------------------------------------------
-
-private idea
-
------------------------------------------------------------
-
-make x to close the latest ideas
-List view for new ideas
-remove picture from new ideas dropdown
-
----------------------------------------------------------------
-
- 	tests
- 		rsvps
- 		relationships
- 		groups
-
-------------------------------------------------------------
-
-	filter by category ( add links to header that hide those )
-
-	link to that in categories
-
-	set family friendly bool based on age in demographics table
-
-	your friends attending -- all attending
-
-	your friends maybes -- all maybes
-
---------------------------------------------------------------
-
-	more beautiful bug page
-
---------------------------------------------------------------
-
-	images in emails (host/inviter/promo_url)
-
-	guest count in emails
-
----------------------------------------------------------------
-
-	Prune email messages / make only push or email
-
-----------------------------------------------------------
-
-download qr code
-http://qrtools.removeubyforge.org/qrtools/
-download flyer
-
--------------------------------------------------------------
-
-visual indicator of ppl you are not friends with on hoos.in yet
-suggested friends -- ppl that you saw at a party
-
-------------------------------------------------------------
-
-make signin a lightbox
-
-------------------------------------------------------------
-
-	display when full?
-
-	next plan
-
-	hovering putting a box around idea shields
-
------------------------------------------------------------
-
-ajax scrolling for user list view?
-
-----------------------------------------------------------
-
-Datepicker loads 1 day to the right when I click the hoos.in icon to go home.
-click pic to invite/friend
-hover not in
-removing invited person when not friending them
-
-	validate image size in form w js
-
-----------------------------------------------------------
-
-	JoyRide
-
-	Landing page rebuild
-
-	drawn arrows
-
-----------------------------------------------------------
-
-keyup character counter in idea
-
-----------------------------------------------------------
 
 Vendors:
 
@@ -242,35 +374,8 @@ Vendors:
 ticket creation/authentication
 box office behavior
 
-------------------------------------------------------------------------
-
-Suggested friends
-	user.rb
-	has_many :suggested_friends, through: :suggested_friends
-	belongs_to user, through :suggested_friends
-	migration creates linking table
-	data migration, fb_friends who they are not hi_friends with yet
-	create suggested_friend for other users when new user is created
-	remove suggested_friend when 
-		user clicks "X" on suggested friend in home page
-		relationship is created between the two users
-	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
-
-
-
-----------------------------------------------------------
-
-Silo by city
-	detect location by IP address: https://github.com/priithaamer/geoip-rails
-	hash timezone to location
-	make public yellow pages display and then make it load with ajax
-
 
 -----------------------------------------------------------
-
-list view/old ideas
-
-
 
 Twillio
 Prompt users for phone number lightbox on login one time

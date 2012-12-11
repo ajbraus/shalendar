@@ -1,9 +1,6 @@
-<script>
-$('#loading').remove();
-</script>
 <%= render partial: 'events/new_idea_form' %>
 <%= render partial: 'shared/form_js' %>
-<script>
+<%= coffee_script_tag do %>
 	blerb = $('#new_idea_blerb').val();
 	$('#new_idea_title').text(blerb);
-</script>
+<% end %>

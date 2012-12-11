@@ -63,28 +63,11 @@ before_filter :authenticate_user!
       # @plan_counts = []
       # @invite_counts = []
       @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
-      # @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
-      # @date = Time.now.in_time_zone(current_user.time_zone)
       @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
       format.html { redirect_to :back, notice: "You are no longer friends with #{@user.name} on hoos.in" }
       format.js
     end
   end
-
-  # def toggle
-  #  @relationship = Relationship.find(params[:relationship_id])
-  #  @relationship.toggle!
-  #  @relationship.save
-  #  respond_to do |format|
-  #   format.html { redirect_to :back }
-  #    @plan_counts = []
-  #    @invite_counts = []
-  #    @forecastevents = current_user.forecast(Time.now.in_time_zone(current_user.time_zone), @plan_counts, @invite_counts)
-  #    @date = Time.now.in_time_zone(current_user.time_zone)     
-  #    @graph = session[:graph]
-  #    format.js
-  #  end
-  # end
 
   def ignore
     @relationship = Relationship.find(params[:relationship_id])

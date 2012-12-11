@@ -54,8 +54,6 @@ class Notifier < ActionMailer::Base
 
   #AUTOMATIC NOTIFIERS
 
-
-
   def welcome(user)
     @user = user
     mail to: user.email, subject: "welcome to hoos.in"
@@ -122,7 +120,7 @@ class Notifier < ActionMailer::Base
         n.save
       end
     end
-    if(@user.android_user == true)
+    elsif(@user.android_user == true)
       d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
@@ -134,9 +132,10 @@ class Notifier < ActionMailer::Base
         n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "New Friend - #{@follower.name}"}}
         n.save
       end
+    else
+      #@follower_pic = raster_profile_picture(@user)
+      mail to: user.email, subject: "New Friend - #{@follower.name}"
     end
-    #@follower_pic = raster_profile_picture(@user)
-    mail to: user.email, subject: "New Friend - #{@follower.name}"
     rescue => ex
     Airbrake.notify(ex)
   end
@@ -157,8 +156,7 @@ class Notifier < ActionMailer::Base
         n.custom_properties = {:type => "tipped", :event => "#{@event.id}"}
         n.save
       end
-    end
-    if(@user.android_user == true)
+    elsif(@user.android_user == true)
       d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
@@ -170,8 +168,9 @@ class Notifier < ActionMailer::Base
         n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.title} Tipped!"}}
         n.save
       end
+    else
+      mail to: @user.email, subject: "Tipped - #{@event.event_day}\'s Idea Tipped! - #{@event.title}"
     end
-    mail to: @user.email, subject: "Tipped - #{@event.event_day}\'s Idea Tipped! - #{@event.title}"
     rescue => ex
     Airbrake.notify(ex)
   end
@@ -192,8 +191,7 @@ class Notifier < ActionMailer::Base
         n.custom_properties = {:type => "tip_or_destroy", :event => "#{@event.id}"}
         n.save
       end
-    end
-    if(@user.android_user == true)
+    elsif(@user.android_user == true)
       d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
@@ -205,8 +203,9 @@ class Notifier < ActionMailer::Base
         n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "Untipped idea - #{@event.title}"}}
         n.save
       end
+    else
+      mail to: @user.email, subject: "Untipped idea - #{@event.title}"
     end
-    mail to: @user.email, subject: "Untipped idea - #{@event.title}"
     rescue => ex
     Airbrake.notify(ex)
   end
@@ -228,8 +227,7 @@ class Notifier < ActionMailer::Base
           n.custom_properties = {:type => "cancel", :event => "#{@event.id}"}
           n.save
         end
-      end
-      if(user.android_user == true)
+      elsif(user.android_user == true)
         d = Gcm::Device.find_by_id(user.GCMdevice_id)
         if d.nil?
           Airbrake.notify("thought we had an android user but can't find their device")
@@ -241,9 +239,10 @@ class Notifier < ActionMailer::Base
           n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "Cancellation - #{@event.event_day}, #{@event.title}"}}
           n.save
         end
-      end
-      unless user == @event.user
-        mail to: user.email, subject: "Cancellation - #{@event.event_day}, #{@event.title}" 
+      else 
+        unless user == @event.user
+          mail to: user.email, subject: "Cancellation - #{@event.event_day}, #{@event.title}" 
+        end
       end
     end
     @event.destroy
@@ -272,8 +271,7 @@ class Notifier < ActionMailer::Base
         n.custom_properties = {:type => "new_comment", :friend => "#{@event.id}"}
         n.save
       end
-    end
-    if(@user.android_user == true)
+    elsif(@user.android_user == true)
       d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
@@ -285,12 +283,13 @@ class Notifier < ActionMailer::Base
         n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "New Comment - #{@event.short_event_title}"}}
         n.save
       end
+    else
+      @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
+      @event_link = event_url(@event)
+      mail to: @user.email, subject: "New Comment - #{@event.short_event_title}"
     end
-    @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
-    @event_link = event_url(@event)
-    mail to: @user.email, subject: "New Comment - #{@event.short_event_title}"
-    rescue => ex
-    Airbrake.notify(ex)
+      rescue => ex
+      Airbrake.notify(ex)
   end
 
   def rsvp_reminder(event, user)
@@ -309,8 +308,7 @@ class Notifier < ActionMailer::Base
         n.custom_properties = {:type => "reminder", :event => "#{@event.id}"}
         n.save
       end
-    end
-    if(@user.android_user == true)
+    elsif(@user.android_user == true)
       d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
@@ -322,9 +320,10 @@ class Notifier < ActionMailer::Base
         n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.short_event_title} starts soon"}}
         n.save
       end
-    end
-    unless @user == User.find_by_email("info@hoos.in")
-      mail to: @user.email, subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
+    else
+      unless @user == User.find_by_email("info@hoos.in")
+        mail to: @user.email, subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
+      end
     end
     rescue => ex
     Airbrake.notify(ex)
@@ -347,8 +346,7 @@ class Notifier < ActionMailer::Base
         n.custom_properties = {:type => "invitation", :event => "#{@event.id}"}
         n.save
       end
-    end
-    if(@user.android_user == true)
+    elsif(@user.android_user == true)
       d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
@@ -360,8 +358,9 @@ class Notifier < ActionMailer::Base
         n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.user.name} Shared an idea"}}
         n.save
       end
+    else
+      mail to: @user.email, subject: "#{@inviter.name} invited to #{@event.short_event_title}"
     end
-    mail to: @user.email, subject: "#{@inviter.name} invited to #{@event.short_event_title}"
     rescue => ex
     Airbrake.notify(ex)
   end
@@ -396,8 +395,7 @@ class Notifier < ActionMailer::Base
         n.custom_properties = {:type => "time_change", :event => "#{@event.id}"}
         n.save
       end
-    end
-    if(@user.android_user == true)
+    elsif(@user.android_user == true)
       d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
@@ -409,8 +407,9 @@ class Notifier < ActionMailer::Base
         n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{event.title} changed time!"}}
         n.save
       end
+    else
+      mail to: @user.email, subject: "Time change - #{@event.short_event_title}"
     end
-    mail to: @user.email, subject: "Time change - #{@event.short_event_title}"
     
     rescue => ex
     Airbrake.notify(ex)
@@ -455,5 +454,52 @@ class Notifier < ActionMailer::Base
     @new_friends = new_friends
     mail to: @user.email, from: "info@hoos.in", subject: "Connect With People - #{@event.title}"
   end
+
+  # def recurring_receipt(user, amount)
+  #   @user = user
+  #   @amount = "$" + "%.2f" % amount
+  #   mail to: @user.email, from: "info@hoos.in", subject: "Successful Monthly Payment"
+  # end
+
+  # def downgrade(user)
+  #   @user = user
+  #   mail to: @user.email, from: "info@hoos.in", subject: "Your Account is now Private"
+  # end
+
+  # def missing_bank_account(user)
+  #   @user = user
+  #   mail to: @user.email, from: "info@hoos.in", subject: "Missing Account Data"
+  # end
+
+###########################################################################
+########################## METHODS FOR MARKETPLACE ########################
+###########################################################################
+
+  # def receipt(user, event)
+  #   @user = user
+  #   @event = event
+  #   mail to: @user.email, from: "info@hoos.in", subject: "Your Receipt for #{@event.title}"
+  # end
+
+  # def venue_receipt(user, events, amount)
+  #   @user = user
+  #   @events = events
+  #   @amount = amount
+  #   mail to: @user.email, from: "info@hoos.in", subject: "Payment for today's ideas on hoos.in"
+  # end
+
+  # def time_change(*args)
+
+  #   @event = Event.find_by_id(args[0])
+  #   @user = User.find_by_id(args[1])
+
+  #   if(@user.iPhone_user == true)
+  #   end
+
+  #   mail to: @user.email, from: "info@hoos.in", subject: "Time Change - #{@event.short_event_title}"
+    
+  #   rescue => ex
+  #   Airbrake.notify(ex)
+  # end
 
 end

@@ -1,0 +1,20 @@
+<%= render 'layouts/sidebar' %>
+<div id="ideaContainer" class="idea_container crowd_ideas clearfix">
+	<div class="part discover_title">
+		<div class="name" >
+			<% if user_signed_in? %>
+				<%= current_user.city.name %>
+			<% else %>
+				<%= session[:city] %>
+			<% end %>
+		</div>
+			<%= link_to new_crowd_idea_path do %>
+				<span class="btn btn-new-crowd-idea btn-large"><i class="icon-cloud"></i> New Crowd Idea </span>
+			<% end %>
+	</div>
+  <% if @ideas.any? %>
+		<% @ideas.each do |i| %>
+			<%= render :partial => "shalendar/event", :locals => { :event => i } %>
+		<% end %>
+	<% end %>
+</div>

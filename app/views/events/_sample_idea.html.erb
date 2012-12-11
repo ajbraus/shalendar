@@ -1,0 +1,44 @@
+<div class="event shield" id="sampleEvent">
+	<div class="status_icon">
+		<i class="icon-ok-sign blue"></i>
+	</div>
+	<div class="event_time">	
+			<span id="eventStartsAtAndDuration"></span>
+	</div>
+
+	<div class="event_blerb">
+		<span title="Created by: <%= current_user.name %>"><%= raster_profile_picture(current_user) %></span><span class="title" id="eventTitle"></span>
+	</div>
+	<div class="meter animate orange">
+		<span style="width: 34%;"><span></span></span>
+	</div>
+
+	<div class="promo_img" id="eventPromoImg">
+	</div>
+<div class="shield_bottom">
+	<div class="event_shield_icons">
+			<i class="icon-cloud"></i>
+  </div>
+
+  <div class="guests not_tipped"><i class="icon-group"></i>1</div>
+
+</div>
+<!-- ENDING LINK_TO -->
+</div>
+
+<% if false %>
+		<% if event.user == current_user && event.tipped? == false && event.tipped? == true %>
+			<div class="force_tip">
+				<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true, id:"tipPin" %>
+			</div>
+		<% end %>
+	<% unless event.is_public? %>
+		<% unless event.user == User.find_by_id(event.inviter_id) %>
+			<div class="host">by: <%= event.user.first_name.capitalize %> 
+				<% if event.user.last_name %>
+					<%= event.user.last_name.capitalize%>
+				<% end %> 
+			</div>
+		<% end %>
+	<% end %>
+<% end %>

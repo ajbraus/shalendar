@@ -1,31 +1,22 @@
-<div id="ribbon">
-	<div id="yt">
-		<div id="todayButton" class="btn-today">Today</div>
-	</div>
-	<% if user_signed_in? %>
+<div id="ribbon" class="clearfix">
+
 	<div class="new_idea">
 		<textarea id="new_idea_blerb" placeholder="Post Your Own Idea"></textarea>
 			<%= link_to new_event_path(:format => :js), id:"newIdeaButton", class: "btn-rsvp btn-new-idea fancybox.ajax", remote: true do %>
 				<i class="icon-cloud"></i>
 			<% end %>
 	</div>
-	<% end %>
 
+ <% if false %>
 	<% if user_signed_in? && !current_user.vendor? %>
 		<div class="friend_suggestions">
 			<%= render 'shalendar/friend_suggestions' %>
 		</div>
 	<% end %>
 
-<% if false %>
-		<a href="#" id="yesterday" class="btn-yt btn-yesterday btn-primary"><</a>
-		<a href="#" id="tomorrow" class="btn-yt btn-tomorrow btn-primary">></a>
-	</div>
-
-<% end %>
-
 	<div id="datepicker">
 		<%= render 'datepicker' %>
 	</div>
+<% end %>
 </div>
 <div class="ribbon_bottom"></div>
