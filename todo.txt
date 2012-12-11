@@ -97,6 +97,26 @@ linked in share dialogue
 twitter share dialogue
 pin share dialogue
 
+if not logged in - explain hoos.in in event page and home
+
+SEAN:
+email images of ppl and ideas
+guest count in emails
+Download our iphone and android App link in emails
+hoos.in? (who is already rsvpd? face-pile)
+crowd ideas digest
+only digest monday thursday
+
+
+
+---------------------------------------------------------------
+
+need my-plans/my-forecast pages in responsive
+
+signup walkthrough
+
+joyride
+
 Create crowd ideas ala kickstarter
 	onkeyup add text to shield
 		$('#eventStartsAtAndDuration').text(); (starts_at time "%l:%M%P" (duration) hrs)
@@ -111,29 +131,9 @@ Create crowd ideas ala kickstarter
 
 add event description (display only in show)
 
-100 cities w/ timezones
-
 add suggested friends to friends page
 
 stats/reputation/broadcast on user#show page
-
-signup walkthrough
-
-if not logged in - explain hoos.in in event page and home
-
-show new idea button in responsive
-need my-plans/my-forecast pages in responsive
-
-joyride
-
-SEAN:
-email images of ppl and ideas
-crowd ideas digest
-guest count in emails
-hoos.in? (who is already rsvpd? face-pile)
-only digest monday thursday
-Download our iphone and android App link in emails
-
 
 ---------------------------------------------------------------
 

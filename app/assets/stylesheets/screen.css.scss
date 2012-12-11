@@ -238,9 +238,6 @@ color: white;
 
 .btn-new-idea {
     font-size: 20px;
-    -moz-border-radius: 0 6px 6px 0;
-    -webkit-border-radius: 0 6px 6px 0;
-    border-radius: 0 6px 6px 0;
 }
 
 .btn-new-vendor-idea {
@@ -867,7 +864,7 @@ border-radius: 7px;
 
 .layout {
 clear: both;
-min-height: 540px;
+min-height: 640px;
 z-index: -10;
 margin-top: 73px;
 }
@@ -1068,6 +1065,7 @@ position: fixed;
 right: 4px;
 z-index: 1;
 top: 75px;
+z-index: 10000;
 }
 
 .btn-today {
@@ -1293,7 +1291,7 @@ box-shadow:         0px 0px 7px rgba(50, 50, 50, 0.75);
 .friend_only {
   float: right;
 position: relative;
-bottom: 6px;
+bottom: 11px;
 cursor: pointer;
 right: 23px;
 }
@@ -1657,7 +1655,7 @@ footer {
   background-repeat: repeat-x;
   background-position-y: -30px;*/
   padding: 20px 0 30px 0;
-  color: rgb(54, 54, 54);
+  color: #363636;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
   filter: alpha(opacity=75);
   -moz-opacity: 0.75;
@@ -1665,8 +1663,9 @@ footer {
   opacity: 0.75;
   clear: both;
   margin: 0px auto;
-  width: 960px;
-  border-top: 1px solid $divider;
+  width: 860px;
+  border-top: 1px solid #D1CDCD;
+  float: right;
 
   a {
     float:left;
