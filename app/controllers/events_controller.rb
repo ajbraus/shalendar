@@ -54,8 +54,8 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = current_user.events.build(params[:event])
-    if params[:event][:chronic_starts_at].present?
-      @event.ends_at = params[:event][:chronic_starts_at] + params[:event][:duration]*3600
+    if @event.starts_at.present? && @event.duration.present?
+      @event.ends_at = @event.starts_at + @event.duration*3600
     end
     @event.tipped = true                    if @event.min <= 1
     @event.parent_id = params[:parent_id]   if params[:parent_id]
@@ -77,7 +77,6 @@ class EventsController < ApplicationController
       else
         current_user.rsvp!(@event)
       end
-
       if params[:invite_all_friends] == "on"
         @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
         current_user.invite_all_friends!(@event)
@@ -91,7 +90,7 @@ class EventsController < ApplicationController
                                             })
       end
       respond_to do |format|
-        format.html { redirect_to idea_path(@event), notice: "Idea Posted Successfully" }
+        format.html { redirect_to @event, notice: "Idea Posted Successfully" }
         format.json { render json: @event, status: :created, location: @event }
       end
     elsif @event.is_big_idea?
@@ -156,12 +155,13 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
     @event = Event.find(params[:id])
-    @event.ends_at = params[:event][:chronic_starts_at] + params[:event][:duration]*3600
     @start_time = @event.starts_at #don't worry about timezone here bc only on server
     respond_to do |format|
       if @event.update_attributes(params[:event])
         if @start_time != @event.starts_at
           ##NEED TO FIX RESQUE
+          @event.ends_at = @event.starts_at + duration*3600
+          @event.save
           @event.guests.each do |g|
             unless g == @event.user
               Notifier.delay.time_change(@event, g)
@@ -171,7 +171,7 @@ class EventsController < ApplicationController
         if @event.guests.count >= @event.min
           @event.tip!
         end
-        format.html { redirect_to idea_path(@event), notice: 'Idea was successfully updated.' }
+        format.html { redirect_to @event, notice: 'Idea was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -217,12 +217,12 @@ class EventsController < ApplicationController
       @uid = current_user.authentications.find_by_provider("Facebook").uid
       @event.post_to_fb_wall(@uid, session[:graph])
       respond_to do |format|
-        format.html { redirect_to idea_path(@event), notice: "Successfully posted event to your facebook wall" }
+        format.html { redirect_to @event, notice: "Successfully posted event to your facebook wall" }
         format.js
       end 
     else
       respond_to do |format|
-        format.html { redirect_to idea_path(@event), notice: "It was not possible to post this idea to your facebook wall" }
+        format.html { redirect_to @event, notice: "It was not possible to post this idea to your facebook wall" }
         format.js { render template: "fb_invites/extend_permissions" }
       end 
     end

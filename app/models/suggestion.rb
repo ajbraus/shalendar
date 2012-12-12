@@ -17,7 +17,6 @@ class Suggestion < ActiveRecord::Base
                 :latitude,
                 :longitude,
                 :chronic_starts_at,
-                :chronic_ends_at,
                 :link,
                 :gmaps,
                 :category,
@@ -89,15 +88,6 @@ class Suggestion < ActiveRecord::Base
   def chronic_starts_at=(s)
     Chronic.time_class = Time.zone
     self.starts_at = Chronic.parse(s) if s
-  end
-
-  def chronic_ends_at
-    self.ends_at
-  end
-
-  def chronic_ends_at=(e)
-    Chronic.time_class = Time.zone
-    self.ends_at = Chronic.parse(e) if e
   end
 
   def ends_at

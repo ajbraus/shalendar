@@ -63,7 +63,6 @@ FactoryGirl.define do
     latitude ''
     longitude ''
     chronic_starts_at ''
-    chronic_ends_at ''
     link ''
     gmaps 'f'
     tipped 't'
