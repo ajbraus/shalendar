@@ -16,9 +16,7 @@ class SeparateCityFromFacebook < ActiveRecord::Migration
 
     City.create(name: "Madison, Wisconsin", timezone: "Central Time (US & Canada)")
     City.create(name: "Chicago, Illinois", timezone: "Central Time (US & Canada)")
-    City.create(name: "New York- Manhattan, New York", timezone: "Eastern Time (US & Canada)")
-    City.create(name: "New York- Brooklyn, New York", timezone: "Eastern Time (US & Canada)")
-    City.create(name: "New York- Long Island, New York", timezone: "Eastern Time (US & Canada)")
+    City.create(name: "New York, New York", timezone: "Eastern Time (US & Canada)")
     City.create(name: "Minneapolis, Minnesota", timezone: "Central Time (US & Canada)")
     City.create(name: "Detroit, Michigan", timezone: "Central Time (US & Canada)")
     City.create(name: "Austin, Texas", timezone: "Mountain Time (US & Canada)")

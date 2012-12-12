@@ -1,23 +1,17 @@
 12/12 Push
 
 HEADER:
-30 px spacing next to icon + picture. switch city to left header, .interests in middle, friends left-middle, .instructions to right
 
-Sidebar should be persistent in event#show, really everywhere
+City should be by session most of the time, in settings it can be stored in the DB
+
+when you click .invites only for a day, it messes with masonry (looks like it makes another copy of the shield, but hidden, and masonry sees it)
 
 Friend button in search and update .interests and join.in event#show buttons too small
 
-Manage friends is wonky, should be over to right so sidebar can be seen
-
-.invites bar isn't working
-
 invite all doesn't invite ppl from different cities- do we want to confirm city switch? it can get confusing if you don't realize you've switched (happened to me)
-
-ends_at behaving weird for events
 
 Event update takes forever in production
 
-make chat bar go across the whole width of event#show
 (blue circle new idea) is to the right of the number, rather than the left.
 
 Adam todo from 11/12 meeting:
