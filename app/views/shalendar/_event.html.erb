@@ -1,9 +1,9 @@
 		<% if user_signed_in? %>
-	<div class="event shield 
+	<div class="event shield
 		<%= event.ends_at < @time_in_zone ? 'over' : '' %> 
 		<%= event.is_public? && !current_user.invited?(event) && !current_user.rsvpd?(event) ? 'public' : '' %>
-		<%= current_user.rsvpd?(event) ? 'rsvpd' : '' %>
-		data-event-id='<%= event.id %>' ">
+		<%= current_user.rsvpd?(event) ? 'rsvpd' : '' %>"
+		data-event-id='<%= event.id %>'>
 <% else %>
 	<div class="event shield <%= event.ends_at < @time_in_zone ? 'over' : '' %>">
 <% end %>
@@ -33,7 +33,7 @@
 		</div>
 				<% if event.tipped? %>	
 				<div class="meter">
-					<span style="width: <%= (event.guests.count.to_f/event.min.to_f*100).round %>%;"><span></span></span>
+					<span style="<%= 'width:' + '(event.guests.count.to_f/event.min.to_f*100).round' + '%;'%>"><span></span></span>
 				</div>
 			<% else %>
 				<div class="meter animate orange">
