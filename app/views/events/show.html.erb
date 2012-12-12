@@ -132,7 +132,7 @@
 	<!-- COMMENTS -->
   <%= render partial: 'comments_form' %>
   <% if @event.starts_at.present? %>
-    <% if ((current_user.rsvpd?(@event) && @event.guests_can_invite_friends?) || @event.user == current_user) && @event.ends_at > Time.now %>
+    <% if (@event.guests_can_invite_friends? || @event.user == current_user) && @event.ends_at > Time.now %>
         <div id="invite_raster">
           <%= render partial: 'invite_raster', :locals => { :event => @event } %>
         </div>
