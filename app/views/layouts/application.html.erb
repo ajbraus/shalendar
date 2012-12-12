@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= user_signed_in? ? "  " + current_user.name + " | " + "hoos.in"  : "hoos.in #{yield(:title)}" %></title>
+    <title><%= user_signed_in? && yield(:title).blank? ? "  " + current_user.name + " | " + "hoos.in"  : "hoos.in #{yield(:title)}" %></title>
     <link rel="shortcut icon" href="/favicon.ico" />
     
     <link rel="apple-touch-icon" href="/assets/iphone_icons/57.png" />
@@ -41,6 +41,7 @@
     <%= render 'layouts/header' %> 
     <div class="layout"> 
       <%= render 'layouts/alerts' %>
+      <span id="invitations"></span>
       <%= yield %>
     </div>
       <%= render 'layouts/footer' %>

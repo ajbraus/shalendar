@@ -46,7 +46,12 @@
 	}
 
 	.logo {
+		width: 164px;
 		left: 25px;
+	}
+
+	ul.left_header {
+		top: 34px;
 	}
 
 	.responsive_new_idea {
@@ -62,7 +67,6 @@
 	}
 
 .mini_event {
-	height: 110px;
 }
 
 .idea_container {
@@ -75,8 +79,12 @@ width: 77%;
 }
 
 .show_skin {
-	height: 1000px;
-	margin-bottom: -1000px;
+width: 54px;
+position: fixed;
+z-index: 1;
+margin-left: 69%;
+left: 250px;
+height: 100%;
 }
 
 	#forecast {
@@ -99,14 +107,16 @@ width: 77%;
 	}
 
 	#friends {
-width: 60%;
-left: 20px;
+width: 65%;
+margin-left: 300px;
+top: 16px;
 	}
 
 	.event_show {
-		margin: 0 auto;
-		width: 580px;
-		top:10px;
+margin: 0 268px;
+width: 65%;
+top: 10px;
+min-width: 570px;
 		.promo_img {
 			img {
 				max-width: 580px;
@@ -232,7 +242,7 @@ left: -121px;
 		}
 
 		.btn-new-idea {
-			padding: 10.5px 56px;
+			padding: 10.5px 47px;
 			position: relative;
 			-moz-border-radius: 6px;
 			-webkit-border-radius: 6px;
@@ -247,13 +257,14 @@ left: -121px;
 		}
 
 		.sidebar {
-			width: 235px;
+			width: 205px;
+			height: 185px;
 		}
 
 		.home {
 position: relative;
 margin-right: -25px;
-margin-left: 270px;
+margin-left: 245px;
 		}
 
 		.rsvp_button {
@@ -291,9 +302,6 @@ margin-left: 270px;
 /*** 7" Tablet *************************/
 /***************************************/
 @media only screen and (min-width: 600px) and (max-width: 980px) {
-		.user_search {
-		display:none;
-	}
 
 }
 
@@ -302,9 +310,7 @@ margin-left: 270px;
 /***************************************/
 @media only screen and (min-width: 600px) and (max-width: 699px) {
 
-		ul.left_header {
-		display:none;
-	}
+
 }
 
 /***************************************/

@@ -27,7 +27,8 @@ body {
 		display:none;
 	}
 	ul.left_header {
-		display:none;
+		position: relative;
+		top: 24px;
 	}
 	#headerText {
 		display:none;
@@ -66,6 +67,7 @@ body {
 
 	.logo {
 		left:4px;
+		width: 106px;
 		img {
 			width: 105px;
 		}
@@ -228,7 +230,8 @@ left: -125px;
 	#friends {
 		margin: 10px 0 20px 7px;
 		width: 89%;
-	}		
+		top: 20px;
+}
 
 // EVENT SHOW
 
@@ -258,6 +261,8 @@ left: -125px;
 	}
 
 	.show_skin {
+		width: 694px;
+		margin-left: auto;	
 		height: 46px;
 	}
 

@@ -38,7 +38,7 @@
 
 			<div class="guest_count">
 			<% if event.tipped? %>	
-				<span class="count" id="guestCount"><%= event.guests.count %></span>
+				<span class="count" id="guestCount"><i class="icon-group"></i> <%= event.guests.count %></span>
 			<% else %>
 				<span id="guestCount" class="count red"><%= event.guests.count%><span id="eventMin">/<%= event.min %></span></span>
 			<% end %>

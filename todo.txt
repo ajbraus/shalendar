@@ -155,7 +155,9 @@ add event description (display only in show)
 
 add suggested friends to friends page
 
-stats/reputation/broadcast on user#show page
+broadcast on user#show page 
+
+graph on user#show
 
 ---------------------------------------------------------------
 

@@ -1,4 +1,5 @@
-<% unless @friend_suggestions.nil? || @friend_suggestions.empty? %>
+<% unless @friend_suggestions.blank? %>
+<div class="user_table">
 	<% @friend_suggestions.each do |fs| %>
 		<div class="event_show_friend friend">
 	  	<%= image_tag("#{invite_raster_picture(fs)}", class: "profile_picture") %>
@@ -8,4 +9,5 @@
 	 		</div>
 	 	</div>
 	<% end %>
+</div>
 <% end %>

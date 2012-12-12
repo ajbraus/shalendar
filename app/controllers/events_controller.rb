@@ -113,6 +113,7 @@ class EventsController < ApplicationController
     @email_invites = @event.email_invites
     @invited_users = @event.invited_users - @event.guests 
     @comments = @event.comments.order("created_at desc")
+    @my_plans = current_user.plans.where('ends_at > ?', Time.now).order('starts_at asc')
     if user_signed_in?
       if current_user.authentications.find_by_provider("Facebook").present?
         @graph = session[:graph] 
