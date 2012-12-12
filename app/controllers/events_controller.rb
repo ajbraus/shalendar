@@ -91,7 +91,7 @@ class EventsController < ApplicationController
                                             })
       end
       respond_to do |format|
-        format.html { redirect_to @event, notice: "Idea Posted Successfully" }
+        format.html { redirect_to idea_path(@event), notice: "Idea Posted Successfully" }
         format.json { render json: @event, status: :created, location: @event }
       end
     elsif @event.is_big_idea?
@@ -171,7 +171,7 @@ class EventsController < ApplicationController
         if @event.guests.count >= @event.min
           @event.tip!
         end
-        format.html { redirect_to @event, notice: 'Idea was successfully updated.' }
+        format.html { redirect_to idea_path(@event), notice: 'Idea was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -217,12 +217,12 @@ class EventsController < ApplicationController
       @uid = current_user.authentications.find_by_provider("Facebook").uid
       @event.post_to_fb_wall(@uid, session[:graph])
       respond_to do |format|
-        format.html { redirect_to @event, notice: "Successfully posted event to your facebook wall" }
+        format.html { redirect_to idea_path(@event), notice: "Successfully posted event to your facebook wall" }
         format.js
       end 
     else
       respond_to do |format|
-        format.html { redirect_to @event, notice: "It was not possible to post this idea to your facebook wall" }
+        format.html { redirect_to idea_path(@event), notice: "It was not possible to post this idea to your facebook wall" }
         format.js { render template: "fb_invites/extend_permissions" }
       end 
     end

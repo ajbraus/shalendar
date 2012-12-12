@@ -10,11 +10,11 @@ class EmailInvitesController < ApplicationController
       if @invite.save
         #Resque.enqueue(MailerCallback, "Notifier", :invitation, @invite.id, @event.id)
         Notifier.delay.email_invitation(@invite, @event)
-        format.html { redirect_to @event, notice: 'Invite was successfully created.' }
+        format.html { redirect_to idea_path(@event), notice: 'Invite was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
         format.js
       else
-        format.html { redirect_to @event, notice: 'Invite could not be saved.' }
+        format.html { redirect_to idea_path(@event), notice: 'Invite could not be saved.' }
         format.json { render json: @event.errors, status: :unprocessable_entity }
         format.js
       end

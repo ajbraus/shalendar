@@ -61,7 +61,8 @@
 
 	<div class="when">
 	  <% if @event.starts_at.present? %>
-      <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> ( <%= @event.nice_duration %> hrs )</div>
+      <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> ( <%= @event.nice_duration %> hrs 
+        <% if @event.ends_at < Time.now %> - Ended <% end %> ) </div>
     <% else %>
       <div class="date"><strong>Time TBD when Idea Tips </strong></div>
     <% end %>
@@ -140,7 +141,7 @@
 <% end %>
 
     <div class="maybes">
-      <div class="left_label event_label"><span id="invite_count"><%= @fb_friends.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_friends.count %></span> Included </div> 
+      <div class="left_label event_label"><span id="invite_count"><%= @fb_friends.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_friends.count %></span> .invited </div> 
       <div id="invites" class="show_raster">
         <%= render partial: 'events/invites' %>
       </div>
@@ -148,9 +149,9 @@
 
     <div class="guests">
       <% if @event.tipped? %>
-        <div class="right_label event_label"><%= @guests.count %> Going (Tipped!)</div>
+        <div class="right_label event_label"><%= @guests.count %> .in (Tipped!)</div>
       <% else %>
-        <div class="destroy right_label event_label"><%= @guests.count %> / <%= @event.min %> Going (Not Yet Tipped)</div>
+        <div class="destroy right_label event_label"><%= @guests.count %> / <%= @event.min %> .in (Not Yet Tipped)</div>
       <% end %>
       <div class="show_raster">
         <%= render 'guests' %>
