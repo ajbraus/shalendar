@@ -75,19 +75,21 @@ new follower email link not working
 ========================================================================
 ========================================================================
 
-Dear hoos.in users,
+hi,
 
-We have just released a new version and here are the enhancements that we think you'll like:
+Over the past two months, Mike and I have been listening to your suggestions and now we are proud to say we've listend and have just released a new version full of enhancements. Here they are:
 
-1) New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.
+1) City-Wide Ideas - Post ideas to your whole city! We decided that pretty much anyone has something to share with their city, so you can now choose to post "Public" ideas 
 
-2) Post ideas to your whole city! We decided that pretty much anyone has something to share with their city, so you can now choose to post "Public" ideas 
+2) Find a Crowd -
 
-3) Your own custom background for your events. Just click on your face in the upper right hand corner, select "Settings", and upload a large image (at least 1024x640 recommended) to the "Background" field.
+3) hoos.in? You are! - Your own profile page with your past ideas, and stats. For privacy your upcoming ideas are only visible to invites.
 
-4) Your own profile page with your past ideas, and stats. For privacy your upcoming ideas are only visible to invites.
+3.5) Custom Background - Now you can have your own custom background for your events and profile. Just click on your face in the upper right hand corner, select "Settings", and upload a large image (at least 1024x640 recommended) to the "Background" field.
 
-5) Better sharing. 
+4) Better sharing - Share hoosin ideas on twitter, facebook, pinterest, by email and (on mobile) by text.
+
+5) New Look - New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.
 
 Adam
 
@@ -104,7 +106,6 @@ facebook feed dialogue
 facebook message dialogue
 linked in share dialogue
 twitter share dialogue
-pin share dialogue
 
 ---------------------------------------------------------------
 
