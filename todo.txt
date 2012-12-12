@@ -135,6 +135,8 @@ need my-plans/my-forecast pages in responsive
 
 signup walkthrough
 
+Adding FB to a native login doesn't work smoothly
+
 joyride
 
 Create crowd ideas ala kickstarter
