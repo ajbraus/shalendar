@@ -1,6 +1,6 @@
 <div class="choose_city">
 	<%= form_for(current_user, :as => :resource, :url => registration_path(current_user), :html => { :method => :put }) do |f| %>
-		<!-- <div class="small_ajax_loader" style="display:none;"></div> --> <%= f.collection_select :city_id, City.all, :id, :name, {:selected => current_user.city.id}, { :dir =>"rtl" } %>
+		<!-- <div class="small_ajax_loader" style="display:none;"></div> --> <%= f.collection_select :city_id, City.all, :id, :city_name, {:selected => current_user.city.id}, { :dir =>"rtl" } %>
 		<%= f.submit class:"hidden"%>
 	<% end %>
 </div>

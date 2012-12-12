@@ -1,6 +1,7 @@
 <span class="choose_city">
 <form>
   <select name="URL" onchange="window.location.href= this.form.URL.options[this.form.URL.selectedIndex].value">
+  	<option>choose city</option>
   	<% City.all.each do |c| %>
 
     <option value=<%="/#{c.name.split(',')[0].gsub(/\s+/, "").downcase}"%>><%= "#{c.name}"%></option>

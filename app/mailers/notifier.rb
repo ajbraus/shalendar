@@ -352,13 +352,13 @@ class Notifier < ActionMailer::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "#{@inviter.name} included you in an idea: #{@event.title}"
+        n.collapse_key = "#{@inviter.name} .invited you to an idea: #{@event.title}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.user.name} Shared an idea"}}
         n.save
       end
     else
-      mail to: @user.email, subject: "#{@inviter.name} invited to #{@event.short_event_title}"
+      mail to: @user.email, subject: "#{@inviter.name} .invited you to #{@event.short_event_title}"
     end
     rescue => ex
     Airbrake.notify(ex)
@@ -373,7 +373,7 @@ class Notifier < ActionMailer::Base
     @message = @invite.message
     #@inviter_pic = raster_profile_picture(@inviter)
     #should we include here an invited by X to make them more likely to join?
-    mail to: @invite.email, subject: "#{@inviter.name} sent you an invitation"
+    mail to: @invite.email, subject: "#{@inviter.name} .invited you"
   end
 
   def time_change(event, user)
@@ -428,7 +428,7 @@ class Notifier < ActionMailer::Base
   def fb_event_invite(email, event)
     @event = event
     @email = email 
-    mail to: @email, from: "info@hoos.in", subject: "An Idea has Been Shared with You" do |format|
+    mail to: @email, from: "info@hoos.in", subject: "You've been .invited!" do |format|
       format.html { render :layout => 'fb_message' }
     end
   end

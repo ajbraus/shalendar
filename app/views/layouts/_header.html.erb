@@ -5,7 +5,7 @@
 
   <ul class="left_header">
     <% if false %><li><%= link_to "crowd ideas", discover_path %></li><% end %>
-    <li><%= link_to 'help', what_is_hoosin_path %></li>
+    <li><%= link_to '.instructions', what_is_hoosin_path %></li>
   </ul>
 
   <div class="right_header">
@@ -33,7 +33,7 @@
   <% unless params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
     <ul class="left_header">
       <% if false %> <li><%= link_to "crowd ideas", discover_path %></li>  <% end %>
-      <li><%= link_to 'what is hoos.in?', what_is_hoosin_path %></li>
+      <li><%= link_to '.instructions', what_is_hoosin_path %></li>
 
     </ul>
 
@@ -42,9 +42,6 @@
     </div>
 
     <div class="right_header">
-      <div class="login">
-        <%= link_to "login", new_user_session_path %>
-      </div>
         <%= render 'shared/city_session_dropdown' %>
     </div>
   <% end %>

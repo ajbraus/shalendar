@@ -31,5 +31,8 @@ class City < ActiveRecord::Base
       City.find_by_name("Madison, Wisconsin")
     end
   end
-  
+  def city_name
+
+    return name.split(',')[0]
+  end
 end
