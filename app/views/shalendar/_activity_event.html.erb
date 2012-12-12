@@ -36,9 +36,9 @@
     <li>
       <%= link_to idea_path(event) do %>
         <% if event.is_public? %>
-          <span class="fadeInBlue" title="View Public Idea"><i class="icon-bullhorn"></i></span>
+          <span class="fadeInBlue" title="Explore City-Wide Idea"><i class="icon-bullhorn"></i></span>
         <% else %>
-          <span class="fadeInBlue" title="View Idea's Page"><i class="icon-cloud"></i></span>
+          <span class="fadeInBlue" title="Explore Idea"><i class="icon-cloud"></i></span>
         <% end %>
       <% end %>
     </li>
@@ -49,12 +49,12 @@
     </li>
     <% unless event.ends_at < Time.now %>
     <li>
-      <a href="https://twitter.com/share" data-text="<%= event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this idea" target="_blank"><i class="icon-twitter"></i></a>
+      <a href="https://twitter.com/share" data-text="<%= event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this Idea" target="_blank"><i class="icon-twitter"></i></a>
     </li>
     <li>
     	    <span id='fb-root'></span>
   <script src='http://connect.facebook.net/en_US/all.js'></script>
-  <span><a onclick='postToFeed(); return false;'><span class="fadeInFBBlue" title="Post to Your Facebook Wall"><i class="icon-facebook-sign"></i></span></a></span>
+  <span><a onclick='postToFeed(); return false;'><span class="fadeInFBBlue" title="Post to Facebook"><i class="icon-facebook-sign"></i></span></a></span>
   <span id='msg'></span>
 
   <script> 
@@ -82,7 +82,7 @@
   </script>
 		</li>
     <li>
-      <a id="shareByEmail" href="#shareByEmailShow"><span class="fadeInOrange"><i class="icon-envelope-alt" title="Share Idea by Email"></i></span></a>
+      <a id="shareByEmail" href="#shareByEmailShow"><span class="fadeInOrange"><i class="icon-envelope-alt" title=".invite by Email"></i></span></a>
     </li>
 		<li>
       <%= link_to edit_idea_path(event) do %>
@@ -91,7 +91,8 @@
     </li>
     <% end %>
       <li>
-        <%= link_to idea_path(event), method: :delete, confirm: "Cofirm: DESTROY this idea?" do %>
+        <%= link_to idea_path(event), method: :delete, confirm: "Please confirm that you want to cancel this idea" do %>
+
           <span class="fadeInRed" title="Cancel Idea"><i class="icon-trash"></i></span>
         <% end %>
       </li>

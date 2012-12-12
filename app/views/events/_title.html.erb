@@ -31,13 +31,13 @@
 
       <% unless @event.tipped? %>
       <li>
-        <%= link_to event_tip_path(@event), :confirm => "Force your idea to tip? This cannot be reversed and will send notifications to all RSVPs", title: "Tip Manually", :method => :put do %>
+        <%= link_to event_tip_path(@event), :confirm => "Tip this idea manually? This will notify all guests that the idea is on.", title: "Make this Idea Tip", :method => :put do %>
           <span class="fadeInOrange"><i class="icon-pushpin"></i></span>
         <% end %>
       </li>
       <% end %>
       <li>
-        <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will send an Email to all RSVPs a cancellation email.' }, title: "Delete Idea" do %>
+        <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will notify all guests that the idea is canceled.' }, title: "Cancel Idea" do %>
           <span class="fadeInRed"><i class="icon-trash"></i></span>
         <% end %>
       </li>
@@ -57,11 +57,11 @@
 
         <% if current_user.invited_all_friends?(@event) %>
         <li>
-          <i class="icon-group gold" title="Shared with all Friends"></i>
+          <i class="icon-group gold" title=".invited with all friends"></i>
         </li>
         <% else %>
         <li>
-          <%= link_to invite_all_friends_path(:event_id => @event.id), confirm: "Share with all friends", title: "Invite All Friends" do %>
+          <%= link_to invite_all_friends_path(:event_id => @event.id), title: ".invite all friends" do %>
             <span class="fadeInGreen"><i class="icon-group"></i></span>
           <% end %>
         </li>
@@ -70,7 +70,7 @@
         <!-- #FACEBOOK -->
         <% if current_user.fb_user? %>
           <li>
-            <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Post to your Facebook wall", remote: true do %>
+            <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Post to Facebook", remote: true do %>
               <i class="icon-facebook-sign"></i>
             <% end %>
           </li>
@@ -83,7 +83,7 @@
 
       <% else %>
         <li>
-          <i class="icon-group black" title="Join and Share with Friends"></i>
+          <i class="icon-group black" title="join.in and .invite all friends"></i>
         </li>
       <% end %>
     <% end %>

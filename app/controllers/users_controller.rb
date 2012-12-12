@@ -16,10 +16,4 @@ class UsersController < ApplicationController
       end
     end
   end
-
-  # def set_time_zone
-  #   if current_user.city == "Everywhere Else"
-  #     session[:current_time_zone] = ActiveSupport::TimeZone[-params[:time_zone_offset]] 
-  #   end
-  # end
 end

@@ -2,15 +2,15 @@
   <li class="hoosin_friends_tab"><a href="#tabs-1" >hoos.in</a></li>
   <% if @invite_friends.present? && current_user.fb_user? %>
   	<li class="fb_friends_tab">
-			<a href="#tabs-2" >facebook</a>
+			<a href="#tabs-2" >Facebook</a>
 		</li>
   <% end %>
     <div class="share_with_friends event_label">
     <% if current_user.invited_all_friends?(@event) %>  
-      <span id="green" class="fadeInGreen" title="Shared with All hoos.in Friends"><i class="icon-group"></i> All</span>
+      <span id="green" class="fadeInGreen" title=".invited all hoos.in friends"><i class="icon-group"></i> All</span>
     <% elsif @event.guests_can_invite_friends? || @event.user == current_user %>
-      <%= link_to invite_all_friends_path(:event_id => @event.id), confirm: "Post idea to ALL friends in #{current_user.city.name}?" do %>
-          <span class="fadeInGreen"title="Share with All hoos.in Friends"><i class="icon-group"></i> All</span>
+      <%= link_to invite_all_friends_path(:event_id => @event.id), confirm: "Post idea to wall of all friends in #{current_user.city.name}?" do %>
+          <span class="fadeInGreen"title=".invite all hoos.in friends"><i class="icon-group"></i> All</span>
       <% end %>
     <% end %>
   </div>

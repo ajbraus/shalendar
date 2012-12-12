@@ -3,6 +3,7 @@
     <%= render partial: 'layouts/stats' %>
 </div>
 <div class="upcoming_ideas part">
+    <div class="label"><%= @my_plans.count %> upcoming .ins</div>
     <% if @my_plans.present? %>
       <% @my_plans.each do |mp| %>
         <%= render partial: 'shalendar/mini_event', locals: { :event => mp } %>

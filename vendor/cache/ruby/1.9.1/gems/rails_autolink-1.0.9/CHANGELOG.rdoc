@@ -1,0 +1,22 @@
+=== 1.0.7 / 2012-04-27
+
+* Added support for non-latin characters in autolinked urls
+
+=== 1.0.6 / 2012-03-12
+
+* Added sanitize_options arg
+
+=== 1.0.5 / 2012-01-27
+
+* Update dependency to include rails 3.2.X
+
+=== 1.0.2 / 2011-06-18
+
+* Compatibility with rails 3.1.0.rc4
+
+=== 1.0.0 / 2011-05-02
+
+* 1 major enhancement
+
+  * Birthday!
+

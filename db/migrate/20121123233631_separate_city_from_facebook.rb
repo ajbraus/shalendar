@@ -111,7 +111,7 @@ class SeparateCityFromFacebook < ActiveRecord::Migration
     if Event.all.any?
       Event.all.each do |e|
         if e.user.nil?
-          e.city_id = City.find_by_name("Everywhere Else").id
+          #do nothing.. hopefully the event is gone
         else
           e.city_id = e.user.city_id
         end

@@ -5,7 +5,7 @@
 
   <ul class="left_header">
     <% if false %><li><%= link_to "crowd ideas", discover_path %></li><% end %>
-    <li><%= link_to 'explain', what_is_hoosin_path %></li>
+    <li><%= link_to '.instructions', what_is_hoosin_path %></li>
   </ul>
 
   <div class="right_header">
@@ -22,7 +22,7 @@
     </div>
 <% end %>
     <%= render 'shared/city_user_dropdown' %>
-    <div id="interestsDropdown" class="interests_dropdown">interests <i class="icon-caret-down"></i></div>
+    <div id="interestsDropdown" class="interests_dropdown">.interests <i class="icon-caret-down"></i></div>
     <%= render 'shared/interests_user_dropdown' %>
     <% unless current_user.vendor? %>
       <%= render 'shared/friend_search' %>
@@ -32,7 +32,9 @@
 <% else %> <!-- IF NOT SIGNED IN -->
   <% unless params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
     <ul class="left_header">
-      <% if false %><li><%= link_to "discover", discover_path %></li>  <% end %>
+      <% if false %> <li><%= link_to "crowd ideas", discover_path %></li>  <% end %>
+      <li><%= link_to '.instructions', what_is_hoosin_path %></li>
+
     </ul>
 
     <div class="city_title">
@@ -40,9 +42,6 @@
     </div>
 
     <div class="right_header">
-      <div class="login">
-        <%= link_to "login", new_user_session_path %>
-      </div>
         <%= render 'shared/city_session_dropdown' %>
     </div>
   <% end %>

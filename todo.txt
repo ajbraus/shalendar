@@ -109,6 +109,7 @@ twitter share dialogue
 
 ---------------------------------------------------------------
 
+login button on top right when not logged in - look better
 need my-plans/my-forecast pages in responsive
 
 signup walkthrough
@@ -135,6 +136,7 @@ stats/reputation/broadcast on user#show page
 
 ---------------------------------------------------------------
 
+find all FB friends by button so that ppl can connect with friends not in their city
 rsvp ajax
 rsvp lightbox -- add to calendar, share with facebook twitter linkedin etc
 ticket/rsvp link
@@ -143,6 +145,8 @@ rsvp out/in
 Rsvp - checked_in? boolean with mobile api to check in.
 
 ---------------------------------------------------------------
+
+home page is City#show to do routes
 
 facebook load ajax
 

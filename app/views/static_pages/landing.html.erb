@@ -8,7 +8,7 @@
       <h2 class="pick_city">Explore: 
         <%= render 'shared/city_session_dropdown' %>
         <% if false %>
-        Pick Interests: <div id="interestsDropdown" class="interests_dropdown">interests <i class="icon-caret-down"></i></div>
+        Select your .interests: <div id="interestsDropdown" class="interests_dropdown">.interests <i class="icon-caret-down"></i></div>
          <%= render 'shared/interests_session_dropdown' %>
         <% end %>
       </h2>
@@ -17,10 +17,10 @@
       <div class="login_sign_up">
         <div class="nativeLogin" style="margin-bottom:20px;">
           <div class="left">
-            <%= link_to "Login", new_user_session_path, class:"btn btn-landing btn-primary" %>
+            <%= link_to "Log.in", new_user_session_path, class:"btn btn-landing btn-primary" %>
           </div>
           <div class="right">
-            <%= link_to "Sign up for Free", new_user_registration_path, class:"btn btn-landing btn-join" %>
+            <%= link_to "Sign up", new_user_registration_path, class:"btn btn-landing btn-join" %>
             <% if false %>
             <%= link_to "Start A Free Venue Trial", vendor_splash_path, class:"btn btn-success btn-landing" %>
             <% end %>
