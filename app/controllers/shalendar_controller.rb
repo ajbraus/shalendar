@@ -8,8 +8,8 @@ class ShalendarController < ApplicationController
       @city = current_user.city
       @time_in_zone = Time.now
   		@date = @time_in_zone.to_date
-      @events = current_user.forecast(@date)
-      @my_plans = current_user.plans.where('ends_at > ?', Time.now).order('starts_at asc')
+      @events = current_user.forecast(@time_in_zone)
+      @my_plans = current_user.plans.where('ends_at > ?', @time_in_zone).order('starts_at asc')
       if current_user.authentications.find_by_provider("Facebook").present?
         @graph = session[:graph] 
       else 
@@ -178,7 +178,7 @@ class ShalendarController < ApplicationController
     current_user.invite_all_friends!(@event)
     respond_to do |format|
       format.js 
-      format.html { redirect_to idea_path(@event), notice: 'successfully .invited your friends' }
+      format.html { redirect_to @event, notice: 'successfully .invited your friends' }
     end
   end
 

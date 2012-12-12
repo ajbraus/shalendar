@@ -62,7 +62,7 @@
 	<div class="when">
 	  <% if @event.starts_at.present? %>
       <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> ( <%= @event.nice_duration %> hrs 
-        <% if @event.ends_at < Time.now %> - Ended <% end %> ) </div>
+        <% if @event.ends_at < Time.now %> - Over <% end %> ) </div>
     <% else %>
       <div class="date"><strong>Time TBD when Idea Tips </strong></div>
     <% end %>

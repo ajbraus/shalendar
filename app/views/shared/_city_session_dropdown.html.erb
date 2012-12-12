@@ -2,9 +2,11 @@
 <form>
   <select name="URL" onchange="window.location.href= this.form.URL.options[this.form.URL.selectedIndex].value">
   	<option>choose city</option>
+  	<option value="madison">Madison, Wisconsin</option>
   	<% City.all.each do |c| %>
-
-    <option value=<%="/#{c.name.split(',')[0].gsub(/\s+/, "").downcase}"%>><%= "#{c.name}"%></option>
+  	<% unless c == City.find_by_name("Madison, Wisconsin") %>
+	    <option value=<%="/#{c.name.split(',')[0].gsub(/\s+/, "").downcase}"%>><%= "#{c.name}"%></option>
+    <% end %>
     <% end %>
   </select>
 </form>
