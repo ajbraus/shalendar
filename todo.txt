@@ -4,7 +4,8 @@ HEADER:
 30 px spacing next to icon + picture. switch city to left header, .interests in middle, friends left-middle, .instructions to right
 
 Sidebar should be persistent in event#show, really everywhere
-Friend button in search and update .interests button too small
+
+Friend button in search and update .interests and join.in event#show buttons too small
 
 Manage friends is wonky, should be over to right so sidebar can be seen
 

@@ -12,7 +12,7 @@
 	<% else %>
 		<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 		  <div><%= f.hidden_field :plan_id %></div>
-		  <%= f.submit raw("join"), class:"btn_icon btn_icon_rsvp", confirm:"Please confirm that you will join.in this idea" %>
+		  <%= f.submit raw("join.in"), class:"btn_icon btn_icon_rsvp", confirm:"Please confirm that you will join.in this idea" %>
 		<% end %>
 	<% end %>
 <% end %>
