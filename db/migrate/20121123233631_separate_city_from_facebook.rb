@@ -1,6 +1,6 @@
 class SeparateCityFromFacebook < ActiveRecord::Migration
   def change
-  	add_column :users, :city_id, :int
+  	add_column :users, :city_id, :integer
     add_column :authentications, :city, :string
 
     add_column :users, :slug, :string
@@ -75,6 +75,8 @@ class SeparateCityFromFacebook < ActiveRecord::Migration
           u.city_id = City.find_by_name("New York- Manhattan, New York").id
         elsif u.city == "San Francisco, California"
           u.city_id = City.find_by_name("San Francisco, California").id
+        elsif u.city == "Ithaca, New York"
+          u.city_id = City.find_by_name("Ithaca, New York").id
         elsif u.city == "Salt Lake City, Utah"
           u.city_id = City.find_by_name("Salt Lake City, Utah").id
         elsif u.city == "Istanbul, Turkey"
@@ -105,7 +107,7 @@ class SeparateCityFromFacebook < ActiveRecord::Migration
         u.save
     	end
     end
-    add_column :events, :city_id, :int
+    add_column :events, :city_id, :integer
 
     if Event.all.any?
       Event.all.each do |e|

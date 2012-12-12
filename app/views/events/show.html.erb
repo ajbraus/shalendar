@@ -1,7 +1,4 @@
 <% provide(:title, " | #{@event.title}" ) %>
-<% unless user_signed_in? %>
-  <%= render 'shared/not_signed_in_pitch' %>
-<% end %>
 <%= render 'layouts/sidebar' %>
 <% if @event.has_parent? %>
   <% unless @event.parent.user.background_file_size.nil? %>
