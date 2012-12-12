@@ -391,7 +391,6 @@ text-indent: -9999px;
 -moz-border-radius: 6px;
 border-radius: 6px;
 position: relative;
-left: -80px;
 }
 
 .btn_fb_login:hover {
@@ -1516,7 +1515,6 @@ img {
   width:20px;
 }
 span {
-padding-left: 6px;
 position: relative;
 }
 }
@@ -2131,6 +2129,7 @@ z-index: 1000;
 .fb_login_button {
   position: relative;
 bottom: 33px;
+right: 140px;
 }
 
 .login_buttons {
@@ -3690,8 +3689,9 @@ font-size: 27px;
 line-height: 1;
   .btn_fb_login {
     width: 207px;
-    background-size: 100%;
+    background-size: 103%;
     height: 36px;
+    right:0;
   &:hover {
   background-position: -4px -46px; 
   -webkit-border-radius: 6px;
@@ -3703,8 +3703,9 @@ line-height: 1;
   .fb_login_button {
     position: relative;
     bottom: -2px;
-    height: 30px;
-    left: 80px;
+    height: 37px;
+    padding-left: 0px;
+    right:0;
     }
 }
 

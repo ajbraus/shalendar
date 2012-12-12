@@ -154,8 +154,9 @@ class ShalendarController < ApplicationController
   end
 
   def new_invited_events
-    @next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
-    @new_invitations = current_user.invitations.order('created_at desc').limit(25)
+    #@next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
+    @time_in_zone = Time.now
+    @new_invitations = current_user.invitations.order('created_at desc').limit(20)
     @new_invited_events = []
     @new_invitations.each do |i|
       e = Event.find_by_id(i.invited_event_id)

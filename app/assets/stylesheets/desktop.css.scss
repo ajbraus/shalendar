@@ -209,7 +209,6 @@ left: -121px;
 		}
 
 		.fb_login_button {
-			right: 59px;
 		}
 
 		.instagram-placeholder img {
@@ -233,13 +232,12 @@ left: -121px;
 		}
 
 		.btn-new-idea {
-			padding: 9.5px 10px;
-			right: 15px;
+			padding: 10.5px 56px;
 			position: relative;
-			bottom: 14px;
-			-moz-border-radius: 0 6px 6px 0;
-    	-webkit-border-radius: 0 6px 6px 0;
-    	border-radius: 0 6px 6px 0;
+			-moz-border-radius: 6px;
+			-webkit-border-radius: 6px;
+			border-radius: 6px;
+			top: 10px;
 		}
 		.new_idea {
 		}
