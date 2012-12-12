@@ -27,14 +27,14 @@
     <% if false %>
     <% if event.parent_id %>
       <li>
-        <%= link_to idea_path(event.parent) do %>
+        <%= link_to event_path(event.parent) do %>
           <span class="fadeInBlue" title="View Public Idea"><i class="icon-bullhorn"></i></span>
         <% end %>
       </li>
     <% end %>
     <% end %>
     <li>
-      <%= link_to idea_path(event) do %>
+      <%= link_to event_path(event) do %>
         <% if event.is_public? %>
           <span class="fadeInBlue" title="Explore City-Wide Idea"><i class="icon-bullhorn"></i></span>
         <% else %>
@@ -65,7 +65,7 @@
       // calling the API ...
       var obj = {
         method: 'feed',
-        link: '<%= idea_url(event) %>',
+        link: '<%= event_url(event) %>',
         picture: '<%= event.image(:large) %>',
         name: '<%= event.title %>',
         // caption: '',
@@ -85,13 +85,13 @@
       <a id="shareByEmail" href="#shareByEmailShow"><span class="fadeInOrange"><i class="icon-envelope-alt" title=".invite by Email"></i></span></a>
     </li>
 		<li>
-      <%= link_to edit_idea_path(event) do %>
+      <%= link_to edit_event_path(event) do %>
         <span class="fadeInOrange" title="Edit Idea"><i class="icon-wrench"></i></span>
       <% end %>
     </li>
     <% end %>
       <li>
-        <%= link_to idea_path(event), method: :delete, confirm: "Please confirm that you want to cancel this idea" do %>
+        <%= link_to event_path(event), method: :delete, confirm: "Please confirm that you want to cancel this idea" do %>
 
           <span class="fadeInRed" title="Cancel Idea"><i class="icon-trash"></i></span>
         <% end %>

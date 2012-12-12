@@ -43,7 +43,7 @@ describe "Without loging in" do
   describe "Event#Show" do
     before do
       @event = Factory(:event, :user => user, :chronic_starts_at => "Tomorrow at 3pm")
-      visit idea_path(@event)
+      visit event_path(@event)
     end 
     it "should have the content Date Tomorrow" do
       page.should have_content((Time.now + 1.day).strftime('%A'))

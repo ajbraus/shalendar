@@ -28,6 +28,11 @@
       <a href="https://twitter.com/share" data-text="<%= @event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this idea" target="_blank"><i class="icon-twitter"></i></a>
     </li>
 
+    <!-- PINTEREST -->
+    <li>
+      <a data-pin-config="above" href="//pinterest.com/pin/create/button/?url=<%= event_url(@event) %>&media=<%= @event.image(:large) %>&description=<%= @event.mini_start_date_time + " - " + @event.title %>" data-pin-do="buttonPin" class="fadeInPinterest"><i class="icon-pinterest-sign"></i></a>
+    </li>
+
 
     <% if @event.guests_can_invite_friends? && !@event.short_url.nil? %>
       <li id="textMsg">

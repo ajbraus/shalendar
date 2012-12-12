@@ -10,12 +10,12 @@ describe "Users" do
     visit new_user_session_path
     fill_in "Email",    with: user.email
     fill_in "Password", with: user.password
-    click_on "Login"
+    click_on 'log.in'
   end
 
   describe "joining an idea" do
     before do 
-      visit idea_path(event)
+      visit event_path(event)
       click_on "Join"
     end
 
@@ -28,7 +28,7 @@ describe "Users" do
   describe "flaking from an idea" do
     before do 
       user.rsvp!(event)
-      visit idea_path(event)
+      visit event_path(event)
       click_on "Flake Out"
     end
 
