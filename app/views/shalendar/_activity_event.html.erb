@@ -91,7 +91,8 @@
     </li>
     <% end %>
       <li>
-        <%= link_to event, method: :delete, confirm: "Please confirm that you want to cancel this idea?" do %>
+        <%= link_to idea_path(event), method: :delete, confirm: "Please confirm that you want to cancel this idea" do %>
+
           <span class="fadeInRed" title="Cancel Idea"><i class="icon-trash"></i></span>
         <% end %>
       </li>

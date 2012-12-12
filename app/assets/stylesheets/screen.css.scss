@@ -1317,19 +1317,26 @@ width: 97%;
 
 .sidebar {
   position: fixed;
-background-color: white;
-padding: 10px;
 margin-top:15px;
 margin-right: 10px;
-height: 80%;
+height: 19%;
 overflow: auto;
+}
+
+.upcoming_ideas {
+position: fixed;
+margin-top: 15px;
+margin-right: 10px;
+height: 60%;
+overflow: auto;
+width: 235px;
+top: 280px;
 }
 
 .stats {
   position: relative;
   height: 180px;
   border-bottom: 1px solid $divider;
-
   .name {
     position: absolute;
     top: 5px;
@@ -1340,10 +1347,12 @@ overflow: auto;
     height:30px;
   }
   li {
-    border-right: 1px solid $divider;
     display: inline;
     float: left;
     padding: 0px 13px;
+  }
+  li:nth-child(-n+2) {
+    border-right: 1px solid $divider;
   }
   .new_idea {
     position: absolute;
@@ -1412,9 +1421,6 @@ color: black;
 font-size: 19px;
 line-height: 1;
 position: relative;
-float: left;
-width: 50%;
-
 min-height: 0;
 overflow: hidden;
 right: 0;
@@ -1424,6 +1430,10 @@ background-color: white;
 bottom: 0;
 margin-bottom: 0;
 padding-bottom: 0;
+  .profile_picture {
+    width:30px;
+    height:30px;
+  }
   }
   .guest_count {
     bottom: 0;

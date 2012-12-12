@@ -1,6 +1,8 @@
 <div class="sidebar part" id="sidebar">
   <% if user_signed_in? %>
     <%= render partial: 'layouts/stats' %>
+</div>
+<div class="upcoming_ideas part">
     <div class="label"><%= @my_plans.count %> upcoming .ins</div>
     <% if @my_plans.present? %>
       <% @my_plans.each do |mp| %>
