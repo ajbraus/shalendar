@@ -2,11 +2,10 @@ class CreateCategories < ActiveRecord::Migration
   def change
     create_table :categories do |t|
       t.string :name
-
       t.timestamps
     end
     add_index :categories, :name
-    add_column :users, :classification_id, :integer #to sort venues
+    # add_column :users, :classification_id, :integer #to sort venues
 
     create_table :interests do |t|
     	t.integer :category_id
