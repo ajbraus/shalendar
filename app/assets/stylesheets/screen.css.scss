@@ -214,11 +214,12 @@ text-align: center;
 }
 
 .btn-pitch {
-width: 96px;
-  font-size:20px;
-  text-align: center;
-  height: 40px;
+width: 175px;
+font-size: 20px;
+text-align: center;
+height: 40px;
 line-height: 40px;
+margin-bottom: 2px;
 }
 
 .btn-start-trial {
@@ -247,6 +248,7 @@ color: white;
 
 .btn-new-idea {
     font-size: 20px;
+    float: left;
 }
 
 .btn-new-vendor-idea {
@@ -590,6 +592,7 @@ float: right;
 width: 610px;
 position: absolute;
 right: 16px;
+text-align: right;
     > div {
       float:right;
     }
@@ -678,14 +681,16 @@ bottom: 10px;
 }
 
 .interests {
-width: 145px;
+width: 181px;
 position: absolute;
-top: 308px;
+top: 311px;
 z-index: 10;
-left: 193px;
+left: 207px;
 }
 .interest_checkbox {
-  margin:10px 0;
+  margin: 6px 21px;
+font-size: 24px;
+line-height: 1.2;
 }
 
 .show_header {
@@ -3677,11 +3682,11 @@ font-size: 27px;
 line-height: 1;
   .btn_fb_login {
     width: 207px;
-    background-size: 103%;
-    height: 36px;
+    background-size: 88%;
+    height: 29px;
     right:0;
   &:hover {
-  background-position: -4px -46px; 
+  background-position: -4px -41px; 
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
