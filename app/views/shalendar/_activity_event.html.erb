@@ -36,9 +36,9 @@
     <li>
       <%= link_to event_path(event) do %>
         <% if event.is_public? %>
-          <span class="fadeInBlue" title="View Public Idea"><i class="icon-bullhorn"></i></span>
+          <span class="fadeInBlue" title="Explore City-Wide Idea"><i class="icon-bullhorn"></i></span>
         <% else %>
-          <span class="fadeInBlue" title="View Idea's Page"><i class="icon-cloud"></i></span>
+          <span class="fadeInBlue" title="Explore Idea"><i class="icon-cloud"></i></span>
         <% end %>
       <% end %>
     </li>
@@ -49,7 +49,7 @@
     </li>
     <% unless event.ends_at < Time.now %>
     <li>
-      <a href="https://twitter.com/share" data-text="<%= event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this idea" target="_blank"><i class="icon-twitter"></i></a>
+      <a href="https://twitter.com/share" data-text="<%= event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this Idea" target="_blank"><i class="icon-twitter"></i></a>
     </li>
     <li>
     	    <span id='fb-root'></span>
