@@ -17,7 +17,6 @@ class ShalendarController < ApplicationController
       end
       if @graph
         @member_friends = current_user.fb_friends(@graph)[0]
-        @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.shuffle.first(3)
       end
     else
       if params[:city].present?
@@ -39,10 +38,10 @@ class ShalendarController < ApplicationController
 		@friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
     @vendor_friendships = current_user.vendor_friendships
     @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
-    @my_plans = current_user.plans.where('starts_at > ?', Time.now).order('starts_at desc')
+    @my_plans = current_user.plans.where('ends_at > ?', Time.now).order('starts_at asc')
     if @graph
       @member_friends = current_user.fb_friends(@graph)[0]
-      @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.shuffle.first(3)
+      @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.shuffle.first(5)
     end
     
     #Beginning of Yellow Pages

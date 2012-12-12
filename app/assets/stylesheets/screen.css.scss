@@ -580,18 +580,10 @@ box-shadow:         0px 0px 7px rgba(50, 50, 50, 0.75);
     cursor:pointer;
     font-size: 16px;
     font-family:inherit;
-    margin-left: -58px;
-  }
-  .interests_dropdown {
-    position: relative;
-    top: 17px;
-    right: 61px;
   }
   .choose_city {
     float:right;
 position: relative;
-top: 13px;
-right: 12px;
   }
   .right_header {
 float: right;
@@ -601,8 +593,20 @@ right: 16px;
     > div {
       float:right;
     }
-  select,option {
-    text-align: right;
+  a{
+    color: $icon_color;
+    &:hover {
+      color:$icon_color;
+    }
+  }
+  }
+  ul.left_header {
+float: left;
+position: relative;
+  #new_idea_blerb {
+    position:relative;
+    bottom: 12px;
+    padding: 9.1px;
   }
   select {
     cursor:pointer;
@@ -635,22 +639,6 @@ right: 16px;
     font-family: inherit;
     width: 150px;
     }
-  a{
-    color: $icon_color;
-    &:hover {
-      color:$icon_color;
-    }
-  }
-  }
-  ul.left_header {
-float: left;
-position: relative;
-top: 34px;
-  #new_idea_blerb {
-    position:relative;
-    bottom: 12px;
-    padding: 9.1px;
-  }
   }
   li {
     display: inline;
@@ -683,8 +671,8 @@ right: 4px;
   }
 }
 
-.up_arrow {
-  float: right;
+.left_arrow {
+  float: left;
 position: relative;
 bottom: 10px;
 }
@@ -692,7 +680,9 @@ bottom: 10px;
 .interests {
 width: 145px;
 position: absolute;
-top: 46px;
+top: 308px;
+z-index: 10;
+left: 193px;
 }
 .interest_checkbox {
   margin:10px 0;
@@ -787,7 +777,6 @@ bottom: 1px;
 }
 
 .logo {
-width: 164px;
 height: 72px;
 position: relative;
 float: left;
@@ -805,7 +794,8 @@ top: 34px;
   }
 }
 #howItWorks{
- width:700px;
+ width: 80%; 
+ max-width:700px;
  margin: 0 auto;
 }
 
@@ -990,9 +980,8 @@ box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, .75);
 
 .user_search {
 position: relative;
-right: 144px;
-width: 270px;
 top: 10px;
+width: 279px;
   input[type=text] {
   border-radius: 0;
 padding: 6px;
@@ -1312,22 +1301,27 @@ right: 23px;
 clear: both;
 margin-top: 7px;
 width: 97%;
+margin-bottom: 8px;
 }
 
 .sidebar {
   position: fixed;
 margin-top:15px;
 margin-right: 10px;
+  .interests_dropdown {
+    height: 27px;
+    cursor:pointer;
+  }
 }
 
 .upcoming_ideas {
 position: fixed;
 margin-top: 15px;
 margin-right: 10px;
-height: 60%;
+height: 56%;
 overflow: auto;
-width: 235px;
-top: 280px;
+width: 205px;
+top: 300px;
 }
 
 .stats {
@@ -1394,7 +1388,7 @@ right: 56px;
     color: black;
 background-color: white;
 padding: 3px 2px 1px 5px;
-font-size: 1em;
+font-size: 16px;
 height: auto;
 position: relative;
 width: auto;
@@ -1672,18 +1666,20 @@ footer {
 /*  background: url(grass_bottom.jpeg);
   background-repeat: repeat-x;
   background-position-y: -30px;*/
-  padding: 20px 0 30px 0;
-  color: #363636;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
-  filter: alpha(opacity=75);
-  -moz-opacity: 0.75;
-  -khtml-opacity: 0.75;
-  opacity: 0.75;
-  clear: both;
-  margin: 0px auto;
-  width: 100%;
-  border-top: 1px solid #D1CDCD;
-  float: right;
+padding: 20px 0 30px 0;
+color: #363636;
+-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+filter: alpha(opacity=75);
+-moz-opacity: 0.75;
+-khtml-opacity: 0.75;
+opacity: 0.75;
+clear: both;
+margin: 0px auto;
+width: 74%;
+border-top: 1px solid #D1CDCD;
+float: right;
+top: 50px;
+position: relative;
 
   a {
     float:left;
@@ -2191,20 +2187,19 @@ width: 47%;
   }
   .when {
     .date {
-      width:80%;
-      float:left;
+      width: 60%;
+      float: left;
+      height: 30px;
     }
     .join_group_buttons {
-      width:19%;
-      float:right;
+    z-index: 1;
+    float: right;
     }
   }
 }
 
 .show_skin {
 background-color: rgba(255, 255, 255, 0.8);
-width: 694px;
-margin-left: auto;
 margin-right: auto;
 text-align: left;
 }
@@ -3407,6 +3402,7 @@ right: 10px;
   img {
     position: relative;
 bottom: 18px;
+width: 26px;
   }
 }
 
@@ -3494,14 +3490,6 @@ background-size: 15px;
 width: 23px;
 height: 23px;
 background-repeat: no-repeat;
-}
-
-.rsvp_dot {
-  background-color: $rsvp;
-  border-radius:100px;
-  width:10px;
-  height:10px;
-  position: absolute;
 }
 
 .hidden{
@@ -3769,4 +3757,12 @@ font-size: 22px;
 .shield_bottom {
 height: 17px;
 padding-top: 3px;
+}
+
+.instructions {
+  margin:15px 10px 0 10px;
+}
+
+.rsvp_btn {
+  float: right;
 }
