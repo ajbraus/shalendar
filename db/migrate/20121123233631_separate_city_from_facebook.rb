@@ -59,6 +59,7 @@ class SeparateCityFromFacebook < ActiveRecord::Migration
     City.create(name: "Istanbul, Turkey", timezone: "Istanbul")
     City.create(name: "Stockholm, Sweden", timezone: "Paris")
     City.create(name: "London, England", timezone: "London")
+    City.create(name: "Ithaca, New York", timezone: "Eastern Time (US & Canada)")
 
     if User.all.any?
     	User.all.each do |u|
