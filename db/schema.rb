@@ -375,8 +375,8 @@ ActiveRecord::Schema.define(:version => 20121207203142) do
     t.string   "credit_card_uri"
     t.string   "debits_uri"
     t.integer  "city_id"
-    t.integer  "classification_id"
     t.string   "slug"
+    t.integer  "classification_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
