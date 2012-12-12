@@ -61,9 +61,9 @@
 
 	<div class="when">
 	  <% if @event.starts_at.present? %>
-      <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> - <%= @event.nice_duration %> hrs</div>
+      <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> ( <%= @event.nice_duration %> hrs )</div>
     <% else %>
-      <div class="date"><strong>When: To Be Decided (TBD) </strong></div>
+      <div class="date"><strong>Time TBD when Idea Tips </strong></div>
     <% end %>
     <div class="join_group_buttons">
       <%= render 'rsvp_form' %>

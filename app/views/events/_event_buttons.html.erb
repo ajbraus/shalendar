@@ -58,7 +58,7 @@
       <% end %>
     </li>
     <li>
-      <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will notify all RSVPs that the idea is cancelled.' }, title: "Cancel Idea" do %>
+      <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will notify all guests that the idea is canceled.' }, title: "Cancel Idea" do %>
         <span class="fadeInRed"><i class="icon-trash"></i></span>
       <% end %>
     </li>

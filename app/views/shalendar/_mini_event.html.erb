@@ -1,4 +1,4 @@
-<%= link_to event_path(event) do %>
+<%= link_to idea_path(event) do %>
 <div class="mini_event <%= event.ends_at < Time.now ? 'over' : ''%>" >
 		<div class="event_time">			
 			<% if event.starts_at.hour > 4 && event.starts_at.hour < 12 %>

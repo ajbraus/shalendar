@@ -7,7 +7,7 @@
 <% else %>
 	<div class="event shield <%= event.ends_at < @time_in_zone ? 'over' : '' %>">
 <% end %>
-	<%= link_to event_path(event) do %>
+	<%= link_to idea_path(event) do %>
 		<% if user_signed_in? %>
 			<div class="status_icon">
 				<% if current_user.rsvpd?(event) %>

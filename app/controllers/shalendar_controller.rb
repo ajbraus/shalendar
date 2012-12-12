@@ -39,7 +39,7 @@ class ShalendarController < ApplicationController
 		@friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
     @vendor_friendships = current_user.vendor_friendships
     @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
-    @my_plans = current_user.plans.where('starts_at > ?', Time.now.order('starts_at desc'))
+    @my_plans = current_user.plans.where('starts_at > ?', Time.now).order('starts_at desc')
     if @graph
       @member_friends = current_user.fb_friends(@graph)[0]
       @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.shuffle.first(3)

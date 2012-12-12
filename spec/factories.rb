@@ -10,7 +10,6 @@ FactoryGirl.define do
 		password 'please'
 		password_confirmation 'please'
 		remember_me 'f'
-		time_zone "Central Time (US & Canada)"
 		require_confirm_follow 'f'
 		allow_contact 't'
 		digest 't'
@@ -34,7 +33,6 @@ FactoryGirl.define do
     password 'please'
     password_confirmation 'please'
     remember_me 'f'
-    time_zone "Central Time (US & Canada)"
     require_confirm_follow 'f'
     allow_contact 't'
     digest 't'

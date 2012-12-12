@@ -39,8 +39,8 @@
         <% unless current_user.new_invited_events_count == 0 %>
           <span id="new_invited_events_count" class="new_invited_events_count"><%= current_user.new_invited_events_count %></span>
         <% end %>
-        <span class="fadeInBlue">
-          <i class="icon-envelope-alt"></i>
+        <span class="fadeInPurple">
+          <%= current_user.invitations.count %><i class="icon-envelope-alt"></i>
           <br>
           <span id="headerText">.invites</span></span>
       <% end %>

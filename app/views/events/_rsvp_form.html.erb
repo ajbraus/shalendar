@@ -35,7 +35,7 @@
 			<% if @event.is_public?%>
 				<div class="group_button">
 				<% if current_user.made_a_group?(@event) %>
-		 			<%= link_to event_path(@event.groups.where(:user_id => current_user.id)[0]), class:"btn btn-success" do %>
+		 			<%= link_to idea_path(@event.groups.where(:user_id => current_user.id)[0]), class:"btn btn-success" do %>
 							<i class="icon-upload-alt"></i> Your Group
 					<% end %>
 				<% else %>

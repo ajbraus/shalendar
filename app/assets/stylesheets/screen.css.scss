@@ -1838,6 +1838,15 @@ margin-bottom: 20px;
   }
 }
 
+.fadeInPurple {
+  color:$before_hover;
+  &:hover{
+  color:$icon_color;
+  -webkit-transition: color .25s linear .1s;
+  transition: color .25s linear .1s;
+  }
+}
+
 .fadeInBlue {
 color:$before_hover;
   &:hover{
@@ -1860,6 +1869,15 @@ color:$before_hover;
     color:$before_hover;
   &:hover{
   color:#01CBFB;
+  -webkit-transition: color .25s linear .1s;
+  transition: color .25s linear .1s;
+  }
+}
+
+.fadeInPinterest {
+    color:$before_hover;
+  &:hover{
+  color:#CB2027;
   -webkit-transition: color .25s linear .1s;
   transition: color .25s linear .1s;
   }
@@ -2101,7 +2119,7 @@ z-index: 1000;
 
 .fb_login_button {
   position: relative;
-bottom: 23px;
+bottom: 33px;
 }
 
 .login_buttons {
@@ -2110,9 +2128,6 @@ top: 10px;
 }
 
 .nativeLogin {
-  margin-top:25px;
-  position: relative;
-  right: 20px;
 }
 
 .links_fb_btn {
@@ -3013,6 +3028,8 @@ select {
   .top {
     border-bottom:1px solid $divider;
 margin: 0 auto;
+position: relative;
+top: 10px;
   }
   .middle {
     border-bottom:1px solid $divider;
@@ -3056,6 +3073,9 @@ bottom: 465px;
       margin: 10px 0;
       padding: 20px 0 ;
       border-bottom:1px solid $divider;
+    }
+    .login_sign_up {
+      text-align: center;
     }
   }
 
@@ -3700,6 +3720,9 @@ font-size: 22px;
 }
 .blue {
   color: $rsvp;
+}
+.purple {
+  color: $icon_color;
 }
 
 .shield_bottom {

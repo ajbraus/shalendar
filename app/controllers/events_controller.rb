@@ -85,7 +85,7 @@ class EventsController < ApplicationController
         @rsvp.save
       end 
       if current_user.post_to_fb_wall? && session[:graph] && params[:invite_all_friends] == "on" && @event.guests_can_invite_friends? && Rails.env.production?
-        session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
+        session[:graph].put_wall_post("are you .in for: ", { :name => "#{@event.title}", 
                                             :link => "http://www.hoos.in/events/#{@event.id}", 
                                             :picture => "http://www.hoos.in/assets/icon.png",
                                             })
