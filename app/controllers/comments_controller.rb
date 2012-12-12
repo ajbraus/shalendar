@@ -52,10 +52,10 @@ class CommentsController < ApplicationController
             Notifier.delay.email_comment(@event, @comment, g)
           end
         end
-        format.html { redirect_to @event, notice: 'Comment was successfully created.' }
+        format.html { redirect_to idea_path(@event), notice: 'Message was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
       else
-        format.html { redirect_to(@event, notice: 'Comment could not be saved.') }
+        format.html { redirect_to(idea_path(@event), notice: 'Message could not be saved.') }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
@@ -69,7 +69,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
-        format.html { redirect_to @event, notice: 'Comment was successfully updated.' }
+        format.html { redirect_to idea_path(@event), notice: 'Comment was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -86,7 +86,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to @event }
+      format.html { redirect_to idea_path(@event) }
       format.json { head :no_content }
     end
   end

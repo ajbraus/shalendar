@@ -9,7 +9,7 @@ class CategorizationsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to @event }
+      format.html { redirect_to idea_path(@event) }
       format.js
     end
   end
@@ -21,7 +21,7 @@ class CategorizationsController < ApplicationController
     current_user.unrsvp!(@event)
 
     respond_to do |format|
-      format.html { redirect_to @event }
+      format.html { redirect_to idea_path(@event) }
       format.js
     end
   end

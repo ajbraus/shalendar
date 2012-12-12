@@ -2,17 +2,16 @@
 	<% if @event.full? %>
 		(Idea full)
 	<% elsif @event.ends_at < Time.now %>
-	  (Idea over)
 	<% else %>
 		<% if @event.is_public? %>
 			<div class="group_button">
-				<%= link_to new_user_session_path(:event => @event.id), class:"btn btn-success", title:"Login to Create a Group to Go to This Idea" do %>
+				<%= link_to new_user_session_path(:event => @event.id), class:"btn btn-success", title:"log.in to join.in this city-wide idea" do %>
 					<i class="icon-copy"></i> Make a Group
 				<% end %>
 			</div>
 		<% end %>
 		<div class="rsvp_button">
-			<%= link_to "join.in", new_user_session_path(:event => @event.id), class:"btn btn-rsvp rsvp_button", title: "log.in to join.in this Idea" %>
+			<%= link_to "join.in", new_user_session_path(:event => @event.id), class:"btn btn-rsvp rsvp_button", title: "log.in to join.in this idea" %>
 		</div>
 	<% end %>
 <% else %>
@@ -30,7 +29,7 @@
 		<% elsif @event.full? %>
 			(Idea full)
 		<% elsif @event.ends_at < Time.now %>
-		  (Idea over)
+
 		<% else %>
 			<% if @event.is_public?%>
 				<div class="group_button">

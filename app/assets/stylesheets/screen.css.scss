@@ -2441,7 +2441,7 @@ margin-bottom: 10px;
 .event_label {
 font-size: 16px;
 color: grey;
-font-weight: 700;
+font-weight: 500;
 text-align: left;
 }
 
@@ -2450,6 +2450,17 @@ margin-bottom: 10px;
 position: relative;
 left: 2px;
 }
+
+/*.invite_label{
+  font-size: 20px;
+  color: grey;
+  font-weight: 500;
+  text-align: left;
+  margin-bottom: 10px;
+  position: relative;
+  left: 10px;
+  top:10px;
+}*/
 
 .share_with_friends {
 float: right;

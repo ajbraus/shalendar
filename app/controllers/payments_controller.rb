@@ -133,7 +133,7 @@ end
 #       current_user.rsvp!(@event)
 #         Notifier.receipt(current_user, @event).deliver
 #       respond_to do |format|
-#         format.html { redirect_to @event, notice: "You Successfully Joined This Idea!"}
+#         format.html { redirect_to idea_path(@event), notice: "You Successfully Joined This Idea!"}
 #         format.js
 #       end
 #     end

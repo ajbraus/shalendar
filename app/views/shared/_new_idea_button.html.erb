@@ -1,4 +1,4 @@
-<textarea id="new_idea_blerb" placeholder="Post Your Own Idea"></textarea>
+<textarea id="new_idea_blerb" placeholder="pitch.in an idea"></textarea>
 <% if user_signed_in? %>
   <%= link_to new_event_path(:format => :js), id:'newIdeaButton', class: 'btn-rsvp btn-new-idea fancybox.ajax', remote: true do %>
     <i class='icon-cloud'></i>

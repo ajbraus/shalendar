@@ -8,7 +8,7 @@ class InvitationsController < ApplicationController
 
     respond_to do |format|
       Notifier.delay.invitation(@event, @user, current_user)
-      format.html { redirect_to @event }
+      format.html { redirect_to idea_path(@event) }
       #format.js
     end
   end

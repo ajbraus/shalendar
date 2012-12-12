@@ -1,3 +1,17 @@
+12/12 Push
+
+HEADER:
+30 px spacing next to icon + picture. switch city to left header, .interests in middle, friends left-middle, .instructions to right
+
+Friend button in search and Update .interests button too small
+
+make chat bar go across the whole width of event#show
+(blue circle new idea) is to the right of the number, rather than the left.
+
+remove vertical bar on right of .invites in side bar
+
+text isn't going from idea create
+
 Adam todo from 11/12 meeting:
 
 week of 11/12
@@ -160,6 +174,7 @@ marketplace payments
 yellow book
 payments to be listed
 
+count flakes
 ------------------------------------------------------------
 
 make x to close the latest ideas

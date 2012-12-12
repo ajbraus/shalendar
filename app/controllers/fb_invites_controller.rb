@@ -8,13 +8,13 @@ class FbInvitesController < ApplicationController
       @fb_invite.save
       @event.post_to_fb_wall(@fb_invite.uid, session[:graph])
       respond_to do |format|
-        format.html { redirect_to @event, notice: 'fb_invite was successfully created.' }
+        format.html { redirect_to idea_path(@event), notice: 'fb_invite was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
         #format.js
       end
     else 
       respond_to do |format|
-        format.html { redirect_to @event, notice: 'fb_invite could not be saved.' }
+        format.html { redirect_to idea_path(@event), notice: 'fb_invite could not be saved.' }
         format.json { render json: @event.errors, status: :unprocessable_entity }
         format.js { render template: "fb_invites/extend_permissions" }
       end
@@ -72,13 +72,13 @@ class FbInvitesController < ApplicationController
   #     @fb_invites = @event.fb_invites
   #     @invited_users = @event.invited_users - @event.guests
   #     respond_to do |format|
-  #       format.html { redirect_to @event, notice: 'fb_invite was successfully created.' }
+  #       format.html { redirect_to idea_path(@event), notice: 'fb_invite was successfully created.' }
   #       format.json { render json: @event, status: :created, location: @event }
   #       format.js
   #     end
   #   else 
   #     respond_to do |format|
-  #       format.html { redirect_to @event, notice: 'fb_invite could not be saved.' }
+  #       format.html { redirect_to idea_path(@event), notice: 'fb_invite could not be saved.' }
   #       format.json { render json: @event.errors, status: :unprocessable_entity }
   #       format.js { render template: "fb_invites/extend_permissions" }
   #     end
