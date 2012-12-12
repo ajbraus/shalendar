@@ -403,7 +403,7 @@ class Event < ActiveRecord::Base
 
   def save_shortened_url
     @bitly = Bitly.new("devhoosin", "R_6d6b17c2324d119af1bcc30d03e852e9")
-    @url = Rails.application.routes.url_helpers.idea_url(self, :host => "hoos.in")
+    @url = Rails.application.routes.url_helpers.event_url(self, :host => "hoos.in")
     @b = @bitly.shorten(@url)
     self.short_url = @b.short_url
     self.save

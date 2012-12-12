@@ -1319,8 +1319,6 @@ width: 97%;
   position: fixed;
 margin-top:15px;
 margin-right: 10px;
-height: 19%;
-overflow: auto;
 }
 
 .upcoming_ideas {
@@ -1335,8 +1333,7 @@ top: 280px;
 
 .stats {
   position: relative;
-  height: 180px;
-  border-bottom: 1px solid $divider;
+  height: 165px;
   .name {
     position: absolute;
     top: 5px;
@@ -1344,7 +1341,8 @@ top: 280px;
   }
   ul {
     margin: 20px 0px 20px 0;
-    height:30px;
+    height: 30px;
+    width: 270px;
   }
   li {
     display: inline;
@@ -1366,16 +1364,18 @@ top: 280px;
 
 
 .label {
-  font-size: 1.1em;
-  margin: 10px 34px;
+font-size: 1.1em;
+margin: 0px 0 14px 0;
+text-align: center;
 }
 
 .mini_event {
   width:100%;
   position: relative;
   float:left;
-  margin: 0 11px 5px 0;
+  margin: 0 11px 19px 0;
   background-color: white;
+  overflow: hidden;
   a {
     color:black;
   }
@@ -1386,9 +1386,9 @@ right: 56px;
   }
   .promo_img {
     img {
-max-width: 42%;
-max-height: 80%;
-float: left;
+      width:100%;
+      position: relative;
+      bottom: 25px;
   }
 }
   .event_time {
@@ -1418,7 +1418,7 @@ bottom: 0;
   }
   .event_blerb {
 color: black;
-font-size: 19px;
+font-size: 16px;
 line-height: 1;
 position: relative;
 min-height: 0;
@@ -1438,6 +1438,9 @@ padding-bottom: 0;
   .guest_count {
     bottom: 0;
     right:6px;
+  }
+  .promo_img {
+    overflow: hidden;
   }
 }
 

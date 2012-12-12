@@ -16,7 +16,7 @@
     <td><%= event.ends_at %></td>
     <td><%= event.title %></td>
     <td><%= link_to 'Show', event %></td>
-    <td><%= link_to 'Edit', edit_idea_path(event) %></td>
+    <td><%= link_to 'Edit', edit_event_path(event) %></td>
     <td><%= link_to 'Cancel', event, method: :delete, data: { confirm: 'Are you sure you want to cancel this idea?' } %></td>
   </tr>
 <% end %>
@@ -24,4 +24,4 @@
  
 <br />
 
-<%= link_to 'New Event', new_idea_path %>
+<%= link_to 'New Event', new_event_path %>

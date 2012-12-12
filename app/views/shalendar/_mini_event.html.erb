@@ -1,5 +1,5 @@
 <div class="mini_event <%= event.ends_at < Time.now ? 'over' : ''%>" >
-	<%= link_to idea_path(event) do %>
+	<%= link_to event do %>
 		<div class="event_time">			
 			<span><%= event.mini_start_date_time %> (<%= event.nice_duration %> hr)</span>
 		</div>
