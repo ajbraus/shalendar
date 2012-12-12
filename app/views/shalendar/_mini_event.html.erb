@@ -1,17 +1,22 @@
-<%= link_to idea_path(event) do %>
 <div class="mini_event <%= event.ends_at < Time.now ? 'over' : ''%>" >
+	<%= link_to idea_path(event) do %>
 		<div class="event_time">			
-			<% if event.starts_at.hour > 4 && event.starts_at.hour < 12 %>
-				<%= image_tag "morning.png" %>
-			<% elsif event.starts_at.hour >= 12 && event.starts_at.hour < 18 %>
-				<%= image_tag "noon.png" %>
-			<% else %>
-				<%= image_tag "night.png" %>
-			<% end %>
 			<span><%= event.mini_start_date_time %> (<%= event.nice_duration %> hr)</span>
-			<% if current_user.rsvpd?(event) %>
-				<div class="invited_ribbon"></div>
+		</div>
+		<div class="event_blerb">
+			<%= link_to user_path(event.user), target: "blank" do %>
+				<span title="Created by: <%= event.user.name %>">
+					<%= raster_profile_picture(event.user) %>
+				</span>
 			<% end %>
+			<span class="title"><%= event.title %></span>
+			<div class="inviter">
+				<% unless User.find_by_id(event.inviter_id).blank? || User.find_by_id(event.inviter_id) == current_user %>
+					<%= link_to user_path(User.find_by_id(event.inviter_id)), target: "blank" do %>
+						<%= User.find_by_id(event.inviter_id).name %>
+					<% end %>
+				<% end %>
+			</div>
 		</div>
 		<% if event.has_image? %>
 			<div class="promo_img">
@@ -31,22 +36,6 @@
 			</div>
 		<% end %>
 
-	 <div class="event_blerb"><%= event.title %></div>
-		
-		<% if event.is_public? || current_user.rsvpd?(event) || current_user.following?(User.find_by_id(event.inviter_id)) %>
-		  <div class="inviter">
-		  	<%= link_to user_path(event.user), target: "blank" do %>
-		  		<%= event.user.name %>
-      	<% end %>
-      </div>
-		<% else %>
-			<div class="inviter">
-				<%= link_to user_path(User.find_by_id(event.inviter_id)), target: "blank" do %>
-					<%= User.find_by_id(event.inviter_id).name %>
-				<% end %>
-			</div>
-		<% end %>
-
 			<div class="guest_count">
 			<% if event.tipped? %>	
 				<span class="count" id="guestCount"><%= event.guests.count %></span>
@@ -54,5 +43,5 @@
 				<span id="guestCount" class="count red"><%= event.guests.count%><span id="eventMin">/<%= event.min %></span></span>
 			<% end %>
 		</div>
-</div>
 <% end %>	
+</div>

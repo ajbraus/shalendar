@@ -9,7 +9,7 @@ class ShalendarController < ApplicationController
       @time_in_zone = Time.now
   		@date = @time_in_zone.to_date
       @events = current_user.forecast(@date)
-      @my_plans = current_user.plans.where('starts_at > ?', @date).order('starts_at desc')
+      @my_plans = current_user.plans.where('ends_at > ?', Time.now).order('starts_at asc')
       if current_user.authentications.find_by_provider("Facebook").present?
         @graph = session[:graph] 
       else 
