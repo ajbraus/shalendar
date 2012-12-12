@@ -13,7 +13,7 @@
 				<% if current_user.rsvpd?(event) %>
 					<i class="icon-ok-sign blue"></i>
 				<% elsif current_user.invited?(event) %>
-					<i class="icon-envelope blue" title="<%= User.find_by_id(event.inviter_id).name %>"></i>
+					<i class="icon-envelope blue" title=".invited by <%= User.find_by_id(event.inviter_id).name %>"></i>
 				<% end %>
 			</div>
 		<% end %>
