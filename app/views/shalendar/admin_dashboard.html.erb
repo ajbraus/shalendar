@@ -74,6 +74,17 @@
 	<%= high_chart("public_ideas", @public_ideas_per_city) %>
 </dt>
 
+<div>
+	<strong>Users per city</strong>
+	<table>
+		<% City.each do |c| %>
+			<tr>
+				<td><%= c.name %></td>
+				<td><%= c.users.count %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>
 </dt>
 <dt>
 	Clones pers Suggestion
@@ -86,8 +97,6 @@
 <dt>
 	RSVP per Suggestion
 </dt>
-
-
 
 </dl>
 <dt>

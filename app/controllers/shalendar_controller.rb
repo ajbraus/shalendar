@@ -246,7 +246,7 @@ class ShalendarController < ApplicationController
       f.xAxis(:type => 'datetime')
     end
 
-    @invitations_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).invitations.count
+    @invitations_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).inject { |sum,e| sum + e.invitations.count }
 
     @invitations_per_week = []
     (0..@weeks).each do |week|
@@ -284,10 +284,6 @@ class ShalendarController < ApplicationController
       f.series(:name=>'Other', :data=> @other_city_public_ideas_per_week )
       f.xAxis(:type => 'datetime')
     end
-
-    # @users_per_city = []
-    # City.each do |c|
-    #   @users_per_city.push(c.users.count 
   end
 
 
