@@ -4,12 +4,10 @@
 			<span><%= event.mini_start_date_time %> (<%= event.nice_duration %> hr)</span>
 		</div>
 		<div class="event_blerb">
-			<%= link_to user_path(event.user), target: "blank" do %>
-				<span title="Created by: <%= event.user.name %>">
+			<%= link_to user_path(event.user), target: "blank", title:"Created by: #{event.user.name}" do %>
 					<%= raster_profile_picture(event.user) %>
-				</span>
 			<% end %>
-			<span class="title"><%= event.title %></span>
+			<%= event.title %>
 			<div class="inviter">
 				<% unless User.find_by_id(event.inviter_id).blank? || User.find_by_id(event.inviter_id) == current_user %>
 					<%= link_to user_path(User.find_by_id(event.inviter_id)), target: "blank" do %>

@@ -109,43 +109,37 @@ Over the past two months, Mike and I have been listening to your suggestions and
 
 Adam
 
-SEAN:
-email images of ppl and ideas
-guest count in emails
-Download our iphone and android App link in emails
-hoos.in? (who is already rsvpd? face-pile)
-crowd ideas digest
-only digest monday thursday
+admin dashboard
+	users per city
+	ideas per city
+	public ideas per city
+	improve active user stat
+	# mobile users iphone/android
+	add # of invitations per week to graph
 
+add 'activity' to face dropdown
 
-facebook feed dialogue
-facebook message dialogue
-linked in share dialogue
-twitter share dialogue
+make sure upcoming and past ideas are only ones people were invited to. Past ideas are only visible if you are signed in
 
----------------------------------------------------------------
+make event-link display the domain.com
 
-
-	more beautiful bug page
-
+more beautiful bug page
 
 idea description/title
 
-Adding FB to a native login doesn't work smoothly
+ajaxify friending (separate friends and new friends)
 
-need my-plans/my-forecast pages in responsive
-
-signup walkthrough
-
-rsvp out button
+implement following . . . too many invites/emails without it
 
 make facebook ajax invites 
 
-ajaxify friending
-
 make x to close the latest ideas
 
-joyride
+rsvp out button
+
+rsvp url - drive traffic
+
+rsvp lightbox prompt to share/put on calendar
 
 Create crowd ideas ala kickstarter
 	onkeyup add text to shield
@@ -159,8 +153,34 @@ Create crowd ideas ala kickstarter
 			<i class="icon-video"></i>
 	add image
 
-sSDK - follow us on hoos.in "Our events on hoos.in" button and icon
+SDK - follow us on hoos.in "Our events on hoos.in" button and icon
 
+put this on hoosin button
+	Img, RSVP URL, Title, Description, starts_at, duration
+
+joyride
+
+SEAN:
+email images of ppl and ideas
+guest count in emails
+hoos.in? (who is already rsvpd? face-pile)
+Download our iphone and android App link in emails
+crowd ideas digest
+only digest monday thursday
+
+
+facebook feed dialogue
+facebook message dialogue
+linked in share dialogue
+twitter share dialogue
+
+---------------------------------------------------------------
+
+Adding FB to a native login doesn't work smoothly
+
+need my-plans/my-forecast pages in responsive
+
+signup walkthrough
 
 ---------------------------------------------------------------
 
