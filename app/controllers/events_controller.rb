@@ -270,8 +270,7 @@ class EventsController < ApplicationController
                              promo_img: @event.promo_img,
                              promo_url: @event.promo_url,
                              promo_vid: @event.promo_vid,
-                             is_public: false,
-                             category: @event.category,
+                             is_public: @event.is_public,
                              family_friendly: @event.family_friendly,
                              price: @event.price
                           )
