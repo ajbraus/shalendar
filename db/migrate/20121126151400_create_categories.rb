@@ -34,8 +34,10 @@ class CreateCategories < ActiveRecord::Migration
 
     Event.all.each do |e|
       Category.all.each do |cat|
-        if e.category.downcase == cat.name.downcase
-          Categorization.create(event_id:e.id, category_id:cat.id)
+        if e.category.present?
+            if e.category.downcase == cat.name.downcase
+              Categorization.create(event_id:e.id, category_id:cat.id)
+            end
         end
       end
     end
