@@ -392,7 +392,7 @@ class User < ActiveRecord::Base
     end
     # loop through categories and add all relevant events from city + category
     @interest_events_on_date = Event.where(starts_at: @time_range, is_public: true, city_id: self.city.id)
-      .joins(:categories).where(categories: {id: @toggled_category_ids} ).order("starts_at ASC")
+      .joins(:categorizations).where(categorizations: {category_id: @toggled_category_ids} ).order("starts_at ASC")
 
     @interest_events_on_date.each do |inte|
       inte.inviter_id = inte.user.id
