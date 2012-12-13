@@ -192,9 +192,13 @@ class ShalendarController < ApplicationController
 
     #USERS
     @total_users = User.all.count
+    @iphone_users = User.where(:iPhone_user => true).count
+    @android_users = User.where(:android_user => true).count
+    @desktop_users = User.where(:android_user => false, :iPhone_user => false).count
+
     @new_users_last_week = User.where(['created_at > ?', Time.now - 1.week]).count
     @inactive_users = User.where(['last_sign_in_at < ?', Time.now - 1.month])
-    @active_users = User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.now - 1.month]).count
+    @active_users = User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.now - 2.weeks]).count
 
     @users_per_week = []
     @start_date = User.unscoped.order('created_at asc').first.created_at.to_date
@@ -232,14 +236,8 @@ class ShalendarController < ApplicationController
       @events_per_week << @events_one_week
     end
 
-    @invitations_per_week = []
-    (0..@weeks).each do |week|
-      @invitations_one_week = Invitation.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
-      @invitations_per_week << @invitations_one_week
-    end
-
     @rsvps_v_events = LazyHighCharts::HighChart.new('graph') do |f|
-      f.options[:title][:text] = "RSVPs, Events, Invitations Last Week"
+      f.options[:title][:text] = "RSVPs, Events, Invitations Since Inception"
       f.options[:chart][:defaultSeriesType] = "line"
       f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
       f.series(:name=>'RSVPs', :data => @rsvps_per_week )
@@ -247,7 +245,50 @@ class ShalendarController < ApplicationController
       f.series(:name=>'Invitations', :data=> @invitations_per_week)
       f.xAxis(:type => 'datetime')
     end
-    #SUGGESTIONS
+
+    @invitations_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).invitations.count
+
+    @invitations_per_week = []
+    (0..@weeks).each do |week|
+      @invitations_one_week = Invitation.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
+      @invitations_per_week << @invitations_one_week
+    end
+
+    @invitations = LazyHighCharts::HighChart.new('graph') do |f|
+      f.options[:title][:text] = "RSVPs, Events, Invitations Since Inception"
+      f.options[:chart][:defaultSeriesType] = "line"
+      f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
+      f.series(:name=>'Invitations', :data=> @invitations_per_week)
+      f.xAxis(:type => 'datetime')
+    end
+
+    @madison_public_ideas_per_week = [] 
+    (0..@weeks).each do |week|
+      @public_events = Event.where(:city_id => City.find_by_name("Madison, Wisconsin").id, :is_public => true)
+      @events_one_week = @public_events.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
+      @madison_public_ideas_per_week << @events_one_week
+    end
+
+    @other_city_public_ideas_per_week = [] 
+    (0..@weeks).each do |week|
+      @public_events = Event.where(:is_public => true).reject { |e| e.city_id == City.find_by_name("Madison, Wisconsin").id }
+      @events_one_week = @public_events.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
+      @madison_public_ideas_per_week << @events_one_week
+    end
+
+    @public_ideas_per_city = LazyHighCharts::HighChart.new('graph') do |f|
+      f.options[:title][:text] = "Public Ideas since inception"
+      f.options[:chart][:defaultSeriesType] = "line"
+      f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
+      f.series(:name=>'Madison', :data => @madison_public_ideas_per_week )
+      f.series(:name=>'Other', :data=> @other_city_public_ideas_per_week )
+      f.xAxis(:type => 'datetime')
+    end
+ 
+   t.boolean  "iPhone_user",              :default => false
+    t.integer  "GCMdevice_id",             :default => 0
+    t.boolean  "android_user", 
+
   end
 
 

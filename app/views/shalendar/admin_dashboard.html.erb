@@ -23,6 +23,9 @@
 
 <dt>
  Total Users: <strong><%= @total_users %></strong>
+ iPhone Users: <strong><%= @iphone_users %></strong>
+ Android Users: <strong><%= @android_users %></strong>
+ Desktop Users: <strong><%= @desktop_users %></strong>
 </dt>
 <dd>
 
@@ -31,7 +34,7 @@
 	Active Users: <strong><%= @active_users %></strong>
 </dt>
 <dd>
-	User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.now - 1.month])
+	User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.now - 2.weeks])
 </dd>
 
 <dt>
@@ -49,7 +52,7 @@
 </dd>
 </dl>
 <h1>
-	Events
+	Events RSVPs & Invitations
 </h1>
 
 <p> Events Next Week: <strong><%= @events_next_week %></strong></p>
@@ -57,16 +60,20 @@
 <p> RSVPs Last Week: <strong><%= @rsvps_last_week.count %></strong></p>
 
 <%= high_chart("rsvps", @rsvps_v_events) %>
+
+<p> Invitations for Events Next Week: <strong><%= @invitations_next_week %></strong></p>
+
+<%= high_chart("invitations", @invitations) %>
+
 <h1>
-	Suggestions
+	Public Ideas
 </h1>
 
 <dl>
 <dt>
-	# of new Vendor accounts last week
+	<%= high_chart("public_ideas", @public_ideas_per_city) %>
 </dt>
-<dt>
-	# of Suggestions last week
+
 </dt>
 <dt>
 	Clones pers Suggestion
