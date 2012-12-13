@@ -205,9 +205,8 @@ class ShalendarController < ApplicationController
     @today = Date.today
     @weeks = (@today- @start_date).round/7
 
-    @users = User.all
     (0..@weeks).each do |week|
-      @user_one_week = @users.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
+      @user_one_week = User.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
       @users_per_week << @user_one_week
     end
 
@@ -242,7 +241,6 @@ class ShalendarController < ApplicationController
       f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
       f.series(:name=>'RSVPs', :data => @rsvps_per_week )
       f.series(:name=>'Events', :data=> @events_per_week )
-      f.series(:name=>'Invitations', :data=> @invitations_per_week)
       f.xAxis(:type => 'datetime')
     end
 
@@ -264,7 +262,7 @@ class ShalendarController < ApplicationController
 
     @madison_public_ideas_per_week = [] 
     (0..@weeks).each do |week|
-      @public_events = Event.where(:city_id => City.find_by_name("Madison, Wisconsin").id, :is_public => true)
+      @public_events = City.find_by_name("Madison, Wisconsin").events.where(:is_public => true)
       @events_one_week = @public_events.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
       @madison_public_ideas_per_week << @events_one_week
     end
