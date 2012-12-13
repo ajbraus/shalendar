@@ -368,6 +368,7 @@ class User < ActiveRecord::Base
   end
 
   def forecast(load_datetime)
+    Time.zone = self.city.timezone
     @forecast = []
     (-3..26).each do |i|
       @events = []
@@ -384,8 +385,7 @@ class User < ActiveRecord::Base
 
   def events_on_date(load_datetime)
     Time.zone = self.city.timezone
-    @time_range = load_datetime.midnight.in_time_zone(self.city.timezone) .. load_datetime.midnight.in_time_zone(self.city.timezone) + 1.day - 1.second
-
+    @time_range = load_datetime.midnight .. load_datetime.midnight + 1.day - 1.second
     #CATEGORY TODO
     @toggled_category_ids = []
     self.categories.each do |tcat|
@@ -412,7 +412,7 @@ class User < ActiveRecord::Base
     @invited_events_on_date.each do |ie|
       ie.inviter_id = ie.invitations.find_by_invited_user_id(self.id).inviter_id
     end
-
+    Time.zone = self.city.timezone
     return @invited_events_on_date | @plans_on_date | @interest_events_on_date
   end
 
