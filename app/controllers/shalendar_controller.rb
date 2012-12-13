@@ -284,11 +284,10 @@ class ShalendarController < ApplicationController
       f.series(:name=>'Other', :data=> @other_city_public_ideas_per_week )
       f.xAxis(:type => 'datetime')
     end
- 
-   t.boolean  "iPhone_user",              :default => false
-    t.integer  "GCMdevice_id",             :default => 0
-    t.boolean  "android_user", 
 
+    # @users_per_city = []
+    # City.each do |c|
+    #   @users_per_city.push(c.users.count 
   end
 
 
