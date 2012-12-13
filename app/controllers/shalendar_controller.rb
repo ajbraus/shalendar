@@ -200,11 +200,10 @@ class ShalendarController < ApplicationController
     @inactive_users = User.where(['last_sign_in_at < ?', Time.now - 1.month])
     @active_users = User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.now - 2.weeks]).count
 
-    @users_per_week = []
     @start_date = User.unscoped.order('created_at asc').first.created_at.to_date
     @today = Date.today
-    @weeks = (@today- @start_date).round/7
-
+    @weeks = (@today - @start_date).round/7
+    @users_per_week = []
     (0..@weeks).each do |week|
       @user_one_week = User.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
       @users_per_week << @user_one_week
@@ -229,6 +228,7 @@ class ShalendarController < ApplicationController
     (0..@weeks).each do |week|
       @rsvps_one_week = Rsvp.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
       @events_one_week = Event.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
+      @invitations_one_week = Invitation.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
       @events_per_week << @events_one_week
       @rsvps_per_week << @rsvps_one_week
       @ratio_rsvps_to_invitations << @rsvps_one_week / @invitations_one_week
