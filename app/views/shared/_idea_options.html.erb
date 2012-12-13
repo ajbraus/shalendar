@@ -19,7 +19,7 @@
 				<%= label :category, "Category*" %>
 		    <div id="categories">
 		    	<% Category.all.each do |c| %>
-			      <%= radio_button_tag "category", :category, "#{c.name}", id:"radio#{(c.id)}", class:"category_radio" %>
+			      <%= radio_button_tag :category, "#{c.id}", "#{c.name}", id:"radio#{(c.id)}", class:"category_radio" %>
 			      <%= label_tag "radio#{(c.id)}", "#{c.name}" %>
 		    	<% end %>
 	    	</div>
