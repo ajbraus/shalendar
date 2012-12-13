@@ -1,7 +1,9 @@
 12/12 Push
 
+Fix current users so they have all the .interests by default
 HEADER:
 
+friend buttons are now too big in raster
 City should be by session most of the time, in settings it can be stored in the DB
 
 when you click .invites only for a day, it messes with masonry (looks like it makes another copy of the shield, but hidden, and masonry sees it)

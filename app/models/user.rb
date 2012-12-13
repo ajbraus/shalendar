@@ -383,7 +383,7 @@ class User < ActiveRecord::Base
   end
 
   def events_on_date(load_datetime)
-    @time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
+    @time_range = load_datetime.midnight .. load_datetime.midnight + 1.day - 1.second
 
     #CATEGORY TODO
     @toggled_category_ids = []
