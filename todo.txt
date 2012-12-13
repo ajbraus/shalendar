@@ -125,12 +125,25 @@ twitter share dialogue
 
 ---------------------------------------------------------------
 
-login button on top right when not logged in - look better
+
+	more beautiful bug page
+
+
+idea description/title
+
+Adding FB to a native login doesn't work smoothly
+
 need my-plans/my-forecast pages in responsive
 
 signup walkthrough
 
-Adding FB to a native login doesn't work smoothly
+rsvp out button
+
+make facebook ajax invites 
+
+ajaxify friending
+
+make x to close the latest ideas
 
 joyride
 
@@ -146,13 +159,8 @@ Create crowd ideas ala kickstarter
 			<i class="icon-video"></i>
 	add image
 
-add event description (display only in show)
+sSDK - follow us on hoos.in "Our events on hoos.in" button and icon
 
-add suggested friends to friends page
-
-broadcast on user#show page 
-
-graph on user#show
 
 ---------------------------------------------------------------
 
@@ -166,68 +174,9 @@ Rsvp - checked_in? boolean with mobile api to check in.
 
 ---------------------------------------------------------------
 
-home page is City#show to do routes
-
-facebook load ajax
-
-	SDK - follow us on hoos.in "Our events on hoos.in" button and icon
-
-pull events from their calendars/websites
-
-rsvp out button
-
-marketplace payments
-yellow book
-payments to be listed
-
-count flakes
-------------------------------------------------------------
-
-make x to close the latest ideas
-
-activity page
-	past events
-
-	if friend - 
-		future events
-
-	friend view 
-
-	public
-
-	analytics - past ideas, how many rsvpd? how many invites (reach)
+	hovering putting a box around idea shields
 
 
----------------------------------------------------------------
-
-
-----------------------------------------------------------------
-
-check in
-
-------------------------------------------------------------
-
-add hashtag to event and show instagram pictures
-
-private idea
-
-make signin a lightbox
-
-click and drag ideas into plans
-
-make post to facebook wall a dialogue not a programatic thing
-
-put footer stuff into hoosin icon dropdown
-
-ssl
-
-------------------------------------------------------------
-
-survey why they are downgrading their account
-
-add /new_venue to the list of urls we don't save
-
-------------------------------------------------------------
 ------------------------------------------------------------------------
 
 Suggested friends
@@ -243,6 +192,43 @@ Suggested friends
 	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
 
 ----------------------------------------------------------
+
+
+marketplace payments
+yellow book
+payments to be listed
+
+------------------------------------------------------------
+
+---------------------------------------------------------------
+
+home page is City#show to do routes
+
+pull events from their calendars/websites
+
+count flakes
+
+----------------------------------------------------------------
+
+check in
+
+------------------------------------------------------------
+
+add hashtag to event and show instagram pictures
+
+private idea
+
+put footer stuff into hoosin icon dropdown
+
+ssl
+
+------------------------------------------------------------
+
+survey why they are downgrading their account
+
+add /new_venue to the list of urls we don't save
+
+------------------------------------------------------------
 
 
 -----------------------------------------------------------
@@ -266,8 +252,6 @@ Suggested friends
 
 --------------------------------------------------------------
 
-	more beautiful bug page
-
 --------------------------------------------------------------
 
 	
@@ -290,9 +274,6 @@ suggested friends -- ppl that you saw at a party
 
 	display when full?
 
-	next plan
-
-	hovering putting a box around idea shields
 
 -----------------------------------------------------------
 

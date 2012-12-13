@@ -1446,9 +1446,9 @@ padding-bottom: 0;
 min-width: 165px;
 max-width: 280px;
 min-height: 110px;
-max-height: 330px;
+max-height: 410px;
   background-color:white;
-margin: 5px;
+margin: 8px;
 float:left;
 position: relative;
 z-index: 1;
@@ -1461,7 +1461,7 @@ overflow: hidden;
   text-align: center;
   background-color: white;
   img{
-    max-height: 167px;
+    max-height: 267px;
   }
 }
 .profile_picture {
@@ -1534,7 +1534,7 @@ bottom: 12px;
 .event_blerb {
 min-height: 38px;
 color: black;
-font-size: 17px;
+font-size: 21px;
 line-height: 1;
 width: 103%;
 overflow: hidden;
