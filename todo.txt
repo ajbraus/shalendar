@@ -111,14 +111,6 @@ Over the past two months, Mike and I have been listening to your suggestions and
 
 Adam
 
-admin dashboard
-	users per city
-	ideas per city
-	public ideas per city
-	improve active user stat
-	# mobile users iphone/android
-	add # of invitations per week to graph
-
 add 'activity' to face dropdown
 
 make sure upcoming and past ideas are only ones people were invited to. Past ideas are only visible if you are signed in
