@@ -102,8 +102,11 @@ height: 100%;
 		left: -2px;
 	}
 
-	.user_search input[type=text] {
+	.user_search {
+		top: 10px;
+		input[type=text] {
 		width: 200px;
+		}
 	}
 
 	.right_header {
@@ -117,7 +120,7 @@ top: 16px;
 	}
 
 	.event_show {
-margin: 0 268px;
+margin: 0 286px;
 width: 65%;
 top: 10px;
 min-width: 570px;
@@ -242,7 +245,7 @@ left: -121px;
 		}
 
 		.btn-new-idea {
-			padding: 10.5px 33px;
+			padding: 10.5px 49px;
 			position: relative;
 			-moz-border-radius: 6px;
 			-webkit-border-radius: 6px;
@@ -257,15 +260,15 @@ left: -121px;
 		}
 
 		.sidebar {
-			width: 205px;
+			width: 235px;
 			/*height: 185px;*/
 			height: auto;
 		}
 
 		.home {
 position: relative;
-margin-right: -25px;
-margin-left: 245px;
+margin-right: 0px;
+margin-left: 278px;
 		}
 
 		.rsvp_button {

@@ -24,11 +24,18 @@ body {
 		display:none;
 	}
 	.user_search {
-		display:none;
+		bottom: 23px;
+		left: 57px;
+		input[type=text] {
+			width: 175px;
+		}
+		.fb-icon {
+			display: none;
+		}
 	}
 	ul.left_header {
-		position: relative;
-		top: 24px;
+		top: 49px;
+		right: 108px;
 	}
 	#headerText {
 		display:none;

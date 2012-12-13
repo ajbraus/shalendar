@@ -683,9 +683,9 @@ bottom: 10px;
 .interests {
 width: 181px;
 position: fixed;
-top: 221px;
+top: 222px;
 z-index: 10;
-left: 210px;
+left: 253px;
 }
 .interest_checkbox {
   margin: 6px 21px;
@@ -985,7 +985,6 @@ box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, .75);
 
 .user_search {
 position: relative;
-top: 10px;
 width: 279px;
   input[type=text] {
   border-radius: 0;
@@ -1315,7 +1314,9 @@ margin-top:15px;
 margin-right: 10px;
   .interests_dropdown {
     height: 27px;
-    cursor:pointer;
+    cursor: pointer;
+    font-size: 20px;
+    text-align: center;
   }
 }
 
@@ -1325,8 +1326,8 @@ margin-top: 15px;
 margin-right: 10px;
 height: 56%;
 overflow: auto;
-width: 205px;
-top: 300px;
+top: 310px;
+width: 235px;
 }
 
 .stats {
