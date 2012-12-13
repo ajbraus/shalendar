@@ -383,13 +383,15 @@ class User < ActiveRecord::Base
   end
 
   def events_on_date(load_datetime)
-    @time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
+    Time.zone = self.city.timezone
+    @time_range = load_datetime.midnight.in_time_zone(self.city.timezone) .. load_datetime.midnight.in_time_zone(self.city.timezone) + 1.day - 1.second
 
     #CATEGORY TODO
     @toggled_category_ids = []
     self.categories.each do |tcat|
       @toggled_category_ids.push(tcat.id)
     end
+
     # loop through categories and add all relevant events from city + category
     @interest_events_on_date = Event.where(starts_at: @time_range, is_public: true, city_id: self.city.id)
       .joins(:categorizations).where(categorizations: {category_id: @toggled_category_ids} ).order("starts_at ASC")
