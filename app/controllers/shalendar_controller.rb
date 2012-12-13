@@ -6,7 +6,7 @@ class ShalendarController < ApplicationController
       @plan_counts = []
       @invite_counts = []
       @city = current_user.city
-      @time_in_zone = Time.now
+      @time_in_zone = Time.now.in_time_zone(current_user.city.timezone)
   		@date = @time_in_zone.to_date
       @events = current_user.forecast(@time_in_zone)
       @my_plans = current_user.plans.where('ends_at > ?', @time_in_zone).order('starts_at asc')
