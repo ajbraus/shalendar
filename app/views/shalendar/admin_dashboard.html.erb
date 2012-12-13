@@ -63,7 +63,9 @@
 
 <p> Invitations for Events Next Week: <strong><%= @invitations_next_week %></strong></p>
 
-<%= high_chart("invitations", @invitations) %>
+<p><%= high_chart("invitations", @invitations) %></p>
+
+<p><%= high_chart("rsvps_to_invitations", @rsvps_to_invitations) %></p>
 
 <h1>
 	Public Ideas

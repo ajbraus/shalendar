@@ -224,15 +224,14 @@ class ShalendarController < ApplicationController
     
     #RSVPs graph
     @rsvps_per_week = []
+    @events_per_week = []
+    @ratio_rsvps_to_invitations = [] 
     (0..@weeks).each do |week|
       @rsvps_one_week = Rsvp.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
-      @rsvps_per_week << @rsvps_one_week
-    end
-
-    @events_per_week = []
-    (0..@weeks).each do |week|
       @events_one_week = Event.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
       @events_per_week << @events_one_week
+      @rsvps_per_week << @rsvps_one_week
+      @ratio_rsvps_to_invitations << @rsvps_one_week / @invitations_one_week
     end
 
     @rsvps_v_events = LazyHighCharts::HighChart.new('graph') do |f|
@@ -244,6 +243,15 @@ class ShalendarController < ApplicationController
       f.xAxis(:type => 'datetime')
     end
 
+    @rsvps_to_invitations = LazyHighCharts::HighChart.new('graph') do |f|
+      f.options[:title][:text] = "Invitation to Rsvp conversion rate since inception"
+      f.options[:chart][:defaultSeriesType] = "line"
+      f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
+      f.series(:name=>'Madison', :data => @ratio_rsvps_to_invitations )
+      f.xAxis(:type => 'datetime')
+    end
+
+
     @invitations_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).inject { |sum,e| sum =+ e.invitations.count }
 
     @invitations_per_week = []
@@ -253,7 +261,7 @@ class ShalendarController < ApplicationController
     end
 
     @invitations = LazyHighCharts::HighChart.new('graph') do |f|
-      f.options[:title][:text] = "RSVPs, Events, Invitations Since Inception"
+      f.options[:title][:text] = "Invitations Since Inception"
       f.options[:chart][:defaultSeriesType] = "line"
       f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
       f.series(:name=>'Invitations', :data=> @invitations_per_week)
@@ -282,6 +290,7 @@ class ShalendarController < ApplicationController
       f.series(:name=>'Other', :data=> @other_city_public_ideas_per_week )
       f.xAxis(:type => 'datetime')
     end
+
   end
 
 
