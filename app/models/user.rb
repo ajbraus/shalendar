@@ -384,7 +384,7 @@ class User < ActiveRecord::Base
 
   def events_on_date(load_datetime)
     @time_range = load_datetime.midnight.in_time_zone("London") .. load_datetime.midnight.in_time_zone("London") + 1.day - 1.second
-
+    Time.zone = "London"
     #CATEGORY TODO
     @toggled_category_ids = []
     self.categories.each do |tcat|
@@ -411,7 +411,7 @@ class User < ActiveRecord::Base
     @invited_events_on_date.each do |ie|
       ie.inviter_id = ie.invitations.find_by_invited_user_id(self.id).inviter_id
     end
-
+    Time.zone = self.city.timezone
     return @invited_events_on_date | @plans_on_date | @interest_events_on_date
   end
 
