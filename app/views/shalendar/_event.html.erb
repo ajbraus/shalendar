@@ -37,7 +37,7 @@
 				</div>
 			<% else %>
 				<div class="meter animate orange">
-					<span style="width: <%= (event.guests.count.to_f/event.min.to_f*100).round %>%;"><span></span></span>
+					<span style="<%= 'width:' + '(event.guests.count.to_f/event.min.to_f*100).round' + '%;'%>"><span></span></span>
 				</div>
 			<% end %>
 	<% if event.has_image? %>

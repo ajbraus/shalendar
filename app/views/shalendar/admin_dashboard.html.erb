@@ -77,7 +77,7 @@
 <div>
 	<strong>Users per city</strong>
 	<table>
-		<% City.each do |c| %>
+		<% City.all.each do |c| %>
 			<tr>
 				<td><%= c.name %></td>
 				<td><%= c.users.count %></td>
