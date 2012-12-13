@@ -9,8 +9,12 @@
   <% if (@event.guests_can_invite_friends? || @event.is_public?) && @event.starts_at > Time.now %>
       <!-- SHARE BY EMAIL -->
     <li>
-      <a href="mailto:?subject=You in? <%= @event.start_time %>&body=Hey,%0a%0aHere's the idea:%0a%0a    What:  <%= @event.title %>%0a%0a    When:  <%= @event.start_date_time %>%0a%0aYou in? respond here: <%= event_url(@event) %>%0a%0a<%= current_user.first_name %>">
-        <span class="fadeInOrange"><i class="icon-envelope-alt" title=".invite by Email"></i></span>
+      <a href="mailto:?
+        subject=You in? <%= @event.start_time %>&
+        body=Hey,%0a%0aHere's the idea:%0a%0a    What:  <%= @event.title %>%0a%0a    When:  <%= @event.start_date_time %>%0a%0aYou in? respond here: <%= event_url(@event) %>%0a%0a<%= current_user.first_name %>">
+        <span class="fadeInOrange">
+          <i class="icon-envelope-alt" title=".invite by Email"></i>
+        </span>
       </a>
     </li>
 
@@ -22,7 +26,7 @@
           link=<%= event_url(@event) %>&
           picture=<%= @event.image(:medium) if @event.has_image? %>&
           name=<%= @event.title %>&
-          description=<%= @event.description %>&
+          description=<%=  @event.start_date_time %>&
           redirect_uri=<%= event_url(@event) %>" class="fadeInFBBlue" target="_blank">
           <i class="icon-facebook-sign"></i>
           </a>
@@ -34,7 +38,7 @@
             name=<%= @event.title %>&
             link=<%= event_url(@event) %>&
             picture=<%= @event.image(:medium) if @event.has_image? %>&
-            description=<%= @event.description %>&
+            description=<%=  @event.start_date_time %>&
             redirect_uri=<%= event_url(@event) %>" class="fadeInFBBlue" target="_blank">
             <i class="icon-facebook-sign"></i>
           </a>
@@ -51,14 +55,31 @@
 
     <!-- #TWITTER -->
     <li>
-      <a href="https://twitter.com/share" data-text="<%= @event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this idea" target="_blank">
+      <a href="https://twitter.com/share" 
+        data-url="<%= event_url(@event) %>"
+        data-via="hoos_in"
+        data-text="<%= @event.title %> #hoosin" 
+        data-size="large" 
+        data-count="none" 
+        class="fadeInTwitter" 
+        title="Tweet this idea" 
+        target="_blank">
         <i class="icon-twitter"></i>
       </a>
     </li>
 
     <!-- PINTEREST -->
     <li>
-      <a data-pin-config="above" href="//pinterest.com/pin/create/button/?url=<%= event_url(@event) %>&media=<%= @event.image(:large) %>&description=<%= @event.mini_start_date_time + " - " + @event.title %>" data-pin-do="buttonPin" class="fadeInPinterest" target="_blank"><i class="icon-pinterest-sign"></i></a>
+      <a data-pin-config="above" 
+        href="//pinterest.com/pin/create/button/?
+          url=<%= event_url(@event) %>&
+          media=<%= @event.image(:large) %>&
+          description=<%= @event.mini_start_date_time + " - " + @event.title %>" 
+        data-pin-do="buttonPin" 
+        class="fadeInPinterest" 
+        target="_blank">
+        <i class="icon-pinterest-sign"></i>
+      </a>
     </li>
 
 
