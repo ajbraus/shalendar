@@ -103,7 +103,7 @@ Over the past two months, Mike and I have been listening to your suggestions and
 
 3.5) Custom Background - Now you can have your own custom background for your events and profile. Just click on your face in the upper right hand corner, select "Settings", and upload a large image (at least 1024x640 recommended) to the "Background" field.
 
-4) Better sharing - Share hoosin ideas on twitter, facebook, pinterest, by email and (on mobile) by text.
+4) Better sharing - Share hoosin ideas on twitter, facebook, pinterest, by email and by text (on mobile).
 
 5) New Look - New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.
 
