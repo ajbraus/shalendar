@@ -35,7 +35,7 @@
       <% end %>
     </div>
 
-    <% unless @event.link == '' %>
+    <% unless @event.link.blank? %>
     <div class="event_link">
       <%= link_to "http://#{@event.link}", target: "_blank" do %>
         <span class="fadeInOrange" title="Idea's Website"><i class="icon-link"></i> link</span>

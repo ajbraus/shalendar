@@ -1439,16 +1439,13 @@ padding-bottom: 0;
   }
   .promo_img {
     overflow: hidden;
+    height: 60px;
   }
 }
 
 .event {
-min-width: 165px;
-max-width: 280px;
-min-height: 110px;
-max-height: 330px;
   background-color:white;
-margin: 5px;
+margin: 8px;
 float:left;
 position: relative;
 z-index: 1;
@@ -1461,7 +1458,7 @@ overflow: hidden;
   text-align: center;
   background-color: white;
   img{
-    max-height: 167px;
+    max-height: 267px;
   }
 }
 .profile_picture {
@@ -1534,7 +1531,7 @@ bottom: 12px;
 .event_blerb {
 min-height: 38px;
 color: black;
-font-size: 17px;
+font-size: 21px;
 line-height: 1;
 width: 103%;
 overflow: hidden;
@@ -2575,7 +2572,7 @@ form {
     float:left;
   }
   input[type=text] {
-  width: 85%;
+  width: 80%;
 float: left;
 border-radius: 0;
 position: relative;
@@ -3139,9 +3136,10 @@ right: 8px;
 z-index: 4;
 position: fixed;
 left: 286px;
-max-height: 400px;
+max-height: 430px;
 top: 100px;
-max-width: 60%;
+max-width: 72%;
+overflow: auto;
   li {
     float:left;
   }

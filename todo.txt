@@ -111,30 +111,37 @@ Over the past two months, Mike and I have been listening to your suggestions and
 
 Adam
 
-SEAN:
-email images of ppl and ideas
-guest count in emails
-Download our iphone and android App link in emails
-hoos.in? (who is already rsvpd? face-pile)
-crowd ideas digest
-only digest monday thursday
+admin dashboard
+	users per city
+	ideas per city
+	public ideas per city
+	improve active user stat
+	# mobile users iphone/android
+	add # of invitations per week to graph
 
+add 'activity' to face dropdown
 
-facebook feed dialogue
-facebook message dialogue
-linked in share dialogue
-twitter share dialogue
+make sure upcoming and past ideas are only ones people were invited to. Past ideas are only visible if you are signed in
 
----------------------------------------------------------------
+make event-link display the domain.com
 
-login button on top right when not logged in - look better
-need my-plans/my-forecast pages in responsive
+more beautiful bug page
 
-signup walkthrough
+idea description/title
 
-Adding FB to a native login doesn't work smoothly
+ajaxify friending (separate friends and new friends)
 
-joyride
+implement following . . . too many invites/emails without it
+
+make facebook ajax invites 
+
+make x to close the latest ideas
+
+rsvp out button
+
+rsvp url - drive traffic
+
+rsvp lightbox prompt to share/put on calendar
 
 Create crowd ideas ala kickstarter
 	onkeyup add text to shield
@@ -148,13 +155,34 @@ Create crowd ideas ala kickstarter
 			<i class="icon-video"></i>
 	add image
 
-add event description (display only in show)
+SDK - follow us on hoos.in "Our events on hoos.in" button and icon
 
-add suggested friends to friends page
+put this on hoosin button
+	Img, RSVP URL, Title, Description, starts_at, duration
 
-broadcast on user#show page 
+joyride
 
-graph on user#show
+SEAN:
+email images of ppl and ideas
+guest count in emails
+hoos.in? (who is already rsvpd? face-pile)
+Download our iphone and android App link in emails
+crowd ideas digest
+only digest monday thursday
+
+
+facebook feed dialogue
+facebook message dialogue
+linked in share dialogue
+twitter share dialogue
+
+---------------------------------------------------------------
+
+Adding FB to a native login doesn't work smoothly
+
+need my-plans/my-forecast pages in responsive
+
+signup walkthrough
 
 ---------------------------------------------------------------
 
@@ -168,68 +196,9 @@ Rsvp - checked_in? boolean with mobile api to check in.
 
 ---------------------------------------------------------------
 
-home page is City#show to do routes
-
-facebook load ajax
-
-	SDK - follow us on hoos.in "Our events on hoos.in" button and icon
-
-pull events from their calendars/websites
-
-rsvp out button
-
-marketplace payments
-yellow book
-payments to be listed
-
-count flakes
-------------------------------------------------------------
-
-make x to close the latest ideas
-
-activity page
-	past events
-
-	if friend - 
-		future events
-
-	friend view 
-
-	public
-
-	analytics - past ideas, how many rsvpd? how many invites (reach)
+	hovering putting a box around idea shields
 
 
----------------------------------------------------------------
-
-
-----------------------------------------------------------------
-
-check in
-
-------------------------------------------------------------
-
-add hashtag to event and show instagram pictures
-
-private idea
-
-make signin a lightbox
-
-click and drag ideas into plans
-
-make post to facebook wall a dialogue not a programatic thing
-
-put footer stuff into hoosin icon dropdown
-
-ssl
-
-------------------------------------------------------------
-
-survey why they are downgrading their account
-
-add /new_venue to the list of urls we don't save
-
-------------------------------------------------------------
 ------------------------------------------------------------------------
 
 Suggested friends
@@ -245,6 +214,43 @@ Suggested friends
 	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
 
 ----------------------------------------------------------
+
+
+marketplace payments
+yellow book
+payments to be listed
+
+------------------------------------------------------------
+
+---------------------------------------------------------------
+
+home page is City#show to do routes
+
+pull events from their calendars/websites
+
+count flakes
+
+----------------------------------------------------------------
+
+check in
+
+------------------------------------------------------------
+
+add hashtag to event and show instagram pictures
+
+private idea
+
+put footer stuff into hoosin icon dropdown
+
+ssl
+
+------------------------------------------------------------
+
+survey why they are downgrading their account
+
+add /new_venue to the list of urls we don't save
+
+------------------------------------------------------------
 
 
 -----------------------------------------------------------
@@ -268,8 +274,6 @@ Suggested friends
 
 --------------------------------------------------------------
 
-	more beautiful bug page
-
 --------------------------------------------------------------
 
 	
@@ -292,9 +296,6 @@ suggested friends -- ppl that you saw at a party
 
 	display when full?
 
-	next plan
-
-	hovering putting a box around idea shields
 
 -----------------------------------------------------------
 

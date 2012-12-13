@@ -13,7 +13,6 @@ Shalendar::Application.routes.draw do
   #   match "/#{c.name.split(',')[0].gsub(/\s+/, "").downcase}", :to => 'shalendar#home', :as => "#{c.name.split(',')[0].gsub(/\s+/, "").gsub("-", "_").downcase}", :city => "#{c.name}"
   # end
   
-  
   root :to => 'static_pages#landing'
 
   devise_for :users, 

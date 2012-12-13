@@ -221,25 +221,30 @@ class ShalendarController < ApplicationController
     
     #RSVPs graph
     @rsvps_per_week = []
-    @rsvps = Rsvp.all
     (0..@weeks).each do |week|
       @rsvps_one_week = Rsvp.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
       @rsvps_per_week << @rsvps_one_week
     end
 
     @events_per_week = []
-    @events = Event.all
     (0..@weeks).each do |week|
       @events_one_week = Event.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
       @events_per_week << @events_one_week
     end
 
+    @invitations_per_week = []
+    (0..@weeks).each do |week|
+      @invitations_one_week = Invitation.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
+      @invitations_per_week << @invitations_one_week
+    end
+
     @rsvps_v_events = LazyHighCharts::HighChart.new('graph') do |f|
-      f.options[:title][:text] = "RSVPs vs. Events Last Week"
+      f.options[:title][:text] = "RSVPs, Events, Invitations Last Week"
       f.options[:chart][:defaultSeriesType] = "line"
       f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
       f.series(:name=>'RSVPs', :data => @rsvps_per_week )
       f.series(:name=>'Events', :data=> @events_per_week )
+      f.series(:name=>'Invitations', :data=> @invitations_per_week)
       f.xAxis(:type => 'datetime')
     end
     #SUGGESTIONS
