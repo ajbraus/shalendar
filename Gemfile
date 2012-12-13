@@ -65,10 +65,10 @@ group :assets do
   gem 'uglifier', '1.2.3'
   gem 'font-awesome-sass-rails'
   gem 'jquery-ui-rails'
-  gem 'coffee-rails', '3.2.2'
   gem 'jquery-rails'#, '2.0.0'
 end
 
+  gem 'coffee-rails', '3.2.2'
   gem 'sass-rails',   '3.2.4'
   
 group :test do
