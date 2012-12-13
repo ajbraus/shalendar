@@ -682,10 +682,10 @@ bottom: 10px;
 
 .interests {
 width: 181px;
-position: absolute;
-top: 311px;
+position: fixed;
+top: 221px;
 z-index: 10;
-left: 207px;
+left: 210px;
 }
 .interest_checkbox {
   margin: 6px 21px;
@@ -1745,7 +1745,7 @@ height: 22px;
 line-height: 25px;
 text-align: center;
 font-size: 17px;
-position: absolute;
+position: fixed;
 margin: 0 auto;
 width: 96%;
 }
@@ -3686,7 +3686,7 @@ background-size: 99%;
 height: 33px;
 right: 0;
   &:hover {
-  background-position: -4px -41px; 
+  background-position: -4px -48px; 
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
