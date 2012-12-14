@@ -24,11 +24,18 @@ body {
 		display:none;
 	}
 	.user_search {
-		display:none;
+		bottom: 23px;
+		left: 103px;
+		input[type=text] {
+			width: 175px;
+		}
+		.fb-icon {
+			display: none;
+		}
 	}
 	ul.left_header {
-		position: relative;
-		top: 24px;
+		top: 49px;
+		right: 108px;
 	}
 	#headerText {
 		display:none;
@@ -79,6 +86,7 @@ body {
 
 	.right_header {
 top: 34px;
+right:0px;
 	img {
 width: 45px;
 height: 45px;
@@ -162,6 +170,7 @@ left: -125px;
 	}
 
 	.event {
+		margin: 4px;
 		width: 123px;
 		.promo_img {
 			position: relative;

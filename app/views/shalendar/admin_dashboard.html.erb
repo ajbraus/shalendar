@@ -63,7 +63,9 @@
 
 <p> Invitations for Events Next Week: <strong><%= @invitations_next_week %></strong></p>
 
-<%= high_chart("invitations", @invitations) %>
+<p><%= high_chart("invitations", @invitations) %></p>
+
+<p><%= high_chart("rsvps_to_invitations", @rsvps_to_invitations) %></p>
 
 <h1>
 	Public Ideas
@@ -74,6 +76,17 @@
 	<%= high_chart("public_ideas", @public_ideas_per_city) %>
 </dt>
 
+<div>
+	<strong>Users per city</strong>
+	<table>
+		<% City.all.each do |c| %>
+			<tr>
+				<td><%= c.name %></td>
+				<td><%= c.users.count %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>
 </dt>
 <dt>
 	Clones pers Suggestion
@@ -86,8 +99,6 @@
 <dt>
 	RSVP per Suggestion
 </dt>
-
-
 
 </dl>
 <dt>

@@ -162,7 +162,7 @@ class EventsController < ApplicationController
       if @event.update_attributes(params[:event])
         if @start_time != @event.starts_at
           ##NEED TO FIX RESQUE
-          @event.ends_at = @event.starts_at + duration*3600
+          @event.ends_at = @event.starts_at + @event.duration*3600
           @event.save
           @event.guests.each do |g|
             unless g == @event.user
@@ -270,8 +270,7 @@ class EventsController < ApplicationController
                              promo_img: @event.promo_img,
                              promo_url: @event.promo_url,
                              promo_vid: @event.promo_vid,
-                             is_public: false,
-                             category: @event.category,
+                             is_public: @event.is_public,
                              family_friendly: @event.family_friendly,
                              price: @event.price
                           )
