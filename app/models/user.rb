@@ -446,7 +446,7 @@ class User < ActiveRecord::Base
           @upcoming_events = []
           (0..2).each do |day|
             @date = Date.today + day.days
-            @events = u.events_on_date(@date, [], [])
+            @events = u.events_on_date(@date)
             @upcoming_events.push(@events)
           end
           Notifier.delay.digest(u, @upcoming_events)
@@ -464,7 +464,7 @@ class User < ActiveRecord::Base
               @upcoming_events = []
               (0..2).each do |day|
                 @date = Date.today + day.days
-                @events = u.events_on_date(@date, [], [])
+                @events = u.events_on_date(@date)
                 @upcoming_events.push(@events)
               end
               Notifier.delay.digest(u, @upcoming_events)
