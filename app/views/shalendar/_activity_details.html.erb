@@ -4,11 +4,19 @@
 			<h4>Guests <%= event.total_guests %></h4>
 			<ul>
 				<% event.guests.each do |g| %>
-					<li><%= g.name %></li>
+					<li>
+						<%= link_to user_path(g) do %>
+							<%= raster_profile_picture(g) %> <%= g.name %> 
+						<% end %>
+					</li>
 				<% end %>
 				<% event.groups.each do |group| %>
 					<% group.guests.each do |guest| %>
-						<li><%= guest.name %> </li>
+						<li>
+							<%= link_to user_path(guest) do %>
+								<%= raster_profile_picture(guest) %> <%= guest.name %> 
+							<% end %>
+						</li>
 					<% end %>
 				<% end %>
 			</ul>
