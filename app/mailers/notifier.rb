@@ -299,25 +299,27 @@ class Notifier < ActionMailer::Base
       if d.nil?
         Airbrake.notify("thought we had an iphone user but can't find their device")
       else
-        n = APN::Notification.new
-        n.device = d
-        n.alert = "#{@event.short_event_title} starts at #{@event.start_time_no_date}"
-        n.badge = 1
-        n.sound = true
-        n.custom_properties = {:type => "reminder", :event => "#{@event.id}"}
-        n.save
+          n = APN::Notification.new
+          n.device = d
+          n.alert = "#{@event.short_event_title} starts at #{@event.start_time_no_date}"
+          n.badge = 1
+          n.sound = true
+          n.custom_properties = {:type => "reminder", :event => "#{@event.id}"}
+          n.save
       end
     elsif(@user.android_user == true)
       d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
       else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = "#{@event.short_event_title} starts at #{@event.start_time_no_date}"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.short_event_title} starts soon"}}
-        n.save
+        unless @user == User.find_by_id(15) #stop Niko from getting tons of push
+          n = Gcm::Notification.new
+          n.device = d
+          n.collapse_key = "#{@event.short_event_title} starts at #{@event.start_time_no_date}"
+          n.delay_while_idle = true
+          n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.short_event_title} starts soon"}}
+          n.save
+        end
       end
     else
       unless @user == User.find_by_email("info@hoos.in")

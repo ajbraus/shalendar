@@ -7,17 +7,14 @@ class Api::V1::EventsController < ApplicationController
     @mobile_user = User.find_by_id(params[:user_id])
 
     if @mobile_user.present?
-      Time.zone = @mobile_user.time_zone if @mobile_user.time_zone
+      Time.zone = @mobile_user.city.timezone
     else
       render :status => 400, :json => {:error => "could not find your user"}
     end
     raw_datetime = DateTime.parse(params[:date])
 
-    if @mobile_user.time_zone.present?
-      @events = @mobile_user.mobile_events_on_date(raw_datetime.in_time_zone(@mobile_user.time_zone))#Need to check timezone here
-    else
-      @events = @mobile_user.mobile_events_on_date(raw_datetime.in_time_zone("Central Time (US & Canada)"))#Need to check timezone here
-    end
+    @events = @mobile_user.mobile_events_on_date(raw_datetime.in_time_zone(@mobile_user.city.timezone))#Need to check timezone here
+
     @events = @events.sort_by{|t| t[:starts_at]}
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []
@@ -55,8 +52,8 @@ class Api::V1::EventsController < ApplicationController
     #could add invites here, and/or comments
     @event = Event.find_by_id(params[:event_id])
     @mobile_user = User.find_by_id(params[:user_id])
-    if @mobile_user
-      Time.zone = @mobile_user.time_zone if @mobile_user.time_zone
+    if @mobile_user.present?
+      Time.zone = @mobile_user.city.timezone
     end
     if @mobile_user.nil?
       render :status => 400, :json => {:error => "could not find your user"}
@@ -102,6 +99,7 @@ class Api::V1::EventsController < ApplicationController
       render :status => 400, :json => {:error => "could not find your user"}
       return
     end
+    Time.zone(@mobile_user.city.timezone)
     @guests_can_invite_friends = false
     if params[:g_share] == '1'
       @guests_can_invite_friends = true
