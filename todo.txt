@@ -6,10 +6,6 @@ HEADER:
 friend buttons are now too big in raster
 City should be by session most of the time, in settings it can be stored in the DB
 
-when you click .invites only for a day, it messes with masonry (looks like it makes another copy of the shield, but hidden, and masonry sees it)
-
-Friend button in search and update .interests and join.in event#show buttons too small
-
 invite all doesn't invite ppl from different cities- do we want to confirm city switch? it can get confusing if you don't realize you've switched (happened to me)
 
 Event update takes forever in production
@@ -110,6 +106,8 @@ Over the past two months, Mike and I have been listening to your suggestions and
 5) New Look - New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.
 
 Adam
+
+tipping progress bar not working for untipped ideas (see Megan's trivia at echo tap idea)
 
 add 'activity' to face dropdown
 

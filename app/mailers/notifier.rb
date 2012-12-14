@@ -267,7 +267,7 @@ class Notifier < ActionMailer::Base
         n.alert = "New Comment - #{@event.short_event_title}"
         n.badge = 1
         n.sound = true
-        n.custom_properties = {:type => "new_comment", :friend => "#{@event.id}"}
+        n.custom_properties = {:type => "new_comment", :event => "#{@event.id}"}
         n.save
       end
     elsif(@user.android_user == true)
