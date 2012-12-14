@@ -1,8 +1,8 @@
 <tr>
 	<td style="padding:10px 0 5px 50px">What: <strong style="padding-left:10px;"><a href="http://www.hoos.in/events/<%= event.id %>"><%= event.title %></a></strong>
-		<% if user.rsvpd?(event) && event.starts_at > Time.now.in_time_zone(user.time_zone) %>
+		<% if user.rsvpd?(event) && event.starts_at > Time.now.in_time_zone(user.city.timezone) %>
 			<strong>  (Attending)</strong>
-		<% elsif user.rsvpd?(event) && event.starts_at < Time.now.in_time_zone(user.time_zone) %>
+		<% elsif user.rsvpd?(event) && event.starts_at < Time.now.in_time_zone(user.city.timezone) %>
 			<strong>  (Attended)</strong>
 		<% end %></td>
 </tr>

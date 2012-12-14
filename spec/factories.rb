@@ -82,4 +82,11 @@ FactoryGirl.define do
     guest_id ''
   end
 
+  factory :invitation do 
+    invited_user_id ''
+    invited_event_id ''
+    inviter_id ''
+  end
+
+
 end

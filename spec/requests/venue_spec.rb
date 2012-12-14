@@ -6,7 +6,8 @@ describe "Venue" do
 	let(:venue) { FactoryGirl.create(:user, :vendor => true, :city => city) }
   let(:user) { FactoryGirl.create(:user, :city => city) }
   let(:event) { FactoryGirl.create(:event, :user_id => user.id, 
-                       :chronic_starts_at => "Tomorrow at 3pm")}
+                       :chronic_starts_at => "#{Time.now + 1.day}", 
+                       :ends_at => "#{Time.now + 1.day + 2.hours}") }
   
   before(:all) { 30.times { FactoryGirl.create(:user) } }
   after(:all)  { User.delete_all }

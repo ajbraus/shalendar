@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe "Without loging in" do
 
-  let(:private_event) { FactoryGirl.create(:event, :user => user) }
+  let(:private_event) { FactoryGirl.create(:event, :user => user, 
+                          :chronic_starts_at => "#{Time.now + 1.day}", 
+                          :ends_at => "#{Time.now + 1.day + 2.hours}") }
   let(:city) { FactoryGirl.create(:city)}
   let(:user) { FactoryGirl.create(:user, :city => city) }
   let(:venue) { FactoryGirl.create(:user, :vendor => true, :city => city) }
@@ -24,7 +26,7 @@ describe "Without loging in" do
   describe "City home page" do
     before do 
       @public_event = Factory(:event, :chronic_starts_at => "Tomorrow at 3pm", :is_public => true, :user => venue, :title => "Test Public Event", :city => city)
-      visit "/madison"
+      visit madison_path
     end
     it "should have date time" do
       page.should have_content("#{Time.now.strftime("%A")}")
@@ -42,7 +44,9 @@ describe "Without loging in" do
 
   describe "Event#Show" do
     before do
-      @event = Factory(:event, :user => user, :chronic_starts_at => "Tomorrow at 3pm")
+      @event = Factory(:event, :user => user, 
+                       :chronic_starts_at => "#{Time.now + 1.day}", 
+                       :ends_at => "#{Time.now + 1.day + 2.hours}",)
       visit event_path(@event)
     end 
     it "should have the content Date Tomorrow" do
