@@ -158,16 +158,6 @@ Shalendar::Application.routes.draw do
   match '/careers', :to => 'static_pages#careers', :as => "careers"
   match '/terms', :to => 'static_pages#terms_header', :as => "terms"
 
-  #FOR MOBILE W USER AUTO USER(3)
-  match '/mobile_plans', :to => 'events#mobile_plans', :as => "mobile_plans"
-  match '/mobile_maybes', :to => 'events#mobile_maybes', :as => "mobile_maybes"
-
-  match '/mobile_home', to: 'shalendar#mobile_home', as: "mobile_home"
-  match '/mobile_followed_users', to: 'shalendar#mobile_followed_users', as: "mobile_followed_users"
-  match '/mobile_toggled_followed_users', to: 'shalendar#mobile_toggled_followed_users', as: "mobile_toggled_followed_users"
-  match '/mobile_untoggled_followed_users', to: 'shalendar#mobile_untoggled_followed_users', as: "mobile_untoggled_followed_users"
-  match '/mobile_followers', to: 'shalendar#mobile_followers', as: "mobile_followers"
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
