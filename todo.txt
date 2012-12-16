@@ -113,6 +113,7 @@ scripts not working
 	yesterday-today
 	interests
 	invite button not reloading (stack overflow question)
+	search
 
 your friend just joined hoos.in
 
