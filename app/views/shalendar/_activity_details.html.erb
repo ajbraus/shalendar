@@ -2,24 +2,38 @@
 	<div class="activity_guests">
 		<% if event.rsvps.any? %>
 			<h4>Guests <%= event.total_guests %></h4>
-			<ul>
-				<% event.guests.each do |g| %>
-					<li>
-						<%= link_to user_path(g) do %>
-							<%= raster_profile_picture(g) %> <%= g.name %> 
-						<% end %>
-					</li>
-				<% end %>
-				<% event.groups.each do |group| %>
-					<% group.guests.each do |guest| %>
-						<li>
-							<%= link_to user_path(guest) do %>
-								<%= raster_profile_picture(guest) %> <%= guest.name %> 
+			<% event.guests.each do |g| %>
+				<table>
+					<tr>
+						<td>
+							<%= link_to user_path(g) do %>
+								<%= raster_profile_picture(g) %> 
 							<% end %>
-						</li>
-					<% end %>
+						</td>
+						<td>
+							<%= g.name %>
+						</td>
+					<tr>
+				</table>
+			<% end %>
+		<% end %>
+		<% if event.groups.any? %>
+			<% event.groups.each do |group| %>
+				<% group.guests.each do |guest| %>
+					<table>
+						<tr>
+							<td>
+								<%= link_to user_path(guest) do %>
+									<%= raster_profile_picture(guest) %> 
+								<% end %>
+							</td>
+							<td>
+								<%= guest.name %>
+							</td>
+						<tr>
+					</table>
 				<% end %>
-			</ul>
+			<% end %>
 		<% end %>
 	</div>
 <div class="groups">

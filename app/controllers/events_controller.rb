@@ -119,20 +119,14 @@ class EventsController < ApplicationController
       else 
         session[:graph] = nil
       end
+      #for sidebar
       @my_plans = current_user.plans.where('ends_at > ?', Time.now).order('starts_at asc')
 
       @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event)}
+      
       #if a user is 'everywhere else' then we don't silo their invitations...
       @friends = @friends.reject { |f| f.city != current_user.city }
-
-      if @graph
-        @invite_friends = current_user.fb_friends(session[:graph])[1].reject { |inf| FbInvite.find_by_uid(inf['uid'].to_s) }
-        @fb_invites = @event.fb_invites
-      else
-        #to fix so that these exist in the calls.
-        @invite_friends = []
-        @fb_invites = []
-      end
+      @fb_invites = @event.fb_invites
     end
     
     respond_to do |format|
@@ -274,6 +268,16 @@ class EventsController < ApplicationController
                              family_friendly: @event.family_friendly,
                              price: @event.price
                           )
+    respond_to do |format|
+      #format.html
+      format.js
+    end
+  end
+
+  def get_fb_friends_to_invite
+    @invite_friends = current_user.fb_friends(session[:graph])[1].reject { |inf| FbInvite.find_by_uid(inf['uid'].to_s) }
+    @event = Event.find(params[:event_id])
+
     respond_to do |format|
       #format.html
       format.js

@@ -96,6 +96,8 @@ Shalendar::Application.routes.draw do
     end
   end
 
+  match '/get_fb_friends_to_invite', :to => 'events#get_fb_friends_to_invite', :as => 'get_fb_friends_to_invite'
+
   match '/set_time_zone', :to => 'users#set_time_zone', :as => 'set_time_zone'
 
   match '/collect_payments', :to => 'payments#new_merchant', :as => 'new_merchant'

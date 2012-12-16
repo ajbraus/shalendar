@@ -139,7 +139,7 @@
 <% end %>
 
     <div class="maybes">
-      <div class="left_label event_label"><span id="invite_count"><%= @fb_friends.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_friends.count %></span> .invited </div> 
+      <div class="left_label event_label"><span id="invite_count"><%= @fb_invites.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_invites.count %></span> .invited </div> 
       <div id="invites" class="show_raster">
         <%= render partial: 'events/invites' %>
       </div>
@@ -158,12 +158,6 @@
   </div>
 </div>
 
-<% if false %>
-  <div class="shareable">
-    <i class="icon-group black" title="join.in and .invite all friends"></i>
-  </div>
-<% end %>
-
 <!-- Twitter API script -->
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
@@ -176,10 +170,6 @@
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=327936950625049";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-
- <script>
-//   $('.layout').css('width', '700px');
-// </script>
 
 <% if false %>
 <% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now.in_time_zone(current_user.city.timezone) - 7.seconds %>

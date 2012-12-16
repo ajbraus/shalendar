@@ -2,6 +2,13 @@ $(document).ready(function() {
 // REMOVE ALERT 
 $("div.alert").delay(6000).fadeOut(400);
 
+$('#fb_invite_img').click(function(){
+  $('#ajaxLoader').toggle();
+  $('#hi_invite_img').removeClass('box');
+  //$('#fb_invite_img').addClass('box');
+  $('#hiFriends').toggle(); 
+})
+
 // NEW INVITED EVENTS
 
   if ( $('#new_invited_events_count').text() == 0 ) {
@@ -152,8 +159,7 @@ $(document).bind('click', function(e) {
   $('#public').tabs();
   $('#tabs-nested').tabs();
   $('#events').tabs();
-  $('#suggestions').tabs();
-  $('#invite_raster').tabs();
+  //$('#invite_raster').tabs();
   $('#terms').tabs();
 
 // DATETIME PICKER

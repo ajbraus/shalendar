@@ -231,7 +231,7 @@ class ShalendarController < ApplicationController
       @invitations_one_week = Invitation.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
       @events_per_week << @events_one_week
       @rsvps_per_week << @rsvps_one_week
-      if @invitations_one_week > 0
+      if @invitations_one_week > 0 && @rsvps_one_week > 0
         @ratio_rsvps_to_invitations << @rsvps_one_week / @invitations_one_week 
       else 
         @ratio_rsvps_to_invitations << 0
