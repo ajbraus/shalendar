@@ -1,15 +1,16 @@
-$ ->
-	$.fn.withDate = (date) ->
-		@filter ->
-			$(this).data('date') == date
+$.fn.withDate = (date) ->
+	@filter ->
+		$(this).data('date') == date
 
+$ ->
+	
 	# DATEPICKERDAY
 	$('html, body').scrollTop($('#today').offset().top - 89 );
 	$('.datePickerToday').css('color','red')
 	$('.datePickerDay').click ->
-		pos = $(this).position();
+		pos = $(@).position();
 		$('#datewindow').animate({ top: pos.top - 2 }, 500);
-		date = $(this).attr('data-date');
+		date = $(@).attr('data-date');
 		elOffset = $('div').withDate(date).offset().top - 20
 		$('html, body').animate({ scrollTop: elOffset }, 'fast', 'swing');
 	
