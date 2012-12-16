@@ -11,7 +11,9 @@
 							<% end %>
 						</td>
 						<td>
-							<%= g.name %>
+							<%= link_to user_path(g) do %>
+								<%= g.name %>
+							<% end %>
 						</td>
 					<tr>
 				</table>
@@ -28,7 +30,9 @@
 								<% end %>
 							</td>
 							<td>
-								<%= guest.name %>
+								<%= link_to user_path(guest) do %>
+									<%= guest.name %>
+								<% end %>
 							</td>
 						<tr>
 					</table>

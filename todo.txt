@@ -107,19 +107,16 @@ Over the past two months, Mike and I have been listening to your suggestions and
 
 Adam
 
-tipping progress bar not working for untipped ideas (see Megan's trivia at echo tap idea)
-
 Music is being added to all new ideas
+
+scripts not working
+	yesterday-today
+	interests
+	invite button not reloading (stack overflow question)
 
 your friend just joined hoos.in
 
-interests
-
-mobile not working
-
 add 'activity' to face dropdown
-
-make sure upcoming and past ideas are only ones people were invited to. Past ideas are only visible if you are signed in
 
 make event-link display the domain.com
 
