@@ -1,12 +1,16 @@
 <% @guests.each do |guest| %>
   <% if !user_signed_in? || (current_user.following?(guest) || guest == current_user) %>
+      <%= link_to user_path(guest) do %>
     <div class="event_show_friend">
       <%= image_tag("#{invite_raster_picture(guest)}", class: "profile_picture") %>
       <div id="friend_name"><%= guest.name %></div>
     </div> 
+    <% end %>
   <% else %>
     <div class="event_show_friend friend">
-    <%= image_tag("#{invite_raster_picture(guest)}", class: "profile_picture") %>
+      <%= link_to user_path(guest) do %>
+        <%= image_tag("#{invite_raster_picture(guest)}", class: "profile_picture") %>
+      <% end %>
       <div id="friend_name">
         <%= guest.name %>
       </div>
