@@ -123,7 +123,11 @@ class Api::V1::EventsController < ApplicationController
       max: @max,
       link: "",
       price: "",
-      address: ""
+      address: "",
+      is_public: 0,
+      family_friendly: 0,
+      promo_url: "",
+      promo_vid: ""
     }
 
     @event = @mobile_user.events.build(@event_params)
@@ -131,7 +135,7 @@ class Api::V1::EventsController < ApplicationController
     # @event.chronic_starts_at = DateTime.parse(params[:start])
     @event.starts_at = DateTime.parse(params[:start])
     @event.duration = Float(params[:duration])
-    @event.ends_at = @event.starts_at + @event.duration.hours
+    @event.ends_at = @event.starts_at + @event.duration*3600
     if @mobile_user.city.present?
       @event.city = @mobile_user.city
     else
