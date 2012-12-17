@@ -6,7 +6,9 @@
 @media only screen and (min-width:600px) {
 
 	header {
-		  margin-left:3%;
+		nav {
+			padding-left: 2%;
+		}
 	}
 
 	.my_plans {
@@ -140,10 +142,6 @@ min-width: 570px;
 		.guest_count {
 			bottom: 1px;
 			right: 6px;
-		}
-
-		header {
-			width: 96%;
 		}
 
 		.event_time {

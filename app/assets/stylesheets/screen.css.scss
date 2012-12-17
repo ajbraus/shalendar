@@ -569,14 +569,17 @@ bottom: 1px;
 header {
   height: 72px;
   background-color: white;
-  border-bottom: 1px solid #D1CDCD;
   clear: both;
   position: fixed;
   top:0;
-   z-index: 2;
--webkit-box-shadow: 0px 0px 7px rgba(50, 50, 50, 0.75);
--moz-box-shadow:    0px 0px 7px rgba(50, 50, 50, 0.75);
-box-shadow:         0px 0px 7px rgba(50, 50, 50, 0.75);
+  z-index: 2;
+  width:100%;
+  nav {
+    -webkit-box-shadow: 0px 1px 8px rgba(50, 50, 50, 0.4);
+    -moz-box-shadow:    0px 1px 8px rgba(50, 50, 50, 0.4);
+    box-shadow: 0px 1px 8px rgba(50, 50, 50, .4);
+    height: inherit;
+  }
   .interests_dropdown, .choose_city {
     color:black;
     cursor:pointer;
@@ -1283,9 +1286,9 @@ margin-left: 4px;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;
--webkit-box-shadow: 0px 0px 7px rgba(50, 50, 50, 0.75);
--moz-box-shadow:    0px 0px 7px rgba(50, 50, 50, 0.75);
-box-shadow:         0px 0px 7px rgba(50, 50, 50, 0.75);
+-webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
+-moz-box-shadow:    0px 0px 9px rgba(50, 50, 50, 0.3);
+box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
 }
 
 .friend_only {
@@ -2216,9 +2219,9 @@ text-align: left;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;
--webkit-box-shadow: 0px 0px 7px rgba(50, 50, 50, 0.75);
--moz-box-shadow:    0px 0px 7px rgba(50, 50, 50, 0.75);
-box-shadow:         0px 0px 7px rgba(50, 50, 50, 0.75);
+-webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
+-moz-box-shadow:    0px 0px 9px rgba(50, 50, 50, 0.3);
+box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
   background-color: white;
   color: black;
 }
@@ -2438,7 +2441,7 @@ ul {
 -moz-box-sizing: border-box;
 box-sizing: border-box;
 float: left;
-width: 49%;
+width: 48%;
 border-right: 1px solid #D1CDCD;
 min-height: 280px;
 position: relative;
