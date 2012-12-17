@@ -18,7 +18,7 @@ Shalendar::Application.configure do
   config.assets.compile = true
 
   #this is from using email tut on heroku documentation
-  config.action_mailer.default_url_options = { :host => 'hoosin.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'hoos.in' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = false
   config.action_mailer.raise_delivery_errors = false

@@ -5,11 +5,7 @@
 <%= render 'shared/interests_user_dropdown' %>
 <div class="upcoming_ideas part">
     <div class="label"><%= @my_plans.count %> upcoming .ins</div>
-    <% if @my_plans.present? %>
-      <% @my_plans.each do |mp| %>
-        <%= render partial: 'shalendar/mini_event', locals: { :event => mp } %>
-      <% end %>
-    <% end %>
+      <%= render partial: 'shalendar/mini_event', collection: @my_plans, as: :event %>
   <% else %>
     <%= render 'shared/not_signed_in_pitch' %>
   <% end %>
