@@ -132,7 +132,11 @@ class Api::V1::EventsController < ApplicationController
     @event.starts_at = DateTime.parse(params[:start])
     @event.duration = Float(params[:duration])
     @event.ends_at = @event.starts_at + @event.duration.hours
-    
+    if @mobile_user.city.present?
+      @event.city = @mobile_user.city
+    else
+      @event.city = City.find_by_name("Madison, Wisconsin")
+    end
     
     # @event.title = params[:title]
     # @event.min = params[:min]
