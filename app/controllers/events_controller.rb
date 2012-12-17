@@ -60,6 +60,8 @@ class EventsController < ApplicationController
     @event.tipped = true                    if @event.min <= 1
     @event.parent_id = params[:parent_id]   if params[:parent_id]
     @event.city = current_user.city
+
+    binding.remote_pry
     if @event.save
       @event.save_shortened_url
       if params[:category]
