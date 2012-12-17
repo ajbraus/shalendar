@@ -5,9 +5,11 @@
 		<div class="name"><%= @user.name %></div>
 		<div class="profile_stats">
 			<ul>
-				<li><span class="only"> city-wide ideas </span><i class="icon-bullhorn blue"></i><%= @user.events.where('is_public = ?', true).count %></li>
-				<li><span class="only"> private ideas </span><i class="icon-user green"></i><%= @user.events.where('is_big_idea = ? AND is_public = ?', false, false).count %></li>				
-				<li><span class="only"> crowd ideas </span><i class="icon-cloud orange"></i><%= @user.events.where('is_big_idea = ?', true).count %></li>
+				<li><span class="only"> city-wide ideas </span><i class="icon-bullhorn blue"></i><%= @user.events.where(:is_public => true).count %></li>
+				<li><span class="only"> private ideas </span><i class="icon-user green"></i><%= @user.events.where(:is_big_idea => false, :is_public => false).count %></li>				
+				<% if false %>
+				<li><span class="only"> crowd ideas </span><i class="icon-cloud orange"></i><%= @user.events.where(:is_big_idea => true).count %></li>
+				<% end %>
 				<li><span class="only"> .invites </span><i class="icon-envelope-alt purple"></i> <%= @user.invitations.count %></li>
 			</ul>
 		</div>
@@ -21,7 +23,7 @@
 			<% end %>
 		</ul>
 	</div>
-	<% end %>
+
 	<div class="past_events">
 		<h3>Past Ideas</h3>
 		<ul>
@@ -30,4 +32,5 @@
 			<% end %>
 		</ul>
 	</div>
+<% end %>
 </div>

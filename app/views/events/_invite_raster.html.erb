@@ -1,11 +1,18 @@
 <ul>
-  <li class="hoosin_friends_tab"><a href="#tabs-1" >hoos.in</a></li>
-  <% if @invite_friends.present? && current_user.fb_user? %>
-  	<li class="fb_friends_tab">
-			<a href="#tabs-2" >Facebook</a>
+  <li id="hoosin_friends_tab"><%= image_tag "iphone_icons/57.png", width:32, id:"hi_invite_img", class:"box" %> <span>hoosin </span>
+  </li>
+  <% if current_user.fb_user? %>
+  	<li id="fb_friends_tab">
+			<%= link_to image_tag("social/facebook_32.png"), get_fb_friends_to_invite_path(:event_id => @event.id ), id:"fb_invite_img", remote: true %> <span>facebook </span>
 		</li>
   <% end %>
-    <div class="share_with_friends event_label">
+  <li id="ajaxLoader" style="display:none;">
+    <%= image_tag "ajax_loader.gif" %>
+  </li>
+</ul>
+
+<div id="hiFriends">
+  <div class="share_with_friends event_label">
     <% if current_user.invited_all_friends?(@event) %>  
       <span id="green" class="fadeInGreen" title=".invited all hoos.in friends"><i class="icon-group"></i> .invite all</span>
     <% elsif @event.guests_can_invite_friends? || @event.user == current_user %>
@@ -14,14 +21,8 @@
       <% end %>
     <% end %>
   </div>
-</ul>
-
-<div id="tabs-1">
 	<%= render partial: 'events/hoosin_friends', locals: { :friends => @friends, :event => @event } %>
 </div>
 
-  <% if current_user.fb_user? %>
-<div id="tabs-2" class="fb_friends_invite">
-	<%= render partial: 'fb_friends', locals: { :event => @event } %>
+<div id="fbFriends" class="fb_friends_invite" style="display:none;">
 </div>
-  <% end %>

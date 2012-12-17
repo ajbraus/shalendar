@@ -555,7 +555,7 @@ bottom: 1px;
   border-bottom:1px solid $divider;
   padding: 10px 0;
   select {
-    width:auto;
+    width: 310px;
     font-size: 23px;
   }
   form {
@@ -1276,7 +1276,8 @@ top: 0;
 padding: 3px;
 height: 32px;
 text-align: center;
-width: 89%;
+/*width: 89%;*/
+width: 97.5%;
 background-color: white;
 top: 73px;
 margin-left: 4px;
@@ -1325,7 +1326,8 @@ margin-top: 15px;
 margin-right: 10px;
 height: 56%;
 overflow: auto;
-top: 310px;
+/*top: 310px;*/
+top: 280px;
 width: 235px;
 }
 
@@ -2411,6 +2413,25 @@ overflow-x: hidden;
 position: relative;
 padding: 0;
 border-bottom:1px solid $divider;
+ul {
+  position: relative; 
+  top: 10px;
+  margin: 0px 10px;
+  display: inline;
+  li {
+    display: inline;
+    img {
+      padding:3px;
+    }
+  }
+}
+}
+
+.box {
+  border:1px solid $divider;
+      -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
 }
 
 .maybes {
@@ -2458,11 +2479,9 @@ left: 2px;
 }*/
 
 .share_with_friends {
-float: right;
-position: relative;
-left: -5px;
-margin-bottom: -40px;
-z-index: 1;
+position: absolute;
+right: 8px;
+top: 11px;
 .icon-group {
   font-size: 29px;
   position: relative;
@@ -3767,4 +3786,17 @@ padding-top: 3px;
 
 .rsvp_btn {
   float: right;
+}
+
+#ajaxLoader img {
+  width: 32px;
+}
+
+#hoosin_friends_tab span, #fb_friends_tab span {
+    position: relative;
+    bottom: 14px;
+}
+
+.rsvpd {
+ box-shadow: 6px 7px 21px -4px #575757; 
 }

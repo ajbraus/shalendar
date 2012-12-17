@@ -8,13 +8,13 @@ class FbInvitesController < ApplicationController
       @fb_invite.save
       @event.post_to_fb_wall(@fb_invite.uid, session[:graph])
       respond_to do |format|
-        format.html { redirect_to @event, notice: 'fb_invite was successfully created.' }
+        format.html { redirect_to @event, notice: "Successfully Posted Invite to #{@fb_invite.name}\'s Wall" }
         format.json { render json: @event, status: :created, location: @event }
-        #format.js
+        #format.js { render :nothing => true }
       end
     else 
       respond_to do |format|
-        format.html { redirect_to @event, notice: 'fb_invite could not be saved.' }
+        format.html { redirect_to @event, notice: 'Facebook Invite Could Not be Saved.' }
         format.json { render json: @event.errors, status: :unprocessable_entity }
         format.js { render template: "fb_invites/extend_permissions" }
       end
