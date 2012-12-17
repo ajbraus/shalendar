@@ -110,8 +110,6 @@ Adam
 Music is being added to all new ideas
 
 scripts not working
-	yesterday-today
-	interests
 	invite button not reloading (stack overflow question)
 
 your friend just joined hoos.in
