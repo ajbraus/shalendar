@@ -99,7 +99,7 @@ class Api::V1::EventsController < ApplicationController
       render :status => 400, :json => {:error => "could not find your user"}
       return
     end
-    Time.zone(@mobile_user.city.timezone)
+    Time.zone = @mobile_user.city.timezone if @mobile_user.city.present?
     @guests_can_invite_friends = false
     if params[:g_share] == '1'
       @guests_can_invite_friends = true
