@@ -345,7 +345,7 @@ class User < ActiveRecord::Base
   
   def invite_all_friends!(event)
     self.followers.each do |f|
-      unless f.invited?(event)
+      unless f.invited?(event) || f.rsvpd?(event)
         #silo by city, so that invite all only does relevant friends
         if f.city == self.city
           self.invite!(event, f)
