@@ -436,6 +436,42 @@ class User < ActiveRecord::Base
     return @invited_events_on_date | @plans_on_date
   end
 
+  # Contact methods
+  def contact_invitation(event, inviter)
+    @event = event
+    @inviter = inviter
+    if self.iPhone_user?
+      d = APN::Device.find_by_id(self.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "#{@inviter.name} .invited you to: #{@event.title}"
+        n.badge = 1
+        n.sound = true
+        n.custom_properties = {:type => "invitation", :event => "#{@event.id}"}
+        n.save
+      end
+    elsif self.android_user?
+      d = Gcm::Device.find_by_id(self.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "#{@inviter.name} .invited you to: #{@event.title}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.user.name} Shared an idea"}}
+        n.save
+      end
+    else
+      Notifier.invitation(@event, self, @inviter)
+    end
+  end
+
+
+  # Class Methods
   def self.digest
     @day = Date.today.days_to_week_start
     if @day == 0 || @day == 2 || @day == 4

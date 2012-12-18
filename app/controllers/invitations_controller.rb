@@ -5,7 +5,7 @@ class InvitationsController < ApplicationController
   	@user = User.find(params[:invitation][:invited_user_id])
     @event = Event.find(params[:invitation][:invited_event_id])
     current_user.invite!(@event, @user)
-    Notifier.delay.invitation(@event, @user, current_user)
+    @user.delay.contact_invitation(@event, current_user)
 
     respond_to do |format|
       format.html { redirect_to @event }
