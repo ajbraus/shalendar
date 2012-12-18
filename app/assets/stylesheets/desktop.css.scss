@@ -6,7 +6,9 @@
 @media only screen and (min-width:600px) {
 
 	header {
-		  margin-left:3%;
+		nav {
+			padding-left: 2%;
+		}
 	}
 
 	.my_plans {
@@ -142,10 +144,6 @@ min-width: 570px;
 			right: 6px;
 		}
 
-		header {
-			width: 96%;
-		}
-
 		.event_time {
 			span {
 				bottom:2px;
@@ -213,7 +211,7 @@ min-width: 570px;
 		
 		.dropdown dd ul {
 top: 0px;
-left: -121px;
+left: -98px;
 		}
 
 		.interests {
@@ -291,6 +289,43 @@ margin-left: 278px;
       		width:100%;
     		}
 			}
+		}
+
+		.jr_forecast {
+			margin-left: 170px;
+			margin-top:-100px;
+		}
+
+		.jr_welcome {
+  		margin-left: 100px;
+  		margin-top: -70px;
+		}
+
+		.jr_search {
+			margin-top: -70px;
+			margin-left: 50px;
+		}
+
+		.jr_fb_friends {
+			margin-top: -215px;
+			margin-left: -24px;
+		}
+
+		.jr_stats {
+			margin-top: -72px;
+		}
+
+		.jr_invites {
+			margin-top: -72px;
+		}
+
+		.jr_sidebar {
+			margin-top: -270px;
+		}
+
+		.jr_new_idea {
+			margin-top: 200px;
+			margin-left: 130px;
 		}
 
 }

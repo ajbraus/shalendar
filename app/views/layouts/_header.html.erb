@@ -1,10 +1,12 @@
 <header>
+    <%= render partial: 'shalendar/joyride' %>
+  <nav>
   <%= render 'layouts/logo' %>
 
 <% if user_signed_in? %>
 
   <ul class="left_header">
-    <% if false %><li><%= link_to "crowd ideas", discover_path %></li><% end %>
+    <% if false %><li class="discover_banner"><%= link_to "crowd ideas", discover_path %></li><% end %>
     <li><%= render 'shared/city_user_dropdown' %></li>
   </ul>
 
@@ -30,7 +32,7 @@
 <% else %> <!-- IF NOT SIGNED IN -->
   <% unless params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
     <ul class="left_header">
-      <% if false %> <li><%= link_to "crowd ideas", discover_path %></li>  <% end %>
+      <% if false %><li class="discover_banner"><%= link_to "crowd ideas", discover_path %></li> <% end %>
       <li><%= render 'shared/city_session_dropdown' %></li>
 
     </ul>
@@ -44,4 +46,5 @@
     </div>
   <% end %>
 <% end %>
+  </nav>
 </header>

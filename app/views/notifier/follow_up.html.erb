@@ -20,7 +20,7 @@
 						<td><%= image_tag("#{g.avatar.url(:raster)}") %> </td>
 					<% end %>
 					<td width="60px"><%= g.name %></td>
-					<td><%= link_to "Friend", "http://www.hoos.in/relationships?user_id=#{@user.id}&other_user_id=#{g.id}"%></td>
+					<td><%= link_to "Friend", "http://www.hoos.in/relationships?user_id=#{@user.id}&other_user_id=#{g.id}" %></td>
 				</tr>
 			</table>
 			<% end %>

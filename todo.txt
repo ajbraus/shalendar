@@ -109,11 +109,39 @@ Adam
 
 Music is being added to all new ideas
 
+explore your city - prompt to join - lightbox with video and signup
+
+idea description/title
+
+rsvp prompt to share and add to calendar
+
+crowd idea flow:
+	crowd idea form (use html5 for reading file to image)
+	only lives 60 days
+	after create prompt to share
+
+	email - trending crowd ideas email update every 12 days to all users in a city
+	email - idea not tipped yet 7 more days left!
+	
+	untipped crowd ideas are not included in forecast
+	tipped crowd ideas are included in forecast
+
+	email - crowd idea tipped!
+		if datetime
+			idea added to calendars, all ppl who are in are rsvpd
+		else	
+			set datetime - alert on top bar 1 time
+			set datetime - alert in activity page
+			link to - set datetime
+			show shield like form but only field is datetime
+			responsive
+		end
+
+
+messaging friends through hoos.in
+
 scripts not working
-	yesterday-today
-	interests
 	invite button not reloading (stack overflow question)
-	search
 
 your friend just joined hoos.in
 
@@ -122,8 +150,6 @@ add 'activity' to face dropdown
 make event-link display the domain.com
 
 more beautiful bug page
-
-idea description/title
 
 ajaxify friending (separate friends and new friends)
 
@@ -155,8 +181,6 @@ SDK - follow us on hoos.in "Our events on hoos.in" button and icon
 
 put this on hoosin button
 	Img, RSVP URL, Title, Description, starts_at, duration
-
-joyride
 
 SEAN:
 email images of ppl and ideas
