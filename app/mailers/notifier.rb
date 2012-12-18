@@ -177,34 +177,34 @@ class Notifier < ActionMailer::Base
   def tip_or_destroy(event)
     @user = event.user
     @event = event
-    if(@user.iPhone_user == true)
-      d = APN::Device.find_by_id(@user.apn_device_id)
-      if d.nil?
-        Airbrake.notify("thought we had an iphone user but can't find their device")
-      else
-        n = APN::Notification.new
-        n.device = d
-        n.alert = "Untipped idea - #{@event.title}"
-        n.badge = 1
-        n.sound = true
-        n.custom_properties = {:type => "tip_or_destroy", :event => "#{@event.id}"}
-        n.save
-      end
-    elsif(@user.android_user == true)
-      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-      if d.nil?
-        Airbrake.notify("thought we had an android user but can't find their device")
-      else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = "Untipped idea - #{@event.title}"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "Untipped idea - #{@event.title}"}}
-        n.save
-      end
-    else
+    # if(@user.iPhone_user == true)
+    #   d = APN::Device.find_by_id(@user.apn_device_id)
+    #   if d.nil?
+    #     Airbrake.notify("thought we had an iphone user but can't find their device")
+    #   else
+    #     n = APN::Notification.new
+    #     n.device = d
+    #     n.alert = "Untipped idea - #{@event.title}"
+    #     n.badge = 1
+    #     n.sound = true
+    #     n.custom_properties = {:type => "tip_or_destroy", :event => "#{@event.id}"}
+    #     n.save
+    #   end
+    # elsif(@user.android_user == true)
+    #   d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+    #   if d.nil?
+    #     Airbrake.notify("thought we had an android user but can't find their device")
+    #   else
+    #     n = Gcm::Notification.new
+    #     n.device = d
+    #     n.collapse_key = "Untipped idea - #{@event.title}"
+    #     n.delay_while_idle = true
+    #     n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "Untipped idea - #{@event.title}"}}
+    #     n.save
+    #   end
+    # else
       mail to: @user.email, subject: "Untipped idea - #{@event.title}"
-    end
+    # end
     # rescue => ex
     # Airbrake.notify(ex)
   end
