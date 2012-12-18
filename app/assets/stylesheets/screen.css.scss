@@ -329,7 +329,7 @@ text-align: center;
   cursor: pointer;
 }
 
-.btn-rsvp {
+.btn-rsvp, .joyride-tip-guide .joyride-next-tip {
   -moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
   -webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
   box-shadow:inset 0px 1px 0px 0px #bbdaf7;
@@ -343,12 +343,14 @@ text-align: center;
   text-decoration:none;
   text-shadow:1px 1px 0px #528ecc;
 }
-.btn-rsvp:hover {
+
+.btn-rsvp:hover, .joyride-tip-guide .joyride-next-tip:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
   background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
   background-color:#378de5;
   color:white;
+  border:none;
 }
 
 .btn_stop_viewing {
@@ -804,6 +806,8 @@ top: 34px;
  width: 80%; 
  max-width:700px;
  margin: 0 auto;
+ top: 20px;
+position: relative;
 }
 
 
@@ -836,6 +840,7 @@ bottom: 16px;
 }
 /* UL styles */
 .dropdown dd ul {
+text-align: left;
 background: white;
 display: none;
 list-style: none;
@@ -3802,4 +3807,73 @@ padding-top: 3px;
 
 .rsvpd {
  box-shadow: 6px 7px 21px -4px #575757; 
+}
+
+.joyride-content-wrapper {
+padding: 20px 20px 25px 25px;
+line-height: 1.7;
+text-align: center;
+font-family: bariol ,Arial,sans-serif;
+letter-spacing: 1px;
+}
+.joyride-tip-guide span.joyride-nub.top {
+  top:-27px;
+  border-color: $light_orange;
+}
+
+.jr_welcome {
+}
+
+.jr_forecast {
+width: 62%;
+text-align: center;
+height: 130px;
+line-height: 89px;
+}
+
+.jr_search {
+
+}
+
+.jr_stats {
+
+}
+
+.jr_sidebar {
+
+}
+
+.joyride-tip-guide {
+  background: rgba(255, 255, 255, 1);
+color: black;
+box-shadow: 6px 6px 23px 3px rgba(0, 0, 0, 0.6);
+}
+
+.joyride-close-tip {
+  color: rgba(0, 0, 0, 0.4) !important;
+  &:hover {
+    color: rgba(0, 0, 0, 0.8) !important;
+  }
+}
+.joyride-tip-guide a.fadeInFBBlue {
+    color:$before_hover;
+  &:hover{
+  color:#3A5998;
+  -webkit-transition: color .25s linear .1s;
+  transition: color .25s linear .1s;
+  }
+}
+.joyride-tip-guide a.fadeInTwitter {
+  color:$before_hover;
+  &:hover{
+  color:#01CBFB;
+  -webkit-transition: color .25s linear .1s;
+  transition: color .25s linear .1s;
+  }
+}
+
+.jr_share {
+  a {
+    font-size: 49px;
+  }
 }

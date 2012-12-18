@@ -13,7 +13,7 @@
     </div>
   </div>
   <ul>
-    <li>
+    <li id="jrActivity">
       <%= link_to user_path(current_user) do %>
         <span class="fadeInBlue">
           <%= current_user.events.count %> <i class="icon-cloud"></i> 
@@ -22,7 +22,7 @@
         </span>
       <% end %>
     </li>
-        <li>
+        <li id="jrFriends">
       <a href="<%= manage_friends_path %>"> 
         <span class="fadeInGreen">
           <strong id="header_friend_count" class="friend_count"><%= current_user.followers.count %></strong>  <i class="icon-group"></i>
@@ -34,7 +34,7 @@
         <% end %>
       </a>
     </li>
-    <li>
+    <li id="jrInvites">
       <%= link_to new_invited_events_path, :remote => true do %>
         <% unless current_user.new_invited_events_count == 0 %>
           <span id="new_invited_events_count" class="new_invited_events_count"><%= current_user.new_invited_events_count %></span>
@@ -46,6 +46,6 @@
       <% end %>
     </li>
   </ul>
-  <div id="interestsDropdown" class="interests_dropdown">Filter by .interests <i class="icon-caret-right"></i></div>
+  <div id="interestsDropdown" class="interests_dropdown fadeInOrange">Filter by .interests <i class="icon-caret-right"></i></div>
   <div><%= render 'shared/new_idea_button' %></div>
 </div>

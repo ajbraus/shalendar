@@ -58,11 +58,10 @@
       <a href="https://twitter.com/share" 
         data-url="<%= event_url(@event) %>"
         data-via="hoos_in"
-        data-text="<%= @event.title %> #hoosin" 
         data-size="large" 
         data-count="none" 
         class="fadeInTwitter" 
-        title="Tweet this idea" 
+        title="<%= @event.title %> #hoosin" 
         target="_blank">
         <i class="icon-twitter"></i>
       </a>

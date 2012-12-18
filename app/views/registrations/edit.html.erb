@@ -34,7 +34,7 @@
     <%= f.file_field :background %></div>
 
     <div><%= f.label :city %><br />
-    <%= f.select :city_id, options_from_collection_for_select(City.all, 'id', 'name'), id:"citySelect", prompt: "#{current_user.city.name}" %></div>
+    <%= f.select :city_id, options_from_collection_for_select(City.all, 'id', 'name', '1'), id:"citySelect" %></div>
 <% if false %>
     <div><%= f.label :time_zone %><br />
     <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)" %></div>
@@ -86,7 +86,7 @@
     <div><%= f.submit "Update", :class => "btn btn-warning btn-large" %></div>
     <% end %>
 
-    <p><%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete, :class => "fadeInRed" %></p>
+    <p><%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure you would like to cancel? This will delete all future and past hoos.in ideas you've created and will remove all friendships.", :method => :delete, :class => "fadeInRed" %></p>
 
     <% if false %>
     <% if current_user.authentications.any? == true %>

@@ -13,7 +13,7 @@ gem 'thin'
 gem 'chronic'
 gem 'twilio-rb'
 gem 'phony_rails'
-
+gem 'useragent'
 
 # gem 'apn_sender', :require => 'apn'
 # gem 'daemons'

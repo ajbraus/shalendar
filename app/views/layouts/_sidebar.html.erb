@@ -3,7 +3,7 @@
     <%= render partial: 'layouts/stats' %>
 </div>
 <%= render 'shared/interests_user_dropdown' %>
-<div class="upcoming_ideas part">
+<div class="upcoming_ideas part" id="jrUpcomingIdeas">
     <div class="label"><%= @my_plans.count %> upcoming .ins</div>
       <%= render partial: 'shalendar/mini_event', collection: @my_plans, as: :event %>
   <% else %>

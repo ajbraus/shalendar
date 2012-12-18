@@ -6,7 +6,7 @@
 			<% if event.tipped? %>	
 				<span class="count" id="guestCount"> <%= event.guests.count %></span>
 			<% else %>
-				<span id="guestCount" class="count orange"><%= event.guests.count%><span id="eventMin">/<%= event.min %></span></span>
+				<span id="guestCount" class="count orange"><%= event.guests.count%>/<%= event.min %></span>
 			<% end %>
 		</span>
 	</div>
