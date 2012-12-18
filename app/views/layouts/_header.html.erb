@@ -10,19 +10,20 @@
   </ul>
 
   <div class="right_header">
-    <div>
-      <%= render 'shared/picture_dropdown' %>
-    </div>
-
-<% if false %>
-    <!-- CITY ICON -->
-    <div class="city-icon">
-      <%= link_to yellow_pages_path, :remote => true, class:"city_vendors fancybox.ajax" do %>
-        <%= image_tag current_user.city.icon.url(:icon) %>
+    <% if false %>
+      <!-- CITY ICON -->
+      <div class="city-icon">
+        <%= link_to yellow_pages_path, :remote => true, class:"city_vendors fancybox.ajax" do %>
+          <%= image_tag current_user.city.icon.url(:icon) %>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="crowd_idea_banner">
+      <%= link_to discover_path do %>
+        <%= image_tag "crowd_ideas_banner.png" %>
       <% end %>
     </div>
-<% end %>
-<div class="instructions"><%= link_to '.instructions', what_is_hoosin_path %></div>
+  <div class="instructions"><%= link_to '.instructions', what_is_hoosin_path %></div>
     <% unless current_user.vendor? %>
       <%= render 'shared/friend_search' %>
     <% end %>

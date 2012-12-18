@@ -423,8 +423,8 @@ border-radius: 6px;
   border-color: #F89406 #F89406 #AD6704;
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
   filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-position: relative;
-bottom: 13px;
+  position: relative;
+  bottom: 13px;
 }
 
 .btn-warning {
@@ -1031,10 +1031,10 @@ width: 42px;
 font-size: 12px;
 height: 100%;
 float: right;
-z-index: 1;
+z-index: 2;
 position: fixed;
 right: 13px;
-top: 78px;
+top: 122px;
 overflow: hidden;
 padding-left: 8px;
 padding-right: 7px;
@@ -1130,7 +1130,7 @@ height: 20px;
 position: absolute;
 right: 3px;
 z-index: -2;
-top: 70px;
+top: 58px;
 }
 
 .friend_suggestions {
@@ -3801,4 +3801,10 @@ padding-top: 3px;
 
 .rsvpd {
  box-shadow: 6px 7px 21px -4px #575757; 
+}
+
+.crowd_idea_banner {
+  position: relative;
+  bottom: 10px;
+  left: 19px;
 }
