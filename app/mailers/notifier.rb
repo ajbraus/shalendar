@@ -361,7 +361,7 @@ class Notifier < ActionMailer::Base
       end
     else
       mail to: @user.email, subject: "#{@inviter.name} .invited you to #{@event.short_event_title}"
-    # end
+    end
     rescue => ex
     Airbrake.notify(ex)
   end
