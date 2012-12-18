@@ -168,7 +168,7 @@ class Notifier < ActionMailer::Base
     #     n.save
     #   end
     # else
-      mail to: @user.email, subject: "Tipped - #{@event.event_day}\'s Idea Tipped! - #{@event.title}"
+      mail to: @user.email, subject: "Tipped - #{@event.event_day}\'s Idea Tipped! - #{@event.title}", from: "info@hoos.in"
     #end
     # rescue => ex
     # Airbrake.notify(ex)
@@ -360,7 +360,7 @@ class Notifier < ActionMailer::Base
         n.save
       end
     else
-      mail to: @user.email, subject: "#{@inviter.name} .invited you to #{@event.short_event_title}"
+      mail to: @user.email, subject: "#{@inviter.name} .invited you to #{@event.short_event_title}", from: "info@hoos.in"
     end
     rescue => ex
     Airbrake.notify(ex)
