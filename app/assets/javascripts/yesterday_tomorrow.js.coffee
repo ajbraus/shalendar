@@ -11,7 +11,7 @@ $ ->
 		pos = $(@).position();
 		$('#datewindow').animate({ top: pos.top - 2 }, 500);
 		date = $(@).attr('data-date');
-		elOffset = $('div').withDate(date).offset().top - 20
+		elOffset = $('div').withDate(date).offset().top - 40
 		$('html, body').animate({ scrollTop: elOffset }, 'fast', 'swing');
 	
 	$('#todayButton').click ->
