@@ -334,32 +334,32 @@ class Notifier < ActionMailer::Base
     @event = event
     @user = invitee
     @inviter = inviter
-    # if(@user.iPhone_user == true)
-    #   d = APN::Device.find_by_id(@user.apn_device_id)
-    #   if d.nil?
-    #     Airbrake.notify("thought we had an iphone user but can't find their device")
-    #   else
-    #     n = APN::Notification.new
-    #     n.device = d
-    #     n.alert = "#{@inviter.name} included you in an idea: #{@event.title}"
-    #     n.badge = 1
-    #     n.sound = true
-    #     n.custom_properties = {:type => "invitation", :event => "#{@event.id}"}
-    #     n.save
-    #   end
-    # elsif(@user.android_user == true)
-    #   d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-    #   if d.nil?
-    #     Airbrake.notify("thought we had an android user but can't find their device")
-    #   else
-    #     n = Gcm::Notification.new
-    #     n.device = d
-    #     n.collapse_key = "#{@inviter.name} .invited you to an idea: #{@event.title}"
-    #     n.delay_while_idle = true
-    #     n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.user.name} Shared an idea"}}
-    #     n.save
-    #   end
-    # else
+    if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "#{@inviter.name} included you in an idea: #{@event.title}"
+        n.badge = 1
+        n.sound = true
+        n.custom_properties = {:type => "invitation", :event => "#{@event.id}"}
+        n.save
+      end
+    elsif(@user.android_user == true)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "#{@inviter.name} .invited you to an idea: #{@event.title}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.user.name} Shared an idea"}}
+        n.save
+      end
+    else
       mail to: @user.email, subject: "#{@inviter.name} .invited you to #{@event.short_event_title}"
     # end
     rescue => ex
