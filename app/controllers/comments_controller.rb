@@ -49,7 +49,7 @@ class CommentsController < ApplicationController
       if @comment.save
         @event.guests.each do |g|
           if g.email_comments == true && g != current_user
-            Notifier.delay.email_comment(@event, @comment, g)
+            g.delay.contact_comment(@event, @comment)
           end
         end
         format.html { redirect_to @event, notice: 'Message was successfully created.' }

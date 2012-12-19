@@ -161,7 +161,7 @@ class EventsController < ApplicationController
           @event.save
           @event.guests.each do |g|
             unless g == @event.user
-              Notifier.delay.time_change(@event, g)
+              g.delay.contact_time_change(@event)
             end
           end
         end
@@ -183,13 +183,13 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     @event_guests = @event.guests
-    Notifier.delay.cancellation(@event, @event_guests)
     @event.rsvps.each do |r|
       r.destroy
     end
     @event.invitations.each do |i|
       i.destroy
     end
+    @event.delay.contact_cancellation(@event)
 
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Idea was successfully removed' }

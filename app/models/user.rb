@@ -250,7 +250,7 @@ class User < ActiveRecord::Base
       @relationship = self.relationships.find_by_followed_id(other_user.id) #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
       @relationship.confirmed = false
       @relationship.save
-      Notifier.delay.confirm_follow(other_user, self)
+      other_user.delay.contact_confirm(self)
     else
       unless self.following?(other_user) || self.request_following?(other_user)
         self.follow!(other_user)
@@ -258,7 +258,7 @@ class User < ActiveRecord::Base
       @relationship = self.relationships.find_by_followed_id(other_user.id)
       @relationship.confirmed = true
       @relationship.save
-      Notifier.delay.new_friend(other_user, self)
+      other_user.delay.contact_friend(self)
       self.friend_back!(other_user)
     end
   end
@@ -470,6 +470,282 @@ class User < ActiveRecord::Base
     end
   end
 
+  def contact_reminder(event)
+    @user = self
+    @event = event
+    if @user.iPhone_user == true
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+          n = APN::Notification.new
+          n.device = d
+          n.alert = "#{@event.short_event_title} starts at #{@event.start_time_no_date}"
+          n.badge = 1
+          n.sound = true
+          n.custom_properties = {:type => "reminder", :event => "#{@event.id}"}
+          n.save
+      end
+    elsif(@user.android_user == true)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "#{@event.short_event_title} starts at #{@event.start_time_no_date}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.short_event_title} starts soon"}}
+        n.save
+      end
+    else
+      unless @user == User.find_by_email("info@hoos.in")
+        Notifier.rsvp_reminder(@event, @user)
+      end
+    end
+  end
+
+  def contact_time_change(event)
+    @user = self
+    @event = event
+    @event_link = event_url(@event)
+
+    if @user.iPhone_user?
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "#{@event.title} changed time to #{@event.start_time}!"
+        n.badge = 1
+        n.sound = true
+        n.custom_properties = {:type => "time_change", :event => "#{@event.id}"}
+        n.save
+      end
+    elsif @user.android_user?
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "#{@event.title} changed time to #{@event.start_time}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{event.title} changed time!"}}
+        n.save
+      end
+    else
+      Notifier.time_change(event, @user)
+    end
+  end
+
+  def contact_comment(event, comment)
+    @commenter = comment.user.name
+    @event = event
+    @comment = comment
+    @comments = event.comments.order('created_at DESC').limit(4)
+    @comments.shift(1)
+    @user = self
+    if @user.iPhone_user?
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "New Comment - #{@event.short_event_title}"
+        n.badge = 1
+        n.sound = true
+        n.custom_properties = {:type => "new_comment", :event => "#{@event.id}"}
+        n.save
+      end
+    elsif @user.android_user?
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "New Comment - #{@event.short_event_title}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "New Comment - #{@event.short_event_title}"}}
+        n.save
+      end
+    else
+      @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
+      @event_link = event_url(@event)
+      Notifier.email_comment(event, comment, @user)
+    end
+  end
+
+  def contact_cancellation(event)
+    @event = event
+    @user = self
+    if @user.iPhone_user?
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "Cancellation - #{@event.event_day}, #{@event.title}"
+        n.badge = 1
+        n.sound = true
+        n.custom_properties = {:type => "cancel", :event => "#{@event.id}"}
+        n.save
+      end
+    elsif @user.android_user?
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "Cancellation - #{@event.event_day}, #{@event.title}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "Cancellation - #{@event.event_day}, #{@event.title}"}}
+        n.save
+      end
+    else 
+      unless @user == @event.user
+        Notifier.cancellation(@event, @user)
+      end
+    end
+    @event.destroy
+  end
+
+  def contact_tipped(event)
+    @event = event
+    @user = self
+    if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "#{@event.title} Tipped!"
+        n.badge = 1
+        n.sound = true
+        n.custom_properties = {:type => "tipped", :event => "#{@event.id}"}
+        n.save
+      end
+    elsif(@user.android_user == true)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "#{@event.title} Tipped!"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.title} Tipped!"}}
+        n.save
+      end
+    else
+      Notifier.event_tipped(@event, @user)
+    end
+  end
+
+  def contact_deadline(event)
+    @event = event
+    @user = self
+    if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "#{@event.title} has not tipped!"
+        n.badge = 1
+        n.sound = true
+        n.custom_properties = {:type => "deadline", :event => "#{@event.id}"}
+        n.save
+      end
+    elsif(@user.android_user == true)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "#{@event.title} has not yet tipped!"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.title} has not tipped!"}}
+        n.save
+      end
+    else
+      Notifier.event_deadline(@event)
+    end
+  end
+
+  def contact_friend(friend)
+    @user = self
+    @follower = friend
+    if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "New Friend - #{@follower.name}"
+        n.badge = 1
+        n.sound = true
+        n.custom_properties = {:type => "new_friend", :friend => "#{@follower}"}
+        n.save
+      end
+    elsif(@user.android_user == true)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "New Friend - #{@follower.name}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "New Friend - #{@follower.name}"}}
+        n.save
+      end
+    else
+      #@follower_pic = raster_profile_picture(@user)
+      Notifier.new_friend(@user, @follower)
+    end
+  end
+
+  def contact_confirm(friend)
+    @user = user
+    @follower = friend
+    if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "Confirm Friend - #{@follower.name}"
+        n.badge = 1
+        n.sound = true
+        n.save
+      end
+    elsif(@user.android_user == true)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "Confirm Friend - #{@follower.name}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [@user.GCMtoken], :data => {:message_text => "Confirm Friend - #{@follower.name}"}}
+        n.save
+      end
+    else
+      Notifier.confirm_friend(@user, @follower)
+    end
+  end
 
   # Class Methods
   def self.digest

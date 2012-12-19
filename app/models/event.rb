@@ -159,7 +159,7 @@ class Event < ActiveRecord::Base
     if self.tipped? == false
       unless self.ends_at < Time.now
         self.guests.each do |g|
-          Notifier.delay.event_tipped(self, g)
+          g.delay.contact_tipped(self)
         end
       end
     end
@@ -218,10 +218,10 @@ class Event < ActiveRecord::Base
     Event.where(starts_at: time_range).each do |re|
       if re.tipped?
         re.guests.each do |g|
-          Notifier.delay.rsvp_reminder(re, g)
+          g.delay.contact_reminder(re)
         end
       else
-        Notifier.delay.tip_or_destroy(re)
+        re.user.delay.contact_deadline(re)#could be cleaner
       end
     end
   end
@@ -405,6 +405,14 @@ class Event < ActiveRecord::Base
       @total = self.guests.count 
     end
     return @total 
+  end
+
+  def contact_cancellation #this is weird bc have to do delayed job before destroying..
+    #sloppy but simple fix
+    self.guests.each do |g|
+      g.contact_cancellation(self)
+    end
+    self.destroy
   end
 
 # END OF CLASS

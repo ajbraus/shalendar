@@ -1,4 +1,6 @@
 ------------- Pre-Holidays -----------
+Finish the new notifiers... finish transfer from notifier to user model, replace .delay calls to act on user, finish trimming notifier calls
+
 Copy all over site
 FAQ
 
