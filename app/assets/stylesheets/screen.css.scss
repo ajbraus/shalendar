@@ -122,6 +122,13 @@ p {
 
 a {
   text-decoration: none;
+  color:black;
+  &:hover {
+    color: $icon_color;
+  }
+  &:active {
+    color: $icon_color;
+  }
 }
 
 ul, li {
@@ -249,6 +256,7 @@ color: white;
 .btn-new-idea {
     font-size: 20px;
     float: left;
+    text-align: center;
 }
 
 .btn-new-vendor-idea {
@@ -412,7 +420,6 @@ border-radius: 6px;
 }
 
 .btn-new-crowd-idea {
-  float:right;
   color: white;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #FAA732;
@@ -425,8 +432,6 @@ border-radius: 6px;
   border-color: #F89406 #F89406 #AD6704;
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
   filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-position: relative;
-bottom: 13px;
 }
 
 .btn-warning {
@@ -1036,10 +1041,10 @@ width: 42px;
 font-size: 12px;
 height: 100%;
 float: right;
-z-index: 1;
+z-index: 2;
 position: fixed;
 right: 13px;
-top: 78px;
+top: 122px;
 overflow: hidden;
 padding-left: 8px;
 padding-right: 7px;
@@ -1135,7 +1140,11 @@ height: 20px;
 position: absolute;
 right: 3px;
 z-index: -2;
+<<<<<<< HEAD
 top: 56px;
+=======
+top: 58px;
+>>>>>>> crowd_ideas
 }
 
 .friend_suggestions {
@@ -1451,6 +1460,9 @@ padding-bottom: 0;
     overflow: hidden;
     height: 60px;
   }
+  .blerb_pic {
+    float: left;
+  }
 }
 
 .event {
@@ -1458,7 +1470,6 @@ padding-bottom: 0;
 float:left;
 position: relative;
 z-index: 1;
-border: 10px solid white;
 -webkit-box-shadow: 1px 1px 4px rgba(50, 50, 50, 0.75);
 -moz-box-shadow:    1px 1px 4px rgba(50, 50, 50, 0.75);
 box-shadow:         1px 1px 4px rgba(50, 50, 50, 0.75);
@@ -1481,7 +1492,6 @@ height: 35px;
 .guests {
 float: right;
 position: relative;
-padding-right: 5px;
 top: 4px;
 }
 a {
@@ -1508,19 +1518,21 @@ max-height: 300px;
 .event_time {
 color: black;
 background-color: white;
-padding: 3px 2px 8px 3px;
+padding: 10px 10px 0px 10px;
 font-size: 1em;
 height: 20px;
 position: relative;
-width: 103%;
+width: 98%;
 right: 5px;
 bottom: 5px;
 border-bottom: 1px solid $divider;
+top:1px;
 img {
   width:20px;
 }
 span {
 position: relative;
+left: 4px;
 }
 }
 
@@ -1540,19 +1552,22 @@ bottom: 12px;
 .event_blerb {
 min-height: 38px;
 color: black;
-font-size: 21px;
+font-size: 18px;
 line-height: 1;
-width: 103%;
+width: 98%;
 overflow: hidden;
 position: relative;
 right: 5px;
-padding-left: 5px;
-padding-top: 2px;
+padding: 10px 10px 0px 10px;
 background-color: white;
-padding-bottom: 2px;
   .title {
-    padding: 0 0 0 5px;
-    vertical-align: top;
+    padding: 0 0 0 0px;
+    position: relative;
+    bottom: 2px;
+  }
+  .blerb_pic {
+    float: left;
+    margin-right: 4px;
   }
 }
 
@@ -1560,6 +1575,7 @@ padding-bottom: 2px;
 float:left;
 position: relative;
 top: 4px;
+right: 4px;
 }
 
 .friends_attending {
@@ -2162,6 +2178,9 @@ border-bottom: 1px solid #D1CDCD;
 border-top: 1px solid #D1CDCD;
 overflow-x: hidden;
 position: relative;
+  .meter {
+    padding:0;
+  }
   .promo_img {
     text-align: center;
     margin-bottom:0px;
@@ -2177,6 +2196,9 @@ position: relative;
     margin-bottom: -14px;
     position: relative;
     right: 10px;
+    img {
+      width: 104%;
+    }
   }
   > div {
     padding: 10px;
@@ -2320,7 +2342,6 @@ padding-left: 10px;
 .event_location{
 position: relative;
 text-align: right;
-padding-left: 175px;
 margin-top: 5px;
     i {
       font-size: 28px;
@@ -2358,7 +2379,7 @@ top: 3px;
 .event_title {
 float: left;
 font-size: 34px;
-height: auto;
+min-height: 37px;
 line-height: 1.1;
 width: 97%;
 background-color: rgba(0, 0, 0, 0.5);
@@ -2366,6 +2387,14 @@ color: white;
 font-weight: 400;
 position: relative;
 border-bottom: 1px solid $divider;
+}
+
+.event_description {
+  min-height: 20px;
+  font-size: 20px;
+  background-color:white;
+  color:black;
+  clear: both;
 }
 
 .event_buttons{
@@ -2456,7 +2485,7 @@ max-height: 400px;
 }
 
 .right_label {
-width: 140px;
+width: 100%;
 position: relative;
 left: 2px;
 margin-bottom: 10px;
@@ -2668,14 +2697,14 @@ a{
 }
 
 .comment_creator {
-  font-size: 10px;
+  font-size: 13px;
   color:black;
   font-style: italic;
 
 }
 
 .comment_created_at {
-  font-size: 10px;
+  font-size: 12px;
   color:grey;
   font-style: italic;
 }
@@ -2965,7 +2994,6 @@ margin-bottom: 10px;
   }
   ul {
 float: left;
-font-size: 20px;
 margin-top: 20px;
 margin-right: 12px;
 margin-bottom: 14px;
@@ -2976,10 +3004,8 @@ margin-bottom: 14px;
 }
 
 .new_idea_button {
-  width:200px;
-  float:left;
   input[type=submit]{
-padding: 11px 60px 11px 60px;
+padding: 11px 30px 11px 30px;
 font-size: 20px;
 float:left;
   }
@@ -3001,7 +3027,7 @@ margin-top: 10px;
   margin-left: 20px;
 }
 
-#addLink, #addmap, #addimg, #addtipping, #addcost, #addvid, #addcategories, #visibility {
+#addLink, #addDateTime, #addmap, #addimg, #addtipping, #addcost, #addvid, #addcategories, #visibility {
   cursor:pointer;
   color:black;
   text-decoration: underline;
@@ -3018,7 +3044,7 @@ margin-top: 10px;
   width: 100%;
   input {
     margin-left: 5px;
-    width: 82%;
+    width: 320px;
   }
 }
 
@@ -3249,6 +3275,7 @@ line-height: 10px;
     min-height: 150px;
     position: relative;
     overflow: hidden;
+
 }
 
 .activity_guests {
@@ -3542,12 +3569,14 @@ width: 72%;
 }
 
 .new_crowd_idea {
+width: 100%;
 margin: 0 auto;
 height: 100%;
 background-color: rgba(255, 255, 255, 0.5);
-padding: 0 7%;
+top: 30px;
+position: relative;
   .event_form {
-    position: relative;
+    margin-left: 2%;
     margin-top: 20px;
     padding-bottom: 20px;
   }
@@ -3764,8 +3793,8 @@ height: 0px;
 
 .status_icon {
   position: absolute;
-right: 5px;
-top: 5px;
+right: 0;
+padding: 10px;
 z-index: 1;
 font-size: 22px;
 }
@@ -3785,7 +3814,7 @@ font-size: 22px;
 
 .shield_bottom {
 height: 17px;
-padding-top: 3px;
+padding: 10px;
 }
 
 .instructions {
@@ -3876,4 +3905,26 @@ box-shadow: 6px 6px 23px 3px rgba(0, 0, 0, 0.6);
   a {
     font-size: 49px;
   }
+
+#eventStartsAtAndDuration {
+  position: relative;
+top: 7px;
+}
+
+#new_idea_title {
+  width: 87%;
+}
+
+.sample_title {
+  color:grey;
+  font-size: 20px;
+  clear:both;
+  margin:10px 0 10px 0;
+}
+
+.title_char_counter {
+  float:right;
+  position: relative;
+  right: 35px;
+  color:$charCounter;
 }

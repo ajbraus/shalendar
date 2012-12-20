@@ -17,7 +17,8 @@
 				<% end %>
 			</div>
 		<% end %>
-		<div class="event_time">			
+		<div class="event_time">	
+		<% if false %>		
 			<% if event.starts_at.hour > 4 && event.starts_at.hour < 12 %>
 				<%= image_tag "morning.png" %>
 			<% elsif event.starts_at.hour >= 12 && event.starts_at.hour < 18 %>
@@ -25,11 +26,13 @@
 			<% else %>
 				<%= image_tag "night.png" %>
 			<% end %>
+		<% end %>
 			<span><%= event_start_time(event) %> (<%= event.nice_duration %> hrs)</span>
 		</div>
 
 		<div class="event_blerb">
-			<span title="Created by: <%= event.user.name %>"><%= raster_profile_picture(event.user) %></span><span class="title"><%= event.title %></span>
+			<span class="blerb_pic" title="Created by: <%= event.user.name %>"><%= raster_profile_picture(event.user) %></span>
+			<span class="title"><%= event.title %></span>
 		</div>
 				<% if event.tipped? %>	
 				<div class="meter">
@@ -59,27 +62,27 @@
 	<% end %>
 <div class="shield_bottom">
 		<div class="event_shield_icons">
-			<% if event.is_public? %>
-				<i class="icon-bullhorn"></i>
-			<% end %>
-			<% if event.categories.any? %>
-				<%= event.categories.first.name.capitalize %>
-			<% end %>
 			<% if event.family_friendly? %>
 				<i class="icon-home"></i>
 			<% end %>
 			<% if event.promo_vid.present? %>
 				<i class="icon-video"></i>
 			<% end %>
-			<% if event.is_big_idea? %>
+			<% if event.min > 99 %>
 				<i class="icon-cloud"></i>
+			<% end %>
+			<% if event.is_public? %>
+				<i class="icon-bullhorn"></i>
+			<% end %>
+			<% if event.categories.any? %>
+				<%= event.categories.first.name.capitalize %>
 			<% end %>
 	  </div>
 
 		<% unless event.is_public? %>
 		<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
 		<% end %>	
-	  <div class="guests <%= !event.tipped? ? 'not_tipped' : '' %>"><i class="icon-group"></i> <%= event.guests.count %></div>
+	  <div class="guests <%= !event.tipped? ? 'not_tipped' : '' %>"><i class="icon-group"></i> <%= event.guests.count %><%= !event.tipped? ? "/#{ event.min }" : '' %></div>
 
 	</div>
 	<!-- ENDING LINK_TO -->

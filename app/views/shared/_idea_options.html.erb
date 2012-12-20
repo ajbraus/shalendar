@@ -1,5 +1,15 @@
 <div id="eventOptions">
-		<div class="venue_invitation_options open" id="visibilityp">
+		<div id="dateTime">
+		  <div class="starts_at">
+		    <%= label :starts_at, "When does it start?*" %>
+		    <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off" %>
+		  </div>
+		  <div class="duration">
+		    <%= label :duration, "How Long?*" %>
+		    <%= f.text_field :duration, placeholder:"hrs", autocomplete: "off", class:"required"  %>
+		  </div>
+		</div>
+		<div class="venue_invitation_options" id="visibilityp" style="display:none;">
 		  <u>
 		  	<%= f.label :is_public, ".invite #{current_user.city.name.split(",")[0].to_s.capitalize}" %><span title="Make this a City-Wide idea"> (?)</span><br>
 				<i class="icon-bullhorn questionMark"></i>
@@ -10,16 +20,18 @@
 				<i class="icon-group questionMark"></i>
 				<input id="invite_all_friends" name="invite_all_friends" type="checkbox" class="switch">    			
 			</u>
+			<% if false %>
 		  <u>
-		  	<%= f.label nil, "open .invite" %><span title="anyone can .invite friends to this idea"> (?)</span><br>
+		  	<%= f.label nil, "allow .invite" %><span title="people can .invite friends to this idea"> (?)</span><br>
 				<i class="icon-plus questionMark"></i>
 				<%= f.check_box :guests_can_invite_friends, class: "switch", checked: "checked" %>
 			</u>
+			<% end %>
 			<div class="idea_categories" id="addcategoriesp" style="display:none;">
 				<%= label :category, "Category*" %>
 		    <div id="categories">
 		    	<% Category.all.each do |c| %>
-			      <%= radio_button_tag :category, "#{c.id}", "#{c.name}", id:"radio#{(c.id)}", class:"category_radio" %>
+			      <%= radio_button_tag :category, "#{c.id}", "#{c.name}", id:"radio#{(c.id)}", class:"category_radio", alt:"#{c.name}" %>
 			      <%= label_tag "radio#{(c.id)}", "#{c.name}" %>
 		    	<% end %>
 	    	</div>
@@ -32,7 +44,7 @@
 		</div>
 
 <% if false %>
-		<div class="invitation_options open" id="visibilityp">
+		<div class="invitation_options" id="visibilityp">
 		  <u>
 				<%= f.label nil, ".invite all friends" %><span title=".invite all your hoos.in friends"> (?)</span><br>
 				<i class="icon-group questionMark"></i>
@@ -63,7 +75,7 @@
 	  	<i class="icon-tasks"></i>
 		</div>
 	  <u>
-	    <%= f.label :min_attendees, "Tipping Point*" %> <br/>
+	    <%= f.label :min_attendees, "Tipping Point" %> <br/>
 	    <%= f.text_field :min, :class => 'input-mini', autocomplete: "off" %>
 	  </u>
 	  <u>
@@ -97,11 +109,8 @@
 
 <div>
 	<ul>
-		<% if current_user.vendor? %>
-			<li id="visibility" title=".invite" style="color:#EB8325;"><i class="icon-bullhorn"></i></li>
-		<% else %>
-			<li id="visibility" title=".invite" style="color:#EB8325;"><i class="icon-group"></i></li>
-		<% end %>
+		<li id="addDateTime" style="color: #EB8325;" title="Add Date and Time"><i class="icon-time"></i></li>
+		<li id="visibility" title=".invite"><i class="icon-group"></i></li>
  	  <li id="addtipping" title="Add a Tipping Point"><i class="icon-tasks"></i></li>
 	  <li id="addLink" title="Add a Link"><i class="icon-link"></i></li>
 	  <li id="addmap" title="Add a Location"><i class="icon-map-marker"></i></li>

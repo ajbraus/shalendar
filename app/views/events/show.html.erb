@@ -38,16 +38,18 @@
     <% unless @event.link.blank? %>
     <div class="event_link">
       <%= link_to "http://#{@event.link}", target: "_blank" do %>
-        <span class="fadeInOrange" title="Idea's Website"><i class="icon-link"></i> link</span>
+        <span class="fadeInOrange" title="Idea's Website"><i class="icon-link"></i> <%= @event.link[0..15] %></span>
       <% end %>
     </div>
     <% end %>
     <% unless @event.address == '' || @event.address.nil? %>
       <div class="event_location">
         <%= link_to "http://mapof.it/#{@event.address}", target: "_blank", title:"View in Google Maps" do %>
-          <span class="fadeInOrange"><i class="icon-map-marker"></i></span>
+          <span class="fadeInOrange">
+            <i class="icon-map-marker"></i>
+            <span style="font-size: 22px;"> <%= @event.address %></span>
+          </span>
         <% end %>
-        <%= @event.address %>
       </div>
     <% end %>
     <% if @event.price.present? %>
@@ -68,7 +70,34 @@
       <%= render 'rsvp_form' %>
     </div>
 	</div>
+  <!-- METER -->
+  <% if @event.tipped? %>  
+    <div class="meter">
+      <span style="width:100%;"><span></span></span>
+    </div>
+  <% else %>
+    <div class="meter animate orange">
+      <span style=<%= 'width:' + "#{(100*@event.guests.count.to_f/@event.min.to_f).round}" + "%;"%>><span></span></span>
+    </div>
+  <% end %>
 
+  <div class="event_title">
+    <div><%= @event.title %></div>
+      <div class="eventIcons">
+      <% if @event.categories.any? %>
+        <% @event.categories.each do |cat| %>
+          <%= cat.name %>
+        <% end %>
+      <% end %>
+      <% if @event.is_public? %>
+        <i class="icon-bullhorn" title="Public"></i>
+      <% end %>
+      <% if @event.family_friendly? %>
+        <i class="icon-home" title="Family Friendly"></i>
+      <% end %>
+      </div>
+  </div>
+  <div class="event_description"><%= @event.description %></div>
   <% if @event.has_image? %>
     <div class="promo_img">
       <% if @event.parent.blank? %>
@@ -86,40 +115,7 @@
       <% end %>
     </div>
   <% end %>
-
-	<div class="event_title">
-	  <div><%= @event.title %></div>
-    <div><%= @event.description %></div>
-
-      <div class="eventIcons">
-      <% if @event.categories.any? %>
-        <% @event.categories.each do |cat| %>
-          <%= cat.name %>
-        <% end %>
-      <% end %>
-      <% if @event.is_public? %>
-        <i class="icon-bullhorn" title="Public"></i>
-      <% end %>
-      <% if @event.family_friendly? %>
-        <i class="icon-home" title="Family Friendly"></i>
-      <% end %>
-      </div>
-	</div>
-      <% if false %>
-      <% if @event.tipped? %>  
-        <div class="meter animate">
-          <span style="width: <%= (@event.guests.count.to_f/@event.min.to_f*100).round %>%;"><span></span></span>
-        </div>
-        <span class="guests"><%= @event.guests.count %></span>
-      <% else %>
-        <div class="meter animate orange">
-          <span style="width: <%= (@event.guests.count.to_f/@event.min.to_f*100).round %>%;"><span></span></span>
-        </div>
-        <span class="guests"><%= @event.guests.count %></span>
-        <span class="tipping_point"><%= event.min %></span>
-      <% end %>
-      <% end %>
-
+  
   <% if !@event.promo_vid.nil? && @event.promo_vid != "" %>
     <div class="promo_vid">
       <%= raw(youtube_embed(@event.promo_vid)) %>

@@ -1,5 +1,5 @@
 class AddingDescriptionToEvents < ActiveRecord::Migration
   def change
-  	add_column :events, :description, :string
+  	add_column :events, :description, :text
   end
 end

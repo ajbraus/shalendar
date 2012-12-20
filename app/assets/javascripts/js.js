@@ -165,13 +165,15 @@ $(document).bind('click', function(e) {
 // DATETIME PICKER
 
   $('#datetime').datetimepicker({
-      timeFormat: "h:mm tt",
+      minDate: 0,
+      dateFormat: "D m/d/y",
+      timeFormat: "h:mmt",
       ampm: true,
       stepMinute: 15,
       addSliderAccess: true,
       sliderAccessArgs: { touchonly: true },
       hour:12,
-      minute:00,
+      minute:00
   });
 
 //Get local time zone- TRYING TO DO IT JavaScript
@@ -187,7 +189,7 @@ $(document).bind('click', function(e) {
 
 //FORM JS
 
-$('#categories').buttonset();
+//$('#categories').buttonset();
 $("input[type=checkbox].switch").each(function() {
   $(this).before(
       '<span class="switch">' +
@@ -223,6 +225,34 @@ $('#datetime').datetimepicker({
     sliderAccessArgs: { touchonly: true },
     hour:12,
     minute:00
+});
+
+$("#visibility").click(function () {
+  if ($("#visibilityp").hasClass("open")) {
+   $("#visibilityp").slideUp();
+   $('#visibilityp').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#visibilityp').slideDown();
+   $("#visibilityp").addClass("open");
+   $("#visibility").css("color", "#EB8325")
+  }
+});
+
+$("#addDateTime").click(function () {
+  if ($("#dateTime").hasClass("open")) {
+   $("#dateTime").slideUp();
+   $('#dateTime').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#dateTime').slideDown();
+   $("#dateTime").addClass("open");
+   $("#addDateTime").css("color", "#EB8325")
+  }
 });
 
  $("#addLink").click(function () { 
@@ -329,27 +359,76 @@ $('form#bankAccount').validate();
 $('#new_suggestion_form').validate();
 
 // NEW IDEA FORM VALIDATION
+
+// NEW IDEA FORM VALIDATION
   $("#new_event_form").validate({
     rules: {
+      "#datetime": {
+        required: true
+      },
       "event[title]": {
-        maxlength: 140
+        maxlength: 90
       },
       "event[min]": {
-        number: true
+        number: true,
+        min: 0
       },
       "event[max]": {
+        number: true,
+        max: 1000000
+      },
+      "event[duration]": {
+        required: true,
         number: true
       },
-      "event[min]": {
-        min: 100
-      }
-      // "event[duration]": {
-      //   required: true,
-      //   number: true
-      // }
+      "event[link]": {
+        maxlength:255
+      },
+      "event[promo_url]": {
+        maxlength:255
+      },
+      "event[promo_vid]": {
+        maxlength:255
+      },
+      "event[price]": {
+        number: true,
+        max: 10000
+      },
+      submitHandler: function(f){
+        $('form input[type=submit]').attr('disabled', 'disabled');
+        form.submit();
     }
+  }
   });
 
+  $.validator.addMethod(
+        "regex",
+        function(value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(value);
+        }
+  );
+
+$("#event_promo_vid").rules("add", { 
+  regex: "(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?(.{10,})",
+  messages: {
+    regex: "Please Enter a Valid YouTube URL"
+  }
+  });
+
+$("#event_link").rules("add", {
+  regex: "^(((ftp|https?):\/\/)?(www\.)?)?[a-z0-9\-\.]{3,}\.[a-z]{3}(.{0,})?",
+  messages: {
+    regex: "Please Enter a Valid URL"
+  }
+  });
+
+$("#event_promo_url").rules("add", {
+  regex: "\.(png|jpg|jpeg|gif)$",
+  messages: {
+    regex: "Please Enter a Valid URL"
+  }
+});
 
 // NEW REGISTRATION VALIDATION
 

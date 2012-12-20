@@ -341,7 +341,6 @@ right: 58px;
 }
 
 .new_crowd_idea {
-	width: 83%;
 	.event_form {
 		width:100%;
 	}
@@ -349,6 +348,19 @@ right: 58px;
 		display:none;
 	}
 }
+
+	.crowd_idea_banner {
+		top: 72px;
+		img {
+			width: 70px;
+		}
+	}
+
+	.event_form {
+		ul {
+			font-size: 32px;
+		}
+	}
 
 }
 
