@@ -3454,9 +3454,7 @@ top: -7px;
 }
 
 .eventIcons {
-  position: absolute;
-bottom: 0px;
-right: 10px;
+  float:right;
 }
 
 .fb-login-button {
@@ -3940,4 +3938,8 @@ top: 7px;
     width: 390px;
     margin-bottom: 10px;
   }
+}
+
+.eventTitle {
+  float:left;
 }
