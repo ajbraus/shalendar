@@ -14,7 +14,7 @@ before_filter :authenticate_user!
       current_user.follow!(@user)
       @relationship = current_user.relationships.find_by_followed_id(@user.id) #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
       @relationship.confirmed = false
-      Notifier.delay.confirm_follow(@user, current_user)
+      @user.delay.contact_confirm(current_user)
       if @relationship.save
         respond_to do |format|
           format.html { redirect_to :back, notice: "Friend request sent to #{@user.name}" }
@@ -25,7 +25,7 @@ before_filter :authenticate_user!
       end
     #OTHERWISE - IS NOT VENDOR AND DOES NOT REQUIRE CONFIMER FOLLOW
     else
-      Notifier.delay.new_friend(@user, current_user)
+      @user.delay.contact_friend(current_user)
       unless current_user.following?(@user) || current_user.request_following?(@user)
         current_user.follow!(@user)
       end

@@ -223,7 +223,7 @@ class Api::V1::EventsController < ApplicationController
     if @mobile_user != @event.user
       render :status=>300, :json=>{:error => "you don't have the authority to cancel this event"}
     end
-    Notifier.delay.cancellation(@event, @event.guests)
+    @event.delay.contact_cancellation(@event)
         render :json=> { :success => true
         }, :status=>200
   end

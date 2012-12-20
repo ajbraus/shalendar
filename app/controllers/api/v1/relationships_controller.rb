@@ -21,7 +21,7 @@ include UsersHelper
         @relationship = @mobile_user.find_by_followed_id(@user_to_follow.id)
         @relationship.confirmed = false
         if @relationship.save
-          Notifier.delay.confirm_follow(@user_to_follow, @mobile_user)
+          @user_to_follow.delay.contact_confirm(@mobile_user)
           render :status=>200, :json=>{:success=>true, :pfu=>@user_to_follow}
           return
         else
@@ -29,7 +29,7 @@ include UsersHelper
           return
         end
     else
-      Notifier.delay.new_friend(@user_to_follow, @mobile_user)
+      @user_to_follow.delay.contact_friend(@mobile_user)
       @mobile_user.follow!(@user_to_follow)
       @relationship = @mobile_user.relationships.find_by_followed_id(@user_to_follower.id)
       @relationship.confirmed = true

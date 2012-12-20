@@ -1,15 +1,13 @@
 ------------- Pre-Holidays -----------
+Finish the new notifiers... finish transfer from notifier to user model, replace .delay calls to act on user, finish trimming notifier calls
+
 Copy all over site
 FAQ
-
-** Functionality is not clear that the focus is on doing things with friends
-
-** The point: if we are getting venues to use it as a tool, what they really will want is for their audience to friend them on hoos.in- so we should go back to our original plan just looking at venues as our super users.
-
 
 ------------- Mobile Apps --------------
 
 Android App
+	Seen in the Google Play market
 	GCM messages
 		eventually manage multiple devices for same user
 

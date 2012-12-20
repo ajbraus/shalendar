@@ -26,7 +26,6 @@ week of 11/19
 *** adding facebook after already have an account doesn't seem to work
 ** have to double click all buttons with tooltips when from mobile
 
-Also, mobile registration through facebook doesn't seem to work either, let's pair on this.
 
 ------- Timeline for Ludlow Thieves --------
 
@@ -218,7 +217,7 @@ Rsvp - checked_in? boolean with mobile api to check in.
 
 	hovering putting a box around idea shields
 
-
+.interests select adventure category not working
 ------------------------------------------------------------------------
 
 Suggested friends
