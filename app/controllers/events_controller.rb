@@ -65,8 +65,8 @@ class EventsController < ApplicationController
 
     if @event.save
       @event.save_shortened_url
-      if params[:category]
-        Categorization.create(event_id: @event.id, category_id: params[:category])
+      if params[:category_id]
+        Categorization.create(event_id: @event.id, category_id: params[:category_id])
       end
       if params[:parent_id]
         if @event.require_payment? && current_user.credit_card_uri.nil?

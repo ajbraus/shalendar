@@ -30,10 +30,7 @@
 			<div class="idea_categories" id="addcategoriesp" style="display:none;">
 				<%= label :category, "Category*" %>
 		    <div id="categories">
-		    	<% Category.all.each do |c| %>
-			      <%= radio_button_tag :category, "#{c.id}", "#{c.name}", id:"radio#{(c.id)}", class:"category_radio", alt:"#{c.name}" %>
-			      <%= label_tag "radio#{(c.id)}", "#{c.name}" %>
-		    	<% end %>
+		    	<%= collection_select :category, :category_id, Category.all, :id, :name, { :prompt => true } %>
 	    	</div>
 	    	<div class="family_friendly_checkbox">
 	    		<%= f.label "Family Friendly?" %><br>

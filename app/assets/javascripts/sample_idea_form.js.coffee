@@ -51,9 +51,11 @@ $ ->
   	$('.group_button').toggle();
 	
 	#CATEGORY
-	$('#categories > input').change ->
-		category = $(@).attr('alt');
-		$('#eventCategory').text(category);
+	$('#categories > select').change ->
+		text = $('#categories > select option:selected').text();
+		if text == "Please select"
+			text = ''
+		$('#eventCategory').text(text);
 
 	#TIPPING POINT
 	$('#event_min').keyup ->

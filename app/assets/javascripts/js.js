@@ -40,7 +40,7 @@ $("input[type=checkbox].switch").each(function() {
     $(this).next()[0].checked = !$(this).next()[0].checked;
   });
 
-$('#categories').buttonset();
+//$('#categories').buttonset();
 
 // SETTINGS DROPDOWN
 

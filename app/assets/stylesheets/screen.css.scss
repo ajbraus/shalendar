@@ -203,6 +203,10 @@ line-height: 24px;
 -moz-border-radius: 5px;
 border-radius: 5px;
 font-size: 18px;
+color:white;
+&:hover {
+  color:white;
+}
 }
 
 .btn-large{
@@ -843,6 +847,7 @@ bottom: 16px;
   display:block; 
   padding:5px;
 }
+
 /* UL styles */
 .dropdown dd ul {
 text-align: left;
@@ -1140,11 +1145,7 @@ height: 20px;
 position: absolute;
 right: 3px;
 z-index: -2;
-<<<<<<< HEAD
-top: 56px;
-=======
 top: 58px;
->>>>>>> crowd_ideas
 }
 
 .friend_suggestions {
@@ -1383,15 +1384,19 @@ width: 235px;
 font-size: 1.1em;
 margin: 0px 0 14px 0;
 text-align: center;
+border-bottom: 1px dotted black;
+padding-bottom:2px;
 }
 
 .mini_event {
-  width:100%;
-  position: relative;
-  float:left;
-  margin: 0 11px 19px 0;
-  background-color: white;
-  overflow: hidden;
+width: 100%;
+position: relative;
+float: left;
+margin: 0 8px 8px 0;
+background-color: white;
+overflow: hidden;
+border-bottom: 1px dotted $divider;
+padding-bottom: 10px;
   a {
     color:black;
   }
@@ -3905,6 +3910,7 @@ box-shadow: 6px 6px 23px 3px rgba(0, 0, 0, 0.6);
   a {
     font-size: 49px;
   }
+}
 
 #eventStartsAtAndDuration {
   position: relative;
@@ -3927,4 +3933,11 @@ top: 7px;
   position: relative;
   right: 35px;
   color:$charCounter;
+}
+
+#categories {
+  select{
+    width: 390px;
+    margin-bottom: 10px;
+  }
 }
