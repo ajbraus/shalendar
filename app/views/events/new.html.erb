@@ -1,3 +1,24 @@
-<div id="new_idea">
-	<%= render 'new_idea_form' %>
+<div class="new_crowd_idea clearfix">
+	<div class="event_form">
+	  <%= form_for current_user.events.build, url: { :controller => 'events', :action => 'create' }, html: { id: "new_event_form" } do |f| %>
+	  <p>		
+	  	<div class="title_char_counter"><span id="titleCharCount">0</span>/60</div>
+		  <%= label :title, "Idea*" %><br/>
+	  	<%= f.text_field :title, id: "new_idea_title", class: "required", autocomplete: "off" %>
+		</p>
+	  <p>
+	  	<%= label :description, "The deets" %><br/>
+	  	<%= f.text_area :description, id: "new_idea_description", rows: 2, autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
+	  </p>  
+	  
+  <%= render partial: 'shared/idea_options', locals: { :f => f } %>
+		   
+	  <span class="new_idea_button"><%= f.submit 'Post Idea', :class => 'btn btn-large btn-primary', method: :post %></span>
+
+	  <% end %>
+	</div>
+	<!-- PREVIEW -->
+	<div class="idea_preview">
+		<%= render partial: 'sample_idea' %>
+	</div>
 </div>

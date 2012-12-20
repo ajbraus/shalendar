@@ -5,7 +5,6 @@
 <% if user_signed_in? %>
 
   <ul class="left_header">
-    <% if false %><li class="discover_banner"><%= link_to "crowd ideas", discover_path %></li><% end %>
     <li><%= render 'shared/city_user_dropdown' %></li>
   </ul>
 
@@ -18,21 +17,15 @@
         <% end %>
       </div>
     <% end %>
-    <div class="crowd_idea_banner">
-      <%= link_to discover_path do %>
-        <%= image_tag "crowd_ideas_banner.png" %>
+    <div class="instructions"><%= link_to '.instructions', what_is_hoosin_path %></div>
+      <% unless current_user.vendor? %>
+        <%= render 'shared/friend_search' %>
       <% end %>
     </div>
-  <div class="instructions"><%= link_to '.instructions', what_is_hoosin_path %></div>
-    <% unless current_user.vendor? %>
-      <%= render 'shared/friend_search' %>
-    <% end %>
-  </div>
 
 <% else %> <!-- IF NOT SIGNED IN -->
   <% unless params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
     <ul class="left_header">
-      <% if false %><li class="discover_banner"><%= link_to "crowd ideas", discover_path %></li> <% end %>
       <li><%= render 'shared/city_session_dropdown' %></li>
 
     </ul>
@@ -46,5 +39,12 @@
     </div>
   <% end %>
 <% end %>
+  <% if false %>
+    <div class="crowd_idea_banner">
+      <%= link_to crowd_ideas_path do %>
+        <%= image_tag "crowd_ideas_banner.png" %>
+      <% end %>
+    </div>
+  <% end %>
   </nav>
 </header>

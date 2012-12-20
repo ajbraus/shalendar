@@ -19,6 +19,18 @@ iPhone App
 General
 	How it works section??
 
+
+Make pushes work
+	check if push can open a link 
+		for 'set time page'
+		for ideas with no datetime
+	can app open the website?
+		for 'my activity'
+	otherwise - my idea's page
+
+Push notifications when someone rsvps to your idea
+emails/push notifications to all invites upon 'invite all friends'
+
 --------------- DB / Server -------------
 
 Silo by city **check make cities file in silo_by_city branch

@@ -1,4 +1,5 @@
 <li class="part activities">
+  <%= link_to event_path(event) do %>
     <% if event.has_image? %>
     <span class="activity_event">
       <% if event.parent.blank? %>
@@ -21,6 +22,7 @@
 		<div class="suggestionTitle">
 			<%= event.title %>
 		</div>
+  <% end %>
 		<%= render partial: "shalendar/activity_details", locals: { :event => event } %>
 	</div>
 	<ul class="suggestion_options">
@@ -33,15 +35,6 @@
       </li>
     <% end %>
     <% end %>
-    <li>
-      <%= link_to event_path(event) do %>
-        <% if event.is_public? %>
-          <span class="fadeInBlue" title="Explore City-Wide Idea"><i class="icon-bullhorn"></i></span>
-        <% else %>
-          <span class="fadeInBlue" title="Explore Idea"><i class="icon-cloud"></i></span>
-        <% end %>
-      <% end %>
-    </li>
     <li>
       <%= link_to repeat_event_path(:event_id => event.id), title:"Repeat Idea", class:"fancybox.ajax", id:"eventRepeat", remote:true do %>
         <span class="fadeInGreen"><i class="icon-repeat"></i></span>

@@ -1,5 +1,5 @@
 class ShalendarController < ApplicationController
-  before_filter :authenticate_user!, except: [ :vendor_splash, :home, :discover, :what_is_hoosin ]
+  before_filter :authenticate_user!, except: [ :vendor_splash, :home, :crowd_ideas, :what_is_hoosin ]
 
 	def home
     if user_signed_in?
@@ -113,7 +113,7 @@ class ShalendarController < ApplicationController
     end
   end
 
-  def discover
+  def crowd_ideas
     if user_signed_in?
       @my_plans = current_user.plans.where('starts_at > ?', @date).order('starts_at desc')
       @city = current_user.city

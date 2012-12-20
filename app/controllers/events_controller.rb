@@ -19,10 +19,10 @@ class EventsController < ApplicationController
   # GET /events/new
   # GET /events/new.json
   def new
-    @event = current_user.events.build
+    #@event = current_user.events.build
     respond_to do |format|
       format.html # new.html.erb
-      #format.json { render json: @event }
+      format.json { render json: @event }
       format.js # new.js.erb
     end
   end
@@ -53,6 +53,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
     @event = current_user.events.build(params[:event])
     if @event.starts_at.present? && @event.duration.present?
       @event.ends_at = @event.starts_at + @event.duration*3600
@@ -60,6 +61,7 @@ class EventsController < ApplicationController
     @event.tipped = true                    if @event.min <= 1
     @event.parent_id = params[:parent_id]   if params[:parent_id]
     @event.city = current_user.city
+    @event.guests_can_invite_friends = true
 
     if @event.save
       @event.save_shortened_url
@@ -94,10 +96,10 @@ class EventsController < ApplicationController
         format.html { redirect_to @event, notice: "Idea Posted Successfully" }
         format.json { render json: @event, status: :created, location: @event }
       end
-    elsif @event.is_big_idea?
-      respond_to do |format|
-        format.html { redirect_to discover_path, notice: "An Error prevented Your Idea from Posting" }
-      end
+    # elsif @event.is_big_idea?
+    #   respond_to do |format|
+    #     format.html { redirect_to crowd_ideas_path, notice: "An Error prevented Your Idea from Posting" }
+    #   end
     else
       respond_to do |format|
         format.html { redirect_to root_path, notice: "An Error prevented Your Idea from Posting" }

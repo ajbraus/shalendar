@@ -62,7 +62,7 @@
 
 	.event {
 		margin:8px;
-		min-width: 165px;
+		min-width: 190px;
 		max-width: 200px;
 		min-height: 110px;
 		max-height: 410px;
@@ -114,7 +114,7 @@ height: 100%;
 
 	.right_header {
 		top: 10px;
-		right:16px;
+		right: 110px;
 	}
 
 	#friends {
@@ -130,7 +130,7 @@ top: 10px;
 min-width: 570px;
 		.promo_img {
 			img {
-				max-width: 580px;
+				max-width: 100%;
 			}
 		}
 		.when {
@@ -156,7 +156,7 @@ min-width: 570px;
 
 		.event_buttons {
 			font-size: 30px;
-			top: 23px;
+			top: 63px;
 			text-align: right;
 			position: relative;
 			margin-right: 9px;
@@ -245,12 +245,12 @@ left: -121px;
 		}
 
 		.btn-new-idea {
-			padding: 10.5px 49px;
-			position: relative;
-			-moz-border-radius: 6px;
-			-webkit-border-radius: 6px;
-			border-radius: 6px;
-			width: 130px;
+			padding: 10.5px 33px;
+position: relative;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+border-radius: 6px;
+width: 170px;
 		}
 		.new_idea {
 		}
@@ -276,20 +276,41 @@ margin-left: 278px;
 		}
 
 		.new_crowd_idea {
-			width: 69%;
+				padding-top: 5%;
+				padding-bottom: 5%;
 			.event_form {
-				width:58%;
+				width: 40%;
+				margin: 0;
+				float: left;
+				overflow: auto;
+				border-right:1px solid $divider;
 			}
 			.idea_preview {
-				width: 30%;
-				right: 13%;
-				position: fixed;
-				top: 140px;
-				  img {
-      		width:100%;
+				position: relative;
+				bottom: 30px;
+				float: left;
+				width: 52%;
+				margin: 0 auto;
+				margin-left: 3%;
+				  .event {
+				  	margin-bottom: 20px;
+      			margin: 0 auto;
+      			margin-bottom:20px;
     		}
+    	.event_show {
+    		margin: 0 auto;
+				width: 100%;
+				min-width: 0;
+				overflow: hidden;
+    	}
 			}
 		}
+
+	.event_form {
+		ul {
+			font-size: 20px;
+		}
+	}
 
 }
 
