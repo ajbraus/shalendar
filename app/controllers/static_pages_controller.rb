@@ -6,7 +6,7 @@ class StaticPagesController < ApplicationController
     else
       @time_in_zone = Time.now.in_time_zone(session[:current_time_zone])
     end
-    @ideas = Event.where('is_public = ? AND starts_at > ?', true, Time.now ).sort_by{|i| -i.guests.count}[0..4]
+    @ideas = Event.where('is_public = ? AND starts_at > ?', true, Time.now ).sort_by{|i| -i.guests.count}[0..3]
   end
 
   def about
