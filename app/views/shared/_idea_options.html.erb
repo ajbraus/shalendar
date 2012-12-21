@@ -11,7 +11,7 @@
 		</div>
 		<div class="venue_invitation_options" id="visibilityp" style="display:none;">
 		  <u>
-		  	<%= f.label :is_public, ".invite #{current_user.city.name.split(",")[0].to_s.capitalize}" %><span title="Make this a City-Wide idea"> (?)</span><br>
+		  	<%= f.label :is_public, ".invite #{@current_city.name.split(",")[0].to_s.capitalize}" %><span title="Make this a City-Wide idea"> (?)</span><br>
 				<i class="icon-bullhorn questionMark"></i>
 				<span id="isPublic"><%= f.check_box :is_public, class: "switch" %></span>
 			</u>

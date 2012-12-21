@@ -142,7 +142,7 @@ scripts not working
 -----------------------------------------------------
 
 complete new completely pinterest view
-	move sidebar into header
+	update joyride
 	add 'activity' to face dropdown
 	make .in's an ajax dropdown
 	make load of filteres ajax

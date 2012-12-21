@@ -16,7 +16,7 @@
     <% if current_user.invited_all_friends?(@event) %>  
       <span id="green" class="fadeInGreen" title=".invited all hoos.in friends"><i class="icon-group"></i> .invite all</span>
     <% elsif @event.guests_can_invite_friends? || @event.user == current_user %>
-      <%= link_to invite_all_friends_path(:event_id => @event.id), confirm: "Post idea to wall of all friends in #{current_user.city.name}?" do %>
+      <%= link_to invite_all_friends_path(:event_id => @event.id), confirm: "Post idea to wall of all friends in #{@current_city.name}?" do %>
           <span class="fadeInGreen"title=".invite all hoos.in friends"><i class="icon-group"></i> .invite all</span>
       <% end %>
     <% end %>

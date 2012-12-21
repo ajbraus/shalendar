@@ -1,11 +1,11 @@
 		<% if user_signed_in? %>
 	<div class="event shield
-		<%= event.ends_at < @time_in_zone ? 'over' : '' %> 
+		<%= event.ends_at < Time.now ? 'over' : '' %> 
 		<%= event.is_public? && !current_user.invited?(event) && !current_user.rsvpd?(event) ? 'public' : '' %>
 		<%= current_user.rsvpd?(event) ? 'rsvpd' : '' %>"
 		data-event-id='<%= event.id %>'>
 <% else %>
-	<div class="event shield <%= event.ends_at < @time_in_zone ? 'over' : '' %>">
+	<div class="event shield <%= event.ends_at < Time.now ? 'over' : '' %>">
 <% end %>
 	<%= link_to event do %>
 		<% if user_signed_in? %>

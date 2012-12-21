@@ -38,10 +38,8 @@
   <body>
     <%= render 'shared/get_time_zone_offset' %>
     <%= render 'layouts/fb_script' %> 
-    <%= render 'layouts/header' %> 
-    <div class="layout"> 
-      <%= render 'layouts/alerts' %>
-      <span id="invitations"></span>
+    <%= render 'layouts/header' %>
+    <div class="layout" id="content"> 
       <%= yield %>
     </div>
       <%= render 'layouts/footer' %>

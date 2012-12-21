@@ -14,7 +14,7 @@
       <!-- CITY ICON -->
       <div class="city-icon">
         <%= link_to yellow_pages_path, :remote => true, class:"city_vendors fancybox.ajax" do %>
-          <%= image_tag current_user.city.icon.url(:icon) %>
+          <%= image_tag @current_city.icon.url(:icon) %>
         <% end %>
       </div>
     <% end %>
@@ -48,4 +48,8 @@
     </div>
   <% end %>
   </nav>
+  <span id="invitations"></span>
+  <span id="plans"></span>
+
+  <%= render 'layouts/alerts' %>
 </header>

@@ -60,7 +60,7 @@ class EventsController < ApplicationController
     end
     @event.tipped = true                    if @event.min <= 1
     @event.parent_id = params[:parent_id]   if params[:parent_id]
-    @event.city = current_user.city
+    @event.city = @current_city
     @event.guests_can_invite_friends = true
 
     if @event.save
@@ -128,7 +128,7 @@ class EventsController < ApplicationController
       @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event)}
       
       #if a user is 'everywhere else' then we don't silo their invitations...
-      @friends = @friends.reject { |f| f.city != current_user.city }
+      @friends = @friends.reject { |f| f.city != @current_city }
       @fb_invites = @event.fb_invites
     end
     

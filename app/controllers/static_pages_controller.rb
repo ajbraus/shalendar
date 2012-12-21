@@ -2,9 +2,9 @@ class StaticPagesController < ApplicationController
   
   def landing
     if session[:current_time_zone].nil?
-      @time_in_zone = Time.now.in_time_zone("Central Time (US & Canada)")
+      Time.now = Time.now.in_time_zone("Central Time (US & Canada)")
     else
-      @time_in_zone = Time.now.in_time_zone(session[:current_time_zone])
+      Time.now = Time.now.in_time_zone(session[:current_time_zone])
     end
     @ideas = Event.where(:is_public => true).sort_by{|i| -i.guests.count}[0..4]
   end
