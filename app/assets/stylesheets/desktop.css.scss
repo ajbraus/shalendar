@@ -60,6 +60,11 @@
 		display: none;
 	}
 
+	.crust .new_idea_button {
+		float: right;
+		margin-right: 10px;
+}
+
 	.event {
 		margin:8px;
 		min-width: 190px;
@@ -106,7 +111,8 @@ height: 100%;
 	}
 
 	.user_search {
-		top: 10px;
+		top: 7px;
+		float: left;
 		input[type=text] {
 		width: 200px;
 		}

@@ -1,6 +1,7 @@
 <header>
     <%= render partial: 'shalendar/joyride' %>
   <nav>
+    <div class="sky">
   <%= render 'layouts/logo' %>
 
 <% if user_signed_in? %>
@@ -18,10 +19,6 @@
         <% end %>
       </div>
     <% end %>
-    <div class="instructions"><%= link_to '.instructions', what_is_hoosin_path %></div>
-      <% unless current_user.vendor? %>
-        <%= render 'shared/friend_search' %>
-      <% end %>
     </div>
 
 <% else %> <!-- IF NOT SIGNED IN -->
@@ -47,6 +44,22 @@
       <% end %>
     </div>
   <% end %>
+    </div>
+    <div class="crust">
+      <% unless current_user.vendor? %>
+        <%= render 'shared/friend_search' %>
+      <% end %>
+      <div class="new_idea_button"><%= render 'shared/new_idea_button' %></div>
+      <div class="instructions"><%= link_to '.instructions', what_is_hoosin_path %></div>
+    </div>
+
+    <div class="magma">
+      <div class="navigation">
+        <%= link_to 'all', root_path %> | 
+        <%= link_to 'ideas', ideas_path %> | 
+        <%= link_to 'plans', plans_path %>
+      </div>
+    </div>
   </nav>
   <span id="invitations"></span>
   <span id="plans"></span>

@@ -147,6 +147,9 @@ Shalendar::Application.routes.draw do
   match 'search' => 'shalendar#search'
   match 'datepicker' => "shalendar#datepicker"
 
+  match '/ideas', to: 'shalendar#ideas', as: "ideas"
+  match '/plans', to: 'shalendar#plans', as: "plans"
+
   match '/what_is_hoosin', :to => 'shalendar#what_is_hoosin', :as => "what_is_hoosin"
   #match '/crowd_ideas', :to => 'shalendar#crowd_ideas', :as => "crowd_ideas"
   match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"

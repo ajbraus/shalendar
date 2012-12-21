@@ -578,7 +578,7 @@ bottom: 1px;
 /* HOME */
 
 header {
-  height: 72px;
+  height: 152px;
   background-color: white;
   clear: both;
   position: fixed;
@@ -590,6 +590,19 @@ header {
     -moz-box-shadow:    0px 1px 8px rgba(50, 50, 50, 0.4);
     box-shadow: 0px 1px 8px rgba(50, 50, 50, .4);
     height: inherit;
+    .sky {
+      border-bottom: 1px solid $divider;
+      height: 69px;
+    }
+    .crust {
+      clear:both;
+      border-bottom: 1px solid $divider;
+      height: 44px;
+    }
+    .magma {
+      clear:both;
+    }
+
   }
   .interests_dropdown, .choose_city {
     color:black;
@@ -1021,7 +1034,8 @@ form {
 .fb-icon {
 float: left;
 position: relative;
-top: 5px;
+top: 4px;
+left: 280px;
 }
 
 /* Ribbon */
@@ -3822,7 +3836,8 @@ padding: 10px;
 }
 
 .instructions {
-  margin:15px 10px 0 10px;
+float: right;
+margin: 11px;
 }
 
 .rsvp_btn {
