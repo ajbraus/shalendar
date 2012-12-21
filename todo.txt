@@ -1,8 +1,3 @@
-12/12 Push
-
-Fix current users so they have all the .interests by default
-HEADER:
-
 friend buttons are now too big in raster
 City should be by session most of the time, in settings it can be stored in the DB
 
@@ -50,7 +45,6 @@ Mike
 ------------
 iPhone 
 
-
 Design coherence
 
 Fix so sending push notifications better than every 10 minutes (after creating, check some counter, then run the task)
@@ -90,7 +84,7 @@ new follower email link not working
 
 hi,
 
-Over the past two months, Mike and I have been listening to your suggestions and now we are proud to say we've listend and have just released a new version full of enhancements. Here they are:
+Over the past two months, Mike and I have been listening to your suggestions and now we are proud to say we've released a new version full of enhancements. Here they are:
 
 1) City-Wide Ideas - Post ideas to your whole city! We decided that pretty much anyone has something to share with their city, so you can now choose to post "Public" ideas 
 
@@ -104,10 +98,9 @@ Over the past two months, Mike and I have been listening to your suggestions and
 
 5) New Look - New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.
 
+Adam
 
 explore your city - prompt to join - lightbox with video and signup
-
-idea description/title
 
 rsvp prompt to share and add to calendar
 
@@ -139,24 +132,14 @@ messaging friends through hoos.in
 scripts not working
 	invite button not reloading (stack overflow question)
 
-Adam
 
-New idea page:
-	make sure duration is there if starts_at is
+	pinterest button failing
+	create email invite walkthrough like new idea
 	add "friend or city-wide idea?"
 	invite all my friends checkbox
-	Music is being added to all new ideas
+
 
 -----------------------------------------------------
-	update tipping logic
-		if has time
-			send email push and email
-		else
-			send push and email with link to add time to idea
-			show indicator of pitches tipped/untipped with and without time
-			warning email and push that it will expire in 30 days
-			warning email and push that it will expire in 7 days
-	Add time page
 
 complete new completely pinterest view
 	move sidebar into header
@@ -169,6 +152,16 @@ complete new completely pinterest view
 		crowd
 		now
 
+	update tipping logic
+		if has time
+			send email push and email
+		else
+			send push and email with link to add time to idea
+			show indicator of pitches tipped/untipped with and without time
+			warning email and push that it will expire in 30 days
+			warning email and push that it will expire in 7 days
+	Add time page
+
 rsvp out button
 rsvp url - drive traffic
 rsvp lightbox prompt to share/put on calendar
@@ -176,6 +169,8 @@ rsvp lightbox prompt to share/put on calendar
 more beautiful bug page
 
 add suggested friends to joyride
+
+'cancelled idea' should not delete, should just be cancelled but available for later
 
 scripts not working
 	invite button not reloading (stack overflow question) maybe need :format => .js . . .
