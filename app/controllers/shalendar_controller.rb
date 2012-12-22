@@ -223,21 +223,30 @@ class ShalendarController < ApplicationController
     @today = Date.today
     @weeks = (@today - @start_date).round/7
     #EVENTS
+    @events_last_week = Event.where(:starts_at => Time.now..(Time.now - 1.week)).count
     @events_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).count
     @rsvps_last_week = Rsvp.where(['created_at > ?', Time.now - 1.week])
-    
+    @rsvps_next_week = Rsvp.where(['created_at > ?', Time.now + 1.week])
+    @invitations_last_week = Event.where(:starts_at => Time.now..(Time.now - 1.week)).reduce(0) { |sum,e| sum + e.invitations.count }
+    @invitations_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).reduce(0) { |sum,e| sum + e.invitations.count }
+
     #RSVPs graph
     @rsvps_per_week = []
     @events_per_week = []
     @invitations_per_week = []
     @ratio_rsvps_to_invitations = [] 
     (0..@weeks).each do |week|
-      @rsvps_one_week = Rsvp.select { |r| r.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
-      @events_one_week = Event.select { |e| e.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
-      @invitations_one_week = Invitation.select { |i| i.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
-      @events_per_week << @events_one_week
+      @start = @start_date + week.weeks
+      @end = @start_date + (week + 1).weeks
+      @rsvps_one_week = Rsvp.where(:created_at => @start..@end).count
       @rsvps_per_week << @rsvps_one_week
+
+      @events_one_week = Event.where(:created_at => @start..@end).count
+      @events_per_week << @events_one_week
+
+      @invitations_one_week = Invitation.where(:created_at => @start..@end).count
       @invitations_per_week << @invitations_one_week
+
       if @invitations_one_week > 0 && @rsvps_one_week > 0
         @ratio_rsvps_to_invitations << @rsvps_one_week / @invitations_one_week 
       else 
@@ -263,9 +272,6 @@ class ShalendarController < ApplicationController
       f.series(:name=>'Madison', :data => @ratio_rsvps_to_invitations )
       f.xAxis(:type => 'datetime')
     end
-
-    @invitations_last_week = Event.where(:starts_at => Time.now..(Time.now - 1.week)).reduce(0) { |sum,e| sum + e.invitations.count }
-    @invitations_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).reduce(0) { |sum,e| sum + e.invitations.count }
 
     @invitations = LazyHighCharts::HighChart.new('graph') do |f|
       f.options[:title][:text] = "Invitations Since Inception"

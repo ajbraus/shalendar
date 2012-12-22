@@ -5,9 +5,10 @@
 <h1>
 	Ideas RSVPs & Invitations
 </h1>
-
+<p> Ideas Last Week: <strong><%= @events_last_week %></strong></p>
 <p> Ideas Next Week: <strong><%= @events_next_week %></strong></p>
 <p> RSVPs Last Week: <strong><%= @rsvps_last_week.count %></strong></p>
+<p> RSVPs Next Week: <strong><%= @rsvps_next_week.count %></strong></p>
 
 <%= high_chart("rsvps", @rsvps_v_events) %>
 
