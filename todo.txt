@@ -102,6 +102,8 @@ Adam
 
 fix edit idea
 
+fix so that if you close an invalid option in the new idea form it won't let you submit the form.
+
 remove groups
 
 add my ideas
