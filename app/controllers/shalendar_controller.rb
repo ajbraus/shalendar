@@ -229,13 +229,15 @@ class ShalendarController < ApplicationController
     #RSVPs graph
     @rsvps_per_week = []
     @events_per_week = []
+    @invitations_per_week = []
     @ratio_rsvps_to_invitations = [] 
     (0..@weeks).each do |week|
-      @rsvps_one_week = Rsvp.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
-      @events_one_week = Event.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
-      @invitations_one_week = Invitation.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
+      @rsvps_one_week = Rsvp.select { |r| r.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
+      @events_one_week = Event.select { |e| e.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
+      @invitations_one_week = Invitation.select { |i| i.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
       @events_per_week << @events_one_week
       @rsvps_per_week << @rsvps_one_week
+      @invitations_per_week << @invitations_one_week
       if @invitations_one_week > 0 && @rsvps_one_week > 0
         @ratio_rsvps_to_invitations << @rsvps_one_week / @invitations_one_week 
       else 
@@ -264,12 +266,6 @@ class ShalendarController < ApplicationController
 
     @invitations_last_week = Event.where(:starts_at => Time.now..(Time.now - 1.week)).reduce(0) { |sum,e| sum + e.invitations.count }
     @invitations_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).reduce(0) { |sum,e| sum + e.invitations.count }
-
-    @invitations_per_week = []
-    (0..@weeks).each do |week|
-      @invitations_one_week = Invitation.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
-      @invitations_per_week << @invitations_one_week
-    end
 
     @invitations = LazyHighCharts::HighChart.new('graph') do |f|
       f.options[:title][:text] = "Invitations Since Inception"
