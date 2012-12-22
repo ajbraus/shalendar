@@ -112,46 +112,6 @@ $(document).bind('click', function(e) {
         autoSize    : true
   });
 
-// VALIDATIONS
-
-  $('#fb_invite_friends').validate({
-    rules: {
-    submitHandler: function(f){
-        $('form input[type=submit]').attr('disabled', 'disabled');
-        form.submit();
-    }
-  }
-  });
-	$("#registration_form").validate({
-    rules: {
-    submitHandler: function(f){
-        $('form input[type=submit]').attr('disabled', 'disabled');
-        form.submit();
-    }
-  }
-  });
-
-  $("#new_comment").validate({
-    rules: {
-      'comment[content]': {
-        required: true,
-        maxlength: 250,
-        minlength: 1
-      },
-    submitHandler: function(f){
-        $('form input[type=submit]').attr('disabled', 'disabled');
-        form.submit();
-    }
-  }
-  });
-
-//   $('input[type=file]').fileValidator({
-//   onValidation: function(files){  $(this).attr('class',''); },
-//   onInvalid:    function(validationType, file){ $(this).addClass("error"); },
-//   maxSize:      '500kb', //optional
-//   type:         'image' //optional
-// });  
-
 // TABS
 
 	$("#views_list").tabs();
@@ -354,91 +314,56 @@ $("#addtipping").click(function () {
   }
 });
 
-$('form#bankAccount').validate();
+// VALIDATIONS
 
-$('#new_suggestion_form').validate();
-
-// NEW IDEA FORM VALIDATION
-
-// NEW IDEA FORM VALIDATION
-  $("#new_event_form").validate({
+  $('#fb_invite_friends').validate({
     rules: {
-      "#datetime": {
-        required: true
-      },
-      "event[title]": {
-        maxlength: 90
-      },
-      "event[min]": {
-        number: true,
-        min: 0
-      },
-      "event[max]": {
-        number: true,
-        max: 1000000
-      },
-      "event[duration]": {
-        required: true,
-        number: true
-      },
-      "event[link]": {
-        maxlength:255
-      },
-      "event[promo_url]": {
-        maxlength:255
-      },
-      "event[promo_vid]": {
-        maxlength:255
-      },
-      "event[price]": {
-        number: true,
-        max: 10000
-      },
-      submitHandler: function(f){
+    submitHandler: function(f){
+        $('form input[type=submit]').attr('disabled', 'disabled');
+        form.submit();
+    }
+  }
+  });
+  $("#registration_form").validate({
+    rules: {
+    submitHandler: function(f){
         $('form input[type=submit]').attr('disabled', 'disabled');
         form.submit();
     }
   }
   });
 
-  $.validator.addMethod(
-        "regex",
-        function(value, element, regexp) {
-            var re = new RegExp(regexp);
-            return this.optional(element) || re.test(value);
-        }
-  );
-
-$("#event_promo_vid").rules("add", { 
-  regex: "(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?(.{10,})",
-  messages: {
-    regex: "Please Enter a Valid YouTube URL"
+  $("#new_comment").validate({
+    rules: {
+      'comment[content]': {
+        required: true,
+        maxlength: 250,
+        minlength: 1
+      },
+    submitHandler: function(f){
+        $('form input[type=submit]').attr('disabled', 'disabled');
+        form.submit();
+    }
   }
   });
 
-$("#event_link").rules("add", {
-  regex: "^(((ftp|https?):\/\/)?(www\.)?)?[a-z0-9\-\.]{3,}\.[a-z]{3}(.{0,})?",
-  messages: {
-    regex: "Please Enter a Valid URL"
-  }
-  });
+//   $('input[type=file]').fileValidator({
+//   onValidation: function(files){  $(this).attr('class',''); },
+//   onInvalid:    function(validationType, file){ $(this).addClass("error"); },
+//   maxSize:      '500kb', //optional
+//   type:         'image' //optional
+// });  
 
-$("#event_promo_url").rules("add", {
-  regex: "\.(png|jpg|jpeg|gif)$",
-  messages: {
-    regex: "Please Enter a Valid URL"
-  }
-});
+
+$('form#bankAccount').validate();
+
+$('#new_suggestion_form').validate();
 
 // NEW REGISTRATION VALIDATION
 
   $('#signUp').validate();
 
-  $('#vendorSignUp').validate({
-    rules: {
-
-    }
-  });
+  $('#vendorSignUp').validate();
 
 // FOCUS ON FIRST TEXT FIELD OF PAGES
 
