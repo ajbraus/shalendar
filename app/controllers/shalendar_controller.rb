@@ -195,6 +195,37 @@ class ShalendarController < ApplicationController
     @iphone_users = User.where(:iPhone_user => true).count
     @android_users = User.where(:android_user => true).count
     @desktop_users = User.where(:android_user => false, :iPhone_user => false).count
+    
+    @devices_pie = LazyHighCharts::HighChart.new('graph') do |f|
+      f.options[:title][:text] = "Mobile Users"
+      f.options[:chart][:defaultSeriesType] = "pie"
+      series = {
+               :type=> 'pie',
+               :name=> 'Mobile Users',
+               :data=> [
+                  ['Desktop',   (@desktop_users/@total_users) ],
+                  ['Andorid',       (@android_users/@total_users) ],
+                  {
+                     :name=> 'iPhone',    
+                     :y=> (@iphone_users/@total_users),
+                     :sliced=> true,
+                     :selected=> true
+                  }
+               ]
+              }
+      f.series(series)
+      f.plot_options(:pie=>{
+        :allowPointSelect=>true, 
+        :cursor=>"pointer" , 
+        :dataLabels=>{
+          :enabled=>true,
+          :color=>"white",
+          :style=>{
+            :font=>"13px Trebuchet MS, Verdana, sans-serif"
+          }
+        } 
+        })
+    end
 
     @new_users_last_week = User.where(['created_at > ?', Time.now - 1.week]).count
     @inactive_users = User.where(['last_sign_in_at < ?', Time.now - 1.month])
