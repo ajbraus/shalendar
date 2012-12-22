@@ -100,6 +100,12 @@ Over the past two months, Mike and I have been listening to your suggestions and
 
 Adam
 
+fix edit idea
+
+remove groups
+
+add my ideas
+
 explore your city - prompt to join - lightbox with video and signup
 
 rsvp prompt to share and add to calendar
@@ -143,14 +149,47 @@ scripts not working
 
 complete new completely pinterest view
 	update joyride
+	fix friend only button
 	add 'activity' to face dropdown
 	make .in's an ajax dropdown
-	make load of filteres ajax
-	make queries for filters -
-		trending* (city-wide and friend ideas that are rsvping up quick!)
-		friends
-		crowd
-		now
+	fix .invites ajax dropdown
+
+Times
+	rails new model Instance event:references starts_at:datetime ends_at:datetime min:integer max:integer place:string longitude:float latitude:float 
+	remove_column :events, :gmaps
+	add_column :events, :is_one_off
+	has_many instances
+	accepts_nested_attributes_for :instances
+	belongs_to events
+	update all event.starts_at, event.min, event.ends_at, event.place, event.max -- or make methods for these . . . 
+	def starts_at
+		if self.has_tipped_instance?
+			self.tipped_instance.starts_at
+		else
+			"TBD"
+		end
+	end
+	event#create accepts nested attributes
+	tipping logic all goes into Instance model
+	views -
+		event create form
+		if instances exist that user is not rsvped (in or out of)
+			make the shield more prominent
+			show in shield and in show
+			include as new invites in new invited events
+
+
+
+
+#config/application.rb
+config.exceptions_app = self.routes
+#routes
+match "/404", :to => "errors#not_found"
+
+
+trending and crowd ideas filter
+
+fucking solve emails!
 
 	update tipping logic
 		if has time

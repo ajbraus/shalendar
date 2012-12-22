@@ -144,11 +144,12 @@ Shalendar::Application.routes.draw do
   match 'post_to_wall_permissions' => 'shalendar#post_to_wall_permissions'
   match 'friend_requests' => 'shalendar#friend_requests'
   match 'new_invited_events' => 'shalendar#new_invited_events'
+  match 'plans' => 'shalendar#plans'
   match 'search' => 'shalendar#search'
   match 'datepicker' => "shalendar#datepicker"
 
   match '/ideas', to: 'shalendar#ideas', as: "ideas"
-  match '/plans', to: 'shalendar#plans', as: "plans"
+  match '/calendar', to: 'shalendar#calendar', as: "calendar"
 
   match '/what_is_hoosin', :to => 'shalendar#what_is_hoosin', :as => "what_is_hoosin"
   #match '/crowd_ideas', :to => 'shalendar#crowd_ideas', :as => "crowd_ideas"

@@ -4,7 +4,7 @@ class ShalendarController < ApplicationController
 	def home
     if user_signed_in? #see all invites, ideas, and city ideas with times or tbd shuffled
       #city ideas
-      @city_ideas = Event.where(is_public: true, city_id: @current_city.id)
+      @city_ideas = Event.where(is_public: true, city_id: @current_city.id).reject { |e| e.ends_at < Time.now }
       #invites (friend ideas)
       @invites = []
       @invitations = current_user.invitations.order('created_at desc')
@@ -27,6 +27,15 @@ class ShalendarController < ApplicationController
   #HEADER 
   
   def new_invited_events
+    @invites = []
+    @invitations = current_user.invitations.order('created_at desc').limit(20)
+    @invitations.each do |i|
+      e = Event.find_by_id(i.invited_event_id)
+      unless current_user == e.user && e.ends_at < Time.now
+        e.inviter_id = i.inviter_id
+      end
+      @invites.push(e)
+    end
     current_user.new_invited_events_count = 0
     current_user.save
     respond_to do |format|
@@ -34,15 +43,34 @@ class ShalendarController < ApplicationController
     end
   end
 
-  def plans_dropdown
+  def plans
     @my_plans = current_user.plans.where('ends_at > ?', Time.now).order('starts_at asc')
   end
 
   def ideas
+    if user_signed_in?
+      #should see friend invites and city ideas without times
+      @city_ideas = Event.where(is_public: true, city_id: @current_city.id, starts_at: nil)
+      #invites (friend ideas)
+      @invites = []
+      @invitations = current_user.invitations.order('created_at desc')
+      @invitations.each do |i|
+        e = Event.find_by_id(i.invited_event_id)
+        unless current_user == e.user && e.starts_at.blank?
+          e.inviter_id = i.inviter_id
+        end
+        @invites.push(e)
+      end
 
+      @ideas = (@city_ideas | @invites).shuffle
+      #or .sort_by{|i| -i.guests.count}
+    else
+      @ideas = Event.where(is_public: true, city_id: @current_city.id, starts_at: nil).shuffle
+      #or .sort_by{|i| -i.guests.count}
+    end
   end
 
-  def plans
+  def calendar
     if user_signed_in?
       @plan_counts = []
       @invite_counts = []

@@ -1,8 +1,8 @@
-<div class="choose_city">
+<span class="choose_city">
 	<%= form_for(current_user, :as => :resource, :url => registration_path(current_user), :html => { :method => :put }) do |f| %>
 		<% @cities_for_dropdown = City.all - [City.find_by_name("Madison, Wisconsin")] %>
 		<% @cities_for_dropdown.unshift(City.find_by_name("Madison, Wisconsin")) %>
 		<%= f.collection_select :city_id, @cities_for_dropdown, :id, :city_name, {:selected => @current_city.id} %>
 		<%= f.submit class:"hidden"%>
 	<% end %>
-</div>
+</span>

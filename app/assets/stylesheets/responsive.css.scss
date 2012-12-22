@@ -20,6 +20,10 @@ body {
 	#datepicker {
 		display:none;
 	}
+
+	.name {
+		display: none;
+	}
 	.friend_suggestions {
 		display:none;
 	}
@@ -126,6 +130,10 @@ position: relative;
 // TIGHTEN UP FORECAST
 	.home {
 
+	}
+
+	.instructions {
+		display: none;
 	}
 
 	.date_bar {

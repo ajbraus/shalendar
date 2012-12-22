@@ -7,7 +7,6 @@
 
 	header {
 		nav {
-			padding-left: 2%;
 		}
 	}
 
@@ -20,8 +19,8 @@
 	}
 
 	.layout {
-		width: 95%;
-		margin-left:3%;
+	width: 97%;
+	margin: 0 auto;
 	}
 
 	.forecast {
@@ -48,8 +47,10 @@
 	}
 
 	.logo {
-		width: 164px;
-		left: 25px;
+	text-align: center;
+	img {
+	  width: 113px;
+	}
 	}
 
 	ul.left_header {
@@ -61,8 +62,8 @@
 	}
 
 	.crust .new_idea_button {
-		float: right;
-		margin-right: 10px;
+		float: left;
+		margin-left: 30px;
 }
 
 	.event {
@@ -111,22 +112,22 @@ height: 100%;
 	}
 
 	.user_search {
-		top: 7px;
-		float: left;
+position: absolute;
+top: 13px;
+left: 40px;
 		input[type=text] {
-		width: 200px;
+		width: 230px;
 		}
 	}
 
 	.right_header {
-		top: 10px;
-		right: 110px;
+		top: 12px;
+		right: 0px;
 	}
 
 	#friends {
-width: 65%;
-margin-left: 300px;
-top: 16px;
+width: 97%;
+top: 13px;
 	}
 
 	.event_show {
@@ -217,7 +218,7 @@ min-width: 570px;
 		
 		.dropdown dd ul {
 top: -10px;
-left: 2px;
+right: 15px;
 		}
 
 		.interests {
@@ -235,7 +236,7 @@ left: 2px;
 		}
 
 		.instagram-placeholder img {
-			width: 106px;
+			width: 137px;
 		}
 
 		.top {
@@ -269,12 +270,6 @@ width: 170px;
 			width: 235px;
 			/*height: 185px;*/
 			height: auto;
-		}
-
-		.home {
-position: relative;
-margin-right: 0px;
-margin-left: 278px;
 		}
 
 		.rsvp_button {
