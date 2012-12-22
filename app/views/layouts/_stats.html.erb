@@ -3,7 +3,10 @@
     <%= render 'shared/picture_dropdown' %>
     <div class="name"><%= current_user.name %>
       <% if current_user.admin? %>
-        <%= link_to admin_dashboard_path do %>
+        <%= link_to admin_user_dash_path do %>
+          <span class="fadeInRed"><i class="icon-beaker"></i></span>
+        <% end %>
+        <%= link_to admin_idea_dash_path do %>
           <span class="fadeInRed"><i class="icon-magic"></i></span>
         <% end %>
       <% end %>

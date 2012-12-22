@@ -1,5 +1,5 @@
 <div class="admin">
-<h1> Admin Dashboard </h1>
+<h1> Admin User Dashboard </h1>
 <h2> <%= Date.today %></h2>
 
 <h1>
@@ -22,9 +22,9 @@
 </dd>
 
 <dt>
- Total Users: <strong><%= @total_users %></strong>
- iPhone Users: <strong><%= @iphone_users %></strong>
- Android Users: <strong><%= @android_users %></strong>
+ Total Users: <strong><%= @total_users %></strong><br>
+ iPhone Users: <strong><%= @iphone_users %></strong><br>
+ Android Users: <strong><%= @android_users %></strong><br>
  Desktop Users: <strong><%= @desktop_users %></strong>
 </dt>
 <dd>
@@ -51,31 +51,6 @@
 	<% end %>
 </dd>
 </dl>
-<h1>
-	Events RSVPs & Invitations
-</h1>
-
-<p> Events Next Week: <strong><%= @events_next_week %></strong></p>
-
-<p> RSVPs Last Week: <strong><%= @rsvps_last_week.count %></strong></p>
-
-<%= high_chart("rsvps", @rsvps_v_events) %>
-
-<p> Invitations for Events Next Week: <strong><%= @invitations_next_week %></strong></p>
-
-<p><%= high_chart("invitations", @invitations) %></p>
-
-<p><%= high_chart("rsvps_to_invitations", @rsvps_to_invitations) %></p>
-
-<h1>
-	Public Ideas
-</h1>
-
-<dl>
-<dt>
-	<%= high_chart("public_ideas", @public_ideas_per_city) %>
-</dt>
-
 <div>
 	<strong>Users per city</strong>
 	<table>
@@ -87,22 +62,6 @@
 		<% end %>
 	</table>
 </div>
-</dt>
-<dt>
-	Clones pers Suggestion
-</dt>
 
-<dt>
-	Invitation per Suggestion
-</dt>
-
-<dt>
-	RSVP per Suggestion
-</dt>
-
-</dl>
-<dt>
-
-</div>
 </div>
 </div>

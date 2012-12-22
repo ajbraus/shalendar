@@ -185,7 +185,7 @@ class ShalendarController < ApplicationController
 
   end
 
-  def admin_dashboard
+  def admin_user_dash
     unless current_user.admin?
       redirect_to root_path
     end
@@ -216,7 +216,12 @@ class ShalendarController < ApplicationController
       f.series(:name=>'Users', :data => @users_per_week )
       f.xAxis(:type => 'datetime')
     end
-    
+  end
+
+  def admin_idea_dash
+    @start_date = User.unscoped.order('created_at asc').first.created_at.to_date
+    @today = Date.today
+    @weeks = (@today - @start_date).round/7
     #EVENTS
     @events_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).count
     @rsvps_last_week = Rsvp.where(['created_at > ?', Time.now - 1.week])
@@ -239,7 +244,7 @@ class ShalendarController < ApplicationController
     end
 
     @rsvps_v_events = LazyHighCharts::HighChart.new('graph') do |f|
-      f.options[:title][:text] = "RSVPs, Events, Invitations Since Inception"
+      f.options[:title][:text] = "RSVPs vs. Events Since Inception"
       f.options[:chart][:defaultSeriesType] = "line"
       f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
       f.series(:name=>'RSVPs', :data => @rsvps_per_week )
@@ -256,7 +261,7 @@ class ShalendarController < ApplicationController
     end
 
 
-    @invitations_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).inject { |sum,e| sum =+ e.invitations.count }
+    @invitations_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).reduce(0) { |sum,e| sum + e.invitations.count }
 
     @invitations_per_week = []
     (0..@weeks).each do |week|
@@ -294,9 +299,7 @@ class ShalendarController < ApplicationController
       f.series(:name=>'Other', :data=> @other_city_public_ideas_per_week )
       f.xAxis(:type => 'datetime')
     end
-
   end
-
 
   private
 
