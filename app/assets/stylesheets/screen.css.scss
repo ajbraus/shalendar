@@ -3240,7 +3240,13 @@ top: 25%;
 
 .admin {
   margin: 0 auto;
-  width:670px;
+  width: 960px;
+  h1 {
+    clear:both;
+  }
+  dd {
+    margin:20px;
+  }
 }
 
 .dollar {
@@ -3943,4 +3949,9 @@ top: 7px;
 
 .eventTitle {
   float:left;
+}
+
+.highcharts-container {
+  float: left;
+  margin: 10px;
 }

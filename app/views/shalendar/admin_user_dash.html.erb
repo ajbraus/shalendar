@@ -13,14 +13,7 @@
 <dd>
 	User.where(['created_at > ?', Time.now - 1.week])
 </dd> 
-
-<dt>
-	Users per week since inception
-</dt>
-<dd>
 	<%= high_chart("users_per_week", @users_per_week_graph) %>
-</dd>
-
 <dt>
  Total Users: <strong><%= @total_users %></strong><br>
  iPhone Users: <strong><%= @iphone_users %></strong><br>

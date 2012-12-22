@@ -151,6 +151,7 @@ Shalendar::Application.routes.draw do
   #match '/crowd_ideas', :to => 'shalendar#crowd_ideas', :as => "crowd_ideas"
   match '/admin_user_dash', :to => 'shalendar#admin_user_dash', :as => "admin_user_dash"
   match '/admin_idea_dash', :to => 'shalendar#admin_idea_dash', :as => "admin_idea_dash"
+  match '/admin_city_idea_dash', :to => 'shalendar#admin_city_idea_dash', :as => "admin_city_idea_dash"
   match '/yellow_pages', :to => 'shalendar#yellow_pages', :as => "yellow_pages"
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
   match 'share_all_fb_friends' =>'shalendar#share_all_fb_friends'

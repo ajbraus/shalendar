@@ -255,12 +255,14 @@ class ShalendarController < ApplicationController
     @rsvps_to_invitations = LazyHighCharts::HighChart.new('graph') do |f|
       f.options[:title][:text] = "Invitation to Rsvp conversion rate since inception"
       f.options[:chart][:defaultSeriesType] = "line"
+      f.options[:chart][:width] = 460
+      f.options[:chart][:height] = 350
       f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
       f.series(:name=>'Madison', :data => @ratio_rsvps_to_invitations )
       f.xAxis(:type => 'datetime')
     end
 
-
+    @invitations_last_week = Event.where(:starts_at => Time.now..(Time.now - 1.week)).reduce(0) { |sum,e| sum + e.invitations.count }
     @invitations_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).reduce(0) { |sum,e| sum + e.invitations.count }
 
     @invitations_per_week = []
@@ -276,7 +278,12 @@ class ShalendarController < ApplicationController
       f.series(:name=>'Invitations', :data=> @invitations_per_week)
       f.xAxis(:type => 'datetime')
     end
+  end
 
+  def admin_city_idea_dash
+    @start_date = User.unscoped.order('created_at asc').first.created_at.to_date
+    @today = Date.today
+    @weeks = (@today - @start_date).round/7
     @madison_public_ideas_per_week = [] 
     (0..@weeks).each do |week|
       @public_events = City.find_by_name("Madison, Wisconsin").events.where(:is_public => true)
@@ -292,7 +299,7 @@ class ShalendarController < ApplicationController
     end
 
     @public_ideas_per_city = LazyHighCharts::HighChart.new('graph') do |f|
-      f.options[:title][:text] = "Public Ideas since inception"
+      f.options[:title][:text] = "Public Ideas since inception by city"
       f.options[:chart][:defaultSeriesType] = "line"
       f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
       f.series(:name=>'Madison', :data => @madison_public_ideas_per_week )
@@ -300,7 +307,6 @@ class ShalendarController < ApplicationController
       f.xAxis(:type => 'datetime')
     end
   end
-
   private
 
 end
