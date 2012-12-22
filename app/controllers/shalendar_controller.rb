@@ -185,7 +185,7 @@ class ShalendarController < ApplicationController
 
   end
 
-  def admin_user_dash
+  def admin_dashboard
     unless current_user.admin?
       redirect_to root_path
     end
@@ -216,12 +216,7 @@ class ShalendarController < ApplicationController
       f.series(:name=>'Users', :data => @users_per_week )
       f.xAxis(:type => 'datetime')
     end
-  end
 
-  def admin_idea_dash
-    @start_date = User.unscoped.order('created_at asc').first.created_at.to_date
-    @today = Date.today
-    @weeks = (@today - @start_date).round/7
     #EVENTS
     @events_last_week = Event.where(:starts_at => Time.now..(Time.now - 1.week)).count
     @events_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).count
@@ -248,7 +243,7 @@ class ShalendarController < ApplicationController
       @invitations_per_week << @invitations_one_week
 
       if @invitations_one_week > 0 && @rsvps_one_week > 0
-        @ratio_rsvps_to_invitations << @rsvps_one_week / @invitations_one_week 
+        @ratio_rsvps_to_invitations << (@rsvps_one_week / @invitations_one_week)
       else 
         @ratio_rsvps_to_invitations << 0
       end
@@ -266,8 +261,9 @@ class ShalendarController < ApplicationController
     @rsvps_to_invitations = LazyHighCharts::HighChart.new('graph') do |f|
       f.options[:title][:text] = "Invitation to Rsvp conversion rate since inception"
       f.options[:chart][:defaultSeriesType] = "line"
-      f.options[:chart][:width] = 460
-      f.options[:chart][:height] = 350
+      #f.options[:chart][:width] = 460
+      #f.options[:chart][:height] = 350
+      f.options[:yAxis][:min] = 0
       f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
       f.series(:name=>'Madison', :data => @ratio_rsvps_to_invitations )
       f.xAxis(:type => 'datetime')
@@ -280,12 +276,8 @@ class ShalendarController < ApplicationController
       f.series(:name=>'Invitations', :data=> @invitations_per_week)
       f.xAxis(:type => 'datetime')
     end
-  end
 
-  def admin_city_idea_dash
-    @start_date = User.unscoped.order('created_at asc').first.created_at.to_date
-    @today = Date.today
-    @weeks = (@today - @start_date).round/7
+    #PUBLIC IDEAS
     @madison_public_ideas_per_week = [] 
     (0..@weeks).each do |week|
       @public_events = City.find_by_name("Madison, Wisconsin").events.where(:is_public => true)
