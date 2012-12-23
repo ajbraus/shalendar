@@ -68,7 +68,9 @@ class Api::V2::TokensController  < ApplicationController
     #Turn these into invitations... **UPDATE
     @all_email_invites = EmailInvite.where("email_invites.email = :current_user_email", current_user_email: @user.email)
 
-    @events = @user.invited_events.where(:starts_at > Time.now)#Need to check timezone here
+    @time_range = Time.now .. Time.now + 1.month
+    Event.where(starts_at: @time_range).joins(:invitations)
+                              .where(invitations: {invited_user_id: @user.id}).order("starts_at ASC")
 
     @events = @events.sort_by{|t| t[:starts_at]}
     #For Light-weight events sending for list (but need guests to know if RSVPd)
