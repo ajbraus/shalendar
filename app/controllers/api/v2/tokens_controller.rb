@@ -73,7 +73,7 @@ class Api::V2::TokensController  < ApplicationController
                               .where(invitations: {invited_user_id: @user.id}).order("starts_at ASC")
 
     #For Light-weight events sending for list (but need guests to know if RSVPd)
-    @list_events = []
+    @list_events = [Event.last]
     @events.each do |e|
       @guestids = []
       e.guests.each do |g|
@@ -112,10 +112,9 @@ class Api::V2::TokensController  < ApplicationController
                                     :notify_r=>@user.notify_event_reminders,
                                     :post_wall=>@user.post_to_fb_wall,
                                     :followed_users=>@user.followed_users,#may put these in separate calls for speed of login
-                                    :pending_followed_users=>@user.pending_followed_users,
-                                    #:followers=>@followers,
+                                    :pending_followed_users=>@user.pending_followed_users
+                                    },
                                     :invites=>@list_events
-                                    }
                                  }
   end
 
