@@ -31,7 +31,7 @@ include UsersHelper
     else
       @user_to_follow.delay.contact_friend(@mobile_user)
       @mobile_user.follow!(@user_to_follow)
-      @relationship = @mobile_user.relationships.find_by_followed_id(@user_to_follower.id)
+      @relationship = @mobile_user.relationships.find_by_followed_id(@user_to_follow.id)
       @relationship.confirmed = true
       if @relationship.save
         @mobile_user.add_invitations_from_user(@user_to_follow)
