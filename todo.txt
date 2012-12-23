@@ -1,8 +1,3 @@
-12/12 Push
-
-Fix current users so they have all the .interests by default
-HEADER:
-
 friend buttons are now too big in raster
 City should be by session most of the time, in settings it can be stored in the DB
 
@@ -50,7 +45,6 @@ Mike
 ------------
 iPhone 
 
-
 Design coherence
 
 Fix so sending push notifications better than every 10 minutes (after creating, check some counter, then run the task)
@@ -90,7 +84,7 @@ new follower email link not working
 
 hi,
 
-Over the past two months, Mike and I have been listening to your suggestions and now we are proud to say we've listend and have just released a new version full of enhancements. Here they are:
+Over the past two months, Mike and I have been listening to your suggestions and now we are proud to say we've released a new version full of enhancements. Here they are:
 
 1) City-Wide Ideas - Post ideas to your whole city! We decided that pretty much anyone has something to share with their city, so you can now choose to post "Public" ideas 
 
@@ -106,11 +100,7 @@ Over the past two months, Mike and I have been listening to your suggestions and
 
 Adam
 
-Music is being added to all new ideas
-
 explore your city - prompt to join - lightbox with video and signup
-
-idea description/title
 
 rsvp prompt to share and add to calendar
 
@@ -142,44 +132,66 @@ messaging friends through hoos.in
 scripts not working
 	invite button not reloading (stack overflow question)
 
-your friend just joined hoos.in
 
-add 'activity' to face dropdown
+	pinterest button failing
+	create email invite walkthrough like new idea
+	add "friend or city-wide idea?"
+	invite all my friends checkbox
 
-make event-link display the domain.com
+
+-----------------------------------------------------
+
+complete new completely pinterest view
+	move sidebar into header
+	add 'activity' to face dropdown
+	make .in's an ajax dropdown
+	make load of filteres ajax
+	make queries for filters -
+		trending* (city-wide and friend ideas that are rsvping up quick!)
+		friends
+		crowd
+		now
+
+	update tipping logic
+		if has time
+			send email push and email
+		else
+			send push and email with link to add time to idea
+			show indicator of pitches tipped/untipped with and without time
+			warning email and push that it will expire in 30 days
+			warning email and push that it will expire in 7 days
+	Add time page
+
+rsvp out button
+rsvp url - drive traffic
+rsvp lightbox prompt to share/put on calendar
 
 more beautiful bug page
 
-ajaxify friending (separate friends and new friends)
+add suggested friends to joyride
 
-implement following . . . too many invites/emails without it
+'cancelled idea' should not delete, should just be cancelled but available for later
+
+scripts not working
+	invite button not reloading (stack overflow question) maybe need :format => .js . . .
+	can't just facebook invite click click click
+
+Make friending ajaxy
+separate friends and new friends in event show
 
 make facebook ajax invites 
 
-make x to close the latest ideas
+your friend just joined hoos.in email or push
 
-rsvp out button
-
-rsvp url - drive traffic
-
-rsvp lightbox prompt to share/put on calendar
-
-Create crowd ideas ala kickstarter
-	onkeyup add text to shield
-		$('#eventStartsAtAndDuration').text(); (starts_at time "%l:%M%P" (duration) hrs)
-		$('#eventTitle').text();
-	add these elements:
-	 $('.event_shield_icons').append();
-			<i class="icon-bullhorn"></i>
-			<%= event.categories.first.name.capitalize %>
-			<i class="icon-home"></i>
-			<i class="icon-video"></i>
-	add image
+update activity page: number of pitches, number of ideas, number of invites, number of rsvps, number of checkins
 
 SDK - follow us on hoos.in "Our events on hoos.in" button and icon
 
 put this on hoosin button
 	Img, RSVP URL, Title, Description, starts_at, duration
+
+
+implement following . . . too many invites/emails without it
 
 SEAN:
 email images of ppl and ideas

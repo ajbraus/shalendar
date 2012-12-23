@@ -40,7 +40,7 @@ $("input[type=checkbox].switch").each(function() {
     $(this).next()[0].checked = !$(this).next()[0].checked;
   });
 
-$('#categories').buttonset();
+//$('#categories').buttonset();
 
 // SETTINGS DROPDOWN
 
@@ -112,46 +112,6 @@ $(document).bind('click', function(e) {
         autoSize    : true
   });
 
-// VALIDATIONS
-
-  $('#fb_invite_friends').validate({
-    rules: {
-    submitHandler: function(f){
-        $('form input[type=submit]').attr('disabled', 'disabled');
-        form.submit();
-    }
-  }
-  });
-	$("#registration_form").validate({
-    rules: {
-    submitHandler: function(f){
-        $('form input[type=submit]').attr('disabled', 'disabled');
-        form.submit();
-    }
-  }
-  });
-
-  $("#new_comment").validate({
-    rules: {
-      'comment[content]': {
-        required: true,
-        maxlength: 250,
-        minlength: 1
-      },
-    submitHandler: function(f){
-        $('form input[type=submit]').attr('disabled', 'disabled');
-        form.submit();
-    }
-  }
-  });
-
-//   $('input[type=file]').fileValidator({
-//   onValidation: function(files){  $(this).attr('class',''); },
-//   onInvalid:    function(validationType, file){ $(this).addClass("error"); },
-//   maxSize:      '500kb', //optional
-//   type:         'image' //optional
-// });  
-
 // TABS
 
 	$("#views_list").tabs();
@@ -165,13 +125,15 @@ $(document).bind('click', function(e) {
 // DATETIME PICKER
 
   $('#datetime').datetimepicker({
-      timeFormat: "h:mm tt",
+      minDate: 0,
+      dateFormat: "D m/d/y",
+      timeFormat: "h:mmt",
       ampm: true,
       stepMinute: 15,
       addSliderAccess: true,
       sliderAccessArgs: { touchonly: true },
       hour:12,
-      minute:00,
+      minute:00
   });
 
 //Get local time zone- TRYING TO DO IT JavaScript
@@ -187,7 +149,7 @@ $(document).bind('click', function(e) {
 
 //FORM JS
 
-$('#categories').buttonset();
+//$('#categories').buttonset();
 $("input[type=checkbox].switch").each(function() {
   $(this).before(
       '<span class="switch">' +
@@ -223,6 +185,34 @@ $('#datetime').datetimepicker({
     sliderAccessArgs: { touchonly: true },
     hour:12,
     minute:00
+});
+
+$("#visibility").click(function () {
+  if ($("#visibilityp").hasClass("open")) {
+   $("#visibilityp").slideUp();
+   $('#visibilityp').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#visibilityp').slideDown();
+   $("#visibilityp").addClass("open");
+   $("#visibility").css("color", "#EB8325")
+  }
+});
+
+$("#addDateTime").click(function () {
+  if ($("#dateTime").hasClass("open")) {
+   $("#dateTime").slideUp();
+   $('#dateTime').removeClass("open");
+  }
+  else {
+   $('.open').slideUp();
+   $('.open').removeClass("open");
+   $('#dateTime').slideDown();
+   $("#dateTime").addClass("open");
+   $("#addDateTime").css("color", "#EB8325")
+  }
 });
 
  $("#addLink").click(function () { 
@@ -324,42 +314,56 @@ $("#addtipping").click(function () {
   }
 });
 
+// VALIDATIONS
+
+  $('#fb_invite_friends').validate({
+    rules: {
+    submitHandler: function(f){
+        $('form input[type=submit]').attr('disabled', 'disabled');
+        form.submit();
+    }
+  }
+  });
+  $("#registration_form").validate({
+    rules: {
+    submitHandler: function(f){
+        $('form input[type=submit]').attr('disabled', 'disabled');
+        form.submit();
+    }
+  }
+  });
+
+  $("#new_comment").validate({
+    rules: {
+      'comment[content]': {
+        required: true,
+        maxlength: 250,
+        minlength: 1
+      },
+    submitHandler: function(f){
+        $('form input[type=submit]').attr('disabled', 'disabled');
+        form.submit();
+    }
+  }
+  });
+
+//   $('input[type=file]').fileValidator({
+//   onValidation: function(files){  $(this).attr('class',''); },
+//   onInvalid:    function(validationType, file){ $(this).addClass("error"); },
+//   maxSize:      '500kb', //optional
+//   type:         'image' //optional
+// });  
+
+
 $('form#bankAccount').validate();
 
 $('#new_suggestion_form').validate();
-
-// NEW IDEA FORM VALIDATION
-  $("#new_event_form").validate({
-    rules: {
-      "event[title]": {
-        maxlength: 140
-      },
-      "event[min]": {
-        number: true
-      },
-      "event[max]": {
-        number: true
-      },
-      "event[min]": {
-        min: 100
-      }
-      // "event[duration]": {
-      //   required: true,
-      //   number: true
-      // }
-    }
-  });
-
 
 // NEW REGISTRATION VALIDATION
 
   $('#signUp').validate();
 
-  $('#vendorSignUp').validate({
-    rules: {
-
-    }
-  });
+  $('#vendorSignUp').validate();
 
 // FOCUS ON FIRST TEXT FIELD OF PAGES
 

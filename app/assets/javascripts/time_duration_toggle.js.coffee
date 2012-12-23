@@ -1,4 +1,0 @@
-$ ->
-	$('#knowTime').click ->
-		$('#timeDuration').toggle();
-	

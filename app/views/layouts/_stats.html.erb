@@ -1,8 +1,6 @@
 <div class="stats">
   <div>
-    <%= link_to user_path(current_user) do %>
-      <%= raster_profile_picture(current_user) %>
-    <% end %>
+    <%= render 'shared/picture_dropdown' %>
     <div class="name"><%= current_user.name %>
       <% if current_user.admin? %>
         <%= link_to admin_dashboard_path do %>

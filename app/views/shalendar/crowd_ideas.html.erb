@@ -8,9 +8,6 @@
 				<%= session[:city] %>
 			<% end %>
 		</div>
-			<%= link_to new_crowd_idea_path do %>
-				<span class="btn btn-new-crowd-idea btn-large"><i class="icon-cloud"></i> New Crowd Idea </span>
-			<% end %>
 	</div>
   <% if @ideas.any? %>
 		<% @ideas.each do |i| %>

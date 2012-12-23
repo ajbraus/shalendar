@@ -1,5 +1,5 @@
 <script>
-$('#categories').buttonset();
+//$('#categories').buttonset();
 $("input[type=checkbox].switch").each(function() {
   $(this).before(
       '<span class="switch">' +
@@ -27,8 +27,8 @@ $("input[type=checkbox].switch").each(function() {
 
 $('#datetime').datetimepicker({
     minDate: 0,
-    dateFormat: "d MM",
-    timeFormat: "h:mm tt",
+    dateFormat: "D m/d",
+    timeFormat: "h:mmt",
     ampm: true,
     stepMinute: 15,
     addSliderAccess: true,
@@ -155,7 +155,7 @@ $("#addtipping").click(function () {
         required: true
       },
       "event[title]": {
-        maxlength: 140
+        maxlength: 90
       },
       "event[min]": {
         number: true,

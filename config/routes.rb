@@ -114,7 +114,7 @@ Shalendar::Application.routes.draw do
 
   match '/make_a_group', :to => 'events#make_a_group', :as => 'make_a_group'
   match '/repeat', :to => 'events#repeat', :as => 'repeat_event'
-  match '/new_crowd_idea', :to => 'events#new_crowd_idea', :as => 'new_crowd_idea'
+  #match '/new_crowd_idea', :to => 'events#new_crowd_idea', :as => 'new_crowd_idea'
 
   match '/activity', :to => 'shalendar#activity', :as => "activity"
   match '/manage_friends', :to => 'shalendar#manage_friends', :as => "manage_friends"
@@ -125,6 +125,8 @@ Shalendar::Application.routes.draw do
     resources :email_invites, only: [:create, :destroy]
     resources :fb_invites, only: [:create, :destroy]
   end
+
+  match '/new_idea', :to => 'events#new', :as => 'new_idea'
 
   resources :rsvps, only: [:create, :destroy]
   resources :invitations, only: [:create, :destroy]
@@ -146,7 +148,7 @@ Shalendar::Application.routes.draw do
   match 'datepicker' => "shalendar#datepicker"
 
   match '/what_is_hoosin', :to => 'shalendar#what_is_hoosin', :as => "what_is_hoosin"
-  match '/discover', :to => 'shalendar#discover', :as => "discover"
+  #match '/crowd_ideas', :to => 'shalendar#crowd_ideas', :as => "crowd_ideas"
   match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
   match '/yellow_pages', :to => 'shalendar#yellow_pages', :as => "yellow_pages"
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"

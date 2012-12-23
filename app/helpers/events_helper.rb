@@ -12,7 +12,7 @@ module EventsHelper
     	youtube_id = $5
   	end
 
- 		%Q{<iframe title="YouTube video player" width="580" height="350" src="http://www.youtube.com/embed/#{ youtube_id }" frameborder="0" allowfullscreen></iframe>}
+ 		%Q{<iframe title="YouTube video player" width="100%" height="400" src="http://www.youtube.com/embed/#{ youtube_id }" frameborder="0" allowfullscreen></iframe>}
  	end
 
   def promo_image_url(event)

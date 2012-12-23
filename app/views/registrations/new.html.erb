@@ -20,7 +20,7 @@
   <%= f.file_field :background %></div>
 
   <div><%= f.label :city, "city*" %><br />
-  <%= f.collection_select :city_id, @cities, :id, :name, { prompt: true }, { class: "required" } %></div>
+  <%= f.collection_select :city_id, City.all, :id, :name, { prompt: true }, { class: "required" } %></div>
 
 <% if false %>
   <div><%= f.label :time_zone, "time zone*" %><br />
