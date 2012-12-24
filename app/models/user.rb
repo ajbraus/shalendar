@@ -447,7 +447,7 @@ class User < ActiveRecord::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "#{@inviter.name} .invited you to: #{@event.title}"
+        n.alert = ".invite from #{@inviter.name}"
         n.badge = 1
         n.sound = true
         n.custom_properties = {:type => "invitation", :event => "#{@event.id}"}
@@ -460,9 +460,9 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "#{@inviter.name} .invited you to: #{@event.title}"
+        n.collapse_key = ".invite from #{@inviter.name}"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.user.name} Shared an idea"}}
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{@event.title}"}}
         n.save
       end
     else
@@ -569,7 +569,8 @@ class User < ActiveRecord::Base
         n.device = d
         n.collapse_key = "New Comment - #{@event.short_event_title}"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "New Comment - #{@event.short_event_title}"}}
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "New Comment - #{@event.short_event_title}",
+                                                                      type: "new_comment", event: "#{@event.id}"}}
         n.save
       end
     else

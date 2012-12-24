@@ -51,6 +51,53 @@ class Api::V2::EventsController < ApplicationController
     render json: @list_events
   end
 
+  def city_ideas
+    @mobile_user = User.find_by_id(params[:user_id])
+
+    if @mobile_user.present?
+      Time.zone = @mobile_user.city.timezone
+    else
+      render :status => 400, :json => {:error => "could not find your user"}
+    end
+
+    @time_range = Time.now .. Time.now + 1.year
+    @city_ideas = Event.where(starts_at: @time_range, city_id: @mobile_user.city.id).order("starts_at ASC")
+
+    @ins = Event.where(starts_at: @time_range).joins(:rsvps)
+                      .where(rsvps: {guest_id: @mobile_user.id}).order("starts_at ASC")
+
+    @events = @city_ideas | @ins
+
+    #For Light-weight events sending for list (but need guests to know if RSVPd)
+    @list_events = []
+    @events.each do |e|
+      @guestids = []
+      e.guests.each do |g|
+        @guestids.push(g.id)
+      end
+      @g_share = true
+      if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
+        @g_share = false
+      end
+      @temp = {
+        :eid => e.id,
+        :title => e.title,  
+        :start => e.starts_at,#don't do timezone here, do it local on mobile
+        :end => e.ends_at, 
+        :gcnt => e.guests.count,  
+        :tip => e.min,
+        :image => e.image(:medium), 
+        :host => e.user,
+        :plan => @mobile_user.rsvpd?(e),
+        :tipped => e.tipped,
+        :gids => @guestids,
+        :g_share => @g_share,
+        :share_a => @mobile_user.invited_all_friends?(e)
+      }
+      @list_events.push(@temp)
+    end 
+    render json: @list_events
+  end
 
   def ins
     @mobile_user = User.find_by_id(params[:user_id])

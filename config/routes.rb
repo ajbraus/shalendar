@@ -95,6 +95,7 @@ Shalendar::Application.routes.draw do
 
         match '/get_ins', :to => 'events#ins', :as => "ins", :via => :get
         match '/get_invites', :to => 'events#invites', :as => "invites", :via => :get
+        match '/get_city_ideas', :to => 'events#city_ideas', :as => "city_ideas", :via => :get
       end
     end
   end
