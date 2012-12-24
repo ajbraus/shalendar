@@ -12,8 +12,13 @@ class Api::V2::EventsController < ApplicationController
     end
 
     @time_range = Time.now .. Time.now + 1.year
-    @events = Event.where(starts_at: @time_range).joins(:invitations)
+    @invites = Event.where(starts_at: @time_range).joins(:invitations)
                               .where(invitations: {invited_user_id: @mobile_user.id}).order("starts_at ASC")
+
+    @ins = Event.where(starts_at: @time_range).joins(:rsvps)
+                      .where(rsvps: {guest_id: @mobile_user.id}).order("starts_at ASC")
+
+    @events = @invites | @ins
 
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []
@@ -41,9 +46,7 @@ class Api::V2::EventsController < ApplicationController
         :g_share => @g_share,
         :share_a => @user.invited_all_friends?(e)
       }
-      unless @mobile_user.rsvpd?(e)
-        @list_events.push(@temp)
-      end
+      @list_events.push(@temp)
     end 
     render json: @list_events
   end
