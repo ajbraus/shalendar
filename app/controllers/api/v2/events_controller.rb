@@ -62,7 +62,7 @@ class Api::V2::EventsController < ApplicationController
     end
 
     @time_range = Time.now .. Time.now + 1.year
-    @city_ideas = Event.where(starts_at: @time_range, city_id: @mobile_user.city.id)#.order("starts_at ASC")
+    @city_ideas = Event.where(starts_at: @time_range, city_id: @mobile_user.city.id, is_public: true)#.order("starts_at ASC")
 
     @ins = Event.where(starts_at: @time_range).joins(:rsvps)
                       .where(rsvps: {guest_id: @mobile_user.id})#.order("starts_at ASC")
