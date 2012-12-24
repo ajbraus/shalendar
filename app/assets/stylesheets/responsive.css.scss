@@ -80,7 +80,7 @@ body {
 		left:4px;
 		width: 106px;
 		img {
-			width: 105px;
+			width:104px;
 		}
 	}
 
@@ -90,7 +90,6 @@ right:0px;
 	img {
 width: 45px;
 height: 45px;
-bottom: 11px;
 position: relative;
 	}
 	}
@@ -99,14 +98,14 @@ position: relative;
 	}
 
 	.btn-new-idea {
-		padding: 11px 19px;
-		position: fixed;
-		top: 76px;
-		left: 6px;
-		-moz-border-radius: 6px;
-		-webkit-border-radius: 6px;
-		border-radius: 6px;
-		z-index: 10000;
+padding: 11px 19px;
+top: 71px;
+left: 6px;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+border-radius: 6px;
+z-index: 10000;
+position: absolute;
 	}
 
 	#new_idea_blerb {
@@ -177,7 +176,7 @@ left: -125px;
 		max-width: 180px;
 		max-height: 300px;
 		min-width: 140px;
-		min-height: 110px;
+		min-height: 78px;
 		right: 1px;
 		margin: 4px;
 		width: 123px;
@@ -214,11 +213,12 @@ left: -125px;
 	}
 
 	ul.event_buttons {
-		width: 53%;
+		width: 100%;
 		float: left;
-		font-size: 34px;
+		font-size: 31px;
 		position: relative;
 		left: 3px;
+		padding: 10px;
 		li {
 			display: inline;
 			a img {
@@ -283,6 +283,11 @@ left: -125px;
 	#sign_in {
 		left:10px;
 	}
+	.navigation {
+position: relative;
+left: 30px;
+top: 15px;
+}
 
 
 // Activity
@@ -368,6 +373,10 @@ right: 58px;
 		ul {
 			font-size: 32px;
 		}
+	}
+
+	.meter {
+		top: -5px;
 	}
 
 }

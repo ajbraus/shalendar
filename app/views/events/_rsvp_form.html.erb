@@ -1,65 +1,49 @@
 <% if !user_signed_in? %>
 	<% if @event.full? %>
 		(Idea full)
-	<% elsif @event.ends_at < Time.now %>
-	<% else %>
-		<% if @event.is_public? %>
-			<div class="group_button">
-				<%= link_to new_user_session_path(:event => @event.id), class:"btn btn-success rsvp_button", title:"log.in to join.in this city-wide idea" do %>
-					<i class="icon-copy"></i> Make a Group
-				<% end %>
-			</div>
-		<% end %>
+	<% elsif @event.ends_at > Time.now %>
 		<div class="rsvp_btn">
 			<%= link_to "join.in", new_user_session_path(:event => @event.id), class:"btn btn-rsvp rsvp_button", title: "log.in to join.in this idea" %>
 		</div>
 	<% end %>
-<% else %>
-	<% unless current_user.vendor? %>
-		<% if current_user.rsvpd?(@event) %>
+<% else %> 	<!-- USER IS SIGNED IN -->
+	<% unless current_user.vendor? %> <!-- USER IS NOT A VENDOR -->
+		<% if current_user.rsvpd?(@event) %> <!-- IF RSVPED SHOW IN BUTTON -->
 			<div id="inButton">
 				<div id="in" class="btn btn-rsvp rsvp_button"><i class="icon-ok-circle"></i> .in</div>
 				<div id="flakeOut" style="display:none">
 					<%= form_for(current_user.rsvps.find_by_plan_id(@event),
 				           html: { method: :delete }) do |f| %>
-					  <%= f.submit "Flake Out", class: "btn rsvp_button btn_stop_viewing ursvp_button", confirm: "Are you sure you can't make it?", id:"unRsvp" %>
+					  <%= f.submit "Out", class: "btn rsvp_button btn_stop_viewing ursvp_button", confirm: "Are you sure you can't make it?", id:"unRsvp" %>
 					<% end %>
 				</div>
 			</div>
-		<% elsif @event.full? %>
-			(Idea full)
-		<% elsif @event.ends_at < Time.now %>
-
-		<% else %>
-			<% if @event.is_public?%>
-				<div class="group_button">
-				<% if current_user.made_a_group?(@event) %>
-		 			<%= link_to event_path(@event.groups.where(:user_id => current_user.id)[0]), class:"btn btn-success rsvp_button" do %>
-							<i class="icon-upload-alt"></i> Your Group
-					<% end %>
-				<% else %>
-					<%= link_to make_a_group_path(:event_id => @event.id), id:"makeAGroup", class:"btn btn-success rsvp_button fancybox.ajax", remote: true, title:"Make a Group for this City-Wide Idea" do %>
-						<i class="icon-copy"></i> Make a Group
-					<% end %>
+		<% elsif @event.ends_at.present? && @event.ends_at > Time.now %>
+			<div class="rsvp_btn"><!--  ELSE SHOW RSVP BUTTON -->
+				<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
+		  		<%= f.hidden_field :plan_id %>
+		  		<%= f.submit "join.in", class: "btn btn-rsvp rsvp_button", confirm: "Please confirm that you will join.in this idea", id:"Join" %>
 				<% end %>
-				</div>
-			<% end %>
-			<% unless current_user.made_a_group?(@event) %>
-				<% if false %>
+			</div>
+				<% if false %> <!-- PAYMENT COMMENTED OUT -->
 					<% if @event.require_payment? && current_user.credit_card_uri.blank? %>
 						<%= link_to "join.in", new_card_path(:id => @event.id), class: "btn btn-rsvp rsvp_button", confirm: "Please confirm that you will join.in this idea?", id:"Join" %>
 					<% elsif @event.require_payment? && current_user.credit_card_uri.present? %>
 						<%= link_to "join.in", confirm_payment_path(:id => @event.id), class: "btn rsvp_button btn-rsvp", confirm: "Please confirm that you will join.in this idea", id:"Join" %>
-					<% else %>
 					<% end %>
 				<% end %>
-				<div class="rsvp_btn">
-					<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
-			  		<%= f.hidden_field :plan_id %>
-			  		<%= f.submit "join.in", class: "btn btn-rsvp rsvp_button", confirm: "Please confirm that you will join.in this idea", id:"Join" %>
-					<% end %>
-				</div>
-			<% end %>
 		<% end %>
+				<div class="group_button">
+				<% if @event.next_instance.present? %>
+		 			<%= link_to event_path(@event.next_instance) do %>
+							<i class="icon-upload-alt"></i> View Upcoming Time
+					<% end %>
+				<% end %>
+				<% if @event.user == current_user %>
+					<%= link_to new_time_path(:event_id => @event.id), id:"makeATime", class:"btn btn-success rsvp_button" do %>
+						<i class="icon-copy"></i> Make A New Time
+					<% end %>
+				<% end %>
+				</div>
 	<% end %>
 <% end %>

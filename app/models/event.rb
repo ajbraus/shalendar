@@ -17,7 +17,7 @@ class Event < ActiveRecord::Base
   has_many :fb_invites, dependent: :destroy
 
   belongs_to :parent, :foreign_key => "parent_id", :class_name => "Event"
-  has_many :groups, :foreign_key => "parent_id", :class_name => "Event"
+  has_many :instances, :foreign_key => "parent_id", :class_name => "Event"
 
   has_many :categorizations, dependent: :destroy
   has_many :categories, :through => :categorizations
@@ -49,7 +49,8 @@ class Event < ActiveRecord::Base
                   :short_url,
                   :parent_id,
                   :require_payment,
-                  :slug
+                  :slug,
+                  :city_id
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
                                              :medium => '190x270'},
@@ -137,7 +138,7 @@ class Event < ActiveRecord::Base
 
   def mini_start_date_time
     if starts_at.present?
-      self.starts_at.strftime "%a, %b %e, %l:%M%P"
+      self.starts_at.strftime "%a %-m/%e, %l:%M%P"
     else
       "TBD"
     end
@@ -351,7 +352,7 @@ class Event < ActiveRecord::Base
   end
 
   def nice_duration
-    duration.to_s.split(/\.0/)[0]
+    duration.to_s.split(/\.0/)[0] + 'hrs' if duration
   end
 
   def is_group?
@@ -383,6 +384,23 @@ class Event < ActiveRecord::Base
     else
       return true
     end
+  end
+
+  def is_parent?
+    if self.instances.any?
+      return true
+    else
+      return false
+    end
+  end
+
+  def next_instance
+    if self.parent.nil?
+      @next_instance = self.instances.where(starts_at: Time.now).order('starts_at asc').first
+    else
+      @next_instance = self.parent.instances.where(starts_at: Time.now).order('starts_at asc').first
+    end 
+    return @next_instance 
   end
 
   def save_shortened_url

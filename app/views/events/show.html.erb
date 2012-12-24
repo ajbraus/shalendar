@@ -1,5 +1,4 @@
 <% provide(:title, " | #{@event.title}" ) %>
-<%= render 'layouts/sidebar' %>
 <% if @event.has_parent? %>
   <% unless @event.parent.user.background_file_size.nil? %>
       <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.parent.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
@@ -9,11 +8,7 @@
       <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
   <% end %>
 <% end %>
-  <div class="show_skin">
-<% if user_signed_in? %>
-  <%= render 'events/event_buttons' %>
-<% end %>
-</div>
+<%= render 'events/event_buttons' %>
 <div class="event_show clearfix">
   <div class="event_top">
     <div class="host friend">
@@ -64,7 +59,7 @@
       <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> ( <%= @event.nice_duration %> hrs 
         <% if @event.ends_at < Time.now %> - Over <% end %> ) </div>
     <% else %>
-      <div class="date"><strong>Time TBD when Idea Tips </strong></div>
+      <div class="date"><strong>Time TBD </strong></div>
     <% end %>
     <div class="join_group_buttons">
       <%= render 'rsvp_form' %>
@@ -75,7 +70,7 @@
     <div class="meter">
       <span style="width:100%;"><span></span></span>
     </div>
-  <% else %>
+  <% elsif @event.starts_at.present? %>
     <div class="meter animate orange">
       <span style=<%= 'width:' + "#{(100*@event.guests.count.to_f/@event.min.to_f).round}" + "%;"%>><span></span></span>
     </div>

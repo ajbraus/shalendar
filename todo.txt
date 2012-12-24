@@ -134,7 +134,6 @@ crowd idea flow:
 			responsive
 		end
 
-
 messaging friends through hoos.in
 
 scripts not working
@@ -157,29 +156,37 @@ complete new completely pinterest view
 	fix .invites ajax dropdown
 
 Times
-	rails new model Instance event:references starts_at:datetime ends_at:datetime min:integer max:integer place:string longitude:float latitude:float 
-	remove_column :events, :gmaps
-	add_column :events, :is_one_off
-	has_many instances
-	accepts_nested_attributes_for :instances
-	belongs_to events
-	update all event.starts_at, event.min, event.ends_at, event.place, event.max -- or make methods for these . . . 
-	def starts_at
-		if self.has_tipped_instance?
-			self.tipped_instance.starts_at
-		else
-			"TBD"
-		end
-	end
-	event#create accepts nested attributes
-	tipping logic all goes into Instance model
-	views -
-		event create form
-		if instances exist that user is not rsvped (in or out of)
-			make the shield more prominent
-			show in shield and in show
-			include as new invites in new invited events
+	DONE create idea with or without starts_at 
+		DONE if starts_at then build instance and save instance and parent 
+			DONE redirect to instance 
+		DONE else just build parent 
+			DONE redirect to parent 
 
+	from instance go back home - 
+		DONE show ideas without starts_at on ideas tab
+		DONE show ideas with and without starts_at on all page 
+			DONE update to show full starts_at datetime
+		DONE show ideas with starts_at on calendar page
+		DONE only show meter if has starts_at (fix orange on ideas with no starts_at)
+		
+	
+	event#show could be an instance or a parent idea
+	DONE either way, allow host to make a new instance based on the parent
+	if there is already an instance with a future starts_at time
+		when rsvpd to parent idea, show link to the latest instance 
+		allow a new instance to be created but warn them that one is already created
+	event has sibling instances 
+	event has parent
+	event has child instances
+
+	RSVP out
+		rails g migration add_out_to_rsvps out:boolean
+		update rsvp! method to take in,out
+		DONE When rsvping to child idea, create rsvp to parent
+		DONE When rsvping out to child idea do not rsvp out to parent
+		in ideas/calendar/invites/plans remove rsvpd out children
+
+	In idea pool, if parent has child with time in future, only show child
 
 
 
@@ -426,6 +433,15 @@ User has_many CreditCards
 delete user deletes credit cards and bank account with balanced
 no account on the debit, and no description -- should be hoos.in - event.date event.title
 add qr tag to reciept create a qr code per rsvp\
+
+        if @event.require_payment? && current_user.credit_card_uri.nil?
+          redirect_to confirm_payment_path(@event)
+        elsif @event.require_payment? && !current_user.credit_card_uri.nil?
+          current_user.debit!(@event.price)
+          current_user.rsvp!(@event)
+        else
+          current_user.rsvp!(@event)       
+        end
 
 	second payment
 		user tries to rsvp again

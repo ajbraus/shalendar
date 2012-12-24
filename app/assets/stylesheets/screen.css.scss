@@ -259,7 +259,6 @@ color: white;
 
 .btn-new-idea {
     font-size: 20px;
-    float: left;
     text-align: center;
 }
 
@@ -599,37 +598,6 @@ header {
       height: 44px;
       text-align: center;
       font-size: 22px;
-          select {
-    cursor:pointer;
-    height:25px;
-    padding:0;
-    border:0;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
-    -webkit-appearance: none;
-    -webkit-border-radius: 0px;
-    -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1);
-    -webkit-padding-end: 0px;
-    -webkit-padding-start: 0px;
-    -webkit-user-select: none;
-    background-image: url(../images/select-arrow.png);
-    outline: none;
-    background-position: none;
-    background-repeat: no-repeat;
-    border: 0px solid #AAA;
-    color: black;
-    font-size: 16px;
-    margin: 0;
-    overflow: hidden;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    background-color:inherit;
-    font-family: inherit;
-    width: 150px;
-      }
     }
   }
 
@@ -688,6 +656,40 @@ width: 580px;
     color:darkgrey;
     font-size: 14px;
   }
+        select {
+          position: absolute;
+top: 45px;
+left: 10px;
+    cursor:pointer;
+    height:25px;
+    padding:0;
+    border:0;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0px;
+    -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1);
+    -webkit-padding-end: 0px;
+    -webkit-padding-start: 0px;
+    -webkit-user-select: none;
+    background-image: url(../images/select-arrow.png);
+    outline: none;
+    background-position: none;
+    background-repeat: no-repeat;
+    border: 0px solid #AAA;
+    color: black;
+    font-size: 16px;
+    margin: 0;
+    overflow: hidden;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color:inherit;
+    font-family: inherit;
+    width: 150px;
+      }
 }
 
 .responsive_profile_pic {
@@ -1524,15 +1526,13 @@ max-height: 300px;
 .event_time {
 color: black;
 background-color: white;
-padding: 10px 10px 0px 10px;
+padding: 10px 10px 6px 10px;
 font-size: 1em;
-height: 20px;
-position: relative;
 width: 98%;
 right: 5px;
 bottom: 5px;
 border-bottom: 1px solid $divider;
-top:1px;
+top: 1px;
 img {
   width:20px;
 }
@@ -2227,7 +2227,7 @@ width: 47%;
   }
   .when {
     .date {
-      width: 60%;
+      width: 73%;
       float: left;
       height: 30px;
     }
@@ -2388,7 +2388,7 @@ float: left;
 font-size: 34px;
 min-height: 37px;
 line-height: 1.1;
-width: 97%;
+width: 98%;
 background-color: rgba(0, 0, 0, 0.5);
 color: white;
 font-weight: 400;
@@ -2406,6 +2406,7 @@ border-bottom: 1px solid $divider;
 
 .event_buttons{
 line-height: 1.3;
+background-color: rgba(255, 255, 255, 0.7)
 }
 
 .tipped_title {
@@ -2620,7 +2621,7 @@ text-align: right;
 
 .comments_form {
 float: left;
-width: 97%;
+width: 98%;
 background-color: #ECECEC;
 position: relative;
 z-index: 0;
@@ -2634,7 +2635,7 @@ form {
     float:left;
   }
   input[type=text] {
-  width: 80%;
+  width: 72%;
 float: left;
 border-radius: 0;
 position: relative;
@@ -3818,13 +3819,15 @@ font-size: 22px;
 }
 
 .shield_bottom {
-height: 17px;
-padding: 10px;
+  padding: 6px;
+  height: 22px;
 }
 
 .instructions {
-float: left;
-margin: 11px;
+position: absolute;
+left: 195px;
+top: 83px;
+font-size: 18px;
 }
 
 .rsvp_btn {
@@ -3945,4 +3948,8 @@ top: 7px;
 
 .eventTitle {
   float:left;
+}
+
+.disabled {
+  background-color:#f0f0f0;
 }

@@ -3,6 +3,9 @@ class ShalendarController < ApplicationController
 
 	def home
     if user_signed_in? #see all invites, ideas, and city ideas with times or tbd shuffled
+      #my ideas
+      @my_ideas = Event.where(user_id: current_user.id)
+      @my_ideas = @my_ideas.select { |e| e.starts_at.blank? || e.ends_at > Time.now }
       #city ideas
       @city_ideas = Event.where(is_public: true, city_id: @current_city.id).reject { |e| e.ends_at < Time.now }
       #invites (friend ideas)
@@ -15,7 +18,7 @@ class ShalendarController < ApplicationController
         end
         @invites.push(e)
       end
-      @ideas = (@city_ideas | @invites).shuffle
+      @ideas = (@city_ideas | @invites | @my_ideas).shuffle
     else
       #if not signed in display city ideas
       @ideas = Event.where(is_public: true, city_id: @current_city.id)
@@ -47,27 +50,15 @@ class ShalendarController < ApplicationController
     @my_plans = current_user.plans.where('ends_at > ?', Time.now).order('starts_at asc')
   end
 
-  def ideas
-    if user_signed_in?
-      #should see friend invites and city ideas without times
-      @city_ideas = Event.where(is_public: true, city_id: @current_city.id, starts_at: nil)
-      #invites (friend ideas)
-      @invites = []
-      @invitations = current_user.invitations.order('created_at desc')
-      @invitations.each do |i|
-        e = Event.find_by_id(i.invited_event_id)
-        unless current_user == e.user && e.starts_at.blank?
-          e.inviter_id = i.inviter_id
-        end
-        @invites.push(e)
-      end
+  def city_ideas
+    @ideas = Event.where(is_public: true, city_id: @current_city.id)
+    @ideas = @ideas.reject { |e| e.starts_at < Time.now }.shuffle
+    #or .sort_by{|i| -i.guests.count}
+  end
 
-      @ideas = (@city_ideas | @invites).shuffle
-      #or .sort_by{|i| -i.guests.count}
-    else
-      @ideas = Event.where(is_public: true, city_id: @current_city.id, starts_at: nil).shuffle
-      #or .sort_by{|i| -i.guests.count}
-    end
+  def my_ideas
+    #SHOWS MY IDEAS WITH NO TIMES
+    @ideas = Event.where(user_id: current_user.id)
   end
 
   def calendar

@@ -24,7 +24,6 @@ class City < ActiveRecord::Base
   # mad.icon = File.open('app/assets/images/madison-icon.jpeg')
 
   def city_name
-
     return name.split(',')[0]
   end
 end

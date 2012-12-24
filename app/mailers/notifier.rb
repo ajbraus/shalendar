@@ -192,6 +192,13 @@ class Notifier < ActionMailer::Base
     mail to: @user.email, from: "info@hoos.in", subject: "Connect With People - #{@event.title}"
   end
 
+  def new_time(event, user)
+    @user = user
+    @event = event
+    mail to: @user.email, from: "info@hoos.in", subject: "New Time - #{@event.start_time} - #{@event.title}"
+
+  end
+
   # def recurring_receipt(user, amount)
   #   @user = user
   #   @amount = "$" + "%.2f" % amount

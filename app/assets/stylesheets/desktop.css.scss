@@ -47,9 +47,13 @@
 	}
 
 	.logo {
-	text-align: center;
+position: relative;
+top: 2px;
+text-align: center;
+width: 11%;
+margin: 0 auto;
 	img {
-	  width: 113px;
+	  width: 142px;
 	}
 	}
 
@@ -68,9 +72,9 @@
 
 	.event {
 		margin:8px;
-		min-width: 190px;
+		min-width: 200px;
 		max-width: 200px;
-		min-height: 110px;
+		min-height: 78px;
 		max-height: 410px;
 		.promo_img {
 			img {
@@ -131,10 +135,9 @@ top: 13px;
 	}
 
 	.event_show {
-margin: 0 286px;
-width: 65%;
 top: 10px;
-min-width: 570px;
+margin: 0 auto;
+width: 80%;
 		.promo_img {
 			img {
 				max-width: 100%;
@@ -162,11 +165,12 @@ min-width: 570px;
 		}
 
 		.event_buttons {
-			font-size: 30px;
-			top: 63px;
-			text-align: right;
-			position: relative;
-			margin-right: 9px;
+font-size: 30px;
+position: relative;
+float: right;
+top: 38px;
+right: 20px;
+padding: 20px;
 		}
 
 		#textMsg {
@@ -252,12 +256,14 @@ right: 15px;
 		}
 
 		.btn-new-idea {
-			padding: 10.5px 33px;
-position: relative;
+padding: 10.5px 0px;
 -moz-border-radius: 6px;
 -webkit-border-radius: 6px;
 border-radius: 6px;
 width: 170px;
+position: absolute;
+left: 11px;
+top: 72px;
 		}
 		.new_idea {
 		}
@@ -277,7 +283,6 @@ width: 170px;
 		}
 
 		.new_crowd_idea {
-				padding-top: 5%;
 				padding-bottom: 5%;
 			.event_form {
 				width: 40%;
@@ -288,7 +293,7 @@ width: 170px;
 			}
 			.idea_preview {
 				position: relative;
-				bottom: 30px;
+				top: 12px;
 				float: left;
 				width: 52%;
 				margin: 0 auto;
@@ -348,6 +353,14 @@ width: 170px;
 		ul {
 			font-size: 20px;
 		}
+	}
+
+	.navigation {
+	position: relative;
+	top: 14px;
+	z-index: 0;
+	width: 40%;
+	margin: 0 auto;
 	}
 
 }

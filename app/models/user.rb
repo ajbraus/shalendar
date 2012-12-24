@@ -505,6 +505,41 @@ class User < ActiveRecord::Base
     end
   end
 
+  def contact_new_time(event)
+    @user = self
+    @event = event
+    @event_link = event_url(@event)
+
+    if @user.iPhone_user?
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "#{@event.user.first_name} set a time for #{@event.title} - #{@event.start_time}!"
+        n.badge = 1
+        n.sound = true
+        n.custom_properties = {:type => "time_change", :event => "#{@event.id}"}
+        n.save
+      end
+    elsif @user.android_user?
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "#{@event.user.first_name} set a time for #{@event.title} - #{@event.start_time}!"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{event.title} new time!"}}
+        n.save
+      end
+    else
+      Notifier.new_time(event, @user)
+    end
+  end
+
   def contact_time_change(event)
     @user = self
     @event = event

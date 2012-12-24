@@ -1,0 +1,80 @@
+<div class="new_crowd_idea clearfix">
+	<div class="event_form">
+	  <%= form_for @event, id: "new_event_form" do |f| %>
+	  <p>		
+	  	<div class="title_char_counter"><span id="titleCharCount">0</span>/60</div>
+		  <%= label :title, "Idea*" %><br/>
+	  	<%= f.text_field :title, id: "new_idea_title", class: "required disabled", autocomplete: "off", disabled:true %>
+		</p>
+  	<div id="dateTime">
+		  <div class="starts_at">
+		    <%= label :starts_at, "When does it start?*" %>
+		    <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off" %>
+		  </div>
+		  <div class="duration">
+		    <%= label :duration, "How Long?*" %>
+		    <%= f.text_field :duration, placeholder:"hrs", autocomplete: "off", class:"required"  %>
+		  </div>
+		</div>
+
+		<div id="addmapp" style="display: none;">
+	  	<%= label_tag "Location" %><br/>
+	  	<i class="icon-map-marker"></i><%= f.text_field :address, autocomplete: "off" %>
+		</div>
+
+		<div id="addtippingp" class="minmax">
+			<div class='tippingIcon'>
+		  	<i class="icon-tasks"></i>
+			</div>
+		  <u>
+		    <%= f.label :min_attendees, "Tipping Point" %> <br/>
+		    <%= f.text_field :min, :class => 'input-mini', autocomplete: "off" %>
+		  </u>
+		  <u>
+		    <%= f.label :max_attendees, "Limit" %> <br/>
+		    <%= f.text_field :max, :class => 'input-mini', autocomplete: "off" %>
+		  </u>
+		</div>
+
+		<div class="venue_invitation_options" id="visibilityp">
+		  <u>
+		  	<%= f.label :is_public, ".invite #{@current_city.name.split(",")[0].to_s.capitalize}" %><span title="Make this a City-Wide idea"> (?)</span><br>
+				<i class="icon-bullhorn questionMark"></i>
+				<span id="isPublic"><%= f.check_box :is_public, class: "switch" %></span>
+			</u>
+		  <u>
+		  	<%= f.label nil, "allow .invite" %><span title="people can .invite friends to this idea"> (?)</span><br>
+				<i class="icon-plus questionMark"></i>
+				<%= f.check_box :guests_can_invite_friends, class: "switch", checked: "checked" %>
+			</u>
+			<div class="idea_categories" id="addcategoriesp" style="display:none;">
+				<%= label :category, "Category*" %>
+		    <div id="categories">
+		    	<%= collection_select :category, :category_id, Category.all, :id, :name, { :prompt => true } %>
+	    	</div>
+	    	<div class="family_friendly_checkbox">
+	    		<%= f.label "Family Friendly?" %><br>
+					<i class="icon-home questionMark"></i>
+					<%= f.check_box :family_friendly, class: "switch" %>
+		  	</div> 
+	  	</div> 
+		</div>
+	  <p>
+	  	<%= label :description, "Details" %><br/>
+	  	<%= f.text_area :description, id: "new_idea_description", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
+	  </p> 
+	  <p>
+			<input id="invite_all_friends" name="invite_all_friends" type="checkbox">
+			<%= f.label nil, ".invite all my friends" %>
+		</p>
+		<%= f.hidden_field :parent_id %>
+   
+	  <span class="new_idea_button"><%= f.submit 'Add This Time', :class => 'btn btn-large btn-success', method: :post %></span>
+
+	  <% end %>
+	</div>
+	<!-- PREVIEW -->
+	<div class="idea_preview">
+		<%= render partial: 'sample_idea' %>
+	</div>
+</div>

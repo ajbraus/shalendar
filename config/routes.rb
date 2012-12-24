@@ -127,6 +127,7 @@ Shalendar::Application.routes.draw do
   end
 
   match '/new_idea', :to => 'events#new', :as => 'new_idea'
+  match '/new_time', :to => 'events#new_time', :as => 'new_time'
 
   resources :rsvps, only: [:create, :destroy]
   resources :invitations, only: [:create, :destroy]
@@ -148,7 +149,8 @@ Shalendar::Application.routes.draw do
   match 'search' => 'shalendar#search'
   match 'datepicker' => "shalendar#datepicker"
 
-  match '/ideas', to: 'shalendar#ideas', as: "ideas"
+  match '/city_ideas', to: 'shalendar#city_ideas', as: "city_ideas"
+  match '/my_ideas', to: 'shalendar#my_ideas', as: 'my_ideas'
   match '/calendar', to: 'shalendar#calendar', as: "calendar"
 
   match '/what_is_hoosin', :to => 'shalendar#what_is_hoosin', :as => "what_is_hoosin"

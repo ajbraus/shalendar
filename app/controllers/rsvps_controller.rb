@@ -8,6 +8,10 @@ class RsvpsController < ApplicationController
       @event.tip!
     end
 
+    if @event.is_parent?
+      current_user.rsvp!(@event.parent)
+    end
+
     respond_to do |format|
       format.html { redirect_to @event }
       format.js

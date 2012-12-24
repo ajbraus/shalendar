@@ -1,3 +1,4 @@
+<% if user_signed_in? %>
 <ul class="event_buttons">
   <% if @event.is_group? %>
     <li>
@@ -6,7 +7,7 @@
       <% end %>
     </li>
   <% end %>
-  <% if (@event.guests_can_invite_friends? || @event.is_public?) && @event.starts_at > Time.now %>
+  <% if (@event.guests_can_invite_friends? || @event.is_public?) && @event.starts_at.blank? || @event.starts_at > Time.now %>
       <!-- SHARE BY EMAIL -->
     <li>
       <a href="mailto:?
@@ -147,4 +148,5 @@
   <% end %>
 </div>
 </div>
+<% end %>
 <% end %>
