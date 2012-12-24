@@ -450,7 +450,7 @@ class User < ActiveRecord::Base
         n.alert = ".invite from #{@inviter.name}"
         n.badge = 1
         n.sound = true
-        n.custom_properties = {msg: "#{@event.short_event_title}"
+        n.custom_properties = {msg: "#{@event.short_event_title}",
                                :type => "invitation", 
                                :id => "#{@event.id}"}
         n.save
