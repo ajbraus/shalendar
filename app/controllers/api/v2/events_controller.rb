@@ -143,10 +143,6 @@ class Api::V2::EventsController < ApplicationController
     render json: @list_events
   end
 
-  def city_ideas
-
-  end
-
   def user_events_on_date
     #receive call to : hoos.in/user_plans_on_date.json?date="DateInString"
     @mobile_user = User.find_by_id(params[:user_id])
