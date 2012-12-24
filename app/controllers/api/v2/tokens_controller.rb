@@ -68,38 +68,6 @@ class Api::V2::TokensController  < ApplicationController
     #Turn these into invitations... **UPDATE
     @all_email_invites = EmailInvite.where("email_invites.email = :current_user_email", current_user_email: @user.email)
 
-    @time_range = Time.now .. Time.now + 1.month
-    @events = Event.where(starts_at: @time_range).joins(:invitations)
-                              .where(invitations: {invited_user_id: @user.id}).order("starts_at ASC")
-
-    #For Light-weight events sending for list (but need guests to know if RSVPd)
-    @list_events = [Event.last]
-    @events.each do |e|
-      @guestids = []
-      e.guests.each do |g|
-        @guestids.push(g.id)
-      end
-      @g_share = true
-      if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
-        @g_share = false
-      end
-      @temp = {
-        :eid => e.id,
-        :title => e.title,  
-        :start => e.starts_at,#don't do timezone here, do it local on mobile
-        :end => e.ends_at, 
-        :gcnt => e.guests.count,  
-        :tip => e.min,
-        :image => e.image(:medium), 
-        :host => e.user,
-        :plan => @user.rsvpd?(e),
-        :tipped => e.tipped,
-        :gids => @guestids,
-        :g_share => @g_share,
-        :share_a => @user.invited_all_friends?(e)
-      }
-      @list_events.push(@temp)
-    end 
     render :status=>200, :json=>{:token=>@user.authentication_token, 
                                   :user=>{
                                     :user_id=>@user.id,
@@ -112,10 +80,10 @@ class Api::V2::TokensController  < ApplicationController
                                     :notify_r=>@user.notify_event_reminders,
                                     :post_wall=>@user.post_to_fb_wall,
                                     :followed_users=>@user.followed_users,#may put these in separate calls for speed of login
-                                    :pending_followed_users=>@user.pending_followed_users
-                                    },
-                                    :invites=>@list_events
-                                 }
+                                    :pending_followed_users=>@user.pending_followed_users,
+                                    :city_name=>@user.city.name
+                                    }
+                                  }
   end
 
   def destroy

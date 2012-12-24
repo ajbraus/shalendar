@@ -40,11 +40,11 @@ class Api::V2::EventsController < ApplicationController
         :tip => e.min,
         :image => e.image(:medium), 
         :host => e.user,
-        :plan => @user.rsvpd?(e),
+        :plan => @mobile_user.rsvpd?(e),
         :tipped => e.tipped,
         :gids => @guestids,
         :g_share => @g_share,
-        :share_a => @user.invited_all_friends?(e)
+        :share_a => @mobile_user.invited_all_friends?(e)
       }
       @list_events.push(@temp)
     end 
@@ -89,7 +89,7 @@ class Api::V2::EventsController < ApplicationController
         :tipped => e.tipped,
         :gids => @guestids,
         :g_share => @g_share,
-        :share_a => @user.invited_all_friends?(e)
+        :share_a => @mobile_user.invited_all_friends?(e)
       }
       @list_events.push(@temp)
     end 
