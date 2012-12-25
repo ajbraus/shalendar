@@ -75,7 +75,9 @@ Shalendar::Application.routes.draw do
         match '/add_friend', :to => 'relationships#create'
         match '/remove_friend', :to => 'relationships#destroy'#, :via => :delete
         match '/search_for_friends', to: 'relationships#search_for_friends', as: "search_for_friends", via: :get
-        
+        match '/search_for_fb_friends', to: 'relationships#search_for_fb_friends', as: "search_for_fb_friends", via: :get
+
+
         match '/tokens', :to => 'tokens#create'
         match '/invitations', :to => 'invitations#create'
         match '/invite_all_friends', :to => 'invitations#invite_all_friends'
