@@ -1,11 +1,10 @@
 <% if user_signed_in? %>
-<%-binding.remote_pry %>
 	<div class="event shield
 		<% if event.ends_at.present? %>
 			<%= event.ends_at < Time.now ? 'over' : '' %>
 		<% end %> 
 		<%= event.is_public? && !current_user.invited?(event) && !current_user.rsvpd?(event) ? 'public' : '' %>
-		<%= current_user.rsvpd?(event) ? 'rsvpd' : '' %>"
+		<%= current_user.in?(event) ? 'rsvpd' : '' %>"
 		data-event-id='<%= event.id %>'>
 <% else %>
 	<div class="event shield 
@@ -47,7 +46,7 @@
 	<% if event.starts_at.present? %>
 		<% if user_signed_in? %>
 			<div class="status_icon">
-				<% if current_user.rsvpd?(event) %>
+				<% if current_user.in?(event) %>
 					<i class="icon-ok-sign blue"></i>
 				<% elsif current_user.invited?(event) %>
 					<i class="icon-envelope blue" title=".invited by <%= User.find_by_id(event.inviter_id).name %>"></i>

@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
 
   has_many :events, :dependent => :destroy
 
-  has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
+  has_many :rsvps, dependent: :destroy
   has_many :plans, through: :rsvps
 
   has_many :invitations, foreign_key: "invited_user_id", dependent: :destroy
@@ -179,9 +179,27 @@ class User < ActiveRecord::Base
     end
   end
 
-
   def rsvpd?(event)
-    if(rsvps.find_by_plan_id(event.id))
+    @rsvp = rsvps.find_by_plan_id(event.id)
+    if @rsvp.present?
+      return true
+    else
+      return false
+    end
+  end
+
+  def in?(event)
+    @rsvp = rsvps.find_by_plan_id(event.id)
+    if @rsvp.present? && @rsvp.inout == 1
+      return true
+    else
+      return false
+    end
+  end
+
+  def out?(event)
+    @rsvp = rsvps.find_by_plan_id(event.id)
+    if @rsvp.present? && @rsvp.inout == 0
       return true
     else
       return false
@@ -192,6 +210,9 @@ class User < ActiveRecord::Base
     if event.full?
       return flash[:notice] = "The event is currently full."
     else
+      if @existing_rsvp = event.rsvps.find(guest_id: self.id).present?
+        @existing_rsvp.destroy
+      end
       rsvps.create!(plan_id: event.id, inout: 1)
     end
   end
@@ -335,7 +356,7 @@ class User < ActiveRecord::Base
 
 
   def invited_all_friends?(event)
-    if self.rsvpd?(event)
+    if self.in?(event)
       if self.rsvps.find_by_plan_id(event.id).invite_all_friends?
         return true
       end
@@ -352,7 +373,7 @@ class User < ActiveRecord::Base
         end
       end
     end
-    if self.rsvpd?(event)
+    if self.in?(event)
       r = self.rsvps.find_by_plan_id(event.id)
       r.invite_all_friends = true
       r.save

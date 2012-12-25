@@ -31,8 +31,8 @@ class RsvpsController < ApplicationController
   end
 
   def destroy
-    @event = Rsvp.find(params[:id]).plan
-    current_user.rsvp_out!(@event)
+    @rsvp = Rsvp.find(params[:id])
+    @rsvp.destroy
 
     respond_to do |format|
       format.html { redirect_to @event }

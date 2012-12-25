@@ -433,7 +433,12 @@ class Event < ActiveRecord::Base
   end
 
   def guests
-    return self.rsvps.where(inout: 1) if self.rsvps.where(inout: 1).any?
+    @guests = self.rsvps.where(inout: 1)
+    if @guests.any?
+      return @guests
+    else
+      return []
+    end
   end
 
   def guest_count

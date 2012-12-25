@@ -20,7 +20,7 @@ body {
   color: #333;
   position: relative;
   min-height: 100%;
-  background: url(/assets/gray_jean.png);
+  background: url(/assets/linen.png);
   /*background-color:#F0F0F0;*/
   zoom:.9;
   strong {
@@ -258,7 +258,7 @@ color: white;
 }
 
 .btn-new-idea {
-    font-size: 20px;
+    font-size: 17px;
     text-align: center;
 }
 
@@ -573,8 +573,8 @@ bottom: 1px;
 /* HOME */
 
 header {
-  height: 115px;
-  background-color: white;
+  height: 93px;
+  background-color: #FFFEFD;
   clear: both;
   position: fixed;
   top:0;
@@ -587,7 +587,7 @@ header {
     height: inherit;
     .sky {
       border-bottom: 1px solid $divider;
-      height: 69px;
+      height: 54px;
       .choose_city {
         position: relative;
         bottom: 69px;
@@ -616,7 +616,6 @@ form {
   .right_header {
 position: absolute;
 text-align: right;
-width: 580px;
     > div {
       float:right;
     }
@@ -690,6 +689,10 @@ left: 10px;
     font-family: inherit;
     width: 150px;
       }
+}
+
+.navigation {
+  font-size: 16px;
 }
 
 .responsive_profile_pic {
@@ -1312,9 +1315,9 @@ box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
 .friend_only {
 cursor: pointer;
 position: absolute;
-right: 14px;
-bottom: 6px;
-font-size: 23px;
+right: 12px;
+bottom: 13px;
+font-size: 17px;
 }
 
 .each_day {
@@ -2255,6 +2258,11 @@ margin-right: auto;
 text-align: left;
 }
 
+.logo {
+  img {
+    width: 103px;
+  }
+}
 .show_logo {
   position: relative;
   left: 18px;
@@ -3845,9 +3853,9 @@ font-size: 22px;
 
 .instructions {
 position: absolute;
-left: 195px;
-top: 83px;
-font-size: 18px;
+left: 141px;
+top: 85px;
+font-size: 15px;
 }
 
 .rsvp_btn {

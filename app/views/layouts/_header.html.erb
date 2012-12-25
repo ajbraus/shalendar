@@ -6,7 +6,6 @@
       <% unless current_user.vendor? %>
         <%= render 'shared/friend_search' %>
       <% end %>
-      <%= render 'shared/city_user_dropdown' %>
   <div class="right_header">
     <div>
       <%= render 'shared/picture_dropdown' %>
@@ -77,6 +76,7 @@
 <!--       <div class="friend_only hide_all" title="Only Show My Plans">
         <span class="fadeInBlue"><i class="icon-ok-sign"></i> <span class="only">only</span>
       </div> -->
+      <%= render 'shared/city_user_dropdown' %>
       <div id="hide_public" class="friend_only" title=".invites only">
         <span class="fadeInOrange"><i class="icon-envelope-alt"></i> <span class="only">only</span></span>
       </div>
@@ -106,7 +106,9 @@
     <div class="sky">
       <%= render 'layouts/logo' %>
       <% unless params[:controller] == "sessions" || params[:controller] == "registrations"  %>
-        <div class="instructions"><%= link_to '.instructions', what_is_hoosin_path %></div>
+        <div class="instructions">
+          <%= link_to '.instructions', what_is_hoosin_path %>
+        </div>
         <%= render 'shared/city_session_dropdown' %>
         <% unless params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
           <div class="city_title">

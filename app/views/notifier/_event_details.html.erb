@@ -1,8 +1,8 @@
 <tr>
 	<td style="padding:10px 0 5px 50px">What: <strong style="padding-left:10px;"><a href="<%= event_url(event) %>"><%= event.title %></a></strong>
-		<% if user.rsvpd?(event) && event.starts_at.present? && event.starts_at > Time.now.in_time_zone(user.city.timezone) %>
+		<% if user.in?(event) && event.starts_at.present? && event.starts_at > Time.now.in_time_zone(user.city.timezone) %>
 			<strong>  (Attending)</strong>
-		<% elsif user.rsvpd?(event) && event.starts_at.present? && event.starts_at < Time.now.in_time_zone(user.city.timezone) %>
+		<% elsif user.in?(event) && event.starts_at.present? && event.starts_at < Time.now.in_time_zone(user.city.timezone) %>
 			<strong>  (Attended)</strong>
 		<% end %></td>
 </tr>
@@ -22,11 +22,11 @@
 	<% end %>
 <% end %>
 
-<% if @event.require_payment? && @user.rsvpd?(@event) %>
+<% if @event.require_payment? && @user.in?(@event) %>
 	<tr>
 		<td style="padding:5px 0 5px 50px">Cost*: <%= @event.nice_price %> <strong style="color:green;"> (Paid)</strong></td>
 	</tr>
-<% elsif @event.require_payment? && !@user.rsvpd?(@event) %>
+<% elsif @event.require_payment? && !@user.in?(@event) %>
 	<tr>
 		<td style="padding:5px 0 5px 50px">Cost*: <%= @event.nice_price %></td>
 	</tr>

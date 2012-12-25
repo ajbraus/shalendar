@@ -11,7 +11,7 @@ class Api::V1::RsvpsController < ApplicationController
     if @event.nil?
       render :status=>400, :json=>{ :error => "event was not found."}
     end
-    unless @mobile_user.rsvpd?(@event)
+    unless @mobile_user.in?(@event)
       @mobile_user.rsvp_in!(@event)
       if @event.guest_count >= @event.min && @event.tipped? == false
         @event.tip!
@@ -25,7 +25,7 @@ class Api::V1::RsvpsController < ApplicationController
           # :gcnt => @event.guest_count,  
           # :tip => @event.min,  
           # :host => @event.user,
-          # :plan => @mobile_user.rsvpd?(@event),
+          # :plan => @mobile_user.in?(@event),
           # :tipped => @event.tipped,
           # :guests => @event.guests 
         }, :status=>200
@@ -40,7 +40,7 @@ class Api::V1::RsvpsController < ApplicationController
     if @event.nil?
       render :status=>400, :json=>{:error => "event was not found."}
     end
-    unless @mobile_user.rsvpd?(@event) == false
+    unless @mobile_user.in?(@event) == false
       @mobile_user.rsvp_out!(@event)
     end
         render :json=> { :success => true
@@ -51,7 +51,7 @@ class Api::V1::RsvpsController < ApplicationController
           # :gcnt => @event.guest_count,  
           # :tip => @event.min,  
           # :host => @event.user,
-          # :plan => @mobile_user.rsvpd?(@event),
+          # :plan => @mobile_user.in?(@event),
           # :tipped => @event.tipped,
           # :guests => @event.guests 
         }, :status=>200

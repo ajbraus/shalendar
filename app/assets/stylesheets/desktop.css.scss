@@ -52,9 +52,6 @@ top: 2px;
 text-align: center;
 width: 11%;
 margin: 0 auto;
-	img {
-	  width: 142px;
-	}
 	}
 
 	ul.left_header {
@@ -127,6 +124,7 @@ left: 40px;
 	.right_header {
 		top: 12px;
 		right: 0px;
+		width: 44%;
 	}
 
 	#friends {
@@ -256,14 +254,14 @@ right: 15px;
 		}
 
 		.btn-new-idea {
-padding: 10.5px 0px;
+padding: 8.5px 0px;
 -moz-border-radius: 6px;
 -webkit-border-radius: 6px;
 border-radius: 6px;
-width: 170px;
+width: 116px;
 position: absolute;
 left: 11px;
-top: 72px;
+top: 74px;
 		}
 		.new_idea {
 		}

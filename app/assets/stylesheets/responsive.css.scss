@@ -28,8 +28,9 @@ body {
 		display:none;
 	}
 	.user_search {
-		bottom: 23px;
-		left: 103px;
+		position: relative;
+		bottom: -7px;
+		right: 213px;
 		input[type=text] {
 			width: 175px;
 		}
@@ -79,14 +80,13 @@ body {
 	.logo {
 		left:4px;
 		width: 106px;
-		img {
-			width:104px;
-		}
 	}
 
 	.right_header {
-top: 34px;
-right:0px;
+top: 3px;
+right: 0px;
+width: 70%;
+font-size: 19px;
 	img {
 width: 45px;
 height: 45px;
@@ -99,7 +99,7 @@ position: relative;
 
 	.btn-new-idea {
 padding: 11px 19px;
-top: 71px;
+top: 94px;
 left: 6px;
 -moz-border-radius: 6px;
 -webkit-border-radius: 6px;
@@ -285,8 +285,8 @@ left: -125px;
 	}
 	.navigation {
 position: relative;
-left: 30px;
-top: 15px;
+left: 12px;
+top: -48px;
 }
 
 
