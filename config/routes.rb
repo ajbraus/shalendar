@@ -72,8 +72,8 @@ Shalendar::Application.routes.draw do
         #resources :rsvps, :only => [:create]
         #resources :events, :only => [:create] 
         
-        match '/relationships', :to => 'relationships#create'
-        match '/unfollow', :to => 'relationships#destroy'#, :via => :delete
+        match '/add_friend', :to => 'relationships#create'
+        match '/remove_friend', :to => 'relationships#destroy'#, :via => :delete
         match '/search_for_friends', to: 'relationships#search_for_friends', as: "search_for_friends", via: :get
         
         match '/tokens', :to => 'tokens#create'
