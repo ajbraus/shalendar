@@ -50,7 +50,7 @@
     <h2>General Settings</h2>
     <p>
       <%= f.check_box :require_confirm_follow %> 
-      <label for="require_confirm_follow"><strong>Authorize Subscribers</strong> - Confirm each subscriber before they can view your ideas. </label>
+      <label for="require_confirm_follow"><strong>Confirm Friends</strong> - Confirm each friend before they can view your ideas. </label>
     </p>
     <p>
       <div class="family_filter">
@@ -64,7 +64,7 @@
     <h2>Email Notification Settings</h2>
     <p>
       <%= f.check_box :email_comments %>
-      <label for="email_comments"><strong>Keep those Comments Coming </strong> Recieve emails when a comment is posted to an idea you've joined.</label>
+      <label for="email_comments"><strong>Keep those Comments Coming </strong> Receive emails when a comment is posted to an idea you've joined.</label>
     </p>
     <p>
       <%= f.check_box :follow_up %>
@@ -76,11 +76,11 @@
     </p>
     <p>
       <%= f.check_box :digest %>
-      <label for="digest"><strong>3-Day Digest</strong> - Recieve an email once every three days when your friends have shared new ideas with you. </label>
+      <label for="digest"><strong>3-Day Digest</strong> - Receive an email once every three days when your friends have shared new ideas with you. </label>
     </p>
     <p>
       <%= f.check_box :allow_contact %>
-      <label for="allow_contact"><strong>Stay in touch</strong> - Recieve news and (infrequent) announcements from hoos.in </label>
+      <label for="allow_contact"><strong>Stay in touch</strong> - Receive news and (infrequent) announcements from hoos.in </label>
     </p>
 
     <div><%= f.submit "Update", :class => "btn btn-warning btn-large" %></div>

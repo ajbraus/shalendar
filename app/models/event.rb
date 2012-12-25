@@ -218,7 +218,9 @@ class Event < ActiveRecord::Base
     Event.where(starts_at: time_range).each do |re|
       if re.tipped?
         re.guests.each do |g|
-          g.delay.contact_reminder(re)
+          if g.notify_event_reminders?
+            g.delay.contact_reminder(re)
+          end
         end
       else
         re.user.delay.contact_deadline(re)#could be cleaner

@@ -245,7 +245,7 @@ Given /^the response page for a "([^\"]*)" error is$/ do |error, html|
 end
 
 Then /^I should receive the following Airbrake notification:$/ do |table|
-  exceptions = @terminal.output.scan(%r{Recieved the following exception:\n([^\n]*)\n}m)
+  exceptions = @terminal.output.scan(%r{Received the following exception:\n([^\n]*)\n}m)
   exceptions.should_not be_empty
 
   xml = exceptions.last[0]

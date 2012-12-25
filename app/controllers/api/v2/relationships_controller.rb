@@ -125,4 +125,11 @@ include UsersHelper
     render :json=>{:success=>true, :follower_id=>@other_user_to_confirm.id, :followed_user=>@other_user_to_confirm}
   end
 
+  def search_for_friends
+    @found_users = User.search(params[:search_string])
+
+    render json: @found_users
+
+  end
+
 end

@@ -73,6 +73,9 @@ Shalendar::Application.routes.draw do
         #resources :events, :only => [:create] 
         
         match '/relationships', :to => 'relationships#create'
+        match '/unfollow', :to => 'relationships#destroy'#, :via => :delete
+        match '/search_for_friends', to: 'relationships#search_for_friends', as: "search_for_friends", via: :get
+        
         match '/tokens', :to => 'tokens#create'
         match '/invitations', :to => 'invitations#create'
         match '/invite_all_friends', :to => 'invitations#invite_all_friends'
@@ -83,7 +86,6 @@ Shalendar::Application.routes.draw do
         #took out delete and post types bc not working from iphone http reqeust
         match '/rsvps', :to => 'rsvps#create'
         match '/unrsvp', :to => 'rsvps#destroy'#, :via => :delete
-        match '/unfollow', :to => 'relationships#destroy'#, :via => :delete
         match '/get_user_info', :to => 'shalendar#get_user_info', :via => :get
         match '/apn_user', :to=> 'tokens#apn_user', :as => "apn_user"#, :via => :post
         match '/gcm_user', :to=> 'tokens#gcm_user', :as => "gcm_user"#, :via => :post
@@ -92,11 +94,13 @@ Shalendar::Application.routes.draw do
         match '/event_details', :to => 'events#event_details', :as => "event_details", :via => :get
         match '/followed_users', :to => 'shalendar#followed_users', :as => "followed_users", :via => :get
         match '/followers', :to => 'shalendar#followers', :as => "followers", :via => :get
+        
 
         match '/get_ins', :to => 'events#ins', :as => "ins", :via => :get
         match '/get_invites', :to => 'events#invites', :as => "invites", :via => :get
         match '/get_city_ideas', :to => 'events#city_ideas', :as => "city_ideas", :via => :get
         match '/get_my_ideas', :to => 'events#my_ideas', :as => "my_ideas", :via => :get
+        
       end
     end
   end
