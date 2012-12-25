@@ -72,7 +72,7 @@
     </div>
   <% elsif @event.starts_at.present? %>
     <div class="meter animate orange">
-      <span style=<%= 'width:' + "#{(100*@event.guests.count.to_f/@event.min.to_f).round}" + "%;"%>><span></span></span>
+      <span style=<%= 'width:' + "#{(100*@event.guest_count.to_f/@event.min.to_f).round}" + "%;"%>><span></span></span>
     </div>
   <% end %>
 
@@ -138,9 +138,9 @@
 
     <div class="guests">
       <% if @event.tipped? %>
-        <div class="right_label event_label"><%= @guests.count %> .in (Tipped!)</div>
+        <div class="right_label event_label"><%= @guest_count %> .in (Tipped!)</div>
       <% else %>
-        <div class="destroy right_label event_label"><%= @guests.count %> / <%= @event.min %> .in (Not Yet Tipped)</div>
+        <div class="destroy right_label event_label"><%= @guest_count %> / <%= @event.min %> .in (Not Yet Tipped)</div>
       <% end %>
       <div class="show_raster">
         <%= render 'guests' %>

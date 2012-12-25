@@ -7,7 +7,6 @@ class Event < ActiveRecord::Base
   belongs_to :city
 
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
-  has_many :guests, through: :rsvps
 
   has_many :invitations, foreign_key: "invited_event_id", dependent: :destroy
   has_many :invited_users, through: :invitations
@@ -97,7 +96,7 @@ class Event < ActiveRecord::Base
       :start => starts_at,
       :end => ends_at,
       :host => self.user,
-      :gcnt => self.guests.count,
+      :gcnt => self.guest_count,
       :tip => self.min,
       :guests => self.guests,
       :tipped => self.tipped
@@ -171,7 +170,7 @@ class Event < ActiveRecord::Base
   def full?
     if self.max == nil
       return false
-    elsif self.guests.count >= self.max
+    elsif self.guest_count >= self.max
       return true
     else 
       return false
@@ -396,11 +395,19 @@ class Event < ActiveRecord::Base
 
   def next_instance
     if self.parent.nil?
-      @next_instance = self.instances.where(starts_at: Time.now).order('starts_at asc').first
+      @next_instance = self.instances.where('starts_at > ?', Time.now).order('starts_at asc').first
     else
-      @next_instance = self.parent.instances.where(starts_at: Time.now).order('starts_at asc').first
+      @next_instance = self.parent.instances.where('starts_at > ?', Time.now).order('starts_at asc').first
     end 
     return @next_instance 
+  end
+
+  def has_future_instance?
+    if self.next_instance != self && self.next_instance != nil
+      return true
+    else
+      return false
+    end 
   end
 
   def save_shortened_url
@@ -415,14 +422,26 @@ class Event < ActiveRecord::Base
     if self.groups.any?
       @event_group_guests_count = 0
       self.groups.each do |g|
-        @guests_count = g.guests.count 
+        @guests_count = g.guest_count 
           @event_group_guests_count += @guests_count
       end
-      @total = self.guests.count + @event_group_guests_count
+      @total = self.guest_count + @event_group_guests_count
     else
-      @total = self.guests.count 
+      @total = self.guest_count 
     end
     return @total 
+  end
+
+  def guests
+    return self.rsvps.where(inout: 1) if self.rsvps.where(inout: 1).any?
+  end
+
+  def guest_count
+    if guests.blank?
+      return 0
+    else
+      return guest_count
+    end
   end
 
   def contact_cancellation #this is weird bc have to do delayed job before destroying..

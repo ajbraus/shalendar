@@ -188,19 +188,19 @@ class User < ActiveRecord::Base
     end
   end
 
-  def rsvp!(event)
+  def rsvp_in!(event)
     if event.full?
       return flash[:notice] = "The event is currently full."
     else
-      rsvps.create!(plan_id: event.id)
+      rsvps.create!(plan_id: event.id, inout: 1)
     end
   end
 
-  def unrsvp!(event)
-    if event.guests.count == event.min #not letting it untip anymore
+  def rsvp_out!(event)
+    if event.guest_count == event.min #not letting it untip anymore
       #Warning: this will un-tip the event for everyone, are you sure?
     end
-    rsvps.find_by_plan_id(event.id).destroy
+    rsvps.find_by_plan_id(event.id).first.inout = 0
   end
 
   def current_user?(user)
@@ -279,7 +279,7 @@ class User < ActiveRecord::Base
   def add_invitations_from_user(other_user)
     other_user.rsvps.each do |r|
       if r.invite_all_friends?
-        unless self.invited?(r.plan) || r.plan.starts_at < (Time.now - 3.days)
+        unless self.invited?(r.plan) || r.plan.starts_at.blank? || r.plan.starts_at < (Time.now - 3.days)
           other_user.invite!(r.plan, self)
         end
       end

@@ -32,7 +32,7 @@ class Api::V1::EventsController < ApplicationController
         :title => e.title,  
         :start => e.starts_at,#don't do timezone here, do it local on mobile
         :end => e.ends_at, 
-        :gcnt => e.guests.count,  
+        :gcnt => e.guest_count,  
         :tip => e.min,
         :image => e.image(:medium), 
         :host => e.user,
@@ -76,7 +76,7 @@ class Api::V1::EventsController < ApplicationController
           :title => @event.title,  
           :start => @event.starts_at,
           :end => @event.ends_at, 
-          :gcnt => @event.guests.count,
+          :gcnt => @event.guest_count,
           :tip => @event.min,  
           :host => @event.user,
           :plan => @mobile_user.rsvpd?(@event),
@@ -148,7 +148,7 @@ class Api::V1::EventsController < ApplicationController
 
  
     if @event.save
-      @mobile_user.rsvp!(@event)
+      @mobile_user.rsvp_in!(@event)
       @event.save_shortened_url
       if params[:invite_all_friends] == '1'
         @rsvp = @mobile_user.rsvps.find_by_plan_id(@event.id)
@@ -174,7 +174,7 @@ class Api::V1::EventsController < ApplicationController
         :title => e.title,  
         :start => e.starts_at,#don't do timezone here, do it local on mobile
         :end => e.ends_at, 
-        :gcnt => e.guests.count,  
+        :gcnt => e.guest_count,  
         :tip => e.min,  
         :host => e.user,
         :plan => @mobile_user.rsvpd?(e),

@@ -365,18 +365,14 @@ text-align: center;
 }
 
 .btn_stop_viewing {
-  background-color: #EDEDED;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  border-radius: 6px;
+  background-color: #ffffff;
   border: 1px solid gainsboro;
   display: inline-block;
   color: #636363;
   font-size: 12px;
-line-height: 24px;
 }
 .btn_stop_viewing:hover {
-  background-color:#ededed;
+  background-color:#EDEDED;
   cursor:pointer;
 }
 .btn_stop_viewing:active {
@@ -592,6 +588,10 @@ header {
     .sky {
       border-bottom: 1px solid $divider;
       height: 69px;
+      .choose_city {
+        position: relative;
+        bottom: 69px;
+      }
     }
     .crust {
       clear:both;
@@ -1632,11 +1632,19 @@ margin-bottom: 3px;
 float: right;
 position: relative;
 left: 6px;
+form {
+  float: right;
+}
 }
 
 .btn_icon {
-padding: 5px 13px;
+padding: 4px 4px;
 cursor: pointer;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+width: 31px;
+margin: 1px;
  i {
     color: white;
     position: relative;
@@ -2187,6 +2195,7 @@ overflow-x: hidden;
 position: relative;
   .meter {
     padding:0;
+    top: 21px;
   }
   .promo_img {
     text-align: center;
@@ -2234,6 +2243,8 @@ width: 47%;
     .join_group_buttons {
     z-index: 1;
     float: right;
+    width: 50%;
+    bottom: 10px;
     }
   }
 }
@@ -3463,9 +3474,10 @@ top: -7px;
 
 .fb-login-button {
   img {
-    position: relative;
-bottom: 18px;
-width: 26px;
+position: relative;
+bottom: 15px;
+width: 22px;
+right: 18px;
   }
 }
 
@@ -3733,19 +3745,22 @@ position: relative;
 
 
 .not_signed_in_pitch {
-margin: 10px auto;
-max-width: 420px;
+padding: 10px;
+margin: 0 auto;
+max-width: 100%;
 position: relative;
-top: 4px;
+top: 1px;
 font-size: 27px;
 line-height: 1;
+background-color: white;
   .btn_fb_login {
-width: 207px;
+width: 267px;
 background-size: 99%;
-height: 33px;
-right: 0;
+height: 45px;
+right: 386px;
+top: 6px;
   &:hover {
-  background-position: -4px -48px; 
+  background-position: -4px -58px; 
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
@@ -3762,15 +3777,20 @@ right: 0;
 }
 
 .not_signed_in_buttons {
-text-align: left;
+text-align: center;
+  .buttons {
+    position: relative;
+left: 140px;
+  }
 }
 
 .city_title {
-width: 110%;
-margin: 0 auto;
 position: absolute;
-top: 10px;
+top: 67px;
 z-index: -1;
+left: 29px;
+margin: 0 auto;
+width: 96%;
 }
 
 ::-webkit-scrollbar {

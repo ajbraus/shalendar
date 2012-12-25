@@ -5,9 +5,9 @@ class ShalendarController < ApplicationController
     if user_signed_in? #see all invites, ideas, and city ideas with times or tbd shuffled
       #my ideas
       @my_ideas = Event.where(user_id: current_user.id)
-      @my_ideas = @my_ideas.select { |e| e.starts_at.blank? || e.ends_at > Time.now }
+      @my_ideas = @my_ideas.select { |e| !e.has_future_instance? || (e.ends_at.present? && e.ends_at > Time.now) }
       #city ideas
-      @city_ideas = Event.where(is_public: true, city_id: @current_city.id).reject { |e| e.ends_at < Time.now }
+      @city_ideas = Event.where(is_public: true, city_id: @current_city.id).select { |e| !e.has_future_instance? || e.ends_at > Time.now }
       #invites (friend ideas)
       @invites = []
       @invitations = current_user.invitations.order('created_at desc')
@@ -53,7 +53,7 @@ class ShalendarController < ApplicationController
   def city_ideas
     @ideas = Event.where(is_public: true, city_id: @current_city.id)
     @ideas = @ideas.reject { |e| e.starts_at < Time.now }.shuffle
-    #or .sort_by{|i| -i.guests.count}
+    #or .sort_by{|i| -i.guest_count}
   end
 
   def my_ideas
@@ -159,12 +159,12 @@ class ShalendarController < ApplicationController
       #Attempt at real AR / SQL query - will be faster if we have lots of crowd ideas
       # @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, @current_city.id, Time.now)
       #           .joins(:rsvps).select('events.*, count(plan_id) as "plan_count"').group(:plan_id).order(' plan_count desc')
-      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, @current_city.id, Time.now).sort_by{ |i| -i.guests.count}
-      #@ideas.sort_by { |i| -i.guests.count }
+      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, @current_city.id, Time.now).sort_by{ |i| -i.guest_count}
+      #@ideas.sort_by { |i| -i.guest_count }
     elsif session[:city]
-      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name(session[:city]).id, Time.now).sort_by{ |i| -i.guests.count}
+      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name(session[:city]).id, Time.now).sort_by{ |i| -i.guest_count}
     else
-      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name("Madison, Wisconsin").id, Time.now).sort_by{ |i| -i.guests.count}
+      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name("Madison, Wisconsin").id, Time.now).sort_by{ |i| -i.guest_count}
     end
   end
 

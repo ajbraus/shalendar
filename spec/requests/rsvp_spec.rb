@@ -29,7 +29,7 @@ describe "Users" do
 
   describe "flaking from an idea" do
     before do 
-      user.rsvp!(event)
+      user.rsvp_in!(event)
       visit event_path(event)
       click_on "Out"
     end

@@ -9,7 +9,7 @@
 <% else %> 	<!-- USER IS SIGNED IN -->
 	<% unless current_user.vendor? %> <!-- USER IS NOT A VENDOR -->
 		<% if current_user.rsvpd?(@event) %> <!-- IF RSVPED SHOW IN BUTTON -->
-			<div id="inButton">
+			<span id="inButton">
 				<div id="in" class="btn btn-rsvp rsvp_button"><i class="icon-ok-circle"></i> .in</div>
 				<div id="flakeOut" style="display:none">
 					<%= form_for(current_user.rsvps.find_by_plan_id(@event),
@@ -17,14 +17,14 @@
 					  <%= f.submit "Out", class: "btn rsvp_button btn_stop_viewing ursvp_button", confirm: "Are you sure you can't make it?", id:"unRsvp" %>
 					<% end %>
 				</div>
-			</div>
+			</span>
 		<% elsif @event.ends_at.present? && @event.ends_at > Time.now %>
-			<div class="rsvp_btn"><!--  ELSE SHOW RSVP BUTTON -->
+			<span class="rsvp_btn"><!--  ELSE SHOW RSVP BUTTON -->
 				<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
 		  		<%= f.hidden_field :plan_id %>
 		  		<%= f.submit "join.in", class: "btn btn-rsvp rsvp_button", confirm: "Please confirm that you will join.in this idea", id:"Join" %>
 				<% end %>
-			</div>
+			</span>
 				<% if false %> <!-- PAYMENT COMMENTED OUT -->
 					<% if @event.require_payment? && current_user.credit_card_uri.blank? %>
 						<%= link_to "join.in", new_card_path(:id => @event.id), class: "btn btn-rsvp rsvp_button", confirm: "Please confirm that you will join.in this idea?", id:"Join" %>
@@ -33,17 +33,17 @@
 					<% end %>
 				<% end %>
 		<% end %>
-				<div class="group_button">
-				<% if @event.next_instance.present? %>
+				<span class="group_button">
+				<% if @event.has_future_instance? && (current_user.invited?(@event) || @event.next_instance.is_public?) %>
 		 			<%= link_to event_path(@event.next_instance) do %>
-							<i class="icon-upload-alt"></i> View Upcoming Time
+							<i class="icon-calendar"></i> Upcoming Time
 					<% end %>
 				<% end %>
 				<% if @event.user == current_user %>
 					<%= link_to new_time_path(:event_id => @event.id), id:"makeATime", class:"btn btn-success rsvp_button" do %>
-						<i class="icon-copy"></i> Make A New Time
+						<i class="icon-copy"></i> New Time
 					<% end %>
 				<% end %>
-				</div>
+				</span>
 	<% end %>
 <% end %>

@@ -1,4 +1,5 @@
 <% if user_signed_in? %>
+<%-binding.remote_pry %>
 	<div class="event shield
 		<% if event.ends_at.present? %>
 			<%= event.ends_at < Time.now ? 'over' : '' %>
@@ -8,7 +9,7 @@
 		data-event-id='<%= event.id %>'>
 <% else %>
 	<div class="event shield 
-		<% if @event.starts_at.present? %>
+		<% if event.starts_at.present? %>
 			<%= event.ends_at < Time.now ? 'over' : '' %>">
 		<% end %>
 <% end %>
@@ -23,7 +24,7 @@
 				</div>
 			<% elsif event.starts_at.present?%>
 				<div class="meter animate orange">
-					<span style=<%= 'width:' + "#{(100*event.guests.count.to_f/event.min.to_f).round}" + "%;"%>><span></span></span>
+					<span style=<%= 'width:' + "#{(100*event.guest_count.to_f/event.min.to_f).round}" + "%;"%>><span></span></span>
 				</div>
 			<% end %>
 	<% if event.has_image? %>
@@ -78,7 +79,7 @@
 			<% if event.promo_vid.present? %>
 				<i class="icon-video"></i>
 			<% end %>
-			<% if event.min > 99 %>
+			<% if event.min.present? && event.min > 99 %>
 				<i class="icon-cloud"></i>
 			<% end %>
 			<% if event.is_public? %>
@@ -93,9 +94,9 @@
 		<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
 		<% end %>	
 		<% if event.starts_at.present? %>
-	  	<div class="guests <%= !event.tipped? ? 'not_tipped' : '' %>"><i class="icon-group"></i> <%= event.guests.count %><%= !event.tipped? ? "/#{ event.min }" : '' %></div>
+	  	<div class="guests <%= !event.tipped? ? 'not_tipped' : '' %>"><i class="icon-group"></i> <%= event.guest_count %><%= !event.tipped? ? "/#{ event.min }" : '' %></div>
 	  <% else %>
-	  	<div class="guests"><i class="icon-group"></i> <%= event.guests.count %></div>
+	  	<div class="guests"><i class="icon-group"></i> <%= event.guest_count %></div>
 	  <% end %>
 
 	</div>

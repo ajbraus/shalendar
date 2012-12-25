@@ -61,7 +61,9 @@ class EventsController < ApplicationController
     @event = current_user.events.build(params[:event])
     @event.city = @current_city
     if @event.starts_at.present? && @event.duration.present?
-      #create instance
+      #SET ENDS_AT FOR PARENT
+      @event.ends_at = @event.starts_at + @event.duration*3600
+      #CREATE CHILD INSTANCE
       @instance = @event.instances.build(user_id: current_user.id,
                                parent_id: @event.id,
                                title: @event.title,
@@ -83,19 +85,24 @@ class EventsController < ApplicationController
                             )
       if @instance.save
         @instance.save_shortened_url
+        current_user.rsvp_in!(@instance)
         if params[:invite_all_friends] == "on"
           @rsvp = current_user.rsvps.find_by_plan_id(@instance.id)
           current_user.invite_all_friends!(@instance)
           @rsvp.invite_all_friends = true
           @rsvp.save
         end
-        
         @instance.tipped = true   if @instance.min <= 1
+        @event.starts_at = nil
+        @event.ends_at = nil
+        @event.min = nil
+        @event.max = nil
+        @event.duration = nil
       end
     end
 
     if @event.save
-      current_user.rsvp!(@event)
+      current_user.rsvp_in!(@event)
       @event.save_shortened_url
       if params[:category_id]
         Categorization.create(event_id: @event.id, category_id: params[:category_id])
@@ -108,8 +115,9 @@ class EventsController < ApplicationController
       end
       
       if @instance.present?
-        Categorization.create(event_id: @instance.id, category_id: @event.categorizations.first.id )
-        current_user.rsvp!(@instance)
+        if @event.categorizations.any?
+          Categorization.create(event_id: @instance.id, category_id: @event.categorizations.first.id )
+        end
         respond_to do |format|
           format.html { redirect_to @instance, notice: "Idea Posted Successfully" }
           format.json { render json: @instance, status: :created, location: @event }
@@ -201,7 +209,7 @@ class EventsController < ApplicationController
             end
           end
         end
-        if @event.guests.count >= @event.min
+        if @event.guest_count >= @event.min
           @event.tip!
         end
         format.html { redirect_to @event, notice: 'Idea was successfully updated.' }

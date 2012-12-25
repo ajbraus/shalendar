@@ -2,12 +2,8 @@ class CategorizationsController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    @event = Event.find(params[:rsvp][:plan_id])
-    current_user.rsvp!(@event)
-    if @event.guests.count == @event.min && @event.tipped? == false
-      @event.tip!
-    end
-
+    @categorization = current_user.categorizations.create(category_id: params[:category_id])
+    
     respond_to do |format|
       format.html { redirect_to @event }
       format.js
@@ -15,10 +11,8 @@ class CategorizationsController < ApplicationController
   end
 
   def destroy
-    current_user.categorizations.find_by_category_id(params[:category_id])
-
-    @event = Rsvp.find(params[:id]).plan
-    current_user.unrsvp!(@event)
+    @categorization = current_user.categorizations.find_by_category_id(params[:category_id])
+    @categorization.destroy
 
     respond_to do |format|
       format.html { redirect_to @event }

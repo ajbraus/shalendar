@@ -61,7 +61,7 @@ class Suggestion < ActiveRecord::Base
       :start => starts_at,
       :end => ends_at,
       :host => self.user,
-      :gcnt => self.guests.count,
+      :gcnt => self.guest_count,
       :tip => self.min,
       :guests => self.guests,
       :tipped => self.tipped

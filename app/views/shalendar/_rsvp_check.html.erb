@@ -12,7 +12,13 @@
 	<% else %>
 		<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 		  <div><%= f.hidden_field :plan_id %></div>
-		  <%= f.submit raw("join.in"), class:"btn_icon btn_icon_rsvp", confirm:"Please confirm that you will join.in this idea" %>
+		  <div><%= f.hidden_field :inout, value: "1" %></div>
+		  <%= f.submit ".in", class:"btn_icon btn_icon_rsvp"%>
+		<% end %>
+		<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
+		  <div><%= f.hidden_field :plan_id %></div>
+		  <div><%= f.hidden_field :inout, value: "0" %></div>
+		  <%= f.submit "out", class:"btn_icon btn_stop_viewing" %>
 		<% end %>
 	<% end %>
 <% end %>

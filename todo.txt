@@ -180,13 +180,14 @@ Times
 	event has child instances
 
 	RSVP out
-		rails g migration add_out_to_rsvps out:boolean
-		update rsvp! method to take in,out
+		DONE rails g migration add_out_to_rsvps :inout integer (0 = out, 1 = in)
+		DONE update rsvp! method to take in,out
 		DONE When rsvping to child idea, create rsvp to parent
 		DONE When rsvping out to child idea do not rsvp out to parent
 		in ideas/calendar/invites/plans remove rsvpd out children
 
 	In idea pool, if parent has child with time in future, only show child
+	if unrsvpd to next_instance then don't show the parent either
 
 
 
