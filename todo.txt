@@ -193,6 +193,7 @@ Times
 
 		created friendship only created one relationship
 
+		problems with user_id and guest_id in 
 
 	In idea pool, if parent has child with time in future, only show child
 	if unrsvpd to next_instance then don't show the parent either

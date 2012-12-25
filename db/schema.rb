@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121225211859) do
+ActiveRecord::Schema.define(:version => 20121224204427) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -276,7 +276,7 @@ ActiveRecord::Schema.define(:version => 20121225211859) do
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
   create_table "rsvps", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "guest_id"
     t.integer  "plan_id"
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
@@ -284,9 +284,9 @@ ActiveRecord::Schema.define(:version => 20121225211859) do
     t.integer  "inout"
   end
 
+  add_index "rsvps", ["guest_id", "plan_id"], :name => "index_rsvps_on_guest_id_and_plan_id", :unique => true
+  add_index "rsvps", ["guest_id"], :name => "index_rsvps_on_guest_id"
   add_index "rsvps", ["plan_id"], :name => "index_rsvps_on_plan_id"
-  add_index "rsvps", ["user_id", "plan_id"], :name => "index_rsvps_on_guest_id_and_plan_id", :unique => true
-  add_index "rsvps", ["user_id"], :name => "index_rsvps_on_guest_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false

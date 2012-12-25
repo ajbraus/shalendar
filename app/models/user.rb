@@ -210,7 +210,8 @@ class User < ActiveRecord::Base
     if event.full?
       return flash[:notice] = "The event is currently full."
     else
-      if @existing_rsvp = event.rsvps.find(guest_id: self.id).present?
+      if event.rsvps.where(guest_id: self.id).any?
+        @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
         @existing_rsvp.destroy
       end
       rsvps.create!(plan_id: event.id, inout: 1)
