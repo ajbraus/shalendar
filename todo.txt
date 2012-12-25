@@ -189,11 +189,11 @@ Times
 		DONE created user.rb methods: in?, out? and updated rsvpd? and updated all instances-
 			so you are either in out or not yet responded (literally respondez si vous plait)
 		
+		DONE!RSVPS POSTING!
+		fix javascripts for ajax
+		
 		remove updates for events users are .out from
-
 		created friendship only created one relationship
-
-		problems with user_id and guest_id in 
 
 	In idea pool, if parent has child with time in future, only show child
 	if unrsvpd to next_instance then don't show the parent either
