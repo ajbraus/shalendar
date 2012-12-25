@@ -28,6 +28,10 @@ class Api::V2::EventsController < ApplicationController
       e.guests.each do |g|
         @guestids.push(g.id)
       end
+      @inviter_id = 0
+      if @mobile_user.invited?(e)
+        @inviter_id = e.invitations.find_by_invited_user_id(@mobile_user.id).inviter_id
+      end
       @g_share = true
       if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
         @g_share = false
@@ -45,6 +49,7 @@ class Api::V2::EventsController < ApplicationController
         :tipped => e.tipped,
         :gids => @guestids,
         :g_share => @g_share,
+        :iid => @inviter_id,
         :share_a => @mobile_user.invited_all_friends?(e)
       }
       @list_events.push(@temp)

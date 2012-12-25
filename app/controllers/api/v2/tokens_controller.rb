@@ -65,9 +65,6 @@ class Api::V2::TokensController  < ApplicationController
         return
       end
     end
-    #Turn these into invitations... **UPDATE
-    @all_email_invites = EmailInvite.where("email_invites.email = :current_user_email", current_user_email: @user.email)
-
     render :status=>200, :json=>{:token=>@user.authentication_token, 
                                   :user=>{
                                     :user_id=>@user.id,
