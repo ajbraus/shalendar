@@ -65,16 +65,6 @@ class Api::V2::TokensController  < ApplicationController
         return
       end
     end
-    #Turn this into invitations... **UPDATE
-    @all_email_invites = EmailInvite.where("email_invites.email = :current_user_email", current_user_email: @user.email)
-    @email_invites = []
-    @all_email_invites.each do |i|
-      @temp = {
-        :eid => i.event_id,
-        :i => User.find_by_id(i.inviter_id)
-      }
-      @email_invites.push(@temp)
-    end
     render :status=>200, :json=>{:token=>@user.authentication_token, 
                                   :user=>{
                                     :user_id=>@user.id,
@@ -82,16 +72,11 @@ class Api::V2::TokensController  < ApplicationController
                                     :last_name=>@user.last_name,
                                     :myself=>@user,
                                     :email_hex=> Digest::MD5::hexdigest(@user.email.downcase),
-                                    :confirm_f=>@user.require_confirm_follow,
-                                    :daily_d=>@user.allow_contact,
-                                    :notify_r=>@user.notify_event_reminders,
-                                    :post_wall=>@user.post_to_fb_wall,
                                     :followed_users=>@user.followed_users,#may put these in separate calls for speed of login
                                     :pending_followed_users=>@user.pending_followed_users,
-                                    #:followers=>@followers,
-                                    :invites=>@invites
+                                    :city_name=>@user.city.name
                                     }
-                                 }
+                                  }
   end
 
   def destroy
@@ -168,7 +153,10 @@ class Api::V2::TokensController  < ApplicationController
     if user = User.find_by_email(email)
       email = fb_info["email"]
       name = fb_info["name"]
-      location = fb_info["location"]["name"]
+      location = "Madison, Wisconsin"
+      unless fb_info["location"].nil?
+        location = fb_info["location"]["name"]
+      end
       @city = City.find_by_name(location)
       if @city.nil?
         c = City.new(name: location, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone)
@@ -256,12 +244,17 @@ class Api::V2::TokensController  < ApplicationController
     # device = Gcm::Device.new
     # device.registration_id = registration_id
     # device.save!
-
     device = Gcm::Device.find_by_registration_id(registration_id)
     if device.nil?
       device = Gcm::Device.create(:registration_id => registration_id)
       device.save
     end
+    # notification = Gcm::Notification.new
+    # notification.device = device
+    # notification.collapse_key = "updates_available"
+    # notification.delay_while_idle = true
+    # notification.data = {:registration_ids => [registration_id], :data => {:message_text => "Happy afternoon!"}}
+    # notification.save
 
     @user.GCMtoken = registration_id
     @user.GCMdevice_id = device.id

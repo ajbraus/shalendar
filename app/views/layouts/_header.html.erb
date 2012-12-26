@@ -1,39 +1,34 @@
 <header>
+    <%= render partial: 'shalendar/joyride' %>
+  <nav>
   <%= render 'layouts/logo' %>
 
 <% if user_signed_in? %>
 
   <ul class="left_header">
-    <% if false %><li><%= link_to "crowd ideas", discover_path %></li><% end %>
-    <li><%= link_to 'explain', what_is_hoosin_path %></li>
+    <li><%= render 'shared/city_user_dropdown' %></li>
   </ul>
 
   <div class="right_header">
-    <div>
-      <%= render 'shared/picture_dropdown' %>
-    </div>
-
-<% if false %>
-    <!-- CITY ICON -->
-    <div class="city-icon">
-      <%= link_to yellow_pages_path, :remote => true, class:"city_vendors fancybox.ajax" do %>
-        <%= image_tag current_user.city.icon.url(:icon) %>
+    <% if false %>
+      <!-- CITY ICON -->
+      <div class="city-icon">
+        <%= link_to yellow_pages_path, :remote => true, class:"city_vendors fancybox.ajax" do %>
+          <%= image_tag current_user.city.icon.url(:icon) %>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="instructions"><%= link_to '.instructions', what_is_hoosin_path %></div>
+      <% unless current_user.vendor? %>
+        <%= render 'shared/friend_search' %>
       <% end %>
     </div>
-<% end %>
-    <%= render 'shared/city_user_dropdown' %>
-    <div id="interestsDropdown" class="interests_dropdown">interests <i class="icon-caret-down"></i></div>
-    <%= render 'shared/interests_user_dropdown' %>
-    <% unless current_user.vendor? %>
-      <%= render 'shared/friend_search' %>
-    <% end %>
-  </div>
 
 <% else %> <!-- IF NOT SIGNED IN -->
   <% unless params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
     <ul class="left_header">
-      <li><%= link_to "discover", discover_path %></li>  
-      <li><%= link_to 'what is hoos.in?', what_is_hoosin_path %></li>
+      <li><%= render 'shared/city_session_dropdown' %></li>
+
     </ul>
 
     <div class="city_title">
@@ -41,11 +36,17 @@
     </div>
 
     <div class="right_header">
-      <div class="login">
-        <%= link_to "login", new_user_session_path %>
-      </div>
-        <%= render 'shared/city_session_dropdown' %>
+      <%= link_to '.instructions', what_is_hoosin_path %>
     </div>
   <% end %>
 <% end %>
+  <% if false %>
+    <div class="crowd_idea_banner">
+      <%= link_to crowd_ideas_path do %>
+        <%= image_tag "crowd_ideas_banner.png" %>
+      <% end %>
+    </div>
+  <% end %>
+  </nav>
+  <span id="invitations"></span>
 </header>

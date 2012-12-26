@@ -9,8 +9,9 @@ Shalendar::Application.routes.draw do
 
   resources :users, :only => [:show]
 
-  match '/madison', :to => 'shalendar#home', :as => "madison", :city => "Madison, Wisconsin"
-  match '/everywhere_else', :to => 'shalendar#home', :as => "everwhere_else", :city => "Everywhere Else"
+  City.all.each do |c|
+    match "/#{c.name.split(',')[0].gsub(/\s+/, "").downcase}", :to => 'shalendar#home', :as => "#{c.name.split(',')[0].gsub(/\s+/, "").gsub("-", "_").downcase}", :city => "#{c.name}"
+  end
   
   root :to => 'static_pages#landing'
 
@@ -71,7 +72,12 @@ Shalendar::Application.routes.draw do
         #resources :rsvps, :only => [:create]
         #resources :events, :only => [:create] 
         
-        match '/relationships', :to => 'relationships#create'
+        match '/add_friend', :to => 'relationships#create'
+        match '/remove_friend', :to => 'relationships#destroy'#, :via => :delete
+        match '/search_for_friends', to: 'relationships#search_for_friends', as: "search_for_friends", via: :get
+        match '/search_for_fb_friends', to: 'relationships#search_for_fb_friends', as: "search_for_fb_friends", via: :get
+
+
         match '/tokens', :to => 'tokens#create'
         match '/invitations', :to => 'invitations#create'
         match '/invite_all_friends', :to => 'invitations#invite_all_friends'
@@ -82,7 +88,6 @@ Shalendar::Application.routes.draw do
         #took out delete and post types bc not working from iphone http reqeust
         match '/rsvps', :to => 'rsvps#create'
         match '/unrsvp', :to => 'rsvps#destroy'#, :via => :delete
-        match '/unfollow', :to => 'relationships#destroy'#, :via => :delete
         match '/get_user_info', :to => 'shalendar#get_user_info', :via => :get
         match '/apn_user', :to=> 'tokens#apn_user', :as => "apn_user"#, :via => :post
         match '/gcm_user', :to=> 'tokens#gcm_user', :as => "gcm_user"#, :via => :post
@@ -91,9 +96,18 @@ Shalendar::Application.routes.draw do
         match '/event_details', :to => 'events#event_details', :as => "event_details", :via => :get
         match '/followed_users', :to => 'shalendar#followed_users', :as => "followed_users", :via => :get
         match '/followers', :to => 'shalendar#followers', :as => "followers", :via => :get
+        
+
+        match '/get_ins', :to => 'events#ins', :as => "ins", :via => :get
+        match '/get_invites', :to => 'events#invites', :as => "invites", :via => :get
+        match '/get_city_ideas', :to => 'events#city_ideas', :as => "city_ideas", :via => :get
+        match '/get_my_ideas', :to => 'events#my_ideas', :as => "my_ideas", :via => :get
+        
       end
     end
   end
+
+  match '/get_fb_friends_to_invite', :to => 'events#get_fb_friends_to_invite', :as => 'get_fb_friends_to_invite'
 
   match '/set_time_zone', :to => 'users#set_time_zone', :as => 'set_time_zone'
 
@@ -111,17 +125,19 @@ Shalendar::Application.routes.draw do
 
   match '/make_a_group', :to => 'events#make_a_group', :as => 'make_a_group'
   match '/repeat', :to => 'events#repeat', :as => 'repeat_event'
-  match '/new_crowd_idea', :to => 'events#new_crowd_idea', :as => 'new_crowd_idea'
+  #match '/new_crowd_idea', :to => 'events#new_crowd_idea', :as => 'new_crowd_idea'
 
   match '/activity', :to => 'shalendar#activity', :as => "activity"
   match '/manage_friends', :to => 'shalendar#manage_friends', :as => "manage_friends"
 
-  resources :events, only: [:create, :destroy, :update, :tip, :edit, :new, :show] do #:index,
+  resources :events, path: "ideas", only: [:create, :destroy, :update, :tip, :edit, :new, :show] do #:index,
     put :tip
     resources :comments, only: [:create, :destroy]
     resources :email_invites, only: [:create, :destroy]
     resources :fb_invites, only: [:create, :destroy]
   end
+
+  match '/new_idea', :to => 'events#new', :as => 'new_idea'
 
   resources :rsvps, only: [:create, :destroy]
   resources :invitations, only: [:create, :destroy]
@@ -143,7 +159,7 @@ Shalendar::Application.routes.draw do
   match 'datepicker' => "shalendar#datepicker"
 
   match '/what_is_hoosin', :to => 'shalendar#what_is_hoosin', :as => "what_is_hoosin"
-  match '/discover', :to => 'shalendar#discover', :as => "discover"
+  #match '/crowd_ideas', :to => 'shalendar#crowd_ideas', :as => "crowd_ideas"
   match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
   match '/yellow_pages', :to => 'shalendar#yellow_pages', :as => "yellow_pages"
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
@@ -154,16 +170,6 @@ Shalendar::Application.routes.draw do
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/careers', :to => 'static_pages#careers', :as => "careers"
   match '/terms', :to => 'static_pages#terms_header', :as => "terms"
-
-  #FOR MOBILE W USER AUTO USER(3)
-  match '/mobile_plans', :to => 'events#mobile_plans', :as => "mobile_plans"
-  match '/mobile_maybes', :to => 'events#mobile_maybes', :as => "mobile_maybes"
-
-  match '/mobile_home', to: 'shalendar#mobile_home', as: "mobile_home"
-  match '/mobile_followed_users', to: 'shalendar#mobile_followed_users', as: "mobile_followed_users"
-  match '/mobile_toggled_followed_users', to: 'shalendar#mobile_toggled_followed_users', as: "mobile_toggled_followed_users"
-  match '/mobile_untoggled_followed_users', to: 'shalendar#mobile_untoggled_followed_users', as: "mobile_untoggled_followed_users"
-  match '/mobile_followers', to: 'shalendar#mobile_followers', as: "mobile_followers"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

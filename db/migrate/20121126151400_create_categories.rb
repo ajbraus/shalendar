@@ -2,11 +2,10 @@ class CreateCategories < ActiveRecord::Migration
   def change
     create_table :categories do |t|
       t.string :name
-
       t.timestamps
     end
     add_index :categories, :name
-    add_column :users, :classification_id, :integer #to sort venues
+    # add_column :users, :classification_id, :integer #to sort venues
 
     create_table :interests do |t|
     	t.integer :category_id
@@ -35,8 +34,10 @@ class CreateCategories < ActiveRecord::Migration
 
     Event.all.each do |e|
       Category.all.each do |cat|
-        if e.category.downcase == cat.name.downcase
-          Categorization.create(event_id:e.id, category_id:cat.id)
+        if e.category.present?
+            if e.category.downcase == cat.name.downcase
+              Categorization.create(event_id:e.id, category_id:cat.id)
+            end
         end
       end
     end

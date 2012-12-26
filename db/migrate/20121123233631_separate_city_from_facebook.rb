@@ -1,6 +1,6 @@
 class SeparateCityFromFacebook < ActiveRecord::Migration
   def change
-  	add_column :users, :city_id, :int
+  	add_column :users, :city_id, :integer
     add_column :authentications, :city, :string
 
     add_column :users, :slug, :string
@@ -16,9 +16,7 @@ class SeparateCityFromFacebook < ActiveRecord::Migration
 
     City.create(name: "Madison, Wisconsin", timezone: "Central Time (US & Canada)")
     City.create(name: "Chicago, Illinois", timezone: "Central Time (US & Canada)")
-    City.create(name: "New York- Manhattan, New York", timezone: "Eastern Time (US & Canada)")
-    City.create(name: "New York- Brooklyn, New York", timezone: "Eastern Time (US & Canada)")
-    City.create(name: "New York- Long Island, New York", timezone: "Eastern Time (US & Canada)")
+    City.create(name: "New York, New York", timezone: "Eastern Time (US & Canada)")
     City.create(name: "Minneapolis, Minnesota", timezone: "Central Time (US & Canada)")
     City.create(name: "Detroit, Michigan", timezone: "Central Time (US & Canada)")
     City.create(name: "Austin, Texas", timezone: "Mountain Time (US & Canada)")
@@ -61,6 +59,7 @@ class SeparateCityFromFacebook < ActiveRecord::Migration
     City.create(name: "Istanbul, Turkey", timezone: "Istanbul")
     City.create(name: "Stockholm, Sweden", timezone: "Paris")
     City.create(name: "London, England", timezone: "London")
+    City.create(name: "Ithaca, New York", timezone: "Eastern Time (US & Canada)")
 
     if User.all.any?
     	User.all.each do |u|
@@ -76,6 +75,8 @@ class SeparateCityFromFacebook < ActiveRecord::Migration
           u.city_id = City.find_by_name("New York- Manhattan, New York").id
         elsif u.city == "San Francisco, California"
           u.city_id = City.find_by_name("San Francisco, California").id
+        elsif u.city == "Ithaca, New York"
+          u.city_id = City.find_by_name("Ithaca, New York").id
         elsif u.city == "Salt Lake City, Utah"
           u.city_id = City.find_by_name("Salt Lake City, Utah").id
         elsif u.city == "Istanbul, Turkey"
@@ -106,12 +107,12 @@ class SeparateCityFromFacebook < ActiveRecord::Migration
         u.save
     	end
     end
-    add_column :events, :city_id, :int
+    add_column :events, :city_id, :integer
 
     if Event.all.any?
       Event.all.each do |e|
         if e.user.nil?
-          e.city_id = City.find_by_name("Everywhere Else").id
+          #do nothing.. hopefully the event is gone
         else
           e.city_id = e.user.city_id
         end

@@ -6,7 +6,9 @@
 @media only screen and (min-width:600px) {
 
 	header {
-		  margin-left:3%;
+		nav {
+			padding-left: 2%;
+		}
 	}
 
 	.my_plans {
@@ -46,7 +48,12 @@
 	}
 
 	.logo {
+		width: 164px;
 		left: 25px;
+	}
+
+	ul.left_header {
+		top: 34px;
 	}
 
 	.responsive_new_idea {
@@ -54,6 +61,11 @@
 	}
 
 	.event {
+		margin:8px;
+		min-width: 190px;
+		max-width: 200px;
+		min-height: 110px;
+		max-height: 410px;
 		.promo_img {
 			img {
 				max-width: 200px;
@@ -62,7 +74,6 @@
 	}
 
 .mini_event {
-	height: 110px;
 }
 
 .idea_container {
@@ -71,12 +82,16 @@ position: relative;
 
 .crowd_ideas {
 	margin-left: 290px;
-width: 77%;
+	width: 77%;
 }
 
 .show_skin {
-	height: 1000px;
-	margin-bottom: -1000px;
+width: 54px;
+position: fixed;
+z-index: 1;
+margin-left: 69%;
+left: 250px;
+height: 100%;
 }
 
 	#forecast {
@@ -90,40 +105,43 @@ width: 77%;
 		left: -2px;
 	}
 
-	.user_search input[type=text] {
+	.user_search {
+		top: 10px;
+		input[type=text] {
 		width: 200px;
+		}
 	}
 
 	.right_header {
 		top: 10px;
+		right: 110px;
 	}
 
 	#friends {
-width: 60%;
-left: 20px;
+width: 65%;
+margin-left: 300px;
+top: 16px;
 	}
 
 	.event_show {
-		margin: 0 auto;
-		width: 580px;
-		top:10px;
+margin: 0 286px;
+width: 65%;
+top: 10px;
+min-width: 570px;
 		.promo_img {
 			img {
-				max-width: 580px;
+				max-width: 100%;
 			}
 		}
 		.when {
 			font-size: 27px;
+			height: 40px;
 		}
 	}
 
 		.guest_count {
 			bottom: 1px;
 			right: 6px;
-		}
-
-		header {
-			width: 96%;
 		}
 
 		.event_time {
@@ -138,7 +156,7 @@ left: 20px;
 
 		.event_buttons {
 			font-size: 30px;
-			top: 23px;
+			top: 63px;
 			text-align: right;
 			position: relative;
 			margin-right: 9px;
@@ -192,8 +210,8 @@ left: 20px;
 		}
 		
 		.dropdown dd ul {
-top: 0px;
-left: -121px;
+top: -10px;
+left: 2px;
 		}
 
 		.interests {
@@ -208,7 +226,6 @@ left: -121px;
 		}
 
 		.fb_login_button {
-			right: 80px;
 		}
 
 		.instagram-placeholder img {
@@ -217,10 +234,6 @@ left: -121px;
 
 		.top {
 			height:505px;
-		}
-		.rsvp_dot {
-			right: 10px;
-  		top: 10px;
 		}
 
 		.alert {
@@ -232,13 +245,12 @@ left: -121px;
 		}
 
 		.btn-new-idea {
-			padding: 9.5px 10px;
-			right: 15px;
-			position: relative;
-			bottom: 14px;
-			-moz-border-radius: 0 6px 6px 0;
-    	-webkit-border-radius: 0 6px 6px 0;
-    	border-radius: 0 6px 6px 0;
+			padding: 10.5px 33px;
+position: relative;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+border-radius: 6px;
+width: 170px;
 		}
 		.new_idea {
 		}
@@ -249,12 +261,14 @@ left: -121px;
 
 		.sidebar {
 			width: 235px;
+			/*height: 185px;*/
+			height: auto;
 		}
 
 		.home {
 position: relative;
-margin-right: -25px;
-margin-left: 270px;
+margin-right: 0px;
+margin-left: 278px;
 		}
 
 		.rsvp_button {
@@ -262,20 +276,78 @@ margin-left: 270px;
 		}
 
 		.new_crowd_idea {
-			width: 69%;
+				padding-top: 5%;
+				padding-bottom: 5%;
 			.event_form {
-				width:58%;
+				width: 40%;
+				margin: 0;
+				float: left;
+				overflow: auto;
+				border-right:1px solid $divider;
 			}
 			.idea_preview {
-				width: 30%;
-				right: 13%;
-				position: fixed;
-				top: 140px;
-				  img {
-      		width:100%;
+				position: relative;
+				bottom: 30px;
+				float: left;
+				width: 52%;
+				margin: 0 auto;
+				margin-left: 3%;
+				  .event {
+				  	margin-bottom: 20px;
+      			margin: 0 auto;
+      			margin-bottom:20px;
     		}
+    	.event_show {
+    		margin: 0 auto;
+				width: 100%;
+				min-width: 0;
+				overflow: hidden;
+    	}
 			}
 		}
+
+		.jr_forecast {
+			margin-left: 170px;
+			margin-top:-100px;
+		}
+
+		.jr_welcome {
+  		margin-left: 100px;
+  		margin-top: -70px;
+		}
+
+		.jr_search {
+			margin-top: -70px;
+			margin-left: 50px;
+		}
+
+		.jr_fb_friends {
+			margin-top: -215px;
+			margin-left: -24px;
+		}
+
+		.jr_stats {
+			margin-top: -72px;
+		}
+
+		.jr_invites {
+			margin-top: -72px;
+		}
+
+		.jr_sidebar {
+			margin-top: -270px;
+		}
+
+		.jr_new_idea {
+			margin-top: 200px;
+			margin-left: 130px;
+		}
+
+	.event_form {
+		ul {
+			font-size: 20px;
+		}
+	}
 
 }
 
@@ -292,13 +364,7 @@ margin-left: 270px;
 /*** 7" Tablet *************************/
 /***************************************/
 @media only screen and (min-width: 600px) and (max-width: 980px) {
-		.user_search {
-		display:none;
-	}
 
-		.home {
-			width: 63%;
-		}
 }
 
 /***************************************/
@@ -306,9 +372,7 @@ margin-left: 270px;
 /***************************************/
 @media only screen and (min-width: 600px) and (max-width: 699px) {
 
-		ul.left_header {
-		display:none;
-	}
+
 }
 
 /***************************************/

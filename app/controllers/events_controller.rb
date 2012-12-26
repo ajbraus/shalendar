@@ -19,10 +19,10 @@ class EventsController < ApplicationController
   # GET /events/new
   # GET /events/new.json
   def new
-    @event = current_user.events.build
+    #@event = current_user.events.build
     respond_to do |format|
       format.html # new.html.erb
-      #format.json { render json: @event }
+      format.json { render json: @event }
       format.js # new.js.erb
     end
   end
@@ -53,17 +53,20 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
     @event = current_user.events.build(params[:event])
-    if params[:event][:chronic_starts_at].present?
-      @event.ends_at = params[:event][:chronic_starts_at] + params[:event][:duration]*3600
+    if @event.starts_at.present? && @event.duration.present?
+      @event.ends_at = @event.starts_at + @event.duration*3600
     end
     @event.tipped = true                    if @event.min <= 1
     @event.parent_id = params[:parent_id]   if params[:parent_id]
     @event.city = current_user.city
+    @event.guests_can_invite_friends = true
+
     if @event.save
       @event.save_shortened_url
-      if params[:category]
-        Categorization.create(event_id: @event.id, category_id: params[:category])
+      if params[:category_id]
+        Categorization.create(event_id: @event.id, category_id: params[:category_id])
       end
       if params[:parent_id]
         if @event.require_payment? && current_user.credit_card_uri.nil?
@@ -77,7 +80,6 @@ class EventsController < ApplicationController
       else
         current_user.rsvp!(@event)
       end
-
       if params[:invite_all_friends] == "on"
         @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
         current_user.invite_all_friends!(@event)
@@ -85,7 +87,7 @@ class EventsController < ApplicationController
         @rsvp.save
       end 
       if current_user.post_to_fb_wall? && session[:graph] && params[:invite_all_friends] == "on" && @event.guests_can_invite_friends? && Rails.env.production?
-        session[:graph].put_wall_post("Join me on hoos.in for: ", { :name => "#{@event.title}", 
+        session[:graph].put_wall_post("are you .in for: ", { :name => "#{@event.title}", 
                                             :link => "http://www.hoos.in/events/#{@event.id}", 
                                             :picture => "http://www.hoos.in/assets/icon.png",
                                             })
@@ -94,10 +96,10 @@ class EventsController < ApplicationController
         format.html { redirect_to @event, notice: "Idea Posted Successfully" }
         format.json { render json: @event, status: :created, location: @event }
       end
-    elsif @event.is_big_idea?
-      respond_to do |format|
-        format.html { redirect_to discover_path, notice: "An Error prevented Your Idea from Posting" }
-      end
+    # elsif @event.is_big_idea?
+    #   respond_to do |format|
+    #     format.html { redirect_to crowd_ideas_path, notice: "An Error prevented Your Idea from Posting" }
+    #   end
     else
       respond_to do |format|
         format.html { redirect_to root_path, notice: "An Error prevented Your Idea from Posting" }
@@ -120,19 +122,14 @@ class EventsController < ApplicationController
       else 
         session[:graph] = nil
       end
+      #for sidebar
+      @my_plans = current_user.plans.where('ends_at > ?', Time.now).order('starts_at asc')
+
       @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event)}
+      
       #if a user is 'everywhere else' then we don't silo their invitations...
-      unless current_user.city == City.find_by_name("Everywhere Else")
-        @friends = @friends.reject { |f| f.city != current_user.city }
-      end
-      if @graph
-        @invite_friends = current_user.fb_friends(session[:graph])[1].reject { |inf| FbInvite.find_by_uid(inf['uid'].to_s) }
-        @fb_invites = @event.fb_invites
-      else
-        #to fix so that these exist in the calls.
-        @invite_friends = []
-        @fb_invites = []
-      end
+      @friends = @friends.reject { |f| f.city != current_user.city }
+      @fb_invites = @event.fb_invites
     end
     
     respond_to do |format|
@@ -157,15 +154,16 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
     @event = Event.find(params[:id])
-    @event.ends_at = params[:event][:chronic_starts_at] + params[:event][:duration]*3600
     @start_time = @event.starts_at #don't worry about timezone here bc only on server
     respond_to do |format|
       if @event.update_attributes(params[:event])
         if @start_time != @event.starts_at
           ##NEED TO FIX RESQUE
+          @event.ends_at = @event.starts_at + @event.duration*3600
+          @event.save
           @event.guests.each do |g|
             unless g == @event.user
-              Notifier.delay.time_change(@event, g)
+              g.delay.contact_time_change(@event)
             end
           end
         end
@@ -187,13 +185,13 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     @event_guests = @event.guests
-    Notifier.delay.cancellation(@event, @event_guests)
     @event.rsvps.each do |r|
       r.destroy
     end
     @event.invitations.each do |i|
       i.destroy
     end
+    @event.delay.contact_cancellation(@event)
 
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Idea was successfully removed' }
@@ -269,11 +267,20 @@ class EventsController < ApplicationController
                              promo_img: @event.promo_img,
                              promo_url: @event.promo_url,
                              promo_vid: @event.promo_vid,
-                             is_public: false,
-                             category: @event.category,
+                             is_public: @event.is_public,
                              family_friendly: @event.family_friendly,
                              price: @event.price
                           )
+    respond_to do |format|
+      #format.html
+      format.js
+    end
+  end
+
+  def get_fb_friends_to_invite
+    @invite_friends = current_user.fb_friends(session[:graph])[1].reject { |inf| FbInvite.find_by_uid(inf['uid'].to_s) }
+    @event = Event.find(params[:event_id])
+
     respond_to do |format|
       #format.html
       format.js

@@ -2,22 +2,52 @@
   <% if @event.is_group? %>
     <li>
       <%= link_to event_path(@event.parent) do %>
-        <span class="fadeInBlue" title="View Public Idea"><i class="icon-bullhorn"></i></span>
+        <span class="fadeInBlue" title="View City Idea"><i class="icon-bullhorn"></i></span>
       <% end %>
     </li>
   <% end %>
   <% if (@event.guests_can_invite_friends? || @event.is_public?) && @event.starts_at > Time.now %>
       <!-- SHARE BY EMAIL -->
     <li>
-      <a href="mailto:?subject=You in? <%= @event.start_time %>&body=Hey,%0a%0aHere's the idea:%0a%0a    What:  <%= @event.title %>%0a%0a    When:  <%= @event.start_date_time %>%0a%0aYou in? respond here: <%= event_url(@event) %>%0a%0a<%= current_user.first_name %>">
-        <span class="fadeInOrange"><i class="icon-envelope-alt" title="Share Idea by Email"></i></span>
+      <a href="mailto:?
+      subject=You in? <%= @event.start_time %>&
+      body=hi,%0a%0aI want to .invite you to an idea:%0a%0a    What:  <%= @event.title %>%0a%0a    Details: <%= @event.description %>%0a%0a    When:  <%= @event.start_date_time %>%0a%0aYou .in? Join here: <%= event_url(@event) %>%0a%0a<%= current_user.first_name %>">
+        <span class="fadeInOrange">
+          <i class="icon-envelope-alt" title=".invite by Email"></i>
+        </span>
       </a>
     </li>
 
     <!-- #FACEBOOK -->
-    <% if user_signed_in? && current_user.fb_user? %>
+    <% if @event.is_public? %>
       <li>
-        <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Post to your Facebook wall", remote: true do %>
+        <a href="https://www.facebook.com/dialog/feed?
+          app_id=327936950625049&
+          link=<%= event_url(@event) %>&
+          picture=<%= @event.image(:medium) if @event.has_image? %>&
+          name=<%= @event.title %>&
+          description=<%=  @event.start_date_time %>&
+          redirect_uri=<%= event_url(@event) %>" class="fadeInFBBlue" target="_blank">
+          <i class="icon-facebook-sign"></i>
+          </a>
+      </li>
+    <% else %>
+      <li>
+        <a href="https://www.facebook.com/dialog/send?
+            app_id=327936950625049&
+            name=<%= @event.title %>&
+            link=<%= event_url(@event) %>&
+            picture=<%= @event.image(:medium) if @event.has_image? %>&
+            description=<%=  @event.start_date_time %>&
+            redirect_uri=<%= event_url(@event) %>" class="fadeInFBBlue" target="_blank">
+            <i class="icon-facebook-sign"></i>
+          </a>
+      </li>
+    <% end %>
+
+    <% if false %>
+      <li>
+        <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Post to Facebook", remote: true do %>
           <i class="icon-facebook-sign"></i>
         <% end %>
       </li>
@@ -25,7 +55,30 @@
 
     <!-- #TWITTER -->
     <li>
-      <a href="https://twitter.com/share" data-text="<%= @event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this idea" target="_blank"><i class="icon-twitter"></i></a>
+      <a href="https://twitter.com/share" 
+        data-url="<%= event_url(@event) %>"
+        data-via="hoos_in"
+        data-size="large" 
+        data-count="none" 
+        class="fadeInTwitter" 
+        title="<%= @event.title %> #hoosin" 
+        target="_blank">
+        <i class="icon-twitter"></i>
+      </a>
+    </li>
+
+    <!-- PINTEREST -->
+    <li>
+      <a data-pin-config="above" 
+        href="//pinterest.com/pin/create/button/?
+          url=<%= event_url(@event) %>&
+          media=<%= @event.image(:large) %>&
+          description=<%= @event.mini_start_date_time + " - " + @event.title %>" 
+        data-pin-do="buttonPin" 
+        class="fadeInPinterest" 
+        target="_blank">
+        <i class="icon-pinterest-sign"></i>
+      </a>
     </li>
 
 
@@ -38,7 +91,7 @@
 
   <% unless @event.is_group? %>
     <li>
-      <%= link_to repeat_event_path(:event_id => @event.id), title:"Repeat Idea", class:"fancybox.ajax", id:"eventRepeat", remote:true do %>
+      <%= link_to repeat_event_path(:event_id => @event.id), title:"Repeat Idea Another Time", class:"fancybox.ajax", id:"eventRepeat", remote:true do %>
         <span class="fadeInGreen"><i class="icon-repeat"></i></span>
       <% end %>
     </li>
@@ -47,7 +100,7 @@
   <% if @event.user == current_user %> 
     <% unless @event.tipped? %>
     <li>
-      <%= link_to event_tip_path(@event), :confirm => "Force your idea to tip? This cannot be reversed and will send notifications to all RSVPs", title: "Tip Manually", :method => :put do %>
+      <%= link_to event_tip_path(@event), :confirm => "You sure you want to manually tip this idea? This will notify everyone that the idea is on.", title: "Make this idea Tip", :method => :put do %>
         <span class="fadeInOrange"><i class="icon-pushpin"></i></span>
       <% end %>
     </li>
@@ -58,7 +111,7 @@
       <% end %>
     </li>
     <li>
-      <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will send an Email to all RSVPs a cancellation email.' }, title: "Delete Idea" do %>
+      <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will notify all guests that the idea is canceled.' }, title: "Cancel Idea" do %>
         <span class="fadeInRed"><i class="icon-trash"></i></span>
       <% end %>
     </li>
@@ -83,9 +136,10 @@
   <% end %>
 </ul>
 
+<% if false %>
 <div style="display:none;">
 <div class="invite_by_email" id="shareByEmailShow">
-  <label>Share by Email</label>
+  <label>Invite by Email</label>
   <%= form_for([@event, @event.email_invites.build]) do |f| %>
     <%= f.text_area :email, rows: "2", placeholder: "Seperate Emails with Comma" %>
     <%= f.text_area :message, rows: "3", placeholder: "Message" %>
@@ -93,3 +147,4 @@
   <% end %>
 </div>
 </div>
+<% end %>

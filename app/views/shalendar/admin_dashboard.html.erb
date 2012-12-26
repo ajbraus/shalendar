@@ -1,5 +1,5 @@
 <div class="admin">
-<h1> Admin Dashboard </h1>
+<h1> Admin User Dashboard </h1>
 <h2> <%= Date.today %></h2>
 
 <h1>
@@ -13,25 +13,21 @@
 <dd>
 	User.where(['created_at > ?', Time.now - 1.week])
 </dd> 
-
-<dt>
-	Users per week since inception
-</dt>
-<dd>
 	<%= high_chart("users_per_week", @users_per_week_graph) %>
-</dd>
-
 <dt>
- Total Users: <strong><%= @total_users %></strong>
+ Total Users: <strong><%= @total_users %></strong><br>
+ iPhone Users: <strong><%= @iphone_users %></strong><br>
+ Android Users: <strong><%= @android_users %></strong><br>
+ Desktop Users: <strong><%= @desktop_users %></strong>
 </dt>
 <dd>
-
+<%= high_chart("devices_pie", @devices_pie) %>
 </dd>
 <dt> 
 	Active Users: <strong><%= @active_users %></strong>
 </dt>
 <dd>
-	User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.now - 1.month])
+	User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.now - 2.weeks])
 </dd>
 
 <dt>
@@ -48,43 +44,53 @@
 	<% end %>
 </dd>
 </dl>
+<div>
+	<strong>Users per city</strong>
+	<table>
+		<% City.all.each do |c| %>
+			<tr>
+				<td><%= c.name %></td>
+				<td><%= c.users.count %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>
 <h1>
-	Events
+	Ideas RSVPs & Invitations
 </h1>
-
-<p> Events Next Week: <strong><%= @events_next_week %></strong></p>
-
+<p> Ideas Last Week: <strong><%= @events_last_week %></strong></p>
+<p> Ideas Next Week: <strong><%= @events_next_week %></strong></p>
 <p> RSVPs Last Week: <strong><%= @rsvps_last_week.count %></strong></p>
+<p> RSVPs Next Week: <strong><%= @rsvps_next_week.count %></strong></p>
 
 <%= high_chart("rsvps", @rsvps_v_events) %>
+
+<p> Invitations for Ideas Last Week: <strong><%= @invitations_last_week %></strong></p>
+<p> Invitations for Ideas Next Week: <strong><%= @invitations_next_week %></strong></p>
+
+<div><%= high_chart("invitations_since_inception", @invitations) %></div>
+
+<div><%= high_chart("rsvps_to_invitations", @rsvps_to_invitations) %></div>
+
 <h1>
-	Suggestions
+	Public Ideas
 </h1>
 
 <dl>
 <dt>
-	# of new Vendor accounts last week
+	<p><%= high_chart("public_ideas", @public_ideas_per_city) %></p>
 </dt>
-<dt>
-	# of Suggestions last week
-</dt>
-<dt>
-	Clones pers Suggestion
+
 </dt>
 
 <dt>
-	Invitation per Suggestion
+	Invitation per public idea
 </dt>
 
 <dt>
-	RSVP per Suggestion
+	RSVP per public idea
 </dt>
-
-
-
 </dl>
-<dt>
 
-</div>
 </div>
 </div>

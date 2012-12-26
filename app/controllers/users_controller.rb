@@ -7,19 +7,13 @@ class UsersController < ApplicationController
     else
       if user_signed_in?
         @events = @user.plans.where("starts_at > :now", now: Time.now).order('starts_at asc')
-        @events = @events.select { |e| e.guests_can_invite_friends? || current_user.invited?(e) }
+        @events = @events.select { |e| e.guests_can_invite_friends? || current_user.invited?(e) || e.is_public? }
         @past_events = @user.plans.where("starts_at < :now", now: Time.now).order('starts_at asc')        
-        @past_events = @past_events.select { |e| e.guests_can_invite_friends? || current_user.invited?(e) }
+        @past_events = @past_events.select { |e| e.guests_can_invite_friends? || current_user.invited?(e) || e.is_public? }
       else
         @events = @user.plans.where("starts_at > :now", now: Time.now).order('starts_at asc')
         @past_events = @user.plans.where("starts_at < :now", now: Time.now).order('starts_at asc')
       end
     end
   end
-
-  # def set_time_zone
-  #   if current_user.city == "Everywhere Else"
-  #     session[:current_time_zone] = ActiveSupport::TimeZone[-params[:time_zone_offset]] 
-  #   end
-  # end
 end

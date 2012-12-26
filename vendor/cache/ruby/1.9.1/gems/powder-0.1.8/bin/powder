@@ -1,0 +1,410 @@
+#!/usr/bin/ruby
+
+require 'rubygems'
+require 'thor'
+require 'fileutils'
+require 'net/https'
+require 'powder/version'
+
+module Powder
+  class CLI < Thor
+    include Thor::Actions
+    default_task :help
+
+    map '-r' => 'restart'
+    map '-a' => 'always_restart'
+    map '-l' => 'list'
+    map '-L' => 'link'
+    map '-d' => 'default'
+    map '-o' => 'open'
+    map '-v' => 'version'
+    map 'update' => 'install'
+
+    POWDER_CONFIG = ".powder"
+    POW_PATH = "#{ENV['HOME']}/.pow"
+    POW_DAEMON_PLIST_PATH="#{ENV['HOME']}/Library/LaunchAgents/cx.pow.powd.plist"
+    POW_FIREWALL_PLIST_PATH = "/Library/LaunchDaemons/cx.pow.firewall.plist"
+
+    desc "up", "Enable pow"
+    def up
+      if File.exists? POW_FIREWALL_PLIST_PATH
+        %x{sudo launchctl load #{POW_FIREWALL_PLIST_PATH}}
+      else
+        say "Pow firewall configuration missing."
+      end
+      if File.exists? POW_DAEMON_PLIST_PATH
+        %x{launchctl load #{POW_DAEMON_PLIST_PATH}}
+      else
+        say "Pow daemon configuration missing."
+      end
+    end
+
+    desc "down", "Disable pow"
+    def down
+      if File.exists? POW_FIREWALL_PLIST_PATH
+        if not %x{sudo launchctl list | grep cx.pow.firewall}.empty?
+          %x{sudo launchctl unload #{POW_FIREWALL_PLIST_PATH}}
+        end
+        if ports = File.open(POW_FIREWALL_PLIST_PATH).read.match(/fwd .*?,([\d]+).*?dst-port ([\d]+)/)
+          http_port, dst_port = ports[1..2]
+        end
+      end
+
+      if File.exists? POW_DAEMON_PLIST_PATH
+        %x{launchctl unload #{POW_DAEMON_PLIST_PATH}}
+      end
+
+      http_port ||= 20559
+      dst_port ||= 80
+
+      if rule = %x{sudo ipfw show | grep ",#{http_port} .* dst-port #{dst_port} in"}.split.first
+        %x{sudo ipfw delete #{rule} && sudo sysctl -w net.inet.ip.forwarding=0}
+      end
+    end
+
+    desc "link", "Link a pow"
+    method_option :force, :type => :boolean, :default => false, :alias => '-f', :desc => "remove the old configuration, overwrite .powder"
+    method_option :"no-config", :type => :boolean, :default => false, :alias => '-n', :desc => "do not write a .powder file"
+    def link(name=nil)
+      return unless is_powable?
+      if File.symlink?(POW_PATH)
+        current_path = %x{pwd}.chomp
+        if name
+          write_pow_config(name)
+        else
+          name = get_pow_name
+        end
+        symlink_path = "#{POW_PATH}/#{name}"
+        FileUtils.rm_f(symlink_path) if options[:force]
+        FileUtils.ln_s(current_path, symlink_path) unless File.exists?(symlink_path)
+        say "Your application is now available at http://#{name}.#{domain}/"
+      else
+        say "Pow is not installed."
+      end
+    end
+
+    desc "default", "Set this app as default"
+    def default(name=nil)
+      return unless is_powable?
+      current_path = %x{pwd}.chomp
+      name ||= get_pow_name
+      symlink_path = "#{POW_PATH}/default"
+      FileUtils.rm_f symlink_path if File.exists?(symlink_path)
+      FileUtils.ln_sf(current_path, symlink_path)
+      say "Your application(#{name}) is now default at http://localhost/"
+    end
+
+    desc "un_default", "remove current default app"
+    def un_default(name=nil)
+      name ||= get_pow_name
+      symlink_path = "#{POW_PATH}/default"
+      FileUtils.rm_f symlink_path if File.exists?(symlink_path)
+    end
+
+    desc "restart", "Restart current pow"
+    def restart
+      return unless is_powable?
+      FileUtils.mkdir_p('tmp')
+      %x{touch tmp/restart.txt}
+    end
+
+    desc "always_restart", "Always restart current pow"
+    def always_restart
+      return unless is_powable?
+      FileUtils.mkdir_p('tmp')
+      %x{touch tmp/always_restart.txt}
+    end
+
+    desc "no_restarts", "Reset this app's restart settings"
+    def no_restarts
+      return unless is_powable?
+      FileUtils.rm_f Dir.glob('tmp/*restart.txt')
+    end
+
+
+    desc "respawn", "Restart the pow process"
+    def respawn
+      %x{launchctl stop cx.pow.powd}
+    end
+
+    desc "list", "List current pows"
+    def list
+      pows = Dir[POW_PATH + "/*"].map do |link|
+        realpath = File.readlink(link)
+        app_is_current = (realpath == Dir.pwd) ? '*' : ' '
+        [app_is_current, File.basename(link), realpath.gsub(ENV['HOME'], '~')]
+      end
+      print_table(pows)
+    end
+
+    desc "open", "Open a pow in the browser"
+    method_option :xip, :type => :boolean, :default => false, :alias => '-x', :desc => "open xip.io instead of .domain"
+    def open(name=nil)
+      if options.xip?
+        local_ip = '0.0.0.0'
+        begin
+          orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true  # turn off reverse DNS resolution temporarily
+          UDPSocket.open do |s|
+            s.connect '64.233.187.99', 1
+            local_ip = s.addr.last.to_s
+          end
+        ensure
+          Socket.do_not_reverse_lookup = orig
+        end
+        %x{open http://#{name || get_pow_name}.#{local_ip}.xip.io}
+      else
+        %x{open http://#{name || get_pow_name}.#{domain}}
+      end
+    end
+
+    desc "unlink", "Unlink a pow app"
+    method_option :delete, :type => :boolean, :default => false, :alias => '-e', :desc => "delete .powder"
+    def unlink(name=nil)
+      return unless is_powable?
+      FileUtils.rm_f POW_PATH + '/' + (name || get_pow_name)
+      say "Successfully removed #{(name || get_pow_name)}"
+      if options[:delete]
+        FileUtils.rm_f POWDER_CONFIG
+        say "Successfully removed #{POWDER_CONFIG}"
+      end
+    end
+
+    desc "remove", "An alias to Unlink (deprecated)"
+    alias :remove :unlink
+
+    desc "cleanup", "Clean up invalid symbolic link"
+    def cleanup
+      Dir[POW_PATH + "/*"].map { |symlink|
+        FileUtils.rm(symlink) unless File.exists? File.readlink(symlink)
+      }
+    end
+
+    desc "install", "Installs pow"
+    def install
+      %x{curl get.pow.cx | sh}
+    end
+
+    desc "log", "Tails the Pow log"
+    def log
+      path_to_log_file = "#{ENV['HOME']}/Library/Logs/Pow/apps/#{current_dir_name}.log"
+      if File.exist? path_to_log_file
+        system "tail -f #{path_to_log_file}"
+      else
+        say "There is no Pow log file, have you set this application up yet?"
+      end
+    end
+
+    desc "applog", "Tails in current app"
+    def applog(env="development")
+      system "tail -f log/#{env}.log" if is_powable?
+    end
+
+    desc "uninstall", "Uninstalls pow"
+    def uninstall
+      %x{curl get.pow.cx/uninstall.sh | sh}
+    end
+
+    desc "debug", "Open a debug session"
+    def debug
+      check_rdebug_initializer
+      # Connect to remote rdebug session
+      require 'ruby-debug'
+      Debugger.settings[:autoeval] = true
+      Debugger.settings[:autolist] = 1
+      Debugger.settings[:reload_source_on_change] = true
+      Debugger.start_client
+    end
+
+    desc "version", "Shows the version"
+    def version
+       say "powder #{Powder::VERSION}"
+    end
+
+    desc "host", "Updates hosts file to map pow domains to 127.0.0.1"
+    def host
+      hosts_file_path = "/etc/hosts"
+      pow_domain_records = Dir[POW_PATH + "/*"].map { |a| "127.0.0.1\t#{File.basename(a)}.#{domain}\t#powder" }
+      hosts_file = File.read("/etc/hosts").split("\n").delete_if {|row| row =~ /.+(#powder)/}
+      first_loopback_index = hosts_file.index {|i| i =~ /^(127.0.0.1).+/}
+      hosts_file = hosts_file.insert(first_loopback_index + 1, pow_domain_records)
+      File.open("#{ENV['HOME']}/hosts-powder", "w")  do
+        |file| file.puts hosts_file.join("\n")
+      end
+      %x{cp #{hosts_file_path} #{ENV['HOME']}/hosts-powder.bak}
+      %x{sudo mv #{ENV['HOME']}/hosts-powder #{hosts_file_path}}
+      %x{dscacheutil -flushcache}
+      say "Domains added to hosts file, old host file is saved at #{ENV['HOME']}/hosts-powder.bak"
+    end
+
+    desc "unhost", "Removes pow domains from hostfile"
+    def unhost
+      hosts_file_path = "/etc/hosts"
+      hosts_file = File.read("/etc/hosts").split("\n").delete_if {|row| row =~ /.+(#powder)/}
+      File.open("#{ENV['HOME']}/hosts-powder", "w")  do
+        |file| file.puts hosts_file.join("\n")
+      end
+      %x{cp #{hosts_file_path} #{ENV['HOME']}/hosts-powder.bak}
+      %x{sudo mv #{ENV['HOME']}/hosts-powder #{hosts_file_path}}
+      %x{dscacheutil -flushcache}
+      say "Domains removed from hosts file, old host file is saved at #{ENV['HOME']}/hosts-powder.bak"
+    end
+
+    desc "config", "Shows current pow configuration"
+    def config
+      results = %x{curl --silent -H host:pow localhost/config.json}.gsub(':','=>')
+      return say("Error: Cannot get Pow config. Pow may be down. Try 'powder up' first.") if results.empty? || !(results =~ /^\{/)
+      json = eval results
+      json.each do |k,v|
+        case v
+        when String, Numeric
+          say "#{k.ljust(12,' ')} #{v}"
+        when Array
+          say "#{k.ljust(12,' ')} #{v.join ', '}\n"
+        end
+      end
+    end
+
+    desc "status", "Shows current pow status"
+    def status
+      results = %x{curl --silent -H host:pow localhost/status.json}.gsub(':','=>')
+      return say("Error: Cannot get Pow status. Pow may be down. Try 'powder up' first.") if results.empty? || !(results =~ /^\{/)
+      json = eval results
+      json.each {|k,v| say "#{k.ljust(12, ' ')} #{v}"}
+    end
+    
+    desc "portmap PORT", "Map a port to an app"
+    method_option :name, :type => :string, :aliases => '-n', :desc => 'name of the port map'
+    method_option :force, :type => :boolean, :default => false, :alias => '-f', :desc => "remove the old configuration, overwrite .powder"
+    def portmap(port)
+      if File.symlink?(POW_PATH)
+        name = options.name ? options.name : get_pow_name
+        app_path = "#{POW_PATH}/#{name}"
+        FileUtils.rm_f(app_path) if options[:force]
+        File.open(app_path, 'w') do |file|
+          file.write(port)
+        end
+        say "Your application is now available at http://#{name}.#{domain}/"
+      else
+        say "Pow is not installed."
+      end
+
+    end
+
+    private
+
+    def current_dir_name
+      File.basename(%x{pwd}.chomp)
+    end
+
+    def configured_pow_name
+      return nil unless File.exists?(POWDER_CONFIG)
+
+      File.foreach(POWDER_CONFIG) do |line|
+        next if line =~ /^($|#)/
+        return line.chomp
+      end
+
+      return nil
+    end
+
+    def current_dir_pow_name
+      current_dir_name.tr('_', '-')
+    end
+
+    def get_pow_name
+      configured_pow_name || current_dir_pow_name
+    end
+
+    def write_pow_config(name=nil)
+      return if ! name || options[:"no-config"]
+      powder_exists = File.exists?(POWDER_CONFIG)
+      configured_name = get_pow_name
+
+      unlink if powder_exists && configured_name != name
+
+      if options[:force] || ! powder_exists
+        File.open(POWDER_CONFIG, "w") do |f|
+          f.puts(name)
+        end
+        say "Created powder config #{POWDER_CONFIG}"
+      elsif !options[:force] && powder_exists && configured_name != name
+        say "Cowardly refusing to overwrite #{POWDER_CONFIG}"
+        exit 1
+      end
+    end
+
+    def is_powable?
+      if File.exists?('config.ru') || File.exists?('public/index.html')
+        true
+      elsif legacy = (is_rails2_app? || is_radiant_app?)
+        say "This appears to be a #{legacy} application. You need a config.ru file."
+        if yes? "Do you want to autogenerate a basic config.ru for #{legacy}?"
+          uri = URI.parse("https://raw.github.com/gist/909308")
+          http = Net::HTTP.new(uri.host, uri.port)
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+          request = Net::HTTP::Get.new(uri.request_uri)
+          create_file "config.ru",  http.request(request).body
+          return true
+        else
+          say "Did not create config.ru"
+          return false
+        end
+      else
+        say "This does not appear to be a rack app as there is no config.ru."
+        say "Pow can also host static apps if there is an index.html in public/"
+        return false
+      end
+    end
+
+    def is_rails2_app?
+      File.exists?('config/environment.rb') &&
+        !`grep RAILS_GEM_VERSION config/environment.rb`.empty? ? 'Rails 2' : nil
+    end
+
+    def is_radiant_app?
+      File.exists?('config/environment.rb') &&
+        !`grep Radiant::Initializer config/environment.rb`.empty? ? 'Radiant' : nil
+    end
+
+    def domain
+      if File.exists? File.expand_path('~/.powconfig')
+        returned_domain = %x{source ~/.powconfig; echo $POW_DOMAINS}.gsub("\n", "").split(",").first
+        returned_domain = %x{source ~/.powconfig; echo $POW_DOMAIN}.gsub("\n", "") if returned_domain.nil? || returned_domain.empty?
+        returned_domain = 'dev' if returned_domain.nil? || returned_domain.empty?
+        returned_domain
+      else
+        'dev'
+      end
+    end
+
+    def check_rdebug_initializer
+      rails_initializer =  %x{pwd}.chomp + "/config/initializers/rdebug.rb"
+      rack_initializer =  %x{pwd}.chomp + "/rdebug.rb"
+      unless File.exists?(rack_initializer) || File.exists?(rails_initializer)
+        say "Its appears that the required initializer for rdebug doesn't exists in your application."
+        if yes? "Do you want to create it(y/n)?"
+          if yes? "This is a Rails/Radiant app(y/n)?"
+            create_file rails_initializer, get_gist(1135055)
+          else
+            create_file rack_initializer, get_gist(1262647)
+            append_to_file 'config.ru', "require 'rdebug.rb'"
+          end
+          restart
+        else
+          return false
+        end
+      end
+    end
+
+    def get_gist(id)
+      uri = URI.parse("https://raw.github.com/gist/#{id}")
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      request = Net::HTTP::Get.new(uri.request_uri)
+      http.request(request).body
+    end
+  end
+end
+Powder::CLI.start

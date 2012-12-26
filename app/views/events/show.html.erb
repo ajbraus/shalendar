@@ -1,11 +1,5 @@
 <% provide(:title, " | #{@event.title}" ) %>
-<% unless user_signed_in? %>
-  <div class="not_signed_in_pitch part">
-    hoos.in is for finding and planning creative adventurous things with your friends.
-    <%= link_to "login", new_user_session_path, class:"btn btn-success" %>
-    <%= link_to "sign up", root_path, class:"btn btn-success" %>
-  </div>
-<% end %>
+<%= render 'layouts/sidebar' %>
 <% if @event.has_parent? %>
   <% unless @event.parent.user.background_file_size.nil? %>
       <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.parent.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
@@ -41,19 +35,21 @@
       <% end %>
     </div>
 
-    <% unless @event.link == '' %>
+    <% unless @event.link.blank? %>
     <div class="event_link">
       <%= link_to "http://#{@event.link}", target: "_blank" do %>
-        <span class="fadeInOrange" title="Idea's Website"><i class="icon-link"></i> link</span>
+        <span class="fadeInOrange" title="Idea's Website"><i class="icon-link"></i> <%= @event.link[0..15] %></span>
       <% end %>
     </div>
     <% end %>
     <% unless @event.address == '' || @event.address.nil? %>
       <div class="event_location">
         <%= link_to "http://mapof.it/#{@event.address}", target: "_blank", title:"View in Google Maps" do %>
-          <span class="fadeInOrange"><i class="icon-map-marker"></i></span>
+          <span class="fadeInOrange">
+            <i class="icon-map-marker"></i>
+            <span style="font-size: 22px;"> <%= @event.address %></span>
+          </span>
         <% end %>
-        <%= @event.address %>
       </div>
     <% end %>
     <% if @event.price.present? %>
@@ -65,15 +61,43 @@
 
 	<div class="when">
 	  <% if @event.starts_at.present? %>
-      <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> - <%= @event.nice_duration %> hrs</div>
+      <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> ( <%= @event.nice_duration %> hrs 
+        <% if @event.ends_at < Time.now %> - Over <% end %> ) </div>
     <% else %>
-      <div class="date"><strong>When: To Be Decided (TBD) </strong></div>
+      <div class="date"><strong>Time TBD when Idea Tips </strong></div>
     <% end %>
     <div class="join_group_buttons">
       <%= render 'rsvp_form' %>
     </div>
 	</div>
+  <!-- METER -->
+  <% if @event.tipped? %>  
+    <div class="meter">
+      <span style="width:100%;"><span></span></span>
+    </div>
+  <% else %>
+    <div class="meter animate orange">
+      <span style=<%= 'width:' + "#{(100*@event.guests.count.to_f/@event.min.to_f).round}" + "%;"%>><span></span></span>
+    </div>
+  <% end %>
 
+  <div class="event_title">
+    <div class="eventTitle"><%= @event.title %></div>
+      <div class="eventIcons">
+      <% if @event.categories.any? %>
+        <% @event.categories.each do |cat| %>
+          <%= cat.name %>
+        <% end %>
+      <% end %>
+      <% if @event.is_public? %>
+        <i class="icon-bullhorn" title="Public"></i>
+      <% end %>
+      <% if @event.family_friendly? %>
+        <i class="icon-home" title="Family Friendly"></i>
+      <% end %>
+      </div>
+  </div>
+  <div class="event_description"><%= @event.description %></div>
   <% if @event.has_image? %>
     <div class="promo_img">
       <% if @event.parent.blank? %>
@@ -91,40 +115,7 @@
       <% end %>
     </div>
   <% end %>
-
-	<div class="event_title">
-	  <div><%= @event.title %></div>
-    <div><%= @event.description %></div>
-
-      <div class="eventIcons">
-      <% if @event.categories.any? %>
-        <%= @event.categories.each do |cat| %>
-          <%= cat.name %>
-        <% end %>
-      <% end %>
-      <% if @event.is_public? %>
-        <i class="icon-bullhorn" title="Public"></i>
-      <% end %>
-      <% if @event.family_friendly? %>
-        <i class="icon-home" title="Family Friendly"></i>
-      <% end %>
-      </div>
-	</div>
-      <% if false %>
-      <% if @event.tipped? %>  
-        <div class="meter animate">
-          <span style="width: <%= (@event.guests.count.to_f/@event.min.to_f*100).round %>%;"><span></span></span>
-        </div>
-        <span class="guests"><%= @event.guests.count %></span>
-      <% else %>
-        <div class="meter animate orange">
-          <span style="width: <%= (@event.guests.count.to_f/@event.min.to_f*100).round %>%;"><span></span></span>
-        </div>
-        <span class="guests"><%= @event.guests.count %></span>
-        <span class="tipping_point"><%= event.min %></span>
-      <% end %>
-      <% end %>
-
+  
   <% if !@event.promo_vid.nil? && @event.promo_vid != "" %>
     <div class="promo_vid">
       <%= raw(youtube_embed(@event.promo_vid)) %>
@@ -135,7 +126,7 @@
 	<!-- COMMENTS -->
   <%= render partial: 'comments_form' %>
   <% if @event.starts_at.present? %>
-    <% if ((current_user.rsvpd?(@event) && @event.guests_can_invite_friends?) || @event.user == current_user) && @event.ends_at > Time.now %>
+    <% if (@event.guests_can_invite_friends? || @event.user == current_user) && @event.ends_at > Time.now %>
         <div id="invite_raster">
           <%= render partial: 'invite_raster', :locals => { :event => @event } %>
         </div>
@@ -144,7 +135,7 @@
 <% end %>
 
     <div class="maybes">
-      <div class="left_label event_label"><span id="invite_count"><%= @fb_friends.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_friends.count %></span> Included </div> 
+      <div class="left_label event_label"><span id="invite_count"><%= @fb_invites.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_invites.count %></span> .invited </div> 
       <div id="invites" class="show_raster">
         <%= render partial: 'events/invites' %>
       </div>
@@ -152,9 +143,9 @@
 
     <div class="guests">
       <% if @event.tipped? %>
-        <div class="right_label event_label"><%= @guests.count %> Going (Tipped!)</div>
+        <div class="right_label event_label"><%= @guests.count %> .in (Tipped!)</div>
       <% else %>
-        <div class="destroy right_label event_label"><%= @guests.count %> / <%= @event.min %> Going (Not Yet Tipped)</div>
+        <div class="destroy right_label event_label"><%= @guests.count %> / <%= @event.min %> .in (Not Yet Tipped)</div>
       <% end %>
       <div class="show_raster">
         <%= render 'guests' %>
@@ -162,12 +153,6 @@
     </div>
   </div>
 </div>
-
-<% if false %>
-  <div class="shareable">
-    <i class="icon-group black" title="Join and Share with Friends"></i>
-  </div>
-<% end %>
 
 <!-- Twitter API script -->
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -182,12 +167,8 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
- <script>
-//   $('.layout').css('width', '700px');
-// </script>
-
 <% if false %>
-<% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now.in_time_zone(current_user.time_zone) - 7.seconds %>
+<% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now.in_time_zone(current_user.city.timezone) - 7.seconds %>
 
   <%= link_to find_friends_path, :remote => true, class: "find_friends fancybox.ajax", style: "display:none;" do %>
     <%= image_tag "social/fb.png", :size => "50x50", style: "display:none;"  %>

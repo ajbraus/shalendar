@@ -48,11 +48,6 @@ private
       @graph = Koala::Facebook::API.new
       pic_url = @graph.get_picture(uid)
       cityname = access_token.info.location
-      # if cityname == "Madison, Wisconsin" || cityname == "Middleton, Wisconsin" || cityname == "La Crosse, Wisconsin" || cityname == "Appleton, Wisconsin" || cityname == "Whitewater, Wisconsin" || cityname == "Platteville, Wisconsin"
-      #   city = City.find_by_name("Madison, Wisconsin")
-      # else
-      #   city = City.find_by_name("Everywhere Else")
-      # end
       auth_attr = { :uid => uid, :token => token, :secret => nil, :pic_url => pic_url, :city => cityname }
     else
       raise 'Provider #{provider} not handled'
@@ -123,18 +118,17 @@ private
       email = access_token.info.email
       name = access_token.info.name
       cityname = access_token.info.location
-      if cityname == "Madison, Wisconsin" || cityname == "Middleton, Wisconsin" || cityname == "La Crosse, Wisconsin" || cityname == "Appleton, Wisconsin" || cityname == "Whitewater, Wisconsin" || cityname == "Platteville, Wisconsin" || cityname == "Fitchburg, Wisconsin" || cityname == "Sun Prairie, Wisconsin" || cityname == "Verona, Wisconsin"
+      city = City.find_by_name(cityname)
+      if city.nil?
         city = City.find_by_name("Madison, Wisconsin")
-      else
-        city = City.find_by_name("Everywhere Else")
       end
+
       #time_zone = "Central Time (US & Canada)"  # timezone_for_utc_offset(access_token.extra.raw_info.timezone)
 
       #CITY TODO: whenever a user logs in from 'everywhere else' we want to ask for their timezone and double check city
       user = User.new(:email => email, 
                 :name => name,
                 :city_id => city.id,
-                #no longer update time_zone from FB
                 :terms => true,
                 :remember_me => true,
                 :password => Devise.friendly_token[0,20]

@@ -1,30 +1,98 @@
+<div class="sample_title">Idea Cover</div>
+
 <div class="event shield" id="sampleEvent">
 	<div class="status_icon">
 		<i class="icon-ok-sign blue"></i>
 	</div>
 	<div class="event_time">	
-			<span id="eventStartsAtAndDuration"></span>
+			<span class="eventStartsAt"><strong>TBD</strong></span>
 	</div>
 
 	<div class="event_blerb">
-		<span title="Created by: <%= current_user.name %>"><%= raster_profile_picture(current_user) %></span><span class="title" id="eventTitle"></span>
+		<div class="blerb_pic" title="Created by: <%= current_user.name %>"><%= raster_profile_picture(current_user) %></div>
+		<div class="title eventTitle"></div>
 	</div>
-	<div class="meter animate orange">
-		<span style="width: 34%;"><span></span></span>
+	<div class="meter">
+		<span style="width: 100%;"><span></span></span>
 	</div>
 
-	<div class="promo_img" id="eventPromoImg">
+	<div class="promo_img" id="eventPromoImg"></div>
+
+	<div class="shield_bottom">
+		<div class="event_shield_icons">
+			<span class="eventIsBigIdea" title="This event needs a crowd!" style="display:none;"><i class='icon-cloud'></i></span>
+			<span id="eventVideoIcon" style="display:none;"><i class='icon-facetime-video'></i></span>
+	  </div>
+
+	  <div class="guests not_tipped">
+	  	<i class="icon-group"></i> 1 <span id="eventMin"></span>
+	  </div>
 	</div>
-<div class="shield_bottom">
-	<div class="event_shield_icons">
-			<i class="icon-cloud"></i>
+</div>
+	<!-- END EVENT SHIELD -->
+
+	<!-- BEGIN EVENT SHOW -->
+<div class="sample_title">Idea Page</div>
+<div class="event_show clearfix">
+  <div class="event_top">
+    <div class="host friend">
+        <%= raster_profile_picture(current_user) %> 
+      <div>hosted by: </div><br>
+        <div>
+          <%= current_user.name %>
+        </div>
+    </div>
+    <div class="event_link fadeInOrange" title="Links to a website for the idea">
+      <i class="icon-link"></i>
+      <span id="eventLink"></span>
+    </div>
+    <div class="event_location fadeInOrange" title="Links to Google Maps">
+      <i class="icon-map-marker"></i>
+      <span id="eventLocation"></span>
+    </div>
+    <div class="cost">
+      <i class="icon-money"></i><span id="eventCost"></span>
+    </div>
   </div>
 
-  <div class="guests not_tipped"><i class="icon-group"></i>1</div>
+	<div class="when">
+    <div class="date"><span class="eventStartsAt"><strong>TBD</strong></span><span class="eventDuration"></span></div>
+    <div class="join_group_buttons">
+     	<div class="group_button" style="display:none">
+				<a href="#" class="btn btn-success rsvp_button" title= "For City-Wide ideas, in addition to joining, people can make 'child ideas' based on yours called a 'Group'">
+					<i class="icon-copy"></i> Make a Group
+				</a>
+			</div>
+		<div class="rsvp_btn">
+			<a href="#" class="btn btn-rsvp rsvp_button" title="By clicking here folks will join your ideas">join.in</a>
+		</div>
+    </div>
+	</div>
+  
+  <div class="meter">
+		<span style="width: 100%;"><span></span></span>
+	</div>
 
-</div>
-<!-- ENDING LINK_TO -->
-</div>
+	<div class="event_title">
+	  <div class="eventTitle"></div>
+    <div class="eventIcons">
+    	<span id="eventCategory"></span>
+      <span id="eventPublicIcon" style="display:none;">
+      	<i class="icon-bullhorn" title="Public"></i>
+      </span>
+      <span id="eventFamilyFriendlyIcon" style="display:none;">
+      	<i class="icon-home" title="Family Friendly"></i>
+      </span>
+      <span class="eventIsBigIdea" title="This event needs a crowd!" style="display:none;"><i class='icon-cloud'></i></span>
+    </div>
+	</div>
+	<div id="eventDescription" class="event_description"></div>
+
+  <div class="promo_img" id="eventImage">
+  </div>
+
+  <div class="promo_vid" id="eventVid">
+  </div>
 
 <% if false %>
 		<% if event.user == current_user && event.tipped? == false && event.tipped? == true %>

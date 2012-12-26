@@ -21,7 +21,7 @@ include UsersHelper
         @relationship = @mobile_user.find_by_followed_id(@user_to_follow.id)
         @relationship.confirmed = false
         if @relationship.save
-          Notifier.delay.confirm_follow(@user_to_follow, @mobile_user)
+          @user_to_follow.delay.contact_confirm(@mobile_user)
           render :status=>200, :json=>{:success=>true, :pfu=>@user_to_follow}
           return
         else
@@ -29,9 +29,9 @@ include UsersHelper
           return
         end
     else
-      Notifier.delay.new_friend(@user_to_follow, @mobile_user)
+      @user_to_follow.delay.contact_friend(@mobile_user)
       @mobile_user.follow!(@user_to_follow)
-      @relationship = @mobile_user.relationships.find_by_followed_id(@user_to_follower.id)
+      @relationship = @mobile_user.relationships.find_by_followed_id(@user_to_follow.id)
       @relationship.confirmed = true
       if @relationship.save
         @mobile_user.add_invitations_from_user(@user_to_follow)
@@ -124,5 +124,22 @@ include UsersHelper
     end
     render :json=>{:success=>true, :follower_id=>@other_user_to_confirm.id, :followed_user=>@other_user_to_confirm}
   end
+
+  def search_for_friends
+    @found_users = User.search(params[:search_string])
+
+    render json: @found_users
+
+  end
+
+  def search_for_fb_friends
+
+    @graph = Koala::Facebook::API.new(params[:access_token]) 
+    @found_users = current_user.fb_friends(@graph)[0]
+    @found_users.reject{|fu|current_user.following?(fu)}
+    render json: @found_users
+
+  end
+
 
 end

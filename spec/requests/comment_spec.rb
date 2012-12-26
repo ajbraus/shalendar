@@ -5,13 +5,14 @@ describe 'Comments' do
   let(:city) { FactoryGirl.create(:city)}
   let(:user) { FactoryGirl.create(:user, :city => city) }
   let(:event) { FactoryGirl.create(:event, :user_id => user.id, 
-                       :chronic_starts_at => "Tomorrow at 3pm") }
+                       :chronic_starts_at => "#{Time.now + 1.day}", 
+                       :ends_at => "#{Time.now + 1.day + 2.hours}") }
 
 	before(:each) do
     visit new_user_session_path
     fill_in "Email",    with: user.email
     fill_in "Password", with: user.password
-    click_button "Login"
+    click_button "log.in"
     visit event_path(event)
   end
 

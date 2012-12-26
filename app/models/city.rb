@@ -4,6 +4,7 @@ class City < ActiveRecord::Base
   has_many :users
   has_many :events
   
+  default_scope :order => 'name'
   # has_attached_file :icon, :styles => { :original => '380x520',
   #                                       :icon => '50x50#'},
   #                            :storage => :s3,
@@ -28,8 +29,11 @@ class City < ActiveRecord::Base
     elsif session[:city]
       City.find_by_name(session[:city])
     else 
-      City.find_by_name("Everywhere Else")
+      City.find_by_name("Madison, Wisconsin")
     end
   end
-  
+  def city_name
+
+    return name.split(',')[0]
+  end
 end

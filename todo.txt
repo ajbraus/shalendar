@@ -1,3 +1,12 @@
+friend buttons are now too big in raster
+City should be by session most of the time, in settings it can be stored in the DB
+
+invite all doesn't invite ppl from different cities- do we want to confirm city switch? it can get confusing if you don't realize you've switched (happened to me)
+
+Event update takes forever in production
+
+(blue circle new idea) is to the right of the number, rather than the left.
+
 Adam todo from 11/12 meeting:
 
 week of 11/12
@@ -12,7 +21,6 @@ week of 11/19
 *** adding facebook after already have an account doesn't seem to work
 ** have to double click all buttons with tooltips when from mobile
 
-Also, mobile registration through facebook doesn't seem to work either, let's pair on this.
 
 ------- Timeline for Ludlow Thieves --------
 
@@ -36,7 +44,6 @@ Customer Satisfaction
 Mike
 ------------
 iPhone 
-
 
 Design coherence
 
@@ -75,68 +82,142 @@ new follower email link not working
 ========================================================================
 ========================================================================
 
-Dear hoos.in users,
+hi,
 
-We have just released a new version and here are the enhancements that we think you'll like:
+Over the past two months, Mike and I have been listening to your suggestions and now we are proud to say we've released a new version full of enhancements. Here they are:
 
-1) New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.
+1) City-Wide Ideas - Post ideas to your whole city! We decided that pretty much anyone has something to share with their city, so you can now choose to post "Public" ideas 
 
-2) Post ideas to your whole city! We decided that pretty much anyone has something to share with their city, so you can now choose to post "Public" ideas 
+2) Iphone and Andorid apps in app stores -- search 'hoosin'
 
-3) Your own custom background for your events. Just click on your face in the upper right hand corner, select "Settings", and upload a large image (at least 1024x640 recommended) to the "Background" field.
+3) hoos.in? You are! - Your own profile page with your past ideas, and stats. For privacy your upcoming ideas are only visible to invites.
 
-4) Your own profile page with your past ideas, and stats. For privacy your upcoming ideas are only visible to invites.
+3.5) Custom Background - Now you can have your own custom background for your events and profile. Just click on your face in the upper right hand corner, select "Settings", and upload a large image (at least 1024x640 recommended) to the "Background" field.
 
-5) Better sharing. 
+4) Better sharing - Share hoosin ideas on twitter, facebook, pinterest, by email and by text (on mobile).
+
+5) New Look - New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.
 
 Adam
+
+explore your city - prompt to join - lightbox with video and signup
+
+rsvp prompt to share and add to calendar
+
+crowd idea flow:
+	crowd idea form (use html5 for reading file to image)
+	only lives 60 days
+	after create prompt to share
+
+	email - trending crowd ideas email update every 12 days to all users in a city
+	email - idea not tipped yet 7 more days left!
+	
+	untipped crowd ideas are not included in forecast
+	tipped crowd ideas are included in forecast
+
+	email - crowd idea tipped!
+		if datetime
+			idea added to calendars, all ppl who are in are rsvpd
+		else	
+			set datetime - alert on top bar 1 time
+			set datetime - alert in activity page
+			link to - set datetime
+			show shield like form but only field is datetime
+			responsive
+		end
+
+
+messaging friends through hoos.in
+
+scripts not working
+	invite button not reloading (stack overflow question)
+
+
+	pinterest button failing
+	create email invite walkthrough like new idea
+	add "friend or city-wide idea?"
+	invite all my friends checkbox
+
+
+-----------------------------------------------------
+
+complete new completely pinterest view
+	move sidebar into header
+	add 'activity' to face dropdown
+	make .in's an ajax dropdown
+	make load of filteres ajax
+	make queries for filters -
+		trending* (city-wide and friend ideas that are rsvping up quick!)
+		friends
+		crowd
+		now
+
+	update tipping logic
+		if has time
+			send email push and email
+		else
+			send push and email with link to add time to idea
+			show indicator of pitches tipped/untipped with and without time
+			warning email and push that it will expire in 30 days
+			warning email and push that it will expire in 7 days
+	Add time page
+
+rsvp out button
+rsvp url - drive traffic
+rsvp lightbox prompt to share/put on calendar
+
+more beautiful bug page
+
+add suggested friends to joyride
+
+'cancelled idea' should not delete, should just be cancelled but available for later
+
+scripts not working
+	invite button not reloading (stack overflow question) maybe need :format => .js . . .
+	can't just facebook invite click click click
+
+Make friending ajaxy
+separate friends and new friends in event show
+
+make facebook ajax invites 
+
+your friend just joined hoos.in email or push
+
+update activity page: number of pitches, number of ideas, number of invites, number of rsvps, number of checkins
+
+SDK - follow us on hoos.in "Our events on hoos.in" button and icon
+
+put this on hoosin button
+	Img, RSVP URL, Title, Description, starts_at, duration
+
+
+implement following . . . too many invites/emails without it
+
+SEAN:
+email images of ppl and ideas
+guest count in emails
+hoos.in? (who is already rsvpd? face-pile)
+Download our iphone and android App link in emails
+crowd ideas digest
+only digest monday thursday
+
 
 facebook feed dialogue
 facebook message dialogue
 linked in share dialogue
 twitter share dialogue
-pin share dialogue
-
-if not logged in - explain hoos.in in event page and home
-
-SEAN:
-email images of ppl and ideas
-guest count in emails
-Download our iphone and android App link in emails
-hoos.in? (who is already rsvpd? face-pile)
-crowd ideas digest
-only digest monday thursday
-
-
 
 ---------------------------------------------------------------
+
+Adding FB to a native login doesn't work smoothly
 
 need my-plans/my-forecast pages in responsive
 
 signup walkthrough
 
-joyride
-
-Create crowd ideas ala kickstarter
-	onkeyup add text to shield
-		$('#eventStartsAtAndDuration').text(); (starts_at time "%l:%M%P" (duration) hrs)
-		$('#eventTitle').text();
-	add these elements:
-	 $('.event_shield_icons').append();
-			<i class="icon-bullhorn"></i>
-			<%= event.categories.first.name.capitalize %>
-			<i class="icon-home"></i>
-			<i class="icon-video"></i>
-	add image
-
-add event description (display only in show)
-
-add suggested friends to friends page
-
-stats/reputation/broadcast on user#show page
-
 ---------------------------------------------------------------
 
+find all FB friends by button so that ppl can connect with friends not in their city
 rsvp ajax
 rsvp lightbox -- add to calendar, share with facebook twitter linkedin etc
 ticket/rsvp link
@@ -146,65 +227,9 @@ Rsvp - checked_in? boolean with mobile api to check in.
 
 ---------------------------------------------------------------
 
-facebook load ajax
+	hovering putting a box around idea shields
 
-	SDK - follow us on hoos.in "Our events on hoos.in" button and icon
-
-pull events from their calendars/websites
-
-rsvp out button
-
-marketplace payments
-yellow book
-payments to be listed
-
-------------------------------------------------------------
-
-make x to close the latest ideas
-
-activity page
-	past events
-
-	if friend - 
-		future events
-
-	friend view 
-
-	public
-
-	analytics - past ideas, how many rsvpd? how many invites (reach)
-
-
----------------------------------------------------------------
-
-
-----------------------------------------------------------------
-
-check in
-
-------------------------------------------------------------
-
-add hashtag to event and show instagram pictures
-
-private idea
-
-make signin a lightbox
-
-click and drag ideas into plans
-
-make post to facebook wall a dialogue not a programatic thing
-
-put footer stuff into hoosin icon dropdown
-
-ssl
-
-------------------------------------------------------------
-
-survey why they are downgrading their account
-
-add /new_venue to the list of urls we don't save
-
-------------------------------------------------------------
+.interests select adventure category not working
 ------------------------------------------------------------------------
 
 Suggested friends
@@ -220,6 +245,43 @@ Suggested friends
 	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
 
 ----------------------------------------------------------
+
+
+marketplace payments
+yellow book
+payments to be listed
+
+------------------------------------------------------------
+
+---------------------------------------------------------------
+
+home page is City#show to do routes
+
+pull events from their calendars/websites
+
+count flakes
+
+----------------------------------------------------------------
+
+check in
+
+------------------------------------------------------------
+
+add hashtag to event and show instagram pictures
+
+private idea
+
+put footer stuff into hoosin icon dropdown
+
+ssl
+
+------------------------------------------------------------
+
+survey why they are downgrading their account
+
+add /new_venue to the list of urls we don't save
+
+------------------------------------------------------------
 
 
 -----------------------------------------------------------
@@ -243,8 +305,6 @@ Suggested friends
 
 --------------------------------------------------------------
 
-	more beautiful bug page
-
 --------------------------------------------------------------
 
 	
@@ -267,9 +327,6 @@ suggested friends -- ppl that you saw at a party
 
 	display when full?
 
-	next plan
-
-	hovering putting a box around idea shields
 
 -----------------------------------------------------------
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121207203142) do
+ActiveRecord::Schema.define(:version => 20121216005231) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -194,10 +194,10 @@ ActiveRecord::Schema.define(:version => 20121207203142) do
     t.boolean  "family_friendly",           :default => false
     t.integer  "parent_id"
     t.string   "short_url"
-    t.string   "slug"
     t.boolean  "require_payment"
+    t.string   "slug"
     t.integer  "city_id"
-    t.boolean  "is_big_idea"
+    t.boolean  "is_big_idea",               :default => false
     t.string   "description"
   end
 

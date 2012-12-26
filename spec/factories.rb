@@ -10,7 +10,6 @@ FactoryGirl.define do
 		password 'please'
 		password_confirmation 'please'
 		remember_me 'f'
-		time_zone "Central Time (US & Canada)"
 		require_confirm_follow 'f'
 		allow_contact 't'
 		digest 't'
@@ -34,7 +33,6 @@ FactoryGirl.define do
     password 'please'
     password_confirmation 'please'
     remember_me 'f'
-    time_zone "Central Time (US & Canada)"
     require_confirm_follow 'f'
     allow_contact 't'
     digest 't'
@@ -65,7 +63,6 @@ FactoryGirl.define do
     latitude ''
     longitude ''
     chronic_starts_at ''
-    chronic_ends_at ''
     link ''
     gmaps 'f'
     tipped 't'
@@ -84,5 +81,12 @@ FactoryGirl.define do
     plan_id ''
     guest_id ''
   end
+
+  factory :invitation do 
+    invited_user_id ''
+    invited_event_id ''
+    inviter_id ''
+  end
+
 
 end

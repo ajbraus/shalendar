@@ -34,7 +34,7 @@
     <%= f.file_field :background %></div>
 
     <div><%= f.label :city %><br />
-    <%= f.select :city_id, options_from_collection_for_select(City.all, 'id', 'name'), id:"citySelect", prompt: "#{current_user.city.name}" %></div>
+    <%= f.select :city_id, options_from_collection_for_select(City.all, 'id', 'name', '1'), id:"citySelect" %></div>
 <% if false %>
     <div><%= f.label :time_zone %><br />
     <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)" %></div>
@@ -50,7 +50,7 @@
     <h2>General Settings</h2>
     <p>
       <%= f.check_box :require_confirm_follow %> 
-      <label for="require_confirm_follow"><strong>Authorize Subscribers</strong> - Confirm each subscriber before they can view your ideas. </label>
+      <label for="require_confirm_follow"><strong>Confirm Friends</strong> - Confirm each friend before they can view your ideas. </label>
     </p>
     <p>
       <div class="family_filter">
@@ -64,7 +64,7 @@
     <h2>Email Notification Settings</h2>
     <p>
       <%= f.check_box :email_comments %>
-      <label for="email_comments"><strong>Keep those Comments Coming </strong> Recieve emails when a comment is posted to an idea you've joined.</label>
+      <label for="email_comments"><strong>Keep those Comments Coming </strong> Receive emails when a comment is posted to an idea you've joined.</label>
     </p>
     <p>
       <%= f.check_box :follow_up %>
@@ -76,17 +76,17 @@
     </p>
     <p>
       <%= f.check_box :digest %>
-      <label for="digest"><strong>3-Day Digest</strong> - Recieve an email once every three days when your friends have shared new ideas with you. </label>
+      <label for="digest"><strong>3-Day Digest</strong> - Receive an email once every three days when your friends have shared new ideas with you. </label>
     </p>
     <p>
       <%= f.check_box :allow_contact %>
-      <label for="allow_contact"><strong>Stay in touch</strong> - Recieve news and (infrequent) announcements from hoos.in </label>
+      <label for="allow_contact"><strong>Stay in touch</strong> - Receive news and (infrequent) announcements from hoos.in </label>
     </p>
 
     <div><%= f.submit "Update", :class => "btn btn-warning btn-large" %></div>
     <% end %>
 
-    <p><%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete, :class => "fadeInRed" %></p>
+    <p><%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure you would like to cancel? This will delete all future and past hoos.in ideas you've created and will remove all friendships.", :method => :delete, :class => "fadeInRed" %></p>
 
     <% if false %>
     <% if current_user.authentications.any? == true %>

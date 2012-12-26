@@ -28,13 +28,13 @@ class Event < ActiveRecord::Base
                   :duration,
                   :ends_at,
                   :title, 
+                  :description,
                   :min, 
                   :max,
                   :address, 
                   :latitude,
                   :longitude,
                   :chronic_starts_at,
-                  :chronic_ends_at,
                   :link,
                   :gmaps,
                   :tipped,
@@ -49,8 +49,7 @@ class Event < ActiveRecord::Base
                   :short_url,
                   :parent_id,
                   :require_payment,
-                  :slug,
-                  :is_big_idea
+                  :slug
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
                                              :medium => '190x270'},
@@ -160,7 +159,7 @@ class Event < ActiveRecord::Base
     if self.tipped? == false
       unless self.ends_at < Time.now
         self.guests.each do |g|
-          Notifier.delay.event_tipped(self, g)
+          g.delay.contact_tipped(self)
         end
       end
     end
@@ -185,21 +184,6 @@ class Event < ActiveRecord::Base
   def chronic_starts_at=(s)
     Chronic.time_class = Time.zone
     self.starts_at = Chronic.parse(s) if s
-  end
-
-  def chronic_ends_at
-    self.ends_at
-  end
-
-  def chronic_ends_at=(e)
-    Chronic.time_class = Time.zone
-    self.ends_at = Chronic.parse(e) if e
-  end
-
-  def ends_at
-    if duration && starts_at
-      ends_at = starts_at + duration*3600
-    end
   end
 
   def self.public_forecast(load_datetime, city, toggled_categories)
@@ -234,10 +218,12 @@ class Event < ActiveRecord::Base
     Event.where(starts_at: time_range).each do |re|
       if re.tipped?
         re.guests.each do |g|
-          Notifier.delay.rsvp_reminder(re, g)
+          if g.notify_event_reminders?
+            g.delay.contact_reminder(re)
+          end
         end
       else
-        Notifier.delay.tip_or_destroy(re)
+        re.user.delay.contact_deadline(re)#could be cleaner
       end
     end
   end
@@ -421,6 +407,14 @@ class Event < ActiveRecord::Base
       @total = self.guests.count 
     end
     return @total 
+  end
+
+  def contact_cancellation #this is weird bc have to do delayed job before destroying..
+    #sloppy but simple fix
+    self.guests.each do |g|
+      g.contact_cancellation(self)
+    end
+    self.destroy
   end
 
 # END OF CLASS

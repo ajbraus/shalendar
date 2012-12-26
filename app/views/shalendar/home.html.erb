@@ -1,7 +1,7 @@
 <div id='datepicker'>
   <%= render partial: 'shalendar/datepicker' %>
 </div>
-<span id="invitations"></span>
+
 <div id='yt'><a href='#<%= @time_in_zone.to_date %>' id='todayButton' class='btn-today'>Today</a></div>
 <div class="responsive_new_idea"><%= render 'shared/new_idea_button' %></div>
 <%= render 'layouts/sidebar' %>
@@ -13,7 +13,7 @@
 <!--       <div class="friend_only hide_all" title="Only Show My Plans">
       	<span class="fadeInBlue"><i class="icon-ok-sign"></i> <span class="only">only</span>
       </div> -->
-      <div class="friend_only hide_public" title="Invitations Only">
+      <div class="friend_only hide_public" title=".invites only">
       	<span class="fadeInOrange"><i class="icon-envelope-alt"></i> <span class="only">only</span></span>
       </div>
 		</div>
@@ -74,6 +74,18 @@
 //     .trigger("scroll");
 // });
 </script>
+
+<% if current_user.present? && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
+  <script>
+    $(window).load(function() {
+      $('html, body').scrollTop($('body').offset().top);
+      $("#chooseID").joyride({
+        'tipAnimation':'fade'
+        /* Options will go here */
+      });
+    });
+  </script>
+<% end %>
 
 <% if false %>
 <% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
