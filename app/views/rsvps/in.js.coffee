@@ -1,2 +1,0 @@
-event = $('.event').withEventId(<%= @event.id %>)
-event.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>", <%= @event.min - @event.guest_count %>);
