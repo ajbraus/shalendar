@@ -259,11 +259,11 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def image(size)
-    if self.parent.nil?
-      if !self.promo_url.blank?
+  def image(size) #e.g. e.image(:medium)
+    if self.parent.blank?
+      if self.promo_url.present?
         return promo_url
-      elsif !self.promo_img_file_size.nil?
+      elsif self.promo_img_file_size.present?
         if size == :medium
           return self.promo_img.url(:medium)
         else 
@@ -273,9 +273,9 @@ class Event < ActiveRecord::Base
         return nil
       end
     else
-      if !self.parent.promo_url.blank?
+      if self.parent.promo_url.present?
         return parent.promo_url
-      elsif !self.parent.promo_img_file_size.nil?
+      elsif self.parent.promo_img_file_size.present?
         if size == :medium
           return self.parent.promo_img.url(:medium)
         else 
@@ -394,10 +394,12 @@ class Event < ActiveRecord::Base
   end
 
   def next_instance
-    if self.parent.nil?
+    if is_parent?
       @next_instance = self.instances.where('starts_at > ?', Time.now).order('starts_at asc').first
-    else
+    elsif has_parent?
       @next_instance = self.parent.instances.where('starts_at > ?', Time.now).order('starts_at asc').first
+    else
+      @next_instance = nil
     end 
     return @next_instance 
   end

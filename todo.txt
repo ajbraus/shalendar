@@ -147,7 +147,6 @@ scripts not working
 
 
 -----------------------------------------------------
-
 complete new completely pinterest view
 	update joyride
 	fix friend only button
@@ -155,54 +154,24 @@ complete new completely pinterest view
 	make .in's an ajax dropdown
 	fix .invites ajax dropdown
 
-Times
-	DONE create idea with or without starts_at 
-		DONE if starts_at then build instance and save instance and parent 
-			DONE redirect to instance 
-		DONE else just build parent 
-			DONE redirect to parent 
+		fix javascripts for ajax for rsvping out/in
+		add rsvp in/out to event show (rsvp form)
 
-	from instance go back home - 
-		DONE show ideas without starts_at on ideas tab
-		DONE show ideas with and without starts_at on all page 
-			DONE update to show full starts_at datetime
-		DONE show ideas with starts_at on calendar page
-		DONE only show meter if has starts_at (fix orange on ideas with no starts_at)
-		
-	
-	event#show could be an instance or a parent idea
-	DONE either way, allow host to make a new instance based on the parent
-	if there is already an instance with a future starts_at time
+		in ideas/calendar/invites/plans remove rsvpd out children
+		if unrsvpd to next_instance then don't show the parent either
+		event#show could be an instance or a parent idea
 		when rsvpd to parent idea, show link to the latest instance 
 		allow a new instance to be created but warn them that one is already created
-	event has sibling instances 
-	event has parent
-	event has child instances
-
-	RSVP out
-		DONE rails g migration add_out_to_rsvps :inout integer (0 = out, 1 = in)
-		DONE update rsvp! method to take in,out
-		DONE When rsvping to child idea, create rsvp to parent
-		DONE When rsvping out to child idea do not rsvp out to parent
-		in ideas/calendar/invites/plans remove rsvpd out children
-		DONE created rsvp_out!, rsvp_in! in user.rb updated all instances of rsvp!
-		DONE created user.rb methods: in?, out? and updated rsvpd? and updated all instances-
-			so you are either in out or not yet responded (literally respondez si vous plait)
-		
-		DONE RSVPS POSTING!
-		fix javascripts for ajax
 		
 		remove updates for events users are .out from
-		created friendship only created one relationship
-
-	In idea pool, if parent has child with time in future, only show child
-	if unrsvpd to next_instance then don't show the parent either
+		created friendship only created one relationship (create friend! method)
 
 	new time form
 		make time interactive
-		let them change the picture
 		add validations
+		let them change the picture
 
+		
 
 
 #config/application.rb
@@ -225,7 +194,6 @@ fucking solve emails!
 			warning email and push that it will expire in 7 days
 	Add time page
 
-rsvp out button
 rsvp url - drive traffic
 rsvp lightbox prompt to share/put on calendar
 
@@ -257,7 +225,7 @@ put this on hoosin button
 implement following . . . too many invites/emails without it
 
 SEAN:
-email images of ppl and ideas
+email images of ideas
 guest count in emails
 hoos.in? (who is already rsvpd? face-pile)
 Download our iphone and android App link in emails

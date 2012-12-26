@@ -4,11 +4,11 @@ class ShalendarController < ApplicationController
 	def home
     if user_signed_in? 
     #see all invites, ideas, and city ideas with times or tbd shuffled
-    #if there is a future instance, only see that if your invited
+    #if there is a future instance, only see that if its public or your invited
       #my ideas
       #@my_ideas = current_user.events.select { |e| !current_user.out?(e) && (!e.has_future_instance? || (e.ends_at.present? && e.ends_at > Time.now)) }
       #city ideas
-      @city_ideas = @current_city.events.select { |e| !current_user.out?(e) && (!e.has_future_instance? || (e.ends_at.present? && e.ends_at > Time.now)) }
+      @city_ideas = @current_city.events.select { |e| !current_user.out?(e) && !e.has_future_instance? }
       #invites (friend ideas)
       @invites = []
       @invitations = current_user.invitations.order('created_at desc')
@@ -17,10 +17,10 @@ class ShalendarController < ApplicationController
         unless current_user == e.user && e.ends_at < Time.now
           e.inviter_id = i.inviter_id
         end
-        @invites.push(e) unless current_user.out?(e)
+        @invites.push(e) unless current_user.out?(e) || !e.has_future_instance?
       end
       #my plans
-      @my_plans = current_user.plans.where('starts_at > ?', Time.now)
+      @my_plans = current_user.plans.where('starts_at > ?', Time.now).select {|e| !e.has_future_instance? }
       @ideas = (@city_ideas | @invites | @my_plans).shuffle
     else
       #if not signed in display city ideas
