@@ -2,12 +2,13 @@ class ShalendarController < ApplicationController
   before_filter :authenticate_user!, except: [ :vendor_splash, :home, :crowd_ideas, :what_is_hoosin ]
 
 	def home
-    if user_signed_in? #see all invites, ideas, and city ideas with times or tbd shuffled
+    if user_signed_in? 
+    #see all invites, ideas, and city ideas with times or tbd shuffled
+    #if there is a future instance, only see that if your invited
       #my ideas
-      @my_ideas = Event.where(user_id: current_user.id)
-      @my_ideas = @my_ideas.select { |e| !e.has_future_instance? || (e.ends_at.present? && e.ends_at > Time.now) }
+      #@my_ideas = current_user.events.select { |e| !current_user.out?(e) && (!e.has_future_instance? || (e.ends_at.present? && e.ends_at > Time.now)) }
       #city ideas
-      @city_ideas = Event.where(is_public: true, city_id: @current_city.id).select { |e| !e.has_future_instance? || e.ends_at > Time.now }
+      @city_ideas = @current_city.events.select { |e| !current_user.out?(e) && (!e.has_future_instance? || (e.ends_at.present? && e.ends_at > Time.now)) }
       #invites (friend ideas)
       @invites = []
       @invitations = current_user.invitations.order('created_at desc')
@@ -16,12 +17,14 @@ class ShalendarController < ApplicationController
         unless current_user == e.user && e.ends_at < Time.now
           e.inviter_id = i.inviter_id
         end
-        @invites.push(e)
+        @invites.push(e) unless current_user.out?(e)
       end
-      @ideas = (@city_ideas | @invites | @my_ideas).shuffle
+      #my plans
+      @my_plans = current_user.plans.where('starts_at > ?', Time.now)
+      @ideas = (@city_ideas | @invites | @my_plans).shuffle
     else
       #if not signed in display city ideas
-      @ideas = Event.where(is_public: true, city_id: @current_city.id)
+      @ideas = @current_city.events.select { |e| !e.has_future_instance? || (e.ends_at.present? && e.ends_at > Time.now) }
     end 
     # Beginning of Yellow Pages
     #@vendors = User.where('city = :current_city and vendor = true', current_city: @current_city)
@@ -51,14 +54,13 @@ class ShalendarController < ApplicationController
   end
 
   def city_ideas
-    @ideas = Event.where(is_public: true, city_id: @current_city.id)
-    @ideas = @ideas.reject { |e| e.starts_at < Time.now }.shuffle
+    @ideas = @current_city.events.select { |e| !e.has_future_instance? || (e.ends_at.present? && e.ends_at > Time.now) }.shuffle
     #or .sort_by{|i| -i.guest_count}
   end
 
   def my_ideas
-    #SHOWS MY IDEAS WITH NO TIMES
-    @ideas = Event.where(user_id: current_user.id)
+    #SHOWS MY IDEAS WITH NO TIMES OR NEXT FUTURE INSTANCE BY ORDER OF CREATED AT
+    @ideas = current_user.events.select { |e| !e.has_future_instance? || (e.ends_at.present? && e.ends_at > Time.now) }.order('created_at asc')
   end
 
   def calendar
@@ -72,16 +74,14 @@ class ShalendarController < ApplicationController
   end
 
 	def manage_friends
-		@graph = session[:graph]
-		@friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
+		@friendships = current_user.relationships.select { |r| current_user.is_friends_with?(User.find_by_id(r.follower_id)) } #reverse_relationships.where('relationships.confirmed = true')
     @vendor_friendships = current_user.vendor_friendships
     @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
     @my_plans = current_user.plans.where('ends_at > ?', Time.now).order('starts_at asc')
-    if @graph
+    if @graph.present?
       @member_friends = current_user.fb_friends(@graph)[0]
       @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.shuffle.first(5)
     end
-    
     #Beginning of Yellow Pages
     #@vendors = User.where('city = :current_city and vendor = true', current_city: @current_city)
     if params[:search]

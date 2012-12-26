@@ -117,7 +117,7 @@ position: absolute;
 top: 13px;
 left: 40px;
 		input[type=text] {
-		width: 230px;
+		width: 185px;
 		}
 	}
 
@@ -125,6 +125,7 @@ left: 40px;
 		top: 12px;
 		right: 0px;
 		width: 44%;
+		font-size: 15px;
 	}
 
 	#friends {
@@ -150,12 +151,6 @@ width: 80%;
 		.guest_count {
 			bottom: 1px;
 			right: 6px;
-		}
-
-		.event_time {
-			span {
-				bottom:2px;
-			}
 		}
 
 		.fadeInBlue, .fadeInGreen {
@@ -254,14 +249,14 @@ right: 15px;
 		}
 
 		.btn-new-idea {
-padding: 8.5px 0px;
+padding: 7px 0px;
 -moz-border-radius: 6px;
 -webkit-border-radius: 6px;
 border-radius: 6px;
-width: 116px;
+width: 107px;
 position: absolute;
 left: 11px;
-top: 74px;
+top: 57px;
 		}
 		.new_idea {
 		}

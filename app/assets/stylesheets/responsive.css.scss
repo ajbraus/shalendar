@@ -45,11 +45,6 @@ body {
 	#headerText {
 		display:none;
 	}
-	.event_time {
-		img {
-			display:none;
-		}
-	}
 	.hero-unit {
 		h1 {
 			margin-bottom:50px;
@@ -264,11 +259,6 @@ left: -125px;
 			}
 		}
 	}
-	.event_time {
-		span {
-			bottom:-4px;
-		}
-	}
 
 	.show_skin {
 		width: 880px;
@@ -379,5 +369,11 @@ right: 58px;
 		top: -5px;
 	}
 
+}
+
+@media only screen and (min-width: 600px) and (max-width: 790px) {
+#headerText {
+	display:none;
+}
 }
 

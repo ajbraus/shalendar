@@ -112,22 +112,23 @@ Shalendar::Application.routes.draw do
   match '/downgrade', :to => 'payments#downgrade', :as =>'downgrade'
   match '/upgrade', :to => 'payments#upgrade', :as => 'upgrade'
 
-  match '/make_a_group', :to => 'events#make_a_group', :as => 'make_a_group'
+  #match '/make_a_group', :to => 'events#make_a_group', :as => 'make_a_group'
   match '/repeat', :to => 'events#repeat', :as => 'repeat_event'
   #match '/new_crowd_idea', :to => 'events#new_crowd_idea', :as => 'new_crowd_idea'
 
   match '/activity', :to => 'shalendar#activity', :as => "activity"
   match '/manage_friends', :to => 'shalendar#manage_friends', :as => "manage_friends"
 
-  resources :events, path: "ideas", only: [:create, :destroy, :update, :tip, :edit, :new, :show] do #:index,
+  resources :events, path: "ideas", only: [:create, :destroy, :update, :tip, :edit, :new, :show, :new_time, :create_new_time] do #:index,
+    get :new_time
     put :tip
+    post :create_new_time
     resources :comments, only: [:create, :destroy]
     resources :email_invites, only: [:create, :destroy]
     resources :fb_invites, only: [:create, :destroy]
   end
 
   match '/new_idea', :to => 'events#new', :as => 'new_idea'
-  match '/ideas/:id/new_time', :to => 'events#new_time', :as => 'new_time'
 
   resources :rsvps, only: [:create, :destroy]
   resources :invitations, only: [:create, :destroy]

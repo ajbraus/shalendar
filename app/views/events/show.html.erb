@@ -92,7 +92,9 @@
       <% end %>
       </div>
   </div>
-  <div class="event_description"><%= @event.description %></div>
+  <% if @event.description.present? %>
+    <div class="event_description"><%= @event.description %></div>
+  <% end %>
   <% if @event.has_image? %>
     <div class="promo_img">
       <% if @event.parent.blank? %>

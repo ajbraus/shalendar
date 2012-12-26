@@ -433,8 +433,9 @@ class Event < ActiveRecord::Base
   end
 
   def guests
-    @guests = self.rsvps.where(inout: 1)
+    @guests = self.rsvps.where(inout: 1) #USERS WHO ARE IN
     if @guests.any?
+      @guests = @guests.map { |r| User.find_by_id(r.guest_id) }
       return @guests
     else
       return []
@@ -442,11 +443,8 @@ class Event < ActiveRecord::Base
   end
 
   def guest_count
-    if guests.blank?
-      return 0
-    else
-      return guest_count
-    end
+    @guests = self.rsvps.where(inout: 1)
+    return @guests.count
   end
 
   def contact_cancellation #this is weird bc have to do delayed job before destroying..

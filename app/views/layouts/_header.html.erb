@@ -13,11 +13,6 @@
     <% if false %>
       <div class="name"><%= link_to user_path(current_user) do %><%= current_user.name %><% end %>
     <% end %>
-      <% if current_user.admin? %>
-        <%= link_to admin_dashboard_path do %>
-          <span class="fadeInRed"><i class="icon-magic"></i></span>
-        <% end %>
-      <% end %>
     <div>
     <ul>
       <li id="jrActivity">
@@ -31,7 +26,7 @@
       <li id="jrFriends">
         <a href="<%= manage_friends_path %>"> 
           <span class="fadeInGreen">
-            <strong id="header_friend_count" class="friend_count"><%= current_user.followers.count %></strong>  <i class="icon-group"></i>
+            <strong id="header_friend_count" class="friend_count"><%= current_user.followers.count %></strong> <i class="icon-group"></i>
             <span id="headerText">friends</span></span>
           <% if current_user.reverse_relationships.where('relationships.confirmed = false').any? %>
           <% @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false') %>
@@ -45,7 +40,7 @@
             <span id="new_invited_events_count" class="new_invited_events_count"><%= current_user.new_invited_events_count %></span>
           <% end %>
           <span class="fadeInPurple">
-            <%= current_user.invitations.count %><i class="icon-envelope"></i>
+            <%= current_user.invitations.count %> <i class="icon-envelope"></i>
             <span id="headerText">.invites</span>
           </span>
         <% end %>
@@ -54,12 +49,19 @@
         <%= link_to plans_path, :remote => true do %>
           <% if current_user.plans.where('ends_at > ?', Time.now).any? %>
             <span class="fadeInPurple">
-              <%= current_user.plans.where('ends_at > ?', Time.now).count %><i class="icon-envelope-alt"></i>
+              <%= current_user.plans.where('ends_at > ?', Time.now).count %> <i class="icon-envelope-alt"></i>
               <span id="headerText">.ins</span>
             </span>
           <% end %>
         <% end %>
       </li>
+      <% if current_user.admin? %>
+      <li>
+        <%= link_to admin_dashboard_path do %>
+          <span class="fadeInRed"><i class="icon-magic"></i></span>
+        <% end %>
+      </li>
+      <% end %>
     </ul>
   </div>
 
@@ -105,19 +107,17 @@
   <nav>
     <div class="sky">
       <%= render 'layouts/logo' %>
-      <% unless params[:controller] == "sessions" || params[:controller] == "registrations"  %>
+      <% unless params[:controller] == "sessions" || params[:controller] == "registrations" || params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
         <div class="instructions">
           <%= link_to '.instructions', what_is_hoosin_path %>
         </div>
         <%= render 'shared/city_session_dropdown' %>
-        <% unless params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
-          <div class="city_title">
-            <h2><%= params[:city] %></h2>
-          </div>
-          <div class="crust">
-              <%= render 'shared/not_signed_in_pitch' %>
-          </div>
-        <% end %>
+        <div class="city_title">
+          <h2><%= params[:city] %></h2>
+        </div>
+        <div class="crust">
+            <%= render 'shared/not_signed_in_pitch' %>
+        </div>
       <% end %>
     </div>
   </nav>

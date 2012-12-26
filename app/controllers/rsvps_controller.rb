@@ -3,9 +3,9 @@ class RsvpsController < ApplicationController
 
   def create
     @event = Event.find(params[:rsvp][:plan_id])
-    if params[:rsvp][:inout] == 1
+    if params[:rsvp][:inout].to_f == 1
       current_user.rsvp_in!(@event)
-    elsif params[:rsvp][:inout] == 0
+    elsif params[:rsvp][:inout].to_f == 0
       current_user.rsvp_out!(@event)
     end
 

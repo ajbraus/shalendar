@@ -28,22 +28,20 @@ class EventsController < ApplicationController
   end
 
   def new_time
-    @parent = Event.find_by_id(params[:event_id])
-    @user = current_user
-    @event = @parent.instances.build(user_id: current_user.id,
-                               parent_id: @parent.id,
-                               title: @parent.title,
-                               address: @parent.address,
-                               link: @parent.link,
-                               guests_can_invite_friends: @parent.guests_can_invite_friends,
-                               promo_img: @parent.promo_img,
-                               promo_url: @parent.promo_url,
-                               promo_vid: @parent.promo_vid,
-                               is_public: @parent.is_public,
-                               family_friendly: @parent.family_friendly,
-                               price: @parent.price,
-                               city_id: @parent.city.id
-                          )
+    @parent = Event.find_by_slug(params[:event_id])
+    # @event = @parent.instances.build(user_id: current_user.id,
+    #                            title: @parent.title,
+    #                            address: @parent.address,
+    #                            link: @parent.link,
+    #                            guests_can_invite_friends: @parent.guests_can_invite_friends,
+    #                            promo_img: @parent.promo_img,
+    #                            promo_url: @parent.promo_url,
+    #                            promo_vid: @parent.promo_vid,
+    #                            is_public: @parent.is_public,
+    #                            family_friendly: @parent.family_friendly,
+    #                            price: @parent.price,
+    #                            city_id: @parent.city.id
+    #                       )
   end
 
   # GET /events/1/edit
@@ -55,17 +53,18 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    #datetime datepicker => format Chronic can parse
     if params[:event][:chronic_starts_at].present? 
       params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
     end
     @event = current_user.events.build(params[:event])
     @event.city = @current_city
+
     if @event.starts_at.present? && @event.duration.present?
       #SET ENDS_AT FOR PARENT
       @event.ends_at = @event.starts_at + @event.duration*3600
       #CREATE CHILD INSTANCE
       @instance = @event.instances.build(user_id: current_user.id,
-                               parent_id: @event.id,
                                title: @event.title,
                                starts_at: @event.starts_at,
                                ends_at: @event.starts_at + @event.duration*3600,
@@ -93,6 +92,7 @@ class EventsController < ApplicationController
           @rsvp.save
         end
         @instance.tipped = true   if @instance.min <= 1
+        #CLEAR PARENT EVENT ATTRIBUTES
         @event.starts_at = nil
         @event.ends_at = nil
         @event.min = nil
@@ -133,6 +133,54 @@ class EventsController < ApplicationController
         format.html { redirect_to root_path, notice: "An Error prevented Your Idea from Posting" }
       end
     end
+  end
+
+  def create_new_time
+    #datetime datepicker => format Chronic can parse
+    if params[:event][:chronic_starts_at].present? 
+      params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
+    end
+    params[:event][:starts_at] = Chronic.parse(params[:event][:chronic_starts_at])
+    @parent = Event.find_by_id(params[:event][:parent_id])
+    @event = @parent.instances.build(user_id: current_user.id,
+                           title: @parent.title,
+                           starts_at: params[:event][:starts_at],
+                           ends_at: params[:event][:starts_at] + params[:event][:duration].to_i*3600,
+                           address: params[:event][:address],
+                           min: params[:event][:min],
+                           link: @parent.link,
+                           guests_can_invite_friends: @parent.guests_can_invite_friends,
+                           promo_img: @parent.promo_img,
+                           promo_url: @parent.promo_url,
+                           promo_vid: @parent.promo_vid,
+                           is_public: params[:event][:is_public],
+                           family_friendly: @parent.family_friendly,
+                           price: @parent.price,
+                           city_id: current_user.city.id, #users from other cities can poach ideas
+                           guests_can_invite_friends: @parent.guests_can_invite_friends)
+    if @event.save
+      @event.save_shortened_url
+      current_user.rsvp_in!(@event)
+      @event.tipped = true   if @event.min <= 1
+      if params[:event][:invite_all_friends] == "on"
+        @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
+        current_user.invite_all_friends!(@event)
+        @rsvp.invite_all_friends = true
+        @rsvp.save
+      end
+      if @parent.categorizations.any?
+        Categorization.create(event_id: @event.id, category_id: @parent.categorizations.first.id )
+      end
+      respond_to do |format|
+        format.html { redirect_to @event, notice: "New Time Posted Successfully" }
+        format.json { render json: @event, status: :created, location: @event }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: "An Error Prevented A New Time From Posting" }
+      end
+    end
+
   end
 
 

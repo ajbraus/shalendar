@@ -189,7 +189,7 @@ class User < ActiveRecord::Base
   end
 
   def in?(event)
-    @rsvp = rsvps.find_by_plan_id(event.id)
+    @rsvp = self.rsvps.find_by_plan_id(event.id)
     if @rsvp.present? && @rsvp.inout == 1
       return true
     else
@@ -223,10 +223,6 @@ class User < ActiveRecord::Base
       #Warning: this will un-tip the event for everyone, are you sure?
     end
     rsvps.find_by_plan_id(event.id).first.inout = 0
-  end
-
-  def current_user?(user)
-    user == current_user
   end
 
   #Relationship methods
@@ -264,6 +260,15 @@ class User < ActiveRecord::Base
     unless relationships.find_by_followed_id(other_user.id).nil?
       relationships.find_by_followed_id(other_user.id).destroy
     end
+  end
+
+  def is_friends_with?(other_user)
+    @follow = self.relationships.find_by_id(other_user.id)  #both relationships exist and are confirmed
+    @follow_back = other_user.relationships.find_by_id(self.id)
+    if @follow.present? && @follow.confirmed? && @follow_back.present? && @follow_back.confirmed?
+      return true
+    end
+    return false
   end
 
   def friend!(other_user)
@@ -331,6 +336,14 @@ class User < ActiveRecord::Base
   def invited?(event)
     #Invite.where(invited_event_id: event.id, invited_user_id: self.id).any?
     invitations.where('invitations.invited_event_id = :eventid', eventid: event.id).any?
+  end
+
+#TODO
+  def invited_to_instance?(event)
+    event.instances.invitations.where()
+  end
+
+  def friend_is_invited?(event)
   end
 
   def invited_to_an_events_group?(parent_event)

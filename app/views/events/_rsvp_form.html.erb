@@ -42,7 +42,7 @@
 					<% end %>
 				<% end %>
 				<% if @event.user == current_user %>
-					<%= link_to new_time_path(:event_id => @event.id), id:"makeATime", class:"btn btn-success rsvp_button" do %>
+					<%= link_to event_new_time_path(@event), id:"makeATime", class:"btn btn-success rsvp_button" do %>
 						<i class="icon-copy"></i> New Time
 					<% end %>
 				<% end %>
