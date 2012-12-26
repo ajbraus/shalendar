@@ -78,38 +78,6 @@ class Notifier < ActionMailer::Base
   def new_friend(user, friend)
     @user = user
     @follower = friend
-    @image_url = @follower.profile_picture_url
-    if(@user.iPhone_user == true)
-      d = APN::Device.find_by_id(@user.apn_device_id)
-      if d.nil?
-        Airbrake.notify("thought we had an iphone user but can't find their device")
-      else
-        n = APN::Notification.new
-        n.device = d
-        n.alert = "New Friend - #{@follower.name}"
-        n.badge = 1
-        n.sound = true
-        n.custom_properties = {:type => "new_friend", :friend => "#{@follower}"}
-        n.save
-      end
-    elsif(@user.android_user == true)
-      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-      if d.nil?
-        Airbrake.notify("thought we had an android user but can't find their device")
-      else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = "New Friend - #{@follower.name}"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "New Friend - #{@follower.name}"}}
-        n.save
-      end
-    else
-      #@follower_pic = raster_profile_picture(@user)
-      mail to: user.email, subject: "New Friend - #{@follower.name}"
-    end
-    rescue => ex
-    Airbrake.notify(ex)
     mail to: user.email, subject: "New Friend - #{@follower.name}"
   end
 
