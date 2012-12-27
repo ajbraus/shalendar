@@ -11,7 +11,7 @@
 
 	<div class="promo_img" id="eventPromoImg"><%= @parent ? (image_tag @parent.image(:medium)) : '' %></div>
 	<div class="event_time">
-		<span class="eventStartsAt"><strong>TBD</strong></span>
+		<span class="eventStartsAt"><%= @parent.present? ? @parent.starts_at : raw("<strong>TBD</strong>") %></span>
 		<span class="status_icon">
 			<i class="icon-ok-sign blue"></i>
 		</span>
@@ -42,19 +42,19 @@
     </div>
     <div class="event_link fadeInOrange" title="Links to a website for the idea">
       <i class="icon-link"></i>
-      <span id="eventLink"></span>
+      <span id="eventLink"><%= @parent.present? ? @parent.link : '' %></span>
     </div>
     <div class="event_location fadeInOrange" title="Links to Google Maps">
       <i class="icon-map-marker"></i>
-      <span id="eventLocation"><%= @parent ? @parent.address : '' %></span>
+      <span id="eventLocation"><%= @parent.present? ? @parent.address : '' %></span>
     </div>
     <div class="cost">
-      <i class="icon-money"></i><span id="eventCost"></span>
+      <i class="icon-money"></i><span id="eventCost"><%= @parent.present? ? @parent.price : '' %></span>
     </div>
   </div>
 
 	<div class="when">
-    <div class="date"><span class="eventStartsAt"><strong>TBD</strong></span><span class="eventDuration"></span></div>
+    <div class="date"><span class="eventStartsAt"><%= @parent.present? ? @parent.starts_at : raw("<strong>TBD</strong>") %></span><span class="eventDuration"></span></div>
     <div class="join_group_buttons">
      	<div class="group_button" style="display:none">
 				<a href="#" class="btn btn-success rsvp_button" title= "For City-Wide ideas, in addition to joining, people can make 'child ideas' based on yours called a 'Group'">

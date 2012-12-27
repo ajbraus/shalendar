@@ -1,24 +1,4 @@
-<div id='datepicker'>
-  <%= render partial: 'shalendar/datepicker' %>
-</div>
-
-<div id='yt'><a href='#<%= Time.now.to_date %>' id='todayButton' class='btn-today'>Today</a></div>
-
-<div class="home" id="scrollContainer">
-<% for i in -3..26 %>
-	<div class="each_day persist-area clearfix">		
-		<div class="date_bar marker persist-header clearfix shield <% if i == 0 %> red <% end %>" <% if i == 0 %> id="today" <% end %> data-date=<%= "#{Time.now.to_date + i}" %>>
-      <div class="date"><%= (Time.now.to_date + (i)).strftime("%A %b %e") %></div>
-		</div>
-    <div class="day_container clearfix">
-  		<div class="idea_container clearfix">
-        <% if @ideas[i + 3].any? %>
-  				<% @ideas[i + 3].each do |e| %>
-  					<%= render :partial => "shalendar/event", :locals => { :event => e } %>
-  				<% end %>
-  			<% end %>
-  		</div>
-    </div>
-	</div>
-<% end %>
+<div class="upcoming_ideas part">
+  <div class="label"><%= @my_plans.count %> upcoming .ins</div>
+  <%= render partial: 'shalendar/mini_event', collection: @my_plans, as: :event %>
 </div>

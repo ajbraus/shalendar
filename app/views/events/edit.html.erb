@@ -1,7 +1,7 @@
 <% provide(:title, " | Edit") %>
 <div class="new_crowd_idea clearfix">
   <div class="event_form">
-    <%= form_for current_user.events.build, url: { :controller => 'events', :action => 'create' }, html: { id: "new_event_form" } do |f| %>
+    <%= form_for @event, url: { :controller => 'events', :action => 'update' }, html: { id: "new_event_form" } do |f| %>
     <p>   
       <div class="title_char_counter"><span id="titleCharCount">0</span>/60</div>
       <%= label :title, "Idea*" %><br/>

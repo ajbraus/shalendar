@@ -263,8 +263,8 @@ class User < ActiveRecord::Base
   end
 
   def is_friends_with?(other_user)
-    @follow = self.relationships.find_by_id(other_user.id)  #both relationships exist and are confirmed
-    @follow_back = other_user.relationships.find_by_id(self.id)
+    @follow = self.reverse_relationships.find_by_follower_id(other_user.id)  #both relationships exist and are confirmed
+    @follow_back = other_user.reverse_relationships.find_by_follower_id(self.id)
     if @follow.present? && @follow.confirmed? && @follow_back.present? && @follow_back.confirmed?
       return true
     end
@@ -306,7 +306,7 @@ class User < ActiveRecord::Base
   def add_invitations_from_user(other_user)
     other_user.rsvps.each do |r|
       if r.invite_all_friends?
-        unless self.invited?(r.plan) || r.plan.starts_at.blank? || r.plan.starts_at < (Time.now - 3.days)
+        unless self.invited?(r.plan) || (r.plan.starts_at.present? && r.plan.starts_at < (Time.now - 3.days))
           other_user.invite!(r.plan, self)
         end
       end

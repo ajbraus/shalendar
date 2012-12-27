@@ -1,144 +1,42 @@
-friend buttons are now too big in raster
-City should be by session most of the time, in settings it can be stored in the DB
-
-invite all doesn't invite ppl from different cities- do we want to confirm city switch? it can get confusing if you don't realize you've switched (happened to me)
-
-Event update takes forever in production
-
-(blue circle new idea) is to the right of the number, rather than the left.
-
-Adam todo from 11/12 meeting:
-
-week of 11/12
-	venue dashboard (activity)
-	branded event page
-	payment gateway (not worrying about tipping)
-
-week of 11/19
-	Link + image that venues can embed for hoos.in
-	ticketing solution (just give names for now..)
-
-*** adding facebook after already have an account doesn't seem to work
-** have to double click all buttons with tooltips when from mobile
-
-
-------- Timeline for Ludlow Thieves --------
-
-Nov 14 - Payment Gateway - pay when you rsvp peer-to-peer w invoice at end of month - 
-				 QR code generation
-
-Nov 21 - 
-
-December 1 - Tipping payments 
-
-Dec 1 - Iphone/Android version 2
-				doorman app 
-				QR codes in user apps
-
-Dec 2 - Box office solution
-
-Customer Satisfaction
-	Aaron contact
-
-
-Mike
-------------
-iPhone 
-
-Design coherence
-
-Fix so sending push notifications better than every 10 minutes (after creating, check some counter, then run the task)
-
-GCM push testing
-
-Some guests_can_invite_friends bool are nil, wtf?
-
-Click someone's face to find their friends too
-
-	Auto-scale workers
-
-store and remove old emailInvites and invitations
-
-new follower email link not working
-
-	want to destroy events after they have passed... or at least destroy RSVPs / invitations, to maintain the tables- maybe store on some hard disk somewhere for records
- 
-	iPhone TODO:
-		Settings / Confirm viewers (3)
-		Native/local Register User (4?)
-		Check load delays with broadband
-
-		Make it look like Pinterest
-			Make back arrow.
-			Box shadow on corners of images
-			swipe between days
-			make top and bottom nav bars disappear when you scroll
-		Comments
-		Delete events
-		Suggestions
-
-
-========================================================================
-========================================================================
-========================================================================
-
-hi,
-
-Over the past two months, Mike and I have been listening to your suggestions and now we are proud to say we've released a new version full of enhancements. Here they are:
-
-1) City-Wide Ideas - Post ideas to your whole city! We decided that pretty much anyone has something to share with their city, so you can now choose to post "Public" ideas 
-
-2) Iphone and Andorid apps in app stores -- search 'hoosin'
-
-3) hoos.in? You are! - Your own profile page with your past ideas, and stats. For privacy your upcoming ideas are only visible to invites.
-
-3.5) Custom Background - Now you can have your own custom background for your events and profile. Just click on your face in the upper right hand corner, select "Settings", and upload a large image (at least 1024x640 recommended) to the "Background" field.
-
-4) Better sharing - Share hoosin ideas on twitter, facebook, pinterest, by email and by text (on mobile).
-
-5) New Look - New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.
-
 Adam
 
-fix edit idea
+complete new completely pinterest view
+	seeing ideas that are neither public nor am I friends with their creators, nor are the invite all I think.
+
+		fix edit idea
+		fix new idea form to be consitent with add time form
+
+		fix javascripts for ajax for rsvping out/in
+		add rsvp in/out to event show (rsvp form)
+
+		fix masonry for all event forms - user#show, ideas, cityideas, calendar
+
+		in ideas/calendar/invites/plans remove rsvpd out child instances
+		if unrsvpd to next_instance then don't show the parent either
+		event#show could be an instance or a parent idea
+		when rsvpd to parent idea, show link to the latest instance 
+		allow a new instance to be created but warn them that one is already created
+		
+		remove updates for events users are .out from
+
+	new time form
+		make time interactive -js is busted can't fix until fix form
+		add validations - dito
 
 fix so that if you close an invalid option in the new idea form it won't let you submit the form.
 
-remove groups
-
-add my ideas
-
-explore your city - prompt to join - lightbox with video and signup
-
 rsvp prompt to share and add to calendar
 
-crowd idea flow:
-	crowd idea form (use html5 for reading file to image)
-	only lives 60 days
-	after create prompt to share
+-----------------------------------------------------
 
-	email - trending crowd ideas email update every 12 days to all users in a city
-	email - idea not tipped yet 7 more days left!
-	
-	untipped crowd ideas are not included in forecast
-	tipped crowd ideas are included in forecast
+upon new time let them change the picture
 
-	email - crowd idea tipped!
-		if datetime
-			idea added to calendars, all ppl who are in are rsvpd
-		else	
-			set datetime - alert on top bar 1 time
-			set datetime - alert in activity page
-			link to - set datetime
-			show shield like form but only field is datetime
-			responsive
-		end
+explore your city - prompt to join - lightbox with video and signup
 
 messaging friends through hoos.in
 
 scripts not working
 	invite button not reloading (stack overflow question)
-
 
 	pinterest button failing
 	create email invite walkthrough like new idea
@@ -146,39 +44,11 @@ scripts not working
 	invite all my friends checkbox
 
 
------------------------------------------------------
-complete new completely pinterest view
-	update joyride
-	fix friend only button
-	add 'activity' to face dropdown
-	make .in's an ajax dropdown
-	fix .invites ajax dropdown
-
-		fix javascripts for ajax for rsvping out/in
-		add rsvp in/out to event show (rsvp form)
-
-		in ideas/calendar/invites/plans remove rsvpd out children
-		if unrsvpd to next_instance then don't show the parent either
-		event#show could be an instance or a parent idea
-		when rsvpd to parent idea, show link to the latest instance 
-		allow a new instance to be created but warn them that one is already created
-		
-		remove updates for events users are .out from
-		created friendship only created one relationship (create friend! method)
-
-	new time form
-		make time interactive
-		add validations
-		let them change the picture
-
-		
-
 
 #config/application.rb
 config.exceptions_app = self.routes
 #routes
 match "/404", :to => "errors#not_found"
-
 
 trending and crowd ideas filter
 
@@ -753,3 +623,104 @@ NYC-inspired daily routine
 	e.g. lunchtime email to gather ideas, 3pm to spread ideas, 6pm to tip
 
 ---------------------------------------------------
+
+
+friend buttons are now too big in raster
+City should be by session most of the time, in settings it can be stored in the DB
+
+invite all doesn't invite ppl from different cities- do we want to confirm city switch? it can get confusing if you don't realize you've switched (happened to me)
+
+Event update takes forever in production
+
+(blue circle new idea) is to the right of the number, rather than the left.
+
+Adam todo from 11/12 meeting:
+
+week of 11/12
+	venue dashboard (activity)
+	branded event page
+	payment gateway (not worrying about tipping)
+
+week of 11/19
+	Link + image that venues can embed for hoos.in
+	ticketing solution (just give names for now..)
+
+*** adding facebook after already have an account doesn't seem to work
+** have to double click all buttons with tooltips when from mobile
+
+
+------- Timeline for Ludlow Thieves --------
+
+Nov 14 - Payment Gateway - pay when you rsvp peer-to-peer w invoice at end of month - 
+				 QR code generation
+
+Nov 21 - 
+
+December 1 - Tipping payments 
+
+Dec 1 - Iphone/Android version 2
+				doorman app 
+				QR codes in user apps
+
+Dec 2 - Box office solution
+
+Customer Satisfaction
+	Aaron contact
+
+
+Mike
+------------
+iPhone 
+
+Design coherence
+
+Fix so sending push notifications better than every 10 minutes (after creating, check some counter, then run the task)
+
+GCM push testing
+
+Some guests_can_invite_friends bool are nil, wtf?
+
+Click someone's face to find their friends too
+
+	Auto-scale workers
+
+store and remove old emailInvites and invitations
+
+new follower email link not working
+
+	want to destroy events after they have passed... or at least destroy RSVPs / invitations, to maintain the tables- maybe store on some hard disk somewhere for records
+ 
+	iPhone TODO:
+		Settings / Confirm viewers (3)
+		Native/local Register User (4?)
+		Check load delays with broadband
+
+		Make it look like Pinterest
+			Make back arrow.
+			Box shadow on corners of images
+			swipe between days
+			make top and bottom nav bars disappear when you scroll
+		Comments
+		Delete events
+		Suggestions
+
+
+========================================================================
+========================================================================
+========================================================================
+
+hi,
+
+Over the past two months, Mike and I have been listening to your suggestions and now we are proud to say we've released a new version full of enhancements. Here they are:
+
+1) City-Wide Ideas - Post ideas to your whole city! We decided that pretty much anyone has something to share with their city, so you can now choose to post "Public" ideas 
+
+2) Iphone and Andorid apps in app stores -- search 'hoosin'
+
+3) hoos.in? You are! - Your own profile page with your past ideas, and stats. For privacy your upcoming ideas are only visible to invites.
+
+3.5) Custom Background - Now you can have your own custom background for your events and profile. Just click on your face in the upper right hand corner, select "Settings", and upload a large image (at least 1024x640 recommended) to the "Background" field.
+
+4) Better sharing - Share hoosin ideas on twitter, facebook, pinterest, by email and by text (on mobile).
+
+5) New Look - New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.

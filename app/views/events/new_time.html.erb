@@ -33,6 +33,12 @@
 		    <%= f.label :min_attendees, "Tipping Point" %> <br/>
 		    <%= f.select :min, 1..1000 %>
 		</div>
+		<div id="addimgp" style="display:none;">
+	  	<div><%= f.label :display_image %></div>
+	 	  	<i class="icon-link"></i><%= f.text_field :promo_url, autocomplete: "off", placeholder: "Image URL" %><br>
+	  or<br>
+	  		<i class="icon-camera-retro"></i><%= f.file_field :promo_img %>
+		</div>
 		  <div>.invite . . .</div>
 			<div>				
 				<%= f.check_box :is_public %>

@@ -46,8 +46,9 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
-    @event = Event.find(params[:id])
-    @event_start_time = @event.start_time
+    @parent = Event.find(params[:id])
+    @event = @parent
+    @event_start_time = @parent.start_time
   end
 
   # POST /events

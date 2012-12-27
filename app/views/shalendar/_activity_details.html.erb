@@ -1,7 +1,7 @@
 <div class="guests_groups">
 	<div class="activity_guests">
 		<% if event.rsvps.any? %>
-			<h4>Guests <%= event.total_guests %></h4>
+			<h4>Guests <%= event.guest_count %></h4>
 			<% event.guests.each do |g| %>
 				<table>
 					<tr>
@@ -19,32 +19,19 @@
 				</table>
 			<% end %>
 		<% end %>
-		<% if event.groups.any? %>
-			<% event.groups.each do |group| %>
-				<% group.guests.each do |guest| %>
-					<table>
-						<tr>
-							<td>
-								<%= link_to user_path(guest) do %>
-									<%= raster_profile_picture(guest) %> 
-								<% end %>
-							</td>
-							<td>
-								<%= link_to user_path(guest) do %>
-									<%= guest.name %>
-								<% end %>
-							</td>
-						<tr>
-					</table>
-				<% end %>
-			<% end %>
-		<% end %>
 	</div>
+	<% if false %>
 <div class="groups">
-	<% if event.groups.any? %>
+	<% if event.instances.any? %>
 		<h4>Groups</h4>
-			<% event.groups.each do |group| %>
-				<%= render partial: 'shalendar/group', locals: { :group => group } %>
+			<% event.instances.each do |i| %>
+				<table>
+					<tr>
+						<td><%= i.start_time %></td>
+						<td><%= i.guest_count %></td>
+					</tr>
+				</table>
 			<% end %>
 	<% end %>
 </div>
+<% end %>

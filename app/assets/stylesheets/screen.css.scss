@@ -886,7 +886,7 @@ box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
   display:none;
 }
 .dropdown dd ul li a { 
-  padding:9px; 
+  padding:5px; 
   display:block; 
   color:black;
   position: relative;
@@ -1345,14 +1345,10 @@ margin-right: 10px;
 }
 
 .upcoming_ideas {
-position: fixed;
-margin-top: 15px;
-margin-right: 10px;
-height: 56%;
-overflow: auto;
-/*top: 310px;*/
-top: 310px;
-width: 235px;
+position: absolute;
+top: 50px;
+width: 335px;
+right: 159px;
 }
 
 .stats {
@@ -1768,7 +1764,7 @@ bottom: 17px;
 }
 
 li.settings {
-  font-size: 25px;
+  font-size: 22px;
   a {
     &:hover {
       text-decoration: none;
@@ -3216,7 +3212,7 @@ right: 8px;
 .invited_events {
 z-index: 4;
 position: fixed;
-right: 220px;
+right: 117px;
 max-height: 430px;
 top: 50px;
 max-width: 72%;
