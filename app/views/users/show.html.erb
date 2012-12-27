@@ -15,6 +15,10 @@
 		</div>
 	</div>
 	<% if user_signed_in? %>
+	<div class="idea_container">
+		<h3><%= @user.first_name %>'s Ideas</h3>
+  	<%= render partial: "shalendar/event", collection: @my_ideas %>
+	</div>
 	<div class="future_events">
 	<h3>Upcoming Ideas</h3>
 		<ul>

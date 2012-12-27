@@ -1,23 +1,21 @@
 <div class="sample_title">Idea Cover</div>
 
 <div class="event shield" id="sampleEvent">
-	<div class="status_icon">
-		<i class="icon-ok-sign blue"></i>
-	</div>
-	<div class="event_time">	
-			<span class="eventStartsAt"><strong>TBD</strong></span>
-	</div>
-
 	<div class="event_blerb">
-		<div class="blerb_pic" title="Created by: <%= current_user.name %>"><%= raster_profile_picture(current_user) %></div>
-		<div class="title eventTitle"></div>
+		<span class="blerb_pic" title="Created by: <%= current_user.name %>"><%= raster_profile_picture(current_user) %></span>
+		<span class="title eventTitle"><%= @parent ? @parent.title : '' %></span>
 	</div>
-	<div class="meter">
+	<div class="meter" style="display:none;">
 		<span style="width: 100%;"><span></span></span>
 	</div>
 
-	<div class="promo_img" id="eventPromoImg"></div>
-
+	<div class="promo_img" id="eventPromoImg"><%= @parent ? (image_tag @parent.image(:medium)) : '' %></div>
+	<div class="event_time">
+		<span class="eventStartsAt"><%= @parent.present? ? @parent.starts_at : raw("<strong>TBD</strong>") %></span>
+		<span class="status_icon">
+			<i class="icon-ok-sign blue"></i>
+		</span>
+	</div>
 	<div class="shield_bottom">
 		<div class="event_shield_icons">
 			<span class="eventIsBigIdea" title="This event needs a crowd!" style="display:none;"><i class='icon-cloud'></i></span>
@@ -44,19 +42,19 @@
     </div>
     <div class="event_link fadeInOrange" title="Links to a website for the idea">
       <i class="icon-link"></i>
-      <span id="eventLink"></span>
+      <span id="eventLink"><%= @parent.present? ? @parent.link : '' %></span>
     </div>
     <div class="event_location fadeInOrange" title="Links to Google Maps">
       <i class="icon-map-marker"></i>
-      <span id="eventLocation"></span>
+      <span id="eventLocation"><%= @parent.present? ? @parent.address : '' %></span>
     </div>
     <div class="cost">
-      <i class="icon-money"></i><span id="eventCost"></span>
+      <i class="icon-money"></i><span id="eventCost"><%= @parent.present? ? @parent.price : '' %></span>
     </div>
   </div>
 
 	<div class="when">
-    <div class="date"><span class="eventStartsAt"><strong>TBD</strong></span><span class="eventDuration"></span></div>
+    <div class="date"><span class="eventStartsAt"><%= @parent.present? ? @parent.starts_at : raw("<strong>TBD</strong>") %></span><span class="eventDuration"></span></div>
     <div class="join_group_buttons">
      	<div class="group_button" style="display:none">
 				<a href="#" class="btn btn-success rsvp_button" title= "For City-Wide ideas, in addition to joining, people can make 'child ideas' based on yours called a 'Group'">
@@ -69,12 +67,12 @@
     </div>
 	</div>
   
-  <div class="meter">
+  <div class="meter" style="display:none;">
 		<span style="width: 100%;"><span></span></span>
 	</div>
 
 	<div class="event_title">
-	  <div class="eventTitle"></div>
+	  <div class="eventTitle"><%= @parent ? @parent.title : '' %></div>
     <div class="eventIcons">
     	<span id="eventCategory"></span>
       <span id="eventPublicIcon" style="display:none;">
@@ -89,6 +87,7 @@
 	<div id="eventDescription" class="event_description"></div>
 
   <div class="promo_img" id="eventImage">
+  	<%= @parent ? (image_tag @parent.image(:large)) : '' %>
   </div>
 
   <div class="promo_vid" id="eventVid">

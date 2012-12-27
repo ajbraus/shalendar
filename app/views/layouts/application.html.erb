@@ -38,15 +38,15 @@
   <body>
     <%= render 'shared/get_time_zone_offset' %>
     <%= render 'layouts/fb_script' %> 
-    <%= render 'layouts/header' %> 
-    <div class="layout"> 
-      <%= render 'layouts/alerts' %>
+    
+    <%= render 'layouts/header' %>
+    <div class="layout" id="content"> 
       <%= yield %>
     </div>
       <%= render 'layouts/footer' %>
-      <div id='feedback'><a href="mailto:info@hoos.in" target="_blank"> Feedback</a></div>
+      <div id='feedback'><a href="mailto:info@hoos.in" target="_blank">Report a Problem</a></div>
     </div>
     <%= yield :scripts %>
-    <script type=”text/javascript” src=”//assets.pinterest.com/js/pinit.js” ></script>
+    <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
   </body>
 </html>

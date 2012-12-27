@@ -1,0 +1,4 @@
+<div class="upcoming_ideas part">
+  <div class="label"><%= @my_plans.count %> upcoming .ins</div>
+  <%= render partial: 'shalendar/mini_event', collection: @my_plans, as: :event %>
+</div>

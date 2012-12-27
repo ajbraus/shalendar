@@ -7,7 +7,6 @@ class Event < ActiveRecord::Base
   belongs_to :city
 
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
-  has_many :guests, through: :rsvps
 
   has_many :invitations, foreign_key: "invited_event_id", dependent: :destroy
   has_many :invited_users, through: :invitations
@@ -17,7 +16,7 @@ class Event < ActiveRecord::Base
   has_many :fb_invites, dependent: :destroy
 
   belongs_to :parent, :foreign_key => "parent_id", :class_name => "Event"
-  has_many :groups, :foreign_key => "parent_id", :class_name => "Event"
+  has_many :instances, :foreign_key => "parent_id", :class_name => "Event"
 
   has_many :categorizations, dependent: :destroy
   has_many :categories, :through => :categorizations
@@ -49,7 +48,8 @@ class Event < ActiveRecord::Base
                   :short_url,
                   :parent_id,
                   :require_payment,
-                  :slug
+                  :slug,
+                  :city_id
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
                                              :medium => '190x270'},
@@ -96,7 +96,7 @@ class Event < ActiveRecord::Base
       :start => starts_at,
       :end => ends_at,
       :host => self.user,
-      :gcnt => self.guests.count,
+      :gcnt => self.guest_count,
       :tip => self.min,
       :guests => self.guests,
       :tipped => self.tipped
@@ -137,7 +137,7 @@ class Event < ActiveRecord::Base
 
   def mini_start_date_time
     if starts_at.present?
-      self.starts_at.strftime "%a, %b %e, %l:%M%P"
+      self.starts_at.strftime "%a %-m/%e, %l:%M%P"
     else
       "TBD"
     end
@@ -170,7 +170,7 @@ class Event < ActiveRecord::Base
   def full?
     if self.max == nil
       return false
-    elsif self.guests.count >= self.max
+    elsif self.guest_count >= self.max
       return true
     else 
       return false
@@ -261,11 +261,11 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def image(size)
-    if self.parent.nil?
-      if !self.promo_url.blank?
+  def image(size) #e.g. e.image(:medium)
+    if self.parent.blank?
+      if self.promo_url.present?
         return promo_url
-      elsif !self.promo_img_file_size.nil?
+      elsif self.promo_img_file_size.present?
         if size == :medium
           return self.promo_img.url(:medium)
         else 
@@ -275,9 +275,9 @@ class Event < ActiveRecord::Base
         return nil
       end
     else
-      if !self.parent.promo_url.blank?
+      if self.parent.promo_url.present?
         return parent.promo_url
-      elsif !self.parent.promo_img_file_size.nil?
+      elsif self.parent.promo_img_file_size.present?
         if size == :medium
           return self.parent.promo_img.url(:medium)
         else 
@@ -353,7 +353,7 @@ class Event < ActiveRecord::Base
   end
 
   def nice_duration
-    duration.to_s.split(/\.0/)[0]
+    duration.to_s.split(/\.0/)[0] + 'hrs' if duration
   end
 
   def is_group?
@@ -387,6 +387,33 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def is_parent?
+    if self.instances.any?
+      return true
+    else
+      return false
+    end
+  end
+
+  def next_instance
+    if is_parent?
+      @next_instance = self.instances.where('starts_at > ?', Time.now).order('starts_at asc').first
+    elsif has_parent?
+      @next_instance = self.parent.instances.where('starts_at > ?', Time.now).order('starts_at asc').first
+    else
+      @next_instance = nil
+    end 
+    return @next_instance 
+  end
+
+  def has_future_instance?
+    if self.next_instance != self && self.next_instance != nil
+      return true
+    else
+      return false
+    end 
+  end
+
   def save_shortened_url
     @bitly = Bitly.new("devhoosin", "R_6d6b17c2324d119af1bcc30d03e852e9")
     @url = Rails.application.routes.url_helpers.event_url(self, :host => "hoos.in")
@@ -399,14 +426,29 @@ class Event < ActiveRecord::Base
     if self.groups.any?
       @event_group_guests_count = 0
       self.groups.each do |g|
-        @guests_count = g.guests.count 
+        @guests_count = g.guest_count 
           @event_group_guests_count += @guests_count
       end
-      @total = self.guests.count + @event_group_guests_count
+      @total = self.guest_count + @event_group_guests_count
     else
-      @total = self.guests.count 
+      @total = self.guest_count 
     end
     return @total 
+  end
+
+  def guests
+    @guests = self.rsvps.where(inout: 1) #USERS WHO ARE IN
+    if @guests.any?
+      @guests = @guests.map { |r| User.find_by_id(r.guest_id) }
+      return @guests
+    else
+      return []
+    end
+  end
+
+  def guest_count
+    @guests = self.rsvps.where(inout: 1)
+    return @guests.count
   end
 
   def contact_cancellation #this is weird bc have to do delayed job before destroying..

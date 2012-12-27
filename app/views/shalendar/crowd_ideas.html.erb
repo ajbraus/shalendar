@@ -3,7 +3,7 @@
 	<div class="part discover_title">
 		<div class="name" >
 			<% if user_signed_in? %>
-				<%= current_user.city.name %>
+				<%= @current_city.name %>
 			<% else %>
 				<%= session[:city] %>
 			<% end %>

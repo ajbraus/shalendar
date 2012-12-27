@@ -31,6 +31,15 @@ $ ->
 		description = $(@).val();
 		$('#eventDescription').text(description);
 
+	#ADD TIME AND TIPPING POINT
+	$('#knowTime').click ->
+		$('#addDateTime').fadeToggle();
+		$('#addtipping').fadeToggle();
+		#$('#dateTime').fadeToggle();
+		#$('#addtippingp').fadeToggle();
+		$('.meter').fadeToggle();
+		$('.meter > span').css("width","100%");
+
 	#STARTS AT
 	$('.starts_at').blur ->
 		datetime = $(@).val();

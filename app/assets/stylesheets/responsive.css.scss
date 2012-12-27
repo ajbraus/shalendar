@@ -20,12 +20,17 @@ body {
 	#datepicker {
 		display:none;
 	}
+
+	.name {
+		display: none;
+	}
 	.friend_suggestions {
 		display:none;
 	}
 	.user_search {
-		bottom: 23px;
-		left: 103px;
+		position: relative;
+		bottom: -7px;
+		right: 213px;
 		input[type=text] {
 			width: 175px;
 		}
@@ -39,11 +44,6 @@ body {
 	}
 	#headerText {
 		display:none;
-	}
-	.event_time {
-		img {
-			display:none;
-		}
 	}
 	.hero-unit {
 		h1 {
@@ -75,18 +75,16 @@ body {
 	.logo {
 		left:4px;
 		width: 106px;
-		img {
-			width: 105px;
-		}
 	}
 
 	.right_header {
-top: 34px;
-right:0px;
+top: 3px;
+right: 0px;
+width: 70%;
+font-size: 19px;
 	img {
 width: 45px;
 height: 45px;
-bottom: 11px;
 position: relative;
 	}
 	}
@@ -95,14 +93,14 @@ position: relative;
 	}
 
 	.btn-new-idea {
-		padding: 11px 19px;
-		position: fixed;
-		top: 76px;
-		left: 6px;
-		-moz-border-radius: 6px;
-		-webkit-border-radius: 6px;
-		border-radius: 6px;
-		z-index: 10000;
+padding: 11px 19px;
+top: 94px;
+left: 6px;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+border-radius: 6px;
+z-index: 10000;
+position: absolute;
 	}
 
 	#new_idea_blerb {
@@ -126,6 +124,10 @@ position: relative;
 // TIGHTEN UP FORECAST
 	.home {
 
+	}
+
+	.instructions {
+		display: none;
 	}
 
 	.date_bar {
@@ -169,7 +171,7 @@ left: -125px;
 		max-width: 180px;
 		max-height: 300px;
 		min-width: 140px;
-		min-height: 110px;
+		min-height: 78px;
 		right: 1px;
 		margin: 4px;
 		width: 123px;
@@ -206,11 +208,12 @@ left: -125px;
 	}
 
 	ul.event_buttons {
-		width: 53%;
+		width: 100%;
 		float: left;
-		font-size: 34px;
+		font-size: 31px;
 		position: relative;
 		left: 3px;
+		padding: 10px;
 		li {
 			display: inline;
 			a img {
@@ -256,11 +259,6 @@ left: -125px;
 			}
 		}
 	}
-	.event_time {
-		span {
-			bottom:-4px;
-		}
-	}
 
 	.show_skin {
 		width: 880px;
@@ -275,6 +273,11 @@ left: -125px;
 	#sign_in {
 		left:10px;
 	}
+	.navigation {
+position: relative;
+left: 12px;
+top: -48px;
+}
 
 
 // Activity
@@ -362,5 +365,15 @@ right: 58px;
 		}
 	}
 
+	.meter {
+		top: -5px;
+	}
+
+}
+
+@media only screen and (min-width: 600px) and (max-width: 790px) {
+#headerText {
+	display:none;
+}
 }
 

@@ -27,84 +27,161 @@ class EventsController < ApplicationController
     end
   end
 
-  def new_crowd_idea
-
-    respond_to do |format|
-      format.html # new.html.erb
-      #format.json { render json: @event }
-      format.js
-    end
+  def new_time
+    @parent = Event.find_by_slug(params[:event_id])
+    # @event = @parent.instances.build(user_id: current_user.id,
+    #                            title: @parent.title,
+    #                            address: @parent.address,
+    #                            link: @parent.link,
+    #                            guests_can_invite_friends: @parent.guests_can_invite_friends,
+    #                            promo_img: @parent.promo_img,
+    #                            promo_url: @parent.promo_url,
+    #                            promo_vid: @parent.promo_vid,
+    #                            is_public: @parent.is_public,
+    #                            family_friendly: @parent.family_friendly,
+    #                            price: @parent.price,
+    #                            city_id: @parent.city.id
+    #                       )
   end
-
-  # def update_idea_in_form
-  #   @event = current_user.events.build(params[:event])
-
-  #   respond_to do |format|
-  #     format.js
-  #   end
-  # end
 
   # GET /events/1/edit
   def edit
-    @event = Event.find(params[:id])
-    @event_start_time = @event.start_time
+    @parent = Event.find(params[:id])
+    @event = @parent
+    @event_start_time = @parent.start_time
   end
 
   # POST /events
   # POST /events.json
   def create
-    params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
-    @event = current_user.events.build(params[:event])
-    if @event.starts_at.present? && @event.duration.present?
-      @event.ends_at = @event.starts_at + @event.duration*3600
+    #datetime datepicker => format Chronic can parse
+    if params[:event][:chronic_starts_at].present? 
+      params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
     end
-    @event.tipped = true                    if @event.min <= 1
-    @event.parent_id = params[:parent_id]   if params[:parent_id]
-    @event.city = current_user.city
-    @event.guests_can_invite_friends = true
+    @event = current_user.events.build(params[:event])
+    @event.city = @current_city
+
+    if @event.starts_at.present? && @event.duration.present?
+      #SET ENDS_AT FOR PARENT
+      @event.ends_at = @event.starts_at + @event.duration*3600
+      #CREATE CHILD INSTANCE
+      @instance = @event.instances.build(user_id: current_user.id,
+                               title: @event.title,
+                               starts_at: @event.starts_at,
+                               ends_at: @event.starts_at + @event.duration*3600,
+                               duration: @event.duration,
+                               min: @event.min,
+                               max: @event.max,
+                               address: @event.address,
+                               link: @event.link,
+                               guests_can_invite_friends: @event.guests_can_invite_friends,
+                               promo_img: @event.promo_img,
+                               promo_url: @event.promo_url,
+                               promo_vid: @event.promo_vid,
+                               is_public: @event.is_public,
+                               family_friendly: @event.family_friendly,
+                               price: @event.price,
+                               city_id: @event.city.id
+                            )
+      if @instance.save
+        @instance.save_shortened_url
+        current_user.rsvp_in!(@instance)
+        if params[:invite_all_friends] == "on"
+          @rsvp = current_user.rsvps.find_by_plan_id(@instance.id)
+          current_user.invite_all_friends!(@instance)
+          @rsvp.invite_all_friends = true
+          @rsvp.save
+        end
+        @instance.tipped = true   if @instance.min <= 1
+        #CLEAR PARENT EVENT ATTRIBUTES
+        @event.starts_at = nil
+        @event.ends_at = nil
+        @event.min = nil
+        @event.max = nil
+        @event.duration = nil
+      end
+    end
 
     if @event.save
+      current_user.rsvp_in!(@event)
       @event.save_shortened_url
       if params[:category_id]
         Categorization.create(event_id: @event.id, category_id: params[:category_id])
-      end
-      if params[:parent_id]
-        if @event.require_payment? && current_user.credit_card_uri.nil?
-          redirect_to confirm_payment_path(@event)
-        elsif @event.require_payment? && !current_user.credit_card_uri.nil?
-          current_user.debit!(@event.price)
-          current_user.rsvp!(@event)
-        else
-          current_user.rsvp!(@event)       
-        end
-      else
-        current_user.rsvp!(@event)
       end
       if params[:invite_all_friends] == "on"
         @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
         current_user.invite_all_friends!(@event)
         @rsvp.invite_all_friends = true
         @rsvp.save
-      end 
-      if current_user.post_to_fb_wall? && session[:graph] && params[:invite_all_friends] == "on" && @event.guests_can_invite_friends? && Rails.env.production?
-        session[:graph].put_wall_post("are you .in for: ", { :name => "#{@event.title}", 
-                                            :link => "http://www.hoos.in/events/#{@event.id}", 
-                                            :picture => "http://www.hoos.in/assets/icon.png",
-                                            })
       end
-      respond_to do |format|
-        format.html { redirect_to @event, notice: "Idea Posted Successfully" }
-        format.json { render json: @event, status: :created, location: @event }
+      
+      if @instance.present?
+        if @event.categorizations.any?
+          Categorization.create(event_id: @instance.id, category_id: @event.categorizations.first.id )
+        end
+        respond_to do |format|
+          format.html { redirect_to @instance, notice: "Idea Posted Successfully" }
+          format.json { render json: @instance, status: :created, location: @event }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to @event, notice: "Idea Posted Successfully" }
+          format.json { render json: @event, status: :created, location: @event }
+        end
       end
-    # elsif @event.is_big_idea?
-    #   respond_to do |format|
-    #     format.html { redirect_to crowd_ideas_path, notice: "An Error prevented Your Idea from Posting" }
-    #   end
     else
       respond_to do |format|
         format.html { redirect_to root_path, notice: "An Error prevented Your Idea from Posting" }
       end
     end
+  end
+
+  def create_new_time
+    #datetime datepicker => format Chronic can parse
+    if params[:event][:chronic_starts_at].present? 
+      params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
+    end
+    params[:event][:starts_at] = Chronic.parse(params[:event][:chronic_starts_at])
+    @parent = Event.find_by_id(params[:event][:parent_id])
+    @event = @parent.instances.build(user_id: current_user.id,
+                           title: @parent.title,
+                           starts_at: params[:event][:starts_at],
+                           ends_at: params[:event][:starts_at] + params[:event][:duration].to_i*3600,
+                           address: params[:event][:address],
+                           min: params[:event][:min],
+                           link: @parent.link,
+                           guests_can_invite_friends: @parent.guests_can_invite_friends,
+                           promo_img: @parent.promo_img,
+                           promo_url: @parent.promo_url,
+                           promo_vid: @parent.promo_vid,
+                           is_public: params[:event][:is_public],
+                           family_friendly: @parent.family_friendly,
+                           price: @parent.price,
+                           city_id: current_user.city.id, #users from other cities can poach ideas
+                           guests_can_invite_friends: @parent.guests_can_invite_friends)
+    if @event.save
+      @event.save_shortened_url
+      current_user.rsvp_in!(@event)
+      @event.tipped = true   if @event.min <= 1
+      if params[:event][:invite_all_friends] == "on"
+        @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
+        current_user.invite_all_friends!(@event)
+        @rsvp.invite_all_friends = true
+        @rsvp.save
+      end
+      if @parent.categorizations.any?
+        Categorization.create(event_id: @event.id, category_id: @parent.categorizations.first.id )
+      end
+      respond_to do |format|
+        format.html { redirect_to @event, notice: "New Time Posted Successfully" }
+        format.json { render json: @event, status: :created, location: @event }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: "An Error Prevented A New Time From Posting" }
+      end
+    end
+
   end
 
 
@@ -128,7 +205,7 @@ class EventsController < ApplicationController
       @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event)}
       
       #if a user is 'everywhere else' then we don't silo their invitations...
-      @friends = @friends.reject { |f| f.city != current_user.city }
+      @friends = @friends.reject { |f| f.city != @current_city }
       @fb_invites = @event.fb_invites
     end
     
@@ -154,11 +231,25 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
     @event = Event.find(params[:id])
+    if params[:parent_id]
+      @parent = Event.find_by_id(params[:parent_id])
+      @event.parent_id = @parent.id
+      if @parent.categorizations.any?
+        Categorization.create(event_id: @event.id, category_id: @parent.categorizations.first.id )
+      end
+    end
     @start_time = @event.starts_at #don't worry about timezone here bc only on server
     respond_to do |format|
       if @event.update_attributes(params[:event])
-        if @start_time != @event.starts_at
-          ##NEED TO FIX RESQUE
+        if @start_time == nil && @event.starts_at.present?
+          @event.ends_at = @event.starts_at + @event.duration*3600
+          @event.save
+          @event.guests.each do |g|
+            unless g == @event.user
+              g.delay.contact_new_time(@event)
+            end
+          end
+        elsif @start_time != @event.starts_at
           @event.ends_at = @event.starts_at + @event.duration*3600
           @event.save
           @event.guests.each do |g|
@@ -167,7 +258,7 @@ class EventsController < ApplicationController
             end
           end
         end
-        if @event.guests.count >= @event.min
+        if @event.guest_count >= @event.min
           @event.tip!
         end
         format.html { redirect_to @event, notice: 'Idea was successfully updated.' }

@@ -10,3 +10,57 @@ Store FB pic URLs locally
 		update attribute on session create
 	Users_helpers.rb
 		change all pic helpers (invite and normal)
+
+
+Times
+	DONE create idea with or without starts_at 
+		DONE if starts_at then build instance and save instance and parent 
+			DONE redirect to instance 
+		DONE else just build parent 
+			DONE redirect to parent 
+
+	Instances
+		DONE show ideas without starts_at on ideas tab
+		DONE show ideas with and without starts_at on all page 
+			DONE update to show full starts_at datetime
+		DONE show ideas with starts_at on calendar page
+		DONE only show meter if has starts_at (fix orange on ideas with no starts_at)
+
+	DONE either way, allow host to make a new instance based on the parent
+	RSVP out
+		DONE rails g migration add_out_to_rsvps :inout integer (0 = out, 1 = in)
+		DONE update rsvp! method to take in,out
+		DONE When rsvping to child idea, create rsvp to parent
+		DONE When rsvping out to child idea do not rsvp out to parent		
+		DONE created rsvp_out!, rsvp_in! in user.rb updated all instances of rsvp!
+		DONE created user.rb methods: in?, out? and updated rsvpd? and updated all instances-
+			DONEso you are either in out or not yet responded (literally respondez si vous plait)
+		
+		DONE RSVPS POSTING!
+		
+		DONE In idea pool, if parent has child with time in future, only show child
+DONE add 'activity' to face dropdown
+	DONE make .in's an ajax dropdown
+	DONE fix .invites ajax dropdown
+DONE update joyride
+DONE
+	fix friend only button
+		created friendship only created one relationship (create friend! method)
+	creating relationships is just creating one way and not adding invitations
+
+
+	What
+	When:
+	Where:
+
+	hoos.in idea open house & launch
+	6:00 to 9:30pm on Sat January 5th
+	640 west washington ave (train car e)
+
+	Come enjoy time on the hoos.in train. 
+	Bring along ideas for great things 
+	to do with friends. Come and enjoy hor d'oeuvres, 
+	beverages, and .insightful conversation.
+
+	~the hoos.in team
+	Mike & Adam & Alex

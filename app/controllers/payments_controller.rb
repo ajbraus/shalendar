@@ -42,7 +42,7 @@ class PaymentsController < ApplicationController
       end
 
       @event = Event.find_by_id(params[:id]) if params[:id]
-      current_user.rsvp!(@event) if @event
+      current_user.rsvp_in!(@event) if @event
 
       # if @user.vendor?
       #   if @user.save
@@ -82,7 +82,7 @@ class PaymentsController < ApplicationController
     @user.credit_card_uri = @card.uri
 
     @event = Event.find_by_id(params[:id]) if params[:id]
-    current_user.rsvp!(@event) if @event
+    current_user.rsvp_in!(@event) if @event
 
     # if @user.vendor?
     #   if @user.save
@@ -130,7 +130,7 @@ end
 #     @event = Event.find_by_id(params[:id])
 #     @buyer = Balanced::Account.find(current_user.account_uri)
 #     if @buyer.debit((@event.price * 100).to_s.split('.')[0], :appears_on_statement => "hoos.in - #{@event.title}", :description => "#{@event.title}" )
-#       current_user.rsvp!(@event)
+#       current_user.rsvp_in!(@event)
 #         Notifier.receipt(current_user, @event).deliver
 #       respond_to do |format|
 #         format.html { redirect_to @event, notice: "You Successfully Joined This Idea!"}

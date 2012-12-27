@@ -8,6 +8,11 @@
   <dd>
     <ul>
       <li class="settings">
+        <%= link_to user_path(current_user) do %>
+          <span class="fadeInGreen"><i class='icon-dashboard user_settings'></i>activity</span>
+        <% end %>
+      </li>
+      <li class="settings">
         <%= link_to edit_user_registration_path do %>
           <span class="fadeInOrange"><i class='icon-wrench user_settings'></i>settings</span>
         <% end %>

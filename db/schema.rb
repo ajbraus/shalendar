@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121216005231) do
+ActiveRecord::Schema.define(:version => 20121224204427) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -281,6 +281,7 @@ ActiveRecord::Schema.define(:version => 20121216005231) do
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
     t.boolean  "invite_all_friends", :default => false
+    t.integer  "inout"
   end
 
   add_index "rsvps", ["guest_id", "plan_id"], :name => "index_rsvps_on_guest_id_and_plan_id", :unique => true

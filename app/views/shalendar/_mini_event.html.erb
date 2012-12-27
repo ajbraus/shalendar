@@ -4,9 +4,9 @@
 		<span><%= event.mini_start_date_time %> (<%= event.nice_duration %> hr)</span>
 		<span class="guest_count">
 			<% if event.tipped? %>	
-				<span class="count" id="guestCount"> <%= event.guests.count %></span>
+				<span class="count" id="guestCount"> <%= event.guest_count %></span>
 			<% else %>
-				<span id="guestCount" class="count orange"><%= event.guests.count%>/<%= event.min %></span>
+				<span id="guestCount" class="count orange"><%= event.guest_count%>/<%= event.min %></span>
 			<% end %>
 		</span>
 	</div>

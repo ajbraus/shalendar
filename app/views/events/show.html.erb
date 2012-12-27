@@ -1,5 +1,4 @@
 <% provide(:title, " | #{@event.title}" ) %>
-<%= render 'layouts/sidebar' %>
 <% if @event.has_parent? %>
   <% unless @event.parent.user.background_file_size.nil? %>
       <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.parent.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
@@ -9,11 +8,7 @@
       <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
   <% end %>
 <% end %>
-  <div class="show_skin">
-<% if user_signed_in? %>
-  <%= render 'events/event_buttons' %>
-<% end %>
-</div>
+<%= render 'events/event_buttons' %>
 <div class="event_show clearfix">
   <div class="event_top">
     <div class="host friend">
@@ -64,7 +59,7 @@
       <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> ( <%= @event.nice_duration %> hrs 
         <% if @event.ends_at < Time.now %> - Over <% end %> ) </div>
     <% else %>
-      <div class="date"><strong>Time TBD when Idea Tips </strong></div>
+      <div class="date"><strong>Time TBD </strong></div>
     <% end %>
     <div class="join_group_buttons">
       <%= render 'rsvp_form' %>
@@ -75,9 +70,9 @@
     <div class="meter">
       <span style="width:100%;"><span></span></span>
     </div>
-  <% else %>
+  <% elsif @event.starts_at.present? %>
     <div class="meter animate orange">
-      <span style=<%= 'width:' + "#{(100*@event.guests.count.to_f/@event.min.to_f).round}" + "%;"%>><span></span></span>
+      <span style=<%= 'width:' + "#{(100*@event.guest_count.to_f/@event.min.to_f).round}" + "%;"%>><span></span></span>
     </div>
   <% end %>
 
@@ -97,26 +92,17 @@
       <% end %>
       </div>
   </div>
-  <div class="event_description"><%= @event.description %></div>
+  <% if @event.description.present? %>
+    <div class="event_description"><%= @event.description %></div>
+  <% end %>
+  
   <% if @event.has_image? %>
     <div class="promo_img">
-      <% if @event.parent.blank? %>
-        <% if !@event.promo_url.blank? %>
-          <%= image_tag("#{@event.promo_url}") %>
-        <% elsif @event.promo_img_file_size != nil %>
-          <%= image_tag("#{@event.promo_img.url(:large)}") %>
-        <% end %>
-      <% else %>
-        <% if !@event.parent.promo_url.blank? %>
-          <%= image_tag("#{@event.parent.promo_url}") %>
-        <% elsif @event.parent.promo_img_file_size != nil %>
-          <%= image_tag("#{@event.parent.promo_img.url(:medium)}") %>
-        <% end %>
-      <% end %>
+      <%= image_tag @event.image(:large) %>
     </div>
   <% end %>
   
-  <% if !@event.promo_vid.nil? && @event.promo_vid != "" %>
+  <% if @event.promo_vid.present? %>
     <div class="promo_vid">
       <%= raw(youtube_embed(@event.promo_vid)) %>
     </div>
@@ -143,9 +129,9 @@
 
     <div class="guests">
       <% if @event.tipped? %>
-        <div class="right_label event_label"><%= @guests.count %> .in (Tipped!)</div>
+        <div class="right_label event_label"><%= @guest_count %> .in (Tipped!)</div>
       <% else %>
-        <div class="destroy right_label event_label"><%= @guests.count %> / <%= @event.min %> .in (Not Yet Tipped)</div>
+        <div class="destroy right_label event_label"><%= @guest_count %> / <%= @event.min %> .in (Not Yet Tipped)</div>
       <% end %>
       <div class="show_raster">
         <%= render 'guests' %>
@@ -168,7 +154,7 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <% if false %>
-<% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now.in_time_zone(current_user.city.timezone) - 7.seconds %>
+<% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
 
   <%= link_to find_friends_path, :remote => true, class: "find_friends fancybox.ajax", style: "display:none;" do %>
     <%= image_tag "social/fb.png", :size => "50x50", style: "display:none;"  %>

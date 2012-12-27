@@ -1,33 +1,5 @@
-<div id='datepicker'>
-  <%= render partial: 'shalendar/datepicker' %>
-</div>
-
-<div id='yt'><a href='#<%= @time_in_zone.to_date %>' id='todayButton' class='btn-today'>Today</a></div>
-<div class="responsive_new_idea"><%= render 'shared/new_idea_button' %></div>
-<%= render 'layouts/sidebar' %>
-<div class="home" id="scrollContainer">
-<% for i in -3..26 %>
-	<div class="each_day persist-area clearfix">		
-		<div class="date_bar marker persist-header clearfix shield <% if i == 0 %> red <% end %>" <% if i == 0 %> id="today" <% end %> data-date=<%= "#{@time_in_zone.to_date + i}" %>>
-      <div class="date"><%= (@time_in_zone.to_date + (i)).strftime("%A %b %e") %></div>
-<!--       <div class="friend_only hide_all" title="Only Show My Plans">
-      	<span class="fadeInBlue"><i class="icon-ok-sign"></i> <span class="only">only</span>
-      </div> -->
-      <div class="friend_only hide_public" title=".invites only">
-      	<span class="fadeInOrange"><i class="icon-envelope-alt"></i> <span class="only">only</span></span>
-      </div>
-		</div>
-    <div class="day_container clearfix">
-  		<div class="idea_container clearfix">
-        <% if @events[i + 3].any? %>
-  				<% @events[i + 3].each do |e| %>
-  					<%= render :partial => "shalendar/event", :locals => { :event => e } %>
-  				<% end %>
-  			<% end %>
-  		</div>
-    </div>
-	</div>
-<% end %>
+<div id="ideaContainer">
+  <%= render partial: "event", collection: @ideas %>
 </div>
 
 <script>
@@ -75,17 +47,17 @@
 // });
 </script>
 
-<% if current_user.present? && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
+<% if current_user.blank? || (current_user.present? && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds) %>
   <script>
     $(window).load(function() {
-      $('html, body').scrollTop($('body').offset().top);
       $("#chooseID").joyride({
-        'tipAnimation':'fade'
+        'tipAnimation':'fade' 
         /* Options will go here */
       });
     });
   </script>
-<% end %>
+ <% end %>
+
 
 <% if false %>
 <% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>

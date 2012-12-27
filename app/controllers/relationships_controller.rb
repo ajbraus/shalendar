@@ -25,14 +25,13 @@ before_filter :authenticate_user!
       end
     #OTHERWISE - IS NOT VENDOR AND DOES NOT REQUIRE CONFIMER FOLLOW
     else
-      @user.delay.contact_friend(current_user)
-      unless current_user.following?(@user) || current_user.request_following?(@user)
-        current_user.follow!(@user)
-      end
+      current_user.follow!(@user)
       @relationship = current_user.relationships.find_by_followed_id(@user.id)
       @relationship.confirmed = true
       if @relationship.save
         current_user.add_invitations_from_user(@user)
+        @user.delay.contact_friend(current_user)
+        #NOW REVERSE THE RELATIONSHIP
         unless @user.following?(current_user) || @user.vendor?
           unless @user.request_following?(current_user) 
             @user.follow!(current_user)
@@ -40,8 +39,8 @@ before_filter :authenticate_user!
           @reverse_relationship = @user.relationships.find_by_followed_id(current_user.id)
           @reverse_relationship.confirmed = true
           @reverse_relationship.save
+          #NOW ADD ALL REVERSE RELATIONSHIP INVITATIONS
           @user.add_invitations_from_user(current_user)
-          #also need to add all relevant invitations for both people at this point
         end
         respond_to do |format|
           format.html { redirect_to :back, notice: "You are now friends with #{@user.name}" }

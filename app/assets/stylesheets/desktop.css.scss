@@ -7,7 +7,6 @@
 
 	header {
 		nav {
-			padding-left: 2%;
 		}
 	}
 
@@ -20,8 +19,8 @@
 	}
 
 	.layout {
-		width: 95%;
-		margin-left:3%;
+	width: 97%;
+	margin: 0 auto;
 	}
 
 	.forecast {
@@ -48,8 +47,11 @@
 	}
 
 	.logo {
-		width: 164px;
-		left: 25px;
+position: relative;
+top: 2px;
+text-align: center;
+width: 11%;
+margin: 0 auto;
 	}
 
 	ul.left_header {
@@ -60,11 +62,16 @@
 		display: none;
 	}
 
+	.crust .new_idea_button {
+		float: left;
+		margin-left: 30px;
+}
+
 	.event {
 		margin:8px;
-		min-width: 190px;
+		min-width: 200px;
 		max-width: 200px;
-		min-height: 110px;
+		min-height: 78px;
 		max-height: 410px;
 		.promo_img {
 			img {
@@ -106,28 +113,30 @@ height: 100%;
 	}
 
 	.user_search {
-		top: 10px;
+position: absolute;
+top: 13px;
+left: 40px;
 		input[type=text] {
-		width: 200px;
+		width: 185px;
 		}
 	}
 
 	.right_header {
-		top: 10px;
-		right: 110px;
+		top: 12px;
+		right: 0px;
+		width: 44%;
+		font-size: 15px;
 	}
 
 	#friends {
-width: 65%;
-margin-left: 300px;
-top: 16px;
+width: 97%;
+top: 13px;
 	}
 
 	.event_show {
-margin: 0 286px;
-width: 65%;
 top: 10px;
-min-width: 570px;
+margin: 0 auto;
+width: 80%;
 		.promo_img {
 			img {
 				max-width: 100%;
@@ -144,22 +153,17 @@ min-width: 570px;
 			right: 6px;
 		}
 
-		.event_time {
-			span {
-				bottom:2px;
-			}
-		}
-
 		.fadeInBlue, .fadeInGreen {
 			color:lightGrey;
 		}
 
 		.event_buttons {
-			font-size: 30px;
-			top: 63px;
-			text-align: right;
-			position: relative;
-			margin-right: 9px;
+font-size: 30px;
+position: relative;
+float: right;
+top: 38px;
+right: 20px;
+padding: 20px;
 		}
 
 		#textMsg {
@@ -211,7 +215,7 @@ min-width: 570px;
 		
 		.dropdown dd ul {
 top: -10px;
-left: 2px;
+right: 15px;
 		}
 
 		.interests {
@@ -229,7 +233,7 @@ left: 2px;
 		}
 
 		.instagram-placeholder img {
-			width: 106px;
+			width: 137px;
 		}
 
 		.top {
@@ -245,12 +249,14 @@ left: 2px;
 		}
 
 		.btn-new-idea {
-			padding: 10.5px 33px;
-position: relative;
+padding: 7px 0px;
 -moz-border-radius: 6px;
 -webkit-border-radius: 6px;
 border-radius: 6px;
-width: 170px;
+width: 107px;
+position: absolute;
+left: 11px;
+top: 57px;
 		}
 		.new_idea {
 		}
@@ -265,18 +271,11 @@ width: 170px;
 			height: auto;
 		}
 
-		.home {
-position: relative;
-margin-right: 0px;
-margin-left: 278px;
-		}
-
 		.rsvp_button {
 			padding: 10px 20px;
 		}
 
 		.new_crowd_idea {
-				padding-top: 5%;
 				padding-bottom: 5%;
 			.event_form {
 				width: 40%;
@@ -287,7 +286,7 @@ margin-left: 278px;
 			}
 			.idea_preview {
 				position: relative;
-				bottom: 30px;
+				top: 12px;
 				float: left;
 				width: 52%;
 				margin: 0 auto;
@@ -307,8 +306,8 @@ margin-left: 278px;
 		}
 
 		.jr_forecast {
-			margin-left: 170px;
-			margin-top:-100px;
+			margin-left: 80px;
+			margin-top: -10px;
 		}
 
 		.jr_welcome {
@@ -317,13 +316,18 @@ margin-left: 278px;
 		}
 
 		.jr_search {
-			margin-top: -70px;
-			margin-left: 50px;
+margin-top: -95px;
+margin-left: 150px;
 		}
 
 		.jr_fb_friends {
-			margin-top: -215px;
-			margin-left: -24px;
+margin-top: -85px;
+margin-left: -39px;
+		}
+
+		.jr_plans {
+			margin-top: -89px;
+			margin-left: -38px;
 		}
 
 		.jr_stats {
@@ -331,7 +335,8 @@ margin-left: 278px;
 		}
 
 		.jr_invites {
-			margin-top: -72px;
+			margin-top: -89px;
+			margin-left: -11px;
 		}
 
 		.jr_sidebar {
@@ -339,14 +344,36 @@ margin-left: 278px;
 		}
 
 		.jr_new_idea {
-			margin-top: 200px;
-			margin-left: 130px;
+			margin-top: -94px;
+			margin-left: 20px;
+		}
+
+		.jr_ideas {
+			margin-top: -90px;
+margin-left: -19px;
+		}
+
+		.jr_city_ideas {
+			margin-top: -90px;
+		}
+
+		.jr_calendar {
+						margin-top: -90px;
+						margin-left: -13px;
 		}
 
 	.event_form {
 		ul {
 			font-size: 20px;
 		}
+	}
+
+	.navigation {
+	position: relative;
+	top: 14px;
+	z-index: 0;
+	width: 40%;
+	margin: 0 auto;
 	}
 
 }

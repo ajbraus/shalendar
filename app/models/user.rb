@@ -187,32 +187,50 @@ class User < ActiveRecord::Base
     end
   end
 
-
   def rsvpd?(event)
-    if(rsvps.find_by_plan_id(event.id))
+    @rsvp = rsvps.find_by_plan_id(event.id)
+    if @rsvp.present?
       return true
     else
       return false
     end
   end
 
-  def rsvp!(event)
+  def in?(event)
+    @rsvp = self.rsvps.find_by_plan_id(event.id)
+    if @rsvp.present? && @rsvp.inout == 1
+      return true
+    else
+      return false
+    end
+  end
+
+  def out?(event)
+    @rsvp = rsvps.find_by_plan_id(event.id)
+    if @rsvp.present? && @rsvp.inout == 0
+      return true
+    else
+      return false
+    end
+  end
+
+  def rsvp_in!(event)
     if event.full?
       return flash[:notice] = "The event is currently full."
     else
-      rsvps.create!(plan_id: event.id)
+      if event.rsvps.where(guest_id: self.id).any?
+        @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
+        @existing_rsvp.destroy
+      end
+      rsvps.create!(plan_id: event.id, inout: 1)
     end
   end
 
-  def unrsvp!(event)
-    if event.guests.count == event.min #not letting it untip anymore
+  def rsvp_out!(event)
+    if event.guest_count == event.min #not letting it untip anymore
       #Warning: this will un-tip the event for everyone, are you sure?
     end
-    rsvps.find_by_plan_id(event.id).destroy
-  end
-
-  def current_user?(user)
-    user == current_user
+    rsvps.find_by_plan_id(event.id).first.inout = 0
   end
 
   #get user's profile picture
@@ -266,6 +284,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  def is_friends_with?(other_user)
+    @follow = self.reverse_relationships.find_by_follower_id(other_user.id)  #both relationships exist and are confirmed
+    @follow_back = other_user.reverse_relationships.find_by_follower_id(self.id)
+    if @follow.present? && @follow.confirmed? && @follow_back.present? && @follow_back.confirmed?
+      return true
+    end
+    return false
+  end
+
   def friend!(other_user)
     if other_user.require_confirm_follow? && other_user.following?(self) == false #autoconfirm if already following us 
       self.follow!(other_user)
@@ -301,7 +328,7 @@ class User < ActiveRecord::Base
   def add_invitations_from_user(other_user)
     other_user.rsvps.each do |r|
       if r.invite_all_friends?
-        unless self.invited?(r.plan) || r.plan.starts_at < (Time.now - 3.days)
+        unless self.invited?(r.plan) || (r.plan.starts_at.present? && r.plan.starts_at < (Time.now - 3.days))
           other_user.invite!(r.plan, self)
         end
       end
@@ -333,6 +360,14 @@ class User < ActiveRecord::Base
     invitations.where('invitations.invited_event_id = :eventid', eventid: event.id).any?
   end
 
+#TODO
+  def invited_to_instance?(event)
+    event.instances.invitations.where()
+  end
+
+  def friend_is_invited?(event)
+  end
+
   def invited_to_an_events_group?(parent_event)
     if parent_event.groups.any?
       parent_event.groups.each do |child|
@@ -357,7 +392,7 @@ class User < ActiveRecord::Base
 
 
   def invited_all_friends?(event)
-    if self.rsvpd?(event)
+    if self.in?(event)
       if self.rsvps.find_by_plan_id(event.id).invite_all_friends?
         return true
       end
@@ -374,7 +409,7 @@ class User < ActiveRecord::Base
         end
       end
     end
-    if self.rsvpd?(event)
+    if self.in?(event)
       r = self.rsvps.find_by_plan_id(event.id)
       r.invite_all_friends = true
       r.save
@@ -528,6 +563,41 @@ class User < ActiveRecord::Base
       unless @user == User.find_by_email("info@hoos.in")
         Notifier.rsvp_reminder(@event, @user)
       end
+    end
+  end
+
+  def contact_new_time(event)
+    @user = self
+    @event = event
+    @event_link = event_url(@event)
+
+    if @user.iPhone_user?
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "#{@event.user.first_name} set a time for #{@event.title} - #{@event.start_time}!"
+        n.badge = 1
+        n.sound = true
+        n.custom_properties = {:type => "time_change", :event => "#{@event.id}"}
+        n.save
+      end
+    elsif @user.android_user?
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "#{@event.user.first_name} set a time for #{@event.title} - #{@event.start_time}!"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{event.title} new time!"}}
+        n.save
+      end
+    else
+      Notifier.new_time(event, @user)
     end
   end
 
