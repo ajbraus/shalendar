@@ -36,7 +36,7 @@
 				<% end %>
 		<% end %>
 				<span class="group_button">
-				<% if @event.has_future_instance? && (current_user.invited?(@event) || @event.next_instance.is_public?) %>
+				<% if @event.is_next_instance? && (current_user.invited?(@event) || @event.next_instance.is_public?) %>
 		 			<%= link_to event_path(@event.next_instance) do %>
 							<i class="icon-calendar"></i> Upcoming Time
 					<% end %>

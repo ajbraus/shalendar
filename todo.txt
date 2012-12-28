@@ -1,20 +1,14 @@
 Adam
 
-complete new completely pinterest view
-	seeing ideas that are neither public nor am I friends with their creators, nor are the invite all I think.
-
 		fix edit idea
 		fix new idea form to be consitent with add time form
+		fix so that if you close an invalid option in the new idea form it won't let you submit the form.
 
-		fix javascripts for ajax for rsvping out/in
 		add rsvp in/out to event show (rsvp form)
+		make event#show better laid out with ins on the left sidebar and sharing floating
 
 		fix masonry for all event forms - user#show, ideas, cityideas, calendar
 
-		in ideas/calendar/invites/plans remove rsvpd out child instances
-		if unrsvpd to next_instance then don't show the parent either
-		event#show could be an instance or a parent idea
-		when rsvpd to parent idea, show link to the latest instance 
 		allow a new instance to be created but warn them that one is already created
 		
 		remove updates for events users are .out from
@@ -23,11 +17,13 @@ complete new completely pinterest view
 		make time interactive -js is busted can't fix until fix form
 		add validations - dito
 
-fix so that if you close an invalid option in the new idea form it won't let you submit the form.
-
 rsvp prompt to share and add to calendar
 
 -----------------------------------------------------
+
+fix repeat button
+
+add trending friend ideas to digest
 
 upon new time let them change the picture
 

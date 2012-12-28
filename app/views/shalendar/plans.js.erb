@@ -1,7 +1,9 @@
 $('#plans').html("<%= escape_javascript(render partial: 'shalendar/plans') %>");
+$('#overlay').fadeToggle();
 
 $('body').click(function() {
-	$('.upcoming_ideas').hide();
+	$('.upcoming_ideas').fadeOut();
+	$('#overlay').fadeOut();
 });
 
 $('.upcoming_ideas').click(function(event){
@@ -18,5 +20,6 @@ $("a[href$='plans']").click(function(event){
 
 $("a[href$='plans']").click(function(e) {
 		e.preventDefault();
-		$('.upcoming_ideas').toggle();
+		$('.upcoming_ideas').fadeToggle();
+		$('#overlay').fadeToggle();
 	});

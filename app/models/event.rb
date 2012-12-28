@@ -156,15 +156,17 @@ class Event < ActiveRecord::Base
   end
 
   def tip!
-    if self.tipped? == false
-      unless self.ends_at < Time.now
-        self.guests.each do |g|
-          g.delay.contact_tipped(self)
+    if self.ends_at.present?
+      if self.tipped? == false
+        unless self.ends_at < Time.now
+          self.guests.each do |g|
+            g.delay.contact_tipped(self)
+          end
         end
       end
+      self.tipped = true
+      self.save!
     end
-    self.tipped = true
-    self.save!
   end
 
   def full?
@@ -396,22 +398,60 @@ class Event < ActiveRecord::Base
   end
 
   def next_instance
-    if is_parent?
-      @next_instance = self.instances.where('starts_at > ?', Time.now).order('starts_at asc').first
-    elsif has_parent?
-      @next_instance = self.parent.instances.where('starts_at > ?', Time.now).order('starts_at asc').first
+    @instances = self.instances
+    if @instances.empty?
+      return self
     else
-      @next_instance = nil
-    end 
-    return @next_instance 
+      @future_instances = @instances.order('ends_at asc').reject { |e| e.over? }
+      if @future_instances.empty?
+        return self
+      else
+        return @future_instances.first
+      end
+    end
+  #   if is_parent?
+  #     @next_instance = self.instances.where('starts_at > ?', Time.now).order('starts_at asc').first
+  #   elsif has_parent?
+  #     @next_instance = self.parent.instances.where('starts_at > ?', Time.now).order('starts_at asc').first
+  #   else
+  #     @next_instance = nil
+  #   end 
+  #   return @next_instance 
   end
 
   def has_future_instance?
-    if self.next_instance != self && self.next_instance != nil
+    if Event.where(parent_id: self.id).any?
       return true
     else
       return false
     end 
+  end
+
+  def over?
+    if self.ends_at.present? && self.ends_at < Time.now
+      return true
+    else
+      return false
+    end
+  end
+
+  def is_next_instance?
+    if self.next_instance == self
+      return true
+    else
+      return false
+    end
+    # @next_instances = self.instances
+    # if @next_instances.empty?
+    #   return true
+    # else
+    #   if @next_instances.reject { |e| e.over? }.empty?
+    #     return true
+    #   else
+    #     return false
+    #   end
+    # end
+    # return false
   end
 
   def save_shortened_url

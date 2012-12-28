@@ -9,20 +9,22 @@ class RsvpsController < ApplicationController
       current_user.rsvp_out!(@event)
     end
 
-    if @event.guest_count == @event.min && @event.tipped? == false
-      @event.tip!
+    if @event.min.present?
+      if @event.guest_count == @event.min && @event.tipped? == false
+        @event.tip!
+      end
     end
 
     if @event.has_parent?
       current_user.rsvp_in!(@event.parent)
     end
-
-    if params[:rsvp][:inout] == 1
+    
+    if params[:rsvp][:inout].to_f == 1
       respond_to do |format|
         format.html { redirect_to @event }
         format.js { render template: "rsvps/in" }
       end
-    elsif params[:rsvp][:inout] == 0
+    elsif params[:rsvp][:inout].to_f == 0
       respond_to do |format|
         format.html { redirect_to @event }
         format.js { render template: "rsvps/out" }

@@ -180,9 +180,10 @@ class Notifier < ActionMailer::Base
   #   mail to: @user.email, subject: "Failed to Tip - #{@event.event_day}, #{@event.short_event_title}" 
   # end
   
-  def digest(user, upcoming_events)
+  def digest(user, invited_events, upcoming_events)
     @user = user
     @upcoming_events = upcoming_events
+    @invited_events = invited_events
     mail to: @user.email, from: "info@hoos.in", subject: "You Have New Ideas on Hoos.in"
   end
 

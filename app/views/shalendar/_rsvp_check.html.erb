@@ -12,17 +12,21 @@
 		<% end %>
 		<% end %>
 	<% else %>
-		<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
-		  <%= f.hidden_field :plan_id %>
-		  <%= f.hidden_field :inout, value: "1" %>
-		  <%= f.submit ".in", class:"btn_icon btn_icon_rsvp"%>
-		<% end %>
-		<% unless current_user.out?(event) %>
+		<% if !current_user.rsvpd?(event) %>
+			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
+			  <%= f.hidden_field :plan_id %>
+			  <%= f.hidden_field :inout, value: "1" %>
+			  <%= f.submit ".in", class:"btn_icon btn_icon_rsvp", title:"join this idea"%>
+			<% end %>
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "0" %>
-			  <%= f.submit "out", class:"btn_icon btn_stop_viewing" %>
+			  <%= f.submit "out", class:"btn_icon btn_stop_viewing", title:"ignore this idea" %>
 			<% end %>
+		<% else %>
+
+		<div class="btn_icon going" title="you're .in"><i class="icon-okay"></i>.in</div>
+
 		<% end %>
 	<% end %>
 <% end %>

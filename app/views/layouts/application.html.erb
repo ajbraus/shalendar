@@ -36,16 +36,17 @@
     <%= render 'layouts/google_analytics' %>
   </head>
   <body>
+    <div id="overlay" style="display:none;"></div>
     <%= render 'shared/get_time_zone_offset' %>
     <%= render 'layouts/fb_script' %> 
-    
     <%= render 'layouts/header' %>
+    <span id="invitations"></span>
+    <span id="plans"></span>
     <div class="layout" id="content"> 
       <%= yield %>
     </div>
-      <%= render 'layouts/footer' %>
-      <div id='feedback'><a href="mailto:info@hoos.in" target="_blank">Report a Problem</a></div>
-    </div>
+    <%= render 'layouts/footer' %>
+    <div id='feedback'><a href="mailto:info@hoos.in" target="_blank">Report a Problem</a></div>
     <%= yield :scripts %>
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
   </body>

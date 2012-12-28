@@ -48,6 +48,12 @@ DONE
 		created friendship only created one relationship (create friend! method)
 	creating relationships is just creating one way and not adding invitations
 
+DONE fix javascripts for ajax for rsvping out/in
+DONE 		in ideas/calendar/invites/plans remove rsvpd out child instances
+DONE 		if unrsvpd to next_instance then don't show the parent either
+DONE make digest 1 day a week (tuesdays)
+DONE Make digest be smarter
+
 
 	What
 	When:

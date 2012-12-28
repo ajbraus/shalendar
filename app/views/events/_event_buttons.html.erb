@@ -56,6 +56,10 @@
 
     <!-- #TWITTER -->
     <li>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Tweet</a>
+    </li>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<!--     <li>
       <a href="https://twitter.com/share" 
         data-url="<%= event_url(@event) %>"
         data-via="hoos_in"
@@ -66,22 +70,12 @@
         target="_blank">
         <i class="icon-twitter"></i>
       </a>
-    </li>
+    </li> -->
 
     <!-- PINTEREST -->
     <li>
-      <a data-pin-config="above" 
-        href="//pinterest.com/pin/create/button/?
-          url=<%= event_url(@event) %>&
-          media=<%= @event.image(:large) %>&
-          description=<%= @event.mini_start_date_time + " - " + @event.title %>" 
-        data-pin-do="buttonPin" 
-        class="fadeInPinterest" 
-        target="_blank">
-        <i class="icon-pinterest-sign"></i>
-      </a>
+      <a href="//pinterest.com/pin/create/button/?url=<%= event_url(@event) %>&media=<%= @event.image(:large) %>&description=<%= @event.title + " - " + "starts at:" + ' ' + @event.mini_start_date_time + " - " "hoos.in" %>" count-layout="horizontal"><i class="icon-pinterest"></i></a>
     </li>
-
 
     <% if @event.guests_can_invite_friends? && !@event.short_url.nil? %>
       <li id="textMsg">
@@ -90,6 +84,7 @@
     <% end %> 
   <% end %>
 
+<% if false %>
   <% unless @event.is_group? %>
     <li>
       <%= link_to repeat_event_path(:event_id => @event.id), title:"Repeat Idea Another Time", class:"fancybox.ajax", id:"eventRepeat", remote:true do %>
@@ -97,6 +92,7 @@
       <% end %>
     </li>
   <% end %>
+<% end %>
 
   <% if @event.user == current_user %> 
     <% unless @event.tipped? %>

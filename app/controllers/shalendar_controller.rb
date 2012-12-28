@@ -6,9 +6,9 @@ class ShalendarController < ApplicationController
     #see all invites, ideas, and city ideas with times or tbd shuffled
     #if there is a future instance, only see that if its public or your invited
       #my ideas
-      #@my_ideas = current_user.events.select { |e| !current_user.out?(e) && !e.has_future_instance?}
+      #@my_ideas = current_user.events.select { |e| !current_user.out?(e) && e.is_next_instance? }
       #city ideas
-      @city_ideas = @current_city.events.select { |e| e.is_public? && !current_user.out?(e) && !e.has_future_instance? }
+      @city_ideas = @current_city.events.select { |e| e.is_public? && !current_user.out?(e) && e.is_next_instance? }
       #invites (friend ideas)
       @invites = []
       @invitations = current_user.invitations.order('created_at desc')
@@ -17,14 +17,14 @@ class ShalendarController < ApplicationController
         unless current_user == e.user && e.ends_at < Time.now
           e.inviter_id = i.inviter_id
         end
-        @invites.push(e) unless current_user.out?(e)# || !e.has_future_instance?
+        @invites.push(e) unless current_user.out?(e) || !e.is_next_instance?
       end
       #my plans
-      @plans = current_user.plans.select {|e| !e.has_future_instance? }
-      @ideas = (@city_ideas | @invites | @plans).shuffle
+      @plans = current_user.plans.select {|e| e.is_next_instance? }
+      @ideas = ( @city_ideas | @plans | @invites ).shuffle
     else
       #if not signed in display city ideas
-      @ideas = @current_city.events.select { |e| !e.has_future_instance? || (e.ends_at.present? && e.ends_at > Time.now) }
+      @ideas = @current_city.events.select { |e| e.is_next_instance? }
     end 
     # Beginning of Yellow Pages
     #@vendors = User.where('city = :current_city and vendor = true', current_city: @current_city)
@@ -54,13 +54,13 @@ class ShalendarController < ApplicationController
   end
 
   def city_ideas
-    @ideas = @current_city.events.select { |e| !e.has_future_instance? || (e.ends_at.present? && e.ends_at > Time.now) }.shuffle
+    @ideas = @current_city.events.select { |e| e.is_public? && e.is_next_instance? }.shuffle
     #or .sort_by{|i| -i.guest_count}
   end
 
   def my_ideas
     #SHOWS MY IDEAS WITH NO TIMES OR NEXT FUTURE INSTANCE BY ORDER OF CREATED AT
-    @ideas = current_user.events.select { |e| !e.has_future_instance? || (e.ends_at.present? && e.ends_at > Time.now) }.order('created_at asc')
+    @ideas = current_user.events.order('created_at desc').select { |e| e.is_next_instance? }
   end
 
   def calendar

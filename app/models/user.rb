@@ -206,7 +206,7 @@ class User < ActiveRecord::Base
   end
 
   def out?(event)
-    @rsvp = rsvps.find_by_plan_id(event.id)
+    @rsvp = rsvps.find_by_plan_id(next_instance.id)
     if @rsvp.present? && @rsvp.inout == 0
       return true
     else
@@ -230,7 +230,11 @@ class User < ActiveRecord::Base
     if event.guest_count == event.min #not letting it untip anymore
       #Warning: this will un-tip the event for everyone, are you sure?
     end
-    rsvps.find_by_plan_id(event.id).first.inout = 0
+    if event.rsvps.where(guest_id: self.id).any?
+      @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
+      @existing_rsvp.destroy
+    end
+    rsvps.create!(plan_id: event.id, inout: 0)
   end
 
   #get user's profile picture
@@ -441,7 +445,6 @@ class User < ActiveRecord::Base
   end
 
   def events_on_date(load_datetime)
-    Time.zone = self.city.timezone
     @time_range = load_datetime.midnight .. load_datetime.midnight + 1.day - 1.second
     #CATEGORY TODO
     @toggled_category_ids = []
@@ -469,7 +472,6 @@ class User < ActiveRecord::Base
     @invited_events_on_date.each do |ie|
       ie.inviter_id = ie.invitations.find_by_invited_user_id(self.id).inviter_id
     end
-    Time.zone = self.city.timezone
     return @invited_events_on_date | @plans_on_date | @interest_events_on_date
   end
 
@@ -851,37 +853,35 @@ class User < ActiveRecord::Base
   # Class Methods
   def self.digest
     @day = Date.today.days_to_week_start
-    if @day == 0 || @day == 2 || @day == 4
+    if @day == 3
       @digest_users = User.where("users.digest = 'true'")
       @digest_users.each do |u|
         time_range = Time.now.midnight .. Time.now.midnight + 3.days
-        if u.events.where(starts_at: time_range).any?
+        if u.plans.where(starts_at: time_range).any?
           @upcoming_events = []
           (0..2).each do |day|
-            @date = Date.today + day.days
+            @date = Time.now.midnight.to_date + day.days
             @events = u.events_on_date(@date)
             @upcoming_events.push(@events)
           end
-          Notifier.delay.digest(u, @upcoming_events)
-        else
-          @user_invitations = u.invitations.find(:all, order: 'created_at desc')
-          if @user_invitations.any?
-            @new_events = []
-            @user_invitations.each do |ui|
-              e = Event.find_by_id(ui.invited_event_id)
-              if e.starts_at.between?(Time.now.midnight, Time.now.midnight + 3.days)
-                @new_events.push(e)
-              end
+        end
+        @user_invitations = u.invitations.order('created_at desc')
+        if @user_invitations.any?
+          @new_events = []
+          @user_invitations.each do |ui|
+            e = Event.find_by_id(ui.invited_event_id)
+            if e.starts_at.between?(Time.now.midnight, Time.now.midnight + 3.days) && !u.out?(e)
+              @new_events.push(e)
             end
-            if @new_events.any?
-              @upcoming_events = []
-              (0..2).each do |day|
-                @date = Date.today + day.days
-                @events = u.events_on_date(@date)
-                @upcoming_events.push(@events)
-              end
-              Notifier.delay.digest(u, @upcoming_events)
+          end
+          if @new_events.any?
+            @invited_events = []
+            (0..2).each do |day|
+              @date = Time.now.midnight.to_date + day.days
+              @events = u.events_on_date(@date)
+              @invited_events.push(@events)
             end
+            Notifier.delay.digest(u, @invited_events, @upcoming_events)
           end
         end
       end
