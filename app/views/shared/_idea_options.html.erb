@@ -24,6 +24,7 @@
 		  </u>
 		</div>
 
+<% if false %>
 		<div class="venue_invitation_options" id="visibilityp" style="display:none;">
 		  <u>
 		  	<%= f.label :is_public, ".invite #{@current_city.name.split(",")[0].to_s.capitalize}" %><span title="Make this a City-Wide idea"> (?)</span><br>
@@ -47,6 +48,7 @@
 		  	</div> 
 	  	</div> 
 		</div>
+<% end %>
 
 <% if false %>
 		<div class="invitation_options" id="visibilityp">
@@ -95,26 +97,18 @@
     		<%= link_to "Enable ticketing and payments", new_merchant_path, target: "_blank" %>
     	<% end %>
     <% end %>
-	</div>
-		<p>
-			<input id="invite_all_friends" name="invite_all_friends" type="checkbox" checked="checked">
-			<%= f.label nil, ".invite all my friends" %>
-		</p>
-		<p>
-			<%= check_box_tag :knowTime %> 
-			<label>Add a time and tipping point?</label>
-		</p> 
+	</div> 
 </div>
 
 <div>
 	<ul>
-		<li id="addDateTime" title="Add Date and Time" style="display:none;"><i class="icon-time"></i></li>
-		<li id="addtipping" title="Add a Tipping Point" style="display:none;"><i class="icon-tasks"></i></li>
- 		<li id="visibility" title=".invite"><i class="icon-group"></i></li>
+ 		<!-- <li id="visibility" title=".invite"><i class="icon-group"></i></li> -->
  		<li id="addimg" title="Add an Image"><i class="icon-camera-retro"></i></li>
+ 		<li id="addvid" title="Add a video"><i class="icon-facetime-video"></i></li>
 	  <li id="addLink" title="Add a Link"><i class="icon-link"></i></li>
-	  <li id="addmap" title="Add a Location"><i class="icon-map-marker"></i></li>
-		<li id="addvid" title="Add a video"><i class="icon-facetime-video"></i></li>
 	  <li id="addcost" title="Add an Cost"><i class="icon-money"></i></li>
+	  <li id="addmap" title="Add a Location"><i class="icon-map-marker"></i></li>
+		<li id="addtipping" title="Add a Tipping Point"><i class="icon-tasks"></i></li>
+		<li id="addDateTime" title="Add Date and Time"><i class="icon-time"></i></li>
 	</ul>
 </div>

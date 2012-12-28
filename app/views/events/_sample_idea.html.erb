@@ -5,19 +5,19 @@
 		<span class="blerb_pic" title="Created by: <%= current_user.name %>"><%= raster_profile_picture(current_user) %></span>
 		<span class="title eventTitle"><%= @parent ? @parent.title : '' %></span>
 	</div>
-	<div class="meter" style="display:none;">
+	<div class="meter" <%= @parent ? "" : style="display:none;" %>>
 		<span style="width: 100%;"><span></span></span>
 	</div>
 
 	<div class="promo_img" id="eventPromoImg"><%= @parent ? (image_tag @parent.image(:medium)) : '' %></div>
 	<div class="event_time">
 		<span class="eventStartsAt"><%= @parent.present? ? @parent.starts_at : raw("<strong>TBD</strong>") %></span>
-		<span class="status_icon">
-			<i class="icon-ok-sign blue"></i>
-		</span>
 	</div>
 	<div class="shield_bottom">
 		<div class="event_shield_icons">
+			<span class="status_icon">
+				<i class="icon-ok-sign blue"></i>
+			</span>
 			<span class="eventIsBigIdea" title="This event needs a crowd!" style="display:none;"><i class='icon-cloud'></i></span>
 			<span id="eventVideoIcon" style="display:none;"><i class='icon-facetime-video'></i></span>
 	  </div>
@@ -67,7 +67,7 @@
     </div>
 	</div>
   
-  <div class="meter" style="display:none;">
+  <div class="meter" <%= @parent ? "" : style="display:none;" %>>
 		<span style="width: 100%;"><span></span></span>
 	</div>
 

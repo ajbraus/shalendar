@@ -10,15 +10,7 @@ class ShalendarController < ApplicationController
       #city ideas
       @city_ideas = @current_city.events.select { |e| e.is_public? && !current_user.out?(e) && e.is_next_instance? }
       #invites (friend ideas)
-      @invites = []
-      @invitations = current_user.invitations.order('created_at desc')
-      @invitations.each do |i|
-        e = Event.find_by_id(i.invited_event_id)
-        unless current_user == e.user && e.ends_at < Time.now
-          e.inviter_id = i.inviter_id
-        end
-        @invites.push(e) unless current_user.out?(e) || !e.is_next_instance?
-      end
+      @invites = current_user.relevant_invites
       #my plans
       @plans = current_user.plans.select {|e| e.is_next_instance? }
       @ideas = ( @city_ideas | @plans | @invites ).shuffle
@@ -33,15 +25,7 @@ class ShalendarController < ApplicationController
   #HEADER 
   
   def new_invited_events
-    @invites = []
-    @invitations = current_user.invitations.order('created_at desc').limit(20)
-    @invitations.each do |i|
-      e = Event.find_by_id(i.invited_event_id)
-      unless current_user == e.user && e.ends_at < Time.now
-        e.inviter_id = i.inviter_id
-      end
-      @invites.push(e)
-    end
+    @invites = current_user.relevant_invites
     current_user.new_invited_events_count = 0
     current_user.save
     respond_to do |format|
@@ -50,7 +34,19 @@ class ShalendarController < ApplicationController
   end
 
   def plans
-    @my_plans = current_user.plans.where('ends_at > ?', Time.now).order('starts_at asc')
+    @ideas = current_user.plans.where('ends_at > ?', Time.now).order('starts_at asc')
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def ins
+    @ideas = current_user.plans
+  end
+
+  def friends_ideas
+    @ideas = current_user.relevant_invites
   end
 
   def city_ideas
@@ -136,14 +132,8 @@ class ShalendarController < ApplicationController
           current_user.friend!(mf)
       end
     end
-    @plan_counts = []
-    @invite_counts = []
-    @date = Time.now.to_date #in_time_zone("Central Time (US & Canada)")
-    @forecastevents = current_user.forecast(Time.now, @plan_counts, @invite_counts)
-    @event_suggestions = Suggestion.event_suggestions(current_user)
     @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
-    @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
-    @vendor_friendships = current_user.vendor_friendships   
+    @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')  
 
     respond_to do |format|
       format.html { redirect_to root_path, notice: "you are now friends with your Facebook friends who are .in"}

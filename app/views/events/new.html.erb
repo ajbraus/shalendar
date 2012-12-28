@@ -1,3 +1,4 @@
+<% provide(:title, " | New Idea") %>
 <div class="new_crowd_idea clearfix">
 	<div class="event_form">
 	  <%= form_for current_user.events.build, url: { :controller => 'events', :action => 'create' }, html: { id: "new_event_form" } do |f| %>
@@ -10,8 +11,47 @@
 	  	<%= label :description, "Details" %><br/>
 	  	<%= f.text_area :description, id: "new_idea_description", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
 	  </p> 
+      <div>.invite . . .</div>
+      <div class="invite_radios">
+        <div>
+          <%= radio_button_tag :invite_me, "1" %>
+          <%= label_tag :invite_me_1 do %>
+            <i class="icon-bullhorn questionMark"></i><br><%= @current_city.name.split(",")[0].to_s.capitalize %>
+          <% end %>
+        </div>
+        <div>
+          <%= radio_button_tag :invite_me, "2", checked: true %>
+          <%= label_tag :invite_me_2 do %>
+            <i class="icon-group questionMark"></i><br>all my friends
+          <% end %>
+        </div>
+        <div>
+          <%= radio_button_tag :invite_me, "3" %>
+          <%= label_tag :invite_me_3 do %>
+            <i class="icon-remove questionMark"></i><br>let me pick
+          <% end %>
+        </div>
+      </div>
+
   <%= render partial: 'shared/idea_options', locals: { :f => f } %>
-		   
+
+      <% if false %>
+        <div>       
+          <%= f.check_box :is_public %>
+          <%= f.label :is_public do %>
+            <i class="icon-bullhorn questionMark"></i> everyone in <%= @current_city.name.split(",")[0].to_s.capitalize %>
+          <% end %>
+        </div> 
+        <div>
+          <input id="invite_all_friends" name="invite_all_friends" type="checkbox">
+          <label for="invite_all_friends"> <i class="icon-group questionMark"></i> .invite all my friends</label>
+        </div>
+        <div>
+          <input id="let_me_pic" name="let_me_pick" type="checkbox">
+          <label for="let_me_pic"> <i class="icon-remove questionMark"></i> let me pick</label>
+        </div>
+      <%end %>
+
 	  <span class="new_idea_button"><%= f.submit 'Post Idea', :class => 'btn btn-large btn-primary', method: :post %></span>
 
 	  <% end %>

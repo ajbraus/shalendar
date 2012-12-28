@@ -7,7 +7,7 @@
       <% end %>
     </li>
   <% end %>
-  <% if (@event.guests_can_invite_friends? || @event.is_public?) && @event.starts_at.blank? || @event.starts_at > Time.now %>
+  <% if (current_user == @event.user || (@event.guests_can_invite_friends? || @event.is_public?)) && @event.is_next_instance? %>
       <!-- SHARE BY EMAIL -->
     <li>
       <a href="mailto:?

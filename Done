@@ -53,6 +53,11 @@ DONE 		in ideas/calendar/invites/plans remove rsvpd out child instances
 DONE 		if unrsvpd to next_instance then don't show the parent either
 DONE make digest 1 day a week (tuesdays)
 DONE Make digest be smarter
+DONE
+		increment guest and tip if tips
+		change status icon to in <i class="icon-ok-sign blue" title="you're .in"></i>
+DONE
+		fix ajax for invite all friends
 
 
 	What

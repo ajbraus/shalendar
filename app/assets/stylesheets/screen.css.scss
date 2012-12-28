@@ -1539,11 +1539,10 @@ top: 1px;
 .time {
 
 }
-.status_icon {
-position: absolute;
-right: 10px;
-font-size: 22px;
 }
+.status_icon {
+margin-left: 4px;
+font-size: 19px;
 }
 
 .event_pic {
@@ -1789,7 +1788,7 @@ height: 22px;
 line-height: 25px;
 text-align: center;
 font-size: 17px;
-position: fixed;
+position: absolute;
 margin: 0 auto;
 width: 96%;
 }
@@ -2241,17 +2240,9 @@ float: right;
 width: 47%;
   }
   .when {
-    .date {
-      width: 73%;
-      float: left;
-      height: 30px;
-    }
-    .join_group_buttons {
-    z-index: 1;
-    float: right;
-    width: 50%;
-    bottom: 10px;
-    }
+font-size: 23px;
+height: 36px;
+float: left;
   }
 }
 
@@ -3066,6 +3057,10 @@ margin-top: 10px;
     -webkit-transition: color .25s linear .1s;
     transition: color .25s linear .1s;
   }
+}
+
+#dateTime {
+  float:left;
 }
 
 #addLinkp, #addmapp, #addimgp, #addvidp, #addcategoriesp {
@@ -3997,4 +3992,19 @@ position: absolute;
 top: 0;
 right: 0;
 z-index: 2;
+}
+
+.invite_radios {
+  margin-top:5px;
+  input[type=radio] {
+    margin-bottom: 15px;
+  }
+  div {
+    float: left;
+    width: 33%;
+    margin-bottom:10px;
+  }
+  label {
+    font-size: 20px;
+  }
 }

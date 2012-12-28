@@ -20,6 +20,7 @@ class EventsController < ApplicationController
   # GET /events/new.json
   def new
     #@event = current_user.events.build
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @event }
@@ -59,6 +60,10 @@ class EventsController < ApplicationController
       params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
     end
     @event = current_user.events.build(params[:event])
+    if params[:invite_me] == '1'
+      @event.is_public = true
+    end
+    @event.guests_can_invite_friends = true
     @event.city = @current_city
 
     if @event.starts_at.present? && @event.duration.present?
@@ -86,7 +91,7 @@ class EventsController < ApplicationController
       if @instance.save
         @instance.save_shortened_url
         current_user.rsvp_in!(@instance)
-        if params[:invite_all_friends] == "on"
+        if params[:invite_me] == "2" || params[:invite_me] == "1"
           @rsvp = current_user.rsvps.find_by_plan_id(@instance.id)
           current_user.invite_all_friends!(@instance)
           @rsvp.invite_all_friends = true
@@ -108,7 +113,7 @@ class EventsController < ApplicationController
       if params[:category_id]
         Categorization.create(event_id: @event.id, category_id: params[:category_id])
       end
-      if params[:invite_all_friends] == "on"
+      if params[:invite_me] == '1' || params[:invite_me] == '2'
         @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
         current_user.invite_all_friends!(@event)
         @rsvp.invite_all_friends = true
@@ -159,11 +164,15 @@ class EventsController < ApplicationController
                            price: @parent.price,
                            city_id: current_user.city.id, #users from other cities can poach ideas
                            guests_can_invite_friends: @parent.guests_can_invite_friends)
+    
+    if params[:invite_me] == '1'
+      @event.is_public = true
+    end
     if @event.save
       @event.save_shortened_url
       current_user.rsvp_in!(@event)
       @event.tipped = true   if @event.min <= 1
-      if params[:event][:invite_all_friends] == "on"
+      if params[:invite_me] == '1' || params[:invite_me] == '2'
         @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
         current_user.invite_all_friends!(@event)
         @rsvp.invite_all_friends = true

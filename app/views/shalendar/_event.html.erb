@@ -31,6 +31,7 @@
 				<%= image_tag event.image(:medium) %>
 			</div>
 		<% end %>
+		<% if event.starts_at.present? %>
 					<div class="event_time">	
 			<% if false %>		
 				<% if event.starts_at.hour > 4 && event.starts_at.hour < 12 %>
@@ -46,17 +47,9 @@
 				<% else %>
 					<span><%= event.mini_start_date_time %></span>
 				<% end %>
-
-			<% if user_signed_in? %>
-				<span class="status_icon">
-					<% if current_user.in?(event) %>
-						<i class="icon-ok-sign blue"></i>
-					<% elsif current_user.invited?(event) %>
-						<i class="icon-envelope blue" title=".invited by <%= event.inviter_id = 0 ? event.user.name : User.find_by_id(event.inviter_id).name %>"></i>
-					<% end %>
-				</span>
-			<% end %>
 		</div>
+		<% end %>
+
 		<div class="shield_bottom">
 			<div class="event_shield_icons">
 				<% if event.family_friendly? %>
@@ -71,6 +64,15 @@
 				<% if event.is_public? %>
 					<i class="icon-bullhorn"></i>
 				<% end %>
+				<span class="status_icon">
+				<% if user_signed_in? %>
+					<% if current_user.in?(event) %>
+						<i class="icon-ok-sign blue" title="you're .in"></i>
+					<% elsif current_user.invited?(event) %>
+						<i class="icon-envelope blue" title=".invited by <%= event.inviter_id = 0 ? event.user.name : User.find_by_id(event.inviter_id).name %>"></i>
+					<% end %>
+				</span>
+				<% end %>
 				<% if event.categories.any? %>
 					<%= event.categories.first.name.capitalize %>
 				<% end %>
@@ -78,9 +80,9 @@
 
 			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
 		<% if event.starts_at.present? %>
-	  	<div class="guests <%= !event.tipped? ? 'not_tipped' : '' %>"><i class="icon-group"></i> <%= event.guest_count %><%= !event.tipped? ? "/#{ event.min }" : '' %></div>
+	  	<div class="guests <%= !event.tipped? ? 'not_tipped' : '' %>"><i class="icon-group"></i> <span id="guestCount"><%= event.guest_count %></span><span id="eventMin"><%= !event.tipped? ? "/#{ event.min }" : '' %></span></div>
 	  <% else %>
-	  	<div class="guests"><i class="icon-group"></i> <%= event.guest_count %></div>
+	  	<div class="guests"><i class="icon-group"></i> <span id="guestCount"><%= event.guest_count %></span></div>
 	  <% end %>
 	</div>
 	<!-- ENDING LINK_TO -->

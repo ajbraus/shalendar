@@ -206,7 +206,7 @@ class User < ActiveRecord::Base
   end
 
   def out?(event)
-    @rsvp = rsvps.find_by_plan_id(next_instance.id)
+    @rsvp = rsvps.find_by_plan_id(event.next_instance.id)
     if @rsvp.present? && @rsvp.inout == 0
       return true
     else
@@ -982,6 +982,19 @@ class User < ActiveRecord::Base
   def fb_authentication
     @auth = authentications.where("provider = ?", "Facebook").last
     return @auth
+  end
+
+  def relevant_invites
+    @invites = []
+    @invitations = self.invitations.order('created_at desc')
+    @invitations.each do |i|
+      e = Event.find_by_id(i.invited_event_id)
+      unless self == e.user && e.ends_at < Time.now
+        e.inviter_id = i.inviter_id
+      end
+      @invites.push(e) unless self.out?(e) || !e.is_next_instance?
+    end
+    return @invites
   end
 
   # CONTACT FOR INVITATION

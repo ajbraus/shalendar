@@ -10,7 +10,7 @@ Shalendar::Application.routes.draw do
   resources :users, :only => [:show]
 
   City.all.each do |c|
-    match "/#{c.name.split(',')[0].gsub(/\s+/, "").downcase}", :to => 'shalendar#home', :as => "#{c.name.split(',')[0].gsub(/\s+/, "").gsub("-", "_").downcase}", :city => "#{c.name}"
+    match "/#{c.name.split(',')[0].gsub(/\s+/, "").downcase}", :to => 'shalendar#city_ideas', :as => "#{c.name.split(',')[0].gsub(/\s+/, "").gsub("-", "_").downcase}", :city => "#{c.name}"
   end
   
   root :to => 'static_pages#landing'
@@ -161,6 +161,7 @@ Shalendar::Application.routes.draw do
   match 'search' => 'shalendar#search'
   match 'datepicker' => "shalendar#datepicker"
 
+  match '/friends_ideas', to: 'shalendar#friends_ideas', as: "friends_ideas"
   match '/city_ideas', to: 'shalendar#city_ideas', as: "city_ideas"
   match '/my_ideas', to: 'shalendar#my_ideas', as: 'my_ideas'
   match '/calendar', to: 'shalendar#calendar', as: "calendar"

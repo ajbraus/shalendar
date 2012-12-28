@@ -61,10 +61,10 @@
     <% else %>
       <div class="date"><strong>Time TBD </strong></div>
     <% end %>
-    <div class="join_group_buttons">
-      <%= render 'rsvp_form' %>
-    </div>
 	</div>
+  <div class="join_group_buttons">
+      <%= render 'rsvp_form' %>
+  </div>
   <!-- METER -->
   <% if @event.tipped? %>  
     <div class="meter">

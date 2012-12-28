@@ -33,28 +33,34 @@
 		    <%= f.label :min_attendees, "Tipping Point" %> <br/>
 		    <%= f.select :min, 1..1000 %>
 		</div>
+		
 		<div id="addimgp" style="display:none;">
 	  	<div><%= f.label :display_image %></div>
 	 	  	<i class="icon-link"></i><%= f.text_field :promo_url, autocomplete: "off", placeholder: "Image URL" %><br>
 	  or<br>
 	  		<i class="icon-camera-retro"></i><%= f.file_field :promo_img %>
 		</div>
-		  <div>.invite . . .</div>
-			<div>				
-				<%= f.check_box :is_public %>
-				<%= f.label :is_public do %>
-					<i class="icon-bullhorn questionMark"></i> everyone in <%= @current_city.name.split(",")[0].to_s.capitalize %>
-				<% end %>
-			</div> 
-			<div>
-				<input id="invite_all_friends" name="invite_all_friends" type="checkbox">
-				<label for="invite_all_friends"> <i class="icon-group questionMark"></i> .invite all my friends</label>
-			</div>
-			<div>
-				<input id="let_me_pic" name="let_me_pick" type="checkbox">
-				<label for="let_me_pic"> <i class="icon-remove questionMark"></i> let me pick</label>
-			</div>
-		<%= f.hidden_field :parent_id, value: @parent.id %>
+     <div>.invite . . .</div>
+      <div class="invite_radios">
+        <div>
+          <%= radio_button_tag :invite_me, "1" %>
+          <%= label_tag :invite_me_1 do %>
+            <i class="icon-bullhorn questionMark"></i> everyone in <%= @current_city.name.split(",")[0].to_s.capitalize %>
+          <% end %>
+        </div>
+        <div>
+          <%= radio_button_tag :invite_me, "2", checked: true %>
+          <%= label_tag :invite_me_2 do %>
+            <i class="icon-group questionMark"></i> all my friends
+          <% end %>
+        </div>
+        <div>
+          <%= radio_button_tag :invite_me, "3" %>
+          <%= label_tag :invite_me_3 do %>
+            <i class="icon-remove questionMark"></i> let me pick
+          <% end %>
+        </div>
+      </div>		<%= f.hidden_field :parent_id, value: @parent.id %>
    
 	  <span class="new_idea_button"><%= f.submit 'Add This Time', :class => 'btn btn-large btn-success', method: :post %></span>
 

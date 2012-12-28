@@ -53,6 +53,11 @@
               <%= current_user.plans.where('ends_at > ?', Time.now).count %> <i class="icon-envelope-alt"></i>
               <span id="headerText">.ins</span>
             </span>
+          <% else %> 
+            <span class="fadeInPurple">
+              0 <i class="icon-envelope-alt"></i>
+              <span id="headerText">next .ins</span>
+            </span>         
           <% end %>
         <% end %>
       </li>
@@ -71,10 +76,10 @@
       <div class="new_idea_button"><%= render 'shared/new_idea_button' %></div>
       <div class="instructions"><%= link_to '.instructions', what_is_hoosin_path %></div>
       <div class="navigation"> 
-        <%= link_to 'ideas', root_path, id: "jrIdeas" %> | 
-        <%= link_to "city ideas", city_ideas_path, id: "jrCityIdeas" %> |
-        <%= link_to 'my ideas', my_ideas_path %> |
-        <%= link_to 'calendar', calendar_path, id: "jrCalendar" %> 
+        <%= link_to 'all', root_path, id: "jrIdeas" %> | 
+        <%= link_to 'friends', friends_ideas_path, id: "jrFriendsIdeas" %> |
+        <%= link_to "#{@current_city.name.split(',')[0].downcase}", city_ideas_path, id: "jrCityIdeas" %> |
+        <%= link_to 'plans', plans_path, id: "jrPlans" %> 
       </div>
 <!--       <div class="friend_only hide_all" title="Only Show My Plans">
         <span class="fadeInBlue"><i class="icon-ok-sign"></i> <span class="only">only</span>

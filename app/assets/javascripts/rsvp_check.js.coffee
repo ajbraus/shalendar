@@ -18,11 +18,9 @@ $.fn.rsvp_check = (rsvpCheckHTML, about_to_tip) ->
   $('div#littleTIP').remove();
   $(@).find('#guestCount').eq(0).increment()
   $(@).find('#guestCount').eq(1).increment()
-  $(@).find('.rsvp_check').html(rsvpCheckHTML) 
-  if $(@).hasClass("not_rsvpd")
-    $(@).removeClass("not_rsvpd")
-    $(@).addClass("rsvpd")
+  $(@).find('.rsvp_check').html(rsvpCheckHTML)
+  $(@).find('.status_icon').html("<i class='icon-ok-sign blue' title='you\'re .in'></i>")
   if about_to_tip = 1
-    $(@).find("#guestCount").removeClass("red");
+    $(@).find("#guestCount").removeClass("not_tipped");
     $(@).find("#eventMin").remove();
 
