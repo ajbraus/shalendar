@@ -1,17 +1,5 @@
 <%= render 'ideas' %>
 
-<% if current_user.blank? || (current_user.present? && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds) %>
-  <script>
-    $(window).load(function() {
-      $("#chooseID").joyride({
-        'tipAnimation':'fade' 
-        /* Options will go here */
-      });
-    });
-  </script>
- <% end %>
-
-
 <% if false %>
 <% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
 	<script> 

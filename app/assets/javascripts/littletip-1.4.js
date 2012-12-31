@@ -14,7 +14,7 @@
 	littleTIPbackground		=   0.7     ;	// Background opacity (from 0 to 1)
 	littleTIPtext			=   1       ;	// Text opacity (from 0 to 1)
 	littleTIPx				=   -30      ;	// Horizontal distance from cursor (in pixels)
-	littleTIPy				=   -50     ;	// Vertical distance from cursor (in pixels)
+	littleTIPy				=   0     ;	// Vertical distance from cursor (in pixels)
 
 	
 

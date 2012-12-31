@@ -1,38 +1,30 @@
 Adam
 
-		fix edit idea
-		fix so that if you close an invalid option in the new idea form it won't let you submit the form.
+		remove outs from invited
+		remove overs from all
 
-		fix new idea and edit idea form to be consitent with add time form
+		fix so that if you close an invalid option in the new idea form it won't let you submit the form. prevent close . . .
 
-		add rsvp in/out to event show (rsvp form)
-		rsvp prompt to share and add to calendar
-
-		make calendar views for each all|friend|city|mine?||#plans
-
-		current_user.plans is wrong -- needs to be rsvpd_in?
-
-		make city_ideas be the path to the current_city path
-
-		always invite all friends to public ideas you create
-
-		make event#show better laid out with ins on the left sidebar and sharing floating
-
-		fix masonry for all event forms - user#show, ideas, cityideas, calendar
-
-		allow a new instance to be created but warn them that one is already created
+		current_user.plans is wrong -- needs to be rsvpd_in? use scopes.
+		http://stackoverflow.com/questions/9556153/is-it-possible-to-create-a-conditional-association-in-model
 		
-		remove updates for events users are .out from - digest, comments, 
+		remove updates for events users are .out from - digest, comments etc 
 
 		add push notification whenever someone joins your idea 
 			(if it is auto joining the parent don't send notification twice)
 		push notification & email to those in on parent if invite all on add time
 
-	new time form
-		update tipping point to read selector option value rather than input value
-
+		add friend button to profile of someone you aren't already friends with
 
 -----------------------------------------------------
+
+add change background picture from profile
+
+host can remove invite from parent
+
+social sharing from homescreen
+
+add tipping point and meter to share_after_rsvp
 
 fix event.html to put status icon in lower left and time only when present
 
@@ -44,7 +36,11 @@ upon new time let them change the picture
 
 explore your city - prompt to join - lightbox with video and signup
 
+keep this idea around vs. one time
+
 messaging friends through hoos.in
+
+count how many future instances? display all subsequent events in every event#show
 
 scripts not working
 	invite button not reloading (stack overflow question)
@@ -55,6 +51,7 @@ scripts not working
 	invite all my friends checkbox
 
 
+make calendar views for each all|friend|city|mine?||#plans
 
 #config/application.rb
 config.exceptions_app = self.routes

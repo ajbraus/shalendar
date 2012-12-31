@@ -268,3 +268,55 @@ _plans.html.erb
   </div>
 <% end %>
 </div>
+
+
+    <% if false %>
+      <li>
+        <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Post to Facebook", remote: true do %>
+          <i class="icon-facebook-sign"></i>
+        <% end %>
+      </li>
+    <% end %>
+
+    <!--     <li>
+      <a href="https://twitter.com/share" 
+        data-url="<%= event_url(@event) %>"
+        data-via="hoos_in"
+        data-size="large" 
+        data-count="none" 
+        class="fadeInTwitter" 
+        title="<%= @event.title %> #hoosin" 
+        target="_blank">
+        <i class="icon-twitter"></i>
+      </a>
+    </li> -->
+
+
+    <% if @event.guests_can_invite_friends? && !@event.short_url.nil? %>
+      <li id="textMsg">
+        <a href="sms:?body=<%= url_encode(@event.title + " - " + @event.short_url) %>"><span class="fadeInOrange"><i class="icon-phone"></i></span></a>
+      </li> 
+    <% end %> 
+
+
+    Event#show
+        <% if false %>
+    <div class="host friend">
+      <%= link_to user_path(@event.user), target: "blank" do %>
+        <%= raster_profile_picture(@event.user) %> 
+      <% end %>
+      <div>hosted by: </div><br>
+      <% if !user_signed_in? || (current_user.following?(@event.user) || current_user == @event.user) %>
+        <div>
+          <%= @event.user.name %>
+        </div>
+      <% else %>
+        <div id="friend_name">
+          <%= @event.user.name %>
+        </div>
+        <div id="friend_button" style="display:none;">
+          <%= render  :partial => 'events/just_follow_form', :locals => { :user => @event.user } %>
+        </div>
+      <% end %>
+    </div>
+    <% end %>

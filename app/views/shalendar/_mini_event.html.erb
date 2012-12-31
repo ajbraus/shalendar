@@ -11,7 +11,7 @@
 		</span>
 	</div>
 	<div class="event_blerb">
-		<%= raster_profile_picture(event.user) %>
+		<% if false %><%= raster_profile_picture(event.user) %><% end %>
 		<%= event.title %>
 		<div class="inviter">
 			<% unless User.find_by_id(event.inviter_id).blank? || User.find_by_id(event.inviter_id) == current_user %>

@@ -14,7 +14,7 @@
 <% end %>
 	<%= link_to event do %>
 		<div class="event_blerb">
-			<span class="blerb_pic" title="Created by: <%= event.user.name %>"><%= raster_profile_picture(event.user) %></span>
+			<% if false %><span class="blerb_pic" title="Created by: <%= event.user.name %>"><%= raster_profile_picture(event.user) %></span><% end %>
 			<span class="title"><%= event.title %></span>
 		</div>
 		<% if event.tipped? %>	

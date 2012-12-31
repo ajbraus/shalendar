@@ -12,21 +12,24 @@
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
+
     <% if @event %>
-      <meta property="fb:app_id" content="327936950625049"/>
       <meta property="og:title" content="<%= @event.title %>"/>
-      <meta property="og:url" content="http://www.hoos.in<%= event_path(@event) %>" />
+      <meta property="og:type" content="activity" />
+      <meta property="og:url" content="<%= event_url(@event)%>" />
       <meta property="og:site_name" content="hoos.in"/>
       <meta property="og:type" content="website"/>
       <meta property="og:image" content="<%= @event.image(:medium) %>"/>
     <% else %>
-      <meta property="fb:app_id" content="327936950625049"/>
+      <meta property="og:type" content="website" />
       <meta property="og:title" content="hoos.in"/>
       <meta property="og:url" content="http://www.hoos.in" />
       <meta property="og:site_name" content="hoos.in"/>
       <meta property="og:type" content="website"/>
       <meta property="og:image" content="http://hoos.in/assets/icon.png"/>
-    <% end %>    
+    <% end %> 
+    <!-- <meta property="fb:app_id" content="327936950625049"/> -->   
+      <meta property="fb:admins" content="327936950625049" />
     <!-- FOR RESPONSIVE DESIGN -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--[if lt IE 9]>
@@ -42,12 +45,22 @@
     <%= render 'layouts/header' %>
     <span id="invitations"></span>
     <span id="plans"></span>
+    <span id="shareAfterRsvp"></span>
     <div class="layout" id="content"> 
       <%= yield %>
     </div>
     <%= render 'layouts/footer' %>
     <div id='feedback'><a href="mailto:info@hoos.in" target="_blank">Report a Problem</a></div>
     <%= yield :scripts %>
-    <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+    <% if current_user.present? && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
+      <script>
+        $(window).load(function() {
+          $("#chooseID").joyride({
+            'tipAnimation':'fade' 
+            /* Options will go here */
+          });
+        });
+      </script>
+    <% end %>
   </body>
 </html>

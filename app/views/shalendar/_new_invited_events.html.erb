@@ -1,15 +1,13 @@
 <div class="invited_events part">
+	<h1 style="clear:both">recent .invites</h1>
 	<% if @invites.any? %>
-		<ul>
+	<div class="idea_container">
 		<% @invites.each do |nie| %>
-			<li>
-				<div><%= nie.start_date %></div>
 				<%= render partial: 'shalendar/event', locals: { :event => nie } %>
-			</li>
 			<% end %>
-		</ul>
+	</div>
 	<% else %>
-	<p>No new .invites right now</p>
+		<p>No new .invites right now</p>
 	<% end %>
 </div>
 

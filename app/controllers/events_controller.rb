@@ -200,7 +200,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @guests = @event.guests
     @email_invites = @event.email_invites
-    @invited_users = @event.invited_users - @event.guests 
+    @invited_users = @event.invited_users - @event.guests - @event.unrsvpd_users
     @comments = @event.comments.order("created_at desc")
     if user_signed_in?
       if current_user.authentications.find_by_provider("Facebook").present?

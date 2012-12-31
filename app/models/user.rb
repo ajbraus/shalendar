@@ -997,6 +997,14 @@ class User < ActiveRecord::Base
     return @invites
   end
 
+  def invited_all_friends(event)
+    @rsvp = event.rsvps.find(:guest_id => self.id)
+    if @rsvp.invite_all_friends?
+      return true
+    end
+    return false
+  end
+
   # CONTACT FOR INVITATION
   # def contact(event)
   #   if app user

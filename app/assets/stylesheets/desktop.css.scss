@@ -19,17 +19,13 @@
 	}
 
 	.layout {
-	width: 97%;
+	width: 90%;
 	margin: 0 auto;
 	}
 
 	.forecast {
 		overflow-x: hidden;
 		width: 93%;
-	}
-
-	.top {
-		width: 80%;
 	}
 	.instagram-placeholder img {
 		width: 111px;
@@ -50,7 +46,7 @@
 position: relative;
 top: 2px;
 text-align: center;
-width: 11%;
+width: 14%;
 margin: 0 auto;
 	}
 
@@ -134,9 +130,10 @@ top: 13px;
 	}
 
 	.event_show {
-top: 10px;
+top: 9px;
 margin: 0 auto;
-width: 80%;
+width: 66%;
+float: right;
 		.promo_img {
 			img {
 				max-width: 100%;
@@ -146,6 +143,27 @@ width: 80%;
 			font-size: 27px;
 			height: 40px;
 		}
+	}
+
+	.event_guests {
+		float:left;
+		margin-top: 10px;
+		width: 28%;
+		max-height: 300px;
+	}
+
+	.maybes {
+		width: 28%;
+		float:left;
+		max-height: 400px;
+		margin-top: 15px;
+	}
+
+	#invite_raster {
+float: right;
+width: 66%;
+margin: 0 auto;
+padding: 1px 0 10px 2px;
 	}
 
 		.guest_count {
@@ -225,9 +243,6 @@ right: 15px;
 		.floatingHeader {
 		}
 
-		.instagramFeed {
-			width: 960px;
-		}
 
 		.fb_login_button {
 		}
@@ -271,10 +286,6 @@ top: 57px;
 			height: auto;
 		}
 
-		.rsvp_button {
-			padding: 10px 20px;
-		}
-
 		.new_crowd_idea {
 				padding-bottom: 5%;
 			.event_form {
@@ -311,23 +322,23 @@ top: 57px;
 		}
 
 		.jr_welcome {
-  		margin-left: 100px;
-  		margin-top: -70px;
+margin-left: 41px;
+margin-top: 20px;
 		}
 
 		.jr_search {
-margin-top: -95px;
-margin-left: 150px;
+margin-top: 2px;
+margin-left: 100px;
 		}
 
 		.jr_fb_friends {
-margin-top: -85px;
+margin-top: 7px;
 margin-left: -39px;
 		}
 
 		.jr_plans {
-			margin-top: -89px;
-			margin-left: -38px;
+margin-top: 11px;
+margin-left: -8px;
 		}
 
 		.jr_stats {
@@ -344,8 +355,8 @@ margin-left: -39px;
 		}
 
 		.jr_new_idea {
-			margin-top: -94px;
-			margin-left: 20px;
+margin-top: 6px;
+margin-left: 20px;
 		}
 
 		.jr_ideas {
@@ -354,12 +365,13 @@ margin-left: -19px;
 		}
 
 		.jr_city_ideas {
-			margin-top: -90px;
-		}
+margin-top: 2px;
+margin-left: -10px;
+}
 
 		.jr_calendar {
-						margin-top: -90px;
-						margin-left: -13px;
+margin-top: 5px;
+margin-left: -29px;
 		}
 
 	.event_form {
@@ -374,6 +386,21 @@ margin-left: -19px;
 	z-index: 0;
 	width: 40%;
 	margin: 0 auto;
+	}
+
+	.share_after_rsvp {
+		width: 60%;
+		left: 18%;
+	}
+
+	.social_buttons {
+		width: 33%;
+		margin-top: 10px;
+	}
+		.social_sharing {
+		a, a[href^="mailto"] {
+			width: 18%;
+		}
 	}
 
 }

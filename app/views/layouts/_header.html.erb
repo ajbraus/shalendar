@@ -19,16 +19,16 @@
       <li id="jrActivity">
         <%= link_to user_path(current_user) do %>
           <span class="fadeInBlue">
-            <%= current_user.events.count %> <i class="icon-cloud"></i> 
-            <span id="headerText">ideas</span>
+            <%= current_user.events.count %> <i class="icon-cloud" title="ideas"></i> 
+            <!-- <span id="headerText">ideas</span> -->
           </span>
         <% end %>
       </li>
       <li id="jrFriends">
         <a href="<%= manage_friends_path %>"> 
           <span class="fadeInGreen">
-            <strong id="header_friend_count" class="friend_count"><%= current_user.followers.count %></strong> <i class="icon-group"></i>
-            <span id="headerText">friends</span></span>
+            <strong id="header_friend_count" class="friend_count"><%= current_user.followers.count %></strong> <i class="icon-group" title="friends"></i>
+            <!-- <span id="headerText">friends</span> --></span>
           <% if current_user.reverse_relationships.where('relationships.confirmed = false').any? %>
           <% @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false') %>
             <span class="new_friends_count"><%= @friend_requests.count %></span>
@@ -41,8 +41,8 @@
             <span id="new_invited_events_count" class="new_invited_events_count"><%= current_user.new_invited_events_count %></span>
           <% end %>
           <span class="fadeInPurple">
-            <%= current_user.invitations.count %> <i class="icon-envelope"></i>
-            <span id="headerText">.invites</span>
+            <%= current_user.invitations.count %> <i class="icon-envelope" title=".invites"></i>
+            <!-- <span id="headerText">.invites</span> -->
           </span>
         <% end %>
       </li>
@@ -50,13 +50,13 @@
         <%= link_to plans_path, :remote => true do %>
           <% if current_user.plans.where('ends_at > ?', Time.now).any? %>
             <span class="fadeInPurple">
-              <%= current_user.plans.where('ends_at > ?', Time.now).count %> <i class="icon-envelope-alt"></i>
-              <span id="headerText">.ins</span>
+              <%= current_user.plans.where('ends_at > ?', Time.now).count %> <i class="icon-envelope-alt" title=".ins"></i>
+              <!-- <span id="headerText">.ins</span> -->
             </span>
           <% else %> 
             <span class="fadeInPurple">
-              0 <i class="icon-envelope-alt"></i>
-              <span id="headerText">next .ins</span>
+              0 <i class="icon-envelope-alt" title=".ins"></i>
+              <!-- <span id="headerText">.ins</span> -->
             </span>         
           <% end %>
         <% end %>
@@ -74,20 +74,31 @@
   </div>
     <div class="crust persist-header">
       <div class="new_idea_button"><%= render 'shared/new_idea_button' %></div>
-      <div class="instructions"><%= link_to '.instructions', what_is_hoosin_path %></div>
+      <div class="instructions">.instructions</div>
       <div class="navigation"> 
-        <%= link_to 'all', root_path, id: "jrIdeas" %> | 
-        <%= link_to 'friends', friends_ideas_path, id: "jrFriendsIdeas" %> |
-        <%= link_to "#{@current_city.name.split(',')[0].downcase}", city_ideas_path, id: "jrCityIdeas" %> |
-        <%= link_to 'plans', plans_path, id: "jrPlans" %> 
+        <%= link_to_unless_current 'all', root_path, id: "jrIdeas" do %>
+          <span>all</span>
+        <% end %> |
+        <%= link_to_unless_current '.ins', plans_path, id: "jrPlans" do %>
+          <span>.ins</span>
+        <% end %> |
+        <%= link_to_unless_current '.invites', friends_ideas_path, id: "jrFriendsIdeas" do %>
+          <span>.invites</span>
+        <% end %> | 
+        <%= link_to_unless_current "#{@current_city.name.split(',')[0].downcase}", city_ideas_path, id: "jrCityIdeas" do %>
+          <span><%=@current_city.name.split(',')[0].downcase%></span>
+        <% end %> ||
+        <%= link_to calendar_path, id:"jrCalendar" do %>
+          <i class="icon-calendar" title="view calendar of ideas"></i>
+        <% end %>
       </div>
 <!--       <div class="friend_only hide_all" title="Only Show My Plans">
         <span class="fadeInBlue"><i class="icon-ok-sign"></i> <span class="only">only</span>
       </div> -->
       <%= render 'shared/city_user_dropdown' %>
-      <div id="hide_public" class="friend_only" title=".invites only">
+<!--       <div id="hide_public" class="friend_only" title=".invites only">
         <span class="fadeInOrange"><i class="icon-envelope-alt"></i> <span class="only">only</span></span>
-      </div>
+      </div> -->
     </div>
   </nav>
 

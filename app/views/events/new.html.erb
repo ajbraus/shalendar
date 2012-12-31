@@ -11,27 +11,6 @@
 	  	<%= label :description, "Details" %><br/>
 	  	<%= f.text_area :description, id: "new_idea_description", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
 	  </p> 
-      <div>.invite . . .</div>
-      <div class="invite_radios">
-        <div>
-          <%= radio_button_tag :invite_me, "1" %>
-          <%= label_tag :invite_me_1 do %>
-            <i class="icon-bullhorn questionMark"></i><br><%= @current_city.name.split(",")[0].to_s.capitalize %>
-          <% end %>
-        </div>
-        <div>
-          <%= radio_button_tag :invite_me, "2", checked: true %>
-          <%= label_tag :invite_me_2 do %>
-            <i class="icon-group questionMark"></i><br>all my friends
-          <% end %>
-        </div>
-        <div>
-          <%= radio_button_tag :invite_me, "3" %>
-          <%= label_tag :invite_me_3 do %>
-            <i class="icon-remove questionMark"></i><br>let me pick
-          <% end %>
-        </div>
-      </div>
 
   <%= render partial: 'shared/idea_options', locals: { :f => f } %>
 
@@ -52,7 +31,7 @@
         </div>
       <%end %>
 
-	  <span class="new_idea_button"><%= f.submit 'Post Idea', :class => 'btn btn-large btn-primary', method: :post %></span>
+	  <span class="new_idea_button"><%= f.submit 'Post Idea', :class => 'btn btn-large btn-primary', id:"postIdea", method: :post %></span>
 
 	  <% end %>
 	</div>

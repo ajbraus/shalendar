@@ -363,17 +363,18 @@ text-align: center;
   background-color:#378de5;
   color:white;
   border:none;
+    border:1px solid #84bbf3;
 }
 
 .btn_stop_viewing {
-  background-color: #ffffff;
+  background-color:#EDEDED;
   border: 1px solid gainsboro;
   display: inline-block;
   color: #636363;
-  font-size: 12px;
 }
 .btn_stop_viewing:hover {
-  background-color:#EDEDED;
+  background-color: #ffffff;
+    color: #636363;
   cursor:pointer;
 }
 .btn_stop_viewing:active {
@@ -577,7 +578,7 @@ header {
   height: 93px;
   background-color: #FFFEFD;
   clear: both;
-  position: absolute;
+  position: fixed;
   top:0;
   z-index: 2;
   width:100%;
@@ -610,7 +611,7 @@ header {
   }
   .choose_city {
 position: absolute;
-right: 72px;
+right: 12px;
 bottom: 5px;
 form {
   display: inline;
@@ -693,6 +694,9 @@ text-align: right;
 
 .navigation {
   font-size: 16px;
+  span {
+    font-weight: bold;
+  }
 }
 
 .responsive_profile_pic {
@@ -895,9 +899,9 @@ box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
 .layout {
 clear: both;
 min-height: 640px;
-z-index: -10;
 position: relative;
 top: 100px;
+margin: 0 auto;
 }
 
 .show_layout {
@@ -930,9 +934,8 @@ width: 618px;
 }
 
 .text {
-width: 800px;
-position: relative;
-left: 130px;
+width: 100%;
+margin: 0 auto;
   h1 {
     margin-top: 35px;
   }
@@ -1347,10 +1350,10 @@ margin-right: 10px;
 
 .upcoming_ideas {
 position: absolute;
-top: -40px;
+top: 50px;
 width: 335px;
 right: 159px;
-z-index: 2;
+z-index: 4;
 }
 
 .stats {
@@ -1426,7 +1429,6 @@ height: auto;
 position: relative;
 width: auto;
 right: 0;
-border-bottom: 1px solid #D1CDCD;
 bottom: 0;
     img {
       width: 7%;
@@ -1534,7 +1536,6 @@ font-size: 1em;
 width: 98%;
 right: 5px;
 bottom: 5px;
-border-bottom: 1px solid #D1CDCD;
 top: 1px;
 .time {
 
@@ -1679,6 +1680,7 @@ text-align: center;
   filter: progid:dximagetransform.microsoft.gradient(enabled=false);
   }
   color:white;
+  font-size: 14px;
 }
 
 .going {
@@ -1723,16 +1725,15 @@ filter: alpha(opacity=75);
 opacity: 0.75;
 clear: both;
 margin: 0px auto;
-width: 74%;
+width: 81%;
 border-top: 1px solid #D1CDCD;
 float: right;
 top: 50px;
 position: relative;
-
+margin-top: 100px;
   a {
     float:left;
     font-size: 20px;
-    color:darkgrey;
     position: relative; 
     left:20px;
     &:hover { 
@@ -1934,6 +1935,10 @@ color:$before_hover;
   -webkit-transition: color .25s linear .1s;
   transition: color .25s linear .1s;
   }
+}
+
+.pinterest_red {
+  color:$pinterest_red;
 }
 
 .destroy {
@@ -2200,7 +2205,6 @@ overflow-x: hidden;
 position: relative;
   .meter {
     padding:0;
-    top: 21px;
   }
   .promo_img {
     text-align: center;
@@ -2235,16 +2239,15 @@ border: 0px/*{cornerRadius}*/;
 border-radius: 0px/*{cornerRadius}*/;
 background:none;
   }
-  .guests {
-float: right;
-width: 47%;
-  }
   .when {
-font-size: 23px;
-height: 36px;
-float: left;
+font-size: 22px;
+height: 55px;
+line-height: 1.4;
   }
 }
+
+  .guests {
+  }
 
 .show_skin {
 background-color: rgba(255, 255, 255, 0.8);
@@ -2330,10 +2333,8 @@ clear: left;
 }
 
 .event_link {
-      position: absolute;
-right: 6px;
-top: 40px;
-font-size: 23px;
+float: right;
+font-size: 17px;
 }
 
 .event_top {
@@ -2360,34 +2361,99 @@ padding-left: 10px;
 }
 
 .event_location{
-position: relative;
-text-align: right;
-margin-top: 5px;
+float: left;
+clear: both;
+line-height: 1.2;
+font-size: 18px;
     i {
-      font-size: 28px;
+      font-size: 22px;
     }
   }
 
 .cost {
-position: absolute;
-top: 9px;
-right: 8px;
+float: right;
+font-size: 17px;
   }
+.date {
+  float:left;
+}
 
 .join_group_buttons {
 z-index: 1;
 position: relative;
 bottom: 4px;
+height: 36px;
+float: left;
+width: 61%;
   .rsvp_button {
-    float:right;
+    float:left;
     margin-right:7px;
+    padding: 10px 20px;
   }
   .group_button {
-    float:right;
+    float:left;
   }
   .unrsvp_button{
-    float: right;
+    float: left;
   }
+}
+
+.add_to_calendars {
+float: right;
+font-size: 40px;
+position: relative;
+top: 10px;
+z-index: 1;
+}
+
+
+.social_buttons {
+  float: left;
+  li {
+    display: inline;
+    margin-right: -5px;
+  }
+}
+
+iframe.twitter-share-button {
+width: 66px !important;
+height:22px !important;
+}
+
+.email_share {
+  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  box-shadow:inset 0px 1px 0px 0px #ffffff;
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #e3e3e3) );
+  background:-moz-linear-gradient( center top, #ffffff 5%, #e3e3e3 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e3e3e3');
+  background-color:#ffffff;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  border-radius:3px;
+  border:1px solid #c4c4c4;
+  display:inline-block;
+  color:#777777;
+  font-family:arial;
+  font-size:12px;
+  font-weight:bold;
+  padding: 2px 4px;
+  text-decoration:none;
+  text-shadow:1px 1px 0px #ffffff;
+  width: 20%;
+text-align: center;
+font-size: 15px;
+  a {
+     color:#777777; 
+    &:hover {
+      color:#777777; 
+    }
+  }
+}.email_share:hover {
+  background-color:#e3e3e3;
+}.email_share:active {
+  position:relative;
+  top:1px;
 }
 
 .shareable {
@@ -2399,7 +2465,7 @@ top: 3px;
 .event_title {
 clear:both;
 font-size: 34px;
-min-height: 37px;
+min-height: 65px;
 line-height: 1.1;
 width: 98%;
 background-color: rgba(0, 0, 0, 0.5);
@@ -2462,15 +2528,7 @@ margin: 0 2px;
 }
 
 #invite_raster {
-float: left;
-width: 100%;
-min-height: 91px;
-max-height: 318px;
-overflow-y: auto;
-overflow-x: hidden;
-position: relative;
-padding: 0;
-border-bottom:1px solid $divider;
+margin-top: 19px;
 ul {
   position: relative; 
   top: 10px;
@@ -2478,11 +2536,19 @@ ul {
   display: inline;
   li {
     display: inline;
+    cursor: pointer;
     img {
       padding:3px;
     }
   }
 }
+}
+
+.show_raster {
+  img {
+    width: 35px;
+height: 35px;
+  }
 }
 
 .box {
@@ -2492,24 +2558,10 @@ ul {
     border-radius: 7px;
 }
 
-.maybes {
--webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-float: left;
-width: 48%;
-border-right: 1px solid #D1CDCD;
-min-height: 280px;
-position: relative;
-overflow: auto;
-max-height: 400px;
-}
-
 .right_label {
 width: 100%;
 position: relative;
 left: 2px;
-margin-bottom: 10px;
 }
 
 .event_label {
@@ -2520,7 +2572,7 @@ text-align: left;
 }
 
 .left_label {
-margin-bottom: 10px;
+
 position: relative;
 left: 2px;
 }
@@ -2537,9 +2589,10 @@ left: 2px;
 }*/
 
 .share_with_friends {
-position: absolute;
-right: 8px;
-top: 11px;
+float: right;
+position: relative;
+bottom: 25px;
+right: 20px;
 .icon-group {
   font-size: 29px;
   position: relative;
@@ -2561,7 +2614,7 @@ top: 11px;
 float: left;
 width: 68px;
 text-align: center;
-height: 116px;
+height: 86px;
 font-size: 14px;
 top: 16px;
 position: relative;
@@ -2936,7 +2989,7 @@ margin-top: 5px;
 -webkit-border-radius: 8px;
 -moz-border-radius: 8px;
 border-radius: 8px;
-height: 80px;
+height: 60px;
   }
   label {
     font-size: 15px;
@@ -2945,7 +2998,7 @@ height: 80px;
   }
   input[type=radio]{
     width:18px;
-    margin-left:22px;
+    margin-left: 10px;
     margin-bottom:30px;
   }
   .dollar {
@@ -2959,11 +3012,11 @@ float: left;
 position: relative;
 height: 81px;
     > u {
-    text-decoration: none;
-    width: 30%;
-    float: left;
-    margin-bottom: 20px;
-    margin-left: 3px;
+text-decoration: none;
+width: 30%;
+float: left;
+margin-bottom: 20px;
+margin-left: 12px;
     input {
 text-align: center;
 font-size: 27px;
@@ -2987,7 +3040,7 @@ width: 64%;
     }
 }
 .starts_at {
-width: 74%;
+width: 73%;
 float: left;
 margin-top: 5px;
 font-size: 20px;
@@ -3006,6 +3059,7 @@ margin-bottom: 10px;
   input {
     width: 45%;
     margin: 7px 0;
+    font-size: 20px;
   }
 
   }
@@ -3052,6 +3106,7 @@ margin-top: 10px;
   cursor:pointer;
   color:black;
   text-decoration: underline;
+  line-height: 1.2;
   &:hover{
     color:$dark_orange;
     -webkit-transition: color .25s linear .1s;
@@ -3069,7 +3124,7 @@ margin-top: 10px;
   width: 100%;
   input {
     margin-left: 5px;
-    width: 320px;
+    width: 82%;
   }
 }
 
@@ -3088,7 +3143,7 @@ width: 16%;
 position: relative;
 top: 31px;
 text-align: right;
-margin-right: 20px;
+margin-right: 1px;
 float:left;
 }
 
@@ -3210,14 +3265,14 @@ right: 8px;
 }
 
 .invited_events {
-z-index: 4;
-position: fixed;
-right: 117px;
 max-height: 430px;
-top: 50px;
-max-width: 72%;
-text-align: right;
 overflow: auto;
+width: 64%;
+position: absolute;
+z-index: 4;
+margin: 0 auto;
+top: 50px;
+left: 17%;
   li {
     float:left;
   }
@@ -3337,8 +3392,8 @@ line-height: 10px;
 
 .profile {
 width: 90%;
-margin: 100px auto -10px auto;
-height: 240px;
+margin: 10px auto 0px auto;
+height: 220px;
 background-color: rgba(255, 255, 255, 0.8);
 border-radius: 7px;
 -webkit-border-radius: 7px;
@@ -3482,6 +3537,7 @@ top: -7px;
 
 .eventIcons {
   float:right;
+  margin-right:10px;
 }
 
 .fb-login-button {
@@ -3618,6 +3674,7 @@ padding: 12px 0;
 }
 
     .meter { 
+clear: both;
 height: 5px;
 position: relative;
     }
@@ -3835,6 +3892,12 @@ height: 0px;
 .orange {
   color: $dark_orange;
 }
+.fb_blue {
+  color: $fbblue;
+}
+.twitter_blue {
+  color: $twitter_blue;
+}
 .blue {
   color: $rsvp;
 }
@@ -3842,9 +3905,11 @@ height: 0px;
   color: $icon_color;
 }
 
+
 .shield_bottom {
   padding: 6px;
   height: 22px;
+  border-top:1px solid $divider;
 }
 
 .instructions {
@@ -3991,7 +4056,7 @@ background-color: rgba(0, 0, 0, 0.4);
 position: absolute;
 top: 0;
 right: 0;
-z-index: 2;
+z-index: 3;
 }
 
 .invite_radios {
@@ -4006,5 +4071,52 @@ z-index: 2;
   }
   label {
     font-size: 20px;
+  }
+}
+
+.share_after_rsvp {
+background-color: white;
+position: absolute;
+z-index: 4;
+top: 5%;
+#close {
+  position: absolute;
+right: 10px;
+top: 10px;
+  cursor: pointer;
+}
+h3 {
+  text-align: center;
+}
+}
+
+.calendars {
+  div {
+    width:49%;
+    float:left;
+    text-align: center;
+    img {
+      width: 100px;
+    }
+  }
+}
+
+.social_sharing {
+margin-top: 40px;
+margin-bottom: 90px;
+  a, a[href^="mailto"] {
+float: left;
+  }
+}
+
+#calendars {
+  text-align: right;
+margin-top: 7px;
+margin-right: 10px;
+  li {
+    display:inline;
+    img {
+      width: 38px;
+    }
   }
 }

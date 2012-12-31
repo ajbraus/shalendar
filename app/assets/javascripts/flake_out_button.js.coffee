@@ -6,3 +6,5 @@ $ ->
 		$('#inButton').hover ->
 			$('#in').toggle();
 			$('#flakeOut').toggle();
+			$('#out').toggle();
+			$('#joinin').toggle();

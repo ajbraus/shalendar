@@ -355,7 +355,7 @@ class Event < ActiveRecord::Base
   end
 
   def nice_duration
-    duration.to_s.split(/\.0/)[0] + 'hrs' if duration
+    duration.to_s.split(/\.0/)[0] + ' ' + 'hrs' if duration
   end
 
   def is_group?
@@ -454,6 +454,21 @@ class Event < ActiveRecord::Base
     # return false
   end
 
+  def is_parent_or_future_instance?
+    @instances = self.instances
+    if @instances.empty?
+      return true #self is parent
+    else
+      @future_instances = @instances.order('ends_at asc').reject { |e| e.over? }
+      @future_instances.each do |e|
+        if self == e 
+          return true #self is a future instance
+        end
+      end
+    end
+    return false
+  end
+
   def save_shortened_url
     @bitly = Bitly.new("devhoosin", "R_6d6b17c2324d119af1bcc30d03e852e9")
     @url = Rails.application.routes.url_helpers.event_url(self, :host => "hoos.in")
@@ -484,6 +499,16 @@ class Event < ActiveRecord::Base
     else
       return []
     end
+  end
+
+  def unrsvpd_users
+    @unrsvpd_users = self.rsvps.where(inout: 0) #USERS WHO ARE IN
+    if @unrsvpd_users.any?
+      @unrsvpd_users = @unrsvpd_users.map { |r| User.find_by_id(r.guest_id) }
+      return @unrsvpd_users
+    else
+      return []
+    end    
   end
 
   def guest_count

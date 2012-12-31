@@ -1,0 +1,5 @@
+<% unless current_user.invited_all_friends?(event) %>
+	<%= link_to invite_all_friends_path(:event_id => event.id), class:"email_share" do %>
+	  <%= image_tag "icon.png", width: "16" %><br>hoos.in
+	<% end %>
+<% end %>

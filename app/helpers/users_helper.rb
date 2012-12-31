@@ -7,7 +7,7 @@ module UsersHelper
 
   def start_time(event)
     if event.starts_at.present?
-      event.starts_at.strftime "%l:%M%P, %A %B %e"
+      event.starts_at.strftime "%l:%M%P, %a %b %e"
     else
       "TBD"
     end

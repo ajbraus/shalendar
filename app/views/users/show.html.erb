@@ -14,11 +14,8 @@
 			</ul>
 		</div>
 	</div>
-	<% if user_signed_in? %>
-	<div class="idea_container">
-		<h3><%= @user.first_name %>'s Ideas</h3>
-  	<%= render partial: "shalendar/event", collection: @my_ideas %>
-	</div>
+	<% if user_signed_in? && (current_user == @user || current_user.is_friends_with?(@user)) %>
+	<%= render 'shalendar/ideas' %>
 	<div class="future_events">
 	<h3>Upcoming Ideas</h3>
 		<ul>

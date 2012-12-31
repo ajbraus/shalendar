@@ -8,14 +8,36 @@
 	<% end %>
 <% else %> 	<!-- USER IS SIGNED IN -->
 	<% unless current_user.vendor? %> <!-- USER IS NOT A VENDOR -->
-		<% if current_user.in?(@event) %> <!-- IF RSVPED SHOW IN BUTTON -->
+		<% if !current_user.rsvpd?(@event) %> <!-- USER IS NOT RSVPD -->
+			<%= form_for(current_user.rsvps.build(plan_id: @event.id), remote: true) do |f| %>
+			  <%= f.hidden_field :plan_id %>
+			  <%= f.hidden_field :inout, value: "1" %>
+			  <%= f.submit ".in", class:"btn rsvp_button btn-rsvp" %>
+			<% end %>
+			<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
+			  <%= f.hidden_field :plan_id %>
+			  <%= f.hidden_field :inout, value: "0" %>
+			  <%= f.submit "out", class:"btn rsvp_button btn_stop_viewing ursvp_button" %>
+			<% end %>
+		<% elsif current_user.in?(@event) %> <!-- IF RSVPED SHOW IN BUTTON AND TOGGLE OUT-->
 			<span id="inButton">
-				<div id="in" class="btn btn-rsvp rsvp_button"><i class="icon-ok-circle"></i> .in</div>
+				<div id="in" class="btn rsvp_button btn-rsvp"></i> .in</div>
 				<div id="flakeOut" style="display:none">
 					<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
 		  			<%= f.hidden_field :plan_id %>
 		  			<%= f.hidden_field :inout, value: 0 %>
-					  <%= f.submit "Out", class: "btn rsvp_button btn_stop_viewing ursvp_button", confirm: "Are you sure you can't make it?", id:"unRsvp" %>
+					  <%= f.submit "out", class: "btn rsvp_button btn_stop_viewing ursvp_button", id:"unRsvp" %>
+					<% end %>
+				</div>
+			</span>
+		<% elsif current_user.out?(@event) %> <!-- IF RSVPD OUT SHOW OUT AND TOGGLE IN -->
+			<span id="inButton">
+				<div id="out" class="btn rsvp_button btn_stop_viewing ursvp_button">out</div>
+				<div id="joinin" style="display:none">
+					<%= form_for(current_user.rsvps.build(plan_id: @event.id), remote:true ) do |f| %>
+		  			<%= f.hidden_field :plan_id %>
+		  			<%= f.hidden_field :inout, value: 1 %>
+					  <%= f.submit ".in", class: "btn rsvp_button btn-rsvp", id:"unRsvp" %>
 					<% end %>
 				</div>
 			</span>
@@ -36,7 +58,7 @@
 				<% end %>
 		<% end %>
 				<span class="group_button">
-				<% if @event.is_next_instance? && (current_user.invited?(@event) || @event.next_instance.is_public?) %>
+				<% if !@event.is_next_instance? && (current_user.invited?(@event) || current_user.invited?(@event.next_instance) || @event.next_instance.is_public?) %>
 		 			<%= link_to event_path(@event.next_instance) do %>
 							<i class="icon-calendar"></i> Upcoming Time
 					<% end %>

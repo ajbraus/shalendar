@@ -26,3 +26,13 @@ $("a[href$='new_invited_events']").click(function(e) {
 		$('.invited_events').fadeToggle();
 		$('#overlay').fadeToggle();
 	});
+
+$('.idea_container').imagesLoaded( function(){
+   $('.idea_container').masonry({
+     itemSelector : '.shield',
+     isAnimated: true,
+ 	 animationOptions: {
+     duration: 200
+ 	 }
+   });
+ });

@@ -58,7 +58,28 @@ DONE
 		change status icon to in <i class="icon-ok-sign blue" title="you're .in"></i>
 DONE
 		fix ajax for invite all friends
+make event#show better laid out with ins on the left sidebar and sharing floating
 
+DONE always invite all friends to public ideas you create
+
+DONE fix masonry for all event forms - user#show, ideas, cityideas, calendar
+
+DONE
+		fix new idea and edit idea form to be consitent with add time form
+		fix so add time is more deliberate
+			This idea has a time? Yes / No render two different forms . . .
+DONE
+
+		replace TBD with new time button if current_user == @event.user
+		add rsvp in/out to event show (rsvp form)
+
+DONE fix rsvp prompt to share and add to calendar
+
+DONE 		add masonry to next_invited_events
+
+DONE 		fix add to calendar button
+
+DONE 		change instructions to run the walkthrough
 
 	What
 	When:

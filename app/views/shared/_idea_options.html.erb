@@ -1,27 +1,31 @@
 <div id="eventOptions">
+    <div id="visibilityp" class="open">
+    	<%= render "visibility_options.html" %>
+    </div>
 		<div id="dateTime" style="display:none;">
 		  <div class="starts_at">
-		    <%= label :starts_at, "When does it start?*" %>
-		    <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off" %>
+		    <%= label :starts_at, "When does it start?" %>
+		    <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at", autocomplete: "off" %>
 		  </div>
 		  <div class="duration">
-		    <%= label :duration, "How Long?*" %>
-		    <%= f.text_field :duration, placeholder:"hrs", autocomplete: "off", class:"required"  %>
+		    <%= label :duration, "Hours?*" %>
+		    <%= f.text_field :duration, autocomplete: "off"  %>
 		  </div>
 		</div>
-
-		<div id="addtippingp" class="minmax" style="display:none;">
-			<div class='tippingIcon'>
-		  	<i class="icon-tasks"></i>
+		<div id="addtippingp" style="display:none;">
+			<div class="minmax">
+				<div class='tippingIcon'>
+			  	<i class="icon-tasks"></i>
+				</div>
+			  <u>
+			    <%= f.label :min_attendees, "Min .in's" %> <br/>
+			    <%= f.text_field :min, :class => 'input-mini', autocomplete: "off", class:"required" %>
+			  </u>
+			  <u>
+			    <%= f.label :max_attendees, "Max  .in's" %> <br/>
+			    <%= f.text_field :max, :class => 'input-mini', autocomplete: "off" %>
+			  </u>
 			</div>
-		  <u>
-		    <%= f.label :min_attendees, "Tipping Point" %> <br/>
-		    <%= f.text_field :min, :class => 'input-mini', autocomplete: "off" %>
-		  </u>
-		  <u>
-		    <%= f.label :max_attendees, "Limit" %> <br/>
-		    <%= f.text_field :max, :class => 'input-mini', autocomplete: "off" %>
-		  </u>
 		</div>
 
 <% if false %>
@@ -102,7 +106,7 @@
 
 <div>
 	<ul>
- 		<!-- <li id="visibility" title=".invite"><i class="icon-group"></i></li> -->
+ 		<li id="visibility" title="Set Visiblity" style="color:#EB8325;"><i class="icon-group"></i></li>
  		<li id="addimg" title="Add an Image"><i class="icon-camera-retro"></i></li>
  		<li id="addvid" title="Add a video"><i class="icon-facetime-video"></i></li>
 	  <li id="addLink" title="Add a Link"><i class="icon-link"></i></li>

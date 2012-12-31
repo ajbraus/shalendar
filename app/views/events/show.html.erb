@@ -8,64 +8,83 @@
       <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
   <% end %>
 <% end %>
+<% if false %>
 <%= render 'events/event_buttons' %>
+<% end %>
 <div class="event_show clearfix">
-  <div class="event_top">
-    <div class="host friend">
-      <%= link_to user_path(@event.user), target: "blank" do %>
-        <%= raster_profile_picture(@event.user) %> 
-      <% end %>
-      <div>hosted by: </div><br>
-      <% if !user_signed_in? || (current_user.following?(@event.user) || current_user == @event.user) %>
-        <div>
-          <%= @event.user.name %>
-        </div>
-      <% else %>
-        <div id="friend_name">
-          <%= @event.user.name %>
-        </div>
-        <div id="friend_button" style="display:none;">
-          <%= render  :partial => 'events/just_follow_form', :locals => { :user => @event.user } %>
-        </div>
-      <% end %>
+    <div id="rsvpForm" class="join_group_buttons">
+      <%= render 'rsvp_form' %>
     </div>
-
-    <% unless @event.link.blank? %>
-    <div class="event_link">
-      <%= link_to "http://#{@event.link}", target: "_blank" do %>
-        <span class="fadeInOrange" title="Idea's Website"><i class="icon-link"></i> <%= @event.link[0..15] %></span>
-      <% end %>
+    <% if @event.starts_at.present? && @event.starts_at > Time.now %>
+<!--     <div class="add_to_calendars">
+      <span class="fadeInBlue" title="Add to Your Calendar"><i class="icon-calendar" id="calendar"></i></span>
     </div>
-    <% end %>
-    <% unless @event.address == '' || @event.address.nil? %>
-      <div class="event_location">
-        <%= link_to "http://mapof.it/#{@event.address}", target: "_blank", title:"View in Google Maps" do %>
-          <span class="fadeInOrange">
-            <i class="icon-map-marker"></i>
-            <span style="font-size: 22px;"> <%= @event.address %></span>
-          </span>
+ -->
+      <ul id="calendars">
+        <li>
+        <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&details=<%= event_url(@event) %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fevents%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
+          <%= image_tag("gcalendar.png", width: '30') %>
+        </a>
+      </li>
+      <li>
+        <%= link_to event_path(@event), :format => :ics do %>
+          <%= image_tag "ical-icon.png", width: '30', title: "Add to Your Calendar" %>
         <% end %>
-      </div>
+      </li>
+    </ul>
+    <% end %>
+  <div class="event_title">
+    <div class="eventTitle">
+      <%= @event.title %>
+    </div>
+    <div class="eventIcons">
+    <% if @event.categories.any? %>
+      <% @event.categories.each do |cat| %>
+        <%= cat.name %>
+      <% end %>
+    <% end %>
+    <% if @event.is_public? %>
+      <i class="icon-bullhorn" title="Public"></i>
+    <% end %>
+    <% if @event.family_friendly? %>
+      <i class="icon-home" title="Family Friendly"></i>
+    <% end %>
+    </div>
+  </div>
+	<div class="when">
+	  <% if @event.starts_at.present? %>
+      <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> ( <%= @event.nice_duration %> <% if @event.ends_at < Time.now %> - Over <% end %> ) </div>
+    <% else %>
+      <div class="date"><strong>Time TBD </strong></div>
     <% end %>
     <% if @event.price.present? %>
       <div class="cost">
         <i class="icon-money"></i> <%= @event.nice_price %>
       </div>
     <% end %>
-  </div>
-
-	<div class="when">
-	  <% if @event.starts_at.present? %>
-      <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> ( <%= @event.nice_duration %> hrs 
-        <% if @event.ends_at < Time.now %> - Over <% end %> ) </div>
-    <% else %>
-      <div class="date"><strong>Time TBD </strong></div>
+    <% unless @event.address.blank? %>
+      <div class="event_location">
+        <%= link_to "http://mapof.it/#{@event.address}", target: "_blank" do %>
+          <span class="fadeInOrange">
+            <i class="icon-map-marker"></i>
+          </span>
+        <% end %>
+        <span style="font-size: 22px;"> <%= @event.address %></span>
+      </div>
+    <% end %>
+    <% unless @event.link.blank? %>
+    <div class="event_link">
+      <%= link_to "http://#{@event.link}", target: "_blank" do %>
+        <i class="icon-link"></i> <%= @event.link[0..15] %>
+      <% end %>
+    </div>
     <% end %>
 	</div>
-  <div class="join_group_buttons">
-      <%= render 'rsvp_form' %>
-  </div>
-  <!-- METER -->
+
+  <% if @event.description.present? %>
+    <div class="event_description"><%= @event.description %></div>
+  <% end %>
+  
   <% if @event.tipped? %>  
     <div class="meter">
       <span style="width:100%;"><span></span></span>
@@ -76,26 +95,6 @@
     </div>
   <% end %>
 
-  <div class="event_title">
-    <div class="eventTitle"><%= @event.title %></div>
-      <div class="eventIcons">
-      <% if @event.categories.any? %>
-        <% @event.categories.each do |cat| %>
-          <%= cat.name %>
-        <% end %>
-      <% end %>
-      <% if @event.is_public? %>
-        <i class="icon-bullhorn" title="Public"></i>
-      <% end %>
-      <% if @event.family_friendly? %>
-        <i class="icon-home" title="Family Friendly"></i>
-      <% end %>
-      </div>
-  </div>
-  <% if @event.description.present? %>
-    <div class="event_description"><%= @event.description %></div>
-  <% end %>
-  
   <% if @event.has_image? %>
     <div class="promo_img">
       <%= image_tag @event.image(:large) %>
@@ -111,34 +110,49 @@
 <% if user_signed_in? %>
 	<!-- COMMENTS -->
   <%= render partial: 'comments_form' %>
-  <% if @event.starts_at.present? %>
-    <% if (@event.guests_can_invite_friends? || @event.user == current_user) && @event.ends_at > Time.now %>
-        <div id="invite_raster">
-          <%= render partial: 'invite_raster', :locals => { :event => @event } %>
-        </div>
-    <% end %>
-  <% end %>
 <% end %>
+</div>
+  <ul class="social_buttons">
+    <li>
+      <%= render partial: 'social/email', locals: { :event => @event } %>
+    </li>
+    <li>
+      <%= render partial: 'social/twitter', locals: { :event => @event } %>
+    </li>
+    <li>
+      <%= render partial: 'social/pinterest', locals: { :event => @event } %>
+    </li>
+    <li>
+      <%= render partial: 'social/facebook', locals: { :event => @event } %>
+    </li>
+  </ul>
 
-    <div class="maybes">
-      <div class="left_label event_label"><span id="invite_count"><%= @fb_invites.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_invites.count %></span> .invited </div> 
-      <div id="invites" class="show_raster">
-        <%= render partial: 'events/invites' %>
-      </div>
-    </div>
-
-    <div class="guests">
-      <% if @event.tipped? %>
-        <div class="right_label event_label"><%= @guest_count %> .in (Tipped!)</div>
+    <div class="event_guests part clearfix">
+      <% if @event.starts_at.present? && @event.tipped? %>
+        <div class="right_label event_label"><%= @event.guest_count %>  .in (Tipped!)</div>
+      <% elsif @event.starts_at.blank? %>
+        <div class="right_label event_label"><%= @event.guest_count %>  .in </div>
       <% else %>
-        <div class="destroy right_label event_label"><%= @guest_count %> / <%= @event.min %> .in (Not Yet Tipped)</div>
+        <div class="destroy right_label event_label"><%= @event.guest_count %> / <%= @event.min %> .in (Not Yet Tipped)</div>
       <% end %>
       <div class="show_raster">
         <%= render 'guests' %>
       </div>
     </div>
-  </div>
-</div>
+
+    <div class="maybes part clearfix">
+      <div class="left_label event_label"><span id="invite_count"><%= @fb_invites.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_invites.count %></span> .invited </div> 
+      <div id="invites" class="show_raster">
+        <%= render partial: 'events/invites' %>
+      </div>
+    </div>
+<% if user_signed_in? %>
+  <% if @event.guests_can_invite_friends? || @event.user == current_user && @event.is_next_instance? %>
+    <div id="invite_raster" class="part clearfix">
+      <%= render partial: 'invite_raster', :locals => { :event => @event } %>
+    </div>
+  <% end %>
+<% end %>
 
 <!-- Twitter API script -->
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>

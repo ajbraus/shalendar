@@ -1,0 +1,7 @@
+<a data-pin-config="above" 
+  href="//pinterest.com/pin/create/button/?url=<%= event_url(@event) %>&media=<%= @event.image(:large) %>&description=<%= @event.title + " - " + start_time(@event) %>" 
+  data-pin-do="buttonPin" 
+  class="email_share" 
+  target="_blank">
+  <span class="pinterest_red"><i class="icon-pinterest-sign"></i></span><br>pin it
+</a>
