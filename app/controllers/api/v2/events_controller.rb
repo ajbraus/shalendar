@@ -36,6 +36,12 @@ class Api::V2::EventsController < ApplicationController
       if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
         @g_share = false
       end
+      @is_time = false
+      @has_time = true
+      if @inviter_id % 2 == 0
+        @is_time = true
+        @has_time = false
+      end
       @temp = {
         :eid => e.id,
         :title => e.title,  
@@ -50,7 +56,10 @@ class Api::V2::EventsController < ApplicationController
         :gids => @guestids,
         :g_share => @g_share,
         :iid => @inviter_id,
-        :share_a => @mobile_user.invited_all_friends?(e)
+        :share_a => @mobile_user.invited_all_friends?(e),
+        :it => @is_time,
+        :ii => true,
+        :ht => @has_time
       }
       @list_events.push(@temp)
     end 
