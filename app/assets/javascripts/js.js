@@ -122,20 +122,6 @@ $(document).bind('click', function(e) {
   //$('#invite_raster').tabs();
   $('#terms').tabs();
 
-// DATETIME PICKER
-
-  $('#datetime').datetimepicker({
-      minDate: 0,
-      dateFormat: "D m/d/y",
-      timeFormat: "h:mmt",
-      ampm: true,
-      stepMinute: 15,
-      addSliderAccess: true,
-      sliderAccessArgs: { touchonly: true },
-      hour:12,
-      minute:00
-  });
-
 //Get local time zone- TRYING TO DO IT JavaScript
 // Event.observe(window, 'load', function(e) {
 // var now = new Date();
@@ -175,18 +161,6 @@ $("input[type=checkbox].switch").each(function() {
     $(this).next()[0].checked = !$(this).next()[0].checked;
   });
 
-$('#datetime').datetimepicker({
-    minDate: 0,
-    dateFormat: "DD, d M",
-    timeFormat: "h:mm tt",
-    ampm: true,
-    stepMinute: 15,
-    addSliderAccess: true,
-    sliderAccessArgs: { touchonly: true },
-    hour:12,
-    minute:00
-});
-
 $("#visibility").click(function () {
   if ($("#visibilityp").hasClass("open")) {
    $("#visibilityp").slideUp();
@@ -201,19 +175,19 @@ $("#visibility").click(function () {
   }
 });
 
-$("#addDateTime").click(function () {
-  if ($("#dateTime").hasClass("open")) {
-   $("#dateTime").slideUp();
-   $('#dateTime').removeClass("open");
-  }
-  else {
-   $('.open').slideUp();
-   $('.open').removeClass("open");
-   $('#dateTime').slideDown();
-   $("#dateTime").addClass("open");
-   $("#addDateTime").css("color", "#EB8325")
-  }
-});
+// $("#addDateTime").click(function () {
+//   if ($("#dateTime").hasClass("open")) {
+//    $("#dateTime").slideUp();
+//    $('#dateTime').removeClass("open");
+//   }
+//   else {
+//    $('.open').slideUp();
+//    $('.open').removeClass("open");
+//    $('#dateTime').slideDown();
+//    $("#dateTime").addClass("open");
+//    $("#addDateTime").css("color", "#EB8325")
+//   }
+// });
 
  $("#addLink").click(function () { 
  if ($("#addLinkp").hasClass("open")) { 
@@ -355,20 +329,20 @@ $("#addtipping").click(function () {
 // });  
 
 
-$('form#bankAccount').validate();
+//$('form#bankAccount').validate();
 
-$('#new_suggestion_form').validate();
+//$('#new_suggestion_form').validate();
 
 // NEW REGISTRATION VALIDATION
 
   $('#signUp').validate();
 
-  $('#vendorSignUp').validate();
+//  $('#vendorSignUp').validate();
 
 // FOCUS ON FIRST TEXT FIELD OF PAGES
 
     //$("#new_idea_blerb").focus();
-    $("input[type=text]:first", document.forms[0]).focus();
+    //$("input[type=text]:first", document.forms[0]).focus();
 
 // CARRIAGE RETURN IN NEW IDEA BOX SUBMITS FORM
 
@@ -422,9 +396,9 @@ $('#new_idea_blerb').keydown(function (e) {
 
 //Turn TWITTER BLUE
 
-  $('.icon-twitter').click(function(){
-    $(this).css("color", "#01CBFB");
-  });
+  // $('.icon-twitter').click(function(){
+  //   $(this).css("color", "#01CBFB");
+  // });
 
   // PREVIEW IMAGES
 

@@ -45,6 +45,8 @@ $ ->
 		# $('#addtipping').fadeToggle();
 		#$('#dateTime').fadeToggle();
 		#$('#addtippingp').fadeToggle();
+	$("#addDateTime").click ->
+		$('#dateTime').slideToggle();
 
 	#STARTS AT
 	$('#datetime').blur ->

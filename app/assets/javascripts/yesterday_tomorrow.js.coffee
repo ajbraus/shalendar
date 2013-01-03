@@ -5,21 +5,22 @@ $.fn.withDate = (date) ->
 $ ->
 	
 	# DATEPICKERDAY
-	$('html, body').scrollTop($('#today').offset().top - 89 );
-	$('.datePickerToday').css('color','red')
-	$('.datePickerDay').click ->
-		pos = $(@).position();
-		$('#datewindow').animate({ top: pos.top - 2 }, 500);
-		date = $(@).attr('data-date');
-		elOffset = $('div').withDate(date).offset().top - 40
-		$('html, body').animate({ scrollTop: elOffset }, 'fast', 'swing');
-	
-	$('#todayButton').click ->
-		today = $('#today')
-		today_pos = today.offset().top
-		$('html, body').animate({ scrollTop: today_pos }, 'fast');
-		return false
+	if $('#today').length
+		$('html, body').scrollTop($('#today').offset().top - 89 );
+		$('.datePickerToday').css('color','red')
+		$('.datePickerDay').click ->
+			pos = $(@).position();
+			$('#datewindow').animate({ top: pos.top - 2 }, 500);
+			date = $(@).attr('data-date');
+			elOffset = $('div').withDate(date).offset().top - 40
+			$('html, body').animate({ scrollTop: elOffset }, 'fast', 'swing');
 
+		$('#todayButton').click ->
+			today = $('#today')
+			today_pos = today.offset().top
+			$('html, body').animate({ scrollTop: today_pos }, 'fast');
+			return false
+		
   	#date = $(this).attr('data-date');
   	#day_pos = $('dl').withDate(date).position();
   	#$('#forecast').animate({ right: day_pos.left }, 1000);

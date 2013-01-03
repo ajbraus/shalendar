@@ -4,7 +4,10 @@
 			<%= event.ends_at < Time.now ? 'over' : '' %>
 		<% end %> 
 		<%= event.is_public? && !current_user.invited?(event) && !current_user.rsvpd?(event) ? 'public' : '' %>
-		<%= current_user.in?(event) ? 'rsvpd' : '' %>"
+		<%= current_user.invited?(event) ? 'invited' : '' %>
+		<%= current_user.in?(event) ? 'rsvpd' : '' %>
+		<%= event.one_time? ? 'one_time' : '' %>
+		<%= current_user == event.user ? 'mine' : '' %>"
 		data-event-id='<%= event.id %>'>
 <% else %>
 	<div class="event shield 
@@ -15,7 +18,7 @@
 	<%= link_to event do %>
 		<div class="event_blerb">
 			<% if false %><span class="blerb_pic" title="Created by: <%= event.user.name %>"><%= raster_profile_picture(event.user) %></span><% end %>
-			<span class="title"><%= event.title %></span>
+			<div class="title"><%= event.title %></div>
 		</div>
 		<% if event.tipped? %>	
 			<div class="meter">

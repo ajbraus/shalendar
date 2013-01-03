@@ -1,22 +1,44 @@
 Adam
 
-		remove outs from invited
-		remove overs from all
+	show icon when have a time
+	multiple times
+	show times inside idea
+	show link to idea inside of times
+	
+	one_time don't create instance
+	don't load one_time parents
 
-		fix so that if you close an invalid option in the new idea form it won't let you submit the form. prevent close . . .
+	join => facebook login bwoken
 
-		current_user.plans is wrong -- needs to be rsvpd_in? use scopes.
-		http://stackoverflow.com/questions/9556153/is-it-possible-to-create-a-conditional-association-in-model
-		
-		remove updates for events users are .out from - digest, comments etc 
+	current_user.plans is wrong -- needs to be rsvpd_in? use scopes.
+	http://stackoverflow.com/questions/9556153/is-it-possible-to-create-a-conditional-association-in-model
+	
+	remove updates for events users are .out from - digest, comments etc 
 
-		add push notification whenever someone joins your idea 
-			(if it is auto joining the parent don't send notification twice)
-		push notification & email to those in on parent if invite all on add time
+	add friend button to profile of someone you aren't already friends with
 
-		add friend button to profile of someone you aren't already friends with
+	.into / meh for parents
+	.in / out for times
+
+	profile - 
+	my ideas
+	my .ins you are also .invited to
+	my upcoming .ins you were also invited to
+	my past .ins you were also invited to
+
+	.ics not working
+
+	switch invites to right and sample idea to left
 
 -----------------------------------------------------
+
+fix so that if you close an invalid option in the new idea form it won't let you submit the form. prevent close . . .
+
+put suggested friends as a upper left corner shield in home
+
+create a user from mobile
+
+add shortener
 
 add change background picture from profile
 
@@ -49,9 +71,6 @@ scripts not working
 	create email invite walkthrough like new idea
 	add "friend or city-wide idea?"
 	invite all my friends checkbox
-
-
-make calendar views for each all|friend|city|mine?||#plans
 
 #config/application.rb
 config.exceptions_app = self.routes
@@ -90,22 +109,13 @@ SDK - follow us on hoos.in "Our events on hoos.in" button and icon
 put this on hoosin button
 	Img, RSVP URL, Title, Description, starts_at, duration
 
-
 implement following . . . too many invites/emails without it
 
 SEAN:
 email images of ideas
 guest count in emails
 hoos.in? (who is already rsvpd? face-pile)
-Download our iphone and android App link in emails
 crowd ideas digest
-only digest monday thursday
-
-
-facebook feed dialogue
-facebook message dialogue
-linked in share dialogue
-twitter share dialogue
 
 ---------------------------------------------------------------
 

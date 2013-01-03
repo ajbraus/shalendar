@@ -40,7 +40,7 @@
         <span class="fadeInGreen"><i class="icon-repeat"></i></span>
       <% end %>
     </li>
-    <% unless event.ends_at < Time.now %>
+    <% unless event.over?%>
     <li>
       <a href="https://twitter.com/share" data-text="<%= event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this Idea" target="_blank"><i class="icon-twitter"></i></a>
     </li>

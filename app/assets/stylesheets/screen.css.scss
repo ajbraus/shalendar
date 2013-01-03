@@ -24,6 +24,7 @@ body {
   /*background-color:#F0F0F0;*/
   zoom:.9;
   z-index: 0;
+  text-shadow: 0 0 1px rgba(0,0,0,0.3);
   strong {
     font-family: bariol_bold, arial, sans-serif;
     font-weight: bold;
@@ -210,6 +211,28 @@ color:white;
 }
 }
 
+.btn-danger {
+text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+background-color: #DA4F49;
+background-image: -moz-linear-gradient(top, #EE5F5B, #BD362F);
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#EE5F5B), to(#BD362F));
+background-image: -webkit-linear-gradient(top, #EE5F5B, #BD362F);
+background-image: -o-linear-gradient(top, #EE5F5B, #BD362F);
+background-image: linear-gradient(to bottom, #EE5F5B, #BD362F);
+background-repeat: repeat-x;
+border-color: #BD362F #BD362F #802420;
+border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffbd362f', GradientType=0);
+filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  &:hover {
+background-image: -moz-linear-gradient(top, #BD362F, #EE5F5B);
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#BD362F), to(#EE5F5B));
+background-image: -webkit-linear-gradient(top, #BD362F, #EE5F5B);
+background-image: -o-linear-gradient(top, #BD362F, #EE5F5B);
+background-image: linear-gradient(to bottom, #BD362F, #EE5F5B);
+  }
+}
+
 .btn-large{
   padding: 10px 10px;
   font-size:20px;
@@ -307,7 +330,7 @@ color: white;
   color:#ffffff;
   font-family:arial;
   font-weight:normal;
-  text-shadow:1px 1px 0px #C2A57B;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   /*padding:6px 24px;*/
   text-decoration:none;
 }
@@ -576,7 +599,7 @@ bottom: 1px;
 
 header {
   height: 93px;
-  background-color: #FFFEFD;
+  background-color: $background_one;
   clear: both;
   position: fixed;
   top:0;
@@ -695,8 +718,13 @@ text-align: right;
 .navigation {
   font-size: 16px;
   span {
-    font-weight: bold;
+    cursor:pointer;
   }
+}
+
+.bold {
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 .responsive_profile_pic {
@@ -1306,7 +1334,7 @@ padding: 3px;
 height: 32px;
 text-align: center;
 width: 91.5%;
-background-color: white;
+background-color: $background_one;
 top: 73px;
 margin-left: 4px;
   -webkit-border-radius: 7px;
@@ -1489,6 +1517,7 @@ overflow: hidden;
 .promo_img {
   text-align: center;
   background-color: white;
+  padding-bottom: 13px;
   img{
     max-height: 267px;
   }
@@ -1530,13 +1559,10 @@ max-height: 300px;
 .event_time {
 color: black;
 background-color: white;
-padding: 10px 10px 2px 10px;
-height: 26px;
+padding: 0px 10px 2px 10px;
+height: 27px;
 font-size: 1em;
 width: 98%;
-right: 5px;
-bottom: 5px;
-top: 1px;
 .time {
 
 }
@@ -1571,7 +1597,6 @@ right: 5px;
 padding: 10px 10px 0px 10px;
 background-color: white;
   .title {
-    padding: 0 0 0 0px;
     position: relative;
     bottom: 2px;
   }
@@ -2243,6 +2268,7 @@ background:none;
 font-size: 22px;
 height: 55px;
 line-height: 1.4;
+border-bottom: 1px solid $divider;
   }
 }
 
@@ -2311,7 +2337,7 @@ color: white;
 background-color: green;
 }
 .title {
-  padding: 20px;
+  padding: 9px;
   .event_link {
     a{
     font-size: 22px;
@@ -2440,7 +2466,7 @@ height:22px !important;
   padding: 2px 4px;
   text-decoration:none;
   text-shadow:1px 1px 0px #ffffff;
-  width: 20%;
+width: 15.5%;
 text-align: center;
 font-size: 15px;
   a {
@@ -2484,8 +2510,9 @@ border-bottom: 1px solid $divider;
 }
 
 .event_buttons{
-line-height: 1.3;
-background-color: rgba(255, 255, 255, 0.7)
+font-size: 20px;
+padding: 6px 10px 0px 10px;
+float: left;
 }
 
 .tipped_title {
@@ -3044,7 +3071,7 @@ width: 73%;
 float: left;
 margin-top: 5px;
 font-size: 20px;
-margin-bottom: 10px;
+margin-bottom: 5px;
 input {
   width: 90%;
 }
@@ -3076,6 +3103,11 @@ margin-bottom: 14px;
     display: inline;
     }
   }
+}
+
+.one_time_bool {
+  margin-bottom:10px;
+  margin-left:10px;
 }
 
 .new_idea_button {
@@ -4079,15 +4111,19 @@ background-color: white;
 position: absolute;
 z-index: 4;
 top: 5%;
-#close {
+  #close {
   position: absolute;
-right: 10px;
-top: 10px;
+  right: 10px;
+  top: 10px;
   cursor: pointer;
-}
-h3 {
+  }
+  h3 {
   text-align: center;
-}
+  }
+  #invite_raster {
+    width:100%;
+    max-height: 300px;
+  }
 }
 
 .calendars {
@@ -4119,4 +4155,13 @@ margin-right: 10px;
       width: 38px;
     }
   }
+}
+
+.unfriend {
+  padding: 0px 2px;
+font-size: 11px;
+}
+
+.shared_already {
+  color:lightgrey;
 }

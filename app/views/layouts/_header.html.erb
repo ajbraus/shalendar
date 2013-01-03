@@ -46,7 +46,7 @@
           </span>
         <% end %>
       </li>
-      <li id="jrPlans">
+      <li>
         <%= link_to plans_path, :remote => true do %>
           <% if current_user.plans.where('ends_at > ?', Time.now).any? %>
             <span class="fadeInPurple">
@@ -75,22 +75,14 @@
     <div class="crust persist-header">
       <div class="new_idea_button"><%= render 'shared/new_idea_button' %></div>
       <div class="instructions">.instructions</div>
-      <div class="navigation"> 
-        <%= link_to_unless_current 'all', root_path, id: "jrIdeas" do %>
-          <span>all</span>
-        <% end %> |
-        <%= link_to_unless_current '.ins', plans_path, id: "jrPlans" do %>
-          <span>.ins</span>
-        <% end %> |
-        <%= link_to_unless_current '.invites', friends_ideas_path, id: "jrFriendsIdeas" do %>
-          <span>.invites</span>
-        <% end %> | 
-        <%= link_to_unless_current "#{@current_city.name.split(',')[0].downcase}", city_ideas_path, id: "jrCityIdeas" do %>
-          <span><%=@current_city.name.split(',')[0].downcase%></span>
-        <% end %> ||
-        <%= link_to calendar_path, id:"jrCalendar" do %>
-          <i class="icon-calendar" title="view calendar of ideas"></i>
-        <% end %>
+      <div class="navigation">
+<!--           <span id="reload"><i class="icon-repeat"></i></span> -->
+          <span id="jrIdeas" class="bold">all</span> |
+          <span id="jrPlans">.ins</span> |
+          <span id="jrFriendsIdeas">.invites</span> | 
+          <span id="jrMine">mine</span> |
+          <span id="jrCityIdeas">city</span> ||
+          <span id="jrCalendar"><i class="icon-calendar"> view</i></span>
       </div>
 <!--       <div class="friend_only hide_all" title="Only Show My Plans">
         <span class="fadeInBlue"><i class="icon-ok-sign"></i> <span class="only">only</span>

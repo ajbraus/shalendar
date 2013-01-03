@@ -4,7 +4,7 @@
 	<% elsif current_user.in?(event) %>
 		<% if current_user == event.user && event.starts_at.blank? %>
 			<%= link_to event_new_time_path(event) do %>
-				<div class="btn_icon btn_invite_all_friends" title="create new time for this idea"><i class="icon-copy"></i></div>
+				<div class="btn_icon btn_invite_all_friends" title="create new time for this idea"><i class="icon-time"></i></div>
 			<% end %>
 		<% end %>
 		<% unless current_user == event.user %>

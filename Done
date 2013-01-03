@@ -81,6 +81,18 @@ DONE 		fix add to calendar button
 
 DONE 		change instructions to run the walkthrough
 
+DONE 		add push notification whenever someone joins your idea 
+			rsvp_in!
+			(if it is auto joining the parent don't send notification twice)
+
+DONE 		push notification & email to those in on parent if invite all on add time
+			event#create
+
+DONE 		add 'add new time' button to edit
+
+DONE 	add one_time to events table of db
+
+
 	What
 	When:
 	Where:

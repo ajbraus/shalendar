@@ -1,17 +1,24 @@
 <div id="eventOptions">
+  	<% if @event.blank? || (@event.present? && @event.starts_at.present?)  %>
+			<input type="checkbox" id="addDateTime"/> <label for="addDateTime"><i class="icon-time"></i> Idea has a time</label>
+		<% end %>
+		<div id="dateTime" style="display:none;">
+      <div class="starts_at">
+        <%= label :starts_at, "When does it start?" %>
+        <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off" %>
+      </div>
+      <div class="duration">
+        <%= label :duration, "Hours?*" %>
+        <%= f.text_field :duration, autocomplete: "off", class:"required"  %>
+      </div>
+      <div class="one_time_bool">
+    		<%= f.check_box :one_time %> <label for="event_one_time">only happening once?</label>
+  		</div>
+    </div>
     <div id="visibilityp" class="open">
     	<%= render "visibility_options.html" %>
     </div>
-		<div id="dateTime" style="display:none;">
-		  <div class="starts_at">
-		    <%= label :starts_at, "When does it start?" %>
-		    <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at", autocomplete: "off" %>
-		  </div>
-		  <div class="duration">
-		    <%= label :duration, "Hours?*" %>
-		    <%= f.text_field :duration, autocomplete: "off"  %>
-		  </div>
-		</div>
+
 		<div id="addtippingp" style="display:none;">
 			<div class="minmax">
 				<div class='tippingIcon'>
@@ -51,21 +58,6 @@
 					<%= f.check_box :family_friendly, class: "switch" %>
 		  	</div> 
 	  	</div> 
-		</div>
-<% end %>
-
-<% if false %>
-		<div class="invitation_options" id="visibilityp">
-		  <u>
-				<%= f.label nil, ".invite all friends" %><span title=".invite all your hoos.in friends"> (?)</span><br>
-				<i class="icon-group questionMark"></i>
-				<input id="invite_all_friends" name="invite_all_friends" type="checkbox" class="switch">    			
-			</u>
-		  <u>
-		  	<%= f.label nil, "open .invite" %><span title="anyone can .invite friends"> (?)</span><br>
-				<i class="icon-plus questionMark"></i>
-				<%= f.check_box :guests_can_invite_friends, class: "switch", checked: "checked" %>
-			</u>
 		</div>
 <% end %>
 
@@ -113,6 +105,10 @@
 	  <li id="addcost" title="Add an Cost"><i class="icon-money"></i></li>
 	  <li id="addmap" title="Add a Location"><i class="icon-map-marker"></i></li>
 		<li id="addtipping" title="Add a Tipping Point"><i class="icon-tasks"></i></li>
-		<li id="addDateTime" title="Add Date and Time"><i class="icon-time"></i></li>
+		<% if false %>
+		<% if (@event.present? && @event.starts_at.present?) || (@parent.present? && @parent.starts_at.present?)  %>
+			<li id="addDateTime" title="Add Date and Time"><i class="icon-time"></i></li>
+		<% end %>
+		<% end %>
 	</ul>
 </div>

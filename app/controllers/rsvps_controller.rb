@@ -20,6 +20,12 @@ class RsvpsController < ApplicationController
     end
     
     if params[:rsvp][:inout].to_f == 1
+      current_user.delay.contact_new_rsvp(@event)
+
+      #SHOW FRIENDS TO INVITE IN LIGHTBOX
+      #@friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event)}
+      #if a user is 'everywhere else' then we don't silo their invitations...
+      #@friends = @friends.reject { |f| f.city != @current_city }
       respond_to do |format|
         format.html { redirect_to @event }
         format.js { render template: "rsvps/in" }

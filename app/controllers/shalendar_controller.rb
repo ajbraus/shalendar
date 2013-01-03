@@ -2,25 +2,43 @@ class ShalendarController < ApplicationController
   before_filter :authenticate_user!, except: [ :vendor_splash, :home, :crowd_ideas, :what_is_hoosin ]
 
 	def home
-    if user_signed_in? 
-    #see all invites, ideas, and city ideas with times or tbd shuffled
-    #if there is a future instance, only see that if its public or your invited
-      #my ideas
-      #@my_ideas = current_user.events.select { |e| !current_user.out?(e) && e.is_next_instance? }
-      #city ideas
-      @city_ideas = @current_city.events.select { |e| e.is_public? && !current_user.out?(e) && e.is_next_instance? }
-      #invites (friend ideas)
-      @invites = current_user.relevant_invites
-      #my plans
-      @plans = current_user.plans.select {|e| e.is_next_instance? }
-      @ideas = ( @city_ideas | @plans | @invites ).shuffle
+    if user_signed_in?        
+      @city_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND is_public = ? AND city_id = ?', Time.now, true, true, @current_city.id).order('created_at DESC')
+      @invites = current_user.invited_events.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true).order('created_at DESC')
+      @ins = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
+                  .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).order('created_at DESC')
+      @mine = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND user_id = ?', Time.now, true, current_user.id).order('created_at DESC')
+      
+      @ideas = ( @city_ideas | @ins | @invites | @mine ).reject{|e| current_user.out?(e)}
+
+      @city_times = Event.where('ends_at > ? AND is_public = ? AND city_id = ?', Time.now - 3.days, true, @current_city.id).order('created_at DESC')
+      @invites_times = current_user.invited_events.where('ends_at > ? ', Time.now)
+      @ins_times = Event.where('ends_at > ?', Time.now)
+                  .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).order('created_at DESC')
+      @my_times = Event.where('ends_at > ? AND user_id = ?', Time.now, current_user.id).order('created_at DESC')
+
+      @times = ( @city_times | @ins_times | @invites_times | @my_times ).reject{|e| current_user.out?(e)}
     else
       #if not signed in display city ideas
-      @ideas = @current_city.events.select { |e| e.is_next_instance? }
+      @ideas = Event.where('ends_at = ? OR (ends_at > ? AND one_time = ?) AND is_public = ? AND city_id = ?', nil, Time.now, true, true, @current_city.id).order('created_at DESC')
+      @times =  Event.where('ends_at > ? AND is_public = ? AND city_id = ?', Time.now - 3.days, true, @current_city.id).order('created_at DESC')
     end 
     # Beginning of Yellow Pages
     #@vendors = User.where('city = :current_city and vendor = true', current_city: @current_city)
 	end
+
+  def calendar
+    if user_signed_in?
+      @city_times = Event.where('ends_at > ? AND is_public = ? AND city_id = ?', Time.now - 3.days, true, @current_city.id).order('created_at DESC')
+      @invites = current_user.invited_events.where('ends_at > ? ', Time.now)
+      @ins = Event.where('ends_at > ?', Time.now)
+                  .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).order('created_at DESC')
+      @mine = Event.where('ends_at > ? AND user_id = ?', Time.now, current_user.id).order('created_at DESC')
+      @times = ( @city_times | @ins | @invites | @mine ).reject{|e| current_user.out?(e)}
+    else
+      @times =  Event.where('ends_at > ? AND is_public = ? AND city_id = ?', Time.now - 3.days, true, @current_city.id).order('created_at DESC')
+    end
+  end
 
   #HEADER 
   
@@ -50,7 +68,9 @@ class ShalendarController < ApplicationController
   end
 
   def city_ideas
-    @ideas = @current_city.events.select { |e| e.is_public? && e.is_next_instance? }.shuffle
+    #@ideas = @current_city.events.select { |e| e.is_public? && e.is_next_instance? }.shuffle
+    # @ideas = Event.where(starts_at: @time_range, is_public: true, city_id: @current_city.id).joins(:rsvps).where(rsvps: {'NOT (guest_id = ? AND inout = ?)', current_user.id, 1}).order("starts_at ASC"))
+
     #or .sort_by{|i| -i.guest_count}
   end
 
@@ -59,15 +79,7 @@ class ShalendarController < ApplicationController
     @ideas = current_user.events.order('created_at desc').select { |e| e.is_next_instance? }
   end
 
-  def calendar
-    if user_signed_in?
-      @plan_counts = []
-      @invite_counts = []
-      @ideas = current_user.forecast(Time.now)
-    else
-      @ideas = Event.public_forecast(Time.now, @city, session[:toggled_categories])
-    end
-  end
+
 
 	def manage_friends
 		@friendships = current_user.reverse_relationships.select { |r| current_user.is_friends_with?(User.find_by_id(r.follower_id)) } #reverse_relationships.where('relationships.confirmed = true')

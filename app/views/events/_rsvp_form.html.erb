@@ -3,7 +3,8 @@
 		(Idea full)
 	<% elsif @event.ends_at > Time.now %>
 		<div class="rsvp_btn">
-			<%= link_to "join.in", new_user_session_path(:event => @event.id), class:"btn btn-rsvp rsvp_button", title: "log.in to join.in this idea" %>
+			<%= link_to ".in", new_user_session_path(:event => @event.id), class:"btn btn-rsvp rsvp_button", title: "log.in to join.in this idea" %>
+			<%= link_to "out", new_user_session_path(:event => @event.id), class:"btn rsvp_button btn_stop_viewing ursvp_button", title: "log.in to opt out of this idea" %>
 		</div>
 	<% end %>
 <% else %> 	<!-- USER IS SIGNED IN -->
@@ -58,10 +59,12 @@
 				<% end %>
 		<% end %>
 				<span class="group_button">
+				<% if false %>
 				<% if !@event.is_next_instance? && (current_user.invited?(@event) || current_user.invited?(@event.next_instance) || @event.next_instance.is_public?) %>
 		 			<%= link_to event_path(@event.next_instance) do %>
 							<i class="icon-calendar"></i> Upcoming Time
 					<% end %>
+				<% end %>
 				<% end %>
 				<% if @event.user == current_user %>
 					<%= link_to event_new_time_path(@event), id:"makeATime", class:"btn btn-success rsvp_button" do %>

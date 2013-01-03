@@ -98,12 +98,20 @@ class EventsController < ApplicationController
           @rsvp.save
         end
         @instance.tipped = true   if @instance.min <= 1
+        
         #CLEAR PARENT EVENT ATTRIBUTES
         @event.starts_at = nil
         @event.ends_at = nil
         @event.min = nil
         @event.max = nil
         @event.duration = nil
+        
+        #SEND NEW TIME EMAIL/PUSH
+        @event.guests.each do |g|
+          unless g == @instance.user
+            g.delay.contact_new_time(@instance)
+          end
+        end
       end
     end
 
@@ -153,6 +161,7 @@ class EventsController < ApplicationController
                            starts_at: params[:event][:starts_at],
                            ends_at: params[:event][:starts_at] + params[:event][:duration].to_i*3600,
                            address: params[:event][:address],
+                           duration: params[:event][:duration],
                            min: params[:event][:min],
                            link: @parent.link,
                            guests_can_invite_friends: @parent.guests_can_invite_friends,
@@ -180,6 +189,11 @@ class EventsController < ApplicationController
       end
       if @parent.categorizations.any?
         Categorization.create(event_id: @event.id, category_id: @parent.categorizations.first.id )
+      end
+      @parent.guests.each do |g|
+        unless g == @event.user
+          g.delay.contact_new_time(@event)
+        end
       end
       respond_to do |format|
         format.html { redirect_to @event, notice: "New Time Posted Successfully" }
@@ -250,15 +264,7 @@ class EventsController < ApplicationController
     @start_time = @event.starts_at #don't worry about timezone here bc only on server
     respond_to do |format|
       if @event.update_attributes(params[:event])
-        if @start_time == nil && @event.starts_at.present?
-          @event.ends_at = @event.starts_at + @event.duration*3600
-          @event.save
-          @event.guests.each do |g|
-            unless g == @event.user
-              g.delay.contact_new_time(@event)
-            end
-          end
-        elsif @start_time != @event.starts_at
+        if @start_time != @event.starts_at
           @event.ends_at = @event.starts_at + @event.duration*3600
           @event.save
           @event.guests.each do |g|

@@ -72,19 +72,21 @@ class Notifier < ActionMailer::Base
   def confirm_friend(user, friend)
     @user = user
     @follower = friend
+    @image_url = invite_raster_picture(@follower)
     mail to: @user.email, subject: "New Friend Request - #{@follower.name}"
   end
 
   def new_friend(user, friend)
     @user = user
     @follower = friend
+    @image_url = invite_raster_picture(@follower)
     mail to: user.email, subject: "New Friend - #{@follower.name}"
   end
 
   def event_tipped(event, user)
     @event = event
     @user = user
-    mail to: @user.email, subject: "Tipped - #{@event.event_day}\'s Idea Tipped! - #{@event.title}"
+    mail to: @user.email, subject: "Idea Tipped! - #{@event.title}"
   end
 
   def event_deadline(event)
@@ -97,7 +99,7 @@ class Notifier < ActionMailer::Base
     @event = event
     @user = user 
     unless @user == @event.user
-      mail to: user.email, subject: "Cancellation - #{@event.event_day}, #{@event.title}" 
+      mail to: user.email, subject: "Cancellation - #{@event.title}" 
     end
 
   end
@@ -199,6 +201,14 @@ class Notifier < ActionMailer::Base
     @event = event
     mail to: @user.email, from: "info@hoos.in", subject: "New Time - #{@event.start_time} - #{@event.title}"
 
+  end
+
+  def new_rsvp(event, rsvping_user)
+    @event = event
+    @user = @event.user
+    @rsvping_user = rsvping_user
+    @image_url = invite_raster_picture(@rsvping_user)
+    mail to: @user.email, from: "info@hoos.in", subject: "New .in - #{@rsvping_user.name}"
   end
 
   # def recurring_receipt(user, amount)

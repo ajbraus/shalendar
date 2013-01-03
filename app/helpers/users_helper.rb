@@ -118,7 +118,7 @@ module UsersHelper
     elsif user.authentications.where(:provider == "Twitter").any?
       invite_twitter_picture(user, type: "normal") 
     else
-      if user.avatar.url.nil?
+      if user.avatar.url.blank?
         "https://s3.amazonaws.com/hoosin-production/user/avatars/raster/default_profile_pic.png"
       else
         user.avatar.url(:raster)

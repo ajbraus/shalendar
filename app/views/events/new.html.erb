@@ -11,27 +11,26 @@
 	  	<%= label :description, "Details" %><br/>
 	  	<%= f.text_area :description, id: "new_idea_description", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
 	  </p> 
-
   <%= render partial: 'shared/idea_options', locals: { :f => f } %>
 
-      <% if false %>
-        <div>       
-          <%= f.check_box :is_public %>
-          <%= f.label :is_public do %>
-            <i class="icon-bullhorn questionMark"></i> everyone in <%= @current_city.name.split(",")[0].to_s.capitalize %>
-          <% end %>
-        </div> 
-        <div>
-          <input id="invite_all_friends" name="invite_all_friends" type="checkbox">
-          <label for="invite_all_friends"> <i class="icon-group questionMark"></i> .invite all my friends</label>
-        </div>
-        <div>
-          <input id="let_me_pic" name="let_me_pick" type="checkbox">
-          <label for="let_me_pic"> <i class="icon-remove questionMark"></i> let me pick</label>
-        </div>
-      <%end %>
+  <% if false %>
+    <div>       
+      <%= f.check_box :is_public %>
+      <%= f.label :is_public do %>
+        <i class="icon-bullhorn questionMark"></i> everyone in <%= @current_city.name.split(",")[0].to_s.capitalize %>
+      <% end %>
+    </div> 
+    <div>
+      <input id="invite_all_friends" name="invite_all_friends" type="checkbox">
+      <label for="invite_all_friends"> <i class="icon-group questionMark"></i> .invite all my friends</label>
+    </div>
+    <div>
+      <input id="let_me_pic" name="let_me_pick" type="checkbox">
+      <label for="let_me_pic"> <i class="icon-remove questionMark"></i> let me pick</label>
+    </div>
+  <%end %>
 
-	  <span class="new_idea_button"><%= f.submit 'Post Idea', :class => 'btn btn-large btn-primary', id:"postIdea", method: :post %></span>
+	 <%= f.submit 'Post Idea', :class => 'btn btn-large btn-primary', id:"postIdea", method: :post %>
 
 	  <% end %>
 	</div>
@@ -40,75 +39,3 @@
 		<%= render partial: 'sample_idea' %>
 	</div>
 </div>
-
-<script>
-// NEW IDEA FORM VALIDATION
-  $("#new_event_form").validate({
-    rules: {
-      "#datetime": {
-        required: true
-      },
-      "event[title]": {
-        maxlength: 90
-      },
-      "event[min]": {
-        number: true,
-        min: 0
-      },
-      "event[max]": {
-        number: true,
-        max: 1000000
-      },
-      "event[duration]": {
-        required: true,
-        number: true
-      },
-      "event[link]": {
-        maxlength:255
-      },
-      "event[promo_url]": {
-        maxlength:255
-      },
-      "event[promo_vid]": {
-        maxlength:255
-      },
-      "event[price]": {
-        number: true,
-        max: 10000
-      },
-      submitHandler: function(f){
-        $('form input[type=submit]').attr('disabled', 'disabled');
-        form.submit();
-    }
-  }
-  });
-
-  $.validator.addMethod(
-        "regex",
-        function(value, element, regexp) {
-            var re = new RegExp(regexp);
-            return this.optional(element) || re.test(value);
-        }
-  );
-
-$("#event_promo_vid").rules("add", { 
-  regex: "(?:https?:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=)?(.{10,})",
-  messages: {
-    regex: "Please Enter a Valid YouTube URL"
-  }
-  });
-
-$("#event_link").rules("add", {
-  regex: "^(((ftp|https?):\/\/)?(www\.)?)?[a-z0-9\-\.]{3,}\.[a-z]{3}(.{0,})?",
-  messages: {
-    regex: "Please Enter a Valid URL"
-  }
-  });
-
-$("#event_promo_url").rules("add", {
-  regex: "\.(png|jpg|jpeg|gif)$",
-  messages: {
-    regex: "Please Enter a Valid URL"
-  }
-});
-</script>

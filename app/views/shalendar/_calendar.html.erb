@@ -7,7 +7,7 @@
 <div class="home" id="scrollContainer">
 <% for i in -3..26 %>
 	<div class="each_day clearfix">		
-		<div class="date_bar marker clearfix shield <% if i == 0 %> red <% end %>" <% if i == 0 %> id="today" <% end %> data-date=<%= "#{Time.now.to_date + i}" %>>
+		<div class="date_bar marker clearfix shield <% if i == 0 %> red <% end %>" <% if i == 0 %> id="today" <% end %>>
       <div class="date"><%= (Time.now.to_date + (i)).strftime("%A %b %e") %></div>
 <!--       <div class="friend_only hide_all" title="Only Show My Plans">
       	<span class="fadeInBlue"><i class="icon-ok-sign"></i> <span class="only">only</span>
@@ -17,12 +17,7 @@
       </div> -->
 		</div>
     <div class="day_container clearfix">
-  		<div class="idea_container clearfix">
-        <% if @ideas[i + 3].any? %>
-  				<% @ideas[i + 3].each do |e| %>
-  					<%= render :partial => "shalendar/event", :locals => { :event => e } %>
-  				<% end %>
-  			<% end %>
+  		<div class="idea_container clearfix" data-date="<%= Time.now.to_date + i %>">
   		</div>
     </div>
 	</div>

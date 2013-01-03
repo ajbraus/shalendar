@@ -198,17 +198,18 @@ class User < ActiveRecord::Base
 
   def in?(event)
     @rsvp = self.rsvps.find_by_plan_id(event.id)
-    if @rsvp.present? && @rsvp.inout == 1
-      return true
-    else
-      return false
-    end
+    return @rsvp.present? && @rsvp.inout == 1
   end
 
   def out?(event)
-    @rsvp = rsvps.find_by_plan_id(event.next_instance.id)
+    @rsvp = rsvps.find_by_plan_id(event.id)
     if @rsvp.present? && @rsvp.inout == 0
       return true
+    elsif event.parent.present?
+      @rsvp = rsvps.find_by_plan_id(event.parent.id)
+      if @rsvp.present? && @rsvp.inout == 0
+        return true
+      end
     else
       return false
     end
@@ -599,7 +600,7 @@ class User < ActiveRecord::Base
         n.save
       end
     else
-      Notifier.new_time(event, @user)
+      Notifier.new_time(@event, @user)
     end
   end
 
@@ -850,6 +851,39 @@ class User < ActiveRecord::Base
     end
   end
 
+  def contact_new_rsvp(event)
+    @rsvping_user = self
+    @user = event.user
+    if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "New .in - #{@rsvping_user.name} for #{@event.title}"
+        n.badge = 1
+        n.sound = true
+        n.custom_properties = {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}
+        n.save
+      end
+    elsif(@user.android_user == true)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "New .in - #{@rsvping_user.name} for #{@event.title}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}}
+        n.save
+      end
+    else
+      Notifier.new_rsvp(@user, @rsvping_user)
+    end
+  end
+
   # Class Methods
   def self.digest
     @day = Date.today.days_to_week_start
@@ -859,7 +893,7 @@ class User < ActiveRecord::Base
         time_range = Time.now.midnight .. Time.now.midnight + 3.days
         if u.plans.where(starts_at: time_range).any?
           @upcoming_events = []
-          (0..2).each do |day|
+          (0..6).each do |day|
             @date = Time.now.midnight.to_date + day.days
             @events = u.events_on_date(@date)
             @upcoming_events.push(@events)
@@ -876,7 +910,7 @@ class User < ActiveRecord::Base
           end
           if @new_events.any?
             @invited_events = []
-            (0..2).each do |day|
+            (0..6).each do |day|
               @date = Time.now.midnight.to_date + day.days
               @events = u.events_on_date(@date)
               @invited_events.push(@events)
@@ -984,18 +1018,18 @@ class User < ActiveRecord::Base
     return @auth
   end
 
-  def relevant_invites
-    @invites = []
-    @invitations = self.invitations.order('created_at desc')
-    @invitations.each do |i|
-      e = Event.find_by_id(i.invited_event_id)
-      unless self == e.user && e.ends_at < Time.now
-        e.inviter_id = i.inviter_id
-      end
-      @invites.push(e) unless self.out?(e) || !e.is_next_instance?
-    end
-    return @invites
-  end
+  # def relevant_invites
+  #   @invites = []
+  #   @invitations = self.invitations.order('created_at desc')
+  #   @invitations.each do |i|
+  #     e = Event.find_by_id(i.invited_event_id)
+  #     unless self == e.user || e.over?
+  #       e.inviter_id = i.inviter_id
+  #     end
+  #     @invites.push(e) unless self.out?(e) || e.over?
+  #   end
+  #   return @invites
+  # end
 
   def invited_all_friends(event)
     @rsvp = event.rsvps.find(:guest_id => self.id)

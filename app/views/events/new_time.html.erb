@@ -1,7 +1,6 @@
 <div class="new_crowd_idea clearfix">
 	<div class="event_form">
-	  <%= form_for @parent.instances.build(title: @parent.title, address: @parent.address), url: { action: 'create_new_time' },
-								 id: "new_event_form" do |f| %>
+	  <%= form_for @parent.instances.build(title: @parent.title, address: @parent.address), url: { action: 'create_new_time' }, html: { id: "new_event_form" } do |f| %>
 	  <p>		
 	  	<div class="title_char_counter"><span id="titleCharCount">0</span>/60</div>
 		  <%= label :title, "Idea*" %><br/>
@@ -18,7 +17,7 @@
 		  </div>
 		  <div class="duration">
 		    <%= label :duration, "Hours?*" %>
-		    <%= f.text_field :duration, autocomplete: "off"  %>
+		    <%= f.text_field :duration, autocomplete: "off", class:"required"  %>
 		  </div>
 		</div>
 		<div class="minmax">

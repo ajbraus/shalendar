@@ -111,8 +111,7 @@ position: absolute;
 // LAYOUT IS PROPORTIONAL
 
 	.layout {
-		width:100%
-
+		width:98%
 	}
 
 // INCLUDE YESTERDAY TOMORROW BUTTONS
@@ -205,21 +204,6 @@ left: -125px;
 
 	header {
 
-	}
-
-	ul.event_buttons {
-		width: 100%;
-		float: left;
-		font-size: 31px;
-		position: relative;
-		left: 3px;
-		padding: 10px;
-		li {
-			display: inline;
-			a img {
-				width: 23px;
-				}
-			}
 	}
 
 	.message {
@@ -392,11 +376,5 @@ width: 98%;
 		}
 	}
 
-}
-
-@media only screen and (min-width: 600px) and (max-width: 790px) {
-#headerText {
-	display:none;
-}
 }
 

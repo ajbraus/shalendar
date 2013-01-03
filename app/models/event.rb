@@ -49,7 +49,8 @@ class Event < ActiveRecord::Base
                   :parent_id,
                   :require_payment,
                   :slug,
-                  :city_id
+                  :city_id,
+                  :one_time
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
                                              :medium => '190x270'},
@@ -358,116 +359,53 @@ class Event < ActiveRecord::Base
     duration.to_s.split(/\.0/)[0] + ' ' + 'hrs' if duration
   end
 
-  def is_group?
-    unless self.parent.nil?
-      if self.parent.is_public?
-        return true
-      end
-    end
-    return false
-  end
-
-  def groups_your_invited_to
-    @invited_events = []
-    if self.is_public? && self.groups.any?
-      self.groups.each do |group|
-        group.invited_users.each do |iu|
-          if iu == current_user
-            @invited_event << group
-          end
-        end
-      end
-    end
-    return @invited_events
-  end
-
   def has_parent?
-    if self.parent.nil?
-      return false
-    else
-      return true
-    end
+    return self.parent.present?
   end
 
   def is_parent?
-    if self.instances.any?
-      return true
-    else
-      return false
-    end
+    return self.instances.any?
   end
 
   def next_instance
-    @instances = self.instances
-    if @instances.empty?
-      return self
+    @future_instances = Event.where('parent_id = ? AND ends_at > ?', self.id, Time.now).order('ends_at ASC')
+    if @future_instances.empty?
+      return nil
     else
-      @future_instances = @instances.order('ends_at asc').reject { |e| e.over? }
-      if @future_instances.empty?
-        return self
-      else
-        return @future_instances.first
-      end
+      return @future_instances.first
     end
-  #   if is_parent?
-  #     @next_instance = self.instances.where('starts_at > ?', Time.now).order('starts_at asc').first
-  #   elsif has_parent?
-  #     @next_instance = self.parent.instances.where('starts_at > ?', Time.now).order('starts_at asc').first
-  #   else
-  #     @next_instance = nil
-  #   end 
-  #   return @next_instance 
   end
 
   def has_future_instance?
-    if Event.where(parent_id: self.id).any?
-      return true
-    else
-      return false
-    end 
+    return Event.where('parent_id = ? AND ends_at > ?', self.id, Time.now).any?
   end
 
   def over?
-    if self.ends_at.present? && self.ends_at < Time.now
-      return true
-    else
-      return false
-    end
+    return self.ends_at.present? && self.ends_at < Time.now
   end
 
-  def is_next_instance?
-    if self.next_instance == self
-      return true
-    else
-      return false
-    end
-    # @next_instances = self.instances
-    # if @next_instances.empty?
-    #   return true
-    # else
-    #   if @next_instances.reject { |e| e.over? }.empty?
-    #     return true
-    #   else
-    #     return false
-    #   end
-    # end
-    # return false
+  def three_days_old?
+    return self.ends_at.present? && self.ends_at < Time.now.midnight - 3.days
   end
+  # def is_next_instance?
 
-  def is_parent_or_future_instance?
-    @instances = self.instances
-    if @instances.empty?
-      return true #self is parent
-    else
-      @future_instances = @instances.order('ends_at asc').reject { |e| e.over? }
-      @future_instances.each do |e|
-        if self == e 
-          return true #self is a future instance
-        end
-      end
-    end
-    return false
-  end
+  #   return 'parent'.next_instance == self
+  # end
+
+  # def is_parent_or_future_instance?
+  #   @instances = self.instances
+  #   if @instances.empty?
+  #     return true #self is parent
+  #   else
+  #     @future_instances = @instances.order('ends_at asc').reject { |e| e.over? }
+  #     @future_instances.each do |e|
+  #       if self == e 
+  #         return true #self is a future instance
+  #       end
+  #     end
+  #   end
+  #   return false
+  # end
 
   def save_shortened_url
     @bitly = Bitly.new("devhoosin", "R_6d6b17c2324d119af1bcc30d03e852e9")
@@ -481,8 +419,7 @@ class Event < ActiveRecord::Base
     if self.groups.any?
       @event_group_guests_count = 0
       self.groups.each do |g|
-        @guests_count = g.guest_count 
-          @event_group_guests_count += @guests_count
+        @event_group_guests_count += g.guest_count 
       end
       @total = self.guest_count + @event_group_guests_count
     else

@@ -1,16 +1,8 @@
 <% provide(:title, " | #{@event.title}" ) %>
-<% if @event.has_parent? %>
-  <% unless @event.parent.user.background_file_size.nil? %>
-      <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.parent.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
-  <% end %> 
-<% else %>
-  <% unless @event.user.background_file_size.nil? %>
-      <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
-  <% end %>
+<% unless @event.user.background_file_size.nil? %>
+    <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
 <% end %>
-<% if false %>
-<%= render 'events/event_buttons' %>
-<% end %>
+
 <div class="event_show clearfix">
     <div id="rsvpForm" class="join_group_buttons">
       <%= render 'rsvp_form' %>
@@ -22,7 +14,7 @@
  -->
       <ul id="calendars">
         <li>
-        <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&details=<%= event_url(@event) %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fevents%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
+        <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&details=<%= url_encode(@event.description) + " - " + event_url(@event) %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fideas%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
           <%= image_tag("gcalendar.png", width: '30') %>
         </a>
       </li>
@@ -37,6 +29,18 @@
     <div class="eventTitle">
       <%= @event.title %>
     </div>
+    <% if @event.user == current_user %> 
+      <div class="event_buttons">
+        <%= link_to edit_event_path(@event), title:"Edit Idea" do %>
+          <span class="fadeInOrange"><i class="icon-cogs"></i></span>
+        <% end %>
+      <% unless @event.tipped? %>
+        <%= link_to event_tip_path(@event), :confirm => "You sure you want to manually tip this idea? This will notify everyone that the idea is on.", title: "Make this idea Tip", :method => :put do %>
+          <span class="fadeInOrange"><i class="icon-pushpin"></i></span>
+        <% end %>
+      <% end %>
+      </div>
+    <% end %>
     <div class="eventIcons">
     <% if @event.categories.any? %>
       <% @event.categories.each do |cat| %>
@@ -114,6 +118,9 @@
 </div>
   <ul class="social_buttons">
     <li>
+      <%= render partial: 'social/hoosin', locals: { :event => @event } %>
+    </li>
+    <li>
       <%= render partial: 'social/email', locals: { :event => @event } %>
     </li>
     <li>
@@ -146,8 +153,9 @@
         <%= render partial: 'events/invites' %>
       </div>
     </div>
+    
 <% if user_signed_in? %>
-  <% if @event.guests_can_invite_friends? || @event.user == current_user && @event.is_next_instance? %>
+  <% if @event.guests_can_invite_friends? || @event.user == current_user && @event.is_parent_or_future_instance? %>
     <div id="invite_raster" class="part clearfix">
       <%= render partial: 'invite_raster', :locals => { :event => @event } %>
     </div>

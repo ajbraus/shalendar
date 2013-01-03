@@ -43,10 +43,19 @@
 					<i class="icon-copy"></i> Make a Group
 				</a>
 			</div>
-			<div class="rsvp_btn">
-				<a href="#" class="btn btn-rsvp rsvp_button" title="By clicking here folks will join your ideas">join.in</a>
+			<div id="rsvpForm" class="join_group_buttons">
+				<a href="#" class="btn btn-rsvp rsvp_button" title="By clicking here folks will join your ideas">.in</a>
+				<a href="#" class="btn rsvp_button btn_stop_viewing ursvp_button" title="Here folks can opt out of this idea">out</a>
 			</div>
 	  </div>
+	  <ul id="calendars">
+      <li>
+        <%= image_tag "gcalendar.png", width: '30', title:".invites can add this idea to their calendars" %>
+      </li>
+      <li>
+         <%= image_tag "ical-icon.png", width: '30', title:".invites can add this idea to their calendars" %>
+      </li>
+    </ul>
   </div>
  
 	<div class="event_title">
