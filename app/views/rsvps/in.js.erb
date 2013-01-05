@@ -1,15 +1,15 @@
-//if from homescreen
-// reload rsvp_check partial
-event = $('.event').withEventId(<%= @event.id %>)
-event.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>", <%= @event.min - @event.guest_count %>);
+<% if @event.is_parent? %>
+	event = $('.event').withEventId(<%= @event.id %>)
+	event.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>", '', <%= @event.min - @event.guest_count %>); 
+<% else %>
+	time = $('.time').withEventId(<%= @event.id %>)
+	time.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>", "<%= escape_javascript(render partial: 'events/rsvp_form', object: @event, as: :event) %>", <%= @event.min - @event.guest_count %>);
+	parent = $('.event').withEventId(<%= @event.parent.id %>)
+	parent.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event.parent, as: :event) %>", "<%= escape_javascript(render partial: 'events/rsvp_form', object: @event, as: :event) %>", <%= @event.min - @event.guest_count %>);
+<% end %>
 
-//from event#show
-//reload rsvp_form partial
 $('#rsvpForm').html("<%= escape_javascript(render partial: 'events/rsvp_form', object: @event, as: :event) %>")
 
-
-
-//in either case show the share after rsvp lightbox
 var afterRsvpLightbox = $('#shareAfterRsvp')
 afterRsvpLightbox.html("<%= escape_javascript(render partial: 'shared/share_after_rsvp', object: @event, as: :event) %>")
 afterRsvpLightbox.fadeIn();

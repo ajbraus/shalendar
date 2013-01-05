@@ -10,17 +10,6 @@ $(document).ready(function() {
     //});
   });
 
-
-  //$('.idea_container').imagesLoaded( function(){
-     $('.idea_container').masonry({
-       itemSelector : '.shield',
-       isAnimated: true,
-   	 animationOptions: {
-       duration: 100
-   	 }
-     });
-   //});
-
   $('#ideaContainer').imagesLoaded( function(){
     $(this).masonry('reload');
   });

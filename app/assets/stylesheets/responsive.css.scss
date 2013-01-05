@@ -168,9 +168,7 @@ left: -125px;
 
 	.event {
 		max-width: 180px;
-		max-height: 300px;
 		min-width: 140px;
-		min-height: 78px;
 		right: 1px;
 		margin: 4px;
 		width: 123px;
@@ -253,10 +251,7 @@ left: -125px;
 	.ui-datepicker {
 		width:16em;
 	}
-
-	#sign_in {
-		left:10px;
-	}
+	
 	.navigation {
 position: relative;
 left: 38px;
@@ -374,6 +369,17 @@ width: 98%;
 		a, a[href^="mailto"] {
 			width: 16%;
 		}
+	}
+
+	.city_title {
+		width:65%;
+		font-size: 14px;
+	}
+	.not_signed_in_pitch {
+		font-size: 17px;
+	}
+	.not_signed_in_buttons {
+		zoom: .7;
 	}
 
 }

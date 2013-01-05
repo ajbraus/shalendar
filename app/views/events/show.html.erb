@@ -5,24 +5,22 @@
 
 <div class="event_show clearfix">
     <div id="rsvpForm" class="join_group_buttons">
-      <%= render 'rsvp_form' %>
+      <%= render partial: 'rsvp_form', :locals => { :event => @event }  %>
     </div>
     <% if @event.starts_at.present? && @event.starts_at > Time.now %>
-<!--     <div class="add_to_calendars">
-      <span class="fadeInBlue" title="Add to Your Calendar"><i class="icon-calendar" id="calendar"></i></span>
-    </div>
- -->
       <ul id="calendars">
         <li>
         <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&details=<%= url_encode(@event.description) + " - " + event_url(@event) %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fideas%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
           <%= image_tag("gcalendar.png", width: '30') %>
         </a>
       </li>
+      <% if false %>
       <li>
-        <%= link_to event_path(@event), :format => :ics do %>
-          <%= image_tag "ical-icon.png", width: '30', title: "Add to Your Calendar" %>
+        <%= link_to @event, :controller => 'events', :action => :show, :format => :ics do %>
+          <%= image_tag "ical-icon.png", width: '30', title: "Add to Your iCal or Outlook" %>
         <% end %>
       </li>
+      <% end %>
     </ul>
     <% end %>
   <div class="event_title">
@@ -55,11 +53,14 @@
     <% end %>
     </div>
   </div>
+  <% if @event.has_parent? %>
+    <%= link_to event_path(@event.parent), class:"parent" do %>
+      <i class="icon-cloud"></i> to parent
+    <% end %>
+  <% end %>
 	<div class="when">
 	  <% if @event.starts_at.present? %>
       <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> ( <%= @event.nice_duration %> <% if @event.ends_at < Time.now %> - Over <% end %> ) </div>
-    <% else %>
-      <div class="date"><strong>Time TBD </strong></div>
     <% end %>
     <% if @event.price.present? %>
       <div class="cost">
@@ -88,23 +89,16 @@
   <% if @event.description.present? %>
     <div class="event_description"><%= @event.description %></div>
   <% end %>
-  
-  <% if @event.tipped? %>  
-    <div class="meter">
-      <span style="width:100%;"><span></span></span>
-    </div>
-  <% elsif @event.starts_at.present? %>
-    <div class="meter animate orange">
-      <span style=<%= 'width:' + "#{(100*@event.guest_count.to_f/@event.min.to_f).round}" + "%;"%>><span></span></span>
-    </div>
-  <% end %>
 
   <% if @event.has_image? %>
     <div class="promo_img">
       <%= image_tag @event.image(:large) %>
     </div>
   <% end %>
-  
+
+  <% @relevant_instances = @event.instances.reject { |e| e.over? } %>
+  <%= render partial: 'events/show_time', collection: @relevant_instances, as: :event %>
+
   <% if @event.promo_vid.present? %>
     <div class="promo_vid">
       <%= raw(youtube_embed(@event.promo_vid)) %>

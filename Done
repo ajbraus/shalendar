@@ -93,6 +93,17 @@ DONE 		add 'add new time' button to edit
 DONE 	add one_time to events table of db
 
 
+DONE
+	one_time don't create instance
+	only load parent
+	don't show after over
+
+DONE show times in shield and show
+	fix ajax in/out
+	display meter correctly
+	display guest time
+
+
 	What
 	When:
 	Where:

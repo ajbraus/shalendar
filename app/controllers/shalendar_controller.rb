@@ -1,5 +1,5 @@
 class ShalendarController < ApplicationController
-  before_filter :authenticate_user!, except: [ :vendor_splash, :home, :crowd_ideas, :what_is_hoosin ]
+  before_filter :authenticate_user!, except: [ :home ]
 
 	def home
     if user_signed_in?        

@@ -10,7 +10,7 @@ Shalendar::Application.routes.draw do
   resources :users, :only => [:show]
 
   City.all.each do |c|
-    match "/#{c.name.split(',')[0].gsub(/\s+/, "").downcase}", :to => 'shalendar#city_ideas', :as => "#{c.name.split(',')[0].gsub(/\s+/, "").gsub("-", "_").downcase}", :city => "#{c.name}"
+    match "/#{c.name.split(',')[0].gsub(/\s+/, "").downcase}", :to => 'shalendar#home', :as => "#{c.name.split(',')[0].gsub(/\s+/, "").gsub("-", "_").downcase}", :city => "#{c.name}"
   end
   
   root :to => 'static_pages#landing'

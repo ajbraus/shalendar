@@ -2,31 +2,28 @@
 	<% if event.ends_at.present? && event.ends_at < Time.now %>
 		<div class="btn-over"></div>
 	<% elsif current_user.in?(event) %>
-		<% if current_user == event.user && event.starts_at.blank? %>
-			<%= link_to event_new_time_path(event) do %>
-				<div class="btn_icon btn_invite_all_friends" title="create new time for this idea"><i class="icon-time"></i></div>
-			<% end %>
-		<% end %>
-		<% unless current_user == event.user %>
-			<% if event.guests_can_invite_friends? %>
-				<% if !current_user.rsvps.find_by_plan_id(event.id).invite_all_friends? %>
-					<%= link_to invite_all_friends_path(:event_id => event.id), remote: true do %>
-						<div class="btn_invite_all_friends btn_icon" title=".invite all friends"><i class="icon-group"></i></div>
-					<% end %>
+		<% if event.guests_can_invite_friends? %>
+			<% if current_user.rsvps.find_by_plan_id(event.id).invite_all_friends? %>
+				<div class="green" title="all friends .invited"><i class="icon-group"></i></div>
+			<% else %>
+				<%= link_to invite_all_friends_path(:event_id => event.id), remote: true do %>
+					<div class="fadeInGreen" title=".invite all friends"><i class="icon-group"></i></div>
 				<% end %>
 			<% end %>
+		<% else %>
+			<div><i class="icon-group"></i></div>
 		<% end %>
 	<% else %>
 		<% if !current_user.rsvpd?(event) %>
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "1" %>
-			  <%= f.submit ".in", class:"btn_icon btn_icon_rsvp", title:"join this idea"%>
+			  <%= f.submit "#{event.is_parent? ? '.into' : '.in'}", class:"btn_icon btn_icon_rsvp" %>
 			<% end %>
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "0" %>
-			  <%= f.submit "out", class:"btn_icon btn_stop_viewing", title:"ignore this idea" %>
+			  <%= f.submit "#{event.is_parent? ? 'meh' : 'out'}", class:"btn_icon btn_stop_viewing" %>
 			<% end %>
 		<% end %>
 	<% end %>

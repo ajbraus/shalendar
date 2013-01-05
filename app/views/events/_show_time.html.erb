@@ -1,0 +1,23 @@
+<%= link_to event_path(event) do %>
+	<% if event.tipped? %>	
+		<div class="meter">
+			<span style="width:100%;"><span></span></span>
+		</div>
+	<% elsif event.starts_at.present?%>
+		<div class="meter animate orange">
+			<span style=<%= 'width:' + "#{(100*event.guest_count.to_f/event.min.to_f).round}" + "%;"%>><span></span></span>
+		</div>
+	<% end %>
+	<div class="when time" data-event-id="<%= event.id %>">	
+		<div style="float:left;padding: 10px;"><%= event.mini_start_date_time %></div>
+
+		<div id="rsvpForm" class="join_group_buttons">
+			<%= render :partial => "events/rsvp_form", :locals => { :event => event } %>
+			<div class="guests <%= !event.tipped? ? 'not_tipped' : '' %>">
+				<span id="guestCount"><%= event.guest_count %></span>
+				<span id="eventMin"><%= !event.tipped? ? "/#{ event.min }" : '' %></span>
+			</div>
+		</div>
+
+</div>
+<% end %>

@@ -320,3 +320,15 @@ _plans.html.erb
       <% end %>
     </div>
     <% end %>
+
+
+
+          <% if false %>    
+        <% if event.starts_at.hour > 4 && event.starts_at.hour < 12 %>
+          <%= image_tag "morning.png" %>
+        <% elsif event.starts_at.hour >= 12 && event.starts_at.hour < 18 %>
+          <%= image_tag "noon.png" %>
+        <% else %>
+          <%= image_tag "night.png" %>
+        <% end %>
+      <% end %>

@@ -49,7 +49,7 @@
 
     <% else %>
       <li>
-        <%= render 'rsvp_form' %>
+        <%= render partial: 'rsvp_form', :locals => { :event => @event }  %>
       </li>
     <% end %>
     <% if @event.guests_can_invite_friends? || @event.user == current_user %>

@@ -65,55 +65,56 @@ class EventsController < ApplicationController
     end
     @event.guests_can_invite_friends = true
     @event.city = @current_city
-
+    @event.tipped = true   if @event.min <= 1
+    
     if @event.starts_at.present? && @event.duration.present?
-      #SET ENDS_AT FOR PARENT
+      #SET ENDS_AT IF PRESENT
       @event.ends_at = @event.starts_at + @event.duration*3600
-      #CREATE CHILD INSTANCE
-      @instance = @event.instances.build(user_id: current_user.id,
-                               title: @event.title,
-                               starts_at: @event.starts_at,
-                               ends_at: @event.starts_at + @event.duration*3600,
-                               duration: @event.duration,
-                               min: @event.min,
-                               max: @event.max,
-                               address: @event.address,
-                               link: @event.link,
-                               guests_can_invite_friends: @event.guests_can_invite_friends,
-                               promo_img: @event.promo_img,
-                               promo_url: @event.promo_url,
-                               promo_vid: @event.promo_vid,
-                               is_public: @event.is_public,
-                               family_friendly: @event.family_friendly,
-                               price: @event.price,
-                               city_id: @event.city.id
-                            )
-      if @instance.save
-        @instance.save_shortened_url
-        current_user.rsvp_in!(@instance)
-        if params[:invite_me] == "2" || params[:invite_me] == "1"
-          @rsvp = current_user.rsvps.find_by_plan_id(@instance.id)
-          current_user.invite_all_friends!(@instance)
-          @rsvp.invite_all_friends = true
-          @rsvp.save
-        end
-        @instance.tipped = true   if @instance.min <= 1
-        
-        #CLEAR PARENT EVENT ATTRIBUTES
-        @event.starts_at = nil
-        @event.ends_at = nil
-        @event.min = nil
-        @event.max = nil
-        @event.duration = nil
-        
-        #SEND NEW TIME EMAIL/PUSH
-        @event.guests.each do |g|
-          unless g == @instance.user
-            g.delay.contact_new_time(@instance)
+      if params[:event][:one_time] == '0'
+        #IF ONGOING EVENT CREATE CHILD INSTANCE
+        @instance = @event.instances.build(user_id: current_user.id,
+                                 title: @event.title,
+                                 starts_at: @event.starts_at,
+                                 ends_at: @event.starts_at + @event.duration*3600,
+                                 duration: @event.duration,
+                                 min: @event.min,
+                                 max: @event.max,
+                                 address: @event.address,
+                                 link: @event.link,
+                                 guests_can_invite_friends: @event.guests_can_invite_friends,
+                                 promo_img: @event.promo_img,
+                                 promo_url: @event.promo_url,
+                                 promo_vid: @event.promo_vid,
+                                 is_public: @event.is_public,
+                                 family_friendly: @event.family_friendly,
+                                 price: @event.price,
+                                 city_id: @event.city.id
+                              )
+        if @instance.save
+          @instance.save_shortened_url
+          current_user.rsvp_in!(@instance)
+          if params[:invite_me] == "2" || params[:invite_me] == "1"
+            @rsvp = current_user.rsvps.find_by_plan_id(@instance.id)
+            current_user.invite_all_friends!(@instance)
+            @rsvp.invite_all_friends = true
+            @rsvp.save
           end
-        end
-      end
-    end
+          @instance.tipped = true   if @instance.min <= 1
+          
+          #CLEAR PARENT EVENT ATTRIBUTES
+          @event.starts_at = nil
+          @event.ends_at = nil
+          @event.duration = nil
+          
+          #SEND NEW TIME EMAIL/PUSH
+          @event.guests.each do |g|
+            unless g == @instance.user
+              g.delay.contact_new_time(@instance)
+            end
+          end
+        end # END if instance.save
+      end #END if ongoing event create instance
+    end # END If starts_at present
 
     if @event.save
       current_user.rsvp_in!(@event)
@@ -177,10 +178,10 @@ class EventsController < ApplicationController
     if params[:invite_me] == '1'
       @event.is_public = true
     end
+    @event.tipped = true   if @event.min <= 1
     if @event.save
       @event.save_shortened_url
       current_user.rsvp_in!(@event)
-      @event.tipped = true   if @event.min <= 1
       if params[:invite_me] == '1' || params[:invite_me] == '2'
         @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
         current_user.invite_all_friends!(@event)
@@ -253,6 +254,12 @@ class EventsController < ApplicationController
   # PUT /events/1
   # PUT /events/1.json
   def update
+        #datetime datepicker => format Chronic can parse
+    params[:event][:starts_at] = Chronic.parse(params[:event][:chronic_starts_at])
+    if params[:event][:chronic_starts_at].blank?
+      params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
+    end
+
     @event = Event.find(params[:id])
     if params[:parent_id]
       @parent = Event.find_by_id(params[:parent_id])

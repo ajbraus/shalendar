@@ -53,17 +53,10 @@ margin: 0 auto;
 		display: none;
 	}
 
-	.crust .new_idea_button {
-		float: left;
-		margin-left: 30px;
-}
-
 	.event {
 margin: 8px;
 min-width: 230px;
 max-width: 230px;
-min-height: 98px;
-max-height: 410px;
 		.promo_img {
 			img {
 				max-width: 200px;
@@ -152,6 +145,7 @@ float: right;
 		float:left;
 		max-height: 400px;
 		margin-top: 15px;
+		clear: left;
 	}
 
 	#invite_raster {
@@ -172,10 +166,6 @@ padding: 1px 0 10px 2px;
 
 		#textMsg {
 		display:none;
-		}
-
-		#sign_in {
-			left:60px;
 		}
 
 		.vendor_dash {
@@ -388,6 +378,12 @@ margin-left: -29px;
 			width: 18%;
 		}
 	}
+	.city_title {
+		width: 59%;
+	}
+	.not_signed_in_pitch {
+		font-size: 27px;
+	}
 
 }
 
@@ -412,7 +408,7 @@ margin-left: -29px;
 /***************************************/
 @media only screen and (min-width: 600px) and (max-width: 829px) {
 	.layout {
-		width: 500px;
+		width: 630px;
 	}
 }
 

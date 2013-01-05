@@ -8,31 +8,31 @@ $.fn.toggleIdeas = (show, hide) ->
 	$(hide).removeClass('event');
 	#show elements
 	$(show).addClass('event');
-	$(show).fadeIn();
+	$(show).show();
+	$('#ideaContainer').masonry('reload');
+	$('.idea_container').masonry('reload');
 	#reload idea containers
-	$('#ideaContainer').masonry('reload');
-	$('.idea_container').masonry('reload');
 
-$.fn.toggleAll = () ->
-	unless $(@).hasClass('bold')
-		$(@).addClass("bold");
-	$(@).siblings().removeClass("bold")
-	
-	$('.shield').addClass('event').show();
-	$('#ideaContainer').masonry('reload');
-	$('.idea_container').masonry('reload');
+$.fn.buildCalendar = () ->
+	date = $(@).data('date')
+	event = $('.event').withDate("#{date}") 
+	$(@).append(event);
+	$(@).masonry({
+		itemSelector : '.event',
+		isAnimated: true,
+		animationOptions: { duration: 100 } })
 
-# $.fn.showCalendar = () ->
-# 	$(@).css('color','#EB8325');
-# 	$('#ideaContainer').hide();
-# 	$('#timesCalendar').fadeIn();
-	# days = $('.idea_container')
-	# connectDatesTo times for day in days
-	# 	date = day.attr('date')
-
-	# 	append each shield.withDate to that div.idea_container withDate
-	# $('div').withDate()
-
+$.fn.showCalendar = () ->
+	$(@).toggleClass("warm_orange")
+	if $('#timesCalendar').is(':hidden')
+		$('#ideaContainer').hide();
+		$('#timesCalendar').fadeIn();
+		$('.idea_container').each ->
+			$(@).buildCalendar();	
+	else
+		$('#timesCalendar').hide();
+		$('#ideaContainer').fadeIn();
+		$("#ideaContainer").masonry('reload')
 
 $ ->
 	$('#jrIdeas').click ->
@@ -48,16 +48,3 @@ $ ->
 
 	$('#jrCalendar').click ->
 		$(@).showCalendar();
-
-
-
-# $ ->
-# 	$('#hide_public').click ->
-# 		$('.public').fadeToggle();
-# 		$('.public').toggleClass('shield');
-# 		$(@).children().toggleClass('warm_orange');
-# 		$(@).parent().next().find('.idea_container').masonry('reload')
-		#$('.public').fadeToggle();
-		#$('.public').toggleClass('shield');
-		#$('.hide_public').children().toggleClass('warm_orange');
-		#$('.idea_container').masonry('reload');

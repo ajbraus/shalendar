@@ -327,14 +327,14 @@ class Event < ActiveRecord::Base
     @ics_event.start = self.starts_at.strftime("%Y%m%dT%H%M%S")
     @ics_event.end = self.ends_at.strftime("%Y%m%dT%H%M%S")
     @ics_event.summary = self.title
-    #@event.description = self.description
+    @event.description = self.description
     @ics_event.location = self.address if self.address
     @ics_event.klass = "PUBLIC"
     @ics_event.created = self.created_at
     @ics_event.last_modified = self.updated_at
-    @ics_event.uid = @ics_event.url = "http://www.hoos.in/events/#{self.id}"
+    @ics_event.uid = @ics_event.url = event_url(self)
     #@ics_event.add_comment("AF83 - Shake your digital, we do WowWare")
-    @ics_event
+    return @ics_event
   end
 
   def image(size)
@@ -392,20 +392,9 @@ class Event < ActiveRecord::Base
   #   return 'parent'.next_instance == self
   # end
 
-  # def is_parent_or_future_instance?
-  #   @instances = self.instances
-  #   if @instances.empty?
-  #     return true #self is parent
-  #   else
-  #     @future_instances = @instances.order('ends_at asc').reject { |e| e.over? }
-  #     @future_instances.each do |e|
-  #       if self == e 
-  #         return true #self is a future instance
-  #       end
-  #     end
-  #   end
-  #   return false
-  # end
+  def is_parent_or_future_instance?
+    return !self.over? || self.is_parent?
+  end
 
   def save_shortened_url
     @bitly = Bitly.new("devhoosin", "R_6d6b17c2324d119af1bcc30d03e852e9")

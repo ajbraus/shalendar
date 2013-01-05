@@ -1,2 +1,11 @@
-event = $('.event').withEventId(<%= @event.id %>)
-event.fadeOut();
+<% if @event.is_parent? %>
+	event = $('.event').withEventId(<%= @event.id %>)
+	event.fadeOut();
+	event.removeClass('.event');
+	$('#ideaContainer').masonry('reload');
+	$('.idea_container').masonry('reload');
+	$('#rsvpForm').first().html("<%= escape_javascript(render partial: 'events/rsvp_form', object: @event, as: :event) %>")
+<% else %>
+	time = $('.time').withEventId(<%= @event.id %>)
+	time.fadeOut();
+<% end %>

@@ -6,11 +6,7 @@
 		  <%= label :title, "Idea*" %><br/>
 	  	<%= f.text_field :title, id: "new_idea_title", class: "required disabled", autocomplete: "off", disabled:true %>
 		</p>
-		<div>
-	  	<%= label :description, "Update Details?" %><br/>
-	  	<%= f.text_area :description, id: "new_idea_description", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}", value:"#{@parent ? @parent.description : '' }" %>
-	  </div>
-  	<div id="dateTime">
+		<div id="dateTime">
 		  <div class="starts_at">
 		    <%= label :starts_at, "When does it start?*" %>
 		    <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off" %>
@@ -20,6 +16,12 @@
 		    <%= f.text_field :duration, autocomplete: "off", class:"required"  %>
 		  </div>
 		</div>
+		
+		<div>
+	  	<%= label :description, "Update Details?" %><br/>
+	  	<%= f.text_area :description, id: "new_idea_description", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}", value:"#{@parent ? @parent.description : '' }" %>
+	  </div>
+
 		<div class="minmax">
 			<div class='tippingIcon'>
 		  	<i class="icon-tasks"></i>

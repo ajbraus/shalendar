@@ -606,23 +606,13 @@ header {
   z-index: 2;
   width:100%;
   nav {
-    -webkit-box-shadow: 0px 1px 8px rgba(50, 50, 50, 0.4);
-    -moz-box-shadow:    0px 1px 8px rgba(50, 50, 50, 0.4);
-    box-shadow: 0px 1px 8px rgba(50, 50, 50, .4);
+-webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
+-moz-box-shadow:    0px 0px 9px rgba(50, 50, 50, 0.3);
+box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
     height: inherit;
     .sky {
       border-bottom: 1px solid $divider;
       height: 54px;
-      .choose_city {
-        position: relative;
-        bottom: 69px;
-      }
-    }
-    .crust {
-      clear:both;
-      height: 44px;
-      text-align: center;
-      font-size: 22px;
     }
   }
 
@@ -636,6 +626,7 @@ header {
 position: absolute;
 right: 12px;
 bottom: 5px;
+z-index: 1;
 form {
   display: inline;
 }
@@ -717,6 +708,7 @@ text-align: right;
 
 .navigation {
   font-size: 16px;
+  text-align: center;
   span {
     cursor:pointer;
   }
@@ -1510,9 +1502,7 @@ padding-bottom: 0;
 float:left;
 position: relative;
 z-index: 1;
--webkit-box-shadow: 1px 1px 4px rgba(50, 50, 50, 0.75);
--moz-box-shadow:    1px 1px 4px rgba(50, 50, 50, 0.75);
-box-shadow:         1px 1px 4px rgba(50, 50, 50, 0.75);
+border: 1px solid $divider;
 overflow: hidden;
 .promo_img {
   text-align: center;
@@ -1533,7 +1523,6 @@ height: 35px;
 .guests {
 float: right;
 position: relative;
-top: 4px;
 }
 a {
   color:black;
@@ -1550,23 +1539,7 @@ max-height: 300px;
 .not_tipped { 
     color:$dark_orange;
   }
-#suggestion {
-  cursor:pointer;
-/*  cursor: -webkit-zoom-in;
-  cursor: -moz-zoom-in;
-  cursor: zoom-in;*/
-}
-.event_time {
-color: black;
-background-color: white;
-padding: 0px 10px 2px 10px;
-height: 27px;
-font-size: 1em;
-width: 98%;
-.time {
 
-}
-}
 .status_icon {
 margin-left: 4px;
 font-size: 19px;
@@ -1586,7 +1559,7 @@ bottom: 12px;
 }
 
 .event_blerb {
-min-height: 38px;
+min-height: 24px;
 color: black;
 font-size: 18px;
 line-height: 1;
@@ -1596,10 +1569,6 @@ position: relative;
 right: 5px;
 padding: 10px 10px 0px 10px;
 background-color: white;
-  .title {
-    position: relative;
-    bottom: 2px;
-  }
   .blerb_pic {
     float: left;
     margin-right: 4px;
@@ -1660,21 +1629,23 @@ margin-bottom: 3px;
 .rsvp_check {
 float: right;
 position: relative;
-left: 6px;
+left: 3px;
+top: 4px;
 form {
   float: right;
 }
 }
 
 .btn_icon {
-padding: 4px 4px;
+padding: 1px 0px;
 cursor: pointer;
--webkit-border-radius: 5px;
--moz-border-radius: 5px;
-border-radius: 5px;
-width: 31px;
-margin: 1px;
+-webkit-border-radius: 1px;
+-moz-border-radius: 1px;
+border-radius: 1px;
+width: 26px;
 text-align: center;
+bottom: 1px;
+position: relative;
  i {
     color: white;
     position: relative;
@@ -2176,7 +2147,7 @@ right: 520px;
 #feedback {
 position: fixed;
 bottom: 5px;
-left: 49px;
+left: 43%;
 width: 141px;
 z-index: 1000;
     a {
@@ -2266,14 +2237,37 @@ background:none;
   }
   .when {
 font-size: 22px;
-height: 55px;
+height: auto;
 line-height: 1.4;
 border-bottom: 1px solid $divider;
+.out {
+  position: relative;
+  top: -10px;
+  left: 3px;
+}
+ .join_group_buttons {
+float: right;
+z-index: 1;
+position: relative;
+bottom: 0;
+height: 0;
+width: 35%;
+.guests {
+  float:right;
+  #guestCount {
+    padding: 10px;
+position: relative;
+top: 10px;
   }
 }
-
-  .guests {
+  #inButton {
+  float:right;
+  margin: 3px;
+    }
   }
+  }
+
+}
 
 .show_skin {
 background-color: rgba(255, 255, 255, 0.8);
@@ -2336,19 +2330,7 @@ color: white;
 }
 background-color: green;
 }
-.title {
-  padding: 9px;
-  .event_link {
-    a{
-    font-size: 22px;
-    color:lightGrey;
-  &:hover{
-  color:$dark_orange;
-  -webkit-transition: color .25s linear .1s;
-  transition: color .25s linear .1s;
-      }
-    }
-  }
+
 .title_bottom {
   float: left;
 clear: left;
@@ -2356,7 +2338,7 @@ clear: left;
       vertical-align: top;
     }
 }
-}
+
 
 .event_link {
 float: right;
@@ -2400,9 +2382,6 @@ font-size: 18px;
 float: right;
 font-size: 17px;
   }
-.date {
-  float:left;
-}
 
 .join_group_buttons {
 z-index: 1;
@@ -2412,15 +2391,16 @@ height: 36px;
 float: left;
 width: 61%;
   .rsvp_button {
-    float:left;
-    margin-right:7px;
-    padding: 10px 20px;
+    float: left;
+    margin-right: 0px;
+    padding: 6px 17px;
   }
   .group_button {
     float:left;
   }
   .unrsvp_button{
     float: left;
+    color: grey;
   }
 }
 
@@ -2862,7 +2842,7 @@ textarea {
 }
 
 .sign_up {
-  margin: 95px auto;
+  margin: 0px auto;
 
     h2 {
     width:410px;
@@ -2930,14 +2910,9 @@ right: 50px;
 }
 
 #sign_in {
-width: 550px;
+width: 365px;
 margin: 0 auto;
 position: relative;
-bottom: 70px;
-top: 12px;
-  h2 {
-    width:410px;
-  }
   input[type=email],input[type=password],input[type=text] {
     font-size: 23px;
     margin-bottom: 10px;
@@ -3040,7 +3015,7 @@ position: relative;
 height: 81px;
     > u {
 text-decoration: none;
-width: 30%;
+width: 45%;
 float: left;
 margin-bottom: 20px;
 margin-left: 12px;
@@ -3148,6 +3123,13 @@ margin-top: 10px;
 
 #dateTime {
   float:left;
+}
+
+.not_time_options {
+    float: left;
+padding-top: 6px;
+border-top: 1px solid $divider;
+margin-top: 15px;
 }
 
 #addLinkp, #addmapp, #addimgp, #addvidp, #addcategoriesp {
@@ -3707,7 +3689,7 @@ padding: 12px 0;
 
     .meter { 
 clear: both;
-height: 5px;
+height: 2px;
 position: relative;
     }
     .meter > span {
@@ -3847,13 +3829,14 @@ position: relative;
 
 .not_signed_in_pitch {
 padding: 10px;
+height: 80px;
 margin: 0 auto;
 max-width: 100%;
 position: relative;
-top: 1px;
-font-size: 27px;
 line-height: 1;
-background-color: white;
+background-color: $background_one;
+text-align: center;
+bottom: 22px;
   .btn_fb_login {
 width: 267px;
 background-size: 99%;
@@ -3873,7 +3856,7 @@ top: 6px;
     bottom: -2px;
     height: 37px;
     padding-left: 0px;
-    right:0;
+    left: 48px;
     }
 }
 
@@ -3886,12 +3869,10 @@ left: 140px;
 }
 
 .city_title {
-position: absolute;
-top: 67px;
-z-index: -1;
-left: 29px;
 margin: 0 auto;
-width: 96%;
+position: relative;
+bottom: 6px;
+left: 9px;
 }
 
 ::-webkit-scrollbar {
@@ -3942,6 +3923,21 @@ height: 0px;
   padding: 6px;
   height: 22px;
   border-top:1px solid $divider;
+  span {
+    top: 4px;
+    position: relative;
+  }
+}
+
+.shield_top {
+  padding: 6px 6px 0px 6px;
+  height: 22px;
+  span {
+    position: relative;
+  }
+  .guests {
+    top:4px;
+  }
 }
 
 .instructions {
@@ -3952,7 +3948,7 @@ font-size: 15px;
 }
 
 .rsvp_btn {
-  float: right;
+  float: left;
 }
 
 #ajaxLoader img {
@@ -3965,7 +3961,9 @@ font-size: 15px;
 }
 
 .rsvpd {
- box-shadow: 6px 7px 21px -4px #575757; 
+/*-webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
+-moz-box-shadow:    0px 0px 9px rgba(50, 50, 50, 0.3);
+box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);*/
 }
 
 .joyride-content-wrapper {
@@ -4067,9 +4065,6 @@ top: 7px;
   }
 }
 
-.eventTitle {
-}
-
 
 .highcharts-container {
   float: left;
@@ -4164,4 +4159,63 @@ font-size: 11px;
 
 .shared_already {
   color:lightgrey;
+}
+
+#togglePitch {
+  position: absolute;
+top: -1px;
+cursor: pointer;
+color: lightGrey;
+right: 7px;
+}
+
+.add_time {
+  text-align: center;
+border-top: 1px solid lightgrey;
+padding-top: 4px;
+}
+
+.time {
+  &:hover {
+    background-color:#EEE;
+  }
+}
+.parent {
+  padding:5px;
+  float:right;
+}
+
+.in {
+  background-color: $rsvp;
+}
+
+.let_me_in {
+  cursor: pointer;
+  cursor: hand;
+  background-color: transparent;
+  text-decoration: none;
+  border:none;
+    &:hover {
+    color:$rsvp;
+    text-decoration: underline;
+  }
+}
+
+.out {
+  cursor: pointer;
+  cursor: hand;
+  background-color: transparent;
+  text-decoration: none;
+  border:none;
+  position: absolute;
+  top: 45px;
+  left: 11px;
+  &:hover {
+    color:$destroy;
+    text-decoration: underline;
+  }
+}
+
+#joinin {
+  float: left;
 }

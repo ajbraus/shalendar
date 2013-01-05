@@ -1,36 +1,41 @@
 Adam
 
-	show icon when have a time
-	multiple times
-	show times inside idea
-	show link to idea inside of times
-	
-	one_time don't create instance
-	don't load one_time parents
+	can't click on events you are rsvpd to
 
-	join => facebook login bwoken
+	new time button messed up
+
+	comment did not send email
 
 	current_user.plans is wrong -- needs to be rsvpd_in? use scopes.
 	http://stackoverflow.com/questions/9556153/is-it-possible-to-create-a-conditional-association-in-model
-	
+
 	remove updates for events users are .out from - digest, comments etc 
 
 	add friend button to profile of someone you aren't already friends with
 
-	.into / meh for parents
-	.in / out for times
+	event deadline should only run where starts_at is present
+
+	switch invites to right and sample idea to left
+
+	send email on invite all if time in the next two days
+
+-----------------------------------------------------
 
 	profile - 
 	my ideas
 	my .ins you are also .invited to
 	my upcoming .ins you were also invited to
 	my past .ins you were also invited to
+	# guests
+	# ins
+	leave a message for the user/chat
+
 
 	.ics not working
 
-	switch invites to right and sample idea to left
+add counts to invites and ins in header
 
------------------------------------------------------
+make slug have time in it for new times
 
 fix so that if you close an invalid option in the new idea form it won't let you submit the form. prevent close . . .
 

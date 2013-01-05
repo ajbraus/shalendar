@@ -11,7 +11,7 @@ class Notifier < ActionMailer::Base
   # AD HOC NOTIFIERS
 
   def user_update(email)
-    mail to: email, from: "info@hoos.in", subject: "Upgraded Site!"
+    mail to: email, from: "info@hoos.in", subject: "Upgraded Site"
 
   end
 
@@ -40,14 +40,14 @@ class Notifier < ActionMailer::Base
                       "kari.k.design@gmail.com", "a.mearini@gmail.com", "reebz22@gmail.com", 
                       "msfenchel@gmail.com", "ajbraus@gmail.com"]
 
-    mail bcc: @friend_emails, from: "info@hoos.in", subject: "hoos.in Launch!"
+    mail bcc: @friend_emails, from: "info@hoos.in", subject: "hoos.in Launch"
   end
 
   def hoosin_update(user)
     @user = user
 
     if @user.allow_contact?
-      mail to: @user.email, subject: "Mobile apps, train cars and blogs, oh my!"
+      mail to: @user.email, subject: "Mobile apps, train cars and blogs, oh my"
     end
     rescue => ex
     Airbrake.notify(ex)
@@ -73,33 +73,33 @@ class Notifier < ActionMailer::Base
     @user = user
     @follower = friend
     @image_url = invite_raster_picture(@follower)
-    mail to: @user.email, subject: "New Friend Request - #{@follower.name}"
+    mail to: @user.email, subject: "new friend request - #{@follower.name}"
   end
 
   def new_friend(user, friend)
     @user = user
     @follower = friend
     @image_url = invite_raster_picture(@follower)
-    mail to: user.email, subject: "New Friend - #{@follower.name}"
+    mail to: user.email, subject: "new friend - #{@follower.name}"
   end
 
   def event_tipped(event, user)
     @event = event
     @user = user
-    mail to: @user.email, subject: "Idea Tipped! - #{@event.title}"
+    mail to: @user.email, subject: "idea tipped - #{@event.title}"
   end
 
   def event_deadline(event)
     @user = event.user
     @event = event
-    mail to: @user.email, subject: "Untipped idea - #{@event.title}"
+    mail to: @user.email, subject: "untipped idea - #{@event.title}"
   end
 
   def cancellation(event, user)
     @event = event
     @user = user 
     unless @user == @event.user
-      mail to: user.email, subject: "Cancellation - #{@event.title}" 
+      mail to: user.email, subject: "cancellation - #{@event.title}" 
     end
 
   end
@@ -113,7 +113,7 @@ class Notifier < ActionMailer::Base
     @user = user
     @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
     @event_link = event_url(@event)
-    mail to: @user.email, subject: "New Comment - #{@event.short_event_title}"
+    mail to: @user.email, subject: "new comment - #{@event.short_event_title}"
   end
 
   def rsvp_reminder(event, user)
@@ -121,7 +121,7 @@ class Notifier < ActionMailer::Base
     @event = event
 
     unless @user == User.find_by_email("info@hoos.in")
-      mail to: @user.email, subject: "Reminder: Activity starts in 2 hours! - #{@event.short_event_title}"
+      mail to: @user.email, subject: "idea begins this .instant - #{@event.short_event_title}"
     end
   end
 
@@ -150,7 +150,7 @@ class Notifier < ActionMailer::Base
     @user = user
     @event = event
     @event_link = event_url(@event)
-    mail to: @user.email, subject: "Time change - #{@event.short_event_title}"
+    mail to: @user.email, subject: ".interruption - #{@event.short_event_title}"
     rescue => ex
     Airbrake.notify(ex)
   end
@@ -169,7 +169,7 @@ class Notifier < ActionMailer::Base
   def fb_event_invite(email, event)
     @event = event
     @email = email 
-    mail to: @email, from: "info@hoos.in", subject: "You've been .invited!" do |format|
+    mail to: @email, from: "info@hoos.in", subject: ".invite" do |format|
       format.html { render :layout => 'fb_message' }
     end
   end
@@ -186,21 +186,20 @@ class Notifier < ActionMailer::Base
     @user = user
     @upcoming_events = upcoming_events
     @invited_events = invited_events
-    mail to: @user.email, from: "info@hoos.in", subject: "You Have New Ideas on Hoos.in"
+    mail to: @user.email, from: "info@hoos.in", subject: "new ideas on hoos.in"
   end
 
   def follow_up(user, event, new_friends)
     @user = user
     @event = event
     @new_friends = new_friends
-    mail to: @user.email, from: "info@hoos.in", subject: "Connect With People - #{@event.title}"
+    mail to: @user.email, from: "info@hoos.in", subject: ".introductions - #{@event.title}"
   end
 
   def new_time(event, user)
     @user = user
     @event = event
-    mail to: @user.email, from: "info@hoos.in", subject: "New Time - #{@event.start_time} - #{@event.title}"
-
+    mail to: @user.email, from: "info@hoos.in", subject: "new time - #{@event.start_time} - #{@event.title}"
   end
 
   def new_rsvp(event, rsvping_user)
@@ -208,7 +207,7 @@ class Notifier < ActionMailer::Base
     @user = @event.user
     @rsvping_user = rsvping_user
     @image_url = invite_raster_picture(@rsvping_user)
-    mail to: @user.email, from: "info@hoos.in", subject: "New .in - #{@rsvping_user.name}"
+    mail to: @user.email, from: "info@hoos.in", subject: "you have a new .in - #{@rsvping_user.name}"
   end
 
   # def recurring_receipt(user, amount)

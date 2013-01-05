@@ -1,8 +1,12 @@
 <div id="eventOptions">
-  	<% if @event.blank? || (@event.present? && @event.starts_at.present?)  %>
-			<input type="checkbox" id="addDateTime"/> <label for="addDateTime"><i class="icon-time"></i> Idea has a time</label>
+  	<% if @event.blank? %>
+			<input type="checkbox" id="addDateTime"/> <label for="addDateTime"><i class="icon-time"></i> Add a Time </label>
 		<% end %>
-		<div id="dateTime" style="display:none;">
+		<% if (@event.present? && @event.starts_at.present?) %>
+			<div id="dateTime">
+		<% else %>
+			<div id="dateTime" style="display:none;">
+		<% end %>
       <div class="starts_at">
         <%= label :starts_at, "When does it start?" %>
         <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off" %>
@@ -14,26 +18,24 @@
       <div class="one_time_bool">
     		<%= f.check_box :one_time %> <label for="event_one_time">only happening once?</label>
   		</div>
+	  	<div id="addtippingp">
+				<label><i class="icon-tasks"></i> minimum and maximum*</label>
+				<div class="minmax">
+				  <u>
+				    <%= f.label :min_attendees, "Min .in's" %> <br/>
+				    <%= f.text_field :min, :class => 'input-mini', autocomplete: "off", class:"required" %>
+				  </u>
+				  <u>
+				    <%= f.label :max_attendees, "Max  .in's" %> <br/>
+				    <%= f.text_field :max, :class => 'input-mini', autocomplete: "off" %>
+				  </u>
+				</div>
+			</div>
     </div>
+    <div class="not_time_options">
     <div id="visibilityp" class="open">
     	<%= render "visibility_options.html" %>
     </div>
-
-		<div id="addtippingp" style="display:none;">
-			<div class="minmax">
-				<div class='tippingIcon'>
-			  	<i class="icon-tasks"></i>
-				</div>
-			  <u>
-			    <%= f.label :min_attendees, "Min .in's" %> <br/>
-			    <%= f.text_field :min, :class => 'input-mini', autocomplete: "off", class:"required" %>
-			  </u>
-			  <u>
-			    <%= f.label :max_attendees, "Max  .in's" %> <br/>
-			    <%= f.text_field :max, :class => 'input-mini', autocomplete: "off" %>
-			  </u>
-			</div>
-		</div>
 
 <% if false %>
 		<div class="venue_invitation_options" id="visibilityp" style="display:none;">
@@ -95,6 +97,7 @@
     <% end %>
 	</div> 
 </div>
+</div>
 
 <div>
 	<ul>
@@ -104,8 +107,8 @@
 	  <li id="addLink" title="Add a Link"><i class="icon-link"></i></li>
 	  <li id="addcost" title="Add an Cost"><i class="icon-money"></i></li>
 	  <li id="addmap" title="Add a Location"><i class="icon-map-marker"></i></li>
-		<li id="addtipping" title="Add a Tipping Point"><i class="icon-tasks"></i></li>
 		<% if false %>
+		<li id="addtipping" title="Add a Tipping Point"><i class="icon-tasks"></i></li>
 		<% if (@event.present? && @event.starts_at.present?) || (@parent.present? && @parent.starts_at.present?)  %>
 			<li id="addDateTime" title="Add Date and Time"><i class="icon-time"></i></li>
 		<% end %>
