@@ -41,10 +41,12 @@ task :test_notifications => :environment do
 	ios_device = APN::Device.find_by_id(iphone_user.apn_device_id)
 	n = APN::Notification.new
   n.device = ios_device
-  n.alert = "Test Generated Push"
-  n.badge = 5
+  n.alert = ".invite from #{@inviter.name}"
+  n.badge = 1
   n.sound = true
-  n.custom_properties = {:type => "test_push"}
+  n.custom_properties = {msg: "#{@event.short_event_title}",
+                         :type => "invitation", 
+                         :id => "#{@event.id}"}
   n.save
 
 end
