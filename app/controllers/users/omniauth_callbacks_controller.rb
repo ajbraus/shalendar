@@ -53,9 +53,9 @@ private
       raise 'Provider #{provider} not handled'
     end
     if resource.nil?
-      user = find_for_oauth_by_email(email, access_token, resource)
+      user = find_for_oauth_by_uid(uid, access_token, resource)
       if user.nil? 
-        user = find_for_oauth_by_uid(uid, access_token, resource)
+        user = find_for_oauth_by_email(email, access_token, resource)
       end
     else
       user = resource
