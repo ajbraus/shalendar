@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :check_venue_card, :set_city, :set_time_zone, :set_graph
+  before_filter :set_city, :set_time_zone, :set_graph #:check_venue_card, 
   after_filter :store_location
 
   def store_location

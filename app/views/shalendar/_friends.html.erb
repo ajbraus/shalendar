@@ -4,8 +4,16 @@
     <% @friend_requests.each do |nf| %>
       <table data-user-id="<%= nf.follower.id %>">    
         <tr>
-          <td width="50px"><%= raster_profile_picture(nf.follower) %></td>
-          <td width="150px"><%= nf.follower.name %></td>
+          <td width="50px">
+            <%= link_to user_path(nf) do %>
+              <%= raster_profile_picture(nf.follower) %>
+            <% end %>
+          </td>
+          <td width="150px">
+            <%= link_to user_path(nf) do %>
+              <%= nf.follower.name %>
+            <% end %>
+          </td>
           <td width="20px"><%= link_to raw("<i class='icon-remove-sign'></i>"), relationship_ignore_path(:relationship_id => nf.id), method: :delete, class:"tooltip", remote: true %></td>
           <td width="20px"><%= link_to raw("<i class='icon-check'></i>"), relationship_confirm_and_follow_path(:relationship_id => nf.id), method: :put, class:"tooltip", remote: true %></td>
         </tr>
@@ -21,8 +29,14 @@
     <h2><span id="managed_friend_count" class="friend_count"><%= current_user.followers.count %></span> Friends</h2>
     <% @friendships.each do |fr| %>
       <div class="event_show_friend" data-user-id="<%= fr.id %>">
-        <%= raster_profile_picture(fr.follower) %>
-        <div id="friend_name"><%= fr.follower.name %></div>
+        <%= link_to user_path(fr.follower) do %>
+          <%= raster_profile_picture(fr.follower) %>
+        <% end %>
+        <div id="friend_name">
+          <%= link_to user_path(fr.follower) do %>
+            <%= fr.follower.name %>
+          <% end %>
+        </div>
         <div id="friend_button">
             <%= render partial: 'events/follow_form', :locals => { :user => fr.follower } %>
         </div>

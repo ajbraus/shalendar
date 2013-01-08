@@ -29,6 +29,7 @@ $.fn.showCalendar = () ->
 		$('#timesCalendar').fadeIn();
 		$('.idea_container').each ->
 			$(@).buildCalendar();	
+		$('html, body').scrollTop($('#today').offset().top + 40 );
 	else
 		$('#timesCalendar').hide();
 		$('#ideaContainer').fadeIn();

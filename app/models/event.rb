@@ -7,6 +7,7 @@ class Event < ActiveRecord::Base
   belongs_to :city
 
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
+  has_many :guests, through: :rsvps, :conditions => ['inout = ?', 1]
 
   has_many :invitations, foreign_key: "invited_event_id", dependent: :destroy
   has_many :invited_users, through: :invitations
@@ -417,15 +418,15 @@ class Event < ActiveRecord::Base
     return @total 
   end
 
-  def guests
-    @guests = self.rsvps.where(inout: 1) #USERS WHO ARE IN
-    if @guests.any?
-      @guests = @guests.map { |r| User.find_by_id(r.guest_id) }
-      return @guests
-    else
-      return []
-    end
-  end
+  # def guests
+  #   @guests = self.rsvps.where(inout: 1) #USERS WHO ARE IN
+  #   if @guests.any?
+  #     @guests = @guests.map { |r| User.find_by_id(r.guest_id) }
+  #     return @guests
+  #   else
+  #     return []
+  #   end
+  # end
 
   def unrsvpd_users
     @unrsvpd_users = self.rsvps.where(inout: 0) #USERS WHO ARE IN

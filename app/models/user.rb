@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
   has_many :events, :dependent => :destroy
 
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
-  has_many :plans, through: :rsvps
+  has_many :plans, through: :rsvps, :conditions => ['inout = ?', 1]
 
   has_many :invitations, foreign_key: "invited_user_id", dependent: :destroy
   has_many :invited_events, through: :invitations
@@ -887,13 +887,13 @@ class User < ActiveRecord::Base
   # Class Methods
   def self.digest
     @day = Date.today.days_to_week_start
-    if @day == 3
+    if @day == 0 || @day == 4
       @digest_users = User.where("users.digest = 'true'")
       @digest_users.each do |u|
         time_range = Time.now.midnight .. Time.now.midnight + 3.days
         if u.plans.where(starts_at: time_range).any?
           @upcoming_events = []
-          (0..6).each do |day|
+          (0..3).each do |day|
             @date = Time.now.midnight.to_date + day.days
             @events = u.events_on_date(@date)
             @upcoming_events.push(@events)
@@ -910,7 +910,7 @@ class User < ActiveRecord::Base
           end
           if @new_events.any?
             @invited_events = []
-            (0..6).each do |day|
+            (0..3).each do |day|
               @date = Time.now.midnight.to_date + day.days
               @events = u.events_on_date(@date)
               @invited_events.push(@events)

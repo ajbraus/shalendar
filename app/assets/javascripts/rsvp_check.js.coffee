@@ -17,8 +17,8 @@ $.fn.decrement = ->
 $.fn.rsvp_check = (rsvpCheckHTML, rsvpForm, about_to_tip) ->
   $('div#littleTIP').remove();
   $(@).find('#guestCount').eq(0).increment()
-  $(@).find('#guestCount').eq(1).increment()
-  $(@).find('.rsvp_check').first().html(rsvpCheckHTML)
+  #$(@).find('#guestCount').eq(1).increment()
+  $(@).find('.rsvp_check').html(rsvpCheckHTML)
   $(@).find('#rsvpForm').first().html(rsvpForm)
   $(@).find('.status_icon').html("<i class='icon-ok-sign blue' title='you\'re .in'></i>")
   if about_to_tip = 1

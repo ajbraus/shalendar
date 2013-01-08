@@ -23,7 +23,7 @@
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "0" %>
-			  <%= f.submit "#{event.is_parent? ? 'meh' : 'out'}", class:"btn_icon btn_stop_viewing" %>
+			  <%= f.submit "#{event.is_parent? ? 'nah' : 'out'}", class:"btn_icon btn_stop_viewing" %>
 			<% end %>
 		<% end %>
 	<% end %>

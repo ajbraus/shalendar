@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  //$('#ideaContainer').imagesLoaded( function(){
+  $('#ideaContainer').imagesLoaded( function(){
     $('#ideaContainer').masonry({
       itemSelector : '.event',
       //column_width: 100
@@ -7,7 +7,7 @@ $(document).ready(function() {
     	animationOptions: {
       duration: 100
     	}
-    //});
+    });
   });
 
   $('#ideaContainer').imagesLoaded( function(){

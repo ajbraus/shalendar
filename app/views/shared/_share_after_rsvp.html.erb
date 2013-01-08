@@ -4,18 +4,20 @@
 	<h1><strong>what:</strong> <%= event.title %></h1>
 	<% if event.starts_at.present? %>
 	<h1><strong>when:</strong> <%= start_time(event) %></h1>
-    <h3>add to your calendar
+    <h3>add to your google calendar
     <div class="calendars">
       <div>
         <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&details=<%= url_encode(@event.description) + " - " + event_url(@event) %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fideas%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
           <%= image_tag("gcalendar.png", width: '30') %>
         </a>
       </div>
+      <% if false %>
       <div>
         <%= link_to event_path(event), :format => :ics do %>
           <%= image_tag "ical-icon.png", width: '30', title: "Add to Your Calendar" %>
         <% end %>
       </div>
+      <% end %>
     </div>
   <% end %>
 

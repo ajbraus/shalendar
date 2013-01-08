@@ -8,10 +8,10 @@
     <%= label :starts_at, "When does it start?*" %>
     <%= f.text_field :chronic_starts_at, id: "datetime", class: "required starts_at", autocomplete: "off" %>
   </div>
-      <div class="duration">
-        <%= label :duration, "Hours?*" %>
-        <%= f.text_field :duration, placeholder:"1.5", autocomplete: "off"  %>
-      </div>
+  <div class="duration">
+    <%= label :duration, "Hours?*" %>
+    <%= f.text_field :duration, placeholder:"1.5", autocomplete: "off"  %>
+  </div>
 
   <%= render partial: 'shared/idea_options', locals: { :f => f } %>
    

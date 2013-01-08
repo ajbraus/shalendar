@@ -1492,9 +1492,6 @@ padding-bottom: 0;
     overflow: hidden;
     height: 60px;
   }
-  .blerb_pic {
-    float: left;
-  }
 }
 
 .event {
@@ -1521,12 +1518,24 @@ width: 35px;
 height: 35px;
 }
 .guests {
-float: right;
+  float: right;
 position: relative;
+margin-right: 4px;
 }
 a {
   color:black;
 }
+.date {
+  float: left;
+margin-top: 5px;
+}
+}
+
+.event_time {
+  position: relative;
+top: 4px;
+width: 100%;
+float: left;
 }
 
 .event_promo_img {
@@ -1569,17 +1578,11 @@ position: relative;
 right: 5px;
 padding: 10px 10px 0px 10px;
 background-color: white;
-  .blerb_pic {
-    float: left;
-    margin-right: 4px;
-  }
 }
 
 .event_shield_icons {
 float:left;
 position: relative;
-top: 4px;
-right: 4px;
 }
 
 .friends_attending {
@@ -1629,8 +1632,8 @@ margin-bottom: 3px;
 .rsvp_check {
 float: right;
 position: relative;
-left: 3px;
-top: 4px;
+top: 3px;
+font-size: 14px;
 form {
   float: right;
 }
@@ -2247,26 +2250,36 @@ border-bottom: 1px solid $divider;
 }
  .join_group_buttons {
 float: right;
-z-index: 1;
-position: relative;
-bottom: 0;
-height: 0;
-width: 35%;
+width: 110px;
 .guests {
   float:right;
   #guestCount {
     padding: 10px;
 position: relative;
 top: 10px;
-  }
-}
-  #inButton {
-  float:right;
-  margin: 3px;
     }
   }
+}
   }
+    #inButton {
+  float: left;
+  margin: 3px;
+    }
+.guests{
+  float:right;
+  position: relative;
+  top: 9px;
+  right: 10px;
+}
 
+}
+
+.when {
+.guests {
+  float: right;
+margin-top: 10px;
+margin-right: 6px;
+}
 }
 
 .show_skin {
@@ -2384,19 +2397,11 @@ font-size: 17px;
   }
 
 .join_group_buttons {
-z-index: 1;
-position: relative;
-bottom: 4px;
-height: 36px;
-float: left;
-width: 61%;
+  height: 28px;
   .rsvp_button {
-    float: left;
-    margin-right: 0px;
-    padding: 6px 17px;
-  }
-  .group_button {
-    float:left;
+float: left;
+padding: 1px 11px;
+margin: 10px 0;
   }
   .unrsvp_button{
     float: left;
@@ -2471,7 +2476,6 @@ top: 3px;
 .event_title {
 clear:both;
 font-size: 34px;
-min-height: 65px;
 line-height: 1.1;
 width: 98%;
 background-color: rgba(0, 0, 0, 0.5);
@@ -3112,7 +3116,7 @@ margin-top: 10px;
 #addLink, #addDateTime, #addmap, #addimg, #addtipping, #addcost, #addvid, #addcategories, #visibility {
   cursor:pointer;
   color:black;
-  text-decoration: underline;
+  text-decoration: none;
   line-height: 1.2;
   &:hover{
     color:$dark_orange;
@@ -3429,11 +3433,23 @@ position: relative;
     font-size: 40px;
     margin: 20px;
   }
-  .name {
+  .show_name {
 position: relative;
 left: 20px;
 font-size: 30px;
-bottom: 10px;
+bottom: 20px;
+float:left;
+clear: left;
+  }
+  .show_friend {
+    float: right;
+position: relative;
+bottom: 20px;
+right: 20px;
+
+  }
+  img {
+    float:left;
   }
 }
 
@@ -4103,7 +4119,7 @@ z-index: 3;
 
 .share_after_rsvp {
 background-color: white;
-position: absolute;
+position: fixed;
 z-index: 4;
 top: 5%;
   #close {
@@ -4123,7 +4139,7 @@ top: 5%;
 
 .calendars {
   div {
-    width:49%;
+   width: 100%;
     float:left;
     text-align: center;
     img {
@@ -4141,13 +4157,14 @@ float: left;
 }
 
 #calendars {
-  text-align: right;
-margin-top: 7px;
-margin-right: 10px;
+margin-top: -9px;
+margin-right: -1px;
+float: right;
+margin-left: 10px;
   li {
     display:inline;
     img {
-      width: 38px;
+      width: 19px;
     }
   }
 }
@@ -4182,7 +4199,6 @@ padding-top: 4px;
 }
 .parent {
   padding:5px;
-  float:right;
 }
 
 .in {
@@ -4207,15 +4223,19 @@ padding-top: 4px;
   background-color: transparent;
   text-decoration: none;
   border:none;
-  position: absolute;
-  top: 45px;
-  left: 11px;
-  &:hover {
+    &:hover {
     color:$destroy;
     text-decoration: underline;
   }
 }
 
-#joinin {
+.new_time_show {
+  clear: both;
+border-top: 1px solid black;
+font-size: 30px;
+text-align: center;
+}
+
+#eventOptions {
   float: left;
 }

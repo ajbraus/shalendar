@@ -26,14 +26,28 @@ class RsvpsController < ApplicationController
       #@friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event)}
       #if a user is 'everywhere else' then we don't silo their invitations...
       #@friends = @friends.reject { |f| f.city != @current_city }
-      respond_to do |format|
-        format.html { redirect_to @event }
-        format.js { render template: "rsvps/in" }
+      if @event.has_parent?
+        respond_to do |format|
+          format.html { redirect_to @event.parent }
+          format.js { render template: "rsvps/in" }
+        end
+      else 
+        respond_to do |format|
+          format.html { redirect_to @event }
+          format.js { render template: "rsvps/in" }
+        end
       end
     elsif params[:rsvp][:inout].to_f == 0
-      respond_to do |format|
-        format.html { redirect_to @event }
-        format.js { render template: "rsvps/out" }
+      if @event.has_parent?
+        respond_to do |format|
+          format.html { redirect_to @event.parent }
+          format.js { render template: "rsvps/out" }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to @event }
+          format.js { render template: "rsvps/out" }
+        end
       end
     end
   end

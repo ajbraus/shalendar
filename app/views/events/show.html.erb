@@ -6,31 +6,22 @@
 <div class="event_show clearfix">
     <div id="rsvpForm" class="join_group_buttons">
       <%= render partial: 'rsvp_form', :locals => { :event => @event }  %>
+      <div class="guests"><span id="guestCount"><%= @event.guest_count %></span></div>
     </div>
-    <% if @event.starts_at.present? && @event.starts_at > Time.now %>
-      <ul id="calendars">
-        <li>
-        <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&details=<%= url_encode(@event.description) + " - " + event_url(@event) %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fideas%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
-          <%= image_tag("gcalendar.png", width: '30') %>
-        </a>
-      </li>
-      <% if false %>
-      <li>
-        <%= link_to @event, :controller => 'events', :action => :show, :format => :ics do %>
-          <%= image_tag "ical-icon.png", width: '30', title: "Add to Your iCal or Outlook" %>
-        <% end %>
-      </li>
-      <% end %>
-    </ul>
-    <% end %>
-  <div class="event_title">
+
+  <div class="event_title clearfix">
     <div class="eventTitle">
-      <%= @event.title %>
+      <%= @event.has_parent? ? raw("<i class='icon-time'></i> ") : '' %><%= @event.title %>
     </div>
     <% if @event.user == current_user %> 
       <div class="event_buttons">
-        <%= link_to edit_event_path(@event), title:"Edit Idea" do %>
-          <span class="fadeInOrange"><i class="icon-cogs"></i></span>
+        <%= link_to edit_event_path(@event) do %>
+          <span class="fadeInOrange"><i class="icon-cogs"></i> edit</span>
+        <% end %>
+        <% if @event.has_parent? %>
+          <%= link_to event_path(@event.parent), class:"parent" do %>
+            <span class="fadeInBlue"><i class="icon-cloud"></i> to idea</span>
+          <% end %>
         <% end %>
       <% unless @event.tipped? %>
         <%= link_to event_tip_path(@event), :confirm => "You sure you want to manually tip this idea? This will notify everyone that the idea is on.", title: "Make this idea Tip", :method => :put do %>
@@ -53,15 +44,7 @@
     <% end %>
     </div>
   </div>
-  <% if @event.has_parent? %>
-    <%= link_to event_path(@event.parent), class:"parent" do %>
-      <i class="icon-cloud"></i> to parent
-    <% end %>
-  <% end %>
-	<div class="when">
-	  <% if @event.starts_at.present? %>
-      <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> ( <%= @event.nice_duration %> <% if @event.ends_at < Time.now %> - Over <% end %> ) </div>
-    <% end %>
+	<div class="when clearfix">
     <% if @event.price.present? %>
       <div class="cost">
         <i class="icon-money"></i> <%= @event.nice_price %>
@@ -98,6 +81,14 @@
 
   <% @relevant_instances = @event.instances.reject { |e| e.over? } %>
   <%= render partial: 'events/show_time', collection: @relevant_instances, as: :event %>
+
+  <% if current_user == @event.user && @event.is_parent? && !@event.one_time? %>
+    <div class="new_time_show">
+    <%= link_to event_new_time_path(@event), id:"makeATime" do %>
+      <span class="fadeInGreen"><i class="icon-time"></i> New Time</span>
+    <% end %>
+  </div>
+  <% end %>
 
   <% if @event.promo_vid.present? %>
     <div class="promo_vid">

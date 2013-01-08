@@ -1,27 +1,26 @@
 Adam
 
-	can't click on events you are rsvpd to
+	add counts to invites and ins in header
 
-	new time button messed up
+-----------------------------------------------------
+digest - two parts: 
+new times (within upcoming 4 days)
+new ideas (without times created at in the last 4 days)
+	rsvp button
 
-	comment did not send email
-
-	current_user.plans is wrong -- needs to be rsvpd_in? use scopes.
-	http://stackoverflow.com/questions/9556153/is-it-possible-to-create-a-conditional-association-in-model
-
-	remove updates for events users are .out from - digest, comments etc 
-
-	add friend button to profile of someone you aren't already friends with
-
-	event deadline should only run where starts_at is present
 
 	switch invites to right and sample idea to left
 
-	send email on invite all if time in the next two days
+	can't click on events you are rsvpd to
 
------------------------------------------------------
+create a user from mobile
 
-	profile - 
+Adding FB to a native login doesn't work smoothly
+
+update digest flow, curation, template
+
+Profile needs major overhaul:
+	find your outs later 
 	my ideas
 	my .ins you are also .invited to
 	my upcoming .ins you were also invited to
@@ -30,18 +29,13 @@ Adam
 	# ins
 	leave a message for the user/chat
 
-
 	.ics not working
-
-add counts to invites and ins in header
 
 make slug have time in it for new times
 
 fix so that if you close an invalid option in the new idea form it won't let you submit the form. prevent close . . .
 
 put suggested friends as a upper left corner shield in home
-
-create a user from mobile
 
 add shortener
 
@@ -68,6 +62,8 @@ keep this idea around vs. one time
 messaging friends through hoos.in
 
 count how many future instances? display all subsequent events in every event#show
+
+add option to automatically update google calendar
 
 scripts not working
 	invite button not reloading (stack overflow question)
@@ -116,35 +112,24 @@ put this on hoosin button
 
 implement following . . . too many invites/emails without it
 
-SEAN:
-email images of ideas
 guest count in emails
 hoos.in? (who is already rsvpd? face-pile)
-crowd ideas digest
+
 
 ---------------------------------------------------------------
-
-Adding FB to a native login doesn't work smoothly
-
-need my-plans/my-forecast pages in responsive
 
 signup walkthrough
 
 ---------------------------------------------------------------
 
-find all FB friends by button so that ppl can connect with friends not in their city
-rsvp ajax
-rsvp lightbox -- add to calendar, share with facebook twitter linkedin etc
 ticket/rsvp link
 
-rsvp out/in
 Rsvp - checked_in? boolean with mobile api to check in.
 
 ---------------------------------------------------------------
 
 	hovering putting a box around idea shields
 
-.interests select adventure category not working
 ------------------------------------------------------------------------
 
 Suggested friends
@@ -160,7 +145,6 @@ Suggested friends
 	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
 
 ----------------------------------------------------------
-
 
 marketplace payments
 yellow book
@@ -182,11 +166,6 @@ check in
 
 ------------------------------------------------------------
 
-add hashtag to event and show instagram pictures
-
-private idea
-
-put footer stuff into hoosin icon dropdown
 
 ssl
 

@@ -34,7 +34,7 @@ Times
 		DONE When rsvping out to child idea do not rsvp out to parent		
 		DONE created rsvp_out!, rsvp_in! in user.rb updated all instances of rsvp!
 		DONE created user.rb methods: in?, out? and updated rsvpd? and updated all instances-
-			DONEso you are either in out or not yet responded (literally respondez si vous plait)
+			DONEso you are either in out or not yet responded (literally respondez si'l vous plait)
 		
 		DONE RSVPS POSTING!
 		
@@ -100,7 +100,6 @@ DONE
 
 DONE show times in shield and show
 	fix ajax in/out
-	display meter correctly
 	display guest time
 
 

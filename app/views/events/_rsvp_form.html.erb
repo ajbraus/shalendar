@@ -14,12 +14,12 @@
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "1" %>
-			  <%= f.submit ".in", class:"btn rsvp_button btn-rsvp" %>
+			  <%= f.submit "#{event.is_parent? ? '.into' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
 			<% end %>
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "0" %>
-			  <%= f.submit "out", class:"btn rsvp_button btn_stop_viewing" %>
+			  <%= f.submit "#{event.is_parent? ? 'nah' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
 			<% end %>
 		<% elsif current_user.in?(event) %> <!-- IF RSVPED SHOW IN BUTTON AND TOGGLE OUT-->
 			<span id="inButton">
@@ -28,18 +28,18 @@
 					<%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
 		  			<%= f.hidden_field :plan_id %>
 		  			<%= f.hidden_field :inout, value: 0 %>
-					  <%= f.submit "flake out", class:'out' %>
+					  <%= f.submit "(flake out)", class:'out' %>
 					<% end %>
 				</div>
 			</span>
 		<% elsif current_user.out?(event) %> <!-- IF RSVPD OUT SHOW OUT AND TOGGLE IN -->
 			<span id="inButton">
-				<div id="out" class="btn rsvp_button unrsvp_button">out</div>
+				<i class="icon-circle-blank" title="you're out"></i> out
 				<div id="joinin">
 					<%= form_for(current_user.rsvps.build(plan_id: event.id), remote:true ) do |f| %>
 		  			<%= f.hidden_field :plan_id %>
 		  			<%= f.hidden_field :inout, value: 1 %>
-					  <%= f.submit "Actually, let me .in", class: "let_me_in" %>
+					  <%= f.submit "(join .in)", class: "let_me_in" %>
 					<% end %>
 				</div>
 			</span>
@@ -48,10 +48,10 @@
 				<%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
 		  		<%= f.hidden_field :plan_id %>
 		  		<%= f.hidden_field :inout, value: 1 %>
-		  		<%= f.submit "join.in", class: "btn btn-rsvp rsvp_button", confirm: "Please confirm that you will join.in this idea", id:"Join" %>
+		  		<%= f.submit "join.in", class: "btn btn-rsvp rsvp_button", id:"Join" %>
 				<% end %>
 			</span>
-				<% if false %> <!-- PAYMENT COMMENTED OUT -->
+				<% if false %>
 					<% if event.require_payment? && current_user.credit_card_uri.blank? %>
 						<%= link_to "join.in", new_card_path(:id => event.id), class: "btn btn-rsvp rsvp_button", confirm: "Please confirm that you will join.in this idea?", id:"Join" %>
 					<% elsif event.require_payment? && current_user.credit_card_uri.present? %>
@@ -59,19 +59,5 @@
 					<% end %>
 				<% end %>
 		<% end %>
-				<span class="group_button">
-				<% if false %>
-					<% if !event.is_next_instance? && (current_user.invited?(event) || current_user.invited?(event.next_instance) || event.next_instance.is_public?) %>
-			 			<%= link_to event_path(event.next_instance) do %>
-								<i class="icon-calendar"></i> Upcoming Time
-						<% end %>
-					<% end %>
-				<% end %>
-				<% if current_user == event.user && event.is_parent? && !event.one_time? %>
-					<%= link_to event_new_time_path(event), id:"makeATime", class:"btn btn-success rsvp_button" do %>
-						<i class="icon-copy"></i> New Time
-					<% end %>
-				<% end %>
-				</span>
 	<% end %>
 <% end %>

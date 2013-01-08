@@ -8,7 +8,7 @@
 			<span style=<%= 'width:' + "#{(100*event.guest_count.to_f/event.min.to_f).round}" + "%;"%>><span></span></span>
 		</div>
 	<% end %>
-	<div class="shield_bottom time" data-event-id="<%= event.id %>">	
+	<div class="shield_bottom one_time" data-event-id="<%= event.id %>">	
 			<span><%= event.mini_start_date_time %></span>
 		<div class="rsvp_check">
 			<%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %>

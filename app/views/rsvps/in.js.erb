@@ -1,11 +1,19 @@
-<% if @event.is_parent? %>
+<% if @event.is_parent? || @event.one_time? %>
 	event = $('.event').withEventId(<%= @event.id %>)
 	event.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>", '', <%= @event.min - @event.guest_count %>); 
+	event.addClass('rsvpd');
 <% else %>
-	time = $('.time').withEventId(<%= @event.id %>)
+	//TIME
+	time = $('.one_time').withEventId(<%= @event.id %>)
 	time.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>", "<%= escape_javascript(render partial: 'events/rsvp_form', object: @event, as: :event) %>", <%= @event.min - @event.guest_count %>);
+	
+	//PARENT
 	parent = $('.event').withEventId(<%= @event.parent.id %>)
-	parent.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event.parent, as: :event) %>", "<%= escape_javascript(render partial: 'events/rsvp_form', object: @event, as: :event) %>", <%= @event.min - @event.guest_count %>);
+	if (parent.hasClass('rsvpd')) {}
+	else {
+		parent.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event.parent, as: :event) %>", "<%= escape_javascript(render partial: 'events/rsvp_form', object: @event, as: :event) %>", <%= @event.min - @event.guest_count %>);
+		parent.addClass('rsvpd');
+	}
 <% end %>
 
 $('#rsvpForm').html("<%= escape_javascript(render partial: 'events/rsvp_form', object: @event, as: :event) %>")

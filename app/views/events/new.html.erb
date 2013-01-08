@@ -13,24 +13,7 @@
 	  </p> 
   <%= render partial: 'shared/idea_options', locals: { :f => f } %>
 
-  <% if false %>
-    <div>       
-      <%= f.check_box :is_public %>
-      <%= f.label :is_public do %>
-        <i class="icon-bullhorn questionMark"></i> everyone in <%= @current_city.name.split(",")[0].to_s.capitalize %>
-      <% end %>
-    </div> 
-    <div>
-      <input id="invite_all_friends" name="invite_all_friends" type="checkbox">
-      <label for="invite_all_friends"> <i class="icon-group questionMark"></i> .invite all my friends</label>
-    </div>
-    <div>
-      <input id="let_me_pic" name="let_me_pick" type="checkbox">
-      <label for="let_me_pic"> <i class="icon-remove questionMark"></i> let me pick</label>
-    </div>
-  <%end %>
-
-	 <%= f.submit 'Post Idea', :class => 'btn btn-large btn-primary', id:"postIdea", method: :post %>
+  <%= f.submit 'Post Idea', :class => 'btn btn-large btn-primary', id:"postIdea", method: :post %>
 
 	  <% end %>
 	</div>

@@ -1,4 +1,4 @@
-<a href="https://twitter.com/share?url=<%= event_url(@event) %>&text=<%= @event.title %> - <%= start_time(@event) %>" 
+<a href="https://twitter.com/share?url=<%= event_url(@event) %>&text=<%= @event.title %> - <%= @event.starts_at.present? ? start_time(@event) : '' %>" 
   class="email_share" 
   target="_blank">
   <span class="twitter_blue"><i class="icon-twitter"></i></span><br>tweet

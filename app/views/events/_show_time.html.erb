@@ -8,16 +8,30 @@
 			<span style=<%= 'width:' + "#{(100*event.guest_count.to_f/event.min.to_f).round}" + "%;"%>><span></span></span>
 		</div>
 	<% end %>
-	<div class="when time" data-event-id="<%= event.id %>">	
-		<div style="float:left;padding: 10px;"><%= event.mini_start_date_time %></div>
-
+	<div class="when one_time clearfix" data-event-id="<%= event.id %>">	
+    <% if event.starts_at.present? && event.starts_at > Time.now %>
+      <div class="date"><%= event_start_time(event) %> <%= date(event) %> ( <%= event.nice_duration %> <% if event.ends_at < Time.now %> - Over <% end %> ) </div>
+      <ul id="calendars">
+        <li>
+        <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(event.title) %>&dates=<%= event.url_starts_at %>/<%= event.url_ends_at %>&details=<%= url_encode(event.description) + " - " + event_url(event) %>&location=<%= url_encode(event.address) %>&trp=true&sprop=www.hoos.in%2Fideas%2F<%= event.id %>&sprop=name:<%= url_encode(event.title) %>" target="_blank" title="Add to Your Google Calendar">
+          <%= image_tag("gcalendar.png", width: '30') %>
+        </a>
+      </li>
+      <% if false %>
+      <li>
+        <%= link_to event, :controller => 'events', :action => :show, :format => :ics do %>
+          <%= image_tag "ical-icon.png", width: '30', title: "Add to Your iCal or Outlook" %>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+    <% end %>
 		<div id="rsvpForm" class="join_group_buttons">
 			<%= render :partial => "events/rsvp_form", :locals => { :event => event } %>
-			<div class="guests <%= !event.tipped? ? 'not_tipped' : '' %>">
-				<span id="guestCount"><%= event.guest_count %></span>
-				<span id="eventMin"><%= !event.tipped? ? "/#{ event.min }" : '' %></span>
-			</div>
 		</div>
-
-</div>
+    <div class="guests <%= !event.tipped? ? 'not_tipped' : '' %>">
+      <span id="guestCount"><%= event.guest_count %></span>
+      <span id="eventMin"><%= !event.tipped? ? "/#{ event.min }" : '' %></span>
+    </div>
+	</div>
 <% end %>

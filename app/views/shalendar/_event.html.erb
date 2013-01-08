@@ -7,6 +7,7 @@
 		<%= current_user.invited?(event) ? 'invited' : '' %>
 		<%= current_user.in?(event) ? 'rsvpd' : '' %>
 		<%= event.one_time? ? 'one_time' : '' %>
+		<%= event.starts_at.present? ? 'one_time' : '' %>
 		<%= current_user == event.user ? 'mine' : '' %>"
 		data-event-id='<%= event.id %>'
 		<%= event.starts_at.present? ? "data-date='#{event.starts_at.to_date}'" : '' %>>
@@ -19,18 +20,6 @@
 	<%= link_to event do %>
 		<div class="shield_top">
 			<div class="event_shield_icons">
-				<% if event.family_friendly? %>
-					<i class="icon-home"></i>
-				<% end %>
-				<% if event.promo_vid.present? %>
-					<i class="icon-video"></i>
-				<% end %>
-				<% if event.min.present? && event.min > 99 %>
-					<i class="icon-cloud"></i>
-				<% end %>
-				<% if event.is_public? %>
-					<i class="icon-bullhorn"></i>
-				<% end %>
 				<span class="status_icon">
 					<% if user_signed_in? %>
 						<% if current_user.in?(event) %>
@@ -40,25 +29,31 @@
 						<% end %>
 					<% end %>
 				</span>
+				<% if event.family_friendly? %>
+					<i class="icon-home"></i>
+				<% end %>
+				<% if event.promo_vid.present? %>
+					<i class="icon-video"></i>
+				<% end %>
+				<% if event.min.present? && event.min > 99 %>
+					<i class="icon-cloud" title="this idea needs a crowd"></i>
+				<% end %>
+				<% if event.is_public? %>
+					<i class="icon-bullhorn"></i>
+				<% end %>
 				<% if event.categories.any? %>
 					<%= event.categories.first.name.capitalize %>
 				<% end %>
 		  </div>
-		  <% if event.one_time? %>
-				<div class="event_time">	
-					<% if params[:action] == 'calendar' %>
-						<span><%= event.start_time_no_date %> (<%= event.nice_duration %>)</span>
-					<% else %>
-						<span><%= event.mini_start_date_time %></span>
-					<% end %>
-				</div>
+			<% if event.has_parent? %>
+				<div class="date"><%= event.mini_start_date_time %></div>
 			<% end %>
 			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
   		<div class="guests"><span id="guestCount"><%= event.guest_count %></span></div>
 		</div>
-
+	<% end %>
+	<%= link_to event do %>
 		<div class="event_blerb">
-			<% if false %><span class="blerb_pic" title="Created by: <%= event.user.name %>"><%= raster_profile_picture(event.user) %></span><% end %>
 			<div class="title"><%= event.title %></div>
 		</div>
 		<% if event.has_image? %>
@@ -66,31 +61,18 @@
 				<%= image_tag event.image(:medium) %>
 			</div>
 		<% end %>
-	<!-- ENDING LINK_TO -->
 	<% end %>
-	<% @relevant_instances = event.instances.reject { |e| current_user.out?(e) || e.over? } %>
+
+	<% if event.one_time? 
+		 	@relevant_instances = [event]
+		 else 
+			@relevant_instances = event.instances.reject { |e| current_user.out?(e) || e.over? } 
+		 end 
+	%>
 	<%= render partial: 'events/time', collection: @relevant_instances, as: :event %>
-	<% if current_user == event.user && !event.one_time? %>
+	<% if current_user == event.user && !event.one_time? && event.is_parent? %>
 		<%= link_to event_new_time_path(event) do %>
 			<div class="add_time fadeInOrange"><i class="icon-time"></i> new time</div>
 		<% end %>
 	<% end %>
 </div>
-
-
-<% if false %>
-			<% if event.user == current_user && event.tipped? == false && event.tipped? == true %>
-				<div class="force_tip">
-					<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true, id:"tipPin" %>
-				</div>
-			<% end %>
-		<% unless event.is_public? %>
-			<% unless event.user == User.find_by_id(event.inviter_id) %>
-				<div class="host">by: <%= event.user.first_name.capitalize %> 
-					<% if event.user.last_name %>
-						<%= event.user.last_name.capitalize%>
-					<% end %> 
-				</div>
-			<% end %>
-		<% end %>
-<% end %>

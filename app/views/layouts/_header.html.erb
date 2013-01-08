@@ -20,7 +20,7 @@
         <%= link_to user_path(current_user) do %>
           <span class="fadeInBlue">
             <%= current_user.events.count %> <i class="icon-cloud"></i> 
-            <span id="headerText">ideas</span>
+            <span id="headerText">mine</span>
           </span>
         <% end %>
       </li>
@@ -77,15 +77,17 @@
     <div class="crust persist-header">
       <div class="new_idea_button"><%= render 'shared/new_idea_button' %></div>
       <div class="instructions">.instructions</div>
+      <% if params[:action] == 'home' %>
       <div class="navigation">
 <!--           <span id="reload"><i class="icon-repeat"></i></span> -->
           <span id="jrIdeas" class="bold">all</span> |
           <span id="jrPlans">.ins</span> |
           <span id="jrFriendsIdeas">.invites</span> | 
-          <span id="jrMine">mine</span> |
+          <% if false %><span id="jrMine">mine</span> |<% end %>
           <span id="jrCityIdeas">city</span> ||
-          <span id="jrCalendar"><i class="icon-calendar"> view</i></span>
+          <span id="jrCalendar"><i class="icon-time"></i> view</span>
       </div>
+      <% end %>
 <!--       <div class="friend_only hide_all" title="Only Show My Plans">
         <span class="fadeInBlue"><i class="icon-ok-sign"></i> <span class="only">only</span>
       </div> -->

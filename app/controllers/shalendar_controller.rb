@@ -3,19 +3,21 @@ class ShalendarController < ApplicationController
 
 	def home
     if user_signed_in?        
-      @city_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND is_public = ? AND city_id = ?', Time.now, true, true, @current_city.id).order('created_at DESC')
-      @invites = current_user.invited_events.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true).order('created_at DESC')
+      @city_ideas = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND is_public = ? AND city_id = ?', Time.now, true, true, @current_city.id).order('created_at DESC')
+      @invites = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
+                .joins(:invitations).where(invitations: {invited_user_id: current_user.id}).order("created_at DESC")
       @ins = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
                   .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).order('created_at DESC')
       @mine = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND user_id = ?', Time.now, true, current_user.id).order('created_at DESC')
       
       @ideas = ( @city_ideas | @ins | @invites | @mine ).reject{|e| current_user.out?(e)}
 
-      @city_times = Event.where('ends_at > ? AND is_public = ? AND city_id = ?', Time.now - 3.days, true, @current_city.id).order('created_at DESC')
-      @invites_times = current_user.invited_events.where('ends_at > ? ', Time.now)
-      @ins_times = Event.where('ends_at > ?', Time.now)
-                  .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).order('created_at DESC')
-      @my_times = Event.where('ends_at > ? AND user_id = ?', Time.now, current_user.id).order('created_at DESC')
+      @city_times = Event.where('ends_at > ? AND is_public = ? AND city_id = ?', Time.now - 3.days, true, @current_city.id).order('starts_at DESC')
+      @invites_times = Event.where('ends_at > ?', Time.now - 3.days)
+                .joins(:invitations).where(invitations: {invited_user_id: current_user.id}).order("starts_at DESC")
+      @ins_times = Event.where('ends_at > ?', Time.now - 3.days)
+                  .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).order('starts_at DESC')
+      @my_times = Event.where('ends_at > ? AND user_id = ?', Time.now - 3.days, current_user.id).order('starts_at DESC')
 
       @times = ( @city_times | @ins_times | @invites_times | @my_times ).reject{|e| current_user.out?(e)}
     else

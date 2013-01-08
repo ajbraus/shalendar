@@ -3,16 +3,24 @@
   <% @invited_users.each do |iu| %>
     <% if !user_signed_in? || current_user.following?(iu) || current_user == iu %>
       <div class="event_show_friend">
-        <%= image_tag("#{invite_raster_picture(iu)}", class: "profile_picture") %>
+        <%= link_to user_path(iu) do %>
+          <%= image_tag("#{invite_raster_picture(iu)}", class: "profile_picture") %>
+        <% end %>
         <div id="friend_name">
-          <%= iu.name %>
+          <%= link_to user_path(iu) do %>
+            <%= iu.name %>
+          <% end %>
         </div>
       </div> 
     <% else %>
       <div class="event_show_friend friend">
-        <%= image_tag("#{invite_raster_picture(iu)}", class: "profile_picture") %>
+        <%= link_to user_path(iu) do %>
+          <%= image_tag("#{invite_raster_picture(iu)}", class: "profile_picture") %>
+        <% end %>
         <div id="friend_name">
-          <%= iu.name %>
+          <%= link_to user_path(iu) do %>
+            <%= iu.name %>
+          <% end %>
         </div>
         <div id="friend_button" style="display:none;">
           <%= render :partial => 'events/follow_form', locals: { :user => iu } %>

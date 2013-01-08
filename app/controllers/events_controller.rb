@@ -73,9 +73,10 @@ class EventsController < ApplicationController
       if params[:event][:one_time] == '0'
         #IF ONGOING EVENT CREATE CHILD INSTANCE
         @instance = @event.instances.build(user_id: current_user.id,
+                                 city_id: @event.city.id,
                                  title: @event.title,
                                  starts_at: @event.starts_at,
-                                 ends_at: @event.starts_at + @event.duration*3600,
+                                 ends_at: @event.ends_at,
                                  duration: @event.duration,
                                  min: @event.min,
                                  max: @event.max,
@@ -87,8 +88,7 @@ class EventsController < ApplicationController
                                  promo_vid: @event.promo_vid,
                                  is_public: @event.is_public,
                                  family_friendly: @event.family_friendly,
-                                 price: @event.price,
-                                 city_id: @event.city.id
+                                 price: @event.price
                               )
         if @instance.save
           @instance.save_shortened_url
@@ -105,13 +105,6 @@ class EventsController < ApplicationController
           @event.starts_at = nil
           @event.ends_at = nil
           @event.duration = nil
-          
-          #SEND NEW TIME EMAIL/PUSH
-          @event.guests.each do |g|
-            unless g == @instance.user
-              g.delay.contact_new_time(@instance)
-            end
-          end
         end # END if instance.save
       end #END if ongoing event create instance
     end # END If starts_at present
@@ -169,11 +162,10 @@ class EventsController < ApplicationController
                            promo_img: @parent.promo_img,
                            promo_url: @parent.promo_url,
                            promo_vid: @parent.promo_vid,
-                           is_public: params[:event][:is_public],
                            family_friendly: @parent.family_friendly,
-                           price: @parent.price,
-                           city_id: current_user.city.id, #users from other cities can poach ideas
-                           guests_can_invite_friends: @parent.guests_can_invite_friends)
+                           price: @parent.params[:event][:price],
+                           city_id: current_user.city.id #users from other cities can poach ideas
+                           )
     
     if params[:invite_me] == '1'
       @event.is_public = true
