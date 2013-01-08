@@ -12,6 +12,9 @@ $.fn.toggleIdeas = (show, hide) ->
 	$('#ideaContainer').masonry('reload');
 	$('.idea_container').masonry('reload');
 	#reload idea containers
+	idea_filter = $(@).text();
+	$('#ideaFilter').text(idea_filter);
+
 
 $.fn.buildCalendar = () ->
 	date = $(@).data('date')
