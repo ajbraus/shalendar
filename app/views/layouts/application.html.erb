@@ -46,11 +46,11 @@
     <span id="invitations"></span>
     <span id="plans"></span>
     <span id="shareAfterRsvp"></span>
+    <div id='feedback'><a href="mailto:info@hoos.in" target="_blank">Report a Problem</a></div>
     <div class="layout" id="content"> 
       <%= yield %>
     </div>
     <%= render 'layouts/footer' %>
-    <div id='feedback'><a href="mailto:info@hoos.in" target="_blank">Report a Problem</a></div>
     <%= yield :scripts %>
     <% if current_user.present? && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
       <script>

@@ -29,8 +29,8 @@ body {
 	}
 	.user_search {
 		position: absolute;
-		bottom: 2px;
-		left: 4px;
+		bottom: 58px;
+		right: -5px;
 		input[type=text] {
 			width: 175px;
 		}
@@ -75,6 +75,11 @@ body {
 	.logo {
 		left:4px;
 		width: 106px;
+		img {
+			width: 120px;
+			margin-top: 2px;
+			margin-left: 3px;
+		}
 	}
 
 	.right_header {
@@ -93,8 +98,8 @@ position: relative;
 	}
 
 	.btn-new-idea {
-padding: 11px 19px;
-top: 94px;
+padding: 6px 10px;
+top: 59px;
 left: 6px;
 -moz-border-radius: 6px;
 -webkit-border-radius: 6px;
@@ -141,11 +146,12 @@ position: absolute;
 top: -8px;
 left: -125px;
 }
-	.dropdown i.icon-caret-down {
-		position: relative;
-		bottom: 10px;
-		color: black;
-	}
+
+.dropdown i.icon-caret-down {
+	position: relative;
+	bottom: 10px;
+	color: black;
+}
 
 	.interests {
 		right: 153px;
@@ -259,9 +265,14 @@ left: -125px;
 	}
 	
 	.navigation {
-position: relative;
-left: 38px;
-top: -21px;
+position: absolute;
+right: 0px;
+top: 56px;
+font-size: 14px;
+	.options {
+		bottom: 10px;
+		position: relative;
+	}
 }
 
 

@@ -124,7 +124,7 @@ p {
 
 a {
   text-decoration: none;
-  color:black;
+  color:#5A5A5A;
   &:hover {
     color: $icon_color;
   }
@@ -535,7 +535,7 @@ text-decoration: none;
 text-shadow: 1px 1px 0px white;
 width: 25px;
 padding: 6px 0;
-bottom: 1px;
+bottom: -1px;
 }
 .btn-user-search:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
@@ -707,7 +707,6 @@ text-align: right;
 }
 
 .navigation {
-  font-size: 16px;
   text-align: center;
   span {
     cursor:pointer;
@@ -858,9 +857,7 @@ position: relative;
 
 /* General dropdown styles */  
 .dropdown {
-  display: inline;
-  position: relative;
-bottom: -15px;
+  display: inline-block;
 img {
   width:30px;
   height:30px;
@@ -869,7 +866,6 @@ img {
 .dropdown dd, .dropdown dt, .dropdown ul { 
 
 position: relative;
-bottom: 16px;
 }
 .dropdown dd { 
   position:relative; 
@@ -889,12 +885,11 @@ bottom: 16px;
 
 /* UL styles */
 .dropdown dd ul {
-text-align: left;
 display: none;
 list-style: none;
 position: absolute;
 width: 194px;
-height: 96px;
+height: 111px;
 z-index: 10;
 padding-top: 11px;
 background-color: white;
@@ -1041,9 +1036,6 @@ border: 1px solid $divider;
 }
   .get_friends {
     float:left;
-}
-form {
-  float:right;
 }
 
 }
@@ -1297,6 +1289,10 @@ position: fixed;
 visibility: hidden;
 z-index: 2;
 width:88%;
+}
+
+.logo {
+  background-color:$background_one;
 }
 
 .floating_logo {
@@ -2149,10 +2145,14 @@ right: 520px;
 
 #feedback {
 position: fixed;
-bottom: 5px;
-left: 43%;
-width: 141px;
+bottom: 50%;
+left: -62px;
+width: 151px;
 z-index: 1000;
+-webkit-transform: rotate(90deg);
+-moz-transform:rotate(90deg);
+-o-transform:rotate(90deg);
+-ms-transform:rotate(90deg);
     a {
 background: #EB8325;
 height: 15px;
@@ -2288,11 +2288,6 @@ margin-right: auto;
 text-align: left;
 }
 
-.logo {
-  img {
-    width: 113px;
-  }
-}
 .show_logo {
   position: relative;
   left: 18px;
@@ -3134,6 +3129,7 @@ margin-top: 10px;
 padding-top: 6px;
 border-top: 1px solid $divider;
 margin-top: 15px;
+width: 100%;
 }
 
 #addLinkp, #addmapp, #addimgp, #addvidp, #addcategoriesp {
@@ -3177,7 +3173,7 @@ box-shadow: 0 0 12px -1px black;
 }
 
 select {
-  width: 80px;
+  width: 130px;
 }
 
 #error_explanation {
@@ -3442,11 +3438,14 @@ float:left;
 clear: left;
   }
   .show_friend {
-    float: right;
+float: right;
 position: relative;
 bottom: 20px;
-right: 20px;
-
+right: 10px;
+width: 240px;
+  form {
+    display: inline;
+  }
   }
   img {
     float:left;
@@ -3957,10 +3956,11 @@ height: 0px;
 }
 
 .instructions {
-position: absolute;
-left: 141px;
-top: 65px;
-font-size: 15px;
+cursor: pointer;
+float: left;
+position: relative;
+top: 17px;
+
 }
 
 .rsvp_btn {
@@ -4238,4 +4238,5 @@ text-align: center;
 
 #eventOptions {
   float: left;
+  width: 100%;
 }

@@ -1,7 +1,7 @@
 <div id="view_search" class="user_search">
 <%= form_tag({:controller => 'shalendar', :action => 'search'}, {id: 'search_form', remote: true }) do %>
   <%= text_field_tag :search, params[:search], id: "user_search_field", placeholder:"Search For Friends", autocomplete: "off" %>
-  <input type="submit" id="btn_user_search" class="fa-input btn-user-search" value="&#xf002;" title="Search for Friends">
+  <input type="submit" id="btn_user_search" class="fa-input btn-user-search" value="&#xf002;">
 <% end %> 
   <div class="fb-icon" id="jrFbIcon">
     <% if session[:access_token] %>
