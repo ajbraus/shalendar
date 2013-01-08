@@ -121,9 +121,8 @@ class Api::V1::TokensController  < ApplicationController
       raise 'Provider #{provider} not handled'
     end
     if resource.nil?
-      if email
-        user = find_for_oauth_by_email(email, fb_info, resource)
-      else 
+      user = find_for_oauth_by_email(email, fb_info, resource)
+      if email.present? && user.nil?
         user = find_for_oauth_by_uid(uid, fb_info, resource)
       end
     else
@@ -189,7 +188,9 @@ class Api::V1::TokensController  < ApplicationController
     else
       email = fb_info["email"]
       name = fb_info["name"]
-      city = fb_info["location"]["name"]
+      if fb_info["location"].present?
+        city = fb_info["location"]["name"]
+      end
       time_zone = "Central Time (US & Canada)"  # timezone_for_utc_offset(access_token.extra.raw_info.timezone)
 
       user = User.new(:email => email, 

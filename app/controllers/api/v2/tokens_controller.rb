@@ -106,9 +106,8 @@ class Api::V2::TokensController  < ApplicationController
       raise 'Provider #{provider} not handled'
     end
     if resource.nil?
-      if email
-        user = find_for_oauth_by_email(email, fb_info, resource)
-      else 
+      user = find_for_oauth_by_email(email, fb_info, resource)
+      if email.present? && user.nil?
         user = find_for_oauth_by_uid(uid, fb_info, resource)
       end
     else
