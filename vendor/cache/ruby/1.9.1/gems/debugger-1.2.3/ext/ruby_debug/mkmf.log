@@ -1,0 +1,139 @@
+have_struct_member: checking for rb_method_entry_t.called_id in method.h... -------------------- yes
+
+"clang -o conftest -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/x86_64-darwin11.4.0 -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1 -I. -I/Users/Fenchel/.rvm/src/ruby-1.9.3-p194 -I/Users/Fenchel/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -g3 -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe conftest.c  -L. -L/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/lib -L/Users/Fenchel/.rvm/usr/lib -L.      -lruby.1.9.1  -lpthread -ldl -lobjc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"clang -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/x86_64-darwin11.4.0 -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1 -I. -I/Users/Fenchel/.rvm/src/ruby-1.9.3-p194 -I/Users/Fenchel/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -g3 -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <method.h>
+4: 
+5: /*top*/
+6: int main() {return 0;}
+7: int s = (char *)&((rb_method_entry_t*)0)->called_id - (char *)0;
+/* end */
+
+--------------------
+
+have_header: checking for vm_core.h... -------------------- yes
+
+"clang -E -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/x86_64-darwin11.4.0 -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1 -I. -I/Users/Fenchel/.rvm/src/ruby-1.9.3-p194 -I/Users/Fenchel/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -g3 -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <vm_core.h>
+/* end */
+
+--------------------
+
+have_header: checking for iseq.h... -------------------- yes
+
+"clang -E -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/x86_64-darwin11.4.0 -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1 -I. -I/Users/Fenchel/.rvm/src/ruby-1.9.3-p194 -I/Users/Fenchel/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -g3 -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <iseq.h>
+/* end */
+
+--------------------
+
+have_header: checking for insns.inc... -------------------- yes
+
+"clang -E -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/x86_64-darwin11.4.0 -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1 -I. -I/Users/Fenchel/.rvm/src/ruby-1.9.3-p194 -I/Users/Fenchel/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -g3 -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <insns.inc>
+/* end */
+
+--------------------
+
+have_header: checking for insns_info.inc... -------------------- yes
+
+"clang -E -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/x86_64-darwin11.4.0 -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1 -I. -I/Users/Fenchel/.rvm/src/ruby-1.9.3-p194 -I/Users/Fenchel/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -g3 -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <insns_info.inc>
+/* end */
+
+--------------------
+
+have_header: checking for eval_intern.h... -------------------- yes
+
+"clang -E -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/x86_64-darwin11.4.0 -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1 -I. -I/Users/Fenchel/.rvm/src/ruby-1.9.3-p194 -I/Users/Fenchel/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -g3 -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <eval_intern.h>
+/* end */
+
+--------------------
+
+have_type: checking for struct iseq_line_info_entry in vm_core.h,iseq.h... -------------------- no
+
+"clang -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/x86_64-darwin11.4.0 -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1 -I. -I/Users/Fenchel/.rvm/src/ruby-1.9.3-p194 -I/Users/Fenchel/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -g3 -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe   -c conftest.c"
+conftest.c:8:17: error: invalid application of 'sizeof' to an incomplete type 'conftest_type' (aka 'struct iseq_line_info_entry')
+int conftestval[sizeof(conftest_type)?1:-1];
+                ^     ~~~~~~~~~~~~~~~
+conftest.c:7:16: note: forward declaration of 'struct iseq_line_info_entry'
+typedef struct iseq_line_info_entry conftest_type;
+               ^
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <vm_core.h>
+4: #include <iseq.h>
+5: 
+6: /*top*/
+7: typedef struct iseq_line_info_entry conftest_type;
+8: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_type: checking for struct iseq_insn_info_entry in vm_core.h,iseq.h... -------------------- yes
+
+"clang -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/x86_64-darwin11.4.0 -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1 -I. -I/Users/Fenchel/.rvm/src/ruby-1.9.3-p194 -I/Users/Fenchel/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -g3 -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <vm_core.h>
+4: #include <iseq.h>
+5: 
+6: /*top*/
+7: typedef struct iseq_insn_info_entry conftest_type;
+8: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+block in <main>: checking for if rb_iseq_compile_with_option was added an argument filepath... -------------------- yes
+
+"clang -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/x86_64-darwin11.4.0 -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/Users/Fenchel/.rvm/rubies/ruby-1.9.3-p194/include/ruby-1.9.1 -I. -I/Users/Fenchel/.rvm/src/ruby-1.9.3-p194 -I/Users/Fenchel/.rvm/usr/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE    -O3 -g3 -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration  -fno-common -pipe   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby.h>
+4: #include "vm_core.h"
+5: extern VALUE rb_iseq_new_main(NODE *node, VALUE filename, VALUE filepath);
+/* end */
+
+--------------------
+
