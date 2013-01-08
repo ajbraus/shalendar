@@ -18,6 +18,10 @@ class RegistrationsController < Devise::RegistrationsController
         ei.destroy
       end
 
+      if User.find_by_email("info@hoos.in").present?
+        @hoosin_user = User.find_by_email("info@hoos.in")
+        resource.friend!(@hoosin_user)
+      end
 
       Category.all.each do |cat|
         Interest.create(user_id: resource.id, category_id: cat.id)

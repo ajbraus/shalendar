@@ -7,5 +7,15 @@ class AddOutToRsvps < ActiveRecord::Migration
     	r.save
     end
 
+    #FRIEND HOOSIN
+    User.all.each do |u|
+    	if User.find_by_email('info@hoos.in').present?
+    		@hoosin_user = User.find_by_email('info@hoos.in')
+    		unless u.following?(@hoosin_user)
+    			u.friend!(@hoosin_user)
+    		end
+    	end
+    end
+
   end
 end

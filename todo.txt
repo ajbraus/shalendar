@@ -1,7 +1,5 @@
 Adam
 
-	add counts to invites and ins in header
-
 -----------------------------------------------------
 digest - two parts: 
 new times (within upcoming 4 days)
