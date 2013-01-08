@@ -8,6 +8,11 @@
   <dd>
     <ul>
       <li class="settings">
+        <%= link_to manage_friends_path do %>
+          <span class="fadeInBlue"><i class='icon-group user_settings'></i>friends</span>
+        <% end %>
+      </li>
+      <li class="settings">
         <%= link_to user_path(current_user) do %>
           <span class="fadeInGreen"><i class='icon-dashboard user_settings'></i>profile</span>
         <% end %>
