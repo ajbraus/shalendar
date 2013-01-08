@@ -32,11 +32,12 @@ $.fn.showCalendar = () ->
 		$('#timesCalendar').fadeIn();
 		$('.idea_container').each ->
 			$(@).buildCalendar();	
-		$('html, body').scrollTop($('#today').offset().top + 40 );
+		$('html, body').scrollTop($('#today').offset().top - 30 );
 	else
 		$('#timesCalendar').hide();
 		$('#ideaContainer').fadeIn();
 		$("#ideaContainer").masonry('reload')
+		$('html, body').scrollTop(0);
 
 $ ->
 	$('#jrIdeas').click ->
