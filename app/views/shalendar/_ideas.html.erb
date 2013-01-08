@@ -4,6 +4,8 @@
 <div id="timesCalendar" style="display:none;">
 	<%= render "shalendar/calendar" %>
 </div>
+<% if params[:action] == "home" %>
 <div id="ideaFilter" class="idea_filter">
 	all
 </div>
+<% end %>
