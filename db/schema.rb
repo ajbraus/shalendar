@@ -194,10 +194,9 @@ ActiveRecord::Schema.define(:version => 20130102205941) do
     t.boolean  "family_friendly",           :default => false
     t.integer  "parent_id"
     t.string   "short_url"
-    t.boolean  "require_payment"
     t.string   "slug"
+    t.boolean  "require_payment"
     t.integer  "city_id"
-    t.boolean  "is_big_idea",               :default => false
     t.string   "description"
     t.boolean  "one_time",                  :default => false
   end
