@@ -1,170 +1,88 @@
-friend buttons are now too big in raster
-City should be by session most of the time, in settings it can be stored in the DB
-
-invite all doesn't invite ppl from different cities- do we want to confirm city switch? it can get confusing if you don't realize you've switched (happened to me)
-
-Event update takes forever in production
-
-(blue circle new idea) is to the right of the number, rather than the left.
-
-Adam todo from 11/12 meeting:
-
-week of 11/12
-	venue dashboard (activity)
-	branded event page
-	payment gateway (not worrying about tipping)
-
-week of 11/19
-	Link + image that venues can embed for hoos.in
-	ticketing solution (just give names for now..)
-
-*** adding facebook after already have an account doesn't seem to work
-** have to double click all buttons with tooltips when from mobile
-
-
-------- Timeline for Ludlow Thieves --------
-
-Nov 14 - Payment Gateway - pay when you rsvp peer-to-peer w invoice at end of month - 
-				 QR code generation
-
-Nov 21 - 
-
-December 1 - Tipping payments 
-
-Dec 1 - Iphone/Android version 2
-				doorman app 
-				QR codes in user apps
-
-Dec 2 - Box office solution
-
-Customer Satisfaction
-	Aaron contact
-
-
-Mike
-------------
-iPhone 
-
-Design coherence
-
-Fix so sending push notifications better than every 10 minutes (after creating, check some counter, then run the task)
-
-GCM push testing
-
-Some guests_can_invite_friends bool are nil, wtf?
-
-Click someone's face to find their friends too
-
-	Auto-scale workers
-
-store and remove old emailInvites and invitations
-
-new follower email link not working
-
-	want to destroy events after they have passed... or at least destroy RSVPs / invitations, to maintain the tables- maybe store on some hard disk somewhere for records
- 
-	iPhone TODO:
-		Settings / Confirm viewers (3)
-		Native/local Register User (4?)
-		Check load delays with broadband
-
-		Make it look like Pinterest
-			Make back arrow.
-			Box shadow on corners of images
-			swipe between days
-			make top and bottom nav bars disappear when you scroll
-		Comments
-		Delete events
-		Suggestions
-
-
-========================================================================
-========================================================================
-========================================================================
-
-hi,
-
-Over the past two months, Mike and I have been listening to your suggestions and now we are proud to say we've released a new version full of enhancements. Here they are:
-
-1) City-Wide Ideas - Post ideas to your whole city! We decided that pretty much anyone has something to share with their city, so you can now choose to post "Public" ideas 
-
-2) Iphone and Andorid apps in app stores -- search 'hoosin'
-
-3) hoos.in? You are! - Your own profile page with your past ideas, and stats. For privacy your upcoming ideas are only visible to invites.
-
-3.5) Custom Background - Now you can have your own custom background for your events and profile. Just click on your face in the upper right hand corner, select "Settings", and upload a large image (at least 1024x640 recommended) to the "Background" field.
-
-4) Better sharing - Share hoosin ideas on twitter, facebook, pinterest, by email and by text (on mobile).
-
-5) New Look - New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.
-
 Adam
+
+-----------------------------------------------------
+digest - two parts: 
+new times (within upcoming 4 days)
+new ideas (without times created at in the last 4 days)
+	rsvp button
+
+
+	switch invites to right and sample idea to left
+
+	can't click on events you are rsvpd to
+
+create a user from mobile
+
+Adding FB to a native login doesn't work smoothly
+
+update digest flow, curation, template
+
+Profile needs major overhaul:
+	find your outs later 
+	my ideas
+	my .ins you are also .invited to
+	my upcoming .ins you were also invited to
+	my past .ins you were also invited to
+	# guests
+	# ins
+	leave a message for the user/chat
+
+	.ics not working
+
+make slug have time in it for new times
+
+fix so that if you close an invalid option in the new idea form it won't let you submit the form. prevent close . . .
+
+put suggested friends as a upper left corner shield in home
+
+add shortener
+
+add change background picture from profile
+
+host can remove invite from parent
+
+social sharing from homescreen
+
+add tipping point and meter to share_after_rsvp
+
+fix event.html to put status icon in lower left and time only when present
+
+fix repeat button - define @parent in controller and display new idea form
+
+add trending friend ideas to digest
+
+upon new time let them change the picture
 
 explore your city - prompt to join - lightbox with video and signup
 
-rsvp prompt to share and add to calendar
-
-crowd idea flow:
-	crowd idea form (use html5 for reading file to image)
-	only lives 60 days
-	after create prompt to share
-
-	email - trending crowd ideas email update every 12 days to all users in a city
-	email - idea not tipped yet 7 more days left!
-	
-	untipped crowd ideas are not included in forecast
-	tipped crowd ideas are included in forecast
-
-	email - crowd idea tipped!
-		if datetime
-			idea added to calendars, all ppl who are in are rsvpd
-		else	
-			set datetime - alert on top bar 1 time
-			set datetime - alert in activity page
-			link to - set datetime
-			show shield like form but only field is datetime
-			responsive
-		end
-
+keep this idea around vs. one time
 
 messaging friends through hoos.in
 
+count how many future instances? display all subsequent events in every event#show
+
+add option to automatically update google calendar
+
 scripts not working
 	invite button not reloading (stack overflow question)
-
 
 	pinterest button failing
 	create email invite walkthrough like new idea
 	add "friend or city-wide idea?"
 	invite all my friends checkbox
 
+#config/application.rb
+config.exceptions_app = self.routes
+#routes
+match "/404", :to => "errors#not_found"
 
------------------------------------------------------
+trending and crowd ideas filter
 
-complete new completely pinterest view
-	move sidebar into header
-	add 'activity' to face dropdown
-	make .in's an ajax dropdown
-	make load of filteres ajax
-	make queries for filters -
-		trending* (city-wide and friend ideas that are rsvping up quick!)
-		friends
-		crowd
-		now
+fucking solve emails!
 
-	update tipping logic
-		if has time
-			send email push and email
-		else
-			send push and email with link to add time to idea
-			show indicator of pitches tipped/untipped with and without time
-			warning email and push that it will expire in 30 days
-			warning email and push that it will expire in 7 days
-	Add time page
+nest and refactor user => idea routes ideas/username/idea-title
 
-rsvp out button
 rsvp url - drive traffic
-rsvp lightbox prompt to share/put on calendar
 
 more beautiful bug page
 
@@ -190,46 +108,26 @@ SDK - follow us on hoos.in "Our events on hoos.in" button and icon
 put this on hoosin button
 	Img, RSVP URL, Title, Description, starts_at, duration
 
-
 implement following . . . too many invites/emails without it
 
-SEAN:
-email images of ppl and ideas
 guest count in emails
 hoos.in? (who is already rsvpd? face-pile)
-Download our iphone and android App link in emails
-crowd ideas digest
-only digest monday thursday
 
-
-facebook feed dialogue
-facebook message dialogue
-linked in share dialogue
-twitter share dialogue
 
 ---------------------------------------------------------------
-
-Adding FB to a native login doesn't work smoothly
-
-need my-plans/my-forecast pages in responsive
 
 signup walkthrough
 
 ---------------------------------------------------------------
 
-find all FB friends by button so that ppl can connect with friends not in their city
-rsvp ajax
-rsvp lightbox -- add to calendar, share with facebook twitter linkedin etc
 ticket/rsvp link
 
-rsvp out/in
 Rsvp - checked_in? boolean with mobile api to check in.
 
 ---------------------------------------------------------------
 
 	hovering putting a box around idea shields
 
-.interests select adventure category not working
 ------------------------------------------------------------------------
 
 Suggested friends
@@ -245,7 +143,6 @@ Suggested friends
 	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
 
 ----------------------------------------------------------
-
 
 marketplace payments
 yellow book
@@ -267,11 +164,6 @@ check in
 
 ------------------------------------------------------------
 
-add hashtag to event and show instagram pictures
-
-private idea
-
-put footer stuff into hoosin icon dropdown
 
 ssl
 
@@ -385,6 +277,15 @@ User has_many CreditCards
 delete user deletes credit cards and bank account with balanced
 no account on the debit, and no description -- should be hoos.in - event.date event.title
 add qr tag to reciept create a qr code per rsvp\
+
+        if @event.require_payment? && current_user.credit_card_uri.nil?
+          redirect_to confirm_payment_path(@event)
+        elsif @event.require_payment? && !current_user.credit_card_uri.nil?
+          current_user.debit!(@event.price)
+          current_user.rsvp!(@event)
+        else
+          current_user.rsvp!(@event)       
+        end
 
 	second payment
 		user tries to rsvp again
@@ -713,3 +614,104 @@ NYC-inspired daily routine
 	e.g. lunchtime email to gather ideas, 3pm to spread ideas, 6pm to tip
 
 ---------------------------------------------------
+
+
+friend buttons are now too big in raster
+City should be by session most of the time, in settings it can be stored in the DB
+
+invite all doesn't invite ppl from different cities- do we want to confirm city switch? it can get confusing if you don't realize you've switched (happened to me)
+
+Event update takes forever in production
+
+(blue circle new idea) is to the right of the number, rather than the left.
+
+Adam todo from 11/12 meeting:
+
+week of 11/12
+	venue dashboard (activity)
+	branded event page
+	payment gateway (not worrying about tipping)
+
+week of 11/19
+	Link + image that venues can embed for hoos.in
+	ticketing solution (just give names for now..)
+
+*** adding facebook after already have an account doesn't seem to work
+** have to double click all buttons with tooltips when from mobile
+
+
+------- Timeline for Ludlow Thieves --------
+
+Nov 14 - Payment Gateway - pay when you rsvp peer-to-peer w invoice at end of month - 
+				 QR code generation
+
+Nov 21 - 
+
+December 1 - Tipping payments 
+
+Dec 1 - Iphone/Android version 2
+				doorman app 
+				QR codes in user apps
+
+Dec 2 - Box office solution
+
+Customer Satisfaction
+	Aaron contact
+
+
+Mike
+------------
+iPhone 
+
+Design coherence
+
+Fix so sending push notifications better than every 10 minutes (after creating, check some counter, then run the task)
+
+GCM push testing
+
+Some guests_can_invite_friends bool are nil, wtf?
+
+Click someone's face to find their friends too
+
+	Auto-scale workers
+
+store and remove old emailInvites and invitations
+
+new follower email link not working
+
+	want to destroy events after they have passed... or at least destroy RSVPs / invitations, to maintain the tables- maybe store on some hard disk somewhere for records
+ 
+	iPhone TODO:
+		Settings / Confirm viewers (3)
+		Native/local Register User (4?)
+		Check load delays with broadband
+
+		Make it look like Pinterest
+			Make back arrow.
+			Box shadow on corners of images
+			swipe between days
+			make top and bottom nav bars disappear when you scroll
+		Comments
+		Delete events
+		Suggestions
+
+
+========================================================================
+========================================================================
+========================================================================
+
+hi,
+
+Over the past two months, Mike and I have been listening to your suggestions and now we are proud to say we've released a new version full of enhancements. Here they are:
+
+1) City-Wide Ideas - Post ideas to your whole city! We decided that pretty much anyone has something to share with their city, so you can now choose to post "Public" ideas 
+
+2) Iphone and Andorid apps in app stores -- search 'hoosin'
+
+3) hoos.in? You are! - Your own profile page with your past ideas, and stats. For privacy your upcoming ideas are only visible to invites.
+
+3.5) Custom Background - Now you can have your own custom background for your events and profile. Just click on your face in the upper right hand corner, select "Settings", and upload a large image (at least 1024x640 recommended) to the "Background" field.
+
+4) Better sharing - Share hoosin ideas on twitter, facebook, pinterest, by email and by text (on mobile).
+
+5) New Look - New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.

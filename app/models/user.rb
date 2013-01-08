@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
   has_many :events, :dependent => :destroy
 
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
-  has_many :plans, through: :rsvps
+  has_many :plans, through: :rsvps, :conditions => ['inout = ?', 1]
 
   has_many :invitations, foreign_key: "invited_user_id", dependent: :destroy
   has_many :invited_events, through: :invitations
@@ -187,33 +187,70 @@ class User < ActiveRecord::Base
     end
   end
 
-
   def rsvpd?(event)
-    if(rsvps.find_by_plan_id(event.id))
+    @rsvp = rsvps.find_by_plan_id(event.id)
+    if @rsvp.present?
       return true
     else
       return false
     end
   end
 
-  def rsvp!(event)
+  def in?(event)
+    @rsvp = self.rsvps.find_by_plan_id(event.id)
+    return @rsvp.present? && @rsvp.inout == 1
+  end
+
+  def out?(event)
+    @rsvp = rsvps.find_by_plan_id(event.id)
+    if @rsvp.present? && @rsvp.inout == 0
+      return true
+    elsif event.parent.present?
+      @rsvp = rsvps.find_by_plan_id(event.parent.id)
+      if @rsvp.present? && @rsvp.inout == 0
+        return true
+      end
+    else
+      return false
+    end
+  end
+
+  def rsvp_in!(event)
     if event.full?
       return flash[:notice] = "The event is currently full."
     else
-      rsvps.create!(plan_id: event.id)
+      if event.rsvps.where(guest_id: self.id).any?
+        @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
+        @existing_rsvp.destroy
+      end
+      rsvps.create!(plan_id: event.id, inout: 1)
     end
   end
 
-  def unrsvp!(event)
-    if event.guests.count == event.min #not letting it untip anymore
+  def rsvp_out!(event)
+    if event.guest_count == event.min #not letting it untip anymore
       #Warning: this will un-tip the event for everyone, are you sure?
     end
-    rsvps.find_by_plan_id(event.id).destroy
+    if event.rsvps.where(guest_id: self.id).any?
+      @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
+      @existing_rsvp.destroy
+    end
+    rsvps.create!(plan_id: event.id, inout: 0)
   end
 
-  def current_user?(user)
-    user == current_user
-  end
+  #get user's profile picture
+  def profile_picture_url
+    if self.authentications.where(:provider == "Facebook").any?
+      "#{user.authentications.find_by_provider("Facebook").pic_url}"
+    else
+      if self.avatar.url.nil?
+        "https://s3.amazonaws.com/hoosin-production/user/avatars/raster/default_profile_pic.png"
+      else
+        self.avatar.url(:raster)
+      end
+    end
+  end 
+
 
   #Relationship methods
   def following?(other_user)
@@ -252,6 +289,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  def is_friends_with?(other_user)
+    @follow = self.reverse_relationships.find_by_follower_id(other_user.id)  #both relationships exist and are confirmed
+    @follow_back = other_user.reverse_relationships.find_by_follower_id(self.id)
+    if @follow.present? && @follow.confirmed? && @follow_back.present? && @follow_back.confirmed?
+      return true
+    end
+    return false
+  end
+
   def friend!(other_user)
     if other_user.require_confirm_follow? && other_user.following?(self) == false #autoconfirm if already following us 
       self.follow!(other_user)
@@ -287,7 +333,7 @@ class User < ActiveRecord::Base
   def add_invitations_from_user(other_user)
     other_user.rsvps.each do |r|
       if r.invite_all_friends?
-        unless self.invited?(r.plan) || r.plan.starts_at < (Time.now - 3.days)
+        unless self.invited?(r.plan) || (r.plan.starts_at.present? && r.plan.starts_at < (Time.now - 3.days))
           other_user.invite!(r.plan, self)
         end
       end
@@ -319,6 +365,14 @@ class User < ActiveRecord::Base
     invitations.where('invitations.invited_event_id = :eventid', eventid: event.id).any?
   end
 
+#TODO
+  def invited_to_instance?(event)
+    event.instances.invitations.where()
+  end
+
+  def friend_is_invited?(event)
+  end
+
   def invited_to_an_events_group?(parent_event)
     if parent_event.groups.any?
       parent_event.groups.each do |child|
@@ -343,7 +397,7 @@ class User < ActiveRecord::Base
 
 
   def invited_all_friends?(event)
-    if self.rsvpd?(event)
+    if self.in?(event)
       if self.rsvps.find_by_plan_id(event.id).invite_all_friends?
         return true
       end
@@ -360,7 +414,7 @@ class User < ActiveRecord::Base
         end
       end
     end
-    if self.rsvpd?(event)
+    if self.in?(event)
       r = self.rsvps.find_by_plan_id(event.id)
       r.invite_all_friends = true
       r.save
@@ -392,7 +446,6 @@ class User < ActiveRecord::Base
   end
 
   def events_on_date(load_datetime)
-    Time.zone = self.city.timezone
     @time_range = load_datetime.midnight .. load_datetime.midnight + 1.day - 1.second
     #CATEGORY TODO
     @toggled_category_ids = []
@@ -420,7 +473,6 @@ class User < ActiveRecord::Base
     @invited_events_on_date.each do |ie|
       ie.inviter_id = ie.invitations.find_by_invited_user_id(self.id).inviter_id
     end
-    Time.zone = self.city.timezone
     return @invited_events_on_date | @plans_on_date | @interest_events_on_date
   end
 
@@ -514,6 +566,41 @@ class User < ActiveRecord::Base
       unless @user == User.find_by_email("info@hoos.in")
         Notifier.rsvp_reminder(@event, @user)
       end
+    end
+  end
+
+  def contact_new_time(event)
+    @user = self
+    @event = event
+    @event_link = event_url(@event)
+
+    if @user.iPhone_user?
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "#{@event.user.first_name} set a time for #{@event.title} - #{@event.start_time}!"
+        n.badge = 1
+        n.sound = true
+        n.custom_properties = {:type => "time_change", :event => "#{@event.id}"}
+        n.save
+      end
+    elsif @user.android_user?
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "#{@event.user.first_name} set a time for #{@event.title} - #{@event.start_time}!"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{event.title} new time!"}}
+        n.save
+      end
+    else
+      Notifier.new_time(@event, @user)
     end
   end
 
@@ -764,40 +851,71 @@ class User < ActiveRecord::Base
     end
   end
 
+  def contact_new_rsvp(event)
+    @rsvping_user = self
+    @user = event.user
+    if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "New .in - #{@rsvping_user.name} for #{@event.title}"
+        n.badge = 1
+        n.sound = true
+        n.custom_properties = {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}
+        n.save
+      end
+    elsif(@user.android_user == true)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "New .in - #{@rsvping_user.name} for #{@event.title}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}}
+        n.save
+      end
+    else
+      Notifier.new_rsvp(@user, @rsvping_user)
+    end
+  end
+
   # Class Methods
   def self.digest
     @day = Date.today.days_to_week_start
-    if @day == 0 || @day == 2 || @day == 4
+    if @day == 0 || @day == 4
       @digest_users = User.where("users.digest = 'true'")
       @digest_users.each do |u|
         time_range = Time.now.midnight .. Time.now.midnight + 3.days
-        if u.events.where(starts_at: time_range).any?
+        if u.plans.where(starts_at: time_range).any?
           @upcoming_events = []
-          (0..2).each do |day|
-            @date = Date.today + day.days
+          (0..3).each do |day|
+            @date = Time.now.midnight.to_date + day.days
             @events = u.events_on_date(@date)
             @upcoming_events.push(@events)
           end
-          Notifier.delay.digest(u, @upcoming_events)
-        else
-          @user_invitations = u.invitations.find(:all, order: 'created_at desc')
-          if @user_invitations.any?
-            @new_events = []
-            @user_invitations.each do |ui|
-              e = Event.find_by_id(ui.invited_event_id)
-              if e.starts_at.between?(Time.now.midnight, Time.now.midnight + 3.days)
-                @new_events.push(e)
-              end
+        end
+        @user_invitations = u.invitations.order('created_at desc')
+        if @user_invitations.any?
+          @new_events = []
+          @user_invitations.each do |ui|
+            e = Event.find_by_id(ui.invited_event_id)
+            if e.starts_at.between?(Time.now.midnight, Time.now.midnight + 3.days) && !u.out?(e)
+              @new_events.push(e)
             end
-            if @new_events.any?
-              @upcoming_events = []
-              (0..2).each do |day|
-                @date = Date.today + day.days
-                @events = u.events_on_date(@date)
-                @upcoming_events.push(@events)
-              end
-              Notifier.delay.digest(u, @upcoming_events)
+          end
+          if @new_events.any?
+            @invited_events = []
+            (0..3).each do |day|
+              @date = Time.now.midnight.to_date + day.days
+              @events = u.events_on_date(@date)
+              @invited_events.push(@events)
             end
+            Notifier.delay.digest(u, @invited_events, @upcoming_events)
           end
         end
       end
@@ -898,6 +1016,27 @@ class User < ActiveRecord::Base
   def fb_authentication
     @auth = authentications.where("provider = ?", "Facebook").last
     return @auth
+  end
+
+  # def relevant_invites
+  #   @invites = []
+  #   @invitations = self.invitations.order('created_at desc')
+  #   @invitations.each do |i|
+  #     e = Event.find_by_id(i.invited_event_id)
+  #     unless self == e.user || e.over?
+  #       e.inviter_id = i.inviter_id
+  #     end
+  #     @invites.push(e) unless self.out?(e) || e.over?
+  #   end
+  #   return @invites
+  # end
+
+  def invited_all_friends(event)
+    @rsvp = event.rsvps.find(:guest_id => self.id)
+    if @rsvp.invite_all_friends?
+      return true
+    end
+    return false
   end
 
   # CONTACT FOR INVITATION

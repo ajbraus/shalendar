@@ -1,51 +1,99 @@
 class ShalendarController < ApplicationController
-  before_filter :authenticate_user!, except: [ :vendor_splash, :home, :crowd_ideas, :what_is_hoosin ]
+  before_filter :authenticate_user!, except: [ :home ]
 
 	def home
-    if user_signed_in?
-      @plan_counts = []
-      @invite_counts = []
-      @city = current_user.city
-      @time_in_zone = Time.now.in_time_zone(current_user.city.timezone)
-  		@date = @time_in_zone.to_date
-      @events = current_user.forecast(@time_in_zone)
-      @my_plans = current_user.plans.where('ends_at > ?', @time_in_zone).order('starts_at asc')
-      if current_user.authentications.find_by_provider("Facebook").present?
-        @graph = session[:graph] 
-      else 
-        session[:graph] = nil
-      end
-      if @graph
-        @member_friends = current_user.fb_friends(@graph)[0]
-      end
+    if user_signed_in?        
+      @city_ideas = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND is_public = ? AND city_id = ?', Time.now, true, true, @current_city.id).order('created_at DESC')
+      @invites = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
+                .joins(:invitations).where(invitations: {invited_user_id: current_user.id}).order("created_at DESC")
+      @ins = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
+                  .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).order('created_at DESC')
+      @mine = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND user_id = ?', Time.now, true, current_user.id).order('created_at DESC')
+      
+      @ideas = ( @city_ideas | @ins | @invites | @mine ).reject{|e| current_user.out?(e)}
+
+      @city_times = Event.where('ends_at > ? AND is_public = ? AND city_id = ?', Time.now - 3.days, true, @current_city.id).order('starts_at DESC')
+      @invites_times = Event.where('ends_at > ?', Time.now - 3.days)
+                .joins(:invitations).where(invitations: {invited_user_id: current_user.id}).order("starts_at DESC")
+      @ins_times = Event.where('ends_at > ?', Time.now - 3.days)
+                  .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).order('starts_at DESC')
+      @my_times = Event.where('ends_at > ? AND user_id = ?', Time.now - 3.days, current_user.id).order('starts_at DESC')
+
+      @times = ( @city_times | @ins_times | @invites_times | @my_times ).reject{|e| current_user.out?(e)}
     else
-      if params[:city].present?
-        @city = City.find_by_name(params[:city])
-      else
-        @city = City.find_by_name("Madison, Wisconsin")
-      end
-
-      @time_in_zone = Time.now.in_time_zone(@city.timezone)
-
-      @events = Event.public_forecast(@time_in_zone, @city, session[:toggled_categories])
+      #if not signed in display city ideas
+      @ideas = Event.where('ends_at = ? OR (ends_at > ? AND one_time = ?) AND is_public = ? AND city_id = ?', nil, Time.now, true, true, @current_city.id).order('created_at DESC')
+      @times =  Event.where('ends_at > ? AND is_public = ? AND city_id = ?', Time.now - 3.days, true, @current_city.id).order('created_at DESC')
     end 
     # Beginning of Yellow Pages
-    #@vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
+    #@vendors = User.where('city = :current_city and vendor = true', current_city: @current_city)
 	end
 
+  def calendar
+    if user_signed_in?
+      @city_times = Event.where('ends_at > ? AND is_public = ? AND city_id = ?', Time.now - 3.days, true, @current_city.id).order('created_at DESC')
+      @invites = current_user.invited_events.where('ends_at > ? ', Time.now)
+      @ins = Event.where('ends_at > ?', Time.now)
+                  .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).order('created_at DESC')
+      @mine = Event.where('ends_at > ? AND user_id = ?', Time.now, current_user.id).order('created_at DESC')
+      @times = ( @city_times | @ins | @invites | @mine ).reject{|e| current_user.out?(e)}
+    else
+      @times =  Event.where('ends_at > ? AND is_public = ? AND city_id = ?', Time.now - 3.days, true, @current_city.id).order('created_at DESC')
+    end
+  end
+
+  #HEADER 
+  
+  def new_invited_events
+    @invites = current_user.relevant_invites
+    current_user.new_invited_events_count = 0
+    current_user.save
+    respond_to do |format|
+      format.js 
+    end
+  end
+
+  def plans
+    @ideas = current_user.plans.where('ends_at > ?', Time.now).order('starts_at asc')
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def ins
+    @ideas = current_user.plans
+  end
+
+  def friends_ideas
+    @ideas = current_user.relevant_invites
+  end
+
+  def city_ideas
+    #@ideas = @current_city.events.select { |e| e.is_public? && e.is_next_instance? }.shuffle
+    # @ideas = Event.where(starts_at: @time_range, is_public: true, city_id: @current_city.id).joins(:rsvps).where(rsvps: {'NOT (guest_id = ? AND inout = ?)', current_user.id, 1}).order("starts_at ASC"))
+
+    #or .sort_by{|i| -i.guest_count}
+  end
+
+  def my_ideas
+    #SHOWS MY IDEAS WITH NO TIMES OR NEXT FUTURE INSTANCE BY ORDER OF CREATED AT
+    @ideas = current_user.events.order('created_at desc').select { |e| e.is_next_instance? }
+  end
+
+
+
 	def manage_friends
-		@graph = session[:graph]
-		@friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
+		@friendships = current_user.reverse_relationships.select { |r| current_user.is_friends_with?(User.find_by_id(r.follower_id)) } #reverse_relationships.where('relationships.confirmed = true')
     @vendor_friendships = current_user.vendor_friendships
     @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
     @my_plans = current_user.plans.where('ends_at > ?', Time.now).order('starts_at asc')
-    if @graph
+    if @graph.present?
       @member_friends = current_user.fb_friends(@graph)[0]
       @friend_suggestions = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.shuffle.first(5)
     end
-    
     #Beginning of Yellow Pages
-    #@vendors = User.where('city = :current_city and vendor = true', current_city: current_user.city)
+    #@vendors = User.where('city = :current_city and vendor = true', current_city: @current_city)
     if params[:search]
       @users = User.search params[:search]
       respond_to do |f|
@@ -98,14 +146,8 @@ class ShalendarController < ApplicationController
           current_user.friend!(mf)
       end
     end
-    @plan_counts = []
-    @invite_counts = []
-    @date = Time.now.to_date #in_time_zone("Central Time (US & Canada)")
-    @forecastevents = current_user.forecast(Time.now, @plan_counts, @invite_counts)
-    @event_suggestions = Suggestion.event_suggestions(current_user)
     @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false')
-    @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')
-    @vendor_friendships = current_user.vendor_friendships   
+    @friendships = current_user.reverse_relationships.where('relationships.confirmed = true')  
 
     respond_to do |format|
       format.html { redirect_to root_path, notice: "you are now friends with your Facebook friends who are .in"}
@@ -116,57 +158,26 @@ class ShalendarController < ApplicationController
   def crowd_ideas
     if user_signed_in?
       @my_plans = current_user.plans.where('starts_at > ?', @date).order('starts_at desc')
-      @city = current_user.city
-    end
-    if params[:city].present? || @city.nil?
-        @city = City.find_by_name(params[:city])
-    else
-      @city = City.find_by_name("Madison, Wisconsin")
-    end
-
-    @time_in_zone = Time.now
-    @date = @time_in_zone.to_date
-    if user_signed_in?
 
       # Example from SO: Tag.joins(:taggings).select('tags.*, count(tag_id) as "tag_count"').group(:tag_id).order(' tag_count desc')
       #Attempt at real AR / SQL query - will be faster if we have lots of crowd ideas
-      # @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, current_user.city.id, Time.now)
+      # @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, @current_city.id, Time.now)
       #           .joins(:rsvps).select('events.*, count(plan_id) as "plan_count"').group(:plan_id).order(' plan_count desc')
-      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, current_user.city.id, Time.now).sort_by{ |i| -i.guests.count}
-      #@ideas.sort_by { |i| -i.guests.count }
+      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, @current_city.id, Time.now).sort_by{ |i| -i.guest_count}
+      #@ideas.sort_by { |i| -i.guest_count }
     elsif session[:city]
-      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name(session[:city]).id, Time.now).sort_by{ |i| -i.guests.count}
+      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name(session[:city]).id, Time.now).sort_by{ |i| -i.guest_count}
     else
-      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name("Madison, Wisconsin").id, Time.now).sort_by{ |i| -i.guests.count}
+      @ideas = Event.where('is_big_idea = ? AND city_id = ? AND starts_at > ?', true, City.find_by_name("Madison, Wisconsin").id, Time.now).sort_by{ |i| -i.guest_count}
     end
   end
 
   def yellow_pages
-    @venues = User.where('city = ? AND vendor = ?', current_user.city, true)
+    @venues = User.where('city = ? AND vendor = ?', @current_city, true)
   end
 
   def search
     @users = User.search(params[:search]).limit(5)
-    respond_to do |format|
-      format.js 
-    end
-  end
-
-  def new_invited_events
-    #@next_plan = current_user.plans.where("starts_at > ? and tipped = ?", Time.now, true).order("starts_at desc").last
-    @time_in_zone = Time.now
-    @new_invitations = current_user.invitations.order('created_at desc').limit(20)
-    @new_invited_events = []
-    @new_invitations.each do |i|
-      e = Event.find_by_id(i.invited_event_id)
-      unless current_user == e.user && e.ends_at < Time.now
-        e.inviter_id = i.inviter_id
-      end
-      @new_invited_events.push(e)
-    end
-    @new_events = @new_invited_events.reject { |event| event.ends_at < Time.now }
-    current_user.new_invited_events_count = 0
-    current_user.save
     respond_to do |format|
       format.js 
     end

@@ -21,7 +21,7 @@ describe "Users" do
       click_on "Join"
     end
 
-    it "should have 'Flake Out'" do
+    it "should have 'Out'" do
       page.should have_selector('.unrsvp_button')
       page.should_not have_selector('.btn-rsvp')
     end
@@ -29,9 +29,9 @@ describe "Users" do
 
   describe "flaking from an idea" do
     before do 
-      user.rsvp!(event)
+      user.rsvp_in!(event)
       visit event_path(event)
-      click_on "Flake Out"
+      click_on "Out"
     end
 
     it "should have element 'Join'" do

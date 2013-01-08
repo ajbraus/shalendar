@@ -3,20 +3,58 @@ class RsvpsController < ApplicationController
 
   def create
     @event = Event.find(params[:rsvp][:plan_id])
-    current_user.rsvp!(@event)
-    if @event.guests.count == @event.min && @event.tipped? == false
-      @event.tip!
+    if params[:rsvp][:inout].to_f == 1
+      current_user.rsvp_in!(@event)
+    elsif params[:rsvp][:inout].to_f == 0
+      current_user.rsvp_out!(@event)
     end
 
-    respond_to do |format|
-      format.html { redirect_to @event }
-      format.js
+    if @event.min.present?
+      if @event.guest_count == @event.min && @event.tipped? == false
+        @event.tip!
+      end
+    end
+
+    if @event.has_parent?
+      current_user.rsvp_in!(@event.parent)
+    end
+    
+    if params[:rsvp][:inout].to_f == 1
+      current_user.delay.contact_new_rsvp(@event)
+
+      #SHOW FRIENDS TO INVITE IN LIGHTBOX
+      #@friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event)}
+      #if a user is 'everywhere else' then we don't silo their invitations...
+      #@friends = @friends.reject { |f| f.city != @current_city }
+      if @event.has_parent?
+        respond_to do |format|
+          format.html { redirect_to @event.parent }
+          format.js { render template: "rsvps/in" }
+        end
+      else 
+        respond_to do |format|
+          format.html { redirect_to @event }
+          format.js { render template: "rsvps/in" }
+        end
+      end
+    elsif params[:rsvp][:inout].to_f == 0
+      if @event.has_parent?
+        respond_to do |format|
+          format.html { redirect_to @event.parent }
+          format.js { render template: "rsvps/out" }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to @event }
+          format.js { render template: "rsvps/out" }
+        end
+      end
     end
   end
 
   def destroy
-    @event = Rsvp.find(params[:id]).plan
-    current_user.unrsvp!(@event)
+    @rsvp = Rsvp.find(params[:id])
+    @rsvp.destroy
 
     respond_to do |format|
       format.html { redirect_to @event }

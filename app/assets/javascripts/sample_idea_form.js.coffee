@@ -1,4 +1,8 @@
-$ ->
+# $.fn.doNotSubmitErrors = (e) ->
+# 	if $('input').hasClass('error')
+# 		e.stopPropagation();
+
+
 	#TOGGLING
 	# $.fn.slideUpslideDown = (el) ->
 	# 	if el.hasClass("open")
@@ -10,6 +14,10 @@ $ ->
 	# 		el.slideDown();
 	# 		el.addClass("open");
 	# 		el.css("color", "#EB8325")
+
+$ ->
+	# $('#postIdea').click ->
+	# 	$(@).doNotSubmitErrors();
 
 	#TITLES
 	$('#new_idea_title').keyup ->
@@ -31,10 +39,27 @@ $ ->
 		description = $(@).val();
 		$('#eventDescription').text(description);
 
+	#ADD TIME AND TIPPING POINT
+	# $('#knowTime').click ->
+		# $('#addDateTime').fadeToggle();
+		# $('#addtipping').fadeToggle();
+		#$('#dateTime').fadeToggle();
+		#$('#addtippingp').fadeToggle();
+	$("#addDateTime").click ->
+		$('#dateTime').slideToggle();
+
 	#STARTS AT
-	$('.starts_at').blur ->
+	$('#datetime').blur ->
 		datetime = $(@).val();
-		$('.eventStartsAt').text(datetime);
+		if datetime.length > 1
+			$('.eventStartsAt').text(datetime);
+			$('.event_time').fadeIn();
+		else
+			$('.event_time').fadeOut();
+			$('.eventStartsAt').text('');
+			$('#event_duration').val('');
+			$('.eventDuration').text('');
+
 	#DURATION
 	$('#event_duration').keyup ->
 		duration = $(@).val();
@@ -65,10 +90,12 @@ $ ->
 			proportion = 100*1/min
 			$('.meter').addClass("animate orange");
 			$('.meter > span').css('width', "#{proportion}%");
+			$('.guests').addClass("not_tipped");
 		if min < 2
 			$('#eventMin').empty();
 			$('.meter').removeClass("animate orange");
 			$('.meter >span').css('width', '100%');
+			$('.guests').removeClass("not_tipped");
 		if min > 99
 			$('.eventIsBigIdea').show();
 		if min < 99
@@ -99,8 +126,12 @@ $ ->
 		if $('#event_promo_url').val().length > 0
 			pic_url = $('#event_promo_url').val();
 			img = "<img src=#{ pic_url } />"
+			$('#eventImage').hide();
+			$('#eventPromoImg').hide();
 			$('#eventImage').html(img);
 			$('#eventPromoImg').html(img);
+			$('#eventImage').fadeIn();
+			$('#eventPromoImg').fadeIn();
 		if $('#event_promo_url').val().length < 1
 			$('#eventImage').empty();
 			$('#eventPromoImg').empty();

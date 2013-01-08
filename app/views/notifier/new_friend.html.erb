@@ -1,3 +1,8 @@
 <td style="padding:20px 0 0 60px">
-	<span style="font-size:18px;"><%= @follower.name %></span> is now your friend on hoos.in.
+	<table>
+		<tr>
+			<td><img src="<%= @image_url %>" style="border-radius: 6px; margin-right: 5px;" /></td>
+			<td style="font-size:18px;"><strong><%= @follower.name %></strong> is now your friend on hoos.in.</td>
+		</tr>
+	</table>
 </td>

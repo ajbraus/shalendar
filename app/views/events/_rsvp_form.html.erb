@@ -1,65 +1,63 @@
 <% if !user_signed_in? %>
-	<% if @event.full? %>
+	<% if event.full? %>
 		(Idea full)
-	<% elsif @event.ends_at < Time.now %>
+	<% elsif event.ends_at.present? && event.ends_at > Time.now %>
 	<% else %>
-		<% if @event.is_public? %>
-			<div class="group_button">
-				<%= link_to new_user_session_path(:event => @event.id), class:"btn btn-success rsvp_button", title:"log.in to join.in this city-wide idea" do %>
-					<i class="icon-copy"></i> Make a Group
-				<% end %>
-			</div>
-		<% end %>
 		<div class="rsvp_btn">
-			<%= link_to "join.in", new_user_session_path(:event => @event.id), class:"btn btn-rsvp rsvp_button", title: "log.in to join.in this idea" %>
+			<%= link_to ".in", new_user_session_path(:event => event.id), class:"btn btn-rsvp rsvp_button", title: "log.in to join.in this idea" %>
+			<%= link_to "out", new_user_session_path(:event => event.id), class:"btn rsvp_button btn_stop_viewing ursvp_button", title: "log.in to opt out of this idea" %>
 		</div>
 	<% end %>
-<% else %>
-	<% unless current_user.vendor? %>
-		<% if current_user.rsvpd?(@event) %>
-			<div id="inButton">
-				<div id="in" class="btn btn-rsvp rsvp_button"><i class="icon-ok-circle"></i> .in</div>
-				<div id="flakeOut" style="display:none">
-					<%= form_for(current_user.rsvps.find_by_plan_id(@event),
-				           html: { method: :delete }) do |f| %>
-					  <%= f.submit "Flake Out", class: "btn rsvp_button btn_stop_viewing ursvp_button", confirm: "Are you sure you can't make it?", id:"unRsvp" %>
-					<% end %>
-				</div>
-			</div>
-		<% elsif @event.full? %>
-			(Idea full)
-		<% elsif @event.ends_at < Time.now %>
-
-		<% else %>
-			<% if @event.is_public?%>
-				<div class="group_button">
-				<% if current_user.made_a_group?(@event) %>
-		 			<%= link_to event_path(@event.groups.where(:user_id => current_user.id)[0]), class:"btn btn-success rsvp_button" do %>
-							<i class="icon-upload-alt"></i> Your Group
-					<% end %>
-				<% else %>
-					<%= link_to make_a_group_path(:event_id => @event.id), id:"makeAGroup", class:"btn btn-success rsvp_button fancybox.ajax", remote: true, title:"Make a Group for this City-Wide Idea" do %>
-						<i class="icon-copy"></i> Make a Group
-					<% end %>
-				<% end %>
-				</div>
+<% else %> 	<!-- USER IS SIGNED IN -->
+	<% unless current_user.vendor? %> <!-- USER IS NOT A VENDOR -->
+		<% if !current_user.rsvpd?(event) %> <!-- USER IS NOT RSVPD -->
+			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
+			  <%= f.hidden_field :plan_id %>
+			  <%= f.hidden_field :inout, value: "1" %>
+			  <%= f.submit "#{event.is_parent? ? '.into' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
 			<% end %>
-			<% unless current_user.made_a_group?(@event) %>
+			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
+			  <%= f.hidden_field :plan_id %>
+			  <%= f.hidden_field :inout, value: "0" %>
+			  <%= f.submit "#{event.is_parent? ? 'nah' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
+			<% end %>
+		<% elsif current_user.in?(event) %> <!-- IF RSVPED SHOW IN BUTTON AND TOGGLE OUT-->
+			<span id="inButton">
+				<i class="icon-ok-sign blue" title="you're .in"></i> you're .in
+				<div id="flakeOut">
+					<%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
+		  			<%= f.hidden_field :plan_id %>
+		  			<%= f.hidden_field :inout, value: 0 %>
+					  <%= f.submit "(flake out)", class:'out' %>
+					<% end %>
+				</div>
+			</span>
+		<% elsif current_user.out?(event) %> <!-- IF RSVPD OUT SHOW OUT AND TOGGLE IN -->
+			<span id="inButton">
+				<i class="icon-circle-blank" title="you're out"></i> out
+				<div id="joinin">
+					<%= form_for(current_user.rsvps.build(plan_id: event.id), remote:true ) do |f| %>
+		  			<%= f.hidden_field :plan_id %>
+		  			<%= f.hidden_field :inout, value: 1 %>
+					  <%= f.submit "(join .in)", class: "let_me_in" %>
+					<% end %>
+				</div>
+			</span>
+		<% elsif event.ends_at.present? && event.ends_at > Time.now %>
+			<span class="rsvp_btn"><!--  ELSE SHOW RSVP BUTTON -->
+				<%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
+		  		<%= f.hidden_field :plan_id %>
+		  		<%= f.hidden_field :inout, value: 1 %>
+		  		<%= f.submit "join.in", class: "btn btn-rsvp rsvp_button", id:"Join" %>
+				<% end %>
+			</span>
 				<% if false %>
-					<% if @event.require_payment? && current_user.credit_card_uri.blank? %>
-						<%= link_to "join.in", new_card_path(:id => @event.id), class: "btn btn-rsvp rsvp_button", confirm: "Please confirm that you will join.in this idea?", id:"Join" %>
-					<% elsif @event.require_payment? && current_user.credit_card_uri.present? %>
-						<%= link_to "join.in", confirm_payment_path(:id => @event.id), class: "btn rsvp_button btn-rsvp", confirm: "Please confirm that you will join.in this idea", id:"Join" %>
-					<% else %>
+					<% if event.require_payment? && current_user.credit_card_uri.blank? %>
+						<%= link_to "join.in", new_card_path(:id => event.id), class: "btn btn-rsvp rsvp_button", confirm: "Please confirm that you will join.in this idea?", id:"Join" %>
+					<% elsif event.require_payment? && current_user.credit_card_uri.present? %>
+						<%= link_to "join.in", confirm_payment_path(:id => event.id), class: "btn rsvp_button btn-rsvp", confirm: "Please confirm that you will join.in this idea", id:"Join" %>
 					<% end %>
 				<% end %>
-				<div class="rsvp_btn">
-					<%= form_for(current_user.rsvps.build(plan_id: @event.id)) do |f| %>
-			  		<%= f.hidden_field :plan_id %>
-			  		<%= f.submit "join.in", class: "btn btn-rsvp rsvp_button", confirm: "Please confirm that you will join.in this idea", id:"Join" %>
-					<% end %>
-				</div>
-			<% end %>
 		<% end %>
 	<% end %>
 <% end %>

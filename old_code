@@ -242,3 +242,126 @@ in events model:
   #   end
   #   return @ideacount
   # end
+
+_plans.html.erb
+<div id='datepicker'>
+  <%= render partial: 'shalendar/datepicker' %>
+</div>
+
+<div id='yt'><a href='#<%= Time.now.to_date %>' id='todayButton' class='btn-today'>Today</a></div>
+
+<div class="home" id="scrollContainer">
+<% for i in -3..26 %>
+  <div class="each_day persist-area clearfix">    
+    <div class="date_bar marker persist-header clearfix shield <% if i == 0 %> red <% end %>" <% if i == 0 %> id="today" <% end %> data-date=<%= "#{Time.now.to_date + i}" %>>
+      <div class="date"><%= (Time.now.to_date + (i)).strftime("%A %b %e") %></div>
+    </div>
+    <div class="day_container clearfix">
+      <div class="idea_container clearfix">
+        <% if @ideas[i + 3].any? %>
+          <% @ideas[i + 3].each do |e| %>
+            <%= render :partial => "shalendar/event", :locals => { :event => e } %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+
+    <% if false %>
+      <li>
+        <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Post to Facebook", remote: true do %>
+          <i class="icon-facebook-sign"></i>
+        <% end %>
+      </li>
+    <% end %>
+
+    <!--     <li>
+      <a href="https://twitter.com/share" 
+        data-url="<%= event_url(@event) %>"
+        data-via="hoos_in"
+        data-size="large" 
+        data-count="none" 
+        class="fadeInTwitter" 
+        title="<%= @event.title %> #hoosin" 
+        target="_blank">
+        <i class="icon-twitter"></i>
+      </a>
+    </li> -->
+
+
+    <% if @event.guests_can_invite_friends? && !@event.short_url.nil? %>
+      <li id="textMsg">
+        <a href="sms:?body=<%= url_encode(@event.title + " - " + @event.short_url) %>"><span class="fadeInOrange"><i class="icon-phone"></i></span></a>
+      </li> 
+    <% end %> 
+
+
+    Event#show
+        <% if false %>
+    <div class="host friend">
+      <%= link_to user_path(@event.user), target: "blank" do %>
+        <%= raster_profile_picture(@event.user) %> 
+      <% end %>
+      <div>hosted by: </div><br>
+      <% if !user_signed_in? || (current_user.following?(@event.user) || current_user == @event.user) %>
+        <div>
+          <%= @event.user.name %>
+        </div>
+      <% else %>
+        <div id="friend_name">
+          <%= @event.user.name %>
+        </div>
+        <div id="friend_button" style="display:none;">
+          <%= render  :partial => 'events/just_follow_form', :locals => { :user => @event.user } %>
+        </div>
+      <% end %>
+    </div>
+    <% end %>
+
+
+
+          <% if false %>    
+        <% if event.starts_at.hour > 4 && event.starts_at.hour < 12 %>
+          <%= image_tag "morning.png" %>
+        <% elsif event.starts_at.hour >= 12 && event.starts_at.hour < 18 %>
+          <%= image_tag "noon.png" %>
+        <% else %>
+          <%= image_tag "night.png" %>
+        <% end %>
+      <% end %>
+
+
+
+      
+<% if false %>
+      <% if event.user == current_user && event.tipped? == false && event.tipped? == true %>
+        <div class="force_tip">
+          <%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true, id:"tipPin" %>
+        </div>
+      <% end %>
+    <% unless event.is_public? %>
+      <% unless event.user == User.find_by_id(event.inviter_id) %>
+        <div class="host">by: <%= event.user.first_name.capitalize %> 
+          <% if event.user.last_name %>
+            <%= event.user.last_name.capitalize%>
+          <% end %> 
+        </div>
+      <% end %>
+    <% end %>
+<% end %>
+
+
+    <% if event.starts_at.present? %>
+      <% if event.tipped? %>  
+        <div class="meter">
+          <span style="width:100%;"><span></span></span>
+        </div>
+      <% elsif event.starts_at.present?%>
+        <div class="meter animate orange">
+          <span style=<%= 'width:' + "#{(100*event.guest_count.to_f/event.min.to_f).round}" + "%;"%>><span></span></span>
+        </div>
+      <% end %>
+    <% end %>

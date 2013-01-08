@@ -1,36 +1,35 @@
 <% provide(:title, " | Edit") %>
-<div id="edit_idea">
+<div class="new_crowd_idea clearfix">
   <div class="event_form">
-   <%= form_for @event, html: { id: "new_event_form" } do |f| %>
-    <% if @event.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-        <ul>
-        <% @event.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-
+    <%= form_for @event, url: { :controller => 'events', :action => 'update' }, html: { id: "new_event_form" } do |f| %>
+    <p>   
+      <div class="title_char_counter"><span id="titleCharCount">0</span>/60</div>
+      <%= label :title, "Idea*" %><br/>
+      <%= f.text_field :title, id: "new_idea_title", class: "required", autocomplete: "off" %>
+    </p>
     <p>
-<%= label :title, "Idea*" %><br/>
-<%= f.text_area :title, id: "new_idea_title", :rows => 2, class: "required", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
-</p>  
-<div class="starts_at">
-  <%= label :starts_at, "When does it start?*" %>
-  <%= f.text_field :chronic_starts_at, id: "datetime", class: "required starts_at", autocomplete: "off" %>
-</div>
-<div class="duration">
-  <%= label :duration, "How Long?*" %>
-  <%= f.text_field :duration, placeholder:"#hrs", class: "required", autocomplete: "off"  %>
-</div>
+      <%= label :description, "The deets" %><br/>
+      <%= f.text_area :description, id: "new_idea_description", rows: 2, autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
+    </p> 
 
-<%= render partial: 'shared/idea_options', locals: { :f => f } %>
- 
-  <span class="new_idea_button"><%= f.submit 'Update', :class => 'btn btn-large btn-primary' %></span>
-
+  <%= render partial: 'shared/idea_options', locals: { :f => f } %>
+       
+    <%= f.submit 'Update Idea', :class => 'btn btn-large btn-primary', method: :post %>
+    
+    <div style="margin-top: 17px;">
+      <%= link_to event_new_time_path(@event), id:"makeATime", class:"btn btn-large btn-success rsvp_button" do %>
+        <i class="icon-copy"></i> New Time
+      <% end %>
+    </div>
+    <div style="margin-top: 17px;">
+      <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will notify all guests that the idea is canceled.' }, class: "btn btn-large btn-danger" do %>
+        <i class="icon-trash"></i> Cancel
+      <% end %>
+    </div>
   <% end %>
+  </div>
+  <!-- PREVIEW -->
+  <div class="idea_preview">
+    <%= render partial: 'sample_idea' %>
   </div>
 </div>

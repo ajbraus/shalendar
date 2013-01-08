@@ -18,6 +18,11 @@ class RegistrationsController < Devise::RegistrationsController
         ei.destroy
       end
 
+      if User.find_by_email("info@hoos.in").present?
+        @hoosin_user = User.find_by_email("info@hoos.in")
+        resource.friend!(@hoosin_user)
+      end
+
       Category.all.each do |cat|
         Interest.create(user_id: resource.id, category_id: cat.id)
       end
@@ -25,6 +30,7 @@ class RegistrationsController < Devise::RegistrationsController
       if params[:category_id]
         resource.classification_id = params[:category_id]
       end
+
 
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?

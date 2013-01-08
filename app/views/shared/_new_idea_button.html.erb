@@ -1,10 +1,10 @@
 <!-- <textarea id="new_idea_blerb" placeholder="pitch.in an idea"></textarea> -->
 <% if user_signed_in? %>
-	<%= link_to new_idea_path, class: 'btn-rsvp btn-new-idea' do %>
+	<%= link_to new_idea_path, id: "btnNewIdea", class: 'btn-rsvp btn-new-idea' do %>
   	<i class='icon-cloud'></i> <span class="only"> New Idea </span> 
 	<% end %>
 <% else %>
-  <%= link_to new_user_session_path, class: 'btn btn-rsvp btn-new-idea' do %>
-    <i class='icon-cloud'></i>
+  <%= link_to new_user_session_path, id: "btnNewIdea", class: 'btn btn-rsvp btn-new-idea' do %>
+    <i class='icon-cloud'></i> <span class="only"> New Idea </span> 
   <% end %>
 <% end %>

@@ -7,7 +7,7 @@ class Event < ActiveRecord::Base
   belongs_to :city
 
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
-  has_many :guests, through: :rsvps
+  has_many :guests, through: :rsvps, :conditions => ['inout = ?', 1]
 
   has_many :invitations, foreign_key: "invited_event_id", dependent: :destroy
   has_many :invited_users, through: :invitations
@@ -17,7 +17,7 @@ class Event < ActiveRecord::Base
   has_many :fb_invites, dependent: :destroy
 
   belongs_to :parent, :foreign_key => "parent_id", :class_name => "Event"
-  has_many :groups, :foreign_key => "parent_id", :class_name => "Event"
+  has_many :instances, :foreign_key => "parent_id", :class_name => "Event"
 
   has_many :categorizations, dependent: :destroy
   has_many :categories, :through => :categorizations
@@ -49,7 +49,9 @@ class Event < ActiveRecord::Base
                   :short_url,
                   :parent_id,
                   :require_payment,
-                  :slug
+                  :slug,
+                  :city_id,
+                  :one_time
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
                                              :medium => '190x270'},
@@ -96,7 +98,7 @@ class Event < ActiveRecord::Base
       :start => starts_at,
       :end => ends_at,
       :host => self.user,
-      :gcnt => self.guests.count,
+      :gcnt => self.guest_count,
       :tip => self.min,
       :guests => self.guests,
       :tipped => self.tipped
@@ -137,7 +139,7 @@ class Event < ActiveRecord::Base
 
   def mini_start_date_time
     if starts_at.present?
-      self.starts_at.strftime "%a, %b %e, %l:%M%P"
+      self.starts_at.strftime "%a %-m/%e, %l:%M%P"
     else
       "TBD"
     end
@@ -156,21 +158,23 @@ class Event < ActiveRecord::Base
   end
 
   def tip!
-    if self.tipped? == false
-      unless self.ends_at < Time.now
-        self.guests.each do |g|
-          g.delay.contact_tipped(self)
+    if self.ends_at.present?
+      if self.tipped? == false
+        unless self.ends_at < Time.now
+          self.guests.each do |g|
+            g.delay.contact_tipped(self)
+          end
         end
       end
+      self.tipped = true
+      self.save!
     end
-    self.tipped = true
-    self.save!
   end
 
   def full?
     if self.max == nil
       return false
-    elsif self.guests.count >= self.max
+    elsif self.guest_count >= self.max
       return true
     else 
       return false
@@ -261,11 +265,11 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def image(size)
-    if self.parent.nil?
-      if !self.promo_url.blank?
+  def image(size) #e.g. e.image(:medium)
+    if self.parent.blank?
+      if self.promo_url.present?
         return promo_url
-      elsif !self.promo_img_file_size.nil?
+      elsif self.promo_img_file_size.present?
         if size == :medium
           return self.promo_img.url(:medium)
         else 
@@ -275,9 +279,9 @@ class Event < ActiveRecord::Base
         return nil
       end
     else
-      if !self.parent.promo_url.blank?
+      if self.parent.promo_url.present?
         return parent.promo_url
-      elsif !self.parent.promo_img_file_size.nil?
+      elsif self.parent.promo_img_file_size.present?
         if size == :medium
           return self.parent.promo_img.url(:medium)
         else 
@@ -324,14 +328,14 @@ class Event < ActiveRecord::Base
     @ics_event.start = self.starts_at.strftime("%Y%m%dT%H%M%S")
     @ics_event.end = self.ends_at.strftime("%Y%m%dT%H%M%S")
     @ics_event.summary = self.title
-    #@event.description = self.description
+    @event.description = self.description
     @ics_event.location = self.address if self.address
     @ics_event.klass = "PUBLIC"
     @ics_event.created = self.created_at
     @ics_event.last_modified = self.updated_at
-    @ics_event.uid = @ics_event.url = "http://www.hoos.in/events/#{self.id}"
+    @ics_event.uid = @ics_event.url = event_url(self)
     #@ics_event.add_comment("AF83 - Shake your digital, we do WowWare")
-    @ics_event
+    return @ics_event
   end
 
   def image(size)
@@ -353,38 +357,44 @@ class Event < ActiveRecord::Base
   end
 
   def nice_duration
-    duration.to_s.split(/\.0/)[0]
-  end
-
-  def is_group?
-    unless self.parent.nil?
-      if self.parent.is_public?
-        return true
-      end
-    end
-    return false
-  end
-
-  def groups_your_invited_to
-    @invited_events = []
-    if self.is_public? && self.groups.any?
-      self.groups.each do |group|
-        group.invited_users.each do |iu|
-          if iu == current_user
-            @invited_event << group
-          end
-        end
-      end
-    end
-    return @invited_events
+    duration.to_s.split(/\.0/)[0] + ' ' + 'hrs' if duration
   end
 
   def has_parent?
-    if self.parent.nil?
-      return false
+    return self.parent.present?
+  end
+
+  def is_parent?
+    return self.instances.any?
+  end
+
+  def next_instance
+    @future_instances = Event.where('parent_id = ? AND ends_at > ?', self.id, Time.now).order('ends_at ASC')
+    if @future_instances.empty?
+      return nil
     else
-      return true
+      return @future_instances.first
     end
+  end
+
+  def has_future_instance?
+    return Event.where('parent_id = ? AND ends_at > ?', self.id, Time.now).any?
+  end
+
+  def over?
+    return self.ends_at.present? && self.ends_at < Time.now
+  end
+
+  def three_days_old?
+    return self.ends_at.present? && self.ends_at < Time.now.midnight - 3.days
+  end
+  # def is_next_instance?
+
+  #   return 'parent'.next_instance == self
+  # end
+
+  def is_parent_or_future_instance?
+    return !self.over? || self.is_parent?
   end
 
   def save_shortened_url
@@ -399,14 +409,38 @@ class Event < ActiveRecord::Base
     if self.groups.any?
       @event_group_guests_count = 0
       self.groups.each do |g|
-        @guests_count = g.guests.count 
-          @event_group_guests_count += @guests_count
+        @event_group_guests_count += g.guest_count 
       end
-      @total = self.guests.count + @event_group_guests_count
+      @total = self.guest_count + @event_group_guests_count
     else
-      @total = self.guests.count 
+      @total = self.guest_count 
     end
     return @total 
+  end
+
+  # def guests
+  #   @guests = self.rsvps.where(inout: 1) #USERS WHO ARE IN
+  #   if @guests.any?
+  #     @guests = @guests.map { |r| User.find_by_id(r.guest_id) }
+  #     return @guests
+  #   else
+  #     return []
+  #   end
+  # end
+
+  def unrsvpd_users
+    @unrsvpd_users = self.rsvps.where(inout: 0) #USERS WHO ARE IN
+    if @unrsvpd_users.any?
+      @unrsvpd_users = @unrsvpd_users.map { |r| User.find_by_id(r.guest_id) }
+      return @unrsvpd_users
+    else
+      return []
+    end    
+  end
+
+  def guest_count
+    @guests = self.rsvps.where(inout: 1)
+    return @guests.count
   end
 
   def contact_cancellation #this is weird bc have to do delayed job before destroying..

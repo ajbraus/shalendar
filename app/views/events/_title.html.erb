@@ -49,43 +49,35 @@
 
     <% else %>
       <li>
-        <%= render 'rsvp_form' %>
+        <%= render partial: 'rsvp_form', :locals => { :event => @event }  %>
       </li>
     <% end %>
     <% if @event.guests_can_invite_friends? || @event.user == current_user %>
-      <% if current_user.rsvpd?(@event) %>
-
-        <% if current_user.invited_all_friends?(@event) %>
+      <% if current_user.invited_all_friends?(@event) %>
         <li>
           <i class="icon-group gold" title=".invited with all friends"></i>
         </li>
-        <% else %>
+      <% else %>
         <li>
           <%= link_to invite_all_friends_path(:event_id => @event.id), title: ".invite all friends" do %>
             <span class="fadeInGreen"><i class="icon-group"></i></span>
           <% end %>
         </li>
-        <% end %>
+      <% end %>
 
-        <!-- #FACEBOOK -->
-        <% if current_user.fb_user? %>
-          <li>
-            <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Post to Facebook", remote: true do %>
-              <i class="icon-facebook-sign"></i>
-            <% end %>
-          </li>
-        <% end %>
-
-        <!-- #TWITTER -->
+      <!-- #FACEBOOK -->
+      <% if current_user.fb_user? %>
         <li>
-          <a href="https://twitter.com/share" data-text="<%= @event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this idea" target="_blank"><i class="icon-twitter"></i></a>
-        </li>
-
-      <% else %>
-        <li>
-          <i class="icon-group black" title="join.in and .invite all friends"></i>
+          <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Post to Facebook", remote: true do %>
+            <i class="icon-facebook-sign"></i>
+          <% end %>
         </li>
       <% end %>
+
+      <!-- #TWITTER -->
+      <li>
+        <a href="https://twitter.com/share" data-text="<%= @event.title %> #hoosin" data-size="large" data-count="none" class="fadeInTwitter" title="Tweet this idea" target="_blank"><i class="icon-twitter"></i></a>
+      </li>
     <% end %>
   </ul>
   </div>

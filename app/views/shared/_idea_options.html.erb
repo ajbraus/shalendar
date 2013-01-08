@@ -1,32 +1,54 @@
 <div id="eventOptions">
-		<div id="dateTime">
-		  <div class="starts_at">
-		    <%= label :starts_at, "When does it start?*" %>
-		    <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off" %>
-		  </div>
-		  <div class="duration">
-		    <%= label :duration, "How Long?*" %>
-		    <%= f.text_field :duration, placeholder:"hrs", autocomplete: "off", class:"required"  %>
-		  </div>
-		</div>
+  	<% if @event.blank? %>
+			<input type="checkbox" id="addDateTime"/> <label for="addDateTime"><i class="icon-time"></i> Add a Time </label>
+		<% end %>
+		<% if (@event.present? && @event.starts_at.present?) %>
+			<div id="dateTime">
+		<% else %>
+			<div id="dateTime" style="display:none;">
+		<% end %>
+      <div class="starts_at">
+        <%= label :starts_at, "When does it start?" %>
+        <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off" %>
+      </div>
+      <div class="duration">
+        <%= label :duration, "Hours?*" %>
+        <%= f.text_field :duration, autocomplete: "off", class:"required"  %>
+      </div>
+      <div class="one_time_bool">
+    		<%= f.check_box :one_time %> <label for="event_one_time">only happening once?</label>
+  		</div>
+	  	<div id="addtippingp">
+				<label><i class="icon-tasks"></i> minimum and maximum*</label>
+				<div class="minmax">
+				  <u>
+				    <%= f.label :min_attendees, "Min .in's" %> <br/>
+				    <%= f.text_field :min, :class => 'input-mini', autocomplete: "off", class:"required" %>
+				  </u>
+				  <u>
+				    <%= f.label :max_attendees, "Max  .in's" %> <br/>
+				    <%= f.text_field :max, :class => 'input-mini', autocomplete: "off" %>
+				  </u>
+				</div>
+			</div>
+    </div>
+    <div class="not_time_options">
+    <div id="visibilityp" class="open">
+    	<%= render "visibility_options.html" %>
+    </div>
+
+<% if false %>
 		<div class="venue_invitation_options" id="visibilityp" style="display:none;">
 		  <u>
-		  	<%= f.label :is_public, ".invite #{current_user.city.name.split(",")[0].to_s.capitalize}" %><span title="Make this a City-Wide idea"> (?)</span><br>
+		  	<%= f.label :is_public, ".invite #{@current_city.name.split(",")[0].to_s.capitalize}" %><span title="Make this a City-Wide idea"> (?)</span><br>
 				<i class="icon-bullhorn questionMark"></i>
 				<span id="isPublic"><%= f.check_box :is_public, class: "switch" %></span>
 			</u>
 		  <u>
-				<%= f.label nil, ".invite all friends" %><span title=".invite all your hoos.in friends"> (?)</span> <br>
-				<i class="icon-group questionMark"></i>
-				<input id="invite_all_friends" name="invite_all_friends" type="checkbox" class="switch">    			
-			</u>
-			<% if false %>
-		  <u>
-		  	<%= f.label nil, "allow .invite" %><span title="people can .invite friends to this idea"> (?)</span><br>
+		  	<%= f.label nil, "allow friends to .invite" %><span title="people can .invite friends to this idea"> (?)</span><br>
 				<i class="icon-plus questionMark"></i>
 				<%= f.check_box :guests_can_invite_friends, class: "switch", checked: "checked" %>
 			</u>
-			<% end %>
 			<div class="idea_categories" id="addcategoriesp" style="display:none;">
 				<%= label :category, "Category*" %>
 		    <div id="categories">
@@ -38,20 +60,6 @@
 					<%= f.check_box :family_friendly, class: "switch" %>
 		  	</div> 
 	  	</div> 
-		</div>
-
-<% if false %>
-		<div class="invitation_options" id="visibilityp">
-		  <u>
-				<%= f.label nil, ".invite all friends" %><span title=".invite all your hoos.in friends"> (?)</span><br>
-				<i class="icon-group questionMark"></i>
-				<input id="invite_all_friends" name="invite_all_friends" type="checkbox" class="switch">    			
-			</u>
-		  <u>
-		  	<%= f.label nil, "open .invite" %><span title="anyone can .invite friends"> (?)</span><br>
-				<i class="icon-plus questionMark"></i>
-				<%= f.check_box :guests_can_invite_friends, class: "switch", checked: "checked" %>
-			</u>
 		</div>
 <% end %>
 
@@ -65,20 +73,6 @@
 	<div id="addvidp" style="display:none;">
 		<div><%= f.label :event_video %></div>
 		<i class="icon-facetime-video"></i><%= f.text_field :promo_vid, autocomplete: "off", placeholder: "You Tube URL" %>
-	</div>
-
-	<div id="addtippingp" class="minmax" style="display:none;">
-		<div class='tippingIcon'>
-	  	<i class="icon-tasks"></i>
-		</div>
-	  <u>
-	    <%= f.label :min_attendees, "Tipping Point" %> <br/>
-	    <%= f.text_field :min, :class => 'input-mini', autocomplete: "off" %>
-	  </u>
-	  <u>
-	    <%= f.label :max_attendees, "Limit" %> <br/>
-	    <%= f.text_field :max, :class => 'input-mini', autocomplete: "off" %>
-	  </u>
 	</div>
 
 	<div id="addmapp" style="display: none;">
@@ -101,18 +95,30 @@
     		<%= link_to "Enable ticketing and payments", new_merchant_path, target: "_blank" %>
     	<% end %>
     <% end %>
-	</div>
+	</div> 
+</div>
 </div>
 
 <div>
 	<ul>
-		<li id="addDateTime" style="color: #EB8325;" title="Add Date and Time"><i class="icon-time"></i></li>
-		<li id="visibility" title=".invite"><i class="icon-group"></i></li>
- 	  <li id="addtipping" title="Add a Tipping Point"><i class="icon-tasks"></i></li>
+ 		<li id="visibility" title="Set Visiblity" style="color:#EB8325;"><i class="icon-group"></i></li>
+ 		<li id="addimg" title="Add an Image"><i class="icon-camera-retro"></i></li>
+ 		<li id="addvid" title="Add a video"><i class="icon-facetime-video"></i></li>
 	  <li id="addLink" title="Add a Link"><i class="icon-link"></i></li>
+<<<<<<< HEAD
 	  <li id="addmap" title="Add a Location"><i class="icon-map-marker"></i></li>
 	  <li id="addimg" title="Add an Image"><i class="icon-camera-retro"></i></li>
 		<li id="addvid" title="Add a Video"><i class="icon-facetime-video"></i></li>
 	  <li id="addcost" title="Add a Cost"><i class="icon-money"></i></li>
+=======
+	  <li id="addcost" title="Add an Cost"><i class="icon-money"></i></li>
+	  <li id="addmap" title="Add a Location"><i class="icon-map-marker"></i></li>
+		<% if false %>
+		<li id="addtipping" title="Add a Tipping Point"><i class="icon-tasks"></i></li>
+		<% if (@event.present? && @event.starts_at.present?) || (@parent.present? && @parent.starts_at.present?)  %>
+			<li id="addDateTime" title="Add Date and Time"><i class="icon-time"></i></li>
+		<% end %>
+		<% end %>
+>>>>>>> d088d8652cc2f0a9d11dcca5045d116d1ba6c7fc
 	</ul>
 </div>

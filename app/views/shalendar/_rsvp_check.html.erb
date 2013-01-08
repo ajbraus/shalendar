@@ -1,18 +1,30 @@
 <% if user_signed_in? %>
-	<% if event.ends_at < Time.now %>
-	<div class="btn-over"></div>
-	<% elsif current_user.rsvpd?(event) %>
+	<% if event.ends_at.present? && event.ends_at < Time.now %>
+		<div class="btn-over"></div>
+	<% elsif current_user.in?(event) %>
 		<% if event.guests_can_invite_friends? %>
-			<% if !current_user.rsvps.find_by_plan_id(event.id).invite_all_friends? %>
+			<% if current_user.rsvps.find_by_plan_id(event.id).invite_all_friends? %>
+				<div class="green" title="all friends .invited"><i class="icon-group"></i></div>
+			<% else %>
 				<%= link_to invite_all_friends_path(:event_id => event.id), remote: true do %>
-					<div class="btn_invite_all_friends btn_icon" title=".invite all friends"><i class="icon-group"></i></div>
+					<div class="fadeInGreen" title=".invite all friends"><i class="icon-group"></i></div>
 				<% end %>
 			<% end %>
+		<% else %>
+			<div><i class="icon-group"></i></div>
 		<% end %>
 	<% else %>
-		<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
-		  <div><%= f.hidden_field :plan_id %></div>
-		  <%= f.submit raw("join.in"), class:"btn_icon btn_icon_rsvp", confirm:"Please confirm that you will join.in this idea" %>
+		<% if !current_user.rsvpd?(event) %>
+			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
+			  <%= f.hidden_field :plan_id %>
+			  <%= f.hidden_field :inout, value: "1" %>
+			  <%= f.submit "#{event.is_parent? ? '.into' : '.in'}", class:"btn_icon btn_icon_rsvp" %>
+			<% end %>
+			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
+			  <%= f.hidden_field :plan_id %>
+			  <%= f.hidden_field :inout, value: "0" %>
+			  <%= f.submit "#{event.is_parent? ? 'nah' : 'out'}", class:"btn_icon btn_stop_viewing" %>
+			<% end %>
 		<% end %>
 	<% end %>
 <% end %>

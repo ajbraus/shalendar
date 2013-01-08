@@ -1,0 +1,21 @@
+<label>visiblility*</label>
+<div class="invite_radios">
+  <div>
+    <%= radio_button_tag :invite_me, "1" %>
+    <%= label_tag :invite_me_1 do %>
+      <i class="icon-bullhorn questionMark"></i><br><%= @current_city.name.split(",")[0].to_s.capitalize %>
+    <% end %>
+  </div>
+  <div>
+    <%= radio_button_tag :invite_me, "2", checked: true %>
+    <%= label_tag :invite_me_2 do %>
+      <i class="icon-group questionMark"></i><br>all my friends
+    <% end %>
+  </div>
+  <div>
+    <%= radio_button_tag :invite_me, "3" %>
+    <%= label_tag :invite_me_3 do %>
+      <i class="icon-remove questionMark"></i><br>let me pick
+    <% end %>
+  </div>
+</div>

@@ -1,15 +1,22 @@
 <ol id="chooseID" style="display:none;">
 <!--   /* data-id needs to be the same as the parent it will attach to */ -->
-	<li class="jr_welcome"><br><br><%= image_tag "icon.png", width:"100" %> <br><br> welcome to hoos.in<br><br> we believe that the best life <br> is full of creative adventures <br><br> now we would like to give you a lil' tour<br><br></li>
-	<li data-id="jrActivity" class="jr_stats">over here, you can see your public profile and activity, <br></li>
-  <li data-id="jrFriends" class="jr_stats">manage and find friendships, <br></li>
-  <li data-id="jrInvites" class="jr_invites"> and see your recent .invites<br></li>
-  <li data-id="newIdeaButton" class="jr_new_idea">click here to make a new idea and share it with friends<br></li>
-  <li data-id="jrUpcomingIdeas" class="jr_sidebar">keep track of upcoming plans here<br></li>
-  <li class="jr_forecast">here is your social forecast <br> fill it with ideas and share them with your friends and community <br></li>
-  <li data-id="jrFbIcon" class="jr_fb_friends">click here to find your facebook friends in your city, <br></li>
-  <li data-id="view_search" class="jr_search">and here, search for friends by first name, last name or by email <br></li>
+	<li class="jr_welcome"><br><br><%= image_tag "icon.png", width:"100" %> <br><br> welcome to hoos.in<br><br> we believe that the best life <br> is full of creative adventures <br><br> now, a lil' tour<br><br></li>
+  <li class="jr_forecast">here are the fun ideas your friends and community have or want to plan <br></li>
+
+  <li data-id="jrFbIcon" class="jr_fb_friends">click here you can find your facebook friends in your city, <br></li>
+  <li data-id="view_search" class="jr_search">and here, search for friends by first name, last name or by email <br></li>  
   
+  <li data-id="jrPlans" class="jr_plans"> over here, you can check on upcoming plans <br></li>
+	<!-- <li data-id="jrInvites" class="jr_invites"> and see recent .invites<br></li> -->
+
+  <li data-id="btnNewIdea" class="jr_new_idea">click here to make a new idea and share it with friends<br></li>  
+
+  <li data-id="jrCityIdeas" class="jr_city_ideas">click here to see only public ideas for <%= @current_city.name %><br></li>
+  <li data-id="jrCalendar" class="jr_calendar">click here to see ideas by date<br></li>
+
+<!--   <li data-id="jrFriends" class="jr_stats"> manage and find friendships, <br></li>
+  <li data-id="jrActivity" class="jr_stats"> and view your stats and public profile. <br></li>
+ -->
   <!-- /* using 'data-button' lets you have custom button text */ -->
   <li class="jr_welcome" data-button="done"><br><br><%= image_tag "icon.png", width:"100" %><br><br>enjoy <br><br> email feedback and questions to us at info@hoos.in <br> ~ the hoos.in team <br>
     <div class="jr_share">
@@ -22,12 +29,7 @@
         <i class="icon-facebook-sign"></i>
       </a>
       </a>
-      <a href="https://twitter.com/share" 
-        data-url="canonical"
-        data-via="me"
-        data-text="just joined hoos.in" 
-        data-size="large" 
-        data-count="none" 
+      <a href="https://twitter.com/share?url=www.hoos.in&text=just joined #hoosin" 
         class="fadeInTwitter" 
         target="_blank">
         <i class="icon-twitter"></i>

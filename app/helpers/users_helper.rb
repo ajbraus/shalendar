@@ -7,7 +7,7 @@ module UsersHelper
 
   def start_time(event)
     if event.starts_at.present?
-      event.starts_at.strftime "%l:%M%P, %A %B %e"
+      event.starts_at.strftime "%l:%M%P, %a %b %e"
     else
       "TBD"
     end
@@ -45,6 +45,7 @@ module UsersHelper
     end
   end
 
+  #refactor: method exist in user, profile_picture_url, deprecate this
   def raster_profile_picture(user)
     if user.authentications.where(:provider == "Facebook").any?
       fb_picture(user)
@@ -117,7 +118,7 @@ module UsersHelper
     elsif user.authentications.where(:provider == "Twitter").any?
       invite_twitter_picture(user, type: "normal") 
     else
-      if user.avatar.url.nil?
+      if user.avatar.url.blank?
         "https://s3.amazonaws.com/hoosin-production/user/avatars/raster/default_profile_pic.png"
       else
         user.avatar.url(:raster)

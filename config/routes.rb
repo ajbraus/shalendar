@@ -123,15 +123,17 @@ Shalendar::Application.routes.draw do
   match '/downgrade', :to => 'payments#downgrade', :as =>'downgrade'
   match '/upgrade', :to => 'payments#upgrade', :as => 'upgrade'
 
-  match '/make_a_group', :to => 'events#make_a_group', :as => 'make_a_group'
+  #match '/make_a_group', :to => 'events#make_a_group', :as => 'make_a_group'
   match '/repeat', :to => 'events#repeat', :as => 'repeat_event'
   #match '/new_crowd_idea', :to => 'events#new_crowd_idea', :as => 'new_crowd_idea'
 
   match '/activity', :to => 'shalendar#activity', :as => "activity"
   match '/manage_friends', :to => 'shalendar#manage_friends', :as => "manage_friends"
 
-  resources :events, path: "ideas", only: [:create, :destroy, :update, :tip, :edit, :new, :show] do #:index,
+  resources :events, path: "ideas", only: [:create, :destroy, :update, :tip, :edit, :new, :show, :new_time, :create_new_time] do #:index,
+    get :new_time
     put :tip
+    post :create_new_time
     resources :comments, only: [:create, :destroy]
     resources :email_invites, only: [:create, :destroy]
     resources :fb_invites, only: [:create, :destroy]
@@ -155,8 +157,14 @@ Shalendar::Application.routes.draw do
   match 'post_to_wall_permissions' => 'shalendar#post_to_wall_permissions'
   match 'friend_requests' => 'shalendar#friend_requests'
   match 'new_invited_events' => 'shalendar#new_invited_events'
+  match 'plans' => 'shalendar#plans'
   match 'search' => 'shalendar#search'
   match 'datepicker' => "shalendar#datepicker"
+
+  match '/friends_ideas', to: 'shalendar#friends_ideas', as: "friends_ideas"
+  match '/city_ideas', to: 'shalendar#city_ideas', as: "city_ideas"
+  match '/my_ideas', to: 'shalendar#my_ideas', as: 'my_ideas'
+  match '/calendar', to: 'shalendar#calendar', as: "calendar"
 
   match '/what_is_hoosin', :to => 'shalendar#what_is_hoosin', :as => "what_is_hoosin"
   #match '/crowd_ideas', :to => 'shalendar#crowd_ideas', :as => "crowd_ideas"

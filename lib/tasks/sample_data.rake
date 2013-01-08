@@ -72,7 +72,7 @@ def make_private_events
                         max: max
                         )
     @event.save
-    users[e+1].rsvp!(@event)
+    users[e+1].rsvp_in!(@event)
   end
 end
 
@@ -100,7 +100,7 @@ def make_public_events
                         is_public:is_public
                         )
     @event.save
-    users[e+1].rsvp!(@event)
+    users[e+1].rsvp_in!(@event)
   end
 end
 
@@ -126,13 +126,13 @@ end
   #     @event.save
   #     rsvps1.each do |r|
   #       if r!=user.id
-  #         r.rsvp!(@event)
+  #         r.rsvp_in!(@event)
   #       end
   #     end
   #     if(e > 2)
   #       rsvps2.each do |r2|
   #         if r2 != user.id
-  #           r2.rsvp!(@event)
+  #           r2.rsvp_in!(@event)
   #         end
   #       end
   #     end

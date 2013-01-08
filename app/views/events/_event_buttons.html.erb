@@ -1,4 +1,5 @@
-<ul class="event_buttons">
+<% if user_signed_in? %>
+<ul >
   <% if @event.is_group? %>
     <li>
       <%= link_to event_path(@event.parent) do %>
@@ -6,89 +7,22 @@
       <% end %>
     </li>
   <% end %>
-  <% if (@event.guests_can_invite_friends? || @event.is_public?) && @event.starts_at > Time.now %>
-      <!-- SHARE BY EMAIL -->
+  <% if (current_user == @event.user || (@event.guests_can_invite_friends? || @event.is_public?)) && @event.is_parent_or_future_instance? %>
     <li>
-      <a href="mailto:?
-      subject=You in? <%= @event.start_time %>&
-      body=hi,%0a%0aI want to .invite you to an idea:%0a%0a    What:  <%= @event.title %>%0a%0a    Details: <%= @event.description %>%0a%0a    When:  <%= @event.start_date_time %>%0a%0aYou .in? Join here: <%= event_url(@event) %>%0a%0a<%= current_user.first_name %>">
-        <span class="fadeInOrange">
-          <i class="icon-envelope-alt" title=".invite by Email"></i>
-        </span>
-      </a>
+      <%= render partial: 'social/email', locals: { :event => @event } %>
     </li>
-
-    <!-- #FACEBOOK -->
-    <% if @event.is_public? %>
-      <li>
-        <a href="https://www.facebook.com/dialog/feed?
-          app_id=327936950625049&
-          link=<%= event_url(@event) %>&
-          picture=<%= @event.image(:medium) if @event.has_image? %>&
-          name=<%= @event.title %>&
-          description=<%=  @event.start_date_time %>&
-          redirect_uri=<%= event_url(@event) %>" class="fadeInFBBlue" target="_blank">
-          <i class="icon-facebook-sign"></i>
-          </a>
-      </li>
-    <% else %>
-      <li>
-        <a href="https://www.facebook.com/dialog/send?
-            app_id=327936950625049&
-            name=<%= @event.title %>&
-            link=<%= event_url(@event) %>&
-            picture=<%= @event.image(:medium) if @event.has_image? %>&
-            description=<%=  @event.start_date_time %>&
-            redirect_uri=<%= event_url(@event) %>" class="fadeInFBBlue" target="_blank">
-            <i class="icon-facebook-sign"></i>
-          </a>
-      </li>
-    <% end %>
-
-    <% if false %>
-      <li>
-        <%= link_to post_to_own_fb_wall_path(:event_id => @event.id), class:"fadeInFBBlue" , confirm:"Post idea to your wall?", title:"Post to Facebook", remote: true do %>
-          <i class="icon-facebook-sign"></i>
-        <% end %>
-      </li>
-    <% end %>
-
-    <!-- #TWITTER -->
     <li>
-      <a href="https://twitter.com/share" 
-        data-url="<%= event_url(@event) %>"
-        data-via="hoos_in"
-        data-size="large" 
-        data-count="none" 
-        class="fadeInTwitter" 
-        title="<%= @event.title %> #hoosin" 
-        target="_blank">
-        <i class="icon-twitter"></i>
-      </a>
+      <%= render partial: 'social/facebook', locals: { :event => @event } %>
     </li>
-
-    <!-- PINTEREST -->
     <li>
-      <a data-pin-config="above" 
-        href="//pinterest.com/pin/create/button/?
-          url=<%= event_url(@event) %>&
-          media=<%= @event.image(:large) %>&
-          description=<%= @event.mini_start_date_time + " - " + @event.title %>" 
-        data-pin-do="buttonPin" 
-        class="fadeInPinterest" 
-        target="_blank">
-        <i class="icon-pinterest-sign"></i>
-      </a>
+      <%= render partial: 'social/twitter', locals: { :event => @event } %>
     </li>
-
-
-    <% if @event.guests_can_invite_friends? && !@event.short_url.nil? %>
-      <li id="textMsg">
-        <a href="sms:?body=<%= url_encode(@event.title + " - " + @event.short_url) %>"><span class="fadeInOrange"><i class="icon-phone"></i></span></a>
-      </li> 
-    <% end %> 
+    <li>
+      <%= render partial: 'social/pinterest', locals: { :event => @event } %>
+    </li>
   <% end %>
 
+<% if false %>
   <% unless @event.is_group? %>
     <li>
       <%= link_to repeat_event_path(:event_id => @event.id), title:"Repeat Idea Another Time", class:"fancybox.ajax", id:"eventRepeat", remote:true do %>
@@ -96,6 +30,7 @@
       <% end %>
     </li>
   <% end %>
+<% end %>
 
   <% if @event.user == current_user %> 
     <% unless @event.tipped? %>
@@ -128,7 +63,7 @@
         </a>
       </li>
       <li>
-        <%= link_to :controller => 'events', :action => "show", :format => :ics do %>
+        <%= link_to event_path(@event) :format => :ics do %>
           <%= image_tag "ical-icon.png", width: '30', title: "Add to Your Calendar" %>
         <% end %>
       </li>
@@ -147,4 +82,5 @@
   <% end %>
 </div>
 </div>
+<% end %>
 <% end %>

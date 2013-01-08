@@ -1,52 +1,136 @@
-<header>
-    <%= render partial: 'shalendar/joyride' %>
-  <nav>
-  <%= render 'layouts/logo' %>
-
 <% if user_signed_in? %>
-
-  <ul class="left_header">
-    <li><%= render 'shared/city_user_dropdown' %></li>
-  </ul>
-
+<header>
+  <%= render partial: 'shalendar/joyride' %>
+  <nav>
+    <div class="sky">
+      <%= render 'layouts/logo' %>
+      <% unless current_user.vendor? %>
+        <%= render 'shared/friend_search' %>
+      <% end %>
   <div class="right_header">
+    <div>
+      <%= render 'shared/picture_dropdown' %>
+    </div>
+    <% if false %>
+      <div class="name"><%= link_to user_path(current_user) do %><%= current_user.name %><% end %>
+    <% end %>
+    <div>
+    <ul>
+      <li id="jrActivity">
+        <%= link_to user_path(current_user) do %>
+          <span class="fadeInBlue">
+            <%= current_user.events.count %> <i class="icon-cloud"></i> 
+            <span id="headerText">mine</span>
+          </span>
+        <% end %>
+      </li>
+      <li id="jrFriends">
+        <a href="<%= manage_friends_path %>"> 
+          <span class="fadeInGreen">
+            <strong id="header_friend_count" class="friend_count"><%= current_user.followers.count %></strong> <i class="icon-group"></i>
+            <span id="headerText">friends</span></span>
+          <% if current_user.reverse_relationships.where('relationships.confirmed = false').any? %>
+          <% @friend_requests = current_user.reverse_relationships.where('relationships.confirmed = false') %>
+            <span class="new_friends_count"><%= @friend_requests.count %></span>
+          <% end %>
+        </a>
+      </li>
+      <% if false %>
+      <li id="jrInvites">
+        <%= link_to new_invited_events_path, :remote => true do %>
+          <% unless current_user.new_invited_events_count == 0 %>
+            <span id="new_invited_events_count" class="new_invited_events_count"><%= current_user.new_invited_events_count %></span>
+          <% end %>
+          <span class="fadeInPurple">
+            <%= current_user.invitations.count %> <i class="icon-envelope" title=".invites"></i>
+            <!-- <span id="headerText">.invites</span> -->
+          </span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to plans_path, :remote => true do %>
+          <% if current_user.plans.where('ends_at > ?', Time.now).any? %>
+            <span class="fadeInPurple">
+              <%= current_user.plans.where('ends_at > ?', Time.now).count %> <i class="icon-envelope-alt" title=".ins"></i>
+              <!-- <span id="headerText">.ins</span> -->
+            </span>
+          <% else %> 
+            <span class="fadeInPurple">
+              0 <i class="icon-envelope-alt" title=".ins"></i>
+              <!-- <span id="headerText">.ins</span> -->
+            </span>         
+          <% end %>
+        <% end %>
+      </li>
+      <% end %>
+      <% if current_user.admin? %>
+      <li>
+        <%= link_to admin_dashboard_path do %>
+          <span class="fadeInRed"><i class="icon-magic"></i></span>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+  </div>
+    <div class="crust persist-header">
+      <div class="new_idea_button"><%= render 'shared/new_idea_button' %></div>
+      <div class="instructions">.instructions</div>
+      <% if params[:action] == 'home' %>
+      <div class="navigation">
+<!--           <span id="reload"><i class="icon-repeat"></i></span> -->
+          <span id="jrIdeas" class="bold">all</span> |
+          <span id="jrPlans">.ins</span> |
+          <span id="jrFriendsIdeas">.invites</span> | 
+          <% if false %><span id="jrMine">mine</span> |<% end %>
+          <span id="jrCityIdeas">city</span> ||
+          <span id="jrCalendar"><i class="icon-time"></i> view</span>
+      </div>
+      <% end %>
+<!--       <div class="friend_only hide_all" title="Only Show My Plans">
+        <span class="fadeInBlue"><i class="icon-ok-sign"></i> <span class="only">only</span>
+      </div> -->
+      <%= render 'shared/city_user_dropdown' %>
+<!--       <div id="hide_public" class="friend_only" title=".invites only">
+        <span class="fadeInOrange"><i class="icon-envelope-alt"></i> <span class="only">only</span></span>
+      </div> -->
+    </div>
+  </nav>
+
     <% if false %>
       <!-- CITY ICON -->
       <div class="city-icon">
         <%= link_to yellow_pages_path, :remote => true, class:"city_vendors fancybox.ajax" do %>
-          <%= image_tag current_user.city.icon.url(:icon) %>
+          <%= image_tag @current_city.icon.url(:icon) %>
         <% end %>
       </div>
     <% end %>
-    <div class="instructions"><%= link_to '.instructions', what_is_hoosin_path %></div>
-      <% unless current_user.vendor? %>
-        <%= render 'shared/friend_search' %>
-      <% end %>
     </div>
-
-<% else %> <!-- IF NOT SIGNED IN -->
-  <% unless params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
-    <ul class="left_header">
-      <li><%= render 'shared/city_session_dropdown' %></li>
-
-    </ul>
-
-    <div class="city_title">
-      <h2><%= params[:city] %></h2>
-    </div>
-
-    <div class="right_header">
-      <%= link_to '.instructions', what_is_hoosin_path %>
-    </div>
-  <% end %>
-<% end %>
-  <% if false %>
-    <div class="crowd_idea_banner">
-      <%= link_to crowd_ideas_path do %>
-        <%= image_tag "crowd_ideas_banner.png" %>
-      <% end %>
-    </div>
-  <% end %>
   </nav>
-  <span id="invitations"></span>
+  <%= render 'layouts/alerts' %>
 </header>
+
+<% else %> 
+<!-- IF NOT SIGNED IN -->
+<header>
+    <%= render partial: 'shalendar/joyride' %>
+  <nav>
+    <div class="sky">
+      <%= render 'layouts/logo' %>
+      <% unless params[:controller] == "sessions" || params[:controller] == "registrations" || params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
+        <% unless params[:action] == "show" %>
+        <div class="instructions">
+          .instructions
+        </div>
+        <% end %>
+        <div class="city_title">
+          <h2><%= @current_city.name %></h2>
+        </div>
+        <%= render 'shared/not_signed_in_pitch' %>
+      <% end %>
+    </div>
+  </nav>
+  <%= render 'layouts/alerts' %>
+</header>
+<% end %>

@@ -2,7 +2,12 @@
 <div class="vendor_dash">
 	<div class="profile">
 		<%= large_profile_picture(@user) %>
-		<div class="name"><%= @user.name %></div>
+		<div class="show_name"><%= @user.name %></div>
+		<% unless current_user == @user %>
+			<div class="show_friend">
+				<%= render  :partial => 'events/follow_form', :locals => { :user => @user } %>
+			</div>
+		<% end %>
 		<div class="profile_stats">
 			<ul>
 				<li><span class="only"> city-wide ideas </span><i class="icon-bullhorn blue"></i><%= @user.events.where(:is_public => true).count %></li>
@@ -14,7 +19,8 @@
 			</ul>
 		</div>
 	</div>
-	<% if user_signed_in? %>
+	<% if user_signed_in? && (current_user == @user || current_user.is_friends_with?(@user)) %>
+	<%= render 'shalendar/ideas' %>
 	<div class="future_events">
 	<h3>Upcoming Ideas</h3>
 		<ul>

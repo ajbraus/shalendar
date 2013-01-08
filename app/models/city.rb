@@ -23,17 +23,7 @@ class City < ActiveRecord::Base
 	# my_model_instance.save!
   # mad.icon = File.open('app/assets/images/madison-icon.jpeg')
 
-  def current_city
-    if user_signed_in?
-      current_user.city
-    elsif session[:city]
-      City.find_by_name(session[:city])
-    else 
-      City.find_by_name("Madison, Wisconsin")
-    end
-  end
   def city_name
-
     return name.split(',')[0]
   end
 end

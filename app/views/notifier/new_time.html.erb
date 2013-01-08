@@ -1,0 +1,6 @@
+<td><h2 style="font-size:16px;"><%= @user.first_name %>,</h2></td>
+<tr>
+	<td style="padding:0 0 0 10px"><%=@event.user.first_name %> set a time for <%= @event.title %>
+</tr>
+
+<%= render partial: 'event_details', locals: { :event => @event, :user => @user } %>

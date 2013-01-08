@@ -1,32 +1,49 @@
 <div class="sample_title">Idea Cover</div>
 
 <div class="event shield" id="sampleEvent">
-	<div class="status_icon">
-		<i class="icon-ok-sign blue"></i>
-	</div>
-	<div class="event_time">	
-			<span class="eventStartsAt"><strong>TBD</strong></span>
+	<div class="shield_top">
+		<div class="event_shield_icons">
+			<span class="status_icon">
+				<i class="icon-ok-sign blue" title="this tells you you're .into this idea"></i>
+			</span>
+			<span class="eventIsBigIdea" title="This event needs a crowd!" style="display:none;"><i class='icon-cloud'></i></span>
+			<span id="eventVideoIcon" style="display:none;"><i class='icon-facetime-video'></i></span>
+	  </div>
+
+	  <div class="rsvp_check" title="friends can choose whether they're .into this idea">
+	  	<span class="btn_icon btn_icon_rsvp">.into</span>
+	  	<span class="btn_icon btn_stop_viewing">nah</span>
+	  </div>
+	  <div class="guests">
+	  	1 <span id="eventMin"></span>
+	  </div>
 	</div>
 
 	<div class="event_blerb">
-		<div class="blerb_pic" title="Created by: <%= current_user.name %>"><%= raster_profile_picture(current_user) %></div>
-		<div class="title eventTitle"></div>
+		<% if false %><span class="blerb_pic" title="Created by: <%= current_user.name %>"><%= raster_profile_picture(current_user) %></span><% end %>
+		<span class="title eventTitle"><%= @parent ? @parent.title : '' %></span>
 	</div>
 	<div class="meter">
 		<span style="width: 100%;"><span></span></span>
 	</div>
 
-	<div class="promo_img" id="eventPromoImg"></div>
-
-	<div class="shield_bottom">
-		<div class="event_shield_icons">
-			<span class="eventIsBigIdea" title="This event needs a crowd!" style="display:none;"><i class='icon-cloud'></i></span>
-			<span id="eventVideoIcon" style="display:none;"><i class='icon-facetime-video'></i></span>
-	  </div>
-
-	  <div class="guests not_tipped">
-	  	<i class="icon-group"></i> 1 <span id="eventMin"></span>
-	  </div>
+	<div class="promo_img" id="eventPromoImg">
+  	<% if @parent  && @parent.has_image? %>
+  		<%= image_tag @parent.image(:medium) %>
+  	<% end %>
+  </div>
+	<div class="event_time" <%= @parent ? "" : "style='display:none;'" %>>
+		<div class="shield_bottom time" data-event-id="145"><a href="/ideas/alketaljsetlka">	
+			<span class="eventStartsAt"><%= @parent.present? && @parent.starts_at.present? ? start_time(@parent) : '' %></span></span>
+			<div class="rsvp_check">
+				<a href="#">
+					<div class="fadeInGreen" title="friends who are .into this idea can click here to .invite all their friends"><i class="icon-group"></i>
+				</a>
+			</div>
+		</div>
+		
+		<div class="guests "><span id="guestCount">1</span><span id="eventMin"></span></div>
+	</div>
 	</div>
 </div>
 	<!-- END EVENT SHIELD -->
@@ -34,47 +51,15 @@
 	<!-- BEGIN EVENT SHOW -->
 <div class="sample_title">Idea Page</div>
 <div class="event_show clearfix">
-  <div class="event_top">
-    <div class="host friend">
-        <%= raster_profile_picture(current_user) %> 
-      <div>hosted by: </div><br>
-        <div>
-          <%= current_user.name %>
-        </div>
-    </div>
-    <div class="event_link fadeInOrange" title="Links to a website for the idea">
-      <i class="icon-link"></i>
-      <span id="eventLink"></span>
-    </div>
-    <div class="event_location fadeInOrange" title="Links to Google Maps">
-      <i class="icon-map-marker"></i>
-      <span id="eventLocation"></span>
-    </div>
-    <div class="cost">
-      <i class="icon-money"></i><span id="eventCost"></span>
-    </div>
-  </div>
+			<div id="rsvpForm" class="join_group_buttons">
 
-	<div class="when">
-    <div class="date"><span class="eventStartsAt"><strong>TBD</strong></span><span class="eventDuration"></span></div>
-    <div class="join_group_buttons">
-     	<div class="group_button" style="display:none">
-				<a href="#" class="btn btn-success rsvp_button" title= "For City-Wide ideas, in addition to joining, people can make 'child ideas' based on yours called a 'Group'">
-					<i class="icon-copy"></i> Make a Group
-				</a>
+				<a href="#" class="btn rsvp_button btn-rsvp" title="By clicking here folks will join your ideas">.into</a>
+				<a href="#" class="btn rsvp_button btn_stop_viewing" title="Here folks can opt out of this idea">nah</a>
 			</div>
-		<div class="rsvp_btn">
-			<a href="#" class="btn btn-rsvp rsvp_button" title="By clicking here folks will join your ideas">join.in</a>
-		</div>
-    </div>
-	</div>
-  
-  <div class="meter">
-		<span style="width: 100%;"><span></span></span>
-	</div>
-
+		<div class="date"></div>
+ 
 	<div class="event_title">
-	  <div class="eventTitle"></div>
+	  <div class="eventTitle"><%= @parent ? @parent.title : '' %></div>
     <div class="eventIcons">
     	<span id="eventCategory"></span>
       <span id="eventPublicIcon" style="display:none;">
@@ -86,10 +71,53 @@
       <span class="eventIsBigIdea" title="This event needs a crowd!" style="display:none;"><i class='icon-cloud'></i></span>
     </div>
 	</div>
+
+	<div class="when clearfix">
+		<div class="cost">
+      <i class="icon-money"></i><span id="eventCost"><%= @parent.present? ? @parent.price : '' %></span>
+    </div>
+    <div class="event_location fadeInOrange" title="Links to Google Maps">
+      <i class="icon-map-marker"></i>
+      <span id="eventLocation"><%= @parent.present? ? @parent.address : '' %></span>
+    </div>
+    <div class="event_link fadeInOrange" title="Links to a website for the idea">
+      <i class="icon-link"></i>
+      <span id="eventLink"><%= @parent.present? ? @parent.link : '' %></span>
+    </div>
+	</div>
+	
 	<div id="eventDescription" class="event_description"></div>
 
   <div class="promo_img" id="eventImage">
+  	<% if @parent  && @parent.has_image? %>
+  		<%= image_tag @parent.image(:large) %>
+  	<% end %>
   </div>
+
+  <div class="meter"f>
+		<span style="width: 100%;"><span></span></span>
+	</div>
+
+	<div class="when time clearfix">	
+		<div style="float:left;padding: 10px;"><span class="eventStartsAt"><%= @parent.present? ? start_time(@parent) : raw("<strong>TBD</strong>") %></span><span class="eventDuration"></span></div>
+	  <ul id="calendars">
+      <li>
+        <%= image_tag "gcalendar.png", width: '30', title:".invites can add this idea to their calendars" %>
+      </li>
+      <% if false %>
+      <li>
+         <%= image_tag "ical-icon.png", width: '30', title:".invites can add this idea to their calendars" %>
+      </li>
+      <% end %>
+    </ul>
+		<div id="rsvpForm" class="join_group_buttons">
+			<a href="#" class="btn rsvp_button btn-rsvp" title="By clicking here folks will join your ideas">.in</a>
+			<a href="#" class="btn rsvp_button btn_stop_viewing" title="Here folks can opt out of this idea">out</a>
+    </div>  
+		<div class="guests">
+			<span id="guestCount">1</span><span id="eventMin"></span>
+		</div>
+	</div>
 
   <div class="promo_vid" id="eventVid">
   </div>

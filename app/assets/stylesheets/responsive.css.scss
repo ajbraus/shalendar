@@ -20,12 +20,17 @@ body {
 	#datepicker {
 		display:none;
 	}
+
+	.name {
+		display: none;
+	}
 	.friend_suggestions {
 		display:none;
 	}
 	.user_search {
-		bottom: 23px;
-		left: 103px;
+		position: absolute;
+		bottom: 2px;
+		left: 4px;
 		input[type=text] {
 			width: 175px;
 		}
@@ -39,11 +44,6 @@ body {
 	}
 	#headerText {
 		display:none;
-	}
-	.event_time {
-		img {
-			display:none;
-		}
 	}
 	.hero-unit {
 		h1 {
@@ -75,18 +75,16 @@ body {
 	.logo {
 		left:4px;
 		width: 106px;
-		img {
-			width: 105px;
-		}
 	}
 
 	.right_header {
-top: 34px;
-right:0px;
+top: 3px;
+right: 0px;
+width: 70%;
+font-size: 19px;
 	img {
 width: 45px;
 height: 45px;
-bottom: 11px;
 position: relative;
 	}
 	}
@@ -95,14 +93,14 @@ position: relative;
 	}
 
 	.btn-new-idea {
-		padding: 11px 19px;
-		position: fixed;
-		top: 76px;
-		left: 6px;
-		-moz-border-radius: 6px;
-		-webkit-border-radius: 6px;
-		border-radius: 6px;
-		z-index: 10000;
+padding: 11px 19px;
+top: 94px;
+left: 6px;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+border-radius: 6px;
+z-index: 10000;
+position: absolute;
 	}
 
 	#new_idea_blerb {
@@ -113,8 +111,7 @@ position: relative;
 // LAYOUT IS PROPORTIONAL
 
 	.layout {
-		width:100%
-
+		width:98%
 	}
 
 // INCLUDE YESTERDAY TOMORROW BUTTONS
@@ -126,6 +123,10 @@ position: relative;
 // TIGHTEN UP FORECAST
 	.home {
 
+	}
+
+	.instructions {
+		display: none;
 	}
 
 	.date_bar {
@@ -167,9 +168,7 @@ left: -125px;
 
 	.event {
 		max-width: 180px;
-		max-height: 300px;
 		min-width: 140px;
-		min-height: 110px;
 		right: 1px;
 		margin: 4px;
 		width: 123px;
@@ -203,20 +202,6 @@ left: -125px;
 
 	header {
 
-	}
-
-	ul.event_buttons {
-		width: 53%;
-		float: left;
-		font-size: 34px;
-		position: relative;
-		left: 3px;
-		li {
-			display: inline;
-			a img {
-				width: 23px;
-				}
-			}
 	}
 
 	.message {
@@ -255,10 +240,11 @@ left: -125px;
 				height: 248px;
 			}
 		}
-	}
-	.event_time {
-		span {
-			bottom:-4px;
+		.date {
+			float: left;
+			font-size: 17px;
+			position: relative;
+			top: 8px;
 		}
 	}
 
@@ -271,10 +257,12 @@ left: -125px;
 	.ui-datepicker {
 		width:16em;
 	}
-
-	#sign_in {
-		left:10px;
-	}
+	
+	.navigation {
+position: relative;
+left: 38px;
+top: -21px;
+}
 
 
 // Activity
@@ -336,10 +324,6 @@ right: 58px;
 	display:none;
 }
 
-.rsvp_button {
-	padding: 2px 10px;
-}
-
 .new_crowd_idea {
 	.event_form {
 		width:100%;
@@ -360,6 +344,48 @@ right: 58px;
 		ul {
 			font-size: 32px;
 		}
+	}
+
+	.meter {
+		top: -5px;
+	}
+
+	.event_guests {
+		clear: both;
+height: auto;
+margin-bottom: 10px;
+	}
+		#invite_raster {
+			clear:both;
+width: 98%;
+	}
+
+	.share_after_rsvp {
+		width: 88%;
+		left: 2%;
+	}
+
+	.social_buttons {
+		width: 109%;
+		margin-bottom: 10px;
+		margin-left: 7px;
+	}
+
+	.social_sharing {
+		a, a[href^="mailto"] {
+			width: 16%;
+		}
+	}
+
+	.city_title {
+		width:65%;
+		font-size: 14px;
+	}
+	.not_signed_in_pitch {
+		font-size: 17px;
+	}
+	.not_signed_in_buttons {
+		zoom: .7;
 	}
 
 }

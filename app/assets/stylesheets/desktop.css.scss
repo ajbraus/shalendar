@@ -7,7 +7,6 @@
 
 	header {
 		nav {
-			padding-left: 2%;
 		}
 	}
 
@@ -19,18 +18,9 @@
 		display: none;
 	}
 
-	.layout {
-		width: 95%;
-		margin-left:3%;
-	}
-
 	.forecast {
 		overflow-x: hidden;
 		width: 93%;
-	}
-
-	.top {
-		width: 80%;
 	}
 	.instagram-placeholder img {
 		width: 111px;
@@ -48,8 +38,11 @@
 	}
 
 	.logo {
-		width: 164px;
-		left: 25px;
+position: relative;
+top: 2px;
+text-align: center;
+width: 14%;
+margin: 0 auto;
 	}
 
 	ul.left_header {
@@ -61,11 +54,9 @@
 	}
 
 	.event {
-		margin:8px;
-		min-width: 190px;
-		max-width: 200px;
-		min-height: 110px;
-		max-height: 410px;
+margin: 8px;
+min-width: 230px;
+max-width: 230px;
 		.promo_img {
 			img {
 				max-width: 200px;
@@ -106,28 +97,31 @@ height: 100%;
 	}
 
 	.user_search {
-		top: 10px;
+position: absolute;
+top: 13px;
+left: 40px;
 		input[type=text] {
-		width: 200px;
+		width: 185px;
 		}
 	}
 
 	.right_header {
-		top: 10px;
-		right: 110px;
+		top: 12px;
+		right: 0px;
+		width: 44%;
+		font-size: 15px;
 	}
 
 	#friends {
-width: 65%;
-margin-left: 300px;
-top: 16px;
+width: 97%;
+top: 13px;
 	}
 
 	.event_show {
-margin: 0 286px;
-width: 65%;
-top: 10px;
-min-width: 570px;
+top: 9px;
+margin: 0 auto;
+width: 66%;
+float: right;
 		.promo_img {
 			img {
 				max-width: 100%;
@@ -137,6 +131,34 @@ min-width: 570px;
 			font-size: 27px;
 			height: 40px;
 		}
+		.date {
+			float: left;
+			font-size: 23px;
+			position: relative;
+			top: 8px;
+		}
+	}
+
+	.event_guests {
+		float:left;
+		margin-top: 10px;
+		width: 28%;
+		max-height: 300px;
+	}
+
+	.maybes {
+		width: 28%;
+		float:left;
+		max-height: 400px;
+		margin-top: 15px;
+		clear: left;
+	}
+
+	#invite_raster {
+float: right;
+width: 66%;
+margin: 0 auto;
+padding: 1px 0 10px 2px;
 	}
 
 		.guest_count {
@@ -144,30 +166,12 @@ min-width: 570px;
 			right: 6px;
 		}
 
-		.event_time {
-			span {
-				bottom:2px;
-			}
-		}
-
 		.fadeInBlue, .fadeInGreen {
 			color:lightGrey;
 		}
 
-		.event_buttons {
-			font-size: 30px;
-			top: 63px;
-			text-align: right;
-			position: relative;
-			margin-right: 9px;
-		}
-
 		#textMsg {
 		display:none;
-		}
-
-		#sign_in {
-			left:60px;
 		}
 
 		.vendor_dash {
@@ -211,7 +215,7 @@ min-width: 570px;
 		
 		.dropdown dd ul {
 top: -10px;
-left: 2px;
+right: 15px;
 		}
 
 		.interests {
@@ -221,15 +225,12 @@ left: 2px;
 		.floatingHeader {
 		}
 
-		.instagramFeed {
-			width: 960px;
-		}
 
 		.fb_login_button {
 		}
 
 		.instagram-placeholder img {
-			width: 106px;
+			width: 137px;
 		}
 
 		.top {
@@ -245,12 +246,14 @@ left: 2px;
 		}
 
 		.btn-new-idea {
-			padding: 10.5px 33px;
-position: relative;
+padding: 7px 0px;
 -moz-border-radius: 6px;
 -webkit-border-radius: 6px;
 border-radius: 6px;
-width: 170px;
+width: 107px;
+position: absolute;
+left: 11px;
+top: 57px;
 		}
 		.new_idea {
 		}
@@ -265,18 +268,7 @@ width: 170px;
 			height: auto;
 		}
 
-		.home {
-position: relative;
-margin-right: 0px;
-margin-left: 278px;
-		}
-
-		.rsvp_button {
-			padding: 10px 20px;
-		}
-
 		.new_crowd_idea {
-				padding-top: 5%;
 				padding-bottom: 5%;
 			.event_form {
 				width: 40%;
@@ -287,7 +279,7 @@ margin-left: 278px;
 			}
 			.idea_preview {
 				position: relative;
-				bottom: 30px;
+				top: 12px;
 				float: left;
 				width: 52%;
 				margin: 0 auto;
@@ -307,23 +299,28 @@ margin-left: 278px;
 		}
 
 		.jr_forecast {
-			margin-left: 170px;
-			margin-top:-100px;
+			margin-left: 80px;
+			margin-top: -10px;
 		}
 
 		.jr_welcome {
-  		margin-left: 100px;
-  		margin-top: -70px;
+margin-left: 41px;
+margin-top: 20px;
 		}
 
 		.jr_search {
-			margin-top: -70px;
-			margin-left: 50px;
+margin-top: 2px;
+margin-left: 100px;
 		}
 
 		.jr_fb_friends {
-			margin-top: -215px;
-			margin-left: -24px;
+margin-top: 7px;
+margin-left: -39px;
+		}
+
+		.jr_plans {
+margin-top: 11px;
+margin-left: -23px;
 		}
 
 		.jr_stats {
@@ -331,7 +328,8 @@ margin-left: 278px;
 		}
 
 		.jr_invites {
-			margin-top: -72px;
+			margin-top: -89px;
+			margin-left: -11px;
 		}
 
 		.jr_sidebar {
@@ -339,8 +337,23 @@ margin-left: 278px;
 		}
 
 		.jr_new_idea {
-			margin-top: 200px;
-			margin-left: 130px;
+margin-top: 6px;
+margin-left: 20px;
+		}
+
+		.jr_ideas {
+			margin-top: -90px;
+margin-left: -19px;
+		}
+
+		.jr_city_ideas {
+margin-top: 2px;
+margin-left: -25px;
+}
+
+		.jr_calendar {
+margin-top: 5px;
+margin-left: -18px;
 		}
 
 	.event_form {
@@ -349,35 +362,79 @@ margin-left: 278px;
 		}
 	}
 
+	.navigation {
+	position: relative;
+	top: 14px;
+	z-index: 0;
+	width: 40%;
+	margin: 0 auto;
+	}
+
+	.share_after_rsvp {
+		width: 60%;
+		left: 18%;
+	}
+
+	.social_buttons {
+		width: 33%;
+		margin-top: 10px;
+	}
+		.social_sharing {
+		a, a[href^="mailto"] {
+			width: 18%;
+		}
+	}
+	.city_title {
+		width: 59%;
+	}
+	.not_signed_in_pitch {
+		font-size: 27px;
+	}
+
 }
 
 /***************************************/
 /*** Mobile  - Landscape****************/
 /***************************************/
-@media only screen and (min-width: 480px) and (max-width: 599px) {
+/*@media only screen and (min-width: 480px) and (max-width: 599px) {
 
 
 	
 }
-
+*/
 /***************************************/
 /*** 7" Tablet *************************/
 /***************************************/
-@media only screen and (min-width: 600px) and (max-width: 980px) {
+/*@media only screen and (min-width: 600px) and (max-width: 980px) {
 
-}
+}*/
 
 /***************************************/
 /*** Tablet - iPad *********************/
 /***************************************/
-@media only screen and (min-width: 600px) and (max-width: 699px) {
-
-
+@media only screen and (min-width: 600px) and (max-width: 829px) {
+	.layout {
+		width: 510px;
+	}
 }
 
 /***************************************/
 /*** Widescreen ************************/
 /***************************************/
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 830px) and (max-width: 1099px) {
+	.layout {
+		width: 780px;
+	}
+}
 
+@media only screen and (min-width: 1100px) and (max-width: 1349px) {
+	.layout {
+		width: 1000px;
+	}
+}
+
+@media only screen and (min-width: 1350px) {
+	.layout {
+		width: 1300px;
+	}
 }

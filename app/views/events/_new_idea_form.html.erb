@@ -9,8 +9,8 @@
     <%= f.text_field :chronic_starts_at, id: "datetime", class: "required starts_at", autocomplete: "off" %>
   </div>
   <div class="duration">
-    <%= label :duration, "How Long?*" %>
-    <%= f.text_field :duration, placeholder:"#hrs", class: "required", autocomplete: "off"  %>
+    <%= label :duration, "Hours?*" %>
+    <%= f.text_field :duration, placeholder:"1.5", autocomplete: "off"  %>
   </div>
 
   <%= render partial: 'shared/idea_options', locals: { :f => f } %>

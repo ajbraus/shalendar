@@ -1,8 +1,10 @@
 $('#invitations').html("<%= escape_javascript(render partial: 'shalendar/new_invited_events') %>");
+$('#overlay').fadeToggle();
 
 $('body').click(function() {
-	$('.invited_events').hide();
-	$('#new_invited_events_count').text('0').hide();
+	$('.invited_events').fadeOut();
+	$('#new_invited_events_count').text('0').fadeOut();
+	$('#overlay').fadeOut();
 });
 
 $('.invited_events').click(function(event){
@@ -21,5 +23,16 @@ $("a[href$='new_invited_events']").click(function(event){
 $("a[href$='new_invited_events']").click(function(e) {
 		$('#new_invited_events_count').text('0').hide();
 		e.preventDefault();
-		$('.invited_events').toggle();
+		$('.invited_events').fadeToggle();
+		$('#overlay').fadeToggle();
 	});
+
+$('.idea_container').imagesLoaded( function(){
+   $('.idea_container').masonry({
+     itemSelector : '.shield',
+     isAnimated: true,
+ 	 animationOptions: {
+     duration: 200
+ 	 }
+   });
+ });

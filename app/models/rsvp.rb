@@ -1,5 +1,6 @@
 class Rsvp < ActiveRecord::Base
-  attr_accessible :plan_id
+  attr_accessible :plan_id, :inout
+  validates :inout, :presence => true
 
   belongs_to :guest, class_name: "User"
   belongs_to :plan, class_name: "Event"

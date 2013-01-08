@@ -1,122 +1,96 @@
 <% provide(:title, " | #{@event.title}" ) %>
-<%= render 'layouts/sidebar' %>
-<% if @event.has_parent? %>
-  <% unless @event.parent.user.background_file_size.nil? %>
-      <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.parent.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
-  <% end %> 
-<% else %>
-  <% unless @event.user.background_file_size.nil? %>
-      <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
-  <% end %>
+<% unless @event.user.background_file_size.nil? %>
+    <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
 <% end %>
-  <div class="show_skin">
-<% if user_signed_in? %>
-  <%= render 'events/event_buttons' %>
-<% end %>
-</div>
+
 <div class="event_show clearfix">
-  <div class="event_top">
-    <div class="host friend">
-      <%= link_to user_path(@event.user), target: "blank" do %>
-        <%= raster_profile_picture(@event.user) %> 
-      <% end %>
-      <div>hosted by: </div><br>
-      <% if !user_signed_in? || (current_user.following?(@event.user) || current_user == @event.user) %>
-        <div>
-          <%= @event.user.name %>
-        </div>
-      <% else %>
-        <div id="friend_name">
-          <%= @event.user.name %>
-        </div>
-        <div id="friend_button" style="display:none;">
-          <%= render  :partial => 'events/just_follow_form', :locals => { :user => @event.user } %>
-        </div>
-      <% end %>
+    <div id="rsvpForm" class="join_group_buttons">
+      <%= render partial: 'rsvp_form', :locals => { :event => @event }  %>
+      <div class="guests"><span id="guestCount"><%= @event.guest_count %></span></div>
     </div>
 
-    <% unless @event.link.blank? %>
-    <div class="event_link">
-      <%= link_to "http://#{@event.link}", target: "_blank" do %>
-        <span class="fadeInOrange" title="Idea's Website"><i class="icon-link"></i> <%= @event.link[0..15] %></span>
-      <% end %>
+  <div class="event_title clearfix">
+    <div class="eventTitle">
+      <%= @event.has_parent? ? raw("<i class='icon-time'></i> ") : '' %><%= @event.title %>
     </div>
-    <% end %>
-    <% unless @event.address == '' || @event.address.nil? %>
-      <div class="event_location">
-        <%= link_to "http://mapof.it/#{@event.address}", target: "_blank", title:"View in Google Maps" do %>
-          <span class="fadeInOrange">
-            <i class="icon-map-marker"></i>
-            <span style="font-size: 22px;"> <%= @event.address %></span>
-          </span>
+    <% if @event.user == current_user %> 
+      <div class="event_buttons">
+        <%= link_to edit_event_path(@event) do %>
+          <span class="fadeInOrange"><i class="icon-cogs"></i> edit</span>
         <% end %>
+        <% if @event.has_parent? %>
+          <%= link_to event_path(@event.parent), class:"parent" do %>
+            <span class="fadeInBlue"><i class="icon-cloud"></i> to idea</span>
+          <% end %>
+        <% end %>
+      <% unless @event.tipped? %>
+        <%= link_to event_tip_path(@event), :confirm => "You sure you want to manually tip this idea? This will notify everyone that the idea is on.", title: "Make this idea Tip", :method => :put do %>
+          <span class="fadeInOrange"><i class="icon-pushpin"></i></span>
+        <% end %>
+      <% end %>
       </div>
     <% end %>
+    <div class="eventIcons">
+    <% if @event.categories.any? %>
+      <% @event.categories.each do |cat| %>
+        <%= cat.name %>
+      <% end %>
+    <% end %>
+    <% if @event.is_public? %>
+      <i class="icon-bullhorn" title="Public"></i>
+    <% end %>
+    <% if @event.family_friendly? %>
+      <i class="icon-home" title="Family Friendly"></i>
+    <% end %>
+    </div>
+  </div>
+	<div class="when clearfix">
     <% if @event.price.present? %>
       <div class="cost">
         <i class="icon-money"></i> <%= @event.nice_price %>
       </div>
     <% end %>
-  </div>
-
-	<div class="when">
-	  <% if @event.starts_at.present? %>
-      <div class="date"><%= event_start_time(@event) %> <%= date(@event) %> ( <%= @event.nice_duration %> hrs 
-        <% if @event.ends_at < Time.now %> - Over <% end %> ) </div>
-    <% else %>
-      <div class="date"><strong>Time TBD when Idea Tips </strong></div>
+    <% unless @event.address.blank? %>
+      <div class="event_location">
+        <%= link_to "http://mapof.it/#{@event.address}", target: "_blank" do %>
+          <span class="fadeInOrange">
+            <i class="icon-map-marker"></i>
+          </span>
+        <% end %>
+        <span style="font-size: 22px;"> <%= @event.address %></span>
+      </div>
     <% end %>
-    <div class="join_group_buttons">
-      <%= render 'rsvp_form' %>
+    <% unless @event.link.blank? %>
+    <div class="event_link">
+      <%= link_to "http://#{@event.link}", target: "_blank" do %>
+        <i class="icon-link"></i> <%= @event.link[0..15] %>
+      <% end %>
     </div>
+    <% end %>
 	</div>
-  <!-- METER -->
-  <% if @event.tipped? %>  
-    <div class="meter">
-      <span style="width:100%;"><span></span></span>
-    </div>
-  <% else %>
-    <div class="meter animate orange">
-      <span style=<%= 'width:' + "#{(100*@event.guests.count.to_f/@event.min.to_f).round}" + "%;"%>><span></span></span>
-    </div>
+
+  <% if @event.description.present? %>
+    <div class="event_description"><%= @event.description %></div>
   <% end %>
 
-  <div class="event_title">
-    <div class="eventTitle"><%= @event.title %></div>
-      <div class="eventIcons">
-      <% if @event.categories.any? %>
-        <% @event.categories.each do |cat| %>
-          <%= cat.name %>
-        <% end %>
-      <% end %>
-      <% if @event.is_public? %>
-        <i class="icon-bullhorn" title="Public"></i>
-      <% end %>
-      <% if @event.family_friendly? %>
-        <i class="icon-home" title="Family Friendly"></i>
-      <% end %>
-      </div>
-  </div>
-  <div class="event_description"><%= @event.description %></div>
   <% if @event.has_image? %>
     <div class="promo_img">
-      <% if @event.parent.blank? %>
-        <% if !@event.promo_url.blank? %>
-          <%= image_tag("#{@event.promo_url}") %>
-        <% elsif @event.promo_img_file_size != nil %>
-          <%= image_tag("#{@event.promo_img.url(:large)}") %>
-        <% end %>
-      <% else %>
-        <% if !@event.parent.promo_url.blank? %>
-          <%= image_tag("#{@event.parent.promo_url}") %>
-        <% elsif @event.parent.promo_img_file_size != nil %>
-          <%= image_tag("#{@event.parent.promo_img.url(:medium)}") %>
-        <% end %>
-      <% end %>
+      <%= image_tag @event.image(:large) %>
     </div>
   <% end %>
-  
-  <% if !@event.promo_vid.nil? && @event.promo_vid != "" %>
+
+  <% @relevant_instances = @event.instances.reject { |e| e.over? } %>
+  <%= render partial: 'events/show_time', collection: @relevant_instances, as: :event %>
+
+  <% if current_user == @event.user && @event.is_parent? && !@event.one_time? %>
+    <div class="new_time_show">
+    <%= link_to event_new_time_path(@event), id:"makeATime" do %>
+      <span class="fadeInGreen"><i class="icon-time"></i> New Time</span>
+    <% end %>
+  </div>
+  <% end %>
+
+  <% if @event.promo_vid.present? %>
     <div class="promo_vid">
       <%= raw(youtube_embed(@event.promo_vid)) %>
     </div>
@@ -125,34 +99,53 @@
 <% if user_signed_in? %>
 	<!-- COMMENTS -->
   <%= render partial: 'comments_form' %>
-  <% if @event.starts_at.present? %>
-    <% if (@event.guests_can_invite_friends? || @event.user == current_user) && @event.ends_at > Time.now %>
-        <div id="invite_raster">
-          <%= render partial: 'invite_raster', :locals => { :event => @event } %>
-        </div>
-    <% end %>
-  <% end %>
 <% end %>
+</div>
+  <ul class="social_buttons">
+    <li>
+      <%= render partial: 'social/hoosin', locals: { :event => @event } %>
+    </li>
+    <li>
+      <%= render partial: 'social/email', locals: { :event => @event } %>
+    </li>
+    <li>
+      <%= render partial: 'social/twitter', locals: { :event => @event } %>
+    </li>
+    <li>
+      <%= render partial: 'social/pinterest', locals: { :event => @event } %>
+    </li>
+    <li>
+      <%= render partial: 'social/facebook', locals: { :event => @event } %>
+    </li>
+  </ul>
 
-    <div class="maybes">
-      <div class="left_label event_label"><span id="invite_count"><%= @fb_invites.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_invites.count %></span> .invited </div> 
-      <div id="invites" class="show_raster">
-        <%= render partial: 'events/invites' %>
-      </div>
-    </div>
-
-    <div class="guests">
-      <% if @event.tipped? %>
-        <div class="right_label event_label"><%= @guests.count %> .in (Tipped!)</div>
+    <div class="event_guests part clearfix">
+      <% if @event.starts_at.present? && @event.tipped? %>
+        <div class="right_label event_label"><%= @event.guest_count %>  .in (Tipped!)</div>
+      <% elsif @event.starts_at.blank? %>
+        <div class="right_label event_label"><%= @event.guest_count %>  .in </div>
       <% else %>
-        <div class="destroy right_label event_label"><%= @guests.count %> / <%= @event.min %> .in (Not Yet Tipped)</div>
+        <div class="destroy right_label event_label"><%= @event.guest_count %> / <%= @event.min %> .in (Not Yet Tipped)</div>
       <% end %>
       <div class="show_raster">
         <%= render 'guests' %>
       </div>
     </div>
-  </div>
-</div>
+
+    <div class="maybes part clearfix">
+      <div class="left_label event_label"><span id="invite_count"><%= @fb_invites.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_invites.count %></span> .invited </div> 
+      <div id="invites" class="show_raster">
+        <%= render partial: 'events/invites' %>
+      </div>
+    </div>
+    
+<% if user_signed_in? %>
+  <% if @event.guests_can_invite_friends? || @event.user == current_user && @event.is_parent_or_future_instance? %>
+    <div id="invite_raster" class="part clearfix">
+      <%= render partial: 'invite_raster', :locals => { :event => @event } %>
+    </div>
+  <% end %>
+<% end %>
 
 <!-- Twitter API script -->
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -168,7 +161,7 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <% if false %>
-<% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now.in_time_zone(current_user.city.timezone) - 7.seconds %>
+<% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
 
   <%= link_to find_friends_path, :remote => true, class: "find_friends fancybox.ajax", style: "display:none;" do %>
     <%= image_tag "social/fb.png", :size => "50x50", style: "display:none;"  %>
