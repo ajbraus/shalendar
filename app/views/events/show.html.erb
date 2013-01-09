@@ -6,9 +6,11 @@
 <div class="event_show clearfix">
     <div id="rsvpForm" class="join_group_buttons">
       <%= render partial: 'rsvp_form', :locals => { :event => @event }  %>
+      <% if @event.has_parent? || @event.one_time? %> 
+        <span class="float_right"><%= " #{@event.mini_start_date_time}" %> </span>
+      <% end %> 
       <div class="guests"><span id="guestCount"><%= @event.guest_count %></span></div>
     </div>
-
   <div class="event_title clearfix">
     <div class="eventTitle">
       <%= @event.has_parent? || @event.one_time? ? raw("<i class='icon-time'></i> ") : '' %><%= @event.title %>
@@ -24,8 +26,8 @@
           <% end %>
         <% end %>
       <% unless @event.tipped? %>
-        <%= link_to event_tip_path(@event), :confirm => "You sure you want to manually tip this idea? This will notify everyone that the idea is on.", title: "Make this idea Tip", :method => :put do %>
-          <span class="fadeInOrange"><i class="icon-pushpin"></i></span>
+        <%= link_to event_tip_path(@event), :confirm => "You sure you want to manually tip this idea? This will notify everyone that the idea is on.", :method => :put do %>
+          <span class="fadeInOrange"><i class="icon-pushpin"></i> tip</span>
         <% end %>
       <% end %>
       </div>
