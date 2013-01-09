@@ -1,13 +1,13 @@
+<!-- this is the same as _event, but called for @ideas to protect one-times from being 'taken over' by calendar view -->
 <% if user_signed_in? %>
 	<div class="event shield
 		<% if event.ends_at.present? %>
 			<%= event.ends_at < Time.now ? 'over' : '' %>
 		<% end %> 
 		<%= event.is_public? ? 'public' : '' %>
-		<%= current_user.invited?(event) ? 'invited' : '' %>
+		<%= current_user.invited?(event) || current_user.in?(event) ? 'invited' : '' %>
 		<%= current_user.in?(event) ? 'rsvpd' : '' %>
-		<%= event.one_time? ? 'one_time' : '' %>
-		<% if @currently_ideas == true %> <%= 'excuse_from_calendar' %> <% end %>
+		<%= event.one_time? ? 'one_time excuse_from_calendar' : '' %>
 		<%= current_user == event.user ? 'mine' : '' %>"
 		data-event-id='<%= event.id %>'
 		<%= event.starts_at.present? ? "data-date='#{event.starts_at.to_date}'" : '' %>>
@@ -45,7 +45,7 @@
 					<%= event.categories.first.name.capitalize %>
 				<% end %>
 		  </div>
-			<% if !@currently_ideas %>
+			<% if event.has_parent? %>
 				<div class="date"><%= event.mini_start_date_time %></div>
 			<% end %>
 			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
@@ -63,16 +63,16 @@
 		<% end %>
 	<% end %>
 
-	<% if event.one_time? && @currently_ideas 
+	<% if event.one_time? 
 		 	@relevant_instances = [event]
 		 else 
 			@relevant_instances = event.instances.reject { |e| current_user.out?(e) || e.over? } 
 		 end 
 	%>
 	<%= render partial: 'events/time', collection: @relevant_instances, as: :event %>
-	<% if current_user == event.user && !event.one_time? && @currently_ideas == true %>
+	<% if current_user == event.user && !event.one_time? && event.is_parent? %>
 		<%= link_to event_new_time_path(event) do %>
-			<div class="add_time fadeInOrange"><i class="icon-time"></i> add new time</div>
+			<div class="add_time fadeInOrange"><i class="icon-time"></i> new time</div>
 		<% end %>
 	<% end %>
 </div>

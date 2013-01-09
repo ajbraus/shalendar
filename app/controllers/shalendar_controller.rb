@@ -25,6 +25,7 @@ class ShalendarController < ApplicationController
       @ideas = Event.where('ends_at = ? OR (ends_at > ? AND one_time = ?) AND is_public = ? AND city_id = ?', nil, Time.now, true, true, @current_city.id).order('created_at DESC')
       @times =  Event.where('ends_at > ? AND is_public = ? AND city_id = ?', Time.now - 3.days, true, @current_city.id).order('created_at DESC')
     end 
+    @currently_ideas = true
     # Beginning of Yellow Pages
     #@vendors = User.where('city = :current_city and vendor = true', current_city: @current_city)
 	end

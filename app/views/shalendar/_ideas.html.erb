@@ -1,7 +1,9 @@
 <div id="ideaContainer">
+	<% @currently_ideas = true %>
   <%= render partial: "shalendar/event", collection: @ideas %>
 </div>
 <div id="timesCalendar" style="display:none;">
+	<% @currently_ideas = false %>
 	<%= render "shalendar/calendar" %>
 </div>
 <div id="ideaFilter" class="idea_filter"

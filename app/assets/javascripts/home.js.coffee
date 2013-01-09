@@ -18,7 +18,7 @@ $.fn.toggleIdeas = (show, hide) ->
 
 $.fn.buildCalendar = () ->
 	date = $(@).data('date')
-	event = $('.event').withDate("#{date}")
+	event = $('.event').withDate("#{date}").not(".excuse_from_calendar")
 	$(@).append(event);
 	$(@).masonry({
 		itemSelector : '.event',
