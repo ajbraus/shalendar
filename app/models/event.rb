@@ -246,7 +246,9 @@ class Event < ActiveRecord::Base
   end
 
   def event_day
-    self.starts_at.strftime "%A"
+    if self.starts_at.present?
+      self.starts_at.strftime "%A"
+    end
   end
 
   def short_event_title
