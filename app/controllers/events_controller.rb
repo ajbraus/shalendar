@@ -163,7 +163,7 @@ class EventsController < ApplicationController
                            promo_url: @parent.promo_url,
                            promo_vid: @parent.promo_vid,
                            family_friendly: @parent.family_friendly,
-                           price: @parent.params[:event][:price],
+                           price: @parent.price,
                            city_id: current_user.city.id #users from other cities can poach ideas
                            )
     

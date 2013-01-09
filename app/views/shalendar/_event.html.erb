@@ -3,8 +3,8 @@
 		<% if event.ends_at.present? %>
 			<%= event.ends_at < Time.now ? 'over' : '' %>
 		<% end %> 
-		<%= event.is_public? && !current_user.invited?(event) && !current_user.rsvpd?(event) ? 'public' : '' %>
-		<%= current_user.invited?(event) ? 'invited' : '' %>
+		<%= event.is_public? ? 'public' : '' %>
+		<%= current_user.invited?(event) || current_user.in?(event) ? 'invited' : '' %>
 		<%= current_user.in?(event) ? 'rsvpd' : '' %>
 		<%= event.one_time? ? 'one_time' : '' %>
 		<%= event.starts_at.present? ? 'one_time' : '' %>

@@ -360,6 +360,7 @@ class Event < ActiveRecord::Base
     duration.to_s.split(/\.0/)[0] + ' ' + 'hrs' if duration
   end
 
+
   def has_parent?
     return self.parent.present?
   end

@@ -18,7 +18,7 @@ $.fn.toggleIdeas = (show, hide) ->
 
 $.fn.buildCalendar = () ->
 	date = $(@).data('date')
-	event = $('.event').withDate("#{date}") 
+	event = $('.event').withDate("#{date}")
 	$(@).append(event);
 	$(@).masonry({
 		itemSelector : '.event',
@@ -43,6 +43,7 @@ $ ->
 	$('#jrIdeas').click ->
 		$(@).toggleIdeas('.shield:hidden', null);
 	$('#jrPlans').click ->
+		$(@).toggleIdeas('.rsvpd', 'div.shield:not(.rsvpd)');
 		$(@).toggleIdeas('.rsvpd', 'div.shield:not(.rsvpd)');
 	$('#jrFriendsIdeas').click ->
 		$(@).toggleIdeas('.invited', 'div.shield:not(.invited)');
