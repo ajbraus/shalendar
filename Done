@@ -1,3 +1,9 @@
+#Changes to models / structure since Adam shipped out for 'nam
+Added all_invited_users to accommodate users invited to the parent of a time
+
+
+
+
 Store FB pic URLs locally
 	Data-migration - irreversible
 		add_column fb_pic_url, string, authentications

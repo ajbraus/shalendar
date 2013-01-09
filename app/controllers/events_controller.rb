@@ -207,7 +207,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @guests = @event.guests
     @email_invites = @event.email_invites
-    @invited_users = @event.invited_users - @event.guests - @event.unrsvpd_users
+    @invited_users = @event.all_invited_users - @event.guests - @event.unrsvpd_users
     @comments = @event.comments.order("created_at desc")
     if user_signed_in?
       if current_user.authentications.find_by_provider("Facebook").present?
@@ -291,14 +291,17 @@ class EventsController < ApplicationController
   # DELETE /events/1.json
   def destroy
     @event = Event.find(params[:id])
-    @event_guests = @event.guests
-    @event.rsvps.each do |r|
-      r.destroy
-    end
-    @event.invitations.each do |i|
+    @event.instances.each do |i|
       i.destroy
     end
-    @event.delay.contact_cancellation(@event)
+    # @event_guests = @event.guests
+    # @event.rsvps.each do |r|
+    #   r.destroy
+    # end
+    # @event.invitations.each do |i|
+    #   i.destroy
+    # end
+    @event.contact_cancellation
 
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Idea was successfully removed' }

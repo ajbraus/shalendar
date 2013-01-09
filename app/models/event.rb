@@ -105,6 +105,14 @@ class Event < ActiveRecord::Base
     }
   end
 
+  def all_invited_users
+    if self.has_parent?
+      return self.invited_users | self.parent.invited_users
+    else
+      return self.invited_users
+    end
+  end
+
   def url_starts_at
     starts_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
   end 
