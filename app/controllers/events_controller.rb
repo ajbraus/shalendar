@@ -263,12 +263,14 @@ class EventsController < ApplicationController
     @start_time = @event.starts_at #don't worry about timezone here bc only on server
     respond_to do |format|
       if @event.update_attributes(params[:event])
-        if @start_time != @event.starts_at
-          @event.ends_at = @event.starts_at + @event.duration*3600
-          @event.save
-          @event.guests.each do |g|
-            unless g == @event.user
-              g.delay.contact_time_change(@event)
+        unless @event.starts_at.nil?
+          if @start_time != @event.starts_at
+            @event.ends_at = @event.starts_at + @event.duration*3600
+            @event.save
+            @event.guests.each do |g|
+              unless g == @event.user
+                g.delay.contact_time_change(@event)
+              end
             end
           end
         end

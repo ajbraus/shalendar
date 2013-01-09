@@ -11,7 +11,7 @@
 
   <div class="event_title clearfix">
     <div class="eventTitle">
-      <%= @event.has_parent? ? raw("<i class='icon-time'></i> ") : '' %><%= @event.title %>
+      <%= @event.has_parent? || @event.one_time? ? raw("<i class='icon-time'></i> ") : '' %><%= @event.title %>
     </div>
     <% if @event.user == current_user %> 
       <div class="event_buttons">
