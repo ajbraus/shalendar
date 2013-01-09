@@ -5,5 +5,8 @@
 	<%= render "shalendar/calendar" %>
 </div>
 <div id="ideaFilter" class="idea_filter"
+<% if params[:action] == "home" %>
+<div id="ideaFilter" class="idea_filter">
 	all
 </div>
+<% end %>

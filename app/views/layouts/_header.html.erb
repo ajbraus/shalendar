@@ -5,7 +5,7 @@
       <%= render 'layouts/logo' %>
       <div class="instructions">.instructions</div>
       <%= render 'shared/friend_search' %>
-            <% if params[:action] == 'home' %>
+      <% if params[:action] == 'home' %>
       <div class="navigation">
         <span class="options">
 <!--           <span id="reload"><i class="icon-repeat"></i></span> -->
@@ -16,6 +16,10 @@
           <span id="jrCityIdeas">public</span> ||
           <span id="jrCalendar"><i class="icon-time"></i> view</span>
         </span>
+        <%= render 'shared/picture_dropdown' %>
+      </div>
+      <% else %>
+      <div class="navigation">
         <%= render 'shared/picture_dropdown' %>
       </div>
       <% end %>

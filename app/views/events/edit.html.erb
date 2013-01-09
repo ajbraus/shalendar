@@ -22,7 +22,7 @@
       <% end %>
     </div>
     <div style="margin-top: 17px;">
-      <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will notify all guests that the idea is canceled.' }, class: "btn btn-large btn-danger" do %>
+      <%= link_to @event, method: :destroy, data: { confirm: 'Are you sure? This will notify all guests that the idea is canceled.' }, class: "btn btn-large btn-danger" do %>
         <i class="icon-trash"></i> Cancel
       <% end %>
     </div>

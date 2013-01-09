@@ -124,7 +124,7 @@ top: 13px;
 	.event_show {
 top: 9px;
 margin: 0 auto;
-width: 66%;
+width: 64%;
 float: right;
 		.promo_img {
 			img {
@@ -146,21 +146,22 @@ float: right;
 	.event_guests {
 		float:left;
 		margin-top: 10px;
-		width: 28%;
+		width: 29%;
 		max-height: 300px;
 	}
 
 	.maybes {
-		width: 28%;
+		width: 29%;
 		float:left;
 		max-height: 400px;
 		margin-top: 15px;
 		clear: left;
+		overflow: auto;
 	}
 
 	#invite_raster {
 float: right;
-width: 66%;
+width: 64%;
 margin: 0 auto;
 padding: 1px 0 10px 2px;
 	}
