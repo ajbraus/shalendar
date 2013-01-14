@@ -19,12 +19,16 @@
 				<% if false %>
 				<li><span class="only"> crowd ideas </span><i class="icon-cloud orange"></i><%= @user.events.where(:is_big_idea => true).count %></li>
 				<% end %>
-				<li><span class="only"> .invites </span><i class="icon-envelope-alt purple"></i> <%= @user.invitations.count %></li>
+				<% @guest_count = 0
+						@user.events.each do |e|
+      				@guest_count += (e.guests.count -1)
+    				end
+    		%>
+				<li><span class="only"> guests </span><i class="icon-envelope-alt purple"></i> <%= @guest_count %></li>
 			</ul>
 		</div>
 	</div>
 	<% if user_signed_in? && (current_user == @user || current_user.is_friends_with?(@user)) %>
-	<%= render 'shalendar/ideas' %>
 	<div class="future_events">
 	<h3>Upcoming Ideas</h3>
 		<ul>
