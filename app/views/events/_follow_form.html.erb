@@ -1,11 +1,13 @@
-<% unless current_user == user || current_user.vendor? %>
-	<div id="follow_form" class="follow_btn">
-	  <% if current_user.following?(user) %>
-	  	<%= render :partial => 'events/unfollow', :locals => { :user => user } %>
-	  <% elsif current_user.request_following?(user) %>
-	  	<span>Friend Request Sent</span>
-	  <% else %>
-	  	<%= render :partial => 'events/follow', :locals => { :user => user } %>
-	  <% end %>
-	</div>
+<% if user_signed_in? %>
+	<% unless current_user == user || current_user.vendor? %>
+		<div id="follow_form" class="follow_btn">
+		  <% if current_user.following?(user) %>
+		  	<%= render :partial => 'events/unfollow', :locals => { :user => user } %>
+		  <% elsif current_user.request_following?(user) %>
+		  	<span>Friend Request Sent</span>
+		  <% else %>
+		  	<%= render :partial => 'events/follow', :locals => { :user => user } %>
+		  <% end %>
+		</div>
+	<% end %>
 <% end %>

@@ -904,8 +904,10 @@ class User < ActiveRecord::Base
           @new_events = []
           @user_invitations.each do |ui|
             e = Event.find_by_id(ui.invited_event_id)
-            if e.starts_at.between?(Time.now.midnight, Time.now.midnight + 3.days) && !u.out?(e)
-              @new_events.push(e)
+            if e.starts_at.present?
+              if e.starts_at.between?(Time.now.midnight, Time.now.midnight + 3.days) && !u.out?(e)
+                @new_events.push(e)
+              end
             end
           end
           if @new_events.any?
