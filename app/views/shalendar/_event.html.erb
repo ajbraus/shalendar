@@ -10,7 +10,7 @@
 		<% if @currently_ideas == true %> <%= 'excuse_from_calendar' %> <% end %>
 		<%= current_user == event.user ? 'mine' : '' %>"
 		data-event-id='<%= event.id %>'
-		<%= event.starts_at.present? ? "data-date='#{event.starts_at.to_date}'" : '' %>>
+		<%= event.starts_at.present? ? "data-date=#{event.starts_at.to_date}" : '' %>>
 <% else %>
 	<div class="event shield 
 		<% if event.starts_at.present? %>
