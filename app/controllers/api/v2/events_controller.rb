@@ -68,7 +68,7 @@ class Api::V2::EventsController < ApplicationController
         :iid => @inviter_id,
         :share_a => @mobile_user.invited_all_friends?(e),
         :it => @is_time,
-        :ii => @is_idea
+        :ii => @is_idea,
         :ht => @has_time
       }
       @list_events.push(@temp)
