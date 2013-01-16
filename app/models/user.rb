@@ -215,15 +215,28 @@ class User < ActiveRecord::Base
     end
   end
 
+  #moved all parent logic into the model
   def rsvp_in!(event)
     if event.full?
       return flash[:notice] = "The event is currently full."
     else
       if event.rsvps.where(guest_id: self.id).any?
         @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
-        @existing_rsvp.destroy
+        if @existing_rsvp.inout = 1
+          return
+        else
+          @existing_rsvp.destroy
+        end
       end
       rsvps.create!(plan_id: event.id, inout: 1)
+      if @event.guest_count >= @event.min && @event.tipped? == false
+        @event.tip!
+      end
+      if @event.parent.present?
+        self.rsvp_in!(@event.parent)
+      else #contact only once if they sign up for time + idea 
+        @event.user.delay.contact_new_rsvp(@event, current_user)
+      end
     end
   end
 
@@ -236,6 +249,9 @@ class User < ActiveRecord::Base
       @existing_rsvp.destroy
     end
     rsvps.create!(plan_id: event.id, inout: 0)
+    event.instances.each do |time|
+      self.rsvp_out!(time)
+    end
   end
 
   #get user's profile picture
@@ -313,21 +329,21 @@ class User < ActiveRecord::Base
       @relationship.confirmed = true
       @relationship.save
       other_user.delay.contact_friend(self)
-      self.friend_back!(other_user)
+      self.add_invitations_from_user(other_user)
+      other_user.friend_back!(self)
     end
   end
 
+  ##CHANGED THIS- now it's always from the perspective of the user who is doing the friending
+  #same as friend! without the contact or extra check...
   def friend_back!(other_user)
-    unless other_user.following?(self) || other_user.vendor?
-      unless other_user.request_following?(self) 
-        other_user.follow!(self)
-      end
-      @reverse_relationship = other_user.relationships.find_by_followed_id(self.id)
-      @reverse_relationship.confirmed = true
-      @reverse_relationship.save
-      other_user.add_invitations_from_user(self)
-      #also need to add all relevant invitations for both people at this point
+    unless self.following?(other_user) || self.request_following?(other_user)
+      self.follow!(other_user)
     end
+    @relationship = self.relationships.find_by_followed_id(other_user.id)
+    @relationship.confirmed = true
+    @relationship.save
+    self.add_invitations_from_user(other_user)
   end
 
   def add_invitations_from_user(other_user)
@@ -338,6 +354,19 @@ class User < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def unfriend!(other_user)
+    @relationship = self.relationships.find_by_followed_id(other_user.id)
+    @reverse_relationship = other_user.relationships.find_by_followed_id(self.id)
+    if @relationship.present?
+      @relationship.destroy
+    end
+    if @reverse_relationship.present?
+      @reverse_relationship.destroy
+    end
+    self.delete_invitations_from_user(other_user)
+    other_user.delete_invitations_from_user(self)
   end
 
   def delete_invitations_from_user(other_user)
@@ -851,9 +880,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def contact_new_rsvp(event)
-    @rsvping_user = self
-    @user = event.user
+  #changed this to keep consistence with these all being contact to
+  #user object that is calling the method
+  def contact_new_rsvp(event, rsvp_user)
+    @rsvping_user = rsvp_user
+    @user = self
     if(@user.iPhone_user == true)
       d = APN::Device.find_by_id(@user.apn_device_id)
       if d.nil?

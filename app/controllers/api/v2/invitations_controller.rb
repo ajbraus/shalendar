@@ -31,7 +31,7 @@ class Api::V2::InvitationsController < ApplicationController
       render :status=>400, :json=>{:error => "other user was not found."}
     end
     @mobile_user.invite_all_friends!(@event)
+
     render :status=>200, :json=> { :success => true} 
   end
-
 end

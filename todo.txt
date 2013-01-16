@@ -196,7 +196,7 @@ add /new_venue to the list of urls we don't save
 	your friends maybes -- all maybes
 
 --------------------------------------------------------------
-
+	Make it so people can receive multiple invitations to an event (can count them)
 --------------------------------------------------------------
 
 	

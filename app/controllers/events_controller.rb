@@ -94,14 +94,11 @@ class EventsController < ApplicationController
           @instance.save_shortened_url
           current_user.rsvp_in!(@instance)
           if params[:invite_me] == "2" || params[:invite_me] == "1"
-            @rsvp = current_user.rsvps.find_by_plan_id(@instance.id)
             current_user.invite_all_friends!(@instance)
-            @rsvp.invite_all_friends = true
-            @rsvp.save
           end
           @instance.tipped = true   if @instance.min <= 1
           
-          #CLEAR PARENT EVENT ATTRIBUTES
+          #CLEAR PARENT EVENT TIME ATTRIBUTES
           @event.starts_at = nil
           @event.ends_at = nil
           @event.duration = nil
@@ -116,10 +113,7 @@ class EventsController < ApplicationController
         Categorization.create(event_id: @event.id, category_id: params[:category_id])
       end
       if params[:invite_me] == '1' || params[:invite_me] == '2'
-        @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
         current_user.invite_all_friends!(@event)
-        @rsvp.invite_all_friends = true
-        @rsvp.save
       end
       
       if @instance.present?
@@ -167,14 +161,14 @@ class EventsController < ApplicationController
                            city_id: current_user.city.id #users from other cities can poach ideas
                            )
     
-    if params[:invite_me] == '1'
+    if params[:event][:invite_me] == '1'
       @event.is_public = true
     end
     @event.tipped = true   if @event.min <= 1
     if @event.save
       @event.save_shortened_url
       current_user.rsvp_in!(@event)
-      if params[:invite_me] == '1' || params[:invite_me] == '2'
+      if params[:event][:invite_me] == '1' || params[:event][:invite_me] == '2'
         @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
         current_user.invite_all_friends!(@event)
         @rsvp.invite_all_friends = true
@@ -248,7 +242,7 @@ class EventsController < ApplicationController
   def update
         #datetime datepicker => format Chronic can parse
     params[:event][:starts_at] = Chronic.parse(params[:event][:chronic_starts_at])
-    if params[:event][:chronic_starts_at].blank?
+    if params[:event][:chronic_starts_at].present?
       params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
     end
 

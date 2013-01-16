@@ -8,20 +8,7 @@ class RsvpsController < ApplicationController
     elsif params[:rsvp][:inout].to_f == 0
       current_user.rsvp_out!(@event)
     end
-
-    if @event.min.present?
-      if @event.guest_count == @event.min && @event.tipped? == false
-        @event.tip!
-      end
-    end
-
-    if @event.has_parent?
-      current_user.rsvp_in!(@event.parent)
-    end
-    
     if params[:rsvp][:inout].to_f == 1
-      current_user.delay.contact_new_rsvp(@event)
-
       #SHOW FRIENDS TO INVITE IN LIGHTBOX
       #@friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event)}
       #if a user is 'everywhere else' then we don't silo their invitations...

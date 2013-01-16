@@ -166,17 +166,21 @@ class Event < ActiveRecord::Base
   end
 
   def tip!
-    if self.ends_at.present?
-      if self.tipped? == false
+    if self.tipped? == false
+      if self.ends_at.present?
         unless self.ends_at < Time.now
           self.guests.each do |g|
             g.delay.contact_tipped(self)
           end
         end
+      else
+        self.guests.each do |g|
+          g.delay.contact_tipped(self)
+        end
       end
-      self.tipped = true
-      self.save!
     end
+    self.tipped = true
+    self.save!
   end
 
   def full?
