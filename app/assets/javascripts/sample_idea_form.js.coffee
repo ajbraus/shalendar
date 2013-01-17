@@ -36,8 +36,18 @@ $ ->
 
 	#DESCRIPTION
 	$('#new_idea_description').keyup ->
-		description = $(@).val();
+		description = $(@).val().substring(0,250);
+		description_length = $(@).val().length
 		$('#eventDescription').text(description);
+		$('#descriptionCharCount').text(description_length)
+		if description_length > 250
+			$('#descriptionCharCount').css("color", "#CD0000");
+		else
+			$('#descriptionCharCount').css("color", "black");
+		if title_length > 255
+			$('#new_idea_description').addClass('error');
+		else
+			$('#new_idea_description').removeClass('error');
 
 	#ADD TIME AND TIPPING POINT
 	# $('#knowTime').click ->

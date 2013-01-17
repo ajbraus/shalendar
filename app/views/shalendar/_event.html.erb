@@ -61,6 +61,10 @@
 				<%= image_tag event.image(:medium) %>
 			</div>
 		<% end %>
+		<div class="host_in_idea_shield">
+			by: <%= event.user.name %>
+			<%= image_tag("#{invite_raster_picture(event.user)}", class: "profile_picture") %>
+		</div>
 	<% end %>
 
 	<% if event.one_time? && @currently_ideas 
