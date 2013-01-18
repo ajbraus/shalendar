@@ -1,5 +1,7 @@
 Adam
 
+tip or not not showing on calendar
+
 -----------------------------------------------------
 digest - two parts: 
 new times (within upcoming 4 days)

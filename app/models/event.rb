@@ -454,8 +454,7 @@ class Event < ActiveRecord::Base
   end
 
   def guest_count
-    @guests = self.rsvps.where(inout: 1)
-    return @guests.count
+    return self.rsvps.where(inout: 1).count
   end
 
   def contact_cancellation #this is weird bc have to do delayed job before destroying..
