@@ -918,41 +918,27 @@ class User < ActiveRecord::Base
   # Class Methods
   def self.digest
     @day = Date.today.days_to_week_start
-    if @day == 0 || @day == 4
+   # if @day == 0 || @day == 4
       @digest_users = User.where("users.digest = 'true'")
       @digest_users.each do |u|
         time_range = Time.now.midnight .. Time.now.midnight + 3.days
-        if u.plans.where(starts_at: time_range).any?
-          @upcoming_events = []
-          (0..3).each do |day|
-            @date = Time.now.midnight.to_date + day.days
-            @events = u.events_on_date(@date)
-            @upcoming_events.push(@events)
-          end
+        @upcoming_events = []
+        (0..2).each do |day|
+          day_time_range = Time.now.midnight + day.days .. Time.now.midnight + (day+1).days
+          @upcoming_day_events = u.plans.where(starts_at: day_time_range)
+          @upcoming_events.push(@upcoming_day_events)
         end
-        @user_invitations = u.invitations.order('created_at desc')
-        if @user_invitations.any?
-          @new_events = []
-          @user_invitations.each do |ui|
-            e = Event.find_by_id(ui.invited_event_id)
-            if e.starts_at.present?
-              if e.starts_at.between?(Time.now.midnight, Time.now.midnight + 3.days) && !u.out?(e)
-                @new_events.push(e)
-              end
-            end
-          end
-          if @new_events.any?
-            @invited_events = []
-            (0..3).each do |day|
-              @date = Time.now.midnight.to_date + day.days
-              @events = u.events_on_date(@date)
-              @invited_events.push(@events)
-            end
-            Notifier.delay.digest(u, @invited_events, @upcoming_events)
-          end
+        @invited_events = []
+        (0..2).each do |day|
+          day_time_range = Time.now.midnight + day.days .. Time.now.midnight + (day+1).days
+          @day_invited_events = u.invited_events.where(starts_at: day_time_range)
+          @invited_events.push(@day_invited_events)
+        end
+        if @invited_events.any? || @upcoming_events.any?
+          Notifier.delay.digest(u, @invited_events, @upcoming_events)
         end
       end
-    end
+    #end
   end
 
   def self.follow_up
