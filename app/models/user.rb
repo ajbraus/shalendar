@@ -918,7 +918,7 @@ class User < ActiveRecord::Base
   # Class Methods
   def self.digest
     @day = Date.today.days_to_week_start
-   # if @day == 0 || @day == 4
+   if @day == 0 || @day == 4
       @digest_users = User.where("users.digest = 'true'")
       @digest_users.each do |u|
         time_range = Time.now.midnight .. Time.now.midnight + 3.days
@@ -938,7 +938,7 @@ class User < ActiveRecord::Base
           Notifier.delay.digest(u, @invited_events, @upcoming_events)
         end
       end
-    #end
+    end
   end
 
   def self.follow_up
