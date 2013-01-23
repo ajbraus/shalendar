@@ -70,7 +70,10 @@
 	<% if event.one_time? && @currently_ideas 
 		 	@relevant_instances = [event]
 		 else 
-			@relevant_instances = event.instances.reject { |e| current_user.out?(e) || e.over? } 
+			@relevant_instances = event.instances.reject { |e| e.over? } 
+			if user_signed_in?
+				@relevant_instances = @relevant_instances.reject { e current_user.out?(e) }
+			end
 		 end 
 	%>
 	<%= render partial: 'events/time', collection: @relevant_instances, as: :event %>

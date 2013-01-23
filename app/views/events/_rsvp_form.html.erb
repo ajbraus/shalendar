@@ -24,6 +24,7 @@
 		<% elsif current_user.in?(event) %> <!-- IF RSVPED SHOW IN BUTTON AND TOGGLE OUT-->
 			<span id="inButton">
 				<i class="icon-ok-sign blue" title="you're .in"></i> you're .in
+				<!-- this shouldn't create rsvp-out, it should just destroy rsvp-in -->
 				<div id="flakeOut">
 					<%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
 		  			<%= f.hidden_field :plan_id %>

@@ -3,12 +3,12 @@ class ShalendarController < ApplicationController
 
 	def home
     if user_signed_in?        
-      @city_ideas = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND is_public = ? AND city_id = ?', Time.now, true, true, @current_city.id).order('created_at DESC')
-      @invites = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
-                .joins(:invitations).where(invitations: {invited_user_id: current_user.id}).order("created_at DESC")
+      @city_ideas = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND is_public = ? AND city_id = ?', Time.now, true, true, @current_city.id)
+      @invites = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true).order("RANDOM()")
+                .joins(:invitations).where(invitations: {invited_user_id: current_user.id}).order("RANDOM()")
       @ins = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
-                  .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).order('created_at DESC')
-      @mine = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND user_id = ?', Time.now, true, current_user.id).order('created_at DESC')
+                  .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).order("RANDOM()")
+      @mine = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND user_id = ?', Time.now, true, current_user.id).order("RANDOM()")
       
       @ideas = ( @city_ideas | @ins | @invites | @mine ).reject{|e| current_user.out?(e)}
 
