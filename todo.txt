@@ -2,6 +2,7 @@ Adam
 
 tip or not not showing on calendar
 flake out should just destroy rsvp in, not rsvp out
+description not able to be more than 255 chars (PgSQL)
 -----------------------------------------------------
 digest - two parts: 
 new times (within upcoming 4 days)
