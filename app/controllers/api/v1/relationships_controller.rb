@@ -18,7 +18,7 @@ include UsersHelper
       return
     elsif @user_to_follow.require_confirm_follow? && (@user_to_follow.following?(@mobile_user) == false)
         @mobile_user.follow!(@user_to_follow)
-        @relationship = @mobile_user.find_by_followed_id(@user_to_follow.id)
+        @relationship = @mobile_user.relationships.find_by_followed_id(@user_to_follow.id)
         @relationship.confirmed = false
         if @relationship.save
           @user_to_follow.delay.contact_confirm(@mobile_user)
