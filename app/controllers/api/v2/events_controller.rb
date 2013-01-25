@@ -321,7 +321,7 @@ class Api::V2::EventsController < ApplicationController
     @event.tipped = true if @event.min <= 1
  
     #Make Instance
-    if params[add_time] == '1' && @event.starts_at.present? && @event.duration.present?
+    if params[:add_time] == '1' && @event.starts_at.present? && @event.duration.present?
       #SET ENDS_AT IF PRESENT
       @event.ends_at = @event.starts_at + @event.duration*3600
       if params[:one_time] == '0' #IF NOT one time, CREATE instance
