@@ -302,12 +302,12 @@ class Api::V2::EventsController < ApplicationController
     @event = @mobile_user.events.build(@event_params)
     # @event.user = @mobile_user
     # @event.chronic_starts_at = DateTime.parse(params[:start])
-    if params[:start].present?
+    if params[:start].present? && params[:duration].present?
       @event.starts_at = DateTime.parse(params[:start])
       @event.duration = Float(params[:duration])
       @event.ends_at = @event.starts_at + @event.duration*3600
     end
-    if params[:invite_int] == '1'
+    if params[:invite_city] == '1'
       @event.is_public = true
     end
     if @current_city.present?
@@ -321,7 +321,7 @@ class Api::V2::EventsController < ApplicationController
     @event.tipped = true if @event.min <= 1
  
     #Make Instance
-    if @event.starts_at.present? && @event.duration.present?
+    if params[add_time] == '1' && @event.starts_at.present? && @event.duration.present?
       #SET ENDS_AT IF PRESENT
       @event.ends_at = @event.starts_at + @event.duration*3600
       if params[:one_time] == '0' #IF NOT one time, CREATE instance
@@ -347,7 +347,7 @@ class Api::V2::EventsController < ApplicationController
         if @instance.save
           @instance.save_shortened_url
           current_user.rsvp_in!(@instance)
-          if params[:invite_int] == "2" || params[:invite_int] == "1"
+          if params[:invite_all] == "1"
             current_user.invite_all_friends!(@instance)
           end
           @instance.tipped = true   if @instance.min <= 1
@@ -364,7 +364,7 @@ class Api::V2::EventsController < ApplicationController
     if @event.save
       @mobile_user.rsvp_in!(@event)
       @event.save_shortened_url
-      if params[:invite_int] == 1 || params[:invite_int] == 2
+      if params[:invite_all] == '1'
         @mobile_user.invite_all_friends!(@event)
       end
       if params[:category_id]
