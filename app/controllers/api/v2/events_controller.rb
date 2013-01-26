@@ -296,7 +296,8 @@ class Api::V2::EventsController < ApplicationController
       family_friendly: 0,
       promo_url: "",
       promo_vid: "",
-      promo_img: params[:promo_img]
+      promo_img: params[:promo_img],
+      description: params[:description]
     }
 
     @event = @mobile_user.events.build(@event_params)
@@ -342,7 +343,8 @@ class Api::V2::EventsController < ApplicationController
                                  promo_vid: @event.promo_vid,
                                  is_public: @event.is_public,
                                  family_friendly: @event.family_friendly,
-                                 price: @event.price
+                                 price: @event.price,
+                                 description: @event.description
                               )
         if @instance.save
           @instance.save_shortened_url
@@ -401,7 +403,8 @@ class Api::V2::EventsController < ApplicationController
           :comments => @comments,
           :image => @event.image(:medium),
           :url => @event.short_url,
-          :share_a => @mobile_user.invited_all_friends?(@event)
+          :share_a => @mobile_user.invited_all_friends?(@event),
+          :description => @event.description
         }
     else
       render :status => 400, :json => {:error => "Idea did not Save"}
