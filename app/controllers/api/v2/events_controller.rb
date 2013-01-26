@@ -376,7 +376,16 @@ class Api::V2::EventsController < ApplicationController
         end
       end
       @g_share = true
-      @response = {
+      @invitedids = []
+      @event.invited_users.each do |i|
+        @invitedids.push(i.id)
+      end
+      @comments = []
+      @event.comments.each do |c|
+        @c = {msg: c.content, name: c.user.name, date: c.created_at}
+        @comments.push(@c)
+      end
+      render json: { 
           :eid => @event.id,
           :title => @event.title,  
           :start => @event.starts_at,
@@ -393,8 +402,7 @@ class Api::V2::EventsController < ApplicationController
           :image => @event.image(:medium),
           :url => @event.short_url,
           :share_a => @mobile_user.invited_all_friends?(@event)
-      }
-      render json: @response
+        }
     else
       render :status => 400, :json => {:error => "Idea did not Save"}
     end
