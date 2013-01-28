@@ -11,10 +11,15 @@ class Api::V2::EventsController < ApplicationController
       render :status => 400, :json => {:error => "could not find your user"}
     end
 
-    @invites = Event.where('ends_at IS NULL OR ends_at > ?', Time.now)
+    @invites_ideas = Event.where('ends_at IS NULL')
                 .joins(:invitations).where(invitations: {invited_user_id: @mobile_user.id}).order("RANDOM()")
-    @ins = Event.where('ends_at IS NULL OR ends_at > ?', Time.now)
-                  .joins(:rsvps).where(rsvps: {guest_id: @mobile_user.id, inout: 1}).order("RANDOM()")
+    # @ins_ideas = Event.where('ends_at IS NULL')
+    #               .joins(:rsvps).where(rsvps: {guest_id: @mobile_user.id, inout: 1}).order("RANDOM()")
+
+    @invites_times = Event.where('ends_at > ?', Time.now)
+                .joins(:invitations).where(invitations: {invited_user_id: current_user.id}).order("starts_at ASC")
+    # @ins_times = Event.where('ends_at > ?', Time.now - 3.days)
+    #               .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).order('starts_at DESC')
 
     # @time_range = Time.now .. Time.now + 1.year
     # @invites = Event.where(starts_at: @time_range).joins(:invitations)
@@ -23,9 +28,8 @@ class Api::V2::EventsController < ApplicationController
     # @ins = Event.where(starts_at: @time_range).joins(:rsvps)
     #                   .where(rsvps: {guest_id: @mobile_user.id, inout: 1})#.order("starts_at ASC")
 
-    @events = @invites | @ins
-    @event = @events.reject{|e| current_user.out?(e)}
-    @events = @events.sort_by{|t| t[:starts_at]}
+    @events = @invites_ideas | @invites_times
+    @event = @events.reject{|e| @mobile_user.out?(e)}
 
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []
