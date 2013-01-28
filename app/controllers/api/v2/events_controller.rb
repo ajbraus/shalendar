@@ -229,6 +229,10 @@ class Api::V2::EventsController < ApplicationController
       @event.invited_users.each do |i|
         @invitedids.push(i.id)
       end
+      @price = 0
+      unless @event.price.nil?
+        @price = @event.price
+      end
       @comments = []
       @event.comments.each do |c|
         @c = {msg: c.content, name: c.user.name, date: c.created_at}
@@ -250,6 +254,9 @@ class Api::V2::EventsController < ApplicationController
           :comments => @comments,
           :image => @event.image(:medium),
           :url => @event.short_url,
+          :price => @price,
+          :address => @event.address,
+          :link => @event.link,
           :share_a => @mobile_user.invited_all_friends?(@event)
         }
     end
