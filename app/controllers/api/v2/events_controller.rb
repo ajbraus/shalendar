@@ -259,7 +259,7 @@ class Api::V2::EventsController < ApplicationController
       end
       @inviter = nil
       if @mobile_user.invited?(@event)
-        @inviter = @mobile_user.invitations.where(event_id: @event.id).first.inviter
+        @inviter = @mobile_user.invitations.where(invited_event_id: @event.id).first.inviter
       end
       render json: { 
           :eid => @event.id,
