@@ -49,8 +49,16 @@ class Api::V2::EventsController < ApplicationController
       @is_time = false
       @is_idea = false
       @has_time = false
+      @time_ids = []
       if e.has_future_instance?
         @has_time = true
+        e.instances.each do |time|
+          if time.starts_at.present?
+            if time.starts_at >= Time.now
+              @time_ids.push(time.id)
+            end
+          end
+        end
       end
       if e.one_time?
         @is_time = true
@@ -79,7 +87,8 @@ class Api::V2::EventsController < ApplicationController
         :share_a => @mobile_user.invited_all_friends?(e),
         :it => @is_time,
         :ii => @is_idea,
-        :ht => @has_time
+        :ht => @has_time,
+        :tids => @time_ids
       }
       @list_events.push(@temp)
     end 
@@ -248,6 +257,10 @@ class Api::V2::EventsController < ApplicationController
         @c = {msg: c.content, name: c.user.name, date: c.created_at}
         @comments.push(@c)
       end
+      @inviter = nil
+      if @mobile_user.invited?(@event)
+        @inviter = @mobile_user.invitations.where(event_id: @event.id).first.inviter
+      end
       render json: { 
           :eid => @event.id,
           :title => @event.title,  
@@ -267,6 +280,7 @@ class Api::V2::EventsController < ApplicationController
           :price => @price,
           :address => @event.address,
           :link => @event.link,
+          :inviter => @inviter,
           :share_a => @mobile_user.invited_all_friends?(@event)
         }
     end
