@@ -12,9 +12,9 @@ class Api::V2::RsvpsController < ApplicationController
     if @event.nil?
       render :status=>400, :json=>{ :error => "event was not found."}
     end
-    if @inout == 0
+    if @inout == '0'
       @mobile_user.rsvp_out!(@event)
-    elsif @inout == 1
+    elsif @inout == '1'
       @mobile_user.rsvp_in!(@event)
       #rsvp in to parent idea
     end
