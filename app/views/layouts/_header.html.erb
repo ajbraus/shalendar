@@ -58,11 +58,10 @@
           .instructions
         </div>
         <% end %>
-        <div class="city_title">
-          <h2><%= @current_city.name %></h2>
-        </div>
-        <%= render 'shared/not_signed_in_pitch' %>
       <% end %>
+    </div>
+    <div class="city_title">
+      <%= @current_city.name %>
     </div>
   </nav>
   <%= render 'layouts/alerts' %>

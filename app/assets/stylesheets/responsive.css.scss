@@ -74,7 +74,7 @@ body {
 
 	.logo {
 		left:4px;
-		width: 106px;
+		width: 130px;
 		img {
 			width: 120px;
 			margin-top: 2px;
@@ -326,6 +326,7 @@ right: 58px;
 }
 
 #sign_in {
+	width: 90%;
 	input {
 		width:60%;
 	}
@@ -389,8 +390,9 @@ width: 98%;
 	}
 
 	.city_title {
-		width:65%;
-		font-size: 14px;
+		position: absolute;
+		left: 130px;
+		top: 65px;
 	}
 	.not_signed_in_pitch {
 		font-size: 17px;

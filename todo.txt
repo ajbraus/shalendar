@@ -1,5 +1,10 @@
 Adam
 
+fix signup:
+	change signup page to match pinterest
+	add gradient to not signed in pitch
+	kill landing page -- just go to madison/city with most ideas
+
 Fix digest
 digest - two parts: 
 new times (within upcoming 4 days)
@@ -31,6 +36,8 @@ Fix scaling model - how to grow to another city . . . more cities? countries?
 
 -----------------------------------------------------
 
+
+plan b-day parties through hoos.in!
 
 	rsvp button
 

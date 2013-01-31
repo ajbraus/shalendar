@@ -435,3 +435,9 @@ _plans.html.erb
 
 
   , :dir => "rtl" 
+
+
+
+    <span id="auth-status" class="fb_button fb_login_button">
+    <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
+  </span>
