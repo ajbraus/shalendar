@@ -125,6 +125,31 @@ class Api::V2::EventsController < ApplicationController
       if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
         @g_share = false
       end
+      
+      @is_time = false
+      @is_idea = false
+      @has_time = false
+      @time_ids = []
+      if e.has_future_instance?
+        @has_time = true
+        e.instances.each do |time|
+          if time.starts_at.present?
+            if time.starts_at >= Time.now
+              @time_ids.push(time.id)
+            end
+          end
+        end
+      end
+      if e.one_time?
+        @is_time = true
+        @is_idea = true
+      elsif e.has_parent?
+        @is_time = true
+        @is_idea = false
+      else
+        @is_time = false
+        @is_idea = true
+      end
       @temp = {
         :eid => e.id,
         :title => e.title,  
@@ -138,7 +163,12 @@ class Api::V2::EventsController < ApplicationController
         :tipped => e.tipped,
         :gids => @guestids,
         :g_share => @g_share,
-        :share_a => @mobile_user.invited_all_friends?(e)
+        :iid => @inviter_id,
+        :share_a => @mobile_user.invited_all_friends?(e),
+        :it => @is_time,
+        :ii => @is_idea,
+        :ht => @has_time,
+        :tids => @time_ids
       }
       @list_events.push(@temp)
     end 
@@ -169,6 +199,30 @@ class Api::V2::EventsController < ApplicationController
       if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
         @g_share = false
       end
+      @is_time = false
+      @is_idea = false
+      @has_time = false
+      @time_ids = []
+      if e.has_future_instance?
+        @has_time = true
+        e.instances.each do |time|
+          if time.starts_at.present?
+            if time.starts_at >= Time.now
+              @time_ids.push(time.id)
+            end
+          end
+        end
+      end
+      if e.one_time?
+        @is_time = true
+        @is_idea = true
+      elsif e.has_parent?
+        @is_time = true
+        @is_idea = false
+      else
+        @is_time = false
+        @is_idea = true
+      end
       @temp = {
         :eid => e.id,
         :title => e.title,  
@@ -178,11 +232,16 @@ class Api::V2::EventsController < ApplicationController
         :tip => e.min,
         :image => e.image(:medium), 
         :host => e.user,
-        :plan => true,
+        :plan => @mobile_user.rsvpd?(e),
         :tipped => e.tipped,
         :gids => @guestids,
         :g_share => @g_share,
-        :share_a => @mobile_user.invited_all_friends?(e)
+        :iid => @inviter_id,
+        :share_a => @mobile_user.invited_all_friends?(e),
+        :it => @is_time,
+        :ii => @is_idea,
+        :ht => @has_time,
+        :tids => @time_ids
       }
       @list_events.push(@temp)
     end 
@@ -212,6 +271,30 @@ class Api::V2::EventsController < ApplicationController
       if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
         @g_share = false
       end
+      @is_time = false
+      @is_idea = false
+      @has_time = false
+      @time_ids = []
+      if e.has_future_instance?
+        @has_time = true
+        e.instances.each do |time|
+          if time.starts_at.present?
+            if time.starts_at >= Time.now
+              @time_ids.push(time.id)
+            end
+          end
+        end
+      end
+      if e.one_time?
+        @is_time = true
+        @is_idea = true
+      elsif e.has_parent?
+        @is_time = true
+        @is_idea = false
+      else
+        @is_time = false
+        @is_idea = true
+      end
       @temp = {
         :eid => e.id,
         :title => e.title,  
@@ -221,11 +304,16 @@ class Api::V2::EventsController < ApplicationController
         :tip => e.min,
         :image => e.image(:medium), 
         :host => e.user,
-        :plan => true,
+        :plan => @mobile_user.rsvpd?(e),
         :tipped => e.tipped,
         :gids => @guestids,
         :g_share => @g_share,
-        :share_a => @mobile_user.invited_all_friends?(e)
+        :iid => @inviter_id,
+        :share_a => @mobile_user.invited_all_friends?(e),
+        :it => @is_time,
+        :ii => @is_idea,
+        :ht => @has_time,
+        :tids => @time_ids
       }
       @list_events.push(@temp)
     end 

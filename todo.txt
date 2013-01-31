@@ -1,5 +1,6 @@
 Adam
 
+Add time -> TBD
 Fix digest
 Middleton -> madison 
 
@@ -9,7 +10,7 @@ description not able to be more than 255 chars (PgSQL)
 Facebook Friend finding isn't working right.. (i only see 5)
 -----------------------------------------------------
 digest - two parts: 
-new times (within upcoming 4 days)
+times (within upcoming 4 days)
 new ideas (without times created at in the last 4 days)
 	rsvp button
 
