@@ -1,7 +1,5 @@
 Adam
 
-emails not sending
-
 Fix digest
 	digest - two parts: 
 	upcoming times (within upcoming 4 days)
