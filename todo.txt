@@ -1,10 +1,5 @@
 Adam
 
-fix signup:
-	change signup page to match pinterest
-	add gradient to not signed in pitch
-	kill landing page -- just go to madison/city with most ideas
-
 Not seeing public ideas
 image upload not working
 emails not sending
