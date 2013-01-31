@@ -62,7 +62,7 @@
 			</div>
 		<% end %>
 		<div class="host_in_idea_shield">
-			by: <%= event.user.name %>
+			<span class="text">by: <%= event.user.name %></span>
 			<%= image_tag("#{invite_raster_picture(event.user)}", class: "profile_picture") %>
 		</div>
 	<% end %>

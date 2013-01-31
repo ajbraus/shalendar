@@ -70,9 +70,18 @@ class EventsController < ApplicationController
     if @event.starts_at.present? && @event.duration.present?
       #SET ENDS_AT IF PRESENT
       @event.ends_at = @event.starts_at + @event.duration*3600
-      if params[:event][:one_time] == '0'
+    end
+
+    if @event.save
+      current_user.rsvp_in!(@event)
+      @event.save_shortened_url
+      
+      if @event.starts_at.present? && @event.duration.present?
+        #SET ENDS_AT IF PRESENT
+        @event.ends_at = @event.starts_at + @event.duration*3600
+        if params[:event][:one_time] == '0'
         #IF ONGOING EVENT CREATE CHILD INSTANCE
-        @instance = @event.instances.build(user_id: current_user.id,
+          @instance = @event.instances.build(user_id: current_user.id,
                                  city_id: @event.city.id,
                                  title: @event.title,
                                  starts_at: @event.starts_at,
@@ -90,27 +99,24 @@ class EventsController < ApplicationController
                                  family_friendly: @event.family_friendly,
                                  price: @event.price
                               )
-        if @instance.save
-          @instance.save_shortened_url
-          current_user.rsvp_in!(@instance)
-          if params[:invite_me] == "2" || params[:invite_me] == "1"
-            current_user.invite_all_friends!(@instance)
-          end
-          @instance.tipped = true   if @instance.min <= 1
-          
-          #CLEAR PARENT EVENT TIME ATTRIBUTES
-          @event.starts_at = nil
-          @event.ends_at = nil
-          @event.duration = nil
-        end # END if instance.save
-      else #it's a one-time
-        @event.one_time = true
-      end #END if ongoing event create instance
-    end # END If starts_at present
+          if @instance.save
+            @instance.save_shortened_url
+            current_user.rsvp_in!(@instance)
+            if params[:invite_me] == "2" || params[:invite_me] == "1"
+              current_user.invite_all_friends!(@instance)
+            end
+            @instance.tipped = true   if @instance.min <= 1
+            
+            #CLEAR PARENT EVENT TIME ATTRIBUTES
+            @event.starts_at = nil
+            @event.ends_at = nil
+            @event.duration = nil
+          end # END if instance.save
+        else #it's a one-time
+          @event.one_time = true
+        end #END if ongoing event create instance
+      end # END If starts_at present
 
-    if @event.save
-      current_user.rsvp_in!(@event)
-      @event.save_shortened_url
       if params[:category_id]
         Categorization.create(event_id: @event.id, category_id: params[:category_id])
       end
@@ -160,17 +166,15 @@ class EventsController < ApplicationController
                            promo_vid: @parent.promo_vid,
                            family_friendly: @parent.family_friendly,
                            price: @parent.price,
-                           city_id: current_user.city.id #users from other cities can poach ideas
+                           city_id: current_user.city.id, #users from other cities can poach ideas
+                           is_public: @parent.is_public
                            )
     
-    if params[:event][:invite_me] == '1'
-      @event.is_public = true
-    end
     @event.tipped = true   if @event.min <= 1
     if @event.save
       @event.save_shortened_url
       current_user.rsvp_in!(@event)
-      if params[:event][:invite_me] == '1' || params[:event][:invite_me] == '2'
+      if @event.is_public == true || @event.user.rsvps.find_by_plan_id(@parent.id).invite_all_friends?
         @rsvp = current_user.rsvps.find_by_plan_id(@event.id)
         current_user.invite_all_friends!(@event)
         @rsvp.invite_all_friends = true
@@ -181,6 +185,10 @@ class EventsController < ApplicationController
       end
       @parent.guests.each do |g|
         unless g == @event.user
+          @invitation = Invitations.create(:inviter_id => @event.user, 
+                                           :invited_user_id => g.id, 
+                                           :invited_event_id => @event.id)
+          @invitation.save
           g.delay.contact_new_time(@event)
         end
       end

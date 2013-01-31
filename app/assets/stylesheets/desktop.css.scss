@@ -85,8 +85,12 @@ position: relative;
 }
 
 .host_in_idea_shield{
-	float: right;
+	text-align: right;
 	margin-right: 5px;
+	.text {
+		position: relative;
+bottom: 10px;
+	}
 }
 .show_skin {
 width: 54px;
@@ -377,7 +381,7 @@ margin-left: -18px;
 	}
 
 	.navigation {
-		font-size: 19px;
+		font-size: 17px;
 		position: relative;
 		z-index: 0;
 		margin: 0 auto;
