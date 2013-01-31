@@ -26,7 +26,7 @@
 		width: 111px;
 	}
 	.message {
-		width:66%;
+		width: 96%;
 	}
 
 	#yt {
@@ -42,7 +42,7 @@ text-align: center;
 width: 240px;
 margin: 0 auto;
 float: left;
-position: relative;
+position: absolute;
 top: 3px;
 img {
 	width:187px;
@@ -405,11 +405,23 @@ margin-left: -18px;
 		}
 	}
 	.city_title {
-		width: 59%;
+		position: absolute;
+		right: 13px;
+		top: 65px;
+		font-size: 20px;
 	}
 	.not_signed_in_pitch {
-		font-size: 27px;
+		width: 570px;
 	}
+
+	#sign_in {
+		width: 405px;
+	}
+
+	.btn-login {
+		width: 88%;
+	}
+
 
 }
 

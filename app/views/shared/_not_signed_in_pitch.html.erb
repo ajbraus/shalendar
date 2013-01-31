@@ -1,12 +1,17 @@
 <div class="not_signed_in_pitch">
-    hoos.in makes it easy and fun to live an amazing social life
+  <div class="text">
+    <strong>hoos.in is an online social calendar</strong><br>
+    Do great things with friends.
+  </div>
+  <% if false %>
     <div id="togglePitch">x</div>
+  <% end %>
   <div class="not_signed_in_buttons">
     <span class="buttons">
+    <%= link_to new_user_registration_path, class:"btn btn-pitch btn-join" do %>
+      sign up <icon class="icon-double-angle-right"></i>
+    <% end %>
     <%= link_to "log.in", new_user_session_path, class:"btn btn-pitch btn-primary" %>
-    <%= link_to "sign up", root_path, class:"btn btn-pitch btn-join" %>
-  </span>
-  <span id="auth-status" class="fb_button fb_login_button">
-    <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
-  </span>
+    </span>
+  </div>
 </div>

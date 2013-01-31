@@ -151,8 +151,8 @@ $ ->
 		# fileList = e.target.files
 		# if fileList[0].type.match(/image.*/)
 		# 	fileName = fileList[0].name
-		sampleImg = "<img src='http://lorempixel.com/400/300/abstract/placeholder image/' />"
-		#sampleImg = "<img src='http://placehold.it/350x150/EEEEEE/D1CDCD/&text=placeholder' />"
+		#sampleImg = "<img src='http://lorempixel.com/400/300/abstract/placeholder image/' />"
+		sampleImg = "<img src='http://placehold.it/350x250/EEEEEE/D1CDCD/&text=placeholder' />"
 		$('#eventPromoImg').html(sampleImg);
 		$('#eventImage').html(sampleImg);
 

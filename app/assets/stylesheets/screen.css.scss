@@ -341,6 +341,11 @@ color: white;
   background-color:#f77740;
 }
 
+.btn-login {
+  height: 47px;
+margin: 13px 0 0 0;
+}
+
 .btn-join {
 -moz-box-shadow: inset 0px 1px 0px 0px #595485;
 -webkit-box-shadow: inset 0px 1px 0px 0px #595485;
@@ -610,6 +615,7 @@ header {
 -moz-box-shadow:    0px 0px 9px rgba(50, 50, 50, 0.3);
 box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
     height: inherit;
+    background-color:$background_one;
     .sky {
       border-bottom: 1px solid $divider;
       height: 54px;
@@ -2189,7 +2195,7 @@ top: 10px;
 
 .links_fb_btn {
   position: relative;
-  left: 0px;
+  left: 25px;
 }
 
 /* EVENT#SHOW */
@@ -2909,7 +2915,6 @@ right: 50px;
 }
 
 #sign_in {
-width: 365px;
 margin: 0 auto;
 position: relative;
   input[type=email],input[type=password],input[type=text] {
@@ -3843,15 +3848,27 @@ position: relative;
 
 
 .not_signed_in_pitch {
-padding: 10px;
+padding: 10px 20px 10px 20px;
 height: 80px;
 margin: 0 auto;
 max-width: 100%;
 position: relative;
-line-height: 1;
 background-color: $background_one;
-text-align: center;
-bottom: 22px;
+border-radius: 0 0 10px 10px;
+z-index: -1;
+top: 91px;
+-webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
+-moz-box-shadow:    0px 0px 9px rgba(50, 50, 50, 0.3);
+box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
+
+.text {
+line-height: 1.2;
+float: left;
+width: 61%;
+font-size: 1.2em;
+position: relative;
+top: 12px;
+}
   .btn_fb_login {
 width: 267px;
 background-size: 99%;
@@ -3876,19 +3893,16 @@ top: 6px;
 }
 
 .not_signed_in_buttons {
-text-align: center;
-  .buttons {
-    position: relative;
-left: 140px;
-  }
+  float: right;
+width: 38%;
+position: relative;
+top: 15px;
 }
 
-.city_title {
-margin: 0 auto;
-position: relative;
-bottom: 6px;
-left: 9px;
-}
+.city_title {   
+    color: grey;
+    font-weight: 100;
+  }
 
 ::-webkit-scrollbar {
     width: 7px;
@@ -3956,6 +3970,7 @@ height: 0px;
 }
 
 .instructions {
+  left: 240px;
 cursor: pointer;
 float: left;
 position: relative;
@@ -4249,3 +4264,15 @@ color: #FFFBF7;
 text-shadow: grey 1px 1px 1px;
 z-index: -1;
 }
+
+.login_facebook {
+padding: 17px;
+margin: -8px 22px -2px 22px;
+}
+
+.or {
+  text-align: center;
+  margin:10px;
+  color:grey;
+}
+

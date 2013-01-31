@@ -1,6 +1,13 @@
 <% provide(:title, " | Join") %> 
 <div id="signUp" class="sign_up part">
   <h2> Sign up </h2>
+    <div class="login_facebook">
+    <div id="auth-status">
+        <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login links_fb_btn"></span></a>
+    </div>
+  </div>
+
+  <div class="or">- or -</div>
 <%= form_for(resource, 
                       :as => resource_name, 
                       :url => registration_path(resource_name),
