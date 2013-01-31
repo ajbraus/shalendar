@@ -166,7 +166,7 @@ Shalendar::Application.routes.draw do
   match '/my_ideas', to: 'shalendar#my_ideas', as: 'my_ideas'
   match '/calendar', to: 'shalendar#calendar', as: "calendar"
 
-  match '/what_is_hoosin', :to => 'shalendar#what_is_hoosin', :as => "what_is_hoosin"
+  #match '/what_is_hoosin', :to => 'shalendar#what_is_hoosin', :as => "what_is_hoosin"
   #match '/crowd_ideas', :to => 'shalendar#crowd_ideas', :as => "crowd_ideas"
   match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
   match '/yellow_pages', :to => 'shalendar#yellow_pages', :as => "yellow_pages"

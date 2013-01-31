@@ -53,16 +53,18 @@
     <div class="sky">
       <%= render 'layouts/logo' %>
       <% unless params[:controller] == "sessions" || params[:controller] == "registrations" || params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
-        <% unless params[:action] == "show" %>
+        <% unless params[:action] == "show" || user_signed_in? == false %>
         <div class="instructions">
           .instructions
         </div>
         <% end %>
       <% end %>
     </div>
+    <% unless params[:action] == "landing" || params[:action] == "new" %>
     <div class="city_title">
       <%= @current_city.name %>
     </div>
+    <% end %>
   </nav>
   <%= render 'layouts/alerts' %>
 </header>

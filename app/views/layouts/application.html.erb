@@ -43,7 +43,7 @@
     <%= render 'shared/get_time_zone_offset' %>
     <%= render 'layouts/fb_script' %> 
     <%= render 'layouts/header' %>
-    <% unless user_signed_in? %>
+    <% unless user_signed_in? || params[:action] == 'landing' || params[:action] == 'new' %>
       <%= render 'shared/not_signed_in_pitch' %>
     <% end %>
     <span id="invitations"></span>

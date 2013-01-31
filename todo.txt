@@ -5,10 +5,14 @@ fix signup:
 	add gradient to not signed in pitch
 	kill landing page -- just go to madison/city with most ideas
 
+Not seeing public ideas
+image upload not working
+emails not sending
+
 Fix digest
-digest - two parts: 
-new times (within upcoming 4 days)
-new ideas (without times created at in the last 4 days)
+	digest - two parts: 
+	upcoming times (within upcoming 4 days)
+	new ideas (without times created at in the last 4 days)
 
 -----------------------------------------------------
 

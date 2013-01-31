@@ -2195,7 +2195,7 @@ top: 10px;
 
 .links_fb_btn {
   position: relative;
-  left: 0px;
+  left: 25px;
 }
 
 /* EVENT#SHOW */
@@ -3857,6 +3857,10 @@ background-color: $background_one;
 border-radius: 0 0 10px 10px;
 z-index: -1;
 top: 91px;
+-webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
+-moz-box-shadow:    0px 0px 9px rgba(50, 50, 50, 0.3);
+box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
+
 .text {
 line-height: 1.2;
 float: left;
