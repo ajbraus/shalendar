@@ -922,20 +922,30 @@ class User < ActiveRecord::Base
       @digest_users = User.where("users.digest = 'true'")
       @digest_users.each do |u|
         time_range = Time.now.midnight .. Time.now.midnight + 3.days
+        @has_events = false
         @upcoming_events = []
         (0..2).each do |day|
           day_time_range = Time.now.midnight + day.days .. Time.now.midnight + (day+1).days
           @upcoming_day_events = u.plans.where(starts_at: day_time_range)
+          if @upcoming_day_events.any?
+            @has_events = true
+          end
           @upcoming_events.push(@upcoming_day_events)
         end
         @invited_events = []
         (0..2).each do |day|
           day_time_range = Time.now.midnight + day.days .. Time.now.midnight + (day+1).days
           @day_invited_events = u.invited_events.where(starts_at: day_time_range)
+          if @day_invited_events.any?
+            @has_events = true
+          end
           @invited_events.push(@day_invited_events)
         end
-        if @invited_events.any? || @upcoming_events.any?
-          Notifier.delay.digest(u, @invited_events, @upcoming_events)
+        @new_invite_ideas = Event.where('ends_at IS NULL AND created_at > ?', Time.now - 4.days)
+                .joins(:invitations).where(invitations: {invited_user_id: self.id}).order("RANDOM()")
+        @new_city_ideas = Event.where('ends_at IS NULL AND is_public = ? AND city_id = ? AND created_at > ?', true, self.city_id, Time.now - 4.days).limit(5)
+        if @has_events == true || @new_invite_ideas.any? || @new_city_ideas.any?
+          Notifier.delay.digest(u, @invited_events, @upcoming_events, @has_events)
         end
       end
     end
