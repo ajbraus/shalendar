@@ -1,18 +1,38 @@
 Adam
 
 Fix digest
-Middleton -> madison 
+digest - two parts: 
+new times (within upcoming 4 days)
+new ideas (without times created at in the last 4 days)
+
+-----------------------------------------------------
 
 tip or not not showing on calendar
 flake out should just destroy rsvp in, not rsvp out
 description not able to be more than 255 chars (PgSQL)
 Facebook Friend finding isn't working right.. (i only see 5)
------------------------------------------------------
-digest - two parts: 
-new times (within upcoming 4 days)
-new ideas (without times created at in the last 4 days)
-	rsvp button
+you .in? on email invite
+when rsvping to idea don't remove rsvp to time and vise versa
 
+
+-----------------------------------------------------
+add numbers and alerts to counts in header
+
+fix landing page
+-------------------------------------------------------
+
+sign up major overhaul
+	just email and password
+	then profile page to add picture, set location, and background
+	then make friends/choose interests
+
+Fix scaling model - how to grow to another city . . . more cities? countries?
+
+
+-----------------------------------------------------
+
+
+	rsvp button
 
 	switch invites to right and sample idea to left
 
