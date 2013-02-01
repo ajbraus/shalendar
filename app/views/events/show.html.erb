@@ -84,7 +84,7 @@
   <% @relevant_instances = @event.instances.reject { |e| e.over? } %>
   <%= render partial: 'events/show_time', collection: @relevant_instances, as: :event %>
 
-  <% if current_user == @event.user && @event.is_parent? && !@event.one_time? %>
+  <% if current_user == @event.user && !@event.one_time? %>
     <div class="new_time_show">
     <%= link_to event_new_time_path(@event), id:"makeATime" do %>
       <span class="fadeInGreen"><i class="icon-time"></i> New Time</span>

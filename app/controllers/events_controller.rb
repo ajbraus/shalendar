@@ -222,7 +222,7 @@ class EventsController < ApplicationController
       #for sidebar
       @my_plans = current_user.plans.where('ends_at > ?', Time.now).order('starts_at asc')
 
-      @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event)}
+      @friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event) }
       
       #if a user is 'everywhere else' then we don't silo their invitations...
       @friends = @friends.reject { |f| f.city != @current_city }

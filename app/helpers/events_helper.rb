@@ -23,5 +23,9 @@ module EventsHelper
     end
   end
 
+  def public_count
+    @current_city.events.select { |e| !e.has_parent? && e.is_public? && current_user.out?(e) }.count
+  end
+  
 # END OF CLASS
 end

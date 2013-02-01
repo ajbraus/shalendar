@@ -5,6 +5,8 @@ so few invites in production . . .
 always go to parent
 	show location, description, cost per time in event#show
 
+add numbers and alerts to counts in header
+
 -----------------------------------------------------
 
 	.ics not working
@@ -14,10 +16,6 @@ flake out should just destroy rsvp in, not rsvp out
 description not able to be more than 255 chars (PgSQL)
 Facebook Friend finding isn't working right.. (i only see 5)
 when rsvping to idea don't remove rsvp to time and vise versa
-
------------------------------------------------------
-
-add numbers and alerts to counts in header
 
 -------------------------------------------------------
 
