@@ -317,17 +317,29 @@ class Api::V2::EventsController < ApplicationController
       if @mobile_user.invited?(@event)
         @inviter = @mobile_user.invitations.where(invited_event_id: @event.id).first.inviter
       end
-      @times = []
-      @event.instances.each do |i|
-        if i.ends_at > Time.now
-          @time = {
+      @instances = []
+      if e.one_time?
+        @instance = {
+            :iid => e.id,
+            :gcnt => e.guests.count,
+            :start => e.starts_at,
+            :end => e.ends_at,
+            :address => e.address,
+            :plan => @mobile_user.in?(e)
+        }
+        @instances.push(@instance)
+      end
+      e.instances.each do |i|
+        if i.ends_at > Time.now && !@mobile_user.out?(i)
+          @instance = {
+            :iid => i.id,
             :gcnt => i.guests.count,
             :start => i.starts_at,
             :end => i.ends_at,
             :address => i.address,
             :plan => @mobile_user.in?(i)
           }
-          @times.push(@time)
+          @instances.push(@instance)
         end
       end
       render json: { 
@@ -351,7 +363,7 @@ class Api::V2::EventsController < ApplicationController
           :link => @event.link,
           :inviter => @inviter,
           :share_a => @mobile_user.invited_all_friends?(@event),
-          :instances => @times
+          :instances => @instances
         }
     end
   end
