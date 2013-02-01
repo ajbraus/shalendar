@@ -33,7 +33,7 @@ class Api::V2::EventsController < ApplicationController
         @g_share = false
       end
       @instances = []
-      @event.instances.each do |i|
+      e.instances.each do |i|
         if i.ends_at > Time.now && !@mobile_user.out?(i)
           @instance = {
             :iid => i.id,
