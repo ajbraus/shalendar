@@ -458,24 +458,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def relevant_invitations
-    @relevant_invitations = []
-    self.invitations.each do |i|
-      unless self.rsvpd?(i.invited_event) || i.invited_event.over?
-        @relevant_invitations.push(i)
-      end
-    end
-    return @relevant_invitations
-  end
-
-  def ins_count
-    self.plans.select { |e| !e.has_parent? }.count
-  end
-  
-  def mine_count
-    self.events.select { |e| !e.has_parent? && !e.over? }.count
-  end
-
   def forecast(load_datetime)
     Time.zone = self.city.timezone
     @forecast = []
