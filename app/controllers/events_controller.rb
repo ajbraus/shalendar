@@ -281,7 +281,11 @@ class EventsController < ApplicationController
         if @event.guest_count >= @event.min
           @event.tip!
         end
-        format.html { redirect_to @event, notice: 'Idea was successfully updated.' }
+        if @event.has_parent?
+          format.html { redirect_to @event.parent, notice: 'Time was successfully updated.' }
+        else
+          format.html { redirect_to @event, notice: 'Idea was successfully updated.'  }
+        end
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -308,7 +312,11 @@ class EventsController < ApplicationController
     @event.contact_cancellation
 
     respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Idea was successfully removed' }
+      if @event.has_parent?
+        format.html { redirect_to @event.parent, notice: 'Time was successfuylly cancelled' }
+      else 
+        format.html { redirect_to root_path, notice: 'Idea was successfully cancelled' }
+      end
       format.json { head :no_content }
     end
   end

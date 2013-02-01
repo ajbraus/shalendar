@@ -1,24 +1,9 @@
 Adam
 
-digest is still not working
-
-NoMethodError: undefined method `rake' for main:Object
-	from (irb):2
-	from /app/vendor/bundle/ruby/1.9.1/gems/railties-3.2.11/lib/rails/commands/console.rb:47:in `start'
-	from /app/vendor/bundle/ruby/1.9.1/gems/railties-3.2.11/lib/rails/commands/console.rb:8:in `start'
-	from /app/vendor/bundle/ruby/1.9.1/gems/railties-3.2.11/lib/rails/commands.rb:41:in `<top (required)>'
-	from script/rails:6:in `require'
-	from script/rails:6:in `<main>'
+so few invites in production . . .
 
 always go to parent
-	show facepile of guests per time
 	show location, description, cost per time in event#show
-	if a link is posted in an email make sure it is always to the parent
-	make edit and cancel button for time in show
-
-	editing time is causing TBD
-
-when rsvp from inside event calendar should pop up
 
 -----------------------------------------------------
 
@@ -45,6 +30,10 @@ sign up major overhaul
 Fix scaling model - how to grow to another city . . . more cities? countries?
 
 -----------------------------------------------------
+
+make add time a dropdown to shield and show
+
+make comments asynconous
 
 social sharing from homescreen
 
