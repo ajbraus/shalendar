@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    if session[:pervious_urls].any? 
+    if session[:pervious_urls].present? 
       @url = session[:previous_urls].reverse.first
 
       if current_user.sign_in_count == 1 && current_user.vendor == true
