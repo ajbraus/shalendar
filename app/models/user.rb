@@ -559,7 +559,7 @@ class User < ActiveRecord::Base
         n.save
       end
     else
-      Notifier.invitation(@event, self, @inviter)
+      Notifier.invitation(@event, self, @inviter).deliver
     end
   end
 
@@ -593,7 +593,7 @@ class User < ActiveRecord::Base
       end
     else
       unless @user == User.find_by_email("info@hoos.in")
-        Notifier.rsvp_reminder(@event, @user)
+        Notifier.rsvp_reminder(@event, @user).deliver
       end
     end
   end
@@ -629,7 +629,7 @@ class User < ActiveRecord::Base
         n.save
       end
     else
-      Notifier.new_time(@event, @user)
+      Notifier.new_time(@event, @user).deliver
     end
   end
 
@@ -668,7 +668,7 @@ class User < ActiveRecord::Base
         n.save
       end
     else
-      Notifier.time_change(event, @user)
+      Notifier.time_change(event, @user).deliver
     end
   end
 
@@ -707,7 +707,7 @@ class User < ActiveRecord::Base
     else
       @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
       @event_link = event_url(@event)
-      Notifier.email_comment(event, comment, @user)
+      Notifier.email_comment(event, comment, @user).deliver
     end
   end
 
@@ -741,7 +741,7 @@ class User < ActiveRecord::Base
       end
     else 
       unless @user == @event.user
-        Notifier.cancellation(@event, @user)
+        Notifier.cancellation(@event, @user).deliver
       end
     end
     @event.destroy
@@ -776,7 +776,7 @@ class User < ActiveRecord::Base
         n.save
       end
     else
-      Notifier.event_tipped(@event, @user)
+      Notifier.event_tipped(@event, @user).deliver
     end
   end
 
@@ -809,7 +809,7 @@ class User < ActiveRecord::Base
         n.save
       end
     else
-      Notifier.event_deadline(@event)
+      Notifier.event_deadline(@event).deliver
     end
   end
 
@@ -843,7 +843,7 @@ class User < ActiveRecord::Base
       end
     else
       #@follower_pic = raster_profile_picture(@user)
-      Notifier.new_friend(@user, @follower)
+      Notifier.new_friend(@user, @follower).deliver
     end
   end
 
@@ -876,7 +876,7 @@ class User < ActiveRecord::Base
         n.save
       end
     else
-      Notifier.confirm_friend(@user, @follower)
+      Notifier.confirm_friend(@user, @follower).deliver
     end
   end
 
@@ -911,7 +911,7 @@ class User < ActiveRecord::Base
         n.save
       end
     else
-      Notifier.new_rsvp(@user, @rsvping_user)
+      Notifier.new_rsvp(@user, @rsvping_user).deliver
     end
   end
 

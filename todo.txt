@@ -1,15 +1,16 @@
 Adam
 
-Not seeing public ideas
-image upload not working
-emails not sending
-
-Add time -> TBD
-
 Fix digest
 	digest - two parts: 
 	upcoming times (within upcoming 4 days)
 	new ideas (without times created at in the last 4 days)
+
+always go to parent
+	all chats in the idea
+	show facepile of guests per time
+	show location, description, cost
+
+when rsvp from inside event calendar should pop up
 
 -----------------------------------------------------
 
@@ -41,9 +42,9 @@ new ideas (without times created at in the last 4 days)
 
 Fix scaling model - how to grow to another city . . . more cities? countries?
 
-
 -----------------------------------------------------
 
+social sharing from homescreen
 
 plan b-day parties through hoos.in!
 
@@ -83,11 +84,9 @@ add change background picture from profile
 
 host can remove invite from parent
 
-social sharing from homescreen
+add mute button to rsvp to avoid chatter
 
 add tipping point and meter to share_after_rsvp
-
-fix event.html to put status icon in lower left and time only when present
 
 fix repeat button - define @parent in controller and display new idea form
 
@@ -96,12 +95,6 @@ add trending friend ideas to digest
 upon new time let them change the picture
 
 explore your city - prompt to join - lightbox with video and signup
-
-keep this idea around vs. one time
-
-messaging friends through hoos.in
-
-count how many future instances? display all subsequent events in every event#show
 
 add option to automatically update google calendar
 

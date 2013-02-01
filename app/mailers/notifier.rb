@@ -4,7 +4,6 @@ class Notifier < ActionMailer::Base
   layout 'hoosin_email' # use email.(html|text).erb as the layout for emails
   default from: "hoos.in info@hoos.in"
 
-
   require 'apn_on_rails'
   require 'gcm_on_rails'
 
