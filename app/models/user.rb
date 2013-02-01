@@ -461,7 +461,7 @@ class User < ActiveRecord::Base
   def relevant_invitations
     @relevant_invitations = []
     self.invitations.each do |i|
-      unless self.out?(i.invited_event) || i.invited_event.over?
+      unless self.rsvpd?(i.invited_event) || i.invited_event.over?
         @relevant_invitations.push(i)
       end
     end
