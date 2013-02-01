@@ -4283,8 +4283,9 @@ margin: -8px 22px -2px 22px;
 }
 
 .show_facepile {
-  position: absolute;
-  bottom:-4px;
+  float: left;
+  margin-top: 10px;
+  margin-bottom: -10px;
   img {
     width:25px;
     height:25px;
