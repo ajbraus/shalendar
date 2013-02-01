@@ -1,12 +1,5 @@
 Adam
 
-so few invites in production . . .
-
-always go to parent
-	show location, description, cost per time in event#show
-
------------------------------------------------------
-
 	.ics not working
 
 tip or not not showing on calendar
