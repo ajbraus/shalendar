@@ -12,13 +12,17 @@ class ApplicationController < ActionController::Base
     session[:previous_urls].pop if session[:previous_urls].count > 3
   end
 
-  def after_sign_in_path_for(resource) 
-    @url = session[:previous_urls].reverse.first
+  def after_sign_in_path_for(resource)
+    if session[:pervious_urls].any? 
+      @url = session[:previous_urls].reverse.first
 
-    if current_user.sign_in_count == 1 && current_user.vendor == true
-      new_card_path
-    elsif @url != nil
-      "http://www.hoos.in" + @url
+      if current_user.sign_in_count == 1 && current_user.vendor == true
+        new_card_path
+      elsif @url != nil
+        "http://www.hoos.in" + @url
+      else
+        root_path
+      end
     else
       root_path
     end
