@@ -155,7 +155,7 @@ class Api::V2::EventsController < ApplicationController
       render :status => 400, :json => {:error => "could not find your user"}
     end
 
-    @ins_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?', Time.now, true).joins(:rsvps)
+    @ins_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true).joins(:rsvps)
                       .where(rsvps: {guest_id: @mobile_user.id, inout: 1})
 
     @events = @ins_ideas
