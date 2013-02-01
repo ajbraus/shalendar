@@ -11,7 +11,7 @@ class Api::V2::EventsController < ApplicationController
       render :status => 400, :json => {:error => "could not find your user"}
     end
 
-    @invites_ideas = Event.where('ends_at IS NULL')
+    @invites_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
                 .joins(:invitations).where(invitations: {invited_user_id: @mobile_user.id}).order("RANDOM()")
 
     @events = @invites_ideas
@@ -49,8 +49,6 @@ class Api::V2::EventsController < ApplicationController
       @temp = {
         :eid => e.id,
         :title => e.title,  
-        :start => e.starts_at,#don't do timezone here, do it local on mobile
-        :end => e.ends_at, 
         :gcnt => e.guests.count,  
         :tip => e.min,
         :image => e.image(:medium), 
@@ -155,12 +153,10 @@ class Api::V2::EventsController < ApplicationController
       render :status => 400, :json => {:error => "could not find your user"}
     end
 
-    @ins_ideas = Event.where('ends_at IS NULL').joins(:rsvps)
+    @ins_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?', Time.now, true).joins(:rsvps)
                       .where(rsvps: {guest_id: @mobile_user.id, inout: 1})
-    @ins_times = Event.where('ends_at > ?', Time.now).joins(:rsvps)
-                      .where(rsvps: {guest_id: @mobile_user.id, inout: 1}).order('starts_at ASC')
 
-    @events = @ins_ideas | @ins_times
+    @events = @ins_ideas
 
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []
@@ -177,10 +173,6 @@ class Api::V2::EventsController < ApplicationController
       if @mobile_user.invited?(e)
         @inviter_id = e.invitations.find_by_invited_user_id(@mobile_user.id).inviter_id
       end
-      @is_time = false
-      @is_idea = false
-      @has_time = false
-      @time_ids = []
       if e.has_future_instance?
         @has_time = true
         e.instances.each do |time|
@@ -190,16 +182,6 @@ class Api::V2::EventsController < ApplicationController
             end
           end
         end
-      end
-      if e.one_time?
-        @is_time = true
-        @is_idea = true
-      elsif e.has_parent?
-        @is_time = true
-        @is_idea = false
-      else
-        @is_time = false
-        @is_idea = true
       end
       @temp = {
         :eid => e.id,
@@ -215,10 +197,7 @@ class Api::V2::EventsController < ApplicationController
         :gids => @guestids,
         :g_share => @g_share,
         :iid => @inviter_id,
-        :share_a => @mobile_user.invited_all_friends?(e),
-        :it => @is_time,
-        :ii => @is_idea,
-        :ht => @has_time
+        :share_a => @mobile_user.invited_all_friends?(e)
       }
       @list_events.push(@temp)
     end 
