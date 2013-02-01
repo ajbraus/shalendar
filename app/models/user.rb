@@ -943,9 +943,10 @@ class User < ActiveRecord::Base
         end
         @new_invite_ideas = Event.where('ends_at IS NULL AND created_at > ?', Time.now - 4.days)
                 .joins(:invitations).where(invitations: {invited_user_id: self.id}).order("RANDOM()")
-        @new_city_ideas = Event.where('ends_at IS NULL AND is_public = ? AND city_id = ? AND created_at > ?', true, self.city_id, Time.now - 4.days).limit(5)
+        @all_new_city_ideas = Event.where('ends_at IS NULL AND is_public = ? AND city_id = ? AND created_at > ?', true, self.city_id, Time.now - 4.days)
+        @new_city_ideas = @all_new_city_ideas.first(5)
         if @has_events == true || @new_invite_ideas.any? || @new_city_ideas.any?
-          Notifier.delay.digest(u, @invited_events, @upcoming_events, @has_events, @new_invited_ideas, @new_city_ideas)
+          Notifier.delay.digest(u, @invited_events, @upcoming_events, @has_events, @new_invited_ideas, @new_city_ideas, @all_new_city_ideas.count)
         end
       end
     end

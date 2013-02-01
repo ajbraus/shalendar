@@ -1,26 +1,48 @@
+<% if @has_events %>
 <tr>
 	<td style="padding:15px 0 0 20px;font-size:18px;">Here's what's coming up!</td>
 </tr>
 
 <table style="margin-left:40px;">
-<% (0..2).each do |day| %>
-	<tr>
-		<td style="border-top:1px solid lightgrey;"></td>
-	</tr>
-	<% if @upcoming_events[day].empty? && @invited_events[day].empty? %>
-	<tr>
-		<td style="padding:20px 0 40px 50px;"><%= (Date.today + day.days).strftime("%A %B %e") %>  - <strong>No Plans</strong></td>
-	</tr>
-	<% else %>
-	<tr>
-		<td style="padding:20px 0 0 50px;"><%= (Date.today + day.days).strftime("%A %B %e") %></td>
-	</tr>
-		<% @upcoming_events[day].each do |event| %>
-			<%= render partial: 'event_details', locals: { :event => event, :user => @user } %>
-		<% end %>
-		<% @invited_events[day].each do |event| %>
-			<%= render partial: 'event_details', locals: { :event => event, :user => @user } %>
+	<% (0..2).each do |day| %>
+		<tr>
+			<td style="border-top:1px solid lightgrey;"></td>
+		</tr>
+		<% if @upcoming_events[day].empty? && @invited_events[day].empty? %>
+		<tr>
+			<td style="padding:20px 0 40px 50px;"><%= (Date.today + day.days).strftime("%A %B %e") %>  - <strong>No Plans</strong></td>
+		</tr>
+		<% else %>
+		<tr>
+			<td style="padding:20px 0 0 50px;"><%= (Date.today + day.days).strftime("%A %B %e") %></td>
+		</tr>
+			<% @upcoming_events[day].each do |event| %>
+				<%= render partial: 'event_details', locals: { :event => event, :user => @user } %>
+			<% end %>
+			<% @invited_events[day].each do |event| %>
+				<%= render partial: 'event_details', locals: { :event => event, :user => @user } %>
+			<% end %>
 		<% end %>
 	<% end %>
-<% end %>
 </table>
+<% end %>
+
+<% if @new_invited_ideas %>
+	<tr>
+		<td style="padding:15px 0 0 20px;font-size:18px;">New .invites</td>
+	</tr>
+
+	<% @new_invited_ideas.each do |event| %>
+		<%= render partial: 'event_details', locals: { :event => event, :user => @user } %>
+	<% end %>
+<% end %>
+
+<% if @new_city_ideas %>
+	<tr>
+		<td style="padding:15px 0 0 20px;font-size:18px;">New public ideas for <%= @user.city.name %></td>
+	</tr>
+
+	<% @new_city_ideas.each do |event| %>
+		<%= render partial: 'event_details', locals: { :event => event, :user => @user } %>
+	<% end %>
+<% end %>

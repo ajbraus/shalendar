@@ -5,6 +5,8 @@ Fix digest
 	upcoming times (within upcoming 4 days)
 	new ideas (without times created at in the last 4 days)
 
+editing time is causing TBD
+
 always go to parent
 	all chats in the idea
 	show facepile of guests per time
@@ -21,24 +23,17 @@ Facebook Friend finding isn't working right.. (i only see 5)
 you .in? on email invite
 when rsvping to idea don't remove rsvp to time and vise versa
 
-
 -----------------------------------------------------
-<<<<<<< HEAD
+
 add numbers and alerts to counts in header
 
-fix landing page
 -------------------------------------------------------
 
 sign up major overhaul
 	just email and password
 	then profile page to add picture, set location, and background
 	then make friends/choose interests
-=======
-digest - two parts: 
-times (within upcoming 4 days)
-new ideas (without times created at in the last 4 days)
-	rsvp button
->>>>>>> 543214a441b2fd3a5ef7e2930ef31cd0eb470e39
+	suggested friends present in profile page
 
 Fix scaling model - how to grow to another city . . . more cities? countries?
 
@@ -98,22 +93,12 @@ explore your city - prompt to join - lightbox with video and signup
 
 add option to automatically update google calendar
 
-scripts not working
-	invite button not reloading (stack overflow question)
-
-	pinterest button failing
-	create email invite walkthrough like new idea
-	add "friend or city-wide idea?"
-	invite all my friends checkbox
-
 #config/application.rb
 config.exceptions_app = self.routes
 #routes
 match "/404", :to => "errors#not_found"
 
 trending and crowd ideas filter
-
-fucking solve emails!
 
 nest and refactor user => idea routes ideas/username/idea-title
 
@@ -183,37 +168,13 @@ marketplace payments
 yellow book
 payments to be listed
 
-------------------------------------------------------------
-
----------------------------------------------------------------
-
-home page is City#show to do routes
-
-pull events from their calendars/websites
-
-count flakes
-
 ----------------------------------------------------------------
 
 check in
 
 ------------------------------------------------------------
 
-
 ssl
-
-------------------------------------------------------------
-
-survey why they are downgrading their account
-
-add /new_venue to the list of urls we don't save
-
-------------------------------------------------------------
-
-
------------------------------------------------------------
-
-
 
 ---------------------------------------------------------------
 
@@ -231,8 +192,6 @@ add /new_venue to the list of urls we don't save
 	your friends maybes -- all maybes
 
 --------------------------------------------------------------
-	Make it so people can receive multiple invitations to an event (can count them)
---------------------------------------------------------------
 
 	
 
@@ -249,11 +208,6 @@ download flyer
 
 visual indicator of ppl you are not friends with on hoos.in yet
 suggested friends -- ppl that you saw at a party
-
-------------------------------------------------------------
-
-	display when full?
-
 
 -----------------------------------------------------------
 
