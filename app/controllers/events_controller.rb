@@ -251,10 +251,10 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
         #datetime datepicker => format Chronic can parse
-    params[:event][:starts_at] = Chronic.parse(params[:event][:chronic_starts_at])
     if params[:event][:chronic_starts_at].present?
       params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
     end
+    params[:event][:starts_at] = Chronic.parse(params[:event][:chronic_starts_at])
 
     @event = Event.find(params[:id])
     if params[:parent_id]

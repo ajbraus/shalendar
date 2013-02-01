@@ -1,20 +1,33 @@
 Adam
 
-editing time is causing TBD
+digest is still not working
+
+NoMethodError: undefined method `rake' for main:Object
+	from (irb):2
+	from /app/vendor/bundle/ruby/1.9.1/gems/railties-3.2.11/lib/rails/commands/console.rb:47:in `start'
+	from /app/vendor/bundle/ruby/1.9.1/gems/railties-3.2.11/lib/rails/commands/console.rb:8:in `start'
+	from /app/vendor/bundle/ruby/1.9.1/gems/railties-3.2.11/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
 
 always go to parent
 	show facepile of guests per time
 	show location, description, cost per time in event#show
+	if a link is posted in an email make sure it is always to the parent
+	make edit and cancel button for time in show
+
+	editing time is causing TBD
 
 when rsvp from inside event calendar should pop up
 
 -----------------------------------------------------
 
+	.ics not working
+
 tip or not not showing on calendar
 flake out should just destroy rsvp in, not rsvp out
 description not able to be more than 255 chars (PgSQL)
 Facebook Friend finding isn't working right.. (i only see 5)
-you .in? on email invite
 when rsvping to idea don't remove rsvp to time and vise versa
 
 -----------------------------------------------------
@@ -58,8 +71,6 @@ Profile needs major overhaul:
 	# guests
 	# ins
 	leave a message for the user/chat
-
-	.ics not working
 
 make slug have time in it for new times
 

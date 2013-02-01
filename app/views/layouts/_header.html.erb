@@ -9,6 +9,11 @@
       <div class="navigation">
         <span class="options">
 <!--           <span id="reload"><i class="icon-repeat"></i></span> -->
+          <% if current_user.admin? %>
+            <%= link_to admin_dashboard_path do %>
+              <span class="fadeInRed"><i class="icon-magic"></i></span>
+            <% end %>
+          <% end %>
           <span id="jrIdeas" class="bold">all</span> |
           <span id="jrFriendsIdeas">.invites</span> | 
           <span id="jrPlans">.ins</span> |
