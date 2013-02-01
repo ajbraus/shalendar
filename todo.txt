@@ -1,10 +1,12 @@
 Adam
 
-	.ics not working
+digest is not working
+.ics not working
+updating events is deleting the times
+updating users is changing their cities
 
 tip or not not showing on calendar
 flake out should just destroy rsvp in, not rsvp out
-description not able to be more than 255 chars (PgSQL)
 Facebook Friend finding isn't working right.. (i only see 5)
 when rsvping to idea don't remove rsvp to time and vise versa
 
