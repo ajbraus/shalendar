@@ -69,7 +69,8 @@ class Api::V2::EventsController < ApplicationController
         :gids => @guestids,
         :g_share => @g_share,
         :share_a => @mobile_user.invited_all_friends?(e),
-        :instances => @instances
+        :instances => @instances,
+        :ot => e.one_time
       }
       @list_events.push(@temp)
     end 
@@ -139,7 +140,8 @@ class Api::V2::EventsController < ApplicationController
         :tipped => e.tipped,
         :gids => @guestids,
         :g_share => @g_share,
-        :share_a => @mobile_user.invited_all_friends?(e)
+        :share_a => @mobile_user.invited_all_friends?(e),
+        :ot => e.one_time
       }
       @list_events.push(@temp)
     end 
@@ -209,7 +211,8 @@ class Api::V2::EventsController < ApplicationController
         :tipped => e.tipped,
         :gids => @guestids,
         :g_share => @g_share,
-        :share_a => @mobile_user.invited_all_friends?(e)
+        :share_a => @mobile_user.invited_all_friends?(e),
+        :ot => e.one_time?
       }
       @list_events.push(@temp)
     end 
@@ -278,7 +281,8 @@ class Api::V2::EventsController < ApplicationController
         :tipped => e.tipped,
         :gids => @guestids,
         :g_share => @g_share,
-        :share_a => @mobile_user.invited_all_friends?(e)
+        :share_a => @mobile_user.invited_all_friends?(e),
+        :ot => e.one_time?
       }
       @list_events.push(@temp)
     end 
@@ -317,6 +321,7 @@ class Api::V2::EventsController < ApplicationController
       if @mobile_user.invited?(@event)
         @inviter = @mobile_user.invitations.where(invited_event_id: @event.id).first.inviter
       end
+      e = @event
       @instances = []
       if e.one_time?
         @instance = {
@@ -363,7 +368,8 @@ class Api::V2::EventsController < ApplicationController
           :link => @event.link,
           :inviter => @inviter,
           :share_a => @mobile_user.invited_all_friends?(@event),
-          :instances => @instances
+          :instances => @instances,
+          :ot => @event.one_time
         }
     end
   end
