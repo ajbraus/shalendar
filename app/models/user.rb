@@ -942,7 +942,7 @@ class User < ActiveRecord::Base
           @invited_events.push(@day_invited_events)
         end
         @new_invite_ideas = Event.where('ends_at IS NULL AND created_at > ?', Time.now - 4.days)
-                .joins(:invitations).where(invitations: {invited_user_id: self.id}).order("RANDOM()")
+                .joins(:invitations).where(invitations: {invited_user_id: u.id}).order("RANDOM()")
         @all_new_city_ideas = Event.where('ends_at IS NULL AND is_public = ? AND city_id = ? AND created_at > ?', true, self.city_id, Time.now - 4.days)
         @new_city_ideas = @all_new_city_ideas.first(5)
         if @has_events == true || @new_invite_ideas.any? || @new_city_ideas.any?

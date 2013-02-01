@@ -5,6 +5,10 @@ Fix digest
 	upcoming times (within upcoming 4 days)
 	new ideas (without times created at in the last 4 days)
 
+invites are not there . . .
+
+customize tooltip!
+
 editing time is causing TBD
 
 always go to parent
