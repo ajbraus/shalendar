@@ -14,10 +14,7 @@ class Api::V2::EventsController < ApplicationController
     @invites_ideas = Event.where('ends_at IS NULL')
                 .joins(:invitations).where(invitations: {invited_user_id: @mobile_user.id}).order("RANDOM()")
 
-    @invites_times = Event.where('ends_at > ?', Time.now)
-                .joins(:invitations).where(invitations: {invited_user_id: current_user.id}).order("starts_at ASC")
-
-    @events = @invites_ideas | @invites_times
+    @events = @invites_ideas
     @events = @events.reject{|e| @mobile_user.out?(e)}
 
     #For Light-weight events sending for list (but need guests to know if RSVPd)
@@ -35,29 +32,19 @@ class Api::V2::EventsController < ApplicationController
       if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
         @g_share = false
       end
-      @is_time = false
-      @is_idea = false
-      @has_time = false
-      @time_ids = []
-      if e.has_future_instance?
-        @has_time = true
-        e.instances.each do |time|
-          if time.starts_at.present?
-            if time.starts_at >= Time.now
-              @time_ids.push(time.id)
-            end
-          end
+      @instances = []
+      @event.instances.each do |i|
+        if i.ends_at > Time.now && !@mobile_user.out?(i)
+          @instance = {
+            :iid => i.id,
+            :gcnt => i.guests.count,
+            :start => i.starts_at,
+            :end => i.ends_at,
+            :address => i.address,
+            :plan => @mobile_user.in?(i)
+          }
+          @instances.push(@instance)
         end
-      end
-      if e.one_time?
-        @is_time = true
-        @is_idea = true
-      elsif e.has_parent?
-        @is_time = true
-        @is_idea = false
-      else
-        @is_time = false
-        @is_idea = true
       end
       @temp = {
         :eid => e.id,
@@ -68,16 +55,12 @@ class Api::V2::EventsController < ApplicationController
         :tip => e.min,
         :image => e.image(:medium), 
         :host => e.user,
-        :plan => @mobile_user.rsvpd?(e),
+        :plan => @mobile_user.in?(e),
         :tipped => e.tipped,
         :gids => @guestids,
         :g_share => @g_share,
-        :iid => @inviter_id,
         :share_a => @mobile_user.invited_all_friends?(e),
-        :it => @is_time,
-        :ii => @is_idea,
-        :ht => @has_time,
-        :tids => @time_ids
+        :instances => @instances
       }
       @list_events.push(@temp)
     end 
@@ -235,8 +218,7 @@ class Api::V2::EventsController < ApplicationController
         :share_a => @mobile_user.invited_all_friends?(e),
         :it => @is_time,
         :ii => @is_idea,
-        :ht => @has_time,
-        :tids => @time_ids
+        :ht => @has_time
       }
       @list_events.push(@temp)
     end 
@@ -325,6 +307,9 @@ class Api::V2::EventsController < ApplicationController
     #this will give mobile the info about the guests of the event
     #could add invites here, and/or comments
     @event = Event.find_by_id(params[:event_id])
+    if @event.has_parent? #make the detail event always the idea
+      @event = @event.parent
+    end
     @mobile_user = User.find_by_id(params[:user_id])
     if @mobile_user.present?
       Time.zone = @mobile_user.city.timezone
@@ -350,6 +335,19 @@ class Api::V2::EventsController < ApplicationController
       if @mobile_user.invited?(@event)
         @inviter = @mobile_user.invitations.where(invited_event_id: @event.id).first.inviter
       end
+      @times = []
+      @event.instances.each do |i|
+        if i.ends_at > Time.now
+          @time = {
+            :gcnt => i.guests.count,
+            :start => i.starts_at,
+            :end => i.ends_at,
+            :address => i.address,
+            :plan => @mobile_user.in?(i)
+          }
+          @times.push(@time)
+        end
+      end
       render json: { 
           :eid => @event.id,
           :title => @event.title,  
@@ -370,7 +368,8 @@ class Api::V2::EventsController < ApplicationController
           :address => @event.address,
           :link => @event.link,
           :inviter => @inviter,
-          :share_a => @mobile_user.invited_all_friends?(@event)
+          :share_a => @mobile_user.invited_all_friends?(@event),
+          :instances => @times
         }
     end
   end
