@@ -3,9 +3,8 @@ Adam
 editing time is causing TBD
 
 always go to parent
-	all chats in the idea
 	show facepile of guests per time
-	show location, description, cost
+	show location, description, cost per time in event#show
 
 when rsvp from inside event calendar should pop up
 

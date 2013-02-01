@@ -193,7 +193,7 @@ class EventsController < ApplicationController
         end
       end
       respond_to do |format|
-        format.html { redirect_to @event, notice: "New Time Posted Successfully" }
+        format.html { redirect_to @event.parent, notice: "New Time Posted Successfully" }
         format.json { render json: @event, status: :created, location: @event }
       end
     else
