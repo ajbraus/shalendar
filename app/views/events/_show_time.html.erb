@@ -12,16 +12,30 @@
       <div class="date"><%= event_start_time(event) %> <%= date(event) %> ( <%= event.nice_duration %> <% if event.ends_at < Time.now %> - Over <% end %> ) </div>
       <ul id="calendars">
         <li>
-        <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(event.title) %>&dates=<%= event.url_starts_at %>/<%= event.url_ends_at %>&details=<%= url_encode(event.description) + " - " + event_url(event) %>&location=<%= url_encode(event.address) %>&trp=true&sprop=www.hoos.in%2Fideas%2F<%= event.id %>&sprop=name:<%= url_encode(event.title) %>" target="_blank" title="Add to Your Google Calendar">
-          <%= image_tag("gcalendar.png", width: '30') %>
-        </a>
-      </li>
+          <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(event.title) %>&dates=<%= event.url_starts_at %>/<%= event.url_ends_at %>&details=<%= url_encode(event.description) + " - " + event_url(event) %>&location=<%= url_encode(event.address) %>&trp=true&sprop=www.hoos.in%2Fideas%2F<%= event.id %>&sprop=name:<%= url_encode(event.title) %>" target="_blank" title="Add to Your Google Calendar">
+            <%= image_tag("gcalendar.png", width: '30') %>
+          </a>
+        </li>
       <% if false %>
       <li>
         <%= link_to event, :controller => 'events', :action => :show, :format => :ics do %>
           <%= image_tag "ical-icon.png", width: '30', title: "Add to Your iCal or Outlook" %>
         <% end %>
       </li>
+      <% end %>
+      <% if user_signed_in? %>
+        <% if current_user == event.user %>
+         <li>
+            <%= link_to edit_event_path(event), class: "fadeInOrange" do %>
+              <i class="icon-cogs"></i>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to event, method: :delete, data: { confirm: 'Are you sure you want to cancel this time? This will notify all guests.' }, class: "fadeInRed" do %>
+              <i class="icon-trash"></i>
+            <% end %>
+          </li>
+        <% end %>
       <% end %>
     </ul>
     <% end %>
@@ -31,5 +45,12 @@
     <div class="guests <%= !event.tipped? ? 'not_tipped' : '' %>">
       <span id="guestCount"><%= event.guest_count %></span>
       <span id="eventMin"><%= !event.tipped? ? "/#{ event.min }" : '' %></span>
+    </div>
+    <div class="show_facepile">
+      <% event.guests.each do |guest| %>
+        <%= link_to user_path(guest) do %>
+          <span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
+        <% end %>
+      <% end %>
     </div>
 	</div>

@@ -2252,6 +2252,7 @@ font-size: 22px;
 height: auto;
 line-height: 1.4;
 border-bottom: 1px solid $divider;
+position: relative;
 .out {
   position: relative;
   top: -10px;
@@ -4281,3 +4282,12 @@ margin: -8px 22px -2px 22px;
   color:grey;
 }
 
+.show_facepile {
+  float: left;
+  margin-top: 10px;
+  margin-bottom: -10px;
+  img {
+    width:25px;
+    height:25px;
+  }
+}
