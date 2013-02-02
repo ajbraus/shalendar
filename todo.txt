@@ -5,7 +5,8 @@ digest is not working
 updating events is deleting the times
 updating users is changing their cities
 
-tip or not not showing on calendar
+kill tipping
+
 flake out should just destroy rsvp in, not rsvp out
 Facebook Friend finding isn't working right.. (i only see 5)
 when rsvping to idea don't remove rsvp to time and vise versa

@@ -27,7 +27,7 @@
 </table>
 <% end %>
 
-<% if @new_invited_ideas.any? %>
+<% if @new_invited_ideas.present? && @new_invited_ideas.any? %>
 	<tr>
 		<td style="padding:15px 0 0 20px;font-size:18px;">New .invites</td>
 	</tr>
@@ -37,7 +37,7 @@
 	<% end %>
 <% end %>
 
-<% if @new_city_ideas.any? %>
+<% if @new_city_ideas.present? && @new_city_ideas.any? %>
 	<tr>
 		<td style="padding:15px 0 0 20px;font-size:18px;"><%= @new_city_ideas_count %> new public ideas for <%= @user.city.name %></td>
 	</tr>
