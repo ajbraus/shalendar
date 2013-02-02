@@ -107,5 +107,11 @@ include UsersHelper
 
   end
 
+  def get_friends
+
+    render json: current_user.followed_users
+
+  end
+
 
 end
