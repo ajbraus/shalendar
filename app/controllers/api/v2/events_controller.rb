@@ -581,6 +581,9 @@ class Api::V2::EventsController < ApplicationController
 
     @userfile = params[:userfile]
 
+    @event.promo_img = @userfile
+    @event.save
+    
     logger.info(params)
 
     render :status => 200, :json => {:success => "got here at least"}
