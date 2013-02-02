@@ -1,4 +1,4 @@
-<% if @has_events %>
+<% if @has_events == true %>
 <tr>
 	<td style="padding:15px 0 0 20px;font-size:18px;">Here's what's coming up!</td>
 </tr>
@@ -27,7 +27,7 @@
 </table>
 <% end %>
 
-<% if @new_invited_ideas %>
+<% if @new_invited_ideas.present? && @new_invited_ideas.any? %>
 	<tr>
 		<td style="padding:15px 0 0 20px;font-size:18px;">New .invites</td>
 	</tr>
@@ -37,12 +37,18 @@
 	<% end %>
 <% end %>
 
-<% if @new_city_ideas %>
+<% if @new_city_ideas.present? && @new_city_ideas.any? %>
 	<tr>
-		<td style="padding:15px 0 0 20px;font-size:18px;">New public ideas for <%= @user.city.name %></td>
+		<td style="padding:15px 0 0 20px;font-size:18px;"><%= @new_city_ideas_count %> new public ideas for <%= @user.city.name %></td>
 	</tr>
 
 	<% @new_city_ideas.each do |event| %>
 		<%= render partial: 'event_details', locals: { :event => event, :user => @user } %>
+	<% end %>
+
+	<% if @new_city_ideas_count > 5 %>
+	<tr>
+		<td style="padding:10px 0 0 5px;font-size:14px;"><%= link_to "more. . .", root_url %></td>
+	</tr>
 	<% end %>
 <% end %>

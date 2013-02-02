@@ -1,23 +1,15 @@
 Adam
 
-so few invites in production . . .
+digest is not working
+.ics not working
+updating events is deleting the times
+updating users is changing their cities
 
-always go to parent
-	show location, description, cost per time in event#show
+kill tipping
 
------------------------------------------------------
-
-	.ics not working
-
-tip or not not showing on calendar
 flake out should just destroy rsvp in, not rsvp out
-description not able to be more than 255 chars (PgSQL)
 Facebook Friend finding isn't working right.. (i only see 5)
 when rsvping to idea don't remove rsvp to time and vise versa
-
------------------------------------------------------
-
-add numbers and alerts to counts in header
 
 -------------------------------------------------------
 
@@ -40,6 +32,8 @@ social sharing from homescreen
 plan b-day parties through hoos.in!
 
 	rsvp button
+
+	add alert for new friends to confirm
 
 	switch invites to right and sample idea to left
 

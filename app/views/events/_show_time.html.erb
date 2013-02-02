@@ -16,13 +16,12 @@
             <%= image_tag("gcalendar.png", width: '30') %>
           </a>
         </li>
-      <% if false %>
       <li>
-        <%= link_to event, :controller => 'events', :action => :show, :format => :ics do %>
+        <%= link_to event_path(event, :format => :ics) do %>
           <%= image_tag "ical-icon.png", width: '30', title: "Add to Your iCal or Outlook" %>
         <% end %>
       </li>
-      <% end %>
+
       <% if user_signed_in? %>
         <% if current_user == event.user %>
          <li>

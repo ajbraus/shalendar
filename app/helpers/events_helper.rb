@@ -22,6 +22,6 @@ module EventsHelper
       return event.promo_img.url(:medium)
     end
   end
-
+  
 # END OF CLASS
 end

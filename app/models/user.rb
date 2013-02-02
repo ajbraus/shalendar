@@ -883,6 +883,7 @@ class User < ActiveRecord::Base
   #changed this to keep consistence with these all being contact to
   #user object that is calling the method
   def contact_new_rsvp(event, rsvp_user)
+    @event = event
     @rsvping_user = rsvp_user
     @user = self
     if(@user.iPhone_user == true)

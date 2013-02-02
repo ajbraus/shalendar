@@ -84,7 +84,7 @@ class Event < ActiveRecord::Base
   #validates :promo_url, :format => { :with => @img_url }, allow_blank:true
   
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :title, use: :slugged  
 
   def should_generate_new_friendly_id?
     new_record? || slug.blank?
@@ -342,12 +342,12 @@ class Event < ActiveRecord::Base
     @ics_event.start = self.starts_at.strftime("%Y%m%dT%H%M%S")
     @ics_event.end = self.ends_at.strftime("%Y%m%dT%H%M%S")
     @ics_event.summary = self.title
-    @event.description = self.description
+    @ics_event.description = self.description
     @ics_event.location = self.address if self.address
     @ics_event.klass = "PUBLIC"
     @ics_event.created = self.created_at
     @ics_event.last_modified = self.updated_at
-    @ics_event.uid = @ics_event.url = event_url(self)
+    @ics_event.uid = @ics_event.url = "http://www.hoos.in/ideas/" + self.slug
     #@ics_event.add_comment("AF83 - Shake your digital, we do WowWare")
     return @ics_event
   end

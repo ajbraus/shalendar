@@ -76,7 +76,9 @@
 			end
 		 end 
 	%>
-	<%= render partial: 'events/time', collection: @relevant_instances, as: :event %>
+	<%= link_to event do %>
+		<%= render partial: 'events/time', collection: @relevant_instances, as: :event %>
+	<% end %>
 	<% if current_user == event.user && !event.one_time? && @currently_ideas == true %>
 		<%= link_to event_new_time_path(event) do %>
 			<div class="add_time fadeInOrange"><i class="icon-time"></i> add new time</div>

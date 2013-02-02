@@ -15,10 +15,10 @@
             <% end %>
           <% end %>
           <span id="jrIdeas" class="bold">all</span> |
-          <span id="jrFriendsIdeas">.invites</span> | 
-          <span id="jrPlans">.ins</span> |
-          <span id="jrMine">mine</span> |
-          <span id="jrCityIdeas">public</span> ||
+          <span id="jrFriendsIdeas"><%= @invites.count %> .invites</span> | 
+          <span id="jrPlans"><%= @ins.count %> .ins</span> |
+          <span id="jrMine"><%= @mine.count %> mine</span> |
+          <span id="jrCityIdeas"><%= @city_ideas.count %> public</span> ||
           <span id="jrCalendar"><i class="icon-calendar"></i> view</span>
         </span>
         <%= render 'shared/picture_dropdown' %>
