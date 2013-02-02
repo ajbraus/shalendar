@@ -5,6 +5,11 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
+    if City.find_by_name(params[:city_name])
+      resource_params[:city] = City.find_by_name(params[:city_name])
+    else 
+      return redirect_to :back, notice: "City not found - Try a city close to your location"
+    end
     build_resource
     if resource.save
       #turn all email_invites into invitations here **UPDATE
@@ -54,16 +59,14 @@ class RegistrationsController < Devise::RegistrationsController
 	end
   
   def update
-  	@graph = session[:graph]
-    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
-
-    #update city if user is changing city
-    if params[:resource]
-      if params[:resource][:city_id]
-        resource.city = City.find_by_id(params[:resource][:city_id])
-        resource.save
-      end
+    #change city name into idco
+    if City.find_by_name(params[:city_name])
+      resource_params[:city] = City.find_by_name(params[:city_name])
+    else 
+      return redirect_to :back, notice: "City not found - Try a city close to your location"
     end
+
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
 
     #update interests if changing interests
     if params[:category_ids]

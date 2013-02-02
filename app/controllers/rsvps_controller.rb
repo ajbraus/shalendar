@@ -41,6 +41,7 @@ class RsvpsController < ApplicationController
 
   def destroy
     @rsvp = Rsvp.find(params[:id])
+    @event = @rsvp.plan
     @rsvp.destroy
 
     respond_to do |format|

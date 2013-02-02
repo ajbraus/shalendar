@@ -12,11 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.button
-//= require jquery.ui.tabs
-//= require jquery.ui.droppable
 //= require highcharts
-//= require jquery.ui.datepicker
-//= require jquery.ui.slider
-//= require jquery.ui.autocomplete
+//= require jquery-ui
 //= require_tree

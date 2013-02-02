@@ -9,7 +9,11 @@
 		<% end %>
       <div class="starts_at">
         <%= label :starts_at, "When does it start?" %>
+      <% if @event.present? %>
+        <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off", value:"#{@event.starts_at ? start_time(@event) : ''}" %>
+      <% else %>
         <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off" %>
+      <% end %>
       </div>
       <div class="duration">
         <%= label :duration, "Hours?*" %>

@@ -33,9 +33,12 @@
     <div><%= f.label :background_image %><br />
     <%= f.file_field :background %></div>
 
-    <div><%= f.label :city %><br />
-    <%= f.select :city_id, options_from_collection_for_select(City.all, 'id', 'name', '1'), id:"citySelect" %></div>
+    <div><%= label_tag :city_name %><br />
+    <%= text_field_tag :city_name, nil, value: "#{resource.city.name}", data: { autocomplete_source: city_names_path } %></div>
+    <br>
 <% if false %>
+    <%= f.select :city_id, options_from_collection_for_select(City.all, 'id', 'name', '1'), id:"citySelect" %></div>
+
     <div><%= f.label :time_zone %><br />
     <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)" %></div>
 <% end %>

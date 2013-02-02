@@ -13,4 +13,9 @@ class UsersController < ApplicationController
       #@past_events = @user.plans.where("starts_at < :now", now: Time.now).order('starts_at asc')
     end
   end
+
+  def city_names
+    @city_names = City.order(:name).where("lower(name) like ?", "%#{params[:term].downcase}%")
+    render json: @city_names.map(&:name)
+  end
 end

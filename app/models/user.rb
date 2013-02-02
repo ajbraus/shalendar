@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
                   :digest,
                   :notify_event_reminders,
                   :city_id,
+                  :city,
                   :post_to_fb_wall,
                   :avatar,
                   :vendor,
@@ -112,6 +113,14 @@ class User < ActiveRecord::Base
 
   HOOSIN = +16088074732
   
+  def city_name
+    city.try(:name)
+  end
+
+  def city_name=(name)
+    self.city = City.find_by_name(name) if name.present?
+  end
+
   def as_json(options = {})
     if self.authentications.where(:provider == "Facebook").any?
       @pic_url = self.authentications.find_by_provider("Facebook").pic_url
@@ -222,7 +231,7 @@ class User < ActiveRecord::Base
     else
       if event.rsvps.where(guest_id: self.id).any?
         @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
-        if @existing_rsvp.inout = 1
+        if @existing_rsvp.inout == 1
           return
         else
           @existing_rsvp.destroy
@@ -942,8 +951,7 @@ class User < ActiveRecord::Base
           end
           @invited_events.push(@day_invited_events)
         end
-        @new_invite_ideas = Event.where('events.ends_at IS NULL AND events.created_at > ?', Time.now - 4.days)
-                .joins(:invitations).where(invitations: {invited_user_id: u.id}).order("RANDOM()")
+        @new_invite_ideas = Event.where('events.ends_at IS NULL AND events.created_at > ?', Time.now - 4.days).joins(:invitations).where(invitations: {invited_user_id: u.id}).order("RANDOM()")
         @all_new_city_ideas = Event.where('events.ends_at IS NULL AND events.is_public = ? AND events.city_id = ? AND events.created_at > ?', true, u.city_id, Time.now - 4.days)
         @new_city_ideas = @all_new_city_ideas.first(5)
         if @has_events == true || @new_invite_ideas.any? || @new_city_ideas.any?

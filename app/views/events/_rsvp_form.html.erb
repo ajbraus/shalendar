@@ -26,18 +26,14 @@
 				<i class="icon-ok-sign blue" title="you're .in"></i> you're .in
 				<!-- this shouldn't create rsvp-out, it should just destroy rsvp-in -->
 				<div id="flakeOut">
-					<%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
-		  			<%= f.hidden_field :plan_id %>
-		  			<%= f.hidden_field :inout, value: 0 %>
-					  <%= f.submit "(flake out)", class:'out' %>
-					<% end %>
+					<%= link_to "(flake out)", rsvp_path(current_user.rsvps.find_by_plan_id(@event.id)), :confirm => "Are you sure you can't make it?", :method => :delete, :class => "out" %></p>
 				</div>
 			</span>
 		<% elsif current_user.out?(event) %> <!-- IF RSVPD OUT SHOW OUT AND TOGGLE IN -->
 			<span id="inButton">
 				<i class="icon-circle-blank" title="you're out"></i> out
 				<div id="joinin">
-					<%= form_for(current_user.rsvps.build(plan_id: event.id), remote:true ) do |f| %>
+					<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 		  			<%= f.hidden_field :plan_id %>
 		  			<%= f.hidden_field :inout, value: 1 %>
 					  <%= f.submit "(join .in)", class: "let_me_in" %>

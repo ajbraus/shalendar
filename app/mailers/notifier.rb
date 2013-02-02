@@ -183,8 +183,8 @@ class Notifier < ActionMailer::Base
   
   def digest(user, invited_events, upcoming_events, has_events, new_invited_ideas, new_city_ideas, new_city_ideas_count)
     @user = user
-    @upcoming_events = upcoming_events
     @invited_events = invited_events
+    @upcoming_events = upcoming_events
     @has_events = has_events
     @new_invited_ideas = new_invited_ideas
     @new_city_ideas = new_city_ideas

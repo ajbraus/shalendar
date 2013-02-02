@@ -2,12 +2,8 @@
 <div class="vendor_dash">
 	<div class="profile">
 		<%= large_profile_picture(@user) %>
-		<div class="show_name"><%= @user.name %></div>
-		<% if current_user == @user %>
-			<div class="show_friend">
-				<%= render 'shared/city_user_dropdown' %>
-			</div>
-		<% else %>
+		<div class="show_name"><%= @user.name %><br><span style="font-size:14px;position:relative;bottom:20px;"><%= @user.city.name %></span></div>
+		<% unless current_user == @user %>
 			<div class="show_friend">
 				<%= render  :partial => 'events/follow_form', :locals => { :user => @user } %>
 			</div>
