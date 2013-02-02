@@ -569,65 +569,22 @@ class Api::V2::EventsController < ApplicationController
         }, :status=>200
   end
 
-  # def add_photo
-  #   @mobile_user = User.find_by_id(params[:user_id])
-  #   @event = Event.find_by_id(params[:event_id])
-  #   if @mobile_user.nil? || @event.nil?
-  #     render :status => 400, :json => {:error => "couldn't find event or user"}
-  #   end
-  #   if @mobile_user.id != @event.user.id
-  #     render :status => 400, :json => {:error => "thinks that your user is not the host of the event"}
-  #   end
+  def add_photo
+    @mobile_user = User.find_by_id(params[:user_id])
+    @event = Event.find_by_id(params[:event_id])
+    if @mobile_user.nil? || @event.nil?
+      render :status => 400, :json => {:error => "couldn't find event or user"}
+    end
+    if @mobile_user.id != @event.user.id
+      render :status => 400, :json => {:error => "thinks that your user is not the host of the event"}
+    end
 
-  #   @userfile = params[:userfile]
+    @userfile = params[:userfile]
 
+    logger.info(params)
 
-  #   render :status => 200, :json => {:success => "got here at least"}
-  # end
+    render :status => 200, :json => {:success => "got here at least"}
+  end
 
-  # def user_events_on_date
-  #   #receive call to : hoos.in/user_plans_on_date.json?date="DateInString"
-  #   @mobile_user = User.find_by_id(params[:user_id])
-
-  #   if @mobile_user.present?
-  #     Time.zone = @mobile_user.city.timezone
-  #   else
-  #     render :status => 400, :json => {:error => "could not find your user"}
-  #   end
-  #   raw_datetime = DateTime.parse(params[:date])
-
-  #   @events = @mobile_user.mobile_events_on_date(raw_datetime.in_time_zone(@mobile_user.city.timezone))#Need to check timezone here
-
-  #   @events = @events.sort_by{|t| t[:starts_at]}
-  #   #For Light-weight events sending for list (but need guests to know if RSVPd)
-  #   @list_events = []
-  #   @events.each do |e|
-  #     @guestids = []
-  #     e.guests.each do |g|
-  #       @guestids.push(g.id)
-  #     end
-  #     @g_share = true
-  #     if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
-  #       @g_share = false
-  #     end
-  #     @temp = {
-  #       :eid => e.id,
-  #       :title => e.title,  
-  #       :start => e.starts_at,#don't do timezone here, do it local on mobile
-  #       :end => e.ends_at, 
-  #       :gcnt => e.guests.count,  
-  #       :tip => e.min,
-  #       :image => e.image(:medium), 
-  #       :host => e.user,
-  #       :plan => @mobile_user.rsvpd?(e),
-  #       :tipped => e.tipped,
-  #       :gids => @guestids,
-  #       :g_share => @g_share,
-  #       :share_a => @mobile_user.invited_all_friends?(e)
-  #     }
-  #     @list_events.push(@temp)
-  #   end
-  #   render json: @list_events
-  # end
 
 end
