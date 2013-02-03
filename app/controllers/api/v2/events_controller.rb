@@ -572,19 +572,21 @@ class Api::V2::EventsController < ApplicationController
   def add_photo
     @mobile_user = User.find_by_id(params[:user_id])
     @event = Event.find_by_id(params[:event_id])
+    binding.remote_pry
     if @mobile_user.nil? || @event.nil?
       render :status => 400, :json => {:error => "couldn't find event or user"}
+      return
     end
     if @mobile_user.id != @event.user.id
       render :status => 400, :json => {:error => "thinks that your user is not the host of the event"}
+      return
     end
 
     @userfile = params[:userfile]
 
+
     @event.promo_img = @userfile
     @event.save
-    
-    logger.info(params)
 
     render :status => 200, :json => {:success => "got here at least"}
   end

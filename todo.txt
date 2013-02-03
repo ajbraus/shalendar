@@ -1,5 +1,7 @@
 Adam
 
+One-time events showing twice on calendar and not at all on ideas (I fixed this before with an 'exempt from calendar ' tag... did you change this?)
+
 digest is not working
 .ics not working
 updating events is deleting the times
