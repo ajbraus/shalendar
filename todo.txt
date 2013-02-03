@@ -2,11 +2,11 @@ Adam
 
 joyride is f-d
 
+only invite to parents not to times
+
 digest is not working
 	template is f-d up
 	make a test
-
-new landing page
 
 why not remember me workign?
 
@@ -16,8 +16,6 @@ when rsvping to idea don't remove rsvp to time and vise versa
 remove invite all to time on event.html - Always invite to parent
 
 email/notification joining idea and can make a time.
-
-only invite to parents not to times
 
 -------------------------------------------------------
 
