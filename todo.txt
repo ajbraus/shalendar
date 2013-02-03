@@ -7,7 +7,7 @@ digest is not working
 	make a test
 
 add way more cities
-City.create(name: "xxx", timezone: "xxx")
+City.create(name: "Columbus, Ohio", timezone: "Eastern Time (US & Canada)")
 
 new landing page
 
@@ -59,6 +59,14 @@ sign up major overhaul
 Fix scaling model - how to grow to another city . . . more cities? countries?
 
 -----------------------------------------------------
+
+speedtests
+	pagespeed chrome extension
+	webpagetester
+	audit (in chrome)
+
+server speed
+	http://miniprofiler.com/
 
 make add time a dropdown to shield and show
 
