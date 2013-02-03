@@ -43,8 +43,10 @@
     <%= render 'shared/get_time_zone_offset' %>
     <%= render 'layouts/fb_script' %> 
     <%= render 'layouts/header' %>
+    <% if false %>
     <% unless user_signed_in? || params[:action] == 'landing' || params[:action] == 'new' %>
       <%= render 'shared/not_signed_in_pitch' %>
+    <% end %>
     <% end %>
     <span id="invitations"></span>
     <span id="plans"></span>
@@ -55,7 +57,7 @@
     </div>
     <%= render 'layouts/footer' %>
     <%= yield :scripts %>
-    <% if current_user.present? && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
+    <% if user_signed_in? && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
       <script>
         $(window).load(function() {
           $("#chooseID").joyride({
@@ -64,6 +66,15 @@
           });
         });
       </script>
+    <% end %>
+    <% if !user_signed_in? && (params[:action] == 'home' || params[:action] == 'show') %>
+    <script>
+
+      $(document).ready(function() {
+        $('.layout').css("top","10px");
+      });
+
+    </script>
     <% end %>
   </body>
 </html>

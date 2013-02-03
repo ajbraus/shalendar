@@ -255,6 +255,15 @@ class EventsController < ApplicationController
     params[:event][:starts_at] = Chronic.parse(params[:event][:chronic_starts_at])
 
     @event = Event.find(params[:id])
+
+    if params[:invite_me] == '1'
+      @event.is_public = true
+    end
+
+    if params[:invite_me] == "2" || params[:invite_me] == "1"
+      current_user.invite_all_friends!(@event)
+    end
+    
     if params[:parent_id]
       @parent = Event.find_by_id(params[:parent_id])
       @event.parent_id = @parent.id

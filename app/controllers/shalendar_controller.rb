@@ -22,8 +22,9 @@ class ShalendarController < ApplicationController
       @times = ( @city_times | @ins_times | @invites_times | @my_times ).reject{|e| current_user.out?(e)}
     else
       #if not signed in display city ideas
-      @ideas = Event.where('ends_at = ? OR (ends_at > ? AND one_time = ?) AND is_public = ? AND city_id = ?', nil, Time.now, true, true, @current_city.id).order('created_at DESC')
-      @times =  Event.where('ends_at > ? AND is_public = ? AND city_id = ?', Time.now - 3.days, true, @current_city.id).order('created_at DESC')
+      @ideas = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND is_public = ?', Time.now, true, true)
+      # @ideas = Event.where('ends_at = ? OR (ends_at > ? AND one_time = ?) AND is_public = ?', nil, Time.now, true, true).order('created_at DESC')
+      @times =  Event.where('ends_at > ? AND is_public = ?', Time.now - 3.days, true).order('created_at DESC')
     end 
     @currently_ideas = true
     # Beginning of Yellow Pages

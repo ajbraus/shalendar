@@ -6,10 +6,9 @@ digest is not working
 	template is f-d up
 	make a test
 
-add way more cities
-City.create(name: "Columbus, Ohio", timezone: "Eastern Time (US & Canada)")
-
 new landing page
+
+why not remember me workign?
 
 kill tipping
 
@@ -21,6 +20,12 @@ email/notification joining idea and can make a time.
 only invite to parents not to times
 
 -------------------------------------------------------
+
+add way more cities
+http://en.wikipedia.org/wiki/List_of_United_States_cities_by_population
+England, Australia, major expat destinations
+City.create(name: "Oklahoma City, Oklahoma", timezone: "Central Time (US & Canada)")
+
 
 Remove clock from idea/time
 Add indicator of guest count
