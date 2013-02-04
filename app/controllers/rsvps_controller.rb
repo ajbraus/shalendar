@@ -51,7 +51,7 @@ class RsvpsController < ApplicationController
     end
 
     respond_to do |format|
-      if @event.is_parent?
+      if !@event.has_parent?
         format.html { redirect_to @event }
       else
         format.html { redirect_to @event.parent }

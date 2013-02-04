@@ -1,20 +1,12 @@
 Adam
 
-debug digest/scheduler
-
-fix rsvp out destroying
-
 nah not working
 
 don't load times that are older than 31 days
 
 joyride is f-d
 
-only invite to parents not to times
-
 why not remember me workign?
-
-remove blog
 
 kill tipping
 	remove from new form
