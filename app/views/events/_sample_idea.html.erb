@@ -23,9 +23,11 @@
 		<% if false %><span class="blerb_pic" title="Created by: <%= current_user.name %>"><%= raster_profile_picture(current_user) %></span><% end %>
 		<span class="title eventTitle"><%= @parent ? @parent.title : '' %></span>
 	</div>
+<% if false %>
 	<div class="meter">
 		<span style="width: 100%;"><span></span></span>
 	</div>
+<% end %>
 
 	<div class="promo_img" id="eventPromoImg">
   	<% if @parent  && @parent.has_image? %>

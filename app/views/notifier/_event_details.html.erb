@@ -13,12 +13,14 @@
 		<% if event.starts_at.present? %>
 			<br>
 			When: <strong style="padding-left:10px;"><%= event.starts_at.strftime("%l:%M%P, %A %B %e") %></strong>
+			<% if false %>
 			<% if event.tipped? %>
 				<br>
 				<strong style="color:green;">Idea tipped!</strong>
 			<% else %>
 				<br>
 				<strong>This idea needs <span style="color:red;"><%= event.min - event.guest_count %></span> to tip</strong>
+			<% end %>
 			<% end %>
 		<% end %>
 	<% if event.description.present? %>

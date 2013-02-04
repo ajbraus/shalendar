@@ -1,26 +1,35 @@
 Adam
 
-nah not working
-
 don't load times that are older than 31 days
 
 joyride is f-d
 
 why not remember me workign?
 
-kill tipping
-	remove from new form
-	tip all events in controller#create && controller#create_new_time
-	remove from add time form
-	remove the progress bar from show
-	" " from shield
-	remove tipping indications from event_details
-	remove tipping indications from event#show guest count
-
 add time should just be time and place
 
+close friends on facebook
+
+add events from facebook
+
+try to scrape events off of overture website
+
+facepile on email
+
+bring it into under the hood/whitelabled for company
+remove barrier to entry for content creation
+	csv, scrape, facebook events
+	share button
+
+make profile more robust - 
+	amazon/netflix curation of ideas
+	know who is sharing/creating your ideas
+	
+
+
+one_time put time below like it has just one time 
+
 when rsvping to idea don't remove rsvp to time and vise versa
-remove invite all to time on event.html - Always invite to parent
 
 email/notification joining idea and can make a time.
 
@@ -746,3 +755,13 @@ Over the past two months, Mike and I have been listening to your suggestions and
 4) Better sharing - Share hoosin ideas on twitter, facebook, pinterest, by email and by text (on mobile).
 
 5) New Look - New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.
+
+
+kill tipping
+	DONE remove from new form
+	DONE tip all events in controller#create && controller#create_new_time
+	DONE remove from add time form
+	DONE remove the progress bar from show
+	DONE " " from shield
+	DONE remove tipping indications from event_details
+	DONE remove tipping indications from event#show guest count
