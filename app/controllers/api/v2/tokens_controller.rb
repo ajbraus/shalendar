@@ -165,7 +165,7 @@ class Api::V2::TokensController  < ApplicationController
 
       time_zone = "Central Time (US & Canada)" #timezone_for_utc_offset(access_token.extra.raw_info.timezone)
 
-      user_attr = { email: email, name: name, city: location, time_zone: time_zone }
+      user_attr = { email: email, name: name, city: @city, time_zone: time_zone }
       user.update_attributes user_attr
       
       return user
