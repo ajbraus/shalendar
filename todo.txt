@@ -4,13 +4,19 @@ joyride is f-d
 
 only invite to parents not to times
 
-digest is not working
-	template is f-d up
-	make a test
-
 why not remember me workign?
 
 kill tipping
+	remove from new form
+	tip all events in controller#create && controller#create_new_time
+	remove from add time form
+	remove the progress bar from show
+	" " from shield
+	remove tipping indications from event_details
+	remove tipping indications from event#show guest count
+	
+
+add time should just be time, ppl can chat about other stuff.
 
 when rsvping to idea don't remove rsvp to time and vise versa
 remove invite all to time on event.html - Always invite to parent
@@ -23,7 +29,6 @@ add way more cities
 http://en.wikipedia.org/wiki/List_of_United_States_cities_by_population
 England, Australia, major expat destinations
 City.create(name: "Oklahoma City, Oklahoma", timezone: "Central Time (US & Canada)")
-
 
 Remove clock from idea/time
 Add indicator of guest count
@@ -58,8 +63,6 @@ sign up major overhaul
 	then profile page to add picture, set location, and background
 	then make friends/choose interests
 	suggested friends present in profile page
-
-Fix scaling model - how to grow to another city . . . more cities? countries?
 
 -----------------------------------------------------
 

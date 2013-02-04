@@ -19,12 +19,17 @@ describe 'Comments' do
 	describe 'Create Comment' do 
 		before do
 			fill_in "comment_content", with: "Testing"
-			click_button "w"
+			click_button "chat"
 		end
 
 		it 'should have the comment content' do
 			page.should have_content("Testing")
 		end
+
+		it 'should email guests the comment' do 
+		
+		end
+
 			
 		describe 'Destroy Comment' do
 			before do 

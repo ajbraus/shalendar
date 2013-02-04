@@ -111,6 +111,7 @@ class EventsController < ApplicationController
             @event.starts_at = nil
             @event.ends_at = nil
             @event.duration = nil
+            @event.save
           end # END if instance.save
         else #it's a one-time
           @event.one_time = true
