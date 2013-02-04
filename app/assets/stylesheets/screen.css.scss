@@ -2157,7 +2157,7 @@ right: 520px;
 }
 
 .icon-ok-sign {
-  color:lightgrey;
+  color:white;
 }
 
 #feedback {
@@ -2267,22 +2267,10 @@ position: relative;
   left: 3px;
 }
  .join_group_buttons {
-float: right;
-width: 110px;
-.guests {
-  float:right;
-  #guestCount {
-    padding: 10px;
-position: relative;
-top: 10px;
-    }
-  }
+clear: both;
+font-size: 21px;
 }
   }
-    #inButton {
-  float: left;
-  margin: 3px;
-    }
 .guests{
   float:right;
   position: relative;
@@ -2298,6 +2286,13 @@ top: 10px;
 margin-top: 10px;
 margin-right: 6px;
 }
+}
+
+#guestCount {
+margin: 0px 10px 0px 0px;
+position: relative;
+bottom: 15px;
+font-size: 26px;
 }
 
 .show_skin {
@@ -2411,10 +2406,11 @@ font-size: 17px;
 
 .join_group_buttons {
   height: 28px;
+  background-color:white;
   .rsvp_button {
 float: left;
 padding: 1px 11px;
-margin: 10px 0;
+margin: 0px 0;
   }
   .unrsvp_button{
     float: left;
@@ -3978,6 +3974,12 @@ height: 0px;
   }
   .guests {
     top:4px;
+    #guestCount {
+      margin: 0px 2px 0px 0px;
+position: relative;
+bottom: 1px;
+font-size: 19px;
+    }
   }
 }
 
@@ -4184,14 +4186,12 @@ float: left;
 }
 
 #calendars {
-margin-top: -9px;
-margin-right: -1px;
 float: right;
-margin-left: 10px;
+position: relative;
+top: 10px;
   li {
-    display:inline;
     img {
-      width: 19px;
+      width: 35px;
     }
   }
 }
@@ -4250,6 +4250,7 @@ padding-top: 4px;
   background-color: transparent;
   text-decoration: none;
   border:none;
+  font-size: 10px;
     &:hover {
     color:$destroy;
     text-decoration: underline;
@@ -4259,7 +4260,7 @@ padding-top: 4px;
 .new_time_show {
   clear: both;
 border-top: 1px solid black;
-font-size: 30px;
+font-size: 23px;
 text-align: center;
 }
 
@@ -4291,11 +4292,8 @@ margin: -8px 22px -2px 22px;
 .show_facepile {
 margin-top: 10px;
 margin-bottom: -10px;
-clear: both;
-  img {
-    width:25px;
-    height:25px;
-  }
+float: left;
+clear: left;
 }
 
 ul.ui-autocomplete {
@@ -4319,4 +4317,13 @@ ul.ui-autocomplete {
       background-color: #FFFCB2;
     }
   }
+}
+
+.time_settings {
+  position: absolute;
+right: 10px;
+top: 10px;
+ li {
+  display: inline;
+ }
 }
