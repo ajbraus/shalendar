@@ -8,6 +8,8 @@ only invite to parents not to times
 
 why not remember me workign?
 
+remove blog
+
 kill tipping
 	remove from new form
 	tip all events in controller#create && controller#create_new_time
