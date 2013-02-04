@@ -384,11 +384,11 @@ class Api::V2::EventsController < ApplicationController
 
     @guests_can_invite_friends = true
     @min = 1
-    unless params[:min] == ""
+    if params[:min].present?
       @min = Float(params[:min])
     end
     @max = 100000
-    unless params[:max] == ""
+    if params[:max].present?
       @max = Float(params[:max])
     end
 
