@@ -1,5 +1,7 @@
 Adam
 
+don't load times that are older than 31 days
+
 joyride is f-d
 
 only invite to parents not to times
@@ -14,9 +16,8 @@ kill tipping
 	" " from shield
 	remove tipping indications from event_details
 	remove tipping indications from event#show guest count
-	
 
-add time should just be time, ppl can chat about other stuff.
+add time should just be time and place
 
 when rsvping to idea don't remove rsvp to time and vise versa
 remove invite all to time on event.html - Always invite to parent
@@ -25,14 +26,16 @@ email/notification joining idea and can make a time.
 
 -------------------------------------------------------
 
+social sharing from homescreen
+
 add way more cities
 http://en.wikipedia.org/wiki/List_of_United_States_cities_by_population
 England, Australia, major expat destinations
 City.create(name: "Oklahoma City, Oklahoma", timezone: "Central Time (US & Canada)")
 
-Remove clock from idea/time
+send an email letting everyone know they can post instagram pics #hoosin and it gets on the homepage!
+
 Add indicator of guest count
-Not signed in pitch broken on show
 Signup for responsive
 Terms on conditions responsive
 Remove background image from signup add it to profile
@@ -76,9 +79,9 @@ server speed
 
 make add time a dropdown to shield and show
 
-make comments asynconous
+-----------------------------------------------------
 
-social sharing from homescreen
+make comments asynconous
 
 plan b-day parties through hoos.in!
 

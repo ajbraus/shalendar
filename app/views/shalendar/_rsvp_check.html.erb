@@ -2,7 +2,7 @@
 	<% if event.ends_at.present? && event.ends_at < Time.now %>
 		<div class="btn-over"></div>
 	<% elsif current_user.in?(event) %>
-		<% if event.guests_can_invite_friends? %>
+		<% if event.guests_can_invite_friends? && event.is_parent? %>
 			<% if current_user.rsvps.find_by_plan_id(event.id).invite_all_friends? %>
 				<div class="green" title="all friends .invited"><i class="icon-group"></i></div>
 			<% else %>

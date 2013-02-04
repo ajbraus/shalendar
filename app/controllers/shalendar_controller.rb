@@ -187,10 +187,13 @@ class ShalendarController < ApplicationController
   
   def invite_all_friends
     @event = Event.find_by_id(params[:event_id])
+    if @event.has_parent?
+      @event = @event.parent
+    end
     current_user.invite_all_friends!(@event)
     respond_to do |format|
       format.js 
-      format.html { redirect_to @event, notice: 'successfully .invited your friends' }
+      format.html { redirect_to @event.parent, notice: 'successfully .invited your friends' }
     end
   end
 
@@ -256,7 +259,7 @@ class ShalendarController < ApplicationController
     @users_per_week_graph = LazyHighCharts::HighChart.new('graph') do |f|
       f.options[:title][:text] = "New Users Per Week Since Inception"
       f.options[:chart][:defaultSeriesType] = "line"
-      f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
+      f.options[:plotOptions] = {:area => { :pointInterval => "#{1.week}", :pointStart => "#{@start_date}" }}
       f.series(:name=>'Users', :data => @users_per_week )
       f.xAxis(:type => 'datetime')
     end
@@ -296,7 +299,7 @@ class ShalendarController < ApplicationController
     @rsvps_v_events = LazyHighCharts::HighChart.new('graph') do |f|
       f.options[:title][:text] = "RSVPs vs. Events Since Inception"
       f.options[:chart][:defaultSeriesType] = "line"
-      f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
+      f.options[:plotOptions] = {:area => { :pointInterval => "#{1.week}", :pointStart => "#{@start_date}" }}
       f.series(:name=>'RSVPs', :data => @rsvps_per_week )
       f.series(:name=>'Events', :data=> @events_per_week )
       f.xAxis(:type => 'datetime')
@@ -308,7 +311,7 @@ class ShalendarController < ApplicationController
       #f.options[:chart][:width] = 460
       #f.options[:chart][:height] = 350
       f.options[:yAxis][:min] = 0
-      f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
+      f.options[:plotOptions] = {:area => { :pointInterval => "#{1.week}", :pointStart => "#{@start_date}" }}
       f.series(:name=>'Madison', :data => @ratio_rsvps_to_invitations )
       f.xAxis(:type => 'datetime')
     end
@@ -316,7 +319,7 @@ class ShalendarController < ApplicationController
     @invitations = LazyHighCharts::HighChart.new('graph') do |f|
       f.options[:title][:text] = "Invitations Since Inception"
       f.options[:chart][:defaultSeriesType] = "line"
-      f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
+      f.options[:plotOptions] = {:area => { :pointInterval => "#{1.week}", :pointStart => "#{@start_date}" }}
       f.series(:name=>'Invitations', :data=> @invitations_per_week)
       f.xAxis(:type => 'datetime')
     end
@@ -339,7 +342,7 @@ class ShalendarController < ApplicationController
     @public_ideas_per_city = LazyHighCharts::HighChart.new('graph') do |f|
       f.options[:title][:text] = "Public Ideas since inception by city"
       f.options[:chart][:defaultSeriesType] = "line"
-      f.options[:plotOptions] = {:area => { :pointInterval => '#{1.week}', :pointStart => '#{@start_date}' }}
+      f.options[:plotOptions] = {:area => { :pointInterval => "#{1.week}", :pointStart => "#{@start_date}" }}
       f.series(:name=>'Madison', :data => @madison_public_ideas_per_week )
       f.series(:name=>'Other', :data=> @other_city_public_ideas_per_week )
       f.xAxis(:type => 'datetime')
