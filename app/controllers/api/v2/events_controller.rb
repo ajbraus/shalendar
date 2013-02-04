@@ -70,7 +70,8 @@ class Api::V2::EventsController < ApplicationController
         :g_share => @g_share,
         :share_a => @mobile_user.invited_all_friends?(e),
         :instances => @instances,
-        :ot => e.one_time
+        :ot => e.one_time,
+        :pub => e.is_public
       }
       @list_events.push(@temp)
     end 
@@ -141,7 +142,8 @@ class Api::V2::EventsController < ApplicationController
         :gids => @guestids,
         :g_share => @g_share,
         :share_a => @mobile_user.invited_all_friends?(e),
-        :ot => e.one_time
+        :ot => e.one_time,
+        :pub => e.is_public
       }
       @list_events.push(@temp)
     end 
@@ -212,7 +214,8 @@ class Api::V2::EventsController < ApplicationController
         :gids => @guestids,
         :g_share => @g_share,
         :share_a => @mobile_user.invited_all_friends?(e),
-        :ot => e.one_time?
+        :ot => e.one_time?,
+        :pub => e.is_public
       }
       @list_events.push(@temp)
     end 
@@ -282,7 +285,8 @@ class Api::V2::EventsController < ApplicationController
         :gids => @guestids,
         :g_share => @g_share,
         :share_a => @mobile_user.invited_all_friends?(e),
-        :ot => e.one_time?
+        :ot => e.one_time,
+        :pub => e.is_public
       }
       @list_events.push(@temp)
     end 
@@ -369,7 +373,8 @@ class Api::V2::EventsController < ApplicationController
           :inviter => @inviter,
           :share_a => @mobile_user.invited_all_friends?(@event),
           :instances => @instances,
-          :ot => @event.one_time
+          :ot => @event.one_time,
+          :pub => e.is_public
         }
     end
   end
