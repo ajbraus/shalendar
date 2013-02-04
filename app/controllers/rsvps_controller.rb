@@ -43,9 +43,19 @@ class RsvpsController < ApplicationController
     @rsvp = Rsvp.find(params[:id])
     @event = @rsvp.plan
     @rsvp.destroy
+    if @event.instances.any?
+      @rsvps = @event.rsvps.where(:guest_id => current_user.id)
+      @rsvps.each do |r| 
+        r.destroy
+      end
+    end
 
     respond_to do |format|
-      format.html { redirect_to @event }
+      if @event.is_parent?
+        format.html { redirect_to @event }
+      else
+        format.html { redirect_to @event.parent }
+      end
       format.js
     end
   end

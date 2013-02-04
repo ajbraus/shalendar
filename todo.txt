@@ -1,5 +1,11 @@
 Adam
 
+debug digest/scheduler
+
+fix rsvp out destroying
+
+nah not working
+
 don't load times that are older than 31 days
 
 joyride is f-d
