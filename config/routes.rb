@@ -7,13 +7,15 @@ Shalendar::Application.routes.draw do
     root :to => 'shalendar#home'
   end
 
-  resources :users, :only => [:show]
-
-  City.all.each do |c|
+  resources :users, :only => [:show] do #for profile page 
+    get :autocomplete_city_name, :on => :collection
+  end
+  
+  City.all.each do |c| #for all cities
     match "/#{c.name.split(',')[0].gsub(/\s+/, "").downcase}", :to => 'shalendar#home', :as => "#{c.name.split(',')[0].gsub(/\s+/, "").gsub("-", "_").downcase}", :city => "#{c.name}"
   end
   
-  root :to => 'static_pages#landing'
+  root :to => 'shalendar#home'
 
   devise_for :users, 
              controllers:   { omniauth_callbacks: "users/omniauth_callbacks", 
@@ -24,9 +26,10 @@ Shalendar::Application.routes.draw do
              path_names:    { sign_in: "login",
                               sign_out: "logout"
                             } 
-  devise_scope :user do
-    match '/new_venue', to: 'registrations#new_vendor', as: "new_vendor"
-  end
+
+  #devise_scope :user do
+    #match '/new_venue', to: 'registrations#new_vendor', as: "new_vendor"
+  #end
 
   # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
   devise_scope :user do
@@ -104,23 +107,23 @@ Shalendar::Application.routes.draw do
       match '/get_invites', :to => 'events#invites', :as => "invites", :via => :get
       match '/get_city_ideas', :to => 'events#city_ideas', :as => "city_ideas", :via => :get
       match '/get_my_ideas', :to => 'events#my_ideas', :as => "my_ideas", :via => :get
-      
-
     end
   end
 
+  match '/city_names', :to => 'users#city_names', :as => "city_names"
+
   match '/get_fb_friends_to_invite', :to => 'events#get_fb_friends_to_invite', :as => 'get_fb_friends_to_invite'
 
-  match '/set_time_zone', :to => 'users#set_time_zone', :as => 'set_time_zone'
+  #match '/set_time_zone', :to => 'users#set_time_zone', :as => 'set_time_zone'
 
-  match '/collect_payments', :to => 'payments#new_merchant', :as => 'new_merchant'
-  match '/create_merchant', :to => 'payments#create_merchant', :as => 'create_merchant'
+  #match '/collect_payments', :to => 'payments#new_merchant', :as => 'new_merchant'
+  #match '/create_merchant', :to => 'payments#create_merchant', :as => 'create_merchant'
 
-  match '/confirm_payment', :to => 'payments#confirm_payment', :as => "confirm_payment"
-  match '/submit_paytment', :to => 'payments#submit_payment', :as => "submit_payment"
+  #match '/confirm_payment', :to => 'payments#confirm_payment', :as => "confirm_payment"
+  #match '/submit_paytment', :to => 'payments#submit_payment', :as => "submit_payment"
 
-  match '/payment', :to => 'payments#new_card', :as => 'new_card'
-  match '/create_card', :to => 'payments#create_card', :as => 'create_card'
+  #match '/payment', :to => 'payments#new_card', :as => 'new_card'
+  #match '/create_card', :to => 'payments#create_card', :as => 'create_card'
 
   match '/downgrade', :to => 'payments#downgrade', :as =>'downgrade'
   match '/upgrade', :to => 'payments#upgrade', :as => 'upgrade'
@@ -129,7 +132,7 @@ Shalendar::Application.routes.draw do
   match '/repeat', :to => 'events#repeat', :as => 'repeat_event'
   #match '/new_crowd_idea', :to => 'events#new_crowd_idea', :as => 'new_crowd_idea'
 
-  match '/activity', :to => 'shalendar#activity', :as => "activity"
+  #match '/activity', :to => 'shalendar#activity', :as => "activity"
   match '/manage_friends', :to => 'shalendar#manage_friends', :as => "manage_friends"
 
   resources :events, path: "ideas", only: [:create, :destroy, :update, :tip, :edit, :new, :show, :new_time, :create_new_time] do #:index,
@@ -158,25 +161,25 @@ Shalendar::Application.routes.draw do
   match 'post_to_own_fb_wall' => 'events#post_to_own_fb_wall'
   match 'post_to_wall_permissions' => 'shalendar#post_to_wall_permissions'
   match 'friend_requests' => 'shalendar#friend_requests'
-  match 'new_invited_events' => 'shalendar#new_invited_events'
-  match 'plans' => 'shalendar#plans'
+  #match 'new_invited_events' => 'shalendar#new_invited_events'
+  #match 'plans' => 'shalendar#plans'
   match 'search' => 'shalendar#search'
   match 'datepicker' => "shalendar#datepicker"
 
-  match '/friends_ideas', to: 'shalendar#friends_ideas', as: "friends_ideas"
-  match '/city_ideas', to: 'shalendar#city_ideas', as: "city_ideas"
-  match '/my_ideas', to: 'shalendar#my_ideas', as: 'my_ideas'
-  match '/calendar', to: 'shalendar#calendar', as: "calendar"
+  #match '/friends_ideas', to: 'shalendar#friends_ideas', as: "friends_ideas"
+  #match '/city_ideas', to: 'shalendar#city_ideas', as: "city_ideas"
+  #match '/my_ideas', to: 'shalendar#my_ideas', as: 'my_ideas'
+  #match '/calendar', to: 'shalendar#calendar', as: "calendar"
 
   #match '/what_is_hoosin', :to => 'shalendar#what_is_hoosin', :as => "what_is_hoosin"
   #match '/crowd_ideas', :to => 'shalendar#crowd_ideas', :as => "crowd_ideas"
   match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
-  match '/yellow_pages', :to => 'shalendar#yellow_pages', :as => "yellow_pages"
+  #match '/yellow_pages', :to => 'shalendar#yellow_pages', :as => "yellow_pages"
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
   match 'share_all_fb_friends' =>'shalendar#share_all_fb_friends'
   match 'friend_all' => 'shalendar#friend_all'
 
-  match '/venue', to: 'static_pages#vendor_splash', as: 'vendor_splash'
+  #match '/venue', to: 'static_pages#vendor_splash', as: 'vendor_splash'
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/careers', :to => 'static_pages#careers', :as => "careers"
   match '/terms', :to => 'static_pages#terms_header', :as => "terms"

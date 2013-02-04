@@ -17,7 +17,7 @@
   <div><%= f.label :name, "full name*" %><br />
   <%= f.text_field :name, class: "required", autocomplete: "off" %></div>
 
-  <div><%= f.label :email, "email" %><br />
+  <div><%= f.label :email, "email*" %><br />
   <%= f.email_field :email, class: "required email", autocomplete: "off" %></div>
 
   <div><%= f.label :picture, "profile picture*" %><br />
@@ -26,8 +26,9 @@
   <div><%= f.label :background_image, "Background Image (1024x600)" %>
   <%= f.file_field :background %></div>
 
-  <div><%= f.label :city, "city*" %><br />
-  <%= f.collection_select :city_id, City.all, :id, :name, { prompt: true }, { class: "required" } %></div>
+  <div><%= label_tag :city_name, "city*" %><br />
+  <%= text_field_tag :city_name, nil, data: { autocomplete_source: city_names_path } %></div>
+  <br>
 
 <% if false %>
   <div><%= f.label :time_zone, "time zone*" %><br />

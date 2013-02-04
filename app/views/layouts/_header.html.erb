@@ -50,25 +50,76 @@
   <%= render 'layouts/alerts' %>
 </header>
 
-<% else %> 
+<% elsif params[:action] == 'home' || params[:action] == 'show' %> 
 <!-- IF NOT SIGNED IN -->
-<header>
-    <%= render partial: 'shalendar/joyride' %>
-  <nav>
-    <div class="sky">
-      <%= render 'layouts/logo' %>
-      <% unless params[:controller] == "sessions" || params[:controller] == "registrations" || params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
-        <% unless params[:action] == "show" || user_signed_in? == false %>
-        <div class="instructions">
-          .instructions
-        </div>
-        <% end %>
-      <% end %>
+<header class="not_signed_in">
+  <%= render partial: 'shalendar/joyride' %>
+  <div class="instagramFeed">
+    <div class="instagram">
+      <span class="hoosinstagram">#hoosin</span>
     </div>
+    <div class="message clearfix">
+      <div style="float:left;">
+      <%= link_to root_path do %>
+        <%= image_tag "logo_beta.png", width:"260", height:"116" %>
+      <% end %>
+      </div>
+      <div class="text_buttons">
+        <strong>hoos.in is an online social calendar</strong><br>
+        Do great things with friends
+        <div class="not_signed_in_buttons">
+          <br>
+          <span class="buttons">
+          <%= link_to "log.in", new_user_session_path, class:"btn btn-pitch btn-primary" %>
+          <%= link_to new_user_registration_path, class:"btn btn-pitch btn-join" do %>
+            sign up <icon class="icon-double-angle-right"></i>
+          <% end %>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% if false %>
+  <%= image_tag "hoosin_mosaic.png", class:"hoosin_mosaic" %>
+<% end %>
+  <nav>
+    <% unless params[:controller] == "sessions" || params[:controller] == "registrations" || params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
+      <% unless params[:action] == "show" || user_signed_in? == false %>
+      <div class="instructions">
+        .instructions
+      </div>
+      <% end %>
+    <% end %>
+    <% if false %>
     <% unless params[:action] == "landing" || params[:action] == "new" %>
     <div class="city_title">
       <%= @current_city.name %>
     </div>
+    <% end %>
+    <% end %>
+  </nav>
+  <%= render 'layouts/alerts' %>
+</header>
+
+<% else %>
+<header>
+    <%= render partial: 'shalendar/joyride' %>
+  <nav>
+    <%= render 'layouts/logo' %>
+    <% unless params[:controller] == "sessions" || params[:controller] == "registrations" || params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
+      <% unless params[:action] == "show" || user_signed_in? == false %>
+      <div class="instructions">
+        .instructions
+      </div>
+      <% end %>
+    <% end %>
+    <% if false %>
+    <% unless params[:action] == "landing" || params[:action] == "new" %>
+    <div class="city_title">
+      <%= @current_city.name %>
+    </div>
+    <% end %>
     <% end %>
   </nav>
   <%= render 'layouts/alerts' %>

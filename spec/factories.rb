@@ -75,11 +75,13 @@ FactoryGirl.define do
     slug ''
     is_public ''
     city_id '2'
+    one_time ''
 	end
 
   factory :rsvp do  
     plan_id ''
     guest_id ''
+    inout ''
   end
 
   factory :invitation do 

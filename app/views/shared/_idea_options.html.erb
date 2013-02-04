@@ -9,7 +9,11 @@
 		<% end %>
       <div class="starts_at">
         <%= label :starts_at, "When does it start?" %>
+      <% if @event.present? %>
+        <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off", value:"#{@event.starts_at ? start_time(@event) : ''}" %>
+      <% else %>
         <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off" %>
+      <% end %>
       </div>
       <div class="duration">
         <%= label :duration, "Hours?*" %>
@@ -18,6 +22,7 @@
       <div class="one_time_bool">
     		<%= f.check_box :one_time %> <label for="event_one_time">only happening once?</label>
   		</div>
+  		<% if false %>
 	  	<div id="addtippingp">
 				<label><i class="icon-tasks"></i> minimum and maximum*</label>
 				<div class="minmax">
@@ -31,6 +36,7 @@
 				  </u>
 				</div>
 			</div>
+			<% end %>
     </div>
     <div class="not_time_options">
     <div id="visibilityp" class="open">

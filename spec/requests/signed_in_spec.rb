@@ -57,7 +57,7 @@ describe "Pages after sign up / sign in" do
 
   describe "RSVPd event is visible" do
     before do
-      @rsvp = Factory(:rsvp, :plan => private_event, :guest => user)
+      @rsvp = Factory(:rsvp, :plan => private_event, :guest => user, :inout => 1)
       visit root_path
     end
     it "should have the content 'Test Event'" do

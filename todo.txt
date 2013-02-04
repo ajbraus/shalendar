@@ -1,17 +1,66 @@
 Adam
 
-One-time events showing twice on calendar and not at all on ideas (I fixed this before with an 'exempt from calendar ' tag... did you change this?)
+
 
 digest is not working
 .ics not working
 updating events is deleting the times
 updating users is changing their cities
+joyride is f-d
+
+only invite to parents not to times
+
+why not remember me workign?
 
 kill tipping
+	remove from new form
+	tip all events in controller#create && controller#create_new_time
+	remove from add time form
+	remove the progress bar from show
+	" " from shield
+	remove tipping indications from event_details
+	remove tipping indications from event#show guest count
+	
 
-flake out should just destroy rsvp in, not rsvp out
-Facebook Friend finding isn't working right.. (i only see 5)
+add time should just be time, ppl can chat about other stuff.
+
 when rsvping to idea don't remove rsvp to time and vise versa
+remove invite all to time on event.html - Always invite to parent
+
+email/notification joining idea and can make a time.
+
+-------------------------------------------------------
+
+add way more cities
+http://en.wikipedia.org/wiki/List_of_United_States_cities_by_population
+England, Australia, major expat destinations
+City.create(name: "Oklahoma City, Oklahoma", timezone: "Central Time (US & Canada)")
+
+Remove clock from idea/time
+Add indicator of guest count
+Not signed in pitch broken on show
+Signup for responsive
+Terms on conditions responsive
+Remove background image from signup add it to profile
+Search bar smaller reponsive
+Filters shorter
+Shrink font in comments responsive
+Mobile joyride
+Grid of invites - always show invite button
+Grid of friends - stats
+When invite remove invite button
+
+Suggested friends . . .
+Your friend x just joined hoos.in
+
+Friend from email
+RSVP in or out from email
+
+New RSVP for self
+
+Get b-day info and block under 13 without parental consent.
+
+Optimize for app download
 
 -------------------------------------------------------
 
@@ -21,9 +70,15 @@ sign up major overhaul
 	then make friends/choose interests
 	suggested friends present in profile page
 
-Fix scaling model - how to grow to another city . . . more cities? countries?
-
 -----------------------------------------------------
+
+speedtests
+	pagespeed chrome extension
+	webpagetester
+	audit (in chrome)
+
+server speed
+	http://miniprofiler.com/
 
 make add time a dropdown to shield and show
 

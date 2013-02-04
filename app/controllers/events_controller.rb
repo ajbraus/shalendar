@@ -111,6 +111,7 @@ class EventsController < ApplicationController
             @event.starts_at = nil
             @event.ends_at = nil
             @event.duration = nil
+            @event.save
           end # END if instance.save
         else #it's a one-time
           @event.one_time = true
@@ -185,7 +186,7 @@ class EventsController < ApplicationController
       end
       @parent.guests.each do |g|
         unless g == @event.user
-          @invitation = Invitations.create(:inviter_id => @event.user, 
+          @invitation = Invitation.create(:inviter_id => @event.user, 
                                            :invited_user_id => g.id, 
                                            :invited_event_id => @event.id)
           @invitation.save
@@ -255,6 +256,15 @@ class EventsController < ApplicationController
     params[:event][:starts_at] = Chronic.parse(params[:event][:chronic_starts_at])
 
     @event = Event.find(params[:id])
+
+    if params[:invite_me] == '1'
+      @event.is_public = true
+    end
+
+    if params[:invite_me] == "2" || params[:invite_me] == "1"
+      current_user.invite_all_friends!(@event)
+    end
+    
     if params[:parent_id]
       @parent = Event.find_by_id(params[:parent_id])
       @event.parent_id = @parent.id
