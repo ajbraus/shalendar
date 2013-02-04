@@ -13,7 +13,7 @@
     </div>
   <div class="event_title clearfix">
     <div class="eventTitle">
-      <%= @event.has_parent? || @event.one_time? ? raw("<i class='icon-time'></i> ") : '' %><%= @event.title %>
+      <%= @event.title %>
     </div>
     <% if @event.user == current_user %> 
       <div class="event_buttons">
@@ -87,7 +87,7 @@
   <% if current_user == @event.user && !@event.one_time? %>
     <div class="new_time_show">
     <%= link_to event_new_time_path(@event), id:"makeATime" do %>
-      <span class="fadeInGreen"><i class="icon-time"></i> New Time</span>
+      <span class="fadeInGreen"><i class="icon-time"></i> new time</span>
     <% end %>
   </div>
   <% end %>
