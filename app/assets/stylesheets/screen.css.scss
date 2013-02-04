@@ -3974,6 +3974,12 @@ height: 0px;
   }
   .guests {
     top:4px;
+    #guestCount {
+      margin: 0px 2px 0px 0px;
+position: relative;
+bottom: 1px;
+font-size: 19px;
+    }
   }
 }
 
@@ -4254,7 +4260,7 @@ padding-top: 4px;
 .new_time_show {
   clear: both;
 border-top: 1px solid black;
-font-size: 30px;
+font-size: 23px;
 text-align: center;
 }
 
