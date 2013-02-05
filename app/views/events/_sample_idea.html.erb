@@ -96,9 +96,11 @@
   	<% end %>
   </div>
 
+<% if false %>
   <div class="meter"f>
 		<span style="width: 100%;"><span></span></span>
 	</div>
+<% end %>
 
 	<div class="when time clearfix">	
 		<div style="float:left;padding: 10px;"><span class="eventStartsAt"><%= @parent.present? ? start_time(@parent) : raw("<strong>TBD</strong>") %></span><span class="eventDuration"></span></div>
