@@ -4,11 +4,18 @@ don't load times that are older than 31 days
 
 joyride is f-d
 
+suggested friends
+	in profile page
+	alert if you have some
+	ignore them
+	email when a facebook friend joins with like to their profile
+
 why not remember me workign?
 
-add time should just be time and place
+add time should just be time and place and come down from the bottom
 
 close friends on facebook
+
 
 add events from facebook
 
@@ -24,7 +31,23 @@ remove barrier to entry for content creation
 make profile more robust - 
 	amazon/netflix curation of ideas
 	know who is sharing/creating your ideas
-	
+
+add app download on landing
+
+
+two types of users
+	organizations - want to get lots of ideas in
+									desktop users
+	casuals - want to find things to do, 
+						want to create adventerous creative ideas
+						mobile
+
+
+two types of marketing strategies
+	one_times content from facebook and organizations
+	creative adventurous ideas 
+
+	flash mob in the ratskellar
 
 
 one_time put time below like it has just one time 
