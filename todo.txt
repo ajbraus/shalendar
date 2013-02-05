@@ -1,62 +1,59 @@
 Adam
 
-don't load times that are older than 31 days
+Bugs
+	when rsvping to idea don't remove rsvp to time and vise versa
+	
+	more beautiful bug page
+		#config/application.rb
+		config.exceptions_app = self.routes
+		#routes
+		match "/404", :to => "errors#not_found"
+	add alert for new friends to confirm
 
-joyride is f-d
+Visual Clarity
+	one_time put time below like it has just one time 
+	When invite remove invite button
+	make header transparent
+	facepile on email
 
-suggested friends
-	in profile page
-	alert if you have some
-	ignore them
-	email when a facebook friend joins with like to their profile
+Increase app downloads
+	add app download on landing pitch
 
-why not remember me workign?
+improve onboarding
+	suggested friends
+		in profile page - a floater in the layout like pinterest
+		alert if you have some
+		ignore them
+		close friends on facebook
+	update on video
+	facebook => picking city
+	if no city alert --> show which city always
 
-add time should just be time and place and come down from the bottom
+intensify network of friends
+	separate friends and new friends in event show
+	
+Improve credibility (automagical software experiences)
+	email when a facebook friend joins with link to their profile
+	add time should just be time and place and come down from the bottom
 
-close friends on facebook
+Profile overhaul
+	find your outs later 
+	my ideas
+	my .ins you are also .invited to
+	my upcoming .ins you were also invited to
+	my past .ins you were also invited to
+	# guests
+	# ins
+	leave a message for the user/chat - wall . . .
 
+Increase amount of content
+	add events from facebook
+	try to scrape events off of overture website
 
-add events from facebook
-
-try to scrape events off of overture website
-
-facepile on email
-
-bring it into under the hood/whitelabled for company
-remove barrier to entry for content creation
-	csv, scrape, facebook events
-	share button
-
-make profile more robust - 
-	amazon/netflix curation of ideas
-	know who is sharing/creating your ideas
-
-add app download on landing
-
-
-two types of users
-	organizations - want to get lots of ideas in
-									desktop users
-	casuals - want to find things to do, 
-						want to create adventerous creative ideas
-						mobile
-
-
-two types of marketing strategies
-	one_times content from facebook and organizations
-	creative adventurous ideas 
-
+Marketing
 	flash mob in the ratskellar
 
-
-one_time put time below like it has just one time 
-
-when rsvping to idea don't remove rsvp to time and vise versa
-
 email/notification joining idea and can make a time.
-
--------------------------------------------------------
 
 social sharing from homescreen
 
@@ -71,13 +68,14 @@ Add indicator of guest count
 Signup for responsive
 Terms on conditions responsive
 Remove background image from signup add it to profile
+	research coder wall for standard custom backgrounds - make a few
 Search bar smaller reponsive
 Filters shorter
 Shrink font in comments responsive
 Mobile joyride
 Grid of invites - always show invite button
 Grid of friends - stats
-When invite remove invite button
+
 
 Suggested friends . . .
 Your friend x just joined hoos.in
@@ -109,17 +107,11 @@ speedtests
 server speed
 	http://miniprofiler.com/
 
-make add time a dropdown to shield and show
-
 -----------------------------------------------------
 
 make comments asynconous
 
-plan b-day parties through hoos.in!
-
-	rsvp button
-
-	add alert for new friends to confirm
+plan b-day parties through hoos.in! -> save off b-days
 
 	switch invites to right and sample idea to left
 
@@ -130,16 +122,6 @@ create a user from mobile
 Adding FB to a native login doesn't work smoothly
 
 update digest flow, curation, template
-
-Profile needs major overhaul:
-	find your outs later 
-	my ideas
-	my .ins you are also .invited to
-	my upcoming .ins you were also invited to
-	my past .ins you were also invited to
-	# guests
-	# ins
-	leave a message for the user/chat
 
 make slug have time in it for new times
 
@@ -167,20 +149,13 @@ explore your city - prompt to join - lightbox with video and signup
 
 add option to automatically update google calendar
 
-#config/application.rb
-config.exceptions_app = self.routes
-#routes
-match "/404", :to => "errors#not_found"
-
 trending and crowd ideas filter
 
 nest and refactor user => idea routes ideas/username/idea-title
 
 rsvp url - drive traffic
 
-more beautiful bug page
-
-add suggested friends to joyride
+add a 'most commonly rsvpd' gutter
 
 'cancelled idea' should not delete, should just be cancelled but available for later
 
@@ -189,13 +164,6 @@ scripts not working
 	can't just facebook invite click click click
 
 Make friending ajaxy
-separate friends and new friends in event show
-
-make facebook ajax invites 
-
-your friend just joined hoos.in email or push
-
-update activity page: number of pitches, number of ideas, number of invites, number of rsvps, number of checkins
 
 SDK - follow us on hoos.in "Our events on hoos.in" button and icon
 
@@ -278,23 +246,10 @@ download qr code
 http://qrtools.removeubyforge.org/qrtools/
 download flyer
 
--------------------------------------------------------------
-
-visual indicator of ppl you are not friends with on hoos.in yet
-suggested friends -- ppl that you saw at a party
-
 -----------------------------------------------------------
 
-	ajax scrolling for home
-
-----------------------------------------------------------
-
-Datepicker loads 1 day to the right when I click the hoos.in icon to go home.
 click pic to invite/friend
-hover not in
 removing invited person when not friending them
-
-	validate image size in form w js
 
 ----------------------------------------------------------
 
@@ -302,9 +257,27 @@ removing invited person when not friending them
 
 ----------------------------------------------------------
 
-keyup character counter in idea
 
-----------------------------------------------------------
+bring it into under the hood/whitelabled for company
+remove barrier to entry for content creation
+	csv, scrape, facebook events
+	share button
+
+make profile more robust - 
+	amazon/netflix curation of ideas
+	know who is sharing/creating your ideas
+
+two types of users
+	organizations - want to get lots of ideas in
+									desktop users
+	casuals - want to find things to do, 
+						want to create adventerous creative ideas
+						mobile
+
+two types of marketing strategies
+	one_times content from facebook and organizations
+	creative adventurous ideas 
+
 
 ------------------------------------------------------------
 
@@ -387,6 +360,7 @@ Payment gateway
  		ipad app
  		email signup
 
+
 -----------------------------------------------------------------------
 
 Vendors:
@@ -416,62 +390,19 @@ Close Viral Loop
 	google contacts
 	twitter authentication
 
-Network Density
-	Your friend "M" just joined hoos.in
-
 Marketing
-	Suggestions tweet to city specific twitter account
 	Add hashtag to get instagram images from / tweet about the event
 	add meetup api
-
-non dev stuff
-	operators agreement
-	privacy/terms pages
-
-Big UI Improvements
-	friend button not responding in find_friends
-	RSVP in/out	
 
 Medium UI improvements
 	fix alert and add error styling
 	add beautiful dialogue box for confirm to join event
 	http://snipplr.com/view/29911/javascript-alert-and-confirm-dialog-the-fancybox-way/
 	Message a single RSVP or invited person
-	event#edit ajax lightbox
-	event#show ajax lightbox/expand the idea vertically
-
-Small UI Improvements
-	yesterday tomorrow buttons working
-
-piddly-shit
-	carrot next to picture
-	month view
-	decrement new invited events count when an event expires
-	add "you are now friends with x" to relationship#create.js
-	add format.html to everything
-	remove vendor/cache gems
-	If event is full, just not showing it in maybes right now - show as full
-
-Future stuff: 
-
-basic test - launch the lightboxes and js is working.
 
 More Events:
 	Recurring Events
 	Mobile local registration
-
-User Helper:
-def contact
-	if app user => push
-	elsif phone number => text
-	else email
-end
-
-def remind
-	if app user => push
-	elsif phone number => text
-	else flash notification every 15 minutes on screen of homepage, play noise?
-ens
 
 	
 	lists
@@ -487,26 +418,6 @@ Twilio:
 		add user boolean for receiving text messages
 		Text message invitations to join calenshare for an event
 
-	Add FB events
-
-Performance
-	benchmark 2 second page loads with #x users
-	progressive page loading i.e. forecast with events after
-
-
-Close Viral Loop
-	dynamic meta tags
-	Email every invitation w boolean
-
-Add lat/lng to each city and then pass that to the map in forms
-
-Maintain users
-		-Improved UXsmoothness
-			List view
-
-		-Performance (zippiness)
-			Optimize ajax to call for less data
-
 Make money
 	Payment gateway
 		Deals
@@ -515,25 +426,16 @@ Make money
 
 	map view / list view / forecast built / 14 day forecast
 	checklist - easy to plan hard things to plan.
-	
+
 	See old plans/ideas and be able to easily 'resurface' them, with guests as invites (in lightbox or some other way than scrolling back in calendar)
 	
 	OldEvents model that holds events so that main searching doesn't have to handle larger array
-
-
-LOW PRIORITY 
-
-	Add google calendar socket - as 'busy'
-	Map of all events? - hyperlocal NYC thing
-	library of icons -flush out use cases -sports, games, booze, playdates, 
 
 
 AFTER BETA LAUNCH
 	
 -------- Features To Add ------
 
-	Public feed
-	lists
 	payment gateway
 
 	1. subscribers ?
@@ -566,48 +468,13 @@ AFTER BETA LAUNCH
 		add user boolean for receiving text messages
 		Text message invitations to join calenshare for an event
 
-Tipping:
-	Set deadline for tip
-	Pick requirements for tip (checklist)
-
 +1 functionality (bring guests, maybe with a lightbox/drop-down on RSVP click or something)
-
-	Add FB events - Adam
 
 		block emails from this user
 		change notification settings
 		add SMS
 
-		AJAX
-			confirmations - remove follower, cancel account
-			comments
-			Invitation raster
-			tip!
-
 	MEETUP API
-
-Performance
-	progressive page loading i.e. forecast with events after
-
-
-Get more users
-	
-	-Integration
-
-		twitter authentication
-		gmail authentication
-		meetup API
-		get FB events
-		couchsurfing
-
-	-Virality
-
-
-Maintain users
-	-Improved interface/design
-		-Greater connectivity w friends through out platform
-			Twillio
-			email rsvps from comment field with checkbox
 
 Make money
 	Payment gateway
@@ -619,13 +486,7 @@ Fixes
 	Groups/Lists of users ("Make selected viewed into list")
 	Flag user for spam (block/ignore user)
 
-
 Features
-
-	See old plans/ideas and be able to easily 'resurface' them, with guests as invites (in lightbox or some other way than scrolling back in calendar)
-	
-	OldEvents model that holds events so that main searching doesn't have to handle larger array 
-
 
 --------------------General ideas:----------------
 
