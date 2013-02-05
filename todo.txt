@@ -17,7 +17,6 @@ Increase app downloads
 Visual Clarity
 	one_time put time below like it has just one time 
 	When invite remove invite button
-	make header transparent
 	facepile on email
 
 improve onboarding
@@ -39,11 +38,6 @@ Improve credibility (automagical software experiences)
 Profile overhaul
 	find your outs later 
 	my ideas
-	my .ins you are also .invited to
-	my upcoming .ins you were also invited to
-	my past .ins you were also invited to
-	# guests
-	# ins
 	leave a message for the user/chat - wall . . .
 
 Increase amount of content

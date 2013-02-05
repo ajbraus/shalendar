@@ -611,7 +611,7 @@ header.not_signed_in {
       -webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
 -moz-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
 box-shadow: inset 0px 0px 9px rgba(50, 50, 50, 0.3);
-height: 358px;
+height: 380px;
   nav {
 background-color: #fffefd;
   }
@@ -3282,10 +3282,9 @@ float: right;
 
 .instagram {
 position: relative;
-height: 360px;
+height: 380px;
 overflow: hidden;
-width: 1600px;
-
+width: 1750px;
 }
 
 .hoosinstagram {
@@ -4325,4 +4324,10 @@ top: 10px;
  li {
   display: inline;
  }
+}
+
+.app_stores {
+  position: absolute;
+top: 301px;
+right: 77px;
 }
