@@ -3,6 +3,11 @@ Adam
 Bugs
 	when rsvping to idea don't remove rsvp to time and vise versa
 	
+	no push notification for rsvp for self
+	
+	fix invite all icons in upper right (not there sometimes)
+	fix invitea ll incon in sample idea
+
 	more beautiful bug page
 		#config/application.rb
 		config.exceptions_app = self.routes

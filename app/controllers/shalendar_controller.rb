@@ -22,7 +22,7 @@ class ShalendarController < ApplicationController
       @times = ( @city_times | @ins_times | @invites_times | @my_times ).reject{|e| current_user.out?(e) || e.is_parent? }
     else
       #if not signed in display city ideas
-      @ideas = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND is_public = ?', Time.now, true, true)
+      @ideas = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND is_public = ?', Time.now, true, true).order("RANDOM()")
       # @ideas = Event.where('ends_at = ? OR (ends_at > ? AND one_time = ?) AND is_public = ?', nil, Time.now, true, true).order('created_at DESC')
       @times =  Event.where('ends_at > ? AND is_public = ?', Time.now - 3.days, true).order('created_at DESC')
     end 
@@ -193,7 +193,7 @@ class ShalendarController < ApplicationController
     current_user.invite_all_friends!(@event)
     respond_to do |format|
       format.js 
-      format.html { redirect_to @event.parent, notice: 'successfully .invited your friends' }
+      format.html { redirect_to @event, notice: 'successfully .invited your friends' }
     end
   end
 
