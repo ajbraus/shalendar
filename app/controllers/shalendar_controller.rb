@@ -19,7 +19,7 @@ class ShalendarController < ApplicationController
                   .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).order('starts_at DESC')
       @my_times = Event.where('ends_at > ? AND user_id = ?', Time.now - 3.days, current_user.id).order('starts_at DESC')
 
-      @times = ( @city_times | @ins_times | @invites_times | @my_times ).reject{|e| current_user.out?(e) || e.is_parent? }
+      @times = ( @city_times | @ins_times | @invites_times | @my_times ).reject{ |e| current_user.out?(e) || e.is_parent? || (e.starts_at.present? && e.starts_at > Time.now + 26.days) }
     else
       #if not signed in display city ideas
       @ideas = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND is_public = ?', Time.now, true, true).order("RANDOM()")
@@ -195,10 +195,6 @@ class ShalendarController < ApplicationController
       format.js 
       format.html { redirect_to @event, notice: 'successfully .invited your friends' }
     end
-  end
-
-  def what_is_hoosin
-
   end
 
   def admin_dashboard
