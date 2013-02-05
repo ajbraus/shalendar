@@ -8,16 +8,17 @@ Bugs
 		config.exceptions_app = self.routes
 		#routes
 		match "/404", :to => "errors#not_found"
-	add alert for new friends to confirm
+
+facebook => picking city
+
+Increase app downloads
+	add app download on landing pitch
 
 Visual Clarity
 	one_time put time below like it has just one time 
 	When invite remove invite button
 	make header transparent
 	facepile on email
-
-Increase app downloads
-	add app download on landing pitch
 
 improve onboarding
 	suggested friends
@@ -26,7 +27,6 @@ improve onboarding
 		ignore them
 		close friends on facebook
 	update on video
-	facebook => picking city
 	if no city alert --> show which city always
 
 intensify network of friends
@@ -61,6 +61,8 @@ add way more cities
 http://en.wikipedia.org/wiki/List_of_United_States_cities_by_population
 England, Australia, major expat destinations
 City.create(name: "Oklahoma City, Oklahoma", timezone: "Central Time (US & Canada)")
+
+add alert for new friends to confirm
 
 send an email letting everyone know they can post instagram pics #hoosin and it gets on the homepage!
 

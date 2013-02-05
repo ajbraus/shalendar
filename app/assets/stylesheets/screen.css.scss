@@ -619,7 +619,6 @@ background-color: #fffefd;
 
 header {
   height: 93px;
-  background-color: $background_one;
   clear: both;
   position: fixed;
   top:0;
@@ -630,7 +629,7 @@ header {
 -moz-box-shadow:    0px 0px 9px rgba(50, 50, 50, 0.3);
 box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
     height: inherit;
-    background-color:$background_one;
+    background-color:rgba(255, 254, 253, .85);
   }
 
   .interests_dropdown, .choose_city {
