@@ -10,7 +10,7 @@ class Api::V2::EventsController < ApplicationController
     else
       render :status => 400, :json => {:error => "could not find your user"}
     end
-    @count = params[:count]
+    @count = Integer(params[:count])
     @finished = false
 
     @window_size = 7
@@ -19,10 +19,10 @@ class Api::V2::EventsController < ApplicationController
     @invites_ideas = @invites_ideas.sort_by{|i| -i.guests.count}
     @events = @invites_ideas.reject{|e| @mobile_user.out?(e)}
 
-    if @count + @window_size < @events.count
+    if (@count + @window_size) < @events.count
       @events = @events[@count .. @count + @window_size]
     else#we'd overstep the array bounds
-      @events = @events[@count .. @events.count-1]
+      @events = @events[@count .. (@events.count-1)]
     end
 
     #For Light-weight events sending for list (but need guests to know if RSVPd)
