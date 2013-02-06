@@ -5,16 +5,17 @@ class Api::V2::RsvpsController < ApplicationController
   def create
     @event = Event.find_by_id(params[:event_id])
     @mobile_user = User.find_by_id(params[:user_id])
-    @inout = params[:inout]
+    @inout = Integer(params[:inout])
     if @mobile_user.nil?
       render :status=>400, :json=>{:error => "user was not found."}
     end
     if @event.nil?
       render :status=>400, :json=>{ :error => "event was not found."}
     end
-    if @inout == '0'
+    logger.info("Params inout is: #{params[:inout]}")
+    if @inout == 0
       @mobile_user.rsvp_out!(@event)
-    elsif @inout == '1'
+    elsif @inout == 1 
       @mobile_user.rsvp_in!(@event)
       #rsvp in to parent idea
     else

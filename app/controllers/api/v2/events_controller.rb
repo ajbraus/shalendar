@@ -10,11 +10,21 @@ class Api::V2::EventsController < ApplicationController
     else
       render :status => 400, :json => {:error => "could not find your user"}
     end
+    @count = Integer(params[:count])
+    @finished = false
 
+    @window_size = 7
     @invites_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
-                .joins(:invitations).where(invitations: {invited_user_id: @mobile_user.id}).order("RANDOM()")
-
+                .joins(:invitations).where(invitations: {invited_user_id: @mobile_user.id})
+    @invites_ideas = @invites_ideas.sort_by{|i| -i.guests.count}
     @events = @invites_ideas.reject{|e| @mobile_user.out?(e)}
+
+    if (@count + @window_size) < @events.count
+      @events = @events[@count .. @count + @window_size]
+    else#we'd overstep the array bounds
+      @events = @events[@count .. (@events.count-1)]
+    end
+
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []
     @events.each do |e|
@@ -73,7 +83,10 @@ class Api::V2::EventsController < ApplicationController
       }
       @list_events.push(@temp)
     end 
-    render json: @list_events
+    render json: {
+          :finished => @finished,
+          :events => @list_events
+    }
   end
 
   def city_ideas
@@ -319,6 +332,7 @@ class Api::V2::EventsController < ApplicationController
         @c = {msg: c.content, name: c.user.name, date: c.created_at}
         @comments.push(@c)
       end
+      @comments = @comments.reverse
       @inviter = nil
       if @mobile_user.invited?(@event)
         @inviter = @mobile_user.invitations.where(invited_event_id: @event.id).first.inviter
