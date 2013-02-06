@@ -23,6 +23,7 @@ class Api::V2::EventsController < ApplicationController
       @events = @events[@count .. @count + @window_size]
     else#we'd overstep the array bounds
       @events = @events[@count .. (@events.count-1)]
+      @finished = true
     end
 
     #For Light-weight events sending for list (but need guests to know if RSVPd)
