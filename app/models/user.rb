@@ -244,7 +244,7 @@ class User < ActiveRecord::Base
       if event.parent.present?
         self.rsvp_in!(event.parent)
       else #contact only once if they sign up for time + idea 
-        unless event.user == current_user 
+        unless event.user == self
           event.user.delay.contact_new_rsvp(event, self)
         end
       end

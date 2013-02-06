@@ -35,12 +35,10 @@
   	<% end %>
   </div>
 	<div class="event_time" <%= @parent ? "" : "style='display:none;'" %>>
-		<div class="shield_bottom time" data-event-id="145"><a href="/ideas/alketaljsetlka">	
+		<div class="shield_bottom time" <% params[:action] == 'new_time' ? '' : 'style="display:none"' %> data-event-id="145"><a href="/ideas/alketaljsetlka">	
 			<span class="eventStartsAt"><%= @parent.present? && @parent.starts_at.present? ? start_time(@parent) : '' %></span></span>
 			<div class="rsvp_check">
-				<a href="#">
-					<div class="fadeInGreen" title="friends who are .into this idea can click here to .invite all their friends"><i class="icon-group"></i>
-				</a>
+				<div class="fadeInGreen" title="friends who are .into this idea can click here to .invite all their friends"><i class="icon-group"></i>
 			</div>
 		</div>
 		
@@ -102,17 +100,15 @@
 	</div>
 <% end %>
 
-	<div class="when time clearfix">	
+	<div class="when time clearfix" <% params[:action] == 'new_time' ? '' : 'style="display:none"' %>>	
 		<div style="float:left;padding: 10px;"><span class="eventStartsAt"><%= @parent.present? ? start_time(@parent) : raw("<strong>TBD</strong>") %></span><span class="eventDuration"></span></div>
 	  <ul id="calendars">
       <li>
         <%= image_tag "gcalendar.png", width: '30', title:".invites can add this idea to their calendars" %>
       </li>
-      <% if false %>
       <li>
          <%= image_tag "ical-icon.png", width: '30', title:".invites can add this idea to their calendars" %>
       </li>
-      <% end %>
     </ul>
 		<div id="rsvpForm" class="join_group_buttons">
 			<a href="#" class="btn rsvp_button btn-rsvp" title="By clicking here folks will join your ideas">.in</a>

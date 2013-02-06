@@ -3,8 +3,7 @@ Adam
 Bugs
 	when rsvping to idea don't remove rsvp to time and vise versa
 
-	fix invite all icons in upper right (not there sometimes)
-	fix invitea ll incon in sample idea
+	fix invite all incon in sample idea
 
 	more beautiful bug page
 		#config/application.rb
@@ -12,15 +11,27 @@ Bugs
 		#routes
 		match "/404", :to => "errors#not_found"
 
-facebook => picking city
+	out of a time looks wonky in show
+	in invite email display next time if exists
+	number of guests duplicating in show_time
+	who invited you on shield/show
+	separate times and ideas 
+		remove location from new idea form
+	time at the top of the show_time (no 'you're in')
+	hi invite button is wonky (remove pin button)
+	When invite remove invite button
 
-Increase app downloads
-	add app download on landing pitch
+	digest f-ed 
+		not sending properly
+		see ideas and public ideas
+
+Friend from email
+RSVP in or out from email
 
 Visual Clarity
 	one_time put time below like it has just one time 
-	When invite remove invite button
 	facepile on email
+	hovering putting a box around idea shields
 
 improve onboarding
 	suggested friends
@@ -30,40 +41,52 @@ improve onboarding
 		close friends on facebook
 	update on video
 	if no city alert --> show which city always
+	facebook => picking city
+
+
+Suggested friends
+	user.rb
+	has_many :ignored_users, through: :ignored_users
+	belongs_to user, through :ignored_users
+	migration creates linking table
+		user clicks "X" on suggested friend in home page
+		add user to ignored_user
+	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
 
 intensify network of friends
 	separate friends and new friends in event show
+	little orange plus button
+	list view of .in's
 	
 Improve credibility (automagical software experiences)
 	email when a facebook friend joins with link to their profile
-	add time should just be time and place and come down from the bottom
+	add time should come down from the bottom
 
 Profile overhaul
-	find your outs later 
 	my ideas
+	display mutual friends
+	display friends
+	///
+	find your outs later 
 	leave a message for the user/chat - wall . . .
-
-Increase amount of content
-	add events from facebook
-	try to scrape events off of overture website
 
 Marketing
 	flash mob in the ratskellar
 
-email/notification joining idea and can make a time.
-
 social sharing from homescreen
+	count on the top left
+	sharing buttons on right
+	hi for invite all hoosin friends
+
+Adding FB to a native login doesn't work smoothly
 
 add way more cities
 http://en.wikipedia.org/wiki/List_of_United_States_cities_by_population
 England, Australia, major expat destinations
 City.create(name: "Oklahoma City, Oklahoma", timezone: "Central Time (US & Canada)")
 
-add alert for new friends to confirm
-
 send an email letting everyone know they can post instagram pics #hoosin and it gets on the homepage!
 
-Add indicator of guest count
 Signup for responsive
 Terms on conditions responsive
 Remove background image from signup add it to profile
@@ -74,29 +97,11 @@ Shrink font in comments responsive
 Mobile joyride
 Grid of invites - always show invite button
 Grid of friends - stats
+remove friends page (add friends to profile)
 
+switch invites to right and sample idea to left
 
-Suggested friends . . .
 Your friend x just joined hoos.in
-
-Friend from email
-RSVP in or out from email
-
-New RSVP for self
-
-Get b-day info and block under 13 without parental consent.
-
-Optimize for app download
-
--------------------------------------------------------
-
-sign up major overhaul
-	just email and password
-	then profile page to add picture, set location, and background
-	then make friends/choose interests
-	suggested friends present in profile page
-
------------------------------------------------------
 
 speedtests
 	pagespeed chrome extension
@@ -106,138 +111,94 @@ speedtests
 server speed
 	http://miniprofiler.com/
 
+cross browser testing
+
+Make friending ajaxy
+
+guest count in emails
+
+drawn arrows
+
 -----------------------------------------------------
+
+Get b-day info and block under 13 without parental consent.
+
+host can remove invite from parent
+
+flagging user/idea/comment
+
+Increase app downloads
+	add app download on landing pitch
+
+checklist (with pics next to stuff)
+
+add alert for new friends to confirm
 
 make comments asynconous
 
 plan b-day parties through hoos.in! -> save off b-days
 
-	switch invites to right and sample idea to left
-
-	can't click on events you are rsvpd to
-
 create a user from mobile
-
-Adding FB to a native login doesn't work smoothly
-
-update digest flow, curation, template
-
-make slug have time in it for new times
-
-fix so that if you close an invalid option in the new idea form it won't let you submit the form. prevent close . . .
-
-put suggested friends as a upper left corner shield in home
 
 add shortener
 
 add change background picture from profile
 
-host can remove invite from parent
-
 add mute button to rsvp to avoid chatter
 
-add tipping point and meter to share_after_rsvp
-
-fix repeat button - define @parent in controller and display new idea form
-
-add trending friend ideas to digest
-
-upon new time let them change the picture
-
-explore your city - prompt to join - lightbox with video and signup
+Curation
+	add trending friend ideas to digest
+	trending ideas
+	tags
 
 add option to automatically update google calendar
 
-trending and crowd ideas filter
+Twillio
+Prompt users for phone number lightbox on login one time
+Text invitations, reminders auto to friends phone number
 
-nest and refactor user => idea routes ideas/username/idea-title
+Twilio:
+		add phone number to user in DB
+		add SMS messages to notifier
+		Buy phone number
+		add phone number in settings page
+		add user boolean for receiving text messages
+		Text message invitations to join calenshare for an event
 
-rsvp url - drive traffic
 
-add a 'most commonly rsvpd' gutter
+Curation of invites
+	add a 'most commonly rsvpd' gutter
 
 'cancelled idea' should not delete, should just be cancelled but available for later
 
-scripts not working
-	invite button not reloading (stack overflow question) maybe need :format => .js . . .
-	can't just facebook invite click click click
+Organization integration/adoption
+	SDK - follow us on hoos.in "Our events on hoos.in" button and icon
+	"put this on hoosin" button
+		Img, RSVP URL, Title, Deszription, starts_at, duration
+	"rspv to this idea on hoosin" button
+	CSV import
+	ICS import
+	scraping events from their site
 
-Make friending ajaxy
-
-SDK - follow us on hoos.in "Our events on hoos.in" button and icon
-
-put this on hoosin button
-	Img, RSVP URL, Title, Description, starts_at, duration
-
-implement following . . . too many invites/emails without it
-
-guest count in emails
-hoos.in? (who is already rsvpd? face-pile)
-
-
----------------------------------------------------------------
-
-signup walkthrough
-
----------------------------------------------------------------
-
-ticket/rsvp link
+REALLY BIG
+	implement following . . . too many invites/emails without it
+	remove public idea creation
 
 Rsvp - checked_in? boolean with mobile api to check in.
 
----------------------------------------------------------------
-
-	hovering putting a box around idea shields
-
-------------------------------------------------------------------------
-
-Suggested friends
-	user.rb
-	has_many :suggested_friends, through: :suggested_friends
-	belongs_to user, through :suggested_friends
-	migration creates linking table
-	data migration, fb_friends who they are not hi_friends with yet
-	create suggested_friend for other users when new user is created
-	remove suggested_friend when 
-		user clicks "X" on suggested friend in home page
-		relationship is created between the two users
-	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
-
 ----------------------------------------------------------
+
+Increase amount of content
+	try to scrape events off of overture website
+	add events from facebook
 
 marketplace payments
 yellow book
 payments to be listed
 
-----------------------------------------------------------------
-
-check in
-
-------------------------------------------------------------
-
-ssl
-
----------------------------------------------------------------
-
- 	tests
- 		rsvps
- 		relationships
- 		groups
-
 ------------------------------------------------------------
 
 	set family friendly bool based on age in demographics table
-
-	your friends attending -- all attending
-
-	your friends maybes -- all maybes
-
---------------------------------------------------------------
-
-	
-
----------------------------------------------------------------
-
 
 ----------------------------------------------------------
 
@@ -245,18 +206,9 @@ download qr code
 http://qrtools.removeubyforge.org/qrtools/
 download flyer
 
------------------------------------------------------------
-
-click pic to invite/friend
-removing invited person when not friending them
-
 ----------------------------------------------------------
 
-	drawn arrows
-
-----------------------------------------------------------
-
-
+NOTES WITH ANDY ADAMS
 bring it into under the hood/whitelabled for company
 remove barrier to entry for content creation
 	csv, scrape, facebook events
@@ -276,7 +228,6 @@ two types of users
 two types of marketing strategies
 	one_times content from facebook and organizations
 	creative adventurous ideas 
-
 
 ------------------------------------------------------------
 
@@ -364,16 +315,10 @@ Payment gateway
 
 Vendors:
 
-
 ticket creation/authentication
 box office behavior
 
-
 -----------------------------------------------------------
-
-Twillio
-Prompt users for phone number lightbox on login one time
-Text invitations, reminders auto to friends phone number
 
 doorman screens and methods
 generate qr code that is a url only readible by the creator of the event
@@ -384,8 +329,6 @@ and checked them in to the event
 
 
 Close Viral Loop
-	add face to invite email, new follower email, and confirmation email, and 
-	event images to stuff (daily digest, invitation)
 	google contacts
 	twitter authentication
 
@@ -403,19 +346,10 @@ More Events:
 	Recurring Events
 	Mobile local registration
 
-	
-	lists
-			Required contribution checklist
-			in place of rsvp
-			something to contribute (good or skill or cash)
-
-Twilio:
-		add phone number to user in DB
-		add SMS messages to notifier
-		Buy phone number
-		add phone number in settings page
-		add user boolean for receiving text messages
-		Text message invitations to join calenshare for an event
+lists
+		Required contribution checklist
+		in place of rsvp
+		something to contribute (good or skill or cash)
 
 Make money
 	Payment gateway
@@ -538,16 +472,6 @@ NYC-inspired daily routine
 
 ---------------------------------------------------
 
-
-friend buttons are now too big in raster
-City should be by session most of the time, in settings it can be stored in the DB
-
-invite all doesn't invite ppl from different cities- do we want to confirm city switch? it can get confusing if you don't realize you've switched (happened to me)
-
-Event update takes forever in production
-
-(blue circle new idea) is to the right of the number, rather than the left.
-
 Adam todo from 11/12 meeting:
 
 week of 11/12
@@ -581,47 +505,6 @@ Dec 2 - Box office solution
 Customer Satisfaction
 	Aaron contact
 
-
-Mike
-------------
-iPhone 
-
-Design coherence
-
-Fix so sending push notifications better than every 10 minutes (after creating, check some counter, then run the task)
-
-GCM push testing
-
-Some guests_can_invite_friends bool are nil, wtf?
-
-Click someone's face to find their friends too
-
-	Auto-scale workers
-
-store and remove old emailInvites and invitations
-
-new follower email link not working
-
-	want to destroy events after they have passed... or at least destroy RSVPs / invitations, to maintain the tables- maybe store on some hard disk somewhere for records
- 
-	iPhone TODO:
-		Settings / Confirm viewers (3)
-		Native/local Register User (4?)
-		Check load delays with broadband
-
-		Make it look like Pinterest
-			Make back arrow.
-			Box shadow on corners of images
-			swipe between days
-			make top and bottom nav bars disappear when you scroll
-		Comments
-		Delete events
-		Suggestions
-
-
-========================================================================
-========================================================================
-========================================================================
 
 hi,
 
