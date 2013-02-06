@@ -238,13 +238,15 @@ class User < ActiveRecord::Base
         end
       end
       rsvps.create!(plan_id: event.id, inout: 1)
-      if event.guest_count >= event.min && event.tipped? == false
-        event.tip!
-      end
+      # if event.guest_count >= event.min && event.tipped? == false
+      #   event.tip!
+      # end
       if event.parent.present?
         self.rsvp_in!(event.parent)
       else #contact only once if they sign up for time + idea 
-        event.user.delay.contact_new_rsvp(event, self)
+        unless event.user == self
+          event.user.delay.contact_new_rsvp(event, self)
+        end
       end
     end
   end

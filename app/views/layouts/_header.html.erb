@@ -68,7 +68,6 @@
         <strong>hoos.in is an online social calendar</strong><br>
         Do great things with friends
         <div class="not_signed_in_buttons">
-          <br>
           <span class="buttons">
           <%= link_to "log.in", new_user_session_path, class:"btn btn-pitch btn-primary" %>
           <%= link_to new_user_registration_path, class:"btn btn-pitch btn-join" do %>
@@ -77,6 +76,12 @@
           </span>
         </div>
       </div>
+      <% if false %>
+      <div class="app_stores">
+        <a href="http://www.appszoom.com/android_applications/social/hoosin_dfatz.html"><%= image_tag "email/android_store.png" %></a>
+        <a href="http://itunes.com/apps/hoosin"><%= image_tag "email/iphone_store.png" %></a>
+      </div>
+      <% end %>
     </div>
   </div>
 

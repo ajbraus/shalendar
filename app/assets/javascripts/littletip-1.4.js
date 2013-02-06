@@ -9,7 +9,7 @@
  */
 
 	// Configurable options (change value numbers to fit your needs)
-	littleTIPdelay			=   1400    ;	// Delay time before appear (in pixels)
+	littleTIPdelay			=   1200    ;	// Delay time before appear (in pixels)
 	littleTIPfade			=   70     ;	// Fading duration time (in pixels)
 	littleTIPbackground		=   1     ;	// Background opacity (from 0 to 1)
 	littleTIPtext			=   1       ;	// Text opacity (from 0 to 1)

@@ -1,22 +1,29 @@
 <ol id="chooseID" style="display:none;">
 <!--   /* data-id needs to be the same as the parent it will attach to */ -->
-	<li class="jr_welcome"><br><br><%= image_tag "icon.png", width:"100" %> <br><br> welcome to hoos.in<br><br> it's here to help you live a vibrant social life <br> full of creativity and adventure <br> with great people in your city. <br><br> here's a little tour of how it works... <br><br></li>
+	<li class="jr_welcome"><br><br><%= image_tag "icon.png", width:"100" %> <br><br> welcome to hoos.in<br><br></li>
 
-  <li class="jr_welcome">hoos.in is about sharing ideas- ideas for fun things to do with friends and peers. On your home page, see an array of ideas going on in your city. <br></li>
+  <li class="jr_welcome"><br><br><%= image_tag "icon.png", width:"100" %> <br><br> hoos.in is about sharing ideas - ideas for fun things to do with friends. <br><br></li>
 
+<% if false %>
+  <li class="jr_welcome"><br><br><%= image_tag "icon.png", width:"100" %> <br><br> hoos.in is here to help you live a vibrant social life <br> full of creativity and adventure <br> with great people in your city. <br><br></li>
+<% end %>
+
+  <li class="jr_forecast">On your home page, see a forecast of ideas your friends or community have .invited you to. Click .into or .in to join the ideas you like. <br></li>
+<% if false %>
   <li class="jr_forecast">You can filter which ideas you see with these links. <br></li>
-
+Ideas on hoos.in can be dreams for some day in the future but they can also have specific times at which they take place. On any filter, 
+<% end %>
   <li data-id="jrInvites" class="jr_invites"> See ideas your friends have personally shared with you here (your .invites) <br></li>
-
-  <li data-id="jrCityIdeas" class="jr_city_ideas"> Check out all of your city's open-invite ideas here (public ideas)<br></li>
 
   <li data-id="jrPlans" class="jr_plans"> See only ideas you have joined in on here (your .ins) <br></li>
 
+  <li data-id="jrCityIdeas" class="jr_city_ideas"> Check out all of your city's open-invite ideas here (public ideas)<br></li>
+
   <li data-id="jrMine" class="jr_mine"> And finally, see and manage the ideas you have created here. OK, ready for the fun stuff? <br></li>
 
-  <li data-id="jrCalendar" class="jr_calendar">Ideas on hoos.in can be dreams for some day in the future but they can also have specific times at which they take place. On any filter, click this clock icon to see a calendar layout of all ideas that have specific upcoming times. <br></li>
+  <li data-id="jrCalendar" class="jr_calendar">If a hoos.in idea has a time already, click this clock icon to see a calendar layout of all ideas that have specific upcoming times. <br></li>
 
-  <li data-id="btnNewIdea" class="jr_new_idea">Over here, you can add your own idea to put on hoos.in. For each one, you determine who will see it, whether it has a specific time and how many people you need. <br></li> 
+  <li data-id="btnNewIdea" class="jr_new_idea">Over here, you can add your own idea to put on hoos.in. And when you do, get a little creative with them, we're built for that :).<br></li> 
 
   <li data-id="jrFbIcon" class="jr_fb_friends">Click the Facebook icon to link up with your Facebook friends in your city...  <br></li>
 
@@ -26,7 +33,7 @@
   <li data-id="jrActivity" class="jr_stats"> and view your stats and public profile. <br></li>
  -->
   <!-- /* using 'data-button' lets you have custom button text */ -->
-  <li class="jr_welcome" data-button="done"><br><br><%= image_tag "icon.png", width:"100" %><br><br>Now it's time to get out there and do great things with friends! <br><br> Click .into or .in to join the ideas you like and add your own ideas to the mix.. and feel free to get a little creative with them, we're built for that :). <br><br> Love, the hoos.in team <br>
+  <li class="jr_welcome" data-button="done"><br><%= image_tag "icon.png", width:"100" %><br> If you have any questions or suggestions, please contact us at info@hoos.in. <br> Love, the hoos.in team <br>
     <div class="jr_share">
       <a href="https://www.facebook.com/dialog/feed?
         app_id=327936950625049&

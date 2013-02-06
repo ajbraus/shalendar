@@ -24,6 +24,7 @@
 			</ul>
 		</div>
 	</div>
+
 	<% if user_signed_in? && (current_user == @user || current_user.is_friends_with?(@user)) %>
 	<div class="future_events">
 	<h3>Upcoming Ideas</h3>

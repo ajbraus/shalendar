@@ -65,7 +65,7 @@ class EventsController < ApplicationController
     end
     @event.guests_can_invite_friends = true
     @event.city = @current_city
-    @event.tipped = true   if @event.min <= 1
+    @event.tipped = true 
     
     if @event.starts_at.present? && @event.duration.present?
       #SET ENDS_AT IF PRESENT
@@ -156,7 +156,7 @@ class EventsController < ApplicationController
     @event = @parent.instances.build(user_id: current_user.id,
                            title: @parent.title,
                            starts_at: params[:event][:starts_at],
-                           ends_at: params[:event][:starts_at] + params[:event][:duration]*3600,
+                           ends_at: params[:event][:starts_at] + params[:event][:duration].to_i*3600,
                            address: params[:event][:address],
                            duration: params[:event][:duration],
                            min: params[:event][:min],
@@ -171,7 +171,7 @@ class EventsController < ApplicationController
                            is_public: @parent.is_public
                            )
     
-    @event.tipped = true   if @event.min <= 1
+    @event.tipped = true
     if @event.save
       @event.save_shortened_url
       current_user.rsvp_in!(@event)
@@ -186,7 +186,7 @@ class EventsController < ApplicationController
       end
       @parent.guests.each do |g|
         unless g == @event.user
-          @invitation = Invitation.create(:inviter_id => @event.user, 
+          @invitation = Invitation.create(:inviter_id => @parent.user.id, 
                                            :invited_user_id => g.id, 
                                            :invited_event_id => @event.id)
           @invitation.save
@@ -259,6 +259,8 @@ class EventsController < ApplicationController
 
     if params[:invite_me] == '1'
       @event.is_public = true
+    else
+      @event.is_public = false
     end
 
     if params[:invite_me] == "2" || params[:invite_me] == "1"

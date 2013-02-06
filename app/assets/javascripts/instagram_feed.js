@@ -9,7 +9,7 @@ $(function(){
   insta_container.instagram({
       hash: 'hoosin'
     , clientId : '4b92d403b8324f2294a4aa3b7e2bf407'
-    , show : 40
+    , show : 60
     , onComplete : function (photos, data) {
       insta_next_url = data.pagination.next_url
     }

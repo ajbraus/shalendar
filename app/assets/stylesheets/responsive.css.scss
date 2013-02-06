@@ -32,7 +32,7 @@ body {
 		bottom: 58px;
 		right: -5px;
 		input[type=text] {
-			width: 175px;
+			width: 145px;
 		}
 		.fb-icon {
 			display: none;
@@ -211,9 +211,9 @@ left: -125px;
 	}
 
 	.message {
-		bottom: 330px;
-width: 98%;
-left: 3%;
+		bottom: 365px;
+		width: 98%;
+		left: 3%;
 .text_buttons {
 font-size: 22px;
 margin-right: 2%;
@@ -406,6 +406,15 @@ width: 98%;
 	}
 	.not_signed_in_buttons {
 		zoom: .7;
+	}
+
+	.app_stores {
+		position: absolute;
+		top: 274px;
+		right: 13px;
+		img {
+			width: 130px;
+		}
 	}
 
 }
