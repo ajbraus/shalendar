@@ -129,15 +129,10 @@ class EventsController < ApplicationController
         if @event.categorizations.any?
           Categorization.create(event_id: @instance.id, category_id: @event.categorizations.first.id )
         end
-        respond_to do |format|
-          format.html { redirect_to @instance, notice: "Idea Posted Successfully" }
-          format.json { render json: @instance, status: :created, location: @event }
-        end
-      else
-        respond_to do |format|
-          format.html { redirect_to @event, notice: "Idea Posted Successfully" }
-          format.json { render json: @event, status: :created, location: @event }
-        end
+      end
+      respond_to do |format|
+        format.html { redirect_to @event, notice: "Idea Posted Successfully" }
+        format.json { render json: @event, status: :created, location: @event }
       end
     else
       respond_to do |format|

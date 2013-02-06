@@ -1802,7 +1802,7 @@ text-align: center;
 font-size: 17px;
 position: absolute;
 margin: 0 auto;
-width: 96%;
+width:100%;
 }
 
 .ui-autocomplete {
@@ -2259,6 +2259,7 @@ font-size: 22px;
 height: auto;
 line-height: 1.4;
 position: relative;
+border-top: 1px solid $divider;
 .out {
   position: relative;
   top: -10px;
@@ -4346,5 +4347,5 @@ margin-left: -4px;
 
 .hoosinvite {
   position: relative;
-top: 3px;
+top: 2px;
 }

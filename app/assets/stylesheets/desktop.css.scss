@@ -166,7 +166,8 @@ float:left;
 		float:left;
 		margin-top: 10px;
 		width: 29%;
-		max-height: 300px;
+		max-height: 340px;
+		overflow: scroll;
 	}
 
 	.maybes {
@@ -487,7 +488,11 @@ margin-right: 85px;
 		width: 530px;
 	}
 }
-
+@media only screen and (max-width: 829px) {
+	.hide_on_mobile {
+		display:none;
+	}
+}
 /***************************************/
 /*** Widescreen ************************/
 /***************************************/

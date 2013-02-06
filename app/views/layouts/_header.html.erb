@@ -15,11 +15,11 @@
             <% end %>
           <% end %>
           <span id="jrIdeas" class="bold">all</span> |
-          <span id="jrFriendsIdeas"><%= @invites.count %> .invites</span> | 
-          <span id="jrPlans"><%= @ins.count %> .ins</span> |
-          <span id="jrMine"><%= @mine.count %> mine</span> |
-          <span id="jrCityIdeas"><%= @city_ideas.count %> public</span> ||
-          <span id="jrCalendar"><i class="icon-calendar"></i> view</span>
+          <span id="jrFriendsIdeas"><span class="hide_on_mobile"> <%= @invites.count %></span> .invites</span> | 
+          <span id="jrPlans"><span class="hide_on_mobile"> <%= @ins.count %></span> .ins</span> |
+          <span id="jrMine"><span class="hide_on_mobile"> <%= @mine.count %></span> mine</span> |
+          <span id="jrCityIdeas"><span class="hide_on_mobile"> <%= @city_ideas.count %></span> public</span> ||
+          <span id="jrCalendar"><i class="icon-calendar"></i> <span class="hide_on_mobile"> view</span></span>
         </span>
         <%= render 'shared/picture_dropdown' %>
       </div>
