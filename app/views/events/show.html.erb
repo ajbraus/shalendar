@@ -122,13 +122,7 @@
   </ul>
 
     <div class="event_guests part clearfix">
-      <% if @event.starts_at.present? && @event.tipped? %>
-        <div class="right_label event_label"><%= @event.guest_count %>  .in (Tipped!)</div>
-      <% elsif @event.starts_at.blank? %>
         <div class="right_label event_label"><%= @event.guest_count %>  .in </div>
-      <% else %>
-        <div class="destroy right_label event_label"><%= @event.guest_count %> / <%= @event.min %> .in (Not Yet Tipped)</div>
-      <% end %>
       <div class="show_raster">
         <%= render 'guests' %>
       </div>

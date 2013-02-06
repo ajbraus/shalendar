@@ -124,9 +124,17 @@
     </ul>
     <div class="show_facepile">
       <span id="guestCount"><%= @parent.present? ? @parent.guest_count : '1' %></span>
+      <% if @parent.present? %>
+	      <% @parent.guests.each do |guest| %>
+	        <%= link_to user_path(guest) do %>
+	          <span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
+	        <% end %>
+	      <% end %>
+	    <% else %>
         <%= link_to user_path(current_user) do %>
-          <span title="<%= current_user.name %>"><%= raster_profile_picture(current_user) %></span>
+          <span title="<%= current_user.name %>"></span>
         <% end %>
+      <% end %>
     </div>
 	</div>
 
