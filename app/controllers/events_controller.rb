@@ -186,7 +186,7 @@ class EventsController < ApplicationController
       end
       @parent.guests.each do |g|
         unless g == @event.user
-          @invitation = Invitation.create(:inviter_id => @event.user, 
+          @invitation = Invitation.create(:inviter_id => @parent.user.id, 
                                            :invited_user_id => g.id, 
                                            :invited_event_id => @event.id)
           @invitation.save
