@@ -2,6 +2,8 @@
 <html>
   <head>
     <title><%= user_signed_in? && yield(:title).blank? ? "  " + current_user.name + " | " + "hoos.in"  : "hoos.in #{yield(:title)}" %></title>
+    <meta name="description" content="An online social calendar">
+    <meta name="keywords" content="events, fun, friends">
     <link rel="shortcut icon" href="/favicon.ico" />
     
     <link rel="apple-touch-icon" href="/assets/iphone_icons/57.png" />
