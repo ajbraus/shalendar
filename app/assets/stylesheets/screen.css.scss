@@ -2258,7 +2258,6 @@ background:none;
 font-size: 22px;
 height: auto;
 line-height: 1.4;
-border-bottom: 1px solid $divider;
 position: relative;
 .out {
   position: relative;
@@ -2499,6 +2498,7 @@ border-bottom: 1px solid $divider;
   background-color:white;
   color:black;
   clear: both;
+  border-bottom: 1px solid $divider;
 }
 
 .event_buttons{
