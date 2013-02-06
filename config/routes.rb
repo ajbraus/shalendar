@@ -92,6 +92,7 @@ Shalendar::Application.routes.draw do
       #took out delete and post types bc not working from iphone http reqeust
       match '/rsvps', :to => 'rsvps#create'
       match '/unrsvp', :to => 'rsvps#destroy'#, :via => :delete
+      match '/flake_out', :to => 'rsvps#flake_out' #this is pretty much rsvps#destroy
       match '/get_user_info', :to => 'shalendar#get_user_info', :via => :get
       match '/apn_user', :to=> 'tokens#apn_user', :as => "apn_user"#, :via => :post
       match '/gcm_user', :to=> 'tokens#gcm_user', :as => "gcm_user"#, :via => :post

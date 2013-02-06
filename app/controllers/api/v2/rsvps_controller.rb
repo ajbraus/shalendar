@@ -17,8 +17,9 @@ class Api::V2::RsvpsController < ApplicationController
     elsif @inout == '1'
       @mobile_user.rsvp_in!(@event)
       #rsvp in to parent idea
+    else
+      render :json=>{:error => "Trouble with server.. please try again :)"}
     end
-
     render :json=> { :success => true
           # :eid => @event.id,
           # :title => @event.title,  
@@ -57,5 +58,11 @@ class Api::V2::RsvpsController < ApplicationController
           # :tipped => @event.tipped,
           # :guests => @event.guests 
         }, :status=>200
+  end
+
+  def flake_out
+    @event = Event.find_by_id(params[:event_id])
+    @mobile_user = User.find_by_id(params[:user_id])
+    @mobile_user.flake_out!(@event)
   end
 end

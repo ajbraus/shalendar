@@ -224,6 +224,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  def flake_out!(event)
+    if event.rsvps.where(guest_id: self.id).any?
+      @existing_rsvp = event.rsvps.where(guest_id: self.id).first
+      @existing_rsvp.destroy
+    end
+  end
+
   #moved all parent logic into the model
   def rsvp_in!(event)
     if event.full?
