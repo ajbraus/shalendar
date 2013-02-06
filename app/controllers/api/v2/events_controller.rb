@@ -575,7 +575,6 @@ class Api::V2::EventsController < ApplicationController
   def add_photo
     @mobile_user = User.find_by_id(params[:user_id])
     @event = Event.find_by_id(params[:event_id])
-    binding.remote_pry
     if @mobile_user.nil? || @event.nil?
       render :status => 400, :json => {:error => "couldn't find event or user"}
       return

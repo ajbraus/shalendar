@@ -3,7 +3,7 @@ Adam
 Bugs
 	add frozen kiss
 	randomize ideas on home page
-	
+
 	fix tests
 		create idea
 		invite
