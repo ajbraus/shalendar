@@ -14,9 +14,7 @@ class Api::V2::EventsController < ApplicationController
     @invites_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
                 .joins(:invitations).where(invitations: {invited_user_id: @mobile_user.id}).order("RANDOM()")
 
-    @events = @invites_ideas
-    @events = @events.reject{|e| @mobile_user.out?(e)}
-
+    @events = @invites_ideas.reject{|e| @mobile_user.out?(e)}
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []
     @events.each do |e|
