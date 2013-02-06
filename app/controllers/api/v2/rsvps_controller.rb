@@ -20,8 +20,8 @@ class Api::V2::RsvpsController < ApplicationController
     else
       render :json=>{:error => "Trouble with server.. please try again :)"}
     end
-    render :json=> { :success => true
-          :eid => @event.id,
+    render :json=> { :success => true,
+          :eid => @event.id
         }, :status=>200
   end
 
