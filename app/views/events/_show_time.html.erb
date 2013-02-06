@@ -46,9 +46,10 @@
     <% end %>
 
     <div class="show_facepile">
+      <span id="guestCount"><%= event.guest_count %></span>
       <% event.guests.each do |guest| %>
         <%= link_to user_path(guest) do %>
-          <span id="guestCount"><%= event.guest_count %></span><span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
+          <span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
         <% end %>
       <% end %>
     </div>

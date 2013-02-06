@@ -1,9 +1,13 @@
 <% if user_signed_in? %>
 	<% if current_user.invited_all_friends?(event) %>
-		<div class="email_share shared_already" title="already .invited your hoos.in friends"><%= image_tag "icon.png", width: "16" %><br>.invite</div>
+		<div class="email_share shared_already hoosinvite" title="already .invited your hoos.in friends">
+			<span><%= image_tag "icon.png", width: "16" %></span>
+			<br>
+			.invite
+		</div>
 	<% else %>
-		<%= link_to invite_all_friends_path(:event_id => event.id), class:"email_share", target:"_blank" do %>
-		  <%= image_tag "icon.png", width: "16" %><br>.invite
+		<%= link_to invite_all_friends_path(:event_id => event.id), class:"email_share hoosinvite", target:"_blank" do %>
+		  <span><%= image_tag "icon.png", width: "16" %></span><br>.invite
 		<% end %>
 	<% end %>
 <% end %>

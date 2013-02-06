@@ -1,9 +1,9 @@
 Adam
 
 Bugs
-	when rsvping to idea don't remove rsvp to time and vise versa
+	add pic to facepile when rsvping (rsvp_check)
 
-	fix invite all incon in sample idea
+	create edit-time page
 
 	more beautiful bug page
 		#config/application.rb
@@ -13,10 +13,7 @@ Bugs
 
 	out of a time looks wonky in show
 	in invite email display next time if exists
-	number of guests duplicating in show_time
 	who invited you on shield/show
-	separate times and ideas 
-		remove location from new idea form
 	time at the top of the show_time (no 'you're in')
 	hi invite button is wonky (remove pin button)
 	When invite remove invite button

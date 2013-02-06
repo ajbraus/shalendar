@@ -101,7 +101,11 @@
 <% end %>
 
 	<div class="when time clearfix" <% params[:action] == 'new_time' ? '' : 'style="display:none"' %>>	
-		<div style="float:left;padding: 10px;"><span class="eventStartsAt"><%= @parent.present? ? start_time(@parent) : raw("<strong>TBD</strong>") %></span><span class="eventDuration"></span></div>
+		<div id="rsvpForm" class="join_group_buttons">
+			<a href="#" class="btn rsvp_button btn-rsvp" title="By clicking here folks will join your ideas">.in</a>
+			<a href="#" class="btn rsvp_button btn_stop_viewing" title="Here folks can opt out of this idea">out</a>
+    </div>  
+		<div class="date"><span class="eventStartsAt"><%= @parent.present? ? start_time(@parent) : raw("<strong>TBD</strong>") %></span><span class="eventDuration"></span></div>
 	  <ul id="calendars">
       <li>
         <%= image_tag "gcalendar.png", width: '30', title:".invites can add this idea to their calendars" %>
@@ -110,13 +114,20 @@
          <%= image_tag "ical-icon.png", width: '30', title:".invites can add this idea to their calendars" %>
       </li>
     </ul>
-		<div id="rsvpForm" class="join_group_buttons">
-			<a href="#" class="btn rsvp_button btn-rsvp" title="By clicking here folks will join your ideas">.in</a>
-			<a href="#" class="btn rsvp_button btn_stop_viewing" title="Here folks can opt out of this idea">out</a>
-    </div>  
-		<div class="guests">
-			<span id="guestCount">1</span><span id="eventMin"></span>
-		</div>
+     <ul class="time_settings">
+      <li>
+        <i class="icon-cogs fadeInOrange" title= "You can edit this time later"></i>
+      </li>
+      <li>
+        <i class="icon-trash fadeInRed" title="You can cancel this time later if needed"></i>
+      </li>
+    </ul>
+    <div class="show_facepile">
+      <span id="guestCount"><%= @parent.present? ? @parent.guest_count : '1' %></span>
+        <%= link_to user_path(current_user) do %>
+          <span title="<%= current_user.name %>"><%= raster_profile_picture(current_user) %></span>
+        <% end %>
+    </div>
 	</div>
 
   <div class="promo_vid" id="eventVid">

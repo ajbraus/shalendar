@@ -2439,28 +2439,31 @@ height:22px !important;
 }
 
 .email_share {
-  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
-  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
-  box-shadow:inset 0px 1px 0px 0px #ffffff;
-  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #e3e3e3) );
-  background:-moz-linear-gradient( center top, #ffffff 5%, #e3e3e3 100% );
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e3e3e3');
-  background-color:#ffffff;
-  -moz-border-radius:3px;
-  -webkit-border-radius:3px;
-  border-radius:3px;
-  border:1px solid #c4c4c4;
-  display:inline-block;
-  color:#777777;
-  font-family:arial;
-  font-size:12px;
-  font-weight:bold;
-  padding: 2px 4px;
-  text-decoration:none;
-  text-shadow:1px 1px 0px #ffffff;
-width: 14.5%;
+-moz-box-shadow: inset 0px 1px 0px 0px white;
+-webkit-box-shadow: inset 0px 1px 0px 0px white;
+box-shadow: inset 0px 1px 0px 0px white;
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, white), color-stop(1, #e3e3e3));
+background: -moz-linear-gradient(center top, white 5%, #e3e3e3 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e3e3e3');
+background-color: #ffffff;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+border: 1px solid #c4c4c4;
+color: #777777;
+font-family: arial;
+font-size: 12px;
+font-weight: normal;
+text-decoration: none;
+text-shadow: 1px 1px 0px white;
+width: 19.5%;
 text-align: center;
 font-size: 15px;
+height: 40px;
+padding-top: 6px;
+padding-left: 4px;
+padding-right: 4px;
+display: inline-block;
   a {
      color:#777777; 
     &:hover {
@@ -3952,11 +3955,15 @@ height: 0px;
 
 .shield_bottom {
   padding: 6px;
-  height: 22px;
+  height: auto;
   border-top:1px solid $divider;
   span {
     top: 4px;
     position: relative;
+  }
+  #guestCount {
+    font-size: 16px;
+    margin-left: 5px;
   }
 }
 
@@ -4162,7 +4169,7 @@ top: 5%;
 
 .calendars {
   div {
-   width: 100%;
+   width: 50%;
     float:left;
     text-align: center;
     img {
@@ -4172,10 +4179,11 @@ top: 5%;
 }
 
 .social_sharing {
-margin-top: 40px;
-margin-bottom: 90px;
   a, a[href^="mailto"] {
 float: left;
+height: 36px;
+padding-top: 7px;
+line-height: 1;
   }
 }
 
@@ -4320,4 +4328,23 @@ top: 10px;
 .not_signed_in_buttons {
   margin-top:10px;
   text-align: center;
+}
+
+.facepile {
+  position: relative;
+  top: 3px;
+  .profile_picture {
+    -webkit-border-radius: 0;
+-moz-border-radius: 0;
+background-color: white;
+width: 17px;
+height: 17px;
+border-radius: 0;
+margin-left: -4px;
+  }
+}
+
+.hoosinvite {
+  position: relative;
+top: 3px;
 }
