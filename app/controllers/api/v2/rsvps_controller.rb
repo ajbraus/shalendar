@@ -5,7 +5,7 @@ class Api::V2::RsvpsController < ApplicationController
   def create
     @event = Event.find_by_id(params[:event_id])
     @mobile_user = User.find_by_id(params[:user_id])
-    @inout = params[:inout]
+    @inout = Int(params[:inout])
     if @mobile_user.nil?
       render :status=>400, :json=>{:error => "user was not found."}
       return
