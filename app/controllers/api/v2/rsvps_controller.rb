@@ -64,5 +64,7 @@ class Api::V2::RsvpsController < ApplicationController
     @event = Event.find_by_id(params[:event_id])
     @mobile_user = User.find_by_id(params[:user_id])
     @mobile_user.flake_out!(@event)
+            render :json=> { :success => true
+        }, :status=>200
   end
 end
