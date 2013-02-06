@@ -283,9 +283,9 @@ class EventsController < ApplicationController
             end
           end
         end
-        if @event.guest_count >= @event.min
-          @event.tip!
-        end
+        # if @event.guest_count >= @event.min
+        #   @event.tip!
+        # end
         if @event.has_parent?
           format.html { redirect_to @event.parent, notice: 'Time was successfully updated.' }
         else

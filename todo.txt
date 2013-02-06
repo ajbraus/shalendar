@@ -29,7 +29,6 @@ Friend from email
 RSVP in or out from email
 
 Visual Clarity
-	one_time put time below like it has just one time 
 	facepile on email
 	hovering putting a box around idea shields
 

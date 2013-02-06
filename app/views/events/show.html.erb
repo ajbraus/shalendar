@@ -5,10 +5,7 @@
 
 <div class="event_show clearfix">
     <div id="rsvpForm" class="join_group_buttons">
-      <%= render partial: 'rsvp_form', :locals => { :event => @event }  %>
-      <% if @event.has_parent? || @event.one_time? %> 
-        <span class="float_right"><%= " #{@event.mini_start_date_time}" %> </span>
-      <% end %> 
+      <%= render partial: 'rsvp_form', :locals => { :event => @event }  %> 
       <div class="guests"><span id="guestCount"><%= @event.guest_count %></span></div>
     </div>
   <div class="event_title clearfix">
@@ -81,8 +78,12 @@
     </div>
   <% end %>
 
-  <% @relevant_instances = @event.instances.reject { |e| e.over? } %>
-  <%= render partial: 'events/show_time', collection: @relevant_instances, as: :event %>
+  <% if @event.one_time? %>
+    <%= render partial: 'events/show_time', locals: { :event => @event }%>
+  <% else %>
+    <% @relevant_instances = @event.instances.reject { |e| e.over? } %>
+    <%= render partial: 'events/show_time', collection: @relevant_instances, as: :event %>
+  <% end %>
 
   <% if current_user == @event.user && !@event.one_time? %>
     <div class="new_time_show">
