@@ -487,7 +487,11 @@ margin-right: 85px;
 		width: 530px;
 	}
 }
-
+@media only screen and (min-width: 600px) {
+	.hide_on_mobile {
+		display:none;
+	}
+}
 /***************************************/
 /*** Widescreen ************************/
 /***************************************/
