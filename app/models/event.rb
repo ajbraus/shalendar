@@ -223,26 +223,26 @@ class Event < ActiveRecord::Base
     return @public_forecast
   end
 
-  def self.check_tip_deadlines
-    #want to change this to be for each event, check the deadline, if it's in the window then act
-    # @tip_window_floor = Time.now + 1.hour + 50.minutes
-    # @tip_window_ceiling = Time.now + 2.hours
-    # @relevant_events = Event.where(':window_floor <= events.starts_at AND 
-    #                     events.starts_at < :window_ceiling',
-    #                     window_floor: @tip_window_floor, window_ceiling: @tip_window_ceiling)
-    time_range = Time.now + 1.hour + 50.minutes .. Time.now + 2.hours
-    Event.where(starts_at: time_range).each do |re|
-      if re.tipped?
-        re.guests.each do |g|
-          if g.notify_event_reminders?
-            g.delay.contact_reminder(re)
-          end
-        end
-      else
-        re.user.delay.contact_deadline(re)#could be cleaner
-      end
-    end
-  end
+  # def self.check_tip_deadlines
+  #   #want to change this to be for each event, check the deadline, if it's in the window then act
+  #   # @tip_window_floor = Time.now + 1.hour + 50.minutes
+  #   # @tip_window_ceiling = Time.now + 2.hours
+  #   # @relevant_events = Event.where(':window_floor <= events.starts_at AND 
+  #   #                     events.starts_at < :window_ceiling',
+  #   #                     window_floor: @tip_window_floor, window_ceiling: @tip_window_ceiling)
+  #   time_range = Time.now + 1.hour + 50.minutes .. Time.now + 2.hours
+  #   Event.where(starts_at: time_range).each do |re|
+  #     if re.tipped?
+  #       re.guests.each do |g|
+  #         if g.notify_event_reminders?
+  #           g.delay.contact_reminder(re)
+  #         end
+  #       end
+  #     else
+  #       re.user.delay.contact_deadline(re)#could be cleaner
+  #     end
+  #   end
+  # end
 
   def self.clean_up
     #prune db of old events here.. for now that's anything older than 3 days ago

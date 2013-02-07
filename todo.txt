@@ -2,24 +2,49 @@ Adam
 
 Bugs
 
+send digest
+comments and time change not sending pushes
+
+Final Version:
+
+Inmates
+	inmates == relationships
+	friends == relationship.status = 0,1,2 (0 == ignore, 1 == inmate, 2 == friend)
+	add column 'status' to relationships
+	add all facebook friends to inmates (create relationships with status = 1)
+	make all current relationships -> status = 2
+	add all 'follow_ups' as status 1
+
+Registrations#create
+	make all fb friends on hoos.in inmates
+
 shalendar#home
-	Calendar
+	build Calendar
 	Ideas -- all ideas sorted by #friends going / #inmates going
 	Search -- remove friend button
 	.in | .invite (.in's are opaque, .invites are a bit transparent)
 	remove face dropdown - face goes to profile
 
-event#show
-	allow anyone to add_time
-	add_time dropdown
-	remove invite_raster
-	add location display to time
-
 event#new
 	remove visibility options
 
-Registrations#create
-	make all fb friends on hoos.in inmates
+event#show
+	allow anyone to add_time
+	remove invite_raster
+	remove public icon
+
+event.html
+	how many friends are going, how many inmates
+	remove public icon
+	remove status icons
+	remove invite all friends
+	remove by
+
+--------------------------------------------------------------
+
+event#show
+	add location display to time
+	add_time dropdown
 
 users#show
 	Friends/inmates
@@ -28,41 +53,22 @@ users#show
 	else display @user's in's sorted by things you're going to do together or have done
 	link to settings
 
-event.html
-	how many friends
-	remove public icon
-	remove status icons
-	remove invite all friends
 
-Working with david
-	10 friend inviations email
+event#new
+	share on fb/twitter
 
 
-
-
-
-send digest
-
-	fix tests
-		create idea
-		invite
-		add a time
-
-	comments and time change not sending pushes
+	close window after twitter share
 
 	add pic to facepile when rsvping (rsvp_check)
 
-	create edit-time page
+	create edit-time page (maybe best-a-one)
 
 	out of a time looks wonky in show
 	in invite email display next time if exists
 	who invited you on shield/show
 	time at the top of the show_time (no 'you're in')
 	When invite remove invite button
-
-	digest f-ed 
-		not sending properly
-		see ideas and public ideas
 
 	invite friends to facebook app button in header
 

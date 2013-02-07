@@ -3,7 +3,7 @@ development:
   :port: 587
   :authentication: plain
   :user_name: hoosinapp@gmail.com
-  :password: "h00$.in1@#"
+  :password: "hoosin123"
   :enable_starttls_auto: true
 production:
   :user_name: hoosin

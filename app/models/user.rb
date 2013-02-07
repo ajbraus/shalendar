@@ -690,11 +690,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def contact_comment(event, comment)
+  def contact_comment(comment)
     @commenter = comment.user.name
-    @event = event
     @comment = comment
-    @comments = event.comments.order('created_at DESC').limit(4)
+    @event = @comment.event
+    @comments = @event.comments.order('created_at DESC').limit(4)
     @comments.shift(1)
     @user = self
     if @user.iPhone_user?
@@ -723,9 +723,7 @@ class User < ActiveRecord::Base
         n.save
       end
     else
-      @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
-      @event_link = event_url(@event)
-      Notifier.email_comment(event, comment, @user).deliver
+      Notifier.email_comment(@comment, @user).deliver
     end
   end
 
@@ -798,38 +796,38 @@ class User < ActiveRecord::Base
     end
   end
 
-  def contact_deadline(event)
-    @event = event
-    @user = self
-    if(@user.iPhone_user == true)
-      d = APN::Device.find_by_id(@user.apn_device_id)
-      if d.nil?
-        Airbrake.notify("thought we had an iphone user but can't find their device")
-      else
-        n = APN::Notification.new
-        n.device = d
-        n.alert = "Untipped Idea starst soon"
-        n.badge = 1
-        n.sound = true
-        n.custom_properties = {msg: "Tip or Cancel: #{@event.short_event_title}", :type => "deadline", :id => "#{@event.id}"}
-        n.save
-      end
-    elsif(@user.android_user == true)
-      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-      if d.nil?
-        Airbrake.notify("thought we had an android user but can't find their device")
-      else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = "Untipped Idea starts soon"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {msg: "Tip or Cancel: #{@event.short_event_title}", :type => "deadline", :id => "#{@event.id}"}}
-        n.save
-      end
-    else
-      Notifier.event_deadline(@event).deliver
-    end
-  end
+  # def contact_deadline(event)
+  #   @event = event
+  #   @user = self
+  #   if(@user.iPhone_user == true)
+  #     d = APN::Device.find_by_id(@user.apn_device_id)
+  #     if d.nil?
+  #       Airbrake.notify("thought we had an iphone user but can't find their device")
+  #     else
+  #       n = APN::Notification.new
+  #       n.device = d
+  #       n.alert = "Untipped Idea starts soon"
+  #       n.badge = 1
+  #       n.sound = true
+  #       n.custom_properties = {msg: "Tip or Cancel: #{@event.short_event_title}", :type => "deadline", :id => "#{@event.id}"}
+  #       n.save
+  #     end
+  #   elsif(@user.android_user == true)
+  #     d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+  #     if d.nil?
+  #       Airbrake.notify("thought we had an android user but can't find their device")
+  #     else
+  #       n = Gcm::Notification.new
+  #       n.device = d
+  #       n.collapse_key = "Untipped Idea starts soon"
+  #       n.delay_while_idle = true
+  #       n.data = {:registration_ids => [d.registration_id], :data => {msg: "Tip or Cancel: #{@event.short_event_title}", :type => "deadline", :id => "#{@event.id}"}}
+  #       n.save
+  #     end
+  #   else
+  #     Notifier.event_deadline(@event).deliver
+  #   end
+  # end
 
   def contact_friend(friend)
     @user = self
