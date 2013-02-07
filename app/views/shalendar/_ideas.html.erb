@@ -1,4 +1,9 @@
 <div id="ideaContainer">
+	<% if @suggested_friends.present? %>
+		<div class="suggested_friends event">
+			<%= render partial: "shared/user", collection: @suggested_friends, as: :user %>
+		</div>
+	<% end %>
 	<% @currently_ideas = true %>
   <%= render partial: "shalendar/event", collection: @ideas %>
 </div>

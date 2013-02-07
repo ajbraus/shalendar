@@ -20,6 +20,12 @@ class ShalendarController < ApplicationController
       @my_times = Event.where('ends_at > ? AND user_id = ?', Time.now - 3.days, current_user.id).order('starts_at DESC')
 
       @times = ( @city_times | @ins_times | @invites_times | @my_times ).reject{ |e| current_user.out?(e) || e.is_parent? || (e.starts_at.present? && e.starts_at > Time.now + 26.days) }
+
+      # if @graph.present?
+      #   @member_friends = current_user.fb_friends(@graph)[0]
+      #   @suggested_friends = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.shuffle.first(5)
+      # end
+      @suggested_friends = User.all.first(3)
     else
       #if not signed in display city ideas
       @ideas = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND is_public = ?', Time.now, true, true).order("RANDOM()")

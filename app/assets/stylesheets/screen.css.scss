@@ -274,7 +274,7 @@ border: 1px solid gainsboro;
 display: inline-block;
 color: white;
 font-size: 13px;
-padding: 4px 16px;
+padding: 4px 9px;
   &:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f77740), color-stop(1, #EE9100) );
   background:-moz-linear-gradient( center top, #f77740 5%, #EE9100 100% );
@@ -4348,4 +4348,10 @@ margin-left: -4px;
 .hoosinvite {
   position: relative;
 top: 2px;
+}
+
+.suggested_friends {
+table.user {
+margin: 10px;
+}
 }

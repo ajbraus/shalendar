@@ -1,0 +1,15 @@
+<table class="user">
+  <tr>
+    <td>
+      <%= link_to user_path(user) do %>
+        <%= image_tag("#{invite_raster_picture(user)}", class: "profile_picture") %>
+      <% end %>
+    </td>
+    <td class="friend_name">
+      <%= user.name %>
+    </td>
+    <td class="friend_button" width="70" align="right">
+      <%= render  :partial => 'events/just_follow_form', :locals => { :user => user } %>
+    </td>
+  <tr>
+</table>
