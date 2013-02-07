@@ -1512,6 +1512,9 @@ position: relative;
 z-index: 0;
 border: 1px solid $divider;
 overflow: hidden;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
 .promo_img {
   text-align: center;
   background-color: white;
@@ -1562,8 +1565,7 @@ max-height: 300px;
   }
 
 .status_icon {
-margin-left: 4px;
-font-size: 19px;
+font-size: 22px;
 }
 
 .event_pic {
@@ -1645,7 +1647,7 @@ margin-bottom: 3px;
 float: right;
 position: relative;
 top: 3px;
-font-size: 14px;
+font-size: 17px;
 form {
   float: right;
 }
@@ -3965,6 +3967,7 @@ height: 0px;
   #guestCount {
     font-size: 16px;
     margin-left: 5px;
+    top: -4px;
   }
 }
 
