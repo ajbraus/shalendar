@@ -2,6 +2,9 @@ Adam
 
 Bugs
 
+invite
+suggested friends
+
 send digest
 
 	fix tests

@@ -24,8 +24,26 @@ class ShalendarController < ApplicationController
       # if @graph.present?
       #   @member_friends = current_user.fb_friends(@graph)[0]
       #   @suggested_friends = @member_friends.reject { |mf| current_user.relationships.find_by_followed_id(mf.id) }.shuffle.first(5)
+        
+        # @fu_events = Event.where(starts_at: Time.now.midnight - 2.weeks .. Time.now.midnight)
+        # if @fu_events.any?
+        # @fu_events.each do |fue|
+        #   @fu_recipients = fue.guests.select{ |g| g.follow_up? }
+        #   @fu_recipients.each do |fur|
+        #     @new_friends = []
+        #     fue.guests.each do |g|
+        #       if !fur.following?(g) && fur != g
+        #         @new_friends.push(g)
+        #       end
+        #     end
+        #     if @new_friends.any?
+        #       Notifier.delay.follow_up(fur, fue, @new_friends)
+        #     end
+        #   end
+        # end
       # end
-      @suggested_friends = User.all.first(3)
+      
+      #@suggested_friends = User.all.first(3)
     else
       #if not signed in display city ideas
       @ideas = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND is_public = ?', Time.now, true, true).order("RANDOM()")
