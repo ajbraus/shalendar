@@ -143,10 +143,7 @@ class EventsController < ApplicationController
 
   def create_new_time
     #datetime datepicker => format Chronic can parse
-    if params[:event][:chronic_starts_at].present? 
-      params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
-    end
-    params[:event][:starts_at] = Chronic.parse(params[:event][:chronic_starts_at])
+    params[:event][:starts_at] = Chronic.parse(params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' '))
     @parent = Event.find_by_id(params[:event][:parent_id])
     @event = @parent.instances.build(user_id: current_user.id,
                            title: @parent.title,
@@ -179,13 +176,15 @@ class EventsController < ApplicationController
       if @parent.categorizations.any?
         Categorization.create(event_id: @event.id, category_id: @parent.categorizations.first.id )
       end
-      @parent.guests.each do |g|
-        unless g == @event.user
-          @invitation = Invitation.create(:inviter_id => @parent.user.id, 
-                                           :invited_user_id => g.id, 
-                                           :invited_event_id => @event.id)
-          @invitation.save
-          g.delay.contact_new_time(@event)
+      if @parent.guests.any? 
+        @parent.guests.each do |g|
+          unless g == @event.user
+            @invitation = Invitation.create(:inviter_id => @parent.user.id, 
+                                             :invited_user_id => g.id, 
+                                             :invited_event_id => @event.id)
+            @invitation.save
+            g.delay.contact_new_time(@event)
+          end
         end
       end
       respond_to do |format|

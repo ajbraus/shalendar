@@ -1,10 +1,12 @@
 <ul>
   <li id="hoosin_friends_tab"><%= image_tag "iphone_icons/57.png", width:32, id:"hi_invite_img", class:"box" %> <span>hoosin </span>
   </li>
+  <% if false %>
   <% if current_user.fb_user? %>
   	<li id="fb_friends_tab">
 			<%= link_to image_tag("social/facebook_32.png"), get_fb_friends_to_invite_path(:event_id => @event.id ), id:"fb_invite_img", remote: true %> <span>facebook </span>
 		</li>
+  <% end %>
   <% end %>
   <li id="ajaxLoader" style="display:none;">
     <%= image_tag "ajax_loader.gif" %>
@@ -21,6 +23,9 @@
       <% end %>
     <% end %>
   </div>
+  <% if current_user.invited_all_friends?(@event) %> 
+    <h2 style="clear:both;">all hi friends invited</h2>
+  <% end %>
 	<%= render partial: 'events/hoosin_friends', locals: { :friends => @friends, :event => @event } %>
 </div>
 
