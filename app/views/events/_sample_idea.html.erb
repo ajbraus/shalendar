@@ -149,19 +149,3 @@
   <div class="promo_vid" id="eventVid">
   </div>
 
-<% if false %>
-		<% if event.user == current_user && event.tipped? == false && event.tipped? == true %>
-			<div class="force_tip">
-				<%= link_to raw("&#xf08d;"), tip_path(:event_id => event.id), :confirm => "Tip this idea? This cannot be reversed and will send notifications to all RSVPs.", :method => :put, :title => "Tip this Idea", :class => "fa-input", remote:true, id:"tipPin" %>
-			</div>
-		<% end %>
-	<% unless event.is_public? %>
-		<% unless event.user == User.find_by_id(event.inviter_id) %>
-			<div class="host">by: <%= event.user.first_name.capitalize %> 
-				<% if event.user.last_name %>
-					<%= event.user.last_name.capitalize%>
-				<% end %> 
-			</div>
-		<% end %>
-	<% end %>
-<% end %>

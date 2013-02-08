@@ -48,7 +48,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         @event.guests.each do |g|
-          if g.email_comments == true && g != current_user
+          if g.email_comments == true && !g.rsvps.find_by_plan_id(@event.id).muted? && g != current_user
             g.delay.contact_comment(@comment)
           end
         end

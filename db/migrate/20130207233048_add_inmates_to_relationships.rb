@@ -3,6 +3,7 @@ class AddInmatesToRelationships < ActiveRecord::Migration
   	add_column :relationships, :status, :integer
   	add_column :events, :dead, :boolean, default: false
     add_column :events, :friends_only, :boolean, default: false
+    add_column :rsvps, :muted, :boolean, default: false
 
     Event.all.each do |e|
       if e.user.rsvps.find_by_plan_id(e.id).invite_all_friends == false

@@ -4,10 +4,16 @@ class ShalendarController < ApplicationController
 	def home
     if user_signed_in?  
       @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.now, true).reject { |i| current_user.out?(i) }
-      @times = Event.where('city_id = ? AND ends_at > ?', @current_city.id, Time.now).order('starts_at DESC').reject { |i| current_user.out?(i) }
+      @times = Event.where('city_id = ? AND ends_at > ?', @current_city.id, Time.now).order('starts_at ASC').reject { |i| current_user.out?(i) }
+    
+      @ideas = @ideas.sort_by do |i| 
+        i.guests.joins('relationships').where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
+            i.guests.joins('relationships').where('status = ? AND follower_id = ?', 1, current_user.id).count
+      end
+    end
     else
       @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.now, true)
-      @times = Event.where('city_id = ? AND ends_at > ?', @current_city.id, Time.now).order('starts_at DESC')
+      @times = Event.where('city_id = ? AND ends_at > ?', @current_city.id, Time.now).order('starts_at ASC')
     end 
     #show alert if rescue from errors:
     if params[:oofta] == 'true'
@@ -188,29 +194,6 @@ class ShalendarController < ApplicationController
       f.xAxis(:type => 'datetime')
     end
 
-    #PUBLIC IDEAS
-    @madison_public_ideas_per_week = [] 
-    (0..@weeks).each do |week|
-      @public_events = City.find_by_name("Madison, Wisconsin").events.where(:is_public => true)
-      @events_one_week = @public_events.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
-      @madison_public_ideas_per_week << @events_one_week
-    end
-
-    @other_city_public_ideas_per_week = [] 
-    (0..@weeks).each do |week|
-      @public_events = Event.where(:is_public => true).reject { |e| e.city_id == City.find_by_name("Madison, Wisconsin").id }
-      @events_one_week = @public_events.select { |u| u.created_at.between?(@start_date + week.weeks, @start_date + (week + 1).weeks) }.count
-      @madison_public_ideas_per_week << @events_one_week
-    end
-
-    @public_ideas_per_city = LazyHighCharts::HighChart.new('graph') do |f|
-      f.options[:title][:text] = "Public Ideas since inception by city"
-      f.options[:chart][:defaultSeriesType] = "line"
-      f.options[:plotOptions] = {:area => { :pointInterval => "#{1.week}", :pointStart => "#{@start_date}" }}
-      f.series(:name=>'Madison', :data => @madison_public_ideas_per_week )
-      f.series(:name=>'Other', :data=> @other_city_public_ideas_per_week )
-      f.xAxis(:type => 'datetime')
-    end
   end
   private
 

@@ -1,4 +1,4 @@
- EventsController < ApplicationController
+ class EventsController < ApplicationController
   before_filter :authenticate_user!
   skip_before_filter :authenticate_user!, :only => :show
 
@@ -73,7 +73,7 @@
                                  promo_img: @event.promo_img,
                                  promo_url: @event.promo_url,
                                  promo_vid: @event.promo_vid,
-                                 is_public: @event.is_public,
+                                 friends_only: @event.friends_only,
                                  family_friendly: @event.family_friendly,
                                  price: @event.price
                               )
@@ -119,8 +119,8 @@
                            promo_vid: @parent.promo_vid,
                            family_friendly: @parent.family_friendly,
                            price: @parent.price,
-                           city_id: current_user.city.id, #users from other cities can poach ideas
-                           is_public: @parent.is_public
+                           city_id: @parent.city.id, 
+                           friends_only: @parent.friends_only
                            )
     if @event.save
       @event.save_shortened_url
@@ -225,7 +225,7 @@
     end
 
     @event.guests.each do |g|
-      g.contact_cancellation(@event)
+      g.delay.contact_cancellation(@event)
     end
 
     respond_to do |format|

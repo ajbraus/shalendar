@@ -212,9 +212,9 @@ class User < ActiveRecord::Base
         end
       end
       rsvps.create!(plan_id: event.id, inout: 1)
-      # if event.guest_count >= event.min && event.tipped? == false
-      #   event.tip!
-      # end
+      @event.guests.each do |g|
+        current_user.inmate!(g)
+      end
       if event.parent.present?
         self.rsvp_in!(event.parent)
       else #contact only once if they sign up for time + idea 
@@ -262,7 +262,15 @@ class User < ActiveRecord::Base
     return false
   end
 
-  def is_inmates_with(other_user)
+  def ignores?(other_user)
+    @relationship = self.relationships.find_by_followed_id(other_user.id)
+    if @relationship.present? && @relationship.status == 0
+      return true
+    end
+    return false
+  end
+
+  def is_inmates_with?(other_user)
     @relationship = self.relationships.find_by_followed_id(other_user.id)
     if @relationship.present? && @relationship.status == 1
       return true
@@ -270,10 +278,12 @@ class User < ActiveRecord::Base
     return false
   end
 
-  def is_inmates_or_friends_width(other_user)
+  def is_inmates_or_friends_with?(other_user)
     @relationship = self.relationships.find_by_followed_id(other_user.id)
     if @relationship.present?
-      return true
+      unless @relationship.status == 0
+        return true
+      end
     end
     return false
   end
@@ -290,8 +300,10 @@ class User < ActiveRecord::Base
   end
 
   def inmate!(other_user)
-    self.relationships.create(follower_id: self.id, followed_id: other_user.id, status: 1)
-    other_user.relationships.create(follower_id: other_user.id, followed_id: self.id, status: 1)
+    unless self.is_inmates_with?(other_user) || other_user.ignores?(self)
+      self.relationships.create(follower_id: self.id, followed_id: other_user.id, status: 1)
+      other_user.relationships.create(follower_id: other_user.id, followed_id: self.id, status: 1)
+    end
   end
 
   def ignore_inmate!(inmate)
@@ -306,12 +318,9 @@ class User < ActiveRecord::Base
 
   def unfriend!(other_user)
     @relationship = self.relationships.find_by_followed_id(other_user.id)
-    @reverse_relationship = other_user.relationships.find_by_followed_id(self.id)
     if @relationship.present?
-      @relationship.destroy
-    end
-    if @reverse_relationship.present?
-      @reverse_relationship.destroy
+      @relationship.status = 1
+      @relationship.save
     end
   end
 
@@ -508,74 +517,7 @@ class User < ActiveRecord::Base
         Notifier.cancellation(@event, @user).deliver
       end
     end
-    @event.destroy
   end
-
-  def contact_tipped(event)
-    @event = event
-    @user = self
-    if(@user.iPhone_user == true)
-      d = APN::Device.find_by_id(@user.apn_device_id)
-      if d.nil?
-        Airbrake.notify("thought we had an iphone user but can't find their device")
-      else
-        n = APN::Notification.new
-        n.device = d
-        n.alert = "#{@event.short_event_title} Tipped!"
-        n.badge = 1
-        n.sound = true
-        n.custom_properties = {msg: "", :type => "tipped", :id => "#{@event.id}"}
-        n.save
-      end
-    elsif(@user.android_user == true)
-      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-      if d.nil?
-        Airbrake.notify("thought we had an android user but can't find their device")
-      else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = "#{@event.short_event_title} Tipped!"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {msg: "", :type => "tipped", :id => "#{@event.id}"}}
-        n.save
-      end
-    else
-      Notifier.event_tipped(@event, @user).deliver
-    end
-  end
-
-  # def contact_deadline(event)
-  #   @event = event
-  #   @user = self
-  #   if(@user.iPhone_user == true)
-  #     d = APN::Device.find_by_id(@user.apn_device_id)
-  #     if d.nil?
-  #       Airbrake.notify("thought we had an iphone user but can't find their device")
-  #     else
-  #       n = APN::Notification.new
-  #       n.device = d
-  #       n.alert = "Untipped Idea starts soon"
-  #       n.badge = 1
-  #       n.sound = true
-  #       n.custom_properties = {msg: "Tip or Cancel: #{@event.short_event_title}", :type => "deadline", :id => "#{@event.id}"}
-  #       n.save
-  #     end
-  #   elsif(@user.android_user == true)
-  #     d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-  #     if d.nil?
-  #       Airbrake.notify("thought we had an android user but can't find their device")
-  #     else
-  #       n = Gcm::Notification.new
-  #       n.device = d
-  #       n.collapse_key = "Untipped Idea starts soon"
-  #       n.delay_while_idle = true
-  #       n.data = {:registration_ids => [d.registration_id], :data => {msg: "Tip or Cancel: #{@event.short_event_title}", :type => "deadline", :id => "#{@event.id}"}}
-  #       n.save
-  #     end
-  #   else
-  #     Notifier.event_deadline(@event).deliver
-  #   end
-  # end
 
   def contact_friend(friend)
     @user = self
@@ -608,39 +550,6 @@ class User < ActiveRecord::Base
     else
       #@follower_pic = raster_profile_picture(@user)
       Notifier.new_friend(@user, @follower).deliver
-    end
-  end
-
-  def contact_confirm(friend)
-    @user = user
-    @follower = friend
-    if(@user.iPhone_user == true)
-      d = APN::Device.find_by_id(@user.apn_device_id)
-      if d.nil?
-        Airbrake.notify("thought we had an iphone user but can't find their device")
-      else
-        n = APN::Notification.new
-        n.device = d
-        n.alert = "Confirm Friend - #{@follower.name}"
-        n.badge = 1
-        n.sound = true
-        n.custom_properties = {msg: "", :type => "confirm_friend", :id => "#{@follower.id}"}
-        n.save
-      end
-    elsif(@user.android_user == true)
-      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-      if d.nil?
-        Airbrake.notify("thought we had an android user but can't find their device")
-      else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = "Confirm Friend - #{@follower.name}"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "confirm_friend", :id => "#{@follower.id}"}}
-        n.save
-      end
-    else
-      Notifier.confirm_friend(@user, @follower).deliver
     end
   end
 

@@ -68,13 +68,6 @@ class Notifier < ActionMailer::Base
 
   #PREFERENCE NOTIFIERS, DEFAULT YES
 
-  # def confirm_friend(user, friend)
-  #   @user = user
-  #   @follower = friend
-  #   @image_url = invite_raster_picture(@follower)
-  #   mail to: @user.email, subject: "new friend request - #{@follower.name}"
-  # end
-
   def new_friend(user, friend)
     @user = user
     @follower = friend
@@ -150,14 +143,6 @@ class Notifier < ActionMailer::Base
       format.html { render :layout => 'fb_message' }
     end
   end
-  
-  # def failed_to_tip(event, user)
-  #   @user = user
-  #   @event = event
-  #   if(@user.iPhone_user == true)
-  #   end
-  #   mail to: @user.email, subject: "Failed to Tip - #{@event.event_day}, #{@event.short_event_title}" 
-  # end
   
   def digest(user, invited_events, upcoming_events, has_events, new_invited_ideas, new_city_ideas, new_city_ideas_count)
     @user = user

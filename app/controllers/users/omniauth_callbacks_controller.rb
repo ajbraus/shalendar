@@ -26,12 +26,6 @@ private
       @uid = env["omniauth.auth"].uid
       @user.authentications.find_by_uid(@uid).token = session[:access_token]
 
-      # if City.find_by_name(@city).nil? #we add their city, but don't auto-change
-      #   c = City.new(name: @city, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone))
-      #   c.save
-      # end
-
-      # session["devise.#{kind.downcase}_data"] = env["omniauth.auth"]
       sign_in_and_redirect @user, :event => :authentication
     else
       redirect_to :back, notice: 'There was an error with Facebook. Check your Facebook account status.'

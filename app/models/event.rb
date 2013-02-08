@@ -88,9 +88,7 @@ class Event < ActiveRecord::Base
       :end => ends_at,
       :host => self.user,
       :gcnt => self.guest_count,
-      :tip => self.min,
-      :guests => self.guests,
-      :tipped => self.tipped
+      :guests => self.guests    
     }
   end
 
@@ -163,32 +161,6 @@ class Event < ActiveRecord::Base
   def chronic_starts_at=(s)
     Chronic.time_class = Time.zone
     self.starts_at = Chronic.parse(s) if s
-  end
-
-  def self.public_forecast(load_datetime, city, toggled_categories)
-    @public_forecast = []
-    (-3..26).each do |i|
-      @new_datetime = load_datetime + i.days 
-      @time_range = @new_datetime.midnight .. @new_datetime.midnight + 1.day
-      
-      @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, city_id: city.id).order("starts_at ASC") #.joins(:categories).where(categories: {id: toggled_categories} )
-      
-      #Previous stuff while this included a signed in user
-      #   if current_user.family_filter?
-      #     @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, family_friendly: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e)}
-      #   else 
-      #     @public_events_on_date = Event.where(starts_at: @time_range, is_public: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e) || current_user.made_a_group?(e) }
-      #   end
-      # @public_events_on_date = @public_events_on_date.sort_by{|t| t[:starts_at]}
-
-      @public_forecast.push(@public_events_on_date)
-    end
-    return @public_forecast
-  end
-
-  def self.clean_up
-    #prune db of old events here.. for now that's anything older than 3 days ago
-
   end
 
   def event_day
@@ -374,9 +346,9 @@ class Event < ActiveRecord::Base
   end
   
   def unrsvpd_users
-    @unrsvpd_users = self.rsvps.where(inout: 0) #USERS WHO ARE IN
-    if @unrsvpd_users.any?
-      @unrsvpd_users = @unrsvpd_users.map { |r| User.find_by_id(r.guest_id) }
+    @unrsvps = self.rsvps.where(inout: 0) #USERS WHO ARE IN
+    if @unrsvps.any?
+      @unrsvpd_users = @unrsvps.map { |r| User.find_by_id(r.guest_id) }
       return @unrsvpd_users
     else
       return []

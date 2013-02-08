@@ -39,10 +39,11 @@ event#show
 	DONE remove invite_raster
 	DONE remove public icon
 	DONE make maybes everyone who could join
+	add mute button in chat
 	add 'creator'
 
 event.html
-	how many friends are going, how many inmates
+	DONE how many friends are going, how many inmates
 	DONE remove public icon
 	DONE remove status icons
 	DONE remove invite all friends
@@ -52,6 +53,12 @@ user#show
 	ignore_inmate
 	remove friend
 	make inmate => friend
+	hide times of ideas
+
+NOTIFIERS:
+	new_friend
+	add stats to digest
+	follow_up reflects inmate change
 
 --------------------------------------------------------------
 
@@ -73,7 +80,6 @@ users#show
 
 event#new
 	share on fb/twitter
-
 
 	close window after twitter share
 
