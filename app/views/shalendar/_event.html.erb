@@ -3,14 +3,9 @@
 		<% if event.ends_at.present? %>
 			<%= event.ends_at < Time.now ? 'over' : '' %>
 		<% end %> 
-		<%= event.is_public? ? 'public' : '' %>
-		<%= current_user.invited?(event) ? 'invited' : '' %>
-		<%= current_user.in?(event) ? 'rsvpd' : '' %>
-		<%= event.one_time? ? 'one_time' : '' %>
-		<% if @currently_ideas == true %> <%= 'excuse_from_calendar' %> <% end %>
-		<%= current_user == event.user ? 'mine' : '' %>"
-		data-event-id='<%= event.id %>'
-		<%= event.starts_at.present? ? "data-date=#{event.starts_at.to_date}" : '' %>>
+		<%= current_user.in?(event) ? 'in' : '' %>
+		<%= event.one_time? ? 'one_time' : '' %>"
+		data-event-id='<%= event.id %>'>
 <% else %>
 	<div class="event shield 
 		<% if event.starts_at.present? %>
@@ -20,34 +15,16 @@
 	<%= link_to event do %>
 		<div class="shield_top">
 			<div class="event_shield_icons">
-				<span class="status_icon">
-					<% if user_signed_in? %>
-						<% if current_user.in?(event) %>
-							<i class="icon-ok-sign blue" title="you're .in"></i>
-						<% elsif current_user.invited?(event) %>
-							<i class="icon-envelope blue" title=".invited by <%= event.inviter_id = 0 ? event.user.name : User.find_by_id(event.inviter_id).name %>"></i>
-						<% end %>
-					<% end %>
-				</span>
 				<% if event.family_friendly? %>
 					<i class="icon-home"></i>
 				<% end %>
 				<% if event.promo_vid.present? %>
 					<i class="icon-video"></i>
 				<% end %>
-				<% if event.min.present? && event.min > 99 %>
-					<i class="icon-cloud" title="this idea needs a crowd"></i>
-				<% end %>
-				<% if event.is_public? %>
-					<i class="icon-bullhorn"></i>
-				<% end %>
 				<% if event.categories.any? %>
 					<%= event.categories.first.name.capitalize %>
 				<% end %>
 		  </div>
-			<% if !@currently_ideas %>
-				<div class="date"><%= event.mini_start_date_time %></div>
-			<% end %>
 			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
   		<div class="guests"><span id="guestCount"><%= event.guest_count %></span></div>
 		</div>
@@ -79,7 +56,7 @@
 	<%= link_to event do %>
 		<%= render partial: 'events/time', collection: @relevant_instances, as: :event %>
 	<% end %>
-	<% if current_user == event.user && !event.one_time? && @currently_ideas == true %>
+	<% if !event.one_time? %>
 		<%= link_to event_new_time_path(event) do %>
 			<div class="add_time fadeInOrange"><i class="icon-time"></i> add new time</div>
 		<% end %>

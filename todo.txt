@@ -29,9 +29,10 @@ event#new
 	remove visibility options
 
 event#show
-	allow anyone to add_time
-	remove invite_raster
-	remove public icon
+	DONE allow anyone to add_time
+	DONE remove invite_raster
+	DONE remove public icon
+	make maybes everyone who could join
 
 event.html
 	how many friends are going, how many inmates
@@ -41,6 +42,8 @@ event.html
 	remove by
 
 --------------------------------------------------------------
+
+Login through facebook - pick city
 
 event#show
 	add location display to time
@@ -52,7 +55,6 @@ users#show
 	if @user == current_user Display your .ins
 	else display @user's in's sorted by things you're going to do together or have done
 	link to settings
-
 
 event#new
 	share on fb/twitter

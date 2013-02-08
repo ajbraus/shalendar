@@ -2,24 +2,33 @@ class ShalendarController < ApplicationController
   before_filter :authenticate_user!, except: [ :home ]
 
 	def home
-    if user_signed_in?        
-      @city_ideas = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND is_public = ? AND city_id = ?', Time.now, true, true, @current_city.id).reject{|e| current_user.out?(e)}
-      @invites = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
-                .joins(:invitations).where(invitations: {invited_user_id: current_user.id}).reject{|e| current_user.out?(e)}
-      @ins = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
-                  .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).reject{|e| current_user.out?(e)}
-      @mine = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND user_id = ?', Time.now, true, current_user.id).reject{|e| current_user.out?(e)}
+    if user_signed_in?  
+      @ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true).reject { |i| current_user.out?(i) }
+      @times = Event.where('ends_at > ?', Time.now).order('starts_at DESC').reject { |i| current_user.out?(i) }
+
+      #@in_ideas =  @ideas.select { |i| current_user.in?(i) || current_user.in?(i.parent) }
+      #@invite_ideas = @ideas.select { |i| !current_user.rsvpd?(i) }
+
+      #@in_times = @times.select { |i| current_user.in?(i) || current_user.in?(i.parent) }
+      #@invite_times = @times.select { |i| !current_user.rsvpd?(i) }
+ 
+      # @city_ideas = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND is_public = ? AND city_id = ?', Time.now, true, true, @current_city.id).reject{|e| current_user.out?(e)}
+      # @invites = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
+      #           .joins(:invitations).where(invitations: {invited_user_id: current_user.id}).reject{|e| current_user.out?(e)}
+      # @ins = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
+      #             .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).reject{|e| current_user.out?(e)}
+      # @mine = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND user_id = ?', Time.now, true, current_user.id).reject{|e| current_user.out?(e)}
       
-      @ideas = ( @city_ideas | @ins | @invites | @mine ).shuffle
+      # @ideas = ( @city_ideas | @ins | @invites | @mine ).shuffle
 
-      @city_times = Event.where('ends_at > ? AND is_public = ? AND city_id = ?', Time.now - 3.days, true, @current_city.id).order('starts_at DESC')
-      @invites_times = Event.where('ends_at > ?', Time.now - 3.days)
-                .joins(:invitations).where(invitations: {invited_user_id: current_user.id}).order("starts_at DESC")
-      @ins_times = Event.where('ends_at > ?', Time.now - 3.days)
-                  .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).order('starts_at DESC')
-      @my_times = Event.where('ends_at > ? AND user_id = ?', Time.now - 3.days, current_user.id).order('starts_at DESC')
+      # @city_times = Event.where('ends_at > ? AND is_public = ? AND city_id = ?', Time.now - 3.days, true, @current_city.id).order('starts_at DESC')
+      # @invites_times = Event.where('ends_at > ?', Time.now - 3.days)
+      #           .joins(:invitations).where(invitations: {invited_user_id: current_user.id}).order("starts_at DESC")
+      # @ins_times = Event.where('ends_at > ?', Time.now - 3.days)
+      #             .joins(:rsvps).where(rsvps: {guest_id: current_user.id, inout: 1}).order('starts_at DESC')
+      # @my_times = Event.where('ends_at > ? AND user_id = ?', Time.now - 3.days, current_user.id).order('starts_at DESC')
 
-      @times = ( @city_times | @ins_times | @invites_times | @my_times ).reject{ |e| current_user.out?(e) || e.is_parent? || (e.starts_at.present? && e.starts_at > Time.now + 26.days) }
+      # @times = ( @city_times | @ins_times | @invites_times | @my_times ).reject{ |e| current_user.out?(e) || e.is_parent? || (e.starts_at.present? && e.starts_at > Time.now + 26.days) }
 
       # if @graph.present?
       #   @member_friends = current_user.fb_friends(@graph)[0]
@@ -42,13 +51,11 @@ class ShalendarController < ApplicationController
         #   end
         # end
       # end
-      
-      #@suggested_friends = User.all.first(3)
     else
       #if not signed in display city ideas
-      @ideas = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND is_public = ?', Time.now, true, true).order("RANDOM()")
+      #@ideas = Event.where('(ends_at IS NULL OR (ends_at > ? AND one_time = ?)) AND is_public = ?', Time.now, true, true).order("RANDOM()")
       # @ideas = Event.where('ends_at = ? OR (ends_at > ? AND one_time = ?) AND is_public = ?', nil, Time.now, true, true).order('created_at DESC')
-      @times =  Event.where('ends_at > ? AND is_public = ?', Time.now - 3.days, true).order('created_at DESC')
+      #@times =  Event.where('ends_at > ? AND is_public = ?', Time.now - 3.days, true).order('created_at DESC')
     end 
     @currently_ideas = true
     # Beginning of Yellow Pages
