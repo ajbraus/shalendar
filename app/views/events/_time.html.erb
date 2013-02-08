@@ -1,14 +1,3 @@
-<% if false %>
-<% if event.tipped? %>	
-	<div class="meter">
-		<span style="width:100%;"><span></span></span>
-	</div>
-<% elsif event.starts_at.present?%>
-	<div class="meter animate orange">
-		<span style=<%= 'width:' + "#{(100*event.guest_count.to_f/event.min.to_f).round}" + "%;"%>><span></span></span>
-	</div>
-<% end %>
-<% end %>
 <div class="shield_bottom one_time" data-event-id="<%= event.id %>">	
 		<% if user_signed_in? %>
 			<% if current_user.in?(event) %>

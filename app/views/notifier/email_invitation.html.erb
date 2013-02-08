@@ -21,13 +21,6 @@
 <tr>
 	<td style="padding:5px 0 5px 50px">When: <strong style="padding-left:10px;"><%= event.starts_at.strftime("%l:%M%P, %A %B %e") %></strong></td>
 </tr>
-<% if false %>
-<% if event.tipped? %>
-<tr>
-	<td style="padding:5px 0 20px 50px"><strong style="color:green;">Idea tipped!</strong></td>
-</tr>
-
-<% else %>
 
 <tr>
 	<td style="padding:5px 0 5px 50px"><strong>This idea needs <span style="color:red;"><%= event.min - event.guest_count %></span> to tip</strong></td>

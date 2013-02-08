@@ -300,7 +300,7 @@ class User < ActiveRecord::Base
   end
 
   def inmate!(other_user)
-    unless self.is_inmates_with?(other_user) || other_user.ignores?(self)
+    unless self.is_inmates_with?(other_user) || other_user.ignores?(self) || self.is_friends_with?(other_user)
       self.relationships.create(follower_id: self.id, followed_id: other_user.id, status: 1)
       other_user.relationships.create(follower_id: other_user.id, followed_id: self.id, status: 1)
     end
@@ -335,6 +335,13 @@ class User < ActiveRecord::Base
       end
     end
     return false
+  end
+
+  def add_fb_to_inmates
+    @member_friends = self.fb_friends(@graph)[0]
+    @member_friends.each do |mf|
+      self.inmate!(mf)
+    end
   end
 
   # Contact methods

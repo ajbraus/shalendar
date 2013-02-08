@@ -26,6 +26,9 @@ private
       @uid = env["omniauth.auth"].uid
       @user.authentications.find_by_uid(@uid).token = session[:access_token]
 
+      #make all fb_friends on hoos.in into .in-mates
+      @user.delay.add_fb_to_inmates
+
       sign_in_and_redirect @user, :event => :authentication
     else
       redirect_to :back, notice: 'There was an error with Facebook. Check your Facebook account status.'
@@ -86,6 +89,12 @@ private
 
       user_attr = { email: email, name: name }
       user.update_attributes user_attr
+
+      #add all facebook friends to inmates (create relationships with status = 1) 
+      @member_friends = u.fb_friends(session[:graph])[0]
+      @member_friends.each do |mf|
+        u.inmate!(mf)
+      end
       
       return user
 
@@ -117,12 +126,6 @@ private
         ei.destroy
       end
       return user
-
-      #make all fb_friends on hoos.in into .in-mates
-      @member_friends = user.fb_friends(@graph)[0]
-      @member_friends.each do |mf|
-        user.inmate!(mf)
-      end
     end
   end
   

@@ -6,7 +6,11 @@ class AddInmatesToRelationships < ActiveRecord::Migration
     add_column :rsvps, :muted, :boolean, default: false
 
     Event.all.each do |e|
-      if e.user.rsvps.find_by_plan_id(e.id).invite_all_friends == false
+      if e.user.rsvps.find_by_plan_id(e.id).present?
+        if e.user.rsvps.find_by_plan_id(e.id).invite_all_friends == false
+          e.friends_only = true
+        end
+      else
         e.friends_only = true
       end
       e.save
@@ -22,12 +26,12 @@ class AddInmatesToRelationships < ActiveRecord::Migration
   	remove_column :rsvps, :invite_all_friends
   	remove_column :users, :require_confirm_follow
   	remove_column :relationships, :confirmed
-  	remove_table :fb_invites
-  	remove_table :suggestions
-  	remove_table :invitations
-    remove_table :interests
-    remove_table :categories
-    remove_table :categorizations
+  	drop_table :fb_invites
+  	drop_table :suggestions
+  	drop_table :invitations
+    drop_table :interests
+    drop_table :categories
+    drop_table :categorizations
 
 		#make all current relationships -> status = 2
 		Relationship.all.each do |r|
@@ -36,16 +40,11 @@ class AddInmatesToRelationships < ActiveRecord::Migration
 		end
 		
 		User.all.each do |u|
-		#add all facebook friends to inmates (create relationships with status = 1)	
-      @member_friends = u.fb_friends(session[:graph])[0]
-			@member_friends.each do |mf|
-				u.inmate!(mf)
-			end
     #add all ppl you've been to events with before already as inmates
       u.plans.each do |e|
-        @fb_inmates = e.guests.reject { u.inmates?(g) || u.is_friends_with?(g) || u == g }
-        @fb_inmates.each do |fbi|
-          u.inmate!(fbi)
+        @inmates = e.guests.reject { |g| u.is_friends_with?(g) || u == g }
+        @inmates.each do |i|
+          u.inmate!(i)
         end
       end
 		end 

@@ -23,7 +23,7 @@
 				<% end %>
 		  </div>
 			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
-  		<div class="guests"><span id="guestCount"><%= event.guest_count %></span><span id="friendCount">(<%= event.guests.joins('relationships').where('status = ? AND follower_id = ?', 2, current_user.id).count %> Friends)</span></div>
+  		<div class="guests"><span id="guestCount"><%= event.guest_count %></span><span id="friendCount">(<%= event.guests.joins('relationships').where('status = ? AND follower_id = ?', 2, current_user.id).count %> friends)</span></div>
 		</div>
 	<% end %>
 	<%= link_to event do %>

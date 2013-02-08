@@ -441,3 +441,16 @@ _plans.html.erb
     <span id="auth-status" class="fb_button fb_login_button">
     <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
   </span>
+
+
+  <% if false %>
+  <% if event.tipped? %>  
+    <div class="meter">
+      <span style="width:100%;"><span></span></span>
+    </div>
+  <% elsif event.starts_at.present?%>
+    <div class="meter animate orange">
+      <span style=<%= 'width:' + "#{(100*event.guest_count.to_f/event.min.to_f).round}" + "%;"%>><span></span></span>
+    </div>
+  <% end %>
+<% end %>

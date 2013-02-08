@@ -7,15 +7,10 @@
 	<div class="event_time">			
 		<span><%= event.mini_start_date_time %> (<%= event.nice_duration %> hr)</span>
 		<span class="guest_count">
-			<% if event.tipped? %>	
-				<span class="count" id="guestCount"> <%= event.guest_count %></span>
-			<% else %>
-				<span id="guestCount" class="count orange"><%= event.guest_count%>/<%= event.min %></span>
-			<% end %>
+			<span class="count"><span id="guestCount"> <%= event.guest_count %> </span><span id="friendCount">(<%= User.joins(:rsvps).where(plan_id: event.id).joins(:relationships).where(:relationships => { status: 2, follower_id: current_user.id } ).count %> friends)</span></span>
 		</span>
 	</div>
 	<div class="event_blerb">
-		<% if false %><%= raster_profile_picture(event.user) %><% end %>
 		<%= event.title %>
 		<div class="inviter">
 			<% unless User.find_by_id(event.inviter_id).blank? || User.find_by_id(event.inviter_id) == current_user %>
