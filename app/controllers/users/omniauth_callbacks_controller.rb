@@ -73,16 +73,6 @@ private
     if auth.nil?
       user = nil
     end
-             # TURN ALL FB_INVITES INTO INVITIATTIONS HERE 
-    FbInvite.where("uid = ?", uid).each do |fbi|
-      @inviter_id = fbi.inviter_id
-      @invited_user_id = user.id
-      @event = fbi.event
-      if @inviter = User.find_by_id(@inviter_id)
-        @inviter.invite!(@event, user)
-      end
-      fbi.destroy
-    end
 
     return user
   end
@@ -100,15 +90,6 @@ private
       email = access_token.info.email
       name = access_token.info.name
 
-      #location = access_token.info.location
-      # @city = City.find_by_name(location)
-      # if @city.nil?
-      #   c = City.new(name: location, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone)
-      #   c.save
-      #   @city = c
-      # end
-
-      # no longer update city or timezone here
       user_attr = { email: email, name: name }
       user.update_attributes user_attr
       
@@ -123,9 +104,6 @@ private
         city = City.find_by_name("Madison, Wisconsin")
       end
 
-      #time_zone = "Central Time (US & Canada)"  # timezone_for_utc_offset(access_token.extra.raw_info.timezone)
-
-      #CITY TODO: whenever a user logs in from 'everywhere else' we want to ask for their timezone and double check city
       user = User.new(:email => email, 
                 :name => name,
                 :city_id => city.id,
@@ -134,10 +112,6 @@ private
                 :password => Devise.friendly_token[0,20]
               )
       user.save
-
-      Category.all.each do |cat|
-        Interest.create(user_id: user.id, category_id: cat.id)
-      end
 
       EmailInvite.where("email_invites.email = :new_user_email", new_user_email: user.email).each do |ei|
         @inviter_id = ei.inviter_id
@@ -149,6 +123,12 @@ private
         ei.destroy
       end
       return user
+
+      #make all fb_friends on hoos.in into .in-mates
+      @member_friends = user.fb_friends(@graph)[0]
+      @member_friends.each do |mf|
+        user.inmate!(mf)
+      end
     end
   end
   

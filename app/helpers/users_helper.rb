@@ -127,12 +127,6 @@ module UsersHelper
     end
   end
 
-  # def invite_gravatar_for(user, options = { size: 50, })
-  #   gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
-  #   size = options[:size]
-  #   "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
-  # end
-
   def invite_twitter_picture(user, options = { type: "large", })
     twitter_username = user.authentications.find_by_provider("Twitter").username
     type = options[:type]

@@ -21,9 +21,6 @@
 				<% if event.promo_vid.present? %>
 					<i class="icon-video"></i>
 				<% end %>
-				<% if event.categories.any? %>
-					<%= event.categories.first.name.capitalize %>
-				<% end %>
 		  </div>
 			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
   		<div class="guests"><span id="guestCount"><%= event.guest_count %></span></div>
@@ -38,10 +35,6 @@
 				<%= image_tag event.image(:medium) %>
 			</div>
 		<% end %>
-		<div class="host_in_idea_shield">
-			<span class="text">by: <%= event.user.name %></span>
-			<%= image_tag("#{invite_raster_picture(event.user)}", class: "profile_picture") %>
-		</div>
 	<% end %>
 
 	<% if event.one_time? && @currently_ideas 

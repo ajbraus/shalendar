@@ -3,11 +3,11 @@ class UsersController < ApplicationController
     @user = User.find_by_slug(params[:id])
     if user_signed_in?
       @my_ideas = @user.events.where(:starts_at => nil)
-      @ideas = @my_ideas.select { |e| current_user.invited?(e) || e.is_public? }
+      @ideas = @my_ideas.select { |e| e.user == current_user || @user.in?(e) }        
       @events = @user.events.where("starts_at > ?", Time.now).order('starts_at asc')
-      @events = @events.select { |e| current_user.invited?(e) || e.is_public? }
+      @events = @events.select { |e| e.user == current_user || @user.in?(e) }        
       @past_events = @user.events.where("starts_at < ?", Time.now).order('starts_at asc').limit(20)
-      @past_events = @past_events.select { |e| e.user == current_user || current_user.invited?(e) || e.is_public? }        
+      @past_events = @past_events.select { |e| e.user == current_user || @user.in?(e) }        
     else
       #@events = @user.plans.where("starts_at > :now", now: Time.now).order('starts_at asc')
       #@past_events = @user.plans.where("starts_at < :now", now: Time.now).order('starts_at asc')

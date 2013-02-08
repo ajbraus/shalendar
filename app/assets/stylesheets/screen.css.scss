@@ -1972,25 +1972,6 @@ color:$before_hover;
   }
 }
 
-.toggled-off {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-filter: alpha(opacity=20);
--moz-opacity: 0.2;
--khtml-opacity: 0.2;
-opacity: 0.2;
- &:hover {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
-  filter: alpha(opacity=70);
-  -moz-opacity: .7;
-  -khtml-opacity: .7;
-  opacity: .7;
- }
-}
-
-.toggled-on {
-
-}
-
 #find_friends {
   font-size: 15px;
   height: auto;

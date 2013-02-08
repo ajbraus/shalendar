@@ -36,12 +36,7 @@
     <div><%= label_tag :city_name %><br />
     <%= text_field_tag :city_name, nil, value: "#{resource.city.name}", data: { autocomplete_source: city_names_path } %></div>
     <br>
-<% if false %>
-    <%= f.select :city_id, options_from_collection_for_select(City.all, 'id', 'name', '1'), id:"citySelect" %></div>
 
-    <div><%= f.label :time_zone %><br />
-    <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)" %></div>
-<% end %>
     <% if current_user.authentications.find_by_provider("Facebook") == nil %>
       <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
       <%= f.password_field :password, :autocomplete => "off" %></div>
@@ -51,10 +46,6 @@
     <% end %>
     
     <h2>General Settings</h2>
-    <p>
-      <%= f.check_box :require_confirm_follow %> 
-      <label for="require_confirm_follow"><strong>Confirm Friends</strong> - Confirm each friend before they can view your ideas. </label>
-    </p>
     <p>
       <div class="family_filter">
         <%= f.label "Family Friendly Filter" %><br>

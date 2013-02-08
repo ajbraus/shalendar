@@ -28,15 +28,6 @@ class RegistrationsController < Devise::RegistrationsController
         resource.friend!(@hoosin_user)
       end
 
-      Category.all.each do |cat|
-        Interest.create(user_id: resource.id, category_id: cat.id)
-      end
-
-      if params[:category_id]
-        resource.classification_id = params[:category_id]
-      end
-
-
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
@@ -66,18 +57,7 @@ class RegistrationsController < Devise::RegistrationsController
       return redirect_to :back, notice: "City not found - Try a city close to your location"
     end
 
-    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
-
-    #update interests if changing interests
-    if params[:category_ids]
-      resource.interests.each do |interest|
-        interest.destroy
-      end
-      params[:category_ids].each do |catid|
-        Interest.create(user_id: resource.id, category_id: catid)
-      end
-      #redirect_to root_path, :notice => "Successfully updated your interests"
-    end        
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)    
 
     if resource.respond_to?(:unconfirmed_email)
       prev_unconfirmed_email = resource.unconfirmed_email 

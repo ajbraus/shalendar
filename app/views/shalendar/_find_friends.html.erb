@@ -7,7 +7,6 @@
 		<h1>Your hoos.in friends in <%= current_user.authentications.select{|auth| auth.provider == "Facebook"}.first.city %></h1>
 	<% end %>
 		<div class="invite_friends">
-			<div class="invite_all"><%= link_to "Friend All", friend_all_path, class:"btn btn-primary", remote: true %></div>
 			<% @member_friends.each do |mf| %>
 				<% unless current_user.following?(mf) %>
 					<div class="event_show_friend friend">
