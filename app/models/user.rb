@@ -938,11 +938,12 @@ class User < ActiveRecord::Base
    if @day == 0 || @day == 4
       @digest_users = User.where("users.digest = 'true'")
       @digest_users.each do |u|
-        time_range = Time.now.midnight .. Time.now.midnight + 3.days
+        @now_in_zone = Time.now.in_time_zone(u.city.timezone)
+        time_range = @now_in_zone.midnight .. @now_in_zone.midnight + 3.days
         @has_events = false
         @upcoming_events = []
         (0..2).each do |day|
-          day_time_range = Time.now.midnight + day.days .. Time.now.midnight + (day+1).days
+          day_time_range = @now_in_zone.midnight + day.days .. @now_in_zone.midnight + (day+1).days
           @upcoming_day_events = u.plans.where(starts_at: day_time_range)
           if @upcoming_day_events.any?
             @has_events = true
@@ -951,15 +952,15 @@ class User < ActiveRecord::Base
         end
         @invited_events = []
         (0..2).each do |day|
-          day_time_range = Time.now.midnight + day.days .. Time.now.midnight + (day+1).days
+          day_time_range = @now_in_zone.midnight + day.days .. @now_in_zone.midnight + (day+1).days
           @day_invited_events = u.invited_events.where(starts_at: day_time_range)
           if @day_invited_events.any?
             @has_events = true
           end
           @invited_events.push(@day_invited_events)
         end
-        @new_invite_ideas = Event.where('events.ends_at IS NULL AND events.created_at > ?', Time.now - 4.days).joins(:invitations).where(invitations: {invited_user_id: u.id}).order("RANDOM()")
-        @all_new_city_ideas = Event.where('events.ends_at IS NULL AND events.is_public = ? AND events.city_id = ? AND events.created_at > ?', true, u.city_id, Time.now - 4.days)
+        @new_invite_ideas = Event.where('events.ends_at IS NULL AND events.created_at > ?', @now_in_zone - 4.days).joins(:invitations).where(invitations: {invited_user_id: u.id}).order("RANDOM()")
+        @all_new_city_ideas = Event.where('events.ends_at IS NULL AND events.is_public = ? AND events.city_id = ? AND events.created_at > ?', true, u.city_id, @now_in_zone - 4.days)
         @new_city_ideas = @all_new_city_ideas.first(5)
         if @has_events == true || @new_invite_ideas.any? || @new_city_ideas.any?
           Notifier.delay.digest(u, @invited_events, @upcoming_events, @has_events, @new_invited_ideas, @new_city_ideas, @all_new_city_ideas.count)
