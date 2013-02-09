@@ -132,6 +132,14 @@ class Event < ActiveRecord::Base
     end
   end
   
+  def mini_start_time
+    if starts_at.present?
+      self.starts_at.strftime "%l:%M%P"
+    else
+      "TBD"
+    end
+  end
+  
   def start_date
     if starts_at.present?
       self.starts_at.strftime "%A, %B %e"
@@ -177,12 +185,27 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def friends_in_count(current_user)
+    self.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count
+  end
+
+  def friends_invited_count(current_user)
+    @invited_friends = []
+    self.maybes.each do |u|
+      if current_user.is_friends_with?(u)
+        @invited_friends.push(u)
+      end
+    end
+    return @invited_friends.count
+  end
+
   def maybes
-    @maybes = []
     self.guests.each do |g|
       @g_maybes = []
       (g.inmates | g.friends).each do |person|
-        @g_maybes.push(person) unless person.rsvpd?(self)
+        unless person.rsvpd?(self)
+          @g_maybes.push(person) 
+        end
       end
       @maybes = @maybes | @g_maybes
     end

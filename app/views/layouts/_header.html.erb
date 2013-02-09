@@ -8,26 +8,28 @@
       <% if params[:action] == 'home' %>
       <div class="navigation">
         <span class="options">
-<!--           <span id="reload"><i class="icon-repeat"></i></span> -->
-          <% if current_user.admin? %>
-            <%= link_to admin_dashboard_path do %>
-              <span class="fadeInRed"><i class="icon-magic"></i></span>
-            <% end %>
-          <% end %>
-          <span id="jrFriendsIdeas">.invites</span> | 
           <span id="jrPlans">.ins</span> |
-          <% if false %>
-          <span id="jrIdeas" class="bold">all</span> |
-          <span id="jrMine"><span class="hide_on_mobile"> <%= @mine.count %></span> mine</span> |
-          <span id="jrCityIdeas"><span class="hide_on_mobile"> <%= @city_ideas.count %></span> public</span> ||
-          <span id="jrCalendar"><i class="icon-calendar"></i> <span class="hide_on_mobile"> view</span></span>
-          <% end %>
+          <span id="jrFriendsIdeas">.invites</span>
         </span>
-        <%= render 'shared/picture_dropdown' %>
+        <% if current_user.admin? %>
+          <%= link_to admin_dashboard_path do %>
+            <span class="fadeInRed"><i class="icon-magic"></i></span>
+          <% end %>
+        <% end %>
+        <%= link_to user_path(current_user) do %>
+          <%= raster_profile_picture(current_user) %>
+        <% end %>
       </div>
       <% else %>
       <div class="navigation">
-        <%= render 'shared/picture_dropdown' %>
+        <% if current_user.admin? %>
+          <%= link_to admin_dashboard_path do %>
+            <span class="fadeInRed"><i class="icon-magic"></i></span>
+          <% end %>
+        <% end %>
+        <%= link_to user_path(current_user) do %>
+          <%= raster_profile_picture(current_user) %>
+        <% end %>
       </div>
       <% end %>
       <div class="new_idea_button"><%= render 'shared/new_idea_button' %></div>

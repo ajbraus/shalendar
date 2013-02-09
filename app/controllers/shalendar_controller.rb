@@ -7,8 +7,8 @@ class ShalendarController < ApplicationController
       @times = Event.where('city_id = ? AND ends_at > ?', @current_city.id, Time.now).order('starts_at ASC').reject { |i| current_user.out?(i) }
     
       @ideas = @ideas.sort_by do |i| 
-        i.guests.joins('relationships').where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
-            i.guests.joins('relationships').where('status = ? AND follower_id = ?', 1, current_user.id).count
+        i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
+            i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
       end
     else
       @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.now, true)

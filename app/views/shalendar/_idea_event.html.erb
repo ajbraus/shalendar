@@ -4,9 +4,7 @@
 		<% if event.ends_at.present? %>
 			<%= event.ends_at < Time.now ? 'over' : '' %>
 		<% end %> 
-		<%= event.is_public? ? 'public' : '' %>
-		<%= current_user.invited?(event) || current_user.in?(event) ? 'invited' : '' %>
-		<%= current_user.in?(event) ? 'rsvpd' : '' %>
+		<%= current_user.in?(event) ? 'in' : '' %>
 		<%= event.one_time? ? 'one_time excuse_from_calendar' : '' %>
 		<%= current_user == event.user ? 'mine' : '' %>"
 		data-event-id='<%= event.id %>'
@@ -29,21 +27,6 @@
 						<% end %>
 					<% end %>
 				</span>
-				<% if event.family_friendly? %>
-					<i class="icon-home"></i>
-				<% end %>
-				<% if event.promo_vid.present? %>
-					<i class="icon-video"></i>
-				<% end %>
-				<% if event.min.present? && event.min > 99 %>
-					<i class="icon-cloud" title="this idea needs a crowd"></i>
-				<% end %>
-				<% if event.is_public? %>
-					<i class="icon-bullhorn"></i>
-				<% end %>
-				<% if event.categories.any? %>
-					<%= event.categories.first.name.capitalize %>
-				<% end %>
 		  </div>
 			<% if event.has_parent? %>
 				<div class="date"><%= event.mini_start_date_time %></div>

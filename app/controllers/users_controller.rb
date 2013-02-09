@@ -4,9 +4,9 @@ class UsersController < ApplicationController
     if user_signed_in?
       @my_ideas = @user.events.where(:starts_at => nil, :friends_only => false)
       if current_user.is_inmates_with?(@user) 
-        @my_ins = @user.plans.where(:friends_only => false) - @my_ideas
-      elsif current_user.friends_with(@user) || @user == current_user
-        @my_ins = @user.plans - @my_ideas
+        @my_ins = @user.plans.where(:starts_at => nil, :friends_only => false) - @my_ideas
+      elsif current_user.is_friends_with?(@user) || @user == current_user
+        @my_ins = @user.plans.where(:starts_at => nil) - @my_ideas
       end
       @times = @user.events.where("starts_at > ?", Time.now).order('starts_at ASC')
       @times = @times.select { |e| e.user == current_user || current_user.in?(e) }        

@@ -454,3 +454,23 @@ _plans.html.erb
     </div>
   <% end %>
 <% end %>
+          <% if false %>
+          <span id="jrIdeas" class="bold">all</span> |
+          <span id="jrMine"><span class="hide_on_mobile"> <%= @mine.count %></span> mine</span> |
+          <span id="jrCityIdeas"><span class="hide_on_mobile"> <%= @city_ideas.count %></span> public</span> ||
+          <span id="jrCalendar"><i class="icon-calendar"></i> <span class="hide_on_mobile"> view</span></span>
+          <% end %>
+
+
+          <% if false %>
+<div id="timesCalendar" style="display:none;">
+  <%= render "shalendar/calendar" %>
+</div>
+
+<div id="ideaFilter" class="idea_filter"
+<% if params[:action] == "home" %>
+<div id="ideaFilter" class="idea_filter">
+  all
+</div>
+<% end %>
+<% end %>

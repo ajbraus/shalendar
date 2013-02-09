@@ -14,17 +14,12 @@ html {
 }
 
 body {
-  font-family: bariol ,Arial,sans-serif;
-  font-size: 18px;
-  line-height: 18px;
-  color: #333;
-  position: relative;
-  min-height: 100%;
-  background: url(/assets/gray_jean.png);
-  /*background-color:#F0F0F0;*/
-  zoom:1;
-  z-index: 0;
-  text-shadow: 0 0 1px rgba(0,0,0,0.3);
+font-family: bariol, Arial, sans-serif;
+color: #333;
+background: url(/assets/gray_jean.png);
+zoom: 1;
+z-index: 0;
+text-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
   strong {
     font-family: bariol_bold, arial, sans-serif;
     font-weight: bold;
@@ -727,6 +722,10 @@ text-align: right;
   span {
     cursor:pointer;
   }
+  i {
+    position: relative;
+    bottom: 9px;
+  }
 }
 
 .bold {
@@ -931,11 +930,8 @@ box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
 }
 
 .layout {
-clear: both;
-min-height: 640px;
 position: relative;
 top: 100px;
-margin: 0 auto;
 }
 
 .show_layout {
@@ -1333,19 +1329,11 @@ top: 0;
 }
 
 .date_bar {
-padding: 3px;
-height: 32px;
 text-align: center;
-width: 91.5%;
+font-size: 19px;
+border: 1px solid $divider;
+padding: 1px 0;
 background-color: $background_one;
-top: 73px;
-margin-left: 4px;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  border-radius: 7px;
--webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
--moz-box-shadow:    0px 0px 9px rgba(50, 50, 50, 0.3);
-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
 }
 
 .friend_only {
@@ -1356,66 +1344,8 @@ bottom: 10px;
 font-size: 17px;
 }
 
-.each_day {
-  clear:both;
-}
-
 .day_container {
-clear: both;
-margin-top: 7px;
-width: 97%;
-margin-bottom: 8px;
-}
-
-.sidebar {
-  position: fixed;
-margin-top:15px;
-margin-right: 10px;
-  .interests_dropdown {
-    height: 27px;
-    cursor: pointer;
-    font-size: 20px;
-    text-align: center;
-  }
-}
-
-.upcoming_ideas {
-position: absolute;
-top: 50px;
-width: 335px;
-right: 159px;
-z-index: 4;
-}
-
-.stats {
-  position: relative;
-  height: 165px;
-  .name {
-    position: absolute;
-    top: 5px;
-    left: 55px;
-  }
-  ul {
-    margin: 20px 0px 20px 0;
-    height: 30px;
-    width: 270px;
-  }
-  li {
-    display: inline;
-    float: left;
-    padding: 0px 13px;
-  }
-  li:nth-child(-n+2) {
-    border-right: 1px solid $divider;
-  }
-  .new_idea {
-    position: absolute;
-    bottom: 16px;
-    right: 6px;
-    i {
-      color:white;
-    }
-  }
+margin-top: 3px;
 }
 
 
@@ -1428,14 +1358,15 @@ padding-bottom:2px;
 }
 
 .mini_event {
-width: 100%;
+width: 97%;
 position: relative;
 float: left;
 margin: 0 8px 8px 0;
 background-color: white;
 overflow: hidden;
-border-bottom: 1px dotted $divider;
-padding-bottom: 10px;
+border-bottom: 1px dotted #d1cdcd;
+border: 1px solid lightgray;
+padding-top: 4px;
   a {
     color:black;
   }
@@ -1443,6 +1374,10 @@ padding-bottom: 10px;
     position: absolute;
 bottom: 0px;
 right: 56px;
+  }
+  .guest_count {
+    position: relative;
+    top: 7px;
   }
   .promo_img {
     img {
@@ -1494,16 +1429,15 @@ padding-bottom: 0;
     height:30px;
   }
   }
-  .guest_count {
-    position: absolute;
-    right: 3px;
-    top: 3px;
-  }
   .promo_img {
     overflow: hidden;
     height: 60px;
   }
 }
+
+  .guest_count {
+    float:right;
+  }
 
 .event {
   background-color:white;
@@ -1614,40 +1548,13 @@ left: 140px;
 bottom: 2px;
 }
 
-.guest_count {
-position: absolute;
-text-align: right;
-font-size: 19px;
-margin-bottom: 3px;
-  .purple {
-    color:black;
-  }
-}
-
 .gold {
   color: #54A854;
   text-shadow: 1px 1px 1px darkgrey;
   }
 
-.force_tip {
-  position: absolute;
-  right: 8px;
-  color:grey;
-  color: grey;
-  bottom: 7px;
-  font-size: 28px;
-    &:hover{
-  color:darkorange;
-  -webkit-transition: color .25s linear .05s;
-  transition: color .25s linear .05s;
-  }
-}
-
 .rsvp_check {
-float: right;
-position: relative;
-top: 3px;
-font-size: 17px;
+float: left;
 form {
   float: right;
 }
@@ -2268,13 +2175,6 @@ font-size: 21px;
 margin-top: 10px;
 margin-right: 6px;
 }
-}
-
-#guestCount {
-margin: 0px 10px 0px 0px;
-position: relative;
-bottom: 15px;
-font-size: 26px;
 }
 
 .show_skin {
@@ -3438,6 +3338,7 @@ font-size: 30px;
 bottom: 20px;
 float:left;
 clear: left;
+height: 10px;
   }
   .show_friend {
 float: right;
@@ -3908,10 +3809,6 @@ top: 6px;
 .dropdown_caret {
   margin:10px;
 }
-.idea_container {
-  position: relative;
-height: 0px;
-}
 
 .warm_orange {
   color: #EB8325;
@@ -4210,10 +4107,6 @@ padding-top: 4px;
   padding:5px;
 }
 
-.in {
-  background-color: $rsvp;
-}
-
 .let_me_in {
   cursor: pointer;
   cursor: hand;
@@ -4339,4 +4232,17 @@ top: 2px;
 table.user {
 margin: 10px;
 }
+}
+
+.wrapper {
+
+}
+
+.mini_calendar {
+  float:left;
+  height: 100%;
+}
+
+.home_idea_container {
+  float:left;
 }

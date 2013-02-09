@@ -1,0 +1,5 @@
+<ul>
+<%= @event.maybes.each do |u| %>
+	<li class="invite"><span><%= raster_profile_picture(u) %></span><span class="name"><%= u.name %></span></li>
+<% end %>
+</ul>

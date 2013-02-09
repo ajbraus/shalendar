@@ -58,6 +58,7 @@
     <div class="layout" id="content"> 
       <%= yield %>
     </div>
+    
     <%= render 'layouts/footer' %>
     <%= yield :scripts %>
     <% if user_signed_in? && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>

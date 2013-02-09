@@ -212,8 +212,8 @@ class User < ActiveRecord::Base
         end
       end
       rsvps.create!(plan_id: event.id, inout: 1)
-      @event.guests.each do |g|
-        current_user.inmate!(g)
+      event.guests.each do |g|
+        self.inmate!(g)
       end
       if event.parent.present?
         self.rsvp_in!(event.parent)
@@ -262,6 +262,14 @@ class User < ActiveRecord::Base
     return false
   end
 
+  def friended_by?(other_user)
+    @relationship = other_user.relationships.find_by_followed_id(self.id)
+    if @relationship.present? && @relationship.status == 2
+      return true
+    end
+    return false
+  end
+
   def ignores?(other_user)
     @relationship = self.relationships.find_by_followed_id(other_user.id)
     if @relationship.present? && @relationship.status == 0
@@ -301,8 +309,8 @@ class User < ActiveRecord::Base
 
   def inmate!(other_user)
     unless self.is_inmates_with?(other_user) || other_user.ignores?(self) || self.is_friends_with?(other_user)
-      self.relationships.create(follower_id: self.id, followed_id: other_user.id, status: 1)
-      other_user.relationships.create(follower_id: other_user.id, followed_id: self.id, status: 1)
+      self.relationships.create(followed_id: other_user.id, status: 1)
+      other_user.relationships.create(followed_id: self.id, status: 1)
     end
   end
 

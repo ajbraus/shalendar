@@ -10,34 +10,40 @@
 		<% end %>
 		<div class="profile_stats">
 			<ul>
-				<li><span class="only"> ideas </span><i class="icon-envelope blue"></i><%= @user.events.count %></li>				
-				<% @guest_count = 0
-						@user.events.each do |e|
-      				@guest_count += (e.guests.count -1)
-    				end
-    		%>
-				<li><span class="only"> guests </span><i class="icon-group purple"></i> <%= @guest_count %></li>
+				<li><span class="only"> created </span> <%= @user.events.count %></li>
+				<li><span class="only"> .ins </span> <%= @user.plans.count %></li>
+				<li><span class="only"> friends </span> <%= @user.friends.count %></li>
+				<li><span class="only"> .in-mates </span> <%= @user.inmates.count %></li>
 			</ul>
 		</div>
 	</div>
 
-	<% if user_signed_in? && (current_user == @user || current_user.is_friends_with?(@user)) %>
-	<div class="future_events">
-	<h3>Upcoming Ideas</h3>
-		<ul>
-			<% @events.each do |e| %>
-				<%= render partial: 'shalendar/activity_event', locals: { :event => e } %>
-			<% end %>
-		</ul>
+	<div class="idea_container">
+		<%= render partial: 'shalendar/event', collection: @my_ideas, as: :event %>
+	</div>
+	<hr>
+	<h2>.ins</h2>
+	<div class="idea_container">
+		<%= render partial: 'shalendar/event', collection: @my_ins, as: :event %>
 	</div>
 
-	<div class="past_events">
-		<h3>Past Ideas</h3>
-		<ul>
-			<% @past_events.each do |pe| %>
-				<%= render partial: 'shalendar/activity_event', locals: { :event => pe } %>
-			<% end %>
-		</ul>
-	</div>
-<% end %>
+	<% if user_signed_in? %>
+		<% if (current_user == @user || current_user.is_inmates_or_friends_with?(@user)) %>
+			<div class="future_events">
+			<h3>Upcoming Ideas</h3>
+				<ul>
+					<%= render partial: 'shalendar/activity_event', collection: @times, as: :event %>
+				</ul>
+			</div>
+
+			<div class="past_events">
+				<h3>Past Ideas</h3>
+				<ul>
+					<% @past_times.each do |pe| %>
+						<%= render partial: 'shalendar/activity_event', collection: @past_times, as: :event %>
+					<% end %>
+				</ul>
+			</div>
+		<% end %>
+	<% end %>
 </div>
