@@ -1,5 +1,10 @@
 Shalendar::Application.routes.draw do
 
+  match '/about', :to => 'static_pages#about', :as => "about"
+  match '/careers', :to => 'static_pages#careers', :as => "careers"
+  match '/terms', :to => 'static_pages#terms_header', :as => "terms"
+  match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
+
   resources :authentications, :only => [:destroy]
   # match '/auth/:authentication/callback' => 'authentications#create' 
   
@@ -27,15 +32,59 @@ Shalendar::Application.routes.draw do
                               sign_out: "logout"
                             } 
 
-  #devise_scope :user do
-    #match '/new_venue', to: 'registrations#new_vendor', as: "new_vendor"
-  #end
-
   # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
 
+  match '/city_names', :to => 'users#city_names', :as => "city_names"
+  match '/get_fb_friends_to_invite', :to => 'events#get_fb_friends_to_invite', :as => 'get_fb_friends_to_invite'
+  #match '/repeat', :to => 'events#repeat', :as => 'repeat_event'
+  #devise_scope :user do
+    #match '/new_venue', to: 'registrations#new_vendor', as: "new_vendor"
+  #end
+
+  resources :events, path: "ideas", only: [:create, :destroy, :update, :edit, :new, :show, :new_time, :create_new_time] do #:index,
+    get :new_time
+    post :create_new_time
+    resources :comments, only: [:create, :destroy]
+    resources :email_invites, only: [:create, :destroy]
+  end
+
+  match '/new_idea', :to => 'events#new', :as => 'new_idea'
+
+  resources :rsvps, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy, :toggle, :comfirm] do
+    put :toggle
+    delete :ignore
+    put :confirm
+    put :confirm_and_follow
+  end
+
+  match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
+  match 'share_all_fb_friends' =>'shalendar#share_all_fb_friends'
+  match 'post_to_own_fb_wall' => 'events#post_to_own_fb_wall'
+  match 'post_to_wall_permissions' => 'shalendar#post_to_wall_permissions'
+  #match 'new_invited_events' => 'shalendar#new_invited_events'
+  #match 'plans' => 'shalendar#plans'
+  match 'search' => 'shalendar#search'
+
+  #PAYMENTS
+  #match '/set_time_zone', :to => 'users#set_time_zone', :as => 'set_time_zone'
+
+  #match '/collect_payments', :to => 'payments#new_merchant', :as => 'new_merchant'
+  #match '/create_merchant', :to => 'payments#create_merchant', :as => 'create_merchant'
+
+  #match '/confirm_payment', :to => 'payments#confirm_payment', :as => "confirm_payment"
+  #match '/submit_paytment', :to => 'payments#submit_payment', :as => "submit_payment"
+
+  #match '/payment', :to => 'payments#new_card', :as => 'new_card'
+  #match '/create_card', :to => 'payments#create_card', :as => 'create_card'
+
+  #match '/downgrade', :to => 'payments#downgrade', :as =>'downgrade'
+  #match '/upgrade', :to => 'payments#upgrade', :as => 'upgrade'
+
+  #MOBILE
   namespace :api do
     namespace :v1 do
       #problem... POST/DELETE requests are being processed as GET..
@@ -110,135 +159,4 @@ Shalendar::Application.routes.draw do
       match '/get_my_ideas', :to => 'events#my_ideas', :as => "my_ideas", :via => :get
     end
   end
-
-  match '/city_names', :to => 'users#city_names', :as => "city_names"
-
-  match '/get_fb_friends_to_invite', :to => 'events#get_fb_friends_to_invite', :as => 'get_fb_friends_to_invite'
-
-  #match '/set_time_zone', :to => 'users#set_time_zone', :as => 'set_time_zone'
-
-  #match '/collect_payments', :to => 'payments#new_merchant', :as => 'new_merchant'
-  #match '/create_merchant', :to => 'payments#create_merchant', :as => 'create_merchant'
-
-  #match '/confirm_payment', :to => 'payments#confirm_payment', :as => "confirm_payment"
-  #match '/submit_paytment', :to => 'payments#submit_payment', :as => "submit_payment"
-
-  #match '/payment', :to => 'payments#new_card', :as => 'new_card'
-  #match '/create_card', :to => 'payments#create_card', :as => 'create_card'
-
-  match '/downgrade', :to => 'payments#downgrade', :as =>'downgrade'
-  match '/upgrade', :to => 'payments#upgrade', :as => 'upgrade'
-
-  #match '/make_a_group', :to => 'events#make_a_group', :as => 'make_a_group'
-  match '/repeat', :to => 'events#repeat', :as => 'repeat_event'
-  #match '/new_crowd_idea', :to => 'events#new_crowd_idea', :as => 'new_crowd_idea'
-
-  #match '/activity', :to => 'shalendar#activity', :as => "activity"
-  match '/manage_friends', :to => 'shalendar#manage_friends', :as => "manage_friends"
-
-  resources :events, path: "ideas", only: [:create, :destroy, :update, :tip, :edit, :new, :show, :new_time, :create_new_time] do #:index,
-    get :new_time
-    put :tip
-    post :create_new_time
-    resources :comments, only: [:create, :destroy]
-    resources :email_invites, only: [:create, :destroy]
-    resources :fb_invites, only: [:create, :destroy]
-  end
-
-  match '/new_idea', :to => 'events#new', :as => 'new_idea'
-
-  resources :rsvps, only: [:create, :destroy]
-  resources :invitations, only: [:create, :destroy]
-  resources :relationships, only: [:create, :destroy, :toggle, :comfirm] do
-    put :toggle
-    delete :ignore
-    put :confirm
-    put :confirm_and_follow
-  end
-
-  match 'tip' => 'events#tip'
-  match 'invite_all_friends' => 'shalendar#invite_all_friends'
-  match 'invite_all_fb_friends' => 'fb_invites#invite_all_fb_friends'
-  match 'post_to_own_fb_wall' => 'events#post_to_own_fb_wall'
-  match 'post_to_wall_permissions' => 'shalendar#post_to_wall_permissions'
-  match 'friend_requests' => 'shalendar#friend_requests'
-  #match 'new_invited_events' => 'shalendar#new_invited_events'
-  #match 'plans' => 'shalendar#plans'
-  match 'search' => 'shalendar#search'
-  match 'datepicker' => "shalendar#datepicker"
-
-  #match '/friends_ideas', to: 'shalendar#friends_ideas', as: "friends_ideas"
-  #match '/city_ideas', to: 'shalendar#city_ideas', as: "city_ideas"
-  #match '/my_ideas', to: 'shalendar#my_ideas', as: 'my_ideas'
-  #match '/calendar', to: 'shalendar#calendar', as: "calendar"
-
-  #match '/what_is_hoosin', :to => 'shalendar#what_is_hoosin', :as => "what_is_hoosin"
-  #match '/crowd_ideas', :to => 'shalendar#crowd_ideas', :as => "crowd_ideas"
-  match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
-  #match '/yellow_pages', :to => 'shalendar#yellow_pages', :as => "yellow_pages"
-  match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
-  match 'share_all_fb_friends' =>'shalendar#share_all_fb_friends'
-  match 'friend_all' => 'shalendar#friend_all'
-
-  #match '/venue', to: 'static_pages#vendor_splash', as: 'vendor_splash'
-  match '/about', :to => 'static_pages#about', :as => "about"
-  match '/careers', :to => 'static_pages#careers', :as => "careers"
-  match '/terms', :to => 'static_pages#terms_header', :as => "terms"
-
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
-
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
-
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
-
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
 end

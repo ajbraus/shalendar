@@ -2,34 +2,26 @@ require 'chronic'
 require 'icalendar'
 
 class Event < ActiveRecord::Base
-  
+  default_scope where(:dead=>'f')
+
   belongs_to :user
   belongs_to :city
 
   has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
   has_many :guests, through: :rsvps, :conditions => ['inout = ?', 1]
 
-  has_many :invitations, foreign_key: "invited_event_id", dependent: :destroy
-  has_many :invited_users, through: :invitations
-
   has_many :comments, dependent: :destroy
   has_many :email_invites, dependent: :destroy
-  has_many :fb_invites, dependent: :destroy
 
   belongs_to :parent, :foreign_key => "parent_id", :class_name => "Event"
   has_many :instances, :foreign_key => "parent_id", :class_name => "Event"
 
-  has_many :categorizations, dependent: :destroy
-  has_many :categories, :through => :categorizations
-
   attr_accessible :user_id,
-                  :suggestion_id,
                   :starts_at, 
                   :duration,
                   :ends_at,
                   :title, 
                   :description,
-                  :min, 
                   :max,
                   :address, 
                   :latitude,
@@ -37,21 +29,19 @@ class Event < ActiveRecord::Base
                   :chronic_starts_at,
                   :link,
                   :gmaps,
-                  :tipped,
-                  :guests_can_invite_friends,
                   :price,
                   :promo_img,
                   :promo_vid,
                   :promo_url,
-                  :category,
                   :family_friendly,
-                  :is_public,
                   :short_url,
                   :parent_id,
                   :require_payment,
                   :slug,
                   :city_id,
-                  :one_time
+                  :one_time,
+                  :dead,
+                  :friends_only
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
                                              :medium => '190x270'},
@@ -68,7 +58,6 @@ class Event < ActiveRecord::Base
   validates :user_id,
             :title, presence: true
   validates :max, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true
-  validates :min, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true
   validates :duration, numericality: { in: 0..1000 }, allow_blank: true 
   validates :title, length: { maximum: 140 }
   validates_numericality_of :longitude, :latitude, allow_blank:true
@@ -99,18 +88,8 @@ class Event < ActiveRecord::Base
       :end => ends_at,
       :host => self.user,
       :gcnt => self.guest_count,
-      :tip => self.min,
-      :guests => self.guests,
-      :tipped => self.tipped
+      :guests => self.guests    
     }
-  end
-
-  def all_invited_users
-    if self.has_parent?
-      return self.invited_users | self.parent.invited_users
-    else
-      return self.invited_users
-    end
   end
 
   def url_starts_at
@@ -153,6 +132,14 @@ class Event < ActiveRecord::Base
     end
   end
   
+  def mini_start_time
+    if starts_at.present?
+      self.starts_at.strftime "%l:%M%P"
+    else
+      "TBD"
+    end
+  end
+  
   def start_date
     if starts_at.present?
       self.starts_at.strftime "%A, %B %e"
@@ -163,24 +150,6 @@ class Event < ActiveRecord::Base
 
   def self.format_date(date_time)
     Time.at(date_time.to_i).to_formatted_s(:db)
-  end
-
-  def tip!
-    if self.tipped? == false
-      if self.ends_at.present?
-        unless self.ends_at < Time.now
-          self.guests.each do |g|
-            g.delay.contact_tipped(self)
-          end
-        end
-      else
-        self.guests.each do |g|
-          g.delay.contact_tipped(self)
-        end
-      end
-    end
-    self.tipped = true
-    self.save!
   end
 
   def full?
@@ -202,53 +171,6 @@ class Event < ActiveRecord::Base
     self.starts_at = Chronic.parse(s) if s
   end
 
-  def self.public_forecast(load_datetime, city, toggled_categories)
-    @public_forecast = []
-    (-3..26).each do |i|
-      @new_datetime = load_datetime + i.days 
-      @time_range = @new_datetime.midnight .. @new_datetime.midnight + 1.day
-      
-      @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, city_id: city.id).order("starts_at ASC") #.joins(:categories).where(categories: {id: toggled_categories} )
-      
-      #Previous stuff while this included a signed in user
-      #   if current_user.family_filter?
-      #     @public_events_on_date = Event.where(starts_at: @time_range, is_public: true, family_friendly: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e)}
-      #   else 
-      #     @public_events_on_date = Event.where(starts_at: @time_range, is_public: true).order("starts_at ASC").reject { |e| current_user.rsvpd?(e) || current_user.invited?(e) || current_user.invited_to_an_events_group?(e) || current_user.made_a_group?(e) }
-      #   end
-      # @public_events_on_date = @public_events_on_date.sort_by{|t| t[:starts_at]}
-
-      @public_forecast.push(@public_events_on_date)
-    end
-    return @public_forecast
-  end
-
-  # def self.check_tip_deadlines
-  #   #want to change this to be for each event, check the deadline, if it's in the window then act
-  #   # @tip_window_floor = Time.now + 1.hour + 50.minutes
-  #   # @tip_window_ceiling = Time.now + 2.hours
-  #   # @relevant_events = Event.where(':window_floor <= events.starts_at AND 
-  #   #                     events.starts_at < :window_ceiling',
-  #   #                     window_floor: @tip_window_floor, window_ceiling: @tip_window_ceiling)
-  #   time_range = Time.now + 1.hour + 50.minutes .. Time.now + 2.hours
-  #   Event.where(starts_at: time_range).each do |re|
-  #     if re.tipped?
-  #       re.guests.each do |g|
-  #         if g.notify_event_reminders?
-  #           g.delay.contact_reminder(re)
-  #         end
-  #       end
-  #     else
-  #       re.user.delay.contact_deadline(re)#could be cleaner
-  #     end
-  #   end
-  # end
-
-  def self.clean_up
-    #prune db of old events here.. for now that's anything older than 3 days ago
-
-  end
-
   def event_day
     if self.starts_at.present?
       self.starts_at.strftime "%A"
@@ -260,6 +182,32 @@ class Event < ActiveRecord::Base
       self.title.slice(0..50) + "..."
     else
       self.title
+    end
+  end
+
+  def friends_in_count(current_user)
+    self.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count
+  end
+
+  def friends_invited_count(current_user)
+    @invited_friends = []
+    self.maybes.each do |u|
+      if current_user.is_friends_with?(u)
+        @invited_friends.push(u)
+      end
+    end
+    return @invited_friends.count
+  end
+
+  def maybes
+    self.guests.each do |g|
+      @g_maybes = []
+      (g.inmates | g.friends).each do |person|
+        unless person.rsvpd?(self)
+          @g_maybes.push(person) 
+        end
+      end
+      @maybes = @maybes | @g_maybes
     end
   end
 
@@ -419,34 +367,11 @@ class Event < ActiveRecord::Base
     self.short_url = @b.short_url
     self.save
   end
-
-  def total_guests
-    if self.groups.any?
-      @event_group_guests_count = 0
-      self.groups.each do |g|
-        @event_group_guests_count += g.guest_count 
-      end
-      @total = self.guest_count + @event_group_guests_count
-    else
-      @total = self.guest_count 
-    end
-    return @total 
-  end
-
-  # def guests
-  #   @guests = self.rsvps.where(inout: 1) #USERS WHO ARE IN
-  #   if @guests.any?
-  #     @guests = @guests.map { |r| User.find_by_id(r.guest_id) }
-  #     return @guests
-  #   else
-  #     return []
-  #   end
-  # end
-
+  
   def unrsvpd_users
-    @unrsvpd_users = self.rsvps.where(inout: 0) #USERS WHO ARE IN
-    if @unrsvpd_users.any?
-      @unrsvpd_users = @unrsvpd_users.map { |r| User.find_by_id(r.guest_id) }
+    @unrsvps = self.rsvps.where(inout: 0) #USERS WHO ARE IN
+    if @unrsvps.any?
+      @unrsvpd_users = @unrsvps.map { |r| User.find_by_id(r.guest_id) }
       return @unrsvpd_users
     else
       return []
@@ -455,14 +380,6 @@ class Event < ActiveRecord::Base
 
   def guest_count
     return self.rsvps.where(inout: 1).count
-  end
-
-  def contact_cancellation #this is weird bc have to do delayed job before destroying..
-    #sloppy but simple fix
-    self.guests.each do |g|
-      g.contact_cancellation(self)
-    end
-    self.destroy
   end
 
 # END OF CLASS

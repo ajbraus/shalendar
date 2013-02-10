@@ -80,26 +80,14 @@ class User < ActiveRecord::Base
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
   has_many :plans, through: :rsvps, :conditions => ['inout = ?', 1]
 
-  has_many :invitations, foreign_key: "invited_user_id", dependent: :destroy
-  has_many :invited_events, through: :invitations
-
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
 
-  has_many :followed_users, through: :relationships, source: :followed, conditions: "confirmed = 't'"  
-  has_many :pending_followed_users, through: :relationships, source: :followed, conditions: "confirmed = 'f'"
+  has_many :inmates, through: :relationships, source: :followed, conditions: "status = 1"  
+  has_many :friends, through: :relationships, source: :followed, conditions: "status = 2"  
 
-  has_many :reverse_relationships, foreign_key: "followed_id",
-                                   class_name:  "Relationship",
-                                   dependent:   :destroy
-  has_many :followers, through: :reverse_relationships, source: :follower, conditions: "confirmed = 't'"
   has_many :comments, dependent: :destroy
 
-  has_many :interests, dependent: :destroy
-  has_many :categories, through: :interests
-
   belongs_to :city
-
-  has_one :classification, :class_name => "Category"
 
   after_create :send_welcome
 
@@ -175,27 +163,6 @@ class User < ActiveRecord::Base
     where(conditions, query)
   end
 
-  def cloned?(suggestion_id)
-    if events.find_by_suggestion_id(suggestion_id)
-      return true
-    else
-      return false
-    end
-  end
-
-  def rsvpd_to_clone?(suggestion_id)
-    @event = events.find_by_suggestion_id(suggestion_id)
-    if @event.nil?
-      return false
-    else
-      if rsvps.find_by_plan_id(@event.id).nil?
-        return false
-      else
-        return true
-      end
-    end
-  end
-
   def rsvpd?(event)
     @rsvp = rsvps.find_by_plan_id(event.id)
     if @rsvp.present?
@@ -245,9 +212,9 @@ class User < ActiveRecord::Base
         end
       end
       rsvps.create!(plan_id: event.id, inout: 1)
-      # if event.guest_count >= event.min && event.tipped? == false
-      #   event.tip!
-      # end
+      event.guests.each do |g|
+        self.inmate!(g)
+      end
       if event.parent.present?
         self.rsvp_in!(event.parent)
       else #contact only once if they sign up for time + idea 
@@ -287,300 +254,105 @@ class User < ActiveRecord::Base
 
 
   #Relationship methods
-  def following?(other_user)
-    if r = relationships.find_by_followed_id(other_user.id)
-      if r.confirmed?
-        return true
-      else
-        return false
-      end
-    else
-      return false
-    end
-  end
-
-  def request_following?(other_user)
-    if r = relationships.find_by_followed_id(other_user.id)
-      if r.confirmed?
-        return false
-      else
-        return true
-      end
-    else
-      return false
-    end
-  end
-
-  def follow!(other_user)
-    unless self == other_user
-      relationships.create!(followed_id: other_user.id)
-    end
-  end
-
-  def unfollow!(other_user)
-    unless relationships.find_by_followed_id(other_user.id).nil?
-      relationships.find_by_followed_id(other_user.id).destroy
-    end
-  end
-
   def is_friends_with?(other_user)
-    @follow = self.reverse_relationships.find_by_follower_id(other_user.id)  #both relationships exist and are confirmed
-    @follow_back = other_user.reverse_relationships.find_by_follower_id(self.id)
-    if @follow.present? && @follow.confirmed? && @follow_back.present? && @follow_back.confirmed?
+    @relationship = self.relationships.find_by_followed_id(other_user.id)
+    if @relationship.present? && @relationship.status == 2
       return true
     end
     return false
   end
 
-  def friend!(other_user)
-    if other_user.require_confirm_follow? && other_user.following?(self) == false #autoconfirm if already following us 
-      self.follow!(other_user)
-      @relationship = self.relationships.find_by_followed_id(other_user.id) #should really be relationship, find by ids, bc what if 2 of these execute at the same time?
-      @relationship.confirmed = false
-      @relationship.save
-      other_user.delay.contact_confirm(self)
-    else
-      unless self.following?(other_user) || self.request_following?(other_user)
-        self.follow!(other_user)
-      end
-      @relationship = self.relationships.find_by_followed_id(other_user.id)
-      @relationship.confirmed = true
-      @relationship.save
-      other_user.delay.contact_friend(self)
-      self.add_invitations_from_user(other_user)
-      other_user.friend_back!(self)
+  def friended_by?(other_user)
+    @relationship = other_user.relationships.find_by_followed_id(self.id)
+    if @relationship.present? && @relationship.status == 2
+      return true
     end
+    return false
   end
 
-  ##CHANGED THIS- now it's always from the perspective of the user who is doing the friending
-  #same as friend! without the contact or extra check...
-  def friend_back!(other_user)
-    unless self.following?(other_user) || self.request_following?(other_user)
-      self.follow!(other_user)
-    end
+  def ignores?(other_user)
     @relationship = self.relationships.find_by_followed_id(other_user.id)
-    @relationship.confirmed = true
-    @relationship.save
-    self.add_invitations_from_user(other_user)
-  end
-
-  def add_invitations_from_user(other_user)
-    other_user.rsvps.each do |r|
-      if r.invite_all_friends?
-        unless self.invited?(r.plan) || (r.plan.starts_at.present? && r.plan.starts_at < (Time.now - 3.days))
-          other_user.invite!(r.plan, self)
-        end
-      end
+    if @relationship.present? && @relationship.status == 0
+      return true
     end
+    return false
   end
 
-  def unfriend!(other_user)
+  def is_inmates_with?(other_user)
     @relationship = self.relationships.find_by_followed_id(other_user.id)
-    @reverse_relationship = other_user.relationships.find_by_followed_id(self.id)
+    if @relationship.present? && @relationship.status == 1
+      return true
+    end
+    return false
+  end
+
+  def is_inmates_or_friends_with?(other_user)
+    @relationship = self.relationships.find_by_followed_id(other_user.id)
     if @relationship.present?
-      @relationship.destroy
-    end
-    if @reverse_relationship.present?
-      @reverse_relationship.destroy
-    end
-    self.delete_invitations_from_user(other_user)
-    other_user.delete_invitations_from_user(self)
-  end
-
-  def delete_invitations_from_user(other_user)
-    self.invitations.where('invitations.inviter_id = :other_user_id',
-                             other_user_id: other_user.id).each do |i|
-      e = Event.find_by_id(i.invited_event_id)
-      unless e.nil? || self.invited?(e)
-        self.find_alternate_invitation_to_event(e)
-      end
-      i.destroy
-    end
-  end
-
-  def find_alternate_invitation_to_event(event)
-    event.rsvps.each do |r|
-      if r.invite_all_friends? && self.following?(r.guest)
-        r.guest.invite!(event, self)
-        return
-      end
-    end
-  end
-
-  def invited?(event)
-    #Invite.where(invited_event_id: event.id, invited_user_id: self.id).any?
-    invitations.where('invitations.invited_event_id = :eventid', eventid: event.id).any?
-  end
-
-#TODO
-  def invited_to_instance?(event)
-    event.instances.invitations.where()
-  end
-
-  def friend_is_invited?(event)
-  end
-
-  def invited_to_an_events_group?(parent_event)
-    if parent_event.groups.any?
-      parent_event.groups.each do |child|
-        if invitations.where('invitations.invited_event_id = :eventid', eventid: child.id).any?
-          return true
-        end
-      end
-    end
-    return false
-  end
-
-  def made_a_group?(parent_event)
-    self.events.each do |e|
-      parent_event.groups.each do |peg|
-        if e.id == peg.id
-          return true
-        end
-      end
-    end
-    return false
-  end
-
-
-  def invited_all_friends?(event)
-    if self.in?(event)
-      if self.rsvps.find_by_plan_id(event.id).invite_all_friends?
+      unless @relationship.status == 0
         return true
       end
     end
     return false
   end
-  
-  def invite_all_friends!(event)
-    self.followers.each do |f|
-      unless f.invited?(event) || f.rsvpd?(event)
-        #silo by city, so that invite all only does relevant friends
-        if f.city == self.city
-          self.invite!(event, f)
+
+  def friend!(other_user)
+    @relationship = self.relationships.find_by_followed_id(other_user.id)
+    if @relationship.present?
+      @relationship.status = 2
+      @relationship.save
+    else 
+      self.inmate!(other_user)
+      self.friend!(other_user)
+    end
+  end
+
+  def inmate!(other_user)
+    unless self.is_inmates_with?(other_user) || other_user.ignores?(self) || self.is_friends_with?(other_user)
+      self.relationships.create(followed_id: other_user.id, status: 1)
+      other_user.relationships.create(followed_id: self.id, status: 1)
+    end
+  end
+
+  def ignore_inmate!(inmate)
+    @relationship = self.relationship.find_by_follower_id(inmate.id)
+    @relationship.status = 0
+    @relationship.save
+    
+    @reverse_relationship = inmate.relationship_find_by_follower_id(self.id)
+    @reverse_relationship.status = 0
+    @reverse_relationship.save
+  end
+
+  def unfriend!(other_user)
+    @relationship = self.relationships.find_by_followed_id(other_user.id)
+    if @relationship.present?
+      @relationship.status = 1
+      @relationship.save
+    end
+  end
+
+  def invited?(event)
+    if event.friends_only?
+      return event.user.is_friends_with?(self)
+    else
+      event.guests.each do |g|
+        if g.is_inmates_or_friends_with?(self)
+          return true
         end
       end
     end
-    if self.in?(event)
-      r = self.rsvps.find_by_plan_id(event.id)
-      r.invite_all_friends = true
-      r.save
-    end
+    return false
   end
 
-  def invite!(event, other_user)
-    unless other_user.invited?(event)
-      other_user.invitations.create!(invited_event_id: event.id, inviter_id: self.id)
-      other_user.new_invited_events_count += 1
-      other_user.save
+  def add_fb_to_inmates
+    @member_friends = self.fb_friends(@graph)[0]
+    @member_friends.each do |mf|
+      self.inmate!(mf)
     end
-  end
-
-  def forecast(load_datetime)
-    Time.zone = self.city.timezone
-    @forecast = []
-    (-3..26).each do |i|
-      @events = []
-      @new_datetime = load_datetime + i.days #Date.strptime(load_date, "%Y-%m-%d") + i
-      @events_on_date = self.events_on_date(@new_datetime)
-      @events_on_date = @events_on_date.sort_by{|t| t[:starts_at]}
-      @events_on_date.each do |e|
-        @events.push(e)
-      end
-      @forecast.push(@events)
-    end
-    return @forecast
-  end
-
-  def events_on_date(load_datetime)
-    @time_range = load_datetime.midnight .. load_datetime.midnight + 1.day - 1.second
-    #CATEGORY TODO
-    @toggled_category_ids = []
-    self.categories.each do |tcat|
-      @toggled_category_ids.push(tcat.id)
-    end
-
-    # loop through categories and add all relevant events from city + category
-    @interest_events_on_date = Event.where(starts_at: @time_range, is_public: true, city_id: self.city.id)
-      .joins(:categorizations).where(categorizations: {category_id: @toggled_category_ids} ).order("starts_at ASC")
-
-    @interest_events_on_date.each do |inte|
-      inte.inviter_id = inte.user.id
-    end
-
-    @plans_on_date = Event.where(starts_at: @time_range).joins(:rsvps)
-                      .where(rsvps: {guest_id: self.id}).order("starts_at ASC")
-    
-    @plans_on_date.each do |p|
-      p.inviter_id = p.user.id
-    end
-    @invited_events_on_date = Event.where(starts_at: @time_range).joins(:invitations)
-                              .where(invitations: {invited_user_id: self.id}).order("starts_at ASC")
-    @invited_events_on_date = @invited_events_on_date - @plans_on_date
-    @invited_events_on_date.each do |ie|
-      ie.inviter_id = ie.invitations.find_by_invited_user_id(self.id).inviter_id
-    end
-    return @invited_events_on_date | @plans_on_date | @interest_events_on_date
-  end
-
-  def mobile_events_on_date(load_datetime)#don't care about toggled here, do it locally on client
-
-    time_range = load_datetime.midnight .. load_datetime.midnight + 1.day
-    @plans_on_date = Event.where(starts_at: time_range).joins(:rsvps)
-                      .where(rsvps: {guest_id: self.id}).order("starts_at ASC")
-    @plans_on_date.each do |p|
-      p.inviter_id = p.user.id
-    end
-
-    @invited_events_on_date = Event.where(starts_at: time_range).joins(:invitations)
-                              .where(invitations: {invited_user_id: self.id}).order("starts_at ASC")
-    
-    @invited_events_on_date = @invited_events_on_date - @plans_on_date
-    
-    @invited_events_on_date.each do |ie|
-      ie.inviter_id = ie.invitations.find_by_invited_user_id(self.id).inviter_id
-    end
-    return @invited_events_on_date | @plans_on_date
   end
 
   # Contact methods
-  def contact_invitation(event, inviter)
-    @event = event
-    @inviter = inviter
-    if self.iPhone_user?
-      d = APN::Device.find_by_id(self.apn_device_id)
-      if d.nil?
-        Airbrake.notify("thought we had an iphone user but can't find their device")
-      else
-        n = APN::Notification.new
-        n.device = d
-        n.alert = ".invite from #{@inviter.name}"
-        n.badge = 1
-        n.sound = true
-        n.custom_properties = {msg: "#{@event.short_event_title}",
-                               :type => "invitation", 
-                               :id => "#{@event.id}"}
-        n.save
-      end
-    elsif self.android_user?
-      d = Gcm::Device.find_by_id(self.GCMdevice_id)
-      if d.nil?
-        Airbrake.notify("thought we had an android user but can't find their device")
-      else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = ".invite from #{@inviter.name}"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {msg: "#{@event.short_event_title}", 
-                                                            :type => "invitation", 
-                                                            :id => "#{@event.id}"}}
-        n.save
-      end
-    else
-      Notifier.invitation(@event, self, @inviter).deliver
-    end
-  end
-
   def contact_reminder(event)
     @user = self
     @event = event
@@ -760,74 +532,7 @@ class User < ActiveRecord::Base
         Notifier.cancellation(@event, @user).deliver
       end
     end
-    @event.destroy
   end
-
-  def contact_tipped(event)
-    @event = event
-    @user = self
-    if(@user.iPhone_user == true)
-      d = APN::Device.find_by_id(@user.apn_device_id)
-      if d.nil?
-        Airbrake.notify("thought we had an iphone user but can't find their device")
-      else
-        n = APN::Notification.new
-        n.device = d
-        n.alert = "#{@event.short_event_title} Tipped!"
-        n.badge = 1
-        n.sound = true
-        n.custom_properties = {msg: "", :type => "tipped", :id => "#{@event.id}"}
-        n.save
-      end
-    elsif(@user.android_user == true)
-      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-      if d.nil?
-        Airbrake.notify("thought we had an android user but can't find their device")
-      else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = "#{@event.short_event_title} Tipped!"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {msg: "", :type => "tipped", :id => "#{@event.id}"}}
-        n.save
-      end
-    else
-      Notifier.event_tipped(@event, @user).deliver
-    end
-  end
-
-  # def contact_deadline(event)
-  #   @event = event
-  #   @user = self
-  #   if(@user.iPhone_user == true)
-  #     d = APN::Device.find_by_id(@user.apn_device_id)
-  #     if d.nil?
-  #       Airbrake.notify("thought we had an iphone user but can't find their device")
-  #     else
-  #       n = APN::Notification.new
-  #       n.device = d
-  #       n.alert = "Untipped Idea starts soon"
-  #       n.badge = 1
-  #       n.sound = true
-  #       n.custom_properties = {msg: "Tip or Cancel: #{@event.short_event_title}", :type => "deadline", :id => "#{@event.id}"}
-  #       n.save
-  #     end
-  #   elsif(@user.android_user == true)
-  #     d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-  #     if d.nil?
-  #       Airbrake.notify("thought we had an android user but can't find their device")
-  #     else
-  #       n = Gcm::Notification.new
-  #       n.device = d
-  #       n.collapse_key = "Untipped Idea starts soon"
-  #       n.delay_while_idle = true
-  #       n.data = {:registration_ids => [d.registration_id], :data => {msg: "Tip or Cancel: #{@event.short_event_title}", :type => "deadline", :id => "#{@event.id}"}}
-  #       n.save
-  #     end
-  #   else
-  #     Notifier.event_deadline(@event).deliver
-  #   end
-  # end
 
   def contact_friend(friend)
     @user = self
@@ -860,39 +565,6 @@ class User < ActiveRecord::Base
     else
       #@follower_pic = raster_profile_picture(@user)
       Notifier.new_friend(@user, @follower).deliver
-    end
-  end
-
-  def contact_confirm(friend)
-    @user = user
-    @follower = friend
-    if(@user.iPhone_user == true)
-      d = APN::Device.find_by_id(@user.apn_device_id)
-      if d.nil?
-        Airbrake.notify("thought we had an iphone user but can't find their device")
-      else
-        n = APN::Notification.new
-        n.device = d
-        n.alert = "Confirm Friend - #{@follower.name}"
-        n.badge = 1
-        n.sound = true
-        n.custom_properties = {msg: "", :type => "confirm_friend", :id => "#{@follower.id}"}
-        n.save
-      end
-    elsif(@user.android_user == true)
-      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-      if d.nil?
-        Airbrake.notify("thought we had an android user but can't find their device")
-      else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = "Confirm Friend - #{@follower.name}"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "confirm_friend", :id => "#{@follower.id}"}}
-        n.save
-      end
-    else
-      Notifier.confirm_friend(@user, @follower).deliver
     end
   end
 
@@ -1064,43 +736,6 @@ class User < ActiveRecord::Base
     @auth = authentications.where("provider = ?", "Facebook").last
     return @auth
   end
-
-  # def relevant_invites
-  #   @invites = []
-  #   @invitations = self.invitations.order('created_at desc')
-  #   @invitations.each do |i|
-  #     e = Event.find_by_id(i.invited_event_id)
-  #     unless self == e.user || e.over?
-  #       e.inviter_id = i.inviter_id
-  #     end
-  #     @invites.push(e) unless self.out?(e) || e.over?
-  #   end
-  #   return @invites
-  # end
-
-  def invited_all_friends(event)
-    @rsvp = event.rsvps.find(:guest_id => self.id)
-    if @rsvp.invite_all_friends?
-      return true
-    end
-    return false
-  end
-
-  # CONTACT FOR INVITATION
-  # def contact(event)
-  #   if app user
-  #     push notification
-  #   elsif phone number && allows texts
-  #     Twilio::SMS.create :to => '#{self.phone}', :from => 'HOOSIN',
-  #                 :body => "#{event.title - event.short_url}"
-  #   elsif allows emails
-  #     email
-  #   end
-  # end
-
-  # contact for digest
-  # contact for s/o rsvped to their event
-  # contact for 
 
   private
 

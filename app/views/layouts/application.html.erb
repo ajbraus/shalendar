@@ -51,13 +51,12 @@
       <%= render 'shared/not_signed_in_pitch' %>
     <% end %>
     <% end %>
-    <span id="invitations"></span>
-    <span id="plans"></span>
     <span id="shareAfterRsvp"></span>
     <div id='feedback'><a href="mailto:info@hoos.in" target="_blank">Report a Problem</a></div>
     <div class="layout" id="content"> 
       <%= yield %>
     </div>
+    
     <%= render 'layouts/footer' %>
     <%= yield :scripts %>
     <% if user_signed_in? && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>

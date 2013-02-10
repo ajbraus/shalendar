@@ -1,5 +1,9 @@
-
-<%= render 'ideas' %>
+<% if user_signed_in? %>
+	<%= render 'mini_calendar' %>
+<% end %>
+	<div id="ideaContainer" class="home_idea_container">
+	  <%= render partial: "shalendar/event", collection: @ideas %>
+	</div>
 
 <% if false %>
 <% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>

@@ -2,12 +2,14 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_slug(params[:id])
     if user_signed_in?
-      @my_ideas = @user.events.where(:starts_at => nil)
-      @ideas = @my_ideas.select { |e| current_user.invited?(e) || e.is_public? }
-      @events = @user.events.where("starts_at > ?", Time.now).order('starts_at asc')
-      @events = @events.select { |e| current_user.invited?(e) || e.is_public? }
-      @past_events = @user.events.where("starts_at < ?", Time.now).order('starts_at asc').limit(20)
-      @past_events = @past_events.select { |e| e.user == current_user || current_user.invited?(e) || e.is_public? }        
+      @my_ideas = @user.events.where(:starts_at => nil, :friends_only => false)
+      if current_user.is_inmates_with?(@user) 
+        @my_ins = @user.plans.where(:starts_at => nil, :friends_only => false) - @my_ideas
+      elsif current_user.is_friends_with?(@user) || @user == current_user
+        @my_ins = @user.plans.where(:starts_at => nil) - @my_ideas
+      end
+      @times = @user.plans.where("starts_at > ?", Time.now).order('starts_at ASC')        
+      @past_times = @user.plans.where("starts_at < ?", Time.now).order('starts_at ASC').limit(20)
     else
       #@events = @user.plans.where("starts_at > :now", now: Time.now).order('starts_at asc')
       #@past_events = @user.plans.where("starts_at < :now", now: Time.now).order('starts_at asc')

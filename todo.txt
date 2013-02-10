@@ -8,39 +8,68 @@ comments and time change not sending pushes
 Final Version:
 
 Inmates
-	inmates == relationships
-	friends == relationship.status = 0,1,2 (0 == ignore, 1 == inmate, 2 == friend)
-	add column 'status' to relationships
-	add all facebook friends to inmates (create relationships with status = 1)
-	make all current relationships -> status = 2
-	add all 'follow_ups' as status 1
+	DONE inmates == relationships
+	DONE friends == relationship.status = 0,1,2 (0 == ignore, 1 == inmate, 2 == friend)
+	DONE add column 'status' to relationships
+	DONE add all facebook friends to inmates (create relationships with status = 1)
+	DONE make all current relationships -> status = 1
+	DONE add all 'follow_ups' as status 1
 
 Registrations#create
-	make all fb friends on hoos.in inmates
+	DONE make all fb friends on hoos.in inmates
+
+Registration#edit
+	DONE remove confirm follow
 
 shalendar#home
-	build Calendar
-	Ideas -- all ideas sorted by #friends going / #inmates going
-	Search -- remove friend button
 	.in | .invite (.in's are opaque, .invites are a bit transparent)
-	remove face dropdown - face goes to profile
+	Add facepile to mini_event
+	hide all ins from 
+	stats in header #friends #ins #upcoming times
+	times in inset gutter / dark
+	independent source
+
+	DONEremove face dropdown - face goes to profile
+	DONE build Calendar
+	DONE Ideas -- all ideas sorted by #friends going / #inmates going
+	DONE Search -- remove friend button
+
+push notifications for event create if your friend created it
 
 event#new
 	remove visibility options
+	private bool: only friends can see
 
 event#show
-	allow anyone to add_time
-	remove invite_raster
-	remove public icon
+	DONE allow anyone to add_time
+	DONE remove invite_raster
+	DONE remove public icon
+	DONE make maybes everyone who could join
+	add mute button in chat
+	add 'creator'
 
 event.html
-	how many friends are going, how many inmates
-	remove public icon
-	remove status icons
-	remove invite all friends
-	remove by
+	DONE how many friends are going, how many inmates
+	DONE remove public icon
+	DONE remove status icons
+	DONE remove invite all friends
+	DONE remove by
+
+user#show
+	ignore_inmate
+	remove friend
+	make inmate => friend
+	hide times of ideas
+
+NOTIFIERS:
+	new_friend
+	add stats to digest
+	follow_up reflects inmate change
 
 --------------------------------------------------------------
+
+Login through facebook - pick city
+display city on home
 
 event#show
 	add location display to time
@@ -52,11 +81,11 @@ users#show
 	if @user == current_user Display your .ins
 	else display @user's in's sorted by things you're going to do together or have done
 	link to settings
-
+	remove friend 
+	remove inmate
 
 event#new
 	share on fb/twitter
-
 
 	close window after twitter share
 

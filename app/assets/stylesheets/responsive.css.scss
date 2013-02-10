@@ -128,47 +128,8 @@ position: absolute;
 		display:block;
 	}
 
-// TIGHTEN UP FORECAST
-	.home {
-
-	}
-
 	.instructions {
 		display: none;
-	}
-
-	.date_bar {
-		.date {
-			font-size: 1.1em;
-			position: relative;
-			top: 7px;
-		}
-	}
-
-	.dropdown dd ul {
-top: -8px;
-left: -125px;
-}
-
-.dropdown i.icon-caret-down {
-	position: relative;
-	bottom: 10px;
-	color: black;
-}
-
-	.interests {
-		right: 153px;
-	}
-
-	.forecast {
-		width:100%;
-	}
-
-	#forecast {
-		right: 510px;
-		> dl {
-			width: 2.6%;
-		}
 	}
 
 	.today {
@@ -198,19 +159,11 @@ left: -125px;
 	}	
 
 	.mini_event {
-		height:80px;
+		height:100px;
 	}
 
 	.idea_container {
 		width:98%;
-	}
-
-	.crowd_ideas {
-		width:98%;
-	}
-
-	header {
-
 	}
 
 	.message {
@@ -227,14 +180,6 @@ margin-right: 2%;
 	.instagram-placeholder img {
 		width: 111px;
 	}
-
-// MANAGE FRIENDS 
-
-	#friends {
-		margin: 10px 0 20px 7px;
-		width: 89%;
-		top: 20px;
-}
 
 // EVENT SHOW
 
@@ -283,12 +228,15 @@ font-size: 14px;
 		bottom: 10px;
 		position: relative;
 	}
+	.profile_picture {
+		width: 30px;
+height: 30px;
+	}
 }
 
 
 // Activity
 
-.vendor_dash {
 	.activity_event {
 		img {
 			width: 100%;
@@ -300,7 +248,6 @@ font-size: 14px;
 			margin-top:10px;
 		}
 	}
-}
 
 .activities {
 	margin: 20px 0 0 20px;
@@ -418,6 +365,12 @@ width: 98%;
 		img {
 			width: 130px;
 		}
+	}
+	.mini_calendar {
+		  width: 100%;
+	}
+	.home_idea_container {
+	  width: 100%;
 	}
 
 }

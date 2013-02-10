@@ -441,3 +441,36 @@ _plans.html.erb
     <span id="auth-status" class="fb_button fb_login_button">
     <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
   </span>
+
+
+  <% if false %>
+  <% if event.tipped? %>  
+    <div class="meter">
+      <span style="width:100%;"><span></span></span>
+    </div>
+  <% elsif event.starts_at.present?%>
+    <div class="meter animate orange">
+      <span style=<%= 'width:' + "#{(100*event.guest_count.to_f/event.min.to_f).round}" + "%;"%>><span></span></span>
+    </div>
+  <% end %>
+<% end %>
+          <% if false %>
+          <span id="jrIdeas" class="bold">all</span> |
+          <span id="jrMine"><span class="hide_on_mobile"> <%= @mine.count %></span> mine</span> |
+          <span id="jrCityIdeas"><span class="hide_on_mobile"> <%= @city_ideas.count %></span> public</span> ||
+          <span id="jrCalendar"><i class="icon-calendar"></i> <span class="hide_on_mobile"> view</span></span>
+          <% end %>
+
+
+          <% if false %>
+<div id="timesCalendar" style="display:none;">
+  <%= render "shalendar/calendar" %>
+</div>
+
+<div id="ideaFilter" class="idea_filter"
+<% if params[:action] == "home" %>
+<div id="ideaFilter" class="idea_filter">
+  all
+</div>
+<% end %>
+<% end %>

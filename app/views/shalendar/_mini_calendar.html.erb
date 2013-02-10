@@ -1,0 +1,13 @@
+<div class="mini_calendar">
+	<div id='yt'><a href='#<%= Time.now.to_date %>' id='todayButton' class='btn-today'>Today</a></div>
+<% for i in 0..100 %>
+	<div class="each_day clearfix">		
+		<div class="date_bar marker clearfix <% if i == 0 %> red <% end %>" <% if i == 0 %> id="today" <% end %>>
+			<%= (Time.now.to_date + (i)).strftime("%A %b %e") %>
+		</div>
+		<div class="day_container clearfix" data-date="<%= Time.now.to_date + i %>">
+		</div>
+	</div>
+<% end %>
+</div>
+<%= render partial: 'shalendar/mini_event', collection: @times, as: :event %>

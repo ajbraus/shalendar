@@ -1,8 +1,4 @@
 class StaticPagesController < ApplicationController
-  
-  def landing
-    @ideas = Event.where('is_public = ? AND ends_at > ?', true, Time.now).sort_by{|i| -i.guest_count}[0..4]
-  end
 
   def about
   	@user = current_user

@@ -1,8 +1,4 @@
-<% if @event.tipped? %>
 <div class="title part tipped_title">
-<% elsif @event.tipped? == false %>
-<div class="title part not_tipped_title">
-<% end %>  
   <div class="when">
     <%= event_start_time(@event) %> - <%= event_end_time(@event) %>
     <%= date(@event) %> 
@@ -28,14 +24,7 @@
   </div>
   <ul class="event_buttons">
     <% if @event.user == current_user %> 
-
-      <% unless @event.tipped? %>
-      <li>
-        <%= link_to event_tip_path(@event), :confirm => "Tip this idea manually? This will notify all guests that the idea is on.", title: "Make this Idea Tip", :method => :put do %>
-          <span class="fadeInOrange"><i class="icon-pushpin"></i></span>
-        <% end %>
-      </li>
-      <% end %>
+    
       <li>
         <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will notify all guests that the idea is canceled.' }, title: "Cancel Idea" do %>
           <span class="fadeInRed"><i class="icon-trash"></i></span>

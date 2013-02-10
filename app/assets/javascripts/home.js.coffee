@@ -18,28 +18,31 @@ $.fn.toggleIdeas = (show, hide) ->
 
 $.fn.buildCalendar = () ->
 	date = $(@).data('date')
-	event = $('.event').withDate("#{date}").not(".excuse_from_calendar")
+	event = $('.mini_event').withDate("#{date}")
 	$(@).append(event);
-	$(@).masonry({
-		itemSelector : '.event',
-		isAnimated: true,
-		animationOptions: { duration: 100 } })
+	# $(@).masonry({
+	# 	itemSelector : '.event',
+	# 	isAnimated: true,
+	# 	animationOptions: { duration: 100 } })
 
-$.fn.showCalendar = () ->
-	$(@).toggleClass("warm_orange")
-	if $('#timesCalendar').is(':hidden')
-		$('#ideaContainer').hide();
-		$('#timesCalendar').fadeIn();
-		$('.idea_container').each ->
-			$(@).buildCalendar();	
-		$('html, body').scrollTop($('#today').offset().top - 30 );
-	else
-		$('#timesCalendar').hide();
-		$('#ideaContainer').fadeIn();
-		$("#ideaContainer").masonry('reload')
-		$('html, body').scrollTop(0);
+# $.fn.showCalendar = () ->
+# 	$(@).toggleClass("warm_orange")
+	# if $('#timesCalendar').is(':hidden')
+	# 	$('#ideaContainer').hide();
+	# 	$('#timesCalendar').fadeIn();
+		# $('.day_container').each ->
+		# 	$(@).buildCalendar();	
+		# $('html, body').scrollTop($('#today').offset().top - 30 );
+	# else
+	# 	$('#timesCalendar').hide();
+	# 	$('#ideaContainer').fadeIn();
+	# 	$("#ideaContainer").masonry('reload')
+	# 	$('html, body').scrollTop(0);
 
 $ ->
+	$('.day_container').each ->
+		$(@).buildCalendar();
+
 	$('#jrIdeas').click ->
 		$(@).toggleIdeas('.shield:hidden', null);
 	$('#jrPlans').click ->
@@ -52,5 +55,5 @@ $ ->
 	$('#jrCityIdeas').click ->
 		$(@).toggleIdeas('.public', 'div.shield:not(.public)');
 
-	$('#jrCalendar').click ->
-		$(@).showCalendar();
+	# $('#jrCalendar').click ->
+	# 	$(@).showCalendar();

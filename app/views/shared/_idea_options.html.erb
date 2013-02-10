@@ -1,6 +1,11 @@
 <div id="eventOptions">
   	<% if @event.blank? %>
-			<input type="checkbox" id="addDateTime"/> <label for="addDateTime"><i class="icon-time"></i> Add a Time </label>
+  	  <div class="friends_only_bool">
+      	<%= f.check_box :friends_only %> <label for="event_friends_only"><i class="icon-lock"></i>  Private? (only .inform your friends)</label>
+      </div>
+      <div class="add_date_time">
+				<input type="checkbox" id="addDateTime"/> <label for="addDateTime"><i class="icon-time"></i> Add a Time </label>
+			</div>
 		<% end %>
 		<% if (@event.present? && @event.starts_at.present?) %>
 			<div id="dateTime">
@@ -9,11 +14,11 @@
 		<% end %>
       <div class="starts_at">
         <%= label :starts_at, "When does it start?" %>
-      <% if @event.present? %>
-        <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off", value:"#{@event.starts_at ? start_time(@event) : ''}" %>
-      <% else %>
-        <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off" %>
-      <% end %>
+	      <% if @event.present? %>
+	        <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off", value:"#{@event.starts_at ? start_time(@event) : ''}" %>
+	      <% else %>
+	        <%= f.text_field :chronic_starts_at, id: "datetime", class: "starts_at required", autocomplete: "off" %>
+	      <% end %>
       </div>
       <div class="duration">
         <%= label :duration, "Hours?*" %>
@@ -22,39 +27,10 @@
       <div class="one_time_bool">
     		<%= f.check_box :one_time %> <label for="event_one_time">only happening once?</label>
   		</div>
-  		<% if false %>
-	  	<div id="addtippingp">
-				<label><i class="icon-tasks"></i> minimum and maximum*</label>
-				<div class="minmax">
-				  <u>
-				    <%= f.label :min_attendees, "Min .in's" %> <br/>
-				    <%= f.text_field :min, :class => 'input-mini', autocomplete: "off", class:"required" %>
-				  </u>
-				  <u>
-				    <%= f.label :max_attendees, "Max  .in's" %> <br/>
-				    <%= f.text_field :max, :class => 'input-mini', autocomplete: "off" %>
-				  </u>
-				</div>
-			</div>
-			<% end %>
-    </div>
-    <div class="not_time_options">
-    <div id="visibilityp" class="open">
-    	<%= render "visibility_options.html" %>
     </div>
 
 <% if false %>
 		<div class="venue_invitation_options" id="visibilityp" style="display:none;">
-		  <u>
-		  	<%= f.label :is_public, ".invite #{@current_city.name.split(",")[0].to_s.capitalize}" %><span title="Make this a City-Wide idea"> (?)</span><br>
-				<i class="icon-bullhorn questionMark"></i>
-				<span id="isPublic"><%= f.check_box :is_public, class: "switch" %></span>
-			</u>
-		  <u>
-		  	<%= f.label nil, "allow friends to .invite" %><span title="people can .invite friends to this idea"> (?)</span><br>
-				<i class="icon-plus questionMark"></i>
-				<%= f.check_box :guests_can_invite_friends, class: "switch", checked: "checked" %>
-			</u>
 			<div class="idea_categories" id="addcategoriesp" style="display:none;">
 				<%= label :category, "Category*" %>
 		    <div id="categories">
@@ -103,16 +79,13 @@
     <% end %>
 	</div> 
 </div>
-</div>
 
 <div>
 	<ul>
- 		<li id="visibility" style="color:#EB8325;"><i class="icon-group"></i></li>
  		<li id="addimg"><i class="icon-camera-retro"></i></li>
  		<li id="addvid"><i class="icon-facetime-video"></i></li>
 	  <li id="addLink"><i class="icon-link"></i></li>
 	  <li id="addmap"><i class="icon-map-marker"></i></li>
 	  <li id="addcost"><i class="icon-money"></i></li>
-
 	</ul>
 </div>
