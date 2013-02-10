@@ -4,7 +4,7 @@
 		<%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %>
 	</div>
   <div class="facepile">
-    <span id="guestCount"><%= event.guest_count %> (<%= event.friends_in_count(current_user) %>)</span>
+    <span id="guestCount"><%= event.guest_count %> <%= user_signed_in? ? '(' + "#{event.friends_in_count(current_user)}" + ')' : '' %></span>
     <% event.guests.each do |guest| %>
       <span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
     <% end %>

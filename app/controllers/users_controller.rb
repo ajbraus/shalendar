@@ -8,10 +8,8 @@ class UsersController < ApplicationController
       elsif current_user.is_friends_with?(@user) || @user == current_user
         @my_ins = @user.plans.where(:starts_at => nil) - @my_ideas
       end
-      @times = @user.events.where("starts_at > ?", Time.now).order('starts_at ASC')
-      @times = @times.select { |e| e.user == current_user || current_user.in?(e) }        
-      @past_times = @user.events.where("starts_at < ?", Time.now).order('starts_at ASC').limit(20)
-      @past_times = @past_times.select { |e| e.user == current_user || current_user.in?(e) }        
+      @times = @user.plans.where("starts_at > ?", Time.now).order('starts_at ASC')        
+      @past_times = @user.plans.where("starts_at < ?", Time.now).order('starts_at ASC').limit(20)
     else
       #@events = @user.plans.where("starts_at > :now", now: Time.now).order('starts_at asc')
       #@past_events = @user.plans.where("starts_at < :now", now: Time.now).order('starts_at asc')

@@ -8,7 +8,7 @@
       <% if params[:action] == 'home' %>
       <div class="navigation">
         <span class="options">
-          <span id="jrPlans">.ins</span> |
+          <span id="jrPlans">(<%= current_user.plans.count %>) .ins</span> |
           <span id="jrFriendsIdeas">.invites</span>
         </span>
         <% if current_user.admin? %>

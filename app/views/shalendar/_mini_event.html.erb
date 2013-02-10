@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
 <div class="mini_event 
-	<%= current_user.in?(event) ? 'in' : '' %>" 
+	<%= current_user.in?(event) ? 'in' : 'invite' %>" 
 	data-event-id='<%= event.id %>'
 	<%= event.starts_at.present? ? "data-date=#{event.starts_at.to_date}" : '' %>>
 <% else %>

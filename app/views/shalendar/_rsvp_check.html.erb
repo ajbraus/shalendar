@@ -15,13 +15,13 @@
 		<% if !current_user.rsvpd?(event) %>
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
-			  <%= f.hidden_field :inout, value: "1" %>
-			  <%= f.submit "#{event.is_parent? ? '.into' : '.in'}", class:"btn_icon btn_icon_rsvp" %>
+			  <%= f.hidden_field :inout, value: "0" %>
+			  <%= f.submit "#{event.is_parent? ? 'x' : 'out'}", class:"btn-out", title:"I'm out" %>
 			<% end %>
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
-			  <%= f.hidden_field :inout, value: "0" %>
-			  <%= f.submit "#{event.is_parent? ? 'nah' : 'out'}", class:"btn_icon btn_stop_viewing" %>
+			  <%= f.hidden_field :inout, value: "1" %>
+			  <%= f.submit "#{event.is_parent? ? '.interested' : '.in'}", class:"btn_icon btn_icon_rsvp", title: "I'm interested" %>
 			<% end %>
 		<% end %>
 	<% end %>

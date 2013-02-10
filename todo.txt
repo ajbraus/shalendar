@@ -22,11 +22,17 @@ Registration#edit
 	DONE remove confirm follow
 
 shalendar#home
-	build Calendar
-	Ideas -- all ideas sorted by #friends going / #inmates going
-	Search -- remove friend button
 	.in | .invite (.in's are opaque, .invites are a bit transparent)
-	remove face dropdown - face goes to profile
+	Add facepile to mini_event
+	hide all ins from 
+	stats in header #friends #ins #upcoming times
+	times in inset gutter / dark
+	independent source
+
+	DONEremove face dropdown - face goes to profile
+	DONE build Calendar
+	DONE Ideas -- all ideas sorted by #friends going / #inmates going
+	DONE Search -- remove friend button
 
 push notifications for event create if your friend created it
 

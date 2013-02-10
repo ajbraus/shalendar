@@ -1,5 +1,5 @@
 <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
-<div class="vendor_dash">
+<div class="left user_show">
 	<div class="profile">
 		<%= large_profile_picture(@user) %>
 		<div class="show_name"><%= @user.name %><br><span style="font-size:14px;position:relative;bottom:20px;"><%= @user.city.name %></span></div>
@@ -18,10 +18,11 @@
 		</div>
 	</div>
 
+	<h2><%= @user.first_name %>'s ideas</h2>
 	<div class="idea_container">
 		<%= render partial: 'shalendar/event', collection: @my_ideas, as: :event %>
 	</div>
-	<hr>
+
 	<h2>.ins</h2>
 	<div class="idea_container">
 		<%= render partial: 'shalendar/event', collection: @my_ins, as: :event %>
@@ -39,11 +40,18 @@
 			<div class="past_events">
 				<h3>Past Ideas</h3>
 				<ul>
-					<% @past_times.each do |pe| %>
-						<%= render partial: 'shalendar/activity_event', collection: @past_times, as: :event %>
-					<% end %>
+					<%= render partial: 'shalendar/activity_event', collection: @past_times, as: :event %>
 				</ul>
 			</div>
 		<% end %>
 	<% end %>
-</div>
+	</div>	
+	
+	<div class="inmates_bar right">
+		<div class="friends clearfix">
+			<%= render partial: 'shared/user', collection: @user.friends, as: :user %>
+		</div>
+		<div class="inmates clearfix">
+			<%= render partial: 'shared/user', collection: @user.inmates, as: :user %>
+		</div>
+	</div>
