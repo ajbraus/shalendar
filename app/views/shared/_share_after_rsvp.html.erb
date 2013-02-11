@@ -19,7 +19,7 @@
     </div>
   <% end %>
 
-	<% if (current_user == event.user || event.is_parent_or_future_instance? %>
+	<% if event.is_parent_or_future_instance? %>
 	  <div class="social_sharing">
 	  <h3>.invite your friends</h3> 
 	    <div>
@@ -36,6 +36,7 @@
 	    </div>
 	  </div>
   <% end %>
+  
 <% if false %>
   <% if @event.guests_can_invite_friends? || @event.user == current_user && @event.is_parent_or_future_instance? %>
     <div id="invite_raster" class="part clearfix">

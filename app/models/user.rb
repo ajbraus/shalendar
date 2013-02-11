@@ -172,7 +172,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def in?(event)
+  def in?(event)  
     @rsvp = self.rsvps.find_by_plan_id(event.id)
     return @rsvp.present? && @rsvp.inout == 1
   end
@@ -226,9 +226,6 @@ class User < ActiveRecord::Base
   end
 
   def rsvp_out!(event)
-    if event.guest_count == event.min #not letting it untip anymore
-      #Warning: this will un-tip the event for everyone, are you sure?
-    end
     if event.rsvps.where(guest_id: self.id).any?
       @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
       @existing_rsvp.destroy
@@ -310,6 +307,8 @@ class User < ActiveRecord::Base
   def inmate!(other_user)
     unless self.is_inmates_with?(other_user) || other_user.ignores?(self) || self.is_friends_with?(other_user)
       self.relationships.create(followed_id: other_user.id, status: 1)
+    end
+    unless other_user.is_inmates_with?(self) || self.ignores?(other_user) || other_user.is_friends_with?(self)
       other_user.relationships.create(followed_id: self.id, status: 1)
     end
   end
@@ -658,6 +657,15 @@ class User < ActiveRecord::Base
           end
         end
       end
+    end
+  end
+
+  def self.check_for_new_fb_member_friends
+    #add all facebook friends to inmates (create relationships with status = 1) 
+    #check if session token is still valid
+    @member_friends = self.fb_friends(session[:graph])[0]
+    @member_friends.each do |mf|
+      u.inmate!(mf)
     end
   end
 

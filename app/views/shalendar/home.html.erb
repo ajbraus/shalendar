@@ -1,8 +1,13 @@
 <% if user_signed_in? %>
 	<%= render 'mini_calendar' %>
 <% end %>
-	<div id="ideaContainer" class="home_idea_container">
-	  <%= render partial: "shalendar/event", collection: @ideas %>
+	<div class="home_idea_container clearfix">
+    <div class="filters">
+    	<span id="jrFriendsIdeas">.invites</span>
+    </div>
+		<div id="ideaContainer">
+	  	<%= render partial: "shalendar/event", collection: @ideas %>
+		</div>
 	</div>
 
 <% if false %>

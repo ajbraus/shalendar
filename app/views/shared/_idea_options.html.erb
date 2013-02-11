@@ -7,11 +7,12 @@
 				<input type="checkbox" id="addDateTime"/> <label for="addDateTime"><i class="icon-time"></i> Add a Time </label>
 			</div>
 		<% end %>
-		<% if (@event.present? && @event.starts_at.present?) %>
-			<div id="dateTime">
-		<% else %>
-			<div id="dateTime" style="display:none;">
-		<% end %>
+		<!-- ADD TIME -->
+	<% if (@event.present? && @event.starts_at.present?) %>
+		<div id="dateTime">
+	<% else %>
+		<div id="dateTime" style="display:none;">
+	<% end %>
       <div class="starts_at">
         <%= label :starts_at, "When does it start?" %>
 	      <% if @event.present? %>
@@ -28,24 +29,8 @@
     		<%= f.check_box :one_time %> <label for="event_one_time">only happening once?</label>
   		</div>
     </div>
-
-<% if false %>
-		<div class="venue_invitation_options" id="visibilityp" style="display:none;">
-			<div class="idea_categories" id="addcategoriesp" style="display:none;">
-				<%= label :category, "Category*" %>
-		    <div id="categories">
-		    	<%= collection_select :category, :category_id, Category.all, :id, :name, { :prompt => true } %>
-	    	</div>
-	    	<div class="family_friendly_checkbox">
-	    		<%= f.label "Family Friendly?" %><br>
-					<i class="icon-home questionMark"></i>
-					<%= f.check_box :family_friendly, class: "switch" %>
-		  	</div> 
-	  	</div> 
-		</div>
-<% end %>
-
-	<div id="addimgp" style="display:none;">
+<div class="hidden_options">
+	<div id="addimgp" class="open">
 	  <div><%= f.label :display_image %></div>
 	 	  <i class="icon-link"></i><%= f.text_field :promo_url, autocomplete: "off", placeholder: "Image URL" %><br>
 	  or<br>
@@ -80,9 +65,11 @@
 	</div> 
 </div>
 
+</div>
+
 <div>
 	<ul>
- 		<li id="addimg"><i class="icon-camera-retro"></i></li>
+ 		<li id="addimg" style="color:#EB8325;"><i class="icon-camera-retro"></i></li>
  		<li id="addvid"><i class="icon-facetime-video"></i></li>
 	  <li id="addLink"><i class="icon-link"></i></li>
 	  <li id="addmap"><i class="icon-map-marker"></i></li>

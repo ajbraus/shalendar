@@ -1,6 +1,14 @@
 <span class="guest_count">
-	<span id="guestCount"> <%= event.guest_count %> .in </span>
 	<% if user_signed_in? %>
-		<span id="friendCount">(<%= event.friends_in_count(current_user) %> friends)</span></span>
+		<% @friends_in_count = event.friends_in(current_user).count %>
+		<% @inmates_in_count = event.inmates_in(current_user).count %>
+		<% if @friends_in_count > 0 && @inmates_in_count > 0 %>
+			(<i class="icon-star"></i> <span id="friendCount"><%= @friends_in_count %></span> | <%= @inmates_in_count %>)
+		<% elsif @friends_in_count > 0 && @inmates_in_count == 0 %>
+		(<i class="icon-star"></i> <span id="friendCount"><%= @friends_in_count %></span>
+		<% elsif @inmates_in_count > 0 && @friends_in_count == 0 %>
+			(<%= @inmates_in_count %>)</span>
+		<% end %>
 	<% end %>
+	<span id="guestCount"> <%= event.guest_count %> </span> .in 
 </span>

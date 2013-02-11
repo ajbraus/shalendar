@@ -185,14 +185,18 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def friends_in_count(current_user)
-    self.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count
+  def friends_in(current_user)
+    self.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id)
+  end
+
+  def inmates_in(current_user)
+    self.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id)
   end
 
   def friends_invited_count(current_user)
     @invited_friends = []
     self.maybes.each do |u|
-      if current_user.is_friends_with?(u)
+      if current_user.is_friends_with?(u) && !u.rsvpd?(self)
         @invited_friends.push(u)
       end
     end

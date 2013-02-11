@@ -2,8 +2,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_slug(params[:id])
     if user_signed_in?
-      @my_ideas = @user.events.where(:starts_at => nil, :friends_only => false)
-      if current_user.is_inmates_with?(@user) 
+      @my_ideas = @user.events.where('starts_at IS NULL OR (one_time = ? AND ends_at > ?)', true, Time.now)
+      if current_user == @user
+        @my_ins = @user.plans.where('starts_at IS NULL OR (one_time = ? AND ends_at > ?)', true, Time.now) - @my_ideas
+      elsif current_user.is_inmates_with?(@user) 
         @my_ins = @user.plans.where(:starts_at => nil, :friends_only => false) - @my_ideas
       elsif current_user.is_friends_with?(@user) || @user == current_user
         @my_ins = @user.plans.where(:starts_at => nil) - @my_ideas

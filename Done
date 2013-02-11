@@ -1,3 +1,50 @@
+Inmates
+	DONE inmates == relationships
+	DONE friends == relationship.status = 0,1,2 (0 == ignore, 1 == inmate, 2 == friend)
+	DONE add column 'status' to relationships
+	DONE add all facebook friends to inmates (create relationships with status = 1)
+	DONE make all current relationships -> status = 1
+	DONE add all 'follow_ups' as status 1
+
+Registrations#create
+	DONE make all fb friends on hoos.in inmates
+
+Registration#edit
+	DONE remove confirm follow
+
+shalendar#home
+	DONE Add facepile to mini_event
+	DONE hide all ins from 
+	DONE stats in header #friends #ins #upcoming times
+	DONE times in inset gutter / dark
+	DONE calendar = all .ins and times your friends are going to
+	DONE my calendar Ideas
+
+
+	DONEremove face dropdown - face goes to profile
+	DONE build Calendar
+	DONE Ideas -- all ideas sorted by #friends going / #inmates going
+	DONE Search -- remove friend button
+
+event#new
+	DONE remove visibility options
+	DONE private bool: only friends can see
+
+
+
+event#show
+	DONE allow anyone to add_time
+	DONE remove invite_raster
+	DONE remove public icon
+	DONE make maybes everyone who could join
+
+	event.html
+	DONE how many friends are going, how many inmates
+	DONE remove public icon
+	DONE remove status icons
+	DONE remove invite all friends
+	DONE remove by
+
 #Changes to models / structure since Adam shipped out for 'nam
 Added all_invited_users to accommodate users invited to the parent of a time
 

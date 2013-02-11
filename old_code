@@ -474,3 +474,28 @@ _plans.html.erb
 </div>
 <% end %>
 <% end %>
+
+  <div class="facepile">
+    <span id="guestCount"><%= event.guest_count %> <%= user_signed_in? ? '(' + "#{event.friends_in_count(current_user)}" + ')' : '' %></span>
+    <% event.guests.each do |guest| %>
+      <span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
+    <% end %>
+  </div>
+
+
+
+<% if false %>
+    <div class="venue_invitation_options" id="visibilityp" style="display:none;">
+      <div class="idea_categories" id="addcategoriesp" style="display:none;">
+        <%= label :category, "Category*" %>
+        <div id="categories">
+          <%= collection_select :category, :category_id, Category.all, :id, :name, { :prompt => true } %>
+        </div>
+        <div class="family_friendly_checkbox">
+          <%= f.label "Family Friendly?" %><br>
+          <i class="icon-home questionMark"></i>
+          <%= f.check_box :family_friendly, class: "switch" %>
+        </div> 
+      </div> 
+    </div>
+<% end %>

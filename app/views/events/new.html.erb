@@ -12,6 +12,7 @@
 	  	<%= label :description, "Details" %><br/>
 	  	<%= f.text_area :description, id: "new_idea_description", autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
 	  </p> 
+	  
   <%= render partial: 'shared/idea_options', locals: { :f => f } %>
 
   <%= f.submit 'Post Idea', :class => 'btn btn-large btn-primary', id:"postIdea", method: :post %>

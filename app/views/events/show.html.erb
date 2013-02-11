@@ -102,7 +102,7 @@
   </ul>
 
     <div class="event_guests part clearfix">
-        <div class="right_label event_label"><%= @event.guest_count %>  .in (<%= @event.friends_in_count(current_user) %> friends)</div>
+        <div class="right_label event_label"><%= @event.guest_count %>  .in (<%= @event.friends_in(current_user).count %> friends)</div>
       <div class="show_raster">
         <%= render 'guests' %>
       </div>

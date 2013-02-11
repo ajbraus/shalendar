@@ -1,6 +1,5 @@
 <% if user_signed_in? %>
-<div class="mini_event 
-	<%= current_user.in?(event) ? 'in' : 'invite' %>" 
+<div class="mini_event" 
 	data-event-id='<%= event.id %>'
 	<%= event.starts_at.present? ? "data-date=#{event.starts_at.to_date}" : '' %>>
 <% else %>
@@ -25,6 +24,12 @@
 			<%= image_tag event.image(:medium) %>
 		</div>
 	<% end %>
+
+	<div class="facepile">
+		<% event.friends_in(current_user).each do |guest| %>
+  		<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
+		<% end %>
+	</div>
 
 <% end %>	
 </div>

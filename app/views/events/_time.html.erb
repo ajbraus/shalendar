@@ -1,12 +1,4 @@
 <div class="shield_bottom one_time" data-event-id="<%= event.id %>">	
-		<span><%= event.mini_start_date_time %></span>
-		<div class="rsvp_check">
-		<%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %>
-	</div>
-  <div class="facepile">
-    <span id="guestCount"><%= event.guest_count %> <%= user_signed_in? ? '(' + "#{event.friends_in_count(current_user)}" + ')' : '' %></span>
-    <% event.guests.each do |guest| %>
-      <span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
-    <% end %>
-  </div>
+	<%= event.mini_start_date_time %>
+  <%= render :partial => 'shared/mini_guest_count', :locals => { :event => event } %>
 </div>
