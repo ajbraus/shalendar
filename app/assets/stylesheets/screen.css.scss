@@ -14,22 +14,24 @@ html {
 }
 
 body {
-  font-family: bariol ,Arial,sans-serif;
-  font-size: 18px;
-  line-height: 18px;
-  color: #333;
-  position: relative;
-  min-height: 100%;
-  background: url(/assets/gray_jean.png);
-  /*background-color:#F0F0F0;*/
-  zoom:1;
-  z-index: 0;
-  text-shadow: 0 0 1px rgba(0,0,0,0.3);
+font-family: bariol, Arial, sans-serif;
+color: #333;
+background: url(/assets/gray_jean.png);
+zoom: 1;
+z-index: 0;
+text-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+overflow:hidden;
   strong {
     font-family: bariol_bold, arial, sans-serif;
     font-weight: bold;
   }
 }
+
+.row, .col { overflow: hidden; position: absolute; }
+.row { left: 0; right: 0; }
+.col { top: 0; bottom: 0; }
+.scroll-x { overflow-x: auto; }
+.scroll-y { overflow-y: auto; }
 
 ul {
   text-decoration: none;
@@ -135,6 +137,14 @@ a {
 
 ul, li {
   list-style: none;
+}
+
+.right {
+  float:right;
+}
+
+.left {
+  float:left;
 }
 
 .masonry,
@@ -274,7 +284,7 @@ border: 1px solid gainsboro;
 display: inline-block;
 color: white;
 font-size: 13px;
-padding: 4px 16px;
+padding: 4px 9px;
   &:hover {
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f77740), color-stop(1, #EE9100) );
   background:-moz-linear-gradient( center top, #f77740 5%, #EE9100 100% );
@@ -411,6 +421,18 @@ text-align: center;
 .btn_stop_viewing:active {
   position:relative;
   top:1px;
+}
+
+.btn-out {
+  background: none;
+border: 0;
+width: 12px;
+border-bottom: 1px solid $divider;
+border-right: 1px solid $divider;
+border-top: 1px solid $divider;
+position: relative;
+bottom: 1px;
+cursor: pointer;
 }
 
 .btn_start_viewing {
@@ -727,6 +749,10 @@ text-align: right;
   span {
     cursor:pointer;
   }
+  i {
+    position: relative;
+    bottom: 9px;
+  }
 }
 
 .bold {
@@ -931,11 +957,8 @@ box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
 }
 
 .layout {
-clear: both;
-min-height: 640px;
 position: relative;
 top: 100px;
-margin: 0 auto;
 }
 
 .show_layout {
@@ -1333,19 +1356,11 @@ top: 0;
 }
 
 .date_bar {
-padding: 3px;
-height: 32px;
 text-align: center;
-width: 91.5%;
+font-size: 19px;
+border: 1px solid $divider;
+padding: 1px 0;
 background-color: $background_one;
-top: 73px;
-margin-left: 4px;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  border-radius: 7px;
--webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
--moz-box-shadow:    0px 0px 9px rgba(50, 50, 50, 0.3);
-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
 }
 
 .friend_only {
@@ -1356,66 +1371,8 @@ bottom: 10px;
 font-size: 17px;
 }
 
-.each_day {
-  clear:both;
-}
-
 .day_container {
-clear: both;
-margin-top: 7px;
-width: 97%;
-margin-bottom: 8px;
-}
-
-.sidebar {
-  position: fixed;
-margin-top:15px;
-margin-right: 10px;
-  .interests_dropdown {
-    height: 27px;
-    cursor: pointer;
-    font-size: 20px;
-    text-align: center;
-  }
-}
-
-.upcoming_ideas {
-position: absolute;
-top: 50px;
-width: 335px;
-right: 159px;
-z-index: 4;
-}
-
-.stats {
-  position: relative;
-  height: 165px;
-  .name {
-    position: absolute;
-    top: 5px;
-    left: 55px;
-  }
-  ul {
-    margin: 20px 0px 20px 0;
-    height: 30px;
-    width: 270px;
-  }
-  li {
-    display: inline;
-    float: left;
-    padding: 0px 13px;
-  }
-  li:nth-child(-n+2) {
-    border-right: 1px solid $divider;
-  }
-  .new_idea {
-    position: absolute;
-    bottom: 16px;
-    right: 6px;
-    i {
-      color:white;
-    }
-  }
+margin-top: 3px;
 }
 
 
@@ -1428,14 +1385,15 @@ padding-bottom:2px;
 }
 
 .mini_event {
-width: 100%;
+width: 97%;
 position: relative;
 float: left;
 margin: 0 8px 8px 0;
 background-color: white;
 overflow: hidden;
-border-bottom: 1px dotted $divider;
-padding-bottom: 10px;
+border-bottom: 1px dotted #d1cdcd;
+border: 1px solid lightgray;
+padding-top: 4px;
   a {
     color:black;
   }
@@ -1443,6 +1401,10 @@ padding-bottom: 10px;
     position: absolute;
 bottom: 0px;
 right: 56px;
+  }
+  .guest_count {
+    position: relative;
+    top: 7px;
   }
   .promo_img {
     img {
@@ -1494,16 +1456,15 @@ padding-bottom: 0;
     height:30px;
   }
   }
-  .guest_count {
-    position: absolute;
-    right: 3px;
-    top: 3px;
-  }
   .promo_img {
     overflow: hidden;
     height: 60px;
   }
 }
+
+  .guest_count {
+    float:right;
+  }
 
 .event {
   background-color:white;
@@ -1512,6 +1473,9 @@ position: relative;
 z-index: 0;
 border: 1px solid $divider;
 overflow: hidden;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
 .promo_img {
   text-align: center;
   background-color: white;
@@ -1562,8 +1526,7 @@ max-height: 300px;
   }
 
 .status_icon {
-margin-left: 4px;
-font-size: 19px;
+font-size: 22px;
 }
 
 .event_pic {
@@ -1612,52 +1575,24 @@ left: 140px;
 bottom: 2px;
 }
 
-.guest_count {
-position: absolute;
-text-align: right;
-font-size: 19px;
-margin-bottom: 3px;
-  .purple {
-    color:black;
-  }
-}
-
 .gold {
   color: #54A854;
   text-shadow: 1px 1px 1px darkgrey;
   }
 
-.force_tip {
-  position: absolute;
-  right: 8px;
-  color:grey;
-  color: grey;
-  bottom: 7px;
-  font-size: 28px;
-    &:hover{
-  color:darkorange;
-  -webkit-transition: color .25s linear .05s;
-  transition: color .25s linear .05s;
-  }
-}
-
 .rsvp_check {
-float: right;
-position: relative;
-top: 3px;
-font-size: 14px;
+float: left;
 form {
   float: right;
 }
 }
 
 .btn_icon {
-padding: 1px 0px;
+padding: 1px 4px;
 cursor: pointer;
 -webkit-border-radius: 1px;
 -moz-border-radius: 1px;
 border-radius: 1px;
-width: 26px;
 text-align: center;
 bottom: 1px;
 position: relative;
@@ -1840,43 +1775,6 @@ line-height: 1.1;
   }
 }
 
-.friends {
-  width: 800px;
-  margin-left: 40px;
-}
-
-#friends {
-height: 600px;
-position: relative;
-overflow: scroll;
-}
-
-.user_table {
-font-size: 12px;
-height: auto;
-overflow: hidden;
-border-bottom: 1px solid $divider;
-padding-bottom: 40px;
-margin-bottom: 20px;
-  h2 {
-    font-size: 2.7em;
-    margin-top:10px;
-  }
-   table {
-    width: 28%;
-    float: left;
-    font-size: 15px;
-    padding-left: 0px;
-    margin: 0 20px;
-  }
-  td {
-    text-align: left;
-  }
-  i {
-    font-size: 30px;
-  }
-}
-
 .red {
   color:$destroy;
 }
@@ -1970,25 +1868,6 @@ color:$before_hover;
   }
 }
 
-.toggled-off {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-filter: alpha(opacity=20);
--moz-opacity: 0.2;
--khtml-opacity: 0.2;
-opacity: 0.2;
- &:hover {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
-  filter: alpha(opacity=70);
-  -moz-opacity: .7;
-  -khtml-opacity: .7;
-  opacity: .7;
- }
-}
-
-.toggled-on {
-
-}
-
 #find_friends {
   font-size: 15px;
   height: auto;
@@ -2016,67 +1895,6 @@ opacity: 0.2;
     margin-top:30px;
     margin-bottom: 30px;
   }
-}
-
-.invite_friends {
-  float: left;
-  clear: both;
-width: 100%;
-}
-
-.fb_invite_friends {
-margin: 0 auto;
-width: 600px;
-padding-top: 25px;
-clear: both;
-height: 258px;
-  .invitees {
-    float:left;
-    height:200px;
-    width:300px;
-    overflow-y:auto;
-    textarea {
-          background-color:#F3F3F3;
-      width: 260px;
-      height: 140px;
-    }
-  }
-  .subject_message {
-    float:left;
-    width:300px;
-    height:200px;
-    input,textarea {
-      width:270px;
-    }
-    textarea {
-      height:60px;
-    }
-  }
-  .btn-fb-invite {
-    position: relative;
-    left: 490px;
-    bottom: 10px;
-  }
-}
-
-.viewing_name {
-  position: absolute;
-  left:50px;
-  background-color: white;
-  padding:0 5px;
-  z-index: 100;
-  display:none;
-  width:auto;
-  height:30px;
-  -webkit-box-shadow: .5px 2.5px 13px rgba(50, 50, 50, 0.33);
-  -moz-box-shadow:    .5px 2.5px 13px rgba(50, 50, 50, 0.33);
-  box-shadow:         .5px 2.5px 13px rgba(50, 50, 50, 0.33);
-  line-height: 30px;
-  font-family: verdana;
-  font-size: 15px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
 }
 
 .search {
@@ -2162,13 +1980,13 @@ right: 520px;
 #feedback {
 position: fixed;
 bottom: 20%;
-left: -62px;
+right: -62px;
 width: 151px;
 z-index: 1000;
--webkit-transform: rotate(90deg);
--moz-transform:rotate(90deg);
--o-transform:rotate(90deg);
--ms-transform:rotate(90deg);
+-webkit-transform: rotate(-90deg);
+-moz-transform: rotate(-90deg);
+-o-transform: rotate(-90deg);
+-ms-transform: rotate(-90deg);
     a {
 background: #EB8325;
 height: 15px;
@@ -2285,13 +2103,6 @@ font-size: 21px;
 margin-top: 10px;
 margin-right: 6px;
 }
-}
-
-#guestCount {
-margin: 0px 10px 0px 0px;
-position: relative;
-bottom: 15px;
-font-size: 26px;
 }
 
 .show_skin {
@@ -3368,25 +3179,6 @@ height: 25px;
 line-height: 10px;
 }
 
-.vendor_dash {
-      line-height: 1.2;
-    font-size:20px;
-  .vendorEventDetails {
-    .suggestionTitle {
-      font-size: 25px;
-      font-weight: bold;
-      margin-top: 13px;
-      margin-bottom: 10px;
-      border-bottom: 1px solid $divider;
-      min-height: 50px;
-    }
-  }
-  .suggestion_promo_img {
-    float:left;
-    height: auto;
-  }
-}
-
 .guests_groups {
   clear:both;
 }
@@ -3395,7 +3187,6 @@ line-height: 10px;
     min-height: 150px;
     position: relative;
     overflow: hidden;
-
 }
 
 .activity_guests {
@@ -3455,6 +3246,7 @@ font-size: 30px;
 bottom: 20px;
 float:left;
 clear: left;
+height: 10px;
   }
   .show_friend {
 float: right;
@@ -3925,10 +3717,6 @@ top: 6px;
 .dropdown_caret {
   margin:10px;
 }
-.idea_container {
-  position: relative;
-height: 0px;
-}
 
 .warm_orange {
   color: #EB8325;
@@ -3965,6 +3753,7 @@ height: 0px;
   #guestCount {
     font-size: 16px;
     margin-left: 5px;
+    top: -4px;
   }
 }
 
@@ -4226,10 +4015,6 @@ padding-top: 4px;
   padding:5px;
 }
 
-.in {
-  background-color: $rsvp;
-}
-
 .let_me_in {
   cursor: pointer;
   cursor: hand;
@@ -4336,16 +4121,83 @@ top: 10px;
   top: 3px;
   .profile_picture {
     -webkit-border-radius: 0;
--moz-border-radius: 0;
-background-color: white;
-width: 17px;
-height: 17px;
-border-radius: 0;
-margin-left: -4px;
+    -moz-border-radius: 0;
+    background-color: white;
+    width: 27px;
+    height: 27px;
+    border-radius: 0;
+    margin-left: -3px;
+    margin-top: -3px;
   }
 }
 
 .hoosinvite {
   position: relative;
 top: 2px;
+}
+
+.suggested_friends {
+table.user {
+margin: 10px;
+}
+}
+
+.wrapper {
+
+}
+
+.mini_calendar {
+  float:left;
+  height: 100%;
+}
+
+.home_idea_container {
+  float:left;
+}
+
+.idea {
+/*  opacity: .90;
+border: 0;
+border-radius: 7px;*/
+}
+
+.inmates_bar {
+  width: 30%;
+  background: $background_one;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+  img {
+    width:37px;
+    height:37px;
+  }
+}
+
+.friends {
+  min-height: 200px;
+  border:1px solid $divider;
+  padding:10px;
+}
+
+.inmates {
+  border:1px solid $divider;
+  padding:10px;
+}
+
+.user_show {
+  width:69%;
+}
+
+.user {
+  clear:both;
+  div {
+    float:left;
+  }
+  .friend_name {
+    position: relative;
+    top: 7px;
+  }
+  .friend_button {
+    float:right;
+  }
 }

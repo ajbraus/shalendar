@@ -48,8 +48,8 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         @event.guests.each do |g|
-          if g.email_comments == true && g != current_user
-            g.delay.contact_comment(@event, @comment)
+          if g.email_comments == true && !g.rsvps.find_by_plan_id(@event.id).muted? && g != current_user
+            g.delay.contact_comment(@comment)
           end
         end
         format.html { redirect_to @event, notice: 'Message was successfully created.' }
@@ -60,23 +60,6 @@ class CommentsController < ApplicationController
       end
     end
   end
-
-  # PUT /comments/1
-  # PUT /comments/1.json
-  # def update
-  #   @comment = Comment.find(params[:id])
-  #   @article = @comment.article
-
-  #   respond_to do |format|
-  #     if @comment.update_attributes(params[:comment])
-  #       format.html { redirect_to @event, notice: 'Comment was successfully updated.' }
-  #       format.json { head :no_content }
-  #     else
-  #       format.html { render action: "edit" }
-  #       format.json { render json: @comment.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
 
   # DELETE /comments/1
   # DELETE /comments/1.json

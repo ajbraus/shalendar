@@ -2,26 +2,26 @@
 	<% if event.ends_at.present? && event.ends_at < Time.now %>
 		<div class="btn-over"></div>
 	<% elsif current_user.in?(event) %>
-		<% if event.guests_can_invite_friends? && event.starts_at == nil %>
-			<% if current_user.rsvps.find_by_plan_id(event.id).invite_all_friends? %>
-				<div class="green" title="all friends .invited"><i class="icon-group"></i></div>
-			<% else %>
-				<%= link_to invite_all_friends_path(:event_id => event.id), remote: true do %>
-					<div class="fadeInGreen" title=".invite all friends"><i class="icon-group"></i></div>
+		<span class="status_icon">
+			<% if user_signed_in? %>
+				<% if current_user.in?(event) %>
+					<i class="icon-ok-sign blue" title="you're .in"></i>
+				<% elsif current_user.invited?(event) %>
+					<i class="icon-envelope blue" title=".invited by <%= event.inviter_id = 0 ? event.user.name : User.find_by_id(event.inviter_id).name %>"></i>
 				<% end %>
 			<% end %>
-		<% end %>
+		</span>
 	<% else %>
 		<% if !current_user.rsvpd?(event) %>
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
-			  <%= f.hidden_field :inout, value: "1" %>
-			  <%= f.submit "#{event.is_parent? ? '.into' : '.in'}", class:"btn_icon btn_icon_rsvp" %>
+			  <%= f.hidden_field :inout, value: "0" %>
+			  <%= f.submit "#{event.is_parent? ? 'x' : 'out'}", class:"btn-out", title:"I'm out" %>
 			<% end %>
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
-			  <%= f.hidden_field :inout, value: "0" %>
-			  <%= f.submit "#{event.is_parent? ? 'nah' : 'out'}", class:"btn_icon btn_stop_viewing" %>
+			  <%= f.hidden_field :inout, value: "1" %>
+			  <%= f.submit "#{event.is_parent? ? '.interested' : '.in'}", class:"btn_icon btn_icon_rsvp", title: "I'm interested" %>
 			<% end %>
 		<% end %>
 	<% end %>

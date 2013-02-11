@@ -123,13 +123,10 @@ class Api::V1::EventsController < ApplicationController
       #chronic_starts_at: DateTime.parse(params[:start]),
       #duration: Float(params[:duration]),
       guests_can_invite_friends: @guests_can_invite_friends,
-      min: @min,
-      min: @min,
       max: @max,
       link: params[:link],
       price: params[:price],
       address: params[:address],
-      is_public: 0,
       family_friendly: 0,
       promo_url: "",
       promo_vid: "",
@@ -143,9 +140,6 @@ class Api::V1::EventsController < ApplicationController
       @event.starts_at = DateTime.parse(params[:start])
       @event.duration = Float(params[:duration])
       @event.ends_at = @event.starts_at + @event.duration*3600
-    end
-    if params[:invite_int] == '1'
-      @event.is_public = true
     end
     if @current_city.present?
       @event.city = @current_city
@@ -169,7 +163,6 @@ class Api::V1::EventsController < ApplicationController
                                  starts_at: @event.starts_at,
                                  ends_at: @event.ends_at,
                                  duration: @event.duration,
-                                 min: @event.min,
                                  max: @event.max,
                                  address: @event.address,
                                  link: @event.link,
@@ -177,18 +170,12 @@ class Api::V1::EventsController < ApplicationController
                                  promo_img: @event.promo_img,
                                  promo_url: @event.promo_url,
                                  promo_vid: @event.promo_vid,
-                                 is_public: @event.is_public,
                                  family_friendly: @event.family_friendly,
                                  price: @event.price
                               )
         if @instance.save
           @instance.save_shortened_url
-          current_user.rsvp_in!(@instance)
-          if params[:invite_int] == "2" || params[:invite_int] == "1"
-            current_user.invite_all_friends!(@instance)
-          end
-          @instance.tipped = true   if @instance.min <= 1
-          
+          current_user.rsvp_in!(@instance)          
           #CLEAR PARENT EVENT TIME ATTRIBUTES
           @event.starts_at = nil
           @event.ends_at = nil

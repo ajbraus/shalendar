@@ -19,12 +19,9 @@
     </div>
   <% end %>
 
-	<% if (current_user == event.user || (event.guests_can_invite_friends? || event.is_public?)) && event.is_parent_or_future_instance? %>
+	<% if (current_user == event.user || event.is_parent_or_future_instance? %>
 	  <div class="social_sharing">
 	  <h3>.invite your friends</h3> 
-	    <div>
-	      <%= render partial: 'social/hoosin', locals: { :event => @event } %>
-	    </div>
 	    <div>
 	      <%= render partial: 'social/email', locals: { :event => @event } %>
 	    </div>

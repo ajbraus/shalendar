@@ -1,42 +1,30 @@
+<% if user_signed_in? %>
+<div class="mini_event 
+	<%= current_user.in?(event) ? 'in' : 'invite' %>" 
+	data-event-id='<%= event.id %>'
+	<%= event.starts_at.present? ? "data-date=#{event.starts_at.to_date}" : '' %>>
+<% else %>
+<div class="mini_event">
+<% end %>
 <%= link_to event do %>
-<div class="mini_event <%= event.ends_at < Time.now ? 'over' : ''%>" >
-	<div class="event_time">			
-		<span><%= event.mini_start_date_time %> (<%= event.nice_duration %> hr)</span>
-		<span class="guest_count">
-			<% if event.tipped? %>	
-				<span class="count" id="guestCount"> <%= event.guest_count %></span>
-			<% else %>
-				<span id="guestCount" class="count orange"><%= event.guest_count%>/<%= event.min %></span>
-			<% end %>
-		</span>
+	<div class="rsvp_check">
+		<%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %>
 	</div>
+	<div class="event_time">			
+		<%= event.mini_start_time %> (<%= event.nice_duration %> hr)
+	</div>
+	<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>
 	<div class="event_blerb">
-		<% if false %><%= raster_profile_picture(event.user) %><% end %>
 		<%= event.title %>
 		<div class="inviter">
-			<% unless User.find_by_id(event.inviter_id).blank? || User.find_by_id(event.inviter_id) == current_user %>
-				<%= link_to user_path(User.find_by_id(event.inviter_id)), target: "blank" do %>
-					<%= User.find_by_id(event.inviter_id).name %>
-				<% end %>
-			<% end %>
+
 		</div>
 	</div>
 	<% if event.has_image? %>
 		<div class="promo_img">
-		<% if event.parent.blank? %>
-			<% if !event.promo_url.blank? %>
-				<%= image_tag("#{event.promo_url}") %>
-			<% elsif event.promo_img.url(:medium) != "/promo_imgs/medium/missing.png" %>
-				<%= image_tag("#{event.promo_img.url(:medium)}") %>
-			<% end %>
-		<% else %>
-			<% if !event.parent.promo_url.blank? %>
-				<%= image_tag("#{event.parent.promo_url}") %>
-			<% elsif event.parent.promo_img.url(:medium) != "/promo_imgs/medium/missing.png" %>
-				<%= image_tag("#{event.parent.promo_img.url(:medium)}") %>
-			<% end %>
-		<% end %>
+			<%= image_tag event.image(:medium) %>
 		</div>
 	<% end %>
-</div>
+
 <% end %>	
+</div>

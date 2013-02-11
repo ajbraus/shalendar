@@ -68,30 +68,11 @@ class Notifier < ActionMailer::Base
 
   #PREFERENCE NOTIFIERS, DEFAULT YES
 
-  def confirm_friend(user, friend)
-    @user = user
-    @follower = friend
-    @image_url = invite_raster_picture(@follower)
-    mail to: @user.email, subject: "new friend request - #{@follower.name}"
-  end
-
   def new_friend(user, friend)
     @user = user
     @follower = friend
     @image_url = invite_raster_picture(@follower)
     mail to: user.email, subject: "new friend - #{@follower.name}"
-  end
-
-  def event_tipped(event, user)
-    @event = event
-    @user = user
-    mail to: @user.email, subject: "idea tipped - #{@event.title}"
-  end
-
-  def event_deadline(event)
-    @user = event.user
-    @event = event
-    mail to: @user.email, subject: "untipped idea - #{@event.title}"
   end
 
   def cancellation(event, user)
@@ -100,17 +81,16 @@ class Notifier < ActionMailer::Base
     unless @user == @event.user
       mail to: user.email, subject: "cancellation - #{@event.title}" 
     end
-
   end
 
-  def email_comment(event, comment, user)
-    @commenter = comment.user.name
-    @event = event
+  def email_comment(comment, user)
     @comment = comment
-    @comments = event.comments.order('created_at DESC').limit(4)
+    @commenter = @comment.user.name
+    @event = @comment.event
+    @comments = @event.comments.order('created_at DESC').limit(4)
     @comments.shift(1)
     @user = user
-    @comment_time = comment.created_at.strftime "%l:%M%P, %A %B %e"
+    @comment_time = @comment.created_at.strftime "%l:%M%P, %A %B %e"
     @event_link = event_url(@event)
     mail to: @user.email, subject: "new comment - #{@event.short_event_title}"
   end
@@ -122,15 +102,6 @@ class Notifier < ActionMailer::Base
     unless @user == User.find_by_email("info@hoos.in")
       mail to: @user.email, subject: "idea begins this .instant - #{@event.short_event_title}"
     end
-  end
-
-  def invitation(event, invitee, inviter)
-    @event = event
-    @user = invitee
-    @inviter = inviter
-    mail to: @user.email, subject: "#{@inviter.name} .invited you to #{@event.short_event_title}"
-    # rescue => ex
-    # Airbrake.notify(ex)
   end
 
   def email_invitation(invite, event)
@@ -172,14 +143,6 @@ class Notifier < ActionMailer::Base
       format.html { render :layout => 'fb_message' }
     end
   end
-  
-  # def failed_to_tip(event, user)
-  #   @user = user
-  #   @event = event
-  #   if(@user.iPhone_user == true)
-  #   end
-  #   mail to: @user.email, subject: "Failed to Tip - #{@event.event_day}, #{@event.short_event_title}" 
-  # end
   
   def digest(user, invited_events, upcoming_events, has_events, new_invited_ideas, new_city_ideas, new_city_ideas_count)
     @user = user

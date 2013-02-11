@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201215424) do
+ActiveRecord::Schema.define(:version => 20130207233048) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -100,24 +100,6 @@ ActiveRecord::Schema.define(:version => 20130201215424) do
   add_index "authentications", ["uid"], :name => "index_authentications_on_uid", :unique => true
   add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
-  create_table "categories", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "categories", ["name"], :name => "index_categories_on_name"
-
-  create_table "categorizations", :force => true do |t|
-    t.integer  "category_id"
-    t.integer  "event_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "categorizations", ["category_id"], :name => "index_categorizations_on_category_id"
-  add_index "categorizations", ["event_id"], :name => "index_categorizations_on_event_id"
-
   create_table "cities", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -169,20 +151,17 @@ ActiveRecord::Schema.define(:version => 20130201215424) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.string   "title"
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.integer  "user_id"
-    t.integer  "min",                       :default => 1
-    t.integer  "max",                       :default => 10000
+    t.integer  "max",                    :default => 10000
     t.float    "duration"
-    t.integer  "inviter_id",                :default => 0
-    t.boolean  "tipped",                    :default => false
+    t.integer  "inviter_id",             :default => 0
     t.string   "link"
     t.string   "address"
     t.float    "longitude"
     t.float    "latitude"
     t.boolean  "gmaps"
-    t.boolean  "guests_can_invite_friends"
     t.float    "price"
     t.string   "promo_img_file_name"
     t.string   "promo_img_content_type"
@@ -190,33 +169,19 @@ ActiveRecord::Schema.define(:version => 20130201215424) do
     t.datetime "promo_img_updated_at"
     t.string   "promo_url"
     t.string   "promo_vid"
-    t.boolean  "is_public",                 :default => false
-    t.boolean  "family_friendly",           :default => false
+    t.boolean  "family_friendly",        :default => false
     t.integer  "parent_id"
     t.string   "short_url"
     t.boolean  "require_payment"
     t.string   "slug"
     t.integer  "city_id"
-    t.boolean  "is_big_idea",               :default => false
     t.text     "description"
-    t.boolean  "one_time",                  :default => false
+    t.boolean  "one_time",               :default => false
+    t.boolean  "dead",                   :default => false
+    t.boolean  "friends_only",           :default => false
   end
 
   add_index "events", ["slug"], :name => "index_events_on_slug"
-
-  create_table "fb_invites", :force => true do |t|
-    t.string   "uid"
-    t.string   "fb_pic_url"
-    t.string   "name"
-    t.integer  "inviter_id"
-    t.integer  "event_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "fb_invites", ["event_id", "uid"], :name => "index_fb_invites_on_event_id_and_uid", :unique => true
-  add_index "fb_invites", ["event_id"], :name => "index_fb_invites_on_event_id"
-  add_index "fb_invites", ["uid"], :name => "index_fb_invites_on_uid"
 
   create_table "gcm_devices", :force => true do |t|
     t.string   "registration_id",    :null => false
@@ -240,36 +205,12 @@ ActiveRecord::Schema.define(:version => 20130201215424) do
 
   add_index "gcm_notifications", ["device_id"], :name => "index_gcm_notifications_on_device_id"
 
-  create_table "interests", :force => true do |t|
-    t.integer  "category_id"
-    t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "interests", ["category_id"], :name => "index_interests_on_category_id"
-  add_index "interests", ["user_id"], :name => "index_interests_on_user_id"
-
-  create_table "invitations", :force => true do |t|
-    t.integer  "invited_user_id"
-    t.integer  "invited_event_id"
-    t.integer  "inviter_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
-  add_index "invitations", ["invited_event_id"], :name => "index_invitations_on_invited_event_id"
-  add_index "invitations", ["invited_user_id", "invited_event_id"], :name => "index_invitations_on_invited_user_id_and_invited_event_id", :unique => true
-  add_index "invitations", ["invited_user_id"], :name => "index_invitations_on_invited_user_id"
-  add_index "invitations", ["inviter_id"], :name => "index_invitations_on_inviter_id"
-
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-    t.boolean  "toggled",     :default => true
-    t.boolean  "confirmed",   :default => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "status"
   end
 
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
@@ -279,10 +220,10 @@ ActiveRecord::Schema.define(:version => 20130201215424) do
   create_table "rsvps", :force => true do |t|
     t.integer  "guest_id"
     t.integer  "plan_id"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
-    t.boolean  "invite_all_friends", :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "inout"
+    t.boolean  "muted",      :default => false
   end
 
   add_index "rsvps", ["guest_id", "plan_id"], :name => "index_rsvps_on_guest_id_and_plan_id", :unique => true
@@ -298,30 +239,6 @@ ActiveRecord::Schema.define(:version => 20130201215424) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
-
-  create_table "suggestions", :force => true do |t|
-    t.datetime "starts_at"
-    t.datetime "ends_at"
-    t.string   "title"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
-    t.integer  "user_id"
-    t.integer  "min",                    :default => 1
-    t.integer  "max",                    :default => 10000
-    t.float    "duration"
-    t.string   "link"
-    t.string   "address"
-    t.float    "longitude"
-    t.float    "latitude"
-    t.boolean  "gmaps"
-    t.string   "category"
-    t.float    "price"
-    t.boolean  "family_friendly"
-    t.string   "promo_img_file_name"
-    t.string   "promo_img_content_type"
-    t.integer  "promo_img_file_size"
-    t.datetime "promo_img_updated_at"
-  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                    :default => "",    :null => false
@@ -339,7 +256,6 @@ ActiveRecord::Schema.define(:version => 20130201215424) do
     t.datetime "updated_at",                                  :null => false
     t.string   "name"
     t.boolean  "terms"
-    t.boolean  "require_confirm_follow",   :default => false
     t.boolean  "allow_contact",            :default => true
     t.boolean  "notify_event_reminders",   :default => true
     t.boolean  "post_to_fb_wall",          :default => false

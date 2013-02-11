@@ -1,5 +1,5 @@
 <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
-<div class="vendor_dash">
+<div class="left user_show">
 	<div class="profile">
 		<%= large_profile_picture(@user) %>
 		<div class="show_name"><%= @user.name %><br><span style="font-size:14px;position:relative;bottom:20px;"><%= @user.city.name %></span></div>
@@ -10,38 +10,48 @@
 		<% end %>
 		<div class="profile_stats">
 			<ul>
-				<li><span class="only"> city-wide ideas </span><i class="icon-bullhorn black"></i><%= @user.events.where(:is_public => true).count %></li>
-				<li><span class="only"> private ideas </span><i class="icon-envelope blue"></i><%= @user.events.where(:is_public => false).count %></li>				
-				<% if false %>
-				<li><span class="only"> crowd ideas </span><i class="icon-cloud orange"></i><%= @user.events.where(:is_big_idea => true).count %></li>
-				<% end %>
-				<% @guest_count = 0
-						@user.events.each do |e|
-      				@guest_count += (e.guests.count -1)
-    				end
-    		%>
-				<li><span class="only"> guests </span><i class="icon-group purple"></i> <%= @guest_count %></li>
+				<li><span class="only"> created </span> <%= @user.events.count %></li>
+				<li><span class="only"> .ins </span> <%= @user.plans.count %></li>
+				<li><span class="only"> friends </span> <%= @user.friends.count %></li>
+				<li><span class="only"> .in-mates </span> <%= @user.inmates.count %></li>
 			</ul>
 		</div>
 	</div>
 
-	<% if user_signed_in? && (current_user == @user || current_user.is_friends_with?(@user)) %>
-	<div class="future_events">
-	<h3>Upcoming Ideas</h3>
-		<ul>
-			<% @events.each do |e| %>
-				<%= render partial: 'shalendar/activity_event', locals: { :event => e } %>
-			<% end %>
-		</ul>
+	<h2><%= @user.first_name %>'s ideas</h2>
+	<div class="idea_container">
+		<%= render partial: 'shalendar/event', collection: @my_ideas, as: :event %>
 	</div>
 
-	<div class="past_events">
-		<h3>Past Ideas</h3>
-		<ul>
-			<% @past_events.each do |pe| %>
-				<%= render partial: 'shalendar/activity_event', locals: { :event => pe } %>
-			<% end %>
-		</ul>
+	<h2>.ins</h2>
+	<div class="idea_container">
+		<%= render partial: 'shalendar/event', collection: @my_ins, as: :event %>
 	</div>
-<% end %>
-</div>
+
+	<% if user_signed_in? %>
+		<% if (current_user == @user || current_user.is_inmates_or_friends_with?(@user)) %>
+			<div class="future_events">
+			<h3>Upcoming Ideas</h3>
+				<ul>
+					<%= render partial: 'shalendar/activity_event', collection: @times, as: :event %>
+				</ul>
+			</div>
+
+			<div class="past_events">
+				<h3>Past Ideas</h3>
+				<ul>
+					<%= render partial: 'shalendar/activity_event', collection: @past_times, as: :event %>
+				</ul>
+			</div>
+		<% end %>
+	<% end %>
+	</div>	
+	
+	<div class="inmates_bar right">
+		<div class="friends clearfix">
+			<%= render partial: 'shared/user', collection: @user.friends, as: :user %>
+		</div>
+		<div class="inmates clearfix">
+			<%= render partial: 'shared/user', collection: @user.inmates, as: :user %>
+		</div>
+	</div>

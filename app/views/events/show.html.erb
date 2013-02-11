@@ -6,7 +6,7 @@
 <div class="event_show clearfix">
     <div id="rsvpForm" class="join_group_buttons">
       <%= render partial: 'rsvp_form', :locals => { :event => @event }  %> 
-      <div class="guests"><span id="guestCount"><%= @event.guest_count %></span></div>
+      <%= render :partial => 'shared/guest_count', :locals => { :event => @event } %>
     </div>
   <div class="event_title clearfix">
     <div class="eventTitle">
@@ -22,26 +22,8 @@
             <span class="fadeInBlue"><i class="icon-cloud"></i> to idea</span>
           <% end %>
         <% end %>
-      <% unless @event.tipped? %>
-        <%= link_to event_tip_path(@event), :confirm => "You sure you want to manually tip this idea? This will notify everyone that the idea is on.", :method => :put do %>
-          <span class="fadeInOrange"><i class="icon-pushpin"></i> tip</span>
-        <% end %>
-      <% end %>
       </div>
     <% end %>
-    <div class="eventIcons">
-    <% if @event.categories.any? %>
-      <% @event.categories.each do |cat| %>
-        <%= cat.name %>
-      <% end %>
-    <% end %>
-    <% if @event.is_public? %>
-      <i class="icon-bullhorn" title="Public"></i>
-    <% end %>
-    <% if @event.family_friendly? %>
-      <i class="icon-home" title="Family Friendly"></i>
-    <% end %>
-    </div>
   </div>
 	<div class="when clearfix">
     <% if @event.price.present? %>
@@ -85,7 +67,7 @@
     <%= render partial: 'events/show_time', collection: @relevant_instances, as: :event %>
   <% end %>
 
-  <% if current_user == @event.user && !@event.one_time? %>
+  <% if !@event.one_time? %>
     <div class="new_time_show">
     <%= link_to event_new_time_path(@event), id:"makeATime" do %>
       <span class="fadeInGreen"><i class="icon-time"></i> new time</span>
@@ -106,9 +88,6 @@
 </div>
   <ul class="social_buttons">
     <li>
-      <%= render partial: 'social/hoosin', locals: { :event => @event } %>
-    </li>
-    <li>
       <%= render partial: 'social/email', locals: { :event => @event } %>
     </li>
     <li>
@@ -123,26 +102,21 @@
   </ul>
 
     <div class="event_guests part clearfix">
-        <div class="right_label event_label"><%= @event.guest_count %>  .in </div>
+        <div class="right_label event_label"><%= @event.guest_count %>  .in (<%= @event.friends_in_count(current_user) %> friends)</div>
       <div class="show_raster">
         <%= render 'guests' %>
       </div>
     </div>
 
     <div class="maybes part clearfix">
-      <div class="left_label event_label"><span id="invite_count"><%= @fb_invites.nil? ? @invited_users.count + @email_invites.count : @invited_users.count + @email_invites.count + @fb_invites.count %></span> .invited </div> 
+      <div class="left_label event_label">
+        <span id="invite_count"><%= @event.maybes.count %></span> 
+        .invited (<%= @event.friends_invited_count(current_user) %> friends)
+      </div> 
       <div id="invites" class="show_raster">
         <%= render partial: 'events/invites' %>
       </div>
     </div>
-    
-<% if user_signed_in? %>
-  <% if @event.guests_can_invite_friends? || @event.user == current_user && @event.is_parent_or_future_instance? %>
-    <div id="invite_raster" class="part clearfix">
-      <%= render partial: 'invite_raster', :locals => { :event => @event } %>
-    </div>
-  <% end %>
-<% end %>
 
 <!-- Twitter API script -->
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>

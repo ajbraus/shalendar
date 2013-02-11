@@ -66,6 +66,7 @@ img {
 margin: 8px;
 min-width: 230px;
 max-width: 230px;
+padding:8px;
 		.promo_img {
 			img {
 				max-width: 200px;
@@ -81,7 +82,8 @@ max-width: 230px;
 	font-size:26px;
 }
 .idea_container {
-position: relative;
+width: 86%;
+margin: 0 auto;
 }
 
 .crowd_ideas {
@@ -186,11 +188,6 @@ margin: 0 auto;
 padding: 1px 0 10px 2px;
 	}
 
-		.guest_count {
-			bottom: 1px;
-			right: 6px;
-		}
-
 		.fadeInBlue, .fadeInGreen {
 			color:lightGrey;
 		}
@@ -199,15 +196,13 @@ padding: 1px 0 10px 2px;
 		display:none;
 		}
 
-		.vendor_dash {
-  		.activity_event img {
-    		float:left;
-    		width:20%;
-  		}
-  		.vendorEventDetails {
-				width: 79%;
-				float: right;
-			}
+		.activity_event img {
+  		float:left;
+  		width:20%;
+		}
+		.vendorEventDetails {
+			width: 79%;
+			float: right;
 		}
 
 		.activities {
@@ -228,14 +223,6 @@ padding: 1px 0 10px 2px;
 		}
 
 		.date_bar {
-			width: 99%;
-			top: 35px;
-			.date {
-				font-size: 1.8em;
-				font-size: 1.8em;
-				top: 9px;
-				position: relative;
-			}
 		}
 		
 		.dropdown dd ul {
@@ -419,6 +406,10 @@ margin-left: -246px;
 		position: relative;
 		bottom: 9px;
 		}
+		.profile_picture {
+			width: 35px;
+			height: 35px;
+		}
 	}
 
 	.share_after_rsvp {
@@ -462,6 +453,10 @@ margin-right: 85px;
 		}
 	}
 
+	.mini_calendar {
+		  width: 270px;
+	}
+
 }
 
 /***************************************/
@@ -481,11 +476,11 @@ margin-right: 85px;
 }*/
 
 /***************************************/
-/*** Tablet - iPad *********************/
+/*** Tablet - iPad *********************/ /*1 idea*/
 /***************************************/
-@media only screen and (min-width: 600px) and (max-width: 829px) {
-	.layout {
-		width: 530px;
+@media only screen and (min-width: 600px) and (max-width: 859px) {
+	.home_idea_container {
+		width: 260px;
 	}
 }
 @media only screen and (max-width: 829px) {
@@ -494,22 +489,23 @@ margin-right: 85px;
 	}
 }
 /***************************************/
-/*** Widescreen ************************/
+/*** Widescreen ************************/ /*2 ideas*/
 /***************************************/
-@media only screen and (min-width: 830px) and (max-width: 1099px) {
-	.layout {
-		width: 780px;
+@media only screen and (min-width: 860px) and (max-width: 1129px) {
+	.home_idea_container {
+		width: 510px;
 	}
 }
 
-@media only screen and (min-width: 1100px) and (max-width: 1349px) {
-	.layout {
-		width: 1000px;
+/*3ideas*/
+@media only screen and (min-width: 1130px) and (max-width: 1409px) {
+	.home_idea_container {
+		width: 750px;
 	}
 }
-
-@media only screen and (min-width: 1350px) {
-	.layout {
-		width: 1300px;
+/*4ideas*/
+@media only screen and (min-width: 1410px) {
+	.home_idea_container {
+		width: 1010px;
 	}
 }
