@@ -1,5 +1,9 @@
 Adam
 
+change dance party time
+
+Times aren't in chron order.. in created order right now
+
 Bugs
 
 send digest

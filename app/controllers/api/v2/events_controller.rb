@@ -20,7 +20,7 @@ class Api::V2::EventsController < ApplicationController
     @events = @invites_ideas.reject{|e| @mobile_user.out?(e)}
 
     if (@count + @window_size) < @events.count
-      @events = @events[@count .. @count + @window_size]
+      @events = @events[@count .. @count + @window_size-1]
     else#we'd overstep the array bounds
       @events = @events[@count .. (@events.count-1)]
       @finished = true
