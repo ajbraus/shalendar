@@ -125,7 +125,6 @@ class User < ActiveRecord::Base
     :last_name => self.last_name,
     :pic_url => @pic_url,
     :in_cnt => self.plans.count,
-    :f_cnt => self.followed_users.count,
     :idea_cnt => self.events.count,
     :g_cnt => @guest_count
     #:email_hex => Digest::MD5::hexdigest(self.email.downcase)

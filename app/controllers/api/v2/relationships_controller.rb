@@ -109,7 +109,7 @@ include UsersHelper
 
   def get_friends
 
-    render json: current_user.followed_users
+    render json: current_user.inmates
 
   end
 
