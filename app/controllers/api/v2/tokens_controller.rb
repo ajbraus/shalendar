@@ -4,40 +4,18 @@ class Api::V2::TokensController  < ApplicationController
   
   def create
     if params[:access_token]
-      # Handle login from mobile FB
-      # don't need to do the email confirmation.. they won't have FB access unless they're the right user
-      # if params[:email].nil?
-      #   render :status=>400,
-      #          :json=>{:error=>"The request must contain the user email and FB access token."}
-      #   return
-      # end
-      # email = params[:email]
       if params[:fbid].nil?
          render :status=>400,
                 :json=>{:error=>"The request must contain the user FBID"}
          return
       end
       fbid = params[:fbid]
-      # email_handle = params[:email].slice('@')
       fb_json = HTTParty.get("https://graph.facebook.com/#{fbid}?access_token=#{params[:access_token]}")
-      
-      # if email != fb_json["email"]
-      #   render :json=>{:error => "Email doesn't match the facebook email"}
-      #   return
-      # end
       @user = find_for_oauth("Facebook", fb_json, params[:access_token])   
-
       if @user.nil?
-        #I think we get the long access token already on the mobile app
-        # @short_token = access_token
-        # @long_token = HTTParty.get("https://graph.facebook.com/oauth/access_token?client_id=327936950625049&client_secret=4d3de0cbf2ce211f66733f377b5e3816&grant_type=fb_exchange_token&fb_exchange_token=#{@short_token}")
-        # access_token = @long_token
-
-        #create a new user from the FB access token + email
         render :status=>400, :json=>{:error=>"There was an error. Please check your Facebook account status and retry."}
         return
       end
-
     else
       email = params[:email]
       password = params[:password]
@@ -45,25 +23,25 @@ class Api::V2::TokensController  < ApplicationController
         render :status=>406, :json=>{:message=>"The request must be json"}
         return
       end
-   
       if email.nil? or password.nil?
          render :status=>400,
                 :json=>{:error =>"The request must contain the user email and password."}
          return
       end
       @user=User.find_by_email(email.downcase)
-
       if @user.nil? #create a new user
-
         render :status=>402, :json=>{error: "Invalid email/password combination. If you have not yet registered for hoos.in, you have to do so either through facebook or at www.hoos.in. Sorry for the inconvenience!"}
         return
       end
-      # http://rdoc.info/github/plataformatec/devise/master/Devise/Models/TokenAuthenticatable
       @user.ensure_authentication_token!
       if not @user.valid_password?(password)
         render :status=>400, :json=>{:error =>"Invalid email or password."}
         return
       end
+    end
+    @starred_ids = []
+    @user.friends.each do |f|
+      @starred_ids.push(f.id)
     end
     render :status=>200, :json=>{:token=>@user.authentication_token, 
                                   :user=>{
@@ -72,9 +50,9 @@ class Api::V2::TokensController  < ApplicationController
                                     :last_name=>@user.last_name,
                                     :myself=>@user,
                                     :email_hex=> Digest::MD5::hexdigest(@user.email.downcase),
-                                    :followed_users=>@user.followed_users,#may put these in separate calls for speed of login
-                                    :pending_followed_users=>@user.pending_followed_users,
-                                    :city_name=>@user.city.name
+                                    :friends=>@user.inmates,
+                                    :city_name=>@user.city.name,
+                                    :starred_ids => @starred_ids
                                     }
                                   }
   end
@@ -89,7 +67,6 @@ class Api::V2::TokensController  < ApplicationController
       render :status=>200, :json=>{:token=>params[:id]}
     end
   end
-
 
   def find_for_oauth(provider, fb_info, access_token, resource=nil)
     user, email, name, uid, auth_attr = nil, nil, nil, nil, {}
@@ -126,16 +103,6 @@ class Api::V2::TokensController  < ApplicationController
     if auth.nil?
       user = nil
     end
-             # TURN ALL FB_INVITES INTO INVITIATTIONS HERE 
-    FbInvite.where("uid = ?", uid).each do |fbi|
-      @inviter_id = fbi.inviter_id
-      @invited_user_id = user.id
-      @event = fbi.event
-      if @inviter = User.find_by_id(@inviter_id)
-        @inviter.invite!(@event, user)
-      end
-      fbi.destroy
-    end
 
     return user
   end
@@ -163,9 +130,7 @@ class Api::V2::TokensController  < ApplicationController
         @city = c
       end
 
-      time_zone = "Central Time (US & Canada)" #timezone_for_utc_offset(access_token.extra.raw_info.timezone)
-
-      user_attr = { email: email, name: name, city: @city, time_zone: time_zone }
+      user_attr = { email: email, name: name, city: @city}
       user.update_attributes user_attr
       
       return user
@@ -179,7 +144,6 @@ class Api::V2::TokensController  < ApplicationController
       user = User.new(:email => email, 
                 :name => name,
                 :city => city,
-                :time_zone => time_zone,
                 :terms => true,
                 :remember_me => true,
                 :password => Devise.friendly_token[0,20]
