@@ -315,11 +315,11 @@ class User < ActiveRecord::Base
   end
 
   def ignore_inmate!(inmate)
-    @relationship = self.relationship.find_by_follower_id(inmate.id)
+    @relationship = self.relationships.find_by_follower_id(inmate.id)
     @relationship.status = 0
     @relationship.save
     
-    @reverse_relationship = inmate.relationship_find_by_follower_id(self.id)
+    @reverse_relationship = inmate.relationships.find_by_follower_id(self.id)
     @reverse_relationship.status = 0
     @reverse_relationship.save
   end
