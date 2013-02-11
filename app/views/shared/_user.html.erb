@@ -8,6 +8,8 @@
     <% end %>
   </div>
   <div class="friend_name">
-    <%= user.name %>
+    <%= link_to user_path(user) do %>
+      <%= user.name %>
+    <% end %>
   </div>
 </div>

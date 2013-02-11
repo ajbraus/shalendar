@@ -142,10 +142,8 @@ top: 13px;
 	}
 
 	.event_show {
-top: 9px;
-margin: 0 auto;
-width: 64%;
-float: right;
+		position: fixed;
+width: 65%;
 		.promo_img {
 			img {
 				max-width: 100%;
@@ -164,11 +162,11 @@ float:left;
 	}
 
 	.event_guests {
-		float:left;
-		margin-top: 10px;
-		width: 29%;
-		max-height: 340px;
-		overflow: scroll;
+width: 30%;
+position: fixed;
+top: 94px;
+overflow: auto;
+max-height: 100%;
 	}
 
 	.maybes {
@@ -304,10 +302,12 @@ left: 238px;
       			margin-bottom:20px;
     		}
     	.event_show {
-    		margin: 0 auto;
+				margin: 0 auto;
 				width: 100%;
 				min-width: 0;
 				overflow: hidden;
+				position: relative;
+				top: 10px;
     	}
 			}
 		}
@@ -416,12 +416,13 @@ margin-left: -246px;
 		left: 18%;
 	}
 
-	.social_buttons {
-		width: 35.5%;
+	.email_share {
+		width: 33%;
 	}
+
 		.social_sharing {
 		a, a[href^="mailto"] {
-			width: 30%;
+			width: 32%;
 		}
 	}
 	.city_title {

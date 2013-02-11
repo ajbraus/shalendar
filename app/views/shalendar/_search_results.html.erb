@@ -6,12 +6,8 @@
 		</tr>
 		<% else @users.each do |u| %>
 		    <tr>
-		    	<td width="70"><%= raster_profile_picture(u) %><% end %></td>
+		    	<td width="70"><%= link_to user_path(u) do %><%= raster_profile_picture(u) %><% end %></td>
 				  <td width="250"><%= link_to user_path(u) do %><%= u.name %><% end %></td>
-					<% if false %>
-						<td><%= render  :partial => 'events/just_follow_form', :locals => { :user => u } %>
-					<% end %>
-					</td>
 				</tr>
 			<% end %>
 		<% end %>

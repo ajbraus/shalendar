@@ -1,9 +1,5 @@
 Adam
 
-change dance party time
-
-Times aren't in chron order.. in created order right now
-
 Bugs
 
 send digest
@@ -11,12 +7,16 @@ comments and time change not sending pushes
 
 Login through facebook - pick city
 
-ignore inmate
+recent activity
 
 push notifications for event create if your friend created it
 
 add mute button in chat
 add 'creator'
+
+toggle in homepage
+
+friends_in and inmates_in methods are busted - returning total friends and inmates
 
 ignore_inmate
 
@@ -67,7 +67,6 @@ improve onboarding
 		alert if you have some
 		ignore them
 		close friends on facebook
-	update on video
 	if no city alert --> show which city always
 	facebook => picking city
 

@@ -2,14 +2,19 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_slug(params[:id])
     if user_signed_in?
-      @my_ideas = @user.events.where('starts_at IS NULL OR (one_time = ? AND ends_at > ?)', true, Time.now)
       if current_user == @user
-        @my_ins = @user.plans.where('starts_at IS NULL OR (one_time = ? AND ends_at > ?)', true, Time.now) - @my_ideas
+        @my_ins = @user.plans.where('starts_at IS NULL OR (one_time = ? AND ends_at > ?)', true, Time.now)
       elsif current_user.is_inmates_with?(@user) 
         @my_ins = @user.plans.where(:starts_at => nil, :friends_only => false) - @my_ideas
       elsif current_user.is_friends_with?(@user) || @user == current_user
         @my_ins = @user.plans.where(:starts_at => nil) - @my_ideas
       end
+      
+      @my_ins.sort_by do |i|
+          i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
+            i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
+      end
+
       @times = @user.plans.where("starts_at > ?", Time.now).order('starts_at ASC')        
       @past_times = @user.plans.where("starts_at < ?", Time.now).order('starts_at ASC').limit(20)
     else

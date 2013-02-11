@@ -6,8 +6,6 @@
 			<% if user_signed_in? %>
 				<% if current_user.in?(event) %>
 					<i class="icon-ok-sign blue" title="you're .in"></i>
-				<% elsif current_user.invited?(event) %>
-					<i class="icon-envelope blue" title=".invited by <%= event.inviter_id = 0 ? event.user.name : User.find_by_id(event.inviter_id).name %>"></i>
 				<% end %>
 			<% end %>
 		</span>

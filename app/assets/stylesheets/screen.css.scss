@@ -2025,13 +2025,15 @@ top: 10px;
 /* EVENT#SHOW */
 
 .event_show {
-border-left: 1px solid #D1CDCD;
-border-right: 1px solid #D1CDCD;
+border:1px solid $divider;
 background-color: white;
-border-bottom: 1px solid #D1CDCD;
-border-top: 1px solid #D1CDCD;
-overflow-x: hidden;
-position: relative;
+overflow: auto;
+top: 93px;
+right: 0;
+height: 100%;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
   .meter {
     padding:0;
   }
@@ -2056,6 +2058,9 @@ position: relative;
   }
   > div {
     padding: 10px;
+    -webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
   }
   .ui-tabs, .ui-widget, .ui-widget-content, .ui-corner-all {
     -moz-border: 0px/*{cornerRadius}*/;
@@ -2074,14 +2079,18 @@ height: auto;
 line-height: 1.4;
 position: relative;
 border-top: 1px solid $divider;
+bottom: 5px;
 .out {
   position: relative;
   top: -10px;
   left: 3px;
 }
  .join_group_buttons {
-clear: both;
-font-size: 21px;
+background-color:$background_one;
+  color:black;
+i {
+  color:$rsvp;
+}
 }
   }
 .guests{
@@ -2111,6 +2120,14 @@ text-align: left;
   position: relative;
   left: 18px;
 }
+
+  .event_guests {
+  background-color: $background_one;
+  .guest_count {
+    float: left;
+margin-bottom: 10px;
+  }
+  }
 
 .part {
   padding: 15px;
@@ -2210,9 +2227,17 @@ float: right;
 font-size: 17px;
   }
 
+.rsvp_blue {
+  background-color:$rsvp;
+}
+
 .join_group_buttons {
-  height: 28px;
-  background-color:white;
+  min-height: 38px;
+  color:white;
+  width:100%;
+  i {
+    color:white;
+  }
   .rsvp_button {
 float: left;
 padding: 1px 11px;
@@ -2234,10 +2259,11 @@ z-index: 1;
 
 
 .social_buttons {
-  float: left;
+clear: both;
+margin: 5px;
   li {
     display: inline;
-    margin-right: -5px;
+    margin-right: -4px;
   }
 }
 
@@ -2264,14 +2290,11 @@ font-size: 12px;
 font-weight: normal;
 text-decoration: none;
 text-shadow: 1px 1px 0px white;
-width: 27.6%;
 text-align: center;
-font-size: 15px;
-height: 40px;
-padding-top: 6px;
-padding-left: 4px;
-padding-right: 4px;
+font-size: 16px;
 display: inline-block;
+padding-top: 5px;
+padding-bottom: 3px;
   a {
      color:#777777; 
     &:hover {
@@ -2295,7 +2318,7 @@ top: 3px;
 clear:both;
 font-size: 34px;
 line-height: 1.1;
-width: 98%;
+width: 100%;
 background-color: rgba(0, 0, 0, 0.5);
 color: white;
 font-weight: 400;
@@ -2523,12 +2546,13 @@ position: relative;
 z-index: 0;
 left: 0px;
 border-bottom:1px solid $divider;
-form {
-  float: left;
-  width: 90%;
-}
+height: 270px;
+margin-bottom:20px;
+padding-bottom:20px;
   img {
     float:left;
+    width: 33px;
+    height: 33px;
   }
   input[type=text] {
   width: 72%;
@@ -2579,7 +2603,7 @@ font-size: 1.1em;
 min-height: 31px;
 float: left;
 padding-left: 8px;
-width: 89%;
+width: 88%;
 line-height:1;
 }
 
@@ -3211,24 +3235,27 @@ line-height: 10px;
 }
 
 .profile {
-width: 87%;
-margin: 10px auto 0px auto;
+width: 100%;
+margin: 0px auto 0px auto;
 background-color: rgba(255, 255, 255, 0.8);
 position: relative;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
   img {
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
     border-radius: 7px;
-    width:150px;
-    height:150px;
-    margin:20px;
+    width: 100px;
+    height: 100px;
+    margin: 30px;
   }
   .profile_stats {
     text-align: right;
     position: absolute;
     right: 0;
     top: 0;
-    font-size: 30px;
+    font-size: 22px;
     margin: 20px;
   }
   .show_name {
@@ -3244,8 +3271,7 @@ height: 10px;
 float: right;
 position: relative;
 bottom: 20px;
-right: 10px;
-width: 240px;
+right: 21px;
   form {
     display: inline;
   }
@@ -3525,12 +3551,6 @@ top: 17px;
 #hoosin_friends_tab span, #fb_friends_tab span {
     position: relative;
     bottom: 14px;
-}
-
-.rsvpd {
-/*-webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
--moz-box-shadow:    0px 0px 9px rgba(50, 50, 50, 0.3);
-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);*/
 }
 
 .joyride-content-wrapper {
@@ -3941,16 +3961,32 @@ overflow: auto;
 
 .user {
   clear:both;
+  img {
+    width: 37px;
+    height: 37px;
+  }
   div {
     float:left;
   }
   .friend_name {
     position: relative;
-    top: 7px;
+    top: 9px;
+    margin-left: 10px;
   }
   .friend_button {
     float:right;
   }
+  .ignore_inmate {
+  float: right;
+  position: relative;
+  top: 9px;
+  right: 3px;
+  a {
+    &:hover{
+    color:$destroy;
+    }
+  }
+}
 }
 
 .in {
@@ -3980,4 +4016,10 @@ border-top: 1px solid $divider;
 
 .icon_color {
   color:$icon_color;
+}
+
+#follow_form {
+  form {
+    display: inline;
+  }
 }

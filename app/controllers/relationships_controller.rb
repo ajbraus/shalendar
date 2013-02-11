@@ -6,7 +6,7 @@ before_filter :authenticate_user!
     current_user.friend!(@user)
     @user.delay.contact_friend(current_user)
     respond_to do |format|
-      format.html { redirect_to :back, notice: "You are now friends with #{@user.name}" }
+      format.html { redirect_to :back, notice: "Successfully starred #{@user.name}" }
       format.js
     end
   end
@@ -18,18 +18,17 @@ before_filter :authenticate_user!
     respond_to do |format|
       # @plan_counts = []
       # @invite_counts = []
-      format.html { redirect_to :back, notice: "You are no longer friends with #{@user.name} on hoos.in" }
+      format.html { redirect_to :back, notice: "Successfully unstarred #{@user.name}" }
       format.js
     end
   end
 
   def ignore_inmate
-    @relationship = Relationship.find(params[:relationship_id])
-    @inmate = @relationship.followed
+    @inmate = User.find_by_id(params[:id])
     current_user.ignore_inmate!(@inmate)
 
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_to user_path(current_user), notice: "Successfully removed #{@user.name} from .in-mates" }
       format.js
     end
   end

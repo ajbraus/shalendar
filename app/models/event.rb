@@ -186,11 +186,11 @@ class Event < ActiveRecord::Base
   end
 
   def friends_in(current_user)
-    self.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id)
+    self.guests.joins(:relationships).where('status = ? AND followed_id = ?', 2, current_user.id)
   end
 
   def inmates_in(current_user)
-    self.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id)
+    self.guests.joins(:relationships).where('status = ? AND followed_id = ?', 1, current_user.id)
   end
 
   def friends_invited_count(current_user)

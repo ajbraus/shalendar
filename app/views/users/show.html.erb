@@ -12,7 +12,7 @@
 			<ul>
 				<li><span class="only"> created </span> <%= @user.events.count %></li>
 				<li><span class="only"> .ins </span> <%= @user.plans.count %></li>
-				<li><span class="only"> friends </span> <%= @user.friends.count %></li>
+				<li><span class="only"> stars </span> <%= @user.friends.count %></li>
 				<li><span class="only"> .in-mates </span> <%= @user.inmates.count %></li>
 			</ul>
 		</div>
@@ -28,12 +28,7 @@
 	  <% end %>
 	</div>
 
-	<h2><%= @user.first_name %>'s ideas</h2>
-	<div class="idea_container">
-		<%= render partial: 'shalendar/event', collection: @my_ideas, as: :event %>
-	</div>
-
-	<h2>.ins</h2>
+	<h2><%= @user.first_name %>'s .ins</h2>
 	<div class="idea_container">
 		<%= render partial: 'shalendar/event', collection: @my_ins, as: :event %>
 	</div>
@@ -58,7 +53,7 @@
 	</div>	
 	
 	<div class="inmates_bar right">
-		<h2><%= @user.inmates.count + @user.friends.count %> friends</h2>
+		<h2><%= @user.inmates.count + @user.friends.count %> .in-mates</h2>
 		<%= render partial: 'shared/user', collection: @user.friends, as: :user %>
 		<%= render partial: 'shared/user', collection: @user.inmates, as: :user %>
 	</div>

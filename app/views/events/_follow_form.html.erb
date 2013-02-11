@@ -5,6 +5,7 @@
 		  	<%= render :partial => 'events/unfollow', :locals => { :user => user } %>
 		  <% else %>
 		  	<%= render :partial => 'events/follow', :locals => { :user => user } %>
+		  	<%= render :partial => 'shared/ignore_inmate', :locals => { :user => user } %>
 		  <% end %>
 		</div>
 	<% end %>

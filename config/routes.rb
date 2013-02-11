@@ -61,6 +61,8 @@ Shalendar::Application.routes.draw do
     put :confirm_and_follow
   end
 
+  match '/ignore_inmate', :to => 'relationships#ignore_inmate', as: 'ignore_inmate'
+
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
   match 'share_all_fb_friends' =>'shalendar#share_all_fb_friends'
   match 'post_to_own_fb_wall' => 'events#post_to_own_fb_wall'

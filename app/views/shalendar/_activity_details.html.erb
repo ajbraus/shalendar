@@ -2,22 +2,7 @@
 	<div class="activity_guests">
 		<% if event.rsvps.any? %>
 			<h4>Guests <%= event.guest_count %></h4>
-			<% event.guests.each do |g| %>
-				<table>
-					<tr>
-						<td>
-							<%= link_to user_path(g) do %>
-								<%= raster_profile_picture(g) %> 
-							<% end %>
-						</td>
-						<td>
-							<%= link_to user_path(g) do %>
-								<%= g.name %>
-							<% end %>
-						</td>
-					<tr>
-				</table>
-			<% end %>
+			<%= render partial: 'shared/user', collection: event.guests, as: :user %>
 		<% end %>
 	</div>
 	<% if false %>
