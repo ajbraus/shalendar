@@ -12,10 +12,14 @@ class Api::V2::EventsController < ApplicationController
     end
     @count = Integer(params[:count])
     @finished = false
-
     @window_size = 7
-    @invites_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
-                .joins(:invitations).where(invitations: {invited_user_id: @mobile_user.id})
+
+    @invites_ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.now, true).reject { |i| current_user.out?(i) }
+
+    @invites_ideas = @invites_ideas.sort_by do |i| 
+        i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
+            i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
+
     @invites_ideas = @invites_ideas.sort_by{|i| -i.guests.count}
     @events = @invites_ideas.reject{|e| @mobile_user.out?(e)}
 
@@ -66,21 +70,27 @@ class Api::V2::EventsController < ApplicationController
           @instances.push(@instance)
         end
       end
+      @stars = e.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id)
+      @star_count = @stars.count
+      @friends = i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id)
+      @friend_count = @friends.count
+      @inviter = nil
+      if @star_count > 0
+        @inviter = @stars.first
+      end
       @temp = {
         :eid => e.id,
         :title => e.title,  
         :gcnt => e.guests.count,  
         :tip => e.min,
-        :image => e.image(:medium), 
-        :host => e.user,
+        :image => e.image(:medium),
+        :s_cnt => @star_count,
+        :f_cnt => @friend_count,
         :plan => @mobile_user.in?(e),
-        :tipped => e.tipped,
         :gids => @guestids,
-        :g_share => @g_share,
-        :share_a => @mobile_user.invited_all_friends?(e),
         :instances => @instances,
-        :ot => e.one_time,
-        :pub => e.is_public
+        :inviter => @inviter,
+        :ot => e.one_time
       }
       @list_events.push(@temp)
     end 
@@ -88,78 +98,6 @@ class Api::V2::EventsController < ApplicationController
           :finished => @finished,
           :events => @list_events
     }
-  end
-
-  def city_ideas
-    @mobile_user = User.find_by_id(params[:user_id])
-
-    if @mobile_user.present?
-      Time.zone = @mobile_user.city.timezone
-    else
-      render :status => 400, :json => {:error => "could not find your user"}
-    end
-
-    @city_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND is_public = ? AND city_id = ?', Time.now, true, true, @current_city.id)
-
-    @events = @city_ideas
-    @events = @events.reject{|e| @mobile_user.out?(e)}
-
-    #For Light-weight events sending for list (but need guests to know if RSVPd)
-    @list_events = []
-    @events.each do |e|
-      @guestids = []
-      e.guests.each do |g|
-        @guestids.push(g.id)
-      end
-      @g_share = true
-      if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
-        @g_share = false
-      end
-      @instances = []
-      if e.one_time?
-        @instance = {
-            :iid => e.id,
-            :gcnt => e.guests.count,
-            :start => e.starts_at,
-            :end => e.ends_at,
-            :address => e.address,
-            :plan => @mobile_user.in?(e)
-        }
-        @instances.push(@instance)
-      end
-      e.instances.each do |i|
-        if i.ends_at > Time.now && !@mobile_user.out?(i)
-          @instance = {
-            :iid => i.id,
-            :gcnt => i.guests.count,
-            :start => i.starts_at,
-            :end => i.ends_at,
-            :address => i.address,
-            :plan => @mobile_user.in?(i)
-          }
-          @instances.push(@instance)
-        end
-      end
-      @temp = {
-        :eid => e.id,
-        :title => e.title,  
-        :start => e.starts_at,#don't do timezone here, do it local on mobile
-        :end => e.ends_at, 
-        :gcnt => e.guests.count,  
-        :tip => e.min,
-        :image => e.image(:medium), 
-        :host => e.user,
-        :plan => @mobile_user.rsvpd?(e),
-        :tipped => e.tipped,
-        :gids => @guestids,
-        :g_share => @g_share,
-        :share_a => @mobile_user.invited_all_friends?(e),
-        :ot => e.one_time,
-        :pub => e.is_public
-      }
-      @list_events.push(@temp)
-    end 
-    render json: @list_events
   end
 
   def ins
@@ -227,77 +165,6 @@ class Api::V2::EventsController < ApplicationController
         :g_share => @g_share,
         :share_a => @mobile_user.invited_all_friends?(e),
         :ot => e.one_time?,
-        :pub => e.is_public
-      }
-      @list_events.push(@temp)
-    end 
-    render json: @list_events
-  end
-
-  def my_ideas
-    @mobile_user = User.find_by_id(params[:user_id])
-
-    if @mobile_user.present?
-      Time.zone = @mobile_user.city.timezone
-    else
-      render :status => 400, :json => {:error => "could not find your user"}
-    end
-
-    @my_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND user_id = ?', Time.now, true, @mobile_user.id)
-
-    @events = @my_ideas
-
-    #For Light-weight events sending for list (but need guests to know if RSVPd)
-    @list_events = []
-    @events.each do |e|
-      @guestids = []
-      e.guests.each do |g|
-        @guestids.push(g.id)
-      end
-      @g_share = true
-      if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
-        @g_share = false
-      end
-      @instances = []
-      if e.one_time?
-        @instance = {
-            :iid => e.id,
-            :gcnt => e.guests.count,
-            :start => e.starts_at,
-            :end => e.ends_at,
-            :address => e.address,
-            :plan => @mobile_user.in?(e)
-        }
-        @instances.push(@instance)
-      end
-      e.instances.each do |i|
-        if i.ends_at > Time.now && !@mobile_user.out?(i)
-          @instance = {
-            :iid => i.id,
-            :gcnt => i.guests.count,
-            :start => i.starts_at,
-            :end => i.ends_at,
-            :address => i.address,
-            :plan => @mobile_user.in?(i)
-          }
-          @instances.push(@instance)
-        end
-      end
-      @temp = {
-        :eid => e.id,
-        :title => e.title,  
-        :start => e.starts_at,#don't do timezone here, do it local on mobile
-        :end => e.ends_at, 
-        :gcnt => e.guests.count,  
-        :tip => e.min,
-        :image => e.image(:medium), 
-        :host => e.user,
-        :plan => @mobile_user.rsvpd?(e),
-        :tipped => e.tipped,
-        :gids => @guestids,
-        :g_share => @g_share,
-        :share_a => @mobile_user.invited_all_friends?(e),
-        :ot => e.one_time,
         :pub => e.is_public
       }
       @list_events.push(@temp)
@@ -608,5 +475,149 @@ class Api::V2::EventsController < ApplicationController
     render :status => 200, :json => {:success => "got here at least"}
   end
 
+
+  # def my_ideas
+  #   @mobile_user = User.find_by_id(params[:user_id])
+
+  #   if @mobile_user.present?
+  #     Time.zone = @mobile_user.city.timezone
+  #   else
+  #     render :status => 400, :json => {:error => "could not find your user"}
+  #   end
+
+  #   @my_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND user_id = ?', Time.now, true, @mobile_user.id)
+
+  #   @events = @my_ideas
+
+  #   #For Light-weight events sending for list (but need guests to know if RSVPd)
+  #   @list_events = []
+  #   @events.each do |e|
+  #     @guestids = []
+  #     e.guests.each do |g|
+  #       @guestids.push(g.id)
+  #     end
+  #     @g_share = true
+  #     if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
+  #       @g_share = false
+  #     end
+  #     @instances = []
+  #     if e.one_time?
+  #       @instance = {
+  #           :iid => e.id,
+  #           :gcnt => e.guests.count,
+  #           :start => e.starts_at,
+  #           :end => e.ends_at,
+  #           :address => e.address,
+  #           :plan => @mobile_user.in?(e)
+  #       }
+  #       @instances.push(@instance)
+  #     end
+  #     e.instances.each do |i|
+  #       if i.ends_at > Time.now && !@mobile_user.out?(i)
+  #         @instance = {
+  #           :iid => i.id,
+  #           :gcnt => i.guests.count,
+  #           :start => i.starts_at,
+  #           :end => i.ends_at,
+  #           :address => i.address,
+  #           :plan => @mobile_user.in?(i)
+  #         }
+  #         @instances.push(@instance)
+  #       end
+  #     end
+  #     @temp = {
+  #       :eid => e.id,
+  #       :title => e.title,  
+  #       :start => e.starts_at,#don't do timezone here, do it local on mobile
+  #       :end => e.ends_at, 
+  #       :gcnt => e.guests.count,  
+  #       :tip => e.min,
+  #       :image => e.image(:medium), 
+  #       :host => e.user,
+  #       :plan => @mobile_user.rsvpd?(e),
+  #       :tipped => e.tipped,
+  #       :gids => @guestids,
+  #       :g_share => @g_share,
+  #       :share_a => @mobile_user.invited_all_friends?(e),
+  #       :ot => e.one_time,
+  #       :pub => e.is_public
+  #     }
+  #     @list_events.push(@temp)
+  #   end 
+  #   render json: @list_events
+  # end
+
+
+  # def city_ideas
+  #   @mobile_user = User.find_by_id(params[:user_id])
+
+  #   if @mobile_user.present?
+  #     Time.zone = @mobile_user.city.timezone
+  #   else
+  #     render :status => 400, :json => {:error => "could not find your user"}
+  #   end
+
+  #   @city_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND is_public = ? AND city_id = ?', Time.now, true, true, @current_city.id)
+
+  #   @events = @city_ideas
+  #   @events = @events.reject{|e| @mobile_user.out?(e)}
+
+  #   #For Light-weight events sending for list (but need guests to know if RSVPd)
+  #   @list_events = []
+  #   @events.each do |e|
+  #     @guestids = []
+  #     e.guests.each do |g|
+  #       @guestids.push(g.id)
+  #     end
+  #     @g_share = true
+  #     if e.guests_can_invite_friends.nil? || e.guests_can_invite_friends == false
+  #       @g_share = false
+  #     end
+  #     @instances = []
+  #     if e.one_time?
+  #       @instance = {
+  #           :iid => e.id,
+  #           :gcnt => e.guests.count,
+  #           :start => e.starts_at,
+  #           :end => e.ends_at,
+  #           :address => e.address,
+  #           :plan => @mobile_user.in?(e)
+  #       }
+  #       @instances.push(@instance)
+  #     end
+  #     e.instances.each do |i|
+  #       if i.ends_at > Time.now && !@mobile_user.out?(i)
+  #         @instance = {
+  #           :iid => i.id,
+  #           :gcnt => i.guests.count,
+  #           :start => i.starts_at,
+  #           :end => i.ends_at,
+  #           :address => i.address,
+  #           :plan => @mobile_user.in?(i)
+  #         }
+  #         @instances.push(@instance)
+  #       end
+  #     end
+  #     @temp = {
+  #       :eid => e.id,
+  #       :title => e.title,  
+  #       :start => e.starts_at,#don't do timezone here, do it local on mobile
+  #       :end => e.ends_at, 
+  #       :gcnt => e.guests.count,  
+  #       :tip => e.min,
+  #       :image => e.image(:medium), 
+  #       :host => e.user,
+  #       :plan => @mobile_user.rsvpd?(e),
+  #       :tipped => e.tipped,
+  #       :gids => @guestids,
+  #       :g_share => @g_share,
+  #       :share_a => @mobile_user.invited_all_friends?(e),
+  #       :ot => e.one_time,
+  #       :pub => e.is_public
+  #     }
+  #     @list_events.push(@temp)
+  #   end 
+  #   render json: @list_events
+  # end
 
 end
