@@ -6,99 +6,61 @@ send digest
 comments and time change not sending pushes
 
 Login through facebook - pick city
-
-recent activity
-
-push notifications for event create if your friend created it
+recent activity on show
 
 add mute button in chat
 add 'creator'
-
 toggle in homepage
-
-friends_in and inmates_in methods are busted - returning total friends and inmates
-
-ignore_inmate
 
 NOTIFIERS:
 	new_friend
 	add stats to digest
 	follow_up reflects inmate change
-
-display city on home
+	
+	guest count in emails
 
 add time looks weird on shield
 
 --------------------------------------------------------------
 
+add way more cities
+http://en.wikipedia.org/wiki/List_of_United_States_cities_by_population
+England, Australia, major expat destinations
+City.create(name: "Oklahoma City, Oklahoma", timezone: "Central Time (US & Canada)")
+
+
+event#new
+	share on fb/twitter
+
+send an email letting everyone know they can post instagram pics #hoosin and it gets on the homepage!
+
+Friend from email
+RSVP in or out from email
+
+create edit-time page (maybe best-a-one)
 add location to _time
+next time at the top of the show
 
 one_time is getting lost
 
 rake task to add new inmates as ppl join from facebook - email "new fb friend joined hoos.in"
 
-add_time dropdown
-
-event#new
-	share on fb/twitter
-	
 	close window after twitter share
-
 	add pic to facepile when rsvping (rsvp_check)
-	create edit-time page (maybe best-a-one)
-
+	
 	in invite email display next time if exists
 	who invited you on shield/show
-	time at the top of the show_time (no 'you're in')
-	When invite remove invite button
-
-	invite friends to facebook app button in header
-
-Friend from email
-RSVP in or out from email
-
-Visual Clarity
-	facepile on email
-	hovering putting a box around idea shields
-
-improve onboarding
-	suggested friends
-		in profile page - a floater in the layout like pinterest
-		alert if you have some
-		ignore them
-		close friends on facebook
-	if no city alert --> show which city always
-	facebook => picking city
-
-
-Suggested friends
-	user.rb
-	has_many :ignored_users, through: :ignored_users
-	belongs_to user, through :ignored_users
-	migration creates linking table
-		user clicks "X" on suggested friend in home page
-		add user to ignored_user
-	could include ppl who rsvpd to events current_user rsvpd to that they are not friends with
-
-intensify network of friends
-	separate friends and new friends in event show
-	little orange plus button
-	list view of .in's
 	
-Improve credibility (automagical software experiences)
-	email when a facebook friend joins with link to their profile
-	add time should come down from the bottom
+	facebook app invite
 
-Profile overhaul
-	my ideas
-	display mutual friends
-	display friends
-	///
-	find your outs later 
-	leave a message for the user/chat - wall . . .
+facepile on email
+hovering putting a box around idea shields
 
-Marketing
-	flash mob in the ratskellar
+enhance - suggested friends
+	you have x new inmates since you last logged in - star some
+
+add_time dropdown
+display mutual friends
 
 social sharing from homescreen
 	count on the top left
@@ -107,28 +69,12 @@ social sharing from homescreen
 
 Adding FB to a native login doesn't work smoothly
 
-add way more cities
-http://en.wikipedia.org/wiki/List_of_United_States_cities_by_population
-England, Australia, major expat destinations
-City.create(name: "Oklahoma City, Oklahoma", timezone: "Central Time (US & Canada)")
-
-send an email letting everyone know they can post instagram pics #hoosin and it gets on the homepage!
-
 Signup for responsive
 Terms on conditions responsive
 Remove background image from signup add it to profile
 	research coder wall for standard custom backgrounds - make a few
-Search bar smaller reponsive
-Filters shorter
-Shrink font in comments responsive
-Mobile joyride
-Grid of invites - always show invite button
-Grid of friends - stats
-remove friends page (add friends to profile)
 
-switch invites to right and sample idea to left
-
-Your friend x just joined hoos.in
+caching friends going
 
 speedtests
 	pagespeed chrome extension
@@ -141,8 +87,7 @@ server speed
 cross browser testing
 
 Make friending ajaxy
-
-guest count in emails
+make commennts ajaxy
 
 drawn arrows
 

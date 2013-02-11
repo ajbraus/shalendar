@@ -92,6 +92,12 @@
         end #END if ongoing event create instance
       end # END If starts_at present
 
+      #SEND CONTACT TO ALL PPL WHO STAR CURRENT USER
+      @starred_bys = current_user.starred_bys
+      @starred_bys.each do |sb|
+        sb.current_user.contact_new_idea(@event)
+      end
+
       respond_to do |format|
         format.html { redirect_to @event, notice: "Idea Posted Successfully" }
         format.json { render json: @event, status: :created, location: @event }

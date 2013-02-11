@@ -105,14 +105,20 @@ position: relative;
 	}
 
 	.btn-new-idea {
-padding: 6px 10px;
-top: 59px;
-left: 6px;
+padding: 9px 12px;
 -moz-border-radius: 6px;
 -webkit-border-radius: 6px;
 border-radius: 6px;
-z-index: 10000;
-position: absolute;
+position: relative;
+bottom: 10px;
+margin-right: 5px;
+	}
+
+	.city_name {
+		font-size: 14px;
+left: 5px;
+position: relative;
+top: 3px;
 	}
 
 	#new_idea_blerb {
@@ -189,9 +195,10 @@ margin-right: 2%;
 
 	.event_show {
 		margin:0;
-		width: 96%;
+		width: 102%;
 		left: 7px;
 		bottom: 10px;
+		overflow: hidden;
 		.promo_img {
 			img {
 				max-width: 106%;

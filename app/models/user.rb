@@ -84,6 +84,7 @@ class User < ActiveRecord::Base
 
   has_many :inmates, through: :relationships, source: :followed, conditions: "status = 1"  
   has_many :friends, through: :relationships, source: :followed, conditions: "status = 2"  
+  has_many :starred_bys, through: :relationships, source: :follower, conditions: "status = 2"
 
   has_many :comments, dependent: :destroy
 
@@ -350,7 +351,120 @@ class User < ActiveRecord::Base
     end
   end
 
+  def vendor_friendships
+    @vendor_friendships = []
+    self.relationships.where('relationships.confirmed = true').each do |r|
+      if r.followed.vendor?
+        @vendor_friendships << r
+      end
+    end
+    return @vendor_friendships
+  end
+
+  def fb_user?
+    if self.authentications.find_by_provider("Facebook")
+      return true
+    else
+      return false
+    end
+  end
+
+  def fb_friends(graph)
+    #RETURNS AN ARRAY [[HOOSIN_USERS][NOT_HOOSIN_USERS(FB_USERS)]]
+    @fb_friends = []
+    
+    @hoosin_user = []
+    @not_hoosin_user = []
+    @graph = graph
+    @facebook_friends = @graph.fql_query("select current_location, pic_square, name, username, uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())")
+    @city_friends = @facebook_friends.reject { |ff| !ff['current_location'] || ff['current_location']['name'] != self.authentications.select{|auth| auth.provider == "Facebook"}.first.city } 
+    @city_friends.each do |cf|
+      @authentication = Authentication.find_by_uid("#{cf['uid']}")
+      if @authentication
+        user = @authentication.user
+        @hoosin_user << user
+      else
+        @not_hoosin_user << cf
+      end
+    end
+    @fb_friends << @hoosin_user
+    @fb_friends << @not_hoosin_user
+    return @fb_friends
+  end
+
+  def permits_wall_posts?(graph)
+    if graph.nil?
+      return false
+    else
+      @publish = graph.fql_query("select publish_stream from permissions where uid = me()")
+      if @publish[0]["publish_stream"] == 1
+        return true
+      else
+        return false
+      end
+    end
+  end
+
+  def has_valid_credit_card?
+    if credit_card_uri.blank?
+      return false
+    else
+      return true 
+    end
+  end
+
+  def credit!(user, amount)
+    bank_account = Balanced::BankAccount.find(user.bank_account_uri)
+    bank_account.credit(amount)
+  end
+
+  def refund!(amount)
+    
+  end
+
+  def fb_authentication
+    @auth = authentications.where("provider = ?", "Facebook").last
+    return @auth
+  end
+
+
   # Contact methods
+
+  def contact_new_idea(event)
+    @user = self
+    @event = event
+    if @user.iPhone_user == true
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+          n = APN::Notification.new
+          n.device = d
+          n.alert = "#{@user.name} invited you to a new idea - #{@event.title}"
+          n.badge = 1
+          n.sound = true
+          n.custom_properties = {:type => "reminder", :id => "#{@event.id}", msg: ""}
+          n.save
+      end
+    elsif(@user.android_user == true)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "#{@user.name} invited you to a new idea - #{@event.title}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [d.registration_id], :data => {:type => "reminder", :id => "#{@event.id}", :msg => ""}}
+        n.save
+      end
+    else
+      unless @user == User.find_by_email("info@hoos.in")
+        Notifier.new_idea(@event, @user).deliver
+      end
+    end
+  end
+
   def contact_reminder(event)
     @user = self
     @event = event
@@ -456,7 +570,7 @@ class User < ActiveRecord::Base
         n.save
       end
     else
-      Notifier.time_change(event, @user).deliver
+      Notifier.time_change(@event, @user).deliver
     end
   end
 
@@ -507,7 +621,7 @@ class User < ActiveRecord::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "Cancellation - #{@event.event_day}"
+        n.alert = "Cancellation - #{@event.title}"
         n.badge = 1
         n.sound = true
         n.custom_properties = {msg: "#{@event.short_event_title}", :type => "cancel", :id => "#{@event.id}"}
@@ -520,7 +634,7 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "Cancellation - #{@event.event_day}, #{@event.title}"
+        n.collapse_key = "Cancellation - #{@event.title}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {msg: "#{@event.short_event_title}", :type => "cancel", :id => "#{@event.id}"}}
         n.save
@@ -542,7 +656,7 @@ class User < ActiveRecord::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "New Friend - #{@follower.name}"
+        n.alert = "Someone starred you! - #{@follower.name}"
         n.badge = 1
         n.sound = true
         n.custom_properties = {msg: "", :type => "new_friend", :id => "#{@follower.id}"}
@@ -555,7 +669,7 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "New Friend - #{@follower.name}"
+        n.collapse_key = "Someone starred you! - #{@follower.name}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {msg: "", :type => "new_friend", :id => "#{@follower.id}"}}
         n.save
@@ -668,81 +782,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  def vendor_friendships
-    @vendor_friendships = []
-    self.relationships.where('relationships.confirmed = true').each do |r|
-      if r.followed.vendor?
-        @vendor_friendships << r
-      end
-    end
-    return @vendor_friendships
-  end
 
-  def fb_user?
-    if self.authentications.find_by_provider("Facebook")
-      return true
-    else
-      return false
-    end
-  end
 
-  def fb_friends(graph)
-    #RETURNS AN ARRAY [[HOOSIN_USERS][NOT_HOOSIN_USERS(FB_USERS)]]
-    @fb_friends = []
-    
-    @hoosin_user = []
-    @not_hoosin_user = []
-    @graph = graph
-    @facebook_friends = @graph.fql_query("select current_location, pic_square, name, username, uid FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())")
-    @city_friends = @facebook_friends.reject { |ff| !ff['current_location'] || ff['current_location']['name'] != self.authentications.select{|auth| auth.provider == "Facebook"}.first.city } 
-    @city_friends.each do |cf|
-      @authentication = Authentication.find_by_uid("#{cf['uid']}")
-      if @authentication
-        user = @authentication.user
-        @hoosin_user << user
-      else
-        @not_hoosin_user << cf
-      end
-    end
-    @fb_friends << @hoosin_user
-    @fb_friends << @not_hoosin_user
-    return @fb_friends
-  end
-
-  def permits_wall_posts?(graph)
-    if graph.nil?
-      return false
-    else
-      @publish = graph.fql_query("select publish_stream from permissions where uid = me()")
-      if @publish[0]["publish_stream"] == 1
-        return true
-      else
-        return false
-      end
-    end
-  end
-
-  def has_valid_credit_card?
-    if credit_card_uri.blank?
-      return false
-    else
-      return true 
-    end
-  end
-
-  def credit!(user, amount)
-    bank_account = Balanced::BankAccount.find(user.bank_account_uri)
-    bank_account.credit(amount)
-  end
-
-  def refund!(amount)
-    
-  end
-
-  def fb_authentication
-    @auth = authentications.where("provider = ?", "Facebook").last
-    return @auth
-  end
+# PRIVATE METHODS
 
   private
 

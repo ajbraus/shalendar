@@ -4,12 +4,13 @@
   <nav class="clearfix">
      <%= render 'layouts/logo' %>
       <div class="instructions">.instructions</div>
+      <div class="city_name"><%= @current_city.name %></div>
       <%= render 'shared/friend_search' %>
       <% if params[:action] == 'home' %>
       <div class="navigation">
         <span class="options">
           <%= link_to user_path(current_user) do %>
-            <span id="jrPlans"><%= current_user.plans.count %> .ins</span>
+            <span id="jrPlans"><%= current_user.plans.count %> .ins</span> |
             <span id="jrFriends"><%= current_user.friends.count %> friends</span>
           <% end %>
         </span>
@@ -21,26 +22,21 @@
         <%= link_to user_path(current_user) do %>
           <%= raster_profile_picture(current_user) %>
         <% end %>
+        <%= render 'shared/new_idea_button' %>
       </div>
       <% else %>
-      <div class="navigation">
-        <% if current_user.admin? %>
-          <%= link_to admin_dashboard_path do %>
-            <span class="fadeInRed"><i class="icon-magic"></i></span>
+        <div class="navigation">
+          <% if current_user.admin? %>
+            <%= link_to admin_dashboard_path do %>
+              <span class="fadeInRed"><i class="icon-magic"></i></span>
+            <% end %>
           <% end %>
-        <% end %>
-        <%= link_to user_path(current_user) do %>
-          <%= raster_profile_picture(current_user) %>
-        <% end %>
-      </div>
+          <%= link_to user_path(current_user) do %>
+            <%= raster_profile_picture(current_user) %>
+          <% end %>
+          <%= render 'shared/new_idea_button' %>
+        </div>
       <% end %>
-      <div class="new_idea_button"><%= render 'shared/new_idea_button' %></div>
-<!--       <div class="friend_only hide_all" title="Only Show My Plans">
-        <span class="fadeInBlue"><i class="icon-ok-sign"></i> <span class="only">only</span>
-      </div> -->
-<!--       <div id="hide_public" class="friend_only" title=".invites only">
-        <span class="fadeInOrange"><i class="icon-envelope-alt"></i> <span class="only">only</span></span>
-      </div> -->
   </nav>
 
     <% if false %>
