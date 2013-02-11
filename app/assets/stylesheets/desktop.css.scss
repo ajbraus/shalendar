@@ -144,6 +144,7 @@ top: 13px;
 	.event_show {
 		position: fixed;
 width: 65%;
+overflow: auto;
 		.promo_img {
 			img {
 				max-width: 100%;
@@ -257,17 +258,13 @@ right: 15px;
 		}
 
 		.btn-new-idea {
-padding: 8px 0px;
--moz-border-radius: 6px;
--webkit-border-radius: 6px;
-border-radius: 6px;
-width: 105px;
-float: left;
-position: absolute;
-top: 50px;
-left: 238px;
-		}
-		.new_idea {
+			padding: 8px 0px;
+			-moz-border-radius: 6px;
+			-webkit-border-radius: 6px;
+			border-radius: 6px;
+			width: 104px;
+			position: relative;
+			bottom: 12px;
 		}
 
 		.html-new-idea {
@@ -398,9 +395,10 @@ margin-left: -246px;
 		z-index: 0;
 		margin: 0 auto;
 		float: right;
-		clear: right;
 		top: 20px;
-		right: 4.3%;
+		right: 4%;
+		width: auto;
+		clear: right;
 	.options {
 		position: relative;
 		bottom: 9px;
@@ -455,6 +453,12 @@ margin-right: 85px;
 
 	.mini_calendar {
 		width: 320px;
+	}
+
+	.city_name {
+		position: absolute;
+		top: 59px;
+		left: 236px;
 	}
 
 }

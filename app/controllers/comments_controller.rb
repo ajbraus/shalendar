@@ -52,10 +52,10 @@ class CommentsController < ApplicationController
             g.delay.contact_comment(@comment)
           end
         end
-        format.html { redirect_to @event, notice: 'Message was successfully created.' }
+        format.html { redirect_to @event, notice: 'Chat sent' }
         format.json { render json: @event, status: :created, location: @event }
       else
-        format.html { redirect_to @event, notice: 'Message could not be saved.' }
+        format.html { redirect_to @event, notice: 'Chat could not be sent. Please try again' }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end

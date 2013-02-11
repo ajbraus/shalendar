@@ -5,7 +5,7 @@ $(document).ready(function() {
       // column_width: 100,
       isAnimated: true,
     	animationOptions: {
-      // duration: 100,
+      duration: 50,
       // cornerStampSelector: '.suggested_friends'
     	}
     });

@@ -95,6 +95,14 @@ class Notifier < ActionMailer::Base
     mail to: @user.email, subject: "new comment - #{@event.short_event_title}"
   end
 
+  def new_idea(event, user)
+    @event = event
+    @user = user
+    unless @user == User.find_by_email("info@hoos.in")
+      mail to: @user.email, subject: "#{@event.user.name} invited you to a new idea"
+    end
+  end
+
   def rsvp_reminder(event, user)
     @user = user
     @event = event

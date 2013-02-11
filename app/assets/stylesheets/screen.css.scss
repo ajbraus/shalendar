@@ -517,12 +517,10 @@ border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
 filter: progid:dximagetransform.microsoft.gradient(enabled=false);
   cursor: pointer;
-    border:1px solid #84bbf3;
   display:inline-block;
   color:#ffffff;
   font-family:arial;
   text-decoration:none;
-  text-shadow:1px 1px 0px #528ecc;
   &:hover {
     background-color: #5BB75B;
 background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#51A351), to(#62C462));
@@ -535,6 +533,12 @@ border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff51a351', endColorstr='#ff62c462', GradientType=0);
 filter: progid:dximagetransform.microsoft.gradient(enabled=false);
   }
+}
+
+.btn-new-time {
+  width: 100%;
+text-align: center;
+font-size: 20px;
 }
 
 span.red a {
@@ -745,10 +749,6 @@ text-align: right;
   text-align: center;
   span {
     cursor:pointer;
-  }
-  i {
-    position: relative;
-    bottom: 9px;
   }
 }
 
@@ -1406,6 +1406,8 @@ right: 56px;
     right: 4px;
   }
   .promo_img {
+    overflow: hidden;
+    height: 60px;
     img {
       width:100%;
       position: relative;
@@ -1413,15 +1415,15 @@ right: 56px;
   }
 }
   .event_time {
-    color: black;
+color: black;
 background-color: white;
-padding: 3px 2px 1px 5px;
-font-size: 16px;
+padding: 0px 2px 1px 5px;
+font-size: 20px;
 height: auto;
-position: relative;
+position: absolute;
 width: auto;
-right: 0;
-bottom: 0;
+left: 25px;
+top: 5px;
     img {
       width: 7%;
       margin-bottom: -5px;
@@ -1438,7 +1440,7 @@ bottom: 0;
   }
   .event_blerb {
 color: black;
-font-size: 16px;
+font-size: 21px;
 line-height: 1;
 position: relative;
 min-height: 0;
@@ -1454,10 +1456,6 @@ padding-bottom: 0;
     width:30px;
     height:30px;
   }
-  }
-  .promo_img {
-    overflow: hidden;
-    height: 80px;
   }
 }
 
@@ -2027,7 +2025,6 @@ top: 10px;
 .event_show {
 border:1px solid $divider;
 background-color: white;
-overflow: auto;
 top: 93px;
 right: 0;
 height: 100%;
@@ -2042,9 +2039,10 @@ box-sizing: border-box;
     margin-bottom:0px;
     padding: 0;
     img {
-      max-height: 540px;
-      min-width: 250px;
-      min-height: 90px;
+max-height: 380px;
+min-width: 250px;
+min-height: 90px;
+max-width: 100%;
     }
   }
   .promo_vid {
@@ -3239,6 +3237,7 @@ width: 100%;
 margin: 0px auto 0px auto;
 background-color: rgba(255, 255, 255, 0.8);
 position: relative;
+height: 187px;
 -webkit-box-sizing: border-box;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
