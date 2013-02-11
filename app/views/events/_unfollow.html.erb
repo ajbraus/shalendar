@@ -1,4 +1,6 @@
 <%= form_for(current_user.relationships.find_by_followed_id(user.id),
          html: { method: :delete }) do |f| %>
-	<%= f.submit "Remove", class: "btn btn_stop_viewing unfriend", confirm:"Are you sure you would like to stop exchanging .invites with #{user.name}?" %>
+	<button class="btn btn-unfollow" name="commit" type="submit" title="remove <%= user.first_name %> from friends">
+		<i class="icon-star"></i>
+	</button>
 <% end %>

@@ -16,12 +16,12 @@
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "0" %>
-			  <%= f.submit "#{event.is_parent? ? 'x' : 'out'}", class:"btn-out", title:"I'm out" %>
+			  <%= f.submit "x", class:"btn-out", title:"I'm out" %>
 			<% end %>
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "1" %>
-			  <%= f.submit "#{event.is_parent? ? '.interested' : '.in'}", class:"btn_icon btn_icon_rsvp", title: "I'm interested" %>
+			  <%= f.submit "#{event.starts_at.blank? ? '.interested' : '.in'}", class:"btn_icon btn_icon_rsvp", title: "I'm interested" %>
 			<% end %>
 		<% end %>
 	<% end %>

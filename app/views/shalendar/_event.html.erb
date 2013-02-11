@@ -19,6 +19,11 @@
 			<div class="rsvp_check">
 				<%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %>
 			</div>
+		  <div class="facepile">
+  			<% event.friends_in(current_user).each do |guest| %>
+    			<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
+  			<% end %>
+			</div>
 			<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>		
 		</div>
 

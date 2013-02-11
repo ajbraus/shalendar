@@ -1,0 +1,6 @@
+<span class="guest_count">
+	<span id="guestCount"> <%= event.guest_count %></span>
+	<% if user_signed_in? %>
+		<span id="friendCount">(<%= event.friends_in(current_user).count %>)</span>
+	<% end %>
+</span>

@@ -57,6 +57,7 @@ private
     else
       user = resource
     end
+
     auth = user.authentications.find_by_provider(provider)
     if auth.nil? && Authentication.find_by_uid(uid).nil?     
       auth = user.authentications.build(:provider => provider)
@@ -89,12 +90,6 @@ private
 
       user_attr = { email: email, name: name }
       user.update_attributes user_attr
-
-      #add all facebook friends to inmates (create relationships with status = 1) 
-      @member_friends = u.fb_friends(session[:graph])[0]
-      @member_friends.each do |mf|
-        u.inmate!(mf)
-      end
       
       return user
 
@@ -115,6 +110,12 @@ private
                 :password => Devise.friendly_token[0,20]
               )
       user.save
+
+      #add all facebook friends to inmates (create relationships with status = 1) 
+      @member_friends = user.fb_friends(session[:graph])[0]
+      @member_friends.each do |mf|
+        user.inmate!(mf)
+      end
 
       EmailInvite.where("email_invites.email = :new_user_email", new_user_email: user.email).each do |ei|
         @inviter_id = ei.inviter_id

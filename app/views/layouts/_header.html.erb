@@ -1,15 +1,17 @@
 <% if user_signed_in? %>
 <header>
   <%= render partial: 'shalendar/joyride' %>
-  <nav>
+  <nav class="clearfix">
      <%= render 'layouts/logo' %>
       <div class="instructions">.instructions</div>
       <%= render 'shared/friend_search' %>
       <% if params[:action] == 'home' %>
       <div class="navigation">
         <span class="options">
-          <span id="jrPlans">(<%= current_user.plans.count %>) .ins</span> |
-          <span id="jrFriendsIdeas">.invites</span>
+          <%= link_to user_path(current_user) do %>
+            <span id="jrPlans"><%= current_user.plans.count %> .ins</span>
+            <span id="jrFriends"><%= current_user.friends.count %> friends</span>
+          <% end %>
         </span>
         <% if current_user.admin? %>
           <%= link_to admin_dashboard_path do %>

@@ -82,8 +82,7 @@ padding:8px;
 	font-size:26px;
 }
 .idea_container {
-width: 86%;
-margin: 0 auto;
+width: 100%;
 }
 
 .crowd_ideas {
@@ -401,7 +400,7 @@ margin-left: -246px;
 		float: right;
 		clear: right;
 		top: 20px;
-		right: 3%;
+		right: 4.3%;
 	.options {
 		position: relative;
 		bottom: 9px;
@@ -422,7 +421,7 @@ margin-left: -246px;
 	}
 		.social_sharing {
 		a, a[href^="mailto"] {
-			width: 22%;
+			width: 30%;
 		}
 	}
 	.city_title {
@@ -454,7 +453,7 @@ margin-right: 85px;
 	}
 
 	.mini_calendar {
-		  width: 270px;
+		width: 320px;
 	}
 
 }
@@ -478,7 +477,7 @@ margin-right: 85px;
 /***************************************/
 /*** Tablet - iPad *********************/ /*1 idea*/
 /***************************************/
-@media only screen and (min-width: 600px) and (max-width: 859px) {
+@media only screen and (min-width: 600px) and (max-width: 879px) {
 	.home_idea_container {
 		width: 260px;
 	}
@@ -491,21 +490,21 @@ margin-right: 85px;
 /***************************************/
 /*** Widescreen ************************/ /*2 ideas*/
 /***************************************/
-@media only screen and (min-width: 860px) and (max-width: 1129px) {
+@media only screen and (min-width: 880px) and (max-width: 1149px) {
 	.home_idea_container {
-		width: 510px;
+		width: 520px;
 	}
 }
 
 /*3ideas*/
-@media only screen and (min-width: 1130px) and (max-width: 1409px) {
+@media only screen and (min-width: 1150px) and (max-width: 1429px) {
 	.home_idea_container {
-		width: 750px;
+		width: 770px;
 	}
 }
 /*4ideas*/
-@media only screen and (min-width: 1410px) {
+@media only screen and (min-width: 1430px) {
 	.home_idea_container {
-		width: 1010px;
+		width: 1030px;
 	}
 }
