@@ -50,7 +50,7 @@ class Api::V2::TokensController  < ApplicationController
                                     :last_name=>@user.last_name,
                                     :myself=>@user,
                                     :email_hex=> Digest::MD5::hexdigest(@user.email.downcase),
-                                    :friends=>@user.inmates,
+                                    :friends=>@user.inmates | @user.friends,
                                     :city_name=>@user.city.name,
                                     :starred_ids => @starred_ids
                                     }

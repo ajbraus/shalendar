@@ -24,6 +24,10 @@ class Api::V2::EventsController < ApplicationController
     end
     @events = @invites_ideas.reject{|e| @mobile_user.out?(e)}
 
+    @events = @events.reject do |i|
+      i.friends_only && !current_user.in?(i) && i.guests.joins(:relationships).where('status = ? AND followed_id = ?', 2, current_user.id).count == 0
+    end
+
     if (@count + @window_size) < @events.count
       @events = @events[@count .. @count + @window_size-1]
     else#we'd overstep the array bounds
@@ -176,7 +180,7 @@ class Api::V2::EventsController < ApplicationController
     #this will give mobile the info about the guests of the event
     #could add invites here, and/or comments
     @event = Event.find_by_id(params[:event_id])
-    if @event.has_parent? #make the detail event always the idea
+    if @event.has_parent? #make the detail event always the idea- and get times
       @event = @event.parent
     end
     @mobile_user = User.find_by_id(params[:user_id])
@@ -186,11 +190,6 @@ class Api::V2::EventsController < ApplicationController
     if @mobile_user.nil?
       render :status => 400, :json => {:error => "could not find your user"}
     else
-      @g_share = true
-      @invitedids = []
-      @event.maybes.each do |i|
-        @invitedids.push(i.id)
-      end
       @price = 0
       unless @event.price.nil?
         @price = @event.price
@@ -201,16 +200,15 @@ class Api::V2::EventsController < ApplicationController
         @comments.push(@c)
       end
       @comments = @comments.reverse
-      @inviter = nil
-      if @mobile_user.invited?(@event)
-        @inviter = @mobile_user.invitations.where(invited_event_id: @event.id).first.inviter
-      end
       e = @event
       @instances = []
       if e.one_time?
+        @i_guestids = []
+        e.guests.each do |g|
+          @i_guestids.push(g.id)
+        end
         @instance = {
-            :iid => e.id,
-            :gcnt => e.guests.count,
+            :gids => @i_guestids,
             :start => e.starts_at,
             :end => e.ends_at,
             :address => e.address,
@@ -220,9 +218,12 @@ class Api::V2::EventsController < ApplicationController
       end
       e.instances.each do |i|
         if i.ends_at > Time.now && !@mobile_user.out?(i)
+          @i_guestids = []
+          e.guests.each do |g|
+            @i_guestids.push(g.id)
+          end
           @instance = {
-            :iid => i.id,
-            :gcnt => i.guests.count,
+            :gids => @i_guestids,
             :start => i.starts_at,
             :end => i.ends_at,
             :address => i.address,
@@ -240,14 +241,12 @@ class Api::V2::EventsController < ApplicationController
         :host => @event.user,
         :plan => @mobile_user.rsvpd?(@event),
         :guests => @event.guests,
-        :iids => @invitedids,
         :comments => @comments,
         :image => @event.image(:medium),
         :url => @event.short_url,
         :price => @price,
         :address => @event.address,
         :link => @event.link,
-        :inviter => @inviter,
         :instances => @instances,
         :ot => @event.one_time        
       }
@@ -441,8 +440,13 @@ class Api::V2::EventsController < ApplicationController
     if @mobile_user != @event.user
       render :status=>300, :json=>{:error => "you don't have the authority to cancel this event"}
     end
-    @event.contact_cancellation
-        render :json=> { :success => true
+    @event.guests.each do |g|
+      g.delay.contact_cancellation(@event)
+    end
+    @event.dead = true
+    @event.save
+
+    render :json=> { :success => true
     }, :status=>200
   end
 
