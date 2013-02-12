@@ -5,7 +5,10 @@ Bugs
 time opening to time page rather than idea from calendar
 
 send digest
+
 comments and time change not sending pushes
+
+only get a message when friends and the host post
 
 Login through facebook - pick city
 recent activity on show
@@ -14,14 +17,27 @@ add mute button in chat
 add 'creator'
 toggle in homepage
 
+times not in transparent
+
+fix link
+
+http://branch.com/
+
 NOTIFIERS:
-	new_friend
+	send digest
 	add stats to digest
 	follow_up reflects inmate change
 	
 	guest count in emails
+	people are links
+
+	lable google and ical icons
+
+	remove sounds
 
 add time looks weird on shield
+
+review is_new_inmate?(other_user)
 
 --------------------------------------------------------------
 

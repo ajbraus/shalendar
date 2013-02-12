@@ -44,7 +44,9 @@ class AddInmatesToRelationships < ActiveRecord::Migration
       u.plans.each do |e|
         @inmates = e.guests.reject { |g| u.is_friends_with?(g) || u == g }
         @inmates.each do |i|
-          u.inmate!(i)
+          unless u == i
+            u.inmate!(i)
+          end
         end
       end
 		end 

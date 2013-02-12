@@ -1,7 +1,7 @@
 <div class="comments_form">
-	<%= render :partial => 'comments/comment', collection: @comments.reverse %>
 	<%= form_for([@event, @event.comments.build]) do |f| %>
 	  <%= small_profile_picture(current_user) %> <%= f.text_field :content, placeholder: "chat with .ins", autocomplete: "off" %>
 	 	<%= f.submit 'send', class: "btn btn-primary", id:"new_comment_button" %>
 	<% end %>
+	<%= render :partial => 'comments/comment', collection: @comments %>
 </div>
