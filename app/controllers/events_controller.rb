@@ -145,7 +145,6 @@
         format.html { redirect_to root_path, notice: "An Error Prevented A New Time From Posting" }
       end
     end
-
   end
 
 

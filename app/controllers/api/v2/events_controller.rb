@@ -25,7 +25,7 @@ class Api::V2::EventsController < ApplicationController
     @events = @invites_ideas.reject{|e| @mobile_user.out?(e)}
 
     @events = @events.reject do |i|
-      i.friends_only && !current_user.in?(i) && i.guests.joins(:relationships).where('status = ? AND followed_id = ?', 2, current_user.id).count == 0
+      i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)
     end
 
     if (@count + @window_size) < @events.count
@@ -53,7 +53,8 @@ class Api::V2::EventsController < ApplicationController
             :start => e.starts_at,
             :end => e.ends_at,
             :address => e.address,
-            :plan => @mobile_user.in?(e)
+            :plan => @mobile_user.in?(e),
+            :host => e.user
         }
         @instances.push(@instance)
       end
@@ -68,7 +69,8 @@ class Api::V2::EventsController < ApplicationController
             :start => i.starts_at,
             :end => i.ends_at,
             :address => i.address,
-            :plan => @mobile_user.in?(i)
+            :plan => @mobile_user.in?(i),
+            :host => i.user
           }
           @instances.push(@instance)
         end
@@ -138,7 +140,8 @@ class Api::V2::EventsController < ApplicationController
             :start => e.starts_at,
             :end => e.ends_at,
             :address => e.address,
-            :plan => @mobile_user.in?(e)
+            :plan => @mobile_user.in?(e),
+            :host => e.user
         }
         @instances.push(@instance)
       end
@@ -153,7 +156,8 @@ class Api::V2::EventsController < ApplicationController
             :start => i.starts_at,
             :end => i.ends_at,
             :address => i.address,
-            :plan => @mobile_user.in?(i)
+            :plan => @mobile_user.in?(i),
+            :host => i.user
           }
           @instances.push(@instance)
         end
