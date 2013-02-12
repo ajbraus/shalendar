@@ -1,14 +1,27 @@
 <div class="mini_calendar">
-<!-- 	<div id='yt'><a href='#<%= Time.now.to_date %>' id='todayButton' class='btn-today'>Today</a></div> -->
-	<h2 style="color:white;">my calendar</h2>
-<% for i in 0..100 %>
-	<div class="each_day clearfix">		
-		<div class="date_bar marker clearfix <% if i == 0 %> red <% end %>" <% if i == 0 %> id="today" <% end %>>
-			<%= (Time.now.to_date + (i)).strftime("%A %b %e") %>
+	<h2 style="color:white;">calendar</h2>
+	<% if @times.blank? %>
+		<div class="mini_calendar_explanation">
+			Whoomp Whoomp! <br><br>
+			You are not .in on any ideas with active times
+			<br><br>
+			<div clas="text">
+				Click <span class="btn_icon btn_icon_rsvp">.in</span> on an idea to be .informed about its upcoming times and to get new <b>.in-mates</b>
+				<br>
+				<br>
+				Turn .inmates into friends by staring them <i class="icon-star inmate_star"></i> => <i class="icon-star friend_star"></i>
+			</div>
 		</div>
-		<div class="day_container clearfix" data-date="<%= Time.now.to_date + i %>">
-		</div>
-	</div>
-<% end %>
+	<% else %>
+		<% for i in 0..100 %>
+			<div class="each_day clearfix">		
+				<div class="date_bar marker clearfix <% if i == 0 %> red <% end %>" <% if i == 0 %> id="today" <% end %>>
+					<%= (Time.now.to_date + (i)).strftime("%A %b %e") %>
+				</div>
+				<div class="day_container clearfix" data-date="<%= Time.now.to_date + i %>">
+				</div>
+			</div>
+		<% end %>
+	<% end %>
 </div>
 <%= render partial: 'shalendar/mini_event', collection: @times, as: :event %>

@@ -1,14 +1,18 @@
 <% if user_signed_in? %>
 	<%= render 'mini_calendar' %>
-<% end %>
 	<div class="home_idea_container clearfix">
     <div class="filters">
-    	<span id="jrFriendsIdeas">.invites</span>
+    	<span id="jrFriendsIdeas">.invites</span> / <span id="jrPlans"><%= current_user.plans.count %> .ins</span>
     </div>
 		<div id="ideaContainer">
 	  	<%= render partial: "shalendar/event", collection: @ideas %>
 		</div>
 	</div>
+<% else %>
+	<div id="ideaContainer" style="width: 90%;margin: 0 auto;">
+	 <%= render partial: "shalendar/event", collection: @ideas %>
+	</div>
+<% end %>
 
 <% if false %>
 <% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
