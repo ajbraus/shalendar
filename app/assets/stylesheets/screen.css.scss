@@ -2590,10 +2590,11 @@ top: 9px;
 
 .comment {
 height: auto;
-margin-bottom: 4px;
-border-bottom: 1px solid $divider;
+margin-top: 5px;
+border-top: 1px solid $divider;
 float: left;
 width: 100%;
+padding-top: 7px;
 }
 
 .comment_content {
@@ -3900,10 +3901,10 @@ margin: 10px;
 .mini_calendar {
 background: url("low_contrast_linen.png");
 padding-top: 5px;
--webkit-box-shadow: inset -14px 13px 11px rgba(50, 50, 50, 0.9);
+/*-webkit-box-shadow: inset -14px 13px 11px rgba(50, 50, 50, 0.9);
 -moz-box-shadow: inset -14px 13px 11px rgba(50, 50, 50, 0.9);
 box-shadow: inset -14px 13px 11px rgba(50, 50, 50, 0.9);
-position: fixed;
+*/position: fixed;
 left: 0;
 overflow: auto;
 height: 100%;

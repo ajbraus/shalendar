@@ -1,11 +1,15 @@
 <tr>
-	<td style="padding:15px 0 0 20px;font-size:18px;">Connect with People From Yesterday</td>
+	<td style="padding:15px 0 0 20px;font-size:18px;">Here are your new .in-mate's from yesterday </td>
 </tr>
 
 <%= render partial: 'event_details', locals: { :event => @event, :user => @user } %>
 
-	<% left = @new_friends[ 0, ( @new_friends.size / 2.0 ).round ] %>
-	<% right = @new_friends - left %>
+	<% left = @new_inmates[ 0, ( @new_inmates.size / 2.0 ).round ] %>
+	<% if left.count.odd? %>
+		<% right = @new_inmates - left + '1' %>
+	<% else %>
+		<% right = @new_inmates - left %>
+	<% end %>
 
 <table style="padding: 0 0 0 20px;">
 	<tr>
@@ -13,14 +17,15 @@
 			<% left.each do |g| %>
 			<table style="padding: 5px 5px 0px 20px">
 				<tr>
-					<% if g.authentications.where(:provider == 'Facebook').any? %>
+					<a href="http://www.hoos.in/users/<%= g.slug %>">
 						<% @fb_auth = g.authentications.where(:provider == 'Facebook').first %>
-						<td><%= image_tag("#{@fb_auth.pic_url}") %></td>
-					<% else %>
-						<td><%= image_tag("#{g.avatar.url(:raster)}") %> </td>
-					<% end %>
-					<td width="60px"><%= g.name %></td>
-					<td><%= link_to "Friend", "http://www.hoos.in/relationships?user_id=#{@user.id}&other_user_id=#{g.id}" %></td>
+						<% if @fb_auth.present? %>
+							<td><%= image_tag("#{@fb_auth.pic_url}") %></td>
+						<% else %>
+							<td><%= image_tag("#{g.avatar.url(:raster)}") %> </td>
+						<% end %>
+						<td width="60px"><%= g.name %></td>
+					</a>
 				</tr>
 			</table>
 			<% end %>
@@ -29,14 +34,15 @@
 			<% right.each do |g| %>
 			<table style="padding: 5px 5px 0px 20px">
 				<tr>
-					<% if g.authentications.where(provider: 'Facebook').first.any? %>
+					<a href="http://www.hoos.in/users/<%= g.slug %>">
 						<% @fb_auth = g.authentications.where(:provider == 'Facebook').first %>
-						<td><%= image_tag("#{@fb_auth.pic_url}") %></td>
-					<% else %>
-						<td><%= image_tag("#{g.avatar.url(:raster)}") %> </td>
-					<% end %>
-					<td width="60px"><%= g.name %></td>
-					<td><%= link_to "Friend", "http://www.hoos.in/relationships?user_id=#{@user.id}&other_user_id=#{g.id}" %></td>
+						<% if @fb_auth.present? %>
+							<td><%= image_tag("#{@fb_auth.pic_url}") %></td>
+						<% else %>
+							<td><%= image_tag("#{g.avatar.url(:raster)}") %> </td>
+						<% end %>
+						<td width="60px"><%= g.name %></td>
+					</a>
 				</tr>
 			</table>
 			<% end %>

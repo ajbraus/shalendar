@@ -293,6 +293,15 @@ class User < ActiveRecord::Base
     return false
   end
 
+  #used in self.follow_up to get .in-mates created in the past day
+  def is_new_inmate?(other_user)
+    @relationship = self.relationships.find_by_followed_id(other_user.id)
+    if @relationship.present? && @relationship.created_at > Time.now.in_time_zone(self.city.timezone).midnight - 1.day
+      return true
+    end
+    return false
+  end
+
   def friend!(other_user)
     @relationship = self.relationships.find_by_followed_id(other_user.id)
     if @relationship.present?
@@ -754,19 +763,15 @@ class User < ActiveRecord::Base
   end
 
   def self.follow_up
-    @fu_events = Event.where(starts_at: Time.now.midnight - 1.day .. Time.now.midnight, tipped: true)
+    @now_in_zone = Time.now.in_time_zone(u.city.timezone)
+    @fu_events = Event.where(starts_at: @now_in_zone.midnight - 1.day .. @now_in_zone.midnight)
     if @fu_events.any?
       @fu_events.each do |fue|
         @fu_recipients = fue.guests.select{ |g| g.follow_up? }
         @fu_recipients.each do |fur|
-          @new_friends = []
-          fue.guests.each do |g|
-            if !fur.following?(g) && fur != g
-              @new_friends.push(g)
-            end
-          end
-          if @new_friends.any?
-            Notifier.delay.follow_up(fur, fue, @new_friends)
+          @new_inmates = fue.guests.select { |g| g.is_new_inmate?(fur) && fur != g }
+          if @new_inmates.any?
+            Notifier.delay.follow_up(fur, fue, @new_inmates)
           end
         end
       end
