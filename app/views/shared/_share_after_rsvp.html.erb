@@ -10,11 +10,13 @@
         <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&details=<%= url_encode(@event.description) + " - " + event_url(@event) %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fideas%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
           <%= image_tag "gcalendar.png", width: '30', title: "Google Calendar" %>
         </a>
+        Google Calendar
       </div>
       <div>
         <%= link_to event_path(event), :format => :ics do %>
           <%= image_tag "ical-icon.png", width: '30', title: "iCal or Outlook" %>
         <% end %>
+        iCal and Outlook
       </div>
     </div>
   <% end %>

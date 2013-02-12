@@ -56,7 +56,7 @@
 	</table>
 </div>
 <h1>
-	Ideas RSVPs & Invitations
+	Ideas RSVPs
 </h1>
 <p> Ideas Last Week: <strong><%= @events_last_week %></strong></p>
 <p> Ideas Next Week: <strong><%= @events_next_week %></strong></p>
@@ -65,32 +65,14 @@
 
 <%= high_chart("rsvps", @rsvps_v_events) %>
 
+<% if false %>
 <p> Invitations for Ideas Last Week: <strong><%= @invitations_last_week %></strong></p>
 <p> Invitations for Ideas Next Week: <strong><%= @invitations_next_week %></strong></p>
 
 <div><%= high_chart("invitations_since_inception", @invitations) %></div>
 
 <div><%= high_chart("rsvps_to_invitations", @rsvps_to_invitations) %></div>
-
-<h1>
-	Public Ideas
-</h1>
-
-<dl>
-<dt>
-	<p><%= high_chart("public_ideas", @public_ideas_per_city) %></p>
-</dt>
-
-</dt>
-
-<dt>
-	Invitation per public idea
-</dt>
-
-<dt>
-	RSVP per public idea
-</dt>
-</dl>
+<% end %>
 
 </div>
 </div>

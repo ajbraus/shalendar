@@ -421,15 +421,15 @@ text-align: center;
 }
 
 .btn-out {
-  background: none;
+background: none;
 border: 0;
-width: 12px;
+width: 13px;
+position: relative;
+bottom: 0px;
+cursor: pointer;
 border-bottom: 1px solid $divider;
 border-right: 1px solid $divider;
 border-top: 1px solid $divider;
-position: relative;
-bottom: 1px;
-cursor: pointer;
 }
 
 .btn_start_viewing {
@@ -1461,11 +1461,18 @@ padding-bottom: 0;
 
   .guest_count {
     float:right;
-    i {
-      font-size: 15px;
-color: gold;
-text-shadow: none;
-    }
+  }
+
+  .friend_star {
+    font-size: 15px;
+    color: gold;
+    text-shadow: none;
+  }
+
+  .inmate_star {
+    font-size: 15px;
+    color: lightgrey;
+    text-shadow: none;
   }
 
 .event {
@@ -1590,7 +1597,7 @@ form {
 }
 
 .btn_icon {
-padding: 1px 4px;
+padding: 4px 8px;
 cursor: pointer;
 -webkit-border-radius: 1px;
 -moz-border-radius: 1px;
@@ -1741,6 +1748,14 @@ height: auto;
 line-height: 1.1;
 }
 
+
+.ui_tpicker_hour {
+  .ui-slider-horizontal {
+position: relative;
+left: 21px;
+width: 190px;
+}
+}
 .ui-item-menu {
   padding:10px;
   padding-left:15px;
@@ -4019,4 +4034,16 @@ border-top: 1px solid $divider;
   form {
     display: inline;
   }
+}
+
+.mini_calendar_explanation {
+color: white;
+font-size: 25px;
+width: 240px;
+text-align: center;
+margin: 0 auto;
+margin-top: 27px;
+border: 1px solid white;
+padding: 14px;
+background: rgba(255,255,255,0.06);
 }

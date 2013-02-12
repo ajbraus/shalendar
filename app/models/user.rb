@@ -467,10 +467,9 @@ class User < ActiveRecord::Base
         n.data = {:registration_ids => [d.registration_id], :data => {:type => "reminder", :id => "#{@event.id}", :msg => ""}}
         n.save
       end
-    else
-      unless @user == User.find_by_email("info@hoos.in")
-        Notifier.new_idea(@event, @user).deliver
-      end
+    end
+    unless @user == User.find_by_email("info@hoos.in")
+      Notifier.new_idea(@event, @user).deliver
     end
   end
 
@@ -502,10 +501,9 @@ class User < ActiveRecord::Base
         n.data = {:registration_ids => [d.registration_id], :data => {:type => "reminder", :id => "#{@event.id}", :msg => ""}}
         n.save
       end
-    else
-      unless @user == User.find_by_email("info@hoos.in")
-        Notifier.rsvp_reminder(@event, @user).deliver
-      end
+    end
+    unless @user == User.find_by_email("info@hoos.in")
+      Notifier.rsvp_reminder(@event, @user).deliver
     end
   end
 
@@ -539,9 +537,8 @@ class User < ActiveRecord::Base
         n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{event.title} new time!"}}
         n.save
       end
-    else
-      Notifier.new_time(@event, @user).deliver
     end
+    Notifier.new_time(@event, @user).deliver
   end
 
   def contact_time_change(event)
@@ -578,9 +575,8 @@ class User < ActiveRecord::Base
                                                             :id => "#{@event.id}"}}
         n.save
       end
-    else
-      Notifier.time_change(@event, @user).deliver
     end
+    Notifier.time_change(@event, @user).deliver
   end
 
   def contact_comment(comment)
@@ -615,9 +611,8 @@ class User < ActiveRecord::Base
         n.data = {:registration_ids => [d.registration_id], :data => {msg: "from #{@commenter.name}", :type => "new_comment", :id => "#{@event.id}"}}
         n.save
       end
-    else
-      Notifier.email_comment(@comment, @user).deliver
     end
+    Notifier.email_comment(@comment, @user).deliver
   end
 
   def contact_cancellation(event)
@@ -648,10 +643,9 @@ class User < ActiveRecord::Base
         n.data = {:registration_ids => [d.registration_id], :data => {msg: "#{@event.short_event_title}", :type => "cancel", :id => "#{@event.id}"}}
         n.save
       end
-    else 
-      unless @user == @event.user
-        Notifier.cancellation(@event, @user).deliver
-      end
+    end
+    unless @user == @event.user
+      Notifier.cancellation(@event, @user).deliver
     end
   end
 
@@ -683,10 +677,9 @@ class User < ActiveRecord::Base
         n.data = {:registration_ids => [d.registration_id], :data => {msg: "", :type => "new_friend", :id => "#{@follower.id}"}}
         n.save
       end
-    else
-      #@follower_pic = raster_profile_picture(@user)
-      Notifier.new_friend(@user, @follower).deliver
     end
+      #@follower_pic = raster_profile_picture(@user)
+    Notifier.new_friend(@user, @follower).deliver
   end
 
   #changed this to keep consistence with these all being contact to
@@ -720,9 +713,8 @@ class User < ActiveRecord::Base
         n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}}
         n.save
       end
-    else
-      Notifier.new_rsvp(@user, @rsvping_user).deliver
     end
+    Notifier.new_rsvp(@user, @rsvping_user).deliver
   end
 
   # Class Methods

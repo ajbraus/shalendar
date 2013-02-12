@@ -1,30 +1,24 @@
 Adam
 
-Bugs
-
-
-comments and time change not sending pushes
+send emails
 
 only get a message when friends and the host post
 
-Login through facebook - pick city
-recent activity on show
-
 add mute button in chat
-add 'creator'
+add 'creator' for idea and 'host' for time
 toggle in homepage
 
 times not in transparent
 
 fix link
 
-http://branch.com/
+build .ins filter on home
 
 NOTIFIERS:
 	send digest
 	add stats to digest
+	star icon in email
 	guest count in emails
-	people are links
 
 	lable google and ical icons
 
@@ -41,11 +35,14 @@ review is_new_inmate?(other_user)
 
 --------------------------------------------------------------
 
+Login through facebook - pick city
+
 add way more cities
 http://en.wikipedia.org/wiki/List_of_United_States_cities_by_population
 England, Australia, major expat destinations
 City.create(name: "Oklahoma City, Oklahoma", timezone: "Central Time (US & Canada)")
 
+recent activity on show
 
 event#new
 	share on fb/twitter

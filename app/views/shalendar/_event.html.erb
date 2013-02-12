@@ -15,23 +15,25 @@
 		">
 <% end %>
 <%= link_to event_path(event) do %>
-		<div class="shield_top">
-			<div class="rsvp_check">
-				<%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %>
+		<% if user_signed_in? %>
+			<div class="shield_top">
+				<div class="rsvp_check">
+					<%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %>
+				</div>
+			  <div class="facepile">
+			  	<% if user_signed_in? %>
+		  			<% event.friends_in(current_user).each do |guest| %>
+		    			<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
+		  			<% end %>
+		  		<% else %>
+		  			<% event.guests.each do |guest| %>
+		    			<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
+		  			<% end %>
+		  		<% end %>
+				</div>
+				<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>		
 			</div>
-		  <div class="facepile">
-		  	<% if user_signed_in? %>
-	  			<% event.friends_in(current_user).each do |guest| %>
-	    			<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
-	  			<% end %>
-	  		<% else %>
-	  			<% event.guests.each do |guest| %>
-	    			<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
-	  			<% end %>
-	  		<% end %>
-			</div>
-			<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>		
-		</div>
+		<% end %>
 
 		<div class="event_blerb">
 			<div class="title"><%= event.title %></div>
@@ -43,17 +45,18 @@
 			</div>
 		<% end %>
 
-	<% if event.one_time? && @currently_ideas 
-		 	@relevant_instances = [event]
-		 else 
-			@relevant_instances = event.instances.reject { |e| e.over? } 
-			if user_signed_in?
-				@relevant_instances = @relevant_instances.reject { |e| current_user.out?(e) }
-			end
-		 end 
-	%>
-
-	<%= render partial: 'events/time', collection: @relevant_instances, as: :event %>
+		<% if user_signed_in? %>
+			<% if event.one_time? && @currently_ideas 
+		 			@relevant_instances = [event]
+				 else 
+					@relevant_instances = event.instances.reject { |e| e.over? } 
+					if user_signed_in?
+						@relevant_instances = @relevant_instances.reject { |e| current_user.out?(e) }
+					end
+				 end 
+			%>
+			<%= render partial: 'events/time', collection: @relevant_instances, as: :event %>
+		<% end %>
 	
 <% end %>
 
