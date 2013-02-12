@@ -1,8 +1,8 @@
 <td style="padding:20px 0 0 60px">
 	<table>
 		<tr>
-			<td><img src="<%= @image_url %>" style="border-radius:6px; margin-right:5px" /></td>
-			<td style="font-size:18px;"><strong><%= @rsvping_user.name %></strong> joined .in on your idea</td>
+			<td><a href="http://www.hoos.in/users/<%= @rsvping_user.slug %>"><img src="<%= @image_url %>" style="border-radius:6px; margin-right:5px" /></a></td>
+			<td style="font-size:18px;"><a href="http://www.hoos.in/users/<%= @rsvping_user.slug %>"><%= @rsvping_user.name %></a> joined .in on your idea</td>
 		</tr>
 		<%= render partial: 'event_details', locals: { :event => @event, :user => @user } %>
 	</table>

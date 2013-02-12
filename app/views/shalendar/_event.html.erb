@@ -14,6 +14,7 @@
 		<% end %>
 		">
 <% end %>
+<%= link_to event_path(event) do %>
 		<div class="shield_top">
 			<div class="rsvp_check">
 				<%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %>
@@ -54,11 +55,15 @@
 
 	<%= render partial: 'events/time', collection: @relevant_instances, as: :event %>
 	
+<% end %>
+
 	<% if user_signed_in? %>
 		<% if !event.one_time? && current_user.in?(event) %>
-			<%= link_to event_new_time_path(event) do %>
-				<div class="add_time fadeInOrange"><i class="icon-time"></i> add new time</div>
+			<div>
+				<%= link_to event_new_time_path(event) do %>
+				<div class="add_time fadeInGreen"><i class="icon-time"></i> add new time</div>
 			<% end %>
+			</div>
 		<% end %>
 	<% end %>
 </div>

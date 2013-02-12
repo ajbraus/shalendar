@@ -5,11 +5,7 @@
 <%= render partial: 'event_details', locals: { :event => @event, :user => @user } %>
 
 	<% left = @new_inmates[ 0, ( @new_inmates.size / 2.0 ).round ] %>
-	<% if left.count.odd? %>
-		<% right = @new_inmates - left + '1' %>
-	<% else %>
-		<% right = @new_inmates - left %>
-	<% end %>
+	<% right = @new_inmates - left %>
 
 <table style="padding: 0 0 0 20px;">
 	<tr>
@@ -17,14 +13,13 @@
 			<% left.each do |g| %>
 			<table style="padding: 5px 5px 0px 20px">
 				<tr>
-					<a href="http://www.hoos.in/users/<%= g.slug %>">
 						<% @fb_auth = g.authentications.where(:provider == 'Facebook').first %>
 						<% if @fb_auth.present? %>
-							<td><%= image_tag("#{@fb_auth.pic_url}") %></td>
+							<td><a href="http://www.hoos.in/users/<%= g.slug %>"><%= image_tag("#{@fb_auth.pic_url}") %></a></td>
 						<% else %>
-							<td><%= image_tag("#{g.avatar.url(:raster)}") %> </td>
+							<td><a href="http://www.hoos.in/users/<%= g.slug %>"><%= image_tag("#{g.avatar.url(:raster)}") %></a></td>
 						<% end %>
-						<td width="60px"><%= g.name %></td>
+						<td width="60px"><a href="http://www.hoos.in/users/<%= g.slug %>"><%= g.name %></a></td>
 					</a>
 				</tr>
 			</table>
@@ -37,14 +32,22 @@
 					<a href="http://www.hoos.in/users/<%= g.slug %>">
 						<% @fb_auth = g.authentications.where(:provider == 'Facebook').first %>
 						<% if @fb_auth.present? %>
-							<td><%= image_tag("#{@fb_auth.pic_url}") %></td>
+							<td><a href="http://www.hoos.in/users/<%= g.slug %>"><%= image_tag("#{@fb_auth.pic_url}") %></a></td>
 						<% else %>
-							<td><%= image_tag("#{g.avatar.url(:raster)}") %> </td>
+							<td><a href="http://www.hoos.in/users/<%= g.slug %>"><%= image_tag("#{g.avatar.url(:raster)}") %></a></td>
 						<% end %>
-						<td width="60px"><%= g.name %></td>
+						<td width="60px"><a href="http://www.hoos.in/users/<%= g.slug %>"><%= g.name %></a></td>
 					</a>
 				</tr>
 			</table>
+			<% end %>
+			<% if right.count.odd? %>
+				<table style="padding: 5px 5px 0px 20px">
+					<tr>
+						<td></td>
+						<td width="60px"></td>
+					</tr>
+				</table>
 			<% end %>
 		</td>
 	</tr>

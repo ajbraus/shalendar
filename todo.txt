@@ -23,8 +23,6 @@ http://branch.com/
 NOTIFIERS:
 	send digest
 	add stats to digest
-	follow_up reflects inmate change
-	
 	guest count in emails
 	people are links
 
@@ -33,6 +31,11 @@ NOTIFIERS:
 	remove sounds
 
 add time looks weird on shield
+
+set create time user
+set so parent creator can edit times
+
+default to one_time and bigger
 
 review is_new_inmate?(other_user)
 
