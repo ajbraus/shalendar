@@ -2,6 +2,8 @@ Adam
 
 Bugs
 
+time opening to time page rather than idea from calendar
+
 send digest
 comments and time change not sending pushes
 
