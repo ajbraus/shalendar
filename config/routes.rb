@@ -129,6 +129,9 @@ Shalendar::Application.routes.draw do
       
       match '/add_friend', :to => 'relationships#create'
       match '/remove_friend', :to => 'relationships#destroy'#, :via => :delete
+      match '/add_star', :to => 'relationships#add_star'
+      match '/remove_star', :to => 'relationships#remove_star'
+
       match '/search_for_friends', to: 'relationships#search_for_friends', as: "search_for_friends", via: :get
       match '/search_for_fb_friends', to: 'relationships#search_for_fb_friends', as: "search_for_fb_friends", via: :get
 
@@ -157,8 +160,8 @@ Shalendar::Application.routes.draw do
 
       match '/get_ins', :to => 'events#ins', :as => "ins", :via => :get
       match '/get_invites', :to => 'events#invites', :as => "invites", :via => :get
-      match '/get_city_ideas', :to => 'events#city_ideas', :as => "city_ideas", :via => :get
-      match '/get_my_ideas', :to => 'events#my_ideas', :as => "my_ideas", :via => :get
+      match '/prune_ins', :to => 'events#prune_ins'
+      match '/prune_invites', :to => 'events#prune_invites'
     end
   end
 end

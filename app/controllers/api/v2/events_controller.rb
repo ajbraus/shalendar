@@ -9,6 +9,7 @@ class Api::V2::EventsController < ApplicationController
       Time.zone = @mobile_user.city.timezone
     else
       render :status => 400, :json => {:error => "could not find your user"}
+      return
     end
     unless params[:count].nil?
       @count = Integer(params[:count])
@@ -16,13 +17,13 @@ class Api::V2::EventsController < ApplicationController
     @finished = false
     @window_size = 7
 
-    @invites_ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.now, true).reject { |i| current_user.out?(i) }
+    @invites_ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.now, true).reject { |i| current_user.out?(i) || current_user.in?(i)}
 
     @invites_ideas = @invites_ideas.sort_by do |i| 
         i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
             i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
     end
-    @events = @invites_ideas.reject{|e| @mobile_user.out?(e)}
+    @events = @invites_ideas
 
     @events = @events.reject do |i|
       i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)
@@ -30,7 +31,9 @@ class Api::V2::EventsController < ApplicationController
 
     if (@count + @window_size) < @events.count
       @events = @events[@count .. @count + @window_size-1]
-    else#we'd overstep the array bounds
+    elsif @count >= @events.count #we'd overstep the array bounds
+      @finished = true
+    else #we are done once this is done
       @events = @events[@count .. (@events.count-1)]
       @finished = true
     end
@@ -49,6 +52,7 @@ class Api::V2::EventsController < ApplicationController
           @i_guestids.push(g.id)
         end
         @instance = {
+            :iid => e.id,
             :gids => @i_guestids,
             :start => e.starts_at,
             :end => e.ends_at,
@@ -65,6 +69,7 @@ class Api::V2::EventsController < ApplicationController
             @i_guestids.push(g.id)
           end
           @instance = {
+            :iid => i.id,
             :gids => @i_guestids,
             :start => i.starts_at,
             :end => i.ends_at,
@@ -100,6 +105,7 @@ class Api::V2::EventsController < ApplicationController
       Time.zone = @mobile_user.city.timezone
     else
       render :status => 400, :json => {:error => "could not find your user"}
+      return
     end
     unless params[:count].nil?
       @count = Integer(params[:count])
@@ -117,7 +123,9 @@ class Api::V2::EventsController < ApplicationController
 
     if (@count + @window_size) < @events.count
       @events = @events[@count .. @count + @window_size-1]
-    else#we'd overstep the array bounds
+    elsif @count >= @events.count #we'd overstep the array bounds
+      @finished = true
+    else #we are done once this is done
       @events = @events[@count .. (@events.count-1)]
       @finished = true
     end
@@ -136,6 +144,7 @@ class Api::V2::EventsController < ApplicationController
           @i_guestids.push(g.id)
         end
         @instance = {
+            :iid => e.id,
             :gids => @i_guestids,
             :start => e.starts_at,
             :end => e.ends_at,
@@ -146,12 +155,13 @@ class Api::V2::EventsController < ApplicationController
         @instances.push(@instance)
       end
       e.instances.each do |i|
-        if i.ends_at > Time.now && !@mobile_user.out?(i)
+        if i.ends_at > Time.now && @mobile_user.in?(i)
           @i_guestids = []
           i.guests.each do |g|
             @i_guestids.push(g.id)
           end
           @instance = {
+            :iid => i.id,
             :gids => @i_guestids,
             :start => i.starts_at,
             :end => i.ends_at,
@@ -177,6 +187,79 @@ class Api::V2::EventsController < ApplicationController
     render json: {
       :finished => @finished,
       :events => @list_events
+    }
+  end
+
+  def prune_ins
+    @mobile_user = User.find_by_id(params[:user_id])
+
+    if @mobile_user.present?
+      Time.zone = @mobile_user.city.timezone
+    else
+      render :status => 400, :json => {:error => "could not find your user"}
+      return
+    end
+    @x = params[:event_ids]
+    @event_ids = @x[1..-2].split(',').collect! {|n| n.to_i}
+    @ins_ideas = @mobile_user.plans.where('ends_at IS NULL OR ends_at > ?', Time.now)
+    @relevant_ids = []
+    @irrelevant_ids = []
+    @ins_ideas.each do |ii|
+      @relevant_ids.push(ii.id)
+    end
+    @event_ids.each do |eid|
+      @relevant = false
+      @relevant_ids.each do |rid|
+        if eid == rid
+          @relevant = true
+        end
+      end
+      if !@relevant
+        @irrelevant_ids.push(eid)
+      end
+    end
+    render json: {
+      :irrelevant_ids => @irrelevant_ids
+    }
+  end
+
+  def prune_invites
+    @mobile_user = User.find_by_id(params[:user_id])
+
+    if @mobile_user.present?
+      Time.zone = @mobile_user.city.timezone
+    else
+      render :status => 400, :json => {:error => "could not find your user"}
+      return
+    end
+    @invites = Event.where('city_id = ? AND (ends_at IS NULL OR ends_at > ?)', @current_city.id, Time.now).reject { |i| current_user.out?(i) || current_user.in?(i)}
+    @invites = @invites.reject do |i|
+      if i.has_parent?
+        i.friends_only && !current_user.in?(i) && !current_user.in?(i.parent) && !i.user.is_friends_with?(current_user)
+      else
+        i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)
+      end
+    end
+    @relevant_ids = []
+    @irrelevant_ids = []
+    @invites.each do |ii|
+      @relevant_ids.push(ii.id)
+    end
+    @x = params[:event_ids]
+    @event_ids = @x[1..-2].split(',').collect! {|n| n.to_i}
+    @event_ids.each do |eid|
+      @relevant = false
+      @relevant_ids.each do |rid|
+        if eid == rid
+          @relevant = true
+        end
+      end
+      if !@relevant
+        @irrelevant_ids.push(eid)
+      end
+    end
+    render json: {
+      :irrelevant_ids => @irrelevant_ids
     }
   end
 

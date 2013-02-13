@@ -38,6 +38,38 @@ include UsersHelper
     render :json=>{:unfollowed_id=>@other_user_to_unfollow.id}
   end
 
+  def add_star
+    @mobile_user = User.find_by_id(params[:user_id])
+    @other_user_to_star = User.find_by_id(params[:other_user_id])
+    if @mobile_user.nil?
+      render :status=>400, :json=>{:error => "user was not found."}
+    end
+    if @other_user_to_star.nil?
+      render :status=>400, :json=>{:error => "other user was not found."}
+    end
+
+    @mobile_user.friend!(@other_user_to_star)
+
+    render :json=>{:starred_id=>@other_user_to_star.id}
+  end
+
+  def remove_star
+
+    @mobile_user = User.find_by_id(params[:user_id])
+    @other_user_to_star = User.find_by_id(params[:other_user_id])
+    if @mobile_user.nil?
+      render :status=>400, :json=>{:error => "user was not found."}
+    end
+    if @other_user_to_star.nil?
+      render :status=>400, :json=>{:error => "other user was not found."}
+    end
+
+    @mobile_user.unfriend!(@other_user_to_star)
+
+    render :json=>{:unstarred_id=>@other_user_to_star.id}
+
+  end
+
   def remove_follower
     @mobile_user = User.find_by_id(params[:user_id])
     @other_user_to_remove = User.find_by_id(params[:other_user_id])
@@ -52,43 +84,6 @@ include UsersHelper
 
 
     render :json=>{:success=>true}
-  end
-
-  def confirm_follower
-    @mobile_user = User.find_by_id(params[:user_id])
-    @other_user_to_confirm = User.find_by_id(params[:other_user_id])
-    if @mobile_user.nil?
-      render :status=>400, :json=>{:error => "user was not found."}
-    end
-    if @other_user_to_confirm.nil?
-      render :status=>400, :json=>{:error => "other user was not found."}
-    end
-    @relationship = Relationship.where(':follower_id = :confirm_id AND :followed_id = :mobile_user_id',
-                                         confirm_id: @other_user_to_confirm.id, :mobile_user_id => @mobile_user.id ).last
-    unless @relationship.nil?
-      @relationship.confirm!
-      @relationship.save
-    end
-    render :json=>{:success=>true, :follower_id=>@other_user_to_confirm.id}
-  end
-
-  def confirm_and_follow
-    @mobile_user = User.find_by_id(params[:user_id])
-    @other_user_to_confirm = User.find_by_id(params[:other_user_id])
-    if @mobile_user.nil?
-      render :status=>400, :json=>{:error => "user was not found."}
-    end
-    if @other_user_to_confirm.nil?
-      render :status=>400, :json=>{:error => "other user was not found."}
-    end
-    @relationship = Relationship.where(':follower_id = :confirm_id AND :followed_id = :mobile_user_id',
-                                        confirm_id: @other_user_to_confirm.id, :mobile_user_id => @mobile_user.id ).last
-    unless @relationship.nil?
-      @relationship.confirm!
-      @mobile_user.follow!(@other_user_to_confirm)
-      @relationship.save
-    end
-    render :json=>{:success=>true, :follower_id=>@other_user_to_confirm.id, :followed_user=>@other_user_to_confirm}
   end
 
   def search_for_friends
