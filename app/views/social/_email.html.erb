@@ -1,5 +1,5 @@
 <a href="mailto:?
-subject=you .in? <%= @event.starts_at.present? ? @event.start_time : '' %>&
-body=hi,%0a%0aI want to .invite you to an idea:%0a%0a    What:  <%= @event.title %>%0a%0a    Details: <%= @event.description %>%0a%0a    When:  <%= @event.start_date_time %>%0a%0aYou .in? Join and share here: <%= event_url(@event) %>" class="email_share">
+subject=you .in? <%= event.starts_at.present? ? event.start_time : '' %>&
+body=hi,%0a%0aI want to .invite you to an idea:%0a%0a    What:  <%= event.title %>%0a%0a    Details: <%= event.description %>%0a%0a    When:  <%= event.start_date_time %>%0a%0aYou .in? Join and share here: <%= event_url(event) %>" class="email_share">
   <span class="orange"><i class="icon-envelope-alt"></i></span><br>mail
 </a>

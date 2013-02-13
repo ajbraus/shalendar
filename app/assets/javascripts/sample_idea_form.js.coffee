@@ -58,6 +58,7 @@ $ ->
 	$("#addDateTime").click ->
 		$('#dateTime').slideToggle();
 		$('.time').fadeToggle();
+		$('.one_time_bool').children('input').click();
 
 	#STARTS AT
 	$('#datetime').blur ->

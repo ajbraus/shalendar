@@ -259,7 +259,7 @@ class User < ActiveRecord::Base
     return false
   end
 
-  def friended_by?(other_user)
+  def is_friended_by?(other_user)
     @relationship = other_user.relationships.find_by_followed_id(self.id)
     if @relationship.present? && @relationship.status == 2
       return true
@@ -719,36 +719,28 @@ class User < ActiveRecord::Base
 
   # Class Methods
   def self.digest
-    @day = Date.today.days_to_week_start
-   if @day == 0 || @day == 4
-      @digest_users = User.where("users.digest = 'true'")
-      @digest_users.each do |u|
-        @now_in_zone = Time.now.in_time_zone(u.city.timezone)
-        time_range = @now_in_zone.midnight .. @now_in_zone.midnight + 3.days
-        @has_events = false
-        @upcoming_events = []
-        (0..2).each do |day|
-          day_time_range = @now_in_zone.midnight + day.days .. @now_in_zone.midnight + (day+1).days
-          @upcoming_day_events = u.plans.where(starts_at: day_time_range)
-          if @upcoming_day_events.any?
-            @has_events = true
+    @digest_users = User.where("users.digest = 'true'")
+    @digest_users.each do |u|
+      @now_in_zone = Time.now.in_time_zone(u.city.timezone)
+      @day = @now_in_zone.to_date.days_to_week_start
+        if @day == 0 || @day == 4
+          time_range = @now_in_zone.midnight .. @now_in_zone.midnight + 3.days
+          @has_events = false
+          @upcoming_events = []
+          (0..2).each do |day|
+            day_time_range = @now_in_zone.midnight + day.days .. @now_in_zone.midnight + (day+1).days
+            @upcoming_day_events = u.plans.where(starts_at: day_time_range)
+            if @upcoming_day_events.any?
+              @has_events = true
+            end
+            @upcoming_events.push(@upcoming_day_events)
           end
-          @upcoming_events.push(@upcoming_day_events)
-        end
-        @invited_events = []
-        (0..2).each do |day|
-          day_time_range = @now_in_zone.midnight + day.days .. @now_in_zone.midnight + (day+1).days
-          @day_invited_events = u.invited_events.where(starts_at: day_time_range)
-          if @day_invited_events.any?
-            @has_events = true
+          @new_invite_ideas = Event.where('events.ends_at IS NULL AND events.created_at > ?', @now_in_zone - 4.days).joins(:invitations).where(invitations: {invited_user_id: u.id}).order("RANDOM()")
+          @all_new_city_ideas = Event.where('events.ends_at IS NULL AND events.is_public = ? AND events.city_id = ? AND events.created_at > ?', true, u.city_id, @now_in_zone - 4.days)
+          @new_city_ideas = @all_new_city_ideas.first(5)
+          if @has_events == true || @new_invite_ideas.any? || @new_city_ideas.any?
+            Notifier.delay.digest(u, @upcoming_times, @has_times, @new_inner_ideas, @new_ideas, @all_new_ideas.count)
           end
-          @invited_events.push(@day_invited_events)
-        end
-        @new_invite_ideas = Event.where('events.ends_at IS NULL AND events.created_at > ?', @now_in_zone - 4.days).joins(:invitations).where(invitations: {invited_user_id: u.id}).order("RANDOM()")
-        @all_new_city_ideas = Event.where('events.ends_at IS NULL AND events.is_public = ? AND events.city_id = ? AND events.created_at > ?', true, u.city_id, @now_in_zone - 4.days)
-        @new_city_ideas = @all_new_city_ideas.first(5)
-        if @has_events == true || @new_invite_ideas.any? || @new_city_ideas.any?
-          Notifier.delay.digest(u, @invited_events, @upcoming_events, @has_events, @new_invited_ideas, @new_city_ideas, @all_new_city_ideas.count)
         end
       end
     end

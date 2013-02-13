@@ -1,13 +1,14 @@
 <div id="eventOptions">
   	<% if @event.blank? %>
   	  <div class="friends_only_bool">
-      	<%= f.check_box :friends_only %> <label for="event_friends_only"><i class="icon-lock"></i>  Private? (only .inform your friends)</label>
+      	<%= f.check_box :friends_only %> <label for="event_friends_only" class="pointer"><i class="icon-lock"></i>  Private? (only visible to .inner-circle)</label>
       </div>
       <div class="add_date_time">
-				<input type="checkbox" id="addDateTime"/> <label for="addDateTime"><i class="icon-time"></i> Add a Time </label>
+				<input type="checkbox" id="addDateTime"/> <label for="addDateTime" class="pointer"><i class="icon-time"></i> Add a Time </label>
 			</div>
 		<% end %>
 		<!-- ADD TIME -->
+		
 	<% if (@event.present? && @event.starts_at.present?) %>
 		<div id="dateTime">
 	<% else %>
@@ -26,9 +27,10 @@
         <%= f.text_field :duration, autocomplete: "off", class:"required"  %>
       </div>
       <div class="one_time_bool">
-    		<%= f.check_box :one_time %> <label for="event_one_time">only happening once?</label>
+    		<%= f.check_box :one_time %> <label for="event_one_time" class="pointer"><i class="icon-copy"></i> One-Time Idea?</label>
   		</div>
     </div>
+
 <div class="hidden_options">
 	<div id="addimgp" class="open">
 	  <div><%= f.label :display_image %></div>

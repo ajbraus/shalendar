@@ -6,7 +6,7 @@ before_filter :authenticate_user!
     current_user.friend!(@user)
     @user.delay.contact_friend(current_user)
     respond_to do |format|
-      format.html { redirect_to :back, notice: "Successfully starred #{@user.name}" }
+      format.html { redirect_to :back, notice: "#{@user.name} is now in your .inner-circle" }
       format.js
     end
   end
@@ -18,7 +18,7 @@ before_filter :authenticate_user!
     respond_to do |format|
       # @plan_counts = []
       # @invite_counts = []
-      format.html { redirect_to :back, notice: "Successfully unstarred #{@user.name}" }
+      format.html { redirect_to :back, notice: "#{@user.name} is no longer in your .inner-circle" }
       format.js
     end
   end

@@ -1,14 +1,11 @@
 <% if user_signed_in? %>
-<div class="mini_event" 
+<div class="mini_event"
 	data-event-id='<%= event.id %>'
 	<%= event.starts_at.present? ? "data-date=#{event.starts_at.to_date}" : '' %>>
 <% else %>
 <div class="mini_event">
 <% end %>
-<%= link_to event do %>
-	<div class="rsvp_check">
-		<%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %>
-	</div>
+<%= link_to event.parent, class:"#{ !current_user.rsvpd?(event) ? 'not_rsvpd' : '' }" do %>
 	<div class="event_time">			
 		<%= event.mini_start_time %> (<%= event.nice_duration %> hr)
 	</div>
@@ -30,6 +27,20 @@
   		<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
 		<% end %>
 	</div>
-
 <% end %>	
+	<div class="mini_in_out">
+		<% if !current_user.rsvpd?(event) %> <!-- USER IS NOT RSVPD -->
+			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
+			  <%= f.hidden_field :plan_id %>
+			  <%= f.hidden_field :inout, value: "1" %>
+			  <%= f.submit "#{event.is_parent? ? '.into' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
+			<% end %>
+			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
+			  <%= f.hidden_field :plan_id %>
+			  <%= f.hidden_field :inout, value: "0" %>
+			  <%= f.submit "#{event.is_parent? ? 'nah' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
+			<% end %>
+		<% end %>
+	</div>
 </div>
+

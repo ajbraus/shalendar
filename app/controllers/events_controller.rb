@@ -34,9 +34,8 @@
 
   # GET /events/1/edit
   def edit
-    @parent = Event.find(params[:id])
-    @event = @parent
-    @event_start_time = @parent.start_time
+    @event = Event.find(params[:id])
+    @event_start_time = @event.start_time
   end
 
   # POST /events
@@ -147,6 +146,11 @@
     end
   end
 
+
+  def edit_time
+    @event = Event.find_by_slug(params[:event_id])
+    @event_start_time = @event.start_time
+  end
 
   #GET /events/id
   #GET /events/id.json

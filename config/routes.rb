@@ -44,8 +44,10 @@ Shalendar::Application.routes.draw do
     #match '/new_venue', to: 'registrations#new_vendor', as: "new_vendor"
   #end
 
-  resources :events, path: "ideas", only: [:create, :destroy, :update, :edit, :new, :show, :new_time, :create_new_time] do #:index,
+  resources :events, path: "ideas", only: [:create, :destroy, :update, :edit, :new, :show, :new_time, :create_new_time, :edit_time] do #:index,
+    get :edit_time
     get :new_time
+    post :update
     post :create_new_time
     resources :comments, only: [:create, :destroy]
     resources :email_invites, only: [:create, :destroy]
