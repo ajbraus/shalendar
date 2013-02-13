@@ -12,8 +12,6 @@
 			<ul>
 				<li><span class="only"> created </span> <%= @user.events.count %></li>
 				<li><span class="only"> .ins </span> <%= @user.plans.count %></li>
-				<li><span class="only"> stars </span> <%= @user.friends.count %></li>
-				<li><span class="only"> .in-mates </span> <%= @user.inmates.count %></li>
 			</ul>
 		</div>
 		<% if @user == current_user %>

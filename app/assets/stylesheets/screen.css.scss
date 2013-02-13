@@ -1627,11 +1627,11 @@ form {
 }
 
 .btn_icon {
-padding: 4px 8px;
+padding: 2px 4px;
 cursor: pointer;
--webkit-border-radius: 6px;
--moz-border-radius: 6px;
-border-radius: 6px;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
 text-align: center;
 bottom: 1px;
 position: relative;
@@ -3813,11 +3813,18 @@ padding-top: 9px;
   cursor: hand;
   background-color: transparent;
   text-decoration: none;
-  border:none;
-  font-size: 10px;
-    &:hover {
+  border: none;
+  font-size: 13px;
+  position: absolute;
+  right: 7px;
+  bottom: 5px;
+  color: lightgrey;
+  z-index: 1;
+    &:hover{
+    text-decoration:none;
     color:$destroy;
-    text-decoration: underline;
+    -webkit-transition: color .25s linear .1s;
+    transition: color .25s linear .1s;
   }
 }
 

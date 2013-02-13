@@ -152,14 +152,14 @@ class Notifier < ActionMailer::Base
     end
   end
   
-  def digest(user, upcoming_events, has_times, new_inner_ideas, new_ideas, new_ideas_count)
+  def digest(user, upcoming_times, has_times, new_inner_ideas, new_inmate_ideas, users_new_ideas_count)
     @user = user
     @upcoming_times = upcoming_times
     @has_times = has_times
     @new_inner_ideas = new_inner_ideas
-    @new_ideas = new_ideas
-    @new_ideas_count = new_ideas_count
-    mail to: @user.email, from: "info@hoos.in", subject: "new ideas on hoos.in"
+    @new_inmate_ideas = new_inmate_ideas
+    @new_ideas_count = users_new_ideas_count
+    mail to: @user.email, from: "info@hoos.in", subject: "new trending ideas on hoos.in"
   end
 
   def follow_up(user, event, new_inmates)

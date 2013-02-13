@@ -723,24 +723,24 @@ class User < ActiveRecord::Base
     @digest_users.each do |u|
       @now_in_zone = Time.now.in_time_zone(u.city.timezone)
       @day = @now_in_zone.to_date.days_to_week_start
-        if @day == 0 || @day == 4
-          time_range = @now_in_zone.midnight .. @now_in_zone.midnight + 3.days
-          @has_events = false
-          @upcoming_events = []
-          (0..2).each do |day|
-            day_time_range = @now_in_zone.midnight + day.days .. @now_in_zone.midnight + (day+1).days
-            @upcoming_day_events = u.plans.where(starts_at: day_time_range)
-            if @upcoming_day_events.any?
-              @has_events = true
-            end
-            @upcoming_events.push(@upcoming_day_events)
+      if @day == 0 || @day == 4
+        time_range = @now_in_zone.midnight .. @now_in_zone.midnight + 3.days
+        @has_times = false
+        @upcoming_times = []
+        (0..2).each do |day|
+          day_time_range = @now_in_zone.midnight + day.days .. @now_in_zone.midnight + (day+1).days
+          @upcoming_day_times = u.plans.where(starts_at: day_time_range)
+          if @upcoming_day_times.any?
+            @has_times = true
           end
-          @new_invite_ideas = Event.where('events.ends_at IS NULL AND events.created_at > ?', @now_in_zone - 4.days).joins(:invitations).where(invitations: {invited_user_id: u.id}).order("RANDOM()")
-          @all_new_city_ideas = Event.where('events.ends_at IS NULL AND events.is_public = ? AND events.city_id = ? AND events.created_at > ?', true, u.city_id, @now_in_zone - 4.days)
-          @new_city_ideas = @all_new_city_ideas.first(5)
-          if @has_events == true || @new_invite_ideas.any? || @new_city_ideas.any?
-            Notifier.delay.digest(u, @upcoming_times, @has_times, @new_inner_ideas, @new_ideas, @all_new_ideas.count)
-          end
+          @upcoming_times.push(@upcoming_day_times)
+        end
+        @all_new_ideas = Event.where('city_id = ? AND AND created_at > ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, @now_in_zone - 4.days, Time.now, true).reject { |i| u.rsvpd?(i) }
+        @new_inner_ideas = @all_new_ideas.reject { |i| i.user.is_friended_by?(u) }
+        @new_inmate_ideas = @all_new_ideas.reject { |i| i.user.is_inmates_with?(u) }.limit(5)
+        @users_new_ideas = @new_inmate_ideas + @new_inner_ideas
+        if @has_times == true || @new_inner_ideas.any? || @new_inmate_ideas.any?
+          Notifier.delay.digest(u, @upcoming_times, @has_times, @new_inner_ideas, @new_inmate_ideas, @users_new_ideas.count)
         end
       end
     end

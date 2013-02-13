@@ -1,4 +1,4 @@
-<% if @has_events == true %>
+<% if @has_times == true %>
 <tr>
 	<td style="padding:15px 0 0 20px;font-size:18px;">Here's what's coming up!</td>
 </tr>
@@ -8,18 +8,15 @@
 		<tr>
 			<td style="border-top:1px solid lightgrey;"></td>
 		</tr>
-		<% if @upcoming_events[day].empty? && @invited_events[day].empty? %>
-		<tr>
-			<td style="padding:20px 0 40px 50px;"><%= (Date.today + day.days).strftime("%A %B %e") %>  - <strong>No Plans</strong></td>
-		</tr>
+		<% if @upcoming_times[day].empty? %>
+			<tr>
+				<td style="padding:20px 0 40px 50px;"><%= (Date.today + day.days).strftime("%A %B %e") %>  - <strong>No Plans</strong></td>
+			</tr>
 		<% else %>
-		<tr>
-			<td style="padding:20px 0 0 50px;"><%= (Date.today + day.days).strftime("%A %B %e") %></td>
-		</tr>
-			<% @upcoming_events[day].each do |event| %>
-				<%= render partial: 'event_details', locals: { :event => event, :user => @user } %>
-			<% end %>
-			<% @invited_events[day].each do |event| %>
+			<tr>
+				<td style="padding:20px 0 0 50px;"><%= (Date.today + day.days).strftime("%A %B %e") %></td>
+			</tr>
+			<% @upcoming_times[day].each do |event| %>
 				<%= render partial: 'event_details', locals: { :event => event, :user => @user } %>
 			<% end %>
 		<% end %>
@@ -27,26 +24,26 @@
 </table>
 <% end %>
 
-<% if @new_invited_ideas.present? && @new_invited_ideas.any? %>
+<% if @new_inner_ideas.present? && @new_inner_ideas.any? %>
 	<tr>
-		<td style="padding:15px 0 0 20px;font-size:18px;">New .invites</td>
+		<td style="padding:15px 0 0 20px;font-size:18px;">New ideas your .inner-circle are .in on</td>
 	</tr>
 
-	<% @new_invited_ideas.each do |event| %>
+	<% @new_inner_ideas.each do |event| %>
 		<%= render partial: 'event_details', locals: { :event => event, :user => @user } %>
 	<% end %>
 <% end %>
 
-<% if @new_city_ideas.present? && @new_city_ideas.any? %>
+<% if @new_inmate_ideas.present? && @new_inmate_ideas.any? %>
 	<tr>
-		<td style="padding:15px 0 0 20px;font-size:18px;"><%= @new_city_ideas_count %> new public ideas for <%= @user.city.name %></td>
+		<td style="padding:15px 0 0 20px;font-size:18px;"><%= @new_inmate_ideas.count %> new ideas your friends are .in on</td>
 	</tr>
 
-	<% @new_city_ideas.each do |event| %>
+	<% @new_inmate_ideas.each do |event| %>
 		<%= render partial: 'event_details', locals: { :event => event, :user => @user } %>
 	<% end %>
 
-	<% if @new_city_ideas_count > 5 %>
+	<% if @new_inmate_ideas.count > 5 %>
 	<tr>
 		<td style="padding:10px 0 0 5px;font-size:14px;"><%= link_to "more. . .", root_url %></td>
 	</tr>

@@ -36,9 +36,13 @@ fix link
 
 build .ins filter on home
 
+show_time if your out as out
+
 review is_new_inmate?(other_user)
 
 --------------------------------------------------------------
+
+recover outs
 
 go invisible
 
