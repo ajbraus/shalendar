@@ -1,46 +1,52 @@
 Adam
 
-send emails
-
-only get a message when friends and the host post
-
-add mute button in chat
-add 'creator' for idea and 'host' for time
-toggle in homepage
-
-times not in transparent
-
-fix link
-
-build .ins filter on home
-
 NOTIFIERS:
 	send digest
 	add stats to digest
 	star icon in email
 	guest count in emails
 
-	lable google and ical icons
+hide inner-circle
+contact_new_friend = someone added you to their .inner-circle
 
-	remove sounds
+show_times in chronological order
 
-add time looks weird on shield
+fix rsvping from 
+	mini-calendar 
+		in 
+			remove buttons show you are in
+		out
+			remove idea
 
-set create time user
-set so parent creator can edit times
+	show  
+		in 
+			fix background color
+		out
+			fix font colors
 
-default to one_time and bigger
+	shield
+		in
+			if time - add mini_event to .instances
+		out
+			disappear & reload masonry
+
+add 'creator' for idea and 'host' for time
+
+fix link
+
+build .ins filter on home
 
 review is_new_inmate?(other_user)
 
 --------------------------------------------------------------
 
-Login through facebook - pick city
+go invisible
 
-add way more cities
-http://en.wikipedia.org/wiki/List_of_United_States_cities_by_population
-England, Australia, major expat destinations
-City.create(name: "Oklahoma City, Oklahoma", timezone: "Central Time (US & Canada)")
+eager load comments and guests for event#show
+eager load events and inmates for user#show
+eager load events and guests and current_user inmates for shalendar#home
+
+Login through facebook - pick city
 
 recent activity on show
 
@@ -126,6 +132,8 @@ make comments asynconous
 plan b-day parties through hoos.in! -> save off b-days
 
 create a user from mobile
+
+add mute button in chat
 
 add shortener
 

@@ -259,7 +259,7 @@ class User < ActiveRecord::Base
     return false
   end
 
-  def friended_by?(other_user)
+  def is_friended_by?(other_user)
     @relationship = other_user.relationships.find_by_followed_id(self.id)
     if @relationship.present? && @relationship.status == 2
       return true
@@ -750,6 +750,7 @@ class User < ActiveRecord::Base
         if @has_events == true || @new_invite_ideas.any? || @new_city_ideas.any?
           Notifier.delay.digest(u, @invited_events, @upcoming_events, @has_events, @new_invited_ideas, @new_city_ideas, @all_new_city_ideas.count)
         end
+        def digest(user, upcoming_events, has_times, new_inner_ideas, new_ideas, new_ideas_count)
       end
     end
   end

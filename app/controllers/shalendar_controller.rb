@@ -5,6 +5,15 @@ class ShalendarController < ApplicationController
     if user_signed_in?  
       @ins = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.now, true).reject { |i| current_user.out?(i) }
       @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.now, true).reject { |i| current_user.rsvpd?(i) }
+
+     #EAGER LOADING ATTEMPT
+      # @ideas = Event.includes(:rsvps => { :guests => :relationships } )
+      #   .where('events.city_id = ? AND events.ends_at IS NULL OR (events.ends_at > ? AND events.one_time = ?)', @current_city.id, Time.now, true)
+      #   .where('rsvps.inout', 1)
+      #   .where('relationships.status IS NOT ?', 0)
+      #   .reject { |i| current_user.rsvpd?(i) }
+      #   Category.includes(:posts => [{:comments => :guest}, :tags]).find(1)
+
       @times = Event.where('city_id = ? AND ends_at > ?', @current_city.id, Time.now).order('starts_at ASC').reject { |i| current_user.out?(i) }
       
       #attempt at getting times friends are rsvpd to
@@ -33,7 +42,6 @@ class ShalendarController < ApplicationController
       
     else
       @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND friends_only = ?', @current_city.id, Time.now, true, false)
-      @times = Event.where('city_id = ? AND ends_at > ? AND friends_only = ?', @current_city.id, Time.now, false).order('starts_at ASC')
     end 
     #show alert if rescue from errors:
     if params[:oofta] == 'true'

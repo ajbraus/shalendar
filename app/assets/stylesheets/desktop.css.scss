@@ -66,7 +66,7 @@ img {
 margin: 8px;
 min-width: 230px;
 max-width: 230px;
-padding:8px;
+padding: 8px 8px 0 8px;
 		.promo_img {
 			img {
 				max-width: 200px;
@@ -142,9 +142,9 @@ top: 13px;
 	}
 
 	.event_show {
-		position: fixed;
+position: absolute;
 width: 65%;
-overflow: auto;
+right:5px;
 		.promo_img {
 			img {
 				max-width: 100%;
@@ -163,11 +163,10 @@ float:left;
 	}
 
 	.event_guests {
-width: 30%;
-position: fixed;
-top: 94px;
-overflow: auto;
-max-height: 100%;
+width: 29%;
+position: absolute;
+top: 4px;
+left: 7px;
 	}
 
 	.maybes {
@@ -220,14 +219,6 @@ padding: 1px 0 10px 2px;
 			font-size: 16px;
 		}
 
-		.date_bar {
-		}
-		
-		.dropdown dd ul {
-top: -10px;
-right: 15px;
-		}
-
 		.interests {
 			right: 192px;
 		}
@@ -271,26 +262,19 @@ right: 15px;
 			display:none;
 		}
 
-		.sidebar {
-			width: 235px;
-			/*height: 185px;*/
-			height: auto;
-		}
-
 		.new_crowd_idea {
 				padding-bottom: 5%;
 			.event_form {
-				width: 40%;
-				margin: 0;
+				width: 47%;
+				margin: 0 0 0 3%;
 				float: left;
-				overflow: auto;
 				border-right:1px solid $divider;
 			}
 			.idea_preview {
 				position: relative;
 				top: 12px;
 				float: left;
-				width: 52%;
+				width: 44%;
 				margin: 0 auto;
 				margin-left: 3%;
 				  .event {
@@ -482,9 +466,9 @@ margin-right: 85px;
 /***************************************/
 /*** Tablet - iPad *********************/ /*1 idea*/
 /***************************************/
-@media only screen and (min-width: 600px) and (max-width: 879px) {
+@media only screen and (min-width: 600px) and (max-width: 889px) {
 	.home_idea_container {
-		width: 260px;
+		width: 230px;
 	}
 }
 @media only screen and (max-width: 829px) {
@@ -495,21 +479,27 @@ margin-right: 85px;
 /***************************************/
 /*** Widescreen ************************/ /*2 ideas*/
 /***************************************/
-@media only screen and (min-width: 880px) and (max-width: 1149px) {
+@media only screen and (min-width: 910px) and (max-width: 1199px) {
 	.home_idea_container {
-		width: 520px;
+		width: 500px;
 	}
 }
 
 /*3ideas*/
-@media only screen and (min-width: 1150px) and (max-width: 1429px) {
+@media only screen and (min-width: 1200px) and (max-width: 1499px) {
 	.home_idea_container {
 		width: 770px;
 	}
 }
 /*4ideas*/
-@media only screen and (min-width: 1430px) {
+@media only screen and (min-width: 1500px) {
 	.home_idea_container {
 		width: 1030px;
+	}
+}
+
+@media only screen and (min-width: 1810px) {
+	.home_idea_container {
+		width: 1290px;
 	}
 }

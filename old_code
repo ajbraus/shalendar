@@ -499,3 +499,50 @@ _plans.html.erb
       </div> 
     </div>
 <% end %>
+
+            <li>
+              <%= link_to event, method: :delete, data: { confirm: 'Are you sure you want to cancel this time? This will notify all guests.' }, class: "fadeInRed" do %>
+                <i class="icon-trash"></i>
+              <% end %>
+            </li>
+
+
+
+$('#invitations').html("<%= escape_javascript(render partial: 'shalendar/new_invited_events') %>");
+$('#overlay').fadeToggle();
+
+$('body').click(function() {
+  $('.invited_events').fadeOut();
+  $('#new_invited_events_count').text('0').fadeOut();
+  $('#overlay').fadeOut();
+});
+
+$('.invited_events').click(function(event){
+     event.stopPropagation();
+ });
+
+$('.invited_events').children().click(function(event){
+     event.stopPropagation();
+ });
+
+$("a[href$='new_invited_events']").click(function(event){
+     event.stopPropagation();
+     $('#new_invited_events_count').text('0').hide();
+ });
+
+$("a[href$='new_invited_events']").click(function(e) {
+    $('#new_invited_events_count').text('0').hide();
+    e.preventDefault();
+    $('.invited_events').fadeToggle();
+    $('#overlay').fadeToggle();
+  });
+
+$('.idea_container').imagesLoaded( function(){
+   $('.idea_container').masonry({
+     itemSelector : '.shield',
+     isAnimated: true,
+   animationOptions: {
+     duration: 200
+   }
+   });
+ });

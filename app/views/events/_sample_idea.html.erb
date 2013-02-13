@@ -10,7 +10,7 @@
       <%= render :partial => 'shared/guest_count', :locals => { :event => @parent } %>    
     <% else %>
       <div class="guest_count">
-        <i class="icon-star friend_star" title="Number of sarred .in-mates who are .in"></i> <span id="friendCount"> 0 </span> / <i class="icon-star inmate_star" title="Number of .in-mates who are in" style="color:lightgrey;"></i> <%= current_user.inmates.count %>
+        <i class="icon-circle-blank friend_star" title="Number of sarred .in-mates who are .in"></i> <span id="friendCount"> 0 </span> / <i class="icon-circle-blank inmate_star" title="Number of .in-mates who are in" style="color:lightgrey;"></i> <%= current_user.inmates.count %>
       </div>
     <% end %>
 	</div>
@@ -41,8 +41,8 @@
 <div class="event_show clearfix">
 			<div id="rsvpForm" class="join_group_buttons">
 
-				<a href="#" class="btn rsvp_button btn-rsvp" title="By clicking here folks will join your ideas">.into</a>
-				<a href="#" class="btn rsvp_button btn_stop_viewing" title="Here folks can opt out of this idea">nah</a>
+				<a href="#" class="btn rsvp_button btn-rsvp" title="By clicking here folks will join your ideas">.interested</a>
+				<a href="#" class="btn rsvp_button btn_stop_viewing" title="Here folks can opt out of this idea">meh</a>
 			</div>
 		<div class="date"></div>
  

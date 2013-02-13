@@ -18,6 +18,7 @@ class AddInmatesToRelationships < ActiveRecord::Migration
 
   	#pruning
   	remove_column :relationships, :toggled
+    remove_column :events, :max
   	remove_column :events, :is_public
   	remove_column :events, :is_big_idea
   	remove_column :events, :min

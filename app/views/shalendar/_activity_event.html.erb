@@ -1,47 +1,29 @@
 <li class="part activities">
-  <%= link_to event_path(event) do %>
+  <%= link_to event do %>
     <% if event.has_image? %>
-    <span class="activity_event">
-      <% if event.parent.blank? %>
-        <% if !event.promo_url.blank? %>
-          <%= image_tag("#{event.promo_url}") %>
-        <% elsif event.promo_img.url(:medium) != "/promo_imgs/medium/missing.png" %>
-          <%= image_tag("#{event.promo_img.url(:medium)}") %>
-        <% end %>
-      <% else %>
-        <% if !event.parent.promo_url.blank? %>
-          <%= image_tag("#{event.parent.promo_url}") %>
-        <% elsif event.parent.promo_img.url(:medium) != "/promo_imgs/medium/missing.png" %>
-          <%= image_tag("#{event.parent.promo_img.url(:medium)}") %>
-        <% end %>
-      <% end %>
-    </span>
-  <% end %>
+      <span class="activity_event">
+        <%= event.image(:large) %>
+      </span>
+    <% end %>
+
 	<div class="vendorEventDetails">
 		<div class="activity_time"><%= event.start_time %></div>
 		<div class="suggestionTitle">
 			<%= event.title %>
 		</div>
+  
   <% end %>
-		<%= render partial: "shalendar/activity_details", locals: { :event => event } %>
-	</div>
-	<ul class="suggestion_options">
-    <% if false %>
-    <% if event.parent_id %>
-      <li>
-        <%= link_to event_path(event.parent) do %>
-          <span class="fadeInBlue" title="View Public Idea"><i class="icon-bullhorn"></i></span>
-        <% end %>
-      </li>
-    <% end %>
-        <li>
-      <%= link_to repeat_event_path(:event_id => event.id), title:"Repeat Idea", class:"fancybox.ajax", id:"eventRepeat", remote:true do %>
-        <span class="fadeInGreen"><i class="icon-repeat"></i></span>
-      <% end %>
-    </li>
 
-    <% end %>
-    <% if false %>
+		<div class="guests_groups">
+      <div class="activity_guests">
+        <h4>Guests <%= event.guest_count %></h4>
+        <%= render partial: 'shared/user', collection: event.guests, as: :user %>
+      </div>
+    </div>
+	</div>
+
+<% if false %>
+	<ul class="suggestion_options">
     <li>
       <%= render partial: 'social/email', locals: { :event => event } %>
     </li>
@@ -51,9 +33,7 @@
     <li>
       <%= render partial: 'social/facebook', locals: { :event => event } %> 
 		</li>
-    <li>
-      <%= render partial: 'social/pinterest', locals: { :event => event } %> 
-    </li>
-    <% end %>
   </ul>
+<% end %>
 </li>
+

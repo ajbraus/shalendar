@@ -1,24 +1,49 @@
 <div class="share_after_rsvp part">
 	<div id="close" class="fadeInRed"><i class="icon-remove"></i></div>
 	<h1><strong>You're .in</strong></h1>
-	<h1><strong>what:</strong> <%= event.title %></h1>
+	<h1><strong>What:</strong> <%= event.title %></h1>
 	<% if event.starts_at.present? %>
-	<h1><strong>when:</strong> <%= start_time(event) %></h1>
+	<h1><strong>When:</strong> <%= start_time(event) %></h1>
     <h3>add to your calendar</h3>
     <div class="calendars clearfix">
       <div>
-        <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&details=<%= url_encode(@event.description) + " - " + event_url(@event) %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fideas%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
-          <%= image_tag "gcalendar.png", width: '30', title: "Google Calendar" %>
-        </a>
-        Google Calendar
+        <p>
+          <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&details=<%= url_encode(@event.description) + " - " + event_url(@event) %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fideas%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
+            <%= image_tag "gcalendar.png", width: '30', title: "Google Calendar" %>
+          </a>
+        </p>
+        <p>Google Calendar</p>
       </div>
       <div>
-        <%= link_to event_path(event), :format => :ics do %>
-          <%= image_tag "ical-icon.png", width: '30', title: "iCal or Outlook" %>
-        <% end %>
-        iCal and Outlook
+        <p>
+          <%= link_to event_path(event), :format => :ics do %>
+            <%= image_tag "ical-icon.png", width: '30', title: "iCal or Outlook" %>
+          <% end %>
+        </p>
+        <p>iCal and Outlook</p>
       </div>
     </div>
+
+  <% elsif event.has_future_instance? %>
+    <% @next_instance = event.next_instance %>
+    <h3>join .in the next time?</h3>
+    <h1><strong>When:</strong> <%= start_time(@next_instance) %></h1>
+
+    <% if !current_user.rsvpd?(@next_instance) %>
+      <div class="rsvp_to_time clearfix">
+        <%= form_for(current_user.rsvps.build(plan_id: @next_instance.id), remote: true) do |f| %>
+          <%= f.hidden_field :plan_id %>
+          <%= f.hidden_field :inout, value: "1" %>
+          <%= f.submit "#{@next_instance.is_parent? ? '.into' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
+        <% end %>
+        <%= form_for(current_user.rsvps.build(plan_id: @next_instance.id), remote: true) do |f| %>
+          <%= f.hidden_field :plan_id %>
+          <%= f.hidden_field :inout, value: "0" %>
+          <%= f.submit "#{@next_instance.is_parent? ? 'nah' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
+        <% end %>
+      </div>
+    <% end %>
+
   <% end %>
 
 	<% if event.is_parent_or_future_instance? %>

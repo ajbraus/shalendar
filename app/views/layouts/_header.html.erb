@@ -6,7 +6,6 @@
       <div class="instructions">.instructions</div>
       <div class="city_name"><%= @current_city.name %></div>
       <%= render 'shared/friend_search' %>
-      <% if params[:action] == 'home' %>
       <div class="navigation">
         <% if current_user.admin? %>
           <%= link_to admin_dashboard_path, style:"position: relative;bottom: 7px;" do %>
@@ -15,8 +14,8 @@
         <% end %>
         <span class="options">
           <%= link_to user_path(current_user) do %>
-            <span id="jrFriends"><i class="icon-star friend_star"></i> <%= current_user.friends.count %> <span class="hide_on_mobile"> friends</span></span>
-            <span id="jrFriends"><i class="icon-star inmate_star"></i> <%= current_user.inmates.count %> <span class="hide_on_mobile"> .in-mates</span></span>
+            <span id="jrFriends"><i class="icon-circle-blank friend_star"></i> <%= current_user.friends.count %> <span class="hide_on_mobile"> .inner-circle</span></span> |
+            <span id="jrFriends"><i class="icon-circle-blank inmate_star"></i> <%= current_user.inmates.count %> <span class="hide_on_mobile"> .in-mates</span></span>
           <% end %>
         </span>
         <%= link_to user_path(current_user) do %>
@@ -24,19 +23,6 @@
         <% end %>
         <%= render 'shared/new_idea_button' %>
       </div>
-      <% else %>
-        <div class="navigation">
-          <% if current_user.admin? %>
-            <%= link_to admin_dashboard_path do %>
-              <span class="fadeInRed"><i class="icon-magic"></i></span>
-            <% end %>
-          <% end %>
-          <%= link_to user_path(current_user) do %>
-            <%= raster_profile_picture(current_user) %>
-          <% end %>
-          <%= render 'shared/new_idea_button' %>
-        </div>
-      <% end %>
   </nav>
 
     <% if false %>
