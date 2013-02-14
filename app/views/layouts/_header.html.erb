@@ -1,9 +1,10 @@
 <% if user_signed_in? %>
 <header>
-  <%= render partial: 'shalendar/joyride' %>
   <nav class="clearfix">
      <%= render 'layouts/logo' %>
-      <div class="instructions">.instructions</div>
+      <% if false %>
+        <div class="instructions">.instructions</div>
+      <% end %>
       <div class="city_name"><%= @current_city.name %></div>
       <%= render 'shared/friend_search' %>
       <div class="navigation">

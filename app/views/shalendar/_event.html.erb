@@ -55,7 +55,7 @@
   		<% end %>
 		</div>
 		<% if user_signed_in? %>
-			<% if event.one_time? && @currently_ideas 
+			<% if event.one_time?
 		 			@relevant_instances = [event]
 				 else 
 					@relevant_instances = event.instances.reject { |e| e.over? } 

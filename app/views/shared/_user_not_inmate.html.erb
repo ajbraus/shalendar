@@ -1,5 +1,10 @@
 <div class="user">
   <div class="friend_button">
+    <% if current_user.is_friends_with?(user) %>
+      <i class="icon-circle-blank" style="color:gold;position: relative; top: 9px;"></i>
+    <% elsif current_user.is_inmates_with?(user) %>
+      <i class="icon-circle-blank" style="color:lightgrey; position: relative; top: 9px;"></i>
+    <% end %>
   </div>
   <div class="pic">
     <%= link_to user_path(user) do %>

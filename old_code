@@ -546,3 +546,5 @@ $('.idea_container').imagesLoaded( function(){
    }
    });
  });
+
+  <%= render partial: 'shalendar/joyride' %>

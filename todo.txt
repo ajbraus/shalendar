@@ -1,10 +1,5 @@
 Adam
 
-add 'creator' for idea and 'host' for time
-
-don't send cancellations for all times if parent is cancelled
-
-dont see inner circle circles if not you
 sort guests by friends
 
 build .ins filter on home
@@ -32,6 +27,8 @@ add iphone and android market place icons to bulletin board banners
 re-up bank account - write checks
 
 --------------------------------------------------------------
+
+add instructions
 
 NOTIFIERS:
 	add stats to digest
