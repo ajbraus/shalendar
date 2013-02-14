@@ -1,3 +1,0 @@
-$ ->
-	$('#interestsDropdown').click ->
-		$('#interests').toggle();
