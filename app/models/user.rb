@@ -189,6 +189,7 @@ class User < ActiveRecord::Base
     else
       return false
     end
+    return false
   end
 
   def flake_out!(event)
@@ -314,22 +315,26 @@ class User < ActiveRecord::Base
   end
 
   def inmate!(other_user)
-    unless self.is_inmates_with?(other_user) || other_user.ignores?(self) || self.is_friends_with?(other_user) || self.id == other_user.id
+    unless self.is_inmates_or_friends_with?(other_user) || other_user.ignores?(self) || self.is_friends_with?(other_user) || self.id == other_user.id
       self.relationships.create(followed_id: other_user.id, status: 1)
     end
-    unless other_user.is_inmates_with?(self) || self.ignores?(other_user) || other_user.is_friends_with?(self)
+    unless other_user.is_inmates_or_friends_with?(self) || self.ignores?(other_user) || other_user.is_friends_with?(self)
       other_user.relationships.create(followed_id: self.id, status: 1)
     end
   end
 
   def ignore_inmate!(inmate)
     @reverse_relationship = inmate.relationships.find_by_followed_id(self.id)
-    @reverse_relationship.status = 0
-    @reverse_relationship.save
+    unless @reverse_relationship.nil?
+      @reverse_relationship.status = 0
+      @reverse_relationship.save
+    end
 
     @relationship = self.relationships.find_by_followed_id(inmate.id)
-    @relationship.status = 0
-    @relationship.save
+    unless @relationship.nil?
+      @relationship.status = 0
+      @relationship.save
+    end
   end
 
   def unfriend!(other_user)
@@ -723,24 +728,23 @@ class User < ActiveRecord::Base
     @digest_users.each do |u|
       @now_in_zone = Time.now.in_time_zone(u.city.timezone)
       @day = @now_in_zone.to_date.days_to_week_start
-        if @day == 0 || @day == 4
-          time_range = @now_in_zone.midnight .. @now_in_zone.midnight + 3.days
-          @has_events = false
-          @upcoming_events = []
-          (0..2).each do |day|
-            day_time_range = @now_in_zone.midnight + day.days .. @now_in_zone.midnight + (day+1).days
-            @upcoming_day_events = u.plans.where(starts_at: day_time_range)
-            if @upcoming_day_events.any?
-              @has_events = true
-            end
-            @upcoming_events.push(@upcoming_day_events)
+      if @day == 0 || @day == 4
+        time_range = @now_in_zone.midnight .. @now_in_zone.midnight + 3.days
+        @has_events = false
+        @upcoming_events = []
+        (0..2).each do |day|
+          day_time_range = @now_in_zone.midnight + day.days .. @now_in_zone.midnight + (day+1).days
+          @upcoming_day_events = u.plans.where(starts_at: day_time_range)
+          if @upcoming_day_events.any?
+            @has_events = true
           end
-          @new_invite_ideas = Event.where('events.ends_at IS NULL AND events.created_at > ?', @now_in_zone - 4.days).joins(:invitations).where(invitations: {invited_user_id: u.id}).order("RANDOM()")
-          @all_new_city_ideas = Event.where('events.ends_at IS NULL AND events.is_public = ? AND events.city_id = ? AND events.created_at > ?', true, u.city_id, @now_in_zone - 4.days)
-          @new_city_ideas = @all_new_city_ideas.first(5)
-          if @has_events == true || @new_invite_ideas.any? || @new_city_ideas.any?
-            Notifier.delay.digest(u, @upcoming_times, @has_times, @new_inner_ideas, @new_ideas, @all_new_ideas.count)
-          end
+          @upcoming_events.push(@upcoming_day_events)
+        end
+        @new_invite_ideas = Event.where('events.ends_at IS NULL AND events.created_at > ?', @now_in_zone - 4.days).joins(:invitations).where(invitations: {invited_user_id: u.id}).order("RANDOM()")
+        @all_new_city_ideas = Event.where('events.ends_at IS NULL AND events.is_public = ? AND events.city_id = ? AND events.created_at > ?', true, u.city_id, @now_in_zone - 4.days)
+        @new_city_ideas = @all_new_city_ideas.first(5)
+        if @has_events == true || @new_invite_ideas.any? || @new_city_ideas.any?
+          Notifier.delay.digest(u, @upcoming_times, @has_times, @new_inner_ideas, @new_ideas, @all_new_ideas.count)
         end
       end
     end

@@ -58,12 +58,13 @@ class Api::V2::EventsController < ApplicationController
             :end => e.ends_at,
             :address => e.address,
             :plan => @mobile_user.in?(e),
+            :out => @mobile_user.out?(e),
             :host => e.user
         }
         @instances.push(@instance)
       end
       e.instances.each do |i|
-        if i.ends_at > Time.now && !@mobile_user.out?(i)
+        if i.ends_at > Time.now
           @i_guestids = []
           i.guests.each do |g|
             @i_guestids.push(g.id)
@@ -75,6 +76,7 @@ class Api::V2::EventsController < ApplicationController
             :end => i.ends_at,
             :address => i.address,
             :plan => @mobile_user.in?(i),
+            :out => @mobile_user.out?(i),
             :host => i.user
           }
           @instances.push(@instance)
@@ -150,12 +152,13 @@ class Api::V2::EventsController < ApplicationController
             :end => e.ends_at,
             :address => e.address,
             :plan => @mobile_user.in?(e),
+            :out => @mobile_user.out?(e),
             :host => e.user
         }
         @instances.push(@instance)
       end
       e.instances.each do |i|
-        if i.ends_at > Time.now && @mobile_user.in?(i)
+        if i.ends_at > Time.now
           @i_guestids = []
           i.guests.each do |g|
             @i_guestids.push(g.id)
@@ -167,6 +170,7 @@ class Api::V2::EventsController < ApplicationController
             :end => i.ends_at,
             :address => i.address,
             :plan => @mobile_user.in?(i),
+            :out => @mobile_user.out?(i),
             :host => i.user
           }
           @instances.push(@instance)
@@ -209,9 +213,18 @@ class Api::V2::EventsController < ApplicationController
     end
     @event_ids.each do |eid|
       @relevant = false
-      @relevant_ids.each do |rid|
-        if eid == rid
-          @relevant = true
+      e = Event.find(eid)
+      if e.present?
+        if e.ends_at.present?
+          if e.ends_at > Time.now
+            @relevant = true
+          end
+        else
+          @relevant_ids.each do |rid|
+            if eid == rid
+              @relevant = true
+            end
+          end
         end
       end
       if !@relevant
@@ -249,9 +262,18 @@ class Api::V2::EventsController < ApplicationController
     @event_ids = @x[1..-2].split(',').collect! {|n| n.to_i}
     @event_ids.each do |eid|
       @relevant = false
-      @relevant_ids.each do |rid|
-        if eid == rid
-          @relevant = true
+      e = Event.find(eid)
+      if e.present?
+        if e.ends_at.present?
+          if e.ends_at > Time.now
+            @relevant = true
+          end
+        else
+          @relevant_ids.each do |rid|
+            if eid == rid
+              @relevant = true
+            end
+          end
         end
       end
       if !@relevant
@@ -264,8 +286,6 @@ class Api::V2::EventsController < ApplicationController
   end
 
   def event_details
-    #this will give mobile the info about the guests of the event
-    #could add invites here, and/or comments
     @event = Event.find_by_id(params[:event_id])
     if @event.has_parent? #make the detail event always the idea- and get times
       @event = @event.parent
@@ -295,26 +315,32 @@ class Api::V2::EventsController < ApplicationController
           @i_guestids.push(g.id)
         end
         @instance = {
+            :iid => e.id,
             :gids => @i_guestids,
             :start => e.starts_at,
             :end => e.ends_at,
             :address => e.address,
-            :plan => @mobile_user.in?(e)
+            :plan => @mobile_user.in?(e),
+            :out => @mobile_user.out?(e),
+            :host => e.user
         }
         @instances.push(@instance)
       end
       e.instances.each do |i|
-        if i.ends_at > Time.now && !@mobile_user.out?(i)
+        if i.ends_at > Time.now
           @i_guestids = []
-          e.guests.each do |g|
+          i.guests.each do |g|
             @i_guestids.push(g.id)
           end
           @instance = {
+            :iid => i.id,
             :gids => @i_guestids,
             :start => i.starts_at,
             :end => i.ends_at,
             :address => i.address,
-            :plan => @mobile_user.in?(i)
+            :plan => @mobile_user.in?(i),
+            :out => @mobile_user.out?(i),
+            :host => i.user
           }
           @instances.push(@instance)
         end

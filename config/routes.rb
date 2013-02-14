@@ -157,7 +157,7 @@ Shalendar::Application.routes.draw do
       match '/event_details', :to => 'events#event_details', :as => "event_details", :via => :get
       match '/followed_users', :to => 'shalendar#followed_users', :as => "followed_users", :via => :get
       match '/followers', :to => 'shalendar#followers', :as => "followers", :via => :get
-      
+      match '/friend_profile', :to => 'relationships#get_profile'
       match '/get_friends', :to => 'relationships#get_friends', :as => "get_friends", :via => :get
 
       match '/get_ins', :to => 'events#ins', :as => "ins", :via => :get
