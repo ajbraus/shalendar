@@ -2,7 +2,7 @@
   <%= link_to event do %>
     <% if event.has_image? %>
       <span class="activity_event">
-        <%= event.image(:large) %>
+        <%= image_tag event.image(:large) %>
       </span>
     <% end %>
 

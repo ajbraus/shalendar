@@ -1,7 +1,6 @@
 <% if !user_signed_in? %>
-	<% if event.full? %>
-		(Idea full)
-	<% elsif event.ends_at.present? && event.ends_at > Time.now %>
+	<% if event.ends_at.present? && event.ends_at > Time.now %>
+		(Idea over)
 	<% else %>
 		<div class="rsvp_btn">
 			<%= link_to ".in", new_user_session_path(:event => event.id), class:"btn btn-rsvp rsvp_button", title: "log.in to join.in this idea" %>
@@ -11,12 +10,12 @@
 <% else %> 	<!-- USER IS SIGNED IN -->
 	<% unless current_user.vendor? %> <!-- USER IS NOT A VENDOR -->
 		<% if !current_user.rsvpd?(event) %> <!-- USER IS NOT RSVPD -->
-			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
+			<%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
 			  <%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "1" %>
 			  <%= f.submit "#{event.is_parent? ? '.interested' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
 			<% end %>
-			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
+			<%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
 			  <%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "0" %>
 			  <%= f.submit "#{event.is_parent? ? 'meh' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
@@ -26,14 +25,14 @@
 				<i class="icon-ok-sign blue" title="you're .in"></i> you're .in
 				<!-- this shouldn't create rsvp-out, it should just destroy rsvp-in -->
 				<span id="flakeOut" class="flakeout">
-					<%= link_to "(flake out)", rsvp_path(current_user.rsvps.find_by_plan_id(event.id)), :confirm => "Are you sure you can't make it?", :method => :delete, :class => "out" %></p>
+					<%= link_to "(flake out)", rsvp_path(current_user.rsvps.find_by_plan_id(event.id)), :confirm => "Are you sure you can't make it?", :method => :delete %></p>
 				</span>
 			</span>
 		<% elsif current_user.out?(event) %> <!-- IF RSVPD OUT SHOW OUT AND TOGGLE IN -->
 			<span id="inButton">
-				<i class="icon-circle-blank" title="you're out"></i> out
+				<span style="color:black"><i class="icon-eye-close" title="you're out"></i> out</span>
 				<div id="joinin">
-					<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
+					<%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
 		  			<%= f.hidden_field :plan_id %>
 		  			<%= f.hidden_field :inout, value: 1 %>
 					  <%= f.submit "(join .in)", class: "let_me_in" %>

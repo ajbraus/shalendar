@@ -1,6 +1,8 @@
 <div class="user">
   <div class="friend_button">
-    <%= render  :partial => 'events/follow_form', :locals => { :user => user } %>
+    <% if current_user.is_inmates_or_friends_with?(user) %>
+      <%= render  :partial => 'events/follow_form', :locals => { :user => user } %>
+    <% end %>
   </div>
   <div class="pic">
     <%= link_to user_path(user) do %>

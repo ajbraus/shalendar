@@ -201,27 +201,23 @@ class User < ActiveRecord::Base
 
   #moved all parent logic into the model
   def rsvp_in!(event)
-    if event.full?
-      return flash[:notice] = "The event is currently full."
-    else
-      if event.rsvps.where(guest_id: self.id).any?
-        @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
-        if @existing_rsvp.inout == 1
-          return
-        else
-          @existing_rsvp.destroy
-        end
+    if event.rsvps.where(guest_id: self.id).any?
+      @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
+      if @existing_rsvp.inout == 1
+        return
+      else
+        @existing_rsvp.destroy
       end
-      rsvps.create!(plan_id: event.id, inout: 1)
-      event.guests.each do |g|
-        self.inmate!(g)
-      end
-      if event.parent.present?
-        self.rsvp_in!(event.parent)
-      else #contact only once if they sign up for time + idea 
-        unless event.user == self
-          event.user.delay.contact_new_rsvp(event, self)
-        end
+    end
+    rsvps.create!(plan_id: event.id, inout: 1)
+    event.guests.each do |g|
+      self.inmate!(g)
+    end
+    if event.parent.present?
+      self.rsvp_in!(event.parent)
+    else #contact only once if they sign up for time + idea 
+      unless event.user == self
+        event.user.delay.contact_new_rsvp(event, self)
       end
     end
   end
@@ -250,6 +246,15 @@ class User < ActiveRecord::Base
     end
   end 
 
+  def ins
+    @ins = []
+    self.plans.each do |p|
+      if p.starts_at.blank? || p.one_time
+        @ins.push(p)
+      end
+    end
+    return @ins
+  end
 
   #Relationship methods
   def is_friends_with?(other_user)
@@ -730,21 +735,22 @@ class User < ActiveRecord::Base
       @day = @now_in_zone.to_date.days_to_week_start
       if @day == 0 || @day == 4
         time_range = @now_in_zone.midnight .. @now_in_zone.midnight + 3.days
-        @has_events = false
-        @upcoming_events = []
+        @has_times = false
+        @upcoming_times = []
         (0..2).each do |day|
           day_time_range = @now_in_zone.midnight + day.days .. @now_in_zone.midnight + (day+1).days
-          @upcoming_day_events = u.plans.where(starts_at: day_time_range)
-          if @upcoming_day_events.any?
-            @has_events = true
+          @upcoming_day_times = u.plans.where(starts_at: day_time_range)
+          if @upcoming_day_times.any?
+            @has_times = true
           end
-          @upcoming_events.push(@upcoming_day_events)
+          @upcoming_times.push(@upcoming_day_times)
         end
-        @new_invite_ideas = Event.where('events.ends_at IS NULL AND events.created_at > ?', @now_in_zone - 4.days).joins(:invitations).where(invitations: {invited_user_id: u.id}).order("RANDOM()")
-        @all_new_city_ideas = Event.where('events.ends_at IS NULL AND events.is_public = ? AND events.city_id = ? AND events.created_at > ?', true, u.city_id, @now_in_zone - 4.days)
-        @new_city_ideas = @all_new_city_ideas.first(5)
-        if @has_events == true || @new_invite_ideas.any? || @new_city_ideas.any?
-          Notifier.delay.digest(u, @upcoming_times, @has_times, @new_inner_ideas, @new_ideas, @all_new_ideas.count)
+        @all_new_ideas = Event.where('city_id = ? AND AND created_at > ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, @now_in_zone - 4.days, Time.now, true).reject { |i| u.rsvpd?(i) }
+        @new_inner_ideas = @all_new_ideas.reject { |i| i.user.is_friended_by?(u) }
+        @new_inmate_ideas = @all_new_ideas.reject { |i| i.user.is_inmates_with?(u) }
+        @users_new_ideas = @new_inmate_ideas + @new_inner_ideas
+        if @has_times == true || @new_inner_ideas.any? || @new_inmate_ideas.any?
+          Notifier.delay.digest(u, @upcoming_times, @has_times, @new_inner_ideas, @new_inmate_ideas, @users_new_ideas.count)
         end
       end
     end

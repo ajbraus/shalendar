@@ -10,12 +10,7 @@
 			<% end %>
 		</span>
 	<% else %>
-		<% if !current_user.rsvpd?(event) %>
-			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
-			  <%= f.hidden_field :plan_id %>
-			  <%= f.hidden_field :inout, value: "0" %>
-			  <%= f.submit "x", class:"btn-out", title:"I'm out" %>
-			<% end %>
+		<% if !current_user.rsvpd?(event) %>	
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "1" %>

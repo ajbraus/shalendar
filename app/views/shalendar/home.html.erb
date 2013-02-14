@@ -2,7 +2,7 @@
 	<%= render 'mini_calendar' %>
 	<div class="home_idea_container clearfix">
     <div class="filters">
-    	<span id="jrFriendsIdeas"><%= @ideas.count %> .invites</span> / <span id="jrPlans"><%= current_user.plans.count %> .ins</span>
+    	<span id="jrFriendsIdeas"><%= @ideas.count %> .invites</span> / <span id="jrPlans"><span id="ins_count"><%= current_user.ins.count %></span> .ins</span>
     </div>
 		<div id="ideaContainer" style="height:120%;">
 	  	<%= render partial: "shalendar/event", collection: @ideas %>
