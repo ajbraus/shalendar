@@ -81,11 +81,9 @@
   <% end %>
 
   <% if !@event.one_time? %>
-    <div class="btn-success btn-new-time">
-    <%= link_to event_new_time_path(@event), id:"makeATime" do %>
+    <%= link_to event_new_time_path(@event), id:"makeATime", class:"btn-success btn-new-time" do %>
       <span style="color:white;"><i class="icon-time"></i> create a new .instance</span>
     <% end %>
-  </div>
   <% end %>
 
   <% if @event.promo_vid.present? %>

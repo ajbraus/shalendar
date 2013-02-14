@@ -1,8 +1,9 @@
 </table>
 <table>
 <tr>
-	<td style="padding:10px 50px 10px 30px" width="300">
-		What: <strong style="padding-left:10px;"><a href="<%= event.has_parent? ? event_url(event.parent) : event_url(event) %>"><%= event.title %></a></strong>
+	<td><a href="<%= event_url(event)%>"><img src="<%= event.image(:medium) %>" width="125"/></a></td>
+	<td style="padding:10px 50px 10px 70px" width="200">
+		<strong>What:</strong> <span style="padding-left:10px; font-size:13px;"><a href="<%= event.has_parent? ? event_url(event.parent) : event_url(event) %>"><%= event.title %></a></span>
 		<% if user.in?(event) && event.starts_at.present? && event.starts_at > Time.now.in_time_zone(user.city.timezone) %>
 			<strong>  (.in)</strong>
 		<% elsif user.in?(event) && event.starts_at.present? && event.starts_at < Time.now.in_time_zone(user.city.timezone) %>
@@ -12,36 +13,36 @@
 		<% end %>
 		<% if event.starts_at.present? %>
 			<br>
-			When: <strong style="padding-left:10px;"><%= event.starts_at.strftime("%l:%M%P, %A %B %e") %></strong>
+			<strong>When:</strong> <span style="padding-left:10px;"><%= event.starts_at.strftime("%l:%M%P, %A %B %e") %></span>
 		<% end %>
+			<br>
+			<strong>Who:</strong>
+			<span style="padding-left:10px; font-size:13px;">
+				<% @friends_in_count = event.friends_in(user).count %>
+				<% @inmates_in_count = event.inmates_in(user).count %>
+				<% if !user.in?(event) %>
+					<i class="icon-star"></i> <span id="friendCount"><%= @friends_in_count %></span> / <i class="icon-star" style="color:lightgrey;"></i> <%= @inmates_in_count %> / <%= event.guest_count %>
+				<% elsif user.in?(event) %>
+					<i class="icon-star"></i> <span id="friendCount"><%= @friends_in_count %></span> / <i class="icon-star" style="color:lightgrey;"></i> <%= @inmates_in_count %>
+				<% end %>
+			</span>
 	<% if event.description.present? %>
 	<br>
-		Details: <span style="padding-left:5px; font-size:12px;"><%= event.description %></a></span>
+		<strong>Details:</strong> <span style="padding-left:5px; padding-top:10px; font-size:13px;"><%= event.description %></a></span>
 	<% end %>
-	<br>
-	<span style="padding-left:5px; font-size:16px;font-weight:bold;">
-		<% @friends_in_count = event.friends_in(user).count %>
-		<% @inmates_in_count = event.inmates_in(user).count %>
-		<% if !user.in?(event) %>
-			<i class="icon-star"></i> <span id="friendCount"><%= @friends_in_count %></span> / <i class="icon-star" style="color:lightgrey;"></i> <%= @inmates_in_count %> / <%= event.guest_count %>
-		<% elsif user.in?(event) %>
-			<i class="icon-star"></i> <span id="friendCount"><%= @friends_in_count %></span> / <i class="icon-star" style="color:lightgrey;"></i> <%= @inmates_in_count %>
-		<% end %>
-	</span>
 
 		<% if event.require_payment? && @user.in?(event) %>
 	<br>
-		Cost*: <%= event.nice_price %> <strong style="color:green;"> (Paid)</strong>
+		<strong>Cost*:</strong> <%= event.nice_price %> <strong style="color:green;"> (Paid)</strong>
 	<% elsif event.require_payment? && !@user.in?(event) %>
 	<br>
-		Cost*: <%= event.nice_price %>
+		<strong>Cost*:</strong> <%= event.nice_price %>
 	<% elsif !event.require_payment && event.price.present? %>
 	<br>
-		Cost: <%= event.nice_price %>
+		<strong>Cost:</strong> <%= event.nice_price %>
 	<% end %>
 
 	</td>
-	<td><a href="<%= event_url(event)%>"><img src="<%= event.image(:medium) %>" width="100"/></a></td>
 </tr>
 
 

@@ -3,17 +3,14 @@ class RsvpsController < ApplicationController
 
   def create
     @event = Event.find(params[:rsvp][:plan_id])
+
     if params[:rsvp][:inout].to_f == 1
       current_user.rsvp_in!(@event)
     elsif params[:rsvp][:inout].to_f == 0
       current_user.rsvp_out!(@event)
     end
-    if params[:rsvp][:inout].to_f == 1
-      #SHOW FRIENDS TO INVITE IN LIGHTBOX
-      #@friends = current_user.followers.reject { |f| f.invited?(@event) || f.rsvpd?(@event)}
-      #if a user is 'everywhere else' then we don't silo their invitations...
-      #@friends = @friends.reject { |f| f.city != @current_city }
 
+    if params[:rsvp][:inout].to_f == 1
       if @event.has_parent?
         respond_to do |format|
           format.html { redirect_to @event.parent }
@@ -25,6 +22,7 @@ class RsvpsController < ApplicationController
           format.js { render template: "rsvps/in" }
         end
       end
+
     elsif params[:rsvp][:inout].to_f == 0
       if @event.has_parent?
         respond_to do |format|
@@ -45,9 +43,11 @@ class RsvpsController < ApplicationController
     @event = @rsvp.plan
     @rsvp.destroy
     if @event.instances.any?
-      @rsvps = @event.rsvps.where(:guest_id => current_user.id)
-      @rsvps.each do |r| 
-        r.destroy
+      @event.instances.each do |i|
+        @rsvps = i.rsvps.where(:guest_id => current_user.id)
+        @rsvps.each do |r| 
+          r.destroy
+        end
       end
     end
 

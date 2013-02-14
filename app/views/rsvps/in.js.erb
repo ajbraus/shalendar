@@ -2,13 +2,14 @@
 	idea = $('.event').withEventId(<%= @event.id %>)
 	idea.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>", "<%= escape_javascript(render partial: 'events/rsvp_form', object: @event, as: :event) %>");
 	idea.addClass('rsvpd');
-
+	$('#ins_count').increment();
 <% else %>
-	time = $('.mini_event').withEventId(<%= @event.id %>)
+	time = $('.instance').withEventId(<%= @event.id %>)
 	time.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>", '' ); 
+	time.find('.mini_in_out').first().html("<i class='icon-ok-sign blue' title='you're .in'></i> .in")
 <% end %>
 
-$('#rsvpForm').html("<%= escape_javascript(render partial: 'events/rsvp_form', object: @event, as: :event) %>")
+//$('#rsvpForm').html("<%= escape_javascript(render partial: 'events/rsvp_form', object: @event, as: :event) %>")
 
 var afterRsvpLightbox = $('#shareAfterRsvp')
 afterRsvpLightbox.html("<%= escape_javascript(render partial: 'shared/share_after_rsvp', object: @event, as: :event) %>")

@@ -14,8 +14,8 @@
         <% end %>
         <span class="options">
           <%= link_to user_path(current_user) do %>
-            <span id="jrFriends"><i class="icon-circle-blank friend_star"></i> <%= current_user.friends.count %> <span class="hide_on_mobile"> .inner-circle</span></span> |
-            <span id="jrFriends"><i class="icon-circle-blank inmate_star"></i> <%= current_user.inmates.count %> <span class="hide_on_mobile"> .in-mates</span></span>
+            <span id="jrFriends"><i class="icon-circle-blank friend_star"></i> <%= current_user.friends.count %> <span class="hide_on_mobile"> </span></span> |
+            <span id="jrFriends"><i class="icon-circle-blank inmate_star"></i> <%= current_user.inmates.count %> <span class="hide_on_mobile"> </span></span>
           <% end %>
         </span>
         <%= link_to user_path(current_user) do %>

@@ -3,6 +3,7 @@ require 'icalendar'
 
 class Event < ActiveRecord::Base
   default_scope where(:dead=>'f')
+  default_scope :order => 'starts_at ASC'
 
   belongs_to :user
   belongs_to :city
@@ -150,16 +151,6 @@ class Event < ActiveRecord::Base
 
   def self.format_date(date_time)
     Time.at(date_time.to_i).to_formatted_s(:db)
-  end
-
-  def full?
-    if self.max == nil
-      return false
-    elsif self.guest_count >= self.max
-      return true
-    else 
-      return false
-    end
   end
 
   def chronic_starts_at
@@ -326,6 +317,12 @@ class Event < ActiveRecord::Base
     duration.to_s.split(/\.0/)[0] + ' ' + 'hrs' if duration
   end
 
+  def event_parent
+    if self.has_parent?
+      return self.parent
+    end
+    return self
+  end
 
   def has_parent?
     return self.parent.present?

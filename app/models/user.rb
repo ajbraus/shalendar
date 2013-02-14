@@ -200,27 +200,23 @@ class User < ActiveRecord::Base
 
   #moved all parent logic into the model
   def rsvp_in!(event)
-    if event.full?
-      return flash[:notice] = "The event is currently full."
-    else
-      if event.rsvps.where(guest_id: self.id).any?
-        @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
-        if @existing_rsvp.inout == 1
-          return
-        else
-          @existing_rsvp.destroy
-        end
+    if event.rsvps.where(guest_id: self.id).any?
+      @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
+      if @existing_rsvp.inout == 1
+        return
+      else
+        @existing_rsvp.destroy
       end
-      rsvps.create!(plan_id: event.id, inout: 1)
-      event.guests.each do |g|
-        self.inmate!(g)
-      end
-      if event.parent.present?
-        self.rsvp_in!(event.parent)
-      else #contact only once if they sign up for time + idea 
-        unless event.user == self
-          event.user.delay.contact_new_rsvp(event, self)
-        end
+    end
+    rsvps.create!(plan_id: event.id, inout: 1)
+    event.guests.each do |g|
+      self.inmate!(g)
+    end
+    if event.parent.present?
+      self.rsvp_in!(event.parent)
+    else #contact only once if they sign up for time + idea 
+      unless event.user == self
+        event.user.delay.contact_new_rsvp(event, self)
       end
     end
   end
@@ -249,6 +245,15 @@ class User < ActiveRecord::Base
     end
   end 
 
+  def ins
+    @ins = []
+    self.plans.each do |p|
+      if p.starts_at.blank? || p.one_time
+        @ins.push(p)
+      end
+    end
+    return @ins
+  end
 
   #Relationship methods
   def is_friends_with?(other_user)
@@ -737,7 +742,7 @@ class User < ActiveRecord::Base
         end
         @all_new_ideas = Event.where('city_id = ? AND AND created_at > ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, @now_in_zone - 4.days, Time.now, true).reject { |i| u.rsvpd?(i) }
         @new_inner_ideas = @all_new_ideas.reject { |i| i.user.is_friended_by?(u) }
-        @new_inmate_ideas = @all_new_ideas.reject { |i| i.user.is_inmates_with?(u) }.limit(5)
+        @new_inmate_ideas = @all_new_ideas.reject { |i| i.user.is_inmates_with?(u) }
         @users_new_ideas = @new_inmate_ideas + @new_inner_ideas
         if @has_times == true || @new_inner_ideas.any? || @new_inmate_ideas.any?
           Notifier.delay.digest(u, @upcoming_times, @has_times, @new_inner_ideas, @new_inmate_ideas, @users_new_ideas.count)

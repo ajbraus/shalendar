@@ -14,7 +14,7 @@ class ShalendarController < ApplicationController
       #   .reject { |i| current_user.rsvpd?(i) }
       #   Category.includes(:posts => [{:comments => :guest}, :tags]).find(1)
 
-      @times = Event.where('city_id = ? AND ends_at > ?', @current_city.id, Time.now).order('starts_at ASC').reject { |i| current_user.out?(i) }
+      @times = Event.where('city_id = ? AND ends_at > ?', @current_city.id, Time.now).reject { |i| current_user.out?(i) }
       
       #attempt at getting times friends are rsvpd to
       @times = @times.select do |i|  #select those user is not out of and may be invited to
