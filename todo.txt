@@ -2,13 +2,34 @@ Adam
 
 add 'creator' for idea and 'host' for time
 
-fix link
+don't send cancellations for all times if parent is cancelled
+
+dont see inner circle circles if not you
+sort guests by friends
 
 build .ins filter on home
 
 show_time if your out as out
 
 review is_new_inmate?(other_user)
+
+signup responsive
+
+default background images
+
+test redirect
+
+invites for launch:
+
+	isthmus woman
+	Bryan Chan
+	Per Blue Office
+	Tech bloggers
+	Mailchimp - CE Social invite email
+
+add iphone and android market place icons to bulletin board banners
+
+re-up bank account - write checks
 
 --------------------------------------------------------------
 

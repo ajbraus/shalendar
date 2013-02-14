@@ -3031,6 +3031,12 @@ width: 100%;
   }
 }
 
+#addLinkp {
+  input {
+    width: 79%;
+  }
+}
+
 #addcostp {
   float:left;
   margin-bottom: 15px;
@@ -3807,17 +3813,17 @@ clear: both;
 }
 
 .out {
-  cursor: pointer;
-  cursor: hand;
-  background-color: transparent;
-  text-decoration: none;
-  border: none;
-  font-size: 13px;
-  position: absolute;
-  right: 7px;
-  bottom: 5px;
-  color: lightgrey;
-  z-index: 1;
+cursor: pointer;
+background-color: transparent;
+text-decoration: none;
+border: none;
+font-size: 17px;
+color: lightgrey;
+z-index: 1;
+float: right;
+position: relative;
+top: 4px;
+right: 8px;
     &:hover{
     text-decoration:none;
     color:$destroy;
@@ -3907,11 +3913,10 @@ top: 10px;
 }
 
 .facepile {
-position: absolute;
-bottom: -4px;
-right: 0;
-background: rgba(255,255,255,.8);
 padding: 3px;
+clear: both;
+width: 100%;
+text-align: right;
   .profile_picture {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;

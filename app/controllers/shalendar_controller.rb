@@ -3,7 +3,7 @@ class ShalendarController < ApplicationController
 
 	def home
     if user_signed_in?  
-      @ins = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.now, true).reject { |i| current_user.out?(i) }
+      @ins = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.now, true).select { |i| current_user.out?(i) }
       @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.now, true).reject { |i| current_user.rsvpd?(i) }
 
      #EAGER LOADING ATTEMPT

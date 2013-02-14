@@ -1,8 +1,12 @@
 </table>
 <table>
 <tr>
-	<td><a href="<%= event_url(event)%>"><img src="<%= event.image(:medium) %>" width="125"/></a></td>
-	<td style="padding:10px 50px 10px 70px" width="200">
+	<% if event.image(:medium).present? %>
+		<td><a href="<%= event_url(event)%>"><img src="<%= event.image(:medium) %>" width="125"/></a></td>
+	<% else %>
+		<td width="205"></td>
+	<% end %>
+	<td style="padding:10px 30px 10px 20px" width="400">
 		<strong>What:</strong> <span style="padding-left:10px; font-size:13px;"><a href="<%= event.has_parent? ? event_url(event.parent) : event_url(event) %>"><%= event.title %></a></span>
 		<% if user.in?(event) && event.starts_at.present? && event.starts_at > Time.now.in_time_zone(user.city.timezone) %>
 			<strong>  (.in)</strong>

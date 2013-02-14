@@ -1,20 +1,16 @@
 <% if @has_times == true %>
-<tr>
-	<th colspan="2" style="padding:15px 0 0 0;font-size:20px;" align="middle">Here's what's coming up!</th>
-</tr>
+	<tr>
+		<th style="padding:15px 0 0 0;font-size:20px;" align="middle">Here's what's coming up!</th>
+	</tr>
 
-
-<table>
 	<% (0..2).each do |day| %>
 		<% if @upcoming_times[day].empty? %>
 			<tr>
-				<th></th>
-				<th style="padding:20px 0 20px 10px;" width="400"><%= (Date.today + day.days).strftime("%A %B %e") %>  - <strong>No Plans</strong></td>
+				<th colspan="2" style="padding:20px 0 20px 10px;" width="400"><%= (Date.today + day.days).strftime("%A %B %e") %>  - <strong>No Plans</strong></td>
 			</tr>
 		<% else %>
 			<tr>
-				<th></th>
-				<th style="padding:20px 0 20px 10px;" width="400"><%= (Date.today + day.days).strftime("%A %B %e") %></th>
+				<th colspan="2" style="padding:20px 0 20px 10px;" width="400"><%= (Date.today + day.days).strftime("%A %B %e") %></th>
 			</tr>
 			<% @upcoming_times[day].each do |event| %>
 				<%= render partial: 'event_details', locals: { :event => event, :user => @user } %>
@@ -25,13 +21,11 @@
 			</tr>
 		<% end %>
 	<% end %>
-</table>
 <% end %>
 
 <% if @new_inner_ideas.present? && @new_inner_ideas.any? %>
 	<tr>
-		<th style="padding:25px 0 20px 20px;font-size:18px" width="300">New ideas with your .inner-circle</th>
-		<th></th>
+		<th colspan="2" style="padding:25px 0 20px 20px;font-size:18px" width="600">New ideas</th>
 	</tr>
 
 	<% @new_inner_ideas.first(5).each do |event| %>
@@ -40,7 +34,6 @@
 
 	<% if @new_inner_ideas.count > 5 %>
 	<tr>
-		<td></td>
 		<td style="padding:10px 0 0 5px;font-size:14px;" align="right"><%= link_to "more. . .", root_url %></td>
 	</tr>
 	<% end %>
@@ -54,8 +47,7 @@
 
 <% if @new_inmate_ideas.present? && @new_inmate_ideas.any? %>
 	<tr>
-		<th style="padding:25px 0 20px 20px;font-size:18px" width="300" colspan="2">New ideas with your .in-mates</th>
-		<th></th>
+		<th colspan="2" style="padding:25px 0 20px 20px;font-size:18px" width="600" colspan="2">New ideas by your .in-mates</th>
 	</tr>
 
 	<% @new_inmate_ideas.first(5).each do |event| %>
@@ -64,7 +56,6 @@
 
 	<% if @new_inmate_ideas.count > 5 %>
 	<tr>
-		<td></td>
 		<td style="padding:10px 0 0 5px;font-size:14px;" align="right"><%= link_to "more. . .", root_url %></td>
 	</tr>
 	<% end %>

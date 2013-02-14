@@ -1,0 +1,14 @@
+<div class="user">
+  <div class="friend_button">
+  </div>
+  <div class="pic">
+    <%= link_to user_path(user) do %>
+      <%= image_tag("#{invite_raster_picture(user)}", class: "profile_picture") %>
+    <% end %>
+  </div>
+  <div class="friend_name">
+    <%= link_to user_path(user) do %>
+      <%= user.name %>
+    <% end %>
+  </div>
+</div>

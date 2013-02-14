@@ -15,7 +15,23 @@ var afterRsvpLightbox = $('#shareAfterRsvp')
 afterRsvpLightbox.html("<%= escape_javascript(render partial: 'shared/share_after_rsvp', object: @event, as: :event) %>")
 afterRsvpLightbox.fadeIn();
 $('#overlay').fadeIn();
+
 $('#close').click(function(){
 	afterRsvpLightbox.fadeOut();
 	$('#overlay').fadeOut();
 });
+
+$('body').click(function() {
+  afterRsvpLightbox.fadeOut();
+  $('#overlay').fadeOut();
+});
+
+$('.share_after_rsvp').children().click(function(event){
+     event.stopPropagation();
+ });
+
+// $("a[href$='new_invited_events']").click(function(event){
+//      event.stopPropagation();
+//      $('#new_invited_events_count').text('0').hide();
+// });
+

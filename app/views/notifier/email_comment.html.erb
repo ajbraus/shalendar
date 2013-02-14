@@ -1,33 +1,35 @@
 <tr>
 	<td>
-		<h2 style="padding:0 0 0 10px;font-size:22px;"><%= @user.first_name %>,</h2>
+		<h2 style="padding:0 0 0 10px;font-size:20px;"><%= @user.first_name %>,</h2>
 	</td>
 </tr>
 
 <tr>
 	<td width="400" style="padding:0px 0 10px 10px;">	
-		<strong><%= @commenter %></strong> just commented on the idea <%= @event.title %>
+		<strong><%= @commenter %></strong> just commented on the idea - <strong><%= @event.title %></strong>
 	</td>
 </tr>
 
  <!-- RECENT COMMENT -->
 <tr>
+	<td><img src="<%= @comment.user.profile_picture_url %>" /></td>
 	<td width='450' style="padding:20px 0 5px 50px; font-weight:bold; font-size:18px;"> <%= @comment.content %></td>
 </tr>
 
 <tr>
-	<td style="padding:20px 0 10px 100px; color:grey; font-size:12px;"> <%= @commenter %> | <%= @comment_time %> </td>
+	<td></td>
+	<td style="padding:20px 0 10px 100px; color:grey; font-size:12px;" align="right"> <%= @commenter %> | <%= @comment_time %> </td>
 </tr>
 
 <hr>
 
 <% @comments.each do |c| %>
 <tr>
+	<td> <img src="<%= c.user.profile_picture_url %>" width="70" style="border-radius:7px;-moz-border-radius:7px;-webkit-border-radius: 7px;" /></td>
 	<td style="padding:10px 0 5px 20px; font-size:14px;"> <%= c.content %></td>
 </tr>
 
 <tr>
-	<td> <img src="<%= c.user.profile_picture_url %>" /></td>
 	<td style="padding:5px 0 5px 80px; color:grey; font-size:10px;"> <%= c.user.name %></td> | 
 	<td style="padding:5px 0 5px 10px; color:grey; font-size:10px;"> <%= c.created_at.strftime "%l:%M%P, %A %B %e" %></td>
 </tr>
