@@ -99,7 +99,8 @@ include UsersHelper
     if @mobile_user.is_friended_by?(@friend)
       @events = @friend.ins 
     else
-      @events = @friend.ins.where('friends_only = ?', false)
+      @events = @friend.ins
+      @events = @events.reject{ |e| e.friends_only? }
     end
 
         #For Light-weight events sending for list (but need guests to know if RSVPd)

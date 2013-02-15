@@ -30,7 +30,7 @@ class Api::V2::TokensController  < ApplicationController
       end
       @user=User.find_by_email(email.downcase)
       if @user.nil? #create a new user
-        render :status=>402, :json=>{error: "Invalid email/password combination. If you have not yet registered for hoos.in, you have to do so either through facebook or at www.hoos.in. Sorry for the inconvenience!"}
+        render :status=>402, :json=>{error: "Invalid email/password combination. If you have not yet signed up for hoos.in, you have to use facebook or do so first at www.hoos.in. Sorry for the inconvenience!"}
         return
       end
       @user.ensure_authentication_token!
