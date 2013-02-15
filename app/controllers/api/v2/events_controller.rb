@@ -287,6 +287,10 @@ class Api::V2::EventsController < ApplicationController
 
   def event_details
     @event = Event.find_by_id(params[:event_id])
+    if @event.nil?
+      render :status => 400, :json => {:error => "could not find event"}
+    end
+
     if @event.has_parent? #make the detail event always the idea- and get times
       @event = @event.parent
     end
@@ -367,23 +371,12 @@ class Api::V2::EventsController < ApplicationController
   end
 
   def mobile_create
-    logger.info("CREATEPARAMS #{params}")
+
     @mobile_user = User.find_by_id(params[:user_id])
     if @mobile_user.nil?
       render :status => 400, :json => {:error => "could not find your user"}
       return
     end
-
-    @guests_can_invite_friends = true
-    @min = 1
-    if params[:min].present?
-      @min = Float(params[:min])
-    end
-    @max = 100000
-    if params[:max].present?
-      @max = Float(params[:max])
-    end
-
     @img_url = ""
     if params[:upload_img].present?
       #Do something to upload the image...
@@ -391,37 +384,60 @@ class Api::V2::EventsController < ApplicationController
     elsif params[:img_url].present?
       @img_url = params[:img_url]
     end
+    @starts_at = nil
+    @ends_at = nil
+    @duration = nil
+    
+
+    if params[:start].present? && params[:duration].present?
+      @starts_at = DateTime.parse(params[:start])
+      @duration = Float(params[:duration])
+      @ends_at = @starts_at + 3600*@duration
+    end
+    @one_time = false
+    if params[:one_time].present?
+      @one_time = params[:one_time]
+    end
+    @address = nil
+    if params[:address].present?
+      @address = params[:address]
+    end
+    @price = nil
+    if params[:price].present?
+      @price = params[:price]
+    end
+    @link = nil
+    if params[:link].present?
+      @link = params[:link]
+    end
+    @description = nil
+    if params[:description].present?
+      @description = params[:description]
+    end
+    @friends_only = false
+    if params[:friends_only].present?
+      @friends_only = params[:friends_only]
+    end
 
     @event_params = {
       title: params[:title],
-      #chronic_starts_at: DateTime.parse(params[:start]),
-      #duration: Float(params[:duration]),
-      guests_can_invite_friends: @guests_can_invite_friends,
-      min: @min,
-      min: @min,
-      max: @max,
-      link: params[:link],
-      price: params[:price],
-      address: params[:address],
-      is_public: 0,
-      family_friendly: 0,
-      promo_url: "",
+      starts_at: @starts_at,
+      ends_at: @ends_at,
+      duration: @duration,
+      one_time: @one_time,
+      link: @link,
+      price: @price,
+      address: @address,
+      promo_url: @img_url,
       promo_vid: "",
-      promo_img: params[:promo_img],
-      description: params[:description]
+      promo_img: nil,
+      description: @description,
+      friends_only: @friends_only,
+      family_friendly: false
     }
 
     @event = @mobile_user.events.build(@event_params)
-    # @event.user = @mobile_user
-    # @event.chronic_starts_at = DateTime.parse(params[:start])
-    if params[:start].present? && params[:duration].present?
-      @event.starts_at = DateTime.parse(params[:start])
-      @event.duration = Float(params[:duration])
-      @event.ends_at = @event.starts_at + @event.duration*3600
-    end
-    if params[:invite_city] == '1'
-      @event.is_public = true
-    end
+
     if @current_city.present?
       @event.city = @current_city
     elsif @mobile_user.city.present?
@@ -429,10 +445,10 @@ class Api::V2::EventsController < ApplicationController
     else
       @event.city = City.find_by_name("Madison, Wisconsin")
     end 
+
     #Make Instance
     if params[:add_time] == '1' && @event.starts_at.present? && @event.duration.present?
-      #SET ENDS_AT IF PRESENT
-      @event.ends_at = @event.starts_at + @event.duration*3600
+
       if params[:one_time] == '0' #IF NOT one time, CREATE instance
         
         @instance = @event.instances.build(user_id: current_user.id,
@@ -441,27 +457,21 @@ class Api::V2::EventsController < ApplicationController
                                  starts_at: @event.starts_at,
                                  ends_at: @event.ends_at,
                                  duration: @event.duration,
-                                 min: @event.min,
-                                 max: @event.max,
                                  address: @event.address,
                                  link: @event.link,
-                                 guests_can_invite_friends: @event.guests_can_invite_friends,
                                  promo_img: @event.promo_img,
                                  promo_url: @event.promo_url,
                                  promo_vid: @event.promo_vid,
-                                 is_public: @event.is_public,
                                  family_friendly: @event.family_friendly,
                                  price: @event.price,
-                                 description: @event.description
+                                 description: @event.description,
+                                 friends_only: @event.friends_only,
+                                 one_time: false
                               )
         if @instance.save
           @instance.save_shortened_url
           current_user.rsvp_in!(@instance)
-          if params[:invite_all] == "1"
-            current_user.invite_all_friends!(@instance)
-          end
-          @instance.tipped = true   if @instance.min <= 1
-          
+
           #CLEAR PARENT EVENT TIME ATTRIBUTES
           @event.starts_at = nil
           @event.ends_at = nil
@@ -474,49 +484,197 @@ class Api::V2::EventsController < ApplicationController
     if @event.save
       @mobile_user.rsvp_in!(@event)
       @event.save_shortened_url
-      if params[:invite_all] == '1'
-        @mobile_user.invite_all_friends!(@event)
-      end
-      if params[:category_id]
-        Categorization.create(event_id: @event.id, category_id: params[:category_id])
-      end
-      if @instance.present?
-        if @event.categorizations.any?
-          Categorization.create(event_id: @instance.id, category_id: @event.categorizations.first.id )
-        end
-      end
-      @g_share = true
-      @invitedids = []
-      @event.invited_users.each do |i|
-        @invitedids.push(i.id)
+
+      @price = 0
+      unless @event.price.nil?
+        @price = @event.price
       end
       @comments = []
       @event.comments.each do |c|
         @c = {msg: c.content, name: c.user.name, date: c.created_at}
         @comments.push(@c)
       end
+      @comments = @comments.reverse
+      e = @event
+      @instances = []
+      if e.one_time?
+        @i_guestids = []
+        e.guests.each do |g|
+          @i_guestids.push(g.id)
+        end
+        @instance = {
+            :iid => e.id,
+            :gids => @i_guestids,
+            :start => e.starts_at,
+            :end => e.ends_at,
+            :address => e.address,
+            :plan => @mobile_user.in?(e),
+            :out => @mobile_user.out?(e),
+            :host => e.user
+        }
+        @instances.push(@instance)
+      end
+      e.instances.each do |i|
+        if i.ends_at > Time.now
+          @i_guestids = []
+          i.guests.each do |g|
+            @i_guestids.push(g.id)
+          end
+          @instance = {
+            :iid => i.id,
+            :gids => @i_guestids,
+            :start => i.starts_at,
+            :end => i.ends_at,
+            :address => i.address,
+            :plan => @mobile_user.in?(i),
+            :out => @mobile_user.out?(i),
+            :host => i.user
+          }
+          @instances.push(@instance)
+        end
+      end
       render json: { 
-          :eid => @event.id,
-          :title => @event.title,  
-          :start => @event.starts_at,
-          :end => @event.ends_at, 
-          :gcnt => @event.guests.count,
-          :tip => @event.min,  
-          :host => @event.user,
-          :plan => @mobile_user.rsvpd?(@event),
-          :tipped => @event.tipped,
-          :guests => @event.guests,
-          :iids => @invitedids,
-          :g_share => @g_share,
-          :comments => @comments,
-          :image => @event.image(:medium),
-          :url => @event.short_url,
-          :share_a => @mobile_user.invited_all_friends?(@event),
-          :description => @event.description
+        :eid => @event.id,
+        :title => @event.title,  
+        :start => @event.starts_at,
+        :end => @event.ends_at, 
+        :gcnt => @event.guests.count,
+        :host => @event.user,
+        :plan => @mobile_user.rsvpd?(@event),
+        :guests => @event.guests,
+        :comments => @comments,
+        :image => @event.image(:medium),
+        :url => @event.short_url,
+        :price => @price,
+        :address => @event.address,
+        :link => @event.link,
+        :instances => @instances,
+        :ot => @event.one_time        
       }
     else
       render :status => 400, :json => {:error => "Idea did not Save"}
     end
+  end
+
+  def add_time
+
+    @mobile_user = User.find_by_id(params[:user_id])
+    if @mobile_user.nil?
+      render :status => 400, :json => {:error => "could not find your user"}
+      return
+    end
+    @parent = Event.find_by_id(params[:event_id])
+    if @parent.nil?
+      render :status => 400, :json => {:error => "could not find your idea"}
+      return
+    end
+
+    @starts_at = nil
+    @ends_at = nil
+    @duration = nil
+    
+
+    if params[:start].present? && params[:duration].present?
+      @starts_at = DateTime.parse(params[:start])
+      @duration = Float(params[:duration])
+      @ends_at = @starts_at + 3600*@duration
+    end
+    @event = @parent.instances.build(user_id: @mobile_user.id,
+                           title: @parent.title,
+                           starts_at: @starts_at,
+                           ends_at: @ends_at,
+                           address: params[:address],
+                           duration: @duration,
+                           link: @parent.link,
+                           promo_img: @parent.promo_img,
+                           promo_url: @parent.promo_url,
+                           promo_vid: @parent.promo_vid,
+                           family_friendly: @parent.family_friendly,
+                           price: @parent.price,
+                           city_id: @parent.city.id, 
+                           friends_only: @parent.friends_only
+                           )
+    if @event.save
+      @event.save_shortened_url
+      current_user.rsvp_in!(@event)
+      if @parent.guests.any? 
+        @parent.guests.each do |g|
+          g.delay.contact_new_time(@event)
+        end
+      end
+      @event = @parent
+      @price = 0
+      unless @event.price.nil?
+        @price = @event.price
+      end
+      @comments = []
+      @event.comments.each do |c|
+        @c = {msg: c.content, name: c.user.name, date: c.created_at}
+        @comments.push(@c)
+      end
+      @comments = @comments.reverse
+      e = @event
+      @instances = []
+      if e.one_time?
+        @i_guestids = []
+        e.guests.each do |g|
+          @i_guestids.push(g.id)
+        end
+        @instance = {
+            :iid => e.id,
+            :gids => @i_guestids,
+            :start => e.starts_at,
+            :end => e.ends_at,
+            :address => e.address,
+            :plan => @mobile_user.in?(e),
+            :out => @mobile_user.out?(e),
+            :host => e.user
+        }
+        @instances.push(@instance)
+      end
+      e.instances.each do |i|
+        if i.ends_at > Time.now
+          @i_guestids = []
+          i.guests.each do |g|
+            @i_guestids.push(g.id)
+          end
+          @instance = {
+            :iid => i.id,
+            :gids => @i_guestids,
+            :start => i.starts_at,
+            :end => i.ends_at,
+            :address => i.address,
+            :plan => @mobile_user.in?(i),
+            :out => @mobile_user.out?(i),
+            :host => i.user
+          }
+          @instances.push(@instance)
+        end
+      end
+      render json: { 
+        :eid => @event.id,
+        :title => @event.title,  
+        :start => @event.starts_at,
+        :end => @event.ends_at, 
+        :gcnt => @event.guests.count,
+        :host => @event.user,
+        :plan => @mobile_user.rsvpd?(@event),
+        :guests => @event.guests,
+        :comments => @comments,
+        :image => @event.image(:medium),
+        :url => @event.short_url,
+        :price => @price,
+        :address => @event.address,
+        :link => @event.link,
+        :instances => @instances,
+        :ot => @event.one_time        
+      }
+    else
+      render :status => 400, :json => {:error => "Idea did not Save"}
+    end
+
+
+
   end
 
   def add_comment
@@ -574,14 +732,13 @@ class Api::V2::EventsController < ApplicationController
       render :status => 400, :json => {:error => "thinks that your user is not the host of the event"}
       return
     end
-
     @userfile = params[:userfile]
 
-
+    @userfile.content_type = "image/jpeg"
     @event.promo_img = @userfile
     @event.save
 
-    render :status => 200, :json => {:success => "got here at least"}
+    render :status => 200, :json => {:success => "got image uploaded"}
   end
 
 

@@ -320,10 +320,10 @@ class User < ActiveRecord::Base
   end
 
   def inmate!(other_user)
-    unless self.is_inmates_or_friends_with?(other_user) || other_user.ignores?(self) || self.is_friends_with?(other_user) || self.id == other_user.id
+    unless self.is_inmates_or_friends_with?(other_user) || self.ignores?(other_user)|| other_user.ignores?(self) || self.id == other_user.id
       self.relationships.create(followed_id: other_user.id, status: 1)
     end
-    unless other_user.is_inmates_or_friends_with?(self) || self.ignores?(other_user) || other_user.is_friends_with?(self)
+    unless other_user.is_inmates_or_friends_with?(self) || self.ignores?(other_user) || other_user.ignores?(self)
       other_user.relationships.create(followed_id: self.id, status: 1)
     end
   end

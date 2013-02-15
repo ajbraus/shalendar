@@ -97,12 +97,68 @@ include UsersHelper
       render :status=>400, :json=>{:error => "other user was not found."}
     end
     if @mobile_user.is_friended_by?(@friend)
-      @events = @friend.plans # THIS SHOULD BE .ins when the code is updated from Adam's
+      @events = @friend.ins 
     else
-      @events = @friend.plans.where('friends_only = ?', false)
+      @events = @friend.ins.where('friends_only = ?', false)
     end
 
-    render json: @events
+        #For Light-weight events sending for list (but need guests to know if RSVPd)
+    @list_events = []
+    @events.each do |e|
+      @guestids = []
+      e.guests.each do |g|
+        @guestids.push(g.id)
+      end
+      @instances = []
+      if e.one_time?
+        @i_guestids = []
+        e.guests.each do |g|
+          @i_guestids.push(g.id)
+        end
+        @instance = {
+            :iid => e.id,
+            :gids => @i_guestids,
+            :start => e.starts_at,
+            :end => e.ends_at,
+            :address => e.address,
+            :plan => @mobile_user.in?(e),
+            :out => @mobile_user.out?(e),
+            :host => e.user
+        }
+        @instances.push(@instance)
+      end
+      e.instances.each do |i|
+        if i.ends_at > Time.now
+          @i_guestids = []
+          i.guests.each do |g|
+            @i_guestids.push(g.id)
+          end
+          @instance = {
+            :iid => i.id,
+            :gids => @i_guestids,
+            :start => i.starts_at,
+            :end => i.ends_at,
+            :address => i.address,
+            :plan => @mobile_user.in?(i),
+            :out => @mobile_user.out?(i),
+            :host => i.user
+          }
+          @instances.push(@instance)
+        end
+      end
+      @temp = {
+        :eid => e.id,
+        :host => e.user,
+        :title => e.title,  
+        :image => e.image(:medium),
+        :plan => @mobile_user.in?(e),
+        :gids => @guestids,
+        :instances => @instances,
+        :ot => e.one_time
+      }
+      @list_events.push(@temp)
+    end 
+    render json: @list_events
 
   end
 end

@@ -142,6 +142,7 @@ Shalendar::Application.routes.draw do
       match '/invitations', :to => 'invitations#create'
       match '/invite_all_friends', :to => 'invitations#invite_all_friends'
       match '/create_event', :to => 'events#mobile_create'
+      match '/add_time', :to => 'events#add_time'
       match '/add_photo_to_event', :to => 'events#add_photo'
       match '/add_comment', :to => 'events#add_comment'
       match '/cancel_idea', :to => 'events#cancel_idea'

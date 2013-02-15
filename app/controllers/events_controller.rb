@@ -51,7 +51,7 @@
     if @event.starts_at.present? && @event.duration.present?
       @event.ends_at = @event.starts_at + @event.duration*3600
     end
-
+    
     if @event.save
       current_user.rsvp_in!(@event)
       @event.save_shortened_url
