@@ -1,63 +1,6 @@
 Adam
 
-
-Bugs
-
-time opening to time page rather than idea from calendar
-
-send digest
-
-comments and time change not sending pushes
-send emails
-
-only get a message when friends and the host post
-
-add mute button in chat
-add 'creator' for idea and 'host' for time
-toggle in homepage
-
-times not in transparent
-
-fix link
-
-build .ins filter on home
-
-NOTIFIERS:
-	send digest
-	add stats to digest
-	star icon in email
-	guest count in emails
-
-hide inner-circle
-contact_new_friend = someone added you to their .inner-circle
-
-show_times in chronological order
-
-fix rsvping from 
-	mini-calendar 
-		in 
-			remove buttons show you are in
-		out
-			remove idea
-
-	show  
-		in 
-			fix background color
-		out
-			fix font colors
-
-	shield
-		in
-			if time - add mini_event to .instances
-		out
-			disappear & reload masonry
-
-=======
->>>>>>> 80206f9535afd8455d3bf789cf88314113cb7c7b
-add 'creator' for idea and 'host' for time
-=======
-review is_new_inmate?(other_user)
->>>>>>> ef2babbf364b75212c163241af8ea06135f1cb31
+add calls to action to bottom of all emails
 
 put up tips for ideas
 
@@ -76,6 +19,8 @@ add iphone and android market place icons to bulletin board banners
 re-up bank account - write checks
 
 --------------------------------------------------------------
+
+reload calendar on rsvp to idea
 
 switch emails going out of the team@hoos.in email address, make support@hoos.in
 

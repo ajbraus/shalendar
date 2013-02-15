@@ -18,7 +18,7 @@
 	</div>
 	<% if event.has_image? %>
 		<div class="promo_img">
-			<%= image_tag event.image(:medium) %>
+			<%= image_tag "#{event.image(:medium)}" %>
 		</div>
 	<% end %>
 

@@ -81,9 +81,6 @@ padding: 8px 8px 0 8px;
 	margin-left: 80px;
 	font-size:26px;
 }
-.idea_container {
-width: 100%;
-}
 
 .crowd_ideas {
 	margin-left: 290px;
@@ -234,8 +231,8 @@ padding: 1px 0 10px 2px;
 		}
 
 		.instagram-placeholder img {
-			width: 131px;
-			height: 131px;
+			width: 138px;
+			height: 138px;
 			margin-top: -5px;
 		}
 
@@ -469,10 +466,19 @@ margin-right: 85px;
 /***************************************/
 /*** Tablet - iPad *********************/ /*1 idea*/
 /***************************************/
-@media only screen and (min-width: 600px) and (max-width: 889px) {
+@media only screen and (min-width: 600px) and (max-width: 909px) {
 	.home_idea_container {
 		width: 230px;
 	}
+	.container_wrapper {
+		width:45%;
+	}
+	.idea_container {
+		width:87%;
+	}
+	.user_show {
+  width:70%;
+}
 }
 @media only screen and (max-width: 829px) {
 	.hide_on_mobile {
@@ -486,6 +492,15 @@ margin-right: 85px;
 	.home_idea_container {
 		width: 500px;
 	}
+		.container_wrapper {
+		width:60%;
+	}
+		.idea_container {
+		width:79%;
+	}
+	.user_show {
+		width: 70%;
+	}
 }
 
 /*3ideas*/
@@ -493,16 +508,44 @@ margin-right: 85px;
 	.home_idea_container {
 		width: 770px;
 	}
+	.container_wrapper {
+		width:67%;
+	}
+	.idea_container {
+		width:87%;
+	}
+	.user_show {
+		width: 72%;
+	}
 }
 /*4ideas*/
 @media only screen and (min-width: 1500px) {
 	.home_idea_container {
 		width: 1030px;
 	}
+	.container_wrapper {
+		width:72%;
+	}
+	.idea_container {
+		width:86%;
+	}
+
+	.user_show {
+		width: 78%;
+	}
 }
 
 @media only screen and (min-width: 1810px) {
 	.home_idea_container {
-		width: 1290px;
+		width: 1230px;
+	}
+	.container_wrapper {
+		width:76%;
+	}
+	.idea_container {
+		width:92%;
+	}
+	.user_show {
+		width: 80%;
 	}
 }

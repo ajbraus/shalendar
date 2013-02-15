@@ -4,7 +4,6 @@
 	<h1><strong>What:</strong> <%= event.title %></h1>
 	<% if event.starts_at.present? %>
 	<h1><strong>When:</strong> <%= start_time(event) %></h1>
-    <h3>add to your calendar</h3>
     <div class="calendars clearfix">
       <div>
         <p>
@@ -23,10 +22,9 @@
         <p>iCal and Outlook</p>
       </div>
     </div>
-
+    <h3>add to your calendar</h3>
   <% elsif event.has_future_instance? %>
     <% @next_instance = event.next_instance %>
-    <h3>join .in the next time?</h3>
     <h1><strong>When:</strong> <%= start_time(@next_instance) %></h1>
 
     <% if !current_user.rsvpd?(@next_instance) %>
@@ -43,12 +41,11 @@
         <% end %>
       </div>
     <% end %>
-
+    <h3>join .in the next time?</h3>
   <% end %>
 
 	<% if event.is_parent_or_future_instance? %>
 	  <div class="social_sharing">
-	  <h3>.invite your friends</h3> 
 	    <div>
 	      <%= render partial: 'social/email', locals: { :event => @event } %>
 	    </div>
@@ -61,6 +58,7 @@
 	    <div>
 	      <%= render partial: 'social/pinterest', locals: { :event => @event } %>
 	    </div>
+      <h3>.invite your friends</h3> 
 	  </div>
   <% end %>
   

@@ -16,8 +16,7 @@ class UsersController < ApplicationController
       @times = @user.plans.where("starts_at > ?", Time.now).order('starts_at ASC')        
       @past_times = @user.plans.where("starts_at < ?", Time.now).order('starts_at ASC').limit(20)
     else
-      #@events = @user.plans.where("starts_at > :now", now: Time.now).order('starts_at asc')
-      #@past_events = @user.plans.where("starts_at < :now", now: Time.now).order('starts_at asc')
+      @my_ins = @user.plans.where('friends_only = ? AND starts_at IS NULL OR (one_time = ? AND ends_at > ?)', false, true, Time.now)
     end
   end
 
