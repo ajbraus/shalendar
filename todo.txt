@@ -2,6 +2,8 @@ Adam
 
 review is_new_inmate?(other_user)
 
+put up tips for ideas
+
 test redirect - not working
 
 invites for launch:
