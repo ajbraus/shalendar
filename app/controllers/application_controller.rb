@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :set_city, :set_time_zone, :set_graph #:check_venue_card, 
+  before_filter :set_city, :set_graph #:check_venue_card, 
   after_filter :store_location
 
   def store_location
@@ -28,8 +28,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  private
-
   def set_city
     if user_signed_in?
       @current_city = current_user.city
@@ -40,17 +38,7 @@ class ApplicationController < ActionController::Base
         @current_city = City.find_by_name("Madison, Wisconsin")
       end
     end
-  end
-
-  def set_time_zone
-    if user_signed_in?
-      Time.zone = @current_city.timezone
-    elsif session[:city]
-      Time.zone = City.find_by_name(session[:city]).timezone
-    end
-    if Time.zone.nil?
-      Time.zone = "Central Time (US & Canada)"
-    end
+    Time.zone = @current_city.timezone
   end
 
   def set_graph

@@ -17,7 +17,11 @@
       <%= render partial: 'social/facebook', locals: { :event => @event } %>
     </li>
   </ul>
+  <% if user_signed_in? %>
     <div id="rsvpForm" class="join_group_buttons <%= current_user.in?(@event) ? 'rsvp_blue' : '' %>">
+  <% else %>
+    <div id="rsvpForm" class="join_group_buttons">
+  <% end %>
       <%= render partial: 'rsvp_form', :locals => { :event => @event }  %> 
     </div>
   <div class="event_title clearfix">
@@ -25,6 +29,17 @@
       <%= @event.title %>
     </div>
     <% if @event.user == current_user %> 
+      <div class="ribbon-wrapper">
+        <div class="ribbon-front">
+          creator
+        </div>
+        <div class="ribbon-edge-topleft"></div>
+        <div class="ribbon-edge-topright"></div>
+        <div class="ribbon-edge-bottomleft"></div>
+        <div class="ribbon-edge-bottomright"></div>
+        <div class="ribbon-back-left"></div>
+        <div class="ribbon-back-right"></div>
+      </div>
       <div class="event_buttons">
         <%= link_to edit_event_path(@event) do %>
           <span class="fadeInOrange"><i class="icon-cogs"></i> edit</span>
@@ -100,7 +115,15 @@
 
   <div class="event_guests part clearfix">
     <%= render partial: 'shared/guest_count', locals: { :event => @event } %>
-    <%= render partial: 'shared/user', collection: @event.guests, as: :user %>
+    <% if user_signed_in? %>
+      <% if current_user.in?(@event) %>
+        <%= render partial: 'shared/user', collection: @event.guests, as: :user %>
+      <% else %>
+        <%= render partial: 'shared/user_not_inmate', collection: @event.guests, as: :user %>
+      <% end %>
+    <% else %>
+      <%= render partial: 'shared/user_not_inmate', collection: @event.guests, as: :user %>
+    <% end %>
     <% if @event.maybes.count - @event.guests.count > 0 %>
       <div class="divider_line"></div>
       <span id="invite_count"><%= @event.maybes.count - @event.guests.count %></span> 

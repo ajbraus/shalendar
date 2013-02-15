@@ -55,16 +55,35 @@ fix rsvping from
 =======
 >>>>>>> 80206f9535afd8455d3bf789cf88314113cb7c7b
 add 'creator' for idea and 'host' for time
-
-fix link
-
-build .ins filter on home
-
-show_time if your out as out
-
+=======
 review is_new_inmate?(other_user)
+>>>>>>> ef2babbf364b75212c163241af8ea06135f1cb31
+
+test redirect - not working
+
+invites for launch:
+
+	isthmus woman
+	Bryan Chan
+	Per Blue Office
+	Tech bloggers
+	Mailchimp - CE Social invite email
+
+add iphone and android market place icons to bulletin board banners
+
+re-up bank account - write checks
 
 --------------------------------------------------------------
+
+switch emails going out of the team@hoos.in email address, make support@hoos.in
+
+add footer to event#show and profile and login/signup pages
+
+sort guests by friends
+
+add instructions
+
+default background images
 
 NOTIFIERS:
 	add stats to digest

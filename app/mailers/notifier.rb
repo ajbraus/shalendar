@@ -108,20 +108,8 @@ class Notifier < ActionMailer::Base
     @event = event
 
     unless @user == User.find_by_email("info@hoos.in")
-      mail to: @user.email, subject: "idea begins this .instant - #{@event.short_event_title}"
+      mail to: @user.email, subject: "idea beginning this .instant - #{@event.short_event_title}"
     end
-  end
-
-  def email_invitation(invite, event)
-    @invite = invite
-    @event = event
-    @event_time = event.starts_at.strftime("%l:%M%P, %A %B %e")
-    @inviter = User.find_by_id(@invite.inviter_id)
-    @event_link = event_url(@event)
-    @message = @invite.message
-    #@inviter_pic = raster_profile_picture(@inviter)
-    #should we include here an invited by X to make them more likely to join?
-    mail to: @invite.email, subject: "#{@inviter.name} .invited you"
   end
 
   def time_change(event, user)
@@ -132,26 +120,22 @@ class Notifier < ActionMailer::Base
     rescue => ex
     Airbrake.notify(ex)
   end
-
-  def fb_app_invite(invitee_email, subject, message)
-    @invitee_email = invitee_email
-    @subject = subject
-    @message = message
-    mail(to: @invitee_email, from: "info@hoos.in", subject: @subject) do |format|
-      format.html { render :layout => 'fb_message' }
-    end
-    # rescue => ex
-    # Airbrake.notify(ex)
-  end
-
-  def fb_event_invite(email, event)
-    @event = event
-    @email = email 
-    mail to: @email, from: "info@hoos.in", subject: ".invite" do |format|
-      format.html { render :layout => 'fb_message' }
-    end
-  end
   
+  def new_time(event, user)
+    @user = user
+    @event = event
+    @event_link = event_url(@event)
+    mail to: @user.email, from: "info@hoos.in", subject: "new time - #{@event.start_time} - #{@event.title}"
+  end
+
+  def new_rsvp(event, rsvping_user)
+    @event = event
+    @user = @event.user
+    @rsvping_user = rsvping_user
+    @image_url = invite_raster_picture(@rsvping_user)
+    mail to: @user.email, from: "info@hoos.in", subject: "you have a new .in - #{@rsvping_user.name}"
+  end
+
   def digest(user, upcoming_times, has_times, new_inner_ideas, new_inmate_ideas, users_new_ideas_count)
     @user = user
     @upcoming_times = upcoming_times
@@ -169,19 +153,36 @@ class Notifier < ActionMailer::Base
     mail to: @user.email, from: "info@hoos.in", subject: ".introductions - #{@event.title}"
   end
 
-  def new_time(event, user)
-    @user = user
-    @event = event
-    mail to: @user.email, from: "info@hoos.in", subject: "new time - #{@event.start_time} - #{@event.title}"
-  end
+  # def email_invitation(invite, event)
+  #   @invite = invite
+  #   @event = event
+  #   @event_time = event.starts_at.strftime("%l:%M%P, %A %B %e")
+  #   @inviter = User.find_by_id(@invite.inviter_id)
+  #   @event_link = event_url(@event)
+  #   @message = @invite.message
+  #   #@inviter_pic = raster_profile_picture(@inviter)
+  #   #should we include here an invited by X to make them more likely to join?
+  #   mail to: @invite.email, subject: "#{@inviter.name} .invited you"
+  # end
 
-  def new_rsvp(event, rsvping_user)
-    @event = event
-    @user = @event.user
-    @rsvping_user = rsvping_user
-    @image_url = invite_raster_picture(@rsvping_user)
-    mail to: @user.email, from: "info@hoos.in", subject: "you have a new .in - #{@rsvping_user.name}"
-  end
+  # def fb_app_invite(invitee_email, subject, message)
+  #   @invitee_email = invitee_email
+  #   @subject = subject
+  #   @message = message
+  #   mail(to: @invitee_email, from: "info@hoos.in", subject: @subject) do |format|
+  #     format.html { render :layout => 'fb_message' }
+  #   end
+  #   # rescue => ex
+  #   # Airbrake.notify(ex)
+  # end
+
+  # def fb_event_invite(email, event)
+  #   @event = event
+  #   @email = email 
+  #   mail to: @email, from: "info@hoos.in", subject: ".invite" do |format|
+  #     format.html { render :layout => 'fb_message' }
+  #   end
+  # end
 
   # def recurring_receipt(user, amount)
   #   @user = user

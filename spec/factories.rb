@@ -10,7 +10,6 @@ FactoryGirl.define do
 		password 'please'
 		password_confirmation 'please'
 		remember_me 'f'
-		require_confirm_follow 'f'
 		allow_contact 't'
 		digest 't'
 		notify_event_reminders 't'
@@ -27,29 +26,6 @@ FactoryGirl.define do
     debits_uri ''
 	end
 
-  factory :venue do
-    name 'Venue Test'
-    email 'Venue@test.com'
-    password 'please'
-    password_confirmation 'please'
-    remember_me 'f'
-    require_confirm_follow 'f'
-    allow_contact 't'
-    digest 't'
-    notify_event_reminders 't'
-    city_id '2'
-    post_to_fb_wall 'f'
-    avatar nil
-    vendor 't'
-    terms 't'
-    background nil
-    account_uri ''
-    bank_account_uri ''
-    credits_uri ''
-    credit_card_uri ''
-    debits_uri ''
-  end
-
   factory :event do
     user_id ''
     parent_id ''
@@ -57,25 +33,22 @@ FactoryGirl.define do
     duration '2'
     ends_at ''
     title 'Test Event'
-    min '1'
-    max ''
     address ''
     latitude ''
     longitude ''
     chronic_starts_at ''
     link ''
     gmaps 'f'
-    tipped 't'
-    guests_can_invite_friends 't'
     price ''
     promo_img nil
     promo_url ''
     promo_vid ''
     short_url ''
     slug ''
-    is_public ''
     city_id '2'
     one_time ''
+    dead ''
+    friends_only ''
 	end
 
   factory :rsvp do  
@@ -83,12 +56,5 @@ FactoryGirl.define do
     guest_id ''
     inout ''
   end
-
-  factory :invitation do 
-    invited_user_id ''
-    invited_event_id ''
-    inviter_id ''
-  end
-
 
 end

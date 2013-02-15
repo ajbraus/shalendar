@@ -235,10 +235,11 @@ class User < ActiveRecord::Base
 
   #get user's profile picture
   def profile_picture_url
-    if self.authentications.where(:provider == "Facebook").any?
-      "#{user.authentications.find_by_provider("Facebook").pic_url}"
+    @authentication = self.authentications.find_by_provider("Facebook")
+    if @authentication.present?
+      "#{@authentication.pic_url}"
     else
-      if self.avatar.url.nil?
+      if self.avatar.url.blank?
         "https://s3.amazonaws.com/hoosin-production/user/avatars/raster/default_profile_pic.png"
       else
         self.avatar.url(:raster)

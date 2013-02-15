@@ -103,7 +103,7 @@ class Event < ActiveRecord::Base
 
   def start_time
     if starts_at.present?
-      self.starts_at.strftime "%l:%M%P, %A %B %e"
+      self.starts_at.strftime "%A %B %e, %l:%M%P"
     else
       "TBD"
     end

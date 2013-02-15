@@ -1,4 +1,26 @@
-# require 'spec_helper'
+  # factory :venue do
+  #   name 'Venue Test'
+  #   email 'Venue@test.com'
+  #   password 'please'
+  #   password_confirmation 'please'
+  #   remember_me 'f'
+  #   require_confirm_follow 'f'
+  #   allow_contact 't'
+  #   digest 't'
+  #   notify_event_reminders 't'
+  #   city_id '2'
+  #   post_to_fb_wall 'f'
+  #   avatar nil
+  #   vendor 't'
+  #   terms 't'
+  #   background nil
+  #   account_uri ''
+  #   bank_account_uri ''
+  #   credits_uri ''
+  #   credit_card_uri ''
+  #   debits_uri ''
+  # end
+  # require 'spec_helper'
 
 # describe "Venue" do
 

@@ -270,16 +270,24 @@ height: 30px;
 }
 
 .sign_up {
-	width: 75%;
+width: 89%;
+position: relative;
+left: 4px;
+  input[type=email], input[type=text], input[type=submit], input[type=password]{
+		width: 93%;
+	}
 }
 
 .instagramFeed {
 	width:87%;
 }
 
-.fb_login_button {
-right: 58px;
+.login_facebook {
+	position: relative;
+right: 65px;
 }
+
+
 
 .top {
 	height:575px;
@@ -294,9 +302,11 @@ right: 58px;
 }
 
 #sign_in {
-	width: 90%;
-	input {
-		width:60%;
+width: 89%;
+position: relative;
+left: 4px;
+  input[type=email], input[type=text], input[type=submit], input[type=password]{
+		width: 93%;
 	}
 }
 

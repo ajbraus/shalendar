@@ -1,18 +1,10 @@
-<% if @message.nil? %>
-<td>
-	<h2 style="padding:0 0 0 10px;font-size:22px;"><% if @user.nil? == false %><%= @user.first_name %> <% else %>hi<% end %>,</h2>
-</td>
-<% else %>
-<tr>
-	<td style="padding:20px 0 10px 50px"><%= @message %></td>
-</tr>
-<% end %>
-
-<tr>
-	<td style="padding:0px 0 10px 10px">	
-		<strong><%= @inviter.name %></strong> invited you to an activity:
-	</td>
-</tr>
+<td style="padding:20px 0 20px 40px">
+	<table>
+		<tr>
+			<td style="font-size:16px;">
+				<strong><%= @inviter.name %></strong> invited you to an activity:
+			</td>
+		</tr>
 
 <tr>
 	<td style="padding:10px 0 5px 50px">What: <strong style="padding-left:10px;"><a href="http://www.hoos.in/events/<%= event.id %>"><%= event.title %></a></strong>
@@ -30,6 +22,6 @@
 <% end %>
 <% if @user.nil? %>
 	<tr>
-		<td style="padding:20px 0 10px 10px">hoos.in makes leading an adventurous social life easy... we're in beta and growing fast, check us out!</td>
+		<td style="padding:20px 0 10px 10px">hoos.in makes it easy and hassel-free to plan creative and adventurous activities with friends, colleagues, and family.</td>
 	</tr>
 <% end %>

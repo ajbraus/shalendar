@@ -21,7 +21,7 @@
 				<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  	<%= f.hidden_field :plan_id %>
 			  	<%= f.hidden_field :inout, value: "0" %>
-			  	<button class="out" name="commit" title="I'm out" type="submit">
+			  	<button class="out" name="commit" title="I'm out" data-confirm="Ignore <%= event.user.first_name %>'s idea?" type="submit">
 			  		<i class='icon-remove'></i>
 			  	</button>
 				<% end %>		
@@ -30,18 +30,6 @@
 				<div class="rsvp_check">
 					<%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %>
 				</div>
-			  <div class="facepile">
-			  	<% if user_signed_in? %>
-		  			<% event.friends_in(current_user).each do |guest| %>
-		    			<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
-		  			<% end %>
-		  		<% else %>
-		  			<% event.guests.each do |guest| %>
-		    			<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
-		  			<% end %>
-		  		<% end %>
-				</div>
-				<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>		
 			</div>
 		<% end %>
 
@@ -54,9 +42,20 @@
 				<%= image_tag event.image(:medium) %>
 			</div>
 		<% end %>
-
+		<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>		
+		<div class="facepile">
+	  	<% if user_signed_in? %>
+  			<% event.friends_in(current_user).each do |guest| %>
+    			<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
+  			<% end %>
+  		<% else %>
+  			<% event.guests.each do |guest| %>
+    			<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
+  			<% end %>
+  		<% end %>
+		</div>
 		<% if user_signed_in? %>
-			<% if event.one_time? && @currently_ideas 
+			<% if event.one_time?
 		 			@relevant_instances = [event]
 				 else 
 					@relevant_instances = event.instances.reject { |e| e.over? } 
@@ -67,9 +66,7 @@
 			%>
 			<%= render partial: 'events/time', collection: @relevant_instances, as: :event %>
 		<% end %>
-	
 <% end %>
-
 	<% if user_signed_in? %>
 		<% if !event.one_time? && current_user.in?(event) %>
 			<div>

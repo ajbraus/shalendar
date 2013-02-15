@@ -1,7 +1,7 @@
-<td><h2 style="font-size:16px;"><%= @user.first_name %>,</h2></td>
-
-<tr>
-	<td style="padding:0 0 0 10px">Your plan: <strong><%= @event.title %> </strong> has changed times.</td>
-</tr>
+<td style="padding:20px 0 20px 40px">
+	<table>
+		<tr>
+			<td style="font-size:16px;">One of your .ins - <strong><%= @event.title %> </strong> - has changed times.</td>
+		</tr>
 
 <%= render partial: 'event_details', locals: { :event => @event, :user => @user } %>

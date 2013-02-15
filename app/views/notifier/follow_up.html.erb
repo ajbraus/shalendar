@@ -1,5 +1,5 @@
 <tr>
-	<td style="padding:15px 0 0 20px;font-size:18px;">Here are your new .in-mate's from yesterday </td>
+	<th style="padding:15px 0 0 0;font-size:20px;" align="middle" width="600">Here are your new .in-mate's from yesterday </th>
 </tr>
 
 <%= render partial: 'event_details', locals: { :event => @event, :user => @user } %>
@@ -7,9 +7,8 @@
 	<% left = @new_inmates[ 0, ( @new_inmates.size / 2.0 ).round ] %>
 	<% right = @new_inmates - left %>
 
-<table style="padding: 0 0 0 20px;">
-	<tr>
-		<td>
+<tr>
+	<td>
 			<% left.each do |g| %>
 			<table style="padding: 5px 5px 0px 20px">
 				<tr>
@@ -24,8 +23,8 @@
 				</tr>
 			</table>
 			<% end %>
-		</td>
-		<td>
+	</td>
+	<td>
 			<% right.each do |g| %>
 			<table style="padding: 5px 5px 0px 20px">
 				<tr>
@@ -49,10 +48,5 @@
 					</tr>
 				</table>
 			<% end %>
-		</td>
-	</tr>
-</table>
-
-
-
-
+	</td>
+</tr>
