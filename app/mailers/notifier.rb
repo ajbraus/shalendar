@@ -124,6 +124,7 @@ class Notifier < ActionMailer::Base
   def new_time(event, user)
     @user = user
     @event = event
+    @event_link = event_url(@event)
     mail to: @user.email, from: "info@hoos.in", subject: "new time - #{@event.start_time} - #{@event.title}"
   end
 

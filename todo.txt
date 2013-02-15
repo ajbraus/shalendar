@@ -18,6 +18,8 @@ re-up bank account - write checks
 
 --------------------------------------------------------------
 
+switch emails going out of the team@hoos.in email address, make support@hoos.in
+
 add footer to event#show and profile and login/signup pages
 
 sort guests by friends

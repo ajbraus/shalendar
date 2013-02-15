@@ -1,39 +1,56 @@
+<td style="padding:20px 0 20px 40px">
+	<table>
+		<tr>
+			<td style="font-size:16px;padding-bottom:10px;" colspan="2">
+				<%= @commenter %></strong> just commented on the idea - <strong><a href=<%= @event_link %>><%= @event.title %></a></strong>
+			</td>
+		</tr>
+
+		 <!-- RECENT COMMENT -->
+		<tr>	
+			<td width="18%">
+				<a href="http://www.hoos.in/users/<%= @comment.user.slug %>"><img src="<%= @comment.user.profile_picture_url %>" style="border-radius:6px;-moz-border-radius:6px;-webkit-border-radius: 6px; margin-right: 5px;" /></a>
+			</td>
+			<td style="font-size:16px;">
+				<%= @comment.content %>
+			</td>
+		</tr>
+
+		<tr>
+			<td></td>
+			<td style="padding:10px 0 10px 0px; color:grey; font-size:12px;" align="right"> 
+				<%= @commenter %> | <%= @comment_time %> 
+			</td>
+		</tr>
+
+		<tr>
+			<td style="border-bottom:1px solid lightgrey;"></td>
+			<td style="border-bottom:1px solid lightgrey;"></td>
+		</tr>
+
+	<% @comments.each do |c| %>
+		<tr>
+			<td><img src="<%= c.user.profile_picture_url %>" width="40" style="border-radius:6px;-moz-border-radius:6px;-webkit-border-radius: 6px;" /></td>
+			<td style="padding:10px 0 5px 20px; font-size:14px;"> <%= c.content %></td>
+		</tr>
+
+		<tr>
+			<td></td>
+			<td style="padding:5px 0 5px 80px; color:grey; font-size:10px;"> 
+				<%= c.user.name %> | <%= c.created_at.strftime "%l:%M%P, %A %B %e" %>
+			</td>
+		</tr>
+
+		<tr>
+			<td style="border-bottom:1px solid lightgrey;"></td>
+			<td style="border-bottom:1px solid lightgrey;"></td>
+		</tr>
+	<% end %>
+
 <tr>
-	<td colspan="2" width="400" style="padding:0px 0 10px 10px;">	
-		<strong><%= @commenter %></strong> just commented on the idea - <strong><%= @event.title %></strong>
-	</td>
+	<td align="right"> . . . </td>
 </tr>
 
- <!-- RECENT COMMENT -->
 <tr>
-	<td><img src="<%= @comment.user.profile_picture_url %>" /></td>
-	<td width='450' style="padding:20px 0 5px 50px; font-weight:bold; font-size:18px;"> <%= @comment.content %></td>
-</tr>
-
-<tr>
-	<td></td>
-	<td style="padding:20px 0 10px 100px; color:grey; font-size:12px;" align="right"> <%= @commenter %> | <%= @comment_time %> </td>
-</tr>
-
-<hr>
-
-<% @comments.each do |c| %>
-<tr>
-	<td> <img src="<%= c.user.profile_picture_url %>" width="70" style="border-radius:7px;-moz-border-radius:7px;-webkit-border-radius: 7px;" /></td>
-	<td style="padding:10px 0 5px 20px; font-size:14px;"> <%= c.content %></td>
-</tr>
-
-<tr>
-	<td style="padding:5px 0 5px 80px; color:grey; font-size:10px;"> <%= c.user.name %></td> | 
-	<td style="padding:5px 0 5px 10px; color:grey; font-size:10px;"> <%= c.created_at.strftime "%l:%M%P, %A %B %e" %></td>
-</tr>
-
-<% end %>
-
-<tr>
-	<td style="padding:10px 0 5px 20px; font-size:14px;"> . . . </td>
-</tr>
-
-<tr>
-	<td width="400" style="padding:20px 0 10px 10px;"> Check out this idea's <a href=<%= @event_link %>>page on hoos.in</a> to join.</td>
+	<td colspan="2" style="padding:20px 0 10px 10px;"> Check out this idea's <a href=<%= @event_link %>>page on hoos.in</a> to reply</td>
 </tr>

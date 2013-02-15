@@ -7,6 +7,8 @@
 	<% left = @new_inmates[ 0, ( @new_inmates.size / 2.0 ).round ] %>
 	<% right = @new_inmates - left %>
 
+<tr>
+	<td>
 			<% left.each do |g| %>
 			<table style="padding: 5px 5px 0px 20px">
 				<tr>
@@ -21,6 +23,8 @@
 				</tr>
 			</table>
 			<% end %>
+	</td>
+	<td>
 			<% right.each do |g| %>
 			<table style="padding: 5px 5px 0px 20px">
 				<tr>
@@ -44,7 +48,5 @@
 					</tr>
 				</table>
 			<% end %>
-
-
-
-
+	</td>
+</tr>
