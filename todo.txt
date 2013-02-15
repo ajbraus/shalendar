@@ -1,7 +1,5 @@
 Adam
 
-add calls to action to bottom of all emails
-
 put up tips for ideas
 
 test redirect - not working
@@ -19,6 +17,8 @@ add iphone and android market place icons to bulletin board banners
 re-up bank account - write checks
 
 --------------------------------------------------------------
+
+add calls to action to bottom of all emails
 
 reload calendar on rsvp to idea
 

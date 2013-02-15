@@ -261,6 +261,7 @@ GEM
       cocaine (~> 0.4.0)
       mime-types
     pg (0.14.1)
+    phantomjs (1.6.0.0)
     phony (1.8.4)
     phony_rails (0.1.12)
       activerecord (>= 3.0)
@@ -428,6 +429,7 @@ DEPENDENCIES
   omniauth-twitter
   paperclip (~> 3.0)
   pg
+  phantomjs
   phony_rails
   powder
   powify
