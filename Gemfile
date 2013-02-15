@@ -14,7 +14,6 @@ gem 'chronic'
 gem 'twilio-rb'
 gem 'phony_rails'
 gem 'useragent'
-gem 'phantomjs'
 
 # gem 'apn_sender', :require => 'apn'
 # gem 'daemons'
