@@ -12,7 +12,6 @@ class Api::V2::RsvpsController < ApplicationController
     if @event.nil?
       render :status=>400, :json=>{ :error => "event was not found."}
     end
-    logger.info("Params inout is: #{params[:inout]}")
     if @inout == 0
       @mobile_user.rsvp_out!(@event)
     elsif @inout == 1 

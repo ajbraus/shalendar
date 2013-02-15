@@ -4,10 +4,9 @@ respond_to :json
 
 include UsersHelper
 
-
   def create
     @mobile_user = User.find_by_id(params[:user_id])
-    @user_to_follow = User.find_by_id(params[:other_user_id])
+    @user_to_friend = User.find_by_id(params[:other_user_id])
     if @mobile_user.nil?
       render :status=>400, :json=>{:error => "user was not found."}
     end
@@ -25,77 +24,54 @@ include UsersHelper
 
   def destroy
     @mobile_user = User.find_by_id(params[:user_id])
-    @other_user_to_unfollow = User.find_by_id(params[:other_user_id])
+    @other_user_to_ignore = User.find_by_id(params[:other_user_id])
     if @mobile_user.nil?
       render :status=>400, :json=>{:error => "user was not found."}
     end
-    if @other_user_to_unfollow.nil?
+    if @other_user_to_ignore.nil?
       render :status=>400, :json=>{:error => "other user was not found."}
     end
 
-    @mobile_user.unfriend!(@other_user_to_unfollow)
+    @mobile_user.ignore_inmate!(@other_user_to_ignore)
 
-    render :json=>{:unfollowed_id=>@other_user_to_unfollow.id}
+    render :json=>{:ignored_id=>@other_user_to_ignore.id}
   end
 
-  def remove_follower
+  def add_star
     @mobile_user = User.find_by_id(params[:user_id])
-    @other_user_to_remove = User.find_by_id(params[:other_user_id])
+    @other_user_to_star = User.find_by_id(params[:other_user_id])
     if @mobile_user.nil?
       render :status=>400, :json=>{:error => "user was not found."}
     end
-    if @other_user_to_remove.nil?
+    if @other_user_to_star.nil?
       render :status=>400, :json=>{:error => "other user was not found."}
     end
 
-    @other_user_to_remove.unfollow!(@mobile_user)
+    @mobile_user.friend!(@other_user_to_star)
 
-
-    render :json=>{:success=>true}
+    render :json=>{:starred_id=>@other_user_to_star.id}
   end
 
-  def confirm_follower
-    @mobile_user = User.find_by_id(params[:user_id])
-    @other_user_to_confirm = User.find_by_id(params[:other_user_id])
-    if @mobile_user.nil?
-      render :status=>400, :json=>{:error => "user was not found."}
-    end
-    if @other_user_to_confirm.nil?
-      render :status=>400, :json=>{:error => "other user was not found."}
-    end
-    @relationship = Relationship.where(':follower_id = :confirm_id AND :followed_id = :mobile_user_id',
-                                         confirm_id: @other_user_to_confirm.id, :mobile_user_id => @mobile_user.id ).last
-    unless @relationship.nil?
-      @relationship.confirm!
-      @relationship.save
-    end
-    render :json=>{:success=>true, :follower_id=>@other_user_to_confirm.id}
-  end
+  def remove_star
 
-  def confirm_and_follow
     @mobile_user = User.find_by_id(params[:user_id])
-    @other_user_to_confirm = User.find_by_id(params[:other_user_id])
+    @other_user_to_star = User.find_by_id(params[:other_user_id])
     if @mobile_user.nil?
       render :status=>400, :json=>{:error => "user was not found."}
     end
-    if @other_user_to_confirm.nil?
+    if @other_user_to_star.nil?
       render :status=>400, :json=>{:error => "other user was not found."}
     end
-    @relationship = Relationship.where(':follower_id = :confirm_id AND :followed_id = :mobile_user_id',
-                                        confirm_id: @other_user_to_confirm.id, :mobile_user_id => @mobile_user.id ).last
-    unless @relationship.nil?
-      @relationship.confirm!
-      @mobile_user.follow!(@other_user_to_confirm)
-      @relationship.save
-    end
-    render :json=>{:success=>true, :follower_id=>@other_user_to_confirm.id, :followed_user=>@other_user_to_confirm}
+
+    @mobile_user.unfriend!(@other_user_to_star)
+
+    render :json=>{:unstarred_id=>@other_user_to_star.id}
   end
 
   def search_for_friends
     @found_users = User.search(params[:search_string])
 
     render json: @found_users
-
   end
 
   def search_for_fb_friends
@@ -108,10 +84,81 @@ include UsersHelper
   end
 
   def get_friends
-
     render json: current_user.inmates | current_user.friends
-
   end
 
+  def get_profile
+    @mobile_user = User.find_by_id(params[:user_id])
+    @friend = User.find_by_id(params[:other_user_id])
+    if @mobile_user.nil?
+      render :status=>400, :json=>{:error => "user was not found."}
+    end
+    if @friend.nil?
+      render :status=>400, :json=>{:error => "other user was not found."}
+    end
+    if @mobile_user.is_friended_by?(@friend)
+      @events = @friend.ins 
+    else
+      @events = @friend.ins.where('friends_only = ?', false)
+    end
 
+        #For Light-weight events sending for list (but need guests to know if RSVPd)
+    @list_events = []
+    @events.each do |e|
+      @guestids = []
+      e.guests.each do |g|
+        @guestids.push(g.id)
+      end
+      @instances = []
+      if e.one_time?
+        @i_guestids = []
+        e.guests.each do |g|
+          @i_guestids.push(g.id)
+        end
+        @instance = {
+            :iid => e.id,
+            :gids => @i_guestids,
+            :start => e.starts_at,
+            :end => e.ends_at,
+            :address => e.address,
+            :plan => @mobile_user.in?(e),
+            :out => @mobile_user.out?(e),
+            :host => e.user
+        }
+        @instances.push(@instance)
+      end
+      e.instances.each do |i|
+        if i.ends_at > Time.now
+          @i_guestids = []
+          i.guests.each do |g|
+            @i_guestids.push(g.id)
+          end
+          @instance = {
+            :iid => i.id,
+            :gids => @i_guestids,
+            :start => i.starts_at,
+            :end => i.ends_at,
+            :address => i.address,
+            :plan => @mobile_user.in?(i),
+            :out => @mobile_user.out?(i),
+            :host => i.user
+          }
+          @instances.push(@instance)
+        end
+      end
+      @temp = {
+        :eid => e.id,
+        :host => e.user,
+        :title => e.title,  
+        :image => e.image(:medium),
+        :plan => @mobile_user.in?(e),
+        :gids => @guestids,
+        :instances => @instances,
+        :ot => e.one_time
+      }
+      @list_events.push(@temp)
+    end 
+    render json: @list_events
+
+  end
 end

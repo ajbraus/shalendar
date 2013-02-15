@@ -189,6 +189,7 @@ class User < ActiveRecord::Base
     else
       return false
     end
+    return false
   end
 
   def flake_out!(event)
@@ -320,22 +321,26 @@ class User < ActiveRecord::Base
   end
 
   def inmate!(other_user)
-    unless self.is_inmates_with?(other_user) || other_user.ignores?(self) || self.is_friends_with?(other_user) || self.id == other_user.id
+    unless self.is_inmates_or_friends_with?(other_user) || self.ignores?(other_user)|| other_user.ignores?(self) || self.id == other_user.id
       self.relationships.create(followed_id: other_user.id, status: 1)
     end
-    unless other_user.is_inmates_with?(self) || self.ignores?(other_user) || other_user.is_friends_with?(self)
+    unless other_user.is_inmates_or_friends_with?(self) || self.ignores?(other_user) || other_user.ignores?(self)
       other_user.relationships.create(followed_id: self.id, status: 1)
     end
   end
 
   def ignore_inmate!(inmate)
     @reverse_relationship = inmate.relationships.find_by_followed_id(self.id)
-    @reverse_relationship.status = 0
-    @reverse_relationship.save
+    unless @reverse_relationship.nil?
+      @reverse_relationship.status = 0
+      @reverse_relationship.save
+    end
 
     @relationship = self.relationships.find_by_followed_id(inmate.id)
-    @relationship.status = 0
-    @relationship.save
+    unless @relationship.nil?
+      @relationship.status = 0
+      @relationship.save
+    end
   end
 
   def unfriend!(other_user)

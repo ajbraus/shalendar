@@ -25,13 +25,13 @@ class ShalendarController < ApplicationController
       end
       @times = @times.reject do |i| #reject all that are friends only and the user isn't in or invited
         if i.parent.present?
-          i.friends_only && !current_user.in?(i) && !current_user.in?(i.parent) && i.guests.joins(:relationships).where('status = ? AND followed_id = ?', 2, current_user.id).count == 0
+          i.friends_only && !current_user.in?(i) && !current_user.in?(i.parent) && !i.user.is_friends_with?(current_user)
         else
-          i.friends_only && !current_user.in?(i) && i.guests.joins(:relationships).where('status = ? AND followed_id = ?', 2, current_user.id).count == 0
+          i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)
         end
       end
       @ideas = @ideas.reject do |i|
-        i.friends_only && !current_user.in?(i) && i.guests.joins(:relationships).where('status = ? AND followed_id = ?', 2, current_user.id).count == 0
+        i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)
       end
 
       @ideas = @ideas.sort_by do |i| 
