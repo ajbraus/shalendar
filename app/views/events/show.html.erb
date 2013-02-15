@@ -17,7 +17,11 @@
       <%= render partial: 'social/facebook', locals: { :event => @event } %>
     </li>
   </ul>
+  <% if user_signed_in? %>
     <div id="rsvpForm" class="join_group_buttons <%= current_user.in?(@event) ? 'rsvp_blue' : '' %>">
+  <% else %>
+    <div id="rsvpForm" class="join_group_buttons">
+  <% end %>
       <%= render partial: 'rsvp_form', :locals => { :event => @event }  %> 
     </div>
   <div class="event_title clearfix">
@@ -117,6 +121,8 @@
       <% else %>
         <%= render partial: 'shared/user_not_inmate', collection: @event.guests, as: :user %>
       <% end %>
+    <% else %>
+      <%= render partial: 'shared/user_not_inmate', collection: @event.guests, as: :user %>
     <% end %>
     <% if @event.maybes.count - @event.guests.count > 0 %>
       <div class="divider_line"></div>

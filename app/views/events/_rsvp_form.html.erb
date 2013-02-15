@@ -1,13 +1,4 @@
-<% if !user_signed_in? %>
-	<% if event.ends_at.present? && event.ends_at > Time.now %>
-		(Idea over)
-	<% else %>
-		<div class="rsvp_btn">
-			<%= link_to ".in", new_user_session_path(:event => event.id), class:"btn btn-rsvp rsvp_button", title: "log.in to join.in this idea" %>
-			<%= link_to "out", new_user_session_path(:event => event.id), class:"btn rsvp_button btn_stop_viewing ursvp_button", title: "log.in to opt out of this idea" %>
-		</div>
-	<% end %>
-<% else %> 	<!-- USER IS SIGNED IN -->
+<% if user_signed_in? %>
 	<% unless current_user.vendor? %> <!-- USER IS NOT A VENDOR -->
 		<% if !current_user.rsvpd?(event) %> <!-- USER IS NOT RSVPD -->
 			<%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
@@ -55,5 +46,15 @@
 					<% end %>
 				<% end %>
 		<% end %>
+	<% end %>
+
+	<% else %><!--  IF USER NOT SIGNED IN -->
+	<% if event.ends_at.present? && event.ends_at > Time.now %>
+		(Idea over)
+	<% else %>
+		<div class="rsvp_btn">
+			<%= link_to ".interested", new_user_session_path(:event => event.id), class:"btn btn-rsvp rsvp_button", title: "log.in to join.in this idea" %>
+			<%= link_to "out", new_user_session_path(:event => event.id), class:"btn rsvp_button btn_stop_viewing ursvp_button", title: "log.in to opt out of this idea" %>
+		</div>
 	<% end %>
 <% end %>

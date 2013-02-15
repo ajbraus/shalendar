@@ -2735,14 +2735,12 @@ textarea {
 }
 
 .sign_up {
-  margin: 0px auto;
-
+  margin: 7px auto;
     h2 {
-    width:410px;
+    width: 100%;
   }
   input[type=email], input[type=text], input[type=submit], input[type=password]{
     font-size: 23px;
-    width:380px;
     margin-bottom: 10px;
     margin-top:5px;
   }
@@ -2803,7 +2801,7 @@ right: 50px;
 }
 
 #sign_in {
-margin: 0 auto;
+margin: 7px auto;
 position: relative;
   input[type=email],input[type=password],input[type=text] {
     font-size: 23px;

@@ -1,13 +1,3 @@
-<% if @message.nil? %>
-<td>
-	<h2 style="padding:0 0 0 10px;font-size:22px;"><% if @user.nil? == false %><%= @user.first_name %> <% else %>hi<% end %>,</h2>
-</td>
-<% else %>
-<tr>
-	<td style="padding:20px 0 10px 50px"><%= @message %></td>
-</tr>
-<% end %>
-
 <tr>
 	<td style="padding:0px 0 10px 10px">	
 		<strong><%= @inviter.name %></strong> invited you to an activity:

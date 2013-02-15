@@ -213,6 +213,9 @@ padding: 1px 0 10px 2px;
 
 		.sign_up {
 			width:400px;
+  		input[type=email], input[type=text], input[type=submit], input[type=password]{
+    		width:380px;
+			}
 		}
 
 		ul.right_header {

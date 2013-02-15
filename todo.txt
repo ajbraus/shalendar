@@ -1,18 +1,8 @@
 Adam
 
-sort guests by friends
-
-build .ins filter on home
-
-show_time if your out as out
-
 review is_new_inmate?(other_user)
 
-signup responsive
-
-default background images
-
-test redirect
+test redirect - not working
 
 invites for launch:
 
@@ -28,7 +18,13 @@ re-up bank account - write checks
 
 --------------------------------------------------------------
 
+add footer to event#show and profile and login/signup pages
+
+sort guests by friends
+
 add instructions
+
+default background images
 
 NOTIFIERS:
 	add stats to digest
