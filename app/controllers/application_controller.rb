@@ -6,20 +6,22 @@ class ApplicationController < ActionController::Base
   def store_location
     session[:previous_urls] ||= []
     # store unique urls only
-    session[:previous_urls].prepend request.fullpath if session[:previous_urls].first != request.fullpath && request.fullpath != "/user/sign_up" && request.fullpath != "/everywhere_else" && request.fullpath != "/payment" && request.fullpath != "/venue" && request.fullpath != "/new_vendor" && request.fullpath != "/user" && request.fullpath != "/user/login" && request.fullpath != "/" && request.fullpath != "/user/logout" && request.fullpath != "/user/join" && request.fullpath != "/user/auth/facebook/callback"
+    session[:previous_urls].prepend request.fullpath if session[:previous_urls].first != request.fullpath && request.fullpath != "/user/sign_up" && request.fullpath != "/payment" && request.fullpath != "/venue" && request.fullpath != "/new_vendor" && request.fullpath != "/user" && request.fullpath != "/user/login" && request.fullpath != "/" && request.fullpath != "/user/logout" && request.fullpath != "/user/join" && request.fullpath != "/user/auth/facebook/callback"
     # For Rails < 3.2
     # session[:previous_urls].unshift request.fullpath if session[:previous_urls].first != request.fullpath 
     session[:previous_urls].pop if session[:previous_urls].count > 3
   end
 
   def after_sign_in_path_for(resource)
-    if session[:pervious_urls].present? 
+    if session[:previous_urls].present? 
       @url = session[:previous_urls].reverse.first
 
       if current_user.sign_in_count == 1 && current_user.vendor == true
         new_card_path
-      elsif @url != nil
+      elsif @url.present? && Rails.env.production?
         "http://www.hoos.in" + @url
+      elsif @url.present?
+        "http://www.hoos.dev" + @url
       else
         root_path
       end

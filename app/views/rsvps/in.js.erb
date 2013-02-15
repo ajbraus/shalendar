@@ -7,6 +7,7 @@
 	time = $('.instance').withEventId(<%= @event.id %>)
 	time.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>", '' ); 
 	time.find('.mini_in_out').first().html("<i class='icon-ok-sign blue' title='you're .in'></i> .in")
+	time.find('a').first().removeClass('not_rsvpd');
 <% end %>
 
 //$('#rsvpForm').html("<%= escape_javascript(render partial: 'events/rsvp_form', object: @event, as: :event) %>")

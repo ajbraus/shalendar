@@ -1,3 +1,7 @@
+$.fn.withDate = (date) ->
+	@filter ->
+		$(this).data('date') == date
+
 $.fn.toggleIdeas = (show, hide) ->
 	#update header
 	unless $(@).hasClass('bold')

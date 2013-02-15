@@ -9,10 +9,12 @@
 			<div class="promo_img">	
 				<%= large_profile_picture(@user) %>
 			</div>
+			<% if user_signed_in? %>
 		<% if current_user.is_inmates_or_friends_with?(@user) %>
 			<div class="show_friend">
 				<%= render  :partial => 'events/follow_form', :locals => { :user => @user } %>
 			</div>
+		<% end %>
 		<% end %>
 		<div class="profile_stats">
 			<ul>

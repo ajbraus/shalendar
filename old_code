@@ -548,3 +548,32 @@ $('.idea_container').imagesLoaded( function(){
  });
 
   <%= render partial: 'shalendar/joyride' %>
+
+  <% if false %>
+<% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
+  <script> 
+    function Func1() { 
+      //alert("ahh!")
+      $(".find_friends").click();
+      //clickLink(".find_friends")
+      }
+    function Func1Delay() { 
+      setTimeout("Func1()", 1000);
+      }
+    document.ready(Func1Delay());
+  </script>
+<% end %>
+<% end %>
+
+    <% if false %>
+    <% if user_signed_in? && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
+      <script>
+        $(window).load(function() {
+          $("#chooseID").joyride({
+            'tipAnimation':'fade' 
+            /* Options will go here */
+          });
+        });
+      </script>
+    <% end %>
+    <% end %>

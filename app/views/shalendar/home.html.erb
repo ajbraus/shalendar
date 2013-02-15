@@ -1,34 +1,21 @@
 <% if user_signed_in? %>
 	<%= render 'mini_calendar' %>
-	<div class="home_idea_container clearfix">
-    <div class="filters">
-    	<span id="invites" class="selected"><%= @ideas.count %> .invites</span> | <span id="ins" class="unselected"><span id="ins_count"><%= current_user.ins.count %></span> .ins</span>
-    </div>
-		<div id="ideaContainer" >
-	  	<%= render partial: "shalendar/event", collection: @ideas %>
+	  <div class="container_wrapper">
+			<div class="home_idea_container clearfix">
+		    <div class="filters">
+		    	<span id="invites" class="selected"><%= @ideas.count %> .invites</span> | <span id="ins" class="unselected"><span id="ins_count"><%= current_user.ins.count %></span> .ins</span>
+		    </div>
+
+				<div id="ideaContainer" >
+			  	<%= render partial: "shalendar/event", collection: @ideas %>
+				</div>
+				<div id="insContainer" style="display:none;">
+			 		<%= render partial: "shalendar/event", collection: current_user.ins %>
+				</div>
+			</div>
 		</div>
-		<div id="insContainer" style="display:none;">
-	 		<%= render partial: "shalendar/event", collection: current_user.ins %>
-		</div>
-	</div>
 <% else %>
 	<div id="ideaContainer">
 	 <%= render partial: "shalendar/event", collection: @ideas %>
 	</div>
-<% end %>
-
-<% if false %>
-<% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.now - 7.seconds %>
-	<script> 
-		function Func1() { 
-			//alert("ahh!")
-			$(".find_friends").click();
-			//clickLink(".find_friends")
-			}
-		function Func1Delay() { 
-			setTimeout("Func1()", 1000);
-			}
-		document.ready(Func1Delay());
-	</script>
-<% end %>
 <% end %>

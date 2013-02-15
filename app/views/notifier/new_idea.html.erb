@@ -1,7 +1,7 @@
 <td style="padding:20px 0 20px 40px">
 	<table>
 		<tr>
-			<td style="font-size:16px;"><%=@event.user.first_name %> invited you to a new idea.
+			<td style="font-size:16px;"><%=@event.user.first_name %> created a new idea.
 		</tr>
 
 <%= render partial: 'event_details', locals: { :event => @event, :user => @user } %>

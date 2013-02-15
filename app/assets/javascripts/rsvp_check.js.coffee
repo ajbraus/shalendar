@@ -21,5 +21,6 @@ $.fn.rsvp_check = (rsvpCheckHTML, rsvpForm) ->
   $(@).find('.rsvp_check').first().html(rsvpCheckHTML)
   $(@).find('#rsvpForm').first().html(rsvpForm);
   $(@).find('#rsvpForm').first().addClass('rsvp_blue');
+  $(@).find('button.out').first().remove();
   $(@).find('.status_icon').html("<i class='icon-ok-sign blue' title='you\'re .in'></i>")    
 
