@@ -77,7 +77,7 @@ class Event < ActiveRecord::Base
   friendly_id :title, use: :slugged  
 
   def should_generate_new_friendly_id?
-    new_record? || slug.blank?
+    self.new_record? || self.slug.blank?
   end
 
 
@@ -94,11 +94,11 @@ class Event < ActiveRecord::Base
   end
 
   def url_starts_at
-    starts_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
+    self.starts_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
   end 
 
   def url_ends_at
-    ends_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
+    self.ends_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
   end
 
   def start_time
@@ -308,13 +308,13 @@ class Event < ActiveRecord::Base
   end
 
   def nice_price
-    if price
+    if self.price
       "$" + "%.2f" % price
     end
   end
 
   def nice_duration
-    duration.to_s.split(/\.0/)[0] + ' ' + 'hrs' if duration
+    self.duration.to_s.split(/\.0/)[0] + ' ' + 'hrs' if duration
   end
 
   def event_parent

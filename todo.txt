@@ -2,7 +2,11 @@ Adam
 
 put up tips for ideas
 
-test redirect - not working
+don't send two pushes for rsvping to time and idea
+
+new friend name and image should be link
+
+ajax friending
 
 invites for launch:
 
