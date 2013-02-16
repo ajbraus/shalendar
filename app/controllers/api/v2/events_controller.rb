@@ -289,6 +289,7 @@ class Api::V2::EventsController < ApplicationController
     @event = Event.find_by_id(params[:event_id])
     if @event.nil?
       render :status => 400, :json => {:error => "could not find event"}
+      return
     end
 
     if @event.has_parent? #make the detail event always the idea- and get times
@@ -300,6 +301,7 @@ class Api::V2::EventsController < ApplicationController
     end
     if @mobile_user.nil?
       render :status => 400, :json => {:error => "could not find your user"}
+      return
     else
       @price = 0
       unless @event.price.nil?
@@ -672,9 +674,6 @@ class Api::V2::EventsController < ApplicationController
     else
       render :status => 400, :json => {:error => "Idea did not Save"}
     end
-
-
-
   end
 
   def add_comment
@@ -683,8 +682,10 @@ class Api::V2::EventsController < ApplicationController
     @mobile_user = User.find_by_id(params[:user_id])
     if @mobile_user.nil?
       render :status => 400, :json => {:error => "could not find your user"}
+      return
     elsif @event.nil?
       render :status => 400, :json => {:error => "could not find your event"}
+      return
     else
       @message = params[:comment]
       @comment = @event.comments.new
@@ -704,9 +705,11 @@ class Api::V2::EventsController < ApplicationController
     @mobile_user = User.find_by_id(params[:user_id])
     if @mobile_user.nil?
       render :status=>400, :json=>{:error => "user was not found."}
+      return
     end
     if @event.nil?
       render :status=>400, :json=>{:error => "event was not found."}
+      return
     end
     if @mobile_user != @event.user
       render :status=>300, :json=>{:error => "you don't have the authority to cancel this event"}
