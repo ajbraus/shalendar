@@ -2,7 +2,7 @@
 <% if user_signed_in? %>
 	<div class="event shield
 		<% if event.ends_at.present? %>
-			<%= event.ends_at < Time.now ? 'over' : '' %>
+			<%= event.ends_at < Time.zone.now ? 'over' : '' %>
 		<% end %> 
 		<%= current_user.in?(event) ? 'in' : '' %>
 		<%= event.one_time? ? 'one_time excuse_from_calendar' : '' %>
@@ -12,7 +12,7 @@
 <% else %>
 	<div class="event shield 
 		<% if event.starts_at.present? %>
-			<%= event.ends_at < Time.now ? 'over' : '' %>">
+			<%= event.ends_at < Time.zone.now ? 'over' : '' %>">
 		<% end %>
 <% end %>
 	<%= link_to event do %>

@@ -129,7 +129,7 @@ include UsersHelper
         @instances.push(@instance)
       end
       e.instances.each do |i|
-        if i.ends_at > Time.now
+        if i.ends_at > Time.zone.now
           @i_guestids = []
           i.guests.each do |g|
             @i_guestids.push(g.id)

@@ -333,7 +333,7 @@ class Event < ActiveRecord::Base
   end
 
   def next_instance
-    @future_instances = Event.where('parent_id = ? AND ends_at > ?', self.id, Time.now).order('ends_at ASC')
+    @future_instances = Event.where('parent_id = ? AND ends_at > ?', self.id, Time.zone.now).order('ends_at ASC')
     if @future_instances.empty?
       return nil
     else
@@ -342,15 +342,15 @@ class Event < ActiveRecord::Base
   end
 
   def has_future_instance?
-    return Event.where('parent_id = ? AND ends_at > ?', self.id, Time.now).any?
+    return Event.where('parent_id = ? AND ends_at > ?', self.id, Time.zone.now).any?
   end
 
   def over?
-    return self.ends_at.present? && self.ends_at < Time.now
+    return self.ends_at.present? && self.ends_at < Time.zone.now
   end
 
   def three_days_old?
-    return self.ends_at.present? && self.ends_at < Time.now.midnight - 3.days
+    return self.ends_at.present? && self.ends_at < Time.zone.now.midnight - 3.days
   end
   # def is_next_instance?
 

@@ -17,7 +17,7 @@ class Api::V2::EventsController < ApplicationController
     @finished = false
     @window_size = 7
 
-    @invites_ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.now, true).reject { |i| current_user.out?(i) || current_user.in?(i)}
+    @invites_ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.zone.now, true).reject { |i| current_user.out?(i) || current_user.in?(i)}
 
     @invites_ideas = @invites_ideas.sort_by do |i| 
         i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
@@ -64,7 +64,7 @@ class Api::V2::EventsController < ApplicationController
         @instances.push(@instance)
       end
       e.instances.each do |i|
-        if i.ends_at > Time.now
+        if i.ends_at > Time.zone.now
           @i_guestids = []
           i.guests.each do |g|
             @i_guestids.push(g.id)
@@ -115,7 +115,7 @@ class Api::V2::EventsController < ApplicationController
     @finished = false
     @window_size = 7
 
-    @ins_ideas = @mobile_user.plans.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.now, true)
+    @ins_ideas = @mobile_user.plans.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.zone.now, true)
 
     @ins_ideas = @ins_ideas.sort_by do |i| 
         i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
@@ -158,7 +158,7 @@ class Api::V2::EventsController < ApplicationController
         @instances.push(@instance)
       end
       e.instances.each do |i|
-        if i.ends_at > Time.now
+        if i.ends_at > Time.zone.now
           @i_guestids = []
           i.guests.each do |g|
             @i_guestids.push(g.id)
@@ -205,7 +205,7 @@ class Api::V2::EventsController < ApplicationController
     end
     @x = params[:event_ids]
     @event_ids = @x[1..-2].split(',').collect! {|n| n.to_i}
-    @ins_ideas = @mobile_user.plans.where('ends_at IS NULL OR ends_at > ?', Time.now)
+    @ins_ideas = @mobile_user.plans.where('ends_at IS NULL OR ends_at > ?', Time.zone.now)
     @relevant_ids = []
     @irrelevant_ids = []
     @ins_ideas.each do |ii|
@@ -216,7 +216,7 @@ class Api::V2::EventsController < ApplicationController
       e = Event.find(eid)
       if e.present?
         if e.ends_at.present?
-          if e.ends_at > Time.now
+          if e.ends_at > Time.zone.now
             @relevant = true
           end
         else
@@ -245,7 +245,7 @@ class Api::V2::EventsController < ApplicationController
       render :status => 400, :json => {:error => "could not find your user"}
       return
     end
-    @invites = Event.where('city_id = ? AND (ends_at IS NULL OR ends_at > ?)', @current_city.id, Time.now).reject { |i| current_user.out?(i) || current_user.in?(i)}
+    @invites = Event.where('city_id = ? AND (ends_at IS NULL OR ends_at > ?)', @current_city.id, Time.zone.now).reject { |i| current_user.out?(i) || current_user.in?(i)}
     @invites = @invites.reject do |i|
       if i.has_parent?
         i.friends_only && !current_user.in?(i) && !current_user.in?(i.parent) && !i.user.is_friends_with?(current_user)
@@ -265,7 +265,7 @@ class Api::V2::EventsController < ApplicationController
       e = Event.find(eid)
       if e.present?
         if e.ends_at.present?
-          if e.ends_at > Time.now
+          if e.ends_at > Time.zone.now
             @relevant = true
           end
         else
@@ -333,7 +333,7 @@ class Api::V2::EventsController < ApplicationController
         @instances.push(@instance)
       end
       e.instances.each do |i|
-        if i.ends_at > Time.now
+        if i.ends_at > Time.zone.now
           @i_guestids = []
           i.guests.each do |g|
             @i_guestids.push(g.id)
@@ -517,7 +517,7 @@ class Api::V2::EventsController < ApplicationController
         @instances.push(@instance)
       end
       e.instances.each do |i|
-        if i.ends_at > Time.now
+        if i.ends_at > Time.zone.now
           @i_guestids = []
           i.guests.each do |g|
             @i_guestids.push(g.id)
@@ -635,7 +635,7 @@ class Api::V2::EventsController < ApplicationController
         @instances.push(@instance)
       end
       e.instances.each do |i|
-        if i.ends_at > Time.now
+        if i.ends_at > Time.zone.now
           @i_guestids = []
           i.guests.each do |g|
             @i_guestids.push(g.id)
@@ -754,7 +754,7 @@ class Api::V2::EventsController < ApplicationController
   #     render :status => 400, :json => {:error => "could not find your user"}
   #   end
 
-  #   @my_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND user_id = ?', Time.now, true, @mobile_user.id)
+  #   @my_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND user_id = ?', Time.zone.now, true, @mobile_user.id)
 
   #   @events = @my_ideas
 
@@ -782,7 +782,7 @@ class Api::V2::EventsController < ApplicationController
   #       @instances.push(@instance)
   #     end
   #     e.instances.each do |i|
-  #       if i.ends_at > Time.now && !@mobile_user.out?(i)
+  #       if i.ends_at > Time.zone.now && !@mobile_user.out?(i)
   #         @instance = {
   #           :iid => i.id,
   #           :gcnt => i.guests.count,
@@ -826,7 +826,7 @@ class Api::V2::EventsController < ApplicationController
   #     render :status => 400, :json => {:error => "could not find your user"}
   #   end
 
-  #   @city_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND is_public = ? AND city_id = ?', Time.now, true, true, @current_city.id)
+  #   @city_ideas = Event.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND is_public = ? AND city_id = ?', Time.zone.now, true, true, @current_city.id)
 
   #   @events = @city_ideas
   #   @events = @events.reject{|e| @mobile_user.out?(e)}
@@ -855,7 +855,7 @@ class Api::V2::EventsController < ApplicationController
   #       @instances.push(@instance)
   #     end
   #     e.instances.each do |i|
-  #       if i.ends_at > Time.now && !@mobile_user.out?(i)
+  #       if i.ends_at > Time.zone.now && !@mobile_user.out?(i)
   #         @instance = {
   #           :iid => i.id,
   #           :gcnt => i.guests.count,

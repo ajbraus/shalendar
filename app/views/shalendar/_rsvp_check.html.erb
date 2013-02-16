@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-	<% if event.ends_at.present? && event.ends_at < Time.now %>
+	<% if event.ends_at.present? && event.ends_at < Time.zone.now %>
 		<div class="btn-over"></div>
 	<% elsif current_user.in?(event) %>
 		<span class="status_icon">

@@ -3,31 +3,32 @@ class ShalendarController < ApplicationController
 
 	def home
     if user_signed_in?  
-      @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.now, true).reject { |i| current_user.rsvpd?(i) }
-
-     #EAGER LOADING ATTEMPT
-      # @ideas = Event.includes(:rsvps => { :guests => :relationships } )
-      #   .where('events.city_id = ? AND events.ends_at IS NULL OR (events.ends_at > ? AND events.one_time = ?)', @current_city.id, Time.now, true)
-      #   .where('rsvps.inout', 1)
-      #   .where('relationships.status IS NOT ?', 0)
-      #   .reject { |i| current_user.rsvpd?(i) }
-      #   Category.includes(:posts => [{:comments => :guest}, :tags]).find(1)
-
-      @times = Event.where('city_id = ? AND ends_at > ?', @current_city.id, Time.now).reject { |i| current_user.out?(i) }
+      @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.zone.now, true).reject { |i| current_user.rsvpd?(i) }
+      @times = Event.where('city_id = ? AND ends_at > ? AND ends_at < ?', @current_city.id, Time.zone.now, Time.zone.now + 89.days).reject { |i| current_user.out?(i) }
       
       #attempt at getting times friends are rsvpd to
       @times = @times.select do |i|  #select those user is not out of and may be invited to
         if i.parent.present?
-          !current_user.out?(i) && (current_user.in?(i) || current_user.in?(i.parent) || i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count > 0) 
+          !current_user.out?(i) && 
+          (current_user.in?(i) || 
+          current_user.in?(i.parent) || 
+          i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count > 0) 
         else
-          !current_user.out?(i) && (current_user.in?(i) || i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count > 0 )
+          !current_user.out?(i) && 
+          (current_user.in?(i) || 
+          i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count > 0 )
         end
       end
       @times = @times.reject do |i| #reject all that are friends only and the user isn't in or invited
         if i.parent.present?
-          i.friends_only && !current_user.in?(i) && !current_user.in?(i.parent) && !i.user.is_friends_with?(current_user)
+          i.friends_only && 
+          !current_user.in?(i) && 
+          !current_user.in?(i.parent) && 
+          !i.user.is_friends_with?(current_user)
         else
-          i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)
+          i.friends_only && 
+          !current_user.in?(i) && 
+          !i.user.is_friends_with?(current_user)
         end
       end
       @ideas = @ideas.reject do |i|
@@ -40,12 +41,20 @@ class ShalendarController < ApplicationController
       end
       
     else
-      @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND friends_only = ?', @current_city.id, Time.now, true, false)
+      @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND friends_only = ?', @current_city.id, Time.zone.now, true, false)
     end 
     #show alert if rescue from errors:
     if params[:oofta] == 'true'
       flash.now[:oofta] = "We're sorry, an error occured"
     end
+
+    #EAGER LOADING ATTEMPT
+      # @ideas = Event.includes(:rsvps => { :guests => :relationships } )
+      #   .where('events.city_id = ? AND events.ends_at IS NULL OR (events.ends_at > ? AND events.one_time = ?)', @current_city.id, Time.zone.now, true)
+      #   .where('rsvps.inout', 1)
+      #   .where('relationships.status IS NOT ?', 0)
+      #   .reject { |i| current_user.rsvpd?(i) }
+      #   Category.includes(:posts => [{:comments => :guest}, :tags]).find(1)
 	end
 
   #HEADER 
@@ -140,9 +149,9 @@ class ShalendarController < ApplicationController
         })
     end
 
-    @new_users_last_week = User.where(['created_at > ?', Time.now - 1.week]).count
-    @inactive_users = User.where(['last_sign_in_at < ?', Time.now - 1.month])
-    @active_users = User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.now - 2.weeks]).count
+    @new_users_last_week = User.where(['created_at > ?', Time.zone.now - 1.week]).count
+    @inactive_users = User.where(['last_sign_in_at < ?', Time.zone.now - 1.month])
+    @active_users = User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.zone.now - 2.weeks]).count
 
     @start_date = User.unscoped.order('created_at asc').first.created_at.to_date
     @today = Date.today
@@ -162,13 +171,13 @@ class ShalendarController < ApplicationController
     end
 
     #EVENTS
-    @events_last_week = Event.where(:starts_at => Time.now..(Time.now - 1.week)).count
-    @events_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).count
-    @rsvps_last_week = Rsvp.where(['created_at > ?', Time.now - 1.week])
-    @rsvps_next_week = Rsvp.where(['created_at > ?', Time.now + 1.week])
+    @events_last_week = Event.where(:starts_at => Time.zone.now..(Time.zone.now - 1.week)).count
+    @events_next_week = Event.where(:starts_at => Time.zone.now..(Time.zone.now + 1.week)).count
+    @rsvps_last_week = Rsvp.where(['created_at > ?', Time.zone.now - 1.week])
+    @rsvps_next_week = Rsvp.where(['created_at > ?', Time.zone.now + 1.week])
     #need to show 'reach' 
-    #@invitations_last_week = Event.where(:starts_at => Time.now..(Time.now - 1.week)).reduce(0) { |sum,e| sum + e.invitations.count }
-    #@invitations_next_week = Event.where(:starts_at => Time.now..(Time.now + 1.week)).reduce(0) { |sum,e| sum + e.invitations.count }
+    #@invitations_last_week = Event.where(:starts_at => Time.zone.now..(Time.zone.now - 1.week)).reduce(0) { |sum,e| sum + e.invitations.count }
+    #@invitations_next_week = Event.where(:starts_at => Time.zone.now..(Time.zone.now + 1.week)).reduce(0) { |sum,e| sum + e.invitations.count }
 
     #RSVPs graph
     @rsvps_per_week = []

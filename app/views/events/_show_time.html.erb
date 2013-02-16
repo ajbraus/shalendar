@@ -2,7 +2,7 @@
     <div id="rsvpForm" class="join_group_buttons">
       <%= render :partial => "events/rsvp_form", :locals => { :event => event } %>
     </div>
-    <div class="date"><%= event_start_time(event) %> <%= date(event) %> ( <%= event.nice_duration %> <% if event.ends_at < Time.now %> - Over <% end %> ) </div>
+    <div class="date"><%= event_start_time(event) %> <%= date(event) %> ( <%= event.nice_duration %> <% if event.ends_at < Time.zone.now %> - Over <% end %> ) </div>
     <ul id="calendars">
       <li>
         <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(event.title) %>&dates=<%= event.url_starts_at %>/<%= event.url_ends_at %>&details=<%= url_encode(event.description) + " - " + event_url(event) %>&location=<%= url_encode(event.address) %>&trp=true&sprop=www.hoos.in%2Fideas%2F<%= event.id %>&sprop=name:<%= url_encode(event.title) %>" target="_blank" title="Add to Your Google Calendar">
