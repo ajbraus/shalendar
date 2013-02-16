@@ -48,7 +48,7 @@ class AddMoreCities < ActiveRecord::Migration
 		City.create(name: 'Chandler, Arizona', timezone: 'Mountain Time (US & Canada)')
 		City.create(name: 'Lubbock, Texas', timezone: 'Central Time (US & Canada)')
 		City.create(name: 'Durham, North Carolina', timezone: 'Eastern Time (US & Canada)')
-		City.create(name: 'Winston–Salem, North Carolina', timezone: 'Eastern Time (US & Canada)')
+		City.create(name: 'Winston Salem, North Carolina', timezone: 'Eastern Time (US & Canada)')
 		City.create(name: 'Garland, Texas', timezone: 'Central Time (US & Canada)')
 		City.create(name: 'Glendale, Arizona', timezone: 'Mountain Time (US & Canada)')
 		City.create(name: 'Baton Rouge, Louisiana', timezone: 'Central Time (US & Canada)')
