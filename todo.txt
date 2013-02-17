@@ -2,6 +2,8 @@ Adam
 
 put up tips for ideas
 
+set follow up to true
+
 over times are at top of .in's currently
 
 ajax friending

@@ -1,0 +1,3 @@
+$ ->
+	$('#cityName').hover ->
+		$('#editCity').fadeToggle();
