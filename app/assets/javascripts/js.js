@@ -300,6 +300,10 @@ $("#addtipping").click(function () {
   });
   $("#registration_form").validate({
     rules: {
+      'user[name]': {
+        required:true,
+        maxlength:32
+      },
     submitHandler: function(f){
         $('form input[type=submit]').attr('disabled', 'disabled');
         form.submit();
