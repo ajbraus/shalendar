@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130207233048) do
+ActiveRecord::Schema.define(:version => 20130217192122) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -173,6 +173,7 @@ ActiveRecord::Schema.define(:version => 20130207233048) do
     t.string   "short_url"
     t.boolean  "require_payment"
     t.string   "slug"
+    t.integer  "city_id"
     t.text     "description"
     t.boolean  "one_time",               :default => false
     t.boolean  "dead",                   :default => false
@@ -272,7 +273,7 @@ ActiveRecord::Schema.define(:version => 20130207233048) do
     t.integer  "apn_device_id",            :default => 0
     t.boolean  "digest",                   :default => true
     t.string   "GCMtoken"
-    t.boolean  "follow_up"
+    t.boolean  "follow_up",                :default => true
     t.boolean  "female"
     t.datetime "birthday"
     t.boolean  "family_filter"

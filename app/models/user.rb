@@ -765,15 +765,15 @@ class User < ActiveRecord::Base
   end
 
   def self.follow_up
-    @now_in_zone = Time.zone.now.in_time_zone(self.city.timezone)
-    @fu_events = Event.where(starts_at: @now_in_zone.midnight - 1.day .. @now_in_zone.midnight)
-    if @fu_events.any?
-      @fu_events.each do |fue|
-        @fu_recipients = fue.guests.select{ |g| g.follow_up? }
-        @fu_recipients.each do |fur|
-          @new_inmates = fue.guests.select { |g| g.is_new_inmate?(fur) && fur != g }
+    @recipients = User.where('follow_up = ?', true)
+    @recipents.each do |r|
+      @now_in_zone = Time.zone.now.in_time_zone(r.city.timezone)
+      @fu_events = r.plans.where(starts_at: @now_in_zone.midnight - 1.day .. @now_in_zone.midnight)
+      if @fu_events.any?
+        @fu_events.each do |fue|
+          @new_inmates = fue.guests.select { |g| g.is_new_inmate?(r) && r != g }
           if @new_inmates.any?
-            Notifier.delay.follow_up(fur, fue, @new_inmates)
+            Notifier.delay.follow_up(r, fue, @new_inmates)
           end
         end
       end
