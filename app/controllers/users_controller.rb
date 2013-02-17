@@ -8,8 +8,8 @@ class UsersController < ApplicationController
         @my_ins = @user.plans.where('friends_only = ? AND starts_at IS NULL OR (one_time = ? AND ends_at > ?)', false, true, Time.zone.now)
       end
       
-      @my_ins.sort_by do |i|
-          i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
+      @my_ins = @my_ins.sort_by do |i|
+          i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*100 + 
             i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
       end
 
