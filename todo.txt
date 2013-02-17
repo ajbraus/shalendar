@@ -2,11 +2,33 @@ Adam
 
 put up tips for ideas
 
+over times are at top of .in's currently
+
+ajax friending
+
+don't send an inner-circle email if they have been made part of their inner circle more than once in the same hour.
+
+make guests background slighlty pink like background of event_show
+
+inmates are not being counted correctly as in on ideas in shields
+
+when in someone's profile display their friends, and your mutual friends sorted by if they are in your inner circle
+
 don't send two pushes for rsvping to time and idea
 
 new friend name and image should be link
 
-ajax friending
+validate first and last name length (jerks)
+
+show creator of idea to folks
+
+clear up confirm and your out - remove confirm alert from out - just click twice and disappear
+
+explain social relevance of main page
+
+mouse over for more event info instead of click through would be great #lazy
+
+hitting back button from an instance shows me things I've already X'd out 
 
 invites for launch:
 

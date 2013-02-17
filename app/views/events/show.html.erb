@@ -28,7 +28,7 @@
     <div class="eventTitle">
       <%= @event.title %>
     </div>
-    <% if @event.user == current_user %> 
+    <% if @event.user == current_user || current_user.admin? %> 
       <div class="ribbon-wrapper">
         <div class="ribbon-front">
           creator
@@ -97,7 +97,7 @@
 
   <% if !@event.one_time? %>
     <%= link_to event_new_time_path(@event), id:"makeATime", class:"btn-success btn-new-time" do %>
-      <span style="color:white;"><i class="icon-time"></i> create a new .instance</span>
+      <span style="color:white;"><i class="icon-time"></i> Add a New Time</span>
     <% end %>
   <% end %>
 

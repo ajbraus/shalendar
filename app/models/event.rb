@@ -23,7 +23,6 @@ class Event < ActiveRecord::Base
                   :ends_at,
                   :title, 
                   :description,
-                  :max,
                   :address, 
                   :latitude,
                   :longitude,
@@ -58,7 +57,6 @@ class Event < ActiveRecord::Base
   validates :city_id, presence: true if Rails.env.production?
   validates :user_id,
             :title, presence: true
-  validates :max, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true
   validates :duration, numericality: { in: 0..1000 }, allow_blank: true 
   validates :title, length: { maximum: 140 }
   validates_numericality_of :longitude, :latitude, allow_blank:true

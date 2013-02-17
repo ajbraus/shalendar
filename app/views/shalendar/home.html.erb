@@ -1,5 +1,4 @@
 <% if user_signed_in? %>
-	<%= render 'mini_calendar' %>
 	  <div class="container_wrapper">
 			<div class="home_idea_container clearfix">
 		    <div class="filters">
@@ -14,6 +13,7 @@
 				</div>
 			</div>
 		</div>
+	<%= render 'mini_calendar' %>
 <% else %>
 	<div id="ideaContainer">
 	 <%= render partial: "shalendar/event", collection: @ideas %>

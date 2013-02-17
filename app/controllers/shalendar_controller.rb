@@ -10,9 +10,7 @@ class ShalendarController < ApplicationController
       @times = @times.select do |i|  #select those user is not out of and may be invited to
         if i.parent.present?
           !current_user.out?(i) && 
-          (current_user.in?(i) || 
-          current_user.in?(i.parent) || 
-          i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count > 0) 
+          (current_user.in?(i) || current_user.in?(i.parent) || i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count > 0) 
         else
           !current_user.out?(i) && 
           (current_user.in?(i) || 
@@ -39,7 +37,7 @@ class ShalendarController < ApplicationController
         i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
             i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
       end
-      
+
     else
       @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND friends_only = ?', @current_city.id, Time.zone.now, true, false)
     end 

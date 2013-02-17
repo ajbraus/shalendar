@@ -66,7 +66,6 @@
                                  starts_at: @event.starts_at,
                                  ends_at: @event.ends_at,
                                  duration: @event.duration,
-                                 max: @event.max,
                                  address: @event.address,
                                  link: @event.link,
                                  promo_img: @event.promo_img,

@@ -25,22 +25,22 @@ class CreateCategories < ActiveRecord::Migration
     add_index :categorizations, :category_id
     add_index :categorizations, :event_id
 
-    Category.create(id:1,name:"Adventure")
-    Category.create(id:2,name:"Learn")
-    Category.create(id:3,name:"Creative")
-    Category.create(id:4,name:"Night")
-    Category.create(id:5,name:"Active")
-    Category.create(id:6,name:"Music")
+    # Category.create(id:1,name:"Adventure")
+    # Category.create(id:2,name:"Learn")
+    # Category.create(id:3,name:"Creative")
+    # Category.create(id:4,name:"Night")
+    # Category.create(id:5,name:"Active")
+    # Category.create(id:6,name:"Music")
 
-    Event.all.each do |e|
-      Category.all.each do |cat|
-        if e.category.present?
-            if e.category.downcase == cat.name.downcase
-              Categorization.create(event_id:e.id, category_id:cat.id)
-            end
-        end
-      end
-    end
+    # Event.all.each do |e|
+    #   Category.all.each do |cat|
+    #     if e.category.present?
+    #         if e.category.downcase == cat.name.downcase
+    #           Categorization.create(event_id:e.id, category_id:cat.id)
+    #         end
+    #     end
+    #   end
+    # end
 
     remove_column :events, :category
     

@@ -253,8 +253,12 @@ class User < ActiveRecord::Base
   def ins
     @ins = []
     self.plans.each do |p|
-      if p.starts_at.blank? || p.one_time
+      if p.ends_at.blank?
         @ins.push(p)
+      else
+        if p.ends_at > Time.now && p.one_time?
+          @ins.push(p)
+        end
       end
     end
     return @ins
@@ -702,32 +706,32 @@ class User < ActiveRecord::Base
     @event = event
     @rsvping_user = rsvp_user
     @user = self
-    # if(@user.iPhone_user == true)
-    #   d = APN::Device.find_by_id(@user.apn_device_id)
-    #   if d.nil?
-    #     Airbrake.notify("thought we had an iphone user but can't find their device")
-    #   else
-    #     n = APN::Notification.new
-    #     n.device = d
-    #     n.alert = "New .in - #{@rsvping_user.name} for #{@event.title}"
-    #     n.badge = 1
-    #     n.sound = true
-    #     n.custom_properties = {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}
-    #     n.save
-    #   end
-    # elsif(@user.android_user == true)
-    #   d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-    #   if d.nil?
-    #     Airbrake.notify("thought we had an android user but can't find their device")
-    #   else
-    #     n = Gcm::Notification.new
-    #     n.device = d
-    #     n.collapse_key = "New .in - #{@rsvping_user.name} for #{@event.title}"
-    #     n.delay_while_idle = true
-    #     n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}}
-    #     n.save
-    #   end
-    # end
+    if(@user.iPhone_user == true)
+      d = APN::Device.find_by_id(@user.apn_device_id)
+      if d.nil?
+        Airbrake.notify("thought we had an iphone user but can't find their device")
+      else
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "New .in - #{@rsvping_user.name} for #{@event.title}"
+        n.badge = 1
+        n.sound = true
+        n.custom_properties = {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}
+        n.save
+      end
+    elsif(@user.android_user == true)
+      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+      if d.nil?
+        Airbrake.notify("thought we had an android user but can't find their device")
+      else
+        n = Gcm::Notification.new
+        n.device = d
+        n.collapse_key = "New .in - #{@rsvping_user.name} for #{@event.title}"
+        n.delay_while_idle = true
+        n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}}
+        n.save
+      end
+    end
     Notifier.new_rsvp(@user, @rsvping_user).deliver
   end
 
@@ -761,7 +765,7 @@ class User < ActiveRecord::Base
   end
 
   def self.follow_up
-    @now_in_zone = Time.zone.now.in_time_zone(u.city.timezone)
+    @now_in_zone = Time.zone.now.in_time_zone(self.city.timezone)
     @fu_events = Event.where(starts_at: @now_in_zone.midnight - 1.day .. @now_in_zone.midnight)
     if @fu_events.any?
       @fu_events.each do |fue|

@@ -154,7 +154,6 @@ ActiveRecord::Schema.define(:version => 20130207233048) do
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
     t.integer  "user_id"
-    t.integer  "max",                    :default => 10000
     t.float    "duration"
     t.integer  "inviter_id",             :default => 0
     t.string   "link"
@@ -294,7 +293,6 @@ ActiveRecord::Schema.define(:version => 20130207233048) do
     t.string   "debits_uri"
     t.integer  "city_id"
     t.string   "slug"
-    t.integer  "classification_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
