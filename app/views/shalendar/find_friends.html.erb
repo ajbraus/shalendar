@@ -6,25 +6,21 @@
 	<h1>Your Friends in <%= current_user.authentications.select{|auth| auth.provider == "Facebook"}.first.city %></h1>
 <% end %>
 
-<div id="friend_all">
-	Friend All
-</div>
-
 <% @member_friends.each do |mf| %>
 		<table>
-		<tr>
-			<td width="55px"><%= image_tag("#{mf['picture']['data']['url']}") %></td>
-			<td width="100px"><%= "#{mf['name']}" %></td>
-			<td width="100px">
-				<%= render :partial => 'events/follow_form', locals: { :user => mf } %>
-	    </td>
-		</tr> 
+	    <tr>
+	    	<td width="70"><%= link_to user_path(mf) do %><%= raster_profile_picture(mf) %><% end %></td>
+			  <td width="250"><%= link_to "#{mf.name}" user_path(mf) %></td>
+			  <td width="200"><%= render partial: 'shared/user_friends_count', locals: { user: mf } %></td>
+			</tr> 
 	</table>
 <% end %>
 
 <hr>
 
+<% if false %>
 	<%= link_to "Invite All", share_all_fb_friends_path, class:"btn btn_primary", id:"share_all_friends" %>
+<% end %>
 
 <% @invite_friends.each do |inf| %>
 		<table>

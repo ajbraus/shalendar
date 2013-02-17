@@ -173,7 +173,6 @@ ActiveRecord::Schema.define(:version => 20130207233048) do
     t.string   "short_url"
     t.boolean  "require_payment"
     t.string   "slug"
-    t.integer  "city_id"
     t.text     "description"
     t.boolean  "one_time",               :default => false
     t.boolean  "dead",                   :default => false
