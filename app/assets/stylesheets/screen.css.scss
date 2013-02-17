@@ -1474,7 +1474,6 @@ width: 63%;
     }
   }
   .event_blerb {
-color: black;
 font-size: 21px;
 line-height: 1;
 position: relative;
@@ -1483,7 +1482,6 @@ overflow: hidden;
 right: 0;
 padding-left: 5px;
 padding-top: 5px;
-background-color: white;
 bottom: 0;
 margin-bottom: 0;
 padding-bottom: 0;
@@ -1527,7 +1525,6 @@ overflow: hidden;
   box-sizing: border-box;         /* Opera/IE 8+ */
 .promo_img {
   text-align: center;
-  background-color: white;
   padding-bottom: 13px;
   img{
     max-height: 267px;
@@ -1593,7 +1590,6 @@ bottom: 12px;
 
 .event_blerb {
 min-height: 24px;
-color: black;
 font-size: 18px;
 line-height: 1;
 width: 98%;
@@ -1601,7 +1597,6 @@ overflow: hidden;
 position: relative;
 right: 5px;
 padding: 10px 10px 0px 10px;
-background-color: white;
 }
 
 .event_shield_icons {
@@ -4259,4 +4254,17 @@ float: right;
 #editCity {
   font-size: 12px;
 color: grey;
+}
+
+.user_shield {
+  background: url("low_contrast_linen.png");
+  color:white;
+  .event_blerb {
+    font-size: 35px;
+  }
+  .promo_img img {
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+  }
 }
