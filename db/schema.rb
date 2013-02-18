@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130207233048) do
+ActiveRecord::Schema.define(:version => 20130217192122) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -154,7 +154,6 @@ ActiveRecord::Schema.define(:version => 20130207233048) do
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
     t.integer  "user_id"
-    t.integer  "max",                    :default => 10000
     t.float    "duration"
     t.integer  "inviter_id",             :default => 0
     t.string   "link"
@@ -274,7 +273,7 @@ ActiveRecord::Schema.define(:version => 20130207233048) do
     t.integer  "apn_device_id",            :default => 0
     t.boolean  "digest",                   :default => true
     t.string   "GCMtoken"
-    t.boolean  "follow_up"
+    t.boolean  "follow_up",                :default => true
     t.boolean  "female"
     t.datetime "birthday"
     t.boolean  "family_filter"
@@ -294,7 +293,6 @@ ActiveRecord::Schema.define(:version => 20130207233048) do
     t.string   "debits_uri"
     t.integer  "city_id"
     t.string   "slug"
-    t.integer  "classification_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

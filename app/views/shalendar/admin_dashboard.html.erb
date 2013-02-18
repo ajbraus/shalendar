@@ -11,7 +11,7 @@
 	New Users Last Week: <strong><%= @new_users_last_week %></strong>
 </dt>
 <dd>
-	User.where(['created_at > ?', Time.now - 1.week])
+	User.where(['created_at > ?', Time.zone.now - 1.week])
 </dd> 
 	<%= high_chart("users_per_week", @users_per_week_graph) %>
 <dt>
@@ -27,14 +27,14 @@
 	Active Users: <strong><%= @active_users %></strong>
 </dt>
 <dd>
-	User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.now - 2.weeks])
+	User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.zone.now - 2.weeks])
 </dd>
 
 <dt>
 	Inactive users: <strong><%= @inactive_users.count %></strong>
 </dt>
 <dd>
-	User.where(['last_sign_in_at < ?', Time.now - 1.month])
+	User.where(['last_sign_in_at < ?', Time.zone.now - 1.month])
 	<% if false %>
 	<ul>
 		<% @inactive_users.each do |iau| %>

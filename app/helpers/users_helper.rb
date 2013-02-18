@@ -1,7 +1,7 @@
 module UsersHelper
 
   def friends_attending(event)
-    f = event.guests.select { |a| current_user.following?(a) }
+    f = event.guests.select { |a| current_user.is_inmates_or_friends_with?(a) }
     f.count
   end
 

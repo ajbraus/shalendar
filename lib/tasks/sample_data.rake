@@ -1,11 +1,22 @@
 namespace :db do
   desc "Erase and fill database with sample data"
   task populate: :environment do
+    make_cities
     make_users
-    make_relationships
-    make_private_events
-    make_public_events
+    make_ideas
+    make_rsvpsb
+    make_friends
   end
+end
+
+def make_cities
+  madison = "Madison, Wisconsin"
+  mad_timezone = "Central Time (US & Canada) "
+
+  ny = "New York City, New York"
+  ny_timezone = "Eastern Time (US & Canada)"
+  City.create(name: madison, timezone: mad_timezone)
+  City.create(name:ny, timezone: ny_timezone)
 end
 
 def make_users

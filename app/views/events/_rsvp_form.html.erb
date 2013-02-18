@@ -30,7 +30,7 @@
 					<% end %>
 				</div>
 			</span>
-		<% elsif event.ends_at.present? && event.ends_at > Time.now %>
+		<% elsif event.ends_at.present? && event.ends_at > Time.zone.now %>
 			<span class="rsvp_btn"><!--  ELSE SHOW RSVP BUTTON -->
 				<%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
 		  		<%= f.hidden_field :plan_id %>
@@ -49,7 +49,7 @@
 	<% end %>
 
 	<% else %><!--  IF USER NOT SIGNED IN -->
-	<% if event.ends_at.present? && event.ends_at > Time.now %>
+	<% if event.ends_at.present? && event.ends_at > Time.zone.now %>
 		(Idea over)
 	<% else %>
 		<div class="rsvp_btn">

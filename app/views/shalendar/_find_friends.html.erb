@@ -7,17 +7,7 @@
 		<h1>Your hoos.in friends in <%= current_user.authentications.select{|auth| auth.provider == "Facebook"}.first.city %></h1>
 	<% end %>
 		<div class="invite_friends">
-			<% @member_friends.each do |mf| %>
-				<% unless current_user.following?(mf) %>
-					<div class="event_show_friend friend">
-					  <%= raster_profile_picture(mf) %>
-		 				<div id="friend_name"><%= mf.name %></div>
-		 				<div id="friend_button" style="display:none;">
-							<%= render  :partial => 'events/just_follow_form', :locals => { :user => mf } %>
-						</div>
-					</div>
-				<% end %>
-			<% end %>
+			<%= render partial: 'shared/user', collection: @member_friends, as: :user %>
 	</div>
 
 	<hr>

@@ -111,12 +111,6 @@ private
               )
       user.save
 
-      #add all facebook friends to inmates (create relationships with status = 1) 
-      @member_friends = user.fb_friends(session[:graph])[0]
-      @member_friends.each do |mf|
-        user.inmate!(mf)
-      end
-
       EmailInvite.where("email_invites.email = :new_user_email", new_user_email: user.email).each do |ei|
         @inviter_id = ei.inviter_id
         @invited_user_id = user.id

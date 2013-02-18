@@ -8,13 +8,6 @@
 	  <div class="rsvp_check" title="friends can choose whether they're .into this idea">
 	  	<span class="btn_icon btn_icon_rsvp">.interested</span>
 	  </div>
-    <% if @parent %>
-      <%= render :partial => 'shared/guest_count', :locals => { :event => @parent } %>    
-    <% else %>
-      <div class="guest_count">
-        <i class="icon-circle-blank friend_star" title="Number of sarred .in-mates who are .in"></i> <span id="friendCount"> 0 </span> / <i class="icon-circle-blank inmate_star" title="Number of .in-mates who are in" style="color:lightgrey;"></i> <%= current_user.inmates.count %>
-      </div>
-    <% end %>
 	</div>
 
 	<div class="event_blerb">
@@ -26,6 +19,13 @@
   		<%= image_tag @parent.image(:medium) %>
   	<% end %>
   </div>
+     <% if @parent %>
+      <%= render :partial => 'shared/guest_count', :locals => { :event => @parent } %>    
+    <% else %>
+      <div class="guest_count">
+        <i class="icon-circle-blank friend_star" title="Number of sarred .in-mates who are .in"></i> <span id="friendCount"> 0 </span> / <i class="icon-circle-blank inmate_star" title="Number of .in-mates who are in" style="color:lightgrey;"></i> <%= current_user.inmates.count %>
+      </div>
+    <% end %>
 		<div class="event_time">
 			<% if @parent.present? %>
 			<div class="shield_bottom time clearfix" data-event-id="145">

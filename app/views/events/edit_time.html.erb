@@ -24,8 +24,7 @@
       </div>
 
       <%= f.submit 'Update .instance', :class => 'btn btn-large btn-primary', method: :post %>
-      
-      <%= link_to "cancel", @event.parent, class: "btn btn-cancel" %>
+      <%= link_to "cancel", @event, class: "btn btn-cancel" %>
     <% end %>
       
     <%= link_to @event, style: "line-height: 44px;", method: :delete, data: { confirm: 'Are you sure? This will notify all guests that the idea is canceled.' }, class: "btn btn-large btn-danger" do %>

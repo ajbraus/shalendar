@@ -1,5 +1,5 @@
 <div class="mini_calendar">
-	<h2 style="color:white;">.instances</h2>
+	<h2 style="color:white;">my calendar</h2>
 	<% if @times.blank? %>
 		<div class="mini_calendar_explanation">
 			<div clas="text">
@@ -15,12 +15,12 @@
 			</div>
 		</div>
 	<% else %>
-		<% for i in 0..90 %>
+		<% for i in 0..60 %>
 			<div class="each_day clearfix">		
 				<div class="date_bar marker clearfix <% if i == 0 %> orange <% end %>" <% if i == 0 %> id="today" <% end %>>
-					<%= (Time.now.to_date + (i)).strftime("%A %b %e") %>
+					<%= (Time.zone.now.to_date + (i)).strftime("%A %b %e") %>
 				</div>
-				<div class="day_container clearfix" data-date="<%= Time.now.to_date + i %>">
+				<div class="day_container clearfix" data-date="<%= Time.zone.now.to_date + i %>">
 				</div>
 			</div>
 		<% end %>

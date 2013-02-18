@@ -1,8 +1,44 @@
 Adam
 
+bugs - 
+	sending many new rsvp notifications
+		don't send two pushes for rsvping to time and idea
+		new friend name and image should be link
+	inmates are not being counted correctly as in on ideas mini_events
+	show creator of idea to folks
+	hitting back button from an instance shows me things I've already X'd out 
+
+you have no .invites -- search for friends to join their fun ideas and become .in-mates
+click new idea to create a fun idea for friends to do.
+
 put up tips for ideas
 
-test redirect - not working
+event#new
+	share on fb/twitter
+
+improve facepile - Niko, anne, mich. . .
+
+star, circle, people icons to guest counts
+
+star instead of inner circle
+don't send an inner-circle email if they have been made part of their inner circle more than once in the same hour.
+ajax friending
+
+clear up confirm and your out - remove confirm alert from out - just click twice and disappear
+
+explain social relevance of main page
+
+make guests background slighlty pink like background of event_show
+
+when in someone's profile display their friends, and your mutual friends sorted by if they are in your inner circle
+
+NOTIFIERS:
+	add stats to digest
+	star icon in email
+
+Friend from email
+RSVP in or out from email
+
 
 invites for launch:
 
@@ -16,13 +52,16 @@ add iphone and android market place icons to bulletin board banners
 
 re-up bank account - write checks
 
+send an email letting everyone know they can post instagram pics #hoosin and it gets on the homepage!
+
+
 --------------------------------------------------------------
 
 add calls to action to bottom of all emails
 
-reload calendar on rsvp to idea
-
-switch emails going out of the team@hoos.in email address, make support@hoos.in
+RSVPing improvments
+	add ideas mini_events to calendar on rsvp_check to idea
+	add pic to facepile when rsvping (rsvp_check)
 
 add footer to event#show and profile and login/signup pages
 
@@ -30,13 +69,21 @@ sort guests by friends
 
 add instructions
 
-default background images
 
 NOTIFIERS:
 	add stats to digest
 	star icon in email
 
+_____________________________________________________________
+
+
+switch emails going out of the team@hoos.in email address, make support@hoos.in
+
+default background images
+
 make friends responsive in show page
+
+mouse over for more event info instead of click through would be great #lazy
 
 recover outs
 
@@ -50,24 +97,13 @@ Login through facebook - pick city
 
 recent activity on show
 
-event#new
-	share on fb/twitter
-
-send an email letting everyone know they can post instagram pics #hoosin and it gets on the homepage!
-
-Friend from email
-RSVP in or out from email
-
 create edit-time page (maybe best-a-one)
 add location to _time
 next time at the top of the show
 
-one_time is getting lost
-
 rake task to add new inmates as ppl join from facebook - email "new fb friend joined hoos.in"
 
 	close window after twitter share
-	add pic to facepile when rsvping (rsvp_check)
 	
 	in invite email display next time if exists
 	who invited you on shield/show

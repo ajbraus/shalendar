@@ -5,7 +5,7 @@
       <% if false %>
         <div class="instructions">.instructions</div>
       <% end %>
-      <div class="city_name"><%= @current_city.name %></div>
+      <div class="city_name" id="cityName"><%= @current_city.name %><% if user_signed_in? %> <%= link_to "move", edit_registration_path(current_user), id:"editCity", style:"display:none;" %><% end %></div>
       <%= render 'shared/friend_search' %>
       <div class="navigation">
         <% if current_user.admin? %>

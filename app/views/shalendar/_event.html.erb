@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
 	<div class="event shield
 		<% if event.ends_at.present? %>
-			<%= event.ends_at < Time.now ? 'over' : '' %>
+			<%= event.ends_at < Time.zone.now ? 'over' : '' %>
 		<% end %> 
 		<%= current_user.in?(event) ? 'in' : 'invite' %>
 		<%= event.has_future_instance? ? 'time' : 'idea' %>
@@ -10,7 +10,7 @@
 <% else %>
 	<div class="event shield 
 		<% if event.starts_at.present? %>
-			<%= event.ends_at < Time.now ? 'over' : '' %>
+			<%= event.ends_at < Time.zone.now ? 'over' : '' %>
 		<% end %>
 		">
 <% end %>

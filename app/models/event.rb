@@ -23,7 +23,6 @@ class Event < ActiveRecord::Base
                   :ends_at,
                   :title, 
                   :description,
-                  :max,
                   :address, 
                   :latitude,
                   :longitude,
@@ -58,7 +57,6 @@ class Event < ActiveRecord::Base
   validates :city_id, presence: true if Rails.env.production?
   validates :user_id,
             :title, presence: true
-  validates :max, numericality: { in: 1..1000000, only_integer: true }, allow_blank: true
   validates :duration, numericality: { in: 0..1000 }, allow_blank: true 
   validates :title, length: { maximum: 140 }
   validates_numericality_of :longitude, :latitude, allow_blank:true
@@ -77,7 +75,7 @@ class Event < ActiveRecord::Base
   friendly_id :title, use: :slugged  
 
   def should_generate_new_friendly_id?
-    new_record? || slug.blank?
+    self.new_record? || self.slug.blank?
   end
 
 
@@ -94,11 +92,11 @@ class Event < ActiveRecord::Base
   end
 
   def url_starts_at
-    starts_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
+    self.starts_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
   end 
 
   def url_ends_at
-    ends_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
+    self.ends_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
   end
 
   def start_time
@@ -308,13 +306,13 @@ class Event < ActiveRecord::Base
   end
 
   def nice_price
-    if price
+    if self.price
       "$" + "%.2f" % price
     end
   end
 
   def nice_duration
-    duration.to_s.split(/\.0/)[0] + ' ' + 'hrs' if duration
+    self.duration.to_s.split(/\.0/)[0] + ' ' + 'hrs' if duration
   end
 
   def event_parent
@@ -333,7 +331,7 @@ class Event < ActiveRecord::Base
   end
 
   def next_instance
-    @future_instances = Event.where('parent_id = ? AND ends_at > ?', self.id, Time.now).order('ends_at ASC')
+    @future_instances = Event.where('parent_id = ? AND ends_at > ?', self.id, Time.zone.now).order('ends_at ASC')
     if @future_instances.empty?
       return nil
     else
@@ -342,15 +340,15 @@ class Event < ActiveRecord::Base
   end
 
   def has_future_instance?
-    return Event.where('parent_id = ? AND ends_at > ?', self.id, Time.now).any?
+    return Event.where('parent_id = ? AND ends_at > ?', self.id, Time.zone.now).any?
   end
 
   def over?
-    return self.ends_at.present? && self.ends_at < Time.now
+    return self.ends_at.present? && self.ends_at < Time.zone.now
   end
 
   def three_days_old?
-    return self.ends_at.present? && self.ends_at < Time.now.midnight - 3.days
+    return self.ends_at.present? && self.ends_at < Time.zone.now.midnight - 3.days
   end
   # def is_next_instance?
 

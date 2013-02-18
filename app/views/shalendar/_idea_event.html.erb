@@ -2,7 +2,7 @@
 <% if user_signed_in? %>
 	<div class="event shield
 		<% if event.ends_at.present? %>
-			<%= event.ends_at < Time.now ? 'over' : '' %>
+			<%= event.ends_at < Time.zone.now ? 'over' : '' %>
 		<% end %> 
 		<%= current_user.in?(event) ? 'in' : '' %>
 		<%= event.one_time? ? 'one_time excuse_from_calendar' : '' %>
@@ -12,7 +12,7 @@
 <% else %>
 	<div class="event shield 
 		<% if event.starts_at.present? %>
-			<%= event.ends_at < Time.now ? 'over' : '' %>">
+			<%= event.ends_at < Time.zone.now ? 'over' : '' %>">
 		<% end %>
 <% end %>
 	<%= link_to event do %>
@@ -21,7 +21,7 @@
 				<span class="status_icon">
 					<% if user_signed_in? %>
 						<% if current_user.in?(event) %>
-							<i class="icon-ok-sign blue" title="you're .in"></i>
+							<i class="icon-ok-sign blue" title="you're .in"></i> you're.in
 						<% elsif current_user.invited?(event) %>
 							<i class="icon-envelope blue" title=".invited by <%= event.inviter_id = 0 ? event.user.name : User.find_by_id(event.inviter_id).name %>"></i>
 						<% end %>

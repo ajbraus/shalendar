@@ -1,9 +1,9 @@
 <% if user_signed_in? %>
-	<%= render 'mini_calendar' %>
+<%= render 'mini_calendar' %>
 	  <div class="container_wrapper">
 			<div class="home_idea_container clearfix">
 		    <div class="filters">
-		    	<span id="invites" class="selected"><%= @ideas.count %> .invites</span> | <span id="ins" class="unselected"><span id="ins_count"><%= current_user.ins.count %></span> .ins</span>
+		    	<span id="invites" class="selected"><span id="invites_count"><%= @ideas.count %></span> .invites</span> | <span id="ins" class="unselected"><span id="ins_count"><%= current_user.ins.count %></span> .ins</span>
 		    </div>
 
 				<div id="ideaContainer" >

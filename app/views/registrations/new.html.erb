@@ -27,7 +27,7 @@
   <%= f.file_field :background %></div>
 
   <div><%= label_tag :city_name, "city*" %><br />
-  <%= text_field_tag :city_name, nil, data: { autocomplete_source: city_names_path } %></div>
+  <%= text_field_tag :city_name, nil, data: { autocomplete_source: city_names_path }, class: "required" %></div>
   <br>
 
 <% if false %>

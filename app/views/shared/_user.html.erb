@@ -11,7 +11,11 @@
   </div>
   <div class="friend_name">
     <%= link_to user_path(user) do %>
-      <%= user.name %>
+      <% if current_user.is_inmates_or_friends_with?(user) %>
+        <%= user.name %>
+      <% else %>
+        <%= user.first_name %>
+      <% end %>
     <% end %>
   </div>
 </div>

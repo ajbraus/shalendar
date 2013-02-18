@@ -134,15 +134,15 @@ class User < ActiveRecord::Base
   end
 
   def first_name
-    name.split(' ')[0]
+    self.name.split(' ')[0]
   end
 
   def last_name
-    name.split.count == 3 ? name.split(' ')[2] : name.split(' ')[1]
+    self.name.split.count == 3 ? name.split(' ')[2] : name.split(' ')[1]
   end
 
   def middle_name
-    name.split.count == 3 ? name.split(' ')[1] : nil
+    self.name.split.count == 3 ? name.split(' ')[1] : nil
   end
 
   def send_welcome
@@ -253,8 +253,12 @@ class User < ActiveRecord::Base
   def ins
     @ins = []
     self.plans.each do |p|
-      if p.starts_at.blank? || p.one_time
+      if p.ends_at.blank?
         @ins.push(p)
+      else
+        if p.ends_at > Time.now && p.one_time?
+          @ins.push(p)
+        end
       end
     end
     return @ins
@@ -306,7 +310,7 @@ class User < ActiveRecord::Base
   #used in self.follow_up to get .in-mates created in the past day
   def is_new_inmate?(other_user)
     @relationship = self.relationships.find_by_followed_id(other_user.id)
-    if @relationship.present? && @relationship.created_at > Time.now.in_time_zone(self.city.timezone).midnight - 1.day
+    if @relationship.present? && @relationship.created_at > Time.zone.now.in_time_zone(self.city.timezone).midnight - 1.day
       return true
     end
     return false
@@ -673,7 +677,7 @@ class User < ActiveRecord::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "Someone starred you! - #{@follower.name}"
+        n.alert = "Someone added you to their .inner-circle! - #{@follower.name}"
         n.badge = 1
         n.sound = true
         n.custom_properties = {msg: "", :type => "new_friend", :id => "#{@follower.id}"}
@@ -686,7 +690,7 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "Someone starred you! - #{@follower.name}"
+        n.collapse_key = "Someone added you to their .inner-circle! - #{@follower.name}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {msg: "", :type => "new_friend", :id => "#{@follower.id}"}}
         n.save
@@ -735,7 +739,8 @@ class User < ActiveRecord::Base
   def self.digest
     @digest_users = User.where("users.digest = 'true'")
     @digest_users.each do |u|
-      @now_in_zone = Time.now.in_time_zone(u.city.timezone)
+      @current_city = u.city
+      @now_in_zone = Time.zone.now.in_time_zone(@current_city.timezone)
       @day = @now_in_zone.to_date.days_to_week_start
       if @day == 0 || @day == 4
         time_range = @now_in_zone.midnight .. @now_in_zone.midnight + 3.days
@@ -749,9 +754,9 @@ class User < ActiveRecord::Base
           end
           @upcoming_times.push(@upcoming_day_times)
         end
-        @all_new_ideas = Event.where('city_id = ? AND AND created_at > ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, @now_in_zone - 4.days, Time.now, true).reject { |i| u.rsvpd?(i) }
-        @new_inner_ideas = @all_new_ideas.reject { |i| i.user.is_friended_by?(u) }
-        @new_inmate_ideas = @all_new_ideas.reject { |i| i.user.is_inmates_with?(u) }
+        @all_new_ideas = Event.where('city_id = ? AND AND created_at > ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, @now_in_zone - 4.days, Time.zone.now, true).reject { |i| u.rsvpd?(i) }
+        @new_inner_ideas = @all_new_ideas.select { |i| i.user.is_friended_by?(u) }
+        @new_inmate_ideas = @all_new_ideas.select { |i| i.user.is_inmates_with?(u) }
         @users_new_ideas = @new_inmate_ideas + @new_inner_ideas
         if @has_times == true || @new_inner_ideas.any? || @new_inmate_ideas.any?
           Notifier.delay.digest(u, @upcoming_times, @has_times, @new_inner_ideas, @new_inmate_ideas, @users_new_ideas.count)
@@ -761,15 +766,15 @@ class User < ActiveRecord::Base
   end
 
   def self.follow_up
-    @now_in_zone = Time.now.in_time_zone(u.city.timezone)
-    @fu_events = Event.where(starts_at: @now_in_zone.midnight - 1.day .. @now_in_zone.midnight)
-    if @fu_events.any?
-      @fu_events.each do |fue|
-        @fu_recipients = fue.guests.select{ |g| g.follow_up? }
-        @fu_recipients.each do |fur|
-          @new_inmates = fue.guests.select { |g| g.is_new_inmate?(fur) && fur != g }
+    @recipients = User.where('follow_up = ?', true)
+    @recipients.each do |r|
+      @now_in_zone = Time.zone.now.in_time_zone(r.city.timezone)
+      @fu_events = r.plans.where(starts_at: @now_in_zone.midnight - 1.day .. @now_in_zone.midnight)
+      if @fu_events.any?
+        @fu_events.each do |fue|
+          @new_inmates = fue.guests.select { |g| g.is_new_inmate?(r) && r != g }
           if @new_inmates.any?
-            Notifier.delay.follow_up(fur, fue, @new_inmates)
+            Notifier.delay.follow_up(r, fue, @new_inmates)
           end
         end
       end
