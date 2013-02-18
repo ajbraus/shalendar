@@ -145,7 +145,7 @@ class User < ActiveRecord::Base
 
   def first_name_with_last_inital
     @name_array = self.name.split(' ')
-    @name_array[0].capitalize + " " + @name_array.last.slice(0) + "."
+    @name_array[0].capitalize + " " + @name_array.last.capitalize.slice(0) + "."
   end
 
   def last_name
