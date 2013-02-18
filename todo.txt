@@ -7,7 +7,8 @@ bugs -
 	inmates are not being counted correctly as in on ideas mini_events
 	show creator of idea to folks
 	hitting back button from an instance shows me things I've already X'd out 
-
+	comment emails not going out
+	
 you have no .invites -- search for friends to join their fun ideas and become .in-mates
 click new idea to create a fun idea for friends to do.
 

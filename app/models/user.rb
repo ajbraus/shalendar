@@ -469,7 +469,7 @@ class User < ActiveRecord::Base
           n.device = d
           n.alert = "#{@user.name} invited you to a new idea - #{@event.title}"
           n.badge = 1
-          n.sound = true
+          n.sound = false
           n.custom_properties = {:type => "reminder", :id => "#{@event.id}", msg: ""}
           n.save
       end
@@ -503,7 +503,7 @@ class User < ActiveRecord::Base
           n.device = d
           n.alert = "#{@event.short_event_title} starts at #{@event.start_time_no_date}"
           n.badge = 1
-          n.sound = true
+          n.sound = false
           n.custom_properties = {:type => "reminder", :id => "#{@event.id}", msg: ""}
           n.save
       end
@@ -539,7 +539,7 @@ class User < ActiveRecord::Base
         n.device = d
         n.alert = "#{@event.user.first_name} set a time for #{@event.title} - #{@event.start_time}!"
         n.badge = 1
-        n.sound = true
+        n.sound = false
         n.custom_properties = {:type => "time_change", :event => "#{@event.id}"}
         n.save
       end
@@ -573,7 +573,7 @@ class User < ActiveRecord::Base
         n.device = d
         n.alert = "Time Change"
         n.badge = 1
-        n.sound = true
+        n.sound = false
         n.custom_properties = {:msg => "#{@event.short_event_title} - #{@event.start_time_no_date}", 
                                 :type => "time_change", 
                                 :id => "#{@event.id}"}
@@ -613,7 +613,7 @@ class User < ActiveRecord::Base
         n.device = d
         n.alert = "New Comment - #{@event.short_event_title}"
         n.badge = 1
-        n.sound = true
+        n.sound = false
         n.custom_properties = {msg: "from #{@commenter.name}", :type => "new_comment", :id => "#{@event.id}"}
         n.save
       end
@@ -645,7 +645,7 @@ class User < ActiveRecord::Base
         n.device = d
         n.alert = "Cancellation - #{@event.title}"
         n.badge = 1
-        n.sound = true
+        n.sound = false
         n.custom_properties = {msg: "#{@event.short_event_title}", :type => "cancel", :id => "#{@event.id}"}
         n.save
       end
@@ -679,7 +679,7 @@ class User < ActiveRecord::Base
         n.device = d
         n.alert = "You were starred by #{@follower.name}"
         n.badge = 1
-        n.sound = true
+        n.sound = false
         n.custom_properties = {msg: "", :type => "new_friend", :id => "#{@follower.id}"}
         n.save
       end
@@ -715,7 +715,7 @@ class User < ActiveRecord::Base
         n.device = d
         n.alert = "New .in - #{@rsvping_user.name} for #{@event.title}"
         n.badge = 1
-        n.sound = true
+        n.sound = false
         n.custom_properties = {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}
         n.save
       end
@@ -731,8 +731,9 @@ class User < ActiveRecord::Base
         n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}}
         n.save
       end
+    else
+      Notifier.new_rsvp(@event, @user, @rsvping_user).deliver
     end
-    Notifier.new_rsvp(@user, @rsvping_user).deliver
   end
 
   # Class Methods
