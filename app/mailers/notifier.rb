@@ -72,7 +72,7 @@ class Notifier < ActionMailer::Base
     @user = user
     @follower = friend
     @image_url = invite_raster_picture(@follower)
-    mail to: user.email, subject: "#{@follower.name} added you to their .inner-circle"
+    mail to: user.email, subject: "#{@follower.name} starred you"
   end
 
   def cancellation(event, user)
@@ -92,7 +92,7 @@ class Notifier < ActionMailer::Base
     @user = user
     @comment_time = @comment.created_at.strftime "%l:%M%P, %A %B %e"
     @event_link = event_url(@event)
-    mail to: @user.email, subject: "new comment - #{@event.short_event_title}"
+    mail to: @user.email, subject: "new .info - #{@event.short_event_title}"
   end
 
   def new_idea(event, user)
@@ -128,7 +128,7 @@ class Notifier < ActionMailer::Base
     mail to: @user.email, from: "info@hoos.in", subject: "new .instance - #{@event.start_time} - #{@event.title}"
   end
 
-  def new_rsvp(event, rsvping_user)
+  def new_rsvp(event, user, rsvping_user)
     @event = event
     @user = @event.user
     @rsvping_user = rsvping_user

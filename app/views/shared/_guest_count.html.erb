@@ -3,9 +3,9 @@
 		<% @friends_in_count = event.friends_in(current_user).count %>
 		<% @inmates_in_count = event.inmates_in(current_user).count %>
 		<% if !current_user.in?(event) %>
-			<i class="icon-circle-blank friend_star"></i> <span id="friendCount"><%= @friends_in_count %></span> | <i class="icon-circle-blank inmate_star" style="color:lightgrey;"></i> <%= @inmates_in_count %> | <%= event.guest_count %>
+			<i class="icon-star friend_star"></i> <span id="friendCount"><%= @friends_in_count %></span> | <i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= @inmates_in_count %> | <i class="icon-user"></i> <%= event.guest_count %>
 		<% elsif current_user.in?(event) %>
-			<i class="icon-circle-blank friend_star"></i> <span id="friendCount"><%= @friends_in_count %></span> | <i class="icon-circle-blank inmate_star" style="color:lightgrey;"></i> <%= @inmates_in_count %>
+			<i class="icon-star friend_star"></i> <span id="friendCount"><%= @friends_in_count %></span> | <i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= @inmates_in_count %>
 		<% end %>
 	<% end %>
 </span>

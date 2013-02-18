@@ -47,10 +47,9 @@ class CommentsController < ApplicationController
     
     respond_to do |format|
       if @comment.save
-        @event.guests.each do |g|
-          if (current_user.is_friended_by?(g) || @event.user == current_user) && g.email_comments == true && !g.rsvps.find_by_plan_id(@event.id).muted? && g != current_user
-            g.delay.contact_comment(@comment)
-          end
+        @comment_recipients = @event.guests.select { |g| g.email_comments == true && g != current_user && g.is_friends_with?(current_user) && !g.rsvps.find_by_plan_id(@event.id).muted? }
+        @comment_recipients.each do |g|
+          g.delay.contact_comment(@comment)
         end
         format.html { redirect_to @event, notice: 'Chat sent' }
         format.json { render json: @event, status: :created, location: @event }

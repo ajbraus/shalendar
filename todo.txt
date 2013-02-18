@@ -2,11 +2,17 @@ Adam
 
 bugs - 
 	sending many new rsvp notifications
-		don't send two pushes for rsvping to time and idea
 		new friend name and image should be link
 	inmates are not being counted correctly as in on ideas mini_events
-	show creator of idea to folks
-	hitting back button from an instance shows me things I've already X'd out 
+	comment emails not going out
+
+ajax friending
+
+clear up confirm and your out - remove confirm alert from out - just click twice and disappear
+
+change background button in profile
+
+fix email text from katie
 
 you have no .invites -- search for friends to join their fun ideas and become .in-mates
 click new idea to create a fun idea for friends to do.
@@ -18,13 +24,7 @@ event#new
 
 improve facepile - Niko, anne, mich. . .
 
-star, circle, people icons to guest counts
-
-star instead of inner circle
-don't send an inner-circle email if they have been made part of their inner circle more than once in the same hour.
-ajax friending
-
-clear up confirm and your out - remove confirm alert from out - just click twice and disappear
+turn reminders back on
 
 explain social relevance of main page
 

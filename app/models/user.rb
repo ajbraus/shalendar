@@ -133,16 +133,28 @@ class User < ActiveRecord::Base
     }
   end
 
+  def nice_name
+    @name_array = self.name.split(' ')
+    @name_array.each { |n| n.capitalize }
+  end
+
   def first_name
-    self.name.split(' ')[0]
+    @name_array = self.name.split(' ')
+    @name_array[0].capitalize
+  end
+
+  def first_name_with_last_inital
+    @name_array = self.name.split(' ')
+    @name_array[0].capitalize + " " + @name_array.last.capitalize.slice(0) + "."
   end
 
   def last_name
-    self.name.split.count == 3 ? name.split(' ')[2] : name.split(' ')[1]
+    @name_array = self.name.split(' ')
+    @name_array.last
   end
 
   def middle_name
-    self.name.split.count == 3 ? name.split(' ')[1] : nil
+    self.name.split.count > 3 ? self.name.split(' ')[1] : nil
   end
 
   def send_welcome
@@ -219,7 +231,7 @@ class User < ActiveRecord::Base
     if event.parent.present?
       self.rsvp_in!(event.parent)
     else #contact only once if they sign up for time + idea 
-      unless event.user == self
+      unless event.user == self || event.over?
         event.user.delay.contact_new_rsvp(event, self)
       end
     end
@@ -469,7 +481,7 @@ class User < ActiveRecord::Base
           n.device = d
           n.alert = "#{@user.name} invited you to a new idea - #{@event.title}"
           n.badge = 1
-          n.sound = true
+          n.sound = false
           n.custom_properties = {:type => "reminder", :id => "#{@event.id}", msg: ""}
           n.save
       end
@@ -503,7 +515,7 @@ class User < ActiveRecord::Base
           n.device = d
           n.alert = "#{@event.short_event_title} starts at #{@event.start_time_no_date}"
           n.badge = 1
-          n.sound = true
+          n.sound = false
           n.custom_properties = {:type => "reminder", :id => "#{@event.id}", msg: ""}
           n.save
       end
@@ -539,7 +551,7 @@ class User < ActiveRecord::Base
         n.device = d
         n.alert = "#{@event.user.first_name} set a time for #{@event.title} - #{@event.start_time}!"
         n.badge = 1
-        n.sound = true
+        n.sound = false
         n.custom_properties = {:type => "time_change", :event => "#{@event.id}"}
         n.save
       end
@@ -573,7 +585,7 @@ class User < ActiveRecord::Base
         n.device = d
         n.alert = "Time Change"
         n.badge = 1
-        n.sound = true
+        n.sound = false
         n.custom_properties = {:msg => "#{@event.short_event_title} - #{@event.start_time_no_date}", 
                                 :type => "time_change", 
                                 :id => "#{@event.id}"}
@@ -613,7 +625,7 @@ class User < ActiveRecord::Base
         n.device = d
         n.alert = "New Comment - #{@event.short_event_title}"
         n.badge = 1
-        n.sound = true
+        n.sound = false
         n.custom_properties = {msg: "from #{@commenter.name}", :type => "new_comment", :id => "#{@event.id}"}
         n.save
       end
@@ -645,7 +657,7 @@ class User < ActiveRecord::Base
         n.device = d
         n.alert = "Cancellation - #{@event.title}"
         n.badge = 1
-        n.sound = true
+        n.sound = false
         n.custom_properties = {msg: "#{@event.short_event_title}", :type => "cancel", :id => "#{@event.id}"}
         n.save
       end
@@ -677,9 +689,9 @@ class User < ActiveRecord::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "Someone added you to their .inner-circle! - #{@follower.name}"
+        n.alert = "You were starred by #{@follower.name}"
         n.badge = 1
-        n.sound = true
+        n.sound = false
         n.custom_properties = {msg: "", :type => "new_friend", :id => "#{@follower.id}"}
         n.save
       end
@@ -690,7 +702,7 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "Someone added you to their .inner-circle! - #{@follower.name}"
+        n.collapse_key = "You were starred by #{@follower.name}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {msg: "", :type => "new_friend", :id => "#{@follower.id}"}}
         n.save
@@ -706,7 +718,7 @@ class User < ActiveRecord::Base
     @event = event
     @rsvping_user = rsvp_user
     @user = self
-    if(@user.iPhone_user == true)
+    if @user.iPhone_user == true
       d = APN::Device.find_by_id(@user.apn_device_id)
       if d.nil?
         Airbrake.notify("thought we had an iphone user but can't find their device")
@@ -715,11 +727,11 @@ class User < ActiveRecord::Base
         n.device = d
         n.alert = "New .in - #{@rsvping_user.name} for #{@event.title}"
         n.badge = 1
-        n.sound = true
-        n.custom_properties = {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}
+        n.sound = false
+        n.custom_properties = {msg: "", :type => "new_rsvp", :id => "#{@event.id}"}
         n.save
       end
-    elsif(@user.android_user == true)
+    elsif @user.android_user == true
       d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")
@@ -731,8 +743,9 @@ class User < ActiveRecord::Base
         n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}}
         n.save
       end
+    else
+      Notifier.new_rsvp(@event, @user, @rsvping_user).deliver
     end
-    Notifier.new_rsvp(@user, @rsvping_user).deliver
   end
 
   # Class Methods

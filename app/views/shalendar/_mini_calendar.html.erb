@@ -6,9 +6,9 @@
 				Click <span class="btn_icon btn_icon_rsvp">.interested</span> on an idea to stay .informed about its upcoming times and to make new <b>.in-mates</b>
 				<br>
 				<br>
-				<div>Click an .in-mate's ring to add them to your .inner-circle </div>
+				<div>Click an .in-mate's star to recieve notifications when they create ideas or chat.</div>
 				<div class="explainer_arrows">
-					<i class="icon-circle-blank inmate_star"></i> <i class="icon-arrow-right"></i> <i class="icon-circle-blank friend_star"></i>
+					<i class="icon-star inmate_star"></i> <i class="icon-arrow-right"></i> <i class="icon-star friend_star"></i>
 				</div>
 				<br>
 				Click on <%= render 'shared/new_idea_button' %> to create a new idea
@@ -17,7 +17,7 @@
 	<% else %>
 		<% for i in 0..60 %>
 			<div class="each_day clearfix">		
-				<div class="date_bar marker clearfix <% if i == 0 %> orange <% end %>" <% if i == 0 %> id="today" <% end %>>
+				<div class="date_bar marker clearfix" id="today">
 					<%= (Time.zone.now.to_date + (i)).strftime("%A %b %e") %>
 				</div>
 				<div class="day_container clearfix" data-date="<%= Time.zone.now.to_date + i %>">

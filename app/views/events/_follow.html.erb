@@ -1,6 +1,6 @@
 <%= form_for current_user.relationships.build(followed_id: user.id) do |f| %>
   <span><%= f.hidden_field :followed_id %></span>
-  <button class="btn btn-follow rsvp_button" name="commit" type="submit" title="Bring <%= user.first_name %> into your .inner-circle">
-  	<i class="icon-circle-blank"></i>
+  <button class="btn btn-follow rsvp_button" name="commit" type="submit" title="Star <%= user.first_name %>">
+  	<i class="icon-star"></i>
   </button>
 <% end %>
