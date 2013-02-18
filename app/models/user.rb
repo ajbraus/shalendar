@@ -479,10 +479,10 @@ class User < ActiveRecord::Base
       else
           n = APN::Notification.new
           n.device = d
-          n.alert = "#{@user.name} invited you to a new idea - #{@event.title}"
+          n.alert = "#{@user.name} posted a new idea - #{@event.title}"
           n.badge = 1
           n.sound = false
-          n.custom_properties = {:type => "reminder", :id => "#{@event.id}", msg: ""}
+          n.custom_properties = {:type => "new_idea", :id => "#{@event.id}", msg: ""}
           n.save
       end
     elsif(@user.android_user == true)
@@ -552,7 +552,7 @@ class User < ActiveRecord::Base
         n.alert = "#{@event.user.first_name} set a time for #{@event.title} - #{@event.start_time}!"
         n.badge = 1
         n.sound = false
-        n.custom_properties = {:type => "time_change", :event => "#{@event.id}"}
+        n.custom_properties = {:type => "new_time", :event => "#{@event.id}"}
         n.save
       end
     elsif @user.android_user?
