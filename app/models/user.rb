@@ -133,16 +133,28 @@ class User < ActiveRecord::Base
     }
   end
 
+  def nice_name
+    @name_array = self.name.split(' ')
+    @name_array.each { |n| n.capitalize }
+  end
+
   def first_name
-    self.name.split(' ')[0]
+    @name_array = self.name.split(' ')
+    @name_array[0].capitalize
+  end
+
+  def first_name_with_last_inital
+    @name_array = self.name.split(' ')
+    @name_array[0].capitalize + " " + @name_array.last.slice(0) + "."
   end
 
   def last_name
-    self.name.split.count == 3 ? name.split(' ')[2] : name.split(' ')[1]
+    @name_array = self.name.split(' ')
+    @name_array.last
   end
 
   def middle_name
-    self.name.split.count == 3 ? name.split(' ')[1] : nil
+    self.name.split.count > 3 ? self.name.split(' ')[1] : nil
   end
 
   def send_welcome
@@ -706,7 +718,7 @@ class User < ActiveRecord::Base
     @event = event
     @rsvping_user = rsvp_user
     @user = self
-    if(@user.iPhone_user == true)
+    if @user.iPhone_user == true
       d = APN::Device.find_by_id(@user.apn_device_id)
       if d.nil?
         Airbrake.notify("thought we had an iphone user but can't find their device")
@@ -716,10 +728,10 @@ class User < ActiveRecord::Base
         n.alert = "New .in - #{@rsvping_user.name} for #{@event.title}"
         n.badge = 1
         n.sound = false
-        n.custom_properties = {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}
+        n.custom_properties = {msg: "", :type => "new_rsvp", :id => "#{@event.id}"}
         n.save
       end
-    elsif(@user.android_user == true)
+    elsif @user.android_user == true
       d = Gcm::Device.find_by_id(@user.GCMdevice_id)
       if d.nil?
         Airbrake.notify("thought we had an android user but can't find their device")

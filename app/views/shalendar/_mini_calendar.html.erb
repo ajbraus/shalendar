@@ -17,7 +17,7 @@
 	<% else %>
 		<% for i in 0..60 %>
 			<div class="each_day clearfix">		
-				<div class="date_bar marker clearfix <% if i == 0 %> orange <% end %>" <% if i == 0 %> id="today" <% end %>>
+				<div class="date_bar marker clearfix" id="today">
 					<%= (Time.zone.now.to_date + (i)).strftime("%A %b %e") %>
 				</div>
 				<div class="day_container clearfix" data-date="<%= Time.zone.now.to_date + i %>">
