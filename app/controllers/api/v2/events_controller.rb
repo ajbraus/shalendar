@@ -355,6 +355,7 @@ class Api::V2::EventsController < ApplicationController
         :eid => @event.id,
         :title => @event.title,  
         :start => @event.starts_at,
+        :description => @event.description,
         :end => @event.ends_at, 
         :gcnt => @event.guests.count,
         :host => @event.user,
