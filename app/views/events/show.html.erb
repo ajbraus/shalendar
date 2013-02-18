@@ -28,6 +28,7 @@
     <div class="eventTitle">
       <%= @event.title %>
     </div>
+    <% if user_signed_in? %>
     <% if @event.user == current_user || current_user.admin? %> 
       <div class="ribbon-wrapper">
         <div class="ribbon-front">
@@ -50,6 +51,7 @@
           <% end %>
         <% end %>
       </div>
+    <% end %>
     <% end %>
   </div>
   <% if @event.description.present? %>
