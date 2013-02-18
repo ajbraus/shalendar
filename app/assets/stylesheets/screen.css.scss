@@ -667,6 +667,7 @@ header {
 box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
     height: inherit;
     background-color:rgba(255,255,253,1);
+    border-bottom: 1px solid lightgrey;
   }
 
   .interests_dropdown, .choose_city {
@@ -2075,11 +2076,11 @@ top: 10px;
 
 .event_show {
 border: 1px solid $divider;
-background-color: $background_one;
 top: 3px;
 -webkit-box-sizing: border-box;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
+background-color: white;
   .meter {
     padding:0;
   }
@@ -2183,7 +2184,7 @@ margin-bottom: 10px;
 -webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
 -moz-box-shadow:    0px 0px 9px rgba(50, 50, 50, 0.3);
 box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
-  background-color: white;
+  background-color: $background-one;
   color: black;
 }
 
@@ -2378,7 +2379,7 @@ border-bottom: 1px solid $divider;
   background-color:white;
   color:black;
   clear: both;
-  border-bottom: 1px solid $divider;
+  /*border-bottom: 1px solid $divider;*/
 }
 
 .event_buttons{
@@ -4267,4 +4268,19 @@ color: grey;
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
   }
+}
+
+.new_crowd_idea {
+  background: white;
+border-left: 1px solid #ccc;
+border-bottom: 1px solid #ccc;
+border-right: 1px solid #ccc;
+margin-top: -7px;
+padding: 5px;
+-webkit-border-radius: 0 0 5px 5px;
+-moz-border-radius: 0 0 5px 5px;
+border-radius: 0 0 5px 5px;
+position: relative;
+top: 0px;
+margin: 0 2%;
 }
