@@ -46,7 +46,7 @@ task :test_notifications => :environment do
   n.sound = true
   n.custom_properties = {msg: ".invited to Test Event Title",
                          :type => "new_comment", 
-                         :id => "799"}
+                         :id => "867"}
   n.save
 
 end
