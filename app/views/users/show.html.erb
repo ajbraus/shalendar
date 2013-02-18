@@ -61,7 +61,7 @@
 	</div>	
 	
 	<div class="inmates_bar right">
-		<h2><%= @user.inmates.count + @user.friends.count %> .in-mates</h2>
+		<h2><%= @user.inmates.count + @user.friends.count %>&nbsp;&nbsp;.in-mates</h2>
 		<% if current_user == @user %>
 			<%= render partial: 'shared/user', collection: @user.friends, as: :user %>
 			<%= render partial: 'shared/user', collection: @user.inmates, as: :user %>

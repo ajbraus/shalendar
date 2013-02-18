@@ -1514,6 +1514,13 @@ padding-bottom: 0;
     text-shadow: none;
   }
 
+  .icon-user {
+    font-size: 12px;
+    color: $icon_color;
+    position: relative;
+    bottom: 2px;
+  }
+
 .event {
   background-color:white;
 float:left;

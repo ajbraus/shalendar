@@ -23,7 +23,7 @@
       <%= render :partial => 'shared/guest_count', :locals => { :event => @parent } %>    
     <% else %>
       <div class="guest_count">
-        <i class="icon-circle-blank friend_star" title="Number of sarred .in-mates who are .in"></i> <span id="friendCount"> 0 </span> / <i class="icon-circle-blank inmate_star" title="Number of .in-mates who are in" style="color:lightgrey;"></i> <%= current_user.inmates.count %>
+        <i class="icon-star friend_star" title="Number of starred .in-mates who are .in"></i> <span id="friendCount"> 0 </span> / <i class="icon-star inmate_star" title="Number of .in-mates who are in" style="color:lightgrey;"></i> <%= current_user.inmates.count %>
       </div>
     <% end %>
 		<div class="event_time">
@@ -35,10 +35,10 @@
 			<span class="eventStartsAt"><%= @parent.present? && @parent.starts_at.present? ? start_time(@parent) : '' %></span>
       <span class="guest_count mini">
         <% if @parent.present? && @parent.starts_at.present? %>
-        <span id="friendCount"><i class="icon-circle-blank friend_star"></i> <%= @parent.friends_in(current_user).count %></span> /
+        <span id="friendCount"><i class="icon-star friend_star"></i> <%= @parent.friends_in(current_user).count %></span> /
         <span id="guestCount"><%= @parent.guest_count %></span>
         <% else %>
-          <span id="friendCount"><i class="icon-circle-blank friend_star"></i> 0</span> /
+          <span id="friendCount"><i class="icon-star friend_star"></i> 0</span> /
           <span id="guestCount">0</span>
         <% end %>
       </span>

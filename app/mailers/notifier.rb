@@ -72,7 +72,7 @@ class Notifier < ActionMailer::Base
     @user = user
     @follower = friend
     @image_url = invite_raster_picture(@follower)
-    mail to: user.email, subject: "#{@follower.name} added you to their .inner-circle"
+    mail to: user.email, subject: "#{@follower.name} starred you"
   end
 
   def cancellation(event, user)

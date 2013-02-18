@@ -677,7 +677,7 @@ class User < ActiveRecord::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "Someone added you to their .inner-circle! - #{@follower.name}"
+        n.alert = "You were starred by #{@follower.name}"
         n.badge = 1
         n.sound = true
         n.custom_properties = {msg: "", :type => "new_friend", :id => "#{@follower.id}"}
@@ -690,7 +690,7 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "Someone added you to their .inner-circle! - #{@follower.name}"
+        n.collapse_key = "You were starred by #{@follower.name}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {msg: "", :type => "new_friend", :id => "#{@follower.id}"}}
         n.save
