@@ -3828,10 +3828,9 @@ border: none;
 font-size: 17px;
 color: lightgrey;
 z-index: 1;
-float: right;
 position: relative;
-top: 4px;
-right: 8px;
+bottom: 2px;
+left: 3px;
     &:hover{
     text-decoration:none;
     color:$destroy;

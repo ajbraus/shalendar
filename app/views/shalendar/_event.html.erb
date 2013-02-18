@@ -16,16 +16,6 @@
 <% end %>
 <%= link_to event_path(event) do %>
 		<% if user_signed_in? %>
-			<!-- OUT BUTTON HERE BECAUSE POSITIONED ABSOULTELY RELATIVE TO THE EVENT SHIELD -->
-			<% if !current_user.rsvpd?(event) %>
-				<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
-			  	<%= f.hidden_field :plan_id %>
-			  	<%= f.hidden_field :inout, value: "0" %>
-			  	<button class="out" name="commit" title="I'm out" data-confirm="Ignore <%= event.user.first_name_with_last_inital %>'s idea?" type="submit">
-			  		<i class='icon-remove'></i>
-			  	</button>
-				<% end %>		
-			<% end %>
 			<div class="shield_top">
 				<div class="rsvp_check">
 					<%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %>
@@ -34,7 +24,7 @@
 					<% if current_user.is_friends_with?(event.user) %>
 						<i class="icon-star" style="color:gold;"></i>
 					<% elsif current_user.is_inmates_with?(event.user) %>
-						<i class="icon-circle-blank" style="color:lightgrey;"></i>
+						<i class="icon-star" style="color:lightgrey;"></i>
 					<% end %>
 					<%= event.user.first_name_with_last_inital %>
 				</u>
