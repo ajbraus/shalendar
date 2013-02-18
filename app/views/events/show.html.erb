@@ -29,29 +29,29 @@
       <%= @event.title %>
     </div>
     <% if user_signed_in? %>
-    <% if @event.user == current_user || current_user.admin? %> 
-      <div class="ribbon-wrapper">
-        <div class="ribbon-front">
-          creator
+      <% if @event.user == current_user || current_user.admin? %> 
+        <div class="ribbon-wrapper">
+          <div class="ribbon-front">
+            creator
+          </div>
+          <div class="ribbon-edge-topleft"></div>
+          <div class="ribbon-edge-topright"></div>
+          <div class="ribbon-edge-bottomleft"></div>
+          <div class="ribbon-edge-bottomright"></div>
+          <div class="ribbon-back-left"></div>
+          <div class="ribbon-back-right"></div>
         </div>
-        <div class="ribbon-edge-topleft"></div>
-        <div class="ribbon-edge-topright"></div>
-        <div class="ribbon-edge-bottomleft"></div>
-        <div class="ribbon-edge-bottomright"></div>
-        <div class="ribbon-back-left"></div>
-        <div class="ribbon-back-right"></div>
-      </div>
-      <div class="event_buttons">
-        <%= link_to edit_event_path(@event) do %>
-          <span class="fadeInOrange"><i class="icon-cogs"></i> edit</span>
-        <% end %>
-        <% if @event.has_parent? %>
-          <%= link_to event_path(@event.parent), class:"parent" do %>
-            <span class="fadeInBlue"><i class="icon-cloud"></i> to idea</span>
+        <div class="event_buttons">
+          <%= link_to edit_event_path(@event) do %>
+            <span class="fadeInOrange"><i class="icon-cogs"></i> edit</span>
           <% end %>
-        <% end %>
-      </div>
-    <% end %>
+          <% if @event.has_parent? %>
+            <%= link_to event_path(@event.parent), class:"parent" do %>
+              <span class="fadeInBlue"><i class="icon-cloud"></i> to idea</span>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   </div>
   <% if @event.description.present? %>
