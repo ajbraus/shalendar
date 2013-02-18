@@ -739,7 +739,8 @@ class User < ActiveRecord::Base
   def self.digest
     @digest_users = User.where("users.digest = 'true'")
     @digest_users.each do |u|
-      @now_in_zone = Time.zone.now.in_time_zone(u.city.timezone)
+      @current_city = u.city
+      @now_in_zone = Time.zone.now.in_time_zone(@current_city.timezone)
       @day = @now_in_zone.to_date.days_to_week_start
       if @day == 0 || @day == 4
         time_range = @now_in_zone.midnight .. @now_in_zone.midnight + 3.days
@@ -754,8 +755,8 @@ class User < ActiveRecord::Base
           @upcoming_times.push(@upcoming_day_times)
         end
         @all_new_ideas = Event.where('city_id = ? AND AND created_at > ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, @now_in_zone - 4.days, Time.zone.now, true).reject { |i| u.rsvpd?(i) }
-        @new_inner_ideas = @all_new_ideas.reject { |i| i.user.is_friended_by?(u) }
-        @new_inmate_ideas = @all_new_ideas.reject { |i| i.user.is_inmates_with?(u) }
+        @new_inner_ideas = @all_new_ideas.select { |i| i.user.is_friended_by?(u) }
+        @new_inmate_ideas = @all_new_ideas.select { |i| i.user.is_inmates_with?(u) }
         @users_new_ideas = @new_inmate_ideas + @new_inner_ideas
         if @has_times == true || @new_inner_ideas.any? || @new_inmate_ideas.any?
           Notifier.delay.digest(u, @upcoming_times, @has_times, @new_inner_ideas, @new_inmate_ideas, @users_new_ideas.count)
@@ -766,7 +767,7 @@ class User < ActiveRecord::Base
 
   def self.follow_up
     @recipients = User.where('follow_up = ?', true)
-    @recipents.each do |r|
+    @recipients.each do |r|
       @now_in_zone = Time.zone.now.in_time_zone(r.city.timezone)
       @fu_events = r.plans.where(starts_at: @now_in_zone.midnight - 1.day .. @now_in_zone.midnight)
       if @fu_events.any?

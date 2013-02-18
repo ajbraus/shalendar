@@ -1,13 +1,15 @@
 Adam
 
 bugs - 
-	not sorting by social relevance
 	sending many new rsvp notifications
 		don't send two pushes for rsvping to time and idea
 		new friend name and image should be link
-	inmates are not being counted correctly as in on ideas in shields
+	inmates are not being counted correctly as in on ideas mini_events
 	show creator of idea to folks
 	hitting back button from an instance shows me things I've already X'd out 
+
+you have no .invites -- search for friends to join their fun ideas and become .in-mates
+click new idea to create a fun idea for friends to do.
 
 put up tips for ideas
 
