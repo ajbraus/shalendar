@@ -5,7 +5,7 @@
 		<span class="status_icon">
 			<% if user_signed_in? %>
 				<% if current_user.in?(event) %>
-					<i class="icon-ok-sign blue" title="you're .in"></i> you're .in
+					<i class="icon-ok-sign blue"></i> you're .in
 				<% end %>
 			<% end %>
 		</span>
@@ -14,9 +14,12 @@
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 				<%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "0" %>
-			  <button class="out" name="commit" title="I'm out" data-confirm="Ignore <%= event.user.first_name_with_last_inital %>'s idea?" type="submit">
-			  	<i class='icon-remove'></i>
-			  </button>
+			  <div>
+			  	<span class="out out_check"><i class='icon-remove'></i></span> 
+			 		<button class="btn btn-danger out_text" style="display:none;" name="commit" type="submit">
+						out
+			  	</button>
+			  </div>
 			<% end %>	
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
