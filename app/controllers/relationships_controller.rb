@@ -28,7 +28,7 @@ before_filter :authenticate_user!
     current_user.ignore_inmate!(@inmate)
 
     respond_to do |format|
-      format.html { redirect_to user_path(current_user), notice: "Successfully removed #{@user.name} from .in-mates" }
+      format.html { redirect_to user_path(current_user), notice: "Successfully removed #{@inmate.name} from .in-mates" }
       format.js
     end
   end
