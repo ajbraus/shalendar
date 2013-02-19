@@ -116,18 +116,13 @@ class User < ActiveRecord::Base
     else
       @pic_url = self.avatar.url
     end
-    @guest_count = 0
-    self.events.each do |e|
-      @guest_count += (e.guests.count -1)
-    end
    {
     :uid => self.id,
     :first_name => self.first_name,
     :last_name => self.last_name,
     :pic_url => @pic_url,
     :in_cnt => self.plans.count,
-    :idea_cnt => self.events.count,
-    :g_cnt => @guest_count
+    :f_cnt => self.friends.count + self.inmates.count
     #:email_hex => Digest::MD5::hexdigest(self.email.downcase)
     #:profile_pic_url => "https://secure.gravatar.com/avatar/#{Digest::MD5::hexdigest(user.email.downcase)}?s=50"
     }
