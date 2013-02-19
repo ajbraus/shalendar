@@ -18,8 +18,11 @@
 		<% end %>
 		<div class="profile_stats">
 			<ul>
-				<li>ideas created <%= @user.events.count %></li>
+				<li>ideas <%= @user.events.count %></li>
 				<li>.ins <%= @user.plans.count %></li>
+				<% if @star_count > 0 %>
+					<li>stars <%= @star_count %></li>
+				<% end %>
 			</ul>
 		</div>
 		<%= render partial: 'shared/user_friends_count', locals: { user: @user } %>

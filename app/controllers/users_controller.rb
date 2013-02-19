@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def show
     @user = User.find_by_slug(params[:id])
+    @star_count =  Relationship.where('followed_id = ? AND status = ?', @user.id, 2).count
     if user_signed_in?
       if current_user.is_friends_with?(@user) || @user == current_user
         @my_ins = @user.plans.where('starts_at IS NULL OR (one_time = ? AND ends_at > ?)', true, Time.zone.now)
