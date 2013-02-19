@@ -114,7 +114,7 @@
     @event = @parent.instances.build(user_id: current_user.id,
                            title: @parent.title,
                            starts_at: params[:event][:starts_at],
-                           ends_at: params[:event][:starts_at] + params[:event][:duration].to_i*3600,
+                           ends_at: params[:event][:starts_at] + params[:event][:duration].to_f*3600,
                            address: params[:event][:address],
                            duration: params[:event][:duration],
                            link: @parent.link,
