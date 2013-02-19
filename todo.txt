@@ -5,6 +5,7 @@ bugs -
 		new friend name and image should be link
 	inmates are not being counted correctly as in on ideas mini_events
 	comment emails not going out
+	add creator to time - fix look of times
 
 ajax friending
 
@@ -13,6 +14,8 @@ clear up confirm and your out - remove confirm alert from out - just click twice
 change background button in profile
 
 fix email text from katie
+
+RSVP URL && Button
 
 you have no .invites -- search for friends to join their fun ideas and become .in-mates
 click new idea to create a fun idea for friends to do.

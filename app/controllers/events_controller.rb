@@ -230,10 +230,17 @@
     @event.instances.each do |i|
       i.dead = true
       i.save
+      if i.ends_at > Time.zone.now
+        i.guests.each do |g|
+          g.delay.contact_cancellation(@event)
+        end
+      end
     end
 
-    @event.guests.each do |g|
-      g.delay.contact_cancellation(@event)
+    if @event.ends_at.present? && @event.ends_at > Time.zone.now
+      @event.guests.each do |g|
+        g.delay.contact_cancellation(@event)
+      end
     end
 
     respond_to do |format|

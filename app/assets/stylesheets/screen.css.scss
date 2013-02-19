@@ -3829,14 +3829,21 @@ font-size: 17px;
 color: lightgrey;
 z-index: 1;
 position: relative;
-bottom: 2px;
 left: 3px;
+text-align: left;
     &:hover{
     text-decoration:none;
     color:$destroy;
     -webkit-transition: color .25s linear .1s;
     transition: color .25s linear .1s;
   }
+}
+
+.out_text {
+  font-size: 14px;
+padding: 0 2px;
+height: 20px;
+line-height: 7px;
 }
 
 .new_time_show {
