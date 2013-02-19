@@ -30,6 +30,6 @@ Notifier.time_change(time, user).deliver
 
 Notifier.new_time(time, user).deliver
 
-Notifier.new_rsvp(event, user).deliver
+Notifier.new_rsvp(event, user, other_user).deliver
  
 Notifier.follow_up(user, event, users).deliver
