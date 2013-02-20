@@ -109,8 +109,8 @@
 <% else %>
 <header>
     <%= render partial: 'shalendar/joyride' %>
-  <nav>
     <%= render 'layouts/logo' %>
+      <nav>
     <% unless params[:controller] == "sessions" || params[:controller] == "registrations" || params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
       <% unless params[:action] == "show" || user_signed_in? == false %>
       <div class="instructions">
@@ -124,8 +124,8 @@
       <%= @current_city.name %>
     </div>
     <% end %>
-    <% end %>
   </nav>
+    <% end %>
   <%= render 'layouts/alerts' %>
 </header>
 <% end %>
