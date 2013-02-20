@@ -738,6 +738,7 @@ class Api::V2::EventsController < ApplicationController
     end
     @userfile = params[:userfile]
 
+    logger.info("ADD PHOTO PARAMS: #{params}")
     @userfile.content_type = "image/jpeg"
     @event.promo_img = @userfile
     @event.save
