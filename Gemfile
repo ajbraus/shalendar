@@ -14,6 +14,7 @@ gem 'chronic'
 gem 'twilio-rb'
 gem 'phony_rails'
 gem 'useragent'
+gem 'fancybox-rails', :git => 'https://github.com/sverigemeny/fancybox-rails'
 
 # gem 'apn_sender', :require => 'apn'
 # gem 'daemons'

@@ -6,6 +6,11 @@
 <div class="mini_event">
 <% end %>
 	<%= link_to event.event_parent, class:"#{ !current_user.rsvpd?(event) ? 'not_rsvpd' : '' }" do %>
+		<% if event.has_image? %>
+		<div class="promo_img">
+			<%= image_tag "#{event.image(:medium)}", style:"vertical-align:'middle'"%>
+		</div>
+	<% end %>
 	<div class="event_time">			
 		<%= event.mini_start_time %> - <%= event.nice_duration %>
 	</div>
@@ -16,12 +21,6 @@
 
 		</div>
 	</div>
-	<% if event.has_image? %>
-		<div class="promo_img">
-			<%= image_tag "#{event.image(:medium)}" %>
-		</div>
-	<% end %>
-
 	<div class="facepile">
 		<% event.friends_in(current_user).each do |guest| %>
   		<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>

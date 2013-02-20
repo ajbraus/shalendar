@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require highcharts
 //= require jquery-ui
+//= require fancybox
 //= require_tree

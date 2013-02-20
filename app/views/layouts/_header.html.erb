@@ -42,31 +42,38 @@
 <% elsif params[:action] == 'home' || params[:action] == 'show' %> 
 <!-- IF NOT SIGNED IN -->
 <header class="not_signed_in">
-  <%= render partial: 'shalendar/joyride' %>
+  <% if false %>
+    <%= render partial: 'shalendar/joyride' %>
+  <% end %>
   <div class="instagramFeed">
     <div class="instagram">
       <span class="hoosinstagram">#hoosin</span>
     </div>
     <div class="message clearfix">
-      <div style="float:left;">
-        <%= link_to root_path do %>
-          <%= image_tag "logo_beta.png", width:"260", height:"116" %>
-        <% end %>
-      </div>
-      <div class="video">
-        <%= image_tag 'video.png', width:"230" %>
-      </div>
-      <div class="text_buttons">
-        <strong>hoos.in is an online social calendar</strong><br>
-        Go beyond boring.
-        <div class="not_signed_in_buttons">
-          <span class="buttons">
-          <%= link_to "log.in", new_user_session_path, class:"btn btn-pitch btn-primary" %>
-          <%= link_to new_user_registration_path, class:"btn btn-pitch btn-join" do %>
-            sign up <icon class="icon-double-angle-right"></i>
+      <div class="left half-width text-center">
+        <div class="not_signed_in_logo">
+          <%= link_to root_path do %>
+            <%= image_tag "logo_beta.png" %>
           <% end %>
-          </span>
         </div>
+        <div class="text_buttons">
+            more social, less network
+          <div class="not_signed_in_buttons">
+            <span class="buttons">
+            <%= link_to "log.in", new_user_session_path, class:"btn btn-pitch btn-primary" %>
+            <%= link_to new_user_registration_path, class:"btn btn-pitch btn-join" do %>
+              sign up <icon class="icon-double-angle-right"></i>
+            <% end %>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="right half-width text-center">
+        <a id="fancyboxTrigger" class="iframe hi_video" href="http://api.dmcloud.net/player/embed/5122cd8706361d6a3600001b/5122dae506361d6ae300003f?auth=1676655966-0-h0hcm67q-813e0462310df76e4a03aa85d044e716?iframe"><%= image_tag "video.png" %></a>
+        <div class="fb-like" data-href="http://www.facebook.com/hoosinapp" data-send="false" data-width="250" data-show-faces="true"></div>
+        <% if false %>
+        <strong style="font-size: 22px;">hoos.in is a calendar of shared activities.</strong>
+        <% end %>
       </div>
       <% if false %>
       <div class="app_stores">

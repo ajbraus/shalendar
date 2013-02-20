@@ -30,7 +30,6 @@
 		width: 80%;
 		.text_buttons {
 			font-size: 26px;
-			margin-right: 7%;
 		}
 	}
 
@@ -139,9 +138,10 @@ top: 13px;
 	}
 
 	.event_show {
-position: absolute;
-width: 65%;
-right:5px;
+width: 59%;
+max-width: 690px;
+margin-right: 3.5%;
+float: right;
 		.promo_img {
 			img {
 				max-width: 100%;
@@ -399,7 +399,7 @@ margin-left: -246px;
 	}
 
 	.email_share {
-		width: 33%;
+	width: 32%;
 	}
 
 		.social_sharing {
@@ -445,6 +445,20 @@ margin-right: 85px;
 		left: 236px;
 	}
 
+		.shield_bottom {
+		right: 8px;
+padding: 6px 11px;
+width: 206px;
+	}
+
+	.idea_container {
+		width:100%;
+	}
+
+	.user_show {
+		width:70%;
+	}
+
 }
 
 /***************************************/
@@ -471,14 +485,9 @@ margin-right: 85px;
 		width: 230px;
 	}
 	.container_wrapper {
-		width:45%;
+		width:42.5%;
 	}
-	.idea_container {
-		width: 96%;
-	}
-	.user_show {
-  width:70%;
-}
+
 }
 @media only screen and (max-width: 829px) {
 	.hide_on_mobile {
@@ -493,13 +502,7 @@ margin-right: 85px;
 		width: 500px;
 	}
 		.container_wrapper {
-		width:60%;
-	}
-		.idea_container {
-		width:79%;
-	}
-	.user_show {
-		width: 70%;
+		width:61%;
 	}
 }
 
@@ -509,10 +512,7 @@ margin-right: 85px;
 		width: 770px;
 	}
 	.container_wrapper {
-		width:67%;
-	}
-	.idea_container {
-		width:87%;
+		width:70%;
 	}
 	.user_show {
 		width: 72%;
@@ -524,12 +524,8 @@ margin-right: 85px;
 		width: 1030px;
 	}
 	.container_wrapper {
-		width:72%;
+		width:75%;
 	}
-	.idea_container {
-		width:86%;
-	}
-
 	.user_show {
 		width: 78%;
 	}
@@ -540,12 +536,9 @@ margin-right: 85px;
 		width: 1230px;
 	}
 	.container_wrapper {
-		width:76%;
-	}
-	.idea_container {
-		width:92%;
+		width:79%;
 	}
 	.user_show {
-		width: 80%;
+		width: 81%;
 	}
 }

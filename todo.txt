@@ -1,7 +1,7 @@
 Adam
 
 bugs - 
-	sending many new rsvp notifications
+	sending many new rsvp notifications (and after idea is already over)
 		new friend name and image should be link
 	inmates are not being counted correctly as in on ideas mini_events
 	comment emails not going out
@@ -10,6 +10,8 @@ bugs -
 	don't inmate yourself! - don't send yourself an email for a new idea
 
 ajax friending
+
+creator badge on event#show page
 
 remove .interested button - just check and ex
 
