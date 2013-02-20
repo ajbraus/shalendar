@@ -2626,6 +2626,7 @@ left: 0px;
 border-bottom: 1px solid $divider;
 height: auto;
 margin-bottom: 20px;
+border-top: 1px solid $divider;
   img {
     float:left;
     width: 33px;
@@ -2648,6 +2649,9 @@ padding: 3px 7px 4px 7px;
 -moz-border-radius: 0 7px 7px 0;
 border-radius: 0 7px 7px 0;
 float: left;
+left: 9px;
+width: 10%;
+min-width: 34px;
   }
   .field {
     margin-left:10px;
