@@ -26,7 +26,7 @@
 					<% elsif current_user.is_inmates_with?(event.user) %>
 						<i class="icon-star" style="color:lightgrey;"></i>
 					<% end %>
-					<%= event.user.first_name_with_last_inital %>
+					<%= event.user.first_name_with_last_initial %>
 				</u>
 			</div>
 		<% end %>
@@ -50,7 +50,7 @@
   			<% end %>
   		<% else %>
   			<% event.guests.each do |guest| %>
-    			<span title="<%= guest.first_name_with_last_inital %>"><%= raster_profile_picture(guest) %></span>
+    			<span title="<%= guest.first_name_with_last_initial %>"><%= raster_profile_picture(guest) %></span>
   			<% end %>
   		<% end %>
 		</div>

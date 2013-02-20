@@ -12,7 +12,7 @@
 			  <%= f.submit "#{event.is_parent? ? 'meh' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
 			<% end %>
 		<% elsif current_user.in?(event) %> <!-- IF RSVPED SHOW IN BUTTON AND TOGGLE OUT-->
-			<span id="inButton">
+			<span id="inButton" class="in_on_idea">
 				<i class="icon-ok-sign blue" title="you're .in"></i> you're .in
 				<!-- this shouldn't create rsvp-out, it should just destroy rsvp-in -->
 				<span id="flakeOut" class="flakeout">
