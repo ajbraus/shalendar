@@ -24,9 +24,9 @@
 				<% @friends_in_count = event.friends_in(user).count %>
 				<% @inmates_in_count = event.inmates_in(user).count %>
 				<% if !user.in?(event) %>
-					<img src="http://www.hoos.in/assets/ring_yellow@2x.png" width="20" style="position:relative;top:4px;"/><span id="friendCount"><%= @friends_in_count %></span> / <img src="http://www.hoos.in/assets/ring_grey@2x.png" width="20" style="position:relative;top:4px;" /><%= @inmates_in_count %> / <%= event.guest_count %>
+					<img src="http://www.hoos.in/assets/gold_star.png" width="10" style="position:relative;top:4px;"/><span id="friendCount"><%= @friends_in_count %></span> / <img src="http://www.hoos.in/assets/grey_star" width="10" style="position:relative;top:4px;" /><%= @inmates_in_count %> / <%= event.guest_count %>
 				<% elsif user.in?(event) %>
-					<img src="http://www.hoos.in/assets/ring_yellow@2x.png" width="20" style="position:relative;top:4px;"/><span id="friendCount"><%= @friends_in_count %></span> / <img src="http://www.hoos.in/assets/ring_grey@2x.png" width="20" style="position:relative;top:4px;" /><%= @inmates_in_count %>
+					<img src="http://www.hoos.in/assets/gold_star.png" width="10" style="position:relative;top:4px;"/><span id="friendCount"><%= @friends_in_count %></span> / <img src="http://www.hoos.in/assets/grey_star.png" width="10" style="position:relative;top:4px;" /><%= @inmates_in_count %>
 				<% end %>
 			</span>
 	<% if event.description.present? %>

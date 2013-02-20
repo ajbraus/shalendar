@@ -6,6 +6,8 @@
 	$('.idea_container').masonry('reload');
 	$('#rsvpForm').first().html("<%= escape_javascript(render partial: 'events/rsvp_form', object: @event, as: :event) %>")
 	$('#invites_count').decrement();
+	time = $('.instance').withEventId(<%= @event.id %>)
+	time.fadeOut();
 <% else %>
 	time = $('.instance').withEventId(<%= @event.id %>)
 	time.fadeOut();

@@ -11,22 +11,21 @@ class ShalendarController < ApplicationController
       end
 #SORT IDEAS BY #INNERCIRCLE AND THEN #OF INMATES
       @ideas = @ideas.sort_by do |i| 
-        i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*100 + 
-            i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
+        i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*100 + 
+            i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
       end
 #SORT BY IS ONLY ASC SO REVERSE EM!
       @ideas = @ideas.reverse
 
 #GET ALL TIMES
-@times = Event.where('city_id = ? AND ends_at > ? AND ends_at < ?', @current_city.id, Time.zone.now, Time.zone.now + 59.days).reject { |i| current_user.out?(i) }
+      @times = Event.where('city_id = ? AND ends_at > ? AND ends_at < ?', @current_city.id, Time.zone.now, Time.zone.now + 59.days).reject { |i| current_user.out?(i) }
 
 #attempt at getting times friends are rsvpd to
       @times = @times.select do |i|  #select those user is not out of and may be invited to
         if i.parent.present?
-          (current_user.in?(i) || current_user.in?(i.parent) || i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count > 0) 
+          current_user.in?(i) || current_user.in?(i.parent) || i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count > 0 
         else
-          (current_user.in?(i) || 
-          i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count > 0 )
+          current_user.in?(i) || i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count > 0
         end
       end
 

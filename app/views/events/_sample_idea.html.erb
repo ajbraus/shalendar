@@ -1,13 +1,22 @@
 <div class="sample_title">Idea Cover</div>
 
 <div class="event shield" id="sampleEvent">
-  <button class="out">
-    <i class='icon-remove'></i>
-  </button>
 	<div class="shield_top">
 	  <div class="rsvp_check" title="friends can choose whether they're .into this idea">
-	  	<span class="btn_icon btn_icon_rsvp">.interested</span>
+          <span class="fadeInBlue in_check"><i class='icon-ok'></i></span> 
+          <button class="btn_icon btn_icon_rsvp in_text" style="display:none;" name="commit" type="submit">
+            .interested
+          </button>
+
+          <span class="out out_check"><i class='icon-remove'></i></span> 
+          <button class="btn btn-danger out_text" style="display:none;" name="commit" type="submit">
+            meh
+          </button>
+
 	  </div>
+    <u class="creator">
+      <%= current_user.first_name_with_last_initial %>
+    </u>
 	</div>
 
 	<div class="event_blerb">

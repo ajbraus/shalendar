@@ -81,6 +81,11 @@ class User < ActiveRecord::Base
   has_many :plans, through: :rsvps, :conditions => ['inout = ?', 1]
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  
+  has_many :reverse_relationships, :foreign_key => "followed_id",
+                                   :class_name => "Relationship",
+                                   :dependent => :destroy
+  has_many :followers, :through => :reverse_relationships, :source => :follower
 
   has_many :inmates, through: :relationships, source: :followed, conditions: "status = 1"  
   has_many :friends, through: :relationships, source: :followed, conditions: "status = 2"  
@@ -138,7 +143,7 @@ class User < ActiveRecord::Base
     @name_array[0].capitalize
   end
 
-  def first_name_with_last_inital
+  def first_name_with_last_initial
     @name_array = self.name.split(' ')
     @name_array[0].capitalize + " " + @name_array.last.capitalize.slice(0) + "."
   end

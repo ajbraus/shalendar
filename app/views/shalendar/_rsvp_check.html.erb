@@ -17,14 +17,19 @@
 			  <div>
 			  	<span class="out out_check"><i class='icon-remove'></i></span> 
 			 		<button class="btn btn-danger out_text" style="display:none;" name="commit" type="submit">
-						out
+						meh
 			  	</button>
 			  </div>
 			<% end %>	
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "1" %>
-			  <%= f.submit "#{ event.starts_at.blank? || event.one_time? ? '.interested' : '.in'}", class:"btn_icon btn_icon_rsvp", title: "I'm interested" %>
+			  <div>
+			  	<span class="fadeInBlue in_check"><i class='icon-ok'></i></span> 
+			 		<button class="btn_icon btn_icon_rsvp in_text" style="display:none;" name="commit" type="submit">
+						<%= event.starts_at.blank? || event.one_time? ? '.interested' : '.in' %>
+			  	</button>
+			  </div>
 			<% end %>	
 		<% end %>
 	<% end %>

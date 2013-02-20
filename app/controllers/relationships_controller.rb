@@ -4,7 +4,10 @@ before_filter :authenticate_user!
   def create
     @user = User.find(params[:relationship][:followed_id])
     current_user.friend!(@user)
-    @user.delay.contact_friend(current_user)
+    @new_friendship = Relationship.where('followed_id = ? AND follower_id = ? AND status = ?', @user.id, current_user.id, 2).first
+    unless @new_friendship.updated_at > Time.zone.now - 1.hour
+      @user.delay.contact_friend(current_user)
+    end
     respond_to do |format|
       format.html { redirect_to :back, notice: "You starred #{@user.name}" }
       format.js
