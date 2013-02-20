@@ -81,6 +81,11 @@ class User < ActiveRecord::Base
   has_many :plans, through: :rsvps, :conditions => ['inout = ?', 1]
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  
+  has_many :reverse_relationships, :foreign_key => "followed_id",
+                                   :class_name => "Relationship",
+                                   :dependent => :destroy
+  has_many :followers, :through => :reverse_relationships, :source => :follower
 
   has_many :inmates, through: :relationships, source: :followed, conditions: "status = 1"  
   has_many :friends, through: :relationships, source: :followed, conditions: "status = 2"  

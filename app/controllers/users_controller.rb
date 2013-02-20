@@ -10,8 +10,8 @@ class UsersController < ApplicationController
       end
       
       @my_ins = @my_ins.sort_by do |i|
-          i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*100 + 
-            i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
+          i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*100 + 
+            i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
       end
 
       @times = @user.plans.where("starts_at > ?", Time.zone.now).order('starts_at ASC')        
