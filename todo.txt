@@ -7,7 +7,9 @@ bugs -
 	comment emails not going out
 	add creator to time - fix look of times
 	fix stars in event_details
-	don't inmate yourself! - don't send yourself an email for a new idea
+	don't build any relationship with yourself inmate yourself! - don't send yourself an email for a new idea
+	fix email button event show
+	fix facebook share video
 
 ajax friending
 

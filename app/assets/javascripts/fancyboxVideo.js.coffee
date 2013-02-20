@@ -17,7 +17,7 @@ $ ->
   			<li>
   			<a href='mailto:?
 								subject=a%20video%20.introduction%20to%20hoos.in&
-								body=hi,%0a%0aI%20just%20watched this video .introduction to a neat new web service called hoos.in. Check it out.%0a%0a' class='email_share'>
+								body=hi,%0a%0aI%20just%20watched this video .introduction to a neat new web service at www.hoos.in. Check it out.%0a%0a' class='email_share'>
 					<span class='orange'><i class='icon-envelope-alt'></i></span><br>mail
 				</a>
 				</li>
@@ -35,7 +35,7 @@ $ ->
 			  				picture=http://www.hoos.in/assets/video.png&
 			  				name=A%20video%20.introduction%20to%20hoos.in&
 			  				caption=more%20social,%20less%20network&
-			  				description=hoos.in%20is%20a%20shared%20activites%calendar%20that%20makes%20it%20easy%20to%20enjoy%20more%20creativity%20and%20adventure%20with%20colleagues,%20family,%20and%20friends.
+			  				description=hoos.in%20is%20a%20shared%20activites%20calendar%20that%20makes%20it%20easy%20to%20enjoy%20more%20creativity%20and%20adventure%20with%20colleagues,%20family,%20and%20friends.&
 			  				redirect_uri=http://www.hoos.in' class='email_share'>
     			<span class='fb_blue'><i class='icon-facebook-sign'></i></span><br>share
   			</a>
