@@ -187,7 +187,7 @@
     end
     params[:event][:starts_at] = Chronic.parse(params[:event][:chronic_starts_at])
 
-    @event = Event.find(params[:id])
+    @event = Event.find_by_slug(params[:event_id])
 
     @start_time = @event.starts_at
     respond_to do |format|
@@ -203,9 +203,7 @@
             end
           end
         end
-        # if @event.guest_count >= @event.min
-        #   @event.tip!
-        # end
+
         if @event.has_parent?
           format.html { redirect_to @event.parent, notice: 'Time was successfully updated.' }
         else

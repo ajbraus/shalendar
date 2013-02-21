@@ -5,6 +5,11 @@ Shalendar::Application.routes.draw do
   match '/terms', :to => 'static_pages#terms_header', :as => "terms"
   match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
 
+
+  City.all.each do |c| #for all cities
+    match "/#{c.name.split(',')[0].gsub(/\s+/, "_").downcase}", :to => 'shalendar#home', :as => "#{c.name.split(',')[0].gsub(/\s+/, "").gsub("-", "_").gsub(".", "_").downcase}", :city => "#{c.name}"
+  end
+
   resources :authentications, :only => [:destroy]
   # match '/auth/:authentication/callback' => 'authentications#create' 
   
@@ -14,10 +19,6 @@ Shalendar::Application.routes.draw do
 
   resources :users, :only => [:show] do #for profile page 
     get :autocomplete_city_name, :on => :collection
-  end
-  
-  City.all.each do |c| #for all cities
-    match "/#{c.name.split(',')[0].gsub(/\s+/, "_").downcase}", :to => 'shalendar#home', :as => "#{c.name.split(',')[0].gsub(/\s+/, "").gsub("-", "_").gsub(".", "_").downcase}", :city => "#{c.name}"
   end
   
   root :to => 'shalendar#home'
@@ -47,7 +48,7 @@ Shalendar::Application.routes.draw do
   resources :events, path: "ideas", only: [:create, :destroy, :update, :edit, :new, :show, :new_time, :create_new_time, :edit_time] do #:index,
     get :edit_time
     get :new_time
-    post :update
+    put :update
     post :create_new_time
     resources :comments, only: [:create, :destroy]
     resources :email_invites, only: [:create, :destroy]

@@ -216,8 +216,8 @@ class User < ActiveRecord::Base
 
   #moved all parent logic into the model
   def rsvp_in!(event)
-    if event.rsvps.where(guest_id: self.id).any?
-      @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
+    @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
+    if @existing_rsvp.present?
       if @existing_rsvp.inout == 1
         return
       else
@@ -228,7 +228,7 @@ class User < ActiveRecord::Base
     event.guests.each do |g|
       self.inmate!(g)
     end
-    if event.parent.present?
+    if event.parent.present? && !self.in?(event.parent)
       self.rsvp_in!(event.parent)
     else #contact only once if they sign up for time + idea 
       unless event.user == self || event.over?
@@ -648,33 +648,33 @@ class User < ActiveRecord::Base
   def contact_cancellation(event)
     @event = event
     @user = self
-    if @user.iPhone_user?
-      d = APN::Device.find_by_id(@user.apn_device_id)
-      if d.nil?
-        Airbrake.notify("thought we had an iphone user but can't find their device")
-      else
-        n = APN::Notification.new
-        n.device = d
-        n.alert = "Cancellation - #{@event.title}"
-        n.badge = 1
-        n.sound = false
-        n.custom_properties = {msg: "#{@event.short_event_title}", :type => "cancel", :id => "#{@event.id}"}
-        n.save
-      end
-    elsif @user.android_user?
-      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-      if d.nil?
-        Airbrake.notify("thought we had an android user but can't find their device")
-      else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = "Cancellation - #{@event.title}"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {msg: "#{@event.short_event_title}", :type => "cancel", :id => "#{@event.id}"}}
-        n.save
-      end
-    end
     unless @user == @event.user
+      if @user.iPhone_user?
+        d = APN::Device.find_by_id(@user.apn_device_id)
+        if d.nil?
+          Airbrake.notify("thought we had an iphone user but can't find their device")
+        else
+          n = APN::Notification.new
+          n.device = d
+          n.alert = "Cancellation - #{@event.title}"
+          n.badge = 1
+          n.sound = false
+          n.custom_properties = {msg: "#{@event.short_event_title}", :type => "cancel", :id => "#{@event.id}"}
+          n.save
+        end
+      elsif @user.android_user?
+        d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+        if d.nil?
+          Airbrake.notify("thought we had an android user but can't find their device")
+        else
+          n = Gcm::Notification.new
+          n.device = d
+          n.collapse_key = "Cancellation - #{@event.title}"
+          n.delay_while_idle = true
+          n.data = {:registration_ids => [d.registration_id], :data => {msg: "#{@event.short_event_title}", :type => "cancel", :id => "#{@event.id}"}}
+          n.save
+        end
+      end
       Notifier.cancellation(@event, @user).deliver
     end
   end

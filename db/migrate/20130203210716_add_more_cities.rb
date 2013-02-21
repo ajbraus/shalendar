@@ -1,6 +1,7 @@
 class AddMoreCities < ActiveRecord::Migration
   def change
   	#US CITIES
+
 		City.create(name: 'Louisville, Kentucky', timezone: 'Eastern Time (US & Canada)')
 		City.create(name: 'Albuquerque, New Mexico', timezone: 'Mountain Time (US & Canada)')
 		City.create(name: 'Tucson, Arizona', timezone: 'Mountain Time (US & Canada)')

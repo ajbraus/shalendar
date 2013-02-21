@@ -8,23 +8,26 @@ bugs -
 	comment emails not going out - not on time
 	add creator to time - fix look of times
 	don't build any relationship with yourself inmate yourself! - don't send yourself an email for a new idea
+	siloing by city not working
+
+x and check on ipad
 
 ajax friending
 
-remove .interested button - just check and ex
-
-clear up confirm and your out - remove confirm alert from out - just click twice and disappear
-
 change background button in profile
+
+refresh button
 
 fix email text from katie
 
 RSVP URL && Button
 
+pipe in all the events from upcomming
+
 you have no .invites -- search for friends to join their fun ideas and become .in-mates
 click new idea to create a fun idea for friends to do.
 
-put up tips for ideas
+put up tips for ideas - how to make a great idea - go beyond boring
 
 event#new
 	share on fb/twitter
