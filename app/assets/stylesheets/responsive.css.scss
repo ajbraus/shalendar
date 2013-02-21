@@ -214,10 +214,11 @@ margin-right: 2%;
 			}
 		}
 		.date {
-			clear: both;	
-			font-size: 17px;
-			position: relative;
-			top: 8px;
+		font-size: 31px;
+		position: relative;
+		top: 8px;
+		float: left;
+		width: 84%;
 		}
 	}
 
@@ -244,6 +245,14 @@ font-size: 14px;
 		width: 30px;
 height: 30px;
 	}
+}
+
+.event_description {
+	width: 100%;
+}
+
+.eventTitle {
+	width: 80%;
 }
 
 
