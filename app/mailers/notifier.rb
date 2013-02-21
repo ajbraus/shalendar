@@ -11,7 +11,6 @@ class Notifier < ActionMailer::Base
 
   def user_update(email)
     mail to: email, from: "info@hoos.in", subject: "Upgraded Site"
-
   end
 
   def super_beta_users

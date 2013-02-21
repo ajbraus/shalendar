@@ -648,33 +648,33 @@ class User < ActiveRecord::Base
   def contact_cancellation(event)
     @event = event
     @user = self
-    if @user.iPhone_user?
-      d = APN::Device.find_by_id(@user.apn_device_id)
-      if d.nil?
-        Airbrake.notify("thought we had an iphone user but can't find their device")
-      else
-        n = APN::Notification.new
-        n.device = d
-        n.alert = "Cancellation - #{@event.title}"
-        n.badge = 1
-        n.sound = false
-        n.custom_properties = {msg: "#{@event.short_event_title}", :type => "cancel", :id => "#{@event.id}"}
-        n.save
-      end
-    elsif @user.android_user?
-      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-      if d.nil?
-        Airbrake.notify("thought we had an android user but can't find their device")
-      else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = "Cancellation - #{@event.title}"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {msg: "#{@event.short_event_title}", :type => "cancel", :id => "#{@event.id}"}}
-        n.save
-      end
-    end
     unless @user == @event.user
+      if @user.iPhone_user?
+        d = APN::Device.find_by_id(@user.apn_device_id)
+        if d.nil?
+          Airbrake.notify("thought we had an iphone user but can't find their device")
+        else
+          n = APN::Notification.new
+          n.device = d
+          n.alert = "Cancellation - #{@event.title}"
+          n.badge = 1
+          n.sound = false
+          n.custom_properties = {msg: "#{@event.short_event_title}", :type => "cancel", :id => "#{@event.id}"}
+          n.save
+        end
+      elsif @user.android_user?
+        d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+        if d.nil?
+          Airbrake.notify("thought we had an android user but can't find their device")
+        else
+          n = Gcm::Notification.new
+          n.device = d
+          n.collapse_key = "Cancellation - #{@event.title}"
+          n.delay_while_idle = true
+          n.data = {:registration_ids => [d.registration_id], :data => {msg: "#{@event.short_event_title}", :type => "cancel", :id => "#{@event.id}"}}
+          n.save
+        end
+      end
       Notifier.cancellation(@event, @user).deliver
     end
   end
