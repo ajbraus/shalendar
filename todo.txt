@@ -1,6 +1,9 @@
 Adam
 
 bugs - 
+updating with url to image not working
+updating/creating times wrong time
+
 	sending many new rsvp notifications (and after idea is already over)
 		new friend name and image should be link
 	make creator badge in event#show
