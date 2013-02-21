@@ -15,28 +15,35 @@
     </li>
   </ul>
   <% if user_signed_in? %>
-    <div id="rsvpForm" class="join_group_buttons <%= current_user.in?(@event) ? 'rsvp_blue' : '' %>">
+    <div id="rsvpForm" class="join_group_buttons padding_10 <%= current_user.in?(@event) ? 'rsvp_blue' : '' %>">
   <% else %>
-    <div id="rsvpForm" class="join_group_buttons">
+    <div id="rsvpForm" class="join_group_buttons padding_10">
   <% end %>
       <%= render partial: 'rsvp_form', :locals => { :event => @event }  %> 
     </div>
+
   <div class="event_title clearfix">
-    <div class="eventTitle">
+    <div class="promo_img">
+      <% if @event.has_image? %>
+        <%= image_tag @event.image(:large) %>
+      <% end %>
+    </div>
+    <div class="eventTitle padding_10">
       <%= @event.title %>
     </div>
+    <% if @event.description.present? %>
+      <div class="event_description padding_10"><%= @event.description %></div>
+    <% end %>
     <% if user_signed_in? %>
-        <div class="ribbon-wrapper">
-          <div class="ribbon-front">
-            <%= @event.user.first_name_with_last_initial %>
-          </div>
-          <div class="ribbon-edge-topleft"></div>
-          <div class="ribbon-edge-topright"></div>
-          <div class="ribbon-edge-bottomleft"></div>
-          <div class="ribbon-edge-bottomright"></div>
-          <div class="ribbon-back-left"></div>
-          <div class="ribbon-back-right"></div>
-        </div>
+      <div class="creator_settings">
+        <u class="creator">
+          <% if current_user.is_friends_with?(@event.user) %>
+            <i class="icon-star" style="color:gold;"></i>
+          <% elsif current_user.is_inmates_with?(@event.user) %>
+            <i class="icon-star" style="color:lightgrey;"></i>
+          <% end %>
+          <%= @event.user.first_name_with_last_initial %>
+        </u>
       <% if @event.user == current_user || current_user.admin? %> 
         <div class="event_buttons">
           <%= link_to edit_event_path(@event) do %>
@@ -49,42 +56,44 @@
           <% end %>
         </div>
       <% end %>
+      </div>
+    <% end %>
+    <% if @event.price.present? || @event.address.present? || @event.link.present? %>
+      <div class="event_details padding_10 clearfix">
+        <div class="cost">
+          <i class="icon-money"></i> <% if @event.price.present? %> <%= @event.nice_price %><% end %>
+        </div>
+
+        <div class="event_location">
+          <% if @event.address.present? %>
+            <%= link_to "http://mapof.it/#{@event.address}", target: "_blank" do %>
+              <span class="fadeInOrange">
+                <i class="icon-map-marker"></i>
+              </span>
+              <span style="font-size: 22px;"> <%= @event.address %></span>
+            <% end %>
+          <% else %>
+            <i class="icon-map-marker"></i>
+          <% end %>
+        </div>
+
+        <div class="event_link">
+          <% if @event.link.present? %>
+            <%= link_to "http://#{@event.link}", target: "_blank" do %>
+              <i class="icon-link"></i> <%= @event.link[0..15] %>
+            <% end %>
+          <% else %>
+              <i class="icon-link"></i>
+          <% end %>
+        </div>
+      </div>
     <% end %>
   </div>
-  <% if @event.description.present? %>
-    <div class="event_description"><%= @event.description %></div>
-  <% end %>
-	<% if @event.price.present? || @event.address.present? || @event.link.present? %>
-  <div class="when clearfix">
-    <% if @event.price.present? %>
-      <div class="cost">
-        <i class="icon-money"></i> <%= @event.nice_price %>
-      </div>
-    <% end %>
-    <% if @event.address.present? %>
-      <div class="event_location">
-        <%= link_to "http://mapof.it/#{@event.address}", target: "_blank" do %>
-          <span class="fadeInOrange">
-            <i class="icon-map-marker"></i>
-          </span>
-        <% end %>
-        <span style="font-size: 22px;"> <%= @event.address %></span>
-      </div>
-    <% end %>
-    <% if @event.link.present? %>
-    <div class="event_link">
-      <%= link_to "http://#{@event.link}", target: "_blank" do %>
-        <i class="icon-link"></i> <%= @event.link[0..15] %>
-      <% end %>
-    </div>
-    <% end %>
-	</div>
-  <% end %>
 
-  <% if @event.has_image? %>
-    <div class="promo_img">
-      <%= image_tag @event.image(:large) %>
-    </div>
+  <% if !@event.one_time? %>
+    <%= link_to event_new_time_path(@event), id:"makeATime", class:"btn-success btn-new-time" do %>
+      <span style="color:white;"><i class="icon-time"></i> Add a New Time</span>
+    <% end %>
   <% end %>
 
   <% if @event.one_time? %>
@@ -92,12 +101,6 @@
   <% else %>
     <% @relevant_instances = @event.instances.reject { |e| e.over? } %>
     <%= render partial: 'events/show_time', collection: @relevant_instances, as: :event %>
-  <% end %>
-
-  <% if !@event.one_time? %>
-    <%= link_to event_new_time_path(@event), id:"makeATime", class:"btn-success btn-new-time" do %>
-      <span style="color:white;"><i class="icon-time"></i> Add a New Time</span>
-    <% end %>
   <% end %>
 
   <% if @event.promo_vid.present? %>

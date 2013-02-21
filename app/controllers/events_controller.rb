@@ -156,6 +156,9 @@
   def show
     @event = Event.find(params[:id])
     @guests = @event.guests
+    if user_signed_in?
+      @guests.sort_by {|g| g.is_friends_with?(current_user) ? 0 : 1 }
+    end
     @maybes = @event.maybes
     @email_invites = @event.email_invites
     @comments = @event.comments.order("created_at desc")

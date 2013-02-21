@@ -1,7 +1,4 @@
-	<div class="when one_time clearfix instance" data-event-id="<%= event.id %>">	
-    <div id="rsvpForm" class="join_group_buttons">
-      <%= render :partial => "events/rsvp_form", :locals => { :event => event } %>
-    </div>
+	<div class="when one_time clearfix instance box-shadow" data-event-id="<%= event.id %>">	
     <div class="date"><%= event_start_time(event) %> <%= date(event) %> ( <%= event.nice_duration %> <% if event.ends_at < Time.zone.now %> - Over <% end %> ) </div>
     <ul id="calendars">
       <li>
@@ -34,5 +31,8 @@
           <span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
         <% end %>
       <% end %>
+    </div>
+    <div id="rsvpForm" class="join_group_buttons">
+      <%= render :partial => "events/rsvp_form", :locals => { :event => event } %>
     </div>
 	</div>

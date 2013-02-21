@@ -59,7 +59,7 @@
 	<!-- BEGIN EVENT SHOW -->
 <div class="sample_title">Idea Page</div>
 <div class="event_show clearfix">
-			<div id="rsvpForm" class="join_group_buttons">
+			<div id="rsvpForm" class="join_group_buttons padding_10">
 
 				<a href="#" class="btn rsvp_button btn-rsvp" title="By clicking here folks will join your ideas">.interested</a>
 				<a href="#" class="btn rsvp_button btn_stop_viewing" title="Here folks can opt out of this idea">meh</a>
@@ -67,22 +67,24 @@
 		<div class="date"></div>
  
 	<div class="event_title">
-	  <div class="eventTitle"><%= @parent ? @parent.title : '' %></div>
-    <div class="eventIcons">
-    	<span id="eventCategory"></span>
-      <span id="eventPublicIcon" style="display:none;">
-      	<i class="icon-bullhorn" title="Public"></i>
-      </span>
-      <span id="eventFamilyFriendlyIcon" style="display:none;">
-      	<i class="icon-home" title="Family Friendly"></i>
-      </span>
-      <span class="eventIsBigIdea" title="This event needs a crowd!" style="display:none;"><i class='icon-cloud'></i></span>
+    <div class="promo_img" id="eventImage">
+      <% if @parent  && @parent.has_image? %>
+        <%= image_tag @parent.image(:large) %>
+      <% end %>
     </div>
-	</div>
+	  <div class="eventTitle"><%= @parent ? @parent.title : '' %></div>
+	  <div id="eventDescription" class="event_description"></div>
+    <div class="creator_settings">
+        <u class="creator">
+          <%= current_user.first_name_with_last_initial %>
+        </u>
+        <div class="event_buttons">
+          <span class="fadeInOrange" title="click here to edit the idea after you post it"><i class="icon-cogs"></i> edit</span>
+        </div>
+      </div>
+  </div>
 
-	<div id="eventDescription" class="event_description"></div>
-
-	<div class="when clearfix">
+	<div class="event_details clearfix">
 		<div class="cost">
       <i class="icon-money"></i><span id="eventCost"><%= @parent.present? ? @parent.price : '' %></span>
     </div>
@@ -95,18 +97,6 @@
       <span id="eventLink"><%= @parent.present? ? @parent.link : '' %></span>
     </div>
 	</div>
-
-  <div class="promo_img" id="eventImage">
-  	<% if @parent  && @parent.has_image? %>
-  		<%= image_tag @parent.image(:large) %>
-  	<% end %>
-  </div>
-
-<% if false %>
-  <div class="meter"f>
-		<span style="width: 100%;"><span></span></span>
-	</div>
-<% end %>
 
 	<% if @parent.present? %>
 		<div class="when time clearfix">

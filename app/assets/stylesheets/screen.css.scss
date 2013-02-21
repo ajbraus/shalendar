@@ -154,6 +154,12 @@ ul, li {
   text-align: center;
 }
 
+.box-shadow {
+  -webkit-box-shadow: 0 0 6px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0 0 6px rgba(0,0,0,0.3);
+  box-shadow: 0 0 6px rgba(0,0,0,0.3);
+}
+
 .masonry,
 .masonry .masonry-brick {
   -webkit-transition-duration: 0.7s;
@@ -979,6 +985,7 @@ box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
 .layout {
 position: relative;
 top: 94px;
+padding-bottom: 100px;
 }
 
 .show_layout {
@@ -2103,40 +2110,39 @@ top: 10px;
   left: 25px;
 }
 
+.padding_10 {
+  padding: 10px;
+}
 /* EVENT#SHOW */
 
 .event_show {
-border: 1px solid $divider;
+background: white;
 top: 3px;
 -webkit-box-sizing: border-box;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
-background-color: white;
-  .meter {
-    padding:0;
+border: 1px solid $divider;
+  .event_details {
+    clear: both;
+border-top: 1px dotted $divider;
+padding: 10px;
   }
   .promo_img {
-    text-align: center;
-    margin-bottom:0px;
-    padding: 0;
+text-align: center;
+padding: 0;
+float: left;
+margin: 5px;
     img {
-max-height: 380px;
-min-width: 250px;
-min-height: 90px;
-max-width: 100%;
     }
   }
   .promo_vid {
     text-align: center;
-    margin-bottom: -14px;
-    position: relative;
-    right: 10px;
+    clear: both;
     img {
       width: 104%;
     }
   }
   > div {
-    padding: 10px;
     -webkit-box-sizing: border-box;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
@@ -2153,19 +2159,25 @@ border-radius: 0px/*{cornerRadius}*/;
 background:none;
   }
   .when {
-font-size: 22px;
+font-size: 30px;
 height: auto;
 line-height: 1.4;
 position: relative;
-border-top: 1px solid $divider;
-bottom: 5px;
+clear: both;
+background: url("low_contrast_linen.png");
+width: 92%;
+left: 4%;
+color: white;
+float: left;
+margin: 5px 0 5px 0;
+padding: 0 10px;
 .out {
   position: relative;
   top: -10px;
   left: 3px;
 }
  .join_group_buttons {
-  color:black;
+  clear:both;
 i.icon-circle {
   color:$rsvp;
 }
@@ -2313,7 +2325,7 @@ font-size: 17px;
 }
 
 .join_group_buttons {
-  min-height: 55px;
+  min-height: 45px;
   color:white;
   width:100%;
   .rsvp_button {
@@ -2393,30 +2405,32 @@ top: 3px;
 }
 
 .event_title {
-clear:both;
-font-size: 34px;
-line-height: 1.1;
-width: 100%;
-background-color: rgb(128, 128, 128);
-color: white;
-font-weight: 400;
+float: left;
 position: relative;
-border-bottom: 1px solid $divider;
+width: 100%;
+}
+
+.eventTitle {
+font-size: 20px;
+float: left;
+width: 49%;
+padding-top:5px;
 }
 
 .event_description {
-  min-height: 20px;
-  font-size: 20px;
-  background-color:white;
-  color:black;
-  clear: both;
-  /*border-bottom: 1px solid $divider;*/
+padding-top:5px;
+font-size: 16px;
+width: 50%;
+float: left;
+letter-spacing: 1px;
 }
 
 .event_buttons{
 font-size: 20px;
 padding: 6px 10px 0px 0px;
 float: left;
+position: relative;
+bottom: 3px;
 }
 
 .tipped_title {
@@ -2619,37 +2633,33 @@ text-align: right;
 .comments_form {
 float: left;
 width: 100%;
-background-color: #ECECEC;
+background-color: rgba(204, 204, 204,.3);
 position: relative;
 z-index: 0;
 left: 0px;
-border-bottom: 1px solid $divider;
 height: auto;
-margin-bottom: 20px;
-border-top: 1px solid $divider;
+border: 1px solid $divider;
+padding: 10px;
   img {
     float:left;
     width: 33px;
     height: 33px;
   }
-  input[type=text] {
-  width: 64%;
+  textarea {
+width: 64%;
 float: left;
-border-radius: 0;
+height: 41px;
 position: relative;
-left: 10px;
-height: 30px;
-padding: 0;
-padding-left: 6px;
+left: 14px;
   }
   .btn {
 position: relative;
-padding: 3px 7px 4px 7px;
+padding: 18px 7px 21px 7px;
 -webkit-border-radius: 0 7px 7px 0;
 -moz-border-radius: 0 7px 7px 0;
 border-radius: 0 7px 7px 0;
 float: left;
-left: 9px;
+left: 6px;
 width: 10%;
 min-width: 34px;
   }
@@ -3797,7 +3807,8 @@ line-height: 1;
 #calendars {
 float: right;
 position: relative;
-top: 10px;
+height: 77px;
+top: 6px;
   li {
     img {
       width: 35px;
@@ -3909,9 +3920,13 @@ margin-top: 10px;
 margin-bottom: -10px;
 float: left;
 clear: left;
-#guest_count {
+img.profile_picture {
+  width: 36px;
+height: 36px;
+}
+#guestCount {
   position: relative;
-bottom: 16px;
+bottom: 6px;
 }
 }
 
@@ -3939,9 +3954,9 @@ ul.ui-autocomplete {
 }
 
 .time_settings {
-  position: absolute;
+position: absolute;
 right: 10px;
-top: 10px;
+bottom: 10px;
  li {
   display: inline;
  }
@@ -4376,5 +4391,11 @@ margin: 0 2%;
 }
 
 .in_on_idea {
-  font-size: 30px;
+  font-size: 27px;
+}
+
+.creator_settings {
+position: absolute;
+right: 10px;
+top: -39px;
 }

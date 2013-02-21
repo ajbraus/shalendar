@@ -1,8 +1,8 @@
 Adam
 
 bugs - 
-updating with url to image not working
-updating/creating times wrong time
+
+	check that comments are sending in production
 
 	sending many new rsvp notifications (and after idea is already over)
 		new friend name and image should be link
@@ -27,10 +27,16 @@ RSVP URL && Button
 
 pipe in all the events from upcomming
 
+to stars
+
 you have no .invites -- search for friends to join their fun ideas and become .in-mates
 click new idea to create a fun idea for friends to do.
 
 put up tips for ideas - how to make a great idea - go beyond boring
+
+enter in textboxes should create a pagebreak not submit the form
+
+put vid in lightbox
 
 event#new
 	share on fb/twitter

@@ -137,9 +137,10 @@ top: 13px;
 	.event_show {
 width: 57%;
 max-width: 840px;
-margin-right: 6%;
-float: right;
+margin-left: 6%;
+float: left;
 		.promo_img {
+			width: 43%;
 			img {
 				max-width: 100%;
 			}
@@ -160,7 +161,7 @@ float:left;
 width: 29%;
 position: absolute;
 top: 4px;
-left: 2%;
+right: 2%;
 }
 
 	.maybes {
