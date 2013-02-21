@@ -187,7 +187,11 @@
     end
     params[:event][:starts_at] = Chronic.parse(params[:event][:chronic_starts_at])
 
-    @event = Event.find_by_slug(params[:event_id])
+    if params[:event_id].present?
+      params[:id] = params[:event_id]
+    end
+
+    @event = Event.find(params[:id])
 
     @start_time = @event.starts_at
     respond_to do |format|
