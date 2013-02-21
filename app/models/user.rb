@@ -216,8 +216,8 @@ class User < ActiveRecord::Base
 
   #moved all parent logic into the model
   def rsvp_in!(event)
-    if event.rsvps.where(guest_id: self.id).any?
-      @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
+    @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
+    if @existing_rsvp.present?
       if @existing_rsvp.inout == 1
         return
       else
@@ -228,7 +228,7 @@ class User < ActiveRecord::Base
     event.guests.each do |g|
       self.inmate!(g)
     end
-    if event.parent.present?
+    if event.parent.present? && !self.in?(event.parent)
       self.rsvp_in!(event.parent)
     else #contact only once if they sign up for time + idea 
       unless event.user == self || event.over?
