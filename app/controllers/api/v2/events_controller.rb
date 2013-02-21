@@ -1,5 +1,5 @@
 class Api::V2::EventsController < ApplicationController
-  #before_filter :authenticate_user!
+  before_filter :authenticate_user!
   respond_to :json
    
   def invites
