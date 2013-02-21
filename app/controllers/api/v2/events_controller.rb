@@ -395,7 +395,7 @@ class Api::V2::EventsController < ApplicationController
     if params[:start].present? && params[:duration].present?
       @starts_at = DateTime.parse(params[:start])
       @duration = Float(params[:duration])
-      @ends_at = @starts_at + 3600*@duration
+      @ends_at = @starts_at + @duration.hours
     end
     @one_time = false
     if params[:one_time].present?
@@ -580,8 +580,9 @@ class Api::V2::EventsController < ApplicationController
     if params[:start].present? && params[:duration].present?
       @starts_at = DateTime.parse(params[:start])
       @duration = Float(params[:duration])
-      @ends_at = @starts_at + 3600*@duration
+      @ends_at = @starts_at + @duration.hours
     end
+
     @event = @parent.instances.build(user_id: @mobile_user.id,
                            title: @parent.title,
                            starts_at: @starts_at,
@@ -602,7 +603,9 @@ class Api::V2::EventsController < ApplicationController
       current_user.rsvp_in!(@event)
       if @parent.guests.any? 
         @parent.guests.each do |g|
-          g.delay.contact_new_time(@event)
+          unless g == @mobile_user
+            g.delay.contact_new_time(@event)
+          end
         end
       end
       @event = @parent
