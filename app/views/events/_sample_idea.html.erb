@@ -67,11 +67,16 @@
 		<div class="date"></div>
  
 	<div class="event_title">
-    <div class="promo_img" id="eventImage">
       <% if @parent  && @parent.has_image? %>
+      <div class="promo_img" id="eventImage">
         <%= image_tag @parent.image(:large) %>
+      </div>
+      <% else %>
+      <div class="promo_img" id="eventImage" style="display:none;">
+
+      </div>
       <% end %>
-    </div>
+    
 	  <div class="eventTitle"><%= @parent ? @parent.title : '' %></div>
 	  <div id="eventDescription" class="event_description"></div>
     <div class="creator_settings">

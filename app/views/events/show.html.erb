@@ -23,11 +23,11 @@
     </div>
 
   <div class="event_title clearfix">
-    <div class="promo_img">
-      <% if @event.has_image? %>
+    <% if @event.has_image? %>
+      <div class="promo_img">
         <%= image_tag @event.image(:large) %>
+      </div>
       <% end %>
-    </div>
     <div class="eventTitle padding_10">
       <%= @event.title %>
     </div>
