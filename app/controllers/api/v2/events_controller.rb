@@ -1,5 +1,5 @@
 class Api::V2::EventsController < ApplicationController
-  before_filter :authenticate_user!
+  #before_filter :authenticate_user!
   respond_to :json
    
   def invites
@@ -740,7 +740,6 @@ class Api::V2::EventsController < ApplicationController
       return
     end
     @userfile = params[:userfile]
-
     logger.info("ADD PHOTO PARAMS: #{params}")
     @userfile.content_type = "image/jpeg"
     @event.promo_img = @userfile
