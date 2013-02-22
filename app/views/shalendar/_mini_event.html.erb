@@ -33,13 +33,13 @@
 		<div class="mini_in_out">
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
-			  <%= f.hidden_field :inout, value: "1" %>
-			  <%= f.submit "#{event.is_parent? ? '.into' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
+			  <%= f.hidden_field :inout, value: "0" %>
+			  <%= f.submit "#{event.starts_at.blank? ? 'nah' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
 			<% end %>
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
-			  <%= f.hidden_field :inout, value: "0" %>
-			  <%= f.submit "#{event.starts_at.blank? ? 'nah' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
+			  <%= f.hidden_field :inout, value: "1" %>
+			  <%= f.submit "#{event.is_parent? ? '.into' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
 			<% end %>
 		</div>
 	<% end %>
