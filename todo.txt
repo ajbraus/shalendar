@@ -11,6 +11,8 @@ make creator badge in event#show
 
 	turn on reminders
 
+	send digest
+
 	inmates are not being counted correctly as in on ideas mini_events - probably needs to be reverse_relationship
 	comment emails not going out - not on time
 	add creator to time - fix look of times, add location

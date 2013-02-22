@@ -1111,8 +1111,7 @@ border: 1px solid $divider;
 
 .fb-icon {
 position: absolute;
-bottom: 19px;
-
+top: 5px;
 }
 
 /* Ribbon */
@@ -1425,7 +1424,7 @@ letter-spacing: 1px;
   background-color: rgba(255, 255, 255, 0.21);
 }
 .not_rsvpd {
-width: 260px;
+width: 309px;
 min-height: 102px;
 position: relative;
 bottom: 4px;
@@ -1433,16 +1432,19 @@ margin-bottom: -4px;
 }
   a {
     color:white;
+    float:left;
   }
   .mini_in_out {
     float: right;
     width: 86px;
     .in_on_instance {
-     position: absolute;
-top: 11px;
-right: 11px;
-font-size: 25px;
+      position: relative;
+      font-size: 25px;
+      color: white;
+      float: right;
+      right: 15px;
     }
+
     .btn {
     padding: 4px 0;
     width: 40px;
@@ -1623,8 +1625,7 @@ bottom: 12px;
 min-height: 24px;
 font-size: 18px;
 line-height: 1;
-width: 98%;
-overflow: hidden;
+width: 97%;
 position: relative;
 right: 5px;
 padding: 10px 10px 0px 10px;
