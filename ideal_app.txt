@@ -1,0 +1,10 @@
+
+
+
+Home - defaults to calendar
+?Discover - tindr style? stumbl upon style? pinterest style?
+Recent - news/updates/recent activity
+New - create idea form
+Profile - in's, in-mates, stars, settings, search ppl
+
+sideswipe
