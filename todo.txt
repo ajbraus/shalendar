@@ -4,8 +4,6 @@ bugs -
 
 	check that comments are sending in production
 
-	city filtering is not working
-
 	sending many new rsvp notifications (and after idea is already over)
 		new friend name and image should be link
 	make creator badge in event#show
@@ -13,9 +11,13 @@ bugs -
 	comment emails not going out - not on time
 	add creator to time - fix look of times, add location
 	don't build any relationship with yourself inmate yourself! - don't send yourself an email for a new idea
-	siloing by city not working
 
-x and check on ipad
+	speed
+
+you have no .invites -- search for friends to join their fun ideas and become .in-mates
+click new idea to create a fun idea for friends to do.
+
+put up tips for ideas - how to make a great idea - go beyond boring
 
 ajax friending
 
@@ -27,14 +29,7 @@ fix email text from katie
 
 RSVP URL && Button
 
-pipe in all the events from upcomming
-
-to stars
-
-you have no .invites -- search for friends to join their fun ideas and become .in-mates
-click new idea to create a fun idea for friends to do.
-
-put up tips for ideas - how to make a great idea - go beyond boring
+pipe in all the events from upcomming owned by particular users like orpheum etc
 
 enter in textboxes should create a pagebreak not submit the form
 

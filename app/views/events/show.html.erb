@@ -119,18 +119,18 @@
     <%= render partial: 'shared/guest_count', locals: { :event => @event } %>
     <% if user_signed_in? %>
       <% if current_user.in?(@event) %>
-        <%= render partial: 'shared/user', collection: @event.guests, as: :user %>
+        <%= render partial: 'shared/user', collection: @event.guests - [@event.user], as: :user %>
       <% else %>
-        <%= render partial: 'shared/user_not_inmate', collection: @event.guests, as: :user %>
+        <%= render partial: 'shared/user_not_inmate', collection: @event.guests - @event.user, as: :user %>
       <% end %>
     <% else %>
-      <%= render partial: 'shared/user_not_inmate', collection: @event.guests, as: :user %>
+      <%= render partial: 'shared/user_not_inmate', collection: @event.guests - @event.user, as: :user %>
     <% end %>
     <% if @event.maybes.count - @event.guests.count > 0 %>
       <div class="divider_line"></div>
       <span id="invite_count"><%= @event.maybes.count - @event.guests.count %></span> 
     <% end %>
-    <%= render partial: 'shared/user', collection: @event.maybes - @event.guests, as: :user %>
+    <%= render partial: 'shared/user', collection: @event.maybes - @event.guests - [@event.user], as: :user %>
   </div>
 
 <!-- Twitter API script -->
