@@ -4,7 +4,7 @@ class ShalendarController < ApplicationController
 	def home
     if user_signed_in?  
 #GET ALL IDEAS
-      @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.zone.now, true).reject {|i| current_user.rsvpd?(i) }
+      @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', current_user.city.id, Time.zone.now, true).reject {|i| current_user.rsvpd?(i) }
 #REJECT FRIENDS ONLY IDEAS
       @ideas = @ideas.reject do |i|
         i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)
