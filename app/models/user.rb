@@ -531,9 +531,10 @@ class User < ActiveRecord::Base
         n.data = {:registration_ids => [d.registration_id], :data => {:type => "reminder", :id => "#{@event.id}", :msg => ""}}
         n.save
       end
-    end
-    unless @user == User.find_by_email("info@hoos.in")
-      Notifier.rsvp_reminder(@event, @user).deliver
+    # else
+    #   unless @user == User.find_by_email("info@hoos.in")
+    #     Notifier.rsvp_reminder(@event, @user).deliver
+    #   end
     end
   end
 
@@ -790,6 +791,17 @@ class User < ActiveRecord::Base
             Notifier.delay.follow_up(r, fue, @new_inmates)
           end
         end
+      end
+    end
+  end
+
+  def self.send_reminders
+    @recipients = User.where('notify_event_reminders = ?', true)
+    @recipients.each do |r|
+      @now_in_zone = Time.zone.now.in_time_zone(r.city.timezone)
+      @reminder_events = r.plans.where('starts_at > ?', @now_in_zone + 1.hour)
+      @reminder_events.each do |e|
+        r.contact_reminder(e)
       end
     end
   end

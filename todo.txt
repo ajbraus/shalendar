@@ -2,7 +2,7 @@ Adam
 
 bugs - 
 
-make creator badge in event#show
+	make creator badge in event#show
 
 	check that comments are sending in production
 
