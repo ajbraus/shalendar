@@ -15,6 +15,7 @@
 		<% end %>
 	<div class="event_time">			
 		<%= event.mini_start_time %> - <%= event.nice_duration %>
+		<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>
 	</div>
 	<div class="event_blerb">
 		<%= event.title %>
@@ -26,7 +27,6 @@
 		<% event.inmates_in(current_user).each do |guest| %>
   		<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
 		<% end %>
-		<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>
 	</div>
 <% end %>	
 	<% if !current_user.rsvpd?(event) %> <!-- USER IS NOT RSVPD -->

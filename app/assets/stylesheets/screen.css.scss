@@ -1436,7 +1436,7 @@ margin-bottom: -4px;
   }
   .mini_in_out {
     float: right;
-    width: 44px;
+    width: 86px;
     .in_on_instance {
      position: absolute;
 top: 11px;
@@ -1444,10 +1444,12 @@ right: 11px;
 font-size: 25px;
     }
     .btn {
-      padding: 13px 0;
-width: 45px;
-position: relative;
-bottom: 1px;
+    padding: 4px 0;
+    width: 40px;
+    position: relative;
+    bottom: 1px;
+    float: left;
+    margin-right: 2px;
     }
   }
   .inviter {
@@ -1457,8 +1459,8 @@ bottom: 1px;
   }
   .guest_count {
 position: absolute;
-right: 4px;
-top: 11px;
+right: 14px;
+top: 0px;
   }
   .promo_img {
     float: left;
@@ -3960,9 +3962,10 @@ bottom: 10px;
 .facepile {
 padding: 3px;
 clear: both;
-width: 74%;
+width: 66%;
 text-align: left;
-margin-left:10px;
+margin-left: 10px;
+float: left;
   .profile_picture {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
