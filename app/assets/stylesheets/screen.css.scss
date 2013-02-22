@@ -1417,23 +1417,23 @@ width: 99%;
 position: relative;
 float: left;
 margin: 0 8px 8px 0;
-background-color: white;
+background-color: rgba(255, 255, 255, 0.11);
 overflow: hidden;
-border-bottom: 1px dotted #d1cdcd;
-border: 1px solid lightgray;
+border: 1px solid rgb(107, 107, 107);
 padding-top: 4px;
+letter-spacing: 1px;
+&:hover {
+  background-color: rgba(255, 255, 255, 0.21);
+}
 .not_rsvpd {
 width: 260px;
-background: white;
 min-height: 102px;
 position: relative;
 bottom: 4px;
 margin-bottom: -4px;
 }
   a {
-    color:black;
-    float: left;
-    width: 100%;
+    color:white;
   }
   .mini_in_out {
     float: right;
@@ -1457,9 +1457,9 @@ bottom: 1px;
     bottom: 30px;
   }
   .guest_count {
-    position: absolute;
-    right: 0;
-    bottom: 9px;
+position: absolute;
+right: 4px;
+top: 11px;
   }
   .promo_img {
     float: left;
@@ -1479,14 +1479,9 @@ text-align: center;
 }
 
   .event_time {
-color: black;
-background-color: white;
 padding: 0px 2px 1px 5px;
-font-size: 23px;
+font-size: 20px;
 height: auto;
-float: right;
-width: 58%;
-margin-right: 17%;
    img {
       width: 7%;
       margin-bottom: -5px;
@@ -1502,17 +1497,15 @@ margin-right: 17%;
     }
   }
   .event_blerb {
-font-size: 20px;
+font-size: 28px;
 line-height: 1;
 position: relative;
 min-height: 0;
 overflow: hidden;
 right: 0;
 bottom: 0;
-margin-bottom: 24px;
+margin-bottom: 12px;
 padding-bottom: 0;
-float: right;
-width: 75.6%;
 padding: 5px 0 0 5px;
   .profile_picture {
     width:30px;
@@ -3973,13 +3966,15 @@ padding: 3px;
 clear: both;
 width: 74%;
 text-align: left;
+margin-left:10px;
   .profile_picture {
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
     background-color: white;
     width: 27px;
     height: 27px;
-    border-radius: 0;
+    border-radius: 4px;
+    margin-left: -2px;
   }
 }
 

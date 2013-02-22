@@ -6,11 +6,13 @@
 <div class="mini_event">
 <% end %>
 	<%= link_to event.event_parent, class:"#{ !current_user.rsvpd?(event) ? 'not_rsvpd' : '' }" do %>
+		<% if false %>
 		<div class="promo_img">
 		<% if event.has_image? %>
 			<%= image_tag "#{event.image(:medium)}", style:"vertical-align:'middle'"%>
 		<% end %>
 		</div>
+		<% end %>
 	<div class="event_time">			
 		<%= event.mini_start_time %> - <%= event.nice_duration %>
 	</div>
@@ -21,7 +23,7 @@
 		by: <%= event.user.first_name_with_last_initial %>
 	</div>
 	<div class="facepile">
-		<% event.friends_in(current_user).each do |guest| %>
+		<% event.inmates_in(current_user).each do |guest| %>
   		<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
 		<% end %>
 		<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>
