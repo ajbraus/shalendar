@@ -750,7 +750,7 @@ class User < ActiveRecord::Base
 
   # Class Methods
   def self.digest
-    @digest_users = User.where("users.digest = 'true'")
+    @digest_users = User.where("digest = ?", true)
     @digest_users.each do |u|
       @current_city = u.city
       @now_in_zone = Time.zone.now.in_time_zone(@current_city.timezone)

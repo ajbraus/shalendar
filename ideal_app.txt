@@ -8,3 +8,5 @@ New - create idea form
 Profile - in's, in-mates, stars, settings, search ppl
 
 sideswipe
+
+push notifications open to ideas/comments
