@@ -1453,9 +1453,8 @@ font-size: 25px;
     }
   }
   .inviter {
-    position: absolute;
-    right: 0;
-    bottom: 30px;
+    position: relative;
+    float: right;
   }
   .guest_count {
 position: absolute;
