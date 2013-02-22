@@ -4,7 +4,7 @@ class ShalendarController < ApplicationController
 	def home
     if user_signed_in?  
 #GET ALL IDEAS
-      @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', current_user.city.id, Time.zone.now, true).reject {|i| current_user.rsvpd?(i) }
+      @ideas = Event.where('city_id = ? AND (ends_at IS NULL OR (ends_at > ? AND one_time = ?))', @current_city.id, Time.zone.now, true).reject {|i| current_user.rsvpd?(i) }
 #REJECT FRIENDS ONLY IDEAS
       @ideas = @ideas.reject do |i|
         i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)
@@ -18,7 +18,7 @@ class ShalendarController < ApplicationController
       @ideas = @ideas.reverse
 
 #GET ALL TIMES
-      @times = Event.where('city_id = ? AND ends_at > ? AND ends_at < ?', @current_city.id, Time.zone.now, Time.zone.now + 59.days).reject { |i| current_user.out?(i) }
+      @times = Event.where('city_id = ? AND (ends_at > ? AND ends_at < ?)', @current_city.id, Time.zone.now, Time.zone.now + 59.days).reject { |i| current_user.out?(i) }
 
 #attempt at getting times friends are rsvpd to
       @times = @times.select do |i|  #select those user is not out of and may be invited to
@@ -44,7 +44,7 @@ class ShalendarController < ApplicationController
       end
 
     else
-      @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND friends_only = ?', @current_city.id, Time.zone.now, true, false)
+      @ideas = Event.where('city_id = ? AND friends_only = ? AND (ends_at IS NULL OR (ends_at > ? AND one_time = ?))', @current_city.id, false, Time.zone.now, true)
     end 
     #show alert if rescue from errors:
     if params[:oofta] == 'true'
