@@ -71,7 +71,7 @@ class Notifier < ActionMailer::Base
     @user = user
     @follower = friend
     @image_url = invite_raster_picture(@follower)
-    mail to: user.email, subject: "#{@follower.name} starred you"
+    mail to: user.email, subject: "#{@follower.name} starred you on hoos.in"
   end
 
   def cancellation(event, user)
@@ -142,7 +142,7 @@ class Notifier < ActionMailer::Base
     @new_inner_ideas = new_inner_ideas
     @new_inmate_ideas = new_inmate_ideas
     @new_ideas_count = users_new_ideas_count
-    mail to: @user.email, from: "info@hoos.in", subject: "new trending ideas on hoos.in"
+    mail to: @user.email, from: "info@hoos.in", subject: "upcoming and trending ideas on hoos.in"
   end
 
   def follow_up(user, event, new_inmates)
