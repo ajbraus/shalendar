@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       end
 
       @times = @user.plans.where("starts_at > ?", Time.zone.now).order('starts_at ASC')        
-      @past_times = @user.plans.where("starts_at < ?", Time.zone.now).order('starts_at DESC').limit(10)
+      @past_times = @user.plans.where("starts_at < ?", Time.zone.now).order('starts_at ASC').limit(20).reverse
     else
       @my_ins = @user.plans.where('friends_only = ? AND starts_at IS NULL OR (one_time = ? AND ends_at > ?)', false, true, Time.zone.now)
     end
