@@ -23,17 +23,6 @@
           <%= raster_profile_picture(current_user) %>
         <% end %>
         <%= render 'shared/new_idea_button' %>
-      </div>
-  </nav>
-
-    <% if false %>
-      <!-- CITY ICON -->
-      <div class="city-icon">
-        <%= link_to yellow_pages_path, :remote => true, class:"city_vendors fancybox.ajax" do %>
-          <%= image_tag @current_city.icon.url(:icon) %>
-        <% end %>
-      </div>
-    <% end %>
     </div>
   </nav>
   <%= render 'layouts/alerts' %>

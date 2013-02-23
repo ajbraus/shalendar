@@ -624,6 +624,69 @@ position: absolute;
   }
 }
 
+/*HEADER NOT SIGNED IN*/
+  .message {
+position: relative;
+margin: 0 auto;
+background-color: rgba(250, 250, 250, 0.85);
+padding: 20px 4%;
+height: auto;
+border-radius: 7px;
+max-width: 800px;
+  .text_buttons {
+line-height: 1.3;
+  }
+    p {
+      margin:0 auto;
+      width: 90%;
+      text-indent:40px;
+    }
+    h1 {
+      margin: 10px 0;
+      padding: 20px 0 ;
+      border-bottom:1px solid $divider;
+    }
+    .login_sign_up {
+      text-align: center;
+    }
+  }
+
+.instagramFeed {
+  position: relative;
+  height: 410px;
+  span {
+    color:white;
+    font-weight: bold;
+    font-size: 30px;
+  }
+  #instaButton{
+    position: relative;
+    top:131px; 
+  }
+  p {
+    text-ident:20px;
+  }
+}
+
+.instagram-placeholder {
+  float: left;
+}
+
+.instagram {
+position: relative;
+height: 380px;
+width: 112%;
+overflow: hidden;
+}
+
+.hoosinstagram {
+  position: absolute;
+bottom: 15px;
+right: 8px;
+}
+
+
+/*NORMAL HEADER*/
 header {
   height: 93px;
   clear: both;
@@ -751,6 +814,13 @@ margin-right:2%;
 }
 
 
+.over {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
+}
 
 /*MINI EVENT*/
 
@@ -1086,7 +1156,6 @@ width: 190px;
   padding-left:15px;
 }
 
-.warning
 
 /* Manage Follows */ 
 
@@ -1416,7 +1485,6 @@ top: 10px;
 z-index: 1;
 }
 
-
 .social_buttons {
 clear: both;
 margin: 5px;
@@ -1424,11 +1492,6 @@ margin: 5px;
     display: inline;
     margin-right: -4px;
   }
-}
-
-iframe.twitter-share-button {
-width: 66px !important;
-height:22px !important;
 }
 
 .email_share {
@@ -1467,12 +1530,6 @@ padding-bottom: 3px;
   top:1px;
 }
 
-.shareable {
-  font-size: 21px;
-position: relative;
-top: 3px;
-}
-
 .event_title {
 float: left;
 position: relative;
@@ -1502,45 +1559,6 @@ position: relative;
 bottom: 3px;
 }
 
-.tipped_title {
-  -moz-box-shadow: 0 0 10px -1px $happening;
-  -webkit-box-shadow: 0 0 10px -1px $happening;
-  box-shadow: 0 0 10px -1px $happening;
-}
-
-.not_tipped_title {
-  -moz-box-shadow: 0 0 10px -1px $destroy;
-  -webkit-box-shadow: 0 0 10px -1px $destroy;
-  box-shadow: 0 0 10px -1px $destroy;
-}
-
-.social {
-z-index: 11;
-width: 461px;
-position: relative;
-margin: 8px 0;
-margin-left: 17px;
-height: 40px;
-float: left;
-}
-
-.friends-icons {
-  float:left;
-  div {
-    float: left;
-margin: 0 2px;
-  }
-}
-
-.city-icon {
-  img {
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    width: 53px;
-  }
-}
-
 #invite_raster {
 margin-top: 19px;
 ul {
@@ -1558,72 +1576,6 @@ ul {
 }
 }
 
-.show_raster {
-  img {
-    width: 35px;
-height: 35px;
-  }
-}
-
-.box {
-  border:1px solid $divider;
-      -webkit-border-radius: 7px;
-    -moz-border-radius: 7px;
-    border-radius: 7px;
-}
-
-.right_label {
-width: 100%;
-position: relative;
-left: 2px;
-}
-
-.event_label {
-font-size: 16px;
-color: grey;
-font-weight: 500;
-text-align: left;
-}
-
-.left_label {
-
-position: relative;
-left: 2px;
-}
-
-/*.invite_label{
-  font-size: 20px;
-  color: grey;
-  font-weight: 500;
-  text-align: left;
-  margin-bottom: 10px;
-  position: relative;
-  left: 10px;
-  top:10px;
-}*/
-
-.share_with_friends {
-float: right;
-position: relative;
-bottom: 25px;
-right: 20px;
-.icon-group {
-  font-size: 29px;
-  position: relative;
-  top: 4px;
-}
-.fadeInGreen {
-  &:hover{
-  color:$happening;
-  -webkit-transition: color .25s linear .1s;
-  transition: color .25s linear .1s;
-    }
-  }
-#green {
-  color:$happening;
-}
-}
-
 .event_show_friend {
 float: left;
 width: 68px;
@@ -1634,70 +1586,14 @@ top: 16px;
 position: relative;
 }
 
-.hi_friends_invite {
-  min-height: 24px;
-border-bottom: 1px solid lightGrey;
-}
-
-.fb_friends_invite {
-  clear:both;
-  h4{
-    clear:both;
-  }
-}
-
 .ui-state-hover {
   color:white;
   text-decoration: underline;
 }
 
-.invite_by_email {
-height: 180px;
-position: relative;
-width:430px;
-float: left;
-margin: 0 auto;
-padding: 34px;
-  textarea {
-    width: 90%;
-  }
-  input[type=submit] {
-    position: absolute;
-    bottom:20px;
-    right:50px;
-  }
-}
 
-.hide {
--ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
-filter: alpha(opacity=40);
--moz-opacity: 0.4;
--khtml-opacity: 0.4;
-opacity: 0.4;
-}
 
-.nav_buttons {  
- float: left;
-width: 400px;
-margin-right: 27px;
-height: 60px;
-position: absolute;
-right: 0;
-top: 10px;
-text-align: right;
-}
-
-.grey_italics {
-  font-size: 24px;
-  font-style: italic;
-  color: grey;
-  font-family: veranda;
-}
-
-.small {
-  font-size:12px;
-  margin: 8px 0;
-}
+/*COMMENTS*/
 
 .comments_form {
 float: left;
@@ -1909,10 +1805,6 @@ right: 50px;
   text-align: center;
 }
 
-#recaptcha {
-  margin-left:25px;
-}
-
 #sign_in {
 margin: 7px auto;
 position: relative;
@@ -1945,21 +1837,7 @@ position: relative;
 .ui-timepicker-rtl{ direction: rtl; }
 .ui-timepicker-rtl dl { text-align: right; }
 .ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }
-/*
-.ui-datepicker-next {
-  float:right;
-}
-.ui-datepicker-prev {
-  float:left;
-}
 
-.ui-datepicker-title {
-
-}*/
-
-/*.ui-datepicker-calendar {
-  width: 330px;
-}*/
 
 .ui-slider-horizontal {
   position: relative;
@@ -1971,7 +1849,7 @@ width: 230px;
   width: 100px;
 }
 
-
+/*NEW IDEA*/
 
 .event_form {
   margin: 0 auto;
@@ -2109,11 +1987,7 @@ margin-top: 10px;
   margin: 10px 10px 25px 10px;
 }
 
-#minmax {
-  margin-left: 20px;
-}
-
-#addLink, #addDateTime, #addmap, #addimg, #addtipping, #addcost, #addvid, #addcategories, #visibility {
+#addLink, #addDateTime, #addmap, #addimg, #addcost, #addvid, #visibility {
   cursor:pointer;
   color:black;
   text-decoration: none;
@@ -2133,7 +2007,7 @@ margin-top: 15px;
 width: 100%;
 }
 
-#addLinkp, #addmapp, #addimgp, #addvidp, #addcategoriesp {
+#addLinkp, #addmapp, #addimgp, #addvidp {
   float:left;
   margin-bottom: 15px;
   width: 100%;
@@ -2159,30 +2033,6 @@ width: 100%;
   }
 }
 
-div.tippingIcon {
-width: 16%;
-position: relative;
-top: 31px;
-text-align: right;
-margin-right: 1px;
-float:left;
-}
-
-.address-picker-map {
-  border: 1px solid #DDD;
-display: inline-block;
-width: 407px;
-height: 200px;
-margin: 10px 0 13px 14px;
--moz-box-shadow: 0 0 12px -1px black;
--webkit-box-shadow: 0 0 12px -1px black;
-box-shadow: 0 0 12px -1px black;
-}
-
-select {
-  width: 130px;
-}
-
 #error_explanation {
   color: #f00;
   ul {
@@ -2196,146 +2046,8 @@ select {
   @extend .error;
 }
 
-  .top {
-    border-bottom:1px solid $divider;
-margin: 0 auto;
-position: relative;
-top: 10px;
-  }
-  .middle {
-    border-bottom:1px solid $divider;
-    padding:20px 0;
-    width: 90%;
-margin: 0 auto;
-    p {
-    margin:0 auto;
-    width:66%;
-    text-indent:50px;
-    }
-    h3 {
-      margin: 9px auto;
-width: 66%;
-    }
-  }
 
-  .bottom {
-    margin:0 auto;
-    padding:40px 0;
-    width: 80%;
-margin: 0 auto;
-    p {
-      width:66%;
-    }
-  }
-
-  .message {
-position: relative;
-margin: 0 auto;
-background-color: rgba(250, 250, 250, 0.85);
-padding: 20px 4%;
-height: auto;
-border-radius: 7px;
-max-width: 800px;
-  .text_buttons {
-line-height: 1.3;
-  }
-    p {
-      margin:0 auto;
-      width: 90%;
-      text-indent:40px;
-    }
-    h1 {
-      margin: 10px 0;
-      padding: 20px 0 ;
-      border-bottom:1px solid $divider;
-    }
-    .login_sign_up {
-      text-align: center;
-    }
-  }
-
-.instagramFeed {
-  position: relative;
-  height: 410px;
-  span {
-    color:white;
-    font-weight: bold;
-    font-size: 30px;
-  }
-  #instaButton{
-    position: relative;
-    top:131px; 
-  }
-  p {
-    text-ident:20px;
-  }
-}
-
-.instagram-placeholder {
-  float: left;
-}
-
-.instagram {
-position: relative;
-height: 380px;
-width: 112%;
-overflow: hidden;
-}
-
-.hoosinstagram {
-  position: absolute;
-bottom: 15px;
-right: 8px;
-}
-
-.invited_events {
-max-height: 430px;
-overflow: auto;
-width: 64%;
-position: absolute;
-z-index: 4;
-margin: 0 auto;
-top: 50px;
-left: 17%;
-  li {
-    float:left;
-  }
-}
-
-.invitations{
-position: absolute;
-top: 24px;
-right: -132px;
-width: 350px;
-height: auto;
-padding: 0px;
-
-}
-
-#loading {
-  position: absolute;
-  width: 100%;
-  height:100%;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 10000000;
-  background-repeat: no-repeat;
-  img {
-position: absolute;
-left: 45%;
-top: 25%;
-  }
-}
-
-.over {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-  filter: alpha(opacity=50);
-  -moz-opacity: 0.5;
-  -khtml-opacity: 0.5;
-  opacity: 0.5;
-}
+/*ADMIN DASHBOARD*/
 
 .admin {
   margin: 0 auto;
@@ -2387,7 +2099,6 @@ line-height: 10px;
 .groups {
   clear:both;
   }
-
 
 .activity_time {
   margin-top:20px;
