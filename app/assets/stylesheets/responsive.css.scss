@@ -24,9 +24,7 @@ body {
 	.name {
 		display: none;
 	}
-	.friend_suggestions {
-		display:none;
-	}
+
 	.user_search {
 		position: absolute;
 		bottom: 58px;
@@ -87,21 +85,6 @@ body {
 
 	.email_share {
 		width: 27%;
-	}
-
-	.right_header {
-top: 3px;
-right: 0px;
-width: 70%;
-font-size: 19px;
-	img {
-width: 45px;
-height: 45px;
-position: relative;
-	}
-	}
-
-	.floatingHeader {
 	}
 
 	.btn-new-idea {

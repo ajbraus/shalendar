@@ -14,10 +14,6 @@
 		display:none;
 	}
 
-	.responsive_profile_pic {
-		display: none;
-	}
-
 	.forecast {
 		overflow-x: hidden;
 		width: 93%;
@@ -31,14 +27,6 @@
 		.text_buttons {
 			font-size: 26px;
 		}
-	}
-
-	#yt {
-		display:none;
-	}
-
-	.btn-today {
-		display:none;
 	}
 
 	.logo {
@@ -134,13 +122,6 @@ form {
 		}
 	}
 
-	.right_header {
-		top: 12px;
-		right: 0px;
-		width: 44%;
-		font-size: 15px;
-	}
-
 	#friends {
 width: 97%;
 top: 13px;
@@ -225,21 +206,6 @@ padding: 1px 0 10px 2px;
 			}
 		}
 
-		ul.right_header {
-			font-size: 16px;
-		}
-
-		.interests {
-			right: 192px;
-		}
-
-		.floatingHeader {
-		}
-
-
-		.fb_login_button {
-		}
-
 		.instagram-placeholder img {
 			width: 138px;
 			height: 138px;
@@ -252,10 +218,6 @@ padding: 1px 0 10px 2px;
 
 		.alert {
 			width: 960px;
-		}
-
-		#ribbon {
-
 		}
 
 		.btn-new-idea {

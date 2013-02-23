@@ -799,7 +799,8 @@ class User < ActiveRecord::Base
     @recipients = User.where('notify_event_reminders = ?', true)
     @recipients.each do |r|
       @now_in_zone = Time.zone.now.in_time_zone(r.city.timezone)
-      @reminder_events = r.plans.where('starts_at > ?', @now_in_zone + 1.hour)
+      @time_range = @now_in_zone + 1.hour..@now_in_zone + 1.hour + 15.minutes
+      @reminder_events = r.plans.where(starts_at: @time_range)
       @reminder_events.each do |e|
         r.contact_reminder(e)
       end
