@@ -25,7 +25,7 @@ class RegistrationsController < Devise::RegistrationsController
 
       if User.find_by_email("info@hoos.in").present?
         @hoosin_user = User.find_by_email("info@hoos.in")
-        resource.friend!(@hoosin_user)
+        resource.inmate!(@hoosin_user)
       end
 
       if resource.active_for_authentication?

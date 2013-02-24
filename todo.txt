@@ -12,16 +12,9 @@ bugs -
 
 	make creator badge in event#show
 
-	seeing pechakucha even though time is in past - don't show past times
-
-	don't create starred inmates with hoos.in
-
 	fix 'starred and inmates in search results'
 
-	mobile header is screwy
-
 	sort another person's friends by if they are inmates with current user
-
 
 	check that comments and reminders are sending in production
 

@@ -93,7 +93,9 @@
       #SEND CONTACT TO ALL PPL WHO STAR CURRENT USER
       @friended_bys = current_user.friended_bys
       @friended_bys.each do |sb|
-        sb.delay.contact_new_idea(@event)
+        unless sb == current_user
+          sb.delay.contact_new_idea(@event)
+        end
       end
 
       respond_to do |format|
