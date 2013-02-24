@@ -642,9 +642,8 @@ class User < ActiveRecord::Base
         n.data = {:registration_ids => [d.registration_id], :data => {msg: "from #{@commenter.name}", :type => "new_comment", :id => "#{@event.id}"}}
         n.save
       end
-    else
-      Notifier.email_comment(@comment, @user).deliver
     end
+      Notifier.email_comment(@comment, @user).deliver
   end
 
   def contact_cancellation(event)
