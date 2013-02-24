@@ -2,25 +2,41 @@ Adam
 
 bugs - 
 
-	make creator badge in event#show
+	idea creator getting all notifications upon idea create
 
-	check that comments are sending in production
+	remove ideas that aren't the .in's of in-mates -- teach ppl how to be great at hoos.in
 
-	sending many new rsvp notifications (and after idea is already over)
-		new friend name and image should be link
+	why ricky's party not showing?
 
-	turn on reminders
-
-	send digest
-
-	inmates are not being counted correctly as in on ideas mini_events - probably needs to be reverse_relationship
-	comment emails not going out - not on time
-	add creator to time - fix look of times, add location
 	don't build any relationship with yourself inmate yourself! - don't send yourself an email for a new idea
 
+	make creator badge in event#show
+
+	seeing pechakucha even though time is in past - don't show past times
+
+	don't create starred inmates with hoos.in
+
+	fix 'starred and inmates in search results'
+
+	mobile header is screwy
+
+	sort another person's friends by if they are inmates with current user
+
+
+	check that comments and reminders are sending in production
+
+	new friend name and image should be link
+
+	inmates are not being counted correctly as in on ideas mini_events - probably needs to be reverse_relationship
+
+	add creator to time - fix look of times, add location
+
 	speed
-		DOM processing
-		guest counts cache counters
+		guest counts cache counters?
+
+	your friend just joined hoos.in and you are now in-mates!
+
+	add tone
 
 
 you have no .invites -- search for friends to join their fun ideas and become .in-mates

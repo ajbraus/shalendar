@@ -515,7 +515,7 @@ class User < ActiveRecord::Base
           n.device = d
           n.alert = "#{@event.short_event_title} starts at #{@event.start_time_no_date}"
           n.badge = 1
-          n.sound = false
+          n.sound = true
           n.custom_properties = {:type => "reminder", :id => "#{@event.id}", msg: ""}
           n.save
       end
@@ -799,7 +799,7 @@ class User < ActiveRecord::Base
     @recipients = User.where('notify_event_reminders = ?', true)
     @recipients.each do |r|
       @now_in_zone = Time.zone.now.in_time_zone(r.city.timezone)
-      @time_range = @now_in_zone + 1.hour..@now_in_zone + 1.hour + 15.minutes
+      @time_range = @now_in_zone + 1.hour..@now_in_zone + 1.hour + 10.minutes
       @reminder_events = r.plans.where(starts_at: @time_range)
       @reminder_events.each do |e|
         r.contact_reminder(e)

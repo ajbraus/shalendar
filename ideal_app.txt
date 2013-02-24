@@ -1,4 +1,20 @@
+swipe back and forth to get in/out buttons
 
+swipe down to reload
+
+push notifications open directly to ideas or comments or profile
+
+remove rounded corners of image field
+
+make it so image does not stretch in new idea form
+
+switch in middle of top - calendar/ideas
+
+Differentiate between .ins and .invites more 
+
+times - dark, ideas - light
+
+taller ideas with beginning of description in grey
 
 
 Home - defaults to calendar
@@ -6,7 +22,3 @@ Home - defaults to calendar
 Recent - news/updates/recent activity
 New - create idea form
 Profile - in's, in-mates, stars, settings, search ppl
-
-sideswipe
-
-push notifications open to ideas/comments

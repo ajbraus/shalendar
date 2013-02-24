@@ -1619,7 +1619,7 @@ left: 14px;
   }
   .btn {
 position: relative;
-padding: 18px 7px 21px 7px;
+padding: 17px 7px 21px 7px;
 -webkit-border-radius: 0 7px 7px 0;
 -moz-border-radius: 0 7px 7px 0;
 border-radius: 0 7px 7px 0;
@@ -3084,7 +3084,6 @@ margin-right: -19px;
 box-shadow: -2px 2px 0 rgba(0, 0, 0, 0.1);
   &:before{
     content:" ";
-    background: url(../img/css/ribbon-2.png);
     right: 0;
     left: auto;
     display:block;
