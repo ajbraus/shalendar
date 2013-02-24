@@ -85,11 +85,11 @@ class User < ActiveRecord::Base
   has_many :reverse_relationships, :foreign_key => "followed_id",
                                    :class_name => "Relationship",
                                    :dependent => :destroy
-  has_many :followers, :through => :reverse_relationships, :source => :follower
+  
+  has_many :friended_bys, :through => :reverse_relationships, :source => :follower
 
   has_many :inmates, through: :relationships, source: :followed, conditions: "status = 1"  
   has_many :friends, through: :relationships, source: :followed, conditions: "status = 2"  
-  has_many :starred_bys, through: :relationships, source: :follower, conditions: "status = 2"
 
   has_many :comments, dependent: :destroy
 
@@ -643,7 +643,7 @@ class User < ActiveRecord::Base
         n.save
       end
     end
-      Notifier.email_comment(@comment, @user).deliver
+    Notifier.email_comment(@comment, @user).deliver
   end
 
   def contact_cancellation(event)

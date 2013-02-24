@@ -91,8 +91,8 @@
       end # END If starts_at present
 
       #SEND CONTACT TO ALL PPL WHO STAR CURRENT USER
-      @starred_bys = current_user.starred_bys
-      @starred_bys.each do |sb|
+      @friended_bys = current_user.friended_bys
+      @friended_bys.each do |sb|
         sb.delay.contact_new_idea(@event)
       end
 
