@@ -2580,9 +2580,10 @@ line-height: 1;
 
 #calendars {
 float: right;
-position: relative;
+position: absolute;
 height: 77px;
-top: 6px;
+right: 5px;
+top: 3px;
   li {
     img {
       width: 35px;
