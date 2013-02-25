@@ -8,6 +8,8 @@ bugs -
 
 	why ricky's party not showing?
 
+	remove shields from home when  your not logged in.
+
 	don't build any relationship with yourself inmate yourself! - don't send yourself an email for a new idea
 
 	make creator badge in event#show

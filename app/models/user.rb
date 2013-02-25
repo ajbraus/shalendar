@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
                                    :class_name => "Relationship",
                                    :dependent => :destroy
   
-  has_many :friended_bys, :through => :reverse_relationships, :source => :follower
+  has_many :friended_bys, :through => :reverse_relationships, :source => :follower, conditions: "status = 2"
 
   has_many :inmates, through: :relationships, source: :followed, conditions: "status = 1"  
   has_many :friends, through: :relationships, source: :followed, conditions: "status = 2"  
