@@ -479,7 +479,7 @@ class User < ActiveRecord::Base
       else
           n = APN::Notification.new
           n.device = d
-          n.alert = "#{@user.name} posted a new idea - #{@event.title}"
+          n.alert = "#{@event.user.name} posted a new idea - #{@event.title}"
           n.badge = 1
           n.sound = false
           n.custom_properties = {:type => "new_idea", :id => "#{@event.id}", msg: ""}
@@ -492,7 +492,7 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "#{@user.name} invited you to a new idea - #{@event.title}"
+        n.collapse_key = "#{@event.user.name} invited you to a new idea - #{@event.title}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {:type => "reminder", :id => "#{@event.id}", :msg => ""}}
         n.save

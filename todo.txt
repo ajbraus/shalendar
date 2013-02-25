@@ -16,8 +16,6 @@ bugs -
 
 	sort another person's friends by if they are inmates with current user
 
-	check that comments and reminders are sending in production
-
 	new friend name and image should be link
 
 	inmates are not being counted correctly as in on ideas mini_events - probably needs to be reverse_relationship
@@ -29,15 +27,17 @@ bugs -
 
 	your friend just joined hoos.in and you are now in-mates!
 
-	add tone
+add mute button in chat
 
-
-you have no .invites -- search for friends to join their fun ideas and become .in-mates
-click new idea to create a fun idea for friends to do.
+event#new
+	share on fb/twitter
 
 put up tips for ideas - how to make a great idea - go beyond boring
 
 ajax friending
+
+you have no .invites -- search for friends to join their fun ideas and become .in-mates
+click new idea to create a fun idea for friends to do.
 
 change background button in profile
 
@@ -47,24 +47,10 @@ fix email text from katie
 
 RSVP URL && Button
 
-pipe in all the events from upcomming owned by particular users like orpheum etc
-
 enter in textboxes should create a pagebreak not submit the form
-
-put vid in lightbox
-
-event#new
-	share on fb/twitter
-
-improve facepile - Niko, anne, mich. . .
-
-turn reminders back on
 
 explain social relevance of main page
 
-make guests background slighlty pink like background of event_show
-
-when in someone's profile display their friends, and your mutual friends sorted by if they are in your inner circle
 
 NOTIFIERS:
 	add stats to digest
@@ -72,7 +58,6 @@ NOTIFIERS:
 
 Friend from email
 RSVP in or out from email
-
 
 invites for launch:
 
@@ -102,7 +87,6 @@ add footer to event#show and profile and login/signup pages
 sort guests by friends
 
 add instructions
-
 
 NOTIFIERS:
 	add stats to digest
@@ -202,8 +186,6 @@ make comments asynconous
 plan b-day parties through hoos.in! -> save off b-days
 
 create a user from mobile
-
-add mute button in chat
 
 add shortener
 
