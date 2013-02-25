@@ -117,6 +117,12 @@ $ ->
 	$('#event_address').keyup ->
 		address = $(@).val();
 		$('#eventLocation').text(" " + address);
+
+	#NEW TIME ADDRESS
+	$('#newTimeAddress').keyup ->
+		address = $(@).val();
+		$('#eventAddress').text(" " + address);
+
 	#LINK
 	$('#event_link').keyup ->
 		link = $(@).val();

@@ -18,7 +18,7 @@
 		</div>
 		<div id="addmapp">
 	  	<%= label_tag "Update Location?" %><br/>
-	  	<i class="icon-map-marker"></i><%= f.text_field :address, autocomplete: "off", value:"#{@parent ? @parent.address : '' }" %>
+	  	<i class="icon-map-marker"></i><%= f.text_field :address, autocomplete: "off", id:"newTimeAddress", value:"#{@parent ? @parent.address : '' }" %>
 		</div>
 
 		<% if false %>
