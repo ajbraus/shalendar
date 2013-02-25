@@ -179,7 +179,7 @@ class Event < ActiveRecord::Base
   end
 
   def inmates_in(current_user)
-    self.guests.select { |g| current_user.is_inmates_or_friends_with?(g) }
+    self.guests.select { |g| current_user.is_inmates_with?(g) }
   end
 
   def friends_invited_count(current_user)

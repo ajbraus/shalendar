@@ -2,20 +2,19 @@
 <%= render 'mini_calendar' %>
 	  <div class="container_wrapper">
 			<div class="home_idea_container clearfix">
+<% if false %>
 		    <div class="filters">
 		    	<span id="invites" class="selected"><span id="invites_count"><%= @ideas.count %></span> .invites</span> | <span id="ins" class="unselected"><span id="ins_count"><%= current_user.ins.count %></span> .ins</span>
 		    </div>
+<% end %>
 
-				<div id="ideaContainer" >
-			  	<%= render partial: "shalendar/event", collection: @ideas %>
+				<h1><span id="invites_count"></span> .invites</h1>
+				<div id="invitesContainer" class="idea_container" >
 				</div>
-				<div id="insContainer" style="display:none;">
-			 		<%= render partial: "shalendar/event", collection: current_user.ins %>
+				<h1><span id="ins_count"></span> .ins</h1>
+				<div id="insContainer" class="idea_container" >
 				</div>
 			</div>
 		</div>
-<% else %>
-	<div id="ideaContainer">
-	 <%= render partial: "shalendar/event", collection: @ideas %>
-	</div>
+		<%= render partial: "shalendar/event", collection: @ideas %>
 <% end %>

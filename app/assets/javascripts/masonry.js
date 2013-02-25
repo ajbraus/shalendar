@@ -26,6 +26,7 @@ $(document).ready(function() {
   $('#ideaContainer').imagesLoaded( function(){
     $(this).masonry('reload');
   });
+
   $('.idea_container').imagesLoaded( function(){
     $('.idea_container').masonry({
       itemSelector : '.event',
@@ -33,7 +34,6 @@ $(document).ready(function() {
       isAnimated: true,
       animationOptions: {
       duration: 50,
-      // cornerStampSelector: '.suggested_friends'
       }
     });
   });

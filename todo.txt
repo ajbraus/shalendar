@@ -2,9 +2,7 @@ Adam
 
 bugs - 
 
-	grey line on right side of logo
-
-	remove ideas that aren't the .in's of in-mates -- teach ppl how to be great at hoos.in
+	grey line on right side of logo in email
 
 	why ricky's party not showing?
 

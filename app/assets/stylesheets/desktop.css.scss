@@ -22,7 +22,7 @@
 		width: 111px;
 	}
 	.message {
-		bottom: 335px;
+		bottom: 415px;
 		width: 80%;
 		.text_buttons {
 			font-size: 26px;
@@ -152,9 +152,8 @@ float:left;
 
 	.event_guests {
 width: 29%;
-position: absolute;
-top: 4px;
-right: 2%;
+float: right;
+margin-right: 2%;
 }
 
 	.maybes {
@@ -207,9 +206,9 @@ padding: 1px 0 10px 2px;
 		}
 
 		.instagram-placeholder img {
-			width: 138px;
-			height: 138px;
-			margin-top: -5px;
+width: 158px;
+height: 158px;
+margin-top: -5px;
 		}
 
 		.top {

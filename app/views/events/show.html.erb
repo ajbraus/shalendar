@@ -119,11 +119,14 @@
     <%= render partial: 'shared/guest_count', locals: { :event => @event } %>
     <% if user_signed_in? %>
       <% if current_user.in?(@event) %>
+        <%= render partial: 'shared/user', collection: [@event.user], as: :user %>
         <%= render partial: 'shared/user', collection: @event.guests - [@event.user], as: :user %>
       <% else %>
+        <%= render partial: 'shared/user_not_inmate', collection: [@event.user], as: :user %>
         <%= render partial: 'shared/user_not_inmate', collection: @event.guests - [@event.user], as: :user %>
       <% end %>
     <% else %>
+      <%= render partial: 'shared/user_not_inmate', collection: [@event.user], as: :user %>
       <%= render partial: 'shared/user_not_inmate', collection: @event.guests - [@event.user], as: :user %>
     <% end %>
     <% if @event.maybes.count - @event.guests.count > 0 %>
