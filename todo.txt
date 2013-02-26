@@ -4,21 +4,9 @@ bugs -
 
 	asks for city after signup if no match.
 
-	updated types
-		new_idea
-		reminder
-		new_time
-		time_change
-		new_comment
-		cancel
-		new_friend
-		new_rsvp
-
 	add email buttons
 
-	add calls to action to bottom of all emails
-
-	make sure reminders and comment pushes and emails are sending
+	add one_time to edit idea
 
 	personalize emails / invitations
 
