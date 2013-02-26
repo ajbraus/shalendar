@@ -1,6 +1,6 @@
 <div class="comments_form">
 	<%= form_for([@event, @event.comments.build]) do |f| %>
-	  <%= small_profile_picture(current_user) %> <%= f.text_area :content, autocomplete: "off" %>
+	  <%= small_profile_picture(current_user) %> <%= f.text_area :content, autocomplete: "off", placeholder:"Share .info about this idea with other .ins" %>
 	 	<button class="btn btn-primary" id="new_comment_button" name="commit" type="submit" value="send">
 	 		<i class="icon-comment"></i>
 	 	</button>

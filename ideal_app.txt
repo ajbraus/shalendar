@@ -1,6 +1,7 @@
-native login from mobile
+pull up to search ppl
+pull up to refresh
 
-pull down refresh
+native login from mobile
 
 click on ppl's faces gives you their profile or a bigger pic of them.
 
@@ -14,8 +15,6 @@ taller ideas with beginning of description in grey
 
 Make times group under their days
 give a gradient to the day bar
-
-
 
 swipe back and forth to get in/out buttons
 
@@ -36,13 +35,19 @@ switch in middle of top - calendar/ideas
 
 --------------------------------------------------
 
+News
+
+check in functionality
+
+payments
+
 add internal web browser
 
 swipe down to reload
 
 
 Home - defaults to calendar
-?Discover - tindr style? stumbl upon style? pinterest style?
-Recent - news/updates/recent activity
+Discover - tindr style? stumbl upon style? pinterest style?
 New - create idea form
+Recent - news/updates/recent activity
 Profile - in's, in-mates, stars, settings, search ppl

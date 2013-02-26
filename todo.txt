@@ -2,11 +2,7 @@ Adam
 
 bugs - 
 
-	add all times to calendar
-	
 	add email buttons
-
-	tune emails subjects
 
 	personalize emails
 
