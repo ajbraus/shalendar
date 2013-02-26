@@ -245,7 +245,7 @@ class Api::V2::EventsController < ApplicationController
       render :status => 400, :json => {:error => "could not find your user"}
       return
     end
-    @invites = Event.where('city_id = ? AND (ends_at IS NULL OR ends_at > ?)', @current_city.id, Time.zone.now).reject { |i| current_user.out?(i) || current_user.in?(i)}
+    @invites = Event.where('city_id = ? AND (ends_at IS NULL OR ends_at > ?)', @current_city.id, Time.now).reject { |i| current_user.out?(i) || current_user.in?(i)}
     @invites = @invites.reject do |i|
       if i.has_parent?
         i.friends_only && !current_user.in?(i) && !current_user.in?(i.parent) && !i.user.is_friends_with?(current_user)
@@ -265,7 +265,7 @@ class Api::V2::EventsController < ApplicationController
       e = Event.find(eid)
       if e.present?
         if e.ends_at.present?
-          if e.ends_at > Time.zone.now
+          if e.ends_at > Time.now
             @relevant = true
           end
         else
