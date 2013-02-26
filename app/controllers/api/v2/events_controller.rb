@@ -19,15 +19,15 @@ class Api::V2::EventsController < ApplicationController
 
     @invites_ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.zone.now, true).reject { |i| current_user.out?(i) || current_user.in?(i)}
 
+    @invites_ideas = @invites_ideas.reject do |i| 
+      !current_user.in?(i) && (current_user.out?(i) || (current_user.inmates & i.guests).none? || (i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)))
+    end
+
     @invites_ideas = @invites_ideas.sort_by do |i| 
         i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
             i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
     end
     @events = @invites_ideas
-
-    @events = @events.reject do |i|
-      i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)
-    end
 
     if (@count + @window_size) < @events.count
       @events = @events[@count .. @count + @window_size-1]

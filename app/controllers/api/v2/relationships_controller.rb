@@ -84,7 +84,10 @@ include UsersHelper
   end
 
   def get_friends
-    render json: current_user.inmates | current_user.friends
+    render json: {
+      myself: current_user,
+      friends: current_user.inmates | current_user.friends
+      }
   end
 
   def get_profile

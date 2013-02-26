@@ -7,10 +7,9 @@ class ShalendarController < ApplicationController
       @ideas = Event.where('city_id = ? AND (ends_at IS NULL OR (ends_at > ? AND one_time = ?))', @current_city.id, Time.zone.now, true)
       #@invites = Event.where('city_id = ? AND (ends_at IS NULL OR (ends_at > ? AND one_time = ?))', @current_city.id, Time.zone.now, true)
       #                .joins(:guests => :relationships).where('status >= 1')
-
 #REJECT OUTS || NOT INMATE IDEAS || FRIENDS ONLY IDEAS
       @ideas = @ideas.reject do |i| 
-        !current_user.in?(i) && (current_user.out?(i) || (current_user.inmates & i.guests).none? || (i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)))
+        !current_user.in?(i) && (current_user.out?(i) || !current_user.invited?(i))
       end
 
 #SORT IDEAS BY #INNERCIRCLE AND THEN #OF INMATES
