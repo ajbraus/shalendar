@@ -45,7 +45,7 @@
 		<% if user_signed_in? %>
 		<div class="facepile">
 	  	<% if user_signed_in? %>
-  			<% event.friends_in(current_user).each do |guest| %>
+  			<% event.friends_and_inmates_in(current_user).each do |guest| %>
     			<span title="<%= guest.first_name %>"><%= raster_profile_picture(guest) %></span>
   			<% end %>
   		<% else %>

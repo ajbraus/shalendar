@@ -14,10 +14,6 @@
 		display:none;
 	}
 
-	.responsive_profile_pic {
-		display: none;
-	}
-
 	.forecast {
 		overflow-x: hidden;
 		width: 93%;
@@ -26,19 +22,11 @@
 		width: 111px;
 	}
 	.message {
-		bottom: 335px;
+		bottom: 415px;
 		width: 80%;
 		.text_buttons {
 			font-size: 26px;
 		}
-	}
-
-	#yt {
-		display:none;
-	}
-
-	.btn-today {
-		display:none;
 	}
 
 	.logo {
@@ -112,21 +100,26 @@ height: 100%;
 		left: -2px;
 	}
 
+	.event_description {
+		width:47%;
+	}
+
+	.eventTitle {
+		width:47%;
+	}
+
 	.user_search {
 float: right;
 position: relative;
 bottom: -8px;
 right: 3.7%;
+width: 251px;
+form {
+	float: right;
+}
 		input[type=text] {
 		width: 185px;
 		}
-	}
-
-	.right_header {
-		top: 12px;
-		right: 0px;
-		width: 44%;
-		font-size: 15px;
 	}
 
 	#friends {
@@ -137,9 +130,10 @@ top: 13px;
 	.event_show {
 width: 57%;
 max-width: 840px;
-margin-right: 6%;
-float: right;
+margin-left: 6%;
+float: left;
 		.promo_img {
+			width: 43%;
 			img {
 				max-width: 100%;
 			}
@@ -158,9 +152,8 @@ float:left;
 
 	.event_guests {
 width: 29%;
-position: absolute;
-top: 4px;
-left: 2%;
+float: right;
+margin-right: 2%;
 }
 
 	.maybes {
@@ -212,25 +205,10 @@ padding: 1px 0 10px 2px;
 			}
 		}
 
-		ul.right_header {
-			font-size: 16px;
-		}
-
-		.interests {
-			right: 192px;
-		}
-
-		.floatingHeader {
-		}
-
-
-		.fb_login_button {
-		}
-
 		.instagram-placeholder img {
-			width: 138px;
-			height: 138px;
-			margin-top: -5px;
+width: 158px;
+height: 158px;
+margin-top: -5px;
 		}
 
 		.top {
@@ -239,10 +217,6 @@ padding: 1px 0 10px 2px;
 
 		.alert {
 			width: 960px;
-		}
-
-		#ribbon {
-
 		}
 
 		.btn-new-idea {

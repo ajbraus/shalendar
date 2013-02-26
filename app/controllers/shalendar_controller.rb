@@ -3,29 +3,34 @@ class ShalendarController < ApplicationController
 
 	def home
     if user_signed_in?  
-#GET ALL IDEAS
-      @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.zone.now, true).reject {|i| current_user.rsvpd?(i) }
-#REJECT FRIENDS ONLY IDEAS
-      @ideas = @ideas.reject do |i|
-        i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)
+# #GET ALL IDEAS
+      @ideas = Event.where('city_id = ? AND (ends_at IS NULL OR (ends_at > ? AND one_time = ?))', @current_city.id, Time.zone.now, true)
+      #@invites = Event.where('city_id = ? AND (ends_at IS NULL OR (ends_at > ? AND one_time = ?))', @current_city.id, Time.zone.now, true)
+      #                .joins(:guests => :relationships).where('status >= 1')
+
+#REJECT OUTS || NOT INMATE IDEAS || FRIENDS ONLY IDEAS
+      @ideas = @ideas.reject do |i| 
+        !current_user.in?(i) && (current_user.out?(i) || (current_user.inmates & i.guests).none? || (i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)))
       end
+
 #SORT IDEAS BY #INNERCIRCLE AND THEN #OF INMATES
       @ideas = @ideas.sort_by do |i| 
-        i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*100 + 
+        i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*25 + 
             i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
       end
 #SORT BY IS ONLY ASC SO REVERSE EM!
       @ideas = @ideas.reverse
 
+
 #GET ALL TIMES
-      @times = Event.where('city_id = ? AND ends_at > ? AND ends_at < ?', @current_city.id, Time.zone.now, Time.zone.now + 59.days).reject { |i| current_user.out?(i) }
+      @times = Event.where('city_id = ? AND (ends_at > ? AND ends_at < ?)', @current_city.id, Time.zone.now, Time.zone.now + 59.days).reject { |i| current_user.out?(i) }
 
 #attempt at getting times friends are rsvpd to
       @times = @times.select do |i|  #select those user is not out of and may be invited to
         if i.parent.present?
-          current_user.in?(i) || current_user.in?(i.parent) || i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count > 0 
+          current_user.in?(i) || current_user.in?(i.parent) || i.guests.joins(:relationships).where('status >= ? AND follower_id = ?', 1, current_user.id).count > 0 
         else
-          current_user.in?(i) || i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count > 0
+          current_user.in?(i) || i.guests.joins(:reverse_relationships).where('status >= ? AND follower_id = ?', 1, current_user.id).count > 0
         end
       end
 
@@ -42,9 +47,6 @@ class ShalendarController < ApplicationController
           !i.user.is_friends_with?(current_user)
         end
       end
-
-    else
-      @ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?) AND friends_only = ?', @current_city.id, Time.zone.now, true, false)
     end 
     #show alert if rescue from errors:
     if params[:oofta] == 'true'
@@ -157,7 +159,7 @@ class ShalendarController < ApplicationController
     @active_users = User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.zone.now - 2.weeks]).count
 
     @start_date = User.unscoped.order('created_at asc').first.created_at.to_date
-    @today = Date.today
+    @today = Date.current
     @weeks = (@today - @start_date).round/7
     @users_per_week = []
     (0..@weeks).each do |week|

@@ -99,7 +99,7 @@ class PaymentsController < ApplicationController
   end
 
   def self.recurring_billing
-    @venues_to_charge = User.all.select { |u| u.vendor? && u.account_uri.present? && u.created_at > Date.today - 1.month }
+    @venues_to_charge = User.all.select { |u| u.vendor? && u.account_uri.present? && u.created_at > Date.current - 1.month }
     @venues_to_charge.each do |v|
       @amount = 2500
       @account = Balanced::Account.find(v.account_uri)

@@ -23,7 +23,7 @@
         <i class="icon-map-marker"></i><%= f.text_field :address, autocomplete: "off", value:"#{@parent ? @parent.address : '' }" %>
       </div>
 
-      <%= f.submit 'Update .instance', :class => 'btn btn-large btn-primary', method: :post %>
+      <%= f.submit 'Update Time', :class => 'btn btn-large btn-primary', method: :post %>
       <%= link_to "cancel", @event, class: "btn btn-cancel" %>
     <% end %>
       

@@ -71,7 +71,7 @@ class Notifier < ActionMailer::Base
     @user = user
     @follower = friend
     @image_url = invite_raster_picture(@follower)
-    mail to: user.email, subject: "#{@follower.name} starred you"
+    mail to: user.email, subject: "#{@follower.name} starred you on hoos.in"
   end
 
   def cancellation(event, user)
@@ -84,7 +84,7 @@ class Notifier < ActionMailer::Base
 
   def email_comment(comment, user)
     @comment = comment
-    @commenter = @comment.user.name
+    @commenter = @comment.user.first_name_with_last_initial
     @event = @comment.event
     @comments = @event.comments.order('created_at DESC').limit(4)
     @comments.shift(1)
@@ -98,7 +98,7 @@ class Notifier < ActionMailer::Base
     @event = event
     @user = user
     unless @user == User.find_by_email("info@hoos.in")
-      mail to: @user.email, subject: "#{@event.user.name} .invited you to a new idea"
+      mail to: @user.email, subject: ".invite - #{@event.short_event_title} - #{@event.user.first_name_with_last_initial} "
     end
   end
 
@@ -107,7 +107,7 @@ class Notifier < ActionMailer::Base
     @event = event
 
     unless @user == User.find_by_email("info@hoos.in")
-      mail to: @user.email, subject: "idea beginning this .instant - #{@event.short_event_title}"
+      mail to: @user.email, subject: "this .instant - #{@event.short_event_title} is starting"
     end
   end
 
@@ -132,7 +132,7 @@ class Notifier < ActionMailer::Base
     @user = @event.user
     @rsvping_user = rsvping_user
     @image_url = invite_raster_picture(@rsvping_user)
-    mail to: @user.email, from: "info@hoos.in", subject: "you have a new .in - #{@rsvping_user.name}"
+    mail to: @user.email, from: "info@hoos.in", subject: "new .in - #{@rsvping_user.name}"
   end
 
   def digest(user, upcoming_times, has_times, new_inner_ideas, new_inmate_ideas, users_new_ideas_count)
@@ -142,7 +142,7 @@ class Notifier < ActionMailer::Base
     @new_inner_ideas = new_inner_ideas
     @new_inmate_ideas = new_inmate_ideas
     @new_ideas_count = users_new_ideas_count
-    mail to: @user.email, from: "info@hoos.in", subject: "new trending ideas on hoos.in"
+    mail to: @user.email, from: "info@hoos.in", subject: "upcoming and trending ideas on hoos.in"
   end
 
   def follow_up(user, event, new_inmates)

@@ -1,16 +1,16 @@
 <% if @has_times == true %>
 	<tr>
-		<th style="padding:15px 0 0 0;font-size:20px;" align="middle">Here's what's coming up!</th>
+		<th style="padding:15px 0 0 0;font-size:20px;" align="middle">Here is what is coming up for you</th>
 	</tr>
 
 	<% (0..2).each do |day| %>
 		<% if @upcoming_times[day].empty? %>
 			<tr>
-				<th colspan="2" style="padding:20px 0 20px 10px;" width="400"><%= (Date.today + day.days).strftime("%A %B %e") %>  - <strong>No Plans</strong></td>
+				<th colspan="2" style="padding:20px 0 20px 10px;" width="400"><%= (Date.current + day.days).strftime("%A %B %e") %>  - <strong>No Plans</strong> - <a href="http://www.hoos.in/new_idea">make some.</a></td>
 			</tr>
 		<% else %>
 			<tr>
-				<th colspan="2" style="padding:20px 0 20px 10px;" width="400"><%= (Date.today + day.days).strftime("%A %B %e") %></th>
+				<th colspan="2" style="padding:20px 0 20px 10px;" width="400"><%= (Date.current + day.days).strftime("%A %B %e") %></th>
 			</tr>
 			<% @upcoming_times[day].each do |event| %>
 				<%= render partial: 'event_details', locals: { :event => event, :user => @user } %>
@@ -25,7 +25,7 @@
 
 <% if @new_inner_ideas.present? && @new_inner_ideas.any? %>
 	<tr>
-		<th colspan="2" style="padding:25px 0 20px 20px;font-size:18px" width="600">New ideas</th>
+		<th colspan="2" style="padding:25px 0 20px 20px;font-size:18px" width="600">New ideas on hoos.in</th>
 	</tr>
 
 	<% @new_inner_ideas.first(5).each do |event| %>

@@ -24,9 +24,7 @@ body {
 	.name {
 		display: none;
 	}
-	.friend_suggestions {
-		display:none;
-	}
+
 	.user_search {
 		position: absolute;
 		bottom: 58px;
@@ -89,21 +87,6 @@ body {
 		width: 27%;
 	}
 
-	.right_header {
-top: 3px;
-right: 0px;
-width: 70%;
-font-size: 19px;
-	img {
-width: 45px;
-height: 45px;
-position: relative;
-	}
-	}
-
-	.floatingHeader {
-	}
-
 	.btn-new-idea {
 padding: 9px 12px;
 -moz-border-radius: 6px;
@@ -155,6 +138,7 @@ top: 3px;
 		.promo_img {
 			position: relative;
 			right: 4px;
+			width:100%;
 			img {
 				max-width: 140px;
 			}
@@ -188,7 +172,7 @@ margin-right: 2%;
 	}
 
 	.instagram-placeholder img {
-		width: 111px;
+		width: 81px;
 	}
 
 // EVENT SHOW
@@ -213,10 +197,11 @@ margin-right: 2%;
 			}
 		}
 		.date {
-			clear: both;	
-			font-size: 17px;
-			position: relative;
-			top: 8px;
+		font-size: 31px;
+		position: relative;
+		top: 8px;
+		float: left;
+		width: 84%;
 		}
 	}
 
@@ -243,6 +228,14 @@ font-size: 14px;
 		width: 30px;
 height: 30px;
 	}
+}
+
+.event_description {
+	width: 100%;
+}
+
+.eventTitle {
+	width: 80%;
 }
 
 

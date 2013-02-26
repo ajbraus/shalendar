@@ -3,6 +3,7 @@
 	idea.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>", "<%= escape_javascript(render partial: 'events/rsvp_form', object: @event, as: :event) %>");
 	idea.addClass('rsvpd');
 	$('#ins_count').increment();
+	$('#invites_count').decrement();
 <% else %>
 	time = $('.instance').withEventId(<%= @event.id %>)
 	time.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>", '' ); 

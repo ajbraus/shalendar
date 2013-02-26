@@ -1,21 +1,47 @@
 Adam
 
 bugs - 
-updating with url to image not working
-updating/creating times wrong time
 
-	sending many new rsvp notifications (and after idea is already over)
-		new friend name and image should be link
+	add email buttons
+
+	personalize emails
+
+	'tag' people to invite in a message
+
+	Chrono sort vs. social sort (need a blend)
+
+	grey line on right side of logo in email
+
+	remove relationships with themselves
+
 	make creator badge in event#show
-	inmates are not being counted correctly as in on ideas mini_events - probably needs to be reverse_relationship
-	comment emails not going out - not on time
-	add creator to time - fix look of times
-	don't build any relationship with yourself inmate yourself! - don't send yourself an email for a new idea
-	siloing by city not working
 
-x and check on ipad
+	fix 'starred and inmates in search results'
+
+	sort another person's friends by if they are inmates with current user
+
+	new friend name and image should be link
+
+	inmates are not being counted correctly as in on ideas mini_events - probably needs to be reverse_relationship
+
+	add creator to time - fix look of times, add location
+
+	speed
+		guest counts cache counters?
+
+	your friend just joined hoos.in and you are now in-mates!
+
+add mute button in chat
+
+event#new
+	share on fb/twitter
+
+put up tips for ideas - how to make a great idea - go beyond boring
 
 ajax friending
+
+you have no .invites -- search for friends to join their fun ideas and become .in-mates
+click new idea to create a fun idea for friends to do.
 
 change background button in profile
 
@@ -25,25 +51,10 @@ fix email text from katie
 
 RSVP URL && Button
 
-pipe in all the events from upcomming
-
-you have no .invites -- search for friends to join their fun ideas and become .in-mates
-click new idea to create a fun idea for friends to do.
-
-put up tips for ideas - how to make a great idea - go beyond boring
-
-event#new
-	share on fb/twitter
-
-improve facepile - Niko, anne, mich. . .
-
-turn reminders back on
+enter in textboxes should create a pagebreak not submit the form
 
 explain social relevance of main page
 
-make guests background slighlty pink like background of event_show
-
-when in someone's profile display their friends, and your mutual friends sorted by if they are in your inner circle
 
 NOTIFIERS:
 	add stats to digest
@@ -51,7 +62,6 @@ NOTIFIERS:
 
 Friend from email
 RSVP in or out from email
-
 
 invites for launch:
 
@@ -81,7 +91,6 @@ add footer to event#show and profile and login/signup pages
 sort guests by friends
 
 add instructions
-
 
 NOTIFIERS:
 	add stats to digest
@@ -182,9 +191,9 @@ plan b-day parties through hoos.in! -> save off b-days
 
 create a user from mobile
 
-add mute button in chat
-
 add shortener
+
+add <span>&#9733;</span> (star html symbol to title)
 
 add change background picture from profile
 

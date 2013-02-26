@@ -47,7 +47,16 @@ class CommentsController < ApplicationController
     
     respond_to do |format|
       if @comment.save
-        @comment_recipients = @event.guests.select { |g| g.email_comments == true && g != current_user && g.is_friends_with?(current_user) && !g.rsvps.find_by_plan_id(@event.id).muted? }
+        if current_user == @comment.user
+          @comment_recipients = @event.guests.select { |g| g.email_comments == true && 
+                                                           g != current_user && 
+                                                           !g.rsvps.find_by_plan_id(@event.id).muted? }
+        else
+          @comment_recipients = @event.guests.select { |g| g.is_friends_with?(current_user) && 
+                                                           g.email_comments == true && 
+                                                           g != current_user && 
+                                                           !g.rsvps.find_by_plan_id(@event.id).muted? }
+        end
         @comment_recipients.each do |g|
           g.delay.contact_comment(@comment)
         end

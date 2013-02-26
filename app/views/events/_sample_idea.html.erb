@@ -59,7 +59,7 @@
 	<!-- BEGIN EVENT SHOW -->
 <div class="sample_title">Idea Page</div>
 <div class="event_show clearfix">
-			<div id="rsvpForm" class="join_group_buttons">
+			<div id="rsvpForm" class="join_group_buttons padding_10">
 
 				<a href="#" class="btn rsvp_button btn-rsvp" title="By clicking here folks will join your ideas">.interested</a>
 				<a href="#" class="btn rsvp_button btn_stop_viewing" title="Here folks can opt out of this idea">meh</a>
@@ -67,22 +67,29 @@
 		<div class="date"></div>
  
 	<div class="event_title">
+      <% if @parent  && @parent.has_image? %>
+      <div class="promo_img" id="eventImage">
+        <%= image_tag @parent.image(:large) %>
+      </div>
+      <% else %>
+      <div class="promo_img" id="eventImage" style="display:none;">
+
+      </div>
+      <% end %>
+    
 	  <div class="eventTitle"><%= @parent ? @parent.title : '' %></div>
-    <div class="eventIcons">
-    	<span id="eventCategory"></span>
-      <span id="eventPublicIcon" style="display:none;">
-      	<i class="icon-bullhorn" title="Public"></i>
-      </span>
-      <span id="eventFamilyFriendlyIcon" style="display:none;">
-      	<i class="icon-home" title="Family Friendly"></i>
-      </span>
-      <span class="eventIsBigIdea" title="This event needs a crowd!" style="display:none;"><i class='icon-cloud'></i></span>
-    </div>
-	</div>
+	  <div id="eventDescription" class="event_description"></div>
+    <div class="creator_settings">
+        <u class="creator">
+          <%= current_user.first_name_with_last_initial %>
+        </u>
+        <div class="event_buttons">
+          <span class="fadeInOrange" title="click here to edit the idea after you post it"><i class="icon-cogs"></i> edit</span>
+        </div>
+      </div>
+  </div>
 
-	<div id="eventDescription" class="event_description"></div>
-
-	<div class="when clearfix">
+	<div class="event_details clearfix">
 		<div class="cost">
       <i class="icon-money"></i><span id="eventCost"><%= @parent.present? ? @parent.price : '' %></span>
     </div>
@@ -96,18 +103,6 @@
     </div>
 	</div>
 
-  <div class="promo_img" id="eventImage">
-  	<% if @parent  && @parent.has_image? %>
-  		<%= image_tag @parent.image(:large) %>
-  	<% end %>
-  </div>
-
-<% if false %>
-  <div class="meter"f>
-		<span style="width: 100%;"><span></span></span>
-	</div>
-<% end %>
-
 	<% if @parent.present? %>
 		<div class="when time clearfix">
 	<% else %>
@@ -118,6 +113,7 @@
 			<a href="#" class="btn rsvp_button btn_stop_viewing" title="Here folks can opt out of this idea">out</a>
     </div>  
 		<div class="date"><span class="eventStartsAt"><%= @parent.present? ? start_time(@parent) : raw("<strong>TBD</strong>") %></span><span class="eventDuration"></span></div>
+    <div class="where"><i class="icon-map-marker"></i><span id="eventAddress"><%= @parent.present? ? @parent.address : '' %></span></div>
 	  <ul id="calendars">
       <li>
         <%= image_tag "gcalendar.png", width: '30', title:".invites can add this idea to their calendars" %>
@@ -129,9 +125,6 @@
      <ul class="time_settings">
       <li>
         <i class="icon-cogs fadeInOrange" title= "You can edit this time later"></i>
-      </li>
-      <li>
-        <i class="icon-trash fadeInRed" title="You can cancel this time later if needed"></i>
       </li>
     </ul>
     <div class="show_facepile">

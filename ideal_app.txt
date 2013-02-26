@@ -1,0 +1,55 @@
+add as .in-mate
+
+pull up to search ppl
+pull up to refresh
+
+native login from mobile
+
+click on ppl's faces gives you their profile or a bigger pic of them.
+
+starred in-mate's ideas appear in .in calendar view but visually not in
+
+make fields in add new time "edtiable = NO;"
+
+make fields prettier in add new time
+
+taller ideas with beginning of description in grey
+
+Make times group under their days
+give a gradient to the day bar
+
+swipe back and forth to get in/out buttons
+
+make it so image does not stretch in new idea form
+
+alert for new idea from mike - still seeing alert when i open app - then idea screen is blankcd 
+
+black calendar button, white cloud button if possible
+Differentiate between .ins and .invites more 
+times - dark, ideas - light
+
+search google, flickr, pinterest for photo and add it
+
+push notifications open directly to ideas or comments or profile
+
+switch in middle of top - calendar/ideas
+
+
+--------------------------------------------------
+
+News
+
+check in functionality
+
+payments
+
+add internal web browser
+
+swipe down to reload
+
+
+Home - defaults to calendar
+Discover - tindr style? stumbl upon style? pinterest style?
+New - create idea form
+Recent - news/updates/recent activity
+Profile - in's, in-mates, stars, settings, search ppl

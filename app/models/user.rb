@@ -85,11 +85,11 @@ class User < ActiveRecord::Base
   has_many :reverse_relationships, :foreign_key => "followed_id",
                                    :class_name => "Relationship",
                                    :dependent => :destroy
-  has_many :followers, :through => :reverse_relationships, :source => :follower
+  
+  has_many :friended_bys, :through => :reverse_relationships, :source => :follower, conditions: "status = 2"
 
   has_many :inmates, through: :relationships, source: :followed, conditions: "status = 1"  
   has_many :friends, through: :relationships, source: :followed, conditions: "status = 2"  
-  has_many :starred_bys, through: :relationships, source: :follower, conditions: "status = 2"
 
   has_many :comments, dependent: :destroy
 
@@ -268,7 +268,7 @@ class User < ActiveRecord::Base
       if p.ends_at.blank?
         @ins.push(p)
       else
-        if p.ends_at > Time.now && p.one_time?
+        if p.ends_at > Time.zone.now && p.one_time?
           @ins.push(p)
         end
       end
@@ -340,11 +340,13 @@ class User < ActiveRecord::Base
   end
 
   def inmate!(other_user)
-    unless self.is_inmates_or_friends_with?(other_user) || self.ignores?(other_user)|| other_user.ignores?(self) || self.id == other_user.id
-      self.relationships.create(followed_id: other_user.id, status: 1)
-    end
-    unless other_user.is_inmates_or_friends_with?(self) || self.ignores?(other_user) || other_user.ignores?(self)
-      other_user.relationships.create(followed_id: self.id, status: 1)
+    unless other_user == self
+      unless self.is_inmates_or_friends_with?(other_user) || self.ignores?(other_user)|| other_user.ignores?(self) || self.id == other_user.id
+        self.relationships.create(followed_id: other_user.id, status: 1)
+      end
+      unless other_user.is_inmates_or_friends_with?(self) || self.ignores?(other_user) || other_user.ignores?(self)
+        other_user.relationships.create(followed_id: self.id, status: 1)
+      end
     end
   end
 
@@ -472,6 +474,8 @@ class User < ActiveRecord::Base
   def contact_new_idea(event)
     @user = self
     @event = event
+    @event_user = @event.user
+
     if @user.iPhone_user == true
       d = APN::Device.find_by_id(@user.apn_device_id)
       if d.nil?
@@ -479,7 +483,7 @@ class User < ActiveRecord::Base
       else
           n = APN::Notification.new
           n.device = d
-          n.alert = "#{@user.name} posted a new idea - #{@event.title}"
+          n.alert = "new idea - #{@event.title} - by #{@event_user.first_name_with_last_initial}"
           n.badge = 1
           n.sound = false
           n.custom_properties = {:type => "new_idea", :id => "#{@event.id}", msg: ""}
@@ -492,15 +496,13 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "#{@user.name} invited you to a new idea - #{@event.title}"
+        n.collapse_key = "new idea - #{@event.title} - by #{@event_user.first_name_with_last_initial}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {:type => "reminder", :id => "#{@event.id}", :msg => ""}}
         n.save
       end
     end
-    unless @user == User.find_by_email("info@hoos.in")
-      Notifier.new_idea(@event, @user).deliver
-    end
+    Notifier.new_idea(@event, @user).deliver
   end
 
   def contact_reminder(event)
@@ -513,9 +515,9 @@ class User < ActiveRecord::Base
       else
           n = APN::Notification.new
           n.device = d
-          n.alert = "#{@event.short_event_title} starts at #{@event.start_time_no_date}"
+          n.alert = "reminder - #{@event.short_event_title} starts at #{@event.start_time_no_date}"
           n.badge = 1
-          n.sound = false
+          n.sound = true
           n.custom_properties = {:type => "reminder", :id => "#{@event.id}", msg: ""}
           n.save
       end
@@ -526,14 +528,15 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "#{@event.short_event_title} starts at #{@event.start_time_no_date}"
+        n.collapse_key = "reminder - #{@event.short_event_title} starts at #{@event.start_time_no_date}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {:type => "reminder", :id => "#{@event.id}", :msg => ""}}
         n.save
       end
-    end
-    unless @user == User.find_by_email("info@hoos.in")
-      Notifier.rsvp_reminder(@event, @user).deliver
+    # else
+    #   unless @user == User.find_by_email("info@hoos.in")
+    #     Notifier.rsvp_reminder(@event, @user).deliver
+    #   end
     end
   end
 
@@ -541,6 +544,7 @@ class User < ActiveRecord::Base
     @user = self
     @event = event
     @event_link = event_url(@event)
+    @event_user = @event.user
 
     if @user.iPhone_user?
       d = APN::Device.find_by_id(@user.apn_device_id)
@@ -549,7 +553,7 @@ class User < ActiveRecord::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "#{@event.user.first_name} set a time for #{@event.title} - #{@event.start_time}!"
+        n.alert = "#{@event_user.first_name_with_last_initial} set a time for #{@event.title} - #{@event.start_time}!"
         n.badge = 1
         n.sound = false
         n.custom_properties = {:type => "new_time", :event => "#{@event.id}"}
@@ -562,7 +566,7 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "#{@event.user.first_name} set a time for #{@event.title} - #{@event.start_time}!"
+        n.collapse_key = "#{@event_user.first_name_with_last_initial} set a time for #{@event.title} - #{@event.start_time}!"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{event.title} new time!"}}
         n.save
@@ -586,7 +590,7 @@ class User < ActiveRecord::Base
         n.alert = "Time Change"
         n.badge = 1
         n.sound = false
-        n.custom_properties = {:msg => "#{@event.short_event_title} - #{@event.start_time_no_date}", 
+        n.custom_properties = {:msg => "time change - #{@event.short_event_title} - #{@event.start_time_no_date}", 
                                 :type => "time_change", 
                                 :id => "#{@event.id}"}
         n.save
@@ -600,7 +604,7 @@ class User < ActiveRecord::Base
         n.device = d
         n.collapse_key = "Time Change"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {:msg => "#{@event.short_event_title} - #{@event.start_time_no_date}", 
+        n.data = {:registration_ids => [d.registration_id], :data => {:msg => "time change - #{@event.short_event_title} - #{@event.start_time_no_date}", 
                                                             :type => "time_change", 
                                                             :id => "#{@event.id}"}}
         n.save
@@ -610,7 +614,7 @@ class User < ActiveRecord::Base
   end
 
   def contact_comment(comment)
-    @commenter = comment.user.name
+    @commenter = comment.user.first_name_with_last_initial
     @comment = comment
     @event = @comment.event
     @comments = @event.comments.order('created_at DESC').limit(4)
@@ -623,10 +627,10 @@ class User < ActiveRecord::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "New Comment - #{@event.short_event_title}"
+        n.alert = "new .info - #{@event.short_event_title} - #{@commenter}"
         n.badge = 1
         n.sound = false
-        n.custom_properties = {msg: "from #{@commenter.name}", :type => "new_comment", :id => "#{@event.id}"}
+        n.custom_properties = {msg: "from #{@commenter}", :type => "new_comment", :id => "#{@event.id}"}
         n.save
       end
     elsif @user.android_user?
@@ -636,9 +640,9 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "New Comment - #{@event.short_event_title}"
+        n.collapse_key = "new .info - #{@event.short_event_title} - #{@commenter}"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {msg: "from #{@commenter.name}", :type => "new_comment", :id => "#{@event.id}"}}
+        n.data = {:registration_ids => [d.registration_id], :data => {msg: "from #{@commenter}", :type => "new_comment", :id => "#{@event.id}"}}
         n.save
       end
     end
@@ -656,7 +660,7 @@ class User < ActiveRecord::Base
         else
           n = APN::Notification.new
           n.device = d
-          n.alert = "Cancellation - #{@event.title}"
+          n.alert = "cancellation - #{@event.title}"
           n.badge = 1
           n.sound = false
           n.custom_properties = {msg: "#{@event.short_event_title}", :type => "cancel", :id => "#{@event.id}"}
@@ -669,7 +673,7 @@ class User < ActiveRecord::Base
         else
           n = Gcm::Notification.new
           n.device = d
-          n.collapse_key = "Cancellation - #{@event.title}"
+          n.collapse_key = "cancellation - #{@event.title}"
           n.delay_while_idle = true
           n.data = {:registration_ids => [d.registration_id], :data => {msg: "#{@event.short_event_title}", :type => "cancel", :id => "#{@event.id}"}}
           n.save
@@ -725,7 +729,7 @@ class User < ActiveRecord::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "New .in - #{@rsvping_user.name} for #{@event.title}"
+        n.alert = "new .in - #{@rsvping_user.name} for #{@event.title}"
         n.badge = 1
         n.sound = false
         n.custom_properties = {msg: "", :type => "new_rsvp", :id => "#{@event.id}"}
@@ -738,7 +742,7 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "New .in - #{@rsvping_user.name} for #{@event.title}"
+        n.collapse_key = "new .in - #{@rsvping_user.name} for #{@event.title}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}}
         n.save
@@ -750,7 +754,7 @@ class User < ActiveRecord::Base
 
   # Class Methods
   def self.digest
-    @digest_users = User.where("users.digest = 'true'")
+    @digest_users = User.where("digest = ?", true)
     @digest_users.each do |u|
       @current_city = u.city
       @now_in_zone = Time.zone.now.in_time_zone(@current_city.timezone)
@@ -767,7 +771,7 @@ class User < ActiveRecord::Base
           end
           @upcoming_times.push(@upcoming_day_times)
         end
-        @all_new_ideas = Event.where('city_id = ? AND AND created_at > ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, @now_in_zone - 4.days, Time.zone.now, true).reject { |i| u.rsvpd?(i) }
+        @all_new_ideas = Event.where('city_id = ? AND created_at > ? AND (ends_at IS NULL OR (ends_at > ? AND one_time = ?))', @current_city.id, @now_in_zone - 4.days, Time.zone.now, true).reject { |i| u.rsvpd?(i) }
         @new_inner_ideas = @all_new_ideas.select { |i| i.user.is_friended_by?(u) }
         @new_inmate_ideas = @all_new_ideas.select { |i| i.user.is_inmates_with?(u) }
         @users_new_ideas = @new_inmate_ideas + @new_inner_ideas
@@ -790,6 +794,18 @@ class User < ActiveRecord::Base
             Notifier.delay.follow_up(r, fue, @new_inmates)
           end
         end
+      end
+    end
+  end
+
+  def self.send_reminders
+    @recipients = User.where('notify_event_reminders = ?', true)
+    @recipients.each do |r|
+      @now_in_zone = Time.zone.now.in_time_zone(r.city.timezone)
+      @time_range = @now_in_zone + 1.hour..@now_in_zone + 1.hour + 10.minutes
+      @reminder_events = r.plans.where(starts_at: @time_range)
+      @reminder_events.each do |e|
+        r.contact_reminder(e)
       end
     end
   end

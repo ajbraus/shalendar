@@ -45,6 +45,7 @@
     if params[:event][:chronic_starts_at].present? 
       params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
     end
+
     @event = current_user.events.build(params[:event])
     @event.city = @current_city
     
@@ -91,9 +92,15 @@
       end # END If starts_at present
 
       #SEND CONTACT TO ALL PPL WHO STAR CURRENT USER
-      @starred_bys = current_user.starred_bys
-      @starred_bys.each do |sb|
-        sb.delay.contact_new_idea(@event)
+      @friended_bys = current_user.friended_bys
+      @friended_bys.each do |sb|
+        unless sb == current_user
+          if @instance.present?
+            sb.delay.contact_new_idea(@instance)
+          else
+            sb.delay.contact_new_idea(@event)
+          end
+        end
       end
 
       respond_to do |format|
@@ -156,6 +163,9 @@
   def show
     @event = Event.find(params[:id])
     @guests = @event.guests
+    if user_signed_in?
+      @guests.sort_by {|g| g.is_friends_with?(current_user) ? 0 : 1 }
+    end
     @maybes = @event.maybes
     @email_invites = @event.email_invites
     @comments = @event.comments.order("created_at desc")

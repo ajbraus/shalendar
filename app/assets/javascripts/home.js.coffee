@@ -19,7 +19,6 @@ $.fn.toggleIdeas = (show, hide) ->
 	idea_filter = $(@).text();
 	$('#ideaFilter').text(idea_filter);
 
-
 $.fn.buildCalendar = () ->
 	date = $(@).data('date')
 	event = $('.mini_event').withDate("#{date}")
@@ -47,17 +46,18 @@ $ ->
 	$('.day_container').each ->
 		$(@).buildCalendar();
 
-	$('#jrIdeas').click ->
-		$(@).toggleIdeas('.shield:hidden', null);
-	$('#jrPlans').click ->
-		$(@).toggleIdeas('.rsvpd', 'div.shield:not(.rsvpd)');
-		$(@).toggleIdeas('.rsvpd', 'div.shield:not(.rsvpd)');
-	$('#jrFriendsIdeas').click ->
-		$(@).toggleIdeas('.invited', 'div.shield:not(.invited)');
-	$('#jrMine').click ->
-		$(@).toggleIdeas('.mine', 'div.shield:not(.mine)');
-	$('#jrCityIdeas').click ->
-		$(@).toggleIdeas('.public', 'div.shield:not(.public)');
+
+	# $('#jrIdeas').click ->
+	# 	$(@).toggleIdeas('.shield:hidden', null);
+	# $('#jrPlans').click ->
+	# 	$(@).toggleIdeas('.rsvpd', 'div.shield:not(.rsvpd)');
+	# 	$(@).toggleIdeas('.rsvpd', 'div.shield:not(.rsvpd)');
+	# $('#jrFriendsIdeas').click ->
+	# 	$(@).toggleIdeas('.invited', 'div.shield:not(.invited)');
+	# $('#jrMine').click ->
+	# 	$(@).toggleIdeas('.mine', 'div.shield:not(.mine)');
+	# $('#jrCityIdeas').click ->
+	# 	$(@).toggleIdeas('.public', 'div.shield:not(.public)');
 
 	# $('#jrCalendar').click ->
 	# 	$(@).showCalendar();
