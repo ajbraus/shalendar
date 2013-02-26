@@ -84,7 +84,7 @@ class Notifier < ActionMailer::Base
 
   def email_comment(comment, user)
     @comment = comment
-    @commenter = @comment.user.name
+    @commenter = @comment.user.first_name_with_last_initial
     @event = @comment.event
     @comments = @event.comments.order('created_at DESC').limit(4)
     @comments.shift(1)
