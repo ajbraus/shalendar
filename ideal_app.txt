@@ -1,28 +1,35 @@
-alert for new idea from mike - still seeing alert when i open app - then idea screen is blank
-
-starred in-mate's ideas appear in .in calendar view
-
-black calendar button, white cloud button if possible
-
-make fields in add new time "edtiable = NO;"
-
-search google, flickr, pinterest for photo and add it
-
-swipe back and forth to get in/out buttons
-
-push notifications open directly to ideas or comments or profile
+native login from mobile
 
 remove rounded corners of image field
 
-make it so image does not stretch in new idea form
+starred in-mate's ideas appear in .in calendar view but visually not in
 
-switch in middle of top - calendar/ideas
+make fields in add new time "edtiable = NO;"
 
-Differentiate between .ins and .invites more 
-
-times - dark, ideas - light
+make fields prettier in add new time
 
 taller ideas with beginning of description in grey
+
+Make times group under their days
+give a gradient to the day bar
+
+
+
+swipe back and forth to get in/out buttons
+
+make it so image does not stretch in new idea form
+
+alert for new idea from mike - still seeing alert when i open app - then idea screen is blankcd 
+
+black calendar button, white cloud button if possible
+Differentiate between .ins and .invites more 
+times - dark, ideas - light
+
+search google, flickr, pinterest for photo and add it
+
+push notifications open directly to ideas or comments or profile
+
+switch in middle of top - calendar/ideas
 
 
 --------------------------------------------------

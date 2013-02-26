@@ -268,7 +268,7 @@ class User < ActiveRecord::Base
       if p.ends_at.blank?
         @ins.push(p)
       else
-        if p.ends_at > Time.now && p.one_time?
+        if p.ends_at > Time.zone.now && p.one_time?
           @ins.push(p)
         end
       end

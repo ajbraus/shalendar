@@ -45,6 +45,7 @@
     if params[:event][:chronic_starts_at].present? 
       params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
     end
+
     @event = current_user.events.build(params[:event])
     @event.city = @current_city
     

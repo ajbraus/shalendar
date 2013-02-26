@@ -3,6 +3,15 @@ class ApplicationController < ActionController::Base
   before_filter :set_city, :set_graph #:check_venue_card, 
   after_filter :store_location
 
+  around_filter :user_time_zone, :if => :current_user
+
+
+  private 
+
+  def user_time_zone(&block)
+    Time.use_zone(current_user.city.timezone, &block)
+  end
+
   def store_location
     session[:previous_urls] ||= []
     # store unique urls only
@@ -40,7 +49,6 @@ class ApplicationController < ActionController::Base
         @current_city = City.find_by_name("Madison, Wisconsin")
       end
     end
-    Time.zone = @current_city.timezone
   end
 
   def set_graph
@@ -55,9 +63,9 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def ios_user_agent?
-    request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(Mobile\/.+Safari)/]
-  end
+  # def ios_user_agent?
+  #   request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(Mobile\/.+Safari)/]
+  # end
 
   def check_venue_card
     if user_signed_in?

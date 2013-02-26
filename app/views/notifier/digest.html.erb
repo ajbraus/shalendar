@@ -6,11 +6,11 @@
 	<% (0..2).each do |day| %>
 		<% if @upcoming_times[day].empty? %>
 			<tr>
-				<th colspan="2" style="padding:20px 0 20px 10px;" width="400"><%= (Date.today + day.days).strftime("%A %B %e") %>  - <strong>No Plans</strong> - <a href="http://www.hoos.in/new_idea">make some.</a></td>
+				<th colspan="2" style="padding:20px 0 20px 10px;" width="400"><%= (Date.current + day.days).strftime("%A %B %e") %>  - <strong>No Plans</strong> - <a href="http://www.hoos.in/new_idea">make some.</a></td>
 			</tr>
 		<% else %>
 			<tr>
-				<th colspan="2" style="padding:20px 0 20px 10px;" width="400"><%= (Date.today + day.days).strftime("%A %B %e") %></th>
+				<th colspan="2" style="padding:20px 0 20px 10px;" width="400"><%= (Date.current + day.days).strftime("%A %B %e") %></th>
 			</tr>
 			<% @upcoming_times[day].each do |event| %>
 				<%= render partial: 'event_details', locals: { :event => event, :user => @user } %>

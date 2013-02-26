@@ -159,7 +159,7 @@ class ShalendarController < ApplicationController
     @active_users = User.where(['last_sign_in_at > ? AND sign_in_count > 10', Time.zone.now - 2.weeks]).count
 
     @start_date = User.unscoped.order('created_at asc').first.created_at.to_date
-    @today = Date.today
+    @today = Date.current
     @weeks = (@today - @start_date).round/7
     @users_per_week = []
     (0..@weeks).each do |week|
