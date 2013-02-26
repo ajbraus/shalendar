@@ -2,13 +2,25 @@ Adam
 
 bugs - 
 
+	asks for city after signup if no match.
+
+	updated types
+		new_idea
+		reminder
+		new_time
+		time_change
+		new_comment
+		cancel
+		new_friend
+		new_rsvp
+
 	add email buttons
 
-	personalize emails
+	add calls to action to bottom of all emails
 
-	'tag' people to invite in a message
+	make sure reminders and comment pushes and emails are sending
 
-	Chrono sort vs. social sort (need a blend)
+	personalize emails / invitations
 
 	grey line on right side of logo in email
 
@@ -22,16 +34,10 @@ bugs -
 
 	new friend name and image should be link
 
-	inmates are not being counted correctly as in on ideas mini_events - probably needs to be reverse_relationship
-
-	add creator to time - fix look of times, add location
-
 	speed
 		guest counts cache counters?
 
 	your friend just joined hoos.in and you are now in-mates!
-
-add mute button in chat
 
 event#new
 	share on fb/twitter
@@ -58,7 +64,6 @@ explain social relevance of main page
 
 NOTIFIERS:
 	add stats to digest
-	star icon in email
 
 Friend from email
 RSVP in or out from email
@@ -77,10 +82,12 @@ re-up bank account - write checks
 
 send an email letting everyone know they can post instagram pics #hoosin and it gets on the homepage!
 
+add mute button in chat
 
 --------------------------------------------------------------
 
-add calls to action to bottom of all emails
+	'tag' people to invite in a message
+
 
 RSVPing improvments
 	add ideas mini_events to calendar on rsvp_check to idea

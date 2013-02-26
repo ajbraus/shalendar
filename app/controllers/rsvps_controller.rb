@@ -60,4 +60,16 @@ class RsvpsController < ApplicationController
       format.js
     end
   end
+
+  # def mute
+  #   @rsvp = Rsvp.find(params[:id])
+  #   @rsvp.muted = true
+  #   @rsvp.save
+  # end
+
+  # def unmute
+  #   @rsvp = Rsvp.find(params[:id])
+  #   @rsvp.muted = false
+  #   @rsvp.save
+  # end
 end

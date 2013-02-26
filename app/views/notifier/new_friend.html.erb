@@ -3,7 +3,7 @@
 		<tr>
 			<td><a href="http://www.hoos.in/users/<%= @follower.slug %>"><img src="<%= @image_url %>" style="border-radius:6px;-moz-border-radius:6px;-webkit-border-radius: 6px; margin-right: 5px;" /></a></td>
 			<td style="font-size:16px;">
-				Your .in-mate, <strong><a href="http://www.hoos.in/users/<%= @follower.slug %>"> <%= @follower.name %></a> </strong> starred you.
+				Your .in-mate <strong><a href="http://www.hoos.in/users/<%= @follower.slug %>"> <%= @follower.name %></a> </strong> starred you.
 			</td>
 		</tr>
 	</table>
@@ -11,7 +11,7 @@
 		<tr>
 			<td style="color:gold;"><i class="icon-star"></i></td>
 			<td style="padding:20px 40px 0 0px;font-size:14px;line-height:1.2;">
-				<%= @follower.name %> now will receive notifications when you <strong>create ideas</strong>, and see <strong>your .in's</strong> higher on your home screen
+				<%= @follower.first_name %> will now receive notifications when you <strong>create ideas</strong> and see <strong>your .in's</strong> higher on your home screen.
 			</td>
 		</tr>
 	</table>

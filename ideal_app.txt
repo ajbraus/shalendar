@@ -1,5 +1,7 @@
 add as .in-mate
 
+change city - create and asks for city
+
 pull up to search ppl
 pull up to refresh
 
