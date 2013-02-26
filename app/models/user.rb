@@ -500,9 +500,7 @@ class User < ActiveRecord::Base
         n.save
       end
     end
-    unless @user == User.find_by_email("info@hoos.in")
-      Notifier.new_idea(@event, @user).deliver
-    end
+    Notifier.new_idea(@event, @user).deliver
   end
 
   def contact_reminder(event)

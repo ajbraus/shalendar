@@ -2,13 +2,21 @@ Adam
 
 bugs - 
 
+	add all times to calendar
+	
+	add email buttons
+
+	tune emails subjects
+
+	personalize emails
+
+	'tag' people to invite in a message
+
+	Chrono sort vs. social sort (need a blend)
+
 	grey line on right side of logo in email
 
-	why ricky's party not showing?
-
-	remove shields from home when  your not logged in.
-
-	don't build any relationship with yourself inmate yourself! - don't send yourself an email for a new idea
+	remove relationships with themselves
 
 	make creator badge in event#show
 

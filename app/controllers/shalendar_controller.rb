@@ -28,9 +28,9 @@ class ShalendarController < ApplicationController
 #attempt at getting times friends are rsvpd to
       @times = @times.select do |i|  #select those user is not out of and may be invited to
         if i.parent.present?
-          current_user.in?(i) || current_user.in?(i.parent) || i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count > 0 
+          current_user.in?(i) || current_user.in?(i.parent) || i.guests.joins(:relationships).where('status >= ? AND follower_id = ?', 1, current_user.id).count > 0 
         else
-          current_user.in?(i) || i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count > 0
+          current_user.in?(i) || i.guests.joins(:reverse_relationships).where('status >= ? AND follower_id = ?', 1, current_user.id).count > 0
         end
       end
 

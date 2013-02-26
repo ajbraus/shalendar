@@ -95,7 +95,11 @@
       @friended_bys = current_user.friended_bys
       @friended_bys.each do |sb|
         unless sb == current_user
-          sb.delay.contact_new_idea(@event)
+          if @instance.present?
+            sb.delay.contact_new_idea(@instance)
+          else
+            sb.delay.contact_new_idea(@event)
+          end
         end
       end
 

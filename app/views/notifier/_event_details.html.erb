@@ -2,13 +2,13 @@
 <table width="100%">
 <tr>
 	<% if event.image(:medium).present? %>
-		<td><a href="<%= event_url(event)%>"><img src="<%= event.image(:medium) %>" width="100%"/></a></td>
+		<td><a href="<%= event.has_parent? ? event_url(event.parent) : event_url(event) %>"><img src="<%= event.image(:medium) %>" width="100%"/></a></td>
 		<td style="padding:10px 30px 10px 20px" width="70%">
 	<% else %>
 		<td width="30%"></td>
 		<td style="padding:10px 30px 10px 20px" width="70%">
 	<% end %>
-		<strong>What:</strong> <span style="padding-left:10px; font-size:13px;"><a href="<%= event.has_parent? ? event_url(event.parent) : event_url(event) %>"><%= event.title %></a></span>
+		<strong>What:</strong> <span style="padding-left:10px;"><a href="<%= event.has_parent? ? event_url(event.parent) : event_url(event) %>"><%= event.title %></a></span>
 	<% if user.in?(event) && event.starts_at.present? && event.starts_at > Time.zone.now.in_time_zone(user.city.timezone) %>
 		<strong>  (.in)</strong>
 	<% elsif user.in?(event) && event.starts_at.present? && event.starts_at < Time.zone.now.in_time_zone(user.city.timezone) %>
@@ -24,7 +24,7 @@
 			<% @friends_in_count = event.friends_in(user).count %>
 			<% @inmates_in_count = event.inmates_in(user).count %>
 			<% if !user.in?(event) %>
-				<img src="http://www.hoos.in/assets/gold_star.png" width="10" style="position:relative;top:4px;"/><span id="friendCount"><%= @friends_in_count %></span> / <img src="http://www.hoos.in/assets/grey_star" width="10" style="position:relative;top:4px;" /><%= @inmates_in_count %> / <%= event.guest_count %>
+				<img src="http://www.hoos.in/assets/gold_star.png" width="10" style="position:relative;top:4px;"/><span id="friendCount"><%= @friends_in_count %></span> / <img src="http://www.hoos.in/assets/grey_star.png" width="10" style="position:relative;top:4px;" /><%= @inmates_in_count %> / <%= event.guest_count %>
 			<% elsif user.in?(event) %>
 				<img src="http://www.hoos.in/assets/gold_star.png" width="10" style="position:relative;top:4px;"/><span id="friendCount"><%= @friends_in_count %></span> / <img src="http://www.hoos.in/assets/grey_star.png" width="10" style="position:relative;top:4px;" /><%= @inmates_in_count %>
 			<% end %>
