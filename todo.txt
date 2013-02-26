@@ -193,6 +193,8 @@ create a user from mobile
 
 add shortener
 
+add <span>&#9733;</span> (star html symbol to title)
+
 add change background picture from profile
 
 add mute button to rsvp to avoid chatter
