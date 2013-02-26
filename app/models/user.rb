@@ -208,9 +208,9 @@ class User < ActiveRecord::Base
     if event.rsvps.where(guest_id: self.id).any?
       @existing_rsvp = event.rsvps.where(guest_id: self.id).first
       @existing_rsvp.destroy
-      if(event.has_parent?)
-        self.rsvp_out!(event)
-      end
+      # if(event.has_parent?) #don't want to be out, just not in
+      #   self.rsvp_out!(event)
+      # end
     end
   end
 

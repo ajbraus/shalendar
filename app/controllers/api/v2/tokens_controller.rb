@@ -125,12 +125,10 @@ class Api::V2::TokensController  < ApplicationController
       end
       @city = City.find_by_name(location)
       if @city.nil?
-        c = City.new(name: location, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone)
-        c.save
-        @city = c
+        @city = City.find_by_name("Madison, Wisconsin")
       end
-
-      user_attr = { email: email, name: name, city: @city}
+      #don't update their city here.. it should just stay
+      user_attr = { email: email, name: name }
       user.update_attributes user_attr
       
       return user
@@ -138,8 +136,12 @@ class Api::V2::TokensController  < ApplicationController
     else
       email = fb_info["email"]
       name = fb_info["name"]
-      city = fb_info["location"]["name"]
-      time_zone = "Central Time (US & Canada)"  # timezone_for_utc_offset(access_token.extra.raw_info.timezone)
+      cityname = fb_info["location"]["name"]
+
+      city = City.find_by_name(cityname)
+      if city.nil?
+        city = City.find_by_name("Madison, Wisconsin")
+      end
 
       user = User.new(:email => email, 
                 :name => name,
