@@ -57,7 +57,7 @@ Shalendar::Application.routes.draw do
   match '/new_idea', :to => 'events#new', :as => 'new_idea'
 
   resources :rsvps, only: [:create, :destroy]
-  resources :relationships, only: [:create, :destroy, :toggle, :comfirm] do
+  resources :relationships, only: [:create, :destroy, :toggle, :comfirm ] do
     put :toggle
     delete :ignore
     put :confirm

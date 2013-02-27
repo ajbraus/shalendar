@@ -498,7 +498,7 @@ class User < ActiveRecord::Base
         n.device = d
         n.collapse_key = "new idea - #{@event.title} - by #{@event_user.first_name_with_last_initial}"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {:type => "reminder", :id => "#{@event.id}", :msg => ""}}
+        n.data = {:registration_ids => [d.registration_id], :data => {:type => "new_idea", :id => "#{@event.id}", :msg => ""}}
         n.save
       end
     end
@@ -513,13 +513,13 @@ class User < ActiveRecord::Base
       if d.nil?
         Airbrake.notify("thought we had an iphone user but can't find their device")
       else
-          n = APN::Notification.new
-          n.device = d
-          n.alert = "reminder - #{@event.short_event_title} starts at #{@event.start_time_no_date}"
-          n.badge = 1
-          n.sound = true
-          n.custom_properties = {:type => "reminder", :id => "#{@event.id}", msg: ""}
-          n.save
+        n = APN::Notification.new
+        n.device = d
+        n.alert = "reminder - #{@event.short_event_title} starts at #{@event.start_time_no_date}"
+        n.badge = 1
+        n.sound = true
+        n.custom_properties = {:type => "reminder", :id => "#{@event.id}", msg: ""}
+        n.save
       end
     elsif(@user.android_user == true)
       d = Gcm::Device.find_by_id(@user.GCMdevice_id)
@@ -568,7 +568,7 @@ class User < ActiveRecord::Base
         n.device = d
         n.collapse_key = "#{@event_user.first_name_with_last_initial} set a time for #{@event.title} - #{@event.start_time}!"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {:message_text => "#{event.title} new time!"}}
+        n.data = {:registration_ids => [d.registration_id], :data => {:type => "new_time", :message_text => "#{event.title} new time!"}}
         n.save
       end
     end
@@ -627,7 +627,7 @@ class User < ActiveRecord::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "new .info - #{@event.short_event_title} - #{@commenter}"
+        n.alert = "new .info - #{@event.title} - #{@commenter}"
         n.badge = 1
         n.sound = false
         n.custom_properties = {msg: "from #{@commenter}", :type => "new_comment", :id => "#{@event.id}"}
@@ -640,13 +640,14 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "new .info - #{@event.short_event_title} - #{@commenter}"
+        n.collapse_key = "new .info - #{@event.title} - #{@commenter}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {msg: "from #{@commenter}", :type => "new_comment", :id => "#{@event.id}"}}
         n.save
       end
+    else
+      Notifier.email_comment(@comment, @user).deliver
     end
-    Notifier.email_comment(@comment, @user).deliver
   end
 
   def contact_cancellation(event)

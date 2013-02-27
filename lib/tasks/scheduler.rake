@@ -6,10 +6,6 @@
 #     puts "done."
 # end
 
-task :check_tip_deadlines => :environment do
-    Event.check_tip_deadlines
-end
-
 task :backup_database => :environment do
 	rake "pg_dump -a calenshare_production"
 		# old_events = Event.where('events.start_time <= :one_week_ago', one_week_ago: Time.now - 1.week)
@@ -24,6 +20,10 @@ end
 
 task :follow_up => :environment do
 	User.follow_up
+end
+
+task :send_reminders => :environment do
+	User.send_reminders
 end
 
 task :test_notifications => :environment do
