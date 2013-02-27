@@ -1,0 +1,89 @@
+
+
+enter in textboxes should create a pagebreak not submit the form
+
+RSVP URL && Button
+
+'tag' people to invite in a message
+
+Get b-day info and block under 13 without parental consent.
+
+flagging user/idea/comment
+
+add option to automatically update google calendar
+
+----------------------------------------------------------
+
+
+Twillio
+Prompt users for phone number lightbox on login one time
+Text invitations, reminders auto to friends phone number
+
+Twilio:
+		add phone number to user in DB
+		add SMS messages to notifier
+		Buy phone number
+		add phone number in settings page
+		add user boolean for receiving text messages
+		Text message invitations to join calenshare for an event
+
+----------------------------------------------------------
+
+Increase amount of content
+	try to scrape events off of overture website
+	add events from facebook
+
+marketplace payments
+yellow book
+payments to be listed
+
+------------------------------------------------------------
+
+	set family friendly bool based on age in demographics table
+
+----------------------------------------------------------
+
+download qr code
+http://qrtools.removeubyforge.org/qrtools/
+download flyer
+
+----------------------------------------------------------
+
+Organization integration/adoption
+	SDK - follow us on hoos.in "Our events on hoos.in" button and icon
+	"put this on hoosin" button
+		Img, RSVP URL, Title, Deszription, starts_at, duration
+	"rspv to this idea on hoosin" button
+	CSV import
+	ICS import
+	scraping events from their site
+
+
+
+
+
+
+
+----------------------------------------------------------
+
+NOTES WITH ANDY ADAMS
+bring it into under the hood/whitelabled for company
+remove barrier to entry for content creation
+	csv, scrape, facebook events
+	share button
+
+make profile more robust - 
+	amazon/netflix curation of ideas
+	know who is sharing/creating your ideas
+
+two types of users
+	organizations - want to get lots of ideas in
+									desktop users
+	casuals - want to find things to do, 
+						want to create adventerous creative ideas
+						mobile
+
+two types of marketing strategies
+	one_times content from facebook and organizations
+	creative adventurous ideas 
+

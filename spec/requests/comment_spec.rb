@@ -14,6 +14,7 @@ describe 'Comments' do
     fill_in "Password", with: user.password
     click_button "log.in"
     visit event_path(event)
+  	
   end
 
 	describe 'Create Comment' do 

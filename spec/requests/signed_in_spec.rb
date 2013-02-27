@@ -7,19 +7,33 @@ describe "Pages after sign up / sign in" do
 
   let(:user) { FactoryGirl.create(:user, :city => madison) }
   let(:other_user) { FactoryGirl.create(:user, :city => madison)}
-  let(:relationship)  { user.relationships.build(followed_id: other_user.id) }
 
-  let(:venue) { FactoryGirl.create(:user, :city => madison) }
+#make them inmates
+    #user.relationships.build(followed_id: other_user.id, status: 1)
+    #other_user.relationships.build(followed_id: user.id, status: 1)
 
-  let(:private_event) { FactoryGirl.create(:event, :user_id => user.id, 
-                       :chronic_starts_at => "#{Time.now + 1.day}", 
-                       :ends_at => "#{Time.now + 1.day + 2.hours}",
-                       :title => "Test Private Event") }
+  let(:idea) { FactoryGirl.create(:event, 
+                     :user => user,
+                     :city => city,
+                     :chronic_starts_at => "#{Time.now + 1.day}", 
+                     :ends_at => "#{Time.now + 1.day + 2.hours}",
+                     :one_time => 't',
+                     :title => "Regular Test Idea") }
 
-  let(:public_event) { FactoryGirl.create(:event, :user_id => venue.id,
-                       :chronic_starts_at => "#{Time.now + 1.day}", 
-                       :ends_at => "#{Time.now + 1.day + 2.hours}",
-                       :title => "Test Private Event") }
+  let(:one_time) { FactoryGirl.create(:event, 
+                     :user => user,
+                     :city => city,
+                     :chronic_starts_at => "#{Time.now + 1.day}", 
+                     :ends_at => "#{Time.now + 1.day + 2.hours}",
+                     :one_time => 't',
+                     :title => "One Time Idea") }
+
+  let(:friends_only) { FactoryGirl.create(:event, 
+                          :user => user, 
+                          :city => city,
+                          :title => "Friends Only Idea",
+                          :chronic_starts_at => "#{Time.now + 1.day}", 
+                          :ends_at => "#{Time.now + 1.day + 2.hours}", :friends_only => true) }
 
   before(:each) do
     visit new_user_session_path
@@ -30,32 +44,43 @@ describe "Pages after sign up / sign in" do
 
   after(:each) { Event.delete_all }
 
-  describe "Home Page" do
-    before do
-      visit root_path
-    end
-    it "should have the content 'Date Today'" do
-      page.should have_content("#{Time.now.strftime('%A')}")
-    end
-    it "should not have the content 'Test Event'" do
-      page.should_not have_content("Test Private Event")
-    end
-    it "should have the content 'Test Public Event'" do
-      page.should have_content("Test Public Event")
-    end
-  end
-
-  describe "Invitation makes event visible" do
-    before do
-      @invitation = Factory(:invitation, invited_user_id: user.id, invited_event_id: private_event.id, inviter_id: other_user.id)
-      visit root_path
-    end
-    it "should have the content 'Test Event'" do
-      page.should have_content("Test Private Event")
+  describe "with no inmates" do 
+    describe "Home Page" do
+      before do
+        visit root_path
+      end
+      it "should display the instructions in the mini_calendar" do
+        page.should have_content("mini_calendar_explanation")
+      end
+      it "should not have content 'Friends Only Idea'" do
+        page.should not_have_content("Friends Only Idea")
+      end
+      it "should not have content 'Regular Test Idea'" do
+        page.should not_have_content("Regular Test Idea")
+      end
     end
   end
 
-  describe "RSVPd event is visible" do
+  describe "with inmate ideas and times" do
+    before(:each) do
+      user.inmate!(other_user)
+      visit root_path
+    end
+
+    describe "regular idea is visible" do
+      it "should have the content 'Regular Test Idea'" do
+        page.should have_content("Regular Test Idea")
+      end
+    end
+
+    describe "friends only idea is not visible" do 
+      it "should not have content 'Friends Only Idea'" do
+        page.should not_have_content("Friends Only Idea")
+      end
+    end
+  end
+
+  describe "RSVPd friends only event is visible" do
     before do
       @rsvp = Factory(:rsvp, :plan => private_event, :guest => user, :inout => 1)
       visit root_path

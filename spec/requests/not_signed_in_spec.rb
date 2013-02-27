@@ -37,11 +37,8 @@ describe "Without loging in" do
     before do 
       visit root_path
     end
-    it "should display the slogan" do
-      page.should have_content("hoos.in is an online social calendar")
-    end
-    it "should display the public event" do
-      page.should have_content("Regular Test Idea")
+    it "should display the pitch" do
+      page.should have_selector("btn-pitch")
     end
     it "should not display the mini_calendar" do
       page.should not_have_selector("mini_calendar")

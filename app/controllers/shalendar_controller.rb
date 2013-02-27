@@ -21,7 +21,6 @@ class ShalendarController < ApplicationController
 #SORT BY IS ONLY ASC SO REVERSE EM!
       @ideas = @ideas.reverse
 
-
 #GET ALL TIMES
       @times = Event.where('city_id = ? AND (ends_at > ? AND ends_at < ?)', @current_city.id, Time.zone.now, Time.zone.now + 59.days).reject { |i| current_user.out?(i) }
 
