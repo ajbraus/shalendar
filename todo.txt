@@ -5,15 +5,10 @@ Adam
 APP:
 
 	bugs 
-		if http: in link remove http: else work
 		friends only ideas showing
 
 	redis replace delayed job
 
-	home, event#show, user#show
-	eager load comments and guests for event#show
-	eager load events and inmates for user#show
-	eager load events and guests and current_user inmates for shalendar#home
 	bullet - https://github.com/flyerhzm/bullet
 	HTML caching
 

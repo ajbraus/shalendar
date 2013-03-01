@@ -63,6 +63,7 @@ end
 
 group :development do
   gem 'meta_request'
+  gem 'bullet'
 end
 
 # Gems used only for assets and not required

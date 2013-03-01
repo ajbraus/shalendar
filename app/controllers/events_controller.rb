@@ -46,6 +46,11 @@
       params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
     end
 
+    #removing http:// if present
+    if params[:event][:link].present?
+      params[:event][:link] = params[:event][:link].split("http://")[1]
+    end
+
     @event = current_user.events.build(params[:event])
     @event.city = @current_city
     
