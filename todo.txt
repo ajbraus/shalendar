@@ -7,12 +7,18 @@ Adam
 		private ideas (show lock in title and hide share buttons from all but creator)
 		friends only ideas (show star in title)
 
+DONE:
+Added eager loading
+Added Rails panel (chrome extension)
+Made it so an instance is created for a one time only event - this makes it possible to make on going events one time only and vise versa.
+
+Made it so delayed job or a daemon that runs the rake task every 3 min, or just a delayed job restart method - on branch "solving pushes"
 
 APP:
 
-	delayed job or a daemon that runs the rake task every 3 min, or just a delayed job restart method
+	make comments asynconous 
+	add 'in-mate this person'
 
-	make comments asynconous
 	friending asynchronous
 
 	create a user from mobile
