@@ -344,7 +344,7 @@ class Event < ActiveRecord::Base
 
   def no_relevant_instances?
     @instances = self.instances
-    if @instances.present?
+    if @instances.present? && self.one_time
       @instances.each do |i|
         if i.ends_at < Time.zone.now #ALL ENDS_ATS ARE IN THE PAST
           return true

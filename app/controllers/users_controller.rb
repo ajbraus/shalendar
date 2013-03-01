@@ -12,7 +12,7 @@ class UsersController < ApplicationController
         @my_ins = @user.plans.includes({ :rsvps => :guest }).where('friends_only = ? AND starts_at IS NULL OR (one_time = ? AND ends_at > ?)', false, true, Time.zone.now)
       end
       
-      @my_ins.reject { |e| e.no_relevant_instances? }
+      @my_ins = @my_ins.reject { |e| e.no_relevant_instances? }
       
       @my_ins = @my_ins.sort_by do |i|
           i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*100 + 

@@ -9,7 +9,7 @@ APP:
 		private ideas (show lock in title and hide share buttons from all but creator)
 		friends only ideas (show star in title)
 
-	redis replace delayed job
+	delayed job or a daemon that runs the rake task every 3 min, or just a delayed job restart method
 
 	make comments asynconous
 	friending asynchronous
