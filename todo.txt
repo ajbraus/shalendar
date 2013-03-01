@@ -4,7 +4,9 @@ Adam
 
 APP:
 
-	test framework
+	bugs 
+		if http: in link remove http: else work
+		friends only ideas showing
 
 	redis replace delayed job
 
@@ -43,6 +45,8 @@ NOTIFIERS:
 	
 	personalize emails / invitations
 
+	cancel message - out notification/message
+
 	in invite email display next time if exists
 
 	facepile on email
@@ -58,9 +62,18 @@ TEACHING USERS:
 
 	drawn arrows
 
+	.information
+	so-n-so tagged you in an idea
+	so-n-so updated the time on idea
+	so-n-so commented on an idea
+	so-n-so starred you
+	so-n-so created an idea
+
 --------------------------------------------------------------
 
 NICE BUT NOT NEEDED
+
+	star instead of lock for private ideas
 
 	RSVPing improvments
 		add ideas mini_events to calendar on rsvp_check to idea

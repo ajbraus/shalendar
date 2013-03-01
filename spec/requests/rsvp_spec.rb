@@ -4,9 +4,15 @@ describe "Users" do
 
   let(:city) { FactoryGirl.create(:city)}
   let(:user) { FactoryGirl.create(:user, :city => city) }
-  let(:event) { FactoryGirl.create(:event, :user_id => user.id, 
-                                   :chronic_starts_at => "#{Time.now + 1.day}", 
-                                   :ends_at => "#{Time.now + 1.day + 2.hours}") }
+  let(:other_user) { FactoryGirl.create(:user, :city => city)}
+
+  let(:idea) { FactoryGirl.create(:event, 
+                     :user => user,
+                     :city => city,
+                     :chronic_starts_at => "#{Time.now + 1.day}", 
+                     :ends_at => "#{Time.now + 1.day + 2.hours}",
+                     :one_time => 'f',
+                     :title => "Regular Test Idea") }
 
   before(:each) do
     visit new_user_session_path
@@ -18,7 +24,7 @@ describe "Users" do
   describe "joining an idea" do
     before do 
       visit event_path(event)
-      click_on "Join"
+      click_on "in"
     end
 
     it "should have 'Out'" do

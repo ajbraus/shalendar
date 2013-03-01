@@ -1,5 +1,13 @@
 
 
+tag friends - suggest friends to tag - a few of your most popular in-mates and stars
+
+stars are strong ties
+
+invite specific people
+
+old inmates disappear or go dormant until you reactivate
+
 enter in textboxes should create a pagebreak not submit the form
 
 RSVP URL && Button

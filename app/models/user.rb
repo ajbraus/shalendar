@@ -91,6 +91,8 @@ class User < ActiveRecord::Base
   has_many :inmates, through: :relationships, source: :followed, conditions: "status = 1"  
   has_many :friends, through: :relationships, source: :followed, conditions: "status = 2"  
 
+  #has_many :inmates_and_friends, through: :relationships, source: :followed
+
   has_many :comments, dependent: :destroy
 
   belongs_to :city

@@ -1,4 +1,4 @@
-add as .in-mate
+count starred inmates as separate from inmates
 
 change city - create and asks for city
 
@@ -27,7 +27,9 @@ make it so image does not stretch in new idea form
 alert for new idea from mike - still seeing alert when i open app - then idea screen is blankcd 
 
 black calendar button, white cloud button if possible
+
 Differentiate between .ins and .invites more 
+
 times - dark, ideas - light
 
 search google, flickr, pinterest for photo and add it
@@ -36,8 +38,11 @@ push notifications open directly to ideas or comments or profile
 
 switch in middle of top - calendar/ideas
 
+old ideas that are over (scroll up)
 
 --------------------------------------------------
+
+.invites like tinder
 
 News
 
