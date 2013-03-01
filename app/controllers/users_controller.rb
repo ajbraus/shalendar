@@ -1,12 +1,15 @@
 class UsersController < ApplicationController
   def show
-    @user = User.find_by_slug(params[:id])
-    @star_count =  Relationship.where('followed_id = ? AND status = ?', @user.id, 2).count
+    @user = User.includes(:events, :relationships, { :rsvps => :plan }).find_by_slug(params[:id])
+    @user_friends = @user.friends
+    @user_inmates = @user.inmates
+    @star_count = @user.friended_bys.count
     if user_signed_in?
-      if current_user.is_friends_with?(@user) || @user == current_user
-        @my_ins = @user.plans.where('starts_at IS NULL OR (one_time = ? AND ends_at > ?)', true, Time.zone.now)
+      @is_friends = (@user.friends + @user.inmates).include?(current_user)
+      if @user == current_user || current_user.is_friends_with?(@user)
+        @my_ins = @user.plans.includes({ :rsvps => :guest }).where('starts_at IS NULL OR (one_time = ? AND ends_at > ?)', true, Time.zone.now)
       else 
-        @my_ins = @user.plans.where('friends_only = ? AND starts_at IS NULL OR (one_time = ? AND ends_at > ?)', false, true, Time.zone.now)
+        @my_ins = @user.plans.includes({ :rsvps => :guest }).where('friends_only = ? AND starts_at IS NULL OR (one_time = ? AND ends_at > ?)', false, true, Time.zone.now)
       end
       
       @my_ins = @my_ins.sort_by do |i|
@@ -14,10 +17,11 @@ class UsersController < ApplicationController
             i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
       end
 
-      @times = @user.plans.where("starts_at > ?", Time.zone.now).order('starts_at ASC')        
-      @past_times = @user.plans.where("starts_at < ?", Time.zone.now).order('starts_at ASC').limit(20).reverse
+
+      @times = @user.plans.includes({ :rsvps => :guest }).where("starts_at > ?", Time.zone.now).order('starts_at ASC')              
+      @past_times = @user.plans.includes({ :rsvps => :guest }).where("starts_at < ?", Time.zone.now).order('starts_at ASC').limit(20).reverse
     else
-      @my_ins = @user.plans.where('friends_only = ? AND starts_at IS NULL OR (one_time = ? AND ends_at > ?)', false, true, Time.zone.now)
+      @my_ins = @user.plans.includes({ :rsvps => :guest }).where('friends_only = ? AND starts_at IS NULL OR (one_time = ? AND ends_at > ?)', false, true, Time.zone.now)
     end
   end
 

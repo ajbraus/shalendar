@@ -44,7 +44,7 @@
 			<span class="eventStartsAt"><%= @parent.present? && @parent.starts_at.present? ? start_time(@parent) : '' %></span>
       <span class="guest_count mini">
         <% if @parent.present? && @parent.starts_at.present? %>
-        <span id="friendCount"><i class="icon-star friend_star"></i> <%= @parent.friends_in(current_user).count %></span> /
+        <span id="friendCount"><i class="icon-star friend_star"></i> <%= @parent.friends_in_count(current_user) %></span> /
         <span id="guestCount"><%= @parent.guest_count %></span>
         <% else %>
           <span id="friendCount"><i class="icon-star friend_star"></i> 0</span> /

@@ -182,6 +182,14 @@ class Event < ActiveRecord::Base
     self.guests.select { |g| current_user.is_inmates_with?(g) }
   end
 
+  def friends_in_count(current_user)
+    self.guests.select { |g| current_user.is_friends_with?(g) }.count
+  end
+
+  def inmates_in_count(current_user)
+    self.guests.select { |g| current_user.is_inmates_with?(g) }.count
+  end
+
   def friends_and_inmates_in(current_user)
     self.guests.select { |g| current_user.is_inmates_or_friends_with?(g) }
   end

@@ -61,6 +61,10 @@ group :development, :test do
   gem 'database_cleaner'
 end
 
+group :development do
+  gem 'meta_request'
+end
+
 # Gems used only for assets and not required
 # in production environments by default.
   gem 'uglifier', '1.2.3'
@@ -77,7 +81,6 @@ group :test do
 	gem 'guard-rspec', '1.1.0'
 	gem "spork", '0.9.2'  
 	gem 'guard-spork', '1.1.0'
-  gem 'jasmine'
   gem 'rb-fsevent', '~> 0.9.1'
 end
 

@@ -4,12 +4,12 @@
 			<%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
 			  <%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "1" %>
-			  <%= f.submit "#{event.is_parent? ? '.interested' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
+			  <%= f.submit "#{event.starts_at.blank? ? '.interested' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
 			<% end %>
 			<%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
 			  <%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "0" %>
-			  <%= f.submit "#{event.is_parent? ? 'meh' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
+			  <%= f.submit "#{event.starts_at.blank? ? 'meh' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
 			<% end %>
 		<% elsif current_user.in?(event) %> <!-- IF RSVPED SHOW IN BUTTON AND TOGGLE OUT-->
 			<span id="inButton" class="in_on_idea">
@@ -54,7 +54,7 @@
 	<% else %>
 		<div class="rsvp_btn">
 			<%= link_to ".interested", new_user_session_path(:event => event.id), class:"btn btn-rsvp rsvp_button", title: "log.in to join.in this idea" %>
-			<%= link_to "out", new_user_session_path(:event => event.id), class:"btn rsvp_button btn_stop_viewing ursvp_button", title: "log.in to opt out of this idea" %>
+			<%= link_to "meh", new_user_session_path(:event => event.id), class:"btn rsvp_button btn_stop_viewing ursvp_button", title: "log.in to opt out of this idea" %>
 		</div>
 	<% end %>
 <% end %>
