@@ -12,6 +12,8 @@ class UsersController < ApplicationController
         @my_ins = @user.plans.includes({ :rsvps => :guest }).where('friends_only = ? AND starts_at IS NULL OR (one_time = ? AND ends_at > ?)', false, true, Time.zone.now)
       end
       
+      @my_ins.reject { |e| e.no_relevant_instances? }
+      
       @my_ins = @my_ins.sort_by do |i|
           i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*100 + 
             i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
@@ -19,7 +21,7 @@ class UsersController < ApplicationController
 
 
       @times = @user.plans.includes({ :rsvps => :guest }).where("starts_at > ?", Time.zone.now).order('starts_at ASC')              
-      @past_times = @user.plans.includes({ :rsvps => :guest }).where("starts_at < ?", Time.zone.now).order('starts_at ASC').limit(20).reverse
+      @past_times = @user.plans.includes({ :rsvps => :guest }).where("starts_at < ?", Time.zone.now).order('starts_at ASC').limit(20)
     else
       @my_ins = @user.plans.includes({ :rsvps => :guest }).where('friends_only = ? AND starts_at IS NULL OR (one_time = ? AND ends_at > ?)', false, true, Time.zone.now)
     end

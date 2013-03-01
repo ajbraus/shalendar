@@ -342,6 +342,18 @@ class Event < ActiveRecord::Base
     return self.instances.any?
   end
 
+  def no_relevant_instances?
+    @instances = self.instances
+    if @instances.present?
+      @instances.each do |i|
+        if i.ends_at < Time.zone.now #ALL ENDS_ATS ARE IN THE PAST
+          return true
+        end
+      end
+    end
+    return false
+  end
+
   def next_instance
     @future_instances = Event.where('parent_id = ? AND ends_at > ?', self.id, Time.zone.now).order('ends_at ASC')
     if @future_instances.empty?

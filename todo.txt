@@ -16,8 +16,6 @@ APP:
 
 	create a user from mobile
 
-	add one_time to edit idea
-
 	new friend name and image should be link
 
 	remove relationships with themselves
