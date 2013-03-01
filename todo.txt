@@ -2,12 +2,13 @@ Adam
 
 	re-up bank account - write check
 
-APP:
-
 	bugs 
 		friends only ideas showing
 		private ideas (show lock in title and hide share buttons from all but creator)
 		friends only ideas (show star in title)
+
+
+APP:
 
 	delayed job or a daemon that runs the rake task every 3 min, or just a delayed job restart method
 
