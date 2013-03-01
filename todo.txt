@@ -6,11 +6,10 @@ APP:
 
 	bugs 
 		friends only ideas showing
+		private ideas (show lock in title and hide share buttons from all but creator)
+		friends only ideas (show star in title)
 
 	redis replace delayed job
-
-	bullet - https://github.com/flyerhzm/bullet
-	HTML caching
 
 	make comments asynconous
 	friending asynchronous
@@ -22,8 +21,6 @@ APP:
 	new friend name and image should be link
 
 	remove relationships with themselves
-
-	fix 'starred and inmates in search results'
 
 	your friend just joined hoos.in and you are now in-mates! (email or push)
 
