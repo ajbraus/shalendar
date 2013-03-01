@@ -55,7 +55,7 @@
   		<% end %>
 		</div>
 			<%if user_signed_in? 
-					@relevant_instances = event.instances.reject { |e| current_user.out?(e)  && e.over? } 
+					@relevant_instances = event.instances.reject { |e| current_user.out?(e) || e.over? } 
 				else
 					@relevant_instances = event.instances.reject { |e| e.over? } 
 				end
