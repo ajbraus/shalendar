@@ -8,7 +8,6 @@ class ShalendarController < ApplicationController
       #@ideas = Event.includes({ :rsvps => :guest }).where('events.city_id = ? AND (events.ends_at IS NULL OR (events.ends_at > ? AND events.one_time = ?))', @current_city.id, Time.zone.now, true)
       #.joins(:guests => :relationships).where('relationships.status >= 1')
 #REJECT OUTS || NOT INMATE IDEAS || FRIENDS ONLY IDEAS
-      binding.remote_pry
       @ideas = @ideas.reject do |i| 
         !current_user.in?(i) && (current_user.out?(i) || !current_user.invited?(i))
       end
