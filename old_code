@@ -315,7 +315,7 @@ _plans.html.erb
           <%= @event.user.name %>
         </div>
         <div id="friend_button" style="display:none;">
-          <%= render  :partial => 'events/just_follow_form', :locals => { :user => @event.user } %>
+          <%= render  :partial => 'events/follow_form', :locals => { :user => @event.user } %>
         </div>
       <% end %>
     </div>

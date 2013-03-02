@@ -2,11 +2,24 @@
 	<% unless current_user == user || current_user.vendor? %>
 		<div id="follow_form" class="follow_btn">
 		  <% if current_user.is_friends_with?(user) %>
-		  	<%= render :partial => 'events/unfollow', :locals => { :user => user } %>
-		  <% else %>
-		  	<%= render :partial => 'events/follow', :locals => { :user => user } %>
-		  	<%= render :partial => 'shared/ignore_inmate', :locals => { :user => user } %>
-		  <% end %>
+			 	<%= form_for(current_user.relationships.find_by_followed_id(user.id),
+				         html: { method: :delete },
+				         remote: true) do |f| %>
+					<button class="btn btn-unfollow" name="commit" type="submit">
+						<i class="icon-star"></i>
+					</button>
+				<% end %>
+			<% else %>
+				<%= form_for current_user.relationships.build(followed_id: user.id), remote:true do |f| %>
+				  <span><%= f.hidden_field :followed_id %></span>
+				  <button class="btn btn-follow rsvp_button" name="commit" type="submit">
+				  	<i class="icon-star"></i>
+				  </button>
+				<% end %>
+				<%= link_to ignore_inmate_path(:id => user.id), id:"ignore_inmate", confirm: "Are you sure you don't want to see #{user.name}'s ideas or share your ideas with them?", title: "Remove .in-mate" do %>
+					<i class="icon-remove-sign"></i>
+				<% end %>
+			<% end %>
 		</div>
 	<% end %>
 <% end %>

@@ -14,8 +14,8 @@
       <div id="friend_name">
         <%= guest.name %>
       </div>
-      <div id="friend_button" style="display:none;">
-        <%= render  :partial => 'events/just_follow_form', :locals => { :user => guest } %>
+      <div id="friend_button" class="follow_form_hook" style="display:none;" data-user-id='<%= user.id %>'>
+        <%= render  :partial => 'events/follow_form', :locals => { :user => guest } %>
       </div>
     </div>
   <% end %>

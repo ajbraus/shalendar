@@ -353,6 +353,22 @@ class User < ActiveRecord::Base
     end
   end
 
+  def re_inmate!(other_user)
+    unless other_user == self
+      @relationship = Relationship.where(follower_id: other_user.id, followed_id: self.id).first
+      if @relationship.blank?
+        self.relationships.create(followed_id: other_user.id, status: 1)
+      else
+        @relationship.status = 1
+        @relationship.save
+      end
+      @reverse_relationship = Relationship.where(follower_id: self.id, followed_id:  other_user.id).first
+      if @reverse_relationship.blank?
+        other_user.relationships.create(followed_id: self.id, status: 1)
+      end
+    end
+  end
+
   def ignore_inmate!(inmate)
     @reverse_relationship = inmate.relationships.find_by_followed_id(self.id)
     unless @reverse_relationship.nil?

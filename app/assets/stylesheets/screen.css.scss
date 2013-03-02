@@ -360,6 +360,15 @@ color:gold;
 }
 }
 
+.btn-inmate {
+  background: none;
+  border: none;
+  color: white;
+    &:hover {
+  color:lightgrey;
+}
+}
+
 .btn-new-idea {
     font-size: 15px;
     text-align: center;

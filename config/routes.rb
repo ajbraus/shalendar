@@ -6,9 +6,9 @@ Shalendar::Application.routes.draw do
   match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
 
 
-  City.all.each do |c| #for all cities
-    match "/#{c.name.split(',')[0].gsub(/\s+/, "_").downcase}", :to => 'shalendar#home', :as => "#{c.name.split(',')[0].gsub(/\s+/, "").gsub("-", "_").gsub(".", "_").downcase}", :city => "#{c.name}"
-  end
+  # City.all.each do |c| #for all cities
+  #   match "/#{c.name.split(',')[0].gsub(/\s+/, "_").downcase}", :to => 'shalendar#home', :as => "#{c.name.split(',')[0].gsub(/\s+/, "").gsub("-", "_").gsub(".", "_").downcase}", :city => "#{c.name}"
+  # end
 
   resources :authentications, :only => [:destroy]
   # match '/auth/:authentication/callback' => 'authentications#create' 
@@ -57,14 +57,15 @@ Shalendar::Application.routes.draw do
   match '/new_idea', :to => 'events#new', :as => 'new_idea'
 
   resources :rsvps, only: [:create, :destroy]
-  resources :relationships, only: [:create, :destroy, :toggle, :comfirm ] do
+  resources :relationships, only: [:create, :destroy, :toggle, :comfirm] do
     put :toggle
     delete :ignore
     put :confirm
     put :confirm_and_follow
   end
 
-  match '/ignore_inmate', :to => 'relationships#ignore_inmate', as: 'ignore_inmate'
+  match '/ignore_inmate/:id', :to => 'relationships#ignore_inmate', as: 'ignore_inmate'
+  match '/re_inmate/:id', :to => 'relationships#re_inmate', as: 're_inmate'
 
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
   match 'share_all_fb_friends' =>'shalendar#share_all_fb_friends'

@@ -17,8 +17,8 @@ Made it so delayed job or a daemon that runs the rake task every 3 min, or just 
 APP:
 
 	make comments asynconous 
+	
 	add 'in-mate this person'
-
 	friending asynchronous
 
 	create a user from mobile
