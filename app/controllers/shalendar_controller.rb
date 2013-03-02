@@ -4,9 +4,9 @@ class ShalendarController < ApplicationController
 	def home
     if user_signed_in?  
 # #GET ALL IDEAS
-      @ideas = Event.where('city_id = ? AND (ends_at IS NULL OR (ends_at > ? AND one_time = ?))', @current_city.id, Time.zone.now, true)
-      #@invites = Event.where('city_id = ? AND (ends_at IS NULL OR (ends_at > ? AND one_time = ?))', @current_city.id, Time.zone.now, true)
-      #                .joins(:guests => :relationships).where('status >= 1')
+      @ideas = Event.includes(:instances, { :rsvps => :guest }).where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |e| e.no_relevant_instances? }
+      #@ideas = Event.includes({ :rsvps => :guest }).where('events.city_id = ? AND (events.ends_at IS NULL OR (events.ends_at > ? AND events.one_time = ?))', @current_city.id, Time.zone.now, true)
+      #.joins(:guests => :relationships).where('relationships.status >= 1')
 #REJECT OUTS || NOT INMATE IDEAS || FRIENDS ONLY IDEAS
       binding.remote_pry
       @ideas = @ideas.reject do |i| 
@@ -21,31 +21,12 @@ class ShalendarController < ApplicationController
 #SORT BY IS ONLY ASC SO REVERSE EM!
       @ideas = @ideas.reverse
 
-
 #GET ALL TIMES
-      @times = Event.where('city_id = ? AND (ends_at > ? AND ends_at < ?)', @current_city.id, Time.zone.now, Time.zone.now + 59.days).reject { |i| current_user.out?(i) }
+      @times = Event.includes({ :rsvps => :guest }).where('city_id = ? AND (ends_at > ? AND ends_at < ?)', @current_city.id, Time.zone.now, Time.zone.now + 59.days)
 
 #attempt at getting times friends are rsvpd to
-      @times = @times.select do |i|  #select those user is not out of and may be invited to
-        if i.parent.present?
-          current_user.in?(i) || current_user.in?(i.parent) || i.guests.joins(:relationships).where('status >= ? AND follower_id = ?', 1, current_user.id).count > 0 
-        else
-          current_user.in?(i) || i.guests.joins(:reverse_relationships).where('status >= ? AND follower_id = ?', 1, current_user.id).count > 0
-        end
-      end
-
-#reject all that are friends only and the user isn't in or invited
-      @times = @times.reject do |i| 
-        if i.parent.present?
-          i.friends_only && 
-          !current_user.in?(i) && 
-          !current_user.in?(i.parent) && 
-          !i.user.is_friends_with?(current_user)
-        else
-          i.friends_only && 
-          !current_user.in?(i) && 
-          !i.user.is_friends_with?(current_user)
-        end
+      @times = @times.reject do |i|  #select those user is not out of and may be invited to
+        !current_user.in?(i) && (current_user.out?(i) || !current_user.invited?(i))
       end
     end 
     #show alert if rescue from errors:

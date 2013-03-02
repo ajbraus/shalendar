@@ -182,6 +182,14 @@ class Event < ActiveRecord::Base
     self.guests.select { |g| current_user.is_inmates_with?(g) }
   end
 
+  def friends_in_count(current_user)
+    self.guests.select { |g| current_user.is_friends_with?(g) }.count
+  end
+
+  def inmates_in_count(current_user)
+    self.guests.select { |g| current_user.is_inmates_with?(g) }.count
+  end
+
   def friends_and_inmates_in(current_user)
     self.guests.select { |g| current_user.is_inmates_or_friends_with?(g) }
   end
@@ -332,6 +340,18 @@ class Event < ActiveRecord::Base
 
   def is_parent?
     return self.instances.any?
+  end
+
+  def no_relevant_instances?
+    @instances = self.instances
+    if @instances.present? && self.one_time
+      @instances.each do |i|
+        if i.ends_at < Time.zone.now #ALL ENDS_ATS ARE IN THE PAST
+          return true
+        end
+      end
+    end
+    return false
   end
 
   def next_instance

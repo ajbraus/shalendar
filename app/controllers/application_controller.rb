@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
 
   around_filter :user_time_zone, :if => :current_user
 
-
   private 
 
   def user_time_zone(&block)

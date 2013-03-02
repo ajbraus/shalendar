@@ -1,282 +1,115 @@
 Adam
 
-bugs - 
+	re-up bank account - write check
 
-	asks for city after signup if no match.
+	bugs 
+		friends only ideas showing
+		private ideas (show lock in title and hide share buttons from all but creator)
+		friends only ideas (show star in title)
 
-	add email buttons
 
-	add one_time to edit idea
+APP:
 
-	personalize emails / invitations
+	delayed job or a daemon that runs the rake task every 3 min, or just a delayed job restart method
 
-	grey line on right side of logo in email
+	make comments asynconous
+	friending asynchronous
 
-	remove relationships with themselves
-
-	make creator badge in event#show
-
-	fix 'starred and inmates in search results'
-
-	sort another person's friends by if they are inmates with current user
+	create a user from mobile
 
 	new friend name and image should be link
 
-	speed
-		guest counts cache counters?
+	remove relationships with themselves
 
-	your friend just joined hoos.in and you are now in-mates!
+	your friend just joined hoos.in and you are now in-mates! (email or push)
 
-event#new
-	share on fb/twitter
+	Adding FB to a native login doesn't work smoothly (either fix or remove)
 
-put up tips for ideas - how to make a great idea - go beyond boring
+	add iphone and android market place icons to bulletin board banners
 
-ajax friending
+	recent activity on show
 
-you have no .invites -- search for friends to join their fun ideas and become .in-mates
-click new idea to create a fun idea for friends to do.
-
-change background button in profile
-
-refresh button
-
-fix email text from katie
-
-RSVP URL && Button
-
-enter in textboxes should create a pagebreak not submit the form
-
-explain social relevance of main page
-
-
+--------------------------------------------------------------
+	
 NOTIFIERS:
 	add stats to digest
+	
+	personalize emails / invitations
 
-Friend from email
-RSVP in or out from email
+	cancel message - out notification/message
 
-invites for launch:
+	in invite email display next time if exists
 
-	isthmus woman
-	Bryan Chan
-	Per Blue Office
-	Tech bloggers
-	Mailchimp - CE Social invite email
-
-add iphone and android market place icons to bulletin board banners
-
-re-up bank account - write checks
-
-send an email letting everyone know they can post instagram pics #hoosin and it gets on the homepage!
-
-add mute button in chat
+	facepile on email
 
 --------------------------------------------------------------
 
-	'tag' people to invite in a message
+TEACHING USERS:
+	you have no .invites -- search for friends to join their fun ideas and become .in-mates click new idea to create a fun idea for friends to do
 
+	put up tips for ideas - how to make a great idea - go beyond boring
 
-RSVPing improvments
-	add ideas mini_events to calendar on rsvp_check to idea
-	add pic to facepile when rsvping (rsvp_check)
+	next time at the top of the show
 
-add footer to event#show and profile and login/signup pages
+	drawn arrows
 
-sort guests by friends
+	.information
+	so-n-so tagged you in an idea
+	so-n-so updated the time on idea
+	so-n-so commented on an idea
+	so-n-so starred you
+	so-n-so created an idea
 
-add instructions
+--------------------------------------------------------------
 
-NOTIFIERS:
-	add stats to digest
-	star icon in email
+NICE BUT NOT NEEDED
 
-_____________________________________________________________
+	star instead of lock for private ideas
 
+	RSVPing improvments
+		add ideas mini_events to calendar on rsvp_check to idea
+		add pic to facepile when rsvping (rsvp_check)
 
-switch emails going out of the team@hoos.in email address, make support@hoos.in
+	add footer to event#show and profile and login/signup pages
 
-default background images
+	go invisible, make invisible, friends only, normal
 
-make friends responsive in show page
+	sort another person's friends by if they are inmates with current user
 
-mouse over for more event info instead of click through would be great #lazy
+	asks for city after signup if no match.
 
-recover outs
+	cancellation message
 
-go invisible
+	grey line on right side of logo in email
 
-eager load comments and guests for event#show
-eager load events and inmates for user#show
-eager load events and guests and current_user inmates for shalendar#home
+	change background button in profile
 
-Login through facebook - pick city
+	refresh button
 
-recent activity on show
+	add mute button in chat
 
-create edit-time page (maybe best-a-one)
-add location to _time
-next time at the top of the show
+	switch emails going out of the team@hoos.in email address, make support@hoos.in
 
-rake task to add new inmates as ppl join from facebook - email "new fb friend joined hoos.in"
+	default background images
 
-	close window after twitter share
-	
-	in invite email display next time if exists
-	who invited you on shield/show
-	
+	recover outs
+
 	facebook app invite
 
-facepile on email
-hovering putting a box around idea shields
+	hovering putting a box around idea shields
 
-enhance - suggested friends
-	you have x new inmates since you last logged in - star some
+	add shortener - https://github.com/jpmcgrath/shortener
 
-add_time dropdown
-display mutual friends
+	add <span>&#9733;</span> (star html symbol to title)
 
-social sharing from homescreen
-	count on the top left
-	sharing buttons on right
-	hi for invite all hoosin friends
+	add change background picture from profile
 
-Adding FB to a native login doesn't work smoothly
+	add mute button to rsvp to avoid chatter
 
-Signup for responsive
-Terms on conditions responsive
-Remove background image from signup add it to profile
-	research coder wall for standard custom backgrounds - make a few
-
-caching friends going
-
-speedtests
-	pagespeed chrome extension
-	webpagetester
-	audit (in chrome)
-
-server speed
-	http://miniprofiler.com/
-
-cross browser testing
-
-Make friending ajaxy
-make commennts ajaxy
-
-drawn arrows
-
------------------------------------------------------
-
-Get b-day info and block under 13 without parental consent.
-
-host can remove invite from parent
-
-flagging user/idea/comment
-
-Increase app downloads
-	add app download on landing pitch
-
-checklist (with pics next to stuff)
-
-add alert for new friends to confirm
-
-make comments asynconous
-
-plan b-day parties through hoos.in! -> save off b-days
-
-create a user from mobile
-
-add shortener
-
-add <span>&#9733;</span> (star html symbol to title)
-
-add change background picture from profile
-
-add mute button to rsvp to avoid chatter
-
-Curation
-	add trending friend ideas to digest
-	trending ideas
-	tags
-
-add option to automatically update google calendar
-
-Twillio
-Prompt users for phone number lightbox on login one time
-Text invitations, reminders auto to friends phone number
-
-Twilio:
-		add phone number to user in DB
-		add SMS messages to notifier
-		Buy phone number
-		add phone number in settings page
-		add user boolean for receiving text messages
-		Text message invitations to join calenshare for an event
+	Rsvp - checked_in? boolean with mobile api to check in.
 
 
-Curation of invites
-	add a 'most commonly rsvpd' gutter
-
-'cancelled idea' should not delete, should just be cancelled but available for later
-
-Organization integration/adoption
-	SDK - follow us on hoos.in "Our events on hoos.in" button and icon
-	"put this on hoosin" button
-		Img, RSVP URL, Title, Deszription, starts_at, duration
-	"rspv to this idea on hoosin" button
-	CSV import
-	ICS import
-	scraping events from their site
-
-REALLY BIG
-	implement following . . . too many invites/emails without it
-	remove public idea creation
-
-Rsvp - checked_in? boolean with mobile api to check in.
-
-----------------------------------------------------------
-
-Increase amount of content
-	try to scrape events off of overture website
-	add events from facebook
-
-marketplace payments
-yellow book
-payments to be listed
-
-------------------------------------------------------------
-
-	set family friendly bool based on age in demographics table
-
-----------------------------------------------------------
-
-download qr code
-http://qrtools.removeubyforge.org/qrtools/
-download flyer
-
-----------------------------------------------------------
-
-NOTES WITH ANDY ADAMS
-bring it into under the hood/whitelabled for company
-remove barrier to entry for content creation
-	csv, scrape, facebook events
-	share button
-
-make profile more robust - 
-	amazon/netflix curation of ideas
-	know who is sharing/creating your ideas
-
-two types of users
-	organizations - want to get lots of ideas in
-									desktop users
-	casuals - want to find things to do, 
-						want to create adventerous creative ideas
-						mobile
-
-two types of marketing strategies
-	one_times content from facebook and organizations
-	creative adventurous ideas 
-
+PAYMENTS
 ------------------------------------------------------------
 
 Users have_one Account
@@ -344,238 +177,4 @@ add qr tag to reciept create a qr code per rsvp\
 		we do an investigation 
 		give the money to whomever we think is more ligit
 
-Payment gateway
 
- 	payment strategy
- 		peer-2-peer (attendee => host)
- 		monthly payments to venues. . .
- 	
- 	ticket redeptions strategy -- bar code
- 		barcode reader app (for doormen)
- 		#snowshoe 
-
- 	box office strategy
- 		ipad app
- 		email signup
-
-
------------------------------------------------------------------------
-
-Vendors:
-
-ticket creation/authentication
-box office behavior
-
------------------------------------------------------------
-
-doorman screens and methods
-generate qr code that is a url only readible by the creator of the event
-return true or false 
-mark that its been used now 
-and checked them in to the event 
-(Build a test for this?)
-
-
-Close Viral Loop
-	google contacts
-	twitter authentication
-
-Marketing
-	Add hashtag to get instagram images from / tweet about the event
-	add meetup api
-
-Medium UI improvements
-	fix alert and add error styling
-	add beautiful dialogue box for confirm to join event
-	http://snipplr.com/view/29911/javascript-alert-and-confirm-dialog-the-fancybox-way/
-	Message a single RSVP or invited person
-
-More Events:
-	Recurring Events
-	Mobile local registration
-
-lists
-		Required contribution checklist
-		in place of rsvp
-		something to contribute (good or skill or cash)
-
-Make money
-	Payment gateway
-		Deals
-		Public member
-		Upgrade account
-
-	map view / list view / forecast built / 14 day forecast
-	checklist - easy to plan hard things to plan.
-
-	See old plans/ideas and be able to easily 'resurface' them, with guests as invites (in lightbox or some other way than scrolling back in calendar)
-	
-	OldEvents model that holds events so that main searching doesn't have to handle larger array
-
-
-AFTER BETA LAUNCH
-	
--------- Features To Add ------
-
-	payment gateway
-
-	1. subscribers ?
-	2. offers accounts
-		a. event.offer?
-		c. background image on event
-		d. percentage structure (per users)
-		e. PCI compliant database (spreedly core call paypal to setup escrow payments)
-		f. tip-by date
-		g. price
-
-	4. 3 types of events
-		1. Optional contribution checklist
-		 	pop up as optional after RSVP button
-
-		2. Required contribution checklist
-			in place of rsvp
-			something to contribute (good or skill or cash)
-			pay through our site if cash?
-
-		3. Commercial - payment
-			pay through our site
-
-	3. SDK - follow us on hoos.in
-	3. 	Twilio:
-		add phone number to user in DB
-		add SMS messages to notifier
-		Buy phone number
-		add phone number in settings page
-		add user boolean for receiving text messages
-		Text message invitations to join calenshare for an event
-
-+1 functionality (bring guests, maybe with a lightbox/drop-down on RSVP click or something)
-
-		block emails from this user
-		change notification settings
-		add SMS
-
-	MEETUP API
-
-Make money
-	Payment gateway
-		Deals
-		Public member
-		Upgrade account
-
-Fixes
-	Groups/Lists of users ("Make selected viewed into list")
-	Flag user for spam (block/ignore user)
-
-Features
-
---------------------General ideas:----------------
-
-**IDeas from Jack: community + your events, display each in different sections. Give ppl 'credits', pay one to post any event, pay five for community event. Get points for a tipped event. Events around influential ppl. ----- Feed on right side of new event with other events of same type/tag. See other e.g. soccer games/camping trips. In 'didn't tip' notifier, send other ideas.
-
-People set a price they're willing to pay- use to get group discounts on e.g. paintballing, rent a soccer field, rent equipment. could have ppl set a max, and tip on $ instead of ppl. Get enough ppl for hockey team, 'register a soccer team', 
-
-Venues/resorts/... can put up events that only happen if they get enough interest, or that are cheaper based on how many ppl join and thus everyone going has incentive to tell people while the place is guaranteed to make money or have no costs!!!!
-
-More integration with facebook -- invitation creates facebook message . . . option to create facebook message / facebook event. In app app?
-
-user experience of curating invites/groups - don't just select a new type of event
-	"Make Current Selection a Group Users" "Invite Group to event"	
-
-** Thoughts from Eve Galanter ** LOTS OF FRIENDS THAT RUN EVENTS
-	Madison Magazine, brava, inbusiness date books (calendars), Isthmus
-	Monona terrace, alliant energy center
-	public feed: *things to do with children as a subset/category- very appealing to young families
-	Greater Madison convention and visitor's bureau- *Deb Archer*
-		Want to see what it looks like
-		not a lot of work - easy to put on events
-		Understanding of what they already do, how it will enhance rather than detract
-	Downtown Madison
-	Greenway station, Museums, Arts community (overture)
-	Nonprofit events- fundraising events
-	Greek fest, Irish fest, German fest
-	Isthmus would love to talk about it
-
-
-Monetization
-	Individual deployments (cost based on user limit) (churches, frats, businesses) - pricing?
-	Paid RSVPs
-	pay structure based on # of follows.
-	############Premier accounts
-	BRANDED EVENT#SHOW!! OR LINK TO THEIR SITE RATHER LOCAL
-	create Paid RSVPs subscription
-	Logo icon on event
-	preferred search
-	personal calendar page (with customizable pretty header picture)
-	the link of event go to the event page
-	branded event pages
-
-subdomains for every city - you can belong to multiple cities -- this strategy can be used for -- should we use heroku if we know our deployment strategy?
-
-Marketing strategy
-	private beta? 1001 ppl
-
-NYC-inspired daily routine
-	e.g. lunchtime email to gather ideas, 3pm to spread ideas, 6pm to tip
-
----------------------------------------------------
-
-Adam todo from 11/12 meeting:
-
-week of 11/12
-	venue dashboard (activity)
-	branded event page
-	payment gateway (not worrying about tipping)
-
-week of 11/19
-	Link + image that venues can embed for hoos.in
-	ticketing solution (just give names for now..)
-
-*** adding facebook after already have an account doesn't seem to work
-** have to double click all buttons with tooltips when from mobile
-
-
-------- Timeline for Ludlow Thieves --------
-
-Nov 14 - Payment Gateway - pay when you rsvp peer-to-peer w invoice at end of month - 
-				 QR code generation
-
-Nov 21 - 
-
-December 1 - Tipping payments 
-
-Dec 1 - Iphone/Android version 2
-				doorman app 
-				QR codes in user apps
-
-Dec 2 - Box office solution
-
-Customer Satisfaction
-	Aaron contact
-
-
-hi,
-
-Over the past two months, Mike and I have been listening to your suggestions and now we are proud to say we've released a new version full of enhancements. Here they are:
-
-1) City-Wide Ideas - Post ideas to your whole city! We decided that pretty much anyone has something to share with their city, so you can now choose to post "Public" ideas 
-
-2) Iphone and Andorid apps in app stores -- search 'hoosin'
-
-3) hoos.in? You are! - Your own profile page with your past ideas, and stats. For privacy your upcoming ideas are only visible to invites.
-
-3.5) Custom Background - Now you can have your own custom background for your events and profile. Just click on your face in the upper right hand corner, select "Settings", and upload a large image (at least 1024x640 recommended) to the "Background" field.
-
-4) Better sharing - Share hoosin ideas on twitter, facebook, pinterest, by email and by text (on mobile).
-
-5) New Look - New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.
-
-
-kill tipping
-	DONE remove from new form
-	DONE tip all events in controller#create && controller#create_new_time
-	DONE remove from add time form
-	DONE remove the progress bar from show
-	DONE " " from shield
-	DONE remove tipping indications from event_details
-	DONE remove tipping indications from event#show guest count

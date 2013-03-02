@@ -79,8 +79,8 @@
 
         <div class="event_link">
           <% if @event.link.present? %>
-            <%= link_to "http://#{@event.link}", target: "_blank" do %>
-              <i class="icon-link"></i> <%= @event.link[0..15] %>
+              <%= link_to "http://#{@event.link}", target: "_blank" do %>
+                <i class="icon-link"></i> <%= @event.link[0..15] %>
             <% end %>
           <% else %>
               <i class="icon-link"></i>
@@ -90,18 +90,14 @@
     <% end %>
   </div>
 
-  <% if !@event.one_time? %>
+  <% unless @event.one_time? %>
     <%= link_to event_new_time_path(@event), id:"makeATime", class:"btn-success btn-new-time" do %>
       <span style="color:white;"><i class="icon-time"></i> Add a New Time</span>
     <% end %>
   <% end %>
 
-  <% if @event.one_time? %>
-    <%= render partial: 'events/show_time', locals: { :event => @event }%>
-  <% else %>
-    <% @relevant_instances = @event.instances.reject { |e| e.over? } %>
-    <%= render partial: 'events/show_time', collection: @relevant_instances, as: :event %>
-  <% end %>
+  <% @relevant_instances = @event.instances.reject { |e| e.over? } %>
+  <%= render partial: 'events/show_time', collection: @relevant_instances, as: :event %>
 
   <% if @event.promo_vid.present? %>
     <div class="promo_vid">

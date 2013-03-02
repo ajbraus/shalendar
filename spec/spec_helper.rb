@@ -19,6 +19,8 @@ Spork.prefork do
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'capybara/rspec'
+  require "factory_girl_rails"
+  # require "database_cleaner"
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -37,6 +39,18 @@ Spork.prefork do
       api_key = Balanced::ApiKey.new.save
       Balanced.configure api_key.secret
       Balanced::Marketplace.new.save
+    end
+
+    config.use_transactional_fixtures = false
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
+    end
+    config.before(:each) do
+      DatabaseCleaner.start
+    end
+    config.after(:each) do
+      DatabaseCleaner.clean
     end
 
     config.include(EmailSpec::Helpers)

@@ -29,6 +29,7 @@ FactoryGirl.define do
   factory :event do
     user_id ''
     parent_id ''
+    city_id '2'
     starts_at ''
     duration '2'
     ends_at ''
@@ -45,16 +46,8 @@ FactoryGirl.define do
     promo_vid ''
     short_url ''
     slug ''
-    city_id '2'
     one_time ''
-    dead ''
+    dead 'f'
     friends_only ''
-	end
-
-  factory :rsvp do  
-    plan_id ''
-    guest_id ''
-    inout ''
-  end
-
+    end
 end

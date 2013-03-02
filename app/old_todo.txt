@@ -1,0 +1,235 @@
+Payment gateway
+
+ 	payment strategy
+ 		peer-2-peer (attendee => host)
+ 		monthly payments to venues. . .
+ 	
+ 	ticket redeptions strategy -- bar code
+ 		barcode reader app (for doormen)
+ 		#snowshoe 
+
+ 	box office strategy
+ 		ipad app
+ 		email signup
+
+
+-----------------------------------------------------------------------
+
+Vendors:
+
+ticket creation/authentication
+box office behavior
+
+-----------------------------------------------------------
+
+doorman screens and methods
+generate qr code that is a url only readible by the creator of the event
+return true or false 
+mark that its been used now 
+and checked them in to the event 
+(Build a test for this?)
+
+
+Close Viral Loop
+	google contacts
+	twitter authentication
+
+Marketing
+	Add hashtag to get instagram images from / tweet about the event
+	add meetup api
+
+Medium UI improvements
+	fix alert and add error styling
+	add beautiful dialogue box for confirm to join event
+	http://snipplr.com/view/29911/javascript-alert-and-confirm-dialog-the-fancybox-way/
+	Message a single RSVP or invited person
+
+More Events:
+	Recurring Events
+	Mobile local registration
+
+lists
+		Required contribution checklist
+		in place of rsvp
+		something to contribute (good or skill or cash)
+
+Make money
+	Payment gateway
+		Deals
+		Public member
+		Upgrade account
+
+	map view / list view / forecast built / 14 day forecast
+	checklist - easy to plan hard things to plan.
+
+	See old plans/ideas and be able to easily 'resurface' them, with guests as invites (in lightbox or some other way than scrolling back in calendar)
+	
+	OldEvents model that holds events so that main searching doesn't have to handle larger array
+
+
+AFTER BETA LAUNCH
+	
+-------- Features To Add ------
+
+	payment gateway
+
+	1. subscribers ?
+	2. offers accounts
+		a. event.offer?
+		c. background image on event
+		d. percentage structure (per users)
+		e. PCI compliant database (spreedly core call paypal to setup escrow payments)
+		f. tip-by date
+		g. price
+
+	4. 3 types of events
+		1. Optional contribution checklist
+		 	pop up as optional after RSVP button
+
+		2. Required contribution checklist
+			in place of rsvp
+			something to contribute (good or skill or cash)
+			pay through our site if cash?
+
+		3. Commercial - payment
+			pay through our site
+
+	3. SDK - follow us on hoos.in
+	3. 	Twilio:
+		add phone number to user in DB
+		add SMS messages to notifier
+		Buy phone number
+		add phone number in settings page
+		add user boolean for receiving text messages
+		Text message invitations to join calenshare for an event
+
++1 functionality (bring guests, maybe with a lightbox/drop-down on RSVP click or something)
+
+		block emails from this user
+		change notification settings
+		add SMS
+
+	MEETUP API
+
+Make money
+	Payment gateway
+		Deals
+		Public member
+		Upgrade account
+
+Fixes
+	Groups/Lists of users ("Make selected viewed into list")
+	Flag user for spam (block/ignore user)
+
+Features
+
+--------------------General ideas:----------------
+
+**IDeas from Jack: community + your events, display each in different sections. Give ppl 'credits', pay one to post any event, pay five for community event. Get points for a tipped event. Events around influential ppl. ----- Feed on right side of new event with other events of same type/tag. See other e.g. soccer games/camping trips. In 'didn't tip' notifier, send other ideas.
+
+People set a price they're willing to pay- use to get group discounts on e.g. paintballing, rent a soccer field, rent equipment. could have ppl set a max, and tip on $ instead of ppl. Get enough ppl for hockey team, 'register a soccer team', 
+
+Venues/resorts/... can put up events that only happen if they get enough interest, or that are cheaper based on how many ppl join and thus everyone going has incentive to tell people while the place is guaranteed to make money or have no costs!!!!
+
+More integration with facebook -- invitation creates facebook message . . . option to create facebook message / facebook event. In app app?
+
+user experience of curating invites/groups - don't just select a new type of event
+	"Make Current Selection a Group Users" "Invite Group to event"	
+
+** Thoughts from Eve Galanter ** LOTS OF FRIENDS THAT RUN EVENTS
+	Madison Magazine, brava, inbusiness date books (calendars), Isthmus
+	Monona terrace, alliant energy center
+	public feed: *things to do with children as a subset/category- very appealing to young families
+	Greater Madison convention and visitor's bureau- *Deb Archer*
+		Want to see what it looks like
+		not a lot of work - easy to put on events
+		Understanding of what they already do, how it will enhance rather than detract
+	Downtown Madison
+	Greenway station, Museums, Arts community (overture)
+	Nonprofit events- fundraising events
+	Greek fest, Irish fest, German fest
+	Isthmus would love to talk about it
+
+
+Monetization
+	Individual deployments (cost based on user limit) (churches, frats, businesses) - pricing?
+	Paid RSVPs
+	pay structure based on # of follows.
+	############Premier accounts
+	BRANDED EVENT#SHOW!! OR LINK TO THEIR SITE RATHER LOCAL
+	create Paid RSVPs subscription
+	Logo icon on event
+	preferred search
+	personal calendar page (with customizable pretty header picture)
+	the link of event go to the event page
+	branded event pages
+
+subdomains for every city - you can belong to multiple cities -- this strategy can be used for -- should we use heroku if we know our deployment strategy?
+
+Marketing strategy
+	private beta? 1001 ppl
+
+NYC-inspired daily routine
+	e.g. lunchtime email to gather ideas, 3pm to spread ideas, 6pm to tip
+
+---------------------------------------------------
+
+Adam todo from 11/12 meeting:
+
+week of 11/12
+	venue dashboard (activity)
+	branded event page
+	payment gateway (not worrying about tipping)
+
+week of 11/19
+	Link + image that venues can embed for hoos.in
+	ticketing solution (just give names for now..)
+
+*** adding facebook after already have an account doesn't seem to work
+** have to double click all buttons with tooltips when from mobile
+
+
+------- Timeline for Ludlow Thieves --------
+
+Nov 14 - Payment Gateway - pay when you rsvp peer-to-peer w invoice at end of month - 
+				 QR code generation
+
+Nov 21 - 
+
+December 1 - Tipping payments 
+
+Dec 1 - Iphone/Android version 2
+				doorman app 
+				QR codes in user apps
+
+Dec 2 - Box office solution
+
+Customer Satisfaction
+	Aaron contact
+
+
+hi,
+
+Over the past two months, Mike and I have been listening to your suggestions and now we are proud to say we've released a new version full of enhancements. Here they are:
+
+1) City-Wide Ideas - Post ideas to your whole city! We decided that pretty much anyone has something to share with their city, so you can now choose to post "Public" ideas 
+
+2) Iphone and Andorid apps in app stores -- search 'hoosin'
+
+3) hoos.in? You are! - Your own profile page with your past ideas, and stats. For privacy your upcoming ideas are only visible to invites.
+
+3.5) Custom Background - Now you can have your own custom background for your events and profile. Just click on your face in the upper right hand corner, select "Settings", and upload a large image (at least 1024x640 recommended) to the "Background" field.
+
+4) Better sharing - Share hoosin ideas on twitter, facebook, pinterest, by email and by text (on mobile).
+
+5) New Look - New layout with Vertical Scroll and More Days. Now you get 26 days of hoos.in ideas, and you can scroll vertically between them all.
+
+
+kill tipping
+	DONE remove from new form
+	DONE tip all events in controller#create && controller#create_new_time
+	DONE remove from add time form
+	DONE remove the progress bar from show
+	DONE " " from shield
+	DONE remove tipping indications from event_details
+	DONE remove tipping indications from event#show guest count

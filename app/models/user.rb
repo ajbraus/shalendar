@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   default_scope :order => 'name'
+  
   # Include default devise modules. Others available are:
   # :confirmable,
   # :lockable, :timeoutable
@@ -90,6 +91,8 @@ class User < ActiveRecord::Base
 
   has_many :inmates, through: :relationships, source: :followed, conditions: "status = 1"  
   has_many :friends, through: :relationships, source: :followed, conditions: "status = 2"  
+
+  has_many :inmates_and_friends, through: :relationships, source: :followed
 
   has_many :comments, dependent: :destroy
 
@@ -387,13 +390,22 @@ class User < ActiveRecord::Base
   end
 
   def invited?(event)
-    if event.friends_only?
-      return event.user.is_friends_with?(self)
-    else
-      event.guests.each do |g|
-        if g.is_inmates_or_friends_with?(self)
+    @parent = event.parent
+    if @parent.present?
+      if self.in?(@parent)
+        return true
+      elsif @parent.friends_only?
+        if @parent.user.is_friends_with?(self) || event.user.is_friends_with?(self)
           return true
         end
+      end
+    else
+      if self.in?(event)
+        return true
+      elsif event.friends_only?
+        return event.user.is_friends_with?(self)
+      elsif (event.guests & self.inmates_and_friends).any?
+        return true
       end
     end
     return false

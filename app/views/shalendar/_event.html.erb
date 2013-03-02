@@ -54,14 +54,11 @@
   			<% end %>
   		<% end %>
 		</div>
-			<% if event.one_time?
-		 			@relevant_instances = [event]
-				 else 
+			<%if user_signed_in? 
+					@relevant_instances = event.instances.reject { |e| current_user.out?(e) || e.over? } 
+				else
 					@relevant_instances = event.instances.reject { |e| e.over? } 
-					if user_signed_in?
-						@relevant_instances = @relevant_instances.reject { |e| current_user.out?(e) }
-					end
-				 end 
+				end
 			%>
 			<%= render partial: 'events/time', collection: @relevant_instances, as: :event %>
 		<% end %>

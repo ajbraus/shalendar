@@ -1,5 +1,5 @@
 <li class="part activities">
-  <%= link_to event do %>
+  <%= link_to event.parent do %>
     <% if event.has_image? %>
       <span class="activity_event">
         <%= image_tag event.image(:large) %>

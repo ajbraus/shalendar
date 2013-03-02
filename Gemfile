@@ -17,7 +17,7 @@ gem 'useragent'
 gem 'fancybox-rails', :git => 'https://github.com/sverigemeny/fancybox-rails'
 
 # gem 'apn_sender', :require => 'apn'
-# gem 'daemons'
+# gem 'daemons-rails'
 # gem 'resque', "~> 1.22.0", :require => "resque/server"
 # gem 'resque-heroku-autoscaler'
 # gem 'redis'
@@ -58,6 +58,12 @@ group :development, :test do
   gem 'annotate', '~> 2.4.1.beta'
   gem 'awesome_print'
   gem 'vcr'
+  gem 'database_cleaner'
+end
+
+group :development do
+  gem 'meta_request'
+  gem 'bullet'
 end
 
 # Gems used only for assets and not required
@@ -76,7 +82,6 @@ group :test do
 	gem 'guard-rspec', '1.1.0'
 	gem "spork", '0.9.2'  
 	gem 'guard-spork', '1.1.0'
-  gem 'jasmine'
   gem 'rb-fsevent', '~> 0.9.1'
 end
 

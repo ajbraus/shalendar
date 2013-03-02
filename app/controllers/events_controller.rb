@@ -46,6 +46,11 @@
       params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
     end
 
+    #removing http:// if present
+    if params[:event][:link].present?
+      params[:event][:link] = params[:event][:link].split("http://")[1]
+    end
+
     @event = current_user.events.build(params[:event])
     @event.city = @current_city
     
@@ -59,36 +64,31 @@
       
       if @event.starts_at.present? && @event.duration.present?
         @event.ends_at = @event.starts_at + @event.duration*3600
-        if params[:event][:one_time] == '0'
-        #IF ONGOING EVENT CREATE CHILD INSTANCE
-          @instance = @event.instances.build(user_id: current_user.id,
-                                 city_id: @event.city.id,
-                                 title: @event.title,
-                                 starts_at: @event.starts_at,
-                                 ends_at: @event.ends_at,
-                                 duration: @event.duration,
-                                 address: @event.address,
-                                 link: @event.link,
-                                 promo_img: @event.promo_img,
-                                 promo_url: @event.promo_url,
-                                 promo_vid: @event.promo_vid,
-                                 friends_only: @event.friends_only,
-                                 family_friendly: @event.family_friendly,
-                                 price: @event.price
-                              )
-          if @instance.save
-            @instance.save_shortened_url
-            current_user.rsvp_in!(@instance)
-            
-            #CLEAR PARENT EVENT TIME ATTRIBUTES
-            @event.starts_at = nil
-            @event.ends_at = nil
-            @event.duration = nil
-            @event.save
-          end # END if instance.save
-        else #it's a one-time
-          @event.one_time = true
-        end #END if ongoing event create instance
+        @instance = @event.instances.build(user_id: current_user.id,
+                               city_id: @event.city.id,
+                               title: @event.title,
+                               starts_at: @event.starts_at,
+                               ends_at: @event.ends_at,
+                               duration: @event.duration,
+                               address: @event.address,
+                               link: @event.link,
+                               promo_img: @event.promo_img,
+                               promo_url: @event.promo_url,
+                               promo_vid: @event.promo_vid,
+                               friends_only: @event.friends_only,
+                               family_friendly: @event.family_friendly,
+                               price: @event.price
+                            )
+        if @instance.save
+          @instance.save_shortened_url
+          current_user.rsvp_in!(@instance)
+          
+          #CLEAR PARENT EVENT TIME ATTRIBUTES
+          @event.starts_at = nil
+          @event.ends_at = nil
+          @event.duration = nil
+          @event.save
+        end # END if instance.save
       end # END If starts_at present
 
       #SEND CONTACT TO ALL PPL WHO STAR CURRENT USER
@@ -161,13 +161,13 @@
   #GET /events/id
   #GET /events/id.json
   def show
-    @event = Event.find(params[:id])
+    @event = Event.includes({ :rsvps => :guest }, {:comments => :user } ).find(params[:id]) #find the event and eager load its guests as well as its comments and the comments' user association
     @guests = @event.guests
     if user_signed_in?
       @guests.sort_by {|g| g.is_friends_with?(current_user) ? 0 : 1 }
     end
     @maybes = @event.maybes
-    @email_invites = @event.email_invites
+    #@email_invites = @event.email_invites
     @comments = @event.comments.order("created_at desc")
     
     respond_to do |format|
@@ -197,6 +197,11 @@
     end
     params[:event][:starts_at] = Chronic.parse(params[:event][:chronic_starts_at])
 
+    #when updating one_time it was submitting a nil value for this field and it was updating onetime ideas
+    if params[:event][:starts_at].blank?
+      params[:event].delete(:starts_at)
+    end
+
     if params[:event_id].present?
       params[:id] = params[:event_id]
     end
@@ -206,7 +211,7 @@
     @start_time = @event.starts_at
     respond_to do |format|
       if @event.update_attributes(params[:event])
-        unless @event.starts_at.nil?
+        unless @start_time.blank?
           if @start_time != @event.starts_at
             @event.ends_at = @event.starts_at + @event.duration*3600
             @event.save
