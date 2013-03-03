@@ -136,7 +136,10 @@ class Api::V2::TokensController  < ApplicationController
     else
       email = fb_info["email"]
       name = fb_info["name"]
-      cityname = fb_info["location"]["name"]
+      cityname = "Madison, Wisconsin"
+      if fb_info["location"].present?
+        cityname = fb_info["location"]["name"]
+      end
 
       city = City.find_by_name(cityname)
       if city.nil?

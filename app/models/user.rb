@@ -281,9 +281,11 @@ class User < ActiveRecord::Base
 
   #Relationship methods
   def is_friends_with?(other_user)
-    @relationship = self.relationships.find_by_followed_id(other_user.id)
-    if @relationship.present? && @relationship.status == 2
-      return true
+    unless other_user.ignores?(self)
+      @relationship = self.relationships.find_by_followed_id(other_user.id)
+      if @relationship.present? && @relationship.status == 2
+        return true
+      end
     end
     return false
   end
@@ -305,18 +307,22 @@ class User < ActiveRecord::Base
   end
 
   def is_inmates_with?(other_user)
-    @relationship = self.relationships.find_by_followed_id(other_user.id)
-    if @relationship.present? && @relationship.status == 1
-      return true
+    unless other_user.ignores?(self)
+      @relationship = self.relationships.find_by_followed_id(other_user.id)
+      if @relationship.present? && @relationship.status == 1
+        return true
+      end
     end
     return false
   end
 
   def is_inmates_or_friends_with?(other_user)
-    @relationship = self.relationships.find_by_followed_id(other_user.id)
-    if @relationship.present?
-      unless @relationship.status == 0
-        return true
+    unless other_user.ignores?(self)
+      @relationship = self.relationships.find_by_followed_id(other_user.id)
+      if @relationship.present?
+        unless @relationship.status == 0
+          return true
+        end
       end
     end
     return false
@@ -332,22 +338,28 @@ class User < ActiveRecord::Base
   end
 
   def friend!(other_user)
-    @relationship = self.relationships.find_by_followed_id(other_user.id)
-    if @relationship.present?
-      @relationship.status = 2
-      @relationship.save
-    else 
-      self.inmate!(other_user)
-      self.friend!(other_user)
+    unless other_user.ignores?(self)
+      @reverse_relationship = other_user.relationships.find_by_followed_id(self.id)
+      if @reverse_relationship.nil?
+        other_user.inmate!(self)
+      end
+      @relationship = self.relationships.find_by_followed_id(other_user.id)
+      if @relationship.present?
+        @relationship.status = 2
+        @relationship.save
+      else 
+        self.inmate!(other_user)
+        self.friend!(other_user)
+      end
     end
   end
 
   def inmate!(other_user)
-    unless other_user == self
-      unless self.is_inmates_or_friends_with?(other_user) || self.ignores?(other_user)|| other_user.ignores?(self) || self.id == other_user.id
+    unless other_user == self || other_user.ignores?(self)
+      unless self.is_inmates_or_friends_with?(other_user) || self.ignores?(other_user) || self.id == other_user.id
         self.relationships.create(followed_id: other_user.id, status: 1)
       end
-      unless other_user.is_inmates_or_friends_with?(self) || self.ignores?(other_user) || other_user.ignores?(self)
+      unless other_user.is_inmates_or_friends_with?(self) || self.ignores?(other_user)
         other_user.relationships.create(followed_id: self.id, status: 1)
       end
     end
@@ -370,10 +382,12 @@ class User < ActiveRecord::Base
   end
 
   def ignore_inmate!(inmate)
+    #they don't ignore back, they just are no longer inmates
     @reverse_relationship = inmate.relationships.find_by_followed_id(self.id)
     unless @reverse_relationship.nil?
-      @reverse_relationship.status = 0
-      @reverse_relationship.save
+      @reverse_relationship.destroy
+      # @reverse_relationship.status = 0
+      # @reverse_relationship.save
     end
 
     @relationship = self.relationships.find_by_followed_id(inmate.id)
