@@ -18,6 +18,13 @@ APP:
 separate branch:
 Made it so delayed job or a daemon that runs the rake task every 3 min, or just a delayed job restart method - on branch "solving pushes"
 
+
+people go to events because 
+	1) they recieved a personal invitation
+	2) they have confidence that people they want to hang out with are there
+	3) there are some concequences to flaking out
+
+
 	your friend just joined hoos.in and you are now in-mates! (email or push)
 
 	make comments asynconous 
@@ -26,11 +33,7 @@ Made it so delayed job or a daemon that runs the rake task every 3 min, or just 
 
 	new friend name and image should be link
 
-	remove relationships with themselves
-
 	Adding FB to a native login doesn't work smoothly (either fix or remove)
-
-	add iphone and android market place icons to bulletin board banners
 
 	recent activity on show
 

@@ -24,6 +24,9 @@
 		by: <%= event.user.first_name_with_last_initial %>
 	</div>
 	<div class="facepile">
+		<% if current_user.in?(event) %>
+  		<span title="<%= current_user.name %>"><%= raster_profile_picture(current_user) %></span>
+  	<% end %>
 		<% event.friends_and_inmates_in(current_user).each do |guest| %>
   		<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
 		<% end %>

@@ -3,7 +3,7 @@
 		<% if !current_user.in?(event) %>
 			<i class="icon-star friend_star"></i> <span id="friendCount"><%= event.friends_in_count(current_user) %></span> | <i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= event.inmates_in_count(current_user) %> | <i class="icon-user"></i> <%= event.guest_count %>
 		<% elsif current_user.in?(event) %>
-			<i class="icon-star friend_star"></i> <span id="friendCount"><%= event.friends_in_count(current_user) %></span> | <i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= event.inmates_in_count(current_user) %>
+			<i class="icon-star friend_star"></i> <span id="friendCount"><%= event.friends_in_count(current_user) + 1 %></span> | <i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= event.inmates_in_count(current_user) %>
 		<% end %>
 	<% end %>
 </span>
