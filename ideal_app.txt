@@ -1,3 +1,5 @@
+add new_fb_inmate push type (open to profile)
+
 count starred inmates as separate from inmates
 
 change city - create and asks for city

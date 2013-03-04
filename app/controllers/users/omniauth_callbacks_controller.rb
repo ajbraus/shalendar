@@ -27,7 +27,7 @@ private
       @user.authentications.find_by_uid(@uid).token = session[:access_token]
 
       #make all fb_friends on hoos.in into .in-mates
-      @user.delay.add_fb_to_inmates
+      @user.add_fb_to_inmates
 
       sign_in_and_redirect @user, :event => :authentication
     else

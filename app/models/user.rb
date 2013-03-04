@@ -431,6 +431,7 @@ class User < ActiveRecord::Base
     @member_friends = self.fb_friends(@graph)[0]
     @member_friends.each do |mf|
       self.inmate!(mf)
+      mf.delay.contact_new_fb_inmate(self)
     end
   end
 
@@ -787,12 +788,45 @@ class User < ActiveRecord::Base
         n.device = d
         n.collapse_key = "new .in - #{@rsvping_user.name} for #{@event.title}"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}}
+        n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "new_rsvp", :id => "#{@event.id}"}}
         n.save
       end
     else
       Notifier.new_rsvp(@event, @user, @rsvping_user).deliver
     end
+  end
+
+  def contact_new_fb_inmate(inmate)
+    @user = self
+    @new_inmate = inmate
+    # if @user.iPhone_user == true
+    #   d = APN::Device.find_by_id(@user.apn_device_id)
+    #   if d.nil?
+    #     Airbrake.notify("thought we had an iphone user but can't find their device")
+    #   else
+    #     n = APN::Notification.new
+    #     n.device = d
+    #     n.alert = "Your friend #{@new_inmate.name} just joined hoos.in and you are now .in-mates."
+    #     n.badge = 1
+    #     n.sound = false
+    #     n.custom_properties = {msg: "", :type => "new_fb_inmate", :id => "#{@new_inmate.id}"}
+    #     n.save
+    #   end
+    # elsif @user.android_user == true
+    #   d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+    #   if d.nil?
+    #     Airbrake.notify("thought we had an android user but can't find their device")
+    #   else
+    #     n = Gcm::Notification.new
+    #     n.device = d
+    #     n.collapse_key = "Your friend #{@new_inmate.name} just joined hoos.in and you are now .in-mates."
+    #     n.delay_while_idle = true
+    #     n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "new_fb_inmate", :id => "#{@new_inmate.id}"}}
+    #     n.save
+    #   end
+    # else
+      Notifier.new_fb_inmate(@user, @new_inmate).deliver
+    # end
   end
 
   # Class Methods

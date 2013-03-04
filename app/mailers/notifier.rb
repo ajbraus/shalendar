@@ -152,6 +152,13 @@ class Notifier < ActionMailer::Base
     mail to: @user.email, from: "info@hoos.in", subject: ".introductions - #{@event.title}"
   end
 
+  def new_fb_inmate(user, new_inmate)
+    @user = user
+    @new_inmate = new_inmate
+    @image_url = invite_raster_picture(@new_inmate)
+    mail to: @user.email, from: "info@hoos.in", subject: "Your friend #{@new_inmate.name} just joined hoos.in and you are now .in-mates."
+  end
+
   # def email_invitation(invite, event)
   #   @invite = invite
   #   @event = event
