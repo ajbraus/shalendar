@@ -45,15 +45,13 @@
     <div id="overlay" style="display:none;"></div>
     <%= render 'shared/get_time_zone_offset' %>
     <%= render 'layouts/fb_script' %> 
-    <%= render 'layouts/header' %>
     <span id="shareAfterRsvp"></span>
     <div id='feedback'><a href="mailto:info@hoos.in" target="_blank">.inform us</a></div>
     <div class="layout clearfix" id="content"> 
+      <%= render 'layouts/header' %>
       <%= yield %>
-    </div>
-    
       <%= render 'layouts/footer' %>
-
+    </div>
     <%= yield :scripts %>
   </body>
 </html>
