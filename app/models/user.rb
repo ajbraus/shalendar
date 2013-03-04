@@ -427,7 +427,8 @@ class User < ActiveRecord::Base
     return false
   end
 
-  def add_fb_to_inmates
+  def add_fb_to_inmates(graph)
+    @graph = graph
     @member_friends = self.fb_friends(@graph)[0]
     @member_friends.each do |mf|
       self.inmate!(mf)

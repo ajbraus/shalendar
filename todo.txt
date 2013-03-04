@@ -24,9 +24,6 @@ people go to events because
 	2) they have confidence that people they want to hang out with are there
 	3) there are some concequences to flaking out
 
-
-	your friend just joined hoos.in and you are now in-mates! (email or push)
-
 	make comments asynconous 
 	
 	create a user from mobile
