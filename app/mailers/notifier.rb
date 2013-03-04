@@ -91,7 +91,7 @@ class Notifier < ActionMailer::Base
     @user = user
     @comment_time = @comment.created_at.strftime "%l:%M%P, %A %B %e"
     @event_link = event_url(@event)
-    mail to: @user.email, subject: "new .info - #{@event.short_event_title}"
+    mail to: @user.email, subject: ".info - #{@comment.content} - #{@commenter}"
   end
 
   def new_idea(event, user)

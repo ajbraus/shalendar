@@ -30,5 +30,17 @@ describe "new idea page" do
   	it "should have title of idea" do
   		page.should have_content("Awesome Idea")
   	end
+
+    it "should email the friends of the host" do 
+    end
+  end
+
+  describe "adding a time" do 
+    before(:each) do 
+
+    end
+
+    it "should email the .ins of the idea" do
+    end
   end
 end

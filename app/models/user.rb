@@ -669,7 +669,7 @@ class User < ActiveRecord::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "new .info - #{@event.title} - #{@commenter}"
+        n.alert = ".info - #{@comment.content} - #{@commenter}"
         n.badge = 1
         n.sound = false
         n.custom_properties = {msg: "from #{@commenter}", :type => "new_comment", :id => "#{@event.id}"}
@@ -682,7 +682,7 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "new .info - #{@event.title} - #{@commenter}"
+        n.collapse_key = ".info - #{@comment.content} - #{@commenter}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {msg: "from #{@commenter}", :type => "new_comment", :id => "#{@event.id}"}}
         n.save
@@ -814,7 +814,7 @@ class User < ActiveRecord::Base
           end
           @upcoming_times.push(@upcoming_day_times)
         end
-        @all_new_ideas = Event.where('city_id = ? AND created_at > ? AND (ends_at IS NULL OR (ends_at > ? AND one_time = ?))', @current_city.id, @now_in_zone - 4.days, Time.zone.now, true).reject { |i| u.rsvpd?(i) }
+        @all_new_ideas = Event.where('city_id = ? AND created_at > ? AND ends_at IS NULL', @current_city.id, @now_in_zone - 4.days).reject { |i| u.rsvpd?(i) && u.no_relevant_instances? }
         @new_inner_ideas = @all_new_ideas.select { |i| i.user.is_friended_by?(u) }
         @new_inmate_ideas = @all_new_ideas.select { |i| i.user.is_inmates_with?(u) }
         @users_new_ideas = @new_inmate_ideas + @new_inner_ideas
