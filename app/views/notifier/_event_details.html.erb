@@ -8,18 +8,22 @@
 		<td width="30%"></td>
 		<td style="padding:10px 30px 10px 20px" width="70%">
 	<% end %>
-		<strong>What:</strong> <span style="padding-left:10px;"><a href="<%= event.has_parent? ? event_url(event.parent) : event_url(event) %>"><%= event.title %></a></span>
-	<% if user.in?(event) && event.starts_at.present? && event.starts_at > Time.zone.now.in_time_zone(user.city.timezone) %>
+		<strong>Idea:</strong> <span style="padding-left:10px;"><a href="<%= event.has_parent? ? event_url(event.parent) : event_url(event) %>"><%= event.title %></a></span>
+	<% if user.in?(event) %>
 		<strong>  (.in)</strong>
-	<% elsif user.in?(event) && event.starts_at.present? && event.starts_at < Time.zone.now.in_time_zone(user.city.timezone) %>
+	<% end %>
+	<% if event.has_future_instance? %>
+		<br>
+		<strong>Next Time:</strong> <span style="padding-left:10px;"><%= event.next_instance.starts_at.strftime("%l:%M%P, %A %B %e") %></span>
+	<% elsif event.starts_at.present? %>
+		<br>
+		<strong>Time:</strong> <span style="padding-left:10px;"><%= event.starts_at.strftime("%l:%M%P, %A %B %e") %></span>
+		<% if event.starts_at < Time.zone.now.in_time_zone(user.city.timezone) %>
 		<strong>  (already over)</strong>
-	<% end %>
-	<% if event.starts_at.present? %>
-		<br>
-		<strong>When:</strong> <span style="padding-left:10px;"><%= event.starts_at.strftime("%l:%M%P, %A %B %e") %></span>
+		<% end %>
 	<% end %>
 		<br>
-		<strong>Who:</strong>
+		<strong>.ins:</strong>
 		<span style="padding-left:10px; font-size:13px;">
 			<% if !user.in?(event) %>
 				<img src="http://www.hoos.in/assets/gold_star.png" width="10" style="position:relative;top:4px;"/><span id="friendCount"><%= event.friends_in_count(user) %></span> / <img src="http://www.hoos.in/assets/grey_star.png" width="10" style="position:relative;top:4px;" /><%= event.inmates_in_count(user) %> / <%= event.guest_count %>

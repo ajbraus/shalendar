@@ -431,8 +431,10 @@ class User < ActiveRecord::Base
     @graph = graph
     @member_friends = self.fb_friends(@graph)[0]
     @member_friends.each do |mf|
-      self.inmate!(mf)
-      mf.delay.contact_new_fb_inmate(self)
+      unless self.is_inmates_or_friends_with?(mf)
+        self.inmate!(mf)
+        mf.delay.contact_new_fb_inmate(self)
+      end
     end
   end
 
