@@ -17,7 +17,14 @@ class Api::V2::EventsController < ApplicationController
     @finished = false
     @window_size = 7
 
-    @invites_ideas = Event.where('city_id = ? AND ends_at IS NULL OR (ends_at > ? AND one_time = ?)', @current_city.id, Time.zone.now, true).reject { |i| current_user.out?(i) || current_user.in?(i)}
+    @invites_ideas = Event.where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |i| current_user.out?(i) || current_user.in?(i) || i.no_relevant_instances? }
+
+    #ADAM's ATTEMPT AT THIS QUERY WITH NO SINGLETON ONE_TIMES AND WITH EAGER LOADING GUESTS AND INSTANCES
+    # @invites_ideas = Event.includes(:instances, {:rsvps => :guest}).where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |e| e.no_relevant_instances? }
+
+    # @invites_ideas = @invites_ideas.reject do |i| 
+    #   !current_user.in?(i) && (current_user.out?(i) || !current_user.invited?(i))
+    # end
 
     @invites_ideas = @invites_ideas.reject do |i| 
       !current_user.in?(i) && (current_user.out?(i) || (current_user.inmates & i.guests).none? || (i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)))
@@ -119,7 +126,9 @@ class Api::V2::EventsController < ApplicationController
     @finished = false
     @window_size = 7
 
-    @ins_ideas = @mobile_user.plans.where('ends_at IS NULL OR (ends_at > ? AND one_time = ?)', Time.zone.now, true)
+    @ins_ideas = @mobile_user.plans.where('ends_at IS NULL', Time.zone.now, true).reject{ |i| i.no_relevant_instances?}
+    #ADAM's ATTEMPT AT THIS QUERY WITH NO SINGLETON ONE_TIME IDEAS AND EAGER LOADING OF INSTANCES AND GUESTS
+    # @ins_ideas = @mobile_user.plans.includes(:instances, {:rsvps => :guest}).where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |e| e.no_relevant_instances? }
 
     @ins_ideas = @ins_ideas.sort_by do |i| 
         i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
