@@ -27,7 +27,7 @@ body {
 
 	.user_search {
 		position: absolute;
-		bottom: 58px;
+		bottom: 47px;
 		right: -5px;
 		input[type=text] {
 			width: 145px;
@@ -36,6 +36,11 @@ body {
 			display: none;
 		}
 	}
+
+	header {
+		height:80px;
+	}
+
 	ul.left_header {
 		top: 49px;
 		right: 108px;
@@ -77,7 +82,6 @@ body {
 		left:4px;
 		width: 130px;
 		img {
-			width: 120px;
 			margin-top: 2px;
 			margin-left: 3px;
 		}
@@ -98,10 +102,10 @@ margin-right: 5px;
 	}
 
 	.city_name {
-		font-size: 14px;
-left: 5px;
-position: relative;
-top: 3px;
+font-size: 14px;
+position: absolute;
+top: 61px;
+left: 12px;
 	}
 
 	#new_idea_blerb {
@@ -218,7 +222,7 @@ margin-right: 2%;
 	.navigation {
 position: absolute;
 right: 0px;
-top: 56px;
+top: 43px;
 font-size: 14px;
 	.options {
 		bottom: 10px;
