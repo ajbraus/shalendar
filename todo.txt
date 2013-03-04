@@ -1,7 +1,5 @@
 Adam
 
-	re-up bank account - write check
-
 	bugs 
 		friends only ideas showing
 		private ideas (show lock in title and hide share buttons from all but creator)
