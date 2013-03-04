@@ -90,9 +90,11 @@
     <% end %>
   </div>
 
-  <% unless @event.one_time? %>
-    <%= link_to event_new_time_path(@event), id:"makeATime", class:"btn-success btn-new-time" do %>
-      <span style="color:white;"><i class="icon-time"></i> Add a New Time</span>
+  <% if user_signed_in? %>
+    <% unless @event.one_time? || !current_user.in?(@event) %>
+      <%= link_to event_new_time_path(@event), id:"makeATime", class:"btn-success btn-new-time" do %>
+        <span style="color:white;"><i class="icon-time"></i> Add a New Time</span>
+      <% end %>
     <% end %>
   <% end %>
 

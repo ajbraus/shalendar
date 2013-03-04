@@ -1,15 +1,15 @@
 Adam
 
 	bugs 
-		friends only ideas showing
+		friends only ideas showing (fix test)
 		private ideas (show lock in title and hide share buttons from all but creator)
 		friends only ideas (show star in title)
 		
 		Build email tests for
-		New times
-		New idea going to stars
-		Chat going to stars and host
-		Chat going to all if host
+			New times
+			New idea going to stars
+			Chat going to stars and host
+			Chat going to all if host
 
 APP:
 

@@ -4,6 +4,9 @@
 	 	<button class="btn btn-primary" id="new_comment_button" name="commit" type="submit" value="send">
 	 		<i class="icon-comment"></i>
 	 	</button>
+	 	<% if false %>
+	 	<input type="text" placeholder="tag .in-mates in chat (jim, jane, jack)"></input>
+	 	<% end %>
 	<% end %>
 	<%= render :partial => 'comments/comment', collection: @comments %>
 </div>

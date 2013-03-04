@@ -19,6 +19,10 @@ $ ->
 	# $('#postIdea').click ->
 	# 	$(@).doNotSubmitErrors();
 
+	#TIPS
+	# $('#new_idea_title').focus ->
+	# 	$('#tip').html().show()
+
 	#TITLES
 	$('#new_idea_title').keyup ->
 		title = $(@).val().substring(0,60);
