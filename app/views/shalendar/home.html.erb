@@ -2,12 +2,6 @@
 <%= render 'mini_calendar' %>
 	  <div class="container_wrapper">
 			<div class="home_idea_container clearfix">
-<% if false %>
-		    <div class="filters">
-		    	<span id="invites" class="selected"><span id="invites_count"><%= @ideas.count %></span> .invites</span> | <span id="ins" class="unselected"><span id="ins_count"><%= current_user.ins.count %></span> .ins</span>
-		    </div>
-<% end %>
-
 				<h1><span id="invites_count"></span> .invites</h1>
 				<div id="invitesContainer" class="idea_container" >
 				</div>

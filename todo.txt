@@ -1,17 +1,33 @@
 Adam
 
+		host out stats
+
+		frank production ideas visible to everyone 
+
+
+TEACHING USERS:
+	you have no .invites -- search for friends to join their fun ideas and become .in-mates click new idea to create a fun idea for friends to do
+
+	put up tips for ideas - how to make a great idea - go beyond boring
+
+	next time at the top of the show
+
+	drawn arrows
+
+	.information
+	so-n-so tagged you in an idea
+	so-n-so updated the time on idea
+	so-n-so commented on an idea
+	so-n-so starred you
+	so-n-so created an idea
+
+	--------------------------------------------------------------
+
 	bugs 
 		friends only ideas showing (fix test)
 		private ideas (show lock in title and hide share buttons from all but creator)
 		friends only ideas (show star in title)
 		when rsvp to one time rsvp to parent and time
-
-		host out stats
-
-		frank production ideas visible to everyone 
-			
-
-APP:
 
 separate branch:
 Made it so delayed job or a daemon that runs the rake task every 3 min, or just a delayed job restart method - on branch "solving pushes"
@@ -40,23 +56,7 @@ NOTIFIERS:
 
 	facepile on email
 
---------------------------------------------------------------
 
-TEACHING USERS:
-	you have no .invites -- search for friends to join their fun ideas and become .in-mates click new idea to create a fun idea for friends to do
-
-	put up tips for ideas - how to make a great idea - go beyond boring
-
-	next time at the top of the show
-
-	drawn arrows
-
-	.information
-	so-n-so tagged you in an idea
-	so-n-so updated the time on idea
-	so-n-so commented on an idea
-	so-n-so starred you
-	so-n-so created an idea
 
 --------------------------------------------------------------
 

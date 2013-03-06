@@ -1,21 +1,22 @@
-<% if event.friends_only? %>
+<% if false %>
+
   <a href="https://www.facebook.com/dialog/send?
     app_id=327936950625049&
     name=<%= event.title %>&
-    link=<%= event_url(event) %>&
+    link=http://www.google.com&
     picture=<%= event.image(:medium) if event.has_image? %>&
-    description=<%=  event.start_date_time %>&
-    redirect_uri=<%= event_url(event) %>" class="email_share" target="_blank">
-    <span class="fb_blue"><i class="icon-facebook-sign"></i></span><br>share
-  </a>
-<% else %>
-  <a href="https://www.facebook.com/dialog/feed?
-    app_id=327936950625049&
-    link=<%= event_url(event) %>&
-    picture=<%= event.image(:medium) if event.has_image? %>&
-    name=<%= event.title %>&
     description=<%=  event.start_date_time %>&
     redirect_uri=<%= event_url(event) %>" class="email_share" target="_blank">
     <span class="fb_blue"><i class="icon-facebook-sign"></i></span><br>share
   </a>
 <% end %>
+  <a href="https://www.facebook.com/dialog/feed?
+    app_id=327936950625049&
+    link=<%= event_url(event) %>&
+    picture=<%= event.image(:medium) if event.has_image? %>&
+    name=<%= event.title %>&
+    caption=<%= if event.starts_at.present? then "#{event.start_date_time}" elsif event.has_future_instance? then "#{event.next_instance.start_date_time}" end %>&
+    description=<%= event.description %>&
+    redirect_uri=<%= event_url(event) %>" class="email_share" target="_blank">
+    <span class="fb_blue"><i class="icon-facebook-sign"></i></span><br>share
+  </a>

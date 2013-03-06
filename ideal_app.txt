@@ -1,5 +1,8 @@
 add new_fb_inmate push type (open to profile)
 
+ask for rating
+http://stackoverflow.com/questions/6087693/itunes-review-url
+
 count starred inmates as separate from inmates
 
 change city - create and asks for city
