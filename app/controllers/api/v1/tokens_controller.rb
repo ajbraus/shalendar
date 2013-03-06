@@ -82,7 +82,7 @@ class Api::V1::TokensController  < ApplicationController
                                     :last_name=>@user.last_name,
                                     :myself=>@user,
                                     :email_hex=> Digest::MD5::hexdigest(@user.email.downcase),
-                                    :confirm_f=>@user.require_confirm_follow,
+                                    :confirm_f=>false,
                                     :daily_d=>@user.allow_contact,
                                     :notify_r=>@user.notify_event_reminders,
                                     :post_wall=>@user.post_to_fb_wall,
