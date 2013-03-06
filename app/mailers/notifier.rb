@@ -124,7 +124,7 @@ class Notifier < ActionMailer::Base
     @user = user
     @event = event
     @event_link = event_url(@event)
-    mail to: @user.email, from: "info@hoos.in", subject: "new time added - #{@event.title} - #{@event.start_time}"
+    mail to: @user.email, from: "info@hoos.in", subject: "new time - #{@event.start_time} - #{@event.title}"
   end
 
   def new_rsvp(event, user, rsvping_user)

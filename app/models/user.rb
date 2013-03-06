@@ -414,6 +414,8 @@ class User < ActiveRecord::Base
         if @parent.user.is_friends_with?(self) || event.user.is_friends_with?(self)
           return true
         end
+      elsif (event.guests & self.inmates_and_friends).any?
+        return true
       end
     else
       if self.in?(event)

@@ -6,6 +6,8 @@ Adam
 		friends only ideas (show star in title)
 		when rsvp to one time rsvp to parent and time
 
+		host out stats
+
 APP:
 
 separate branch:

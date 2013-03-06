@@ -1,4 +1,5 @@
 <div class="comments_form">
+	<div class="comment_char_counter"><span id="commentCharCount">0</span>/220</div>
 	<%= form_for([@event, @event.comments.build]) do |f| %>
 	  <%= small_profile_picture(current_user) %> <%= f.text_area :content, autocomplete: "off", placeholder:"Chat about this idea with other .ins" %>
 	 	<button class="btn btn-primary" id="new_comment_button" name="commit" type="submit" value="send">

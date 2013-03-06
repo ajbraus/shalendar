@@ -44,7 +44,7 @@
           <% end %>
           <%= @event.user.first_name_with_last_initial %>
         </u>
-      <% if @event.user == current_user || current_user.admin? %> 
+      <% if current_user == @event.user || current_user.admin? %> 
         <div class="event_buttons">
           <%= link_to edit_event_path(@event) do %>
             <span class="fadeInOrange"><i class="icon-cogs"></i> edit</span>

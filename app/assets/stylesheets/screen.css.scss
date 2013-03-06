@@ -1570,14 +1570,9 @@ padding-bottom: 3px;
 .event_title {
 float: left;
 position: relative;
-width: 100%;
-}
-
-.event_title {
 font-size: 20px;
-float: left;
 padding:5px;
-overflow: hidden;
+width: 100%;
 }
 
 .event_description {
@@ -1686,6 +1681,12 @@ top: 9px;
       left: 2px;
     }
   }
+}
+
+.comment_char_counter {
+  position: relative;
+right: -54px;
+color: #afafaf;
 }
 
 .comment {
