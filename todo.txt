@@ -8,6 +8,9 @@ Adam
 
 		host out stats
 
+		frank production ideas visible to everyone 
+			
+
 APP:
 
 separate branch:

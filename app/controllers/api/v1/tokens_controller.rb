@@ -141,16 +141,6 @@ class Api::V1::TokensController  < ApplicationController
     if auth.nil?
       user = nil
     end
-             # TURN ALL FB_INVITES INTO INVITIATTIONS HERE 
-    FbInvite.where("uid = ?", uid).each do |fbi|
-      @inviter_id = fbi.inviter_id
-      @invited_user_id = user.id
-      @event = fbi.event
-      if @inviter = User.find_by_id(@inviter_id)
-        @inviter.invite!(@event, user)
-      end
-      fbi.destroy
-    end
 
     return user
   end
@@ -173,14 +163,10 @@ class Api::V1::TokensController  < ApplicationController
       end
       @city = City.find_by_name(location)
       if @city.nil?
-        c = City.new(name: location, timezone: "Central Time (US & Canada)")#timezone_for_utc_offset(access_token.extra.raw_info.timezone)
-        c.save
-        @city = c
+        @city = City.find_by_name("Madison, Wisconsin")
       end
 
-      time_zone = "Central Time (US & Canada)" #timezone_for_utc_offset(access_token.extra.raw_info.timezone)
-
-      user_attr = { email: email, name: name, city: @city, time_zone: time_zone }
+      user_attr = { email: email, name: name, city: @city }
       user.update_attributes user_attr
       
       return user
@@ -188,15 +174,17 @@ class Api::V1::TokensController  < ApplicationController
     else
       email = fb_info["email"]
       name = fb_info["name"]
-      if fb_info["location"].present?
-        city = fb_info["location"]["name"]
+      location = fb_info["location"]["name"]
+      unless location.blank?
+        @city = City.find_by_name(location)
       end
-      time_zone = "Central Time (US & Canada)"  # timezone_for_utc_offset(access_token.extra.raw_info.timezone)
+      if @city.blank?
+        @city = City.find_by_name("Madison, Wisconsin")
+      end
 
       user = User.new(:email => email, 
                 :name => name,
-                :city => city,
-                :time_zone => time_zone,
+                :city => @city,
                 :terms => true,
                 :remember_me => true,
                 :password => Devise.friendly_token[0,20]
