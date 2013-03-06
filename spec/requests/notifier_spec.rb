@@ -18,6 +18,13 @@ describe "Notifier", :type => :helper do
     click_on 'postNewTime'
   end
 
+  def new_idea
+    visit root_path
+    click_on "btnNewIdea"
+    fill_in "new_idea_title", with: "Madison Test Idea"
+    click_on "postIdea"
+  end
+
   let(:city) { FactoryGirl.create(:city)}
   let(:user) { FactoryGirl.create(:user, :city => city) }
   let(:other_user) { FactoryGirl.create(:user, :city => city) }
@@ -78,5 +85,12 @@ describe "Notifier", :type => :helper do
     new_time
 
     Delayed::Job.last.handler.should have_content(third_user.email)
+  end
+
+  it 'should email all friends when user puts up new idea' do
+    other_user.friend!(user)
+    new_idea
+
+    Delayed::Job.last.handler.should have_content(other_user.email)
   end
 end
