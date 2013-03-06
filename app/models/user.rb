@@ -161,7 +161,7 @@ class User < ActiveRecord::Base
   end
 
   def send_welcome
-    if vendor?
+    if self.vendor?
       Notifier.delay.vendor_welcome(self)
     else
       Notifier.delay.welcome(self)
@@ -660,12 +660,10 @@ class User < ActiveRecord::Base
   end
 
   def contact_comment(comment)
+    @user = self
     @commenter = comment.user.first_name_with_last_initial
     @comment = comment
     @event = @comment.event
-    @comments = @event.comments.order('created_at DESC').limit(4)
-    @comments.shift(1)
-    @user = self
     if @user.iPhone_user?
       d = APN::Device.find_by_id(@user.apn_device_id)
       if d.nil?
@@ -691,9 +689,8 @@ class User < ActiveRecord::Base
         n.data = {:registration_ids => [d.registration_id], :data => {msg: "from #{@commenter}", :type => "new_comment", :id => "#{@event.id}"}}
         n.save
       end
-    else
-      Notifier.email_comment(@comment, @user).deliver
     end
+    Notifier.email_comment(@comment, @user).deliver
   end
 
   def contact_cancellation(event)

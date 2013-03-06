@@ -4,6 +4,28 @@ require 'spec_helper'
 
 describe "Home page after sign in" do
 
+  def login
+    visit new_user_session_path
+    fill_in "Email",    with: user.email
+    fill_in "Password", with: user.password
+    click_on "log.in"
+  end
+
+  def new_idea
+    visit root_path
+    click_on "btnNewIdea"
+    fill_in "new_idea_title", with: "Madison Test Idea"
+    click_on "postIdea"
+  end
+
+  def new_time(event) #not working because of chronic parse getter and setter method
+    visit event_path(event)
+    click_on "makeATime"
+    fill_in 'datetime', with: "#{Time.zone.now + 1.day}"
+    fill_in 'event_duration', with: '2'
+    click_on 'postNewTime'
+  end
+
   let(:city) { FactoryGirl.create(:city) }
   let(:stockholm) { FactoryGirl.create(:city, :name => "Stockholm, Sweden", timezone: "Paris") }
 
@@ -52,10 +74,7 @@ describe "Home page after sign in" do
                           :title => "Friends Only Idea") }
 
   before(:each) do
-    visit new_user_session_path
-    fill_in "Email",    with: user.email
-    fill_in "Password", with: user.password
-    click_button "log.in"
+    login
     user.rsvp_in!(madison_idea) #because creators of ideas need to be rspvd for their ideas
     other_user.rsvp_in!(inmate_idea)
     other_user.rsvp_in!(friends_only)

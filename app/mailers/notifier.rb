@@ -84,11 +84,11 @@ class Notifier < ActionMailer::Base
 
   def email_comment(comment, user)
     @comment = comment
+    @user = user
     @commenter = @comment.user.first_name_with_last_initial
     @event = @comment.event
     @comments = @event.comments.order('created_at DESC').limit(4)
     @comments.shift(1)
-    @user = user
     @comment_time = @comment.created_at.strftime "%l:%M%P, %A %B %e"
     @event_link = event_url(@event)
     mail to: @user.email, subject: ".info - #{@comment.content} - #{@commenter}"

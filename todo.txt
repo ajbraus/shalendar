@@ -24,8 +24,6 @@ https://github.com/tsechingho/chosen-rails
 	
 	create a user from mobile
 
-	new friend name and image should be link
-
 	Adding FB to a native login doesn't work smoothly (either fix or remove)
 
 	recent activity on show
