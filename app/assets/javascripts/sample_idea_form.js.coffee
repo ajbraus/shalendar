@@ -1,23 +1,10 @@
-# $.fn.doNotSubmitErrors = (e) ->
-# 	if $('input').hasClass('error')
-# 		e.stopPropagation();
-
-
-	#TOGGLING
-	# $.fn.slideUpslideDown = (el) ->
-	# 	if el.hasClass("open")
-	# 		el.slideUp();
-	# 		el.removeClass("open");
-	# 	else
-	# 		$('.open').slideUp();
-	# 		$('.open').removeClass("open");
-	# 		el.slideDown();
-	# 		el.addClass("open");
-	# 		el.css("color", "#EB8325")
-
 $ ->
 	# $('#postIdea').click ->
 	# 	$(@).doNotSubmitErrors();
+
+	#TIPS
+	# $('#new_idea_title').focus ->
+	# 	$('#tip').html().show()
 
 	#TITLES
 	$('#new_idea_title').keyup ->

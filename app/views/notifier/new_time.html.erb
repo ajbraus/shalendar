@@ -6,4 +6,23 @@
 			</td>
 		</tr>
 
-<%= render partial: 'event_details', locals: { :event => @event, :user => @user } %>
+	</table>
+<table width="100%">
+<tr>
+	<% if @event.image(:medium).present? %>
+		<td><a href="<%= @event.has_parent? ? event_url(@event.parent) : event_url(@event) %>"><img src="<%= @event.image(:medium) %>" width="100%"/></a></td>
+		<td style="padding:10px 30px 10px 20px" width="70%">
+	<% else %>
+		<td width="30%"></td>
+		<td style="padding:10px 30px 10px 20px" width="70%">
+	<% end %>
+		<span style="padding-left:10px; font-size:25px;"><strong>Time:</strong> <%= @event.starts_at.strftime("%l:%M%P, %A %B %e") %></span><br>
+		<% if @event.starts_at < Time.zone.now.in_time_zone(@user.city.timezone) %>
+		<strong>  (already over)</strong>
+		<% end %>
+	</td>
+</tr>
+
+
+
+

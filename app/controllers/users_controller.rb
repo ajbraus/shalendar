@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   def show
     @user = User.includes(:events, :relationships, { :rsvps => :plan }).find_by_slug(params[:id])
+    if @user.blank?
+      flash[:notice] = "User Not Found"
+      redirect_to root_path and return
+    end
     @user_friends = @user.friends
     @user_inmates = @user.inmates
     @star_count = @user.friended_bys.count
@@ -21,7 +25,7 @@ class UsersController < ApplicationController
 
 
       @times = @user.plans.includes({ :rsvps => :guest }).where("starts_at > ?", Time.zone.now).order('starts_at ASC')              
-      @past_times = @user.plans.includes({ :rsvps => :guest }).where("starts_at < ?", Time.zone.now).order('starts_at ASC').limit(20)
+      @past_times = @user.plans.includes({ :rsvps => :guest }).unscoped.where("starts_at < ?", Time.zone.now).order('starts_at DESC').first(20)
     else
       @my_ins = @user.plans.includes({ :rsvps => :guest }).where('friends_only = ? AND starts_at IS NULL OR (one_time = ? AND ends_at > ?)', false, true, Time.zone.now)
     end

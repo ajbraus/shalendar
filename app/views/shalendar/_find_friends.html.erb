@@ -1,4 +1,5 @@
 <div id="find_friends">
+	<% if false %>
 <% if @member_friends.any? %>
 	<div class="member_friends">
 	<% if @me['location'].nil? %>
@@ -12,6 +13,7 @@
 
 	<hr>
 <% end %>
+<% end %>
 
 <% if @invite_friends.any? %>
 	<% if @me['location'].nil? %>
@@ -20,7 +22,6 @@
 		<h1>Your facebook friends in <%= current_user.authentications.select{|auth| auth.provider == "Facebook"}.first.city %></h1>
 	<% end %>
 	<div class="invite_friends">
-		<div class="invite_all"><%= link_to "Invite All", share_all_fb_friends_path, class:"btn btn-primary", id:"invite_all_friends", remote: true %></div>
 		<% @invite_friends.each do |inf| %>
 		  <div class="event_show_friend friend">
 			  <%= image_tag("#{inf['pic_square']}", class: "profile_picture", alt: "#{inf['uid']}" ) %>

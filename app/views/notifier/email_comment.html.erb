@@ -2,7 +2,7 @@
 	<table>
 		<tr>
 			<td style="font-size:16px;padding-bottom:10px;" colspan="2">
-				<%= @commenter %></strong> just commented on the idea - <strong><a href=<%= @event_link %>><%= @event.title %></a></strong>
+				new .info on <strong><a href=<%= @event_link %>><%= @event.title %></a></strong> from <strong><%= @commenter %></strong>
 			</td>
 		</tr>
 
@@ -37,7 +37,7 @@
 		<tr>
 			<td></td>
 			<td style="padding:5px 0 5px 80px; color:grey; font-size:10px;"> 
-				<%= c.user.name %> | <%= c.created_at.strftime "%l:%M%P, %A %B %e" %>
+				<%= c.user.first_name_with_last_initial %> | <%= c.created_at.strftime "%l:%M%P, %A %B %e" %>
 			</td>
 		</tr>
 

@@ -1,18 +1,24 @@
+1) they are aware of what it is
+2) and when it is happening
+3) They know who says they are going
+4) People they want to see say they are going
+5) They believe that those people are going who say they are
+6) They receive a personalized message or invitation to the idea
+
+
+We do pretty well with this except for number 4 and 5. (2 could be better too!)
+
 
 
 tag friends - suggest friends to tag - a few of your most popular in-mates and stars
 
-stars are strong ties
-
-invite specific people
+stars are strong ties - only allow stars and stars of stars to join
 
 old inmates disappear or go dormant until you reactivate
 
 enter in textboxes should create a pagebreak not submit the form
 
 RSVP URL && Button
-
-'tag' people to invite in a message
 
 Get b-day info and block under 13 without parental consent.
 

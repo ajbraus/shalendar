@@ -3,7 +3,7 @@ class ShalendarController < ApplicationController
 
 	def home
     if user_signed_in?  
-# #GET ALL IDEAS
+#GET ALL IDEAS
       @ideas = Event.includes(:instances, { :rsvps => :guest }).where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |e| e.no_relevant_instances? }
       #@ideas = Event.includes({ :rsvps => :guest }).where('events.city_id = ? AND (events.ends_at IS NULL OR (events.ends_at > ? AND events.one_time = ?))', @current_city.id, Time.zone.now, true)
       #.joins(:guests => :relationships).where('relationships.status >= 1')

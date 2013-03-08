@@ -2,16 +2,23 @@
 <%= render 'mini_calendar' %>
 	  <div class="container_wrapper">
 			<div class="home_idea_container clearfix">
-<% if false %>
-		    <div class="filters">
-		    	<span id="invites" class="selected"><span id="invites_count"><%= @ideas.count %></span> .invites</span> | <span id="ins" class="unselected"><span id="ins_count"><%= current_user.ins.count %></span> .ins</span>
-		    </div>
-<% end %>
-
 				<h1><span id="invites_count"></span> .invites</h1>
+				<%= image_tag 'purple_arrow.png', class:"invites_arrow", style:"display:none" %>
+				<div id="noInvites" class="no_invites part" style="display:none;">
+          <h2>
+            hoos.in makes it <strong>easy</strong> to do great things with your <strong>family</strong>, and <strong>best friends</strong> in <%= @current_city.city_name %>. Search for them or email them an invitation to be your .in-mate.
+          </h2>
+        </div>
 				<div id="invitesContainer" class="idea_container" >
 				</div>
+
 				<h1><span id="ins_count"></span> .ins</h1>
+				<%= image_tag 'purple_arrow.png', class:"ins_arrow", style:"display:none;"%>
+				<div id="noIns" class="no_ins part" style="display:none;">
+					<h2>You are not .in on any ideas<br>
+						Create a new idea and share it with your friends.
+					</h2>
+				</div>
 				<div id="insContainer" class="idea_container" >
 				</div>
 			</div>

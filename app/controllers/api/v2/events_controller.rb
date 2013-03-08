@@ -19,15 +19,16 @@ class Api::V2::EventsController < ApplicationController
 
     @invites_ideas = Event.where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |i| current_user.out?(i) || current_user.in?(i) || i.no_relevant_instances? }
 
-    @invites_ideas = @invites_ideas.reject do |i| 
-      !current_user.in?(i) && (current_user.out?(i) || (current_user.inmates & i.guests).none? || (i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)))
-    end
     #ADAM's ATTEMPT AT THIS QUERY WITH NO SINGLETON ONE_TIMES AND WITH EAGER LOADING GUESTS AND INSTANCES
     # @invites_ideas = Event.includes(:instances, {:rsvps => :guest}).where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |e| e.no_relevant_instances? }
 
     # @invites_ideas = @invites_ideas.reject do |i| 
     #   !current_user.in?(i) && (current_user.out?(i) || !current_user.invited?(i))
     # end
+
+    @invites_ideas = @invites_ideas.reject do |i| 
+      !current_user.in?(i) && (current_user.out?(i) || (current_user.inmates & i.guests).none? || (i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)))
+    end
 
     @invites_ideas = @invites_ideas.sort_by do |i| 
         i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
@@ -472,7 +473,6 @@ class Api::V2::EventsController < ApplicationController
     if params[:add_time] == '1' && @event.starts_at.present? && @event.duration.present?
 
       if params[:one_time] == '0' #IF NOT one time, CREATE instance
-        #ADAM - COMMENT THIS LINE ABOVE OUT
         
         @instance = @event.instances.build(user_id: current_user.id,
                                  city_id: @event.city.id,

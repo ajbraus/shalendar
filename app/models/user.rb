@@ -161,7 +161,7 @@ class User < ActiveRecord::Base
   end
 
   def send_welcome
-    if vendor?
+    if self.vendor?
       Notifier.delay.vendor_welcome(self)
     else
       Notifier.delay.welcome(self)
@@ -365,6 +365,22 @@ class User < ActiveRecord::Base
     end
   end
 
+  def re_inmate!(other_user)
+    unless other_user == self
+      @relationship = Relationship.where(follower_id: other_user.id, followed_id: self.id).first
+      if @relationship.blank?
+        self.relationships.create(followed_id: other_user.id, status: 1)
+      else
+        @relationship.status = 1
+        @relationship.save
+      end
+      @reverse_relationship = Relationship.where(follower_id: self.id, followed_id:  other_user.id).first
+      if @reverse_relationship.blank?
+        other_user.relationships.create(followed_id: self.id, status: 1)
+      end
+    end
+  end
+
   def ignore_inmate!(inmate)
     #they don't ignore back, they just are no longer inmates
     @reverse_relationship = inmate.relationships.find_by_followed_id(self.id)
@@ -398,6 +414,8 @@ class User < ActiveRecord::Base
         if @parent.user.is_friends_with?(self) || event.user.is_friends_with?(self)
           return true
         end
+      elsif (event.guests & self.inmates_and_friends).any?
+        return true
       end
     else
       if self.in?(event)
@@ -411,10 +429,14 @@ class User < ActiveRecord::Base
     return false
   end
 
-  def add_fb_to_inmates
+  def add_fb_to_inmates(graph)
+    @graph = graph
     @member_friends = self.fb_friends(@graph)[0]
     @member_friends.each do |mf|
-      self.inmate!(mf)
+      unless self.is_inmates_or_friends_with?(mf)
+        self.inmate!(mf)
+        mf.delay.contact_new_fb_inmate(self)
+      end
     end
   end
 
@@ -640,12 +662,10 @@ class User < ActiveRecord::Base
   end
 
   def contact_comment(comment)
+    @user = self
     @commenter = comment.user.first_name_with_last_initial
     @comment = comment
     @event = @comment.event
-    @comments = @event.comments.order('created_at DESC').limit(4)
-    @comments.shift(1)
-    @user = self
     if @user.iPhone_user?
       d = APN::Device.find_by_id(@user.apn_device_id)
       if d.nil?
@@ -653,7 +673,7 @@ class User < ActiveRecord::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "new .info - #{@event.title} - #{@commenter}"
+        n.alert = ".info - #{@comment.content} - #{@commenter}"
         n.badge = 1
         n.sound = false
         n.custom_properties = {msg: "from #{@commenter}", :type => "new_comment", :id => "#{@event.id}"}
@@ -666,14 +686,13 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "new .info - #{@event.title} - #{@commenter}"
+        n.collapse_key = ".info - #{@comment.content} - #{@commenter}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {msg: "from #{@commenter}", :type => "new_comment", :id => "#{@event.id}"}}
         n.save
       end
-    else
-      Notifier.email_comment(@comment, @user).deliver
     end
+    Notifier.email_comment(@comment, @user).deliver
   end
 
   def contact_cancellation(event)
@@ -771,12 +790,45 @@ class User < ActiveRecord::Base
         n.device = d
         n.collapse_key = "new .in - #{@rsvping_user.name} for #{@event.title}"
         n.delay_while_idle = true
-        n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "new_rsvp", :id => "#{@rsvping_user.id}"}}
+        n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "new_rsvp", :id => "#{@event.id}"}}
         n.save
       end
     else
       Notifier.new_rsvp(@event, @user, @rsvping_user).deliver
     end
+  end
+
+  def contact_new_fb_inmate(inmate)
+    @user = self
+    @new_inmate = inmate
+    # if @user.iPhone_user == true
+    #   d = APN::Device.find_by_id(@user.apn_device_id)
+    #   if d.nil?
+    #     Airbrake.notify("thought we had an iphone user but can't find their device")
+    #   else
+    #     n = APN::Notification.new
+    #     n.device = d
+    #     n.alert = "Your friend #{@new_inmate.name} just joined hoos.in and you are now .in-mates."
+    #     n.badge = 1
+    #     n.sound = false
+    #     n.custom_properties = {msg: "", :type => "new_fb_inmate", :id => "#{@new_inmate.id}"}
+    #     n.save
+    #   end
+    # elsif @user.android_user == true
+    #   d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+    #   if d.nil?
+    #     Airbrake.notify("thought we had an android user but can't find their device")
+    #   else
+    #     n = Gcm::Notification.new
+    #     n.device = d
+    #     n.collapse_key = "Your friend #{@new_inmate.name} just joined hoos.in and you are now .in-mates."
+    #     n.delay_while_idle = true
+    #     n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "new_fb_inmate", :id => "#{@new_inmate.id}"}}
+    #     n.save
+    #   end
+    # else
+      Notifier.new_fb_inmate(@user, @new_inmate).deliver
+    # end
   end
 
   # Class Methods
@@ -798,7 +850,7 @@ class User < ActiveRecord::Base
           end
           @upcoming_times.push(@upcoming_day_times)
         end
-        @all_new_ideas = Event.where('city_id = ? AND created_at > ? AND (ends_at IS NULL OR (ends_at > ? AND one_time = ?))', @current_city.id, @now_in_zone - 4.days, Time.zone.now, true).reject { |i| u.rsvpd?(i) }
+        @all_new_ideas = Event.where('city_id = ? AND created_at > ? AND ends_at IS NULL', @current_city.id, @now_in_zone - 4.days).reject { |i| u.rsvpd?(i) && i.no_relevant_instances? }
         @new_inner_ideas = @all_new_ideas.select { |i| i.user.is_friended_by?(u) }
         @new_inmate_ideas = @all_new_ideas.select { |i| i.user.is_inmates_with?(u) }
         @users_new_ideas = @new_inmate_ideas + @new_inner_ideas

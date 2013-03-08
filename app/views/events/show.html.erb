@@ -28,7 +28,7 @@
         <%= image_tag @event.image(:large) %>
       </div>
       <% end %>
-    <div class="eventTitle padding_10">
+    <div class="padding_10">
       <%= @event.title %>
     </div>
     <% if @event.description.present? %>
@@ -44,7 +44,7 @@
           <% end %>
           <%= @event.user.first_name_with_last_initial %>
         </u>
-      <% if @event.user == current_user || current_user.admin? %> 
+      <% if current_user == @event.user || current_user.admin? %> 
         <div class="event_buttons">
           <%= link_to edit_event_path(@event) do %>
             <span class="fadeInOrange"><i class="icon-cogs"></i> edit</span>
@@ -90,9 +90,11 @@
     <% end %>
   </div>
 
-  <% unless @event.one_time? %>
-    <%= link_to event_new_time_path(@event), id:"makeATime", class:"btn-success btn-new-time" do %>
-      <span style="color:white;"><i class="icon-time"></i> Add a New Time</span>
+  <% if user_signed_in? %>
+    <% unless @event.one_time? || !current_user.in?(@event) %>
+      <%= link_to event_new_time_path(@event), id:"makeATime", class:"btn-success btn-new-time" do %>
+        <span style="color:white;"><i class="icon-time"></i> Add a New Time</span>
+      <% end %>
     <% end %>
   <% end %>
 

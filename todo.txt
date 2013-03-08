@@ -1,31 +1,51 @@
 Adam
 
-	re-up bank account - write check
+	.in-mate invitations 15
+		hoos.in is for doing things with your real friends
+		.invite 15 of your friends in your city to be your .in-mates on hoos.in
+		
+
+		host out stats
+
+		frank production ideas visible to everyone 
+
+
+TEACHING USERS:
+
+	tutorial to create your first idea when you start
+
+	Email invitations to be .in-mates
+
+	put up tips for ideas - how to make a great idea - go beyond boring
+
+	next time at the top of the show
+
+	.information
+	so-n-so tagged you in an idea
+	so-n-so updated the time on idea
+	so-n-so commented on an idea
+	so-n-so starred you
+	so-n-so created an idea
+
+	--------------------------------------------------------------
 
 	bugs 
-		friends only ideas showing
+		friends only ideas showing (fix test)
 		private ideas (show lock in title and hide share buttons from all but creator)
 		friends only ideas (show star in title)
+		when rsvp to one time rsvp to parent and time
 
+separate branch:
+Made it so delayed job or a daemon that runs the rake task every 3 min, or just a delayed job restart method - on branch "solving pushes"
 
-APP:
+http://ichord.github.com/At.js/
+https://github.com/tsechingho/chosen-rails
 
-	delayed job or a daemon that runs the rake task every 3 min, or just a delayed job restart method
-
-	make comments asynconous
-	friending asynchronous
-
+	make comments asynconous 
+	
 	create a user from mobile
 
-	new friend name and image should be link
-
-	remove relationships with themselves
-
-	your friend just joined hoos.in and you are now in-mates! (email or push)
-
 	Adding FB to a native login doesn't work smoothly (either fix or remove)
-
-	add iphone and android market place icons to bulletin board banners
 
 	recent activity on show
 
@@ -42,29 +62,11 @@ NOTIFIERS:
 
 	facepile on email
 
---------------------------------------------------------------
 
-TEACHING USERS:
-	you have no .invites -- search for friends to join their fun ideas and become .in-mates click new idea to create a fun idea for friends to do
-
-	put up tips for ideas - how to make a great idea - go beyond boring
-
-	next time at the top of the show
-
-	drawn arrows
-
-	.information
-	so-n-so tagged you in an idea
-	so-n-so updated the time on idea
-	so-n-so commented on an idea
-	so-n-so starred you
-	so-n-so created an idea
 
 --------------------------------------------------------------
 
 NICE BUT NOT NEEDED
-
-	star instead of lock for private ideas
 
 	RSVPing improvments
 		add ideas mini_events to calendar on rsvp_check to idea

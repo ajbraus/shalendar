@@ -84,14 +84,14 @@ class Notifier < ActionMailer::Base
 
   def email_comment(comment, user)
     @comment = comment
+    @user = user
     @commenter = @comment.user.first_name_with_last_initial
     @event = @comment.event
     @comments = @event.comments.order('created_at DESC').limit(4)
     @comments.shift(1)
-    @user = user
     @comment_time = @comment.created_at.strftime "%l:%M%P, %A %B %e"
     @event_link = event_url(@event)
-    mail to: @user.email, subject: "new .info - #{@event.short_event_title}"
+    mail to: @user.email, subject: ".info - #{@comment.content} - #{@commenter}"
   end
 
   def new_idea(event, user)
@@ -124,7 +124,7 @@ class Notifier < ActionMailer::Base
     @user = user
     @event = event
     @event_link = event_url(@event)
-    mail to: @user.email, from: "info@hoos.in", subject: "new time added - #{@event.title} - #{@event.start_time}"
+    mail to: @user.email, from: "info@hoos.in", subject: "new time - #{@event.start_time} - #{@event.title}"
   end
 
   def new_rsvp(event, user, rsvping_user)
@@ -150,6 +150,13 @@ class Notifier < ActionMailer::Base
     @event = event
     @new_inmates = new_inmates
     mail to: @user.email, from: "info@hoos.in", subject: ".introductions - #{@event.title}"
+  end
+
+  def new_fb_inmate(user, new_inmate)
+    @user = user
+    @new_inmate = new_inmate
+    @image_url = invite_raster_picture(@new_inmate)
+    mail to: @user.email, from: "info@hoos.in", subject: "Your friend #{@new_inmate.name} just joined hoos.in and you are now .in-mates."
   end
 
   # def email_invitation(invite, event)

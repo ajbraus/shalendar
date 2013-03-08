@@ -33,3 +33,5 @@ Notifier.new_time(time, user).deliver
 Notifier.new_rsvp(event, user, other_user).deliver
  
 Notifier.follow_up(user, event, users).deliver
+
+Notifier.new_fb_inmate(user, other_user).deliver

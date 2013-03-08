@@ -47,13 +47,13 @@ class CommentsController < ApplicationController
     
     respond_to do |format|
       if @comment.save
-        if current_user == @comment.user
+        if current_user == @event.user
           @comment_recipients = @event.guests.select { |g| g.email_comments == true && 
                                                            g != current_user && 
                                                            !g.rsvps.find_by_plan_id(@event.id).muted? }
         else
-          @comment_recipients = @event.guests.select { |g| g == @event.user || 
-                                                           (g.is_friends_with?(current_user) && 
+          @comment_recipients = @event.guests.select { |g| (g == @event.user || 
+                                                           (g.is_friends_with?(current_user)) && 
                                                            g.email_comments == true && 
                                                            g != current_user && 
                                                            !g.rsvps.find_by_plan_id(@event.id).muted?) }
@@ -61,6 +61,7 @@ class CommentsController < ApplicationController
         @comment_recipients.each do |g|
           g.delay.contact_comment(@comment)
         end
+
         format.html { redirect_to @event, notice: 'Chat sent' }
         format.json { render json: @event, status: :created, location: @event }
       else
