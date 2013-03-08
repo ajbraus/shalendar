@@ -86,8 +86,8 @@ class Api::V1::TokensController  < ApplicationController
                                     :daily_d=>@user.allow_contact,
                                     :notify_r=>@user.notify_event_reminders,
                                     :post_wall=>@user.post_to_fb_wall,
-                                    :followed_users=>@user.followed_users,#may put these in separate calls for speed of login
-                                    :pending_followed_users=>@user.pending_followed_users,
+                                    :followed_users=>@user.inmates_and_friends,#may put these in separate calls for speed of login
+                                    :pending_followed_users=>[],
                                     #:followers=>@followers,
                                     :invites=>@invites
                                     }
