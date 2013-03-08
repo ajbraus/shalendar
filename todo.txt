@@ -1,5 +1,10 @@
 Adam
 
+	.in-mate invitations 15
+		hoos.in is for doing things with your real friends
+		.invite 15 of your friends in your city to be your .in-mates on hoos.in
+		
+
 		host out stats
 
 		frank production ideas visible to everyone 
