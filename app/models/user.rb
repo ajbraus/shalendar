@@ -850,7 +850,7 @@ class User < ActiveRecord::Base
           end
           @upcoming_times.push(@upcoming_day_times)
         end
-        @all_new_ideas = Event.where('city_id = ? AND created_at > ? AND ends_at IS NULL', @current_city.id, @now_in_zone - 4.days).reject { |i| u.rsvpd?(i) && u.no_relevant_instances? }
+        @all_new_ideas = Event.where('city_id = ? AND created_at > ? AND ends_at IS NULL', @current_city.id, @now_in_zone - 4.days).reject { |i| u.rsvpd?(i) && i.no_relevant_instances? }
         @new_inner_ideas = @all_new_ideas.select { |i| i.user.is_friended_by?(u) }
         @new_inmate_ideas = @all_new_ideas.select { |i| i.user.is_inmates_with?(u) }
         @users_new_ideas = @new_inmate_ideas + @new_inner_ideas
