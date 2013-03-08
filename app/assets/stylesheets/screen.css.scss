@@ -1754,12 +1754,29 @@ label.error {
 ::-webkit-input-placeholder {
    font-style: italic;
    color:grey;
+   font-size:14px;
+   line-height: 1.3;
 }
 
 :-moz-placeholder {  
    font-style: italic;
    color:grey;
+   font-size:14px;
+   line-height: 1.3;
 }
+
+:-ms-input-placeholder { 
+   font-style: italic;
+   color:grey;
+   font-size:14px;
+   line-height: 1.3;
+  }/* ie */
+input:-moz-placeholder { 
+   font-style: italic;
+   color:grey;
+   font-size:14px;
+   line-height: 1.3;
+ }
 
 form {
 margin: 0 0 0 0;
@@ -2211,6 +2228,8 @@ margin-top: 50px;
 .fb-login-button {
   img {
 width: 20px;
+bottom: 13px;
+position: relative;
   }
 }
 
@@ -3225,4 +3244,53 @@ clear: left;
 }
 .city_name {
   color:$headerText;
+}
+
+.no_invites, .no_ins {
+max-width: 500px;
+margin: 0 auto;
+padding: 15px 20%;
+background-color: $background-one;
+  h2 {
+    line-height: 1.3;
+    color: #68615d;
+  }
+}
+
+.no_invites {
+
+}
+
+.no_ins {
+
+}
+
+#invitesWrapper {
+  min-height: 120px;
+}
+
+.invites_arrow {
+width: 100px;
+position: absolute;
+right: 428px;
+z-index: 3;
+-webkit-transform: rotate(-62deg);
+-o-transform: rotate(-62deg);
+-moz-transform: rotate(-62deg);
+-ms-transform: rotate(-62deg);
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=-1);
+top: -16px;
+}
+
+.ins_arrow {
+width: 250px;
+position: absolute;
+right: -55px;
+top: 90px;
+-moz-transform: scaleX(-1) rotate(-119deg);
+-o-transform: scaleX(-1) rotate(-119deg);
+-webkit-transform: scaleX(-1) rotate(-119deg);
+transform: scaleX(-1) rotate(-119deg);
+-ms-filter: "FlipH" rotate(-119deg);
+z-index: -2;
 }
