@@ -1,4 +1,4 @@
-class Api::V2::EventsController < ApplicationController
+class Api::V3::EventsController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json
    
@@ -11,11 +11,11 @@ class Api::V2::EventsController < ApplicationController
       render :status => 400, :json => {:error => "could not find your user"}
       return
     end
-    unless params[:count].nil?
-      @count = Integer(params[:count])
-    end
-    @finished = false
-    @window_size = 7
+    # unless params[:count].nil?
+    #   @count = Integer(params[:count])
+    # end
+    # @finished = false
+    # @window_size = 7
 
     @invites_ideas = Event.where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |i| current_user.out?(i) || current_user.in?(i) || i.no_relevant_instances? }
 
@@ -36,14 +36,14 @@ class Api::V2::EventsController < ApplicationController
     end
     @events = @invites_ideas
 
-    if (@count + @window_size) < @events.count
-      @events = @events[@count .. @count + @window_size-1]
-    elsif @count >= @events.count #we'd overstep the array bounds
-      @finished = true
-    else #we are done once this is done
-      @events = @events[@count .. (@events.count-1)]
-      @finished = true
-    end
+    # if (@count + @window_size) < @events.count
+    #   @events = @events[@count .. @count + @window_size-1]
+    # elsif @count >= @events.count #we'd overstep the array bounds
+    #   @finished = true
+    # else #we are done once this is done
+    #   @events = @events[@count .. (@events.count-1)]
+    #   @finished = true
+    # end
 
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []
@@ -106,7 +106,7 @@ class Api::V2::EventsController < ApplicationController
       @list_events.push(@temp)
     end 
     render json: {
-          :finished => @finished,
+ #         :finished => @finished,
           :events => @list_events
     }
   end
@@ -120,11 +120,11 @@ class Api::V2::EventsController < ApplicationController
       render :status => 400, :json => {:error => "could not find your user"}
       return
     end
-    unless params[:count].nil?
-      @count = Integer(params[:count])
-    end
-    @finished = false
-    @window_size = 7
+    # unless params[:count].nil?
+    #   @count = Integer(params[:count])
+    # end
+    # @finished = false
+    # @window_size = 7
 
     @ins_ideas = @mobile_user.plans.where('ends_at IS NULL', Time.zone.now, true).reject{ |i| i.no_relevant_instances?}
     #ADAM's ATTEMPT AT THIS QUERY WITH NO SINGLETON ONE_TIME IDEAS AND EAGER LOADING OF INSTANCES AND GUESTS
@@ -136,14 +136,14 @@ class Api::V2::EventsController < ApplicationController
     end
     @events = @ins_ideas
 
-    if (@count + @window_size) < @events.count
-      @events = @events[@count .. @count + @window_size-1]
-    elsif @count >= @events.count #we'd overstep the array bounds
-      @finished = true
-    else #we are done once this is done
-      @events = @events[@count .. (@events.count-1)]
-      @finished = true
-    end
+    # if (@count + @window_size) < @events.count
+    #   @events = @events[@count .. @count + @window_size-1]
+    # elsif @count >= @events.count #we'd overstep the array bounds
+    #   @finished = true
+    # else #we are done once this is done
+    #   @events = @events[@count .. (@events.count-1)]
+    #   @finished = true
+    # end
 
     #For Light-weight events sending for list (but need guests to know if RSVPd)
     @list_events = []
@@ -206,7 +206,7 @@ class Api::V2::EventsController < ApplicationController
       @list_events.push(@temp)
     end 
     render json: {
-      :finished => @finished,
+#      :finished => @finished,
       :events => @list_events
     }
   end
