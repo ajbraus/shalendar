@@ -405,6 +405,11 @@ class Event < ActiveRecord::Base
     return self.rsvps.where(inout: 1).count
   end
 
+  def outs
+    @rsvps = self.rsvps.where(inout: 0)
+    @outs = @rsvps.map { |r| r.guest }
+  end
+
 # END OF CLASS
 end
 

@@ -231,6 +231,12 @@ class User < ActiveRecord::Base
     event.guests.each do |g|
       self.inmate!(g)
     end
+    
+    @instance = event.instances.first
+    if event.one_time? && @instance.present?
+      self.rsvp_in!(@instance)
+    end
+    
     if event.parent.present? && !self.in?(event.parent)
       self.rsvp_in!(event.parent)
     else #contact only once if they sign up for time + idea 
@@ -246,6 +252,12 @@ class User < ActiveRecord::Base
       @existing_rsvp.destroy
     end
     rsvps.create!(plan_id: event.id, inout: 0)
+    @parent = event.parent
+
+    if @parent.present? && @parent.one_time?
+      self.rsvp_out!(@parent)
+    end
+    
     event.instances.each do |time|
       self.rsvp_out!(time)
     end

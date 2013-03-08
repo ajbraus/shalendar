@@ -3,7 +3,11 @@ Adam
 	.in-mate invitations 15
 		hoos.in is for doing things with your real friends
 		.invite 15 of your friends in your city to be your .in-mates on hoos.in
-		
+
+
+	rsvp ppl into all parents of one_times they are rsvpd into
+	fix .in? so that it checks if you are in on the parent of a one_time
+	when you rsvp into a parent of a one_time, rsvp ppl into the instance.
 
 		host out stats
 
