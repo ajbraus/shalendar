@@ -332,6 +332,9 @@ class Api::V2::EventsController < ApplicationController
       e = @event
       @instances = []
       if e.one_time?
+        if e.instances.any?
+          e = e.instances.first
+        end
         @i_guestids = []
         e.guests.each do |g|
           @i_guestids.push(g.id)
