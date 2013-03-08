@@ -1,4 +1,4 @@
-class Api::V2::ShalendarController < ApplicationController
+class Api::V3::ShalendarController < ApplicationController
 	before_filter :authenticate_user!
   respond_to :json
   

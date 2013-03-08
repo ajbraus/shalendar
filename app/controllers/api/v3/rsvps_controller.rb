@@ -1,4 +1,4 @@
-class Api::V2::RsvpsController < ApplicationController
+class Api::V3::RsvpsController < ApplicationController
  	before_filter :authenticate_user!
   respond_to :json
 

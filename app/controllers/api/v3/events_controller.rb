@@ -1,4 +1,4 @@
-class Api::V2::EventsController < ApplicationController
+class Api::V3::EventsController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json
    
