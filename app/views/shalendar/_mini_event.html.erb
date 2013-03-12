@@ -1,10 +1,6 @@
-<% if user_signed_in? %>
 <div class="mini_event instance"
 	data-event-id='<%= event.id %>'
-	<%= event.starts_at.present? ? "data-date=#{event.starts_at.to_date}" : '' %>>
-<% else %>
-<div class="mini_event">
-<% end %>
+	data-date='<%= event.starts_at.to_date %>'>
 	<%= link_to event.event_parent, class:"#{ !current_user.rsvpd?(event) ? 'not_rsvpd' : '' }" do %>
 		<% if false %>
 		<div class="promo_img">

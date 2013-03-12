@@ -166,7 +166,7 @@
     @parent = @event.parent
     if @parent.present? 
       redirect_to @parent 
-      return
+      and return
     end
 
     @guests = @event.guests

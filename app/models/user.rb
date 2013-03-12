@@ -81,6 +81,10 @@ class User < ActiveRecord::Base
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
   has_many :plans, through: :rsvps, :conditions => ['inout = ?', 1]
 
+  has_many :invitations, foreign_key: "invited_user_id", dependent: :destroy
+  has_many :invited_times, through: :invitations, :conditions => ['starts_at IS NOT NULL']
+  has_many :invited_ideas, through: :invitations, :conditions => ['starts_at IS NULL']
+
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   
   has_many :reverse_relationships, :foreign_key => "followed_id",
@@ -92,7 +96,7 @@ class User < ActiveRecord::Base
   has_many :inmates, through: :relationships, source: :followed, conditions: "status = 1"  
   has_many :friends, through: :relationships, source: :followed, conditions: "status = 2"  
 
-  has_many :inmates_and_friends, through: :relationships, source: :followed
+  has_many :inmates_and_friends, through: :relationships, source: :followed, conditions: ['status != 0']
 
   has_many :comments, dependent: :destroy
 
@@ -227,8 +231,15 @@ class User < ActiveRecord::Base
       end
     end
     rsvps.create!(plan_id: event.id, inout: 1)
+    
     event.guests.each do |g|
       self.inmate!(g)
+    end
+
+    unless event.friends_only?
+      self.inmates_and_friends.each do |u|
+        u.invitations.create!(event_id: event.id)
+      end
     end
     
     #if one time and rsvp to parent, then rsvp to single instance
@@ -274,6 +285,15 @@ class User < ActiveRecord::Base
     end
     rsvps.create!(plan_id: event.id, inout: 0)
     
+    unless event.friends_only?
+      self.inmates_and_friends.each do |u|
+        @invite = u.invitations.find_by_event_id(event_id: event.id)
+        if @invite.present?
+          @invite.destroy
+        end
+      end
+    end
+
     @parent = event.parent
     if @parent.present? && @parent.one_time?
       self.rsvp_out!(@parent)

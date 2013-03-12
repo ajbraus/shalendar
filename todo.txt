@@ -1,4 +1,19 @@
 Adam
+	
+	Add back invitations
+		DONE created invitation.rb
+		DONE created create_invitiations_again migration
+		DONE in rsvp_in! in user.rb update to 
+			unless friends_only, add invitest for all current_user's .in-mate's invited events
+		DONE in rsvp_out! in user.rb update to 
+			unless friends_only, remove from all current_user's .in-mate's invited events
+		DONE update shalendar controller and users controller
+			@ideas = current_user.invited_ideas.incudes(:comments, :guests)
+			@ideas.sort
+			@times = current_user.invited_times.incudes(:comments, :guests)
+
+
+
 	New Idea tutorial after register
 	create idea -- on-going idea without a time, on-going idea with a time, one-time idea
 	starred .in-mate invitations 15

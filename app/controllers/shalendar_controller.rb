@@ -3,32 +3,15 @@ class ShalendarController < ApplicationController
 
 	def home
     if user_signed_in?  
-      
-#GET ALL IDEAS
-      @ideas = Event.includes(:instances, { :rsvps => :guest }).where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |e| e.no_relevant_instances? }
-      #@ideas = Event.includes({ :rsvps => :guest }).where('events.city_id = ? AND (events.ends_at IS NULL OR (events.ends_at > ? AND events.one_time = ?))', @current_city.id, Time.zone.now, true)
-      #.joins(:guests => :relationships).where('relationships.status >= 1')
-#REJECT OUTS || NOT INMATE IDEAS || FRIENDS ONLY IDEAS
-      @ideas = @ideas.reject do |i| 
-        !current_user.in?(i) && (current_user.out?(i) || !current_user.invited?(i))
-      end
-
-#SORT IDEAS BY #INNERCIRCLE AND THEN #OF INMATES
+      @ideas = current_user.invited_ideas.includes({ :rsvps => :guest }, :comments)
       @ideas = @ideas.sort_by do |i| 
         i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*25 + 
             i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
       end
-#SORT BY IS ONLY ASC SO REVERSE EM!
       @ideas = @ideas.reverse
 
-#GET ALL TIMES
-      @times = Event.includes({ :rsvps => :guest }).where('city_id = ? AND (ends_at > ? AND ends_at < ?)', @current_city.id, Time.zone.now, Time.zone.now + 59.days)
+      @times = current_user.invited_times.includes({ :rsvps => :guest }, :comments)
 
-#attempt at getting times friends are rsvpd to
-      @times = @times.reject do |i|  #select those user is not out of and may be invited to
-        !current_user.in?(i) && (current_user.out?(i) || !current_user.invited?(i))
-      end
-    end 
     #show alert if rescue from errors:
     if params[:oofta] == 'true'
       flash.now[:oofta] = "We're sorry, an error occured"
