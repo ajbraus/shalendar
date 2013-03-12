@@ -1,3 +1,15 @@
+
+	DONE fixing .in and out so that it is one click and it reloads the calendar.
+	DONE Just blue and red checks
+	DONE Don't disappear after outing
+	DONE Mark times in calendar uppon outing
+	DONE Don't rsvp to instaces unless one_time
+	DONE have in and out be switches and user can go back and forth
+	DONE fix sample idea 
+
+
+
+
 Inmates
 	DONE inmates == relationships
 	DONE friends == relationship.status = 0,1,2 (0 == ignore, 1 == inmate, 2 == friend)

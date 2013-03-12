@@ -20,6 +20,7 @@
 				<div class="rsvp_check">
 					<%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %>
 				</div>
+				<span id="status"></span>
 				<u class="creator">
 					<% if current_user.is_friends_with?(event.user) %>
 						<i class="icon-star" style="color:gold;"></i>

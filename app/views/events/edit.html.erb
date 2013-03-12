@@ -13,7 +13,7 @@
     </p> 
 
     <div class="friends_only_bool">
-      <%= f.check_box :friends_only %> <label for="event_friends_only" class="pointer"><i class="icon-lock"></i>  Private? (only seen by starred .in-mates)</label>
+      <%= f.check_box :friends_only %> <label for="event_friends_only" class="pointer"><i class="icon-star" style="color:gold;"></i> only .invite starred .in-mates? </label>
     </div>
     <% unless @event.instances.none? %>
     <div class="one_time_bool">

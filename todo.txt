@@ -1,14 +1,16 @@
 Adam
-
-	.in-mate invitations 15
+	New Idea tutorial after register
+	create idea -- on-going idea without a time, on-going idea with a time, one-time idea
+	starred .in-mate invitations 15
 		hoos.in is for doing things with your real friends
 		.invite 15 of your friends in your city to be your .in-mates on hoos.in
-		
+
+	what are you up to tonight? - if someone views your profile and they are you're .in-mate shouldn't it show them?
+	check in somewhere on foursquare through hoos.in - creates an idea at that location
 
 		host out stats
 
 		frank production ideas visible to everyone 
-
 
 TEACHING USERS:
 

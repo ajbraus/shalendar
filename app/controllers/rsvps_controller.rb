@@ -24,16 +24,13 @@ class RsvpsController < ApplicationController
       end
 
     elsif params[:rsvp][:inout].to_f == 0
-      if @event.has_parent?
-        respond_to do |format|
+      respond_to do |format|
+        if @event.has_parent?
           format.html { redirect_to @event.parent }
-          format.js { render template: "rsvps/out" }
-        end
-      else
-        respond_to do |format|
+        else
           format.html { redirect_to @event }
-          format.js { render template: "rsvps/out" }
         end
+          format.js { render template: "rsvps/out" }
       end
     end
   end
@@ -52,10 +49,10 @@ class RsvpsController < ApplicationController
     end
 
     respond_to do |format|
-      if !@event.has_parent?
-        format.html { redirect_to @event }
-      else
+      if @event.has_parent?
         format.html { redirect_to @event.parent }
+      else
+        format.html { redirect_to @event }
       end
       format.js
     end

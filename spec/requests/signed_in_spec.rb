@@ -31,6 +31,7 @@ describe "Home page after sign in" do
 
   let(:user) { FactoryGirl.create(:user, :city => city) }
   let(:other_user) { FactoryGirl.create(:user, :city => city) }
+  let(:third_user) { FactoryGirl.create(:user, :city => city) }
 
   let(:stockholm_user) { FactoryGirl.create(:user, :city => stockholm) }
   
@@ -58,13 +59,20 @@ describe "Home page after sign in" do
                      :one_time => 'f',
                      :title => "Stockholm Inmate Test Idea") }
 
-  let(:one_time) { FactoryGirl.create(:event, 
-                     :user => other_user,
-                     :city => madison,
-                     :starts_at => "#{Time.now + 1.day}", 
-                     :ends_at => "#{Time.now + 1.day + 2.hours}",
+  let(:one_time_parent) { FactoryGirl.create(:event, 
+                     :user => user,
+                     :city => city,
                      :one_time => 't',
-                     :title => "One Time Idea") }
+                     :title => "One Time Parent") }
+
+  let(:one_time_child) { FactoryGirl.create(:event,
+                  parent: one_time_parent,
+                  city: city,
+                  user: user,
+                  starts_at: "#{Time.zone.now + 1.days}", 
+                  ends_at: "#{Time.zone.now + 1.day + 2.hours}",
+                  duration: 2,
+                  address: "my house") }
 
   let(:friends_only) { FactoryGirl.create(:event, 
                           :user => other_user, 
@@ -78,6 +86,7 @@ describe "Home page after sign in" do
     user.rsvp_in!(madison_idea) #because creators of ideas need to be rspvd for their ideas
     other_user.rsvp_in!(inmate_idea)
     other_user.rsvp_in!(friends_only)
+    other_user.rsvp_in!(one_time_parent)
   end
 
   #after(:all) { Event.delete_all }
@@ -152,6 +161,33 @@ describe "Home page after sign in" do
     end
     it "should have the content 'Friends Only Idea'" do
       page.should have_content("Friends Only Idea")
+    end
+  end
+
+  describe "in-mates of in-mates who are in" do
+    before do
+      user.inmate!(third_user)
+      third_user.rsvp_in!(inmate_idea)
+      visit root_path
+    end
+    it "should be in on 'Madison Test Idea'" do
+      page.should have_content("Madison Test Idea")
+    end
+    it "should not be in on 'Friends Only Idea'" do
+      page.should_not have_content("Friends Only Idea")
+    end
+  end
+
+  describe "when in-mates with a user who has created a one time idea" do
+    before do
+      user.inmate!(other_user)
+      visit root_path
+    end
+    it "should not display instructions in the mini calendar" do
+      page.should_not have_selector(".mini_calendar_explanation")
+    end
+    it "should have the content 'Madison Test Idea'" do
+      page.should have_content("One Time Parent")
     end
   end
 

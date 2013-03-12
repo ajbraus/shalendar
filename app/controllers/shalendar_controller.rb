@@ -3,6 +3,7 @@ class ShalendarController < ApplicationController
 
 	def home
     if user_signed_in?  
+      
 #GET ALL IDEAS
       @ideas = Event.includes(:instances, { :rsvps => :guest }).where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |e| e.no_relevant_instances? }
       #@ideas = Event.includes({ :rsvps => :guest }).where('events.city_id = ? AND (events.ends_at IS NULL OR (events.ends_at > ? AND events.one_time = ?))', @current_city.id, Time.zone.now, true)
@@ -32,14 +33,6 @@ class ShalendarController < ApplicationController
     if params[:oofta] == 'true'
       flash.now[:oofta] = "We're sorry, an error occured"
     end
-
-    #EAGER LOADING ATTEMPT
-      # @ideas = Event.includes(:rsvps => { :guests => :relationships } )
-      #   .where('events.city_id = ? AND events.ends_at IS NULL OR (events.ends_at > ? AND events.one_time = ?)', @current_city.id, Time.zone.now, true)
-      #   .where('rsvps.inout', 1)
-      #   .where('relationships.status IS NOT ?', 0)
-      #   .reject { |i| current_user.rsvpd?(i) }
-      #   Category.includes(:posts => [{:comments => :guest}, :tags]).find(1)
 	end
 
   #HEADER 

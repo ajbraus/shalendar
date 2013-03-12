@@ -167,8 +167,8 @@ class Event < ActiveRecord::Base
   end
 
   def short_event_title
-    if self.title.size >=40
-      self.title.slice(0..40) + "..."
+    if self.title.size >=20
+      self.title.slice(0..20) + "..."
     else
       self.title
     end
@@ -403,6 +403,11 @@ class Event < ActiveRecord::Base
 
   def guest_count
     return self.rsvps.where(inout: 1).count
+  end
+
+  def outs
+    @rsvps = self.rsvps.where(inout: 0)
+    @outs = @rsvps.map { |r| r.guest }
   end
 
 # END OF CLASS

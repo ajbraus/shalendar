@@ -13,7 +13,6 @@
     <link rel="apple-touch-icon-precomposed" href="/assets/iphone_icons/114.png" />
 
     <%= stylesheet_link_tag    "application", media: "all" %>
-    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
 
     <% if @event %>
@@ -47,11 +46,16 @@
     <%= render 'layouts/fb_script' %> 
     <span id="shareAfterRsvp"></span>
     <div id='feedback'><a href="mailto:info@hoos.in" target="_blank">.inform us</a></div>
-    <div class="layout clearfix" id="content"> 
-      <%= render 'layouts/header' %>
+    <%= render 'layouts/header' %>
+    <div class="layout clearfix" id="content">       
       <%= yield %>
       <%= render 'layouts/footer' %>
     </div>
+
+    <!-- Javascripts
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
     <%= yield :scripts %>
+    <%= javascript_include_tag "application" %>
   </body>
 </html>

@@ -1,12 +1,15 @@
 <% if user_signed_in? %>
-<%= render 'mini_calendar' %>
+<div class="mini_calendar">
+	<%= render 'mini_calendar' %>
+</div>
+<%= render partial: 'shalendar/mini_event', collection: @times, as: :event %>
+
 	  <div class="container_wrapper">
 			<div class="home_idea_container clearfix">
 				<h1><span id="invites_count"></span> .invites</h1>
-				<%= image_tag 'purple_arrow.png', class:"invites_arrow", style:"display:none" %>
 				<div id="noInvites" class="no_invites part" style="display:none;">
           <h2>
-            hoos.in makes it <strong>easy</strong> to do great things with your <strong>family</strong>, and <strong>best friends</strong> in <%= @current_city.city_name %>. Search for them or email them an invitation to be your .in-mate.
+            hoos.in makes it <strong>easy</strong> to do great things with your <strong>family</strong>, and <strong>best friends</strong> in <%= @current_city.city_name %>. Make a <strong>new idea</strong> for something fun. Search for <strong>your friends and family</strong> <!-- or send them an invitation to be your .in-mate. -->
           </h2>
         </div>
 				<div id="invitesContainer" class="idea_container" >

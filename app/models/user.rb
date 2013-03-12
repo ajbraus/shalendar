@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
 
   has_many :authentications, :dependent => :destroy, :uniq => true
 
-  has_many :events, :dependent => :destroy
+  has_many :events
 
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
   has_many :plans, through: :rsvps, :conditions => ['inout = ?', 1]
@@ -217,7 +217,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  #moved all parent logic into the model
   def rsvp_in!(event)
     @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
     if @existing_rsvp.present?
@@ -231,23 +230,53 @@ class User < ActiveRecord::Base
     event.guests.each do |g|
       self.inmate!(g)
     end
-    if event.parent.present? && !self.in?(event.parent)
-      self.rsvp_in!(event.parent)
-    else #contact only once if they sign up for time + idea 
-      unless event.user == self || event.over?
-        event.user.delay.contact_new_rsvp(event, self)
+    
+    #if one time and rsvp to parent, then rsvp to single instance
+    @instance = event.instances.first
+    if event.one_time? && @instance.present?
+      self.rsvp_in!(@instance)
+    end
+
+    #if rsvping from the calendar to a time, also rsvp to the parent
+    @event_user = event.user
+    @parent = event.parent
+    if @parent.present? && !self.in?(@parent)
+      @parent_user = @parent.user
+      self.rsvp_in!(@parent)
+        #contact only once if they sign up for time + idea, if time.user and idea.user are different send both
+      if @event_user != @parent_user      
+        unless @event_user == self || event.over?
+          @event_user.delay.contact_new_rsvp(event, self)
+        end
+        unless @parent_user == self 
+          @parent_user.delay.contact_new_rsvp(event, self)
+        end
+      else
+        unless @event_user == self || event.over?
+          @event_user.delay.contact_new_rsvp(event, self)
+        end
+      end
+    else
+      unless @event_user == self || event.over?
+        @event_user.delay.contact_new_rsvp(event, self)
       end
     end
   end
 
   def rsvp_out!(event)
-    if event.rsvps.where(guest_id: self.id).any?
-      @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
-      @existing_rsvp.destroy
+    @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
+    if @existing_rsvp.present?
+      if @existing_rsvp.inout == 0
+        return
+      else
+        @existing_rsvp.destroy
+      end
     end
     rsvps.create!(plan_id: event.id, inout: 0)
-    event.instances.each do |time|
-      self.rsvp_out!(time)
+    
+    @parent = event.parent
+    if @parent.present? && @parent.one_time?
+      self.rsvp_out!(@parent)
     end
   end
 
@@ -563,7 +592,7 @@ class User < ActiveRecord::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "reminder - #{@event.short_event_title} starts at #{@event.start_time_no_date}"
+        n.alert = "hi - #{@event.short_event_title} starts at #{@event.start_time_no_date}"
         n.badge = 1
         n.sound = true
         n.custom_properties = {:type => "reminder", :id => "#{@event.id}", msg: ""}
@@ -576,7 +605,7 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "reminder - #{@event.short_event_title} starts at #{@event.start_time_no_date}"
+        n.collapse_key = "hi - #{@event.short_event_title} starts at #{@event.start_time_no_date}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {:type => "reminder", :id => "#{@event.id}", :msg => ""}}
         n.save
@@ -601,7 +630,7 @@ class User < ActiveRecord::Base
       else
         n = APN::Notification.new
         n.device = d
-        n.alert = "#{@event_user.first_name_with_last_initial} set a time for #{@event.title} - #{@event.start_time}!"
+        n.alert = "new time #{@event.short_event_title} - #{@event.start_time}"
         n.badge = 1
         n.sound = false
         n.custom_properties = {:type => "new_time", :event => "#{@event.id}"}
@@ -614,7 +643,7 @@ class User < ActiveRecord::Base
       else
         n = Gcm::Notification.new
         n.device = d
-        n.collapse_key = "#{@event_user.first_name_with_last_initial} set a time for #{@event.title} - #{@event.start_time}!"
+        n.collapse_key = "new time #{@event.short_event_title} - #{@event.start_time}"
         n.delay_while_idle = true
         n.data = {:registration_ids => [d.registration_id], :data => {:type => "new_time", :message_text => "#{event.title} new time!"}}
         n.save

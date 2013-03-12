@@ -13,22 +13,20 @@
 			<% end %>
 		<% elsif current_user.in?(event) %> <!-- IF RSVPED SHOW IN BUTTON AND TOGGLE OUT-->
 			<span id="inButton" class="in_on_idea">
-				<i class="icon-ok-sign blue" title="you're .in"></i> you're .in
+				<i class="icon-ok blue" title="you're .in"></i> you're .in
 				<!-- this shouldn't create rsvp-out, it should just destroy rsvp-in -->
 				<span id="flakeOut" class="flakeout">
-					<%= link_to "(flake out)", rsvp_path(current_user.rsvps.find_by_plan_id(event.id)), :confirm => "Are you sure you can't make it?", :method => :delete %></p>
+					<%= link_to "(flake out)", rsvp_path(current_user.rsvps.find_by_plan_id(event.id)), :method => :delete %></p>
 				</span>
 			</span>
 		<% elsif current_user.out?(event) %> <!-- IF RSVPD OUT SHOW OUT AND TOGGLE IN -->
-			<span id="inButton">
-				<span style="color:black"><i class="icon-eye-close" title="you're out"></i> out</span>
-				<div id="joinin">
+			<span id="inButton" class="in_on_idea">
+				<i class='icon-remove red' title='you're out'></i> you're out
 					<%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
 		  			<%= f.hidden_field :plan_id %>
 		  			<%= f.hidden_field :inout, value: 1 %>
 					  <%= f.submit "(join .in)", class: "let_me_in" %>
 					<% end %>
-				</div>
 			</span>
 		<% elsif event.ends_at.present? && event.ends_at > Time.zone.now %>
 			<span class="rsvp_btn"><!--  ELSE SHOW RSVP BUTTON -->

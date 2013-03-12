@@ -16,7 +16,7 @@
 
 		<div class="guests_groups">
       <div class="activity_guests">
-        <h4>Guests <%= event.guest_count %></h4>
+        <%= render partial: 'shared/guest_count', locals: { :event => event } %>
         <%= render partial: 'shared/user', collection: event.guests, as: :user %>
       </div>
     </div>
@@ -25,15 +25,15 @@
 <% if false %>
 	<ul class="suggestion_options">
     <li>
-      <%= render partial: 'social/email', locals: { :event => event } %>
-    </li>
-    <li>
       <%= render partial: 'social/twitter', locals: { :event => event } %>
     </li>
     <li>
       <%= render partial: 'social/facebook', locals: { :event => event } %> 
 		</li>
+    <li>
+      <%= render partial: 'social/email', locals: { :event => event } %>
+    </li>
   </ul>
-<% end %>
+  <% end %>
 </li>
 
