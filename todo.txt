@@ -1,16 +1,4 @@
 Adam
-
-	DONE fixing .in and out so that it is one click and it reloads the calendar.
-	DONE Just blue and red checks
-	DONE Don't disappear after outing
-	DONE Remove times from calendar uppon outing
-	DONE Don't rsvp to instaces unless one_time
-	DONE have in and out be switches and user can go back and forth
-	fix sample idea 
-
-	bugs - 
-		startup weekend reappearred when my .in-mate rsvpd to it because they rsvpd to the parent
-
 	New Idea tutorial after register
 	create idea -- on-going idea without a time, on-going idea with a time, one-time idea
 	starred .in-mate invitations 15

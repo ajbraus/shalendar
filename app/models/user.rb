@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
 
   has_many :authentications, :dependent => :destroy, :uniq => true
 
-  has_many :events, :dependent => :destroy
+  has_many :events
 
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
   has_many :plans, through: :rsvps, :conditions => ['inout = ?', 1]

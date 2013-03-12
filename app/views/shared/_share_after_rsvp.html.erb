@@ -3,12 +3,12 @@
 	<h1><strong>You're <%= event.starts_at.present? ? ".in" : ".interested" %></strong></h1>
 	<h1><strong>What:</strong> <%= event.title %></h1>
   <% if event.starts_at.present? || event.one_time? %>
-    <% if event.one_time? %>
-      <% @time = event.next_instance %>
-    <% else %>
+    <% if event.starts_at.present? %>
       <% @time = event %>
+    <% elsif event.one_time? %>
+      <% @time = event.instances.first %>
     <% end %>
-	<h1><strong>When:</strong> <%= start_time(@time) %></h1>
+	  <h1><strong>When:</strong> <%= start_time(@time) %></h1>
     <div class="calendars clearfix">
       <div>
         <p>
@@ -28,29 +28,31 @@
       </div>
     </div>
     <h3>add to your calendar</h3>
-  <ul class="social_buttons">
-    <li>
-      <%= render partial: 'social/twitter', locals: { :event => @time } %>
-    </li>
-    <li>
-      <%= render partial: 'social/facebook', locals: { :event => @time } %>
-    </li>
-    <li>
-      <%= render partial: 'social/email', locals: { :event => @time } %>
-    </li>
-  </ul>
+    <ul class="social_buttons">
+      <li>
+        <%= render partial: 'social/twitter', locals: { :event => @time } %>
+      </li>
+      <li>
+        <%= render partial: 'social/facebook', locals: { :event => @time } %>
+      </li>
+      <li>
+        <%= render partial: 'social/email', locals: { :event => @time } %>
+      </li>
+    </ul>
+    <h3>.invite your friends</h3>
   <% elsif event.has_future_instance? %>
-  <ul class="social_buttons">
-    <li>
-      <%= render partial: 'social/twitter', locals: { :event => @event } %>
-    </li>
-    <li>
-      <%= render partial: 'social/facebook', locals: { :event => @event } %>
-    </li>
-    <li>
-      <%= render partial: 'social/email', locals: { :event => @event } %>
-    </li>
-  </ul>
+    <ul class="social_buttons">
+      <li>
+        <%= render partial: 'social/twitter', locals: { :event => @event } %>
+      </li>
+      <li>
+        <%= render partial: 'social/facebook', locals: { :event => @event } %>
+      </li>
+      <li>
+        <%= render partial: 'social/email', locals: { :event => @event } %>
+      </li>
+    </ul>
+    <h3>.invite your friends</h3>
     <h1 class="join_next_time">join .in the next time?</h1>
     <% @next_instance = event.next_instance %>
     <h1><strong>When:</strong> <%= start_time(@next_instance) %></h1>
@@ -81,5 +83,6 @@
         <%= render partial: 'social/email', locals: { :event => @event } %>
       </li>
     </ul>
+    <h3>.invite your friends</h3>
   <% end %>
 </div>

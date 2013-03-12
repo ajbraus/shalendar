@@ -76,6 +76,7 @@
                                promo_url: @event.promo_url,
                                promo_vid: @event.promo_vid,
                                friends_only: @event.friends_only,
+                               one_time: @event.one_time,
                                family_friendly: @event.family_friendly,
                                price: @event.price
                             )
@@ -162,6 +163,12 @@
   #GET /events/id.json
   def show
     @event = Event.includes({ :rsvps => :guest }, {:comments => :user } ).find(params[:id]) #find the event and eager load its guests as well as its comments and the comments' user association
+    @parent = @event.parent
+    if @parent.present? 
+      redirect_to @parent 
+      return
+    end
+
     @guests = @event.guests
     if user_signed_in?
       @guests.sort_by {|g| g.is_friends_with?(current_user) ? 0 : 1 }
