@@ -47,8 +47,8 @@
     <%= render 'layouts/fb_script' %> 
     <span id="shareAfterRsvp"></span>
     <div id='feedback'><a href="mailto:info@hoos.in" target="_blank">.inform us</a></div>
-    <div class="layout clearfix" id="content"> 
-      <%= render 'layouts/header' %>
+    <%= render 'layouts/header' %>
+    <div class="layout clearfix" id="content">       
       <%= yield %>
       <%= render 'layouts/footer' %>
     </div>

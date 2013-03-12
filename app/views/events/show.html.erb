@@ -5,13 +5,13 @@
 <div class="event_show clearfix">
     <ul class="social_buttons">
     <li>
-      <%= render partial: 'social/email', locals: { :event => @event } %>
-    </li>
-    <li>
       <%= render partial: 'social/twitter', locals: { :event => @event } %>
     </li>
     <li>
       <%= render partial: 'social/facebook', locals: { :event => @event } %>
+    </li>
+    <li>
+      <%= render partial: 'social/email', locals: { :event => @event } %>
     </li>
   </ul>
   <% if user_signed_in? %>

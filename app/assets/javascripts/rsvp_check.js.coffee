@@ -30,5 +30,5 @@ $.fn.rsvp_check = (rsvpCheckHTML, rsvpForm) ->
   $(@).find('#rsvpForm').first().html(rsvpForm);
   $(@).find('#rsvpForm').first().addClass('rsvp_blue');
   $(@).find('button.out').first().remove();
-  $(@).find('.status_icon').html("<i class='icon-ok-sign blue' title='you\'re .in'></i> you're .in")    
+  $(@).find('.status_icon').html("<i class='icon-ok blue' title='you\'re .in'></i> you're .in")    
 

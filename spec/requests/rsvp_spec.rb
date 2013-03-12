@@ -26,7 +26,7 @@ describe "Users" do
     end
 
     it "should have let me in" do
-      page.should have_selector(".icon-ok-sign")
+      page.should have_selector(".icon-ok")
       page.should_not have_selector('.let_me_in')
     end
     it "should have contente 'Out'" do

@@ -167,8 +167,8 @@ class Event < ActiveRecord::Base
   end
 
   def short_event_title
-    if self.title.size >=40
-      self.title.slice(0..40) + "..."
+    if self.title.size >=20
+      self.title.slice(0..20) + "..."
     else
       self.title
     end

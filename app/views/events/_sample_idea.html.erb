@@ -2,18 +2,11 @@
 
 <div class="event shield" id="sampleEvent">
 	<div class="shield_top">
-	  <div class="rsvp_check" title="friends can choose whether they're .into this idea">
-          <span class="fadeInBlue in_check"><i class='icon-ok'></i></span> 
-          <button class="btn_icon btn_icon_rsvp in_text" style="display:none;" name="commit" type="submit">
-            .interested
-          </button>
-
-          <span class="out out_check"><i class='icon-remove'></i></span> 
-          <button class="btn btn-danger out_text" style="display:none;" name="commit" type="submit">
-            meh
-          </button>
-
+	  <div class="rsvp_check" title=".in-mates can choose whether they're .interested this idea">
+      <span class="fadeInBlue in_check"><i class='icon-ok'></i></span> 
+      <span class="out"><i class='icon-remove'></i></span> 
 	  </div>
+    <span id="status"></span>
     <u class="creator">
       <%= current_user.first_name_with_last_initial %>
     </u>

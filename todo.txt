@@ -1,18 +1,28 @@
 Adam
 
-	.in-mate invitations 15
+	DONE fixing .in and out so that it is one click and it reloads the calendar.
+	DONE Just blue and red checks
+	DONE Don't disappear after outing
+	DONE Remove times from calendar uppon outing
+	DONE Don't rsvp to instaces unless one_time
+	DONE have in and out be switches and user can go back and forth
+	fix sample idea 
+
+	bugs - 
+		startup weekend reappearred when my .in-mate rsvpd to it because they rsvpd to the parent
+
+	New Idea tutorial after register
+	create idea -- on-going idea without a time, on-going idea with a time, one-time idea
+	starred .in-mate invitations 15
 		hoos.in is for doing things with your real friends
 		.invite 15 of your friends in your city to be your .in-mates on hoos.in
 
-
-	rsvp ppl into all parents of one_times they are rsvpd into
-	fix .in? so that it checks if you are in on the parent of a one_time
-	when you rsvp into a parent of a one_time, rsvp ppl into the instance.
+	what are you up to tonight? - if someone views your profile and they are you're .in-mate shouldn't it show them?
+	check in somewhere on foursquare through hoos.in - creates an idea at that location
 
 		host out stats
 
 		frank production ideas visible to everyone 
-
 
 TEACHING USERS:
 

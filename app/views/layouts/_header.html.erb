@@ -2,9 +2,6 @@
 <header>
   <nav class="clearfix">
      <%= render 'layouts/logo' %>
-      <% if false %>
-        <div class="instructions">.instructions</div>
-      <% end %>
       <div class="city_name" id="cityName"><%= @current_city.name %><% if user_signed_in? %> <%= link_to "move", edit_registration_path(current_user), id:"editCity", style:"display:none;" %><% end %></div>
       <div class="navigation">
         <% if current_user.admin? %>
@@ -31,9 +28,6 @@
 <% elsif params[:action] == 'home' || params[:action] == 'show' %> 
 <!-- IF NOT SIGNED IN -->
 <header class="not_signed_in">
-  <% if false %>
-    <%= render partial: 'shalendar/joyride' %>
-  <% end %>
   <div class="instagramFeed">
     <div class="instagram">
       <span class="hoosinstagram">#hoosin</span>

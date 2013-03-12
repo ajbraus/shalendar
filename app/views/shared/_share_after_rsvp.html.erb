@@ -1,13 +1,18 @@
 <div class="share_after_rsvp part">
 	<div id="close" class="fadeInRed"><i class="icon-remove"></i></div>
-	<h1><strong>You're .in</strong></h1>
+	<h1><strong>You're <%= event.starts_at.present? ? ".in" : ".interested" %></strong></h1>
 	<h1><strong>What:</strong> <%= event.title %></h1>
-	<% if event.starts_at.present? %>
-	<h1><strong>When:</strong> <%= start_time(event) %></h1>
+  <% if event.starts_at.present? || event.one_time? %>
+    <% if event.one_time? %>
+      <% @time = event.next_instance %>
+    <% else %>
+      <% @time = event %>
+    <% end %>
+	<h1><strong>When:</strong> <%= start_time(@time) %></h1>
     <div class="calendars clearfix">
       <div>
         <p>
-          <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@event.title) %>&dates=<%= @event.url_starts_at %>/<%= @event.url_ends_at %>&details=<%= url_encode(@event.description) + " - " + event_url(@event) %>&location=<%= url_encode(@event.address) %>&trp=true&sprop=www.hoos.in%2Fideas%2F<%= @event.id %>&sprop=name:<%= url_encode(@event.title) %>" target="_blank" title="Add to Your Google Calendar">
+          <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(@time.title) %>&dates=<%= @time.url_starts_at %>/<%= @time.url_ends_at %>&details=<%= url_encode(@time.description) + " - " + event_url(@time) %>&location=<%= url_encode(@time.address) %>&trp=true&sprop=www.hoos.in%2Fideas%2F<%= @time.id %>&sprop=name:<%= url_encode(@time.title) %>" target="_blank" title="Add to Your Google Calendar">
             <%= image_tag "gcalendar.png", width: '30', title: "Google Calendar" %>
           </a>
         </p>
@@ -15,7 +20,7 @@
       </div>
       <div>
         <p>
-          <%= link_to event_path(event), :format => :ics do %>
+          <%= link_to event_path(@time), :format => :ics do %>
             <%= image_tag "ical-icon.png", width: '30', title: "iCal or Outlook" %>
           <% end %>
         </p>
@@ -23,7 +28,30 @@
       </div>
     </div>
     <h3>add to your calendar</h3>
+  <ul class="social_buttons">
+    <li>
+      <%= render partial: 'social/twitter', locals: { :event => @time } %>
+    </li>
+    <li>
+      <%= render partial: 'social/facebook', locals: { :event => @time } %>
+    </li>
+    <li>
+      <%= render partial: 'social/email', locals: { :event => @time } %>
+    </li>
+  </ul>
   <% elsif event.has_future_instance? %>
+  <ul class="social_buttons">
+    <li>
+      <%= render partial: 'social/twitter', locals: { :event => @event } %>
+    </li>
+    <li>
+      <%= render partial: 'social/facebook', locals: { :event => @event } %>
+    </li>
+    <li>
+      <%= render partial: 'social/email', locals: { :event => @event } %>
+    </li>
+  </ul>
+    <h1 class="join_next_time">join .in the next time?</h1>
     <% @next_instance = event.next_instance %>
     <h1><strong>When:</strong> <%= start_time(@next_instance) %></h1>
 
@@ -41,33 +69,17 @@
         <% end %>
       </div>
     <% end %>
-    <h3>join .in the next time?</h3>
+  <% else %>
+    <ul class="social_buttons">
+      <li>
+        <%= render partial: 'social/twitter', locals: { :event => @event } %>
+      </li>
+      <li>
+        <%= render partial: 'social/facebook', locals: { :event => @event } %>
+      </li>
+      <li>
+        <%= render partial: 'social/email', locals: { :event => @event } %>
+      </li>
+    </ul>
   <% end %>
-
-	<% if event.is_parent_or_future_instance? %>
-	  <div class="social_sharing">
-	    <div>
-	      <%= render partial: 'social/email', locals: { :event => @event } %>
-	    </div>
-	    <div>
-	      <%= render partial: 'social/twitter', locals: { :event => @event } %>
-	    </div>
-	   	<div>
-	      <%= render partial: 'social/facebook', locals: { :event => @event } %>
-	    </div>
-	    <div>
-	      <%= render partial: 'social/pinterest', locals: { :event => @event } %>
-	    </div>
-      <h3>.invite your friends</h3> 
-	  </div>
-  <% end %>
-  
-<% if false %>
-  <% if @event.guests_can_invite_friends? || @event.user == current_user && @event.is_parent_or_future_instance? %>
-    <div id="invite_raster" class="part clearfix">
-      <%= render partial: 'events/invite_raster', :locals => { :event => @event } %>
-    </div>
-  <% end %>
-<% end %>
-
 </div>
