@@ -53,44 +53,23 @@ class Api::V2::EventsController < ApplicationController
         @guestids.push(g.id)
       end
       @instances = []
-      if e.one_time?
-        if e.instances.any?
-          e = e.instances.first
-        end
-        @i_guestids = []
-        e.guests.each do |g|
-          @i_guestids.push(g.id)
-        end
-        @instance = {
-            :iid => e.id,
-            :gids => @i_guestids,
-            :start => e.starts_at,
-            :end => e.ends_at,
-            :address => e.address,
-            :plan => @mobile_user.in?(e),
-            :out => @mobile_user.out?(e),
-            :host => e.user
-        }
-        @instances.push(@instance)
-      else
-        e.instances.each do |i|
-          if i.ends_at > Time.zone.now
-            @i_guestids = []
-            i.guests.each do |g|
-              @i_guestids.push(g.id)
-            end
-            @instance = {
-              :iid => i.id,
-              :gids => @i_guestids,
-              :start => i.starts_at,
-              :end => i.ends_at,
-              :address => i.address,
-              :plan => @mobile_user.in?(i),
-              :out => @mobile_user.out?(i),
-              :host => i.user
-            }
-            @instances.push(@instance)
+      e.instances.each do |i|
+        if i.ends_at > Time.zone.now
+          @i_guestids = []
+          i.guests.each do |g|
+            @i_guestids.push(g.id)
           end
+          @instance = {
+            :iid => i.id,
+            :gids => @i_guestids,
+            :start => i.starts_at,
+            :end => i.ends_at,
+            :address => i.address,
+            :plan => @mobile_user.in?(i),
+            :out => @mobile_user.out?(i),
+            :host => i.user
+          }
+          @instances.push(@instance)
         end
       end
       @temp = {
@@ -153,44 +132,23 @@ class Api::V2::EventsController < ApplicationController
         @guestids.push(g.id)
       end
       @instances = []
-      if e.one_time?
-        if e.instances.any?
-          e = e.instances.first
-        end
-        @i_guestids = []
-        e.guests.each do |g|
-          @i_guestids.push(g.id)
-        end
-        @instance = {
-            :iid => e.id,
-            :gids => @i_guestids,
-            :start => e.starts_at,
-            :end => e.ends_at,
-            :address => e.address,
-            :plan => @mobile_user.in?(e),
-            :out => @mobile_user.out?(e),
-            :host => e.user
-        }
-        @instances.push(@instance)
-      else
-        e.instances.each do |i|
-          if i.ends_at > Time.zone.now
-            @i_guestids = []
-            i.guests.each do |g|
-              @i_guestids.push(g.id)
-            end
-            @instance = {
-              :iid => i.id,
-              :gids => @i_guestids,
-              :start => i.starts_at,
-              :end => i.ends_at,
-              :address => i.address,
-              :plan => @mobile_user.in?(i),
-              :out => @mobile_user.out?(i),
-              :host => i.user
-            }
-            @instances.push(@instance)
+      e.instances.each do |i|
+        if i.ends_at > Time.zone.now
+          @i_guestids = []
+          i.guests.each do |g|
+            @i_guestids.push(g.id)
           end
+          @instance = {
+            :iid => i.id,
+            :gids => @i_guestids,
+            :start => i.starts_at,
+            :end => i.ends_at,
+            :address => i.address,
+            :plan => @mobile_user.in?(i),
+            :out => @mobile_user.out?(i),
+            :host => i.user
+          }
+          @instances.push(@instance)
         end
       end
       @temp = {
@@ -334,26 +292,6 @@ class Api::V2::EventsController < ApplicationController
       @comments = @comments.reverse
       e = @event
       @instances = []
-      if e.one_time?
-        if e.instances.any?
-          e = e.instances.first
-        end
-        @i_guestids = []
-        e.guests.each do |g|
-          @i_guestids.push(g.id)
-        end
-        @instance = {
-            :iid => e.id,
-            :gids => @i_guestids,
-            :start => e.starts_at,
-            :end => e.ends_at,
-            :address => e.address,
-            :plan => @mobile_user.in?(e),
-            :out => @mobile_user.out?(e),
-            :host => e.user
-        }
-        @instances.push(@instance)
-      end
       e.instances.each do |i|
         if i.ends_at > Time.zone.now
           @i_guestids = []
