@@ -106,8 +106,6 @@ class Api::V2::EventsController < ApplicationController
     @window_size = 7
 
     @ins_ideas = @mobile_user.plans.includes(:instances, {:rsvps => :guest}).where('ends_at IS NULL', Time.zone.now, true).reject{ |i| i.no_relevant_instances?}
-    #ADAM's ATTEMPT AT THIS QUERY WITH NO SINGLETON ONE_TIME IDEAS AND EAGER LOADING OF INSTANCES AND GUESTS
-    # @ins_ideas = @mobile_user.plans.includes(:instances, {:rsvps => :guest}).where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |e| e.no_relevant_instances? }
 
     # @ins_ideas = @ins_ideas.sort_by do |i| 
     #     i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
@@ -218,7 +216,7 @@ class Api::V2::EventsController < ApplicationController
       if e.present?
         if e.ends_at.present?
           @relevant = false #this is only for ideas
-        elsif @mobile_user.in?(e) || @mobile_user.invited?(e)
+        elsif @mobile_user.in?(e)
           @relevant = true
         end
       end
@@ -249,7 +247,9 @@ class Api::V2::EventsController < ApplicationController
       if e.present?
         if e.ends_at.present?
           @relevant = false #this is only for ideas
-        elsif @mobile_user.in?(e) || @mobile_user.invited?(e)
+        elsif @mobile_user.in?(e)
+          @relevant = false
+        elsif @mobile_user.invited?(e)
           @relevant = true
         end
       end
