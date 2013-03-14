@@ -211,6 +211,41 @@ class Api::V3::EventsController < ApplicationController
     }
   end
 
+  def prune_ideas
+    @mobile_user = User.find_by_id(params[:user_id])
+
+    if @mobile_user.present?
+      Time.zone = @mobile_user.city.timezone
+    else
+      render :status => 400, :json => {:error => "could not find your user"}
+      return
+    end
+    @x = params[:event_ids]
+    @event_ids = @x[1..-2].split(',').collect! {|n| n.to_i}
+    @irrelevant_ids = []
+    @event_ids.each do |eid|
+      @relevant = false
+      e = Event.find(eid)
+      if e.present?
+        if e.ends_at.present?
+          if e.ends_at < Time.zone.now
+            @relevant = false
+          elsif @mobile_user.in?(e)||@mobile_user.invited?(e)
+            @relevant = true
+          end
+        elsif @mobile_user.in?(e) || @mobile_user.invited?(e)
+          @relevant = true
+        end
+      end
+      if !@relevant
+        @irrelevant_ids.push(eid)
+      end
+    end
+    render json: {
+      :irrelevant_ids => @irrelevant_ids
+    }
+  end
+
   def prune_ins
     @mobile_user = User.find_by_id(params[:user_id])
 

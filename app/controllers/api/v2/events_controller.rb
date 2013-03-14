@@ -17,7 +17,7 @@ class Api::V2::EventsController < ApplicationController
     @finished = false
     @window_size = 7
 
-    @invites_ideas = Event.where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |i| current_user.out?(i) || current_user.in?(i) || i.no_relevant_instances? }
+    @invites_ideas = Event.includes(:instances, {:rsvps => :guest}).where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |i| current_user.out?(i) || current_user.in?(i) || i.no_relevant_instances? }
 
     #ADAM's ATTEMPT AT THIS QUERY WITH NO SINGLETON ONE_TIMES AND WITH EAGER LOADING GUESTS AND INSTANCES
     # @invites_ideas = Event.includes(:instances, {:rsvps => :guest}).where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |e| e.no_relevant_instances? }
@@ -30,10 +30,10 @@ class Api::V2::EventsController < ApplicationController
       !current_user.in?(i) && (current_user.out?(i) || (current_user.inmates & i.guests).none? || (i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)))
     end
 
-    @invites_ideas = @invites_ideas.sort_by do |i| 
-        i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
-            i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
-    end
+    # @invites_ideas = @invites_ideas.sort_by do |i| 
+    #     i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
+    #         i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
+    # end
     @events = @invites_ideas
 
     if (@count + @window_size) < @events.count
@@ -53,44 +53,23 @@ class Api::V2::EventsController < ApplicationController
         @guestids.push(g.id)
       end
       @instances = []
-      if e.one_time?
-        if e.instances.any?
-          e = e.instances.first
-        end
-        @i_guestids = []
-        e.guests.each do |g|
-          @i_guestids.push(g.id)
-        end
-        @instance = {
-            :iid => e.id,
-            :gids => @i_guestids,
-            :start => e.starts_at,
-            :end => e.ends_at,
-            :address => e.address,
-            :plan => @mobile_user.in?(e),
-            :out => @mobile_user.out?(e),
-            :host => e.user
-        }
-        @instances.push(@instance)
-      else
-        e.instances.each do |i|
-          if i.ends_at > Time.zone.now
-            @i_guestids = []
-            i.guests.each do |g|
-              @i_guestids.push(g.id)
-            end
-            @instance = {
-              :iid => i.id,
-              :gids => @i_guestids,
-              :start => i.starts_at,
-              :end => i.ends_at,
-              :address => i.address,
-              :plan => @mobile_user.in?(i),
-              :out => @mobile_user.out?(i),
-              :host => i.user
-            }
-            @instances.push(@instance)
+      e.instances.each do |i|
+        if i.ends_at > Time.zone.now
+          @i_guestids = []
+          i.guests.each do |g|
+            @i_guestids.push(g.id)
           end
+          @instance = {
+            :iid => i.id,
+            :gids => @i_guestids,
+            :start => i.starts_at,
+            :end => i.ends_at,
+            :address => i.address,
+            :plan => @mobile_user.in?(i),
+            :out => @mobile_user.out?(i),
+            :host => i.user
+          }
+          @instances.push(@instance)
         end
       end
       @temp = {
@@ -126,14 +105,12 @@ class Api::V2::EventsController < ApplicationController
     @finished = false
     @window_size = 7
 
-    @ins_ideas = @mobile_user.plans.where('ends_at IS NULL', Time.zone.now, true).reject{ |i| i.no_relevant_instances?}
-    #ADAM's ATTEMPT AT THIS QUERY WITH NO SINGLETON ONE_TIME IDEAS AND EAGER LOADING OF INSTANCES AND GUESTS
-    # @ins_ideas = @mobile_user.plans.includes(:instances, {:rsvps => :guest}).where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |e| e.no_relevant_instances? }
+    @ins_ideas = @mobile_user.plans.includes(:instances, {:rsvps => :guest}).where('ends_at IS NULL', Time.zone.now, true).reject{ |i| i.no_relevant_instances?}
 
-    @ins_ideas = @ins_ideas.sort_by do |i| 
-        i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
-            i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
-    end
+    # @ins_ideas = @ins_ideas.sort_by do |i| 
+    #     i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
+    #         i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
+    # end
     @events = @ins_ideas
 
     if (@count + @window_size) < @events.count
@@ -153,44 +130,23 @@ class Api::V2::EventsController < ApplicationController
         @guestids.push(g.id)
       end
       @instances = []
-      if e.one_time?
-        if e.instances.any?
-          e = e.instances.first
-        end
-        @i_guestids = []
-        e.guests.each do |g|
-          @i_guestids.push(g.id)
-        end
-        @instance = {
-            :iid => e.id,
-            :gids => @i_guestids,
-            :start => e.starts_at,
-            :end => e.ends_at,
-            :address => e.address,
-            :plan => @mobile_user.in?(e),
-            :out => @mobile_user.out?(e),
-            :host => e.user
-        }
-        @instances.push(@instance)
-      else
-        e.instances.each do |i|
-          if i.ends_at > Time.zone.now
-            @i_guestids = []
-            i.guests.each do |g|
-              @i_guestids.push(g.id)
-            end
-            @instance = {
-              :iid => i.id,
-              :gids => @i_guestids,
-              :start => i.starts_at,
-              :end => i.ends_at,
-              :address => i.address,
-              :plan => @mobile_user.in?(i),
-              :out => @mobile_user.out?(i),
-              :host => i.user
-            }
-            @instances.push(@instance)
+      e.instances.each do |i|
+        if i.ends_at > Time.zone.now
+          @i_guestids = []
+          i.guests.each do |g|
+            @i_guestids.push(g.id)
           end
+          @instance = {
+            :iid => i.id,
+            :gids => @i_guestids,
+            :start => i.starts_at,
+            :end => i.ends_at,
+            :address => i.address,
+            :plan => @mobile_user.in?(i),
+            :out => @mobile_user.out?(i),
+            :host => i.user
+          }
+          @instances.push(@instance)
         end
       end
       @temp = {
@@ -211,6 +167,37 @@ class Api::V2::EventsController < ApplicationController
     }
   end
 
+  def prune_ideas
+    @mobile_user = User.find_by_id(params[:user_id])
+
+    if @mobile_user.present?
+      Time.zone = @mobile_user.city.timezone
+    else
+      render :status => 400, :json => {:error => "could not find your user"}
+      return
+    end
+    @x = params[:event_ids]
+    @event_ids = @x[1..-2].split(',').collect! {|n| n.to_i}
+    @irrelevant_ids = []
+    @events = Event.find(@event_ids)
+    @events.each do |e|
+      @relevant = false
+      if e.present?
+        if e.ends_at.present?
+          @relevant = false #this is only for ideas
+        elsif @mobile_user.in?(e) || @mobile_user.invited?(e)
+          @relevant = true
+        end
+      end
+      if !@relevant
+        @irrelevant_ids.push(e.id)
+      end
+    end
+    render json: {
+      :irrelevant_ids => @irrelevant_ids
+    }
+  end
+
   def prune_ins
     @mobile_user = User.find_by_id(params[:user_id])
 
@@ -222,30 +209,19 @@ class Api::V2::EventsController < ApplicationController
     end
     @x = params[:event_ids]
     @event_ids = @x[1..-2].split(',').collect! {|n| n.to_i}
-    @ins_ideas = @mobile_user.plans.where('ends_at IS NULL OR ends_at > ?', Time.zone.now)
-    @relevant_ids = []
     @irrelevant_ids = []
-    @ins_ideas.each do |ii|
-      @relevant_ids.push(ii.id)
-    end
-    @event_ids.each do |eid|
+    @events = Event.find(@event_ids)
+    @events.each do |e|
       @relevant = false
-      e = Event.find(eid)
       if e.present?
         if e.ends_at.present?
-          if e.ends_at > Time.zone.now
-            @relevant = true
-          end
-        else
-          @relevant_ids.each do |rid|
-            if eid == rid
-              @relevant = true
-            end
-          end
+          @relevant = false #this is only for ideas
+        elsif @mobile_user.in?(e)
+          @relevant = true
         end
       end
       if !@relevant
-        @irrelevant_ids.push(eid)
+        @irrelevant_ids.push(e.id)
       end
     end
     render json: {
@@ -262,39 +238,23 @@ class Api::V2::EventsController < ApplicationController
       render :status => 400, :json => {:error => "could not find your user"}
       return
     end
-    @invites = Event.where('city_id = ? AND (ends_at IS NULL OR ends_at > ?)', @current_city.id, Time.now).reject { |i| current_user.out?(i) || current_user.in?(i)}
-    @invites = @invites.reject do |i|
-      if i.has_parent?
-        i.friends_only && !current_user.in?(i) && !current_user.in?(i.parent) && !i.user.is_friends_with?(current_user)
-      else
-        i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)
-      end
-    end
-    @relevant_ids = []
-    @irrelevant_ids = []
-    @invites.each do |ii|
-      @relevant_ids.push(ii.id)
-    end
     @x = params[:event_ids]
     @event_ids = @x[1..-2].split(',').collect! {|n| n.to_i}
-    @event_ids.each do |eid|
+    @irrelevant_ids = []
+    @events = Event.find(@event_ids)
+    @events.each do |e|
       @relevant = false
-      e = Event.find(eid)
       if e.present?
         if e.ends_at.present?
-          if e.ends_at > Time.now
-            @relevant = true
-          end
-        else
-          @relevant_ids.each do |rid|
-            if eid == rid
-              @relevant = true
-            end
-          end
+          @relevant = false #this is only for ideas
+        elsif @mobile_user.in?(e)
+          @relevant = false
+        elsif @mobile_user.invited?(e)
+          @relevant = true
         end
       end
       if !@relevant
-        @irrelevant_ids.push(eid)
+        @irrelevant_ids.push(e.id)
       end
     end
     render json: {
@@ -332,26 +292,6 @@ class Api::V2::EventsController < ApplicationController
       @comments = @comments.reverse
       e = @event
       @instances = []
-      if e.one_time?
-        if e.instances.any?
-          e = e.instances.first
-        end
-        @i_guestids = []
-        e.guests.each do |g|
-          @i_guestids.push(g.id)
-        end
-        @instance = {
-            :iid => e.id,
-            :gids => @i_guestids,
-            :start => e.starts_at,
-            :end => e.ends_at,
-            :address => e.address,
-            :plan => @mobile_user.in?(e),
-            :out => @mobile_user.out?(e),
-            :host => e.user
-        }
-        @instances.push(@instance)
-      end
       e.instances.each do |i|
         if i.ends_at > Time.zone.now
           @i_guestids = []
