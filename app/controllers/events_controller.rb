@@ -137,7 +137,6 @@
     if @event.save
       @event.save_shortened_url
       current_user.rsvp_in!(@event)
-      current_user.invitations.create!(invited_event_id:@event.id)
 
       if @parent.guests.any? 
         @parent.guests.each do |g|

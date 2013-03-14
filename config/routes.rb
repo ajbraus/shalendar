@@ -36,6 +36,7 @@ Shalendar::Application.routes.draw do
   # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+    get '/pick_city' => 'registrations#pick_city'
   end
 
   match '/city_names', :to => 'users#city_names', :as => "city_names"
@@ -61,7 +62,6 @@ Shalendar::Application.routes.draw do
     put :toggle
     delete :ignore
     put :confirm
-    put :confirm_and_follow
   end
 
   match '/ignore_inmate/:id', :to => 'relationships#ignore_inmate', as: 'ignore_inmate'

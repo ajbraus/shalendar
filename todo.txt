@@ -1,20 +1,24 @@
 Adam
 	
-	Save from city being wrong from facebook
-	Star power
-	remove add new time if one time in event edit
-	put new inmates into digest
-	.inmate .invite - 
-		DONE created route, controller method, notifier method, and template
-		email field (need the api link call in the email with the inviter's id)
-	DONE facebook invite with send dialogue
+	sort events chronologically with newest on top left
+	pass in UID to facebook send dialogue?
 
-	remove user-show page
-	toggle ins / invites
-	show picture and stats in upper right
-	
+TESTS
+	Signed up through facebook and picked city - redirects to previous_url
+	signed in regular and redirects to previous_url
+	created idea
+	created onetime idea 
+	created friends only idea 
+		not seeing friends only 
+		FIX - created invites to friends_only ideas in friend!
+	friending
+	inmating
+	ignoring
+	re_inmating
+	sent all emails
 
-	Add back invitations
+
+	DONE Add back invitations
 		DONE created invitation.rb
 		DONE created create_invitiations_again migration
 		DONE in rsvp_in! in user.rb update to 
@@ -26,6 +30,61 @@ Adam
 			@ideas.sort
 			@times = current_user.invited_times.incudes(:comments, :guests)
 
+	DONE facebook invite with send dialogue
+
+	DONE Save from city being wrong from facebook
+		DONE create template and route and registrations method
+		DONE fix everything that that broke
+		DONE validate that city present in pick_city
+		DONE after signup and after pick_city it goes to original url - after_filter only pick_city
+
+
+	put new inmates into digest
+	
+	.inmate .invite - 
+		DONE created route, controller method, notifier method, and template
+		email field (need the api link call in the email with the inviter's id)
+		added to send all emails
+		- email not working
+	
+	hi SDK
+
+	Make user_show page root
+		move all shalendar views into user views
+		update all partials (find all in views folder for 'shalendar')
+		change all routes from shalendar to users
+		move all shalendar methods into users controller
+		toggle ins / invites
+		show picture and stats in upper right
+
+		in show method find @user by slug
+
+		if user_signed_in?
+			@user = User.find_by_slug(params[:id])
+			if @user.blank?
+				@user = current_user
+			end	
+			if @user.is_friends_with?(current_user) || @user == current_user	
+				show everything
+			elsif @user.is_inmates_with?(current_user)
+				show everything except friends_only
+			else
+				show all ideas except friend only and no times - you must be inmates to see their upcoming plans.
+				to become inmates join in on one of their ideas
+			end
+		end
+	
+	in all emails make a user's name and picture go to their home page
+
+	scope inmates by city
+	don't destroy users, just mark them as 'unregistered = true' and remove them from any user queries.
+
+	refactor EmailInvite code in api code
+
+
+	indicate friends only idea
+	update description in time
+	add face when rsvping
 
 
 	New Idea tutorial after register

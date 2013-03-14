@@ -1305,8 +1305,10 @@ text-decoration: none;
 }
 
 .fb_button {
-  width: 0px;
-  height: 0px;
+height: 0;
+margin-top: 0px;
+margin-bottom: 30px;
+width: 210px;
 }
 
 .fb_login_button {
@@ -1335,6 +1337,7 @@ top: 10px;
 box-sizing: border-box;
 border: 1px solid $divider;
 position: relative;
+margin-bottom: 80px;
   .event_details {
     clear: both;
 border-top: 1px dotted $divider;
@@ -1565,7 +1568,7 @@ padding-bottom: 3px;
 .event_title {
 float: left;
 position: relative;
-font-size: 20px;
+font-size: 35px;
 padding:5px;
 width: 100%;
 }
@@ -1816,14 +1819,6 @@ textarea {
   input[type=checkbox]{
     width:20px;
   }
-  select[name="user[city_id]"]{
-    width:290px;
-    font-size: 20px;
-    margin: 5px 0 20px 0;
-  }
-/*  select[name="user[time_zone]"] {
-    width:290px;
-  }*/
   #user_city, #user_time_zone {
     height: 46px;
     width: 400px;
@@ -2220,9 +2215,7 @@ margin-top: 50px;
 
 .fb-login-button {
   img {
-width: 20px;
-bottom: 13px;
-position: relative;
+    width: 25px;
   }
 }
 
@@ -3185,6 +3178,7 @@ margin-left: 2%;
 #editCity {
   font-size: 12px;
 color: grey;
+margin-left: 3px;
 }
 
 .user_shield {
@@ -3316,6 +3310,7 @@ text-align: left;
 
 #status {
   left: 10px;
+  top: 5px;
 font-size: 19px;
 }
 
@@ -3333,4 +3328,26 @@ font-size: 19px;
   cursor: pointer;
   color: darkblue;
   clear:both;
+}
+
+.pick-city {
+  width:400px;
+margin: 7px auto;
+position: relative;
+  input[type=email],input[type=password],input[type=text] {
+    font-size: 23px;
+    margin-bottom: 10px;
+    margin-top:5px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    width:95%;
+  }
+  label {
+    font-size: 15px;
+    color: #404040;
+  }
+  input[type=checkbox]{
+    width:28px;
+  }
 }

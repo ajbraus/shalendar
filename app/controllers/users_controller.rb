@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def show
-    @user = User.includes(:events, :relationships, { :rsvps => :plan }).find_by_slug(params[:id])
+    @user = User.find_by_slug(params[:id])
     if @user.blank?
       flash[:notice] = "User Not Found"
       redirect_to root_path and return

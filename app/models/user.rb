@@ -71,12 +71,11 @@ class User < ActiveRecord::Base
   #phony_normalized_method :phone_number, :default_country_code => 'US'
   
   validates :terms,
-            :name, 
-            :city_id, presence: true
+            :name, presence: true
 
   has_many :authentications, :dependent => :destroy, :uniq => true
 
-  has_many :events
+  has_many :events, dependent: :destroy
 
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
   has_many :plans, through: :rsvps, :conditions => ['inout = ?', 1]
@@ -406,6 +405,11 @@ class User < ActiveRecord::Base
       if @relationship.present?
         @relationship.status = 2
         @relationship.save
+        self.events.where('friends_only = ?', true).each do |e|
+          unless other_user.already_invited(e)
+            other_user.invitations.create!(invited_event_id: e.id)
+          end
+        end
       else 
         self.inmate!(other_user)
         self.friend!(other_user)
@@ -418,7 +422,7 @@ class User < ActiveRecord::Base
       unless self.is_inmates_or_friends_with?(other_user) || self.ignores?(other_user)
         self.relationships.create(followed_id: other_user.id, status: 1)
         other_user.plans.each do |p| 
-          unless other_user.already_invited?(p)
+          unless self.already_invited?(p)
             self.invitations.create!(invited_event_id: p.id)
           end
         end
@@ -426,7 +430,7 @@ class User < ActiveRecord::Base
       unless other_user.is_inmates_or_friends_with?(self) || self.ignores?(other_user)
         other_user.relationships.create(followed_id: self.id, status: 1)
         self.plans.each do |p| 
-          unless self.already_invited?(p)
+          unless other_user.already_invited?(p)
             other_user.invitations.create!(invited_event_id: p.id)
           end
         end
@@ -436,16 +440,30 @@ class User < ActiveRecord::Base
 
   def re_inmate!(other_user)
     unless other_user == self
-      @relationship = Relationship.where(follower_id: other_user.id, followed_id: self.id).first
+      @relationship = self.relationships.find_by_followed_id(other_user.id)
       if @relationship.blank?
-        self.relationships.create(followed_id: other_user.id, status: 1)
+        self.relationships.create!(followed_id: other_user.id, status: 1)
       else
         @relationship.status = 1
         @relationship.save
+
       end
-      @reverse_relationship = Relationship.where(follower_id: self.id, followed_id:  other_user.id).first
+      other_user.plans.each do |p| 
+        unless self.already_invited?(p)
+          self.invitations.create!(invited_event_id: p.id)
+        end
+      end
+      @reverse_relationship = other_user.relationships.find_by_followed_id(self.id)
       if @reverse_relationship.blank?
         other_user.relationships.create(followed_id: self.id, status: 1)
+      else 
+        @reverse_relationship.status = 1
+        @reverse_relationship.save
+      end
+      self.plans.each do |p| 
+        unless other_user.already_invited?(p)
+          other_user.invitations.create!(invited_event_id: p.id)
+        end
       end
     end
   end
@@ -506,6 +524,15 @@ class User < ActiveRecord::Base
         self.inmate!(mf)
         mf.delay.contact_new_fb_inmate(self)
       end
+    end
+  end
+
+  def convert_email_invites
+    EmailInvite.where("email_invites.email = :new_user_email", new_user_email: self.email).each do |ei|
+      @invited_user = self
+      @invited_event = ei.event
+      self.invitation.create!(invited_event_id: @invited_event.id)
+      ei.destroy
     end
   end
 
@@ -905,7 +932,7 @@ class User < ActiveRecord::Base
 
   def contact_new_inmate(inmate)
     @recipient = self
-    Notifer.new_inmate(@recipient, inmate)
+    Notifier.new_inmate(@recipient, inmate)
   end
 
   # Class Methods

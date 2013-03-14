@@ -45,17 +45,23 @@ before_filter :authenticate_user!
   end
 
   def inmate_invite
-    @invitee = User.find_by_id(params[:email])
-    if @invitee
-      Notifier.inmate_invite(@recipient.email, current_user)
-
-  end
-
+    @invitee_email = params[:email]
+    @invitee = User.find_by_id(@invitee_email)
+    if @invitee.present?
+      @invitee_email = @invitee.email
+    end
+    
+    Notifier.inmate_invite(@invitee_email, current_user)
   end
 
   def inmate
     @inmate = User.find_by_id(params[:id])
     current_user.inmate!(@inmate)
     @inmate.contact_new_inmate(current_user)
+    
+    respond_to do |format|
+      format.html { redirect_to user_path(@inmate), notice: "You are now .in-mates with #{@inmate.name}" }
+      format.js
+    end
   end
 end

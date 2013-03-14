@@ -289,6 +289,7 @@ $("#addtipping").click(function () {
 });
 
 // VALIDATIONS
+  $("#pickCity").validate();
 
   $('#fb_invite_friends').validate({
     rules: {

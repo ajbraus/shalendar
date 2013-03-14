@@ -2,7 +2,7 @@ class ShalendarController < ApplicationController
   before_filter :authenticate_user!, except: [ :home ]
 
 	def home
-    if user_signed_in?  
+    if user_signed_in?
       #invited_ideas = ideas with invitations - i.e. ideas you create, ideas your in-mates are in on
       @ideas = current_user.invited_ideas
       # @ideas = @ideas.sort_by do |i| 

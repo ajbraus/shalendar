@@ -2,7 +2,7 @@
 <header>
   <nav class="clearfix">
      <%= render 'layouts/logo' %>
-      <div class="city_name" id="cityName"><%= @current_city.name %><% if user_signed_in? %> <%= link_to "move", edit_registration_path(current_user), id:"editCity", style:"display:none;" %><% end %></div>
+      <div class="city_name" id="cityName"><% if @current_city.present? %> <%= @current_city.name %><%= link_to "move", pick_city_path, id:"editCity", style:"display:none;" %><% end %></div>
       <div class="navigation">
         <% if current_user.admin? %>
           <%= link_to admin_dashboard_path, style:"position: relative;bottom: 7px;" do %>

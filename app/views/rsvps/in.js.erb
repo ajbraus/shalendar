@@ -26,7 +26,7 @@
 <% if @parent.present? %>	
 	parent = $('.event').withEventId(<%= @parent.id %>)
 	parent.find('.out').css("color", "lightgrey")
-	parent.find('.in_check').css("color", "#CD0000");
+	parent.find('.in_check').css("color", "#388EE5");
 	parent.find('#status').html(".interested")
 	parent.find('#timeStatus').html("<a href='/ideas/<%= @event.slug %>/new_time'><div class='add_time fadeInGreen'><i class='icon-time'></i> add new time</div>")
 <% end %>

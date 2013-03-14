@@ -28,6 +28,7 @@ private
 
       #make all fb_friends on hoos.in into .in-mates
       @user.add_fb_to_inmates(session[:graph])
+      @user.convert_email_invites
 
       sign_in_and_redirect @user, :event => :authentication
     else
@@ -98,28 +99,20 @@ private
       name = access_token.info.name
       cityname = access_token.info.location
       city = City.find_by_name(cityname)
-      if city.nil?
-        city = City.find_by_name("Madison, Wisconsin")
+      if city.blank?
+        @city_id = nil
+      else
+        @city_id = city.id
       end
 
       user = User.new(:email => email, 
                 :name => name,
-                :city_id => city.id,
+                :city_id => @city_id,
                 :terms => true,
                 :remember_me => true,
                 :password => Devise.friendly_token[0,20]
               )
       user.save
-
-      EmailInvite.where("email_invites.email = :new_user_email", new_user_email: user.email).each do |ei|
-        @inviter_id = ei.inviter_id
-        @invited_user_id = user.id
-        @event = ei.event
-        if @inviter = User.find_by_id(@inviter_id)
-          @inviter.invite!(@event, user)
-        end
-        ei.destroy
-      end
       return user
     end
   end

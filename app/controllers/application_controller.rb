@@ -1,9 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :set_city, :set_graph #:check_venue_card, 
+  before_filter :set_city, :except => [:pick_city, :city_names, :update]
+  before_filter :set_graph #:check_venue_card, 
   after_filter :store_location
 
-  around_filter :user_time_zone, :if => :current_user
+  around_filter :user_time_zone, :if => :current_user, :except => [:pick_city, :city_names, :update]
 
   private 
 
@@ -14,7 +15,7 @@ class ApplicationController < ActionController::Base
   def store_location
     session[:previous_urls] ||= []
     # store unique urls only
-    session[:previous_urls].prepend request.fullpath if session[:previous_urls].first != request.fullpath && !request.fullpath.starts_with?('/city_names') && !request.fullpath.starts_with?('/search') && request.fullpath != "/user/sign_up" && request.fullpath != "/payment" && request.fullpath != "/venue" && request.fullpath != "/new_vendor" && request.fullpath != "/user" && request.fullpath != "/user/login" && request.fullpath != "/" && request.fullpath != "/user/logout" && request.fullpath != "/user/join" && request.fullpath != "/user/auth/facebook/callback"
+    session[:previous_urls].prepend request.fullpath if session[:previous_urls].first != request.fullpath && !request.fullpath.starts_with?('/city_names') && !request.fullpath.starts_with?('/pick_city') && !request.fullpath.starts_with?('/search') && request.fullpath != "/user/sign_up" && request.fullpath != "/payment" && request.fullpath != "/venue" && request.fullpath != "/new_vendor" && request.fullpath != "/user" && request.fullpath != "/user/login" && request.fullpath != "/" && request.fullpath != "/user/logout" && request.fullpath != "/user/join" && request.fullpath != "/user/auth/facebook/callback"
     # For Rails < 3.2
     # session[:previous_urls].unshift request.fullpath if session[:previous_urls].first != request.fullpath 
     session[:previous_urls].pop if session[:previous_urls].count > 3
@@ -41,6 +42,9 @@ class ApplicationController < ActionController::Base
   def set_city
     if user_signed_in?
       @current_city = current_user.city
+      if @current_city.blank?
+        redirect_to pick_city_path
+      end
     else
       if params[:city].present?
         @current_city = City.find_by_name(params[:city])
