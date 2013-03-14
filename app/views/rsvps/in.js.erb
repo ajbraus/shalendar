@@ -1,21 +1,7 @@
-//change the check to blue (toggleRsvpCheck.js.coffee)
+//IF RSVP FROM LAYOUT
+//rsvp to itself in toggleRsvpCheck.js.coffee
 
-// rsvp to instances in calendar 
-	time = $('.instance').withEventId(<%= @event.id %>)
-	// time.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>", '' ); 
-	time.find('.mini_in_out').first().html("<div class='in_on_instance'><i class='icon-ok blue' title='you're .in'></i> .in</div>")
-	time.find('a').first().removeClass('not_rsvpd');
-
-// rsvp to parent in .invites
-<% @parent = @event.parent %>
-<% if @parent.present? %>	
-	parent = $('.event').withEventId(<%= @event.id %>)
-	parent.find('.out').css("color", "lightgrey")
-	parent.find('.in_check').css("color", "#CD0000");
-	parent.find('#status').html(".interested")
-<% end %>
-
-// rsvp to one_time in calendar
+//don't rsvp to instances unless it is a one_time idea
 <% if @event.one_time? %>
 	<% @event.instances.each do |i| %> 
 		time = $('.instance').withEventId(<%= i.id %>)
@@ -28,7 +14,25 @@
 	<% end %>
 <% end %>
 
-event = $('div').withEventId(<%= @event.id %>)
+// IF RSVPING FROM CALENDAR
+// rsvp to itself in the calendar 
+	time = $('.instance').withEventId(<%= @event.id %>)
+	// time.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>", '' ); 
+	time.find('.mini_in_out').first().html("<div class='in_on_instance'><i class='icon-ok blue' title='you're .in'></i> .in</div>")
+	time.find('a').first().removeClass('not_rsvpd');
+
+// rsvp to its parent in layout if present
+<% @parent = @event.parent %>
+<% if @parent.present? %>	
+	parent = $('.event').withEventId(<%= @parent.id %>)
+	parent.find('.out').css("color", "lightgrey")
+	parent.find('.in_check').css("color", "#CD0000");
+	parent.find('#status').html(".interested")
+	parent.find('#timeStatus').html("<a href='/ideas/<%= @event.slug %>/new_time'><div class='add_time fadeInGreen'><i class='icon-time'></i> add new time</div>")
+<% end %>
+
+event = $('.event').withEventId(<%= @event.id %>)
+event.find('#timeStatus').html("<a href='/ideas/<%= @event.slug %>/new_time'><div class='add_time fadeInGreen'><i class='icon-time'></i> add new time</div>");
 event.find('.in_check').click(function() {
 	$(this).preventDefault();
 });

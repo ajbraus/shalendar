@@ -91,7 +91,11 @@
   </div>
 
   <% if user_signed_in? %>
-    <% unless @event.one_time? || !current_user.in?(@event) %>
+    <% if @event.one_time? %>
+    <div class="one_time_notice">
+      <span style="color:white;"> One Time Idea</span>
+    </div>
+    <% elsif current_user.in?(@event) %>
       <%= link_to event_new_time_path(@event), id:"makeATime", class:"btn-success btn-new-time" do %>
         <span style="color:white;"><i class="icon-time"></i> Add a New Time</span>
       <% end %>
@@ -115,6 +119,37 @@
 
   <div class="event_guests part clearfix">
     <%= render partial: 'shared/guest_count', locals: { :event => @event } %>
+        <div id="fbSendInvite">    
+      <% if @graph.present? %>
+        <div id="fbSendInvite">
+          <%= image_tag "social/fb.png", :width => "20", title: "Find Friends through Facebook" %> .invite facebook friends
+        </div>
+        <script>
+          document.getElementById('fbSendInvite').addEventListener('click', function(){
+            FB.ui({
+              method: 'send',
+              name: "<%= @event.title %>",
+              <% if Rails.env.production? %>
+              link: "<%= event_url(@event) %>",
+              <% else %>
+              link: "http://www.hoos.in",
+              <% end %>
+              picture: "<%= if @event.has_image? then @event.image(:medium) end %>",
+              <% if @event.next_instance.present? %>
+              description: "<%= @event.description + ' - ' + @event.next_instance.start_date_time %>"
+              <% else %>
+              description: "<%= @event.description %>"
+              <% end %>
+            })
+          });
+        </script>
+      <% else %>
+        <div class="fb_button" title="add Facebook to Find Friends">
+        <div id="auth-status">
+          <a href="#" id="auth-loginlink" class="fb-login-button" ><%= image_tag "social/fb.png", :width => "30" %></a>
+        </div>
+      <% end %>
+    </div>
     <% if user_signed_in? %>
       <% if current_user.in?(@event) %>
         <%= render partial: 'shared/user', collection: [@event.user], as: :user %>
@@ -146,6 +181,7 @@
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=327936950625049";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+
 
 <% if false %>
 <% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.zone.now - 7.seconds %>

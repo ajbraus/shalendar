@@ -66,6 +66,8 @@ Shalendar::Application.routes.draw do
 
   match '/ignore_inmate/:id', :to => 'relationships#ignore_inmate', as: 'ignore_inmate'
   match '/re_inmate/:id', :to => 'relationships#re_inmate', as: 're_inmate'
+  match '/inmate_invite/:id', :to => 'relationships#inmate_invite', as: 'inmate_invite'
+  match '/inmate/:id', :to => 'relationships#inmate', as: 'inmate'
 
   match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
   match 'share_all_fb_friends' =>'shalendar#share_all_fb_friends'

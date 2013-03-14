@@ -82,8 +82,8 @@ class User < ActiveRecord::Base
   has_many :plans, through: :rsvps, :conditions => ['inout = ?', 1]
 
   has_many :invitations, foreign_key: "invited_user_id", dependent: :destroy
-  has_many :invited_times, through: :invitations, :conditions => ['starts_at IS NOT NULL']
-  has_many :invited_ideas, through: :invitations, :conditions => ['starts_at IS NULL']
+  has_many :invited_times, through: :invitations, source: :invited_event, :conditions => ['starts_at > ? AND starts_at < ?', Time.zone.now, Time.zone.now + 59.days]
+  has_many :invited_ideas, through: :invitations, source: :invited_event, :conditions => ['starts_at IS NULL']
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   
@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
   has_many :inmates, through: :relationships, source: :followed, conditions: "status = 1"  
   has_many :friends, through: :relationships, source: :followed, conditions: "status = 2"  
 
-  has_many :inmates_and_friends, through: :relationships, source: :followed, conditions: ['status != 0']
+  has_many :inmates_and_friends, through: :relationships, source: :followed, conditions: 'status != 0'
 
   has_many :comments, dependent: :destroy
 
@@ -231,6 +231,9 @@ class User < ActiveRecord::Base
       end
     end
     rsvps.create!(plan_id: event.id, inout: 1)
+    unless self.already_invited?(event)
+      self.invitations.create!(invited_event_id: event.id)
+    end
     
     event.guests.each do |g|
       self.inmate!(g)
@@ -238,7 +241,9 @@ class User < ActiveRecord::Base
 
     unless event.friends_only?
       self.inmates_and_friends.each do |u|
-        u.invitations.create!(event_id: event.id)
+        unless u.already_invited?(event)
+          u.invitations.create!(invited_event_id: event.id)
+        end
       end
     end
     
@@ -285,14 +290,19 @@ class User < ActiveRecord::Base
     end
     rsvps.create!(plan_id: event.id, inout: 0)
     
-    unless event.friends_only?
-      self.inmates_and_friends.each do |u|
-        @invite = u.invitations.find_by_event_id(event_id: event.id)
-        if @invite.present?
-          @invite.destroy
-        end
-      end
+    @invitation = self.invitations.find_by_event_id(event.id)
+    if @invitation.present?
+      @invitation.destroy
     end
+    
+    # unless event.friends_only?
+    #   self.inmates_and_friends.each do |u|
+    #     @invite = u.invitations.find_by_event_id(event_id: event.id)
+    #     if @invite.present?
+    #       @invite.destroy
+    #     end
+    #   end
+    # end
 
     @parent = event.parent
     if @parent.present? && @parent.one_time?
@@ -405,11 +415,21 @@ class User < ActiveRecord::Base
 
   def inmate!(other_user)
     unless other_user == self || other_user.ignores?(self)
-      unless self.is_inmates_or_friends_with?(other_user) || self.ignores?(other_user) || self.id == other_user.id
+      unless self.is_inmates_or_friends_with?(other_user) || self.ignores?(other_user)
         self.relationships.create(followed_id: other_user.id, status: 1)
+        other_user.plans.each do |p| 
+          unless other_user.already_invited?(p)
+            self.invitations.create!(invited_event_id: p.id)
+          end
+        end
       end
       unless other_user.is_inmates_or_friends_with?(self) || self.ignores?(other_user)
         other_user.relationships.create(followed_id: self.id, status: 1)
+        self.plans.each do |p| 
+          unless self.already_invited?(p)
+            other_user.invitations.create!(invited_event_id: p.id)
+          end
+        end
       end
     end
   end
@@ -565,6 +585,9 @@ class User < ActiveRecord::Base
     return @auth
   end
 
+  def already_invited?(event)
+    return self.invitations.find_by_invited_event_id(event.id).present?
+  end
 
   # Contact methods
 
@@ -880,6 +903,11 @@ class User < ActiveRecord::Base
     # end
   end
 
+  def contact_new_inmate(inmate)
+    @recipient = self
+    Notifer.new_inmate(@recipient, inmate)
+  end
+
   # Class Methods
   def self.digest
     @digest_users = User.where("digest = ?", true)
@@ -910,21 +938,21 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.follow_up
-    @recipients = User.where('follow_up = ?', true)
-    @recipients.each do |r|
-      @now_in_zone = Time.zone.now.in_time_zone(r.city.timezone)
-      @fu_events = r.plans.where(starts_at: @now_in_zone.midnight - 1.day .. @now_in_zone.midnight)
-      if @fu_events.any?
-        @fu_events.each do |fue|
-          @new_inmates = fue.guests.select { |g| g.is_new_inmate?(r) && r != g }
-          if @new_inmates.any?
-            Notifier.delay.follow_up(r, fue, @new_inmates)
-          end
-        end
-      end
-    end
-  end
+  # def self.follow_up
+  #   @recipients = User.where('follow_up = ?', true)
+  #   @recipients.each do |r|
+  #     @now_in_zone = Time.zone.now.in_time_zone(r.city.timezone)
+  #     @fu_events = r.plans.where(starts_at: @now_in_zone.midnight - 1.day .. @now_in_zone.midnight)
+  #     if @fu_events.any?
+  #       @fu_events.each do |fue|
+  #         @new_inmates = fue.guests.select { |g| g.is_new_inmate?(r) && r != g }
+  #         if @new_inmates.any?
+  #           Notifier.delay.follow_up(r, fue, @new_inmates)
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
 
   def self.send_reminders
     @recipients = User.where('notify_event_reminders = ?', true)

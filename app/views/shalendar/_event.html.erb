@@ -68,12 +68,16 @@
 		<% end %>
 <% end %>
 	<% if user_signed_in? %>
-		<% if !event.one_time? && current_user.in?(event) %>
-			<div>
-				<%= link_to event_new_time_path(event) do %>
+		<div id="timeStatus">
+		<% if event.one_time? %>
+			<div class="add_time">one time idea</div>
+		<% elsif event.next_instance.blank? && !current_user.in?(event) %>
+			<div class="add_time shield_bottom one_time">TBD</div>
+		<% elsif current_user.in?(event) && !event.one_time? %>
+			<%= link_to event_new_time_path(event) do %>
 				<div class="add_time fadeInGreen"><i class="icon-time"></i> add new time</div>
 			<% end %>
-			</div>
 		<% end %>
+		</div>
 	<% end %>
 </div>

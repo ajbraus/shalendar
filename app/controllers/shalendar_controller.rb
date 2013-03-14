@@ -3,15 +3,17 @@ class ShalendarController < ApplicationController
 
 	def home
     if user_signed_in?  
-      @ideas = current_user.invited_ideas.includes({ :rsvps => :guest }, :comments)
-      @ideas = @ideas.sort_by do |i| 
-        i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*25 + 
-            i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
-      end
-      @ideas = @ideas.reverse
+      #invited_ideas = ideas with invitations - i.e. ideas you create, ideas your in-mates are in on
+      @ideas = current_user.invited_ideas
+      # @ideas = @ideas.sort_by do |i| 
+      #   i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*25 + 
+      #       i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
+      # end
+      # @ideas = @ideas.reverse
 
-      @times = current_user.invited_times.includes({ :rsvps => :guest }, :comments)
-
+      #invited_times = times with invitations - i.e. times you created, times your in-mates are in on
+      @times = current_user.invited_times
+    end
     #show alert if rescue from errors:
     if params[:oofta] == 'true'
       flash.now[:oofta] = "We're sorry, an error occured"

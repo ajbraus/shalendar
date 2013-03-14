@@ -12,9 +12,9 @@ class UsersController < ApplicationController
     if user_signed_in?
       @is_friends = @user.is_inmates_or_friends_with?(current_user)
       if @user == current_user || current_user.is_friends_with?(@user)
-        @my_ins = @user.plans.includes({ :rsvps => :guest }).where('starts_at IS NULL', true)
+        @my_ins = @user.plans.where('starts_at IS NULL', true)
       else 
-        @my_ins = @user.plans.includes({ :rsvps => :guest }).where('friends_only = ? AND starts_at IS NULL', false)
+        @my_ins = @user.plans.where('friends_only = ? AND starts_at IS NULL', false)
       end
       @my_ins = @my_ins.reject { |e| e.no_relevant_instances? }
       
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       @times = @user.plans.includes({ :rsvps => :guest }).where("starts_at > ?", Time.zone.now).order('starts_at ASC')              
       @past_times = @user.plans.includes({ :rsvps => :guest }).unscoped.where("starts_at < ?", Time.zone.now).order('starts_at DESC').first(20)
     else
-      @my_ins = @user.plans.includes({ :rsvps => :guest }).where('friends_only = ? AND starts_at IS NULL', false, true, Time.zone.now)
+      @my_ins = @user.plans.includes({ :rsvps => :guest }).where('friends_only = ? AND starts_at IS NULL', false)
     end
   end
 

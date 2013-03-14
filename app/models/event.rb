@@ -355,7 +355,7 @@ class Event < ActiveRecord::Base
   end
 
   def next_instance
-    @future_instances = Event.where('parent_id = ? AND ends_at > ?', self.id, Time.zone.now).order('ends_at ASC')
+    @future_instances = self.instances.where('ends_at > ?', Time.zone.now).order('ends_at ASC')
     if @future_instances.empty?
       return nil
     else

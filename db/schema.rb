@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130217192122) do
+ActiveRecord::Schema.define(:version => 20130312225854) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -203,6 +203,17 @@ ActiveRecord::Schema.define(:version => 20130217192122) do
   end
 
   add_index "gcm_notifications", ["device_id"], :name => "index_gcm_notifications_on_device_id"
+
+  create_table "invitations", :force => true do |t|
+    t.integer  "invited_user_id"
+    t.integer  "invited_event_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "invitations", ["invited_event_id"], :name => "index_invitations_on_invited_event_id"
+  add_index "invitations", ["invited_user_id", "invited_event_id"], :name => "index_invitations_on_invited_user_id_and_invited_event_id", :unique => true
+  add_index "invitations", ["invited_user_id"], :name => "index_invitations_on_invited_user_id"
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"

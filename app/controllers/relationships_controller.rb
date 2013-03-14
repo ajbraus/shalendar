@@ -43,4 +43,19 @@ before_filter :authenticate_user!
       format.js
     end
   end
+
+  def inmate_invite
+    @invitee = User.find_by_id(params[:email])
+    if @invitee
+      Notifier.inmate_invite(@recipient.email, current_user)
+
+  end
+
+  end
+
+  def inmate
+    @inmate = User.find_by_id(params[:id])
+    current_user.inmate!(@inmate)
+    @inmate.contact_new_inmate(current_user)
+  end
 end

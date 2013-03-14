@@ -137,6 +137,8 @@
     if @event.save
       @event.save_shortened_url
       current_user.rsvp_in!(@event)
+      current_user.invitations.create!(invited_event_id:@event.id)
+
       if @parent.guests.any? 
         @parent.guests.each do |g|
           g.delay.contact_new_time(@event)
@@ -166,7 +168,7 @@
     @parent = @event.parent
     if @parent.present? 
       redirect_to @parent 
-      and return
+      return
     end
 
     @guests = @event.guests

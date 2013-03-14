@@ -948,7 +948,7 @@ height: auto;
     }
   }
   .event_blerb {
-font-size: 28px;
+font-size: 24px;
 line-height: 1;
 position: relative;
 min-height: 0;
@@ -2132,7 +2132,6 @@ line-height: 10px;
 }
 
 .activities {
-    min-height: 150px;
     position: relative;
     overflow: hidden;
 }
@@ -2157,7 +2156,6 @@ line-height: 10px;
   }
 
 .activity_time {
-  margin-top:20px;
   font-weight: bold;
 }
 
@@ -2845,10 +2843,12 @@ padding-top: 10px;
 .home_idea_container {
 top: 94px;
 float: left;
+width: 110%;
 }
 
 .idea_container {
   margin: 0 auto;
+  width: 106%;
 }
 
 
@@ -3176,10 +3176,10 @@ box-shadow: -2px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .container_wrapper {
-  margin: 0 auto;
-float: right;
+margin: 0 auto;
+float: left;
 padding-top: 10px;
-/*change width responsively*/
+margin-left: 2%;
 }
 
 #editCity {
@@ -3317,4 +3317,20 @@ text-align: left;
 #status {
   left: 10px;
 font-size: 19px;
+}
+
+.one_time_notice {
+  text-align: center;
+background: rgb(190, 190, 190);
+float: left;
+width: 100%;
+padding: 10px 0;
+font-size: 19px;
+}
+
+#fbSendInvite {
+  font-size: 18px;
+  cursor: pointer;
+  color: darkblue;
+  clear:both;
 }

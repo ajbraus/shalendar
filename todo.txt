@@ -1,5 +1,19 @@
 Adam
 	
+	Save from city being wrong from facebook
+	Star power
+	remove add new time if one time in event edit
+	put new inmates into digest
+	.inmate .invite - 
+		DONE created route, controller method, notifier method, and template
+		email field (need the api link call in the email with the inviter's id)
+	DONE facebook invite with send dialogue
+
+	remove user-show page
+	toggle ins / invites
+	show picture and stats in upper right
+	
+
 	Add back invitations
 		DONE created invitation.rb
 		DONE created create_invitiations_again migration
