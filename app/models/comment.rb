@@ -13,4 +13,12 @@ class Comment < ActiveRecord::Base
   		comment.creator
   	end
   end
+
+  def short_content
+    if self.content.size >=100
+      self.content.slice(0..100) + "..."
+    else
+      self.content
+    end
+  end
 end
