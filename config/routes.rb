@@ -3,7 +3,7 @@ Shalendar::Application.routes.draw do
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/careers', :to => 'static_pages#careers', :as => "careers"
   match '/terms', :to => 'static_pages#terms_header', :as => "terms"
-  match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
+  match '/admin_dashboard', :to => 'users#admin_dashboard', :as => "admin_dashboard"
 
 
   # City.all.each do |c| #for all cities
@@ -12,16 +12,12 @@ Shalendar::Application.routes.draw do
 
   resources :authentications, :only => [:destroy]
   # match '/auth/:authentication/callback' => 'authentications#create' 
-  
-  authenticated :user do
-    root :to => 'shalendar#home'
-  end
 
   resources :users, :only => [:show] do #for profile page 
     get :autocomplete_city_name, :on => :collection
   end
   
-  root :to => 'shalendar#home'
+  root :to => 'users#show'
 
   devise_for :users, 
              controllers:   { omniauth_callbacks: "users/omniauth_callbacks", 
@@ -69,13 +65,13 @@ Shalendar::Application.routes.draw do
   match '/inmate_invite/:id', :to => 'relationships#inmate_invite', as: 'inmate_invite'
   match '/inmate/:id', :to => 'relationships#inmate', as: 'inmate'
 
-  match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
-  match 'share_all_fb_friends' =>'shalendar#share_all_fb_friends'
+  match '/findfriends', :to => 'users#find_friends', :as => "find_friends"
+  match 'share_all_fb_friends' =>'users#share_all_fb_friends'
   match 'post_to_own_fb_wall' => 'events#post_to_own_fb_wall'
-  match 'post_to_wall_permissions' => 'shalendar#post_to_wall_permissions'
+  match 'post_to_wall_permissions' => 'users#post_to_wall_permissions'
   #match 'new_invited_events' => 'shalendar#new_invited_events'
   #match 'plans' => 'shalendar#plans'
-  match 'search' => 'shalendar#search'
+  match 'search' => 'users#search'
 
   #PAYMENTS
   #match '/set_time_zone', :to => 'users#set_time_zone', :as => 'set_time_zone'

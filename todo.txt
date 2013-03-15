@@ -50,29 +50,19 @@ TESTS
 	hi SDK
 
 	Make user_show page root
-		move all shalendar views into user views
-		update all partials (find all in views folder for 'shalendar')
-		change all routes from shalendar to users
-		move all shalendar methods into users controller
-		toggle ins / invites
-		show picture and stats in upper right
+		DONE move all shalendar views into user views
+		DONE update all partials (find all in views folder for 'shalendar')
+		DONE change all routes from shalendar to users
+		DONE move all shalendar methods into users controller
+		rebuild show logic
+		rebuild show page
+			show mini_calendar
+			toggleSlide .in-mates
+			show picture and stats in upper right
+			fix users background picture
+			toggle ins / invites
 
 		in show method find @user by slug
-
-		if user_signed_in?
-			@user = User.find_by_slug(params[:id])
-			if @user.blank?
-				@user = current_user
-			end	
-			if @user.is_friends_with?(current_user) || @user == current_user	
-				show everything
-			elsif @user.is_inmates_with?(current_user)
-				show everything except friends_only
-			else
-				show all ideas except friend only and no times - you must be inmates to see their upcoming plans.
-				to become inmates join in on one of their ideas
-			end
-		end
 	
 	in all emails make a user's name and picture go to their home page
 

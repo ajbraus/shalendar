@@ -14,7 +14,7 @@
     <% end %>
   </div>
 <% end %>
-<%= form_tag({:controller => 'shalendar', :action => 'search'}, {id: 'search_form', remote: true }) do %>
+<%= form_tag({:controller => 'users', :action => 'search'}, {id: 'search_form', remote: true }) do %>
   <%= text_field_tag :search, params[:search], id: "user_search_field", placeholder:"Search for friends...", autocomplete: "off" %>
   <input type="submit" id="btn_user_search" class="fa-input btn-user-search" value="&#xf002;">
 <% end %> 

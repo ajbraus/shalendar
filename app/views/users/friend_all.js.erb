@@ -1,0 +1,6 @@
+$("div#follow_form").html("<div class='btn btn_stop_viewing' style='cursor:arrow;'>Friended</div>")
+$(".forecast").html("<%= escape_javascript(render partial: 'users/forecast') %>")
+$("#datepicker").html("<%= escape_javascript(render partial: 'users/datepicker') %>")
+
+$("#friends").html("<%= escape_javascript(render partial: 'users/friends') %>")
+$("#header_friend_count").increment();

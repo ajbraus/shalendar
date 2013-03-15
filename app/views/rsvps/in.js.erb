@@ -10,14 +10,14 @@
 
 		//if instances weren't there - but they are
 		//$('.day_container').withDate(<%= "#{i.starts_at.to_date}" %>)
-		//day.append("<%= escape_javascript (render partial: 'shalendar/mini_event', object: i, as: :event) %>")
+		//day.append("<%= escape_javascript (render partial: 'users/mini_event', object: i, as: :event) %>")
 	<% end %>
 <% end %>
 
 // IF RSVPING FROM CALENDAR
 // rsvp to itself in the calendar 
 	time = $('.instance').withEventId(<%= @event.id %>)
-	// time.rsvp_check("<%= escape_javascript(render partial: 'shalendar/rsvp_check', object: @event, as: :event) %>", '' ); 
+	// time.rsvp_check("<%= escape_javascript(render partial: 'users/rsvp_check', object: @event, as: :event) %>", '' ); 
 	time.find('.mini_in_out').first().html("<div class='in_on_instance'><i class='icon-ok blue' title='you're .in'></i> .in</div>")
 	time.find('a').first().removeClass('not_rsvpd');
 

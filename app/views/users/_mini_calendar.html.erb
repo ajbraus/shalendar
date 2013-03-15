@@ -1,0 +1,89 @@
+<div class="inmates_bar part left">
+	<div class="bubble">
+		<span id="showCalendar" style="display:none;"><i class="icon-calendar"></i></span>
+		<span id="showInmates"><i class="icon-group"></i></span>
+	</div>
+	<h2><%= @user_inmates.count + @user_friends.count %>&nbsp;&nbsp;.in-mates</h2>
+	<% if current_user == @user %>
+		<%= render partial: 'shared/user', collection: @user_friends, as: :user %>
+		<%= render partial: 'shared/user', collection: @user_inmates, as: :user %>
+	<% else %>
+		<%= render partial: 'shared/user_not_inmate', collection: @user_friends, as: :user %>
+		<%= render partial: 'shared/user_not_inmate', collection: @user_inmates, as: :user %>
+	<% end %>		
+</div>
+<div class="home_profile clearfix">	
+	<% if user_signed_in? %>
+		<% unless @user == current_user %>
+			<% if @is_friends == true %>
+				<div class="show_friend follow_form_hook" data-user-id='<%= @user.id %>'>
+					<%= render  :partial => 'events/follow_form', :locals => { :user => @user } %>
+				</div>
+			<% elsif current_user.ignores?(@user) %>
+				<div class="show_friend">
+					<%= link_to url_options = { :controller => :relationships, :action => :re_inmate, :id => @user.id }, html_options = { class:"btn btn-inmate", id:'re-inmate', title: "make #{@user.first_name} your .in-mate again" } do %>
+						<i class="icon-star"></i>
+					<% end %>
+				</div>
+			<% elsif !@user.ignores?(current_user) %>
+				<div class="show_friend follow_form_hook" data-user-id='<%= @user.id %>'>
+					<%= link_to url_options = { :controller => :relationships, :action => :inmate, :id => @user.id }, html_options = { class:"btn btn-inmate", id:'re-inmate', title: "make #{@user.first_name} your .in-mate" } do %>
+						<i class="icon-star"></i>
+					<% end %>					
+				</div>
+			<% end %>
+		<% end %>
+	<% end %>
+	<%= large_profile_picture(@user) %>
+	<div class="show_name"><%= @user.name %></div>
+	<% if @user == current_user %>
+		<div class="show_city"><%= @user.city.name %></div>
+	<% end %>
+	<div class="profile_stats">
+		<ul> 
+			<li>
+				<div><%= @user.events.count %></div>
+				<div>ideas</div> 
+			</li>
+			<li>
+				<div><%= @user.plans.count %></div>
+				<div>.ins </div>
+			</li>
+			<% if false %>
+			<% if @star_count > 0 %>
+				<li>
+					<div><i class="icon-star friend_star"></i> <%= @star_count %></div>
+					<div>starred</div> 
+				</li>
+			<% end %>
+			<% end %>
+		</ul>
+	</div>
+</div>
+<h2 style="color:white;margin-bottom:8px">upcoming times</h2>
+<% if @times.blank? %>
+	<div class="mini_calendar_explanation">
+		<div clas="text">
+			<div><span class="fadeInBlue in_check"><i class='icon-ok'></i></span> .interested</div>
+			Click on an idea's <span class="fadeInBlue in_check"><i class='icon-ok'></i></span> to get emails and notifications about an idea, see its times on your calendar, and make new <b>.in-mates</b>
+			<br>
+			<br>
+			<div class="explainer_arrows">
+				<i class="icon-star inmate_star"></i> <i class="icon-arrow-right"></i> <i class="icon-star friend_star"></i>
+			</div>
+			<div>Click an .in-mate's star to receive notifications when they create ideas or chat.</div>
+			<br>
+			Click on <%= render 'shared/new_idea_button' %> to create a new idea
+		</div>
+	</div>
+<% else %>
+	<% for i in 0..60 %>
+		<div class="each_day clearfix">		
+			<div class="date_bar marker clearfix" id="today">
+				<%= (Time.zone.now.to_date + (i)).strftime("%A %b %e") %>
+			</div>
+			<div class="day_container clearfix" data-date="<%= Time.zone.now.to_date + i %>">
+			</div>
+		</div>
+	<% end %>
+<% end %>

@@ -2155,30 +2155,41 @@ line-height: 10px;
 }
 
 .profile_stats {
-font-size: 21px;
-text-align: right;
-position: relative;
-right: 20px;
-bottom: 7px;  
+font-size: 17px;
+float: left;
+width: 51%;
+margin-left: 10px;
+text-align: center;
+  li {
+float: left;
+width: 49%;
+}
 }
 
-.show_city {
-    font-size: 12px;
-margin-bottom: 10px;
-margin-top: 2px;
+.home_profile {
+  clear:both;
+  color:white;
+  padding:10px 20px;
+  img {
+    border-radius: 7px;
+    width: 100px;
+    float:left;
   }
-
-.show_friend {
-  position: absolute;
-top: 4px;
-right: 10px;
-}
-
-.user_show {
-  .promo_img {
-      -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  border-radius: 7px;
+  .show_name {
+    padding: 5px 10px;
+    float: left;
+    clear: right;
+    font-size: 22px;
+  }
+  .show_city {
+    float: left;
+    font-size: 15px;
+    margin: 0 10px;
+  }
+  .show_friend {
+    float: right;
+    position: relative;
+    bottom: 10px;
   }
 }
 
@@ -2852,18 +2863,41 @@ border-radius: 7px;*/
 }
 
 .inmates_bar {
-width: 30%;
-max-width: 300px;
+position: absolute;
+z-index: 1;
+width: 45%;
+max-width: 350px;
 padding: 10px;
 -webkit-box-sizing: border-box;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
-top: 9px;
-position: relative;
-right: -4px;
+top: 150px;
+left: -345px;
   img {
     width:37px;
     height:37px;
+  }
+}
+
+.bubble {
+position: relative;
+background: white;
+border-radius: 100px;
+float: right;
+padding: 6px 7px;
+left: 25px;
+}
+
+#showCalendar, #showInmates {
+  cursor: pointer;
+  float: right;
+  background-color: white;
+  color:$headerText;
+  border-radius: 170px;
+  &:hover {   
+    background-color: rgb(235, 235, 235);
+    -webkit-transition: background-color .25s linear .1s;
+    transition: background-color .25s linear .1s;
   }
 }
 

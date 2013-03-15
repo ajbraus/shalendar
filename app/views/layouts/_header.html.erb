@@ -9,15 +9,6 @@
             <span class="fadeInRed"><i class="icon-magic"></i></span>
           <% end %>
         <% end %>
-        <span class="options">
-          <%= link_to user_path(current_user) do %>
-            <span id="jrFriends"><i class="icon-star friend_star"></i> <span id="header_friend_count"><%= current_user.friends.count %></span></span> |
-            <span id="jrFriends"><i class="icon-star inmate_star"></i> <span id="header_inmate_count"><%= current_user.inmates.count %></span></span>
-          <% end %>
-        </span>
-        <%= link_to user_path(current_user) do %>
-          <%= raster_profile_picture(current_user) %>
-        <% end %>
         <%= render 'shared/new_idea_button' %>
       </div>
     <%= render 'shared/friend_search' %>
@@ -25,7 +16,7 @@
   <%= render 'layouts/alerts' %>
 </header>
 
-<% elsif params[:action] == 'home' || params[:action] == 'show' %> 
+<% elsif params[:action] == 'show' %> 
 <!-- IF NOT SIGNED IN -->
 <header class="not_signed_in">
   <div class="instagramFeed">
@@ -67,9 +58,6 @@
     </div>
   </div>
 
-<% if false %>
-  <%= image_tag "hoosin_mosaic.png", class:"hoosin_mosaic" %>
-<% end %>
   <nav>
     <% unless params[:controller] == "sessions" || params[:controller] == "registrations" || params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
       <% unless params[:action] == "show" || user_signed_in? == false %>
@@ -91,7 +79,6 @@
 
 <% else %>
 <header>
-    <%= render partial: 'shalendar/joyride' %>
     <%= render 'layouts/logo' %>
       <nav>
     <% unless params[:controller] == "sessions" || params[:controller] == "registrations" || params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 

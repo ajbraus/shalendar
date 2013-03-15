@@ -668,3 +668,10 @@ end
 
 
   
+
+
+      # @ideas = @ideas.sort_by do |i| 
+      #   i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*25 + 
+      #       i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
+      # end
+      # @ideas = @ideas.reverse

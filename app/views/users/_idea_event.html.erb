@@ -31,7 +31,7 @@
 			<% if event.has_parent? %>
 				<div class="date"><%= event.mini_start_date_time %></div>
 			<% end %>
-			<div class="rsvp_check"><%= render :partial => "shalendar/rsvp_check", :locals => { :event => event } %></div>
+			<div class="rsvp_check"><%= render :partial => "users/rsvp_check", :locals => { :event => event } %></div>
   		<div class="guests"><span id="guestCount"><%= event.guest_count %></span></div>
 		</div>
 	<% end %>
