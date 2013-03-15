@@ -1,39 +1,7 @@
-<div class="inmates_bar part left">
-	<div class="bubble">
-		<span id="showCalendar" style="display:none;"><i class="icon-calendar"></i></span>
-		<span id="showInmates"><i class="icon-group"></i></span>
-	</div>
-	<h2><%= @user_inmates.count + @user_friends.count %>&nbsp;&nbsp;.in-mates</h2>
-	<% if current_user == @user %>
-		<%= render partial: 'shared/user', collection: @user_friends, as: :user %>
-		<%= render partial: 'shared/user', collection: @user_inmates, as: :user %>
-	<% else %>
-		<%= render partial: 'shared/user_not_inmate', collection: @user_friends, as: :user %>
-		<%= render partial: 'shared/user_not_inmate', collection: @user_inmates, as: :user %>
-	<% end %>		
-</div>
+<%= render 'inmates_bar' %>
+
 <div class="home_profile clearfix">	
-	<% if user_signed_in? %>
-		<% unless @user == current_user %>
-			<% if @is_friends == true %>
-				<div class="show_friend follow_form_hook" data-user-id='<%= @user.id %>'>
-					<%= render  :partial => 'events/follow_form', :locals => { :user => @user } %>
-				</div>
-			<% elsif current_user.ignores?(@user) %>
-				<div class="show_friend">
-					<%= link_to url_options = { :controller => :relationships, :action => :re_inmate, :id => @user.id }, html_options = { class:"btn btn-inmate", id:'re-inmate', title: "make #{@user.first_name} your .in-mate again" } do %>
-						<i class="icon-star"></i>
-					<% end %>
-				</div>
-			<% elsif !@user.ignores?(current_user) %>
-				<div class="show_friend follow_form_hook" data-user-id='<%= @user.id %>'>
-					<%= link_to url_options = { :controller => :relationships, :action => :inmate, :id => @user.id }, html_options = { class:"btn btn-inmate", id:'re-inmate', title: "make #{@user.first_name} your .in-mate" } do %>
-						<i class="icon-star"></i>
-					<% end %>					
-				</div>
-			<% end %>
-		<% end %>
-	<% end %>
+	<%= render 'inmate_or_friend' %>
 	<%= large_profile_picture(@user) %>
 	<div class="show_name"><%= @user.name %></div>
 	<% if @user == current_user %>
@@ -42,12 +10,16 @@
 	<div class="profile_stats">
 		<ul> 
 			<li>
-				<div><%= @user.events.count %></div>
-				<div>ideas</div> 
+				<div><i class="icon-cloud"></i> <%= @user.plans.count %></div>
+				<div>.ins </div>
 			</li>
 			<li>
-				<div><%= @user.plans.count %></div>
-				<div>.ins </div>
+				<div><i class="icon-star friend_star"></i> <span id="friendCount"><%= @user.friends.count %> </div>
+				<div>stars</div>
+			</li>
+			<li>
+				<div><i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= @user.inmates.count %> </div>
+				<div>.in-mates</div>
 			</li>
 			<% if false %>
 			<% if @star_count > 0 %>
@@ -59,8 +31,17 @@
 			<% end %>
 		</ul>
 	</div>
+		<% if @user == current_user %>
+	    <div class="settings_logout">
+	      <%= link_to destroy_user_session_path, :method => :delete do %>
+	        <span class="fadeInRed"><i class='icon-signout logout'></i> logout</span>
+	      <% end %>
+	      <%= link_to edit_user_registration_path do %>
+	        <span class="fadeInOrange"><i class='icon-wrench user_settings'></i> settings</span>
+	      <% end %>
+	    </div>
+	  <% end %>
 </div>
-<h2 style="color:white;margin-bottom:8px">upcoming times</h2>
 <% if @times.blank? %>
 	<div class="mini_calendar_explanation">
 		<div clas="text">
@@ -77,6 +58,7 @@
 		</div>
 	</div>
 <% else %>
+	<div class="mini_calendar_days">
 	<% for i in 0..60 %>
 		<div class="each_day clearfix">		
 			<div class="date_bar marker clearfix" id="today">
@@ -86,4 +68,5 @@
 			</div>
 		</div>
 	<% end %>
+	</div>
 <% end %>

@@ -54,11 +54,12 @@ TESTS
 		DONE update all partials (find all in views folder for 'shalendar')
 		DONE change all routes from shalendar to users
 		DONE move all shalendar methods into users controller
-		rebuild show logic
-		rebuild show page
-			show mini_calendar
-			toggleSlide .in-mates
-			show picture and stats in upper right
+		DONE rebuild show logic
+		DONE rebuild show page
+			DONE show mini_calendar
+			DONE toggleSlide .in-mates
+			DONE show picture and stats in upper right
+			fix logic of mini_calendar to only show all/no-friends/nothing (friends/in-mates/neither)
 			fix users background picture
 			toggle ins / invites
 

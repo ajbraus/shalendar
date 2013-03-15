@@ -3,7 +3,6 @@
 	<%= render 'mini_calendar' %>
 </div>
 <%= render partial: 'users/mini_event', collection: @times, as: :event %>
-
 	  <div class="container_wrapper">
 			<div class="home_idea_container clearfix">
 				<h1><span id="invites_count"></span> .invites</h1>
@@ -27,40 +26,4 @@
 			</div>
 		</div>
 		<%= render partial: "users/event", collection: @ideas %>
-
-		<%= render partial: 'shared/user_friends_count', locals: { user: @user } %>
-		<% if @user == current_user %>
-	    <div class="add_time">
-	      <%= link_to destroy_user_session_path, :method => :delete do %>
-	        <span class="fadeInRed"><i class='icon-signout logout'></i>logout</span>
-	      <% end %>
-	      <%= link_to edit_user_registration_path do %>
-	        <span class="fadeInOrange"><i class='icon-wrench user_settings'></i>settings</span>
-	      <% end %>
-	    </div>
-	  <% end %>
-	</div>
-
-	<% if user_signed_in? %>
-		<% if (current_user == @user || @is_friend == true) %>
-			<% if @times.present? %>
-			<div class="future_events">
-			<h3>Upcoming Ideas</h3>
-				<ul>
-					<%= render partial: 'users/activity_event', collection: @times, as: :event %>
-				</ul>
-			</div>
-			<% end %>
-
-			<% if @past_times.present? %>
-			<div class="past_events">
-				<h3>Past Ideas</h3>
-				<ul>
-					<%= render partial: 'users/activity_event', collection: @past_times, as: :event %>
-				</ul>
-			</div>
-			<% end %>
-		<% end %>
-	<% end %>
-	</div>	
 

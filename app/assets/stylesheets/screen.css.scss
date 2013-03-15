@@ -968,6 +968,12 @@ right: 0;
     position: relative;
     bottom: 1.5px;
     }
+      .icon-user {
+    font-size: 12px;
+    color: $icon_color;
+    position: relative;
+    bottom: 2px;
+  }
   }
 
   .friend_star {
@@ -982,12 +988,7 @@ right: 0;
     text-shadow: none;
   }
 
-  .icon-user {
-    font-size: 12px;
-    color: $icon_color;
-    position: relative;
-    bottom: 2px;
-  }
+
 
 
 
@@ -2156,13 +2157,15 @@ line-height: 10px;
 
 .profile_stats {
 font-size: 17px;
-float: left;
-width: 51%;
+position: absolute;
+width: 212px;
 margin-left: 10px;
 text-align: center;
+top: 68px;
+left: 110px;
   li {
 float: left;
-width: 49%;
+width: 33%;
 }
 }
 
@@ -2170,21 +2173,22 @@ width: 49%;
   clear:both;
   color:white;
   padding:10px 20px;
+  height: 88px;
   img {
     border-radius: 7px;
     width: 100px;
     float:left;
   }
   .show_name {
-    padding: 5px 10px;
-    float: left;
-    clear: right;
-    font-size: 22px;
+position: absolute;
+left: 130px;
+font-size: 22px;
   }
   .show_city {
-    float: left;
-    font-size: 15px;
-    margin: 0 10px;
+position: absolute;
+font-size: 15px;
+left: 130px;
+top: 44px;
   }
   .show_friend {
     float: right;
@@ -2194,10 +2198,10 @@ width: 49%;
 }
 
 .user_friends_count {
-  position: relative;
-float: right;
-margin: 0 19px 10px 0;
+position: absolute;
 font-size: 19px;
+top: 125px;
+left: 35px;
 }
 
 
@@ -2871,8 +2875,8 @@ padding: 10px;
 -webkit-box-sizing: border-box;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
-top: 150px;
-left: -345px;
+top: 134px;
+left: -338px;
   img {
     width:37px;
     height:37px;
@@ -2892,7 +2896,7 @@ left: 25px;
   cursor: pointer;
   float: right;
   background-color: white;
-  color:$headerText;
+  color:#999;
   border-radius: 170px;
   &:hover {   
     background-color: rgb(235, 235, 235);
@@ -3384,4 +3388,20 @@ position: relative;
   input[type=checkbox]{
     width:28px;
   }
+}
+
+.each_day {
+  width: 340px;
+padding-left: 10px;
+}
+
+.mini_calendar_days {
+  padding-top: 36px;
+}
+
+.settings_logout {
+  position: absolute;
+top: 127px;
+font-size: 11px;
+left: 29px;
 }

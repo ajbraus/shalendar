@@ -219,13 +219,14 @@ margin-top: -5px;
 		}
 
 		.btn-new-idea {
-			padding: 8px 0px;
-			-moz-border-radius: 6px;
-			-webkit-border-radius: 6px;
-			border-radius: 6px;
-			width: 104px;
-			position: relative;
-			bottom: 12px;
+padding: 8px 0px;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+border-radius: 6px;
+width: 104px;
+position: relative;
+bottom: 0px;
+right: 5px;
 		}
 
 		.html-new-idea {
@@ -405,8 +406,7 @@ margin-right: 85px;
 	}
 
 	.mini_calendar {
-		width: 47%;
-		max-width: 360px;
+		width: 350px;
 	}
 
 	.city_name {
