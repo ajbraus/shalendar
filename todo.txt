@@ -12,6 +12,14 @@ Adam
 
 		frank production ideas visible to everyone 
 
+pull in fb events and mu events your attending
+
+HI SDK
+Send idea global unique identifier
+Check if any inmates are in on the idea's identifier
+If yes in them on the most socially relevant
+Else have them create a duplicate of the idea
+
 TEACHING USERS:
 
 	tutorial to create your first idea when you start

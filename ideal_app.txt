@@ -1,3 +1,5 @@
+Change city in app
+
 add new_fb_inmate push type (open to profile)
 
 ask for rating
