@@ -3,7 +3,6 @@ require 'icalendar'
 
 class Event < ActiveRecord::Base
   default_scope where(:dead=>'f')
-  default_scope :order => 'created_at DESC'
 
   belongs_to :user
   belongs_to :city

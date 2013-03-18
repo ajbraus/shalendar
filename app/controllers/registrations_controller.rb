@@ -36,6 +36,10 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
   
+  def edit
+    super
+  end
+
   def update
     #change city name into idco
     @city = City.find_by_name(params[:city_name])

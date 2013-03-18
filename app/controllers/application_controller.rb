@@ -5,7 +5,11 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
 
   around_filter :user_time_zone, :if => :current_user, :except => [:pick_city, :city_names, :update]
+before_filter :instantiateUser
 
+def instantiateUser
+    @user = User.new
+end
   private 
 
   def user_time_zone(&block)
