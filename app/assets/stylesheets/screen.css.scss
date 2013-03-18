@@ -3410,11 +3410,17 @@ z-index: 10;
 }
 
 .ideas_and_times {
-  font-size: 35px;
+  font-size: 45px;
   color:black;
   text-align: center;
   .friend_star, .inmate_star {
     font-size:35px;
+  }
+  .icon-calendar {
+    color:$dark_orange;
+  }
+  .icon-cloud {
+    color:$icon_color;
   }
 }
 

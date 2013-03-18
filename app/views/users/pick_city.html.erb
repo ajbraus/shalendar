@@ -1,6 +1,6 @@
 <div class="pick-city part clearfix">
   <h2> Pick Your City </h2>
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :id => "pickCity"  }) do |f| %>
+<%= form_for @user, :id => "pickCity" do |f| %>
 	<div><%= label_tag :city_name %><br />
 	<%= text_field_tag :city_name, nil, data: { autocomplete_source: city_names_path }, class:"required" %></div>
 	<div><%= f.submit "pick city", :class => "btn btn-success right btn-large" %></div>

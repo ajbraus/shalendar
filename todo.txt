@@ -1,8 +1,6 @@
 Adam
 
 			fix users background picture
-			don't load invites if @user != current_user
-			not showing .ins
 
 TESTS
 	Signed up through facebook and picked city - redirects to previous_url

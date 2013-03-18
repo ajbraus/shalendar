@@ -74,11 +74,6 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def edit
-    super
-  end
-
-
   def new_vendor
     sign_out current_user
     session[:graph] = nil if session[:graph].present?
@@ -99,9 +94,5 @@ class RegistrationsController < Devise::RegistrationsController
       clean_up_passwords resource
       respond_with resource
     end
-  end
-
-  def pick_city
-
   end
 end

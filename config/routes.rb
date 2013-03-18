@@ -27,10 +27,11 @@ Shalendar::Application.routes.draw do
   # "Route Globbing" patch https://github.com/plataformatec/devise/wiki/OmniAuth%3A-Overview
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
-    get '/pick_city' => 'registrations#pick_city'
   end
 
-  resources :users, only: [:show]
+  resources :users, :only => [:show, :update]
+
+  match '/pick_city', to: 'users#pick_city', as: 'pick_city'
 
   match '/city_names', :to => 'users#city_names', :as => "city_names"
   match '/get_fb_friends_to_invite', :to => 'events#get_fb_friends_to_invite', :as => 'get_fb_friends_to_invite'

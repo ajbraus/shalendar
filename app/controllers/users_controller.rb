@@ -44,6 +44,28 @@ class UsersController < ApplicationController
     end
   end
 
+  def pick_city
+    @user = current_user
+  end
+
+    # PUT /libraries/1.json
+  def update
+    @user = current_user
+
+    @city = City.find_by_name(params[:city_name])
+    params[:user] = {:city => @city}
+    
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def city_names
     @city_names = City.order(:name).where("lower(name) like ?", "%#{params[:term].downcase}%")
     render json: @city_names.map(&:name)
