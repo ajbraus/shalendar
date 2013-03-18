@@ -60,58 +60,6 @@ $(document).bind('click', function(e) {
         $(".dropdown dd ul").hide();
 });
 
-// NEW IDEA LIGHTBOX
-
-  $('#eventFancyBox').fancybox({
-    autoSize : true,
-    fitToView : false,
-    mouseWheel : false,
-    openEffect : 'elastic',
-    closeEffect : 'fade'
-  });
-
-  $('#newIdeaButton').fancybox({
-        closeBtn    : true,
-        scrolling   : 'auto',
-        autoSize    : true,
-        mouseWheel : false
-  });
-
-	$('.find_friends').fancybox({
-        closeBtn    : true,
-        scrolling   : 'auto',
-        autoSize    : true,
-        mouseWheel : false
-  });
-  //$('.city_vendors').fancybox();
-  
-  $('#makeAGroup').fancybox({
-        closeBtn    : true,
-        scrolling   : 'auto',
-        autoSize    : true,
-        mouseWheel : false
-  });
-
-  $('#eventRepeat').fancybox({
-        closeBtn    : true,
-        scrolling   : 'auto',
-        autoSize    : true,
-        mouseWheel : false
-  });
-
-  // {
-  //   'transitionIn'    : 'none',
-  //   'transitionOut'   : 'none',
-  //   'titlePosition'   : 'over',
-  //   'titleFormat'       : function(title, currentArray, currentIndex, currentOpts) {
-  //       return '<span id="fancybox-title-over">Image ' +  (currentIndex + 1) + ' / ' + currentArray.length + ' ' + title + '</span>';
-  //   }
-  $('#shareByEmail').fancybox({
-        closeBtn    : true,
-        scrolling   : 'auto',
-        autoSize    : true
-  });
-
 // TABS
 
 	$("#views_list").tabs();
