@@ -1,29 +1,40 @@
+<% if @user.present? %>
 <% provide(:title, " | #{@user.name}" ) %>
 <div class="mini_calendar">
 	<%= render 'mini_calendar' %>
 </div>
-<%= render partial: 'users/mini_event', collection: @times, as: :event %>
-	  <div class="container_wrapper">
-			<div class="home_idea_container clearfix">
-				<h1><span id="invites_count"></span> .invites</h1>
-				<div id="noInvites" class="no_invites part" style="display:none;">
-          <h2>
-            hoos.in makes it <strong>easy</strong> to do great things with your <strong>family</strong>, and <strong>best friends</strong> in <%= @current_city.city_name %>. Make a <strong>new idea</strong> for something fun. Search for <strong>your friends and family</strong> <!-- or send them an invitation to be your .in-mate. -->
-          </h2>
-        </div>
-				<div id="invitesContainer" class="idea_container" >
-				</div>
+<div class="container_wrapper">
+	<% unless @user.background_file_size.nil? %>
+		<div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 330px;top: 0;"></div>
+	<% end %>
 
-				<h1><span id="ins_count"></span> .ins</h1>
-				<%= image_tag 'purple_arrow.png', class:"ins_arrow", style:"display:none;"%>
-				<div id="noIns" class="no_ins part" style="display:none;">
-					<h2>You are not .in on any ideas<br>
-						Create a new idea and share it with your friends.
-					</h2>
+	<div class="home_idea_container clearfix">
+		<%= image_tag 'purple_arrow.png', class:"ins_arrow", style:"display:none;"%>
+		<% if user_signed_in? %>
+			<h1>
+				<% if @user == current_user  %>
+					<span id="invites"><span id="toggleInvites"><span id="invites_count"></span> .invites</span></span> | <span id="ins" class="unselected"><span id="toggleIns"><span id="ins_count"></span> .ins</span></span>
+				<% else %>
+					<span id="ins"><%= @user.first_name_with_last_initial %> has <span id="ins_count"></span> current <span id="toggleIns">.ins</span></span>
+				<% end %>
+			</h1>
+			<% if @user == current_user %>
+				<div id="invitesContainer" class="idea_container">
 				</div>
-				<div id="insContainer" class="idea_container" >
+				<div id="insContainer" class="idea_container" style="display:none;">
 				</div>
+			<% else %>
+				<div id="insContainer" class="idea_container">
+				</div>
+			<% end %>
+		<% else %>
+			<div id="insContainer" class="idea_container">
 			</div>
-		</div>
+		<% end %>
+	</div>
+	<div style="display:none;">
 		<%= render partial: "users/event", collection: @ideas %>
-
+	</div>
+	<%= render 'explanation' %>
+</div>
+<% end %>

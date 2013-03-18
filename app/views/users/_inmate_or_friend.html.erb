@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
 	<% unless @user == current_user %>
-		<% if @is_friends == true %>
+		<% if @user.is_inmates_or_friends_with?(current_user) %>
 			<div class="show_friend follow_form_hook" data-user-id='<%= @user.id %>'>
 				<%= render  :partial => 'events/follow_form', :locals => { :user => @user } %>
 			</div>

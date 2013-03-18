@@ -1,10 +1,10 @@
 Shalendar::Application.routes.draw do
 
+  root :to => 'users#show'
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/careers', :to => 'static_pages#careers', :as => "careers"
   match '/terms', :to => 'static_pages#terms_header', :as => "terms"
   match '/admin_dashboard', :to => 'users#admin_dashboard', :as => "admin_dashboard"
-
 
   # City.all.each do |c| #for all cities
   #   match "/#{c.name.split(',')[0].gsub(/\s+/, "_").downcase}", :to => 'shalendar#home', :as => "#{c.name.split(',')[0].gsub(/\s+/, "").gsub("-", "_").gsub(".", "_").downcase}", :city => "#{c.name}"
@@ -13,11 +13,6 @@ Shalendar::Application.routes.draw do
   resources :authentications, :only => [:destroy]
   # match '/auth/:authentication/callback' => 'authentications#create' 
 
-  resources :users, :only => [:show] do #for profile page 
-    get :autocomplete_city_name, :on => :collection
-  end
-  
-  root :to => 'users#show'
 
   devise_for :users, 
              controllers:   { omniauth_callbacks: "users/omniauth_callbacks", 
@@ -34,6 +29,8 @@ Shalendar::Application.routes.draw do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
     get '/pick_city' => 'registrations#pick_city'
   end
+
+  resources :users, only: [:show]
 
   match '/city_names', :to => 'users#city_names', :as => "city_names"
   match '/get_fb_friends_to_invite', :to => 'events#get_fb_friends_to_invite', :as => 'get_fb_friends_to_invite'

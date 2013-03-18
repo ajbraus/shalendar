@@ -99,6 +99,13 @@ private
       name = access_token.info.name
       cityname = access_token.info.location
       city = City.find_by_name(cityname)
+      bday = Chronic.parse(access_token.extra.raw_info.birthday).to_date
+      if access_token.extra.raw_info.gender == "male"
+        female = false
+      else
+        female = true
+      end
+
       if city.blank?
         @city_id = nil
       else
@@ -110,7 +117,9 @@ private
                 :city_id => @city_id,
                 :terms => true,
                 :remember_me => true,
-                :password => Devise.friendly_token[0,20]
+                :password => Devise.friendly_token[0,20],
+                :birthday => bday,
+                :female => female
               )
       user.save
       return user

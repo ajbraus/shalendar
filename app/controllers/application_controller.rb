@@ -40,17 +40,16 @@ class ApplicationController < ActionController::Base
   end
 
   def set_city
-    if user_signed_in?
+    @user = User.find_by_slug(params[:id])
+    if @user.present?
+      @current_city = @user.city
+    elsif user_signed_in?
       @current_city = current_user.city
       if @current_city.blank?
         redirect_to pick_city_path
       end
     else
-      if params[:city].present?
-        @current_city = City.find_by_name(params[:city])
-      else
-        @current_city = City.find_by_name("Madison, Wisconsin")
-      end
+      @current_city = City.find_by_name("Madison, Wisconsin")
     end
   end
 

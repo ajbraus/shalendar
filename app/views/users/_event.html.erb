@@ -3,12 +3,13 @@
 		<% if event.ends_at.present? %>
 			<%= event.ends_at < Time.zone.now ? 'over' : '' %>
 		<% end %> 
-		<%= current_user.in?(event) ? 'in' : 'invite' %>
+		<%= @user.in?(event) ? 'in' : 'invite' %>
 		<%= event.has_future_instance? ? 'time' : 'idea' %>
 		<%= event.one_time? ? 'one_time' : '' %>"
 		data-event-id='<%= event.id %>'>
-<% else %>
+<% elsif @user.present? %>
 	<div class="event shield 
+		<%= @user.in?(event) ? 'in' : 'invite' %>
 		<% if event.starts_at.present? %>
 			<%= event.ends_at < Time.zone.now ? 'over' : '' %>
 		<% end %>
@@ -58,7 +59,7 @@
   			<% end %>
   		<% end %>
 		</div>
-			<%if user_signed_in? 
+			<% unless user_signed_in? && (current_user == @user || current_user.is_inmates_or_friends_with?(@user))
 					@relevant_instances = event.instances.reject { |e| current_user.out?(e) || e.over? } 
 				else
 					@relevant_instances = event.instances.reject { |e| e.over? } 

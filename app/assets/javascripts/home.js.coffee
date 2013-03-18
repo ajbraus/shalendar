@@ -17,19 +17,40 @@ $ ->
 	ins = $('.in')
 	invites = $('.invite')
 	if ins.length > 0
-		$('#ins_count').text(ins.length);
+		$('#ins_count').html(ins.length);
 		$('#insContainer').append(ins);
 	else
-		$("#noIns").show();		
-		$('#ins_count').text("0");
+		$('#ins_count').html("0");
 		$('.ins_arrow').show();
 
 	if invites.length > 0
-		$('#invites_count').text(invites.length);
+		$('#invites_count').html(invites.length);
 		$('#invitesContainer').append(invites);
 	else
 		$("#noInvites").show();
 		$('#invites_count').text("0");
 		$('.invites_arrow').show();
+
+	$('#toggleInvites').click ->
+		$('#ins').addClass("unselected")
+		$('#invites').removeClass("unselected")
+		$('#insContainer').hide();
+		if invites.length > 0
+			$('#invitesContainer').fadeIn();
+			$('#invitesContainer').masonry('reload');
+		else
+			$('#noInvites').fadeIn();
+
+	$('#toggleIns').click ->
+		$('#invites').addClass("unselected")
+		$('#ins').removeClass("unselected")
+		$('#invitesContainer').hide();
+		$('#noInvites').hide();
+		if ins.length > 0
+			$('#insContainer').fadeIn();
+			$('#insContainer').masonry('reload');
+		else
+			$('#noIns').fadeIn();
+
 
 

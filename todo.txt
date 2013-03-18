@@ -1,7 +1,8 @@
 Adam
-	
-	sort events chronologically with newest on top left
-	pass in UID to facebook send dialogue?
+
+			fix users background picture
+			don't load invites if @user != current_user
+			not showing .ins
 
 TESTS
 	Signed up through facebook and picked city - redirects to previous_url
@@ -38,16 +39,9 @@ TESTS
 		DONE validate that city present in pick_city
 		DONE after signup and after pick_city it goes to original url - after_filter only pick_city
 
-
-	put new inmates into digest
-	
-	.inmate .invite - 
-		DONE created route, controller method, notifier method, and template
-		email field (need the api link call in the email with the inviter's id)
-		added to send all emails
-		- email not working
-	
-	hi SDK
+	DONE sort events chronologically with newest on top left
+	DONE scope invites and times to current city id
+	DONE scope inmates by city
 
 	Make user_show page root
 		DONE move all shalendar views into user views
@@ -59,37 +53,50 @@ TESTS
 			DONE show mini_calendar
 			DONE toggleSlide .in-mates
 			DONE show picture and stats in upper right
-			fix logic of mini_calendar to only show all/no-friends/nothing (friends/in-mates/neither)
-			fix users background picture
-			toggle ins / invites
+			DONE fix logic of mini_calendar to only show all/no-friends/nothing (friends/in-mates/neither)
+			DONE toggle ins / invites
 
-		in show method find @user by slug
+----------------------------------------------------------------------
+
+	.inmate .invite - 
+		DONE created route, controller method, notifier method, and template
+		email field (need the api link call in the email with the inviter's id)
+		added to send all emails
+		- email not working
+	starred .in-mate invitations 15
+		hoos.in is for doing things with your real friends
+		.invite 15 of your friends in your city to be your .in-mates on hoos.in
+	
+	host out stats
+
+	don't destroy users, just mark them as 'unregistered = true' and remove them from any user queries.
 	
 	in all emails make a user's name and picture go to their home page
+	change self.digest to use invitations
+	inmate counts are not accurate on digest (event_details)
+	put new inmates into digest
 
-	scope inmates by city
-	don't destroy users, just mark them as 'unregistered = true' and remove them from any user queries.
-
-	refactor EmailInvite code in api code
+	pass in UID to facebook send dialogue?
+	app request diaglog
 
 
-	indicate friends only idea
+	hi SDK
+
 	update description in time
 	add face when rsvping
 
 
 	New Idea tutorial after register
 	create idea -- on-going idea without a time, on-going idea with a time, one-time idea
-	starred .in-mate invitations 15
-		hoos.in is for doing things with your real friends
-		.invite 15 of your friends in your city to be your .in-mates on hoos.in
+	
+
+
+	refactor EmailInvite code in api code
+
 
 	what are you up to tonight? - if someone views your profile and they are you're .in-mate shouldn't it show them?
 	check in somewhere on foursquare through hoos.in - creates an idea at that location
 
-		host out stats
-
-		frank production ideas visible to everyone 
 
 TEACHING USERS:
 

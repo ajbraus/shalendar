@@ -34,7 +34,7 @@
     <%= f.file_field :background %></div>
 
     <div><%= label_tag :city_name %><br />
-    <%= text_field_tag :city_name, nil, value: "#{resource.city.name}", data: { autocomplete_source: city_names_path } %></div>
+    <%= text_field_tag :city_name, nil, value: "#{current_user.city.name}", data: { autocomplete_source: city_names_path } %></div>
     <br>
 
     <% if current_user.authentications.find_by_provider("Facebook") == nil %>

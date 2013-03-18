@@ -40,7 +40,9 @@ class User < ActiveRecord::Base
                   :bank_account_uri,
                   :credits_uri,
                   :credit_card_uri,
-                  :debits_uri
+                  :debits_uri,
+                  :birthday,
+                  :female
 
   has_attached_file :avatar, :styles => { :original => "150x150#",
                                           :raster => "50x50#" },

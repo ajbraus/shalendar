@@ -1,63 +1,5 @@
+<%= render 'profile' %>
 <%= render 'inmates_bar' %>
-
-<div class="home_profile clearfix">	
-	<%= render 'inmate_or_friend' %>
-	<%= large_profile_picture(@user) %>
-	<div class="show_name"><%= @user.name %></div>
-	<% if @user == current_user %>
-		<div class="show_city"><%= @user.city.name %></div>
-	<% end %>
-	<div class="profile_stats">
-		<ul> 
-			<li>
-				<div><i class="icon-cloud"></i> <%= @user.plans.count %></div>
-				<div>.ins </div>
-			</li>
-			<li>
-				<div><i class="icon-star friend_star"></i> <span id="friendCount"><%= @user.friends.count %> </div>
-				<div>stars</div>
-			</li>
-			<li>
-				<div><i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= @user.inmates.count %> </div>
-				<div>.in-mates</div>
-			</li>
-			<% if false %>
-			<% if @star_count > 0 %>
-				<li>
-					<div><i class="icon-star friend_star"></i> <%= @star_count %></div>
-					<div>starred</div> 
-				</li>
-			<% end %>
-			<% end %>
-		</ul>
-	</div>
-		<% if @user == current_user %>
-	    <div class="settings_logout">
-	      <%= link_to destroy_user_session_path, :method => :delete do %>
-	        <span class="fadeInRed"><i class='icon-signout logout'></i> logout</span>
-	      <% end %>
-	      <%= link_to edit_user_registration_path do %>
-	        <span class="fadeInOrange"><i class='icon-wrench user_settings'></i> settings</span>
-	      <% end %>
-	    </div>
-	  <% end %>
-</div>
-<% if @times.blank? %>
-	<div class="mini_calendar_explanation">
-		<div clas="text">
-			<div><span class="fadeInBlue in_check"><i class='icon-ok'></i></span> .interested</div>
-			Click on an idea's <span class="fadeInBlue in_check"><i class='icon-ok'></i></span> to get emails and notifications about an idea, see its times on your calendar, and make new <b>.in-mates</b>
-			<br>
-			<br>
-			<div class="explainer_arrows">
-				<i class="icon-star inmate_star"></i> <i class="icon-arrow-right"></i> <i class="icon-star friend_star"></i>
-			</div>
-			<div>Click an .in-mate's star to receive notifications when they create ideas or chat.</div>
-			<br>
-			Click on <%= render 'shared/new_idea_button' %> to create a new idea
-		</div>
-	</div>
-<% else %>
 	<div class="mini_calendar_days">
 	<% for i in 0..60 %>
 		<div class="each_day clearfix">		
@@ -69,4 +11,4 @@
 		</div>
 	<% end %>
 	</div>
-<% end %>
+	<%= render partial: 'users/mini_event', collection: @times, as: :event %>

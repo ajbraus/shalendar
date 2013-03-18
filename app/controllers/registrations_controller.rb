@@ -35,10 +35,6 @@ class RegistrationsController < Devise::RegistrationsController
       respond_with resource
     end
   end
-
-	def edit		
-		super
-	end
   
   def update
     #change city name into idco
@@ -77,6 +73,11 @@ class RegistrationsController < Devise::RegistrationsController
       respond_with resource
     end
   end
+
+  def edit
+    super
+  end
+
 
   def new_vendor
     sign_out current_user
