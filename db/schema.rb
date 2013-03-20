@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20130318230614) do
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
     t.integer  "user_id"
+    t.integer  "max",                    :default => 10000
     t.float    "duration"
     t.integer  "inviter_id",             :default => 0
     t.string   "link"
@@ -171,15 +172,14 @@ ActiveRecord::Schema.define(:version => 20130318230614) do
     t.boolean  "family_friendly",        :default => false
     t.integer  "parent_id"
     t.string   "short_url"
-    t.boolean  "require_payment"
     t.string   "slug"
+    t.boolean  "require_payment"
     t.integer  "city_id"
     t.text     "description"
     t.boolean  "one_time",               :default => false
     t.boolean  "dead",                   :default => false
     t.boolean  "friends_only",           :default => false
     t.string   "fb_id"
-    t.boolean  "invisible",              :default => false
   end
 
   add_index "events", ["fb_id"], :name => "index_events_on_fb_id"
@@ -307,6 +307,7 @@ ActiveRecord::Schema.define(:version => 20130318230614) do
     t.string   "debits_uri"
     t.integer  "city_id"
     t.string   "slug"
+    t.integer  "classification_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
