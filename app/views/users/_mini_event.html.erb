@@ -1,0 +1,46 @@
+<div class="mini_event instance"
+	data-event-id='<%= event.id %>'
+	data-date='<%= event.starts_at.to_date %>'>
+	<%= link_to event.event_parent, class:"#{ !current_user.rsvpd?(event) ? 'not_rsvpd' : '' }" do %>
+		<% if false %>
+		<div class="promo_img">
+		<% if event.has_image? %>
+			<%= image_tag "#{event.image(:medium)}", style:"vertical-align:'middle'"%>
+		<% end %>
+		</div>
+		<% end %>
+	<div class="event_time">			
+		<%= event.mini_start_time %> - <%= event.nice_duration %>
+		<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>
+	</div>
+	<div class="event_blerb">
+		<%= event.title %>
+	</div>
+	<div class="inviter">
+		by: <%= event.user.first_name_with_last_initial %>
+	</div>
+	<div class="facepile">
+		<% if current_user.in?(event) %>
+  		<span title="<%= current_user.name %>"><%= raster_profile_picture(current_user) %></span>
+  	<% end %>
+		<% event.friends_and_inmates_in(current_user).each do |guest| %>
+  		<span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
+		<% end %>
+	</div>
+<% end %>	
+	<% if !current_user.rsvpd?(event) %> <!-- USER IS NOT RSVPD -->
+		<div class="mini_in_out">
+			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
+			  <%= f.hidden_field :plan_id %>
+			  <%= f.hidden_field :inout, value: "0" %>
+			  <%= f.submit "#{event.starts_at.blank? ? 'nah' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
+			<% end %>
+			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
+			  <%= f.hidden_field :plan_id %>
+			  <%= f.hidden_field :inout, value: "1" %>
+			  <%= f.submit "#{event.is_parent? ? '.into' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
+			<% end %>
+		</div>
+	<% end %>
+</div>
+

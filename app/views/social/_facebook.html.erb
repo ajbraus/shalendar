@@ -7,7 +7,7 @@
     picture=<%= event.image(:medium) if event.has_image? %>&
     description=<%=  event.start_date_time %>&
     redirect_uri=<%= event_url(event) %>" class="email_share" target="_blank">
-    <span class="fb_blue"><i class="icon-facebook-sign"></i></span><br>share
+    <span class="fb_blue"><i class="icon-facebook-sign"></i></span><br>
   </a>
 <% end %>
   <a href="https://www.facebook.com/dialog/feed?
@@ -18,5 +18,5 @@
     caption=<%= if event.starts_at.present? then "#{event.start_date_time}" elsif event.has_future_instance? then "#{event.next_instance.start_date_time}" end %>&
     description=<%= event.description %>&
     redirect_uri=<%= event_url(event) %>" class="email_share" target="_blank">
-    <span class="fb_blue"><i class="icon-facebook-sign"></i></span><br>share
+    <span class="fb_blue"><i class="icon-facebook-sign"></i></span><br>wall
   </a>

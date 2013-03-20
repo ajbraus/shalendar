@@ -72,8 +72,6 @@
                                duration: @event.duration,
                                address: @event.address,
                                link: @event.link,
-                               promo_img: @event.promo_img,
-                               promo_url: @event.promo_url,
                                promo_vid: @event.promo_vid,
                                friends_only: @event.friends_only,
                                one_time: @event.one_time,
@@ -137,6 +135,7 @@
     if @event.save
       @event.save_shortened_url
       current_user.rsvp_in!(@event)
+
       if @parent.guests.any? 
         @parent.guests.each do |g|
           g.delay.contact_new_time(@event)

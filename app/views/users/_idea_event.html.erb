@@ -1,0 +1,61 @@
+<!-- this is the same as _event, but called for @ideas to protect one-times from being 'taken over' by calendar view -->
+<% if user_signed_in? %>
+	<div class="event shield
+		<% if event.ends_at.present? %>
+			<%= event.ends_at < Time.zone.now ? 'over' : '' %>
+		<% end %> 
+		<%= current_user.in?(event) ? 'in' : '' %>
+		<%= event.one_time? ? 'one_time excuse_from_calendar' : '' %>
+		<%= current_user == event.user ? 'mine' : '' %>"
+		data-event-id='<%= event.id %>'
+		<%= event.starts_at.present? ? "data-date='#{event.starts_at.to_date}'" : '' %>>
+<% else %>
+	<div class="event shield 
+		<% if event.starts_at.present? %>
+			<%= event.ends_at < Time.zone.now ? 'over' : '' %>">
+		<% end %>
+<% end %>
+	<%= link_to event do %>
+		<div class="shield_top">
+			<div class="event_shield_icons">
+				<span class="status_icon">
+					<% if user_signed_in? %>
+						<% if current_user.in?(event) %>
+							<i class="icon-ok blue" title="you're .in"></i> you're.in
+						<% elsif current_user.invited?(event) %>
+							<i class="icon-envelope blue" title=".invited by <%= event.inviter_id = 0 ? event.user.name : User.find_by_id(event.inviter_id).name %>"></i>
+						<% end %>
+					<% end %>
+				</span>
+		  </div>
+			<% if event.has_parent? %>
+				<div class="date"><%= event.mini_start_date_time %></div>
+			<% end %>
+			<div class="rsvp_check"><%= render :partial => "users/rsvp_check", :locals => { :event => event } %></div>
+  		<div class="guests"><span id="guestCount"><%= event.guest_count %></span></div>
+		</div>
+	<% end %>
+	<%= link_to event do %>
+		<div class="event_blerb">
+			<div class="title"><%= event.title %></div>
+		</div>
+		<% if event.has_image? %>
+			<div class="promo_img">
+				<%= image_tag event.image(:medium) %>
+			</div>
+		<% end %>
+	<% end %>
+
+	<% if event.one_time? 
+		 	@relevant_instances = [event]
+		 else 
+			@relevant_instances = event.instances.reject { |e| current_user.out?(e) || e.over? } 
+		 end 
+	%>
+	<%= render partial: 'events/time', collection: @relevant_instances, as: :event %>
+	<% if current_user == event.user && !event.one_time? && event.is_parent? %>
+		<%= link_to event_new_time_path(event) do %>
+			<div class="add_time fadeInOrange"><i class="icon-time"></i> new time</div>
+		<% end %>
+	<% end %>
+</div>

@@ -1,2 +1,0 @@
-class FancyboxController < ApplicationController
-end

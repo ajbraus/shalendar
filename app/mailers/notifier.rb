@@ -145,12 +145,12 @@ class Notifier < ActionMailer::Base
     mail to: @user.email, from: "info@hoos.in", subject: "upcoming and trending ideas on hoos.in"
   end
 
-  def follow_up(user, event, new_inmates)
-    @user = user
-    @event = event
-    @new_inmates = new_inmates
-    mail to: @user.email, from: "info@hoos.in", subject: ".introductions - #{@event.title}"
-  end
+  # def follow_up(user, event, new_inmates)
+  #   @user = user
+  #   @event = event
+  #   @new_inmates = new_inmates
+  #   mail to: @user.email, from: "info@hoos.in", subject: ".introductions - #{@event.title}"
+  # end
 
   def new_fb_inmate(user, new_inmate)
     @user = user
@@ -158,6 +158,21 @@ class Notifier < ActionMailer::Base
     @image_url = invite_raster_picture(@new_inmate)
     mail to: @user.email, from: "info@hoos.in", subject: "Your friend #{@new_inmate.name} just joined hoos.in and you are now .in-mates."
   end
+
+  def inmate_invite(recipient_email, inviter)
+    @inviter = inviter
+    @image_url = invite_raster_picture(@inviter)
+    mail to: recipient_email, from: "info@hoos.in", subject: "#{@inviter.name} wants you to be .in-mates on hoos.in."
+  end
+
+  def new_inmate(recipient, inmate)
+    @user = recipient
+    @inmate = inmate
+    @image_url = invite_raster_picture(@inmate)
+    mail to: @user.email, from: "info@hoos.in", subject: "#{@inmate.name} is now .in-mates with you on hoos.in."
+  end
+
+
 
   # def email_invitation(invite, event)
   #   @invite = invite

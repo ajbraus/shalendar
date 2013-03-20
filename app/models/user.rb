@@ -40,7 +40,9 @@ class User < ActiveRecord::Base
                   :bank_account_uri,
                   :credits_uri,
                   :credit_card_uri,
-                  :debits_uri
+                  :debits_uri,
+                  :birthday,
+                  :female
 
   has_attached_file :avatar, :styles => { :original => "150x150#",
                                           :raster => "50x50#" },
@@ -71,15 +73,18 @@ class User < ActiveRecord::Base
   #phony_normalized_method :phone_number, :default_country_code => 'US'
   
   validates :terms,
-            :name, 
-            :city_id, presence: true
+            :name, presence: true
 
   has_many :authentications, :dependent => :destroy, :uniq => true
 
-  has_many :events
+  has_many :events, dependent: :destroy
 
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
   has_many :plans, through: :rsvps, :conditions => ['inout = ?', 1]
+
+  has_many :invitations, foreign_key: "invited_user_id", dependent: :destroy
+  has_many :invited_times, through: :invitations, source: :invited_event, :conditions => ['starts_at > ? AND starts_at < ?', Time.zone.now, Time.zone.now + 59.days]
+  has_many :invited_ideas, through: :invitations, source: :invited_event, :conditions => ['starts_at IS NULL']
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   
@@ -92,7 +97,7 @@ class User < ActiveRecord::Base
   has_many :inmates, through: :relationships, source: :followed, conditions: "status = 1"  
   has_many :friends, through: :relationships, source: :followed, conditions: "status = 2"  
 
-  has_many :inmates_and_friends, through: :relationships, source: :followed
+  has_many :inmates_and_friends, through: :relationships, source: :followed, conditions: 'status != 0'
 
   has_many :comments, dependent: :destroy
 
@@ -227,8 +232,20 @@ class User < ActiveRecord::Base
       end
     end
     rsvps.create!(plan_id: event.id, inout: 1)
+    unless self.already_invited?(event)
+      self.invitations.create!(invited_event_id: event.id)
+    end
+    
     event.guests.each do |g|
       self.inmate!(g)
+    end
+
+    unless event.friends_only?
+      self.inmates_and_friends.each do |u|
+        unless u.already_invited?(event)
+          u.invitations.create!(invited_event_id: event.id)
+        end
+      end
     end
     
     #if one time and rsvp to parent, then rsvp to single instance
@@ -241,8 +258,8 @@ class User < ActiveRecord::Base
     @event_user = event.user
     @parent = event.parent
     if @parent.present? && !self.in?(@parent)
-      @parent_user = @parent.user
       self.rsvp_in!(@parent)
+      @parent_user = @parent.user
         #contact only once if they sign up for time + idea, if time.user and idea.user are different send both
       if @event_user != @parent_user      
         unless @event_user == self || event.over?
@@ -263,6 +280,21 @@ class User < ActiveRecord::Base
     end
   end
 
+  # should be .interested! and .in! calls for parents and instances
+  # if one_time rsvp to both
+  #   unless event.user = rsvp.user
+  #     send one rsvp notification to creator
+  #   end
+  # else #not one time
+  #   if rspv to instance
+  #     rsvp to parent
+  #     send one rspv notification to instance creator
+  #   else #rsvp to parent
+  #     send one rsvp notification to parent creator
+  #   end
+  # end
+    
+
   def rsvp_out!(event)
     @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
     if @existing_rsvp.present?
@@ -274,6 +306,20 @@ class User < ActiveRecord::Base
     end
     rsvps.create!(plan_id: event.id, inout: 0)
     
+    @invitation = self.invitations.find_by_event_id(event.id)
+    if @invitation.present?
+      @invitation.destroy
+    end
+    
+    # unless event.friends_only?
+    #   self.inmates_and_friends.each do |u|
+    #     @invite = u.invitations.find_by_event_id(event_id: event.id)
+    #     if @invite.present?
+    #       @invite.destroy
+    #     end
+    #   end
+    # end
+
     @parent = event.parent
     if @parent.present? && @parent.one_time?
       self.rsvp_out!(@parent)
@@ -376,6 +422,11 @@ class User < ActiveRecord::Base
       if @relationship.present?
         @relationship.status = 2
         @relationship.save
+        self.events.where('friends_only = ?', true).each do |e|
+          unless other_user.already_invited(e)
+            other_user.invitations.create!(invited_event_id: e.id)
+          end
+        end
       else 
         self.inmate!(other_user)
         self.friend!(other_user)
@@ -385,27 +436,51 @@ class User < ActiveRecord::Base
 
   def inmate!(other_user)
     unless other_user == self || other_user.ignores?(self)
-      unless self.is_inmates_or_friends_with?(other_user) || self.ignores?(other_user) || self.id == other_user.id
+      unless self.is_inmates_or_friends_with?(other_user) || self.ignores?(other_user)
         self.relationships.create(followed_id: other_user.id, status: 1)
+        other_user.plans.each do |p| 
+          unless self.already_invited?(p)
+            self.invitations.create!(invited_event_id: p.id)
+          end
+        end
       end
       unless other_user.is_inmates_or_friends_with?(self) || self.ignores?(other_user)
         other_user.relationships.create(followed_id: self.id, status: 1)
+        self.plans.each do |p| 
+          unless other_user.already_invited?(p)
+            other_user.invitations.create!(invited_event_id: p.id)
+          end
+        end
       end
     end
   end
 
   def re_inmate!(other_user)
     unless other_user == self
-      @relationship = Relationship.where(follower_id: other_user.id, followed_id: self.id).first
+      @relationship = self.relationships.find_by_followed_id(other_user.id)
       if @relationship.blank?
-        self.relationships.create(followed_id: other_user.id, status: 1)
+        self.relationships.create!(followed_id: other_user.id, status: 1)
       else
         @relationship.status = 1
         @relationship.save
+
       end
-      @reverse_relationship = Relationship.where(follower_id: self.id, followed_id:  other_user.id).first
+      other_user.plans.each do |p| 
+        unless self.already_invited?(p)
+          self.invitations.create!(invited_event_id: p.id)
+        end
+      end
+      @reverse_relationship = other_user.relationships.find_by_followed_id(self.id)
       if @reverse_relationship.blank?
         other_user.relationships.create(followed_id: self.id, status: 1)
+      else 
+        @reverse_relationship.status = 1
+        @reverse_relationship.save
+      end
+      self.plans.each do |p| 
+        unless other_user.already_invited?(p)
+          other_user.invitations.create!(invited_event_id: p.id)
+        end
       end
     end
   end
@@ -466,6 +541,67 @@ class User < ActiveRecord::Base
         self.inmate!(mf)
         mf.delay.contact_new_fb_inmate(self)
       end
+    end
+  end
+
+  def add_fb_events(graph)
+    @graph = graph
+    @fb_events = @graph.fql_query("SELECT creator, name, description, start_time, end_time, pic_big, location, host, privacy, can_invite_friends 
+                                  FROM event where eid IN
+                                  (SELECT eid FROM event_member WHERE uid = me() and rsvp_status='attending')")
+    #@graph.get_connections("me", "events", args={fields:"id, name, description, start_time, end_time, picture, location, owner"})
+    @fb_events.each do |fbe|
+      @existing_event = Event.find_by_fb_id(fbe["id"])
+      if @existing_event.blank? #event already exists
+        @start_time = Chronic.parse(fbe['start_time'])
+        @end_time = Chronic.parse(fbe['end_time'])
+        if @end_time.blank?
+          @end_time = @start_time + 2.hours
+        end
+        unless @end_time < Time.now || fbe['privacy'] == 'SECRET' || fbe['can_invite_friends'] == false #event is already over
+          #PARENT
+          @hi_parent = Event.new(fb_id: fbe['id'],
+                              user_id: self.id,
+                              city_id: self.city.id,
+                              title: fbe["name"],
+                              description: "#{fbe['description']} - hosted by #{fbe['host']}",
+                              address: fbe['location'],
+                              one_time: true,
+                              promo_url: fbe['pic_big'])
+          
+          @hi_parent.picture_from_url(fbe['pic_big'])
+          if fbe['privacy'] == "FRIENDS"
+            @hi_parent.friends_only = true
+          end
+          @hi_parent.save
+          self.rsvp_in!(@hi_parent)
+          #TIME
+          @hi_time = Event.new(fb_id: fbe['id'],
+                              parent_id: @hi_parent.id,
+                              user_id: self.id,
+                              city_id: self.city.id,
+                              title: fbe["name"],
+                              description: "#{fbe['description']} - hosted by #{fbe['host']}",
+                              address: fbe['location'],
+                              starts_at: @start_time,
+                              ends_at: @end_time,
+                              one_time: true,
+                              friends_only: @hi_parent.friends_only)
+          @hi_time.save
+          self.rsvp_in!(@hi_time)
+        end #UNLESS OVER
+      else #hi idea already exists
+        self.rsvp_in!(@existing_event)
+      end #END HI IDEA EXISTS
+    end
+  end
+
+  def convert_email_invites
+    EmailInvite.where("email_invites.email = :new_user_email", new_user_email: self.email).each do |ei|
+      @invited_user = self
+      @invited_event = ei.event
+      self.invitation.create!(invited_event_id: @invited_event.id)
+      ei.destroy
     end
   end
 
@@ -545,6 +681,9 @@ class User < ActiveRecord::Base
     return @auth
   end
 
+  def already_invited?(event)
+    return self.invitations.find_by_invited_event_id(event.id).present?
+  end
 
   # Contact methods
 
@@ -860,6 +999,11 @@ class User < ActiveRecord::Base
     # end
   end
 
+  def contact_new_inmate(inmate)
+    @recipient = self
+    Notifier.new_inmate(@recipient, inmate)
+  end
+
   # Class Methods
   def self.digest
     @digest_users = User.where("digest = ?", true)
@@ -890,21 +1034,21 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.follow_up
-    @recipients = User.where('follow_up = ?', true)
-    @recipients.each do |r|
-      @now_in_zone = Time.zone.now.in_time_zone(r.city.timezone)
-      @fu_events = r.plans.where(starts_at: @now_in_zone.midnight - 1.day .. @now_in_zone.midnight)
-      if @fu_events.any?
-        @fu_events.each do |fue|
-          @new_inmates = fue.guests.select { |g| g.is_new_inmate?(r) && r != g }
-          if @new_inmates.any?
-            Notifier.delay.follow_up(r, fue, @new_inmates)
-          end
-        end
-      end
-    end
-  end
+  # def self.follow_up
+  #   @recipients = User.where('follow_up = ?', true)
+  #   @recipients.each do |r|
+  #     @now_in_zone = Time.zone.now.in_time_zone(r.city.timezone)
+  #     @fu_events = r.plans.where(starts_at: @now_in_zone.midnight - 1.day .. @now_in_zone.midnight)
+  #     if @fu_events.any?
+  #       @fu_events.each do |fue|
+  #         @new_inmates = fue.guests.select { |g| g.is_new_inmate?(r) && r != g }
+  #         if @new_inmates.any?
+  #           Notifier.delay.follow_up(r, fue, @new_inmates)
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
 
   def self.send_reminders
     @recipients = User.where('notify_event_reminders = ?', true)

@@ -1,5 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
-
+  prepend_before_filter :require_no_authentication, :only => [ :new, :create, :cancel ]
+  prepend_before_filter :authenticate_scope!, :only => [:edit, :update, :destroy, :pick_city] #added pick_city
+  
   def new
     super
   end
@@ -12,19 +14,10 @@ class RegistrationsController < Devise::RegistrationsController
     end
     build_resource
     if resource.save
-      #turn all email_invites into invitations here **UPDATE
-      EmailInvite.where("email_invites.email = :new_user_email", new_user_email: resource.email).each do |ei|
-        @inviter_id = ei.inviter_id
-        @invited_user_id = resource.id
-        @event = ei.event
-        if @inviter = User.find_by_id(@inviter_id)
-          @inviter.invite!(@event, resource)
-        end
-        ei.destroy
-      end
+      resource.convert_email_invites
 
-      if User.find_by_email("info@hoos.in").present?
-        @hoosin_user = User.find_by_email("info@hoos.in")
+      @hoosin_user = User.find_by_email("info@hoos.in")
+      if @hoosin_user.present?
         resource.inmate!(@hoosin_user)
       end
 
@@ -42,19 +35,24 @@ class RegistrationsController < Devise::RegistrationsController
       respond_with resource
     end
   end
-
-	def edit
-    @cities = City.all
-		@graph = session[:graph]		
-		super
-	end
   
+  def edit
+    super
+  end
+
   def update
+    if resource_params.blank?
+      resource_params = params['user']
+    end
     #change city name into idco
-    if City.find_by_name(params[:city_name])
-      resource_params[:city] = City.find_by_name(params[:city_name])
+    @city = City.find_by_name(params[:city_name])
+    if @city.present?
+      if resource_params.blank?
+        resource_params = { "city" => nil }
+      end
+      resource_params[:city] = @city
     else 
-      return redirect_to :back, notice: "City not found - Try a city close to your location"
+      return redirect_to :back, notice: "City not found - Try the name of a bigger city nearest to you"
     end
 
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)    
@@ -70,8 +68,13 @@ class RegistrationsController < Devise::RegistrationsController
       #     :update_needs_confirmation : :updated
       #   set_flash_message :notice, flash_key
       # end
-      sign_in resource_name, resource, :bypass => true
-      respond_with resource, :location => root_path
+      if current_user.sign_in_count == 1 && session[:previous_urls].present? 
+        @url = session[:previous_urls].reverse.first
+        redirect_to @url, notice: "City successfully updated" and return
+      else
+        sign_in resource_name, resource, :bypass => true
+        respond_with resource, :location => root_path
+      end
     else
       clean_up_passwords resource
       respond_with resource
@@ -82,7 +85,6 @@ class RegistrationsController < Devise::RegistrationsController
     sign_out current_user
     session[:graph] = nil if session[:graph].present?
 
-    @cities = City.all
     resource = build_resource
 
     if resource.save

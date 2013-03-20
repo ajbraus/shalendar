@@ -47,12 +47,12 @@
 	<% end %>
 
 	<% else %><!--  IF USER NOT SIGNED IN -->
-	<% if event.ends_at.present? && event.ends_at > Time.zone.now %>
+	<% if event.ends_at.present? && event.ends_at < Time.zone.now %>
 		(Idea over)
 	<% else %>
 		<div class="rsvp_btn">
-			<%= link_to ".interested", new_user_session_path(:event => event.id), class:"btn btn-rsvp rsvp_button", title: "log.in to join.in this idea" %>
-			<%= link_to "meh", new_user_session_path(:event => event.id), class:"btn rsvp_button btn_stop_viewing ursvp_button", title: "log.in to opt out of this idea" %>
+			<%= link_to "#{if event.starts_at.present? then '.in' else '.interesed' end}", new_user_session_path(:event => event.id), class:"btn btn-rsvp rsvp_button", title: "log.in to join.in this idea" %>
+			<%= link_to "#{if event.starts_at.present? then 'out' else 'meh' end}", new_user_session_path(:event => event.id), class:"btn rsvp_button btn_stop_viewing ursvp_button", title: "log.in to opt out of this idea" %>
 		</div>
 	<% end %>
 <% end %>

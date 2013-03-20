@@ -108,14 +108,14 @@ height: 100%;
 	.user_search {
 float: right;
 width: 213px;
-top: 24px;
+top: 23px;
 position: relative;
-right: 10px;
+right: 42px;
 form {
 	float: right;
 }
 		input[type=text] {
-		width: 145px;
+		width: 155px;
 		}
 	}
 
@@ -219,13 +219,14 @@ margin-top: -5px;
 		}
 
 		.btn-new-idea {
-			padding: 8px 0px;
-			-moz-border-radius: 6px;
-			-webkit-border-radius: 6px;
-			border-radius: 6px;
-			width: 104px;
-			position: relative;
-			bottom: 12px;
+padding: 8px 0px;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+border-radius: 6px;
+width: 104px;
+position: relative;
+bottom: 0px;
+right: 5px;
 		}
 
 		.html-new-idea {
@@ -351,7 +352,7 @@ top: 20px;
 margin: 0 auto;
 float: right;
 width: auto;
-right: 5px;
+right: 30px;
 	.options {
 		position: relative;
 		bottom: 9px;
@@ -405,7 +406,7 @@ margin-right: 85px;
 	}
 
 	.mini_calendar {
-		width: 323px;
+		width: 350px;
 	}
 
 	.city_name {
@@ -452,10 +453,10 @@ width: 206px;
 /***************************************/
 @media only screen and (min-width: 600px) and (max-width: 909px) {
 	.home_idea_container {
-		width: 230px;
+		width: 150%;
 	}
 	.container_wrapper {
-		width:42.5%;
+		width: 39%;
 	}
 
 }
@@ -469,20 +470,20 @@ width: 206px;
 /***************************************/
 @media only screen and (min-width: 910px) and (max-width: 1199px) {
 	.home_idea_container {
-		width: 500px;
+		width: 110%;
 	}
 		.container_wrapper {
-		width:61%;
+		width:58%;
 	}
 }
 
 /*3ideas*/
 @media only screen and (min-width: 1200px) and (max-width: 1499px) {
 	.home_idea_container {
-		width: 770px;
+		width: 110%;
 	}
 	.container_wrapper {
-		width:70%;
+		width: 62%;
 	}
 	.user_show {
 		width: 72%;
@@ -491,7 +492,7 @@ width: 206px;
 /*4ideas*/
 @media only screen and (min-width: 1500px) {
 	.home_idea_container {
-		width: 1030px;
+		width: 110%;
 	}
 	.container_wrapper {
 		width:75%;
@@ -503,7 +504,7 @@ width: 206px;
 
 @media only screen and (min-width: 1810px) {
 	.home_idea_container {
-		width: 1230px;
+		width: 110%;
 	}
 	.container_wrapper {
 		width:79%;

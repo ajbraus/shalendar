@@ -387,9 +387,9 @@ color:gold;
 .btn-inmate {
   background: none;
   border: none;
-  color: white;
+  color: lightgrey;
     &:hover {
-  color:lightgrey;
+  color: white;
 }
 }
 
@@ -597,7 +597,7 @@ font-weight: bold;
 text-decoration: none;
 text-shadow: 1px 1px 0px white;
 width: 25px;
-padding: 5px 0 5.5px 0;
+padding: 5px 0 5px 0;
 bottom: -1px;
 }
 .btn-user-search:hover {
@@ -931,7 +931,7 @@ text-align: center;
 
   .event_time {
 padding: 0px 2px 1px 5px;
-font-size: 20px;
+font-size: 16px;
 height: auto;
    img {
       width: 7%;
@@ -948,7 +948,7 @@ height: auto;
     }
   }
   .event_blerb {
-font-size: 28px;
+font-size: 20px;
 line-height: 1;
 position: relative;
 min-height: 0;
@@ -968,6 +968,12 @@ right: 0;
     position: relative;
     bottom: 1.5px;
     }
+      .icon-user {
+    font-size: 12px;
+    color: $icon_color;
+    position: relative;
+    bottom: 2px;
+  }
   }
 
   .friend_star {
@@ -982,12 +988,7 @@ right: 0;
     text-shadow: none;
   }
 
-  .icon-user {
-    font-size: 12px;
-    color: $icon_color;
-    position: relative;
-    bottom: 2px;
-  }
+
 
 
 
@@ -1305,8 +1306,10 @@ text-decoration: none;
 }
 
 .fb_button {
-  width: 0px;
-  height: 0px;
+height: 0;
+margin-top: 0px;
+margin-bottom: 30px;
+width: 210px;
 }
 
 .fb_login_button {
@@ -1335,6 +1338,7 @@ top: 10px;
 box-sizing: border-box;
 border: 1px solid $divider;
 position: relative;
+margin-bottom: 80px;
   .event_details {
     clear: both;
 border-top: 1px dotted $divider;
@@ -1565,7 +1569,7 @@ padding-bottom: 3px;
 .event_title {
 float: left;
 position: relative;
-font-size: 20px;
+font-size: 35px;
 padding:5px;
 width: 100%;
 }
@@ -1816,14 +1820,6 @@ textarea {
   input[type=checkbox]{
     width:20px;
   }
-  select[name="user[city_id]"]{
-    width:290px;
-    font-size: 20px;
-    margin: 5px 0 20px 0;
-  }
-/*  select[name="user[time_zone]"] {
-    width:290px;
-  }*/
   #user_city, #user_time_zone {
     height: 46px;
     width: 400px;
@@ -2132,7 +2128,6 @@ line-height: 10px;
 }
 
 .activities {
-    min-height: 150px;
     position: relative;
     overflow: hidden;
 }
@@ -2157,43 +2152,55 @@ line-height: 10px;
   }
 
 .activity_time {
-  margin-top:20px;
   font-weight: bold;
 }
 
 .profile_stats {
-font-size: 21px;
-text-align: right;
-position: relative;
-right: 20px;
-bottom: 7px;  
+font-size: 17px;
+position: absolute;
+width: 212px;
+margin-left: 10px;
+text-align: center;
+top: 68px;
+left: 110px;
+  li {
+float: left;
+width: 33%;
+}
 }
 
-.show_city {
-    font-size: 12px;
-margin-bottom: 10px;
-margin-top: 2px;
+.home_profile {
+  clear:both;
+  color:white;
+  padding:10px 20px;
+  height: 88px;
+  img {
+    border-radius: 7px;
+    width: 100px;
+    position: absolute;
+    top: 20px;
   }
-
-.show_friend {
-  position: absolute;
-top: 4px;
-right: 10px;
-}
-
-.user_show {
-  .promo_img {
-      -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  border-radius: 7px;
+  .show_name {
+position: absolute;
+left: 130px;
+font-size: 22px;
+top: 20px;
+  }
+  .show_city {
+position: absolute;
+font-size: 15px;
+left: 130px;
+top: 44px;
+  }
+  .show_friend {
+    float: right;
+    position: relative;
+    bottom: 10px;
   }
 }
 
 .user_friends_count {
-  position: relative;
-float: right;
-margin: 0 19px 10px 0;
-font-size: 19px;
+font-size: 14px;
 }
 
 
@@ -2222,9 +2229,7 @@ margin-top: 50px;
 
 .fb-login-button {
   img {
-width: 20px;
-bottom: 13px;
-position: relative;
+    width: 25px;
   }
 }
 
@@ -2814,8 +2819,8 @@ float: left;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     background-color: white;
-    width: 27px;
-    height: 27px;
+    width: 24px;
+    height: 24px;
     border-radius: 4px;
     margin-left: -2px;
   }
@@ -2844,11 +2849,11 @@ padding-top: 10px;
 
 .home_idea_container {
 top: 94px;
-float: left;
 }
 
 .idea_container {
   margin: 0 auto;
+  width: 106%;
 }
 
 
@@ -2859,18 +2864,50 @@ border-radius: 7px;*/
 }
 
 .inmates_bar {
-width: 30%;
-max-width: 300px;
+position: absolute;
+z-index: 2;
 padding: 10px;
 -webkit-box-sizing: border-box;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
-top: 9px;
-position: relative;
-right: -4px;
+top: 145px;
+width: 350px;
+left: -340px;
   img {
     width:37px;
     height:37px;
+  }
+}
+
+#showInmates {
+cursor: pointer;
+float: right;
+background-color: white;
+color: #999;
+left: 94px;
+position: relative;
+padding: 5px;
+bottom: 10px;
+  &:hover {   
+    background-color: rgb(235, 235, 235);
+    -webkit-transition: background-color .25s linear .1s;
+    transition: background-color .25s linear .1s;
+  }
+}
+
+#showCalendar {
+  cursor: pointer;
+float: right;
+background-color: rgb(77, 77, 77);
+color: white;
+left: 94px;
+position: relative;
+padding: 5px;
+bottom: 10px;
+  &:hover {   
+    background-color: black;
+    -webkit-transition: background-color .25s linear .1s;
+    transition: background-color .25s linear .1s;
   }
 }
 
@@ -2951,7 +2988,7 @@ border-top: 1px solid $divider;
   }
 }
 
-.mini_calendar_explanation {
+/*.mini_calendar_explanation {
 color: white;
 font-size: 25px;
 width: 240px;
@@ -2968,7 +3005,7 @@ top: -1px;
 border: none;
 }
 }
-
+*/
 .rsvp_to_time {
 text-align: center;
 width: 180px;
@@ -3176,15 +3213,16 @@ box-shadow: -2px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .container_wrapper {
-  margin: 0 auto;
-float: right;
+margin: 0 auto;
+float: left;
 padding-top: 10px;
-/*change width responsively*/
+margin-left: 2%;
 }
 
 #editCity {
   font-size: 12px;
 color: grey;
+margin-left: 3px;
 }
 
 .user_shield {
@@ -3252,17 +3290,6 @@ clear: left;
   color:$headerText;
 }
 
-.no_invites, .no_ins {
-max-width: 500px;
-margin: 0 auto;
-padding: 15px 10%;
-background-color: $background-one;
-  h2 {
-    line-height: 1.3;
-    color: #68615d;
-  }
-}
-
 .no_invites {
 
 }
@@ -3291,8 +3318,8 @@ top: -16px;
 .ins_arrow {
 width: 250px;
 position: absolute;
-right: -55px;
-top: 90px;
+right: -5px;
+top: 60px;
 -moz-transform: scaleX(-1) rotate(-119deg);
 -o-transform: scaleX(-1) rotate(-119deg);
 -webkit-transform: scaleX(-1) rotate(-119deg);
@@ -3316,5 +3343,107 @@ text-align: left;
 
 #status {
   left: 10px;
+  top: 5px;
 font-size: 19px;
+}
+
+.one_time_notice {
+  text-align: center;
+background: rgb(190, 190, 190);
+float: left;
+width: 100%;
+padding: 10px 0;
+font-size: 19px;
+}
+
+#fbSendInvite {
+  font-size: 18px;
+  cursor: pointer;
+  color: darkblue;
+  clear:both;
+}
+
+.pick-city {
+  width:400px;
+margin: 7px auto;
+position: relative;
+  input[type=email],input[type=password],input[type=text] {
+    font-size: 23px;
+    margin-bottom: 10px;
+    margin-top:5px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    width:95%;
+  }
+  label {
+    font-size: 15px;
+    color: #404040;
+  }
+  input[type=checkbox]{
+    width:28px;
+  }
+}
+
+.each_day {
+  width: 340px;
+padding-left: 10px;
+}
+
+.mini_calendar_days {
+position: relative;
+top: 55px;
+}
+
+.settings_logout {
+  position: absolute;
+top: 127px;
+font-size: 11px;
+left: 29px;
+z-index: 10;
+}
+
+#invites, #ins {
+  cursor:pointer;
+}
+
+.unselected {
+  color:lightgrey;
+  &:hover{
+    color:black;
+    -webkit-transition: color .25s linear .1s;
+    transition: color .25s linear .1s;
+  }
+}
+
+.ideas_and_times {
+  font-size: 45px;
+  color:black;
+  text-align: center;
+  .friend_star, .inmate_star {
+    font-size:35px;
+  }
+  .icon-calendar {
+    color:$dark_orange;
+  }
+  .icon-cloud {
+    color:$icon_color;
+  }
+}
+
+.no_invites, .no_ins {
+max-width: 500px;
+margin: 0 auto;
+padding: 15px 10%;
+background-color: $background-one;
+width: 124%;
+margin-top: 30px;
+  li {
+    font-size: 1.3em;
+    line-height: 1.4em;
+  }
+}
+.share_on_fb {
+position: relative;
+bottom:6px;
 }

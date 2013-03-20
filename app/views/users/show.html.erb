@@ -1,82 +1,40 @@
+<% if @user.present? %>
 <% provide(:title, " | #{@user.name}" ) %>
-<div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
-	<div class="inmates_bar part left">
-		<h2><%= @user_inmates.count + @user_friends.count %>&nbsp;&nbsp;.in-mates</h2>
-		<% if current_user == @user %>
-			<%= render partial: 'shared/user', collection: @user_friends, as: :user %>
-			<%= render partial: 'shared/user', collection: @user_inmates, as: :user %>
-		<% else %>
-			<%= render partial: 'shared/user_not_inmate', collection: @user_friends, as: :user %>
-			<%= render partial: 'shared/user_not_inmate', collection: @user_inmates, as: :user %>
-		<% end %>		
-	</div>
-<div class="user_show right">
-	<div class="idea_container">
-		<div class="event clearfix user_shield">
-			<div class="event_blerb">
-				<div class="show_name"><%= @user.name %></div>
-				<div class="show_city"><%= @user.city.name %></div>
-			</div>
-			<div class="promo_img">	
-				<%= large_profile_picture(@user) %>
-			</div>
-		<% if user_signed_in? %>
-			<% if @is_friends == true %>
-				<div class="show_friend follow_form_hook" data-user-id='<%= @user.id %>'>
-					<%= render  :partial => 'events/follow_form', :locals => { :user => @user } %>
-				</div>
-			<% elsif current_user.ignores?(@user) %>
-				<div class="show_friend">
-					<%= link_to url_options = { :controller => :relationships, :action => :re_inmate, :id => @user.id }, html_options = { class:"btn btn-inmate", id:'re-inmate', title: "make your .in-mate again" } do %>
-						<i class="icon-star"></i>
-					<% end %>
-				</div>
-			<% end %>
-		<% end %>
-		<div class="profile_stats">
-			<ul>
-				<li>ideas <%= @user.events.count %></li>
-				<li>.ins <%= @user.plans.count %></li>
-				<% if @star_count > 0 %>
-					<li>starred by <%= @star_count %></li>
-				<% end %>
-			</ul>
-		</div>
-		<%= render partial: 'shared/user_friends_count', locals: { user: @user } %>
-		<% if @user == current_user %>
-	    <div class="add_time">
-	      <%= link_to destroy_user_session_path, :method => :delete do %>
-	        <span class="fadeInRed"><i class='icon-signout logout'></i>logout</span>
-	      <% end %>
-	      <%= link_to edit_user_registration_path do %>
-	        <span class="fadeInOrange"><i class='icon-wrench user_settings'></i>settings</span>
-	      <% end %>
-	    </div>
-	  <% end %>
-	</div>
-		<%= render partial: 'shalendar/event', collection: @my_ins, as: :event %>
-	</div>
-
-	<% if user_signed_in? %>
-		<% if (current_user == @user || @is_friend == true) %>
-			<% if @times.present? %>
-			<div class="future_events">
-			<h3>Upcoming Ideas</h3>
-				<ul>
-					<%= render partial: 'shalendar/activity_event', collection: @times, as: :event %>
-				</ul>
-			</div>
-			<% end %>
-
-			<% if @past_times.present? %>
-			<div class="past_events">
-				<h3>Past Ideas</h3>
-				<ul>
-					<%= render partial: 'shalendar/activity_event', collection: @past_times, as: :event %>
-				</ul>
-			</div>
-			<% end %>
-		<% end %>
+<div class="mini_calendar">
+	<%= render 'mini_calendar' %>
+</div>
+<div class="container_wrapper">
+	<% unless @user.background_file_size.nil? %>
+		<div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 330px;top: 0;"></div>
 	<% end %>
-	</div>	
 
+	<div class="home_idea_container clearfix">
+		<%= image_tag 'purple_arrow.png', class:"ins_arrow", style:"display:none;"%>
+		<% if user_signed_in? %>
+			<h1>
+				<% if @user == current_user  %>
+					<span id="invites"><span id="toggleInvites"><span id="invites_count"></span> .invites</span></span> | <span id="ins" class="unselected"><span id="toggleIns"><span id="ins_count"></span> .ins</span></span>
+				<% else %>
+					<span id="ins"><%= @user.first_name_with_last_initial %> has <span id="ins_count"></span> current <span id="toggleIns">.ins</span></span>
+				<% end %>
+			</h1>
+			<% if @user == current_user %>
+				<div id="invitesContainer" class="idea_container">
+				</div>
+				<div id="insContainer" class="idea_container" style="display:none;">
+				</div>
+			<% else %>
+				<div id="insContainer" class="idea_container">
+				</div>
+			<% end %>
+		<% else %>
+			<div id="insContainer" class="idea_container">
+			</div>
+		<% end %>
+	</div>
+	<div style="display:none;">
+		<%= render partial: "users/event", collection: @ideas %>
+	</div>
+	<%= render 'explanation' %>
+</div>
+<% end %>

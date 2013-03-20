@@ -1,0 +1,25 @@
+$('#plans').html("<%= escape_javascript(render partial: 'users/plans') %>");
+$('#overlay').fadeToggle();
+
+$('body').click(function() {
+	$('.upcoming_ideas').fadeOut();
+	$('#overlay').fadeOut();
+});
+
+$('.upcoming_ideas').click(function(event){
+     event.stopPropagation();
+ });
+
+$('.upcoming_ideas').children().click(function(event){
+     event.stopPropagation();
+ });
+
+$("a[href$='plans']").click(function(event){
+     event.stopPropagation();
+ });
+
+$("a[href$='plans']").click(function(e) {
+		e.preventDefault();
+		$('.upcoming_ideas').fadeToggle();
+		$('#overlay').fadeToggle();
+	});

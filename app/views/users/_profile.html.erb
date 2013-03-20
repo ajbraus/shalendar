@@ -1,0 +1,42 @@
+<div class="home_profile clearfix">	
+	<%= render 'inmate_or_friend' %>
+	<%= large_profile_picture(@user) %>
+	<div class="show_name"><%= @user.name %></div>
+	<% if @user == current_user %>
+		<div class="show_city"><%= @user.city.name %></div>
+	<% end %>
+	<div class="profile_stats">
+		<ul> 
+			<li>
+				<div><i class="icon-cloud" style="color:rgb(79, 62, 213);"></i> <%= @user_plans.count %></div>
+				<div>.ins </div>
+			</li>
+			<li>
+				<div><i class="icon-star friend_star"></i> <span id="friendCount"><%= @user_friends.count %> </div>
+				<div>stars</div>
+			</li>
+			<li>
+				<div><i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= @user_inmates.count %> </div>
+				<div>.in-mates</div>
+			</li>
+			<% if false %>
+			<% if @star_count > 0 %>
+				<li>
+					<div><i class="icon-star friend_star"></i> <%= @star_count %></div>
+					<div>starred</div> 
+				</li>
+			<% end %>
+			<% end %>
+		</ul>
+	</div>
+	<% if @user == current_user %>
+    <div class="settings_logout">
+      <%= link_to destroy_user_session_path, :method => :delete do %>
+        <span class="fadeInRed"><i class='icon-signout logout'></i> logout</span>
+      <% end %>
+      <%= link_to edit_user_registration_path do %>
+        <span class="fadeInOrange"><i class='icon-wrench user_settings'></i> settings</span>
+      <% end %>
+    </div>
+  <% end %>
+</div>

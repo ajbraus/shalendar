@@ -668,3 +668,32 @@ end
 
 
   
+
+
+      # @ideas = @ideas.sort_by do |i| 
+      #   i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*25 + 
+      #       i.guests.joins(:reverse_relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
+      # end
+      # @ideas = @ideas.reverse
+
+      <% if @times.blank? %>
+  <div class="mini_calendar_explanation">
+    <div clas="text">
+      <% unless @user == current_user %>
+        You are not .in-mates with <%= @user.first_name_with_last_initial %>
+      <br>
+      <br>
+      <% end %>
+      <div><span class="fadeInBlue in_check"><i class='icon-ok'></i></span> .interested</div>
+      Click on an idea's <span class="fadeInBlue in_check"><i class='icon-ok'></i></span> to get emails and notifications about an idea, see its times on your calendar, and make new <b>.in-mates</b>
+      <br>
+      <br>
+      <div class="explainer_arrows">
+        <i class="icon-star inmate_star"></i> <i class="icon-arrow-right"></i> <i class="icon-star friend_star"></i>
+      </div>
+      <div>Click an .in-mate's star to receive notifications when they create ideas or chat.</div>
+      <br>
+      Click on <%= render 'shared/new_idea_button' %> to create a new idea
+    </div>
+  </div>
+<% else %>

@@ -3,7 +3,8 @@
     <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
 <% end %>
 <div class="event_show clearfix">
-    <ul class="social_buttons">
+<% if user_signed_in? %>
+  <ul class="social_buttons">
     <li>
       <%= render partial: 'social/twitter', locals: { :event => @event } %>
     </li>
@@ -14,6 +15,7 @@
       <%= render partial: 'social/email', locals: { :event => @event } %>
     </li>
   </ul>
+<% end %>
   <% if user_signed_in? %>
     <div id="rsvpForm" class="join_group_buttons padding_10 <%= current_user.in?(@event) ? 'rsvp_blue' : '' %>">
   <% else %>
@@ -91,7 +93,11 @@
   </div>
 
   <% if user_signed_in? %>
-    <% unless @event.one_time? || !current_user.in?(@event) %>
+    <% if @event.one_time? %>
+    <div class="one_time_notice">
+      <span style="color:white;"> One Time Idea</span>
+    </div>
+    <% elsif current_user.in?(@event) %>
       <%= link_to event_new_time_path(@event), id:"makeATime", class:"btn-success btn-new-time" do %>
         <span style="color:white;"><i class="icon-time"></i> Add a New Time</span>
       <% end %>
@@ -115,6 +121,38 @@
 
   <div class="event_guests part clearfix">
     <%= render partial: 'shared/guest_count', locals: { :event => @event } %>
+        <div id="fbSendInvite">    
+      <% if user_signed_in? && @graph.present? %>
+        <div id="fbSendInvite">
+          <%= image_tag "social/fb.png", :width => "20", title: "Find Friends through Facebook" %> .invite facebook friends
+        </div>
+        <script>
+          document.getElementById('fbSendInvite').addEventListener('click', function(){
+            FB.ui({
+              method: 'send',
+              name: "<%= @event.title %>",
+              <% if Rails.env.production? %>
+              link: "<%= event_url(@event) %>",
+              <% else %>
+              link: "http://www.hoos.in",
+              <% end %>
+              picture: "<%= if @event.has_image? then @event.image(:medium) end %>",
+              <% if @event.next_instance.present? %>
+              description: "<%= @event.next_instance.start_date_time + ' - ' + @event.url_safe_description %>"
+              <% else %>
+              description: "<%= @event.short_description %>"
+              <% end %>
+            })
+          });
+        </script>
+      <% elsif user_signed_in? %>
+        <div class="fb_button" title="add Facebook to Find Friends">
+          <div id="auth-status">
+            <a href="#" id="auth-loginlink" class="fb-login-button" ><%= image_tag "social/fb.png", :width => "30" %> <span class='share_on_fb'>share w/ facebook</span></a>
+          </div>
+        </div>
+      <% end %>
+    </div>
     <% if user_signed_in? %>
       <% if current_user.in?(@event) %>
         <%= render partial: 'shared/user', collection: [@event.user], as: :user %>
@@ -146,6 +184,7 @@
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=327936950625049";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+
 
 <% if false %>
 <% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.zone.now - 7.seconds %>

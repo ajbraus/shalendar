@@ -24,14 +24,14 @@ Notifier.email_comment(comment, user).deliver
 
 Notifier.new_idea(event, user).deliver
 
-Notifier.rsvp_reminder(time, user).deliver
-
 Notifier.time_change(time, user).deliver
 
 Notifier.new_time(time, user).deliver
 
 Notifier.new_rsvp(event, user, other_user).deliver
  
-Notifier.follow_up(user, event, users).deliver
-
 Notifier.new_fb_inmate(user, other_user).deliver
+
+Notifier.new_inmate(user, other_user).deliver
+
+Notifier.inmate_invite(user, other_user).deliver

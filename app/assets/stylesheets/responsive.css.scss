@@ -116,7 +116,8 @@ left: 12px;
 // LAYOUT IS PROPORTIONAL
 
 	.layout {
-		width:98%
+		width:100%;
+		margin-top: 20px;
 	}
 
 // INCLUDE YESTERDAY TOMORROW BUTTONS
@@ -157,7 +158,6 @@ left: 12px;
 	}	
 
 	.mini_event {
-		height:100px;
 	}
 
 	.idea_container {
@@ -183,7 +183,7 @@ margin-right: 2%;
 
 	.event_show {
 		margin:0;
-		width: 102%;
+		width: 100%;
 		left: 7px;
 		bottom: 10px;
 		overflow: hidden;
@@ -395,9 +395,7 @@ bottom: 21px;
 	.user_show {
 		width:100%;
 	}
-	.inmates_bar {
-		display: none;
-	}
+
 
 	.shield_bottom {
 		right: 0px;

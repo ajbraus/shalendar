@@ -1,2 +1,0 @@
-$ ->
-  $("a.fancybox").fancybox()

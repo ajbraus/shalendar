@@ -1,4 +1,42 @@
 
+
+
+	DONE Add back invitations
+		DONE created invitation.rb
+		DONE created create_invitiations_again migration
+		DONE in rsvp_in! in user.rb update to 
+			unless friends_only, add invitest for all current_user's .in-mate's invited events
+		DONE in rsvp_out! in user.rb update to 
+			unless friends_only, remove from all current_user's .in-mate's invited events
+		DONE update shalendar controller and users controller
+	
+	Make user_show page root
+		DONE move all shalendar views into user views
+		DONE update all partials (find all in views folder for 'shalendar')
+		DONE change all routes from shalendar to users
+		DONE move all shalendar methods into users controller
+		DONE rebuild show logic
+		DONE rebuild show page
+			DONE show mini_calendar
+			DONE toggleSlide .in-mates
+			DONE show picture and stats in upper right
+			DONE fix logic of mini_calendar to only show all/no-friends/nothing (friends/in-mates/neither)
+			DONE toggle ins / invites
+
+	DONE facebook invite with send dialogue
+
+	DONE Save from city being wrong from facebook
+		DONE create template and route and registrations method
+		DONE fix everything that that broke
+		DONE validate that city present in pick_city
+		DONE after signup and after pick_city it goes to original url - after_filter only pick_city
+
+	DONE sort ideas chronologically with newest on top left
+	DONE scope invites and times to current city id
+	DONE scope inmates by city
+
+
+
 	DONE fixing .in and out so that it is one click and it reloads the calendar.
 	DONE Just blue and red checks
 	DONE Don't disappear after outing
@@ -183,3 +221,5 @@ DONE show times in shield and show
 
 	~the hoos.in team
 	Mike & Adam & Alex
+
+

@@ -69,11 +69,13 @@
        
     <%= f.submit 'Update Idea', :class => 'btn btn-large btn-primary', method: :post %>
     
+    <% unless @event.one_time? %>
     <div style="margin-top: 17px;">
       <%= link_to event_new_time_path(@event), id:"makeATime", class:"btn btn-large btn-success rsvp_button" do %>
         <i class="icon-copy"></i> New Time
       <% end %>
     </div>
+    <% end %>
     <div style="margin-top: 17px;">
       <%= link_to @event, method: :delete, data: { confirm: 'Are you sure? This will notify all guests that the idea is canceled.' }, class: "btn btn-large btn-danger" do %>
         <i class="icon-trash"></i> Cancel this Idea

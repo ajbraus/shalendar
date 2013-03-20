@@ -17,7 +17,6 @@
       <% end %>
     <% end %>
   </div>
-
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
 
         <h2>Personal Settings</h2>
@@ -34,10 +33,10 @@
     <%= f.file_field :background %></div>
 
     <div><%= label_tag :city_name %><br />
-    <%= text_field_tag :city_name, nil, value: "#{resource.city.name}", data: { autocomplete_source: city_names_path } %></div>
+    <%= text_field_tag :city_name, nil, value: "#{current_user.city.name}", data: { autocomplete_source: city_names_path } %></div>
     <br>
 
-    <% if current_user.authentications.find_by_provider("Facebook") == nil %>
+    <% if current_user.authentications.none? %>
       <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
       <%= f.password_field :password, :autocomplete => "off" %></div>
 
@@ -68,7 +67,7 @@
     </p>
     <p>
       <%= f.check_box :notify_event_reminders %>
-      <label for="notify_event_reminders"><strong>Remind me, Please</strong> - Recieve reminders for your upcoming plans.</label>
+      <label for="notify_event_reminders"><strong>Remind me, Please</strong> - Receive reminders for your upcoming plans.</label>
     </p>
     <p>
       <%= f.check_box :digest %>
@@ -82,24 +81,8 @@
     <div><%= f.submit "Update", :class => "btn btn-warning btn-large" %></div>
     <% end %>
 
-    <p><%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure you would like to cancel? This will delete all future and past hoos.in ideas you've created and will remove all friendships.", :method => :delete, :class => "fadeInRed" %></p>
-
-    <% if false %>
-    <% if current_user.authentications.any? == true %>
-    <p>Remove Authentications</p>
-    <p>
-      <% current_user.authentications.each do |a| %>
-      <p>
-        <table>
-          <tr>
-            <td width="100px"><%= a.provider %></td>
-            <td width="50px"><%= link_to raw("<i class='icon-remove-sign'></i>"), a, confirm: 'Are you sure you want to remove your Facebook authentication?', method: :delete %></td>
-          </tr>
-        </table>
-      </p>
-      <% end %>
-    </p>
-
+    <p><%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure you would like to cancel? This will remove all you're .in-mates.", :method => :delete, :class => "fadeInRed" %></p>
+<% if false %>
     <% if current_user.vendor? %>
     <p>
       <%= link_to raw("<i class='icon-remove-sign'></i> Remove Vendor Privileges"), downgrade_path, confirm: 'Are you sure? You will no longer be able to post community ideas or represent your brand.' %>
@@ -109,7 +92,5 @@
       <%= link_to "Become a Venue User", new_card_path %>
     </p>
     <% end %>
-
-    <% end %>
-    <% end %>
+  <% end %>
 </div>

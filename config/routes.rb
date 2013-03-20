@@ -1,10 +1,10 @@
 Shalendar::Application.routes.draw do
 
+  root :to => 'users#show'
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/careers', :to => 'static_pages#careers', :as => "careers"
   match '/terms', :to => 'static_pages#terms_header', :as => "terms"
-  match '/admin_dashboard', :to => 'shalendar#admin_dashboard', :as => "admin_dashboard"
-
+  match '/admin_dashboard', :to => 'users#admin_dashboard', :as => "admin_dashboard"
 
   # City.all.each do |c| #for all cities
   #   match "/#{c.name.split(',')[0].gsub(/\s+/, "_").downcase}", :to => 'shalendar#home', :as => "#{c.name.split(',')[0].gsub(/\s+/, "").gsub("-", "_").gsub(".", "_").downcase}", :city => "#{c.name}"
@@ -12,16 +12,7 @@ Shalendar::Application.routes.draw do
 
   resources :authentications, :only => [:destroy]
   # match '/auth/:authentication/callback' => 'authentications#create' 
-  
-  authenticated :user do
-    root :to => 'shalendar#home'
-  end
 
-  resources :users, :only => [:show] do #for profile page 
-    get :autocomplete_city_name, :on => :collection
-  end
-  
-  root :to => 'shalendar#home'
 
   devise_for :users, 
              controllers:   { omniauth_callbacks: "users/omniauth_callbacks", 
@@ -37,6 +28,10 @@ Shalendar::Application.routes.draw do
   devise_scope :user do
     get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
+
+  resources :users, :only => [:show, :update]
+
+  match '/pick_city', to: 'users#pick_city', as: 'pick_city'
 
   match '/city_names', :to => 'users#city_names', :as => "city_names"
   match '/get_fb_friends_to_invite', :to => 'events#get_fb_friends_to_invite', :as => 'get_fb_friends_to_invite'
@@ -61,19 +56,20 @@ Shalendar::Application.routes.draw do
     put :toggle
     delete :ignore
     put :confirm
-    put :confirm_and_follow
   end
 
   match '/ignore_inmate/:id', :to => 'relationships#ignore_inmate', as: 'ignore_inmate'
   match '/re_inmate/:id', :to => 'relationships#re_inmate', as: 're_inmate'
+  match '/inmate_invite/:id', :to => 'relationships#inmate_invite', as: 'inmate_invite'
+  match '/inmate/:id', :to => 'relationships#inmate', as: 'inmate'
 
-  match '/findfriends', :to => 'shalendar#find_friends', :as => "find_friends"
-  match 'share_all_fb_friends' =>'shalendar#share_all_fb_friends'
+  match '/findfriends', :to => 'users#find_friends', :as => "find_friends"
+  match 'share_all_fb_friends' =>'users#share_all_fb_friends'
   match 'post_to_own_fb_wall' => 'events#post_to_own_fb_wall'
-  match 'post_to_wall_permissions' => 'shalendar#post_to_wall_permissions'
+  match 'post_to_wall_permissions' => 'users#post_to_wall_permissions'
   #match 'new_invited_events' => 'shalendar#new_invited_events'
   #match 'plans' => 'shalendar#plans'
-  match 'search' => 'shalendar#search'
+  match 'search' => 'users#search'
 
   #PAYMENTS
   #match '/set_time_zone', :to => 'users#set_time_zone', :as => 'set_time_zone'
