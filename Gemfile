@@ -14,7 +14,7 @@ gem 'chronic'
 gem 'twilio-rb'
 gem 'phony_rails'
 gem 'useragent'
-gem 'fancybox-rails', :git => 'https://github.com/sverigemeny/fancybox-rails'
+gem "fancybox-rails", "~> 0.2.1"
 
 gem "eventmachine" #fixing bug in staging
 

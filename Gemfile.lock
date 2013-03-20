@@ -15,13 +15,6 @@ GIT
       activerecord
       configatron
 
-GIT
-  remote: https://github.com/sverigemeny/fancybox-rails
-  revision: b1fd194e028f49c6aafb208feb2db70031ab184d
-  specs:
-    fancybox-rails (0.1.4)
-      railties (>= 3.1.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -151,6 +144,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.0.1)
       i18n (~> 0.4)
+    fancybox-rails (0.2.1)
+      railties (>= 3.1.0)
     faraday (0.8.6)
       multipart-post (~> 1.1)
     faraday_middleware (0.8.8)
@@ -418,7 +413,7 @@ DEPENDENCIES
   eventmachine
   factory_girl_rails (= 1.4.0)
   faker (= 1.0.1)
-  fancybox-rails!
+  fancybox-rails (~> 0.2.1)
   font-awesome-sass-rails
   friendly_id (~> 4.0.1)
   gcm_on_rails!
