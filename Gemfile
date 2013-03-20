@@ -16,6 +16,8 @@ gem 'phony_rails'
 gem 'useragent'
 gem 'fancybox-rails', :git => 'https://github.com/sverigemeny/fancybox-rails'
 
+gem "eventmachine" #fixing bug in staging
+
 # gem 'apn_sender', :require => 'apn'
 # gem 'daemons-rails'
 # gem 'resque', "~> 1.22.0", :require => "resque/server"

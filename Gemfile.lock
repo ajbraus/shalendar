@@ -415,6 +415,7 @@ DEPENDENCIES
   devise (= 2.1.0)
   devise-i18n
   email_spec (= 1.2.1)
+  eventmachine
   factory_girl_rails (= 1.4.0)
   faker (= 1.0.1)
   fancybox-rails!
