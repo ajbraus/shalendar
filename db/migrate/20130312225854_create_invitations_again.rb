@@ -15,8 +15,16 @@ class CreateInvitationsAgain < ActiveRecord::Migration
       u.plans.each do |p|
         u.invitations.create!(invited_event_id: p.id)
         u.inmates_and_friends.each do |f|
-          unless f.already_invited?(p)
-            f.invitations.create!(invited_event_id: p.id)
+          if p.friends_only?
+            if u.is_friends_with?(f)
+              unless f.already_invited?(p)
+                f.invitations.create!(invited_event_id: p.id)
+              end
+            end
+          else
+            unless f.already_invited?(p)
+              f.invitations.create!(invited_event_id: p.id)
+            end
           end
         end
       end

@@ -20,15 +20,17 @@ class UsersController < ApplicationController
       @user_plans = @user.plans.where(city_id: @current_city_id)
       @star_count = @user.friended_bys.count
       if user_signed_in?
-        if @user.is_friends_with?(current_user) || @user == current_user  
+        if @user == current_user  
           #invited_ideas = ideas with invitations - i.e. ideas you create, ideas your in-mates are in on, that you are not out of
           @ideas = @user.invited_ideas.where('city_id = ?', @current_city_id).order('created_at DESC').reject { |i| @user.out?(i) || i.no_relevant_instances? }
           #invited_times = times with invitations - i.e. times you created, times your in-mates are in on, that you are not out of
           @times = @user.invited_times.where('city_id = ?', @current_city_id).reject { |i| @user.out?(i) }
-          #@past_times = @user.plans.unscoped.where("starts_at < ?", Time.zone.now).order('starts_at DESC').first(20)
+        elsif @user.is_friends_with?(current_user)
+          @ideas = @user_plans.where('starts_at IS NULL').order('created_at DESC').reject { |i| @user.out?(i) || i.no_relevant_instances? }
+          @times = @user_plans.where('starts_at > ? AND starts_at < ?', Time.zone.now, Time.zone.now + 59.days).reject { |i| @user.out?(i) }#.reject { |i| i.friends_only? }
         elsif @user.is_inmates_with?(current_user)
-          @ideas = @user_plans.where('city_id = ? AND friends_only = ? AND starts_at IS NULL', @current_city.id, false).order('created_at DESC').reject { |i| @user.out?(i) || i.no_relevant_instances? }
-          @times = @user.invited_times.where('city_id = ? AND friends_only = ?',  @current_city_id, false).reject { |i| @user.out?(i) }#.reject { |i| i.friends_only? }
+          @ideas = @user_plans.where('friends_only = ? AND starts_at IS NULL', false).order('created_at DESC').reject { |i| @user.out?(i) || i.no_relevant_instances? }
+          @times = @user_plans.where('starts_at > ? AND starts_at < ? AND friends_only = ?', Time.zone.now, Time.zone.now + 59.days, false).reject { |i| @user.out?(i) }
           #@past_times = @user.plans.unscoped.where("starts_at < ?", Time.zone.now).order('starts_at DESC').first(20)
         else
           @ideas = @user_plans.where('city_id = ? AND friends_only = ? AND starts_at IS NULL', @current_city_id, false).order('created_at DESC').reject { |i| i.no_relevant_instances? }
@@ -57,6 +59,9 @@ class UsersController < ApplicationController
     
     respond_to do |format|
       if @user.update_attributes(params[:user])
+        if @user.fb_user?
+          @user.add_fb_events(session[:graph])
+        end
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else

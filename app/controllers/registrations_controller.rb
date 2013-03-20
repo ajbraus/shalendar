@@ -41,6 +41,9 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update
+    if resource_params.blank?
+      resource_params = params['user']
+    end
     #change city name into idco
     @city = City.find_by_name(params[:city_name])
     if @city.present?
@@ -67,7 +70,7 @@ class RegistrationsController < Devise::RegistrationsController
       # end
       if current_user.sign_in_count == 1 && session[:previous_urls].present? 
         @url = session[:previous_urls].reverse.first
-        redirect_to @url and return
+        redirect_to @url, notice: "City successfully updated" and return
       else
         sign_in resource_name, resource, :bypass => true
         respond_with resource, :location => root_path

@@ -72,8 +72,6 @@
                                duration: @event.duration,
                                address: @event.address,
                                link: @event.link,
-                               promo_img: @event.promo_img,
-                               promo_url: @event.promo_url,
                                promo_vid: @event.promo_vid,
                                friends_only: @event.friends_only,
                                one_time: @event.one_time,

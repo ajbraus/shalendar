@@ -13,7 +13,7 @@
 		<% elsif !@user.ignores?(current_user) %>
 			<div class="show_friend follow_form_hook" data-user-id='<%= @user.id %>'>
 				<%= link_to url_options = { :controller => :relationships, :action => :inmate, :id => @user.id }, html_options = { class:"btn btn-inmate", id:'re-inmate', title: "make #{@user.first_name} your .in-mate" } do %>
-					<i class="icon-star"></i>
+					add <i class="icon-star"></i>
 				<% end %>					
 			</div>
 		<% end %>

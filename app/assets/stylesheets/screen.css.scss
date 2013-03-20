@@ -387,9 +387,9 @@ color:gold;
 .btn-inmate {
   background: none;
   border: none;
-  color: white;
+  color: lightgrey;
     &:hover {
-  color:lightgrey;
+  color: white;
 }
 }
 
@@ -597,7 +597,7 @@ font-weight: bold;
 text-decoration: none;
 text-shadow: 1px 1px 0px white;
 width: 25px;
-padding: 5px 0 5.5px 0;
+padding: 5px 0 5px 0;
 bottom: -1px;
 }
 .btn-user-search:hover {
@@ -2870,7 +2870,7 @@ padding: 10px;
 -webkit-box-sizing: border-box;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
-top: 150px;
+top: 145px;
 width: 350px;
 left: -340px;
   img {
@@ -2879,23 +2879,33 @@ left: -340px;
   }
 }
 
-.bubble {
-position: relative;
-background: white;
-border-radius: 100px;
+#showInmates {
+cursor: pointer;
 float: right;
-padding: 6px 7px;
-left: 25px;
-}
-
-#showCalendar, #showInmates {
-  cursor: pointer;
-  float: right;
-  background-color: white;
-  color:#999;
-  border-radius: 170px;
+background-color: white;
+color: #999;
+left: 94px;
+position: relative;
+padding: 5px;
+bottom: 10px;
   &:hover {   
     background-color: rgb(235, 235, 235);
+    -webkit-transition: background-color .25s linear .1s;
+    transition: background-color .25s linear .1s;
+  }
+}
+
+#showCalendar {
+  cursor: pointer;
+float: right;
+background-color: rgb(77, 77, 77);
+color: white;
+left: 94px;
+position: relative;
+padding: 5px;
+bottom: 10px;
+  &:hover {   
+    background-color: black;
     -webkit-transition: background-color .25s linear .1s;
     transition: background-color .25s linear .1s;
   }
@@ -3308,8 +3318,8 @@ top: -16px;
 .ins_arrow {
 width: 250px;
 position: absolute;
-right: -55px;
-top: 90px;
+right: -5px;
+top: 60px;
 -moz-transform: scaleX(-1) rotate(-119deg);
 -o-transform: scaleX(-1) rotate(-119deg);
 -webkit-transform: scaleX(-1) rotate(-119deg);
@@ -3382,7 +3392,7 @@ padding-left: 10px;
 
 .mini_calendar_days {
 position: relative;
-top: 40px;
+top: 55px;
 }
 
 .settings_logout {
@@ -3432,4 +3442,8 @@ margin-top: 30px;
     font-size: 1.3em;
     line-height: 1.4em;
   }
+}
+.share_on_fb {
+position: relative;
+bottom:6px;
 }

@@ -258,8 +258,8 @@ class User < ActiveRecord::Base
     @event_user = event.user
     @parent = event.parent
     if @parent.present? && !self.in?(@parent)
-      @parent_user = @parent.user
       self.rsvp_in!(@parent)
+      @parent_user = @parent.user
         #contact only once if they sign up for time + idea, if time.user and idea.user are different send both
       if @event_user != @parent_user      
         unless @event_user == self || event.over?
@@ -279,6 +279,21 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  # should be .interested! and .in! calls for parents and instances
+  # if one_time rsvp to both
+  #   unless event.user = rsvp.user
+  #     send one rsvp notification to creator
+  #   end
+  # else #not one time
+  #   if rspv to instance
+  #     rsvp to parent
+  #     send one rspv notification to instance creator
+  #   else #rsvp to parent
+  #     send one rsvp notification to parent creator
+  #   end
+  # end
+    
 
   def rsvp_out!(event)
     @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
@@ -526,6 +541,58 @@ class User < ActiveRecord::Base
         self.inmate!(mf)
         mf.delay.contact_new_fb_inmate(self)
       end
+    end
+  end
+
+  def add_fb_events(graph)
+    @graph = graph
+    @fb_events = @graph.fql_query("SELECT creator, name, description, start_time, end_time, pic_big, location, host, privacy, can_invite_friends 
+                                  FROM event where eid IN
+                                  (SELECT eid FROM event_member WHERE uid = me() and rsvp_status='attending')")
+    #@graph.get_connections("me", "events", args={fields:"id, name, description, start_time, end_time, picture, location, owner"})
+    @fb_events.each do |fbe|
+      @existing_event = Event.find_by_fb_id(fbe["id"])
+      if @existing_event.blank? #event already exists
+        @start_time = Chronic.parse(fbe['start_time'])
+        @end_time = Chronic.parse(fbe['end_time'])
+        if @end_time.blank?
+          @end_time = @start_time + 2.hours
+        end
+        unless @end_time < Time.now || fbe['privacy'] == 'SECRET' || fbe['can_invite_friends'] == false #event is already over
+          #PARENT
+          @hi_parent = Event.new(fb_id: fbe['id'],
+                              user_id: self.id,
+                              city_id: self.city.id,
+                              title: fbe["name"],
+                              description: "#{fbe['description']} - hosted by #{fbe['host']}",
+                              address: fbe['location'],
+                              one_time: true,
+                              promo_url: fbe['pic_big'])
+          
+          @hi_parent.picture_from_url(fbe['pic_big'])
+          if fbe['privacy'] == "FRIENDS"
+            @hi_parent.friends_only = true
+          end
+          @hi_parent.save
+          self.rsvp_in!(@hi_parent)
+          #TIME
+          @hi_time = Event.new(fb_id: fbe['id'],
+                              parent_id: @hi_parent.id,
+                              user_id: self.id,
+                              city_id: self.city.id,
+                              title: fbe["name"],
+                              description: "#{fbe['description']} - hosted by #{fbe['host']}",
+                              address: fbe['location'],
+                              starts_at: @start_time,
+                              ends_at: @end_time,
+                              one_time: true,
+                              friends_only: @hi_parent.friends_only)
+          @hi_time.save
+          self.rsvp_in!(@hi_time)
+        end #UNLESS OVER
+      else #hi idea already exists
+        self.rsvp_in!(@existing_event)
+      end #END HI IDEA EXISTS
     end
   end
 

@@ -28,6 +28,9 @@ private
 
       #make all fb_friends on hoos.in into .in-mates
       @user.add_fb_to_inmates(session[:graph])
+      if @user.city.present?
+        @user.add_fb_events(session[:graph])
+      end
       @user.convert_email_invites
 
       sign_in_and_redirect @user, :event => :authentication

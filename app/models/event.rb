@@ -40,7 +40,9 @@ class Event < ActiveRecord::Base
                   :city_id,
                   :one_time,
                   :dead,
-                  :friends_only
+                  :friends_only,
+                  :invisible,
+                  :fb_id
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
                                              :medium => '190x270'},
@@ -231,34 +233,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def image(size) #e.g. e.image(:medium)
-    if self.parent.blank?
-      if self.promo_url.present?
-        return promo_url
-      elsif self.promo_img_file_size.present?
-        if size == :medium
-          return self.promo_img.url(:medium)
-        else 
-          return self.promo_img.url(:large)
-        end
-      else
-        return nil
-      end
-    else
-      if self.parent.promo_url.present?
-        return parent.promo_url
-      elsif self.parent.promo_img_file_size.present?
-        if size == :medium
-          return self.parent.promo_img.url(:medium)
-        else 
-          return self.parent.promo_img.url(:large)
-        end
-      else 
-        return nil
-      end
-    end
-  end
-
   def post_to_fb_wall(uid, graph)
     if Rails.env.production?
       if self.has_image?
@@ -305,13 +279,25 @@ class Event < ActiveRecord::Base
   end
 
   def image(size)
-    if !self.promo_url.nil? && self.promo_url != ""
-      self.promo_url
-    elsif !self.promo_img_file_size.nil?
-      if size == "medium"
-        self.promo_img.url(:medium)
-      else
-        self.promo_img.url(:large)
+    if self.parent.present?    
+      if self.parent.promo_img_file_size.present?
+        if size == "medium"
+          self.parent.promo_img.url(:medium)
+        else
+          self.parent.promo_img.url(:large)
+        end
+      elsif self.parent.promo_url.present?
+        self.parent.promo_url
+      end
+    else
+      if self.promo_img_file_size.present?
+        if size == "medium"
+          self.promo_img.url(:medium)
+        else
+          self.promo_img.url(:large)
+        end
+      elsif self.promo_url.present?
+        self.promo_url
       end
     end
   end
@@ -324,6 +310,20 @@ class Event < ActiveRecord::Base
 
   def nice_duration
     self.duration.to_s.split(/\.0/)[0] + ' ' + 'hrs' if duration
+  end
+
+  def url_safe_description
+    if self.description.size >=150
+      self.description.slice(0..150).gsub(/\n/," ") + "..."
+    else
+      self.description.gsub(/\n/," ")
+    end
+  end
+
+  def picture_from_url(url)
+    if url.present?
+      self.promo_img = open(url)
+    end
   end
 
   def event_parent
