@@ -1,4 +1,8 @@
-
+	DONE make settings work
+	DONE don't show times of ideas if not inmates
+	DONE make inmates bar more obvious
+	DONE make 'make inmate' more obvious
+	DONE if not authenticated through fb, change text "login to fb to share"
 
 
 	DONE Add back invitations

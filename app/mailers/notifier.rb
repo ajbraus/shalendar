@@ -78,7 +78,7 @@ class Notifier < ActionMailer::Base
     @event = event
     @user = user 
     unless @user == @event.user
-      mail to: user.email, subject: "cancellation - #{@event.title}" 
+      mail to: user.email, subject: "#{@event.user.first_name} canceled the idea: #{@event.title}" 
     end
   end
 
@@ -91,14 +91,14 @@ class Notifier < ActionMailer::Base
     @comments.shift(1)
     @comment_time = @comment.created_at.strftime "%l:%M%P, %A %B %e"
     @event_link = event_url(@event)
-    mail to: @user.email, subject: ".info - #{@comment.content} - #{@commenter}"
+    mail to: @user.email, subject: ".info - #{@commenter} chatted - #{@comment.content}"
   end
 
   def new_idea(event, user)
     @event = event
     @user = user
     unless @user == User.find_by_email("info@hoos.in")
-      mail to: @user.email, subject: ".invite - #{@event.short_event_title} - #{@event.user.first_name_with_last_initial} "
+      mail to: @user.email, subject: ".invite - #{@event.user.first_name} invited you! - #{@event.short_event_title} "
     end
   end
 
@@ -107,7 +107,7 @@ class Notifier < ActionMailer::Base
     @event = event
 
     unless @user == User.find_by_email("info@hoos.in")
-      mail to: @user.email, subject: "this .instant - #{@event.short_event_title} is starting"
+      mail to: @user.email, subject: "reminder - #{@event.user.first_name}'s idea is starting - #{@event.short_event_title}"
     end
   end
 
@@ -115,7 +115,7 @@ class Notifier < ActionMailer::Base
     @user = user
     @event = event
     @event_link = event_url(@event)
-    mail to: @user.email, subject: ".interruption - #{@event.short_event_title}"
+    mail to: @user.email, subject: ".interruption -#{@event.user.first_name} changed times for an idea - #{@event.short_event_title}"
     rescue => ex
     Airbrake.notify(ex)
   end
@@ -124,7 +124,7 @@ class Notifier < ActionMailer::Base
     @user = user
     @event = event
     @event_link = event_url(@event)
-    mail to: @user.email, from: "info@hoos.in", subject: "new time - #{@event.start_time} - #{@event.title}"
+    mail to: @user.email, from: "info@hoos.in", subject: "new time - #{@event.user.first_name} created a new time - #{@event.start_time} - #{@event.title}"
   end
 
   def new_rsvp(event, user, rsvping_user)
@@ -142,7 +142,7 @@ class Notifier < ActionMailer::Base
     @new_inner_ideas = new_inner_ideas
     @new_inmate_ideas = new_inmate_ideas
     @new_ideas_count = users_new_ideas_count
-    mail to: @user.email, from: "info@hoos.in", subject: "upcoming and trending ideas on hoos.in"
+    mail to: @user.email, from: "info@hoos.in", subject: "your new and upcoming ideas on hoos.in"
   end
 
   # def follow_up(user, event, new_inmates)

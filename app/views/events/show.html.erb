@@ -124,7 +124,7 @@
         <div id="fbSendInvite">    
       <% if user_signed_in? && @graph.present? %>
         <div id="fbSendInvite">
-          <%= image_tag "social/fb.png", :width => "20", title: "Find Friends through Facebook" %> .invite facebook friends
+          <%= image_tag "social/fb.png", :width => "20", title: "Find Friends through Facebook" %> <span class='share_on_fb'>.invite facebook friends</span>
         </div>
         <script>
           document.getElementById('fbSendInvite').addEventListener('click', function(){

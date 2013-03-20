@@ -39,7 +39,30 @@
         <%= render partial: 'social/email', locals: { :event => @time } %>
       </li>
     </ul>
-    <h3>.invite your friends</h3>
+          <% if user_signed_in? && @graph.present? %>
+        <div id="fbSendInvite">
+          <%= image_tag "social/fb.png", :width => "20", title: "Find Friends through Facebook" %> <span class='share_on_fb'>.invite facebook friends</span>
+        </div>
+        <script>
+          document.getElementById('fbSendInvite').addEventListener('click', function(){
+            FB.ui({
+              method: 'send',
+              name: "<%= @event.title %>",
+              <% if Rails.env.production? %>
+              link: "<%= event_url(@event) %>",
+              <% else %>
+              link: "http://www.hoos.in",
+              <% end %>
+              picture: "<%= if @event.has_image? then @event.image(:medium) end %>",
+              <% if @event.next_instance.present? %>
+              description: "<%= @event.next_instance.start_date_time + ' - ' + @event.url_safe_description %>"
+              <% else %>
+              description: "<%= @event.url_safe_description %>"
+              <% end %>
+            })
+          });
+        </script>
+      <% end %>
   <% elsif event.has_future_instance? %>
     <ul class="social_buttons">
       <li>
@@ -52,7 +75,30 @@
         <%= render partial: 'social/email', locals: { :event => @event } %>
       </li>
     </ul>
-    <h3>.invite your friends</h3>
+          <% if user_signed_in? && @graph.present? %>
+        <div id="fbSendInvite">
+          <%= image_tag "social/fb.png", :width => "20", title: "Find Friends through Facebook" %> <span class='share_on_fb'>.invite facebook friends</span>
+        </div>
+        <script>
+          document.getElementById('fbSendInvite').addEventListener('click', function(){
+            FB.ui({
+              method: 'send',
+              name: "<%= @event.title %>",
+              <% if Rails.env.production? %>
+              link: "<%= event_url(@event) %>",
+              <% else %>
+              link: "http://www.hoos.in",
+              <% end %>
+              picture: "<%= if @event.has_image? then @event.image(:medium) end %>",
+              <% if @event.next_instance.present? %>
+              description: "<%= @event.next_instance.start_date_time + ' - ' + @event.url_safe_description %>"
+              <% else %>
+              description: "<%= @event.url_safe_description %>"
+              <% end %>
+            })
+          });
+        </script>
+      <% end %>
     <h1 class="join_next_time">join .in the next time?</h1>
     <% @next_instance = event.next_instance %>
     <h1><strong>When:</strong> <%= start_time(@next_instance) %></h1>
@@ -83,6 +129,30 @@
         <%= render partial: 'social/email', locals: { :event => @event } %>
       </li>
     </ul>
-    <h3>.invite your friends</h3>
+            <div id="fbSendInvite">    
+      <% if user_signed_in? && @graph.present? %>
+        <div id="fbSendInvite">
+          <%= image_tag "social/fb.png", :width => "20", title: "Find Friends through Facebook" %> <span class='share_on_fb'>.invite facebook friends</span>
+        </div>
+        <script>
+          document.getElementById('fbSendInvite').addEventListener('click', function(){
+            FB.ui({
+              method: 'send',
+              name: "<%= @event.title %>",
+              <% if Rails.env.production? %>
+              link: "<%= event_url(@event) %>",
+              <% else %>
+              link: "http://www.hoos.in",
+              <% end %>
+              picture: "<%= if @event.has_image? then @event.image(:medium) end %>",
+              <% if @event.next_instance.present? %>
+              description: "<%= @event.next_instance.start_date_time + ' - ' + @event.url_safe_description %>"
+              <% else %>
+              description: "<%= @event.url_safe_description %>"
+              <% end %>
+            })
+          });
+        </script>
+      <% end %>
   <% end %>
 </div>

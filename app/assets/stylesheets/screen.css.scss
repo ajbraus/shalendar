@@ -722,7 +722,7 @@ header {
   clear: both;
   position: fixed;
   top:0;
-  z-index: 1;
+  z-index: 2;
   width:100%;
   nav {
 -webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
@@ -2872,7 +2872,7 @@ padding: 10px;
 box-sizing: border-box;
 top: 145px;
 width: 350px;
-left: -340px;
+left: -350px;
   img {
     width:37px;
     height:37px;
@@ -2884,7 +2884,7 @@ cursor: pointer;
 float: right;
 background-color: white;
 color: #999;
-left: 94px;
+left: 99px;
 position: relative;
 padding: 5px;
 bottom: 10px;
@@ -3361,6 +3361,7 @@ font-size: 19px;
   cursor: pointer;
   color: darkblue;
   clear:both;
+  text-align: center;
 }
 
 .pick-city {
@@ -3400,7 +3401,7 @@ top: 55px;
 top: 127px;
 font-size: 11px;
 left: 29px;
-z-index: 10;
+z-index: 2;
 }
 
 #invites, #ins {
@@ -3445,5 +3446,5 @@ margin-top: 30px;
 }
 .share_on_fb {
 position: relative;
-bottom:6px;
+bottom: 4px;
 }

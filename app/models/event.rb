@@ -41,7 +41,6 @@ class Event < ActiveRecord::Base
                   :one_time,
                   :dead,
                   :friends_only,
-                  :invisible,
                   :fb_id
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
@@ -313,10 +312,14 @@ class Event < ActiveRecord::Base
   end
 
   def url_safe_description
-    if self.description.size >=150
-      self.description.slice(0..150).gsub(/\n/," ") + "..."
+    if self.description.present?
+      if self.description.size >=150
+        self.description.slice(0..150).gsub(/\n/," ") + "..."
+      else
+        self.description.gsub(/\n/," ")
+      end
     else
-      self.description.gsub(/\n/," ")
+      return ''
     end
   end
 

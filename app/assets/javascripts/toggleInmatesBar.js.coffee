@@ -10,7 +10,7 @@ $ ->
 
 	$('#showCalendar').click ->
 		$('.inmates_bar').animate
-			left: -340 
+			left: -350 
 			duration: 'slower'
 			easing: 'easeOutQuart'
 			->
