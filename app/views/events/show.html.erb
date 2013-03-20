@@ -140,7 +140,7 @@
               <% if @event.next_instance.present? %>
               description: "<%= @event.next_instance.start_date_time + ' - ' + @event.url_safe_description %>"
               <% else %>
-              description: "<%= @event.short_description %>"
+              description: "<%= @event.url_safe_description %>"
               <% end %>
             })
           });

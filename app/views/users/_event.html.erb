@@ -73,7 +73,7 @@
 		<% if event.one_time? %>
 			<div class="add_time">one time idea</div>
 		<% elsif event.next_instance.blank? && !current_user.in?(event) %>
-			<div class="add_time shield_bottom one_time">TBD</div>
+			<div class="add_time shield_bottom one_time">no times yet</div>
 		<% elsif current_user.in?(event) && !event.one_time? %>
 			<%= link_to event_new_time_path(event) do %>
 				<div class="add_time fadeInGreen"><i class="icon-time"></i> add new time</div>
