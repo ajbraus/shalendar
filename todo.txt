@@ -1,3 +1,9 @@
+Mike
+	API documentation + Mobile Models for Jeff
+	Re-factor API event loading for speed + clarity
+	Prune ins may not be working for canceled ideas (check)
+	"Add Friend" improvement to mobile
+
 Adam
 	New Idea tutorial after register
 	create idea -- on-going idea without a time, on-going idea with a time, one-time idea

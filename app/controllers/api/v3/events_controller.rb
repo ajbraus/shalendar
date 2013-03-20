@@ -91,8 +91,8 @@ class Api::V3::EventsController < ApplicationController
       @list_events.push(@temp)
     end 
     render json: {
-          :finished => @finished,
-          :events => @list_events
+        :finished => @finished,
+        :events => @list_events
     }
   end
 
