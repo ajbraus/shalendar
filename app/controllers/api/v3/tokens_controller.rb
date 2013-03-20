@@ -39,7 +39,12 @@ class Api::V3::TokensController  < ApplicationController
         return
       end
     end
+    if User.find_by_email("info@hoos.in").present?
+      @hoosin_user = User.find_by_email("info@hoos.in")
+      @user.inmate!(@hoosin_user)
+    end
     @starred_ids = []
+
     @user.friends.each do |f|
       @starred_ids.push(f.id)
     end
