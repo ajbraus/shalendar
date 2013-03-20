@@ -2905,6 +2905,9 @@ left: 94px;
 position: relative;
 padding: 5px;
 bottom: 10px;
+    border-radius: 0 7px 7px 0px;
+    -webkit-border-radius: 0 7px 7px 0px;
+    -moz-border-radius: 0 7px 7px 0px;
   &:hover {   
     background-color: black;
     -webkit-transition: background-color .25s linear .1s;
