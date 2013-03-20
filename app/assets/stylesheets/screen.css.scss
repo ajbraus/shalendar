@@ -2179,6 +2179,7 @@ width: 33%;
     width: 100px;
     position: absolute;
     top: 20px;
+    left: 20px;
   }
   .show_name {
 position: absolute;
@@ -3447,4 +3448,15 @@ margin-top: 30px;
 .share_on_fb {
 position: relative;
 bottom: 4px;
+}
+
+.back_link {
+  position: absolute;
+left: 9px;
+top: 4px;
+color: white;
+font-size: 12px;
+  &:hover {
+    color:lightgrey;
+  }
 }
