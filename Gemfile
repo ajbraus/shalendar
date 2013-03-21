@@ -17,6 +17,7 @@ gem 'useragent'
 gem "fancybox-rails", "~> 0.2.1"
 
 gem "eventmachine" #fixing bug in staging
+gem "multi_json", "~> 1.7.1" #fixing bug in staging
 
 # gem 'apn_sender', :require => 'apn'
 # gem 'daemons-rails'

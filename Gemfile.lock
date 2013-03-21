@@ -426,6 +426,7 @@ DEPENDENCIES
   koala
   lazy_high_charts
   meta_request
+  multi_json (~> 1.7.1)
   newrelic_rpm
   omniauth-facebook (= 1.2.0)
   omniauth-twitter
