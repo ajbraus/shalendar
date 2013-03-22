@@ -18,7 +18,7 @@ gem "fancybox-rails", "~> 0.2.1"
 gem "masonry-rails"
 
 gem "eventmachine" #fixing bug in staging
-gem "multi_json", '1.6.1' #fixing bug in staging
+gem "multi_json"
 
 # gem 'apn_sender', :require => 'apn'
 # gem 'daemons-rails'

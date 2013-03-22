@@ -41,14 +41,14 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    if resource_params.blank?
-      resource_params = params['user']
-    end
     #change city name into idco
+
     @city = City.find_by_name(params[:city_name])
     if @city.present?
       if resource_params.blank?
         resource_params = { "city" => nil }
+      else
+        resource_params = params['user']
       end
       resource_params[:city] = @city
     else 

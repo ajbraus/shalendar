@@ -725,12 +725,12 @@ header {
   z-index: 2;
   width:100%;
   nav {
--webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
+/*-webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
 -moz-box-shadow:    0px 0px 9px rgba(50, 50, 50, 0.3);
-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
+box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);*/
     height: inherit;
     background-color:rgba(255,255,253,1);
-    border-bottom: 1px solid lightgrey;
+    border-bottom: 1px solid $divider;
   }
 }
 
@@ -2853,6 +2853,7 @@ top: 94px;
 
 .idea_container {
   margin: 0 auto;
+  top:12px;
 }
 
 
@@ -3218,7 +3219,6 @@ box-shadow: -2px 2px 0 rgba(0, 0, 0, 0.1);
 .container_wrapper {
 margin: 0 auto;
 float: left;
-padding-top: 10px;
 margin-left: 2%;
 }
 
@@ -3430,12 +3430,14 @@ z-index: 2;
 }
 
 .no_invites, .no_ins {
-max-width: 500px;
+max-width: 420px;
 margin: 0 auto;
 padding: 15px 10%;
-background-color: $background-one;
-width: 124%;
+background-color: $background_one;
+width: 108%;
 margin-top: 30px;
+left: 27px;
+position: relative;
   li {
     font-size: 1.3em;
     line-height: 1.4em;
@@ -3462,4 +3464,11 @@ font-size: 12px;
   i {
     font-size: 16px;
   }
+}
+
+.invites_ins {
+  background: white;
+text-align: center;
+padding: 7px;
+font-size: 26px;
 }
