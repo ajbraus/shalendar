@@ -40,7 +40,7 @@ class Event < ActiveRecord::Base
                   :city_id,
                   :one_time,
                   :dead,
-                  :friends_only,
+                  :visibility,
                   :fb_id
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
@@ -411,6 +411,22 @@ class Event < ActiveRecord::Base
   def outs
     @rsvps = self.rsvps.where(inout: 0)
     @outs = @rsvps.map { |r| r.guest }
+  end
+
+  def public?
+    return self.visiblity == 3
+  end
+
+  def open_invite?
+    return self.visibility == 2
+  end
+
+  def friends_only?
+    return self.visibility == 1
+  end
+
+  def invite_only?
+    return self.visibility == 0
   end
 
 # END OF CLASS

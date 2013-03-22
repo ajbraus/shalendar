@@ -22,7 +22,7 @@
 		DONE rebuild show logic
 		DONE rebuild show page
 			DONE show mini_calendar
-			DONE toggleSlide .in-mates
+			DONE toggleSlide .intros
 			DONE show picture and stats in upper right
 			DONE fix logic of mini_calendar to only show all/no-friends/nothing (friends/in-mates/neither)
 			DONE toggle ins / invites

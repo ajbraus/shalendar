@@ -680,12 +680,12 @@ end
   <div class="mini_calendar_explanation">
     <div clas="text">
       <% unless @user == current_user %>
-        You are not .in-mates with <%= @user.first_name_with_last_initial %>
+        You are not .intros with <%= @user.first_name_with_last_initial %>
       <br>
       <br>
       <% end %>
       <div><span class="fadeInBlue in_check"><i class='icon-ok'></i></span> .interested</div>
-      Click on an idea's <span class="fadeInBlue in_check"><i class='icon-ok'></i></span> to get emails and notifications about an idea, see its times on your calendar, and make new <b>.in-mates</b>
+      Click on an idea's <span class="fadeInBlue in_check"><i class='icon-ok'></i></span> to get emails and notifications about an idea, see its times on your calendar, and make new <b>.intros</b>
       <br>
       <br>
       <div class="explainer_arrows">
@@ -697,3 +697,7 @@ end
     </div>
   </div>
 <% else %>
+
+      <div class="friends_only_bool">
+        <%= f.check_box :friends_only %> <label for="event_friends_only" class="pointer"><i class="icon-star" style="color:gold;"></i> only .invite starred .intros? </label>
+      </div>

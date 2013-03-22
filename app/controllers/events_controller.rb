@@ -73,7 +73,7 @@
                                address: @event.address,
                                link: @event.link,
                                promo_vid: @event.promo_vid,
-                               friends_only: @event.friends_only,
+                               visibility: @event.visibility,
                                one_time: @event.one_time,
                                family_friendly: @event.family_friendly,
                                price: @event.price
@@ -91,13 +91,15 @@
       end # END If starts_at present
 
       #SEND CONTACT TO ALL PPL WHO STAR CURRENT USER
-      @friended_bys = current_user.friended_bys
-      @friended_bys.each do |sb|
-        unless sb == current_user
-          if @instance.present?
-            sb.delay.contact_new_idea(@instance)
-          else
-            sb.delay.contact_new_idea(@event)
+      unless @event.visibility == 0
+        @friended_bys = current_user.friended_bys
+        @friended_bys.each do |sb|
+          unless sb == current_user
+            if @instance.present?
+              sb.delay.contact_new_idea(@instance)
+            else
+              sb.delay.contact_new_idea(@event)
+            end
           end
         end
       end
@@ -130,7 +132,7 @@
                            family_friendly: @parent.family_friendly,
                            price: @parent.price,
                            city_id: @parent.city.id, 
-                           friends_only: @parent.friends_only
+                           visibility: @parent.visibility
                            )
     if @event.save
       @event.save_shortened_url
