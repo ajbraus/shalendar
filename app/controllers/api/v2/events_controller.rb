@@ -377,9 +377,15 @@ class Api::V2::EventsController < ApplicationController
     if params[:description].present?
       @description = params[:description]
     end
+    @visibility = 2
     @friends_only = false
     if params[:friends_only].present?
       @friends_only = params[:friends_only]
+      if @friends_only == true
+        @visibility = 1
+      else
+        @visibility = 2
+      end
     end
 
     @event_params = {
@@ -395,7 +401,7 @@ class Api::V2::EventsController < ApplicationController
       promo_vid: "",
       promo_img: nil,
       description: @description,
-      friends_only: @friends_only,
+      visibility: @visibility,
       family_friendly: false
     }
 
@@ -428,7 +434,7 @@ class Api::V2::EventsController < ApplicationController
                                  family_friendly: @event.family_friendly,
                                  price: @event.price,
                                  description: @event.description,
-                                 friends_only: @event.friends_only,
+                                 visibility: @event.visibility,
                                  one_time: false
                               )
         if @instance.save
@@ -556,7 +562,7 @@ class Api::V2::EventsController < ApplicationController
                            family_friendly: @parent.family_friendly,
                            price: @parent.price,
                            city_id: @parent.city.id, 
-                           friends_only: @parent.friends_only
+                           visibility: @parent.visibility
                            )
     if @event.save
       @event.save_shortened_url
