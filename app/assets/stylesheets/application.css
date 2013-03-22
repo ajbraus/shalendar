@@ -14,5 +14,8 @@
  *= require jquery.ui.datepicker
  *= require jquery.ui.slider
  *= require fancybox
+ *= require 'masonry/basic'
+ *= require 'masonry/centered'
+ *= require 'masonry/transitions'
  *= require_tree .
  */

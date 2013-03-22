@@ -217,19 +217,20 @@ class Event < ActiveRecord::Base
   end
 
   def has_image?
-    if self.parent.nil?
-      if self.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"  && self.promo_url.blank?
-        return false
-      else
+    if self.parent.present?
+      if self.parent.promo_url.present?
+        return true
+      elsif self.parent.promo_img.url(:medium) != "/promo_imgs/medium/missing.png"
         return true
       end
     else
-      if self.parent.promo_img.url(:medium) == "/promo_imgs/medium/missing.png"  && self.parent.promo_url.blank?
-        return false
-      else
+      if self.promo_url.present?
+        return true
+      elsif self.promo_img.url(:medium) != "/promo_imgs/medium/missing.png"
         return true
       end
     end
+    return false
   end
 
   def post_to_fb_wall(uid, graph)
