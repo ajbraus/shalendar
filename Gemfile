@@ -14,7 +14,11 @@ gem 'chronic'
 gem 'twilio-rb'
 gem 'phony_rails'
 gem 'useragent'
-gem 'fancybox-rails', :git => 'https://github.com/sverigemeny/fancybox-rails'
+gem "fancybox-rails", "~> 0.2.1"
+gem "masonry-rails"
+
+gem "eventmachine" #fixing bug in staging
+#gem "multi_json", "~> 1.7.0" #fixing bug in staging
 
 # gem 'apn_sender', :require => 'apn'
 # gem 'daemons-rails'

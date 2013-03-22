@@ -2179,6 +2179,7 @@ width: 33%;
     width: 100px;
     position: absolute;
     top: 20px;
+    left: 20px;
   }
   .show_name {
 position: absolute;
@@ -2853,7 +2854,7 @@ top: 94px;
 
 .idea_container {
   margin: 0 auto;
-  width: 106%;
+  width: 106% !important;
 }
 
 
@@ -2904,6 +2905,9 @@ left: 94px;
 position: relative;
 padding: 5px;
 bottom: 10px;
+    border-radius: 0 7px 7px 0px;
+    -webkit-border-radius: 0 7px 7px 0px;
+    -moz-border-radius: 0 7px 7px 0px;
   &:hover {   
     background-color: black;
     -webkit-transition: background-color .25s linear .1s;
@@ -3447,4 +3451,15 @@ margin-top: 30px;
 .share_on_fb {
 position: relative;
 bottom: 4px;
+}
+
+.back_link {
+  position: absolute;
+left: 9px;
+top: 4px;
+color: white;
+font-size: 12px;
+  &:hover {
+    color:lightgrey;
+  }
 }

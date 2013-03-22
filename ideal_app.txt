@@ -1,4 +1,8 @@
-Change city in app
+change city - create and asks for city
+
+pull up to search ppl
+pull up to refresh
+
 
 add new_fb_inmate push type (open to profile)
 
@@ -7,12 +11,7 @@ http://stackoverflow.com/questions/6087693/itunes-review-url
 
 count starred inmates as separate from inmates
 
-change city - create and asks for city
-
-pull up to search ppl
-pull up to refresh
-
-native login from mobile
+native registration from mobile
 
 click on ppl's faces gives you their profile or a bigger pic of them.
 
@@ -26,8 +25,6 @@ taller ideas with beginning of description in grey
 
 Make times group under their days
 give a gradient to the day bar
-
-swipe back and forth to get in/out buttons
 
 make it so image does not stretch in new idea form
 
@@ -44,8 +41,6 @@ search google, flickr, pinterest for photo and add it
 push notifications open directly to ideas or comments or profile
 
 switch in middle of top - calendar/ideas
-
-old ideas that are over (scroll up)
 
 --------------------------------------------------
 

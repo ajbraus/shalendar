@@ -1,11 +1,11 @@
-<% if @user.present? %>
+<% if @user.present? %> 
 <% provide(:title, " | #{@user.name}" ) %>
 <div class="mini_calendar">
 	<%= render 'mini_calendar' %>
 </div>
 <div class="container_wrapper">
 	<% unless @user.background_file_size.nil? %>
-		<div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 330px;top: 0;"></div>
+		<div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 330px;top: 60px;"></div>
 	<% end %>
 
 	<div class="home_idea_container clearfix">

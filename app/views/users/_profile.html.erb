@@ -1,8 +1,11 @@
 <div class="home_profile clearfix">	
+<% if @user != current_user %>
+	<%= link_to "<< back", root_path, class:"back_link" %>
+<% end %>
 	<%= render 'inmate_or_friend' %>
 	<%= large_profile_picture(@user) %>
 	<div class="show_name"><%= @user.name %></div>
-	<% if @user == current_user %>
+	<% if @user != current_user %>
 		<div class="show_city"><%= @user.city.name %></div>
 	<% end %>
 	<div class="profile_stats">
