@@ -414,7 +414,7 @@ class Event < ActiveRecord::Base
   end
 
   def public?
-    return self.visiblity == 3
+    return self.visibility == 3
   end
 
   def open_invite?
@@ -427,6 +427,16 @@ class Event < ActiveRecord::Base
 
   def invite_only?
     return self.visibility == 0
+  end
+
+  def visibility_icon 
+    if self.public?
+      return "- <i class='icon-bullhorn'></i>"
+    elsif self.friends_only?
+      return "- <i class='icon-star friend_star'></i>"
+    elsif self.invite_only?
+      return "- <i class='icon-eye-close'></i>"
+    end
   end
 
 # END OF CLASS

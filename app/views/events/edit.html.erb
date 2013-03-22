@@ -12,8 +12,14 @@
       <%= f.text_area :description, id: "new_idea_description", rows: 2, autocomplete: "off", onkeypress: "if(event.keyCode==13){return false;}" %>
     </p> 
 
-    <div class="friends_only_bool">
-      <%= f.check_box :friends_only %> <label for="event_friends_only" class="pointer"><i class="icon-star" style="color:gold;"></i> only .invite starred .intros? </label>
+    <div class="visibility">
+      <label>hoos.invited?</label>
+      <div id="visibilityButtonSet">
+        <%= f.radio_button :visibility, '3' %><label for="event_visibility_3"><i class="icon-bullhorn"></i> my whole city</label>
+        <%= f.radio_button :visibility, '2' %><label for="event_visibility_2"><i class="icon-star inmate_star"></i> .intros</label>
+        <%= f.radio_button :visibility, '1' %><label for="event_visibility_1"><i class="icon-star friend_star"></i> friends</label>
+        <%= f.radio_button :visibility, '0' %><label for="event_visibility_0"><i class="icon-eye-close"></i> private</label>
+      </div>
     </div>
     <% unless @event.instances.none? %>
     <div class="one_time_bool">

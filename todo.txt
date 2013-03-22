@@ -10,6 +10,9 @@ Mike
 
 Adam
 
+	make user tagging
+	display private/friends only
+
 
 TESTS
 	Signed up through facebook and picked city - redirects to previous_url

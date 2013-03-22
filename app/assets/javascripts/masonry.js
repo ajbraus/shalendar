@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('#ideaContainer').masonry({
       itemSelector : '.event',
       // column_width: 100,
-      //isFitWidth: true,
+      isFitWidth: true,
       isAnimated: true,
     	animationOptions: {
       duration: 50,
@@ -15,7 +15,7 @@ $(document).ready(function() {
   $('#insContainer').imagesLoaded( function(){
     $('#insContainer').masonry({
       itemSelector : '.event',
-      //isFitWidth: true,
+      isFitWidth: true,
       // column_width: 100,
       isAnimated: true,
       animationOptions: {
@@ -32,7 +32,7 @@ $(document).ready(function() {
   $('.idea_container').imagesLoaded( function(){
     $('.idea_container').masonry({
       itemSelector : '.event',
-      //isFitWidth: true,
+      isFitWidth: true,
       // column_width: 100,
       isAnimated: true,
       animationOptions: {

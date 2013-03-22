@@ -34,7 +34,7 @@
 		<% end %>
 
 		<div class="event_blerb">
-			<div class="title"><%= event.title %></div>
+			<div class="title"><%= event.title %> <%= raw(event.visibility_icon) %></div>
 		</div>
 
 		<% if event.has_image? %>

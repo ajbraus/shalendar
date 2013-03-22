@@ -220,14 +220,14 @@ GEM
       treetop (~> 1.4.8)
     maruku (0.6.1)
       syntax (>= 1.0.0)
-    masonry-rails (0.1.8)
+    masonry-rails (0.2.0)
       rails
     meta_request (0.2.2)
       rack-contrib
       railties
     method_source (0.8.1)
     mime-types (1.21)
-    multi_json (1.7.2)
+    multi_json (1.6.1)
     multi_xml (0.5.3)
     multipart-post (1.2.0)
     netrc (0.7.7)
@@ -429,6 +429,7 @@ DEPENDENCIES
   lazy_high_charts
   masonry-rails
   meta_request
+  multi_json (= 1.6.1)
   newrelic_rpm
   omniauth-facebook (= 1.2.0)
   omniauth-twitter
