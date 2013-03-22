@@ -156,20 +156,20 @@ class Notifier < ActionMailer::Base
     @user = user
     @new_inmate = new_inmate
     @image_url = invite_raster_picture(@new_inmate)
-    mail to: @user.email, from: "info@hoos.in", subject: "Your friend #{@new_inmate.name} just joined hoos.in and you are now .in-mates."
+    mail to: @user.email, from: "info@hoos.in", subject: "Your friend #{@new_inmate.name} just joined hoos.in and you are now .intros."
   end
 
   def inmate_invite(recipient_email, inviter)
     @inviter = inviter
     @image_url = invite_raster_picture(@inviter)
-    mail to: recipient_email, from: "info@hoos.in", subject: "#{@inviter.name} wants you to be .in-mates on hoos.in."
+    mail to: recipient_email, from: "info@hoos.in", subject: "#{@inviter.name} wants you to be .intros on hoos.in."
   end
 
   def new_inmate(recipient, inmate)
     @user = recipient
     @inmate = inmate
     @image_url = invite_raster_picture(@inmate)
-    mail to: @user.email, from: "info@hoos.in", subject: "#{@inmate.name} is now .in-mates with you on hoos.in."
+    mail to: @user.email, from: "info@hoos.in", subject: "#{@inmate.name} is now .intros with you on hoos.in."
   end
 
 

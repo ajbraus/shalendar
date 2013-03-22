@@ -240,18 +240,18 @@ class User < ActiveRecord::Base
       self.inmate!(g)
     end
 
-    if event.friends_only?
+    if event.open_invite?
+      self.inmates_and_friends.each do |u|
+        unless u.already_invited?(event)
+          u.invitations.create!(invited_event_id: event.id)
+        end
+      end        
+    elsif event.friends_only?    
       self.friends.each do |u|
         unless u.already_invited?(event)
           u.invitations.create!(invited_event_id: event.id)
         end
       end   
-    else     
-      self.inmates_and_friends.each do |u|
-        unless u.already_invited?(event)
-          u.invitations.create!(invited_event_id: event.id)
-        end
-      end
     end
     
     #if one time and rsvp to parent, then rsvp to single instance
@@ -316,15 +316,6 @@ class User < ActiveRecord::Base
     if @invitation.present?
       @invitation.destroy
     end
-    
-    # unless event.friends_only?
-    #   self.inmates_and_friends.each do |u|
-    #     @invite = u.invitations.find_by_event_id(event_id: event.id)
-    #     if @invite.present?
-    #       @invite.destroy
-    #     end
-    #   end
-    # end
 
     @parent = event.parent
     if @parent.present? && @parent.one_time?
@@ -409,7 +400,7 @@ class User < ActiveRecord::Base
     return false
   end
 
-  #used in self.follow_up to get .in-mates created in the past day
+  #used in self.follow_up to get .intros created in the past day
   def is_new_inmate?(other_user)
     @relationship = self.relationships.find_by_followed_id(other_user.id)
     if @relationship.present? && @relationship.created_at > Time.zone.now.in_time_zone(self.city.timezone).midnight - 1.day
@@ -428,7 +419,7 @@ class User < ActiveRecord::Base
       if @relationship.present?
         @relationship.status = 2
         @relationship.save
-        self.events.where('friends_only = ?', true).each do |e|
+        self.events.where('visibility = ?', 2).each do |e|
           unless other_user.already_invited(e)
             other_user.invitations.create!(invited_event_id: e.id)
           end
@@ -444,7 +435,7 @@ class User < ActiveRecord::Base
     unless other_user == self || other_user.ignores?(self)
       unless self.is_inmates_or_friends_with?(other_user) || self.ignores?(other_user)
         self.relationships.create(followed_id: other_user.id, status: 1)
-        other_user.plans.each do |p| 
+        other_user.plans.where(visibility: 2).each do |p| 
           unless self.already_invited?(p)
             self.invitations.create!(invited_event_id: p.id)
           end
@@ -452,7 +443,7 @@ class User < ActiveRecord::Base
       end
       unless other_user.is_inmates_or_friends_with?(self) || self.ignores?(other_user)
         other_user.relationships.create(followed_id: self.id, status: 1)
-        self.plans.each do |p| 
+        self.plans.where(visibility: 2).each do |p| 
           unless other_user.already_invited?(p)
             other_user.invitations.create!(invited_event_id: p.id)
           end
@@ -520,20 +511,18 @@ class User < ActiveRecord::Base
     if @parent.present?
       if self.in?(@parent)
         return true
+      elsif @parent.open_invite?
+        return self.is_inmates_or_friends_with?(@parent.user) || (event.guests & self.inmates_and_friends).any?
       elsif @parent.friends_only?
-        if @parent.user.is_friends_with?(self) || event.user.is_friends_with?(self)
-          return true
-        end
-      elsif (event.guests & self.inmates_and_friends).any?
-        return true
+        return @parent.user.is_friends_with?(self) || event.user.is_friends_with?(self)
       end
     else
       if self.in?(event)
         return true
+      elsif event.open_invite?
+        return self.is_inmates_or_friends_with?(event.user) || (event.guests & self.inmates_and_friends).any?        
       elsif event.friends_only?
         return event.user.is_friends_with?(self)
-      elsif (event.guests & self.inmates_and_friends).any?
-        return true
       end
     end
     return false
@@ -982,7 +971,7 @@ class User < ActiveRecord::Base
     #   else
     #     n = APN::Notification.new
     #     n.device = d
-    #     n.alert = "Your friend #{@new_inmate.name} just joined hoos.in and you are now .in-mates."
+    #     n.alert = "Your friend #{@new_inmate.name} just joined hoos.in and you are now .intros."
     #     n.badge = 1
     #     n.sound = false
     #     n.custom_properties = {msg: "", :type => "new_fb_inmate", :id => "#{@new_inmate.id}"}
@@ -995,7 +984,7 @@ class User < ActiveRecord::Base
     #   else
     #     n = Gcm::Notification.new
     #     n.device = d
-    #     n.collapse_key = "Your friend #{@new_inmate.name} just joined hoos.in and you are now .in-mates."
+    #     n.collapse_key = "Your friend #{@new_inmate.name} just joined hoos.in and you are now .intros."
     #     n.delay_while_idle = true
     #     n.data = {:registration_ids => [@user.GCMtoken], :data => {msg: "", :type => "new_fb_inmate", :id => "#{@new_inmate.id}"}}
     #     n.save

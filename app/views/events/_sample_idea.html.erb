@@ -2,7 +2,7 @@
 
 <div class="event shield" id="sampleEvent">
 	<div class="shield_top">
-	  <div class="rsvp_check" title=".in-mates can choose whether they're .interested this idea">
+	  <div class="rsvp_check" title=".intros can choose whether they're .interested this idea">
       <span class="fadeInBlue in_check"><i class='icon-ok'></i></span> 
       <span class="out"><i class='icon-remove'></i></span> 
 	  </div>
@@ -25,7 +25,7 @@
       <%= render :partial => 'shared/guest_count', :locals => { :event => @parent } %>    
     <% else %>
       <div class="guest_count">
-        <i class="icon-star friend_star" title="Number of starred .in-mates who are .in"></i> <span id="friendCount"> 0 </span> / <i class="icon-star inmate_star" title="Number of .in-mates who are in" style="color:lightgrey;"></i> <%= current_user.inmates.count %>
+        <i class="icon-star friend_star" title="Number of starred .intros who are .in"></i> <span id="friendCount"> 0 </span> / <i class="icon-star inmate_star" title="Number of .intros who are in" style="color:lightgrey;"></i> <%= current_user.inmates.count %>
       </div>
     <% end %>
 		<div class="event_time">

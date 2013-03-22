@@ -3,8 +3,13 @@ Mike
 	Re-factor API event loading for speed + clarity
 	Prune ins may not be working for canceled ideas (check)
 	"Add Friend" improvement to mobile
+	add 'invite_only?' (event.visiblity == 0)
+		(I created three event methods - open_invite?, friends_only?, and invite_only?
+		so all your event.friends_only? code should work, but we need additions of invite_only? 
+		code to prevent some notifications)
 
 Adam
+
 
 TESTS
 	Signed up through facebook and picked city - redirects to previous_url
@@ -41,7 +46,7 @@ TESTS
 		- email not working
 	starred .in-mate invitations 15
 		hoos.in is for doing things with your real friends
-		.invite 15 of your friends in your city to be your .in-mates on hoos.in
+		.invite 15 of your friends in your city to be your .intros on hoos.in
 	
 	host out stats
 
@@ -86,7 +91,7 @@ TEACHING USERS:
 
 	tutorial to create your first idea when you start
 
-	Email invitations to be .in-mates
+	Email invitations to be .intros
 
 	put up tips for ideas - how to make a great idea - go beyond boring
 
