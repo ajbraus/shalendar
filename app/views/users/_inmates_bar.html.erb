@@ -1,8 +1,6 @@
 <div class="inmates_bar part left">
-	<div class="bubble">
 		<span id="showCalendar" style="display:none;"><i class="icon-calendar"></i> calendar</span>
 		<span id="showInmates"><i class="icon-star"></i> .intros</span>
-	</div>
 	<h2><%= @user_inmates.count + @user_friends.count %>&nbsp;&nbsp;.intros</h2>
 	<% if current_user == @user %>
 		<%= render partial: 'shared/user', collection: @user_friends, as: :user %>

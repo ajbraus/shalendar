@@ -1,11 +1,13 @@
 <div id="eventOptions">
   	<% if @event.blank? %>
   		<div class="visibility">
-  			<h5>hoos.invited?</h5>
-  			<%= radio_button_tag 'visibility', '3' %><label for="visiblity_3">my whole city</label>
-  			<%= radio_button_tag 'visibility', '2', true %><label for="visibility_2">.intros</label>
-  			<%= radio_button_tag 'visibility', '1' %><label for="visbility_1">friends</label>
-  			<%= radio_button_tag 'visibility', '0' %><label for="visbility_0">private</label>
+  			<label>hoos.invited?</label>
+  			<div id="visibilityButtonSet">
+	  			<%= f.radio_button :visibility, '3' %><label for="event_visibility_3"><i class="icon-bullhorn"></i> my whole city</label>
+	  			<%= f.radio_button :visibility, '2' %><label for="event_visibility_2"><i class="icon-star inmate_star"></i> .intros</label>
+	  			<%= f.radio_button :visibility, '1' %><label for="event_visibility_1"><i class="icon-star friend_star"></i> friends</label>
+	  			<%= f.radio_button :visibility, '0' %><label for="event_visibility_0"><i class="icon-eye-close"></i> private</label>
+  			</div>
   		</div>
       <div class="add_date_time">
 				<input type="checkbox" id="addDateTime"/> <label for="addDateTime" class="pointer"><i class="icon-time"></i> Add a Time </label>

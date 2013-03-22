@@ -2885,10 +2885,13 @@ cursor: pointer;
 float: right;
 background-color: white;
 color: #999;
-left: 99px;
+left: 78px;
 position: relative;
 padding: 5px;
 bottom: 10px;
+    border-radius: 0 7px 7px 0px;
+    -webkit-border-radius: 0 7px 7px 0px;
+    -moz-border-radius: 0 7px 7px 0px;
   &:hover {   
     background-color: rgb(235, 235, 235);
     -webkit-transition: background-color .25s linear .1s;
@@ -3461,5 +3464,12 @@ color: white;
 font-size: 12px;
   &:hover {
     color:lightgrey;
+  }
+}
+
+#visibilityButtonSet {
+  margin-bottom:10px;
+  i {
+    font-size: 16px;
   }
 }

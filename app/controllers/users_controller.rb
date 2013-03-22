@@ -25,18 +25,20 @@ class UsersController < ApplicationController
           @ideas = @user.invited_ideas.where('city_id = ?', @current_city_id).order('created_at DESC').reject { |i| @user.out?(i) || i.no_relevant_instances? }
           #invited_times = times with invitations - i.e. times you created, times your in-mates are in on, that you are not out of
           @times = @user.invited_times.where('city_id = ?', @current_city_id).reject { |i| @user.out?(i) }
+          @public = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @current_city_id, 3)
+          @ideas = @ideas | @public
         elsif @user.is_friends_with?(current_user)
           @ideas = @user_plans.where('visibility > ? AND starts_at IS NULL', 0).order('created_at DESC').reject { |i| @user.out?(i) || i.no_relevant_instances? }
           @times = @user_plans.where('visibility > ? AND starts_at > ? AND starts_at < ?', 0, Time.zone.now, Time.zone.now + 59.days).reject { |i| @user.out?(i) }
         elsif @user.is_inmates_with?(current_user)
-          @ideas = @user_plans.where('visibility > ? AND starts_at IS NULL', 2).order('created_at DESC').reject { |i| @user.out?(i) || i.no_relevant_instances? }
-          @times = @user_plans.where('visibility > ? AND starts_at > ? AND starts_at < ?', 2, Time.zone.now, Time.zone.now + 59.days).reject { |i| @user.out?(i) }
+          @ideas = @user_plans.where('visibility > ? AND starts_at IS NULL', 1).order('created_at DESC').reject { |i| @user.out?(i) || i.no_relevant_instances? }
+          @times = @user_plans.where('visibility > ? AND starts_at > ? AND starts_at < ?', 1, Time.zone.now, Time.zone.now + 59.days).reject { |i| @user.out?(i) }
           #@past_times = @user.plans.unscoped.where("starts_at < ?", Time.zone.now).order('starts_at DESC').first(20)
         else
-          @ideas = @user_plans.where('city_id = ? AND visibility > ? AND starts_at IS NULL', @current_city_id, 2).order('created_at DESC').reject { |i| i.no_relevant_instances? }
+          @ideas = @user_plans.where('city_id = ? AND visibility > ? AND starts_at IS NULL', @current_city_id, 1).order('created_at DESC').reject { |i| i.no_relevant_instances? }
         end
       else 
-        @ideas = @user_plans.where('city_id = ? AND visibility > ? AND starts_at IS NULL', @current_city_id, 2).order('created_at DESC').reject { |i| i.no_relevant_instances? }
+        @ideas = @user_plans.where('city_id = ? AND visibility > ? AND starts_at IS NULL', @current_city_id, 1).order('created_at DESC').reject { |i| i.no_relevant_instances? }
       end
     end
 
