@@ -429,7 +429,6 @@ DEPENDENCIES
   lazy_high_charts
   masonry-rails
   meta_request
-  multi_json
   newrelic_rpm
   omniauth-facebook (= 1.2.0)
   omniauth-twitter
