@@ -3,7 +3,6 @@ class AddFbIdAndInvisiblilityToEvents < ActiveRecord::Migration
   	add_column :events, :fb_id, :string
   	add_index :events, :fb_id
   	add_column :events, :visibility, :integer, default:2
-  	remove_column :events, :friends_only
 
   	Event.all.each do |e|
   		if e.friends_only?
@@ -13,6 +12,7 @@ class AddFbIdAndInvisiblilityToEvents < ActiveRecord::Migration
   		end
   		e.save
   	end
+    remove_column :events, :friends_only
 
   end
 end
