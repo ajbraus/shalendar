@@ -12,11 +12,11 @@
 			<% else %>
 				<%= form_for current_user.relationships.build(followed_id: user.id), remote:true do |f| %>
 				  <span><%= f.hidden_field :followed_id %></span>
-				  <button class="btn btn-follow rsvp_button" name="commit" type="submit" title="Star <%= user.first_name %> to recieve notifcations when they create ideas">
+				  <button class="btn btn-follow rsvp_button" name="commit" type="submit">
 				  	<i class="icon-star"></i>
 				  </button>
 				<% end %>
-				<%= link_to ignore_inmate_path(:id => user.id), id:"ignore_inmate", title:"ignore #{user.first_name}'s ideas and don't share your ideas with them", confirm: "Are you sure you don't want to see #{user.name}'s ideas or share any future .ins with them?" do %>
+				<%= link_to ignore_inmate_path(:id => user.id), id:"ignore_inmate", confirm: "Are you sure you don't want to see #{user.name}'s ideas or share any future .ins with them?" do %>
 					<i class="icon-remove-sign"></i>
 				<% end %>
 			<% end %>

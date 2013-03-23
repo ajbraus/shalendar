@@ -338,17 +338,7 @@ class User < ActiveRecord::Base
   end 
 
   def ins
-    @ins = []
-    self.plans.each do |p|
-      if p.ends_at.blank?
-        @ins.push(p)
-      else
-        if p.ends_at > Time.zone.now && p.one_time?
-          @ins.push(p)
-        end
-      end
-    end
-    return @ins
+    self.plans.where('starts_at IS NULL').reject { |i| i.no_relevant_instances? }
   end
 
   #Relationship methods
