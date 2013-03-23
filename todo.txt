@@ -34,6 +34,15 @@ TESTS
 	meetup signin/events
 
 	fb page signin/events
+		add your facebook pages ideas to hoos.in
+		added link with 'manage_pages' permissions
+		create they're user and authentication and login
+		if there is pages data
+			have them select which account they would like to sync with hoos.in?
+		for each create a new user and authentication and pull in all there events
+			:user has_many :accounts class: "User" 
+		every time anyone logs in, check if they have accounts, if they do try to update all events on a background job.
+
 
 	city siloing
 		contacts (don't send notifications to people not in the city of the idea)

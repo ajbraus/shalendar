@@ -420,7 +420,7 @@ class User < ActiveRecord::Base
         @relationship.status = 2
         @relationship.save
         self.events.where('visibility = ?', 2).each do |e|
-          unless other_user.already_invited(e)
+          unless other_user.already_invited?(e)
             other_user.invitations.create!(invited_event_id: e.id)
           end
         end
@@ -553,7 +553,7 @@ class User < ActiveRecord::Base
         if @end_time.blank?
           @end_time = @start_time + 2.hours
         end
-        unless @end_time < Time.now || fbe['privacy'] == 'SECRET' || fbe['can_invite_friends'] == false #event is already over
+        unless @end_time < Time.now || fbe['privacy'] == 'SECRET' #event is already over
           #PARENT
           @hi_parent = Event.new(fb_id: fbe['id'],
                               user_id: self.id,
@@ -565,8 +565,10 @@ class User < ActiveRecord::Base
                               promo_url: fbe['pic_big'])
           
           @hi_parent.picture_from_url(fbe['pic_big'])
-          if fbe['privacy'] == "FRIENDS"
-            @hi_parent.friends_only = true
+          if fbe['privacy'] == "FRIENDS" || fbe['can_invite_friends'] == false
+            @hi_parent.visibility = 1
+          else 
+            @hi_parent.visibility = 2
           end
           @hi_parent.save
           self.rsvp_in!(@hi_parent)
@@ -581,7 +583,7 @@ class User < ActiveRecord::Base
                               starts_at: @start_time,
                               ends_at: @end_time,
                               one_time: true,
-                              friends_only: @hi_parent.friends_only)
+                              visibility: @hi_parent.visibility)
           @hi_time.save
           self.rsvp_in!(@hi_time)
         end #UNLESS OVER

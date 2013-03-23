@@ -25,7 +25,7 @@ describe "Before signing in" do
                           :city => city,
                           :title => "Friends Only Idea",
                           :starts_at => "#{Time.now + 1.day}", 
-                          :ends_at => "#{Time.now + 1.day + 2.hours}", :friends_only => true) }
+                          :ends_at => "#{Time.now + 1.day + 2.hours}", :visibility => 1) }
   
   before(:all) { 30.times { FactoryGirl.create(:user) } }
   after(:all)  { User.delete_all }

@@ -31,7 +31,7 @@
       </div>
       <% end %>
     <div class="padding_10">
-      <%= @event.title %>
+      <%= @event.title %> <%= raw(@event.visibility_icon) %>
     </div>
     <% if @event.description.present? %>
       <div class="event_description padding_10"><%= @event.description %></div>
