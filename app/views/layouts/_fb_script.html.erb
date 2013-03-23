@@ -63,6 +63,13 @@
             }
         }, {scope: "email,user_location,friends_location,user_birthday"});
       });
+      document.getElementById('pages-auth-loginlink').addEventListener('click', function(){
+        FB.login(function(response) {
+          if(response.authResponse) {
+            window.location = "/user/auth/facebook/callback"
+            }
+        }, {scope: "email,user_location,friends_location,user_birthday,manage_pages"});
+      });
       document.getElementById('auth-logoutlink').addEventListener('click', function(){
         FB.logout();
       }); 

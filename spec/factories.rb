@@ -48,6 +48,6 @@ FactoryGirl.define do
     slug ''
     one_time ''
     dead 'f'
-    friends_only ''
+    visibility '2'
     end
 end

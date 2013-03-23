@@ -6,6 +6,9 @@
         <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login links_fb_btn"></span></a>
     </div>
   </div>
+<% if false %>
+  <a href="#" id="pages-auth-loginlink" class="fb-login-button"><span class="btn_fb_login links_fb_btn"></span></a>
+<% end %>
 <div class="or">- or -</div>
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <div><%= f.label :email %><br />
