@@ -412,7 +412,6 @@ DEPENDENCIES
   devise (= 2.1.0)
   devise-i18n
   email_spec (= 1.2.1)
-  eventmachine
   factory_girl_rails (= 1.4.0)
   faker (= 1.0.1)
   fancybox-rails (~> 0.2.1)
@@ -429,7 +428,6 @@ DEPENDENCIES
   lazy_high_charts
   masonry-rails
   meta_request
-  multi_json (~> 1.6)
   newrelic_rpm
   omniauth-facebook (= 1.2.0)
   omniauth-twitter
