@@ -78,7 +78,7 @@ describe "Home page after sign in" do
                           :user => other_user, 
                           :city => city,
                           :one_time => 'f',
-                          :visiblity => '1',
+                          :visibility => '1',
                           :title => "Friends Only Idea") }
 
   before(:each) do
