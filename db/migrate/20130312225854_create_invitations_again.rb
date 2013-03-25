@@ -11,6 +11,10 @@ class CreateInvitationsAgain < ActiveRecord::Migration
     add_index :invitations, :invited_event_id
     add_index :invitations, [:invited_user_id, :invited_event_id], unique: true
 
+    add_column :events, :fb_id, :string
+    add_index :events, :fb_id
+    add_column :events, :visibility, :integer, default:2
+    
     User.all.each do |u|
       u.plans.each do |p|
         unless u.already_invited?(p)
