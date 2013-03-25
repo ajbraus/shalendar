@@ -354,7 +354,11 @@ class Api::V2::EventsController < ApplicationController
 
     if params[:start].present? && params[:duration].present?
       @starts_at = DateTime.parse(params[:start])
-      @duration = Float(params[:duration])
+      if params[:duration] == "(null)"
+        @duration = 2
+      else  
+        @duration = Float(params[:duration])
+      end
       @ends_at = @starts_at + @duration.hours
     end
     @one_time = false
