@@ -31,7 +31,7 @@ private
       if @user.city.present?
         @user.add_fb_events(session[:graph])
       end
-      @user.convert_email_invites
+      #@user.convert_email_invites
 
       sign_in_and_redirect @user, :event => :authentication
     else

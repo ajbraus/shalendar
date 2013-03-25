@@ -1,10 +1,11 @@
 class StaticPagesController < ApplicationController
 
   def about
-  	@user = current_user
+  	#@user = current_user
   end
+
   def contact
-  	@user = current_user
+  	#@user = current_user
   end
   
   def vendor_splash

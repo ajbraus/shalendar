@@ -1,8 +1,0 @@
-*.gem
-*.rdb
-.bundle
-.idea/*
-Gemfile.lock
-coverage/*
-pkg/*
-rbxdb/

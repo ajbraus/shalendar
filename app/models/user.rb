@@ -338,17 +338,7 @@ class User < ActiveRecord::Base
   end 
 
   def ins
-    @ins = []
-    self.plans.each do |p|
-      if p.ends_at.blank?
-        @ins.push(p)
-      else
-        if p.ends_at > Time.zone.now && p.one_time?
-          @ins.push(p)
-        end
-      end
-    end
-    return @ins
+    self.plans.where('starts_at IS NULL').reject { |i| i.no_relevant_instances? }
   end
 
   #Relationship methods
@@ -597,7 +587,9 @@ class User < ActiveRecord::Base
     EmailInvite.where("email_invites.email = :new_user_email", new_user_email: self.email).each do |ei|
       @invited_user = self
       @invited_event = ei.event
-      self.invitation.create!(invited_event_id: @invited_event.id)
+      unless self.already_invited?(@invited_event)
+        self.invitations.create!(invited_event_id: @invited_event.id)
+      end
       ei.destroy
     end
   end
