@@ -25,13 +25,13 @@ class CreateInvitationsAgain < ActiveRecord::Migration
     end
 
     remove_column :events, :friends_only
-    
-    User.find_each(:batch_size => 100) do |u|
-      u.plans.find_each(:batch_size => 100) do |p|
+
+    User.find_each do |u|
+      u.plans.find_each do |p|
         unless u.already_invited?(p)
           u.invitations.create!(invited_event_id: p.id)
         end
-        u.inmates_and_friends.each(:batch_size => 100) do |f|
+        u.inmates_and_friends do |f|
           if p.friends_only?
             if u.is_friends_with?(f)
               unless f.already_invited?(p)
