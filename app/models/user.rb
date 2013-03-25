@@ -587,7 +587,9 @@ class User < ActiveRecord::Base
     EmailInvite.where("email_invites.email = :new_user_email", new_user_email: self.email).each do |ei|
       @invited_user = self
       @invited_event = ei.event
-      self.invitations.create!(invited_event_id: @invited_event.id)
+      unless self.already_invited?(@invited_event)
+        self.invitations.create!(invited_event_id: @invited_event.id)
+      end
       ei.destroy
     end
   end
