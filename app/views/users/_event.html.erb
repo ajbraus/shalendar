@@ -17,6 +17,7 @@
 <% end %>
 <%= link_to event_path(event) do %>
 		<% if user_signed_in? %>
+		<%= render partial: 'events/time', collection: event.instances, as: :event %>
 			<div class="shield_top">
 				<div class="rsvp_check">
 					<%= render :partial => "users/rsvp_check", :locals => { :event => event } %>
@@ -50,7 +51,7 @@
 	  			<span title="<%= guest.first_name_with_last_initial %>"><%= raster_profile_picture(guest) %></span>
 				<% end %>
 			</div> 
-			<%= render partial: 'events/time', collection: event.instances, as: :event %>
+			
 		<% end %>
 <% end %>
 
