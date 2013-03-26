@@ -23,7 +23,7 @@ class Api::V2::EventsController < ApplicationController
 
     @invites = (@invites | @public_ideas) - @ins
 
-    @events = @invites#these are just the 'ideas' with times included
+    @events = @invites#these are just the 'ideas' (times are packed in to json)
 
     if (@count + @window_size) < @events.count
       @events = @events[@count .. @count + @window_size-1]
