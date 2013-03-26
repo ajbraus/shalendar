@@ -701,3 +701,16 @@ end
       <div class="friends_only_bool">
         <%= f.check_box :friends_only %> <label for="event_friends_only" class="pointer"><i class="icon-star" style="color:gold;"></i> only .invite starred .intros? </label>
       </div>
+
+
+
+    Event.all.each do |e|
+      User.all.each do |u|
+        if u.rsvpd?(e)
+          @invitation = u.invitations.find_by_invited_event_id(e.id)
+          if @invitation.present?
+            @invitation.destroy
+          end
+        end
+      end
+    end

@@ -38,20 +38,16 @@ $ ->
 		if invites.length > 0
 			$('#invitesContainer').fadeIn();
 			$('#invitesContainer').masonry('reload');
-		else
-			$('#noInvites').fadeIn();
 
 	$('#toggleIns').click ->
-		# $.get '/get_ins',
-		# 	id: $('#showInmates').attr('data-slug');
+		$.get '/get_ins',
+			id: $('#showInmates').attr('data-slug');
 		$('#invites').addClass("unselected")
 		$('#ins').removeClass("unselected")
 		$('#invitesContainer').hide();
 		if ins.length > 0
 			$('#insContainer').fadeIn();
 			$('#insContainer').masonry('reload');
-		else
-			$('#noIns').fadeIn();
 
 
 

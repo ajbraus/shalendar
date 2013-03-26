@@ -242,6 +242,11 @@ class User < ActiveRecord::Base
       self.inmate!(g)
     end
 
+    @invitation = self.invitations.find_by_invited_event_id(event.id)
+    if @invitation.present?
+      @invitation.destroy
+    end
+
     if event.open_invite?
       self.inmates_and_friends.each do |u|
         unless u.already_invited?(event) || u.out?(event)

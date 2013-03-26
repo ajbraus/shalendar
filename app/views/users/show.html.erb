@@ -6,7 +6,7 @@
 	<% if user_signed_in? %>
 		<div class="invites_ins">
 			<% if @user == current_user  %>
-				<span id="invites"><span id="toggleInvites"><span id="invites_count"><%= @invites.count %></span> .invites</span></span> | <span id="ins" class="unselected"><span id="toggleIns"><span id="ins_count"><%= @ins.count %></span> .ins</span></span>
+				<span id="invites"><span id="toggleInvites"><span id="invites_count"><%= @invites.count %></span> .invites</span></span> | <span id="ins" class="unselected"><span id="toggleIns"><span id="ins_count"><%= @ins_count %></span> .ins</span></span>
 			<% else %>
 				<span id="ins"><%= @user.first_name_with_last_initial %> has <span id="ins_count"></span> current <span id="toggleIns">.ins</span></span>
 			<% end %>
@@ -24,7 +24,6 @@
 						<%= render partial: "users/event", collection: @invites %>
 					</div>
 					<div id="insContainer" class="idea_container" style="display:none;">
-						<%= render partial: "users/event", collection: @ins %>
 					</div>
 				<% else %>
 					<div id="insContainer" class="idea_container">

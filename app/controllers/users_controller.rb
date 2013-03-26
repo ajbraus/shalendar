@@ -17,9 +17,9 @@ class UsersController < ApplicationController
       if user_signed_in?
         if @user == current_user
           @invites = @user.invited_ideas.includes(:user).where('events.city_id = ?', @current_city.id)
-          @ins = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id)
-          @public_ideas = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @current_city.id, 3)
-          @invites = (@invites | @public_ideas) - @ins
+          @ins_count = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id).count
+          @public_ideas = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @current_city.id, 3).reject { |i| current_user.rsvpd?(i) }
+          @invites = @invites | @public_ideas
           #@ideas = @user.invited_ideas.includes(:user).where('city_id = ?', @current_city_id).order('created_at DESC').reject { |i| @user.out?(i) || i.no_relevant_instances? }
           @times = @user.invited_times.includes(:user).where('city_id = ?', @current_city.id).reject { |i| @user.out?(i) }
           @public_times = Event.where('city_id = ? AND visibility = ? AND starts_at > ? AND starts_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days)
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
 
   def get_ins
     @user = User.find_by_slug(params[:id])
-    @ins = @user.plans.where('city_id = ?', @current_city.id) 
+    @ins = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id)
   end
 
   def get_intros
