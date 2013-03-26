@@ -309,13 +309,9 @@ ActiveRecord::Schema.define(:version => 20130325192827) do
     t.string   "debits_uri"
     t.integer  "city_id"
     t.string   "slug"
-<<<<<<< HEAD
     t.integer  "friends_count",            :default => 0
     t.integer  "intros_count",             :default => 0
     t.integer  "friended_bys_count",       :default => 0
-=======
-    t.integer  "classification_id"
->>>>>>> 7bb404723896d120c1938fd09d1ab76612472e55
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
