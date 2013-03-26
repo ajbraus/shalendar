@@ -137,9 +137,6 @@ describe "Home page after sign in" do
 
   describe "with madison friend" do 
     before(:each) do
-      user.ignore_inmate!(other_user)
-      user.unfriend!(other_user)
-      user.inmate!(other_user)
       other_user.friend!(user)
       visit root_path
     end

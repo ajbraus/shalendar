@@ -403,7 +403,7 @@ class User < ActiveRecord::Base
         other_user.friended_bys_count +=1
         other_user.save
 
-        self.events.where('visibility = ?', 2).each do |e|
+        self.events.where('visibility = ?', 1).each do |e|
           unless other_user.already_invited?(e)
             other_user.invitations.create!(invited_event_id: e.id)
           end
