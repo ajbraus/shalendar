@@ -2878,6 +2878,14 @@ top: 145px;
   }
 }
 
+#getInmates {
+   text-align: center;
+   >img {
+    width:25px;
+    height:25px;
+   }
+}
+
 #showInmates {
 cursor: pointer;
 float: right;
@@ -2886,6 +2894,7 @@ color: #999;
 left: 78px;
 position: relative;
 padding: 5px;
+margin-left: -70px;
     border-radius: 0 7px 7px 0px;
     -webkit-border-radius: 0 7px 7px 0px;
     -moz-border-radius: 0 7px 7px 0px;
@@ -2904,7 +2913,7 @@ color: white;
 left: 94px;
 position: relative;
 padding: 5px;
-bottom: 10px;
+margin-left: -85px;
     border-radius: 0 7px 7px 0px;
     -webkit-border-radius: 0 7px 7px 0px;
     -moz-border-radius: 0 7px 7px 0px;

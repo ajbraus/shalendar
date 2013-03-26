@@ -10,8 +10,7 @@ Mike
 
 Adam
 
-	DONE run old code script
-	center ajax loaders
+	make lazy loading
 
 	setup heroku scheduler to call Event.mark_one_times_over every 30 minutes.
 	and to call Invitation.expire every day at midnight
