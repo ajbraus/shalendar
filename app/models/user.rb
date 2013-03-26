@@ -83,7 +83,6 @@ class User < ActiveRecord::Base
   has_many :plans, through: :rsvps, :conditions => ['inout = ?', 1]
 
   has_many :invitations, foreign_key: "invited_user_id", dependent: :destroy
-  has_many :invited_times, through: :invitations, source: :invited_event, :conditions => ['starts_at > ? AND starts_at < ?', Time.zone.now, Time.zone.now + 59.days]
   has_many :invited_ideas, through: :invitations, source: :invited_event, :conditions => ['starts_at IS NULL']
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy

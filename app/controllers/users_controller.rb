@@ -21,7 +21,7 @@ class UsersController < ApplicationController
           @public_ideas = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @current_city.id, 3).reject { |i| current_user.rsvpd?(i) }
           @invites = @invites | @public_ideas
           #@ideas = @user.invited_ideas.includes(:user).where('city_id = ?', @current_city_id).order('created_at DESC').reject { |i| @user.out?(i) || i.no_relevant_instances? }
-          @times = @user.invited_times.includes(:user).where('city_id = ?', @current_city.id).reject { |i| @user.out?(i) }
+          @times = @user.plans.includes(:user).where('starts_at > ? AND starts_at < ? AND city_id = ?', Time.zone.now, Time.zone.now + 59.days, @current_city.id).reject { |i| @user.out?(i) }
           @public_times = Event.where('city_id = ? AND visibility = ? AND starts_at > ? AND starts_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days)
           @times = @times | @public_times
         elsif @user.is_friends_with?(current_user)
