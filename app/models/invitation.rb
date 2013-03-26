@@ -6,4 +6,11 @@ class Invitation < ActiveRecord::Base
 
   validates :invited_user_id, presence: true
   validates :invited_event_id, presence: true
+
+  def self.expire
+		@old_invites = Invitation.where('created_at > ?', Time.now - 1.week)  	
+		@old_invites.each do |i|
+			i.destroy
+		end
+  end
 end

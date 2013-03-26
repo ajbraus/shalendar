@@ -15,7 +15,7 @@ class CreateInvitationsAgain < ActiveRecord::Migration
     add_index :events, :fb_id
     add_column :events, :visibility, :integer, default:2
 
-    Event.find_each do |e|
+    Event.all do |e|
       if e.friends_only?
         e.visibility = 1
       else
@@ -26,8 +26,8 @@ class CreateInvitationsAgain < ActiveRecord::Migration
 
     remove_column :events, :friends_only
 
-    User.find_each do |u|
-      u.plans.find_each do |p|
+    User.all do |u|
+      u.plans.all do |p|
         unless u.already_invited?(p)
           u.invitations.create!(invited_event_id: p.id)
         end
