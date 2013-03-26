@@ -17,24 +17,13 @@ class Api::V2::EventsController < ApplicationController
     @finished = false
     @window_size = 7
 
-    @invites_ideas = @mobile_user.invited_ideas.where('city_id = ?', @current_city_id).order('created_at DESC').reject { |i| @mobile_user.out?(i) || i.no_relevant_instances? || @mobile_user.in?(i) }
+    @invites = @mobile_user.invited_ideas.where('events.city_id = ?', @mobile_user.city.id).order('created_at DESC').reject { |i| @mobile_user.out?(i) || i.no_relevant_instances?}
+    @public_ideas = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @mobile_user.city.id, 3)
+    @ins = @user.plans.where('city_id = ? AND ends_at IS NULL', @mobile_user.city.id)
 
-    #ADAM's ATTEMPT AT THIS QUERY WITH NO SINGLETON ONE_TIMES AND WITH EAGER LOADING GUESTS AND INSTANCES
-    # @invites_ideas = Event.includes(:instances, {:rsvps => :guest}).where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |e| e.no_relevant_instances? }
+    @invites = (@invites | @public_ideas) - @ins
 
-    # @invites_ideas = @invites_ideas.reject do |i| 
-    #   !current_user.in?(i) && (current_user.out?(i) || !current_user.invited?(i))
-    # end
-
-    # @invites_ideas = @invites_ideas.reject do |i| 
-    #   !current_user.in?(i) && (current_user.out?(i) || (current_user.inmates & i.guests).none? || (i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)))
-    # end
-
-    # @invites_ideas = @invites_ideas.sort_by do |i| 
-    #     i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
-    #         i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
-    # end
-    @events = @invites_ideas
+    @events = @invites#these are just the 'ideas' with times included
 
     if (@count + @window_size) < @events.count
       @events = @events[@count .. @count + @window_size-1]

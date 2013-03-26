@@ -309,6 +309,7 @@ ActiveRecord::Schema.define(:version => 20130325192827) do
     t.string   "debits_uri"
     t.integer  "city_id"
     t.string   "slug"
+    t.integer  "classification_id"
     t.integer  "friends_count",            :default => 0
     t.integer  "intros_count",             :default => 0
     t.integer  "friended_bys_count",       :default => 0
