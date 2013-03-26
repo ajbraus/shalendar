@@ -102,7 +102,10 @@ private
       name = access_token.info.name
       cityname = access_token.info.location
       city = City.find_by_name(cityname)
-      bday = Chronic.parse(access_token.extra.raw_info.birthday).to_date
+      bday = Chronic.parse(access_token.extra.raw_info.birthday)
+      if bday.present?
+        bday = bday.to_date
+      end
       if access_token.extra.raw_info.gender == "male"
         female = false
       else

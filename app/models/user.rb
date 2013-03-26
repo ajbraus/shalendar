@@ -96,6 +96,7 @@ class User < ActiveRecord::Base
 
   has_many :inmates, through: :relationships, source: :followed, conditions: "status = 1"  
   has_many :friends, through: :relationships, source: :followed, conditions: "status = 2"  
+  has_many :ignored_users, through: :relationships, source: :followed, conditions: "status = 0"
 
   has_many :inmates_and_friends, through: :relationships, source: :followed, conditions: 'status != 0'
 
@@ -232,6 +233,7 @@ class User < ActiveRecord::Base
       end
     end
     rsvps.create!(plan_id: event.id, inout: 1)
+    
     unless self.already_invited?(event)
       self.invitations.create!(invited_event_id: event.id)
     end
@@ -312,7 +314,7 @@ class User < ActiveRecord::Base
     end
     rsvps.create!(plan_id: event.id, inout: 0)
     
-    @invitation = self.invitations.find_by_event_id(event.id)
+    @invitation = self.invitations.find_by_invited_event_id(event.id)
     if @invitation.present?
       @invitation.destroy
     end
@@ -344,36 +346,22 @@ class User < ActiveRecord::Base
   #Relationship methods
   def is_friends_with?(other_user)
     unless other_user.ignores?(self)
-      @relationship = self.relationships.find_by_followed_id(other_user.id)
-      if @relationship.present? && @relationship.status == 2
-        return true
-      end
+      return self.friends.include?(other_user)
     end
     return false
   end
 
   def is_friended_by?(other_user)
-    @relationship = other_user.relationships.find_by_followed_id(self.id)
-    if @relationship.present? && @relationship.status == 2
-      return true
-    end
-    return false
+    return other_user.friends.include?(self)
   end
 
   def ignores?(other_user)
-    @relationship = self.relationships.find_by_followed_id(other_user.id)
-    if @relationship.present? && @relationship.status == 0
-      return true
-    end
-    return false
+    return self.ignored_users.include?(other_user)
   end
 
   def is_inmates_with?(other_user)
     unless other_user.ignores?(self)
-      @relationship = self.relationships.find_by_followed_id(other_user.id)
-      if @relationship.present? && @relationship.status == 1
-        return true
-      end
+      return self.inmates.include?(other_user)
     end
     return false
   end
@@ -381,10 +369,8 @@ class User < ActiveRecord::Base
   def is_inmates_or_friends_with?(other_user)
     unless other_user.ignores?(self)
       @relationship = self.relationships.find_by_followed_id(other_user.id)
-      if @relationship.present?
-        unless @relationship.status == 0
-          return true
-        end
+      if @relationship.present? && @relationship.status != 0
+        return true
       end
     end
     return false
@@ -409,6 +395,14 @@ class User < ActiveRecord::Base
       if @relationship.present?
         @relationship.status = 2
         @relationship.save
+
+        self.friends_count += 1
+        self.intros_count -= 1
+        self.save
+
+        other_user.friended_bys_count +=1
+        other_user.save
+
         self.events.where('visibility = ?', 2).each do |e|
           unless other_user.already_invited?(e)
             other_user.invitations.create!(invited_event_id: e.id)
@@ -425,6 +419,8 @@ class User < ActiveRecord::Base
     unless other_user == self || other_user.ignores?(self)
       unless self.is_inmates_or_friends_with?(other_user) || self.ignores?(other_user)
         self.relationships.create(followed_id: other_user.id, status: 1)
+        self.intros_count += 1
+        self.save
         other_user.plans.where(visibility: 2).each do |p| 
           unless self.already_invited?(p)
             self.invitations.create!(invited_event_id: p.id)
@@ -433,6 +429,8 @@ class User < ActiveRecord::Base
       end
       unless other_user.is_inmates_or_friends_with?(self) || self.ignores?(other_user)
         other_user.relationships.create(followed_id: self.id, status: 1)
+        other_user.intros_count += 1
+        other_user.save
         self.plans.where(visibility: 2).each do |p| 
           unless other_user.already_invited?(p)
             other_user.invitations.create!(invited_event_id: p.id)
@@ -449,9 +447,11 @@ class User < ActiveRecord::Base
         self.relationships.create!(followed_id: other_user.id, status: 1)
       else
         @relationship.status = 1
-        @relationship.save
-
+        @relationship.save        
       end
+      self.intros_count += 1
+      self.save
+
       other_user.plans.each do |p| 
         unless self.already_invited?(p)
           self.invitations.create!(invited_event_id: p.id)
@@ -464,6 +464,9 @@ class User < ActiveRecord::Base
         @reverse_relationship.status = 1
         @reverse_relationship.save
       end
+      other_user.intros_count += 1
+      other_user.save
+
       self.plans.each do |p| 
         unless other_user.already_invited?(p)
           other_user.invitations.create!(invited_event_id: p.id)
@@ -477,14 +480,16 @@ class User < ActiveRecord::Base
     @reverse_relationship = inmate.relationships.find_by_followed_id(self.id)
     unless @reverse_relationship.nil?
       @reverse_relationship.destroy
-      # @reverse_relationship.status = 0
-      # @reverse_relationship.save
+      self.intros_count -= 1
+      self.save
     end
 
     @relationship = self.relationships.find_by_followed_id(inmate.id)
     unless @relationship.nil?
       @relationship.status = 0
       @relationship.save
+      self.intros_count -=1
+      self.save
     end
   end
 
@@ -493,6 +498,12 @@ class User < ActiveRecord::Base
     if @relationship.present?
       @relationship.status = 1
       @relationship.save
+      self.friends_count -= 1
+      self.intros_count += 1
+      self.save
+
+      other_user.friended_bys_count -=1
+      other_user.save
     end
   end
 

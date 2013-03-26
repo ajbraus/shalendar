@@ -95,9 +95,6 @@ describe "Home page after sign in" do
     before do
       visit root_path
     end
-    it "should display the instructions in the mini_calendar" do
-      page.should have_selector(".mini_calendar_explanation")
-    end
     it "should have content 'Madison Test Idea'" do
       page.should have_content("Madison Test Idea")
     end
@@ -143,7 +140,7 @@ describe "Home page after sign in" do
       user.ignore_inmate!(other_user)
       user.unfriend!(other_user)
       user.inmate!(other_user)
-      user.friend!(other_user)
+      other_user.friend!(user)
       visit root_path
     end
     it "should have content 'Friends Only Idea'" do
@@ -200,16 +197,12 @@ describe "Home page after sign in" do
                         chronic_starts_at: "#{Time.zone.now + 1.days}", 
                         ends_at: "#{Time.zone.now + 1.day + 2.hours}",
                         duration: 2,
-                        address: "my house",
-                        title: "Test Time"
+                        address: "my house"
                         )
       visit root_path
     end
-    it "should not display instructions in the mini calendar" do
-      page.should_not have_selector(".mini_calendar_explanation")
-    end
-    it "should have content 'Test Time" do
-      page.should have_content("Test Time")
+    it "should have content 'Madison Test Idea" do
+      page.should have_content("Madison Test Idea")
     end
   end
 
@@ -234,8 +227,8 @@ describe "Home page after sign in" do
       user.rsvp_in!(@event)
       visit user_path(user)
     end
-    it "should have the content 'upcoming ideas'" do
-      page.should have_content("Upcoming Ideas")
+    it "should have the content 'Madison Test Idea'" do
+      page.should have_content("Madison Test Idea")
     end
     it "should have the content user name and last name inital" do
       page.should have_content("#{user.first_name_with_last_initial}")

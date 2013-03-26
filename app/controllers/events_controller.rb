@@ -54,9 +54,9 @@
     @event = current_user.events.build(params[:event])
     @event.city = @current_city
     
-    if @event.starts_at.present? && @event.duration.present?
-      @event.ends_at = @event.starts_at + @event.duration*3600
-    end
+    # if @event.starts_at.present? && @event.duration.present?
+    #   @event.ends_at = @event.starts_at + @event.duration*3600
+    # end
     
     if @event.save
       current_user.rsvp_in!(@event)
@@ -171,9 +171,9 @@
     end
 
     @guests = @event.guests
-    if user_signed_in?
-      @guests.sort_by {|g| g.is_friends_with?(current_user) ? 0 : 1 }
-    end
+    # if user_signed_in?
+    #   @guests.sort_by {|g| g.is_friends_with?(current_user) ? 0 : 1 }
+    # end
     @maybes = @event.maybes
     #@email_invites = @event.email_invites
     @comments = @event.comments.order("created_at desc")

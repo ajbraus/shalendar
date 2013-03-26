@@ -1,0 +1,8 @@
+	<h2><%= user.friends_count + user.intros_count %>&nbsp;&nbsp;.intros</h2>
+	<% if current_user == user %>
+		<%= render partial: 'shared/user', collection: user.friends, as: :user %>
+		<%= render partial: 'shared/user', collection: user.inmates, as: :user %>
+	<% else %>
+		<%= render partial: 'shared/user_not_inmate', collection: user.friends, as: :user %>
+		<%= render partial: 'shared/user_not_inmate', collection: user.inmates, as: :user %>
+	<% end %>	

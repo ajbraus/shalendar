@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130318230614) do
+ActiveRecord::Schema.define(:version => 20130325192827) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -179,6 +179,7 @@ ActiveRecord::Schema.define(:version => 20130318230614) do
     t.boolean  "dead",                   :default => false
     t.string   "fb_id"
     t.integer  "visibility",             :default => 2
+    t.boolean  "over",                   :default => false
   end
 
   add_index "events", ["fb_id"], :name => "index_events_on_fb_id"
@@ -226,6 +227,7 @@ ActiveRecord::Schema.define(:version => 20130318230614) do
   end
 
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
+  add_index "relationships", ["follower_id", "followed_id", "status"], :name => "index_relationships_on_follower_id_and_followed_id_and_status"
   add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
@@ -306,6 +308,9 @@ ActiveRecord::Schema.define(:version => 20130318230614) do
     t.string   "debits_uri"
     t.integer  "city_id"
     t.string   "slug"
+    t.integer  "friends_count",            :default => 0
+    t.integer  "intros_count",             :default => 0
+    t.integer  "friended_bys_count",       :default => 0
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

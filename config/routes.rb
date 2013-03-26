@@ -33,6 +33,9 @@ Shalendar::Application.routes.draw do
 
   match '/pick_city', to: 'users#pick_city', as: 'pick_city'
 
+  match '/get_intros', to: 'users#get_intros', as: 'get_intros'
+  match '/get_ins', to: 'users#get_ins', as: 'get_ins'
+
   match '/city_names', :to => 'users#city_names', :as => "city_names"
   match '/get_fb_friends_to_invite', :to => 'events#get_fb_friends_to_invite', :as => 'get_fb_friends_to_invite'
   #match '/repeat', :to => 'events#repeat', :as => 'repeat_event'

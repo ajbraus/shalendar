@@ -1,8 +1,6 @@
 <div class="user">
   <div class="friend_button follow_form_hook" data-user-id='<%= user.id %>'>
-    <% if current_user.is_inmates_or_friends_with?(user) %>
       <%= render  :partial => 'events/follow_form', :locals => { :user => user } %>
-    <% end %>
   </div>
   <div class="pic">
     <%= link_to user_path(user) do %>
@@ -11,11 +9,7 @@
   </div>
   <div class="friend_name">
     <%= link_to user_path(user) do %>
-      <% if current_user.is_inmates_or_friends_with?(user) %>
         <%= user.name %>
-      <% else %>
-        <%= user.first_name %>
-      <% end %>
     <% end %>
   </div>
 </div>

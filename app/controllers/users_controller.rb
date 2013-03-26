@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, except: [ :show, :city_names ]
 
   def show
-    @user = User.find_by_slug(params[:id])
+    @user = User.includes(:relationships).find_by_slug(params[:id])
     if @user.blank? #either got an invalid slug or they are trying to land on the homepage
       if user_signed_in?
         @user = current_user
@@ -14,31 +14,28 @@ class UsersController < ApplicationController
     end
 
     unless @user.blank?
-      @current_city_id = @current_city.id
-      @user_friends = @user.friends.where(city_id: @current_city_id)
-      @user_inmates = @user.inmates.where(city_id: @current_city_id)
-      @user_plans = @user.plans.where(city_id: @current_city_id)
-      @star_count = @user.friended_bys.count
       if user_signed_in?
-        if @user == current_user  
-          #invited_ideas = ideas with invitations - i.e. ideas you create, ideas your in-mates are in on, that you are not out of
-          @ideas = @user.invited_ideas.where('city_id = ?', @current_city_id).order('created_at DESC').reject { |i| @user.out?(i) || i.no_relevant_instances? }
-          #invited_times = times with invitations - i.e. times you created, times your in-mates are in on, that you are not out of
-          @times = @user.invited_times.where('city_id = ?', @current_city_id).reject { |i| @user.out?(i) }
-          @public = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @current_city_id, 3)
-          @ideas = @ideas | @public
+        if @user == current_user
+          @invites = @user.invited_ideas.includes(:user).where('events.city_id = ?', @current_city.id)
+          @ins = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id)
+          @public_ideas = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @current_city.id, 3)
+          @invites = (@invites | @public_ideas) - @ins
+          #@ideas = @user.invited_ideas.includes(:user).where('city_id = ?', @current_city_id).order('created_at DESC').reject { |i| @user.out?(i) || i.no_relevant_instances? }
+          @times = @user.invited_times.includes(:user).where('city_id = ?', @current_city.id).reject { |i| @user.out?(i) }
+          @public_times = Event.where('city_id = ? AND visibility = ? AND starts_at > ? AND starts_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days)
+          @times = @times | @public_times
         elsif @user.is_friends_with?(current_user)
-          @ideas = @user_plans.where('visibility > ? AND starts_at IS NULL', 0).order('created_at DESC').reject { |i| @user.out?(i) || i.no_relevant_instances? }
-          @times = @user_plans.where('visibility > ? AND starts_at > ? AND starts_at < ?', 0, Time.zone.now, Time.zone.now + 59.days).reject { |i| @user.out?(i) }
+          @ins = @user.plans.where('city_id = ? AND visibility > ? AND starts_at IS NULL', @current_city.id, 0).order('created_at DESC').reject { |i| @user.out?(i) }
+          @times = @user.plans.where('city_id = ? AND visibility > ? AND starts_at > ? AND starts_at < ?', @current_city.id, 0, Time.zone.now, Time.zone.now + 59.days).reject { |i| @user.out?(i) }
         elsif @user.is_inmates_with?(current_user)
-          @ideas = @user_plans.where('visibility > ? AND starts_at IS NULL', 1).order('created_at DESC').reject { |i| @user.out?(i) || i.no_relevant_instances? }
-          @times = @user_plans.where('visibility > ? AND starts_at > ? AND starts_at < ?', 1, Time.zone.now, Time.zone.now + 59.days).reject { |i| @user.out?(i) }
+          @ins = @user.plans.where('city_id = ? AND visibility > ? AND starts_at IS NULL', @current_city.id, 1).order('created_at DESC').reject { |i| @user.out?(i) }
+          @times = @user.plans.where('city_id = ? AND visibility > ? AND starts_at > ? AND starts_at < ?', @current_city.id, 1, Time.zone.now, Time.zone.now + 59.days).reject { |i| @user.out?(i) }
           #@past_times = @user.plans.unscoped.where("starts_at < ?", Time.zone.now).order('starts_at DESC').first(20)
         else
-          @ideas = @user_plans.where('city_id = ? AND visibility > ? AND starts_at IS NULL', @current_city_id, 1).order('created_at DESC').reject { |i| i.no_relevant_instances? }
+          @ins = @user.plans.where('city_id = ? AND visibility > ? AND starts_at IS NULL', @current_city.id, 1).order('created_at DESC')
         end
       else 
-        @ideas = @user_plans.where('city_id = ? AND visibility > ? AND starts_at IS NULL', @current_city_id, 1).order('created_at DESC').reject { |i| i.no_relevant_instances? }
+        @ins = @user.plans.where('city_id = ? AND visibility > ? AND starts_at IS NULL', @current_city.id, 1).order('created_at DESC')
       end
     end
 
@@ -46,6 +43,17 @@ class UsersController < ApplicationController
     if params[:oofta] == 'true'
       flash.now[:oofta] = "We're sorry, an error occured"
     end
+  end
+
+  def get_ins
+    @user = User.find_by_slug(params[:id])
+    @ins = @user.plans.where('city_id = ?', @current_city.id) 
+  end
+
+  def get_intros
+    @user = User.find_by_slug(params[:id])
+    @user_friends = @user.friends.where(city_id: @current_city.id)
+    @user_inmates = @user.inmates.where(city_id: @current_city.id)
   end
 
   def pick_city
@@ -58,6 +66,9 @@ class UsersController < ApplicationController
 
     @city = City.find_by_name(params[:city_name])
     params[:user] = {:city => @city}
+    if @city.blank?
+      return redirect_to pick_city_path, notice: "City not found. Please choose a city from the autocomplete list closest to you."
+    end
     
     respond_to do |format|
       if @user.update_attributes(params[:user])

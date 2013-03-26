@@ -45,14 +45,7 @@
 			</div>
 		<% end %>
 	<% end %>
-
-	<% if event.one_time? 
-		 	@relevant_instances = [event]
-		 else 
-			@relevant_instances = event.instances.reject { |e| current_user.out?(e) || e.over? } 
-		 end 
-	%>
-	<%= render partial: 'events/time', collection: @relevant_instances, as: :event %>
+	<%= render partial: 'events/time', collection: event.instances, as: :event %>
 	<% if current_user == event.user && !event.one_time? && event.is_parent? %>
 		<%= link_to event_new_time_path(event) do %>
 			<div class="add_time fadeInOrange"><i class="icon-time"></i> new time</div>

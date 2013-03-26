@@ -2,7 +2,7 @@ require 'chronic'
 require 'icalendar'
 
 class Event < ActiveRecord::Base
-  default_scope where(:dead=>'f')
+  default_scope where(dead: 'f', over: 'f')
 
   belongs_to :user
   belongs_to :city
@@ -175,23 +175,23 @@ class Event < ActiveRecord::Base
   end
 
   def friends_in(current_user)
-    self.guests.select { |g| current_user.is_friends_with?(g) }
+    (self.guests & current_user.friends)
   end
 
   def inmates_in(current_user)
-    self.guests.select { |g| current_user.is_inmates_with?(g) }
+    (self.guests & current_user.inmates)
   end
 
   def friends_in_count(current_user)
-    self.guests.select { |g| current_user.is_friends_with?(g) }.count
+    (self.guests & current_user.friends).count
   end
 
   def inmates_in_count(current_user)
-    self.guests.select { |g| current_user.is_inmates_with?(g) }.count
+    (self.guests & current_user.inmates).count
   end
 
   def friends_and_inmates_in(current_user)
-    self.guests.select { |g| current_user.is_inmates_or_friends_with?(g) }
+    (self.guests & current_user.inmates_and_friends)
   end
 
   def friends_invited_count(current_user)
@@ -370,7 +370,7 @@ class Event < ActiveRecord::Base
     return Event.where('parent_id = ? AND ends_at > ?', self.id, Time.zone.now).any?
   end
 
-  def over?
+  def already_over?
     return self.ends_at.present? && self.ends_at < Time.zone.now
   end
 
@@ -436,6 +436,27 @@ class Event < ActiveRecord::Base
       return "- <i class='icon-star friend_star'></i>"
     elsif self.invite_only?
       return "- <i class='icon-eye-close'></i>"
+    end
+  end
+
+  def self.mark_one_times_over
+    Event.where('one_time = ? AND ends_at is NOT NULL', true).find_each do |e|
+      Time.zone = e.city.timezone
+      if e.ends_at < Time.zone.now
+        e.over = true
+        @parent = e.parent
+        if @parent.present? && @parent.one_time?
+          @parent.over = true
+          @parent.save
+        end
+      else
+        e.over = false
+        if @parent.present?
+          @parent.over = false
+          @parent.save
+        end
+      end
+      e.save
     end
   end
 

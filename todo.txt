@@ -10,7 +10,29 @@ Mike
 
 Adam
 
-	make user tagging
+	DONE add index on friends and inmates to relationships table
+	
+	DONE add number of friends and intros as database columns
+	DONE update friend! method to update intros and friends count
+	DONE update inmate! method to increment intros
+	DONE update re_inmate! method to increment intros
+	DONE update unfriend! method to decriment friend_count and increment intros_count
+	DONE update ignore_inmate! method ot decrement intros_count
+
+	setup heroku scheduler to call Event.mark_one_times_over every 30 minutes.
+	DONE add over bool to database
+	DONE remove over? method (renamed to already_over?)
+	DONE set default scope to not load over events
+	DONE remove 'no_relevant_instances'
+
+	DONE make intros load through ajax
+	DONE build template (html and js), route, and ajax call
+	DONE load @user correctly in users#get_inmates
+
+	DONE make ins load through ajax
+	DONE only load invites up front
+
+	make user tagging/messaging
 	display private/friends only
 
 
@@ -49,14 +71,14 @@ TESTS
 
 	tagging user
 
-	when creating fb event only join existing if an inmate is in
+	when creating fb event only join existing if an intros is in
 
-	.inmate .invite - 
+	.intros .invite - 
 		DONE created route, controller method, notifier method, and template
 		email field (need the api link call in the email with the inviter's id)
 		added to send all emails
 		- email not working
-	starred .in-mate invitations 15
+	starred .intro invitations 15
 		hoos.in is for doing things with your real friends
 		.invite 15 of your friends in your city to be your .intros on hoos.in
 	
@@ -66,7 +88,7 @@ TESTS
 	
 	in all emails make a user's name and picture go to their home page
 	change self.digest to use invitations
-	inmate counts are not accurate on digest (event_details)
+	intros counts are not accurate on digest (event_details)
 	put new inmates into digest
 
 	pass in UID to facebook send dialogue?
@@ -87,7 +109,7 @@ TESTS
 	refactor EmailInvite code in api code
 
 
-	what are you up to tonight? - if someone views your profile and they are you're .in-mate shouldn't it show them?
+	what are you up to tonight? - if someone views your profile and they are you're .intro shouldn't it show them?
 	check in somewhere on foursquare through hoos.in - creates an idea at that location
 
 

@@ -9,9 +9,9 @@
 		DONE created invitation.rb
 		DONE created create_invitiations_again migration
 		DONE in rsvp_in! in user.rb update to 
-			unless friends_only, add invitest for all current_user's .in-mate's invited events
+			unless friends_only, add invitest for all current_user's .intro's invited events
 		DONE in rsvp_out! in user.rb update to 
-			unless friends_only, remove from all current_user's .in-mate's invited events
+			unless friends_only, remove from all current_user's .intro's invited events
 		DONE update shalendar controller and users controller
 	
 	Make user_show page root

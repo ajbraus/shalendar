@@ -11,15 +11,15 @@
 	<div class="profile_stats">
 		<ul> 
 			<li>
-				<div><i class="icon-cloud" style="color:rgb(79, 62, 213);"></i> <%= @ideas.count %></div>
+				<div><i class="icon-cloud" style="color:rgb(79, 62, 213);"></i> <%= @user.ins.count %></div>
 				<div>.ins </div>
 			</li>
 			<li>
-				<div><i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= @user_inmates.count %> </div>
+				<div><i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= @user.intros_count %> </div>
 				<div>.intros</div>
 			</li>			
 			<li>
-				<div><i class="icon-star friend_star"></i> <span id="friendCount"><%= @user_friends.count %> </div>
+				<div><i class="icon-star friend_star"></i> <span id="friendCount"><%= @user.friends_count %> </div>
 				<div>friends</div>
 			</li>
 			<% if false %>

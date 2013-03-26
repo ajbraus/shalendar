@@ -104,8 +104,7 @@
     <% end %>
   <% end %>
 
-  <% @relevant_instances = @event.instances.reject { |e| e.over? } %>
-  <%= render partial: 'events/show_time', collection: @relevant_instances, as: :event %>
+  <%= render partial: 'events/show_time', collection: @event.instances, as: :event %>
 
   <% if @event.promo_vid.present? %>
     <div class="promo_vid">

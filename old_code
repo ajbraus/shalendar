@@ -691,7 +691,7 @@ end
       <div class="explainer_arrows">
         <i class="icon-star inmate_star"></i> <i class="icon-arrow-right"></i> <i class="icon-star friend_star"></i>
       </div>
-      <div>Click an .in-mate's star to receive notifications when they create ideas or chat.</div>
+      <div>Click an .intro's star to receive notifications when they create ideas or chat.</div>
       <br>
       Click on <%= render 'shared/new_idea_button' %> to create a new idea
     </div>
