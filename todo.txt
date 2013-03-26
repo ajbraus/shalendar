@@ -9,28 +9,7 @@ Mike
 		code to prevent some notifications)
 
 Adam
-
-	DONE add index on friends and inmates to relationships table
-	
-	DONE add number of friends and intros as database columns
-	DONE update friend! method to update intros and friends count
-	DONE update inmate! method to increment intros
-	DONE update re_inmate! method to increment intros
-	DONE update unfriend! method to decriment friend_count and increment intros_count
-	DONE update ignore_inmate! method ot decrement intros_count
-
 	setup heroku scheduler to call Event.mark_one_times_over every 30 minutes.
-	DONE add over bool to database
-	DONE remove over? method (renamed to already_over?)
-	DONE set default scope to not load over events
-	DONE remove 'no_relevant_instances'
-
-	DONE make intros load through ajax
-	DONE build template (html and js), route, and ajax call
-	DONE load @user correctly in users#get_inmates
-
-	DONE make ins load through ajax
-	DONE only load invites up front
 
 	make user tagging/messaging
 	display private/friends only
