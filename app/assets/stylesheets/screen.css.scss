@@ -3472,3 +3472,13 @@ text-align: center;
 padding: 7px;
 font-size: 26px;
 }
+
+#insContainer  {
+  clear: both;
+min-height: 20px;
+  img {
+    width: 20px;
+    position: relative;
+    left: 48%;
+  }
+}
