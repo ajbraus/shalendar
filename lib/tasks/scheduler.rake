@@ -18,8 +18,12 @@ task :digest => :environment do
 	User.digest
 end
 
-task :follow_up => :environment do
-	User.follow_up
+task :expire => :environment do
+	Invitation.expire
+end
+
+task :mark_one_times_over => :environment do
+	Event.mark_one_times_over
 end
 
 task :send_reminders => :environment do
