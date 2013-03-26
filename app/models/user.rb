@@ -244,13 +244,13 @@ class User < ActiveRecord::Base
 
     if event.open_invite?
       self.inmates_and_friends.each do |u|
-        unless u.already_invited?(event)
+        unless u.already_invited?(event) || u.out?(event)
           u.invitations.create!(invited_event_id: event.id)
         end
       end        
     elsif event.friends_only?    
       self.friends.each do |u|
-        unless u.already_invited?(event)
+        unless u.already_invited?(event) || u.out?(event)
           u.invitations.create!(invited_event_id: event.id)
         end
       end   
@@ -313,7 +313,7 @@ class User < ActiveRecord::Base
       end
     end
     rsvps.create!(plan_id: event.id, inout: 0)
-    
+  
     @invitation = self.invitations.find_by_invited_event_id(event.id)
     if @invitation.present?
       @invitation.destroy
@@ -404,7 +404,7 @@ class User < ActiveRecord::Base
         other_user.save
 
         self.events.where('visibility = ?', 1).each do |e|
-          unless other_user.already_invited?(e)
+          unless other_user.already_invited?(e) || other_user.out?(e)
             other_user.invitations.create!(invited_event_id: e.id)
           end
         end
@@ -422,7 +422,7 @@ class User < ActiveRecord::Base
         self.intros_count += 1
         self.save
         other_user.plans.where(visibility: 2).each do |p| 
-          unless self.already_invited?(p)
+          unless self.already_invited?(p) || self.out?(p)
             self.invitations.create!(invited_event_id: p.id)
           end
         end
@@ -432,7 +432,7 @@ class User < ActiveRecord::Base
         other_user.intros_count += 1
         other_user.save
         self.plans.where(visibility: 2).each do |p| 
-          unless other_user.already_invited?(p)
+          unless other_user.already_invited?(p) || other_user.out?(p)
             other_user.invitations.create!(invited_event_id: p.id)
           end
         end
@@ -453,7 +453,7 @@ class User < ActiveRecord::Base
       self.save
 
       other_user.plans.each do |p| 
-        unless self.already_invited?(p)
+        unless self.already_invited?(p) || self.out?(p)
           self.invitations.create!(invited_event_id: p.id)
         end
       end
@@ -468,7 +468,7 @@ class User < ActiveRecord::Base
       other_user.save
 
       self.plans.each do |p| 
-        unless other_user.already_invited?(p)
+        unless other_user.already_invited?(p) || other_user.out?(p)
           other_user.invitations.create!(invited_event_id: p.id)
         end
       end
@@ -598,7 +598,7 @@ class User < ActiveRecord::Base
     EmailInvite.where("email_invites.email = :new_user_email", new_user_email: self.email).each do |ei|
       @invited_user = self
       @invited_event = ei.event
-      unless self.already_invited?(@invited_event)
+      unless self.already_invited?(@invited_event) || self.out?(@invited_event)
         self.invitations.create!(invited_event_id: @invited_event.id)
       end
       ei.destroy

@@ -22,7 +22,6 @@ class RsvpsController < ApplicationController
           format.js { render template: "rsvps/in" }
         end
       end
-
     elsif params[:rsvp][:inout].to_f == 0
       respond_to do |format|
         if @event.has_parent?
