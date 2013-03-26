@@ -1,10 +1,22 @@
 change city - create and asks for city
 
+fb send dialogue
+
 pull up to search ppl
 pull up to refresh
 
+create public, intro, friend, private ideas
+
+alert for new idea from mike - still seeing alert when i open app - then idea screen is blankcd 
+
+faster
+
+
+push notifications open directly to ideas or comments or profile
+
 
 add new_fb_inmate push type (open to profile)
+
 
 ask for rating
 http://stackoverflow.com/questions/6087693/itunes-review-url
@@ -28,8 +40,6 @@ give a gradient to the day bar
 
 make it so image does not stretch in new idea form
 
-alert for new idea from mike - still seeing alert when i open app - then idea screen is blankcd 
-
 black calendar button, white cloud button if possible
 
 Differentiate between .ins and .invites more 
@@ -37,8 +47,6 @@ Differentiate between .ins and .invites more
 times - dark, ideas - light
 
 search google, flickr, pinterest for photo and add it
-
-push notifications open directly to ideas or comments or profile
 
 switch in middle of top - calendar/ideas
 
@@ -52,10 +60,7 @@ check in functionality
 
 payments
 
-add internal web browser
-
-swipe down to reload
-
+add internal web browser - for register?
 
 Home - defaults to calendar
 Discover - tindr style? stumbl upon style? pinterest style?

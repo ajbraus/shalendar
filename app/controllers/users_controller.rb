@@ -46,12 +46,13 @@ class UsersController < ApplicationController
   end
 
   def get_ins
-    @user = User.find_by_slug(params[:id])
+    @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
     @ins = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id)
+    @ins = @ins.sort_by { |i| i.instances.any? ? 0 : 1 }
   end
 
   def get_intros
-    @user = User.find_by_slug(params[:id])
+    @user = User.includes(:relationships).find_by_slug(params[:id])
     @user_friends = @user.friends.where(city_id: @current_city.id)
     @user_inmates = @user.inmates.where(city_id: @current_city.id)
   end
