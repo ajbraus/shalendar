@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('#ideaContainer').imagesLoaded( function(){
+  //$('#ideaContainer').imagesLoaded( function(){
     $('#ideaContainer').masonry({
       itemSelector : '.event',
       // column_width: 100,
@@ -10,9 +10,9 @@ $(document).ready(function() {
       // cornerStampSelector: '.suggested_friends'
     	}
     });
-  });
+  //});
 
-  $('#insContainer').imagesLoaded( function(){
+  //$('#insContainer').imagesLoaded( function(){
     $('#insContainer').masonry({
       itemSelector : '.event',
       isFitWidth: true,
@@ -23,13 +23,13 @@ $(document).ready(function() {
       // cornerStampSelector: '.suggested_friends'
       }
     });
-  });
+  //});
 
   $('#ideaContainer').imagesLoaded( function(){
     $(this).masonry('reload');
   });
 
-  $('.idea_container').imagesLoaded( function(){
+  //$('.idea_container').imagesLoaded( function(){
     $('.idea_container').masonry({
       itemSelector : '.event',
       isFitWidth: true,
@@ -38,6 +38,6 @@ $(document).ready(function() {
       animationOptions: {
       duration: 50,
       }
-    });
+  //  });
   });
 });

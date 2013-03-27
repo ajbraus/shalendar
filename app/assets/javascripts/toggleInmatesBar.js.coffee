@@ -1,8 +1,5 @@
 $ ->
 	$('#showInmates').click ->
-		$.get '/get_intros',
-			id: $('#showInmates').attr('data-slug')
-
 		$('.inmates_bar').animate
 			left: 0 
 			duration: 'slower'

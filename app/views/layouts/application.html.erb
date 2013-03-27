@@ -57,5 +57,13 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <%= yield :scripts %>
     <%= javascript_include_tag "application" %>
+    <% if params[:controller] == "users" && params[:action] == "show" %>
+      <%= coffee_script_tag do %>
+        $.get '/get_ins',
+          id: $('#showInmates').attr('data-slug');
+        $.get '/get_intros',
+          id: $('#showInmates').attr('data-slug');   
+      <% end %>
+    <% end %>
   </body>
 </html>

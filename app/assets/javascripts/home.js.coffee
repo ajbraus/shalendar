@@ -25,10 +25,6 @@ $ ->
 		$('#invitesContainer').masonry('reload');
 
 	$('#toggleIns').click ->
-		unless $('#insContainer').children().length > 1
-			$.get '/get_ins',
-				id: $('#showInmates').attr('data-slug');
-
 		$('#invites').addClass("unselected")
 		$('#ins').removeClass("unselected")
 		$('#invitesContainer').hide();
