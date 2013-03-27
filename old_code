@@ -704,7 +704,7 @@ end
 
 
 
-    Event.all.delay.each do |e|
+    Event.all.each do |e|
       User.all.each do |u|
         if u.rsvpd?(e)
           @invitation = u.invitations.find_by_invited_event_id(e.id)

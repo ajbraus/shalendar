@@ -12,6 +12,15 @@
         <%= render 'shared/new_idea_button' %>
       </div>
     <%= render 'shared/friend_search' %>
+              <% if user_signed_in? %>
+    <div class="invites_ins">
+      <% if @user == current_user  %>
+        <span id="invites"><span id="toggleInvites"><span id="invites_count"><%= @invites.count %></span> .invites</span></span> | <span id="ins" class="unselected"><span id="toggleIns"><span id="ins_count"><%= @ins_count %></span> .ins</span></span>
+      <% else %>
+        <span id="ins"><%= @user.first_name_with_last_initial %> has <span id="ins_count"></span> current <span id="toggleIns">.ins</span></span>
+      <% end %>
+    </div>
+  <% end %>
   </nav>
   <%= render 'layouts/alerts' %>
 </header>
