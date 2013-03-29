@@ -68,23 +68,26 @@
   </div>
 
   <nav>
-    <% unless params[:controller] == "sessions" || params[:controller] == "registrations" || params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
-      <% unless params[:action] == "show" || user_signed_in? == false %>
-      <div class="instructions">
-        .instructions
-      </div>
-      <% end %>
-    <% end %>
-    <% if false %>
-    <% unless params[:action] == "landing" || params[:action] == "new" %>
-    <div class="city_title">
-      <%= @current_city.name %>
-    </div>
-    <% end %>
-    <% end %>
   </nav>
   <%= render 'layouts/alerts' %>
 </header>
+
+<div class="connect-box clearfix">
+<div class="connect facebook">
+  <i class="icon-facebook"></i>
+</div>
+<div class="connect blog">
+  <i class="icon-pencil"></i>
+</div>
+<div class="connect instagram">
+  <i class="icon-camera-retro"></i>
+</div>
+<div class="connect twitter">
+  <i class="icon-twitter"></i>
+</div>
+</div>
+
+
 
 <% else %>
 <header>

@@ -10,9 +10,7 @@ Mike
 
 Adam
 
-	fix header
-	
-	make lazy loading images
+	get rid of invites to ideas that are over
 
 	make user tagging/messaging
 	display private/friends only

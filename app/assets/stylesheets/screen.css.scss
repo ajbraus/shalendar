@@ -597,7 +597,7 @@ font-weight: bold;
 text-decoration: none;
 text-shadow: 1px 1px 0px white;
 width: 25px;
-padding: 5px 0 5px 0;
+padding: 6px 0 6px 0;
 bottom: -1px;
 }
 .btn-user-search:hover {
@@ -3492,3 +3492,53 @@ min-height: 20px;
     left: 48%;
   }
 }
+
+.connect-box {
+  border-top: 1px solid $divider;
+clear: both;
+width: 80%;
+top: 470px;
+margin: 0 auto;
+position: relative;
+top: 50px;
+}
+
+.connect {
+width: 180px;
+float: left;
+text-align: center;
+padding: 60px 0;
+
+border-radius: 100px;
+margin: 0px 6px;
+margin-top: 20px;
+color: white;
+  i {
+    font-size: 55px;
+  }
+}
+  .twitter {
+    background-color: $icon_color;
+      &:hover{
+    background-color: $twitter_blue;
+  }
+  }
+  .facebook {
+    background-color: $icon_color;
+      &:hover{
+    background-color: $fbblue;
+  }
+  }
+   .connect .instagram {
+    background-color: $icon_color;
+      &:hover{
+    background-color: $twitter_blue;
+  }
+  }
+
+   .connect .blog {
+    background-color: $icon_color;
+      &:hover{
+    background-color: $twitter_blue;
+  }
+  }

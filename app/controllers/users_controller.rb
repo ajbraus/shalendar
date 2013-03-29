@@ -74,7 +74,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
         if @user.fb_user?
-          @user.add_fb_events(session[:graph])
+          @user.add_fb_events(@graph)
         end
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
