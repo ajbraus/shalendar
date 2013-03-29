@@ -71,24 +71,30 @@
   </nav>
   <%= render 'layouts/alerts' %>
 </header>
-
+<% if params[:controller] == "users" %>
 <div class="connect-box clearfix">
-<div class="connect facebook">
-  <i class="icon-facebook"></i>
+  <a href="http://www.facebook.com/hoosinapp" target="_blank">
+    <div class="connect facebook">
+      <i class="icon-facebook"></i>
+    </div>
+  </a>
+  <a href="https://www.facebook.com/hoosinapp/app_267091300008193" target="_blank">
+    <div class="connect instagram-circle">
+      <i class="icon-camera-retro"></i>
+    </div>
+  </a>
+  <a href="http://www.twitter.com/hoos_in" target="_blank">
+    <div class="connect twitter">
+      <i class="icon-twitter"></i>
+    </div>
+  </a>
+  <a href="http://blog.hoos.in" target="_blank">
+    <div class="connect blog">
+      <i class="icon-pencil"></i>
+    </div>
+  </a>
 </div>
-<div class="connect blog">
-  <i class="icon-pencil"></i>
-</div>
-<div class="connect instagram">
-  <i class="icon-camera-retro"></i>
-</div>
-<div class="connect twitter">
-  <i class="icon-twitter"></i>
-</div>
-</div>
-
-
-
+<% end %>
 <% else %>
 <header>
     <%= render 'layouts/logo' %>

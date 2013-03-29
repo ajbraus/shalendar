@@ -12,7 +12,11 @@ Adam
 
 	get rid of invites to ideas that are over
 
-	make user tagging/messaging
+	city siloing
+		contacts (don't send notifications to people not in the city of the idea)
+
+	tagging user
+	
 	display private/friends only
 
 
@@ -44,12 +48,6 @@ TESTS
 		for each create a new user and authentication and pull in all there events
 			:user has_many :accounts class: "User" 
 		every time anyone logs in, check if they have accounts, if they do try to update all events on a background job.
-
-
-	city siloing
-		contacts (don't send notifications to people not in the city of the idea)
-
-	tagging user
 
 	when creating fb event only join existing if an intros is in
 

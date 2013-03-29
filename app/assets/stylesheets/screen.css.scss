@@ -3496,7 +3496,7 @@ min-height: 20px;
 .connect-box {
   border-top: 1px solid $divider;
 clear: both;
-width: 80%;
+width: 650px;
 top: 470px;
 margin: 0 auto;
 position: relative;
@@ -3504,11 +3504,10 @@ top: 50px;
 }
 
 .connect {
-width: 180px;
+width: 150px;
 float: left;
 text-align: center;
-padding: 60px 0;
-
+padding: 45px 0;
 border-radius: 100px;
 margin: 0px 6px;
 margin-top: 20px;
@@ -3529,16 +3528,16 @@ color: white;
     background-color: $fbblue;
   }
   }
-   .connect .instagram {
+  .instagram-circle {
     background-color: $icon_color;
       &:hover{
-    background-color: $twitter_blue;
+    background-color: #4A779D;
   }
   }
 
-   .connect .blog {
+  .blog {
     background-color: $icon_color;
       &:hover{
-    background-color: $twitter_blue;
+    background-color: $dark_orange;
   }
   }
