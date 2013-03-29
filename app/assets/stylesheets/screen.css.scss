@@ -3494,26 +3494,25 @@ min-height: 20px;
 }
 
 .connect-box {
-  border-top: 1px solid $divider;
+border-top: 1px solid $divider;
 clear: both;
-width: 650px;
-top: 470px;
+width: 428px;
 margin: 0 auto;
 position: relative;
-top: 50px;
+top: 20px;
 }
 
 .connect {
-width: 150px;
+width: 95px;
 float: left;
 text-align: center;
-padding: 45px 0;
+padding: 28px 0;
 border-radius: 100px;
 margin: 0px 6px;
 margin-top: 20px;
 color: white;
   i {
-    font-size: 55px;
+    font-size: 35px;
   }
 }
   .twitter {

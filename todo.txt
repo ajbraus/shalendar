@@ -10,10 +10,13 @@ Mike
 
 Adam
 
+	troubleshoot invites in times
 	get rid of invites to ideas that are over
 
 	city siloing
 		contacts (don't send notifications to people not in the city of the idea)
+
+	Make hi user for each city?
 
 	tagging user
 	
