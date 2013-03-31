@@ -31,27 +31,23 @@
 					<%= event.user.first_name_with_last_initial %>
 				</u>
 			</div>
-		<% end %>
 
-		<div class="event_blerb">
-			<div class="title"><%= event.title %> <%= raw(event.visibility_icon) %></div>
-		</div>
+			<%= render partial: 'events/time', collection: event.instances, as: :event %>
+
+		<% end %>
 
 		<% if event.has_image? %>
 			<div class="promo_img">
 				<%= image_tag event.image(:medium), class:"" %>
 			</div>
 		<% end %>
+
+
+		<div class="event_blerb">
+			<div class="title"><%= event.title %> <%= raw(event.visibility_icon) %></div>
+		</div>
+
 		<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>		
-		
-		<% if user_signed_in? %>
-			<div class="facepile">
-				<% event.guests.each do |guest| %>
-	  			<span title="<%= guest.first_name_with_last_initial %>"><%= raster_profile_picture(guest) %></span>
-				<% end %>
-			</div> 
-			<%= render partial: 'events/time', collection: event.instances, as: :event %>
-		<% end %>
 <% end %>
 
 	<% if user_signed_in? %>
@@ -62,7 +58,7 @@
 			<div class="add_time shield_bottom one_time">no times yet</div>
 		<% elsif current_user.in?(event) && !event.one_time? && !event.public? %>
 			<%= link_to event_new_time_path(event) do %>
-				<div class="add_time fadeInGreen"><i class="icon-time"></i> add new time</div>
+				<div class="add_time fadeInGreen"><i class="icon-time"></i> suggest new time</div>
 			<% end %>
 		<% end %>
 		</div>

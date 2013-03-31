@@ -1,16 +1,65 @@
+<nav class="clearfix">
+   <%= render 'layouts/logo' %>
+    <div class="city_name" id="cityName"><% if @current_city.present? %> <%= @current_city.name %><%= link_to "move", pick_city_path, id:"editCity", style:"display:none;" %><% end %></div>
+    <div class="navigation">
+      <% if current_user.admin? %>
+        <%= link_to admin_dashboard_path, style:"position: relative;bottom: 7px;" do %>
+          <span class="fadeInRed"><i class="icon-magic"></i></span>
+        <% end %>
+      <% end %>
+    </div>
+</nav>
+  
 <%= render 'profile' %>
 <%= render 'inmates_bar' %>
-	<div class="mini_calendar_days">
-	<% for i in 0..60 %>
-		<div class="each_day clearfix">		
-			<div class="date_bar marker clearfix" id="today">
-				<%= (Time.zone.now.to_date + (i)).strftime("%A %b %e") %>
-			</div>
-			<div class="day_container clearfix" data-date="<%= Time.zone.now.to_date + i %>">
-			</div>
+<%= render 'shared/friend_search' %>
+<%= render 'shared/new_idea_button' %>
+<div class="navbars-set">
+<% if @user == current_user  %>
+	<%= link_to invited_ideas_path do %>
+		<div class="navbar active">
+			<span id="inviteIdeas"><span id="toggleInvites"><i class="icon-cloud"></i><span id="invites_count"> <%= @invited_ideas.count %></span> .invite ideas</span></span>
 		</div>
 	<% end %>
+	<%= link_to invited_times_path do %>
+		<div class="navbar hover-blue" id="invitesTimes">
+			<span id="toggleInvites"><i class="icon-calendar"></i><span id="invites_count"> <%= @invited_times_count %></span> .invited times</span>
+		</div>
+	<% end %>
+	<%= link_to ins_path do %>
+		<div class="navbar hover-orange" id="ins toggleIns">
+			<i class="icon-ok"></i><span id="ins_count"> <%= @ins_count %></span> .ins
+		</div>
+	<% end %>
+	<%= link_to outs_path do %>
+		<div class="navbar hover-red" id="outs">
+			<i class="icon-remove"></i> outs
+		</div>
+	<% end %>
+	<%= link_to overs_path do %>
+		<div class="navbar hover-dark-blue" id="overs">
+			<i class="icon-reply"></i> overs
+		</div>
+	<% end %>
+	<%= link_to explanation_path do %>
+		<div class="navbar hover-green" id="help">
+			<i class="icon-question-sign"></i> help
+		</div>
+	<% end %>
+
+	<div class="upcoming-times" id="upcomingTimes">
+		<h3 class="upcoming-times">upcoming times</h3>
 	</div>
-	<div style='display:none;'>
-	<%= render partial: 'users/mini_event', collection: @times, as: :event %>
-	</div>
+
+	<%= link_to edit_user_registration_path do %>
+		<div class="navbar hover-light-orange">
+      <i class='icon-wrench user_settings'></i> settings
+    </div>
+  <% end %>
+  <%= link_to destroy_user_session_path, :method => :delete do %>
+  	<div class="navbar hover-red">
+      <i class='icon-signout logout'></i> logout
+    </div>
+  <% end %>
+<% end %>
+</div>

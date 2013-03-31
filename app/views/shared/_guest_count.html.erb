@@ -1,9 +1,23 @@
-<span class="guest_count">
+<div class="guest_count">
 	<% if user_signed_in? %>
 		<% if !current_user.in?(event) %>
-			<i class="icon-star friend_star"></i> <span id="friendCount"><%= event.friends_in_count(current_user) %></span> | <i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= event.inmates_in_count(current_user) %> | <i class="icon-user"></i> <%= event.guest_count %>
+			<i class="icon-star friend_star"></i> <span id="friendCount"><%= event.friends_in_count(current_user) %></span>
+			<i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= event.inmates_in_count(current_user) %>
+			<i class="icon-user"></i> <%= event.guest_count %>
 		<% elsif current_user.in?(event) %>
-			<i class="icon-star friend_star"></i> <span id="friendCount"><%= event.friends_in_count(current_user) + 1 %></span> | <i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= event.inmates_in_count(current_user) %>
+			<i class="icon-star friend_star"></i> <span id="friendCount"><%= event.friends_in_count(current_user) + 1 %></span> 
+			<div class="facepile">
+				<% event.friends_in(current_user) do |guest| %>
+					<span title="<%= guest.first_name_with_last_initial %>"><%= raster_profile_picture(guest) %></span>
+				<% end %>
+			</div> 
+			<br>
+			<i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= event.inmates_in_count(current_user) %>
+			<div class="facepile">
+				<% event.inmates_in(current_user) do |guest| %>
+					<span title="<%= guest.first_name_with_last_initial %>"><%= raster_profile_picture(guest) %></span>
+				<% end %>
+			</div> 
 		<% end %>
 	<% end %>
-</span>
+</div>

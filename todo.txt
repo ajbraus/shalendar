@@ -10,8 +10,12 @@ Mike
 
 Adam
 
-	troubleshoot invites in times
-	get rid of invites to ideas that are over
+	make inmates bar not sux - on hover wiggle, text-decoration on intros/friends click event, retract
+	setup navbars
+
+	load mini_events using the client
+
+	remove expiration of invitations - only expire invites to events that are over
 
 	city siloing
 		contacts (don't send notifications to people not in the city of the idea)

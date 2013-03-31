@@ -403,7 +403,7 @@ color:gold;
   background:-moz-linear-gradient( center top, #EE9100 5%, #f77740 100% );
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0976e', endColorstr='#f77740');
   background-color:#EE9100;
-  border:1px solid #dcdcdc;
+  border:1px solid rgb(136, 76, 0);
   display:inline-block;
   color:#ffffff;
   font-family:arial;
@@ -597,7 +597,7 @@ font-weight: bold;
 text-decoration: none;
 text-shadow: 1px 1px 0px white;
 width: 25px;
-padding: 6px 0 6px 0;
+padding: 5px 0 5px 0;
 bottom: -1px;
 }
 .btn-user-search:hover {
@@ -724,15 +724,13 @@ header {
   top:0;
   z-index: 3;
   width:100%;
-  nav {
-/*-webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
--moz-box-shadow:    0px 0px 9px rgba(50, 50, 50, 0.3);
-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);*/
-    height: inherit;
-    background-color:rgba(255,255,253,1);
-    border-bottom: 1px solid $divider;
-  }
 }
+
+  nav {
+background-color: $background_one;
+padding: 4px 0 0px 0;
+height: 64px;
+  }
 
 .logo {
   img {
@@ -751,7 +749,6 @@ box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);*/
 
 .layout {
 position: relative;
-top: 60px;
 padding-bottom: 76px;
 min-height: 100%;
 }
@@ -904,13 +901,10 @@ letter-spacing: 1px;
     }
   }
   .inviter {
-    position: relative;
-    float: right;
+padding-left: 13px;
+padding-top: 3px;
   }
   .guest_count {
-    position: absolute;
-    right: 14px;
-    top: 0px;
   }
   .promo_img {
     float: left;
@@ -931,8 +925,9 @@ text-align: center;
 
   .event_time {
 padding: 0px 2px 1px 5px;
-font-size: 16px;
+font-size: 20px;
 height: auto;
+float:none;
    img {
       width: 7%;
       margin-bottom: -5px;
@@ -947,6 +942,10 @@ height: auto;
       height:25px;
     }
   }
+  .mini_event_details {
+    float:left;
+    width: 76%;
+  }
   .event_blerb {
 font-size: 20px;
 line-height: 1;
@@ -954,6 +953,7 @@ position: relative;
 min-height: 0;
 padding: 5px 0 0 5px;
 right: 0;
+float:none;
   .profile_picture {
     width:30px;
     height:30px;
@@ -962,7 +962,8 @@ right: 0;
 }
 
   .guest_count {
-    float:left;
+    width: 100%;
+    clear:both;
     .friend_star, .inmate_star {
           font-size: 11px;
     position: relative;
@@ -1005,7 +1006,7 @@ border: 1px solid $divider;
   box-sizing: border-box;         /* Opera/IE 8+ */
 .promo_img {
   text-align: center;
-  padding-bottom: 13px;
+  padding-bottom: 4px;
   img{
     max-height: 267px;
 /*    -webkit-box-shadow: 0 0 6px rgba(0,0,0,0.3);
@@ -1039,7 +1040,6 @@ margin-left: 5px;
 .event_time {
   position: relative;
 top: 4px;
-width: 100%;
 float: left;
 }
 
@@ -1075,10 +1075,9 @@ bottom: 12px;
 min-height: 24px;
 font-size: 18px;
 line-height: 1;
-width: 97%;
-position: relative;
-right: 5px;
-padding: 10px 10px 0px 10px;
+margin-left: 8px;
+padding-bottom: 4px;
+padding-top: 6px;
 }
 
 .event_shield_icons {
@@ -2161,18 +2160,18 @@ position: absolute;
 margin-left: 10px;
 text-align: center;
 top: 68px;
-left: 110px;
+left: 120px;
   li {
 float: left;
-width: 33%;
+width: 29%;
 }
 }
 
 .home_profile {
   clear:both;
   color:white;
-  padding:10px 20px;
-  height: 88px;
+  padding: 10px 20px 0 20px;
+  height: 128px;
   position: relative;
   img {
     border-radius: 7px;
@@ -2419,7 +2418,7 @@ background: url("low_contrast_linen.png");
 position: relative;
 border-top: 1px solid $divider;
 clear: both;
-top: 8px;
+font-size: 17px;
   #guestCount {
     font-size: 16px;
     margin-left: 5px;
@@ -2433,7 +2432,7 @@ top: 8px;
 
 .shield_top {
   padding: 6px 6px 0px 6px;
-  height: 22px;
+  height: 31px;
   span {
     position: relative;
   }
@@ -2845,7 +2844,7 @@ margin: 10px;
 .mini_calendar {
 background: url("low_contrast_linen.png");
 float: left;
-padding-top: 10px;
+z-index: 2
 }
 
 .home_idea_container {
@@ -2866,12 +2865,12 @@ border-radius: 7px;*/
 
 .inmates_bar {
 position: absolute;
-z-index: 2;
+z-index: 3;
 padding: 10px;
 -webkit-box-sizing: border-box;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
-top: 145px;
+top: 6px;
   img {
     width:37px;
     height:37px;
@@ -2888,40 +2887,13 @@ top: 145px;
 
 #showInmates {
 cursor: pointer;
-float: right;
-background-color: white;
-color: #999;
-left: 78px;
-position: relative;
-padding: 5px;
-margin-left: -70px;
-    border-radius: 0 7px 7px 0px;
-    -webkit-border-radius: 0 7px 7px 0px;
-    -moz-border-radius: 0 7px 7px 0px;
-  &:hover {   
-    background-color: rgb(235, 235, 235);
-    -webkit-transition: background-color .25s linear .1s;
-    transition: background-color .25s linear .1s;
-  }
+color:white;
 }
 
 #showCalendar {
-  cursor: pointer;
-float: right;
-background-color: rgb(77, 77, 77);
-color: white;
-left: 94px;
-position: relative;
-padding: 5px;
-margin-left: -85px;
-    border-radius: 0 7px 7px 0px;
-    -webkit-border-radius: 0 7px 7px 0px;
-    -moz-border-radius: 0 7px 7px 0px;
-  &:hover {   
-    background-color: black;
-    -webkit-transition: background-color .25s linear .1s;
-    transition: background-color .25s linear .1s;
-  }
+cursor: pointer;
+position: absolute;
+right:19px;
 }
 
 .friends {
@@ -3229,6 +3201,7 @@ box-shadow: -2px 2px 0 rgba(0, 0, 0, 0.1);
 margin: 0 auto;
 float: left;
 margin-left: 2%;
+z-index: -2;
 }
 
 #editCity {
@@ -3515,6 +3488,7 @@ color: white;
     font-size: 35px;
   }
 }
+
   .twitter {
     background-color: $icon_color;
       &:hover{
@@ -3540,3 +3514,77 @@ color: white;
     background-color: $dark_orange;
   }
   }
+
+.navbar {
+  clear:both;
+  width: 92%;
+padding: 5px 5px 3px 23px;
+background: -moz-linear-gradient(top,  rgba(255,255,255,.3) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,.3)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+&:hover {
+background-color:white;
+}
+}
+
+.active {
+background-color:white;
+}
+
+.upcoming-times {
+  color: white;
+text-align: center;
+}
+
+.hover-blue {
+  color:$before_hover;
+  &:hover {
+    color:$rsvp;
+  }
+}
+
+.hover-green {
+  color:$before_hover;
+  &:hover {
+    color:$happening;
+  }
+}
+
+.hover-red {
+  color:$before_hover;
+  &:hover {
+    color:$destroy;
+  }
+}
+
+.hover-dark-blue {
+  color:$before_hover;
+  &:hover {
+    color:$dark-blue;
+  }
+}
+
+.hover-blue {
+  color:$before_hover;
+  &:hover {
+    color:$rsvp;
+  }
+}
+
+.hover-orange {
+  color:$before_hover;
+  &:hover {
+    color:$dark_orange;
+  }
+}
+
+.hover-light-orange {
+  color:$before_hover;
+  &:hover {
+    color:$light_orange;
+  }
+}

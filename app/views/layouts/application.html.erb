@@ -48,6 +48,12 @@
     <div id='feedback'><a href="mailto:info@hoos.in" target="_blank">.inform us</a></div>
     <%= render 'layouts/header' %>
     <div class="layout clearfix" id="content">       
+      <%= render 'layouts/alerts' %>
+      <% if @user.present? %>
+        <div class="mini_calendar">
+          <%= render 'mini_calendar' %>
+        </div>
+      <% end %>
       <%= yield %>
       <%= render 'layouts/footer' %>
     </div>

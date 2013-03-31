@@ -1,20 +1,16 @@
 $ ->
 	$('#showInmates').click ->
-		$('.inmates_bar').animate
-			left: 0 
-			duration: 'slower'
+		$('.inmates_bar').show
+			effect: 'slide'
+			direction: 'left'
+			duration: 'slow'
 			easing: 'easeOutQuart'
-			->	
-				$('#showInmates').hide()
-				$('#showCalendar').show();;
-
+			
 	$('#showCalendar').click ->
-		$('.inmates_bar').animate
-			left: -350 
-			duration: 'slower'
+		$('.inmates_bar').hide
+			effect: 'slide'
+			direction: 'left'
+			duration: 'slow'
 			easing: 'easeOutQuart'
-			->
-				$('#showCalendar').hide();	
-				$('#showInmates').show();
 
 			

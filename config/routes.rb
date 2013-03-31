@@ -33,15 +33,21 @@ Shalendar::Application.routes.draw do
 
   match '/pick_city', to: 'users#pick_city', as: 'pick_city'
 
-  match '/get_intros', to: 'users#get_intros', as: 'get_intros'
-  match '/get_ins', to: 'users#get_ins', as: 'get_ins'
-
   match '/city_names', :to => 'users#city_names', :as => "city_names"
   match '/get_fb_friends_to_invite', :to => 'events#get_fb_friends_to_invite', :as => 'get_fb_friends_to_invite'
   #match '/repeat', :to => 'events#repeat', :as => 'repeat_event'
   #devise_scope :user do
     #match '/new_venue', to: 'registrations#new_vendor', as: "new_vendor"
   #end
+
+  match '/ideas', to: 'users#get_invited_ides', as: 'invited_ideas'
+  match '/times', to: 'users#get_invited_times', as: 'invited_times'
+  match '/ins', to: 'users#get_ins', as: 'ins'
+  match '/outs', to: 'users#get_outs', as:'outs'
+  match '/overs', to: 'users#get_overs', as:'overs'
+  match '/explanation', to: 'users#explanation', as: 'explanation'
+  match '/intros', to: 'users#get_intros', as: 'get_intros'
+
 
   resources :events, path: "ideas", only: [:create, :destroy, :update, :edit, :new, :show, :new_time, :create_new_time, :edit_time] do #:index,
     get :edit_time

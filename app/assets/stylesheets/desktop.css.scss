@@ -50,10 +50,9 @@ top: 3px;
 margin: 8px;
 min-width: 230px;
 max-width: 230px;
-padding: 0px 8px 8px 8px;
 		.promo_img {
 			img {
-				max-width: 200px;
+				max-width: 216px;
 			}
 		}
 	}
@@ -106,11 +105,10 @@ height: 100%;
 	}
 
 	.user_search {
-float: right;
-width: 213px;
-top: 23px;
+float: left;
 position: relative;
-right: 42px;
+top: 2px;
+left: 4px;
 form {
 	float: right;
 }
@@ -224,9 +222,9 @@ padding: 8px 0px;
 -webkit-border-radius: 6px;
 border-radius: 6px;
 width: 104px;
-position: relative;
-bottom: 0px;
-right: 5px;
+float: right;
+margin-right: 13px;
+margin-bottom: 10px;
 		}
 
 		.html-new-idea {
@@ -406,7 +404,7 @@ margin-right: 85px;
 	}
 
 	.mini_calendar {
-		width: 350px;
+		width: 320px;
 	}
 
 	.city_name {
@@ -417,7 +415,6 @@ font-size: 14px;
 	}
 
 		.shield_bottom {
-		right: 8px;
 padding: 6px 11px;
 width: 207px;
 	}
@@ -440,8 +437,8 @@ width: 207px;
 	}
 
 	.inmates_bar {
-		width: 350px;
-		left: -350px;
+		width: 355px;
+		left: 350px;
 	}
 
 }

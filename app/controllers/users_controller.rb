@@ -14,16 +14,25 @@ class UsersController < ApplicationController
     end
 
     unless @user.blank?
+      @star_count = @user.friended_bys.count
       if user_signed_in?
         if @user == current_user
-          @invites = @user.invited_ideas.includes(:user).where('events.city_id = ?', @current_city.id)
-          @ins_count = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id).count
+          #UPFRONT EVENTS: invited ideas, upcoming times
+          @upcoming_times = @user.plans.where('city_id = ? AND visibility > ? AND starts_at > ? AND starts_at < ?', @current_city.id, 1, Time.zone.now, Time.zone.now + 7.days).limit(5)
+          
+          @invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ?', @current_city.id)
           @public_ideas = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @current_city.id, 3).reject { |i| current_user.rsvpd?(i) }
-          @invites = @invites | @public_ideas
-          #@ideas = @user.invited_ideas.includes(:user).where('city_id = ?', @current_city_id).order('created_at DESC').reject { |i| @user.out?(i) || i.no_relevant_instances? }
-          @times = @user.plans.includes(:user).where('starts_at > ? AND starts_at < ? AND city_id = ?', Time.zone.now, Time.zone.now + 59.days, @current_city.id).reject { |i| @user.out?(i) }
-          @public_times = Event.where('city_id = ? AND visibility = ? AND starts_at > ? AND starts_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days)
-          @times = @times | @public_times
+          @invited_ideas = @invited_ideas | @public_ideas
+          
+          #UPFRONT: COUNTS 
+            #INVITED TIMES COUNT
+          @invited_times_count = @user.invited_times.where('events.city_id = ?', @current_city.id).count
+          @public_times_count = Event.where('city_id = ? AND visibility = ? AND starts_at > ? AND starts_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days).count
+          @invited_times_count = @invited_times_count + @public_times_count
+            #INS COUNT
+          @ins_count = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id).count
+
+
         elsif @user.is_friends_with?(current_user)
           @ins = @user.plans.where('city_id = ? AND visibility > ? AND starts_at IS NULL', @current_city.id, 0).order('created_at DESC').reject { |i| @user.out?(i) }
           @times = @user.plans.where('city_id = ? AND visibility > ? AND starts_at > ? AND starts_at < ?', @current_city.id, 0, Time.zone.now, Time.zone.now + 59.days).reject { |i| @user.out?(i) }
@@ -45,10 +54,35 @@ class UsersController < ApplicationController
     end
   end
 
+  def get_invited_ideas
+    @invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ?', @current_city.id)
+    @public_ideas = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @current_city.id, 3).reject { |i| current_user.rsvpd?(i) }
+    @invited_ideas = @invited_ideas | @public_ideas
+  end
+
+  def get_invited_times
+    @invited_times = @user.invited_times.where('events.city_id = ?', @current_city.id)
+    @public_times = Event.where('city_id = ? AND visibility = ? AND starts_at > ? AND starts_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days)
+    @invited_times = @times | @public_times
+  end
+
   def get_ins
     @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
     @ins = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id)
     @ins = @ins.sort_by { |i| i.instances.any? ? 0 : 1 }
+  end
+
+  def get_outs
+    @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
+    @outs = @user.outs.where('city_id = ? AND ends_at IS NULL', @current_city.id)
+  end
+
+  def get_overs
+
+  end
+
+  def explanation
+
   end
 
   def get_intros
