@@ -49,7 +49,7 @@
     <%= render 'layouts/header' %>
     <div class="layout clearfix" id="content">       
       <%= render 'layouts/alerts' %>
-      <% if user_signed_in? && @user.present? && params[:controller] == 'users' %>
+      <% if user_signed_in? && @user.present? && params[:controller] == 'users' && params[:action] == 'show' %>
         <div class="sidebar">
           <%= render 'layouts/mini_calendar' %>
         </div>
@@ -76,6 +76,8 @@
               id: $('#showInmates').attr('data-slug'); 
             $.get '/ins',
               id: $('#showInmates').attr('data-slug'); 
+            $.get '/outs',
+              id: $('#showInmates').attr('data-slug');               
           <% end %>
         <% elsif @user.is_inmates_or_friends_with?(current_user) %>
           <%= coffee_script_tag do %>

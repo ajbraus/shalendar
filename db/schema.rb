@@ -154,7 +154,6 @@ ActiveRecord::Schema.define(:version => 20130325192827) do
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
     t.integer  "user_id"
-    t.integer  "max",                    :default => 10000
     t.float    "duration"
     t.integer  "inviter_id",             :default => 0
     t.string   "link"
@@ -172,12 +171,13 @@ ActiveRecord::Schema.define(:version => 20130325192827) do
     t.boolean  "family_friendly",        :default => false
     t.integer  "parent_id"
     t.string   "short_url"
-    t.string   "slug"
     t.boolean  "require_payment"
+    t.string   "slug"
     t.integer  "city_id"
     t.text     "description"
     t.boolean  "one_time",               :default => false
     t.boolean  "dead",                   :default => false
+    t.boolean  "friends_only",           :default => false
     t.string   "fb_id"
     t.integer  "visibility",             :default => 2
     t.boolean  "over",                   :default => false
@@ -309,7 +309,6 @@ ActiveRecord::Schema.define(:version => 20130325192827) do
     t.string   "debits_uri"
     t.integer  "city_id"
     t.string   "slug"
-    t.integer  "classification_id"
     t.integer  "friends_count",            :default => 0
     t.integer  "intros_count",             :default => 0
     t.integer  "friended_bys_count",       :default => 0

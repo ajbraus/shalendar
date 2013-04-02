@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       @star_count = @user.friended_bys.count
       if user_signed_in?
           #LOAD INTERSTED AND INS COUNTS NO MATTER WHAT
-          @interesteds_count = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id).count
+          @interesteds_count = @user.plans.where('city_id = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, false).count
           #@ins = @ins.reject { |i| i.instances.any? }
           @ins_count = @user.plans.where('city_id = ? AND ends_at IS NOT NULL', @current_city.id).count
 
@@ -35,13 +35,13 @@ class UsersController < ApplicationController
           @public_times_count = Event.where('city_id = ? AND visibility = ? AND starts_at > ? AND starts_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days).count
           @invited_times_count = @invited_times_count + @public_times_count
         elsif @user.is_friends_with?(current_user)
-          @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND starts_at IS NULL', @current_city.id, 0).order('created_at DESC').reject { |i| @user.out?(i) }
+          @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND starts_at IS NULL', @current_city.id, 0, false).order('created_at DESC').reject { |i| @user.out?(i) }
           @interesteds = @interesteds.paginate(page: params[:page], per_page: 8)
 
           @ins = @user.plans.where('city_id = ? AND visibility > ? AND starts_at > ? AND starts_at < ?', @current_city.id, 0, Time.zone.now, Time.zone.now + 59.days).reject { |i| @user.out?(i) }
           @ins = @ins.paginate(page: params[:page], per_page: 8)
         elsif @user.is_inmates_with?(current_user)
-          @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND starts_at IS NULL', @current_city.id, 1).order('created_at DESC').reject { |i| @user.out?(i) }
+          @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND starts_at IS NULL', @current_city.id, 1, false).order('created_at DESC').reject { |i| @user.out?(i) }
           @interesteds = @interesteds.paginate(page: params[:page], per_page: 8)
           
           @ins = @user.plans.where('city_id = ? AND visibility > ? AND starts_at > ? AND starts_at < ?', @current_city.id, 1, Time.zone.now, Time.zone.now + 59.days).reject { |i| @user.out?(i) }
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
 
   def get_interesteds
     @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
-    @interesteds = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id)
+    @interesteds = @user.plans.where('city_id = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, false)
   end
 
   def get_ins
