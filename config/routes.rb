@@ -40,8 +40,9 @@ Shalendar::Application.routes.draw do
     #match '/new_venue', to: 'registrations#new_vendor', as: "new_vendor"
   #end
 
-  match '/ideas', to: 'users#get_invited_ideas', as: 'invited_ideas'
-  match '/times', to: 'users#get_invtied_times', as: 'invited_tiems'
+  match '/upcoming_times', to: 'users#get_upcoming_times', as: 'upcoming_times'
+  match '/invited_ideas', to: 'users#get_invited_ideas', as: 'invited_ideas'
+  match '/times', to: 'users#get_invited_times', as: 'invited_times'
   match '/ins', to: 'users#get_ins', as: 'ins'
   match '/plans', to: 'users#get_plans', as: 'plans'
   match '/outs', to: 'users#get_outs', as:'outs'

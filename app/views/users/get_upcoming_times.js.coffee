@@ -1,0 +1,1 @@
+$('#upcomingTimes').append("<%= render partial: 'users/mini_event', collection: @upcoming_times, as: :event %>");

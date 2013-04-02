@@ -10,16 +10,18 @@ Mike
 
 Adam
 
+	add pagination to each load of events
+	seeing a public idea with a time under ideas
+
+	buggy
+
+
 	make inmates bar not sux - on hover wiggle, text-decoration on intros/friends click event, retract
 
-	load mini_events using the client
+	removed over = ? so need to add to mobile event queries
 
-	add ajax loader
-	add pagination to each load of events
+
 	make ajax scroll pagination
-	after the first call don't call again until reload
-
-	explanation - lightbox ajax
 
 	bring back all invitations that are not over
 	  Event.all.each do |e|
@@ -32,14 +34,9 @@ Adam
 
   Test Invitation.expire
 
-	city siloing
-		contacts (don't send notifications to people not in the city of the idea)
-
 	allow in/out from emails
 
 	tagging user
-	
-	display private/friends only
 
 
 TESTS

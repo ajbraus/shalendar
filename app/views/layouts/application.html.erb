@@ -65,7 +65,9 @@
     <% if params[:controller] == "users" && params[:action] == "show" %>
       <%= coffee_script_tag do %>
         $.get '/intros',
-          id: $('#showInmates').attr('data-slug');   
+          id: $('#showInmates').attr('data-slug'); 
+        $.get '/upcoming_times',
+          id: $('#showInmates').attr('data-slug');     
       <% end %>
     <% end %>
   </body>

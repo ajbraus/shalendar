@@ -5,13 +5,17 @@ $.fn.withDate = (date) ->
 $.fn.toggleIdeas = (container, path) ->
 	open = $('.open')
 	ajax = $('#ajaxLoader')
+	ajax.show();
 	open.hide();
 	open.removeClass('open');	
 	container.fadeIn();
 	container.addClass('open');	
-	unless container.children().length > 0
+	container.children('.idea_container').masonry('reload');
+	if container.children('.idea_container').children().length == 0
 		$.get path, 
 			id: $('#showInmates').attr('data-slug')
+	else
+		ajax.hide();
 
 # $.fn.buildCalendar = () ->
 # 	date = $(@).data('date')
@@ -27,14 +31,11 @@ $ ->
 #build layout
 	ins = $('.in')
 	invites = $('.invite')
-	upcoming_times = $('#loadUpcomingTimes').children();
-
-	$('#upcomingTimes').append(upcoming_times);
 
 	$('#showInvitedIdeas').click ->
 		$(@).toggleIdeas($('#invitedIdeasContainer'), '/invited_ideas');
 	$('#showInvitedTimes').click ->
-		$(@).toggleIdeas($('#invitedTimesContainer'), '/invited_times');
+		$(@).toggleIdeas($('#invitedTimesContainer'), '/times');
 	$('#showIns').click ->
 		$(@).toggleIdeas($('#insContainer'), '/ins');
 	$('#showPlans').click ->

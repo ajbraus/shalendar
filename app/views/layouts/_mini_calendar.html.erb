@@ -17,23 +17,23 @@
 <div class="navbars-set">
 <% if @user == current_user  %>
 	<div class="navbar active hover-purple" id="showInvitedIdeas">
-		<i class="icon-cloud"></i><span id="invites_count"> <%= @invited_ideas.count %></span> ideas</span> <i class="icon-caret-right"></i> 
+		<i class="icon-cloud"></i><span id="invites_count"> <%= @invited_ideas_count %></span> ideas</span> <i class="icon-caret-right"></i> 
 	</div>
 	<div class="navbar hover-orange" id="showInvitedTimes">
 		<i class="icon-calendar"></i><span id="invites_count"> <%= @invited_times_count %></span> .invites</span>
 	</div>
 	<div class="navbar hover-blue" id="showIns">
-		<i class="icon-ok"></i><span id="ins_count"> <%= @ins_count %></span> .interesteds
+		<i class="icon-ok"></i><span id="ins_count"> <%= @ins_count %></span> .interested
 	</div>
 	<div class="navbar hover-blue" id="showPlans">
-		<i class="icon-ok"></i><span id="plans_count"> <%= @plans_count %></span> .ins
+		<i class="icon-ok"></i><span id="plans_count"> <%= @plans_count %></span> .in
 	</div>
 	<div class="navbar hover-red" id="showOuts">
 		<i class="icon-remove"></i> outs
 	</div>
-	<div class="navbar hover-dark-blue" id="showOvers">
+<!-- 	<div class="navbar hover-dark-blue" id="showOvers">
 		<i class="icon-reply"></i> overs
-	</div>
+	</div> -->
 
 	<div class="upcoming-times clearfix" id="upcomingTimes">
 		<h3 class="upcoming-times">upcoming plans</h3>

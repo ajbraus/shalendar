@@ -697,34 +697,35 @@ class User < ActiveRecord::Base
     @user = self
     @event = event
     @event_user = @event.user
-
-    if @user.iPhone_user == true
-      d = APN::Device.find_by_id(@user.apn_device_id)
-      if d.nil?
-        Airbrake.notify("thought we had an iphone user but can't find their device")
-      else
-          n = APN::Notification.new
+    if @user.city == @event.city 
+      if @user.iPhone_user == true
+        d = APN::Device.find_by_id(@user.apn_device_id)
+        if d.nil?
+          Airbrake.notify("thought we had an iphone user but can't find their device")
+        else
+            n = APN::Notification.new
+            n.device = d
+            n.alert = "#{@event_user.first_name_with_last_initial} just posted a new idea - #{@event.short_event_title}"
+            n.badge = 1
+            n.sound = false
+            n.custom_properties = {:type => "new_idea", :id => "#{@event.id}", msg: ""}
+            n.save
+        end
+      elsif(@user.android_user == true)
+        d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+        if d.nil?
+          Airbrake.notify("thought we had an android user but can't find their device")
+        else
+          n = Gcm::Notification.new
           n.device = d
-          n.alert = "#{@event_user.first_name_with_last_initial} just posted a new idea - #{@event.short_event_title}"
-          n.badge = 1
-          n.sound = false
-          n.custom_properties = {:type => "new_idea", :id => "#{@event.id}", msg: ""}
+          n.collapse_key = "#{@event_user.first_name_with_last_initial} just posted a new idea - #{@event.short_event_title}"
+          n.delay_while_idle = true
+          n.data = {:registration_ids => [d.registration_id], :data => {:type => "new_idea", :id => "#{@event.id}", :msg => ""}}
           n.save
+        end
       end
-    elsif(@user.android_user == true)
-      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-      if d.nil?
-        Airbrake.notify("thought we had an android user but can't find their device")
-      else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = "#{@event_user.first_name_with_last_initial} just posted a new idea - #{@event.short_event_title}"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {:type => "new_idea", :id => "#{@event.id}", :msg => ""}}
-        n.save
-      end
+      Notifier.new_idea(@event, @user).deliver
     end
-    Notifier.new_idea(@event, @user).deliver
   end
 
   def contact_reminder(event)
@@ -768,33 +769,35 @@ class User < ActiveRecord::Base
     @event_link = event_url(@event)
     @event_user = @event.user
 
-    if @user.iPhone_user?
-      d = APN::Device.find_by_id(@user.apn_device_id)
-      if d.nil?
-        Airbrake.notify("thought we had an iphone user but can't find their device")
-      else
-        n = APN::Notification.new
-        n.device = d
-        n.alert = "#{@event.user.first_name} posted a new time  - #{@event.start_time} - #{@event.short_event_title}"
-        n.badge = 1
-        n.sound = false
-        n.custom_properties = {:type => "new_time", :event => "#{@event.id}"}
-        n.save
+    if @user.city == @event.city 
+      if @user.iPhone_user?
+        d = APN::Device.find_by_id(@user.apn_device_id)
+        if d.nil?
+          Airbrake.notify("thought we had an iphone user but can't find their device")
+        else
+          n = APN::Notification.new
+          n.device = d
+          n.alert = "#{@event.user.first_name} posted a new time  - #{@event.start_time} - #{@event.short_event_title}"
+          n.badge = 1
+          n.sound = false
+          n.custom_properties = {:type => "new_time", :event => "#{@event.id}"}
+          n.save
+        end
+      elsif @user.android_user?
+        d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+        if d.nil?
+          Airbrake.notify("thought we had an android user but can't find their device")
+        else
+          n = Gcm::Notification.new
+          n.device = d
+          n.collapse_key = "#{@event.user.first_name} posted a new time  - #{@event.start_time} - #{@event.short_event_title}"
+          n.delay_while_idle = true
+          n.data = {:registration_ids => [d.registration_id], :data => {:type => "new_time", :message_text => "#{@event.short_event_title} new time!"}}
+          n.save
+        end
       end
-    elsif @user.android_user?
-      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-      if d.nil?
-        Airbrake.notify("thought we had an android user but can't find their device")
-      else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = "#{@event.user.first_name} posted a new time  - #{@event.start_time} - #{@event.short_event_title}"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {:type => "new_time", :message_text => "#{@event.short_event_title} new time!"}}
-        n.save
-      end
+      Notifier.new_time(@event, @user).deliver
     end
-    Notifier.new_time(@event, @user).deliver
   end
 
   def contact_time_change(event)
@@ -802,37 +805,39 @@ class User < ActiveRecord::Base
     @event = event
     @event_link = event_url(@event)
 
-    if @user.iPhone_user?
-      d = APN::Device.find_by_id(@user.apn_device_id)
-      if d.nil?
-        Airbrake.notify("thought we had an iphone user but can't find their device")
-      else
-        n = APN::Notification.new
-        n.device = d
-        n.alert = "time change - #{@event.user.first_name}'s time - #{@event.start_time_no_date} - #{@event.short_event_title}"
-        n.badge = 1
-        n.sound = false
-        n.custom_properties = {:msg => "", 
-                                :type => "time_change", 
-                                :id => "#{@event.id}"}
-        n.save
+    if @user.city == @event.city 
+      if @user.iPhone_user?
+        d = APN::Device.find_by_id(@user.apn_device_id)
+        if d.nil?
+          Airbrake.notify("thought we had an iphone user but can't find their device")
+        else
+          n = APN::Notification.new
+          n.device = d
+          n.alert = "time change - #{@event.user.first_name}'s time - #{@event.start_time_no_date} - #{@event.short_event_title}"
+          n.badge = 1
+          n.sound = false
+          n.custom_properties = {:msg => "", 
+                                  :type => "time_change", 
+                                  :id => "#{@event.id}"}
+          n.save
+        end
+      elsif @user.android_user?
+        d = Gcm::Device.find_by_id(@user.GCMdevice_id)
+        if d.nil?
+          Airbrake.notify("thought we had an android user but can't find their device")
+        else
+          n = Gcm::Notification.new
+          n.device = d
+          n.collapse_key = "time change - #{@event.user.first_name}'s time - #{@event.start_time_no_date} - #{@event.short_event_title}"
+          n.delay_while_idle = true
+          n.data = {:registration_ids => [d.registration_id], :data => {:msg => "", 
+                                                              :type => "time_change", 
+                                                              :id => "#{@event.id}"}}
+          n.save
+        end
       end
-    elsif @user.android_user?
-      d = Gcm::Device.find_by_id(@user.GCMdevice_id)
-      if d.nil?
-        Airbrake.notify("thought we had an android user but can't find their device")
-      else
-        n = Gcm::Notification.new
-        n.device = d
-        n.collapse_key = "time change - #{@event.user.first_name}'s time - #{@event.start_time_no_date} - #{@event.short_event_title}"
-        n.delay_while_idle = true
-        n.data = {:registration_ids => [d.registration_id], :data => {:msg => "", 
-                                                            :type => "time_change", 
-                                                            :id => "#{@event.id}"}}
-        n.save
-      end
+      Notifier.time_change(@event, @user).deliver
     end
-    Notifier.time_change(@event, @user).deliver
   end
 
   def contact_comment(comment)
