@@ -62,12 +62,40 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <%= yield :scripts %>
     <%= javascript_include_tag "application" %>
-    <% if params[:controller] == "users" && params[:action] == "show" %>
-      <%= coffee_script_tag do %>
-        $.get '/intros',
-          id: $('#showInmates').attr('data-slug'); 
-        $.get '/upcoming_times',
-          id: $('#showInmates').attr('data-slug');     
+    <% if user_signed_in? %>
+      <% if params[:controller] == "users" && params[:action] == "show" %>
+        <% if @user == current_user %>
+          <%= coffee_script_tag do %>
+            $.get '/intros',
+              id: $('#showInmates').attr('data-slug'); 
+            $.get '/upcoming_times',
+              id: $('#showInmates').attr('data-slug'); 
+            $.get '/times',
+              id: $('#showInmates').attr('data-slug'); 
+            $.get '/interesteds',
+              id: $('#showInmates').attr('data-slug'); 
+            $.get '/ins',
+              id: $('#showInmates').attr('data-slug'); 
+          <% end %>
+        <% elsif @user.is_inmates_or_friends_with?(current_user) %>
+          <%= coffee_script_tag do %>
+            $.get '/intros',
+              id: $('#showInmates').attr('data-slug'); 
+            $.get '/upcoming_times',
+              id: $('#showInmates').attr('data-slug'); 
+            $.get '/interesteds',
+              id: $('#showInmates').attr('data-slug'); 
+            $.get '/ins',
+              id: $('#showInmates').attr('data-slug'); 
+          <% end %>      
+        <% else %>
+          <%= coffee_script_tag do %>
+            $.get '/intros',
+              id: $('#showInmates').attr('data-slug'); 
+            $.get '/interesteds',
+              id: $('#showInmates').attr('data-slug');  
+          <% end %>           
+        <% end %>
       <% end %>
     <% end %>
   </body>

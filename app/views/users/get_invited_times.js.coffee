@@ -1,3 +1,3 @@
-$('#invitedTimesContainer .idea_container').html("<%= will_paginate @invited_times %><%= escape_javascript(render partial: 'users/event', collection: @invited_times, as: :event) %>");
-$('#invitedTimesContainer .idea_container').masonry('reload');
+$('#invitedTimesContainer').html("<%= escape_javascript(render partial: 'users/event', collection: @invited_times, as: :event) %>");
+$('#invitedTimesContainer').masonry('reload');
 $('#ajaxLoader').hide();

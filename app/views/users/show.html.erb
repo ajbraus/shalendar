@@ -8,9 +8,13 @@
 				<div class="home-loader" style="display:none;" id="ajaxLoader">
 					<%= image_tag 'ajax-loader2.gif' %>
 				</div>
-				<div id="invitedIdeasContainer">
-					<%= will_paginate @invited_ideas %>
-					<div class="idea_container open">
+				<div id="invitedIdeasContainer" class="open">
+					<% if @user == current_user %>
+						<%= will_paginate @invited_ideas %>
+					<% else %>
+						<%= will_paginate @interesteds %>
+					<% end %>
+					<div class="idea_container">
 						<% if @user == current_user %>
 							<% if @user.sign_in_count == 1 && @invited_ideas.blank? %>
 								<%= render 'explanation' %>
@@ -18,25 +22,17 @@
 								<%= render partial: "users/event", collection: @invited_ideas %>
 							<% end %>
 						<% else %>
-							<%= render partial: "users/event", collection: @ins %>
+							<%= render partial: "users/event", collection: @interesteds %>
 						<% end %>
 					</div>
 				</div>
-				<div id="invitedTimesContainer" style="display:none;">
-					<div class="idea_container">
-					</div>
+				<div id="invitedTimesContainer" class="idea_container" style="display:none;">
 				</div>
-				<div id="insContainer" sytle="display:none;">
-					<div class="idea_container">
-					</div>
+				<div class="idea_container" id="interestedsContainer" style="display:none;">
 				</div>
-				<div id="plansContainer" sytle="display:none;">
-					<div class="idea_container">
-					</div>
+				<div id="insContainer" class="idea_container" style="display:none;">
 				</div>
-				<div id="outsContainer" sytle="display:none;">
-					<div class="idea_container">
-					</div>
+				<div id="outsContainer" class="idea_container" style="display:none;">
 				</div>
 <!-- 				<div id="oversContainer" sytle="display:none;">
 					<div class="idea_container">

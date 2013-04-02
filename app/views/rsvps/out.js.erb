@@ -13,5 +13,5 @@ event = $('div').withEventId(<%= @event.id %>)
 event.find('.out').click(function() {
 	$(this).preventDefault();
 });
-
+$('#invites_count').decrement();
 $('.instance').withEventId(<%= @event.id %>).find('.mini_in_out').first().html("<div class='in_on_instance'><i class='icon-remove red' title='you're out'></i> out</div>")

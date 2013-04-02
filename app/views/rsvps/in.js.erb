@@ -37,6 +37,15 @@ event.find('.in_check').click(function() {
 	$(this).preventDefault();
 });
 
+<% if @event.starts_at.present? %>
+$('#ins_count').increment();
+$('#invited_times_count').decrement();
+<% else %>
+$('#interesteds_count').increment();
+$('#invites_count').decrement();
+<% end %>
+// if invited_time
+
 
 
 //if I want to make event#show ajaxy

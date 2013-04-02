@@ -9,19 +9,20 @@ Mike
 		code to prevent some notifications)
 
 Adam
+	outs not showing
+	public ideas with times are not being pulled into times
 
-	add pagination to each load of events
-	seeing a public idea with a time under ideas
+	facepiles	
+	make rsvp to invited_times rsvp to next time
+	add pic to facepile when rsvping (rsvp_check)
 
-	buggy
+	update sample idea shield
+	put time on top of event#show
+	update sample idea show
 
+	seeing a public idea with a time under ideas (remove all ideas with instances)
 
 	make inmates bar not sux - on hover wiggle, text-decoration on intros/friends click event, retract
-
-	removed over = ? so need to add to mobile event queries
-
-
-	make ajax scroll pagination
 
 	bring back all invitations that are not over
 	  Event.all.each do |e|
@@ -37,6 +38,8 @@ Adam
 	allow in/out from emails
 
 	tagging user
+
+	get facebook events working in production
 
 
 TESTS
@@ -55,6 +58,10 @@ TESTS
 
 
 ----------------------------------------------------------------------
+
+	make ajax pagination
+	make scroll event paginate
+
 
 	meetup signin/events
 
@@ -97,20 +104,14 @@ TESTS
 	update description in time
 	add face when rsvping
 
-
 	New Idea tutorial after register
 	create idea -- on-going idea without a time, on-going idea with a time, one-time idea
-	
-
 
 	refactor EmailInvite code in api code
 
 
 	what are you up to tonight? - if someone views your profile and they are you're .intro shouldn't it show them?
 	check in somewhere on foursquare through hoos.in - creates an idea at that location
-
-
-pull in fb events and mu events your attending
 
 HI SDK
 Send idea global unique identifier
@@ -125,8 +126,6 @@ TEACHING USERS:
 	Email invitations to be .intros
 
 	put up tips for ideas - how to make a great idea - go beyond boring
-
-	next time at the top of the show
 
 	.information
 	so-n-so tagged you in an idea
@@ -174,17 +173,7 @@ NOTIFIERS:
 
 NICE BUT NOT NEEDED
 
-	RSVPing improvments
-		add ideas mini_events to calendar on rsvp_check to idea
-		add pic to facepile when rsvping (rsvp_check)
-
-	add footer to event#show and profile and login/signup pages
-
-	go invisible, make invisible, friends only, normal
-
 	sort another person's friends by if they are inmates with current user
-
-	asks for city after signup if no match.
 
 	cancellation message
 
@@ -194,13 +183,9 @@ NICE BUT NOT NEEDED
 
 	refresh button
 
-	add mute button in chat
-
 	switch emails going out of the team@hoos.in email address, make support@hoos.in
 
 	default background images
-
-	recover outs
 
 	facebook app invite
 
