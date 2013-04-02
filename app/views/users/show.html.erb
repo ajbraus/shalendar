@@ -1,34 +1,42 @@
-<% if @user.present? %> 
+ sytle="display:none;"<% if @user.present? %> 
 	<% provide(:title, " | #{@user.name}" ) %>
 	<div class="container_wrapper">
-		<% unless @user.background_file_size.nil? %>
+		<% unless @user.background_file_size.blank? %>
 			<div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 330px;top: 60px;"></div>
 		<% end %>
-
-		<div class="home_idea_container clearfix">
-			<% if user_signed_in? %>
-				<% if @user == current_user %>
-					<div id="invitesContainer" class="idea_container">
-						<%= render partial: "users/event", collection: @invites %>
-					</div>
-					<div id="insContainer" class="idea_container" style="display:none;">
-						<%= image_tag 'ajax-loader2.gif' %>
-					</div>
-				<% else %>
-					<div id="insContainer" class="idea_container">
-						<%= render partial: "users/event", collection: @ins %>
-					</div>
-				<% end %>
-			<% else %>
-				<div id="insContainer" class="idea_container">
-					<%= render partial: "users/event", collection: @ins %>
+		<% if user_signed_in? %>
+				<div class="home-loader" style="display:none;" id="ajaxLoader">
+					<%= image_tag 'ajax-loader2.gif', style:"display:none;" %>
 				</div>
-			<% end %>
-		</div>
-		<%= render 'explanation' %>
+				<div id="invitedIdeasContainer" class="idea_container open">
+					<% if @user == current_user %>
+						<% if @user.sign_in_count == 1 && @invited_ideas.blank? %>
+							<%= render 'explanation' %>
+						<% else %>
+							<%= render partial: "users/event", collection: @invited_ideas %>
+						<% end %>
+					<% else %>
+						<%= render partial: "users/event", collection: @ins %>
+					<% end %>
+				</div>
+				<div id="invitedTimesContainer" class="idea_container" style="display:none;">
+				</div>
+				<div id="insContainer" class="idea_container" sytle="display:none;">
+				</div>
+				<div id="plansContainer" class="idea_container" sytle="display:none;">
+				</div>
+				<div id="outsContainer" class="idea_container" sytle="display:none;">
+				</div>
+				<div id="oversContainer" class="idea_container" sytle="display:none;">
+				</div>
+		<% else %>
+			<div id="insContainer" class="idea_container">
+				<%= render partial: "users/event", collection: @ins %>
+			</div>
+		<% end %>
 	</div>
 <% end %>
 
-<div style='display:none;'>
+<div style='display:none;' id="loadUpcomingTimes">
 	<%= render partial: 'users/mini_event', collection: @upcoming_times, as: :event %>
 </div>

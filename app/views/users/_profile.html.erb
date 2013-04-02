@@ -8,7 +8,7 @@
 	<% if @user != current_user %>
 		<div class="show_city"><%= @user.city.name %></div>
 	<% end %>
-	<a href="#" class="profile_stats" id="showInmates" data-slug=<%= @user.slug %>>
+	<div class="profile_stats" id="showInmates" data-slug=<%= @user.slug %>>
 		<ul> 
 			<li>
 				<div><i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= @user.intros_count %> </div>
@@ -16,12 +16,12 @@
 			</li>			
 			<li>
 				<div><i class="icon-star friend_star"></i> <span id="friendCount"><%= @user.friends_count %> </div>
-				<div>friends</div>
+				<div>stars</div>
 			</li>
 			<li>
 				<div><i class="icon-star friend_star"></i> <%= @star_count %></div>
-				<div>friended by</div> 
+				<div>starred by</div> 
 			</li>
 		</ul>
-	</a>
+	</div>
 </div>

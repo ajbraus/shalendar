@@ -462,4 +462,3 @@ class Event < ActiveRecord::Base
 
 # END OF CLASS
 end
-

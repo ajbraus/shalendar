@@ -49,13 +49,12 @@
     <%= render 'layouts/header' %>
     <div class="layout clearfix" id="content">       
       <%= render 'layouts/alerts' %>
-      <% if @user.present? %>
-        <div class="mini_calendar">
-          <%= render 'mini_calendar' %>
+      <% if user_signed_in? && @user.present? && params[:controller] == 'users' %>
+        <div class="sidebar">
+          <%= render 'layouts/mini_calendar' %>
         </div>
       <% end %>
       <%= yield %>
-      <%= render 'layouts/footer' %>
     </div>
 
     <!-- Javascripts
@@ -65,9 +64,7 @@
     <%= javascript_include_tag "application" %>
     <% if params[:controller] == "users" && params[:action] == "show" %>
       <%= coffee_script_tag do %>
-        $.get '/get_ins',
-          id: $('#showInmates').attr('data-slug');
-        $.get '/get_intros',
+        $.get '/intros',
           id: $('#showInmates').attr('data-slug');   
       <% end %>
     <% end %>

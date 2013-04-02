@@ -6,7 +6,7 @@
 @media only screen and (min-width:600px) {
 
 	header {
-		  height: 60px;
+		  height: 68px;
 		nav {
 		}
 	}
@@ -403,13 +403,13 @@ margin-right: 85px;
 		}
 	}
 
-	.mini_calendar {
+	.sidebar {
 		width: 320px;
 	}
 
 	.city_name {
 position: absolute;
-top: 36px;
+top: 45px;
 left: 180px;
 font-size: 14px;
 	}
@@ -438,7 +438,7 @@ width: 207px;
 
 	.inmates_bar {
 		width: 355px;
-		left: 350px;
+		left: 320px;
 	}
 
 }
@@ -464,10 +464,10 @@ width: 207px;
 /***************************************/
 @media only screen and (min-width: 600px) and (max-width: 909px) {
 	.home_idea_container {
-		width: 150%;
+
 	}
 	.container_wrapper {
-		width: 37%;
+
 	}
 
 }
@@ -480,46 +480,22 @@ width: 207px;
 /*** Widescreen ************************/ /*2 ideas*/
 /***************************************/
 @media only screen and (min-width: 910px) and (max-width: 1199px) {
-	.home_idea_container {
-		width: 110%;
-	}
-		.container_wrapper {
-		width:55%;
-	}
 }
 
 /*3ideas*/
 @media only screen and (min-width: 1200px) and (max-width: 1499px) {
-	.home_idea_container {
-		width: 110%;
-	}
-	.container_wrapper {
-		width: 62%;
-	}
 	.user_show {
 		width: 70%;
 	}
 }
 /*4ideas*/
 @media only screen and (min-width: 1500px) {
-	.home_idea_container {
-		width: 110%;
-	}
-	.container_wrapper {
-		width:75%;
-	}
 	.user_show {
 		width: 78%;
 	}
 }
 
 @media only screen and (min-width: 1810px) {
-	.home_idea_container {
-		width: 110%;
-	}
-	.container_wrapper {
-		width:79%;
-	}
 	.user_show {
 		width: 81%;
 	}

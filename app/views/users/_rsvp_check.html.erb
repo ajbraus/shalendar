@@ -3,12 +3,12 @@
 		<div class="btn-over"></div>
 	<% elsif current_user.in?(event) %>
 		<span class="status_icon">
-			<% if user_signed_in? %>
-				<% if current_user.in?(event) %>
-					<i class="icon-ok blue"></i> <%= event.starts_at.blank? || event.one_time? ? '.interested' : '.in' %>
-				<% end %>
-			<% end %>
+			<i class="icon-ok blue"></i> <%= event.starts_at.blank? || event.one_time? ? '.interested' : '.in' %>
 		</span>
+	<% elsif current_user.out?(event) %>
+		<span class="status_icon">
+			<i class="icon-remove red"></i> out
+		</span>	
 	<% else %>
 		<% if !current_user.rsvpd?(event) %>	
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>

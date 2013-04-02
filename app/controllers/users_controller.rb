@@ -31,7 +31,8 @@ class UsersController < ApplicationController
           @invited_times_count = @invited_times_count + @public_times_count
             #INS COUNT
           @ins_count = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id).count
-
+            #PLANS COUNT
+          @plans_count = @user.plans.where('city_id = ? AND ends_at IS NOT NULL', @current_city.id).count
 
         elsif @user.is_friends_with?(current_user)
           @ins = @user.plans.where('city_id = ? AND visibility > ? AND starts_at IS NULL', @current_city.id, 0).order('created_at DESC').reject { |i| @user.out?(i) }
@@ -63,13 +64,17 @@ class UsersController < ApplicationController
   def get_invited_times
     @invited_times = @user.invited_times.where('events.city_id = ?', @current_city.id)
     @public_times = Event.where('city_id = ? AND visibility = ? AND starts_at > ? AND starts_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days)
-    @invited_times = @times | @public_times
+    @invited_times = @invited_times | @public_times
   end
 
   def get_ins
     @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
     @ins = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id)
-    @ins = @ins.sort_by { |i| i.instances.any? ? 0 : 1 }
+    @ins = @ins.reject { |i| i.instances.any? }
+  end
+
+  def get_plans
+    @plans = @user.plans.where('events.city_id = ? AND ends_at IS NOT NULL', @current_city.id).map { |i| i.parent }
   end
 
   def get_outs
@@ -78,7 +83,8 @@ class UsersController < ApplicationController
   end
 
   def get_overs
-
+    @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
+    @overs = @user.plans.where('over = ?', true)
   end
 
   def explanation
