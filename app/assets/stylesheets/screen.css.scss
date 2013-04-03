@@ -723,6 +723,7 @@ border-bottom: 1px solid $divider;
 background-color: $background_one;
 padding: 4px 0 0px 0;
 height: 64px;
+border-bottom: 1px solid $divider;
   }
 
 .logo {
@@ -768,7 +769,7 @@ z-index: 5;
 width: 291px;
 position: absolute;
 top: 36px;
-right: 4px;
+left: 0px;
 -webkit-box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
 -moz-box-shadow:    0px 0px 9px rgba(50, 50, 50, 0.3);
 box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
@@ -943,7 +944,7 @@ position: relative;
 min-height: 0;
 padding: 5px 0 0 5px;
 right: 0;
-float:none;
+text-align: left;
   .profile_picture {
     width:30px;
     height:30px;
@@ -1046,6 +1047,8 @@ max-height: 300px;
 
 .status_icon {
 font-size: 22px;
+float: left;
+margin-top: 7px;
 }
 
 .event_pic {
@@ -1368,15 +1371,14 @@ background:none;
   .when {
 font-size: 20px;
 height: auto;
-line-height: 1.4;
 position: relative;
 clear: both;
 background: url("low_contrast_linen.png");
 color: white;
-float: left;
-margin: 0px 0 5px 0;
 width: 100%;
 padding: 0px 20px;
+min-height: 75px;
+margin-bottom: 1px;
 .out {
   position: relative;
   top: -10px;
@@ -1489,8 +1491,7 @@ font-size: 17px;
 .join_group_buttons {
 color: white;
 width: 100%;
-padding: 10px;
-min-height: 45px;
+padding-top: 9px;
   .rsvp_button {
 float: left;
 padding: 1px 11px;
@@ -2400,7 +2401,6 @@ top: 6px;
   color: $icon_color;
 }
 
-
 .shield_bottom {
 color: white;
 background: url("low_contrast_linen.png");
@@ -2408,6 +2408,7 @@ position: relative;
 border-top: 1px solid $divider;
 clear: both;
 font-size: 17px;
+min-height: 18px;
   #guestCount {
     font-size: 16px;
     margin-left: 5px;
@@ -2456,75 +2457,6 @@ top: 17px;
 #hoosin_friends_tab span, #fb_friends_tab span {
     position: relative;
     bottom: 14px;
-}
-
-.joyride-content-wrapper {
-padding: 20px 20px 25px 25px;
-line-height: 1.7;
-text-align: center;
-font-family: bariol ,Arial,sans-serif;
-letter-spacing: 1px;
-}
-.joyride-tip-guide span.joyride-nub.top {
-  top:-27px;
-  border-color: $light_orange;
-}
-
-.jr_welcome {
-}
-
-.jr_forecast {
-width: 62%;
-text-align: center;
-height: 130px;
-line-height: 89px;
-}
-
-.jr_search {
-
-}
-
-.jr_stats {
-
-}
-
-.jr_sidebar {
-
-}
-
-.joyride-tip-guide {
-  background: rgba(255, 255, 255, 1);
-color: black;
-box-shadow: 6px 6px 23px 3px rgba(0, 0, 0, 0.6);
-}
-
-.joyride-close-tip {
-  color: rgba(0, 0, 0, 0.4) !important;
-  &:hover {
-    color: rgba(0, 0, 0, 0.8) !important;
-  }
-}
-.joyride-tip-guide a.fadeInFBBlue {
-    color:$before_hover;
-  &:hover{
-  color:#3A5998;
-  -webkit-transition: color .25s linear .1s;
-  transition: color .25s linear .1s;
-  }
-}
-.joyride-tip-guide a.fadeInTwitter {
-  color:$before_hover;
-  &:hover{
-  color:#01CBFB;
-  -webkit-transition: color .25s linear .1s;
-  transition: color .25s linear .1s;
-  }
-}
-
-.jr_share {
-  a {
-    font-size: 49px;
-  }
 }
 
 #eventStartsAtAndDuration {
@@ -2641,7 +2573,7 @@ right: 5px;
 top: 3px;
   li {
     img {
-      width: 35px;
+      width: 25px;
     }
   }
 }
@@ -2804,14 +2736,16 @@ width: 98%;
 text-align: left;
 margin-left: 5px;
 float: left;
+padding: 2px 0;
   .profile_picture {
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    background-color: white;
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-    margin-left: -2px;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+background-color: white;
+width: 20px;
+height: 20px;
+border-radius: 4px;
+position: relative;
+top: 4px;
   }
 }
 
@@ -2837,6 +2771,7 @@ position: fixed;
 overflow-y: auto;
 height: 100%;
 overflow-x: hidden;
+border-right: 1px solid $divider;
 }
 
 .home_idea_container {
@@ -3408,14 +3343,12 @@ z-index: 2;
 }
 
 .no_invites, .no_ins {
-max-width: 420px;
-margin: 0 auto;
-padding: 15px 10%;
-background-color: $background_one;
-width: 108%;
-margin-top: 30px;
-left: 27px;
+padding: 10px 5%;
+background-color: #fffbfd;
 position: relative;
+margin: 0 auto;
+margin-top: 40px;
+width: 80%;
   li {
     font-size: 1.3em;
     line-height: 1.4em;
@@ -3518,7 +3451,7 @@ color: white;
 .navbar {
   clear:both;
   width: 92%;
-padding: 5px 5px 3px 23px;
+padding: 9px 5px 9px 23px;
 background: -moz-linear-gradient(top,  rgba(255,255,255,.3) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,.3)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
 background: -webkit-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
@@ -3682,4 +3615,15 @@ left: 4%;
       padding: 0.1em 0.25em;
     }
   }
+}
+
+
+.grey-spinner {
+  width:13px;
+}
+
+.flake-or-join {
+position: absolute;
+right: 7px;
+bottom: 5px;
 }

@@ -1,1 +1,1 @@
-$('#upcomingTimes').append("<%= render partial: 'users/mini_event', collection: @upcoming_times, as: :event %>");
+$('#upcomingTimes').append("<%= escape_javascript(render partial: 'users/mini_event', collection: @upcoming_times, as: :event) %>");

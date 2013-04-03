@@ -11,41 +11,37 @@
       <%= current_user.first_name_with_last_initial %>
     </u>
 	</div>
+  <div class="event_time">
+    <% if @parent.present? %>
+    <div class="shield_bottom time clearfix" >
+    <% else %>
+    <div class="shield_bottom time clearfix" style="display:none;">
+    <% end %>
+    <span class="eventStartsAt"><%= @parent.present? && @parent.starts_at.present? ? start_time(@parent) : '' %></span>
+    </div>
+  </div>
 
-	<div class="event_blerb">
-		<span class="title eventTitle"><%= @parent ? @parent.title : '' %></span>
-	</div>
 
 	<div class="promo_img" id="eventPromoImg">
   	<% if @parent  && @parent.has_image? %>
   		<%= image_tag @parent.image(:medium) %>
   	<% end %>
   </div>
-     <% if @parent %>
-      <%= render :partial => 'shared/guest_count', :locals => { :event => @parent } %>    
-    <% else %>
-      <div class="guest_count">
-        <i class="icon-star friend_star" title="Number of starred .intros who are .in"></i> <span id="friendCount"> 0 </span> / <i class="icon-star inmate_star" title="Number of .intros who are in" style="color:lightgrey;"></i> <%= current_user.inmates.count %>
-      </div>
-    <% end %>
-		<div class="event_time">
-			<% if @parent.present? %>
-			<div class="shield_bottom time clearfix" data-event-id="145">
-			<% else %>
-			<div class="shield_bottom time clearfix" data-event-id="145" style="display:none;">
-			<% end %>
-			<span class="eventStartsAt"><%= @parent.present? && @parent.starts_at.present? ? start_time(@parent) : '' %></span>
-      <span class="guest_count mini">
-        <% if @parent.present? && @parent.starts_at.present? %>
-        <span id="friendCount"><i class="icon-star friend_star"></i> <%= @parent.friends_in_count(current_user) %></span> /
-        <span id="guestCount"><%= @parent.guest_count %></span>
-        <% else %>
-          <span id="friendCount"><i class="icon-star friend_star"></i> 0</span> /
-          <span id="guestCount">0</span>
-        <% end %>
-      </span>
-		</div>
-	</div>
+
+  <div class="event_blerb">
+    <span class="title eventTitle"><%= @parent ? @parent.title : '' %></span>
+  </div>
+
+
+  <div class="guest_count clearfix">
+    <div class="facepile">
+      <i class="icon-star friend_star"></i> <span id="friendCount">1</span> 
+      <span title="<%= current_user.first_name_with_last_initial %>"><%= raster_profile_picture(current_user) %></span>
+    </div> 
+    <div class="facepile">        
+      <i class="icon-star inmate_star" style="color:lightgrey;"></i> 0
+    </div> 
+  </div>
 </div>
 	<!-- END EVENT SHIELD -->
 
@@ -76,9 +72,6 @@
         <u class="creator">
           <%= current_user.first_name_with_last_initial %>
         </u>
-        <div class="event_buttons">
-          <span class="fadeInOrange" title="click here to edit the idea after you post it"><i class="icon-cogs"></i> edit</span>
-        </div>
       </div>
   </div>
 
@@ -97,16 +90,19 @@
 	</div>
 
 	<% if @parent.present? %>
-		<div class="when time clearfix">
+		<div class="when time clearfix instance box-shadow">
 	<% else %>
-		<div class="when time clearfix" style='display:none'>
+		<div class="when time clearfix instance box-shadow" style='display:none'>
 	<% end %>	
+    <span class="status_icon">
+      <i class="icon-ok blue"></i>
+    </span>
+    <div class="date"><span class="eventStartsAt"><%= @parent.present? ? start_time(@parent) : raw("<strong>TBD</strong>") %></span><span class="eventDuration"></span></div>
+    <div class="where"><i class="icon-map-marker"></i><span id="eventAddress"><%= @parent.present? ? @parent.address : '' %></span></div>
 		<div id="rsvpForm" class="join_group_buttons">
 			<a href="#" class="btn rsvp_button btn-rsvp" title="By clicking here folks will join your ideas">.in</a>
 			<a href="#" class="btn rsvp_button btn_stop_viewing" title="Here folks can opt out of this idea">out</a>
     </div>  
-		<div class="date"><span class="eventStartsAt"><%= @parent.present? ? start_time(@parent) : raw("<strong>TBD</strong>") %></span><span class="eventDuration"></span></div>
-    <div class="where"><i class="icon-map-marker"></i><span id="eventAddress"><%= @parent.present? ? @parent.address : '' %></span></div>
 	  <ul id="calendars">
       <li>
         <%= image_tag "gcalendar.png", width: '30', title:".invites can add this idea to their calendars" %>

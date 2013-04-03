@@ -8,23 +8,10 @@
 				<div class="home-loader" style="display:none;" id="ajaxLoader">
 					<%= image_tag 'ajax-loader2.gif' %>
 				</div>
-				<div id="invitedIdeasContainer" class="open">
-					<% if @user == current_user %>
-						<%= will_paginate @invited_ideas %>
-					<% else %>
-						<%= will_paginate @interesteds %>
-					<% end %>
-					<div class="idea_container">
-						<% if @user == current_user %>
-							<% if @user.sign_in_count == 1 && @invited_ideas.blank? %>
-								<%= render 'explanation' %>
-							<% else %>
-								<%= render partial: "users/event", collection: @invited_ideas %>
-							<% end %>
-						<% else %>
-							<%= render partial: "users/event", collection: @interesteds %>
-						<% end %>
-					</div>
+				<div id="explanation" style="display:none;">
+					<%= render partial: 'users/explanation' %>
+				</div>
+				<div id="invitedIdeasContainer" class="idea_container open">
 				</div>
 				<div id="invitedTimesContainer" class="idea_container" style="display:none;">
 				</div>

@@ -27,8 +27,9 @@ private
       @user.authentications.find_by_uid(@uid).token = session[:access_token]
 
       #make all fb_friends on hoos.in into .intros
-      @user.add_fb_to_inmates(session[:graph])
+      
       if @user.city.present?
+        @user.add_fb_to_inmates(session[:graph])
         @user.add_fb_events(session[:graph])
       end
       #@user.convert_email_invites

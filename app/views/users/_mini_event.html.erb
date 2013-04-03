@@ -17,8 +17,8 @@
 			<div class="inviter">
 				by: <%= event.user.first_name_with_last_initial %>
 			</div>
+			<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>
 		</div>
-	<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>
 <% end %>	
 	<% if !current_user.rsvpd?(event) %> <!-- USER IS NOT RSVPD -->
 		<div class="mini_in_out">

@@ -1,1 +1,2 @@
-$('#visibilityButtonSet').buttonset();
+$ ->
+	$('#visibilityButtonSet').buttonset();

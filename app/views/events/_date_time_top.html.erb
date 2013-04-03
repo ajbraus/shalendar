@@ -1,0 +1,60 @@
+<div class="when one_time clearfix instance box-shadow" data-event-id="<%= event.id %>">  
+  <% if event.ends_at.present? && event.ends_at < Time.zone.now %>
+    <div class="btn-over"></div>
+  <% elsif current_user.in?(event) %>
+    <span class="status_icon">
+      <i class="icon-ok blue"></i>
+    </span>
+  <% elsif current_user.out?(event) %>
+    <span class="status_icon">
+      <i class="icon-remove red"></i>
+    </span> 
+  <% end %>
+  <div class="date"><%= event_start_time(event) %> <%= date(event) %> ( <%= event.nice_duration %> ) </div>
+  <% if event.address.present? %>
+    <div class="where"><i class="icon-map-marker"></i> <%= event.address %></div>
+  <% end %>
+  <ul id="calendars">
+    <li>
+      <a href="http://www.google.com/calendar/event?action=TEMPLATE&text=<%= url_encode(event.title) %>&dates=<%= event.url_starts_at %>/<%= event.url_ends_at %>&details=<%= url_encode(event.description) + " - " + event_url(event) %>&location=<%= url_encode(event.address) %>&trp=true&sprop=www.hoos.in%2Fideas%2F<%= event.id %>&sprop=name:<%= url_encode(event.title) %>" target="_blank" title="Add to Your Google Calendar">
+        <%= image_tag "gcalendar.png", width: '30', class:"" %>
+      </a>
+    </li>
+    <li>
+      <%= link_to event_path(event, :format => :ics) do %>
+        <%= image_tag "ical-icon.png", width: '30', class:"", title: "Add to Your iCal or Outlook" %>
+      <% end %>
+    </li>
+  </ul>
+  <% if !current_user.rsvpd?(event) %>
+    <div id="rsvpForm" class="join_group_buttons">
+      <%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
+        <%= f.hidden_field :plan_id %>
+        <%= f.hidden_field :inout, value: "1" %>
+        <%= f.submit "#{event.starts_at.blank? ? '.interested' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
+      <% end %>
+      <%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
+        <%= f.hidden_field :plan_id %>
+        <%= f.hidden_field :inout, value: "0" %>
+        <%= f.submit "#{event.starts_at.blank? ? 'meh' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="flake-or-join">
+      <% if current_user.in?(event) %>
+        <span id="flakeOut" class="flakeout">
+          <%= link_to "(flake out)", rsvp_path(current_user.rsvps.find_by_plan_id(event.id)), :method => :delete %></p>
+        </span>
+      <% else %>
+        <%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
+          <%= f.hidden_field :plan_id %>
+          <%= f.hidden_field :inout, value: 1 %>
+          <%= f.submit "(join .in)", class: "let_me_in" %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
+
+  <%= render partial: 'shared/guest_count', locals: { :event => event } %>
+</div>

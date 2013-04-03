@@ -9,20 +9,6 @@ Mike
 		code to prevent some notifications)
 
 Adam
-	outs not showing
-	public ideas with times are not being pulled into times
-
-	facepiles	
-	make rsvp to invited_times rsvp to next time
-	add pic to facepile when rsvping (rsvp_check)
-
-	update sample idea shield
-	put time on top of event#show
-	update sample idea show
-
-	seeing a public idea with a time under ideas (remove all ideas with instances)
-
-	make inmates bar not sux - on hover wiggle, text-decoration on intros/friends click event, retract
 
 	bring back all invitations that are not over
 	  Event.all.each do |e|

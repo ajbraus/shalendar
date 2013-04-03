@@ -17,39 +17,38 @@
 <div class="navbars-set">
 <% if @user == current_user  %>
 	<div class="navbar active hover-purple" id="showInvitedIdeas">
-		<i class="icon-cloud"></i><span id="invites_count"> <%= @invited_ideas_count %></span> ideas</span> <i class="icon-caret-right"></i> 
+		<i class="icon-cloud"></i><span id="invited_ideas_count"> <%= image_tag "grey_spinner.gif", class:"grey-spinner" %></span> ideas</span> <i class="icon-caret-right"></i> 
 	</div>
 	<div class="navbar hover-orange" id="showInvitedTimes">
-		<i class="icon-calendar"></i><span id="invites_count"> <%= @invited_times_count %></span> .invites</span>
+		<i class="icon-calendar"></i><span id="invited_times_count"> <%= image_tag "grey_spinner.gif", class:"grey-spinner" %></span> .invites</span>
 	</div>
 <% end %>
 	<div class="navbar hover-blue" id="showInteresteds">
-		<i class="icon-cloud"></i><i class="icon-ok"></i><span id="interesteds_count"> <%= @interesteds_count %></span> .interested
+		<i class="icon-cloud"></i><i class="icon-ok"></i><span id="interesteds_count"> <%= image_tag "grey_spinner.gif", class:"grey-spinner" %></span> .interested
 	</div>
 	<div class="navbar hover-blue" id="showIns">
-		<i class="icon-calendar"></i><i class="icon-ok"></i><span id="ins_count"> <%= @ins_count %></span> .in
+		<i class="icon-calendar"></i><i class="icon-ok"></i><span id="ins_count"> <%= image_tag "grey_spinner.gif", class:"grey-spinner" %></span> .ins
 	</div>
-<% if @user == current_user %>
-	<div class="navbar hover-red" id="showOuts">
-		<i class="icon-remove"></i> outs
-	</div>
-<% end %>
 <!-- 	<div class="navbar hover-dark-blue" id="showOvers">
 		<i class="icon-reply"></i> overs
 	</div> -->
 
 	<div class="upcoming-times clearfix" id="upcomingTimes">
-		<h3 class="upcoming-times">upcoming plans</h3>
 	</div>
 
-	<%= link_to explanation_path(id: @user), remote:true do %>
+<% if @user == current_user %>
+	<div class="navbar hover-red" id="showOuts">
+		<i class="icon-remove"></i> outs
+	</div>
+<% end %>
+
 		<div class="navbar hover-green" id="help">
 			<i class="icon-question-sign"></i> help
 		</div>
-	<% end %>
+		
 	<%= link_to edit_user_registration_path do %>
 		<div class="navbar hover-light-orange">
-      <i class='icon-wrench user_settings'></i> settings
+      <i class='icon-cog user_settings'></i> settings
     </div>
   <% end %>
   <%= link_to destroy_user_session_path, :method => :delete do %>

@@ -9,10 +9,15 @@ $.fn.toggleIdeas = (container, path) ->
 		ajax.show(0).delay(1300).hide(0);
 	open.hide();
 	open.removeClass('open');
+	if container.children().length > 0
+		$('#explanation').hide();
+	else
+		$('#explanation').show();
 	container.fadeIn();
 	container.addClass('open');
 	container.masonry('reload');
-	$('.idea_container').masonry('reload');
+	$('.idea_container').imagesLoaded ->
+    $('.idea_container').masonry('reload')
 
 
 # $.fn.buildCalendar = () ->
@@ -42,3 +47,10 @@ $ ->
 		$(@).toggleIdeas($('#outsContainer'), '/outs');
 	$('#showOvers').click ->
 		$(@).toggleIdeas($('#oversContainer'), '/overs');
+
+	$('#showInmates').hover ->
+		$('#showInamtes ul li').css('text-decoration','underline');
+
+	$('#help').click ->
+		$('.open').hide();
+		$('#explanation').fadeIn();

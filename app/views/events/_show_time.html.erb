@@ -27,14 +27,7 @@
         <% end %>
       <% end %>
 
-    <div class="show_facepile">
-      <span id="guestCount"><%= event.guest_count %></span>
-      <% event.guests.each do |guest| %>
-        <%= link_to user_path(guest) do %>
-          <span title="<%= guest.name %>"><%= raster_profile_picture(guest) %></span>
-        <% end %>
-      <% end %>
-    </div>
+    <%= render partial: 'shared/guest_count', locals: { :event => event } %>
     <div id="rsvpForm" class="join_group_buttons">
       <%= render :partial => "events/rsvp_form", :locals => { :event => event } %>
     </div>

@@ -548,12 +548,11 @@ class User < ActiveRecord::Base
 
   def add_fb_events(graph)
     @graph = graph
-    @fb_events = @graph.fql_query("SELECT creator, name, description, start_time, end_time, pic_big, location, host, privacy, can_invite_friends 
+    @fb_events = @graph.fql_query("SELECT eid, creator, name, description, start_time, end_time, pic_big, location, host, privacy, can_invite_friends 
                                   FROM event where eid IN
                                   (SELECT eid FROM event_member WHERE uid = me() and rsvp_status='attending')")
-    #@graph.get_connections("me", "events", args={fields:"id, name, description, start_time, end_time, picture, location, owner"})
     @fb_events.each do |fbe|
-      @existing_event = Event.find_by_fb_id(fbe["id"])
+      @existing_event = Event.find_by_fb_id("#{fbe['eid']}")
       if @existing_event.blank? #event already exists
         @start_time = Chronic.parse(fbe['start_time'])
         @end_time = Chronic.parse(fbe['end_time'])

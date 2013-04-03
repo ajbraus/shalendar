@@ -1,10 +1,12 @@
 <% if user_signed_in? %>
 	<div class="event shield
 		<% if event.ends_at.present? %>
-			<%= event.ends_at < Time.zone.now ? 'over' : '' %>
+			time
+			<%= event.ends_at < Time.zone.now ? ' over' : '' %>
+		<% else %>
+			idea
 		<% end %> 
 		<%= @user.in?(event) ? 'in' : 'invite' %>
-		<%= event.has_future_instance? ? 'time' : 'idea' %>
 		<%= event.one_time? ? 'one_time' : '' %>"
 		data-event-id='<%= event.id %>'>
 <% elsif @user.present? %>
@@ -45,9 +47,8 @@
 			</div>
 		<% end %>
 
-
 		<div class="event_blerb">
-			<div class="title"><%= event.title %> <%= raw(event.visibility_icon) %></div>
+			<div class="title"> <%= raw(event.visibility_icon) %><%= event.title %></div>
 		</div>
 
 		<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>		

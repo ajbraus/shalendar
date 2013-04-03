@@ -175,11 +175,11 @@ class Event < ActiveRecord::Base
   end
 
   def friends_in(current_user)
-    (self.guests & current_user.friends)
+    self.guests & current_user.friends
   end
 
   def inmates_in(current_user)
-    (self.guests & current_user.inmates)
+    self.guests & current_user.inmates
   end
 
   def friends_in_count(current_user)
@@ -431,11 +431,11 @@ class Event < ActiveRecord::Base
 
   def visibility_icon 
     if self.public?
-      return "- <i class='icon-bullhorn'></i>"
+      return "<i class='icon-bullhorn'></i> - "
     elsif self.friends_only?
-      return "- <i class='icon-star friend_star'></i>"
+      return "<i class='icon-star friend_star'></i> - "
     elsif self.invite_only?
-      return "- <i class='icon-eye-close'></i>"
+      return "<i class='icon-eye-close'></i> - "
     end
   end
 
