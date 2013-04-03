@@ -10,6 +10,7 @@ Mike
 
 Adam
 
+
 	bring back all invitations that are not over
 	  Event.all.each do |e|
       User.all.each do |u|
@@ -20,6 +21,8 @@ Adam
     end
 
   Test Invitation.expire
+
+  when event name chagnes getting two notifications
 
 	allow in/out from emails
 

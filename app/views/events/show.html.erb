@@ -96,6 +96,7 @@
   </div>
 
   <%= render partial: 'events/date_time_top', collection: @event.instances, as: :event %>
+  
   <% if @event.promo_vid.present? %>
     <div class="promo_vid">
       <%= raw(youtube_embed(@event.promo_vid)) %>

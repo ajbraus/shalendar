@@ -588,6 +588,7 @@ class User < ActiveRecord::Base
                               address: fbe['location'],
                               starts_at: @start_time,
                               ends_at: @end_time,
+                              duration: @end_time - @start_time
                               one_time: true,
                               visibility: @hi_parent.visibility)
           @hi_time.save
