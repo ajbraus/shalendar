@@ -13,6 +13,11 @@ Adam
 	background job add_fb_events and inmates on login
 	add scheduled job to add new fb events every night
 
+	speed up hoos.in
+
+	Invitation.expire - running through invitations where event.over = true
+	track over better
+
 	bring back all invitations that are not over
 	  Event.all.each do |e|
       User.all.each do |u|

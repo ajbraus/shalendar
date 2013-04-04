@@ -8,7 +8,7 @@ class Invitation < ActiveRecord::Base
   validates :invited_event_id, presence: true
 
   def self.expire
-		@old_invites = Invitation.joins(:events).where('over = ?', true)
+		@old_invites = Invitation.joins(:invited_event).where('over = ?', true)
 		@old_invites.each do |i|
 			i.destroy
 		end
