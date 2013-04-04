@@ -17,7 +17,6 @@ $ ->
 
 	interested.parent().siblings().children('.out').css("color", "lightgrey");
 	interested.css("color", "#388EE5");
-	interested.parent().parent().siblings('#status').html(".interested");
 
 	# if I want to make event#show ajaxy
 	# $('#rsvpForm').html("<%= escape_javascript(render partial: 'events/rsvp_form', object: @event, as: :event) %>")

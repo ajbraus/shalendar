@@ -14,15 +14,18 @@ Adam
 	add scheduled job to add new fb events every night
 
 	speed up hoos.in
+		- cull interesteds
+		- load ideas upfront
+		- load upcoming ideas upfront
 
-	Invitation.expire - running through invitations where event.over = true
-	track over better
+	log interesteds per person
+	log ins per person
 
 	bring back all invitations that are not over
 	  Event.all.each do |e|
       User.all.each do |u|
-        unless u.already_invited?(e) || u.rsvpd?(e) || !u.invited?(e)
-        	u.invitation.create(invited_event_id: e.id)
+        unless u.already_invited?(e) || u.rsvpd?(e) || !u.invited?(e) || e.already_over?
+        	u.invitations.create(invited_event_id: e.id)
         end
       end
     end

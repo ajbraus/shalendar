@@ -16,7 +16,6 @@ $ ->
 
 	out.parent().siblings().children('.in_check').css("color", "lightgrey");
 	out.css("color", "#CD0000");
-	out.parent().parent().siblings('#status').html("out");
 
 	# if rsvping out of an upcomming in
 	$('.instance').withEventId(<%= @event.id %>).find('.mini_in_out').first().html("<div class='in_on_instance'><i class='icon-remove red' title='you're out'></i> out</div>")
