@@ -27,26 +27,26 @@ class UsersController < ApplicationController
 
   def get_invited_ideas
     @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
-    @invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false).reject {|i| current_user.rsvpd?(i) || i.instances.any? }
-    @public_ideas = Event.where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false).reject {|i| current_user.rsvpd?(i) || i.instances.any? }
+    @invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false).reject {|i| i.parent_id.present? }
+    @public_ideas = Event.where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false).reject {|i| i.parent_id.present? }
     @invited_ideas = @invited_ideas | @public_ideas
   end
 
   def get_invited_times
     @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
-    @invited_times = @user.invited_times.where('events.city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now).reject {|i| current_user.rsvpd?(i) }
-    @public_times = Event.where('city_id = ? AND visibility = ? AND starts_at > ? AND ends_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days).reject {|i| current_user.rsvpd?(i) }
+    @invited_times = @user.invited_times.where('events.city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now)
+    @public_times = Event.where('city_id = ? AND visibility = ? AND starts_at > ? AND ends_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days)
     @invited_times = @invited_times | @public_times
   end
 
   def get_interesteds
     @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
     if @user == current_user
-      @interesteds = @user.plans.where('city_id = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, false).reject {|i| i.instances.any? }
+      @interesteds = @user.plans.where('city_id = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, false).reject {|i| i.parent_id.present? }
     elsif @user.is_friends_with?(current_user)
-      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 0, false).reject {|i| i.instances.any? }
+      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 0, false).reject {|i| i.parent_id.present? }
     elsif @user.is_inmates_with?(current_user)
-      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 1, false).reject {|i| i.instances.any? }
+      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 1, false).reject {|i| i.parent_id.present? }
     end
   end
 
