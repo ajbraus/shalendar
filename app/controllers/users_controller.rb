@@ -28,14 +28,14 @@ class UsersController < ApplicationController
   def get_invited_ideas
     @user = User.includes(:invitations).find_by_slug(params[:id])
     @invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false).reject {|i| i.parent_id.present? }
-    @public_ideas = Event.where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false).reject {|i| i.parent_id.present? }
+    @public_ideas = Event.where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false).reject {|i| current_user.rsvpd?(i) || i.parent_id.present? }
     @invited_ideas = @invited_ideas | @public_ideas
   end
 
   def get_invited_times
     @user = User.includes(:invitations).find_by_slug(params[:id])
     @invited_times = @user.invited_times.where('events.city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now)
-    @public_times = Event.where('city_id = ? AND visibility = ? AND starts_at > ? AND ends_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days)
+    @public_times = Event.where('city_id = ? AND visibility = ? AND starts_at > ? AND ends_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days).reject {|i| current_user.rsvpd?(i) }
     @invited_times = @invited_times | @public_times
   end
 
