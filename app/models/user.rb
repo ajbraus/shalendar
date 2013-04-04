@@ -276,19 +276,19 @@ class User < ActiveRecord::Base
       self.rsvp_in!(@parent)
         #contact only once if they sign up for time + idea, if time.user and idea.user are different send both
       if @event_user != @parent_user      
-        unless @event_user == self || event.over?
+        unless @event_user == self || event.already_over?
           @event_user.delay.contact_new_rsvp(event, self)
         end
         unless @parent_user == self 
           @parent_user.delay.contact_new_rsvp(event, self)
         end
       else
-        unless @event_user == self || event.over?
+        unless @event_user == self || event.already_over?
           @event_user.delay.contact_new_rsvp(event, self)
         end
       end
     else
-      unless @event_user == self || event.over?
+      unless @event_user == self || event.already_over?
         @event_user.delay.contact_new_rsvp(event, self)
       end
     end
