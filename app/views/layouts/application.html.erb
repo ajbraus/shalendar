@@ -67,9 +67,7 @@
         <% if @user == current_user %>
           <%= coffee_script_tag do %>
             $.get '/upcoming_times',
-              id: $('#showInmates').attr('data-slug');             
-            $.get '/invited_ideas',
-              id: $('#showInmates').attr('data-slug');  
+              id: $('#showInmates').attr('data-slug');              
             $.get '/times',
               id: $('#showInmates').attr('data-slug'); 
             $.get '/interesteds',

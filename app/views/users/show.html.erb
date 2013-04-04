@@ -13,6 +13,11 @@
 					<%= render partial: 'users/explanation' %>
 				</div>
 				<div id="invitedIdeasContainer" class="idea_container open">
+					<% if @invited_ideas.any? %>
+						<%= render partial: "users/event", collection: @invited_ideas %>
+					<% else %>
+						<%= render partial: "users/explanation" %>
+					<% end %>
 				</div>
 				<div id="invitedTimesContainer" class="idea_container" style="display:none;">
 				</div>

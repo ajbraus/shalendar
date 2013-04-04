@@ -36,7 +36,9 @@ $ ->
 	invites = $('.invite')
 
 	$('#showInvitedIdeas').click ->
-		$(@).toggleIdeas($('#invitedIdeasContainer'), '/invited_ideas');
+		$('.open').hide();
+		$('#invitedIdeasContainer').show();
+		$('#invitedIdeasContainer').addClass('open');
 	$('#showInvitedTimes').click ->
 		$(@).toggleIdeas($('#invitedTimesContainer'), '/times');
 	$('#showInteresteds').click ->

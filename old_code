@@ -736,3 +736,6 @@ end
       end
     end
   end
+
+              $.get '/invited_ideas',
+              id: $('#showInmates').attr('data-slug'); 

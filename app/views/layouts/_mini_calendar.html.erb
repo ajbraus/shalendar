@@ -16,7 +16,7 @@
 <div class="navbars-set">
 <% if @user == current_user  %>
 	<div class="navbar active hover-purple" id="showInvitedIdeas">
-		<i class="icon-cloud"></i><span id="invited_ideas_count"> <%= image_tag "grey_spinner.gif", class:"grey-spinner" %></span> ideas</span> <i class="icon-caret-right"></i> 
+		<i class="icon-cloud"></i><span id="invited_ideas_count"> <%= @invited_ideas.count %></span> ideas</span> <i class="icon-caret-right"></i> 
 	</div>
 	<div class="navbar hover-orange" id="showInvitedTimes">
 		<i class="icon-calendar"></i><span id="invited_times_count"> <%= image_tag "grey_spinner.gif", class:"grey-spinner" %></span> .invites</span>

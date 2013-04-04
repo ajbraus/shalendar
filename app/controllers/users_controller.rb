@@ -2,12 +2,16 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, except: [ :show, :city_names ]
 
   def show
-    @user = User.includes(:relationships).find_by_slug(params[:id])
+    @user = User.includes(:relationships, :invitations).find_by_slug(params[:id])
     if @user.blank? #either got an invalid slug or they are trying to land on the homepage
       if user_signed_in?
         @user = current_user
       end
     end
+    
+    @invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false).reject {|i| i.parent_id.present? }
+    @public_ideas = Event.where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false).reject {|i| current_user.rsvpd?(i) || i.parent_id.present? }
+    @invited_ideas = @invited_ideas | @public_ideas
     #show alert if rescue from errors:
     if params[:oofta] == 'true'
       flash.now[:oofta] = "We're sorry, an error occured"
@@ -19,9 +23,9 @@ class UsersController < ApplicationController
     if @user == current_user
       @upcoming_times = @user.plans.where('city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now).order('starts_at ASC').limit(5)
     elsif @user.is_friends_with?(current_user)
-      @upcoming_times = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 0, Time.zone.now).limit(5)
+      @upcoming_times = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 0, Time.zone.now).order('starts_at ASC').limit(5)
     elsif @user.is_inmates_with?(current_user)
-      @upcoming_times = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 1, Time.zone.now).limit(5)
+      @upcoming_times = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 1, Time.zone.now).order('starts_at ASC').limit(5)
     end
   end
 
@@ -53,11 +57,11 @@ class UsersController < ApplicationController
   def get_ins
     @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
     if @user == current_user
-      @ins = @user.plans.where('city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now)
+      @ins = @user.plans.where('city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now).order('starts_at ASC')
     elsif @user.is_friends_with?(current_user)
-      @ins = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 0, Time.zone.now)      
+      @ins = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 0, Time.zone.now).order('starts_at ASC')     
     elsif @user.is_inmates_with?(current_user)
-      @ins = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 1, Time.zone.now)
+      @ins = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 1, Time.zone.now).order('starts_at ASC')
     end
   end
 
