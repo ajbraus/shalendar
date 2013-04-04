@@ -53,11 +53,11 @@ class UsersController < ApplicationController
   def get_ins
     @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
     if @user == current_user
-      @ins = @user.plans.where('city_id = ? AND ends_at IS NOT NULL', @current_city.id)
+      @ins = @user.plans.where('city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now)
     elsif @user.is_friends_with?(current_user)
-      @ins = @user.plans.where('city_id = ? AND visibility > ? AND ends_at IS NOT NULL', @current_city.id, 0)      
+      @ins = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 0, Time.zone.now)      
     elsif @user.is_inmates_with?(current_user)
-      @ins = @user.plans.where('city_id = ? AND visibility > ? AND ends_at IS NOT NULL', @current_city.id, 1)
+      @ins = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 1, Time.zone.now)
     end
   end
 
