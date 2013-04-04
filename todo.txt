@@ -12,7 +12,6 @@ Adam
 
 	background job add_fb_events and inmates on login
 	add scheduled job to add new fb events every night
-	ideas seeing an interested and out
 
 	bring back all invitations that are not over
 	  Event.all.each do |e|

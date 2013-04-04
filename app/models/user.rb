@@ -561,7 +561,7 @@ class User < ActiveRecord::Base
         end
         unless @end_time < Time.now || fbe['privacy'] == 'SECRET' #event is already over
           #PARENT
-          @hi_parent = Event.new(fb_id: fbe['id'],
+          @hi_parent = Event.new(fb_id: fbe['eid'],
                               user_id: self.id,
                               city_id: self.city.id,
                               title: fbe["name"],
@@ -579,7 +579,7 @@ class User < ActiveRecord::Base
           @hi_parent.save
           self.rsvp_in!(@hi_parent)
           #TIME
-          @hi_time = Event.new(fb_id: fbe['id'],
+          @hi_time = Event.new(fb_id: fbe['eid'],
                               parent_id: @hi_parent.id,
                               user_id: self.id,
                               city_id: self.city.id,
