@@ -15,14 +15,14 @@
 				<%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "0" %>
 			 		<button class="out" name="commit" type="submit">
-						<i class='icon-remove'></i></span> 
+						<i class='icon-remove'></i></span>out
 			  	</button>
 			<% end %>	
 			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
 			  <%= f.hidden_field :plan_id %>
 			  <%= f.hidden_field :inout, value: "1" %>
 			 		<button class="in_check fadeInBlue" name="commit" type="submit">
-						<i class='icon-ok'></i>
+						<i class='icon-ok'></i><%= event.starts_at.blank? || event.one_time? ? '.interested' : '.in' %>
 			  	</button>
 			<% end %>	
 		<% end %>
