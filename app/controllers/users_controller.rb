@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   def get_upcoming_times
     @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
     if @user == current_user
-      @upcoming_times = @user.plans.where('city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now).limit(5)
+      @upcoming_times = @user.plans.where('city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now).order('starts_at ASC').limit(5)
     elsif @user.is_friends_with?(current_user)
       @upcoming_times = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 0, Time.zone.now).limit(5)
     elsif @user.is_inmates_with?(current_user)

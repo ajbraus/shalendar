@@ -10,7 +10,21 @@ Mike
 
 Adam
 
-	background job add_fb_events and inmates on login
+	interested - blue when click
+	out - red when click
+
+	seeing outs in invites
+
+	fb event not working in production
+
+	edit - make idea one_time
+
+	emails to 
+		- iphone app users - to write a review
+		- rockstars
+		- never created an idea yet (but have intros)
+		- no .intros
+
 	add scheduled job to add new fb events every night
 
 	speed up hoos.in

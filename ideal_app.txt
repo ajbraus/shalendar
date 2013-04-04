@@ -11,11 +11,10 @@ alert for new idea from mike - still seeing alert when i open app - then idea sc
 
 faster
 
-
 push notifications open directly to ideas or comments or profile
 
-
 add new_fb_inmate push type (open to profile)
+
 
 
 ask for rating

@@ -78,8 +78,8 @@
               id: $('#showInmates').attr('data-slug'); 
             $.get '/ins',
               id: $('#showInmates').attr('data-slug'); 
-            $.get '/outs',
-              id: $('#showInmates').attr('data-slug');               
+            #$.get '/outs',
+              #id: $('#showInmates').attr('data-slug');               
           <% end %>
         <% elsif @user.is_inmates_or_friends_with?(current_user) %>
           <%= coffee_script_tag do %>
