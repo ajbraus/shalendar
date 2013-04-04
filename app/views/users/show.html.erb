@@ -2,7 +2,7 @@
 	<% provide(:title, " | #{@user.name}" ) %>
 	<div class="container_wrapper">
 		<% unless @user.background_file_size.blank? %>
-			<div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 330px;top: 60px;"></div>
+			<div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 320px;top: 0px;"></div>
 		<% end %>
 		<% if user_signed_in? %>
 				<div class="home-loader" style="display:none;" id="ajaxLoader">
