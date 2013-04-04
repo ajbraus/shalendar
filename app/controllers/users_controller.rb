@@ -8,10 +8,11 @@ class UsersController < ApplicationController
         @user = current_user
       end
     end
-    
-    @invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false).reject {|i| i.parent_id.present? }
-    @public_ideas = Event.where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false).reject {|i| current_user.rsvpd?(i) || i.parent_id.present? }
-    @invited_ideas = @invited_ideas | @public_ideas
+    if @user.present?
+      @invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false).reject {|i| i.parent_id.present? }
+      @public_ideas = Event.where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false).reject {|i| current_user.rsvpd?(i) || i.parent_id.present? }
+      @invited_ideas = @invited_ideas | @public_ideas
+    end 
     #show alert if rescue from errors:
     if params[:oofta] == 'true'
       flash.now[:oofta] = "We're sorry, an error occured"

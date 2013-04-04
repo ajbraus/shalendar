@@ -10,7 +10,9 @@ Mike
 
 Adam
 
-	
+	remove masonry reload in toggle 
+	speed up css
+	intros is not working
 
 	interested - blue when click
 	out - red when click
