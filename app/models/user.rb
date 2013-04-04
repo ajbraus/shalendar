@@ -235,10 +235,6 @@ class User < ActiveRecord::Base
     end
     rsvps.create!(plan_id: event.id, inout: 1)
     
-    unless self.already_invited?(event)
-      self.invitations.create!(invited_event_id: event.id)
-    end
-    
     event.guests.each do |g|
       self.inmate!(g)
     end

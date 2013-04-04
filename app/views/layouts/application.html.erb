@@ -66,31 +66,29 @@
       <% if params[:controller] == "users" && params[:action] == "show" %>
         <% if @user == current_user %>
           <%= coffee_script_tag do %>
-            $.get '/invited_ideas',
-              id: $('#showInmates').attr('data-slug'); 
-            $.get '/intros',
-              id: $('#showInmates').attr('data-slug'); 
             $.get '/upcoming_times',
-              id: $('#showInmates').attr('data-slug'); 
+              id: $('#showInmates').attr('data-slug');             
+            $.get '/invited_ideas',
+              id: $('#showInmates').attr('data-slug');  
             $.get '/times',
               id: $('#showInmates').attr('data-slug'); 
             $.get '/interesteds',
               id: $('#showInmates').attr('data-slug'); 
             $.get '/ins',
               id: $('#showInmates').attr('data-slug'); 
-            #$.get '/outs',
-              #id: $('#showInmates').attr('data-slug');               
+            $.get '/intros',
+              id: $('#showInmates').attr('data-slug');               
           <% end %>
         <% elsif @user.is_inmates_or_friends_with?(current_user) %>
-          <%= coffee_script_tag do %>
-            $.get '/intros',
-              id: $('#showInmates').attr('data-slug'); 
+          <%= coffee_script_tag do %> 
             $.get '/upcoming_times',
               id: $('#showInmates').attr('data-slug'); 
             $.get '/interesteds',
               id: $('#showInmates').attr('data-slug'); 
             $.get '/ins',
               id: $('#showInmates').attr('data-slug'); 
+           $.get '/intros',
+              id: $('#showInmates').attr('data-slug');              
           <% end %>      
         <% else %>
           <%= coffee_script_tag do %>

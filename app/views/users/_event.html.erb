@@ -36,7 +36,7 @@
 			<% if event.starts_at.present? %>
 				<%= render partial: 'events/time', locals: { :event => event } %>
 			<% else %>
-				<%= render partial: 'events/time', collection: event.instances, as: :event %>
+				<%= render partial: 'events/time', collection: event.future_instances, as: :event %>
 			<% end %>
 
 		<% end %>

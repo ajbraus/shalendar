@@ -724,3 +724,15 @@ end
       </div>
     </div>
   <% end %>
+
+
+  Event.all.each do |e|
+    User.all.each do |u|
+      if u.rsvpd?(e)
+        @invitation = u.invitations.find_by_invited_event_id(e.id)
+        if @invitation.present?
+          @invitation.destroy
+        end
+      end
+    end
+  end
