@@ -39,6 +39,7 @@ $ ->
 		$('.open').hide();
 		$('#invitedIdeasContainer').show();
 		$('#invitedIdeasContainer').addClass('open');
+		$('#invitedIdeasContainer').masonry('reload');
 	$('#showInvitedTimes').click ->
 		$(@).toggleIdeas($('#invitedTimesContainer'), '/times');
 	$('#showInteresteds').click ->

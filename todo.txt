@@ -10,7 +10,14 @@ Mike
 
 Adam
 
-	remove masonry reload in toggle 
+	Niko see's adam's invites when he loads
+
+	attribution of fb events
+
+	curation of invited_ideas and invited_times (social?)
+
+	creator of idea
+
 	speed up css
 	intros is not working
 
