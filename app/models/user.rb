@@ -550,6 +550,12 @@ class User < ActiveRecord::Base
     @fb_events.each do |fbe|
       @existing_event = Event.find_by_fb_id("#{fbe['eid']}")
       if @existing_event.blank? #event already exists
+        @auth = Authentication.find_by_uid("#{fbe['creator']}")
+        if @auth.present?
+          @creator = @auth.user
+        else
+          @creator = self
+        end
         @start_time = Chronic.parse(fbe['start_time'])
         @end_time = Chronic.parse(fbe['end_time'])
         if @end_time.blank?
@@ -557,9 +563,8 @@ class User < ActiveRecord::Base
         end
         unless @end_time < Time.now || fbe['privacy'] == 'SECRET' #event is already over
           #PARENT
-          @hi_parent = Event.new(fb_id: fbe['eid'],
-                              user_id: self.id,
-                              city_id: self.city.id,
+          @hi_parent = @creator.events.build(fb_id: fbe['eid'],
+                              city_id: @creator.city.id,
                               title: fbe["name"],
                               description: "#{fbe['description']} - hosted by #{fbe['host']}",
                               address: fbe['location'],
@@ -575,10 +580,9 @@ class User < ActiveRecord::Base
           @hi_parent.save
           self.rsvp_in!(@hi_parent)
           #TIME
-          @hi_time = Event.new(fb_id: fbe['eid'],
+          @hi_time = @creator.events.build(fb_id: fbe['eid'],
                               parent_id: @hi_parent.id,
-                              user_id: self.id,
-                              city_id: self.city.id,
+                              city_id: @creator.city.id,
                               title: fbe["name"],
                               description: "#{fbe['description']} - hosted by #{fbe['host']}",
                               address: fbe['location'],

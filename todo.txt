@@ -16,7 +16,7 @@ Adam
 
 	curation of invited_ideas and invited_times (social?)
 
-	creator of idea
+	show creator of idea
 
 	speed up css
 	intros is not working
