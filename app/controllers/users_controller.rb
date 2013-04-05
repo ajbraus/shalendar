@@ -32,8 +32,8 @@ class UsersController < ApplicationController
 
   def get_invited_ideas
     @user = User.includes(:invitations).find_by_slug(params[:id])
-    @invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false).reject {|i| i.instances.any? }
-    @public_ideas = Event.where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false).reject {|i| current_user.rsvpd?(i) || i.instances.any? }
+    @invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false)
+    @public_ideas = Event.where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false).reject {|i| current_user.rsvpd?(i) }
     @invited_ideas = @invited_ideas | @public_ideas
   end
 
@@ -47,11 +47,11 @@ class UsersController < ApplicationController
   def get_interesteds
     @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
     if @user == current_user
-      @interesteds = @user.plans.where('city_id = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, false).reject {|i| i.instances.any? }
+      @interesteds = @user.plans.where('city_id = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, false)
     elsif @user.is_friends_with?(current_user)
-      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 0, false).reject {|i| i.instances.any? }
+      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 0, false)
     elsif @user.is_inmates_with?(current_user)
-      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 1, false).reject {|i| i.instances.any? }
+      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 1, false)
     end
   end
 

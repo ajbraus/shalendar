@@ -12,14 +12,11 @@ Adam
 
 	Niko see's adam's invites when he loads
 
-	attribution of fb events
-
 	curation of invited_ideas and invited_times (social?)
 
 	show creator of idea
 
 	speed up css
-	intros is not working
 
 	interested - blue when click
 	out - red when click
