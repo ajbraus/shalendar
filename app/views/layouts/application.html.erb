@@ -49,7 +49,7 @@
     <%= render 'layouts/header' %>
     <div class="layout clearfix" id="content">       
       <%= render 'layouts/alerts' %>
-      <% if user_signed_in? && @user.present? && params[:controller] == 'users' && params[:action] == 'show' %>
+      <% if @user.present? && params[:controller] == 'users' && params[:action] == 'show' %>
         <div class="sidebar">
           <%= render 'layouts/mini_calendar' %>
         </div>

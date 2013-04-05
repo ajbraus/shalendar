@@ -20,7 +20,7 @@
       </nav>
     </header>
   <% end %>
-<% elsif params[:action] == 'show' %> 
+<% elsif params[:action] == 'show' && (@user.blank? || @user.created_at.blank?) %> 
   <!-- IF NOT SIGNED IN -->
   <header class="not_signed_in">
     <div class="instagramFeed">
@@ -86,24 +86,4 @@
       </a>
     </div>
   <% end %>
-<% else %>
-<header>
-    <%= render 'layouts/logo' %>
-      <nav>
-    <% unless params[:controller] == "sessions" || params[:controller] == "registrations" || params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
-      <% unless params[:action] == "show" || user_signed_in? == false %>
-      <div class="instructions">
-        .instructions
-      </div>
-      <% end %>
-    <% end %>
-    <% if false %>
-    <% unless params[:action] == "landing" || params[:action] == "new" %>
-    <div class="city_title">
-      <%= @current_city.name %>
-    </div>
-    <% end %>
-  </nav>
-    <% end %>
-</header>
 <% end %>
