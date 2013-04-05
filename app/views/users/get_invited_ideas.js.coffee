@@ -7,5 +7,5 @@ $('#invitedIdeasContainer').html("<%= escape_javascript(render partial: 'users/e
 $('#invitedIdeasContainer').imagesLoaded ->
 	$('#invitedIdeasContainer').masonry('reload');
 <% end %>
-$('#invited_ideas_count').html(" " + <%= @invited_ideas.count %>)
 $('#ajaxLoader').hide();
+$('#explanation').hide();

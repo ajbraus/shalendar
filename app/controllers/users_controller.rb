@@ -9,9 +9,36 @@ class UsersController < ApplicationController
       end
     end
     if @user.present?
-      @invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false).reject {|i| i.parent_id.present? }
-      @public_ideas = Event.where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false).reject {|i| current_user.rsvpd?(i) || i.parent_id.present? }
-      @invited_ideas = @invited_ideas | @public_ideas
+      invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false)
+      rsvpd_events = current_user.rsvps.select(:plan_id)
+      public_ideas = Event.where('id NOT IN (?)', rsvpd_events)
+      .where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false)
+      @invited_ideas = invited_ideas | public_ideas
+
+      #INVITED TIMES COUNT
+      invited_times_count = @user.invited_times.where('events.city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now).count
+      rsvpd_events = current_user.rsvps.select(:plan_id)
+      public_times_count = Event.where('id NOT IN (?)', rsvpd_events).count
+      @invited_times_count = invited_times_count + public_times_count
+
+      # INTERESTEDS COUNT
+      if @user == current_user
+        @interesteds_count = @user.plans.where('city_id = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, false).count
+      elsif @user.is_friends_with?(current_user)
+        @interesteds_count = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 0, false).count
+      elsif @user.is_inmates_with?(current_user)
+        @interesteds_count = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 1, false).count
+      end
+
+      # INS COUNT
+      if @user == current_user
+        @ins_count = @user.plans.where('city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now).order('starts_at ASC').count
+      elsif @user.is_friends_with?(current_user)
+        @ins_count = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 0, Time.zone.now).order('starts_at ASC').count
+      elsif @user.is_inmates_with?(current_user)
+        @ins_count = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 1, Time.zone.now).order('starts_at ASC').count
+      end
+
     end 
     #show alert if rescue from errors:
     if params[:oofta] == 'true'
@@ -32,16 +59,20 @@ class UsersController < ApplicationController
 
   def get_invited_ideas
     @user = User.includes(:invitations).find_by_slug(params[:id])
-    @invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false)
-    @public_ideas = Event.where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false).reject {|i| current_user.rsvpd?(i) }
-    @invited_ideas = @invited_ideas | @public_ideas
+    invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false)
+    rsvpd_events = current_user.rsvps.select(:plan_id)
+    public_ideas = Event.where('id NOT IN (?)', rsvpd_events)
+    .where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false).reject {|i| current_user.rsvpd?(i) }
+    @invited_ideas = invited_ideas | public_ideas
   end
 
   def get_invited_times
     @user = User.includes(:invitations).find_by_slug(params[:id])
-    @invited_times = @user.invited_times.where('events.city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now)
-    @public_times = Event.where('city_id = ? AND visibility = ? AND starts_at > ? AND ends_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days).reject {|i| current_user.rsvpd?(i) }
-    @invited_times = @invited_times | @public_times
+    invited_times = @user.invited_times.where('events.city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now)
+    rsvpd_events = current_user.rsvps.select(:plan_id)
+    public_times = Event.where('id NOT IN (?)', rsvpd_events)
+    .where('city_id = ? AND visibility = ? AND starts_at > ? AND ends_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days)
+    @invited_times = invited_times | public_times
   end
 
   def get_interesteds

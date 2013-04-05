@@ -2451,7 +2451,7 @@ top: 17px;
 }
 
 #ajaxLoader img {
-  width: 32px;
+  width: 27px;
 }
 
 #hoosin_friends_tab span, #fb_friends_tab span {
@@ -2868,10 +2868,6 @@ right:19px;
     }
   }
 }
-}
-
-.in {
-  
 }
 
 .settings{
@@ -3562,11 +3558,18 @@ right: 10px;
 }
 
 .home-loader {
-  margin: 0 auto;
+margin: 0 auto;
 text-align: center;
 position: relative;
 top: 140px;
 height: 0;
+background-color: rgba(255,255,255, .9);
+z-index: 100;
+padding: 41px;
+width: 40px;
+height: 27px;
+border-radius: 7px;
+margin-bottom: -124px;
 }
 
 .pagination {

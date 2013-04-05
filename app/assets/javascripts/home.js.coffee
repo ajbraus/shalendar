@@ -5,14 +5,10 @@ $.fn.withDate = (date) ->
 $.fn.toggleIdeas = (container, path) ->
 	open = $('.open')
 	ajax = $('#ajaxLoader')
-	unless container.children().length > 0
-		ajax.show(0).delay(1300).hide(0);
 	open.hide();
 	open.removeClass('open');
-	if container.children().length > 0
-		$('#explanation').hide();
-	else
-		$('#explanation').show();
+	unless container.children().length > 0
+		ajax.show();
 	container.fadeIn();
 	container.addClass('open');
 	container.masonry('reload');
@@ -30,10 +26,6 @@ $ ->
 #build calendar
 	# $('.day_container').each ->
 	# 	$(@).buildCalendar();
-
-#build layout
-	ins = $('.in')
-	invites = $('.invite')
 
 	$('#showInvitedIdeas').click ->
 		$('.open').hide();

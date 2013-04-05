@@ -69,6 +69,8 @@ end
 group :development do
   gem 'meta_request'
   gem 'bullet'
+  gem 'taps'
+  gem 'sqlite3'
 end
 
 # Gems used only for assets and not required

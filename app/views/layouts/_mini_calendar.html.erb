@@ -19,14 +19,14 @@
 		<i class="icon-cloud"></i><span id="invited_ideas_count"> <%= @invited_ideas.count %></span> ideas</span> <i class="icon-caret-right"></i> 
 	</div>
 	<div class="navbar hover-orange" id="showInvitedTimes">
-		<i class="icon-calendar"></i><span id="invited_times_count"> <%= image_tag "grey_spinner.gif", class:"grey-spinner" %></span> .invites</span>
+		<i class="icon-calendar"></i><span id="invited_times_count"> <%= @invited_times_count %></span> .invites</span>
 	</div>
 <% end %>
 	<div class="navbar hover-blue" id="showInteresteds">
-		<i class="icon-cloud"></i><i class="icon-ok"></i><span id="interesteds_count"> <%= image_tag "grey_spinner.gif", class:"grey-spinner" %></span> .interested
+		<i class="icon-cloud"></i><i class="icon-ok"></i><span id="interesteds_count"> <%= @interesteds_count %></span> .interested
 	</div>
 	<div class="navbar hover-blue" id="showIns">
-		<i class="icon-calendar"></i><i class="icon-ok"></i><span id="ins_count"> <%= image_tag "grey_spinner.gif", class:"grey-spinner" %></span> .ins
+		<i class="icon-calendar"></i><i class="icon-ok"></i><span id="ins_count"> <%= @ins_count %></span> .ins
 	</div>
 <!-- 	<div class="navbar hover-dark-blue" id="showOvers">
 		<i class="icon-reply"></i> overs

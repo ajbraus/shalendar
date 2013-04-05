@@ -10,6 +10,12 @@ Mike
 
 Adam
 
+	put counts in right away
+
+	handlebar / mustache
+
+	guest count through array
+
 	Niko see's adam's invites when he loads
 
 	curation of invited_ideas and invited_times (social?)
@@ -43,15 +49,6 @@ Adam
 	log interesteds per person
 	log ins per person
 
-	bring back all invitations that are not over
-	  Event.all.each do |e|
-      User.all.each do |u|
-        unless u.already_invited?(e) || u.rsvpd?(e) || !u.invited?(e) || e.already_over?
-        	u.invitations.create(invited_event_id: e.id)
-        end
-      end
-    end
-
   Test Invitation.expire
 
   when event name chagnes getting two notifications
@@ -79,10 +76,6 @@ TESTS
 
 
 ----------------------------------------------------------------------
-
-	make ajax pagination
-	make scroll event paginate
-
 
 	meetup signin/events
 

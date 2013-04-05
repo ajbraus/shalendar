@@ -5,13 +5,10 @@
 			<%= event.ends_at < Time.zone.now ? ' over' : '' %>
 		<% else %>
 			idea
-		<% end %> 
-		<%= @user.in?(event) ? 'in' : 'invite' %>
-		<%= event.one_time? ? 'one_time' : '' %>"
+		<% end %>"
 		data-event-id='<%= event.id %>'>
 <% elsif @user.present? %>
 	<div class="event shield 
-		<%= @user.in?(event) ? 'in' : 'invite' %>
 		<% if event.starts_at.present? %>
 			<%= event.ends_at < Time.zone.now ? 'over' : '' %>
 		<% end %>
