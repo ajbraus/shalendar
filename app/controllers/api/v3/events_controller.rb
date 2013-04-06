@@ -25,21 +25,19 @@ class Api::V3::EventsController < ApplicationController
 
     @invites_ideas = Event.includes(:instances, {:rsvps => :guest}).where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |i| current_user.out?(i) || current_user.in?(i) || i.no_relevant_instances? }
 
-    #ADAM's ATTEMPT AT THIS QUERY WITH NO SINGLETON ONE_TIMES AND WITH EAGER LOADING GUESTS AND INSTANCES
-    # @invites_ideas = Event.includes(:instances, {:rsvps => :guest}).where('city_id = ? AND ends_at IS NULL', @current_city.id).reject { |e| e.no_relevant_instances? }
+    #ADAM's SECOND ATTEMPT AT THIS QUERY (NO SORT)
 
-    # @invites_ideas = @invites_ideas.reject do |i| 
-    #   !current_user.in?(i) && (current_user.out?(i) || !current_user.invited?(i))
-    # end
+    # invites_ideas = @mobile_user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false)
+    # rsvpd_events = @mobile_user.rsvps.select(:plan_id)
+    # public_ideas = Event.where('id NOT IN (?)', rsvpd_events)
+    # .where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false)
+    # @invites_ideas = invites_ideas | public_ideas
+
 
     @invites_ideas = @invites_ideas.reject do |i| 
       !current_user.in?(i) && (current_user.out?(i) || (current_user.inmates & i.guests).none? || (i.friends_only && !current_user.in?(i) && !i.user.is_friends_with?(current_user)))
     end
 
-    # @invites_ideas = @invites_ideas.sort_by do |i| 
-    #     i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
-    #         i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
-    # end
     @events = @invites_ideas
 
     if (@count + @window_size) < @events.count
@@ -111,12 +109,11 @@ class Api::V3::EventsController < ApplicationController
     @finished = false
     @window_size = 7
 
-    @ins_ideas = @mobile_user.plans.includes(:instances, {:rsvps => :guest}).where('ends_at IS NULL', Time.zone.now, true).reject{ |i| i.no_relevant_instances?}
+    @ins_ideas = @mobile_user.plans.includes(:instances, {:rsvps => :guest}).where('ends_at IS NULL').reject{ |i| i.no_relevant_instances?}
 
-    # @ins_ideas = @ins_ideas.sort_by do |i| 
-    #     i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
-    #         i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 1, current_user.id).count
-    # end
+    #ADAM's ATTEMPT AT THIS QUERY WITH NO REJECT CALL
+    #@ins_ideas = @mobile_user.plans.find(:all, :include => "instances", :conditions => ["events.ends_at IS NULL AND instances.id IS NULL"])
+
     @events = @ins_ideas
 
     if (@count + @window_size) < @events.count
