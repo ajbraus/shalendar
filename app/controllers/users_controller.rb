@@ -9,27 +9,36 @@ class UsersController < ApplicationController
       end
     end
     if @user.present?
-      invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ?', @current_city.id).order("created_at DESC")
-      rsvpd_events = @user.rsvps.select(:plan_id)
-      public_ideas = Event.where('id NOT IN (?)', rsvpd_events)
-      .where('city_id = ? AND visibility = ? AND ends_at IS NULL', @current_city.id, 3)
-      @invited_ideas = invited_ideas | public_ideas
+      if @user == current_user
+        invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ?', @current_city.id).order("created_at DESC")
+        rsvpd_events = @user.rsvps.select(:plan_id)
+        public_ideas = Event.where('id NOT IN (?)', rsvpd_events)
+        .where('city_id = ? AND visibility = ? AND ends_at IS NULL', @current_city.id, 3)
+        @invited_ideas = invited_ideas | public_ideas
 
-      #INVITED TIMES COUNT
-      invited_times_count = @user.invited_times.where('events.city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now).count
-      rsvpd_events = @user.rsvps.select(:plan_id)
-      public_times_count = Event.where('id NOT IN (?)', rsvpd_events).count
-      @invited_times_count = invited_times_count + public_times_count
+        #INVITED TIMES COUNT
+        invited_times_count = @user.invited_times.where('events.city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now).count
+        rsvpd_events = @user.rsvps.select(:plan_id)
+        public_times_count = Event.where('id NOT IN (?)', rsvpd_events).count
+        @invited_times_count = invited_times_count + public_times_count
 
-      # INTERESTEDS COUNT
-      if user_signed_in? 
+        # INTERESTEDS COUNT
         if @user == current_user
-          @interesteds_count = @user.plans.where('city_id = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, false).count
+          @interesteds_count = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id).count
         elsif @user.is_friends_with?(current_user)
-          @interesteds_count = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 0, false).count
+          @interesteds_count = @user.plans.where('city_id = ? AND visibility > ? AND ends_at IS NULL', @current_city.id, 0).count
         elsif @user.is_inmates_with?(current_user)
-          @interesteds_count = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 1, false).count
+          @interesteds_count = @user.plans.where('city_id = ? AND visibility > ? AND ends_at IS NULL', @current_city.id, 1).count
         end
+      else
+        if user_signed_in? 
+          if @user.is_friends_with?(current_user)
+            @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND ends_at IS NULL', @current_city.id, 0).order("created_at DESC")
+          end
+        else
+          @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND ends_at IS NULL', @current_city.id, 1).order("created_at DESC")
+        end
+        @interesteds_count = @interesteds.count
       end
 
       # INS COUNT

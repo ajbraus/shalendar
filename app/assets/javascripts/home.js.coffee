@@ -49,3 +49,4 @@ $ ->
 	$('#help').click ->
 		$('.open').hide();
 		$('#explanation').fadeIn();
+		$("#explanation").addClass('open');

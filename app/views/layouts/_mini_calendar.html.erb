@@ -13,10 +13,12 @@
 </nav>
   
 <%= render 'users/profile' %>
+<div class="search_new_button">
 <% if user_signed_in? %>
-<%= render 'shared/friend_search' %>
-<%= render 'shared/new_idea_button' %>
+	<%= render 'shared/friend_search' %>
+	<%= render 'shared/new_idea_button' %>
 <% end %>
+</div>
 <div class="navbars-set">
 <% if user_signed_in? && @user == current_user %>
 	<div class="navbar active hover-purple" id="showInvitedIdeas">
@@ -27,7 +29,7 @@
 	</div>
 <% end %>
 	<div class="navbar hover-blue" id="showInteresteds">
-		<i class="icon-cloud"></i><i class="icon-ok"></i><span id="interesteds_count"> <%= @interesteds_count %></span> .interested  <%= image_tag 'grey_spinner.gif', class:"grey_spinner", id:"interestedSpinner" %>
+		<i class="icon-cloud"></i><i class="icon-ok"></i><span id="interesteds_count"> <%= @interesteds_count %></span> .interested  <% if user_signed_in? && @user == current_user %> <%= image_tag 'grey_spinner.gif', class:"grey_spinner", id:"interestedSpinner" %> <% end %>
 	</div>
 <% if user_signed_in? && (@user == current_user || @user.is_inmates_or_friends_with?(current_user)) %>
 	<div class="navbar hover-blue" id="showIns">

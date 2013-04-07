@@ -12,7 +12,9 @@ Adam
 	
 	bug:
 		make two times for an idea 
-		remove invitations to one_time ideas after they are over
+		when .interested - not turning blue when click
+		ignore not removing user
+		when you visit someone elses page it shows you their invites
 		
 
 	put counts in right away
