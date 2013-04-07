@@ -6,5 +6,6 @@ $('#interestedsContainer').imagesLoaded ->
 	$('#interestedsContainer').masonry('reload')
 <% end %>
 $('#ajaxLoader').hide();
+$('#interestedSpinner').hide();
 $('#explanation').hide();
 #$('#interesteds_count').html(" " + <%= @interesteds.count %>)
