@@ -4,7 +4,7 @@ $ ->
 	idea = $('div.idea').withEventId(<%= @event.id %>)
 
 	#.invites ('.invite')
-	invite = $('div.invite').withEventId(<%= @event.id %>)
+	invite = $('div.time').withEventId(<%= @event.id %>)
 
 
 	if invite != []

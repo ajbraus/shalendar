@@ -13,8 +13,9 @@ Adam
 	bug:
 		make two times for an idea 
 		when .interested - not turning blue when click
+		out not changing red
 		ignore not removing user
-		when you visit someone elses page it shows you their invites
+		cannot make beerster egg hunt onetime idea
 		
 
 	put counts in right away
