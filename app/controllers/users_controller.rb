@@ -82,11 +82,11 @@ class UsersController < ApplicationController
   def get_interesteds
     @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
     if @user == current_user
-      @interesteds = @user.plans.where('city_id = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, false)
+      @interesteds = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id).order("created_at DESC")
     elsif @user.is_friends_with?(current_user)
-      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 0, false)
+      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND ends_at IS NULL', @current_city.id, 0).order("created_at DESC")
     elsif @user.is_inmates_with?(current_user)
-      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 1, false)
+      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND ends_at IS NULL', @current_city.id, 1).order("created_at DESC")
     end
   end
 
