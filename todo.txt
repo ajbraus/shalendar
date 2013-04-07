@@ -9,6 +9,10 @@ Mike
 		code to prevent some notifications)
 
 Adam
+	
+	bug:
+		make two times for an idea 
+		
 
 	put counts in right away
 

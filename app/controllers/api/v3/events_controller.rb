@@ -4,8 +4,6 @@ class Api::V3::EventsController < ApplicationController
   
   def get_events
 
-
-
   end
   
   def invites

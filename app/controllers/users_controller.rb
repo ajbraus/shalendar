@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false)
       rsvpd_events = @user.rsvps.select(:plan_id)
       public_ideas = Event.where('id NOT IN (?)', rsvpd_events)
-      .where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false)
+      .where('city_id = ? AND visibility = ? AND ends_at IS NULL', @current_city.id, 3)
       @invited_ideas = invited_ideas | public_ideas
 
       #INVITED TIMES COUNT
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
     invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false)
     rsvpd_events = current_user.rsvps.select(:plan_id)
     public_ideas = Event.where('id NOT IN (?)', rsvpd_events)
-    .where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false).reject {|i| current_user.rsvpd?(i) }
+    .where('city_id = ? AND visibility = ? AND ends_at IS NULL', @current_city.id, 3).reject {|i| current_user.rsvpd?(i) }
     @invited_ideas = invited_ideas | public_ideas
   end
 
