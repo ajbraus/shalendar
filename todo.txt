@@ -12,6 +12,7 @@ Adam
 	
 	bug:
 		make two times for an idea 
+		remove invitations to one_time ideas after they are over
 		
 
 	put counts in right away

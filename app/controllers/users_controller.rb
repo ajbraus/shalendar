@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       end
     end
     if @user.present?
-      invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false)
+      invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ?', @current_city.id).order("created_at DESC")
       rsvpd_events = @user.rsvps.select(:plan_id)
       public_ideas = Event.where('id NOT IN (?)', rsvpd_events)
       .where('city_id = ? AND visibility = ? AND ends_at IS NULL', @current_city.id, 3)
