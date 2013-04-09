@@ -1064,11 +1064,13 @@ class User < ActiveRecord::Base
   def self.send_reminders
     @recipients = User.where('notify_event_reminders = ?', true)
     @recipients.each do |r|
-      @now_in_zone = Time.zone.now.in_time_zone(r.city.timezone)
-      @time_range = @now_in_zone + 1.hour..@now_in_zone + 1.hour + 10.minutes
-      @reminder_events = r.plans.where(starts_at: @time_range)
-      @reminder_events.each do |e|
-        r.contact_reminder(e)
+      if r.city.present?
+        @now_in_zone = Time.zone.now.in_time_zone(r.city.timezone)
+        @time_range = @now_in_zone + 1.hour..@now_in_zone + 1.hour + 10.minutes
+        @reminder_events = r.plans.where(starts_at: @time_range)
+        @reminder_events.each do |e|
+          r.contact_reminder(e)
+        end
       end
     end
   end
