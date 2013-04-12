@@ -9,7 +9,26 @@ Mike
 		code to prevent some notifications)
 
 Adam
-	
+
+	bug:
+		click on face in comment errors
+		make two times for an idea 
+		seeing out in invites
+		ignore not removing user ajaxy
+		show creator of idea
+		interested - blue when click
+		edit - make idea one_time
+		speed up iphone
+
+
+	pagination
+	vote on times
+
+
+
+
+
+
 	blog outreach
 		- list of realspace social networks
 		- targeted social networks
@@ -18,15 +37,6 @@ Adam
 	reddit
 
 
-	
-	bug:
-		make two times for an idea 
-		seeing out in invites
-		ignore not removing user ajaxy
-		show creator of idea
-		interested - blue when click
-		out - red when click
-		edit - make idea one_time
 
 	reload instead of ajax for each - home is show, else .invites, interested, ins. Just links! - then pagination is easy as fuck!
 

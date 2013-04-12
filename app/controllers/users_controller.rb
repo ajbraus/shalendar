@@ -17,8 +17,8 @@ class UsersController < ApplicationController
         @invited_ideas = invited_ideas | public_ideas
 
         #INVITED TIMES COUNT
-        invited_times_count = @user.invited_times.where('events.city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now).count
         rsvpd_events = @user.rsvps.select(:plan_id)
+        invited_times_count = @user.invited_times.where('events.id NOT IN (?) AND events.city_id = ? AND ends_at > ?', rsvpd_events, @current_city.id, Time.zone.now).count
         public_times_count = Event.where('id NOT IN (?)', rsvpd_events).count
         @invited_times_count = invited_times_count + public_times_count
 
@@ -81,8 +81,8 @@ class UsersController < ApplicationController
 
   def get_invited_times
     @user = User.includes(:invitations).find_by_slug(params[:id])
-    invited_times = @user.invited_times.where('events.city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now)
     rsvpd_events = current_user.rsvps.select(:plan_id)
+    invited_times = @user.invited_times.where('events.id NOT IN (?) AND events.city_id = ? AND ends_at > ?', rsvpd_events, @current_city.id, Time.zone.now)
     public_times = Event.where('id NOT IN (?)', rsvpd_events)
     .where('city_id = ? AND visibility = ? AND starts_at > ? AND ends_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days)
     @invited_times = invited_times | public_times
