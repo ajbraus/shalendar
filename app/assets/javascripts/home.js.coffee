@@ -7,10 +7,8 @@ $.fn.toggleIdeas = (container, path) ->
 	ajax = $('#ajaxLoader')
 	open.hide();
 	open.removeClass('open');
-	if container.children().length > 0
+	unless container.children().length > 0
 		ajax.hide();
-	else 
-		ajax.show();
 		
 	container.fadeIn();
 	container.addClass('open');
