@@ -11,17 +11,27 @@
 		<div id="explanation" style="display:none;">
 			<%= render partial: 'users/explanation' %>
 		</div>
-		<div id="invitedIdeasContainer" class="idea_container open">
-			<% if @invited_ideas.any? %>
-				<%= render partial: "users/event", collection: @invited_ideas %>
-			<% else %>
-				<%= render partial: "users/explanation" %>
-			<% end %>
-		</div>
-		<div id="invitedTimesContainer" class="idea_container" style="display:none;">
-		</div>
-		<div class="idea_container" id="interestedsContainer" style="display:none;">
-		</div>
+		<% if !user_signed_in? || @user != current_user %>
+			<div class="idea_container open" id="interestedsContainer">
+				<% if @interesteds.present? %>
+					<%= render partial: "users/event", collection: @interesteds %>
+				<% else %>
+					<%= render partial: "users/explanation" %>
+				<% end %>
+			</div>
+		<% else %>
+			<div id="invitedIdeasContainer" class="idea_container open">
+				<% if @invited_ideas.present? %>
+					<%= render partial: "users/event", collection: @invited_ideas %>
+				<% else %>
+					<%= render partial: "users/explanation" %>
+				<% end %>
+			</div>
+			<div id="invitedTimesContainer" class="idea_container" style="display:none;">
+			</div>
+			<div class="idea_container" id="interestedsContainer" style="display:none;">
+			</div>
+		<% end %>
 		<div id="insContainer" class="idea_container" style="display:none;">
 		</div>
 		<div id="outsContainer" class="idea_container" style="display:none;">

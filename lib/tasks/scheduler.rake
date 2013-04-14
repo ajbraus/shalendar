@@ -18,6 +18,10 @@ task :digest => :environment do
 	User.digest
 end
 
+task :mark_one_times_over => :enviroment do
+	Event.mark_one_times_over
+end
+
 task :send_reminders => :environment do
 	User.send_reminders
 end

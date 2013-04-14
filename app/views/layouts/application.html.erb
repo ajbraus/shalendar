@@ -91,9 +91,7 @@
         <% else %>
           <%= coffee_script_tag do %>
             $.get '/intros',
-              id: $('#showInmates').attr('data-slug'); 
-            $.get '/interesteds',
-              id: $('#showInmates').attr('data-slug');  
+              id: $('#showInmates').attr('data-slug');   
           <% end %>           
         <% end %>
       <% end %>

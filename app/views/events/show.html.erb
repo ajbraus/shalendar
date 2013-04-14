@@ -95,7 +95,7 @@
     <% end %>
   </div>
 
-  <%= render partial: 'events/date_time_top', collection: @event.instances, as: :event %>
+  <%= render partial: 'events/date_time_top', collection: @event.future_instances, as: :event %>
   
   <% if @event.promo_vid.present? %>
     <div class="promo_vid">

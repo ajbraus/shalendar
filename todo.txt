@@ -10,28 +10,39 @@ Mike
 
 Adam
 
-	put counts in right away
+	bug:
+		click on face in comment errors
+		make two times for an idea 
+		seeing out in invites
+		ignore not removing user ajaxy
+		show creator of idea
+		interested - blue when click
+		edit - make idea one_time
+		speed up iphone
 
-	handlebar / mustache
 
-	guest count through array
+	pagination
+	vote on times
 
-	Niko see's adam's invites when he loads
 
-	curation of invited_ideas and invited_times (social?)
 
-	show creator of idea
 
-	speed up css
 
-	interested - blue when click
-	out - red when click
 
-	seeing outs in invites
+	blog outreach
+		- list of realspace social networks
+		- targeted social networks
+		- women rule real social
+		- harlem shake as new kind of viral - MORE, hoos.in is its social network
+	reddit
 
-	fb event not working in production
 
-	edit - make idea one_time
+
+	reload instead of ajax for each - home is show, else .invites, interested, ins. Just links! - then pagination is easy as fuck!
+
+	vote on times
+
+	workless - realtime worker
 
 	emails to 
 		- iphone app users - to write a review
@@ -39,41 +50,9 @@ Adam
 		- never created an idea yet (but have intros)
 		- no .intros
 
-	add scheduled job to add new fb events every night
-
-	speed up hoos.in
-		- cull interesteds
-		- load ideas upfront
-		- load upcoming ideas upfront
-
-	log interesteds per person
-	log ins per person
-
-  Test Invitation.expire
-
-  when event name chagnes getting two notifications
-
+  when event name chagnes getting two notifications, two comments
 	allow in/out from emails
-
 	tagging user
-
-	get facebook events working in production
-
-
-TESTS
-	Signed up through facebook and picked city - redirects to previous_url
-	signed in regular and redirects to previous_url
-	created idea
-	created onetime idea 
-	created friends only idea 
-		not seeing friends only 
-		FIX - created invites to friends_only ideas in friend!
-	friending
-	inmating
-	ignoring
-	re_inmating
-	sent all emails
-
 
 ----------------------------------------------------------------------
 
@@ -154,11 +133,24 @@ TEACHING USERS:
 		separate Events and Instances
 		create .in! and .interested! calls
 
-separate branch:
-Made it so delayed job or a daemon that runs the rake task every 3 min, or just a delayed job restart method - on branch "solving pushes"
-
 http://ichord.github.com/At.js/
 https://github.com/tsechingho/chosen-rails
+
+
+TESTS
+	Signed up through facebook and picked city - redirects to previous_url
+	signed in regular and redirects to previous_url
+	created idea
+	created onetime idea 
+	created friends only idea 
+		not seeing friends only 
+		FIX - created invites to friends_only ideas in friend!
+	friending
+	inmating
+	ignoring
+	re_inmating
+	sent all emails
+
 
 	make comments asynconous 
 	

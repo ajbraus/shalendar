@@ -8,7 +8,8 @@ $.fn.toggleIdeas = (container, path) ->
 	open.hide();
 	open.removeClass('open');
 	unless container.children().length > 0
-		ajax.show();
+		ajax.hide();
+		
 	container.fadeIn();
 	container.addClass('open');
 	container.masonry('reload');
@@ -49,3 +50,4 @@ $ ->
 	$('#help').click ->
 		$('.open').hide();
 		$('#explanation').fadeIn();
+		$("#explanation").addClass('open');

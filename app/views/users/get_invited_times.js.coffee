@@ -6,5 +6,6 @@ $('#invitedTimesContainer').imagesLoaded ->
 	$('#invitedTimesContainer').masonry('reload');
 <% end %>
 $('#ajaxLoader').hide();
+$('#invitesSpinner').hide();
 $('#explanation').hide();
 #$('#invited_times_count').html(" " + <%= @invited_times.count %>)

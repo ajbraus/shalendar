@@ -16,7 +16,7 @@
       </li>
     </ul>
       <% if user_signed_in? %>
-        <% if current_user == event.user || current_user.admin? || (event.parent.present? && current_user == event.parent.user) %>
+        <% if current_user == event.user %>
           <ul class="time_settings">
             <li>
               <%= link_to event_edit_time_path(event), class: "fadeInOrange" do %>
