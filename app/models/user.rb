@@ -987,7 +987,7 @@ class User < ActiveRecord::Base
     #   else
     #     n = APN::Notification.new
     #     n.device = d
-    #     n.alert = "Your friend #{@new_inmate.name} just joined hoos.in and you are now .intros."
+    #     n.alert = "Your friend #{@new_inmate.name} just joined hoos.in and you are now friends."
     #     n.badge = 1
     #     n.sound = false
     #     n.custom_properties = {msg: "", :type => "new_fb_inmate", :id => "#{@new_inmate.id}"}

@@ -29,7 +29,7 @@ before_filter :authenticate_user!
     current_user.ignore_inmate!(@inmate)
 
     respond_to do |format|
-      format.html { redirect_to :back, notice: "Successfully removed #{@inmate.name} from .intros" }
+      format.html { redirect_to :back, notice: "Successfully removed #{@inmate.name} from friends" }
       format.js
     end
   end
@@ -39,7 +39,7 @@ before_filter :authenticate_user!
     current_user.re_inmate!(@inmate)
 
     respond_to do |format|
-      format.html { redirect_to user_path(@inmate), notice: "You are now .intros again with #{@inmate.name}" }
+      format.html { redirect_to user_path(@inmate), notice: "You are now friends again with #{@inmate.name}" }
       format.js
     end
   end
@@ -60,7 +60,7 @@ before_filter :authenticate_user!
     @inmate.contact_new_inmate(current_user)
     
     respond_to do |format|
-      format.html { redirect_to user_path(@inmate), notice: "You are now .intros with #{@inmate.name}" }
+      format.html { redirect_to user_path(@inmate), notice: "You are now friends with #{@inmate.name}" }
       format.js
     end
   end
