@@ -17,25 +17,17 @@ class Api::V2::EventsController < ApplicationController
     @finished = false
     @window_size = 7
     
-    #@invites = @mobile_user.invited_ideas.where('events.city_id = ?', @mobile_user.city.id).order('created_at DESC').reject { |i| @mobile_user.out?(i) || i.no_relevant_instances?}
-
-    invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ?', @current_city.id).order("created_at DESC")
-    rsvpd_events = @user.rsvpd_events.pluck(:plan_id)
+    #Mikes
+    # @invites = @mobile_user.invited_ideas.where('events.city_id = ?', @mobile_user.city.id).order('created_at DESC').reject { |i| @mobile_user.out?(i) || i.no_relevant_instances?}
+    # @public_ideas = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @mobile_user.city.id, 3)
+    # @ins = @user.plans.where('city_id = ? AND ends_at IS NULL', @mobile_user.city.id)
+    # @invites = (@invites | @public_ideas) - @ins    
+    
+    #ADAM's
+    invites_ideas = @mobile_user.invited_ideas.includes(:user).where('events.city_id = ?', @current_city.id).order("created_at DESC")
+    rsvpd_events = @mobile_user.rsvpd_events.pluck(:plan_id)
     public_ideas = Event.where('id NOT IN (?) AND city_id = ? AND visibility = ? AND ends_at IS NULL', rsvpd_events, @current_city.id, 3)
-    @invites = invited_ideas | public_ideas
-
-
-    @public_ideas = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @mobile_user.city.id, 3)
-    @ins = @user.plans.where('city_id = ? AND ends_at IS NULL', @mobile_user.city.id)
-
-    # @invites = (@invites | @public_ideas) - @ins
-
-    invites_ideas = @mobile_user.invited_ideas.includes(:user).where('events.city_id = ? AND ends_at IS NULL', @current_city.id)
-    rsvpd_events = @mobile_user.rsvps.pluck(:plan_id)
-    public_ideas = Event.where('id NOT IN (?)', rsvpd_events)
-    .where('city_id = ? AND visibility = ? AND ends_at IS NULL', @current_city.id, 3)
-    @invites_ideas = invites_ideas | public_ideas
-
+    @invites_ideas = invited_ideas | public_ideas
 
     @events = @invites_ideas#these are just the 'ideas' (times are packed in to json)
 
