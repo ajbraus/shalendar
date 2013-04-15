@@ -24,7 +24,7 @@ class Api::V2::EventsController < ApplicationController
     # @invites = (@invites | @public_ideas) - @ins
 
     invites_ideas = @mobile_user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false)
-    rsvpd_events = @mobile_user.rsvps.select(:plan_id)
+    rsvpd_events = @mobile_user.rsvps.pluck(:plan_id)
     public_ideas = Event.where('id NOT IN (?)', rsvpd_events)
     .where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false)
     @invites_ideas = invites_ideas | public_ideas
