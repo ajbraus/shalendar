@@ -17,13 +17,12 @@ class Api::V2::EventsController < ApplicationController
     @finished = false
     @window_size = 7
     
-    @invites = @mobile_user.invited_ideas.where('events.city_id = ?', @mobile_user.city.id).order('created_at DESC').reject { |i| @mobile_user.out?(i) || i.no_relevant_instances?}
-    
-    #ADAM's
-    # invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ?', @current_city.id).order("created_at DESC")
-    # rsvpd_events = @user.rsvpd_events.pluck(:plan_id)
-    # public_ideas = Event.where('id NOT IN (?) AND city_id = ? AND visibility = ? AND ends_at IS NULL', rsvpd_events, @current_city.id, 3)
-    # @invites = invited_ideas | public_ideas
+    #@invites = @mobile_user.invited_ideas.where('events.city_id = ?', @mobile_user.city.id).order('created_at DESC').reject { |i| @mobile_user.out?(i) || i.no_relevant_instances?}
+
+    invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ?', @current_city.id).order("created_at DESC")
+    rsvpd_events = @user.rsvpd_events.pluck(:plan_id)
+    public_ideas = Event.where('id NOT IN (?) AND city_id = ? AND visibility = ? AND ends_at IS NULL', rsvpd_events, @current_city.id, 3)
+    @invites = invited_ideas | public_ideas
 
 
     @public_ideas = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @mobile_user.city.id, 3)
