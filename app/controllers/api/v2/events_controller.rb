@@ -17,13 +17,20 @@ class Api::V2::EventsController < ApplicationController
     @finished = false
     @window_size = 7
 
-    @invites = @mobile_user.invited_ideas.where('events.city_id = ?', @mobile_user.city.id).order('created_at DESC').reject { |i| @mobile_user.out?(i) || i.no_relevant_instances?}
-    @public_ideas = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @mobile_user.city.id, 3)
-    @ins = @user.plans.where('city_id = ? AND ends_at IS NULL', @mobile_user.city.id)
+    # @invites = @mobile_user.invited_ideas.where('events.city_id = ?', @mobile_user.city.id).order('created_at DESC').reject { |i| @mobile_user.out?(i) || i.no_relevant_instances?}
+    # @public_ideas = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @mobile_user.city.id, 3)
+    # @ins = @user.plans.where('city_id = ? AND ends_at IS NULL', @mobile_user.city.id)
 
-    @invites = (@invites | @public_ideas) - @ins
+    # @invites = (@invites | @public_ideas) - @ins
 
-    @events = @invites#these are just the 'ideas' (times are packed in to json)
+    invites_ideas = @mobile_user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false)
+    rsvpd_events = @mobile_user.rsvps.select(:plan_id)
+    public_ideas = Event.where('id NOT IN (?)', rsvpd_events)
+    .where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false)
+    @invites_ideas = invites_ideas | public_ideas
+
+
+    @events = @invites_ideas#these are just the 'ideas' (times are packed in to json)
 
     if (@count + @window_size) < @events.count
       @events = @events[@count .. @count + @window_size-1]
@@ -95,6 +102,7 @@ class Api::V2::EventsController < ApplicationController
     @window_size = 7
 
     @ins_ideas = @mobile_user.plans.includes(:instances, {:rsvps => :guest}).where('ends_at IS NULL', Time.zone.now, true).reject{ |i| i.no_relevant_instances?}
+    #@ins_ideas = @mobile_user.plans.find(:all, :include => "instances", :conditions => ["events.ends_at IS NULL AND instances.id IS NULL"])
 
     # @ins_ideas = @ins_ideas.sort_by do |i| 
     #     i.guests.joins(:relationships).where('status = ? AND follower_id = ?', 2, current_user.id).count*1000 + 
