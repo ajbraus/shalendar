@@ -16,8 +16,7 @@ class Api::V2::EventsController < ApplicationController
     end
     @finished = false
     @window_size = 7
-
-<<<<<<< HEAD
+    
     @invites = @mobile_user.invited_ideas.where('events.city_id = ?', @mobile_user.city.id).order('created_at DESC').reject { |i| @mobile_user.out?(i) || i.no_relevant_instances?}
     
     #ADAM's
@@ -29,11 +28,6 @@ class Api::V2::EventsController < ApplicationController
 
     @public_ideas = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @mobile_user.city.id, 3)
     @ins = @user.plans.where('city_id = ? AND ends_at IS NULL', @mobile_user.city.id)
-=======
-    # @invites = @mobile_user.invited_ideas.where('events.city_id = ?', @mobile_user.city.id).order('created_at DESC').reject { |i| @mobile_user.out?(i) || i.no_relevant_instances?}
-    # @public_ideas = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @mobile_user.city.id, 3)
-    # @ins = @user.plans.where('city_id = ? AND ends_at IS NULL', @mobile_user.city.id)
->>>>>>> 7bfbe78d621b1fa259ad096f7653a289b54dbe84
 
     # @invites = (@invites | @public_ideas) - @ins
 
