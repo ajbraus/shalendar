@@ -23,18 +23,12 @@
   <div><%= f.label :picture, "profile picture*" %><br />
   <%= f.file_field :avatar, class: "required" %></div>
 
-  <div><%= f.label :background_image, "Background Image (1024x600)" %>
-  <%= f.file_field :background %></div>
-
   <div><%= label_tag :city_name, "city* (choose from autocomplete list)" %><br />
   <%= text_field_tag :city_name, nil, data: { autocomplete_source: city_names_path }, class: "required" %></div>
   <br>
 
   <div><%= f.label :password, "password*" %><br />
   <%= f.password_field :password, class: "required" %></div>
-
-  <div><%= f.label :password_confirmation, "confirm password*" %><br />
-  <%= f.password_field :password_confirmation, class: "required" %></div>
 
   <div><%= f.check_box :terms, checked: true, class:'required' %><%= link_to "Terms & Privacy", terms_path, :html => { :target => "_blank" } %></div><br/>
 

@@ -24,12 +24,12 @@ class Api::V2::EventsController < ApplicationController
     # @invites = (@invites | @public_ideas) - @ins    
     
     #ADAM's
-    invites_ideas = @mobile_user.invited_ideas.includes(:user).where('events.city_id = ?', @current_city.id).order("created_at DESC")
+    invites_ideas = @mobile_user.invited_ideas.includes(:user).where('events.city_id = ?', @mobile_user.city.id).order("created_at DESC")
     rsvpd_events = @mobile_user.rsvpd_events.pluck(:plan_id)
-    public_ideas = Event.where('id NOT IN (?) AND city_id = ? AND visibility = ? AND ends_at IS NULL', rsvpd_events, @current_city.id, 3)
-    @invites_ideas = invited_ideas | public_ideas
+    public_ideas = Event.where('id NOT IN (?) AND city_id = ? AND visibility = ? AND ends_at IS NULL', rsvpd_events, @mobile_user.city.id, 3)
+    @invites_ideas = invites_ideas | public_ideas
 
-    @events = @invites_ideas#these are just the 'ideas' (times are packed in to json)
+    @events = @invites_ideas #these are just the 'ideas' (times are packed in to json)
 
     if (@count + @window_size) < @events.count
       @events = @events[@count .. @count + @window_size-1]
