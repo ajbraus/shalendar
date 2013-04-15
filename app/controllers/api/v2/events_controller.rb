@@ -31,10 +31,10 @@ class Api::V2::EventsController < ApplicationController
 
     # @invites = (@invites | @public_ideas) - @ins
 
-    invites_ideas = @mobile_user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false)
+    invites_ideas = @mobile_user.invited_ideas.includes(:user).where('events.city_id = ? AND ends_at IS NULL', @current_city.id)
     rsvpd_events = @mobile_user.rsvps.pluck(:plan_id)
     public_ideas = Event.where('id NOT IN (?)', rsvpd_events)
-    .where('city_id = ? AND visibility = ? AND one_time = ? AND ends_at IS NULL', @current_city.id, 3, false)
+    .where('city_id = ? AND visibility = ? AND ends_at IS NULL', @current_city.id, 3)
     @invites_ideas = invites_ideas | public_ideas
 
 
@@ -109,7 +109,7 @@ class Api::V2::EventsController < ApplicationController
     @finished = false
     @window_size = 7
 
-    @ins_ideas = @mobile_user.plans.includes(:instances, {:rsvps => :guest}).where('ends_at IS NULL', Time.zone.now, true).reject{ |i| i.no_relevant_instances?}
+    @ins_ideas = @mobile_user.plans.includes(:instances, {:rsvps => :guest}).where('ends_at IS NULL')
     #@ins_ideas = @mobile_user.plans.find(:all, :include => "instances", :conditions => ["events.ends_at IS NULL AND instances.id IS NULL"])
 
     # @ins_ideas = @ins_ideas.sort_by do |i| 
