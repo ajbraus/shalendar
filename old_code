@@ -680,18 +680,18 @@ end
   <div class="mini_calendar_explanation">
     <div clas="text">
       <% unless @user == current_user %>
-        You are not .intros with <%= @user.first_name_with_last_initial %>
+        You are not friends with <%= @user.first_name_with_last_initial %>
       <br>
       <br>
       <% end %>
       <div><span class="fadeInBlue in_check"><i class='icon-ok'></i></span> .interested</div>
-      Click on an idea's <span class="fadeInBlue in_check"><i class='icon-ok'></i></span> to get emails and notifications about an idea, see its times on your calendar, and make new <b>.intros</b>
+      Click on an idea's <span class="fadeInBlue in_check"><i class='icon-ok'></i></span> to get emails and notifications about an idea, see its times on your calendar, and make new <b>friends</b>
       <br>
       <br>
       <div class="explainer_arrows">
         <i class="icon-star inmate_star"></i> <i class="icon-arrow-right"></i> <i class="icon-star friend_star"></i>
       </div>
-      <div>Click an .intro's star to receive notifications when they create ideas or chat.</div>
+      <div>Click a friend's star to receive notifications when they create ideas or chat.</div>
       <br>
       Click on <%= render 'shared/new_idea_button' %> to create a new idea
     </div>
@@ -699,7 +699,7 @@ end
 <% else %>
 
       <div class="friends_only_bool">
-        <%= f.check_box :friends_only %> <label for="event_friends_only" class="pointer"><i class="icon-star" style="color:gold;"></i> only .invite starred .intros? </label>
+        <%= f.check_box :friends_only %> <label for="event_friends_only" class="pointer"><i class="icon-star" style="color:gold;"></i> only .invite starred friends? </label>
       </div>
 
 

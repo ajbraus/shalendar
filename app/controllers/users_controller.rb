@@ -32,6 +32,7 @@ class UsersController < ApplicationController
           @interesteds_count = @user.plans.where('city_id = ? AND visibility > ? AND ends_at IS NULL', @current_city.id, 1).count
         end
       else
+        @interesteds = []
         if user_signed_in? 
           if @user.is_friends_with?(current_user)
             @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND ends_at IS NULL', @current_city.id, 0).order("created_at DESC")
