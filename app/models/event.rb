@@ -444,15 +444,19 @@ class Event < ActiveRecord::Base
   end
 
   def self.mark_one_times_over #marks over events over
-    Event.where('ends_at is NOT NULL AND one_time = ?', true).find_each do |e|
-      Time.zone = e.city.timezone
-      if e.ends_at < Time.zone.now
-        e.over = true
-        @parent = e.parent
-        if @parent.present?
-          @parent.over = true
-          @parent.save
+    Event.where('one_time = ?', true).find_each do |e|
+      if e.ends_at.present?
+        Time.zone = e.city.timezone
+        if e.ends_at < Time.zone.now
+          e.over = true
+          @parent = e.parent
+          if @parent.present?
+            @parent.over = true
+            @parent.save
+          end
         end
+      else 
+        e.over = true
       end
       e.save
     end

@@ -11,15 +11,16 @@ class UsersController < ApplicationController
     if @user.present?
       if @user == current_user
         invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ?', @current_city.id).order("created_at DESC")
-        rsvpd_events = @user.rsvps.select(:plan_id)
+        rsvpd_events = @user.rsvpd_events.pluck(:plan_id)
         public_ideas = Event.where('id NOT IN (?)', rsvpd_events)
         .where('city_id = ? AND visibility = ? AND ends_at IS NULL', @current_city.id, 3)
         @invited_ideas = invited_ideas | public_ideas
 
         #INVITED TIMES COUNT
-        rsvpd_events = @user.rsvps.select(:plan_id)
+        rsvpd_events = @user.rsvpd_events.pluck(:plan_id)
         invited_times_count = @user.invited_times.where('events.id NOT IN (?) AND events.city_id = ? AND ends_at > ?', rsvpd_events, @current_city.id, Time.zone.now).count
-        public_times_count = Event.where('id NOT IN (?)', rsvpd_events).count
+        public_times_count = Event.where('id NOT IN (?)', rsvpd_events)
+        .where('city_id = ? AND visibility = ? AND starts_at > ? AND ends_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days).count
         @invited_times_count = invited_times_count + public_times_count
 
         # INTERESTEDS COUNT
@@ -73,7 +74,7 @@ class UsersController < ApplicationController
   def get_invited_ideas
     @user = User.includes(:invitations).find_by_slug(params[:id])
     invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false)
-    rsvpd_events = current_user.rsvps.select(:plan_id)
+    rsvpd_events = current_user.rsvpd_events.pluck(:plan_id)
     public_ideas = Event.where('id NOT IN (?)', rsvpd_events)
     .where('city_id = ? AND visibility = ? AND ends_at IS NULL', @current_city.id, 3).reject {|i| current_user.rsvpd?(i) }
     @invited_ideas = invited_ideas | public_ideas
@@ -81,7 +82,7 @@ class UsersController < ApplicationController
 
   def get_invited_times
     @user = User.includes(:invitations).find_by_slug(params[:id])
-    rsvpd_events = current_user.rsvps.select(:plan_id)
+    rsvpd_events = current_user.rsvps.pluck(:plan_id)
     invited_times = @user.invited_times.where('events.id NOT IN (?) AND events.city_id = ? AND ends_at > ?', rsvpd_events, @current_city.id, Time.zone.now)
     public_times = Event.where('id NOT IN (?)', rsvpd_events)
     .where('city_id = ? AND visibility = ? AND starts_at > ? AND ends_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days)

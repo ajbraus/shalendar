@@ -1,6 +1,6 @@
 <%= div_for comment do %>
   <div class="comment_picture">
-  	<%= link_to user_path(comment.user), target: "blank" do %>
+  	<%= link_to user_path(comment.user) do %>
   		<%= small_profile_picture(comment.user) %>
   	<% end %>
   </div>

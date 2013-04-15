@@ -739,3 +739,25 @@ end
 
               $.get '/invited_ideas',
               id: $('#showInmates').attr('data-slug'); 
+
+
+
+fixing outs 
+  updating user.rsvpd_events in user.rb
+  plucking event.id from this to remove rsvpd events
+- run the following fix
+
+User.all.each do |u|
+  Event.all.each do |e|
+    if u.out?(e)
+      u.rsvp_out!(e)
+    end
+  end
+end
+
+Event.all.each do |e|
+  if e.one_time && e.instances.none?
+    e.over = true
+    e.save
+  end
+end

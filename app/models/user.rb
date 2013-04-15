@@ -80,6 +80,7 @@ class User < ActiveRecord::Base
   has_many :events, dependent: :destroy
 
   has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
+  has_many :rsvpd_events, through: :rsvps, source: :plan
   has_many :plans, through: :rsvps, :conditions => ['inout = ?', 1]
   has_many :outs, through: :rsvps, source: :plan, :conditions => ['inout = ?', 0]
 
@@ -186,12 +187,7 @@ class User < ActiveRecord::Base
   end
 
   def rsvpd?(event)
-    @rsvp = rsvps.find_by_plan_id(event.id)
-    if @rsvp.present?
-      return true
-    else
-      return false
-    end
+    return rsvps.find_by_plan_id(event.id).present?
   end
 
   def in?(event)  

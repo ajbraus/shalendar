@@ -13,20 +13,14 @@ Adam
 	bug:
 		click on face in comment errors
 		make two times for an idea 
-		seeing out in invites
 		ignore not removing user ajaxy
 		show creator of idea
 		interested - blue when click
 		edit - make idea one_time
 		speed up iphone
 
-
 	pagination
 	vote on times
-
-
-
-
 
 
 	blog outreach
@@ -36,11 +30,7 @@ Adam
 		- harlem shake as new kind of viral - MORE, hoos.in is its social network
 	reddit
 
-
-
 	reload instead of ajax for each - home is show, else .invites, interested, ins. Just links! - then pagination is easy as fuck!
-
-	vote on times
 
 	workless - realtime worker
 
@@ -93,8 +83,7 @@ Adam
 
 
 	hi SDK
-
-	update description in time
+	
 	add face when rsvping
 
 	New Idea tutorial after register

@@ -18,7 +18,7 @@ task :digest => :environment do
 	User.digest
 end
 
-task :mark_one_times_over => :enviroment do
+task :mark_one_times_over => :environment do
 	Event.mark_one_times_over
 end
 
