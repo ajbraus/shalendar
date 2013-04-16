@@ -388,6 +388,14 @@ color:gold;
 .btn-new-idea {
     font-size: 15px;
     text-align: center;
+padding: 8px 0px;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+border-radius: 6px;
+width: 104px;
+float: right;
+margin-right: 13px;
+margin-bottom: 10px;
 }
 
 .btn-primary {
@@ -777,15 +785,27 @@ box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
 }
 
 .user_search {
+float: left;
+position: relative;
+top: 2px;
+left: 4px;
   input[type=text] {
+    width: 155px;
   border-radius: 0;
 padding: 6px;
 font-size: 12px;
 border: 1px solid $divider;
 }
+form {
+  float: right;
+}
+
+
   .get_friends {
     float:left;
 }
+
+
 
 }
 
@@ -2767,12 +2787,22 @@ margin: 10px;
 .sidebar {
 background: url("low_contrast_linen.png");
 z-index: 2;
-position: fixed;
 overflow-y: auto;
 height: 100%;
 overflow-x: hidden;
 border-right: 1px solid $divider;
+width: 320px;
 }
+
+
+  .logo {
+width: 120px;
+float: left;
+position: relative;
+left: 40px;
+top: 3px;
+  }
+
 
 .home_idea_container {
 }
@@ -2790,6 +2820,8 @@ border-radius: 7px;*/
 }
 
 .inmates_bar {
+    width: 355px;
+    left: 320px;
   position: absolute;
   background-color:$background_one;
 z-index: 3;
@@ -2901,24 +2933,6 @@ border-top: 1px solid $divider;
   }
 }
 
-/*.mini_calendar_explanation {
-color: white;
-font-size: 25px;
-width: 240px;
-text-align: center;
-margin: 0 auto;
-margin-top: 27px;
-border: 1px solid white;
-padding: 22px 14px;
-background: rgba(255,255,255,0.06);
-margin-bottom: 100%;
-.btn-new-idea {
-  position: relative;
-top: -1px;
-border: none;
-}
-}
-*/
 .rsvp_to_time {
 text-align: center;
 width: 180px;
@@ -3126,8 +3140,6 @@ box-shadow: -2px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .container_wrapper {
-margin: 0 auto;
-margin-left: 320px;
 z-index: -2;
 }
 
@@ -3200,7 +3212,23 @@ clear: left;
 }
 .city_name {
   color:$headerText;
+position: absolute;
+top: 45px;
+left: 180px;
+font-size: 14px;
 }
+
+  .event {
+margin: 8px;
+min-width: 230px;
+max-width: 230px;
+    .promo_img {
+      img {
+        max-width: 216px;
+      }
+    }
+  }
+
 
 .no_invites {
 

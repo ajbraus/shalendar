@@ -25,17 +25,6 @@ body {
 		display: none;
 	}
 
-	.user_search {
-		position: absolute;
-		bottom: 47px;
-		right: -5px;
-		input[type=text] {
-			width: 145px;
-		}
-		.fb-icon {
-			display: none;
-		}
-	}
 
 	header {
 		height:80px;
@@ -78,46 +67,22 @@ body {
 
 // SHRINK HEADER STUFF
 
-	.logo {
-		left:4px;
-		width: 130px;
-		img {
-			margin-top: 2px;
-			margin-left: 3px;
-		}
-	}
-
 	.email_share {
 		width: 27%;
-	}
-
-	.btn-new-idea {
-padding: 9px 12px;
--moz-border-radius: 6px;
--webkit-border-radius: 6px;
-border-radius: 6px;
-position: relative;
-bottom: 10px;
-margin-right: 5px;
-	}
-
-	.city_name {
-font-size: 14px;
-position: absolute;
-top: 61px;
-left: 12px;
 	}
 
 	#new_idea_blerb {
 		display: none;
 	}
 
+	.sidebar {
+		float: left;
+	}
 
 // LAYOUT IS PROPORTIONAL
 
 	.layout {
-		width:100%;
-		margin-top: 20px;
+		width: 640px;
 	}
 
 // INCLUDE YESTERDAY TOMORROW BUTTONS
@@ -132,32 +97,6 @@ left: 12px;
 
 	.today {
 		left: -2px;
-	}
-
-	.event {
-		max-width: 180px;
-		min-width: 140px;
-		right: 1px;
-		margin: 4px;
-		width: 123px;
-		.promo_img {
-			position: relative;
-			right: 4px;
-			width:100%;
-			img {
-				max-width: 146px;
-			}
-		}
-		.guest_count {
-			bottom: 47px;
-			left: 53px;
-		}
-		.when {
-			font-size: 22px;
-		}
-	}	
-
-	.mini_event {
 	}
 
 	.idea_container {
@@ -307,7 +246,7 @@ left: 4px;
 	}
 }
 
-.sidebar, .upcoming_ideas {
+.upcoming_ideas {
 	display:none;
 }
 
@@ -385,9 +324,6 @@ bottom: 21px;
 			width: 130px;
 		}
 	}
-	.sidebar {
-		  width: 100%;
-	}
 	.home_idea_container {
 	  width: 100%;
 	}
@@ -404,8 +340,11 @@ bottom: 21px;
 	}
 
 	.container_wrapper {
-		width: 100%;
-	}
+margin: 0;
+float: right;
+width: 290px;
+margin-right: 16px;
+}
 
 	.each_day {
 		width: 100%;
@@ -413,11 +352,6 @@ bottom: 21px;
 
 	.profile_stats {
 		width: 55%;
-	}
-
-	.inmates_bar {
-		width: 91%;
-		left: -298px;
 	}
 
 }

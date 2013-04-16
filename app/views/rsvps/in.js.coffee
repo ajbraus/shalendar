@@ -72,17 +72,17 @@ $ ->
 	parent.find('#timeStatus').html("<a href='/ideas/<%= @event.slug %>/new_time'><div class='add_time fadeInGreen'><i class='icon-time'></i> suggest new time</div>")
 <% end %>
 
-event = $('.event').withEventId(<%= @event.id %>)
-event.find('#timeStatus').html("<a href='/ideas/<%= @event.slug %>/new_time'><div class='add_time fadeInGreen'><i class='icon-time'></i> suggest new time</div>");
-event.find('.in_check').click ->
-	$(this).preventDefault();
+	event = $('.event').withEventId(<%= @event.id %>)
+	event.find('#timeStatus').html("<a href='/ideas/<%= @event.slug %>/new_time'><div class='add_time fadeInGreen'><i class='icon-time'></i> suggest new time</div>");
+	event.find('.in_check').click ->
+		$(this).preventDefault();
 
 <% if @event.starts_at.present? %>
-$('#ins_count').increment();
-$('#invited_times_count').decrement();
+	$('#ins_count').increment();
+	$('#invited_times_count').decrement();
 <% else %>
-$('#interesteds_count').increment();
-$('#invites_count').decrement();
+	$('#interesteds_count').increment();
+	$('#invites_count').decrement();
 <% end %>
 # if invited_time
 <% end %>
