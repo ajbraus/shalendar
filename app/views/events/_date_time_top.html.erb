@@ -46,13 +46,11 @@
       <div class="flake-or-join">
       <% if user_signed_in? %>
         <% if current_user == event.user %>
-          <ul class="time_settings">
-            <li>
+          <div>
               <%= link_to event_edit_time_path(event), class: "fadeInOrange" do %>
                 <i class="icon-cogs"></i>
               <% end %>
-            </li>
-          </ul>
+          </div>
         <% end %>
       <% end %>
         <% if current_user.in?(event) %>
