@@ -14,10 +14,8 @@ Adam
 		click on face in comment errors
 		make two times for an idea 
 		ignore not removing user ajaxy
-		show creator of idea
 		interested - blue when click
 		edit - make idea one_time
-		speed up iphone
 
 	pagination
 	vote on times
