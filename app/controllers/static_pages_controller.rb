@@ -1,5 +1,8 @@
 class StaticPagesController < ApplicationController
 
+  def landing
+  end
+
   def about
   	#@user = current_user
   end
