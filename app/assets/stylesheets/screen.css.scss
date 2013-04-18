@@ -1018,6 +1018,7 @@ border: 1px solid $divider;
 .promo_img {
   text-align: center;
   position: relative;
+  min-height: 80px;
   img{
     max-height: 267px;
 /*    -webkit-box-shadow: 0 0 6px rgba(0,0,0,0.3);
@@ -1089,10 +1090,10 @@ font-size: 20px;
 line-height: 1;
 width: 217px;
 margin: 0 auto;
+position: relative;
 padding: 4px 2px 5px 10px;
 text-align: left;
-position: absolute;
-top: 0px;
+margin-bottom:-20px;
 }
 
 .event_shield_icons {
@@ -2425,7 +2426,7 @@ top: 6px;
 
 .shield_bottom {
 color: white;
-background: url("low_contrast_linen.png");
+background-color: rgba(0,0,0,0.78);
 position: relative;
 border-top: 1px solid $divider;
 clear: both;
@@ -3112,7 +3113,7 @@ color: #fff;
 background: rgba(255, 112, 0, 0.8);
 font-weight: bold;
 font-size: .8em;
-float: right;
+float: left;
 padding: 6px 17px 4px 9px;
 margin-right: -19px;
 -moz-box-shadow: -2px 2px 0 rgba(0, 0, 0, 0.1);
