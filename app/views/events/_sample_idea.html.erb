@@ -3,13 +3,9 @@
 <div class="event shield" id="sampleEvent">
 	<div class="shield_top">
 	  <div class="rsvp_check" title="friends can choose whether they're .interested this idea">
-      <span class="fadeInBlue in_check"><i class='icon-ok'></i></span> 
-      <span class="out"><i class='icon-remove'></i></span> 
+      <span class="fadeInBlue in_check"><i class='icon-ok'></i> .interested</span> 
+      <span class="out"><i class='icon-remove'></i> out</span> 
 	  </div>
-    <span id="status"></span>
-    <u class="creator">
-      <%= current_user.first_name_with_last_initial %>
-    </u>
 	</div>
   <div class="event_time">
     <% if @parent.present? %>
@@ -23,14 +19,17 @@
 
 
 	<div class="promo_img" id="eventPromoImg">
-  	<% if @parent  && @parent.has_image? %>
+    <div class="event_blerb black-to-transparent">
+      <span class="title eventTitle"><%= @parent ? @parent.title : '' %></span>
+    </div>  	
+    <% if @parent  && @parent.has_image? %>
   		<%= image_tag @parent.image(:medium) %>
-  	<% end %>
+  	<% end %>  
   </div>
 
-  <div class="event_blerb">
-    <span class="title eventTitle"><%= @parent ? @parent.title : '' %></span>
-  </div>
+      <u class="creator">
+      <%= current_user.first_name_with_last_initial %>
+    </u>
 
 
   <div class="guest_count clearfix">

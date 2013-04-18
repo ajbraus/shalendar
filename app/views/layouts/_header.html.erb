@@ -1,17 +1,10 @@
 <% if user_signed_in? %>
-  <%  if params[:controller] == 'events' && params[:action] == 'show' %>
+  <%  if params[:controller] == 'events' && (params[:action] == 'show' || params[:action] == 'new') %>
     <header>
       <%= render 'layouts/logo' %>
       <nav>
-        <% unless params[:controller] == "sessions" || params[:controller] == "registrations" || params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
-          <% unless params[:action] == "show" || user_signed_in? == false %>
-          <div class="instructions">
-            .instructions
-          </div>
-          <% end %>
-        <% end %>
         <div class="city_name" id="cityName">
-          <%= @event.city.name %>
+          <%= @current_city.name %> <%= link_to "move", pick_city_path, id:"editCity", style:"display:none;" %>
         </div>
         <div class="navigation">
           <%= render 'shared/friend_search' %>
