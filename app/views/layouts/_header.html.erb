@@ -1,17 +1,10 @@
 <% if user_signed_in? %>
-  <%  if params[:controller] == 'events' && params[:action] == 'show' %>
+  <%  if params[:controller] == 'events' && (params[:action] == 'show' || params[:action] == 'new') %>
     <header>
       <%= render 'layouts/logo' %>
       <nav>
-        <% unless params[:controller] == "sessions" || params[:controller] == "registrations" || params[:action] == "landing" || params[:action] == "new_vendor" || params[:action] == "vendor_splash" %> 
-          <% unless params[:action] == "show" || user_signed_in? == false %>
-          <div class="instructions">
-            .instructions
-          </div>
-          <% end %>
-        <% end %>
         <div class="city_name" id="cityName">
-          <%= @event.city.name %>
+          <%= @current_city.name %> <%= link_to "move", pick_city_path, id:"editCity", style:"display:none;" %>
         </div>
         <div class="navigation">
           <%= render 'shared/friend_search' %>
@@ -20,7 +13,7 @@
       </nav>
     </header>
   <% end %>
-<% elsif params[:action] == 'show' && (@user.blank? || @user.created_at.blank?) %> 
+<% elsif params[:action] == 'show' || params[:action] == 'landing' %> 
   <!-- IF NOT SIGNED IN -->
   <header class="not_signed_in">
     <div class="instagramFeed">
@@ -62,7 +55,7 @@
       </div>
     </div>
   </header>
-  <% if params[:controller] == "users" %>
+  <% if params[:controller] == "static_pages" %>
     <div class="connect-box clearfix">
       <a href="http://www.facebook.com/hoosinapp" target="_blank">
         <div class="connect facebook">
@@ -84,6 +77,16 @@
           <i class="icon-pencil"></i>
         </div>
       </a>
+    </div>
+    <div class="press-box">
+      <div class="press">hoos.in the news</div>
+      <ul>
+        <li>
+          <%= link_to "http://host.madison.com/wsj/business/life-after-epic-from-epic-grad-to-entrepreneur/article_3511799e-9e42-11e2-a742-001a4bcf887a.html", target: "_blank" do %>
+            <%= image_tag 'wsj.png' %>
+          <% end %>
+        </li>
+      </ul>
     </div>
   <% end %>
 <% end %>

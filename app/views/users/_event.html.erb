@@ -20,15 +20,6 @@
 				<div class="rsvp_check">
 					<%= render :partial => "users/rsvp_check", :locals => { :event => event } %>
 				</div>
-				<span id="status"></span>
-				<u class="creator">
-					<% if current_user.is_friends_with?(event.user) %>
-						<i class="icon-star" style="color:gold;"></i>
-					<% elsif current_user.is_inmates_with?(event.user) %>
-						<i class="icon-star" style="color:lightgrey;"></i>
-					<% end %>
-					<%= event.user.first_name_with_last_initial %>
-				</u>
 			</div>
 			<% if event.starts_at.present? %>
 				<%= render partial: 'events/time', locals: { :event => event } %>
@@ -38,16 +29,22 @@
 
 		<% end %>
 
-		<% if event.has_image? %>
 			<div class="promo_img">
-				<%= image_tag event.image(:medium), class:"" %>
+				<div class="event_blerb black-to-transparent">
+					<div class="title"> <%= raw(event.visibility_icon) %><%= event.title %></div>
+				</div>				
+			<% if event.has_image? %>
+				<%= image_tag event.image(:medium) %>
+			<% end %>
 			</div>
-		<% end %>
-
-		<div class="event_blerb">
-			<div class="title"> <%= raw(event.visibility_icon) %><%= event.title %></div>
-		</div>
-
+			<u class="creator">
+				<% if current_user.is_friends_with?(event.user) %>
+					<i class="icon-star" style="color:gold;"></i>
+				<% elsif current_user.is_inmates_with?(event.user) %>
+					<i class="icon-star" style="color:lightgrey;"></i>
+				<% end %>
+				<%= event.user.first_name_with_last_initial %>
+			</u>
 		<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>		
 <% end %>
 

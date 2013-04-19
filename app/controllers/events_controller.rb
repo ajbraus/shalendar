@@ -163,19 +163,13 @@
   #GET /events/id
   #GET /events/id.json
   def show
-    @event = Event.includes({ :rsvps => :guest }, {:comments => :user } ).find(params[:id]) #find the event and eager load its guests as well as its comments and the comments' user association
+    @event = Event.find(params[:id]) #find the event and eager load its guests as well as its comments and the comments' user association
     @parent = @event.parent
     if @parent.present? 
       redirect_to @parent 
       return
     end
 
-    @guests = @event.guests
-    # if user_signed_in?
-    #   @guests.sort_by {|g| g.is_friends_with?(current_user) ? 0 : 1 }
-    # end
-    @maybes = @event.maybes
-    #@email_invites = @event.email_invites
     @comments = @event.comments.order("created_at desc")
     
     respond_to do |format|

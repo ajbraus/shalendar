@@ -1,6 +1,6 @@
 <nav class="clearfix">
    <%= render 'layouts/logo' %>
-    <div class="city_name" id="cityName"><% if @current_city.present? %> <%= @current_city.name %><%= link_to "move", pick_city_path, id:"editCity", style:"display:none;" %><% end %></div>
+    <div class="city_name" id="cityName"><%= @current_city.name %><%= link_to "move", pick_city_path, id:"editCity", style:"display:none;" %></div>
     <div class="navigation">
       <% if user_signed_in? %>
 	      <% if current_user.admin? %>

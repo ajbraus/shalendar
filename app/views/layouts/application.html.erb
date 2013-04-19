@@ -49,11 +49,6 @@
     <%= render 'layouts/header' %>
     <div class="layout clearfix" id="content">       
       <%= render 'layouts/alerts' %>
-      <% if @user.present? && params[:controller] == 'users' && params[:action] == 'show' %>
-        <div class="sidebar">
-          <%= render 'layouts/mini_calendar' %>
-        </div>
-      <% end %>
       <%= yield %>
     </div>
 

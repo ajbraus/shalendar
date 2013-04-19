@@ -388,6 +388,14 @@ color:gold;
 .btn-new-idea {
     font-size: 15px;
     text-align: center;
+padding: 8px 0px;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+border-radius: 6px;
+width: 104px;
+float: right;
+margin-right: 13px;
+margin-bottom: 10px;
 }
 
 .btn-primary {
@@ -777,15 +785,27 @@ box-shadow: 0px 0px 9px rgba(50, 50, 50, 0.3);
 }
 
 .user_search {
+float: left;
+position: relative;
+top: 2px;
+left: 4px;
   input[type=text] {
+    width: 155px;
   border-radius: 0;
 padding: 6px;
 font-size: 12px;
 border: 1px solid $divider;
 }
+form {
+  float: right;
+}
+
+
   .get_friends {
     float:left;
 }
+
+
 
 }
 
@@ -997,7 +1017,8 @@ border: 1px solid $divider;
   box-sizing: border-box;         /* Opera/IE 8+ */
 .promo_img {
   text-align: center;
-  padding-bottom: 4px;
+  position: relative;
+  min-height: 80px;
   img{
     max-height: 267px;
 /*    -webkit-box-shadow: 0 0 6px rgba(0,0,0,0.3);
@@ -1065,12 +1086,14 @@ bottom: 12px;
 }
 
 .event_blerb {
-min-height: 24px;
-font-size: 18px;
+font-size: 20px;
 line-height: 1;
-margin-left: 8px;
-padding-bottom: 4px;
-padding-top: 6px;
+width: 217px;
+margin: 0 auto;
+position: relative;
+padding: 4px 2px 5px 10px;
+text-align: left;
+margin-bottom:-20px;
 }
 
 .event_shield_icons {
@@ -2403,7 +2426,7 @@ top: 6px;
 
 .shield_bottom {
 color: white;
-background: url("low_contrast_linen.png");
+background-color: rgba(0,0,0,0.78);
 position: relative;
 border-top: 1px solid $divider;
 clear: both;
@@ -2738,12 +2761,12 @@ margin-left: 5px;
 float: left;
 padding: 2px 0;
   .profile_picture {
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
+-webkit-border-radius: 24px;
+-moz-border-radius: 24px;
 background-color: white;
-width: 20px;
-height: 20px;
-border-radius: 4px;
+width: 25px;
+height: 25px;
+border-radius: 24px;
 position: relative;
 top: 4px;
   }
@@ -2767,12 +2790,22 @@ margin: 10px;
 .sidebar {
 background: url("low_contrast_linen.png");
 z-index: 2;
-position: fixed;
 overflow-y: auto;
 height: 100%;
 overflow-x: hidden;
 border-right: 1px solid $divider;
+width: 320px;
 }
+
+
+  .logo {
+width: 120px;
+float: left;
+position: relative;
+left: 40px;
+top: 3px;
+  }
+
 
 .home_idea_container {
 }
@@ -2789,7 +2822,15 @@ border: 0;
 border-radius: 7px;*/
 }
 
+
+    .shield_bottom {
+padding: 6px 11px;
+width: 207px;
+  }
+  
 .inmates_bar {
+    width: 355px;
+    left: 320px;
   position: absolute;
   background-color:$background_one;
 z-index: 3;
@@ -2901,24 +2942,6 @@ border-top: 1px solid $divider;
   }
 }
 
-/*.mini_calendar_explanation {
-color: white;
-font-size: 25px;
-width: 240px;
-text-align: center;
-margin: 0 auto;
-margin-top: 27px;
-border: 1px solid white;
-padding: 22px 14px;
-background: rgba(255,255,255,0.06);
-margin-bottom: 100%;
-.btn-new-idea {
-  position: relative;
-top: -1px;
-border: none;
-}
-}
-*/
 .rsvp_to_time {
 text-align: center;
 width: 180px;
@@ -3090,7 +3113,7 @@ color: #fff;
 background: rgba(255, 112, 0, 0.8);
 font-weight: bold;
 font-size: .8em;
-float: right;
+float: left;
 padding: 6px 17px 4px 9px;
 margin-right: -19px;
 -moz-box-shadow: -2px 2px 0 rgba(0, 0, 0, 0.1);
@@ -3126,8 +3149,6 @@ box-shadow: -2px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .container_wrapper {
-margin: 0 auto;
-margin-left: 320px;
 z-index: -2;
 }
 
@@ -3158,7 +3179,7 @@ padding: 5px;
 -moz-border-radius: 5px;
 border-radius: 5px;
 margin: 0 2%;
-margin-top: 20px;
+margin-top: 5px;
 }
 
 .fancybox-iframe {
@@ -3200,7 +3221,23 @@ clear: left;
 }
 .city_name {
   color:$headerText;
+position: absolute;
+top: 45px;
+left: 180px;
+font-size: 14px;
 }
+
+  .event {
+margin: 8px;
+min-width: 230px;
+max-width: 230px;
+    .promo_img {
+      img {
+        max-width: 228px;
+      }
+    }
+  }
+
 
 .no_invites {
 
@@ -3637,4 +3674,32 @@ bottom: 5px;
 
 .search_new_button {
   min-height: 17px;
+}
+
+.press-box {
+  border-top: 1px solid #d1cdcd;
+  clear: both;
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+  top: 50px;
+  img {
+    width: 310px;
+  }
+}
+
+.press {
+  font-size:22px;
+  color:darkgrey;
+}
+
+.black-to-transparent {
+ color:white;
+background: -moz-linear-gradient(top,  rgba(0,0,0,0.77) 0%, rgba(0,0,0,0.61) 55%, rgba(0,0,0,0.27) 95%, rgba(0,0,0,0.13) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.77)), color-stop(55%,rgba(0,0,0,0.61)), color-stop(95%,rgba(0,0,0,0.27)), color-stop(100%,rgba(0,0,0,0.13))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(0,0,0,0.77) 0%,rgba(0,0,0,0.61) 55%,rgba(0,0,0,0.27) 95%,rgba(0,0,0,0.13) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(0,0,0,0.77) 0%,rgba(0,0,0,0.61) 55%,rgba(0,0,0,0.27) 95%,rgba(0,0,0,0.13) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(0,0,0,0.77) 0%,rgba(0,0,0,0.61) 55%,rgba(0,0,0,0.27) 95%,rgba(0,0,0,0.13) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(0,0,0,0.77) 0%,rgba(0,0,0,0.61) 55%,rgba(0,0,0,0.27) 95%,rgba(0,0,0,0.13) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c4000000', endColorstr='#21000000',GradientType=0 ); /* IE6-9 */
 }

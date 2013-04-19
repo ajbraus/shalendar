@@ -455,8 +455,6 @@ class Event < ActiveRecord::Base
             @parent.save
           end
         end
-      else 
-        e.over = true
       end
       e.save
     end

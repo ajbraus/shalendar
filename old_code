@@ -761,3 +761,20 @@ Event.all.each do |e|
     e.save
   end
 end
+
+
+City.create(name: "Toronto, Canada", timezone: "Central Time (US & Canada)")
+
+
+  Event.unscoped.all.each do |e|
+    if e.is_parent? && e.one_time?
+      Time.zone = e.city.timezone
+      instance = e.instances.first
+      unless instance.ends_at < Time.zone.now
+        instance.over = false
+        instance.save        
+        e.over = false
+        e.save
+      end
+    end
+  end

@@ -1,4 +1,3 @@
-<% provide(:title, " | #{@event.title}" ) %>
 <% unless @event.user.background_file_size.nil? %>
     <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
 <% end %>
@@ -16,14 +15,7 @@
     </li>
   </ul>
 <% end %>
-<% if false %>
-<%= render partial: 'events/date_time_top', :locals => { :event => @event.next_instance } %>
-<% end %>
-  <% if user_signed_in? %>
-    <div id="rsvpForm" class="join_group_buttons padding_10 <%= current_user.in?(@event) ? 'rsvp_blue' : '' %>">
-  <% else %>
     <div id="rsvpForm" class="join_group_buttons padding_10">
-  <% end %>
       <%= render partial: 'rsvp_form', :locals => { :event => @event }  %> 
     </div>
 
@@ -186,25 +178,3 @@
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=327936950625049";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-
-
-<% if false %>
-<% if session[:graph] && current_user.sign_in_count == 1 && current_user.last_sign_in_at > Time.zone.now - 7.seconds %>
-
-  <%= link_to find_friends_path, :remote => true, class: "find_friends fancybox.ajax", style: "display:none;" do %>
-    <%= image_tag "social/fb.png", :size => "50x50", style: "display:none;"  %>
-  <% end %>
-
-  <script> 
-    function Func1() { 
-      //alert("ahh!")
-      $(".find_friends").click();
-      //clickLink(".find_friends")
-      }
-    function Func1Delay() { 
-      setTimeout("Func1()", 1000);
-      }
-    document.ready(Func1Delay());
-  </script>
-<% end %>
-<% end %>

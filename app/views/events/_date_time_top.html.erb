@@ -44,6 +44,15 @@
       </div>
     <% else %>
       <div class="flake-or-join">
+      <% if user_signed_in? %>
+        <% if current_user == event.user %>
+          <div>
+              <%= link_to event_edit_time_path(event), class: "fadeInOrange" do %>
+                <i class="icon-cogs"></i>
+              <% end %>
+          </div>
+        <% end %>
+      <% end %>
         <% if current_user.in?(event) %>
           <span id="flakeOut" class="flakeout">
             <%= link_to "(flake out)", rsvp_path(current_user.rsvps.find_by_plan_id(event.id)), :method => :delete %></p>

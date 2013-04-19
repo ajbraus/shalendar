@@ -30,33 +30,9 @@
 		}
 	}
 
-	.logo {
-width: 120px;
-float: left;
-position: relative;
-left: 40px;
-top: 3px;
-	}
-
-	ul.left_header {
-		top: 34px;
-	}
-
 	.responsive_new_idea {
 		display: none;
 	}
-
-	.event {
-margin: 8px;
-min-width: 230px;
-max-width: 230px;
-		.promo_img {
-			img {
-				max-width: 216px;
-			}
-		}
-	}
-
 .float_right{
 	margin-left: 80px;
 	font-size:26px;
@@ -103,20 +79,6 @@ height: 100%;
 	.event_title {
 		width:47%;
 	}
-
-	.user_search {
-float: left;
-position: relative;
-top: 2px;
-left: 4px;
-form {
-	float: right;
-}
-		input[type=text] {
-		width: 155px;
-		}
-	}
-
 	#friends {
 width: 97%;
 top: 13px;
@@ -215,17 +177,6 @@ margin-top: -5px;
 
 		.alert {
 			width: 960px;
-		}
-
-		.btn-new-idea {
-padding: 8px 0px;
--moz-border-radius: 6px;
--webkit-border-radius: 6px;
-border-radius: 6px;
-width: 104px;
-float: right;
-margin-right: 13px;
-margin-bottom: 10px;
 		}
 
 		.html-new-idea {
@@ -331,19 +282,7 @@ margin-right: 85px;
 	}
 
 	.sidebar {
-		width: 320px;
-	}
-
-	.city_name {
-position: absolute;
-top: 45px;
-left: 180px;
-font-size: 14px;
-	}
-
-		.shield_bottom {
-padding: 6px 11px;
-width: 207px;
+		position: fixed;
 	}
 
 	.idea_container {
@@ -363,9 +302,8 @@ width: 207px;
 		width: 212px;
 	}
 
-	.inmates_bar {
-		width: 355px;
-		left: 320px;
+	.container_wrapper {
+		margin-left: 320px;
 	}
 
 }

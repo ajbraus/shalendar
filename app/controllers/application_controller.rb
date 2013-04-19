@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   def store_location
     session[:previous_urls] ||= []
     # store unique urls only
-    session[:previous_urls].prepend request.fullpath if session[:previous_urls].first != request.fullpath && !request.fullpath.starts_with?('/city_names') && !request.fullpath.starts_with?('/user/edit') && !request.fullpath.starts_with?('/pick_city') && !request.fullpath.starts_with?('/search') && request.fullpath != "/user/sign_up" && request.fullpath != "/payment" && request.fullpath != "/venue" && request.fullpath != "/new_vendor" && request.fullpath != "/user" && request.fullpath != "/user/login" && request.fullpath != "/" && request.fullpath != "/user/logout" && request.fullpath != "/user/join" && request.fullpath != "/user/auth/facebook/callback"
+    session[:previous_urls].prepend request.fullpath if session[:previous_urls].first != request.fullpath && (request.fullpath.starts_with?('/ideas') || request.fullpath.starts_with?('/users'))
     # For Rails < 3.2
     # session[:previous_urls].unshift request.fullpath if session[:previous_urls].first != request.fullpath 
     session[:previous_urls].pop if session[:previous_urls].count > 3

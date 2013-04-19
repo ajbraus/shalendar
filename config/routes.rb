@@ -1,6 +1,11 @@
 Shalendar::Application.routes.draw do
 
-  root :to => 'users#show'
+  authenticated :user do
+    root :to => 'users#show'
+  end
+
+  root :to => 'static_pages#landing'
+
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/careers', :to => 'static_pages#careers', :as => "careers"
   match '/terms', :to => 'static_pages#terms_header', :as => "terms"
