@@ -51,7 +51,7 @@ class Event < ActiveRecord::Base
                              #:default_url => "https://s3.amazonaws.com/hoosin-production/event/promo_img/medium/default_promo_img.png"
 
   validates :promo_img, # :attachment_presence => true,
-                     :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/gif', 'image/jpeg' ] }
+                     :attachment_content_type => { :content_type => [ 'image/png', 'image/jpg', 'image/tiff', 'image/gif', 'image/jpeg' ] }
                      #:attachment_size => { :in => 0..500.kilobytes }
 
   validates :city_id, presence: true if Rails.env.production?

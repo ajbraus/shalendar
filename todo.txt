@@ -10,6 +10,9 @@ Mike
 
 Adam
 
+mutual intros
+pagination
+
 	bug:
 		click on face in comment errors
 		make two times for an idea 
@@ -17,7 +20,10 @@ Adam
 		interested - blue when click
 		edit - make idea one_time
 
-	pagination
+	
+	facebook pages integration
+	meetup integration
+
 	vote on times
 
 
@@ -27,10 +33,6 @@ Adam
 		- women rule real social
 		- harlem shake as new kind of viral - MORE, hoos.in is its social network
 	reddit
-
-	reload instead of ajax for each - home is show, else .invites, interested, ins. Just links! - then pagination is easy as fuck!
-
-	workless - realtime worker
 
 	emails to 
 		- iphone app users - to write a review
