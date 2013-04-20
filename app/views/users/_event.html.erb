@@ -38,10 +38,12 @@
 			<% end %>
 			</div>
 			<u class="creator">
-				<% if current_user.is_friends_with?(event.user) %>
-					<i class="icon-star" style="color:gold;"></i>
-				<% elsif current_user.is_inmates_with?(event.user) %>
-					<i class="icon-star" style="color:lightgrey;"></i>
+				<% if user_signed_in? %>
+					<% if current_user.is_friends_with?(event.user) %>
+						<i class="icon-star" style="color:gold;"></i>
+					<% elsif current_user.is_inmates_with?(event.user) %>
+						<i class="icon-star" style="color:lightgrey;"></i>
+					<% end %>
 				<% end %>
 				<%= event.user.first_name_with_last_initial %>
 			</u>
