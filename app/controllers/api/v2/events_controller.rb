@@ -352,12 +352,12 @@ class Api::V2::EventsController < ApplicationController
     @duration = nil
     
 
-    if params[:start].present? && params[:duration].present?
+    if params[:start].present?
       @starts_at = DateTime.parse(params[:start])
-      if params[:duration] == "(null)"
-        @duration = 2
-      else  
+      if params[:duration].present?
         @duration = Float(params[:duration])
+      else
+        @duration = 2
       end
       @ends_at = @starts_at + @duration.hours
     end
