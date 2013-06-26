@@ -57,6 +57,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <%= yield :scripts %>
     <%= javascript_include_tag "application" %>
+    
     <% if user_signed_in? %>
       <% if params[:controller] == "users" && params[:action] == "show" %>
         <% if @user == current_user %>
