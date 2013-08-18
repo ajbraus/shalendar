@@ -1,0 +1,14 @@
+<div class="clear-both clearfix">
+  <div class="pull-left">
+    <%= f.label :starts_at, "Possible Time(s)" %></br>
+    <%= f.text_field :starts_at, class:"span3 datepicker" %>
+  </div>
+  <div class="pull-left">
+    <%= f.label :duration, "Duration" %></br>
+    <%= f.text_field :duration, class:'span1', placeholder:"1.5" %>
+    <% unless params[:action] == "new" %>
+      <%= f.check_box :_destroy %>
+      <%= f.label :_destroy, "Remove Time" %>
+    <% end %>
+  </div>
+</div>

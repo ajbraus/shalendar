@@ -1,30 +1,23 @@
 class User < ActiveRecord::Base
-  default_scope :order => 'name'
-  
+  default_scope :order => 'name' 
   # Include default devise modules. Others available are:
-  # :confirmable,
+  # 
   # :lockable, :timeoutable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, 
-         :omniauthable, :token_authenticatable
-
+         :omniauthable, :token_authenticatable, :confirmable
   before_save :ensure_authentication_token
-
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :id,
-                  :email, 
+  attr_accessible :email, 
   								:password, 
-  								:password_confirmation, 
   								:remember_me, 
                   :name,
                   :terms,
-                  :require_confirm_follow,
                   :allow_contact,
                   :digest,
                   :notify_event_reminders,
                   :city_id,
                   :city,
-                  :post_to_fb_wall,
                   :avatar,
                   :vendor,
                   :family_filter,
@@ -42,7 +35,8 @@ class User < ActiveRecord::Base
                   :credit_card_uri,
                   :debits_uri,
                   :birthday,
-                  :female
+                  :female,
+                  :confirmed_at
 
   has_attached_file :avatar, :styles => { :original => "150x150#",
                                           :raster => "50x50#" },
@@ -71,40 +65,45 @@ class User < ActiveRecord::Base
   #phony_normalize :phone_number, :as => :phone_number_normalized_version, :default_country_code => 'US' 
   #validates :phone_number, :phony_plausible => true
   #phony_normalized_method :phone_number, :default_country_code => 'US'
-  
+
   validates :terms,
             :name, presence: true
+  
+  belongs_to :city
 
   has_many :authentications, :dependent => :destroy, :uniq => true
 
   has_many :events, dependent: :destroy
 
-  has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
-  has_many :rsvpd_events, through: :rsvps, source: :plan
-  has_many :plans, through: :rsvps, :conditions => ['inout = ?', 1]
-  has_many :outs, through: :rsvps, source: :plan, :conditions => ['inout = ?', 0]
+  has_many :invitations, dependent: :destroy
+  has_many :invited_events, through: :invitations, source: :event
 
-  has_many :invitations, foreign_key: "invited_user_id", dependent: :destroy
-  has_many :invited_ideas, through: :invitations, source: :invited_event, :conditions => ['starts_at IS NULL AND visibility < 3']
-  has_many :invited_times, through: :invitations, source: :invited_event, :conditions => ['starts_at IS NOT NULL AND visibility < 3']
+  has_many :instance_invitations, dependent: :destroy
+  has_many :instance_invited_events, through: :instance_invitations, source: :instance
+
+  has_many :rsvps, foreign_key: "guest_id", dependent: :destroy
+  has_many :plans, through: :rsvps, source: :event
+
+  has_many :instance_rsvps, dependent: :destroy
+  has_many :instance_plans, through: :instance_rsvps, source: :instance
+
+  has_many :outs, dependent: :destroy
+  has_many :outted_events, through: :outs  
+
+  has_many :instance_outs, dependent: :destroy
+  has_many :instance_outted_events, through: :instance_outs  
 
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
-  
   has_many :reverse_relationships, :foreign_key => "followed_id",
                                    :class_name => "Relationship",
                                    :dependent => :destroy
-  
   has_many :friended_bys, :through => :reverse_relationships, :source => :follower, conditions: "status = 2"
-
   has_many :inmates, through: :relationships, source: :followed, conditions: "status = 1"  
   has_many :friends, through: :relationships, source: :followed, conditions: "status = 2"  
   has_many :ignored_users, through: :relationships, source: :followed, conditions: "status = 0"
-
-  has_many :inmates_and_friends, through: :relationships, source: :followed, conditions: 'status != 0'
+  has_many :intros_and_friends, through: :relationships, source: :followed, conditions: 'status != 0'
 
   has_many :comments, dependent: :destroy
-
-  belongs_to :city
 
   after_create :send_welcome
 
@@ -115,6 +114,9 @@ class User < ActiveRecord::Base
     new_record? || slug.blank?
   end
 
+  def send_welcome
+    Notifier.delay.welcome(self)
+  end
 
   HOOSIN = +16088074732
   
@@ -137,7 +139,7 @@ class User < ActiveRecord::Base
     :first_name => self.first_name,
     :last_name => self.last_name,
     :pic_url => @pic_url,
-    :in_cnt => self.plans.count,
+    :in_cnt => self.rsvps.count,
     :f_cnt => self.friends.count + self.inmates.count
     #:email_hex => Digest::MD5::hexdigest(self.email.downcase)
     #:profile_pic_url => "https://secure.gravatar.com/avatar/#{Digest::MD5::hexdigest(user.email.downcase)}?s=50"
@@ -168,14 +170,6 @@ class User < ActiveRecord::Base
     self.name.split.count > 3 ? self.name.split(' ')[1] : nil
   end
 
-  def send_welcome
-    if self.vendor?
-      Notifier.delay.vendor_welcome(self)
-    else
-      Notifier.delay.welcome(self)
-    end
-  end
-
   def self.search(query)
     conditions = <<-EOS
       to_tsvector('english', 
@@ -187,119 +181,70 @@ class User < ActiveRecord::Base
   end
 
   def rsvpd?(event)
-    return rsvps.find_by_plan_id(event.id).present?
+    if event.class == Event
+      return rsvps.find_by_event_id(event.id).present?
+    elsif event.class == Instance
+      return instance_rsvps.find_by_instance_id(event.id).present?
+    end
   end
 
-  def in?(event)  
-    @rsvp = self.rsvps.find_by_plan_id(event.id)
-    return @rsvp.present? && @rsvp.inout == 1
-  end
-
-  def out?(event)
-    @rsvp = rsvps.find_by_plan_id(event.id)
-    if @rsvp.present? && @rsvp.inout == 0
-      return true
-    elsif event.parent.present?
-      @rsvp = rsvps.find_by_plan_id(event.parent.id)
-      if @rsvp.present? && @rsvp.inout == 0
-        return true
-      end
-    else
-      return false
+  def in?(event) 
+    if event.class == Event 
+      return rsvps.find_by_event_id(event.id).present?
+    elsif event.class == Instance
+      return instance_rsvps.find_by_instance_id(event.id).present?
     end
     return false
   end
+
+  def out?(event)
+    if event.class == Event
+      return outs.find_by_event_id(event.id).present?
+    elsif event.class == Instance
+      return instance_outs.find_by_event_id(event.id).present?
+    end
+    return false
+  end
+
 
   def flake_out!(event)
     if event.rsvps.where(guest_id: self.id).any?
       @existing_rsvp = event.rsvps.where(guest_id: self.id).first
       @existing_rsvp.destroy
-      # if(event.has_parent?) #don't want to be out, just not in
-      #   self.rsvp_out!(event)
-      # end
     end
   end
 
   def rsvp_in!(event)
-    @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
-    if @existing_rsvp.present?
-      if @existing_rsvp.inout == 1
-        return
-      else
-        @existing_rsvp.destroy
-      end
-    end
-    rsvps.create!(plan_id: event.id, inout: 1)
-    
-    event.guests.each do |g|
-      self.inmate!(g)
-    end
+    rsvp = self.rsvps.create(event_id: event.id, #CREATE RSVP
+                             friends_in: event.invited_users.select { |g| self.is_friends_with?(g) }.count,
+                             intros_in: event.invited_users.select { |g| self.is_intros_with?(g) }.count
+    )
+    self.invitations.find_by_event_id(event.id).try(:destroy) #DESTROY INVITATION IF EXISTS
 
-    @invitation = self.invitations.find_by_invited_event_id(event.id)
-    if @invitation.present?
-      @invitation.destroy
-    end
+    rsvp.delay.sync_invitations #SYNC INVITATIONS IN THE BACKGROUND
 
-    if event.open_invite?
-      self.inmates_and_friends.each do |u|
-        unless u.already_invited?(event) || u.rsvpd?(event)
-          u.invitations.create!(invited_event_id: event.id)
-        end
-      end        
-    elsif event.friends_only?    
-      self.friends.each do |u|
-        unless u.already_invited?(event) || u.rsvpd?(event)
-          u.invitations.create!(invited_event_id: event.id)
-        end
-      end   
-    end
-    
-    #if one time and rsvp to parent, then rsvp to single instance
-    @instance = event.instances.first
-    if event.one_time? && @instance.present?
-      self.rsvp_in!(@instance)
-    end
-
-    #if rsvping from the calendar to a time, also rsvp to the parent
-    @event_user = event.user
-    @parent = event.parent
-    if @parent.present? && !self.in?(@parent)
-      @parent_user = @parent.user
-      self.rsvp_in!(@parent)
-        #contact only once if they sign up for time + idea, if time.user and idea.user are different send both
-      if @event_user != @parent_user      
-        unless @event_user == self || event.already_over?
-          @event_user.delay.contact_new_rsvp(event, self)
-        end
-        unless @parent_user == self 
-          @parent_user.delay.contact_new_rsvp(event, self)
-        end
-      else
-        unless @event_user == self || event.already_over?
-          @event_user.delay.contact_new_rsvp(event, self)
-        end
-      end
-    else
-      unless @event_user == self || event.already_over?
-        @event_user.delay.contact_new_rsvp(event, self)
-      end
+    unless event.user == self
+      event.user.delay.contact_new_rsvp(event, self)
     end
   end
 
-  # should be .interested! and .in! calls for parents and instances
-  # if one_time rsvp to both
-  #   unless event.user = rsvp.user
-  #     send one rsvp notification to creator
-  #   end
-  # else #not one time
-  #   if rspv to instance
-  #     rsvp to parent
-  #     send one rspv notification to instance creator
-  #   else #rsvp to parent
-  #     send one rsvp notification to parent creator
-  #   end
-  # end
+  def instance_rsvp_in!(instance)
+    instance_rsvp = self.instance_rsvps.create(instance_id: instance.id,  #CREATE INSTANCE_RSVP
+                                               friends_in: instance.invited_users.select { |g| self.is_friends_with?(g) }.count,
+                                               intros_in: instance.invited_users.select { |g| self.is_intros_with?(g) }.count
+    )
+    self.instance_invitations.find_by_instance_id(instance.id).try(:destroy) #DESTROY INSTANCE_INVITATION IF EXISTS
     
+    instance_rsvp.delay.sync_instance_invitations #SYNC INVITATIONS IN THE BACKGROUND
+
+    unless instance.event.user == self
+      instance.event.user.delay.contact_new_rsvp(instance.event, self)
+    end
+  end
+
+  def instance_rsvp_out!(instance)
+
+  end
 
   def rsvp_out!(event)
     @existing_rsvp = event.rsvps.where(guest_id: self.id).first 
@@ -310,16 +255,11 @@ class User < ActiveRecord::Base
         @existing_rsvp.destroy
       end
     end
-    rsvps.create!(plan_id: event.id, inout: 0)
+    rsvps.create!(event_id: event.id, inout: 0)
   
-    @invitation = self.invitations.find_by_invited_event_id(event.id)
+    @invitation = self.invitations.find_by_event_id(event.id)
     if @invitation.present?
       @invitation.destroy
-    end
-
-    @parent = event.parent
-    if @parent.present? && @parent.one_time?
-      self.rsvp_out!(@parent)
     end
   end
 
@@ -337,10 +277,6 @@ class User < ActiveRecord::Base
     end
   end 
 
-  def ins
-    self.plans.where('starts_at IS NULL').reject { |i| i.no_relevant_instances? }
-  end
-
   #Relationship methods
   def is_friends_with?(other_user)
     unless other_user.ignores?(self)
@@ -357,7 +293,7 @@ class User < ActiveRecord::Base
     return self.ignored_users.include?(other_user)
   end
 
-  def is_inmates_with?(other_user)
+  def is_intros_with?(other_user)
     unless other_user.ignores?(self)
       return self.inmates.include?(other_user)
     end
@@ -450,7 +386,7 @@ class User < ActiveRecord::Base
       self.intros_count += 1
       self.save
 
-      other_user.plans.each do |p| 
+      other_user.rsvps.each do |p| 
         unless self.already_invited?(p) || self.rsvpd?(p)
           self.invitations.create!(invited_event_id: p.id)
         end
@@ -465,7 +401,7 @@ class User < ActiveRecord::Base
       other_user.intros_count += 1
       other_user.save
 
-      self.plans.each do |p| 
+      self.rsvps.each do |p| 
         unless other_user.already_invited?(p) || other_user.rsvpd?(p)
           other_user.invitations.create!(invited_event_id: p.id)
         end
@@ -506,25 +442,39 @@ class User < ActiveRecord::Base
   end
 
   def invited?(event)
-    @parent = event.parent
-    if @parent.present?
-      if self.in?(@parent)
-        return true
-      elsif @parent.open_invite?
-        return self.is_inmates_or_friends_with?(@parent.user) || (event.guests & self.inmates_and_friends).any?
-      elsif @parent.friends_only?
-        return @parent.user.is_friends_with?(self) || event.user.is_friends_with?(self)
+    if event.class == Event
+      return invitations.find_by_event_id(event.id).present?
+    elsif event.class == Instance
+      return instance_invitations.find_by_instance_id(event.id).present?
+    end
+  end
+
+  def invite!(event, inviter)
+    if event.class == Event
+      self.invitations.create(
+        event_id: event.id,
+        inviter_id: inviter.id,
+        friends_in: event.invited_users.select { |g| self.is_friends_with?(g) }.count,
+        intros_in: event.invited_users.select { |g| self.is_intros_with?(g) }.count,
+        randos_in: event.invited_users.select { |g| !self.is_inmates_or_friends_with?(g) }.count
+        )
+      if event.instances.any? #INVITE TO ALL THE INSTANCES
+        event.instances.each do |i|
+          self.invite!(i, inviter) 
+        end
       end
-    else
-      if self.in?(event)
-        return true
-      elsif event.open_invite?
-        return self.is_inmates_or_friends_with?(event.user) || (event.guests & self.inmates_and_friends).any?        
-      elsif event.friends_only?
-        return event.user.is_friends_with?(self)
+    elsif event.class == Instance
+      self.instance_invitations.create(
+        instance_id: event.id,
+        inviter_id: inviter.id,
+        friends_in: event.invited_users.select { |g| self.is_friends_with?(g) }.count,
+        intros_in: event.invited_users.select { |g| self.is_intros_with?(g) }.count,
+        randos_in: event.invited_users.select { |g| !self.is_inmates_or_friends_with?(g) }.count
+        )
+      unless self.invited?(event.event)
+        self.invite!(event.event, inviter) #INVITE TO THE PARENT
       end
     end
-    return false
   end
 
   def add_fb_to_inmates(graph)
@@ -596,26 +546,16 @@ class User < ActiveRecord::Base
     end
   end
 
-  def convert_email_invites
-    EmailInvite.where("email_invites.email = :new_user_email", new_user_email: self.email).each do |ei|
-      @invited_user = self
-      @invited_event = ei.event
-      unless self.already_invited?(@invited_event) || self.rsvpd?(@invited_event)
-        self.invitations.create!(invited_event_id: @invited_event.id)
-      end
-      ei.destroy
-    end
-  end
-
-  def vendor_friendships
-    @vendor_friendships = []
-    self.relationships.where('relationships.confirmed = true').each do |r|
-      if r.followed.vendor?
-        @vendor_friendships << r
-      end
-    end
-    return @vendor_friendships
-  end
+  # def convert_email_invites
+  #   EmailInvite.where("email_invites.email = :new_user_email", new_user_email: self.email).each do |ei|
+  #     @invited_user = self
+  #     @invited_event = ei.event
+  #     unless self.already_invited?(@invited_event) || self.rsvpd?(@invited_event)
+  #       self.invitations.create!(invited_event_id: @invited_event.id)
+  #     end
+  #     ei.destroy
+  #   end
+  # end
 
   def fb_user?
     if self.authentications.find_by_provider("Facebook")
@@ -684,7 +624,11 @@ class User < ActiveRecord::Base
   end
 
   def already_invited?(event)
-    return self.invitations.find_by_invited_event_id(event.id).present?
+    if event.class == Event
+      return self.invitations.find_by_event_id(event.id).present?
+    elsif event.class == Instance
+      return self.instance_invitations.find_by_instance_id(event.id).present?
+    end
   end
 
   # Contact methods
@@ -1024,7 +968,7 @@ class User < ActiveRecord::Base
         @upcoming_times = []
         (0..2).each do |day|
           day_time_range = @now_in_zone.midnight + day.days .. @now_in_zone.midnight + (day+1).days
-          @upcoming_day_times = u.plans.where(starts_at: day_time_range)
+          @upcoming_day_times = u.rsvps.where(starts_at: day_time_range)
           if @upcoming_day_times.any?
             @has_times = true
           end
@@ -1032,7 +976,7 @@ class User < ActiveRecord::Base
         end
         @all_new_ideas = Event.where('city_id = ? AND created_at > ? AND ends_at IS NULL', @current_city.id, @now_in_zone - 4.days).reject { |i| u.rsvpd?(i) && i.no_relevant_instances? }
         @new_inner_ideas = @all_new_ideas.select { |i| i.user.is_friended_by?(u) }
-        @new_inmate_ideas = @all_new_ideas.select { |i| i.user.is_inmates_with?(u) }
+        @new_inmate_ideas = @all_new_ideas.select { |i| i.user.is_intros_with?(u) }
         @users_new_ideas = @new_inmate_ideas + @new_inner_ideas
         if @has_times == true || @new_inner_ideas.any? || @new_inmate_ideas.any?
           Notifier.delay.digest(u, @upcoming_times, @has_times, @new_inner_ideas, @new_inmate_ideas, @users_new_ideas.count)
@@ -1045,7 +989,7 @@ class User < ActiveRecord::Base
   #   @recipients = User.where('follow_up = ?', true)
   #   @recipients.each do |r|
   #     @now_in_zone = Time.zone.now.in_time_zone(r.city.timezone)
-  #     @fu_events = r.plans.where(starts_at: @now_in_zone.midnight - 1.day .. @now_in_zone.midnight)
+  #     @fu_events = r.rsvps.where(starts_at: @now_in_zone.midnight - 1.day .. @now_in_zone.midnight)
   #     if @fu_events.any?
   #       @fu_events.each do |fue|
   #         @new_inmates = fue.guests.select { |g| g.is_new_inmate?(r) && r != g }
@@ -1063,7 +1007,7 @@ class User < ActiveRecord::Base
       if r.city.present?
         @now_in_zone = Time.zone.now.in_time_zone(r.city.timezone)
         @time_range = @now_in_zone + 1.hour..@now_in_zone + 1.hour + 10.minutes
-        @reminder_events = r.plans.where(starts_at: @time_range)
+        @reminder_events = r.rsvps.where(starts_at: @time_range)
         @reminder_events.each do |e|
           r.contact_reminder(e)
         end

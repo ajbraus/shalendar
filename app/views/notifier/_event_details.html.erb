@@ -12,7 +12,7 @@
 	<% if user.in?(event) %>
 		<strong>  (.in)</strong>
 	<% end %>
-	<% if event.has_future_instance? %>
+	<% if event.future_instances.any? %>
 		<br>
 		<strong>Next Time:</strong> <span style="padding-left:10px;"><%= event.next_instance.starts_at.strftime("%l:%M%P, %A %B %e") %></span>
 	<% elsif event.starts_at.present? %>
@@ -26,7 +26,7 @@
 		<strong>.ins:</strong>
 		<span style="padding-left:10px; font-size:13px;">
 			<% if !user.in?(event) %>
-				<img src="http://www.hoos.in/assets/gold_star.png" width="10" style="position:relative;top:4px;"/><span id="friendCount"><%= event.friends_in_count(user) %></span> / <img src="http://www.hoos.in/assets/grey_star.png" width="10" style="position:relative;top:4px;" /><%= event.inmates_in_count(user) %> / <%= event.guest_count %>
+				<img src="http://www.hoos.in/assets/gold_star.png" width="10" style="position:relative;top:4px;"/><span id="friendCount"><%= event.friends_in_count(user) %></span> / <img src="http://www.hoos.in/assets/grey_star.png" width="10" style="position:relative;top:4px;" /><%= event.inmates_in_count(user) %> / <%= event.rsvps.count %>
 			<% elsif user.in?(event) %>
 				<img src="http://www.hoos.in/assets/gold_star.png" width="10" style="position:relative;top:4px;"/><span id="friendCount"><%= event.friends_in_count(user) %></span> / <img src="http://www.hoos.in/assets/grey_star.png" width="10" style="position:relative;top:4px;" /><%= event.inmates_in_count(user) %>
 			<% end %>

@@ -1,34 +1,99 @@
-Mike
-	API documentation + Mobile Models for Jeff
-	Re-factor API event loading for speed + clarity
-	Prune ins may not be working for canceled ideas (check)
-	"Add Friend" improvement to mobile
-	add 'invite_only?' (event.visiblity == 0)
-		(I created three event methods - open_invite?, friends_only?, and invite_only?
-		so all your event.friends_only? code should work, but we need additions of invite_only? 
-		code to prevent some notifications)
+events have many instances
+  create instance_rsvp button
 
-Adam
+  use delayed jobs on deleting rsvp and instance_rsvp 
+    update invitations friends_in and intros_in
 
-	DreamBank D
+  When rsvp out of event, create Out
+    delete invitation (loosing access to how many friends are going)
+  when rsvp out of instance, create InstanceOut
+    delete instance_invitation
 
-mutual intros
-pagination
+  event#show show instance_rsvps progress bars
 
-	bug:
-		click on face in comment errors
-		make two times for an idea 
-		ignore not removing user ajaxy
-		interested - blue when click
-		edit - make idea one_time
+  event create - rsvp in to event and instance
+    rsvp creation drives invitations and instance_invitations sync
 
+  after relationships are created or destroyed sync invitations and all friends_in, intros_in
+
+
+
+
+  idea happening only once, destroy all times except the first, server and client
+
+  
+  
+
+invitation as polymorphic?
+
+make searching friends work
+
+camelcase user slug
+
+tips in event#new go beyond boring
+events#new not magical any more :o(
+
+user#show path change to events_path(@user)
+
+New Idea tutorial 
+
+@current_city not being set
+rake db:popualte
+
+payment gateway
+
+put comments in right sidebar
+put tab nav on right sidebar
+
+suck out user info, spit it back in
+
+	cache counters
+	User.all.each do |u|
+		u.friends_count = u.friends.count
+		u.intros_count = u.inmates.count
+		u.friended_bys_count = u.friended_bys.count
+		u.save
+	end
+
+  create heroku scheduler rake task remove_over_invites set for every 2 hours
+
+  meetup login and event create
+  facebook pages integration
+
+  recent activity
+
+add phone number and twillio texting
+  send text on comment
+  recieve text scan for event id
+
+change self.digest to use invitations
+
+make comments asynconous 
+
+	.information
+	so-n-so tagged you in an idea
+	so-n-so updated the time on idea
+	so-n-so commented on an idea
+	so-n-so starred you
+	so-n-so created an idea
+
+APP
+
+personal settings/profile
+See times lumped by day
+Sign up through app
+App introduction
+setup mobile json feeds and test
+
+
+bug:
+	click on face in comment errors
+	make two times for an idea 
+	ignore not removing user ajaxy
+	interested - blue when click
+	edit - make idea one_time
+	save facebook picture url
 	
-	facebook pages integration
-	meetup integration
-
-	vote on times
-
-
 	blog outreach
 		- list of realspace social networks
 		- targeted social networks
@@ -62,25 +127,12 @@ pagination
 
 	when creating fb event only join existing if an intros is in
 
-	.intros .invite - 
-		DONE created route, controller method, notifier method, and template
-		email field (need the api link call in the email with the inviter's id)
-		added to send all emails
-		- email not working
-	starred .intro invitations 15
-		hoos.in is for doing things with your real friends
-		.invite 15 of your friends in your city to be your .intros on hoos.in
-	
-	host out stats
-
 	don't destroy users, just mark them as 'unregistered = true' and remove them from any user queries.
 	
 	in all emails make a user's name and picture go to their home page
-	change self.digest to use invitations
-	intros counts are not accurate on digest (event_details)
+	
 	put new inmates into digest
 
-	pass in UID to facebook send dialogue?
 	app request diaglog
 
 
@@ -88,11 +140,7 @@ pagination
 	
 	add face when rsvping
 
-	New Idea tutorial after register
-	create idea -- on-going idea without a time, on-going idea with a time, one-time idea
-
 	refactor EmailInvite code in api code
-
 
 	what are you up to tonight? - if someone views your profile and they are you're .intro shouldn't it show them?
 	check in somewhere on foursquare through hoos.in - creates an idea at that location
@@ -111,22 +159,7 @@ TEACHING USERS:
 
 	put up tips for ideas - how to make a great idea - go beyond boring
 
-	.information
-	so-n-so tagged you in an idea
-	so-n-so updated the time on idea
-	so-n-so commented on an idea
-	so-n-so starred you
-	so-n-so created an idea
-
 	--------------------------------------------------------------
-
-	refactoring -
-		separate Events and Instances
-		create .in! and .interested! calls
-
-http://ichord.github.com/At.js/
-https://github.com/tsechingho/chosen-rails
-
 
 TESTS
 	Signed up through facebook and picked city - redirects to previous_url
@@ -141,9 +174,6 @@ TESTS
 	ignoring
 	re_inmating
 	sent all emails
-
-
-	make comments asynconous 
 	
 	create a user from mobile
 
@@ -268,3 +298,25 @@ add qr tag to reciept create a qr code per rsvp\
 		give the money to whomever we think is more ligit
 
 
+
+
+
+  DONE See one event
+DONE add twitter boostrap
+
+DONE add confirmable
+DONE add back stuff above navbars in index
+
+Add Instances
+  DONE create model
+  DONE add date picker
+
+DONE getter and setter for price stored as pennies
+DONE add complex form elements to events#new to accept associated instances
+DONE add city_id to instances
+
+
+DONE invited to event? invite to all instances
+DONE rsvp self to parent event
+DONE set friends_ and intros_in counts NOT WORKING
+DONE update event#show and event thumbnail to show instances

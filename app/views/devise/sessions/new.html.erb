@@ -1,18 +1,9 @@
 <% provide(:title, " | log.in") %> 
-<div id="sign_in" class="part">
+<div id="sign_in" class="span5 offset4 well">
 	<h2>log.in</h2>
-  <div class="login_facebook">
-    <div id="auth-status">
-        <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login links_fb_btn"></span></a>
-    </div>
-  </div>
-<% if false %>
-  <a href="#" id="pages-auth-loginlink" class="fb-login-button"><span class="btn_fb_login links_fb_btn"></span></a>
-<% end %>
-<div class="or">- or -</div>
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+  <%= f.email_field :email, autofocus: true %></div>
 
   <div><%= f.label :password %><br />
   <%= f.password_field :password %></div>
@@ -25,7 +16,7 @@
   	<div style="float:right;font-size: 13px;"><%= link_to "Forgot your password?", new_password_path(resource_name) %></div>
 	<% end -%>
   </div>
-  <div><%= f.submit "log.in", class: "btn btn-login btn-primary" %></div>
+  <div><%= f.submit "log.in", class: "btn btn-warning btn-block btn-large" %></div>
 
 <% end %>
 

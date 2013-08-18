@@ -5,15 +5,28 @@
 
     <meta name="description" content="An online social calendar">
     <meta name="keywords" content="events, fun, friends">
-    <link rel="shortcut icon" href="/favicon.ico" />
-    
-    <link rel="apple-touch-icon" href="/assets/iphone_icons/57.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="/assets/iphone_icons/72.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="/assets/iphone_icons/114.png" />
-    <link rel="apple-touch-icon-precomposed" href="/assets/iphone_icons/114.png" />
-
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= csrf_meta_tags %>
+
+    <!-- For third-generation iPad with high-resolution Retina display: -->
+    <!-- Size should be 144 x 144 pixels -->
+    <%= favicon_link_tag 'images/iphone_icons/114.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+
+    <!-- For iPhone with high-resolution Retina display: -->
+    <!-- Size should be 114 x 114 pixels -->
+    <%= favicon_link_tag 'images/iphone_icons/114.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+
+    <!-- For first- and second-generation iPad: -->
+    <!-- Size should be 72 x 72 pixels -->
+    <%= favicon_link_tag 'images/iphone_icons/72.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <!-- Size should be 57 x 57 pixels -->
+    <%= favicon_link_tag 'images/iphone_icons/29.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
     <% if @event %>
       <meta property="og:title" content="<%= @event.title %>"/>
@@ -47,50 +60,17 @@
     <span id="shareAfterRsvp"></span>
     <div id='feedback'><a href="mailto:info@hoos.in" target="_blank">.inform us</a></div>
     <%= render 'layouts/header' %>
-    <div class="layout clearfix" id="content">       
-      <%= render 'layouts/alerts' %>
+    <%= render 'layouts/alerts' %>
+    <div class="container">
       <%= yield %>
     </div>
-
+    <%= render 'layouts/footer' %>
+    
     <!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <%= yield :scripts %>
     <%= javascript_include_tag "application" %>
-    
-    <% if user_signed_in? %>
-      <% if params[:controller] == "users" && params[:action] == "show" %>
-        <% if @user == current_user %>
-          <%= coffee_script_tag do %>
-            $.get '/upcoming_times',
-              id: $('#showInmates').attr('data-slug');              
-            $.get '/times',
-              id: $('#showInmates').attr('data-slug'); 
-            $.get '/interesteds',
-              id: $('#showInmates').attr('data-slug'); 
-            $.get '/ins',
-              id: $('#showInmates').attr('data-slug'); 
-            $.get '/intros',
-              id: $('#showInmates').attr('data-slug');               
-          <% end %>
-        <% elsif @user.is_inmates_or_friends_with?(current_user) %>
-          <%= coffee_script_tag do %> 
-            $.get '/upcoming_times',
-              id: $('#showInmates').attr('data-slug'); 
-            $.get '/interesteds',
-              id: $('#showInmates').attr('data-slug'); 
-            $.get '/ins',
-              id: $('#showInmates').attr('data-slug'); 
-           $.get '/intros',
-              id: $('#showInmates').attr('data-slug');              
-          <% end %>      
-        <% else %>
-          <%= coffee_script_tag do %>
-            $.get '/intros',
-              id: $('#showInmates').attr('data-slug');   
-          <% end %>           
-        <% end %>
-      <% end %>
-    <% end %>
+
   </body>
 </html>

@@ -1,1 +1,0 @@
-$('#getInmates').html("<%= escape_javascript(render partial: 'users/get_intros', locals: {:user => @user}) %>");

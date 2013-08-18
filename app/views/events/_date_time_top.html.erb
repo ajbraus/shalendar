@@ -31,13 +31,13 @@
   <% if user_signed_in? %>
     <% if !current_user.rsvpd?(event) %>
       <div id="rsvpForm" class="join_group_buttons">
-        <%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
-          <%= f.hidden_field :plan_id %>
+        <%= form_for(current_user.rsvps.build(event_id: event.id)) do |f| %>
+          <%= f.hidden_field :event_id %>
           <%= f.hidden_field :inout, value: "1" %>
           <%= f.submit "#{event.starts_at.blank? ? '.interested' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
         <% end %>
-        <%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
-          <%= f.hidden_field :plan_id %>
+        <%= form_for(current_user.rsvps.build(event_id: event.id)) do |f| %>
+          <%= f.hidden_field :event_id %>
           <%= f.hidden_field :inout, value: "0" %>
           <%= f.submit "#{event.starts_at.blank? ? 'out' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
         <% end %>
@@ -55,11 +55,11 @@
       <% end %>
         <% if current_user.in?(event) %>
           <span id="flakeOut" class="flakeout">
-            <%= link_to "(flake out)", rsvp_path(current_user.rsvps.find_by_plan_id(event.id)), :method => :delete %></p>
+            <%= link_to "(flake out)", rsvp_path(current_user.rsvps.find_by_event_id(event.id)), :method => :delete %></p>
           </span>
         <% else %>
-          <%= form_for(current_user.rsvps.build(plan_id: event.id)) do |f| %>
-            <%= f.hidden_field :plan_id %>
+          <%= form_for(current_user.rsvps.build(event_id: event.id)) do |f| %>
+            <%= f.hidden_field :event_id %>
             <%= f.hidden_field :inout, value: 1 %>
             <%= f.submit "(join .in)", class: "let_me_in" %>
           <% end %>

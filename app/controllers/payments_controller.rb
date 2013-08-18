@@ -37,20 +37,9 @@ class PaymentsController < ApplicationController
       @user.debits_uri = @account.debits_uri
       @user.credit_card_uri = card_uri
 
-      unless @user.vendor?
-        @user.vendor = true
-      end
-
       @event = Event.find_by_id(params[:id]) if params[:id]
       current_user.rsvp_in!(@event) if @event
 
-      # if @user.vendor?
-      #   if @user.save
-      #     render :js => "window.location = '/collect_payments'"
-      #   else
-      #     format.html { redirect_to :back, notice: 'We could not add your credit card at this time. Please review and try again.' }
-      #   end
-      # else
       if @user.save
         #redirect_to event_url(@event), notice: "You successfully joined this idea"
         if @event
@@ -70,11 +59,7 @@ class PaymentsController < ApplicationController
       #puts ex
       #raise
     end
-
-    unless @user.vendor?
-      @user.vendor = true
-    end
-
+    
     @card = Balanced::Card.find(card_uri)
     @account = Balanced::Card.find(card_uri).account
     @user.account_uri = @account.uri
@@ -83,14 +68,7 @@ class PaymentsController < ApplicationController
 
     @event = Event.find_by_id(params[:id]) if params[:id]
     current_user.rsvp_in!(@event) if @event
-
-    # if @user.vendor?
-    #   if @user.save
-    #     render :js => "window.location = '/collect_payments'"
-    #   else
-    #     format.html { redirect_to :back, notice: 'We could not add your credit card at this time. Please review and try again.' }
-    #   end
-    # else
+    
     if @user.save
       render :js => "window.location = '/'"
     else

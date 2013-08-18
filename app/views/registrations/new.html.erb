@@ -15,7 +15,7 @@
   <%= devise_error_messages! %>
 
   <div><%= f.label :name, "full name*" %><br />
-  <%= f.text_field :name, class: "required", autocomplete: "off" %></div>
+  <%= f.text_field :name, class: "required", autocomplete: "off", autofocus: true %></div>
 
   <div><%= f.label :email, "email*" %><br />
   <%= f.email_field :email, class: "required email", autocomplete: "off" %></div>
@@ -31,8 +31,6 @@
   <%= f.password_field :password, class: "required" %></div>
 
   <div><%= f.check_box :terms, checked: true, class:'required' %><%= link_to "Terms & Privacy", terms_path, :html => { :target => "_blank" } %></div><br/>
-
-  <%= f.hidden_field :vendor, value: false %>
 
   <div><%= f.submit "Sign up", :class => "btn btn-large btn-primary" %></div>
 <% end %>

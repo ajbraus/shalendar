@@ -1,25 +1,18 @@
 <div class="guest_count clearfix">
 	<% if user_signed_in? %>
-		<% if !current_user.in?(event) %>
-		<div style="padding: 10px;">
-			<i class="icon-star friend_star"></i> <span id="friendCount"><%= event.friends_in_count(current_user) %></span>
-			<i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= event.inmates_in_count(current_user) %>
-			<i class="icon-user"></i> <%= event.guest_count %>
-		</div>
-		<% else %>
-			<div class="facepile">
-				<i class="icon-star friend_star"></i> <span id="friendCount"><%= event.friends_in_count(current_user) + 1 %></span> 
-				<span title="<%= current_user.first_name_with_last_initial %>"><%= raster_profile_picture(current_user) %></span>
-				<% event.friends_in(current_user).each do |guest| %>
-					<span title="<%= guest.first_name_with_last_initial %>"><%= raster_profile_picture(guest) %></span>
-				<% end %>
-			</div> 
-			<div class="facepile">
-				<i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= event.inmates_in_count(current_user) %>
-				<% event.inmates_in(current_user).each do |guest| %>
-					<span title="<%= guest.first_name_with_last_initial %>"><%= raster_profile_picture(guest) %></span>
-				<% end %>
-			</div> 
+		<% rsvp = event.rsvps.find_by_guest_id(current_user.id) %>
+		<% invitation = event.invitations.find_by_user_id(current_user.id) %>
+		<% if rsvp.present? %>
+			<div style="padding: 10px;">
+				<i class="icon-star friend_star"></i> <span id="friendCount"><%= rsvp.friends_in %></span>
+				<i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= rsvp.intros_in %>
+			</div>
+		<% elsif invitation.present? %>
+			<div style="padding: 10px;">
+				<i class="icon-star friend_star"></i> <span id="friendCount"><%= invitation.friends_in %></span>
+				<i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= invitation.intros_in %>
+				<i class="icon-user"></i> <%= invitation.randos_in %>
+			</div>
 		<% end %>
 	<% end %>
 </div>

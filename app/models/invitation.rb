@@ -1,9 +1,11 @@
 class Invitation < ActiveRecord::Base
-  attr_accessible :invited_event_id, :invited_user_id
+  attr_accessible :event_id, :user_id, :inviter_id, :friends_in, :intros_in, :randos_in
 
-  belongs_to :invited_user, class_name: "User"
-  belongs_to :invited_event, class_name: "Event"
+  belongs_to :user
+  belongs_to :event
+  belongs_to :inviter, class_name: "User"
 
-  validates :invited_user_id, presence: true
-  validates :invited_event_id, presence: true
+  validates :user_id, presence: true
+  validates :event_id, presence: true
+  validates :inviter_id, presence: true
 end

@@ -60,7 +60,7 @@ before_filter :authenticate_user!
     @inmate.contact_new_inmate(current_user)
     
     respond_to do |format|
-      format.html { redirect_to user_path(@inmate), notice: "You are now friends with #{@inmate.name}" }
+      format.html { redirect_to root_path(id: @inmate.id), notice: "You are now friends with #{@inmate.name}" }
       format.js
     end
   end

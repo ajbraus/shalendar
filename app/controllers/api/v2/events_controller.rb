@@ -17,16 +17,9 @@ class Api::V2::EventsController < ApplicationController
     @finished = false
     @window_size = 7
     
-    #Mikes
-    # @invites = @mobile_user.invited_ideas.where('events.city_id = ?', @mobile_user.city.id).order('created_at DESC').reject { |i| @mobile_user.out?(i) || i.no_relevant_instances?}
-    # @public_ideas = Event.where('city_id = ? AND visibility = ? AND starts_at IS NULL', @mobile_user.city.id, 3)
-    # @ins = @user.plans.where('city_id = ? AND ends_at IS NULL', @mobile_user.city.id)
-    # @invites = (@invites | @public_ideas) - @ins    
-    
-    #ADAM's
     invites_ideas = @mobile_user.invited_ideas.includes(:user).where('events.city_id = ?', @mobile_user.city.id).order("created_at DESC")
-    rsvpd_events = @mobile_user.rsvpd_events.pluck(:plan_id)
-    public_ideas = Event.where('id NOT IN (?) AND city_id = ? AND visibility = ? AND ends_at IS NULL', rsvpd_events, @mobile_user.city.id, 3)
+    plans = @mobile_user.plans.pluck(:event_id)
+    public_ideas = Event.where('id NOT IN (?) AND city_id = ? AND visibility = ? AND ends_at IS NULL', plans, @mobile_user.city.id, 3)
     @invites_ideas = invites_ideas | public_ideas
 
     @events = @invites_ideas #these are just the 'ideas' (times are packed in to json)

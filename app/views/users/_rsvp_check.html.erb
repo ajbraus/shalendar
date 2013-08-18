@@ -1,9 +1,7 @@
 <% if user_signed_in? %>
-	<% if event.ends_at.present? && event.ends_at < Time.zone.now %>
-		<div class="btn-over"></div>
-	<% elsif current_user.in?(event) %>
+	<% if current_user.in?(event) %>
 		<span class="status_icon">
-			<i class="icon-ok blue"></i> <%= event.starts_at.blank? ? '.interested' : '.in' %>
+			<i class="icon-ok blue"></i> .interested
 		</span>
 	<% elsif current_user.out?(event) %>
 		<span class="status_icon">
@@ -11,15 +9,15 @@
 		</span>	
 	<% else %>
 		<% if !current_user.rsvpd?(event) %>	
-			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
-				<%= f.hidden_field :plan_id %>
+			<%= form_for(current_user.rsvps.build(event_id: event.id), remote: true) do |f| %>
+				<%= f.hidden_field :event_id %>
 			  <%= f.hidden_field :inout, value: "0" %>
 			 		<button class="out" name="commit" type="submit">
 						<i class='icon-remove'></i></span>out
 			  	</button>
 			<% end %>	
-			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
-			  <%= f.hidden_field :plan_id %>
+			<%= form_for(current_user.rsvps.build(event_id: event.id), remote: true) do |f| %>
+			  <%= f.hidden_field :event_id %>
 			  <%= f.hidden_field :inout, value: "1" %>
 			 		<button class="in_check fadeInBlue" name="commit" type="submit">
 						<i class='icon-ok'></i><%= event.starts_at.blank? ? '.interested' : '.in' %>

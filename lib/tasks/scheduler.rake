@@ -18,8 +18,9 @@ task :digest => :environment do
 	User.digest
 end
 
-task :mark_one_times_over => :environment do
-	Event.mark_one_times_over
+task :remove_over_invites => :environment do
+  Invitation.remove_overs
+  InstanceInvitations.remove_overs
 end
 
 task :send_reminders => :environment do

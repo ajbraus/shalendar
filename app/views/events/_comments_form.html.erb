@@ -1,12 +1,10 @@
 <div class="comments_form">
 	<%= form_for([@event, @event.comments.build]) do |f| %>
-	  <%= small_profile_picture(current_user) %> <%= f.text_area :content, autocomplete: "off", placeholder:"Chat about this idea with other .ins" %>
-	 	<button class="btn btn-primary" id="new_comment_button" name="commit" type="submit" value="send">
+	  <%= small_profile_picture(current_user) %> 
+	  <%= f.text_area :content, autocomplete: "off", placeholder:"Chat about this idea with other .ins" %>
+	 	<button class="btn btn-primary pull-right margin-top" id="new_comment_button" name="commit" type="submit" value="send">
 	 		<i class="icon-comment"></i>
 	 	</button>
-	 	<% if false %>
-	 	<input type="text" placeholder="tag friends in chat (jim, jane, jack)"></input>
-	 	<% end %>
 	<% end %>
 	<%= render :partial => 'comments/comment', collection: @comments %>
 </div>

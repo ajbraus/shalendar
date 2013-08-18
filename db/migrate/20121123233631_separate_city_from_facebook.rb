@@ -1,19 +1,5 @@
 class SeparateCityFromFacebook < ActiveRecord::Migration
   def change
-  	add_column :users, :city_id, :integer
-    add_column :authentications, :city, :string
-
-    add_column :users, :slug, :string
-    add_index :users, :slug
-
-    # User.find_each(&:save)
-
-    # if City.all.any?
-    #   City.all.each do |c|
-    #     c.destroy
-    #   end
-    # end
-
     City.create(name: "Madison, Wisconsin", timezone: "Central Time (US & Canada)")
     City.create(name: "Chicago, Illinois", timezone: "Central Time (US & Canada)")
     City.create(name: "New York, New York", timezone: "Eastern Time (US & Canada)")
@@ -107,20 +93,6 @@ class SeparateCityFromFacebook < ActiveRecord::Migration
     #     u.save
     # 	end
     # end
-
-    add_column :events, :city_id, :integer
-
-    # if Event.all.any?
-    #   Event.all.each do |e|
-    #     if e.user.nil?
-    #       #do nothing.. hopefully the event is gone
-    #     else
-    #       e.city_id = e.user.city_id
-    #     end
-    #   end
-    # end
-
-    remove_column :users, :city
     
   end
 end

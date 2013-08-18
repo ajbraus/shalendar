@@ -1,16 +1,16 @@
 <div id="search_results">  
-  <table>
-  	<% if @users.empty? %>
-  	<tr>
+	<table>
+		<% if @users.empty? %>
+		<tr>
 				<td>Your search returned no users.</td>
 		</tr>
 		<% else @users.each do |u| %>
 		    <tr>
-		    	<td width="70"><%= link_to user_path(u) do %><%= raster_profile_picture(u) %><% end %></td>
-				  <td width="250"><%= link_to user_path(u) do %><%= u.name %><% end %></td>
+		    	<td width="70"><%= link_to root_path(id: u.id) do %><%= raster_profile_picture(u) %><% end %></td>
+				  <td width="250"><%= link_to root_path(id: u.id) do %><%= u.name %><% end %></td>
 				  <td width="300"><%= render partial: 'shared/user_friends_count', locals: { user: u } %></td>
 				</tr>
 			<% end %>
 		<% end %>
-  </table>
+	</table>
 </div>

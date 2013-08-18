@@ -1,6 +1,6 @@
 <%= div_for comment do %>
   <div class="comment_picture">
-  	<%= link_to user_path(comment.user) do %>
+  	<%= link_to root_path(id: comment.user.id) do %>
   		<%= small_profile_picture(comment.user) %>
   	<% end %>
   </div>
@@ -8,7 +8,7 @@
 		<%= auto_link(comment.content) %>
   </div>
   <div class="comment_data">
-  	<span class="comment_creator"><%= comment.user.first_name_with_last_initial %></span> <br> <span class="comment_created_at"><%= comment.created_at.strftime "%l:%M%P, %a %b %e"%></span>
+  	<span class="comment_created_at"> by <%= comment.user.first_name_with_last_initial %> <%= time_ago_in_words(comment.created_at) %> ago</span>
 		<% if current_user == comment.user %>
 			<%= link_to event_comment_path(@event, comment), :method => :delete, id:"delete_comment" do %>
 				<i class="icon-remove"></i>

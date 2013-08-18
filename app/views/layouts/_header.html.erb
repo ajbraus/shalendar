@@ -1,92 +1,18 @@
-<% if user_signed_in? %>
-  <%  if params[:controller] == 'events' && (params[:action] == 'show' || params[:action] == 'new') %>
-    <header>
-      <%= render 'layouts/logo' %>
-      <nav>
-        <div class="city_name" id="cityName">
-          <%= @current_city.name %> <%= link_to "move", pick_city_path, id:"editCity", style:"display:none;" %>
-        </div>
-        <div class="navigation">
-          <%= render 'shared/friend_search' %>
-          <%= render 'shared/new_idea_button' %>
-        </div>
-      </nav>
-    </header>
-  <% end %>
-<% elsif params[:action] == 'show' || params[:action] == 'landing' %> 
-  <!-- IF NOT SIGNED IN -->
-  <header class="not_signed_in">
-    <div class="instagramFeed">
-      <div class="instagram">
-        <span class="hoosinstagram">#hoosin</span>
-      </div>
-      <div class="message clearfix">
-        <div class="left half-width text-center">
-          <div class="not_signed_in_logo">
-            <%= link_to root_path do %>
-              <%= image_tag "logo_beta.png" %>
-            <% end %>
-          </div>
-          <div class="text_buttons">
-              <%= link_to "more social, less network", "http://blog.hoos.in" %>
-            <div class="not_signed_in_buttons">
-              <span class="buttons">
-              <%= link_to "log.in", new_user_session_path, class:"btn btn-pitch btn-primary" %>
-              <%= link_to new_user_registration_path, class:"btn btn-pitch btn-join" do %>
-                sign up <icon class="icon-double-angle-right"></i>
-              <% end %>
-              </span>
-            </div>
-            <div class="app_stores">
-            <% if false %>
-              <a href="http://www.appszoom.com/android_applications/social/hoosin_dfatz.html"><%= image_tag "email/android_store.png" %></a>
-            <% end %>
-              <a href="http://itunes.com/apps/hoosin"><%= image_tag "email/iphone_store.png" %></a>
-            </div>
-          </div>
-        </div>
-        <div class="right half-width text-center">
-          <a id="fancyboxTrigger" class="iframe hi_video" href="http://api.dmcloud.net/player/embed/5122cd8706361d6a3600001b/5122dae506361d6ae300003f?auth=1676655966-0-h0hcm67q-813e0462310df76e4a03aa85d044e716?iframe"><%= image_tag "video.png" %></a>
-          <div class="fb-like" data-href="http://www.facebook.com/hoosinapp" data-send="false" data-width="250" data-show-faces="true"></div>
-          <% if false %>
-          <strong style="font-size: 22px;">hoos.in is a calendar of shared activities.</strong>
-          <% end %>
+<div class="navbar">
+  <div class="navbar-inner">
+    <%= render 'layouts/logo' %>
+    <% if user_signed_in? %>
+      <div class="text-right">
+        <%= render 'shared/friend_search' %>
+        <div class="city_name pull-right" id="cityName">
+          <%= link_to "move", pick_city_path, id:"editCity", style:"display:none;" %> <%= @current_city.name %>
         </div>
       </div>
-    </div>
-  </header>
-  <% if params[:controller] == "static_pages" %>
-    <div class="connect-box clearfix">
-      <a href="http://www.facebook.com/hoosinapp" target="_blank">
-        <div class="connect facebook">
-          <i class="icon-facebook"></i>
-        </div>
-      </a>
-      <a href="https://www.facebook.com/hoosinapp/app_267091300008193" target="_blank">
-        <div class="connect instagram-circle">
-          <i class="icon-camera-retro"></i>
-        </div>
-      </a>
-      <a href="http://www.twitter.com/hoos_in" target="_blank">
-        <div class="connect twitter">
-          <i class="icon-twitter"></i>
-        </div>
-      </a>
-      <a href="http://blog.hoos.in" target="_blank">
-        <div class="connect blog">
-          <i class="icon-pencil"></i>
-        </div>
-      </a>
-    </div>
-    <div class="press-box">
-      <div class="press">hoos.in the news</div>
-      <ul>
-        <li>
-          <%= link_to "http://host.madison.com/wsj/business/life-after-epic-from-epic-grad-to-entrepreneur/article_3511799e-9e42-11e2-a742-001a4bcf887a.html", target: "_blank" do %>
-            <%= image_tag 'wsj.png' %>
-          <% end %>
-        </li>
-      </ul>
-    </div>
-  <% end %>
-<% end %>
+      <% if current_user.admin? %>
+        <%= link_to admin_dashboard_path, style:"position: relative;bottom: 7px;" do %>
+          <span class="fadeInRed"><i class="icon-magic"></i></span>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

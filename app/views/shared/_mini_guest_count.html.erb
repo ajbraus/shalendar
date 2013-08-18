@@ -1,6 +1,0 @@
-<span class="guest_count_mini">
-	<% if user_signed_in? %>
-		<span id="friendCount"><i class="icon-star friend_star"></i> <%= event.friends_in_count(current_user) %></span> |
-	<% end %>
-	<span id="guestCount"><%= event.guest_count %></span>
-</span>

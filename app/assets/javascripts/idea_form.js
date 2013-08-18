@@ -13,10 +13,10 @@ $(document).ready(function() {
         number: true,
         max: 1000000
       },
-      "event[duration]": {
-        required: true,
-        number: true
-      },
+      // "event[duration]": {
+      //   required: true,
+      //   number: true
+      // },
       "event[link]": {
         maxlength:255
       },

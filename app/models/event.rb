@@ -2,46 +2,43 @@ require 'chronic'
 require 'icalendar'
 
 class Event < ActiveRecord::Base
-  default_scope where(dead: 'f', over: 'f')
-
   belongs_to :user
   belongs_to :city
 
-  has_many :rsvps, foreign_key: "plan_id", dependent: :destroy
-  has_many :guests, through: :rsvps, :conditions => ['inout = ?', 1]
+  has_many :rsvps, dependent: :destroy
+  has_many :guests, through: :rsvps, source: :guest
 
   has_many :comments, dependent: :destroy
   has_many :email_invites, dependent: :destroy
 
-  belongs_to :parent, :foreign_key => "parent_id", :class_name => "Event"
-  has_many :instances, :foreign_key => "parent_id", :class_name => "Event"
+  has_many :invitations, dependent: :destroy
+  has_many :invited_users, through: :invitations, source: :user
+
+  has_many :instances
+  accepts_nested_attributes_for :instances, allow_destroy: true
+  has_many :future_instances
 
   attr_accessible :user_id,
-                  :starts_at, 
-                  :duration,
-                  :ends_at,
                   :title, 
                   :description,
                   :address, 
                   :latitude,
                   :longitude,
-                  :chronic_starts_at,
                   :link,
                   :gmaps,
                   :price,
                   :promo_img,
                   :promo_vid,
                   :promo_url,
-                  :family_friendly,
                   :short_url,
-                  :parent_id,
                   :require_payment,
                   :slug,
                   :city_id,
                   :one_time,
                   :dead,
                   :visibility,
-                  :fb_id
+                  :fb_id,
+                  :instances_attributes
 
   has_attached_file :promo_img, :styles => { :large => '380x520',
                                              :medium => '190x270'},
@@ -57,7 +54,6 @@ class Event < ActiveRecord::Base
   validates :city_id, presence: true if Rails.env.production?
   validates :user_id,
             :title, presence: true
-  validates :duration, numericality: { in: 0..1000 }, allow_blank: true 
   validates :title, length: { maximum: 140 }
   validates_numericality_of :longitude, :latitude, allow_blank:true
   validates :price, :format => { :with => /^\d+??(?:\.\d{0,2})?$/ }, :numericality => {:greater_than => 0}, allow_blank:true
@@ -70,7 +66,8 @@ class Event < ActiveRecord::Base
   
   #@img_url = /^((https?:\/\/)?.*\.*\.*\.(?:png|jpg|jpeg|gif))$/i
   #validates :promo_url, :format => { :with => @img_url }, allow_blank:true
-  
+
+
   extend FriendlyId
   friendly_id :title, use: :slugged  
 
@@ -89,6 +86,23 @@ class Event < ActiveRecord::Base
       :gcnt => self.guest_count,
       :guests => self.guests    
     }
+  end
+
+  def future_instances
+    return self.instances.where('ends_at > ?', Time.zone.now).order('ends_at ASC')
+  end
+
+  def next_instance
+    @future_instances = self.instances.where('ends_at > ?', Time.zone.now).order('ends_at ASC')
+    if @future_instances.empty?
+      return nil
+    else
+      return @future_instances.first
+    end
+  end
+
+  def starts_at
+    next_instance.try(:starts_at)
   end
 
   def url_starts_at
@@ -191,7 +205,7 @@ class Event < ActiveRecord::Base
   end
 
   def friends_and_inmates_in(current_user)
-    (self.guests & current_user.inmates_and_friends)
+    (self.guests & current_user.intros_and_friends)
   end
 
   def friends_invited_count(current_user)
@@ -217,18 +231,10 @@ class Event < ActiveRecord::Base
   end
 
   def has_image?
-    if self.parent.present?
-      if self.parent.promo_url.present?
-        return true
-      elsif self.parent.promo_img.url(:medium) != "/promo_imgs/medium/missing.png"
-        return true
-      end
-    else
-      if self.promo_url.present?
-        return true
-      elsif self.promo_img.url(:medium) != "/promo_imgs/medium/missing.png"
-        return true
-      end
+    if self.promo_url.present?
+      return true
+    elsif self.promo_img.url(:medium) != "/promo_imgs/medium/missing.png"
+      return true
     end
     return false
   end
@@ -279,26 +285,14 @@ class Event < ActiveRecord::Base
   end
 
   def image(size)
-    if self.parent.present?    
-      if self.parent.promo_img_file_size.present?
-        if size == "medium"
-          self.parent.promo_img.url(:medium)
-        else
-          self.parent.promo_img.url(:large)
-        end
-      elsif self.parent.promo_url.present?
-        self.parent.promo_url
+    if self.promo_img_file_size.present?
+      if size == "medium"
+        self.promo_img.url(:medium)
+      else
+        self.promo_img.url(:large)
       end
-    else
-      if self.promo_img_file_size.present?
-        if size == "medium"
-          self.promo_img.url(:medium)
-        else
-          self.promo_img.url(:large)
-        end
-      elsif self.promo_url.present?
-        self.promo_url
-      end
+    elsif self.promo_url.present?
+      self.promo_url
     end
   end
 
@@ -330,21 +324,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def event_parent
-    if self.has_parent?
-      return self.parent
-    end
-    return self
-  end
-
-  def has_parent?
-    return self.parent.present?
-  end
-
-  def is_parent?
-    return self.instances.any?
-  end
-
   def no_relevant_instances?
     @instances = self.instances
     if @instances.present? && self.one_time
@@ -355,27 +334,6 @@ class Event < ActiveRecord::Base
       end
     end
     return false
-  end
-
-  def future_instances
-    @future_instances = self.instances.where('ends_at > ?', Time.zone.now).order('ends_at ASC')
-  end
-
-  def next_instance
-    @future_instances = self.instances.where('ends_at > ?', Time.zone.now).order('ends_at ASC')
-    if @future_instances.empty?
-      return nil
-    else
-      return @future_instances.first
-    end
-  end
-
-  def has_future_instance?
-    return Event.where('parent_id = ? AND ends_at > ?', self.id, Time.zone.now).any?
-  end
-
-  def already_over?
-    return self.ends_at.present? && self.ends_at < Time.zone.now
   end
 
   def three_days_old?
@@ -406,10 +364,6 @@ class Event < ActiveRecord::Base
     else
       return []
     end    
-  end
-
-  def guest_count
-    return self.rsvps.where(inout: 1).count
   end
 
   def outs
@@ -458,6 +412,14 @@ class Event < ActiveRecord::Base
       end
       e.save
     end
+  end
+
+  def price_in_dollars
+    price.to_d/100 if price
+  end
+  
+  def price_in_dollars=(dollars)
+    self.price = dollars.to_d*100 if dollars.present?
   end
 
 # END OF CLASS

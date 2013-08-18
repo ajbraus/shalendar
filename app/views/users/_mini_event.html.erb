@@ -22,13 +22,13 @@
 <% end %>	
 	<% if !current_user.rsvpd?(event) %> <!-- USER IS NOT RSVPD -->
 		<div class="mini_in_out">
-			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
-			  <%= f.hidden_field :plan_id %>
+			<%= form_for(current_user.rsvps.build(event_id: event.id), remote: true) do |f| %>
+			  <%= f.hidden_field :event_id %>
 			  <%= f.hidden_field :inout, value: "0" %>
 			  <%= f.submit "#{event.starts_at.blank? ? 'out' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
 			<% end %>
-			<%= form_for(current_user.rsvps.build(plan_id: event.id), remote: true) do |f| %>
-			  <%= f.hidden_field :plan_id %>
+			<%= form_for(current_user.rsvps.build(event_id: event.id), remote: true) do |f| %>
+			  <%= f.hidden_field :event_id %>
 			  <%= f.hidden_field :inout, value: "1" %>
 			  <%= f.submit "#{event.is_parent? ? '.interested' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
 			<% end %>

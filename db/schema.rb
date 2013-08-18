@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130325192827) do
+ActiveRecord::Schema.define(:version => 20130811212442) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -19,15 +19,6 @@ ActiveRecord::Schema.define(:version => 20130325192827) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
-
-  create_table "apn_device_groupings", :force => true do |t|
-    t.integer "group_id"
-    t.integer "device_id"
-  end
-
-  add_index "apn_device_groupings", ["device_id"], :name => "index_apn_device_groupings_on_device_id"
-  add_index "apn_device_groupings", ["group_id", "device_id"], :name => "index_apn_device_groupings_on_group_id_and_device_id"
-  add_index "apn_device_groupings", ["group_id"], :name => "index_apn_device_groupings_on_group_id"
 
   create_table "apn_devices", :force => true do |t|
     t.string   "token",              :null => false
@@ -52,13 +43,6 @@ ActiveRecord::Schema.define(:version => 20130325192827) do
   end
 
   add_index "apn_group_notifications", ["group_id"], :name => "index_apn_group_notifications_on_group_id"
-
-  create_table "apn_groups", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "app_id"
-  end
 
   create_table "apn_notifications", :force => true do |t|
     t.integer  "device_id",                        :null => false
@@ -90,11 +74,11 @@ ActiveRecord::Schema.define(:version => 20130325192827) do
     t.string   "uid"
     t.string   "token"
     t.string   "secret"
+    t.string   "pic_url"
+    t.string   "city"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "pic_url"
-    t.string   "city"
   end
 
   add_index "authentications", ["uid"], :name => "index_authentications_on_uid", :unique => true
@@ -102,19 +86,19 @@ ActiveRecord::Schema.define(:version => 20130325192827) do
 
   create_table "cities", :force => true do |t|
     t.string   "name"
+    t.string   "timezone"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "timezone"
   end
 
   add_index "cities", ["name"], :name => "index_cities_on_name"
 
   create_table "comments", :force => true do |t|
     t.string   "content"
+    t.integer  "user_id"
     t.integer  "event_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "user_id"
   end
 
   add_index "comments", ["event_id"], :name => "index_comments_on_event_id"
@@ -135,52 +119,31 @@ ActiveRecord::Schema.define(:version => 20130325192827) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
-  create_table "email_invites", :force => true do |t|
-    t.string   "email"
-    t.integer  "event_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "inviter_id"
-    t.string   "message"
-  end
-
-  add_index "email_invites", ["event_id", "email"], :name => "index_invites_on_event_id_and_email", :unique => true
-  add_index "email_invites", ["event_id"], :name => "index_invites_on_event_id"
-
   create_table "events", :force => true do |t|
-    t.datetime "starts_at"
-    t.datetime "ends_at"
     t.string   "title"
+    t.text     "description"
+    t.integer  "price"
+    t.integer  "user_id"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
-    t.integer  "user_id"
-    t.float    "duration"
-    t.integer  "inviter_id",             :default => 0
+    t.integer  "visibility",             :default => 2
     t.string   "link"
     t.string   "address"
     t.float    "longitude"
     t.float    "latitude"
-    t.boolean  "gmaps"
-    t.float    "price"
+    t.boolean  "gmaps",                  :default => false
+    t.string   "slug"
+    t.string   "fb_id"
+    t.boolean  "one_time",               :default => false
+    t.string   "short_url"
+    t.string   "promo_url"
+    t.string   "promo_vid"
+    t.boolean  "require_payment"
+    t.integer  "city_id"
     t.string   "promo_img_file_name"
     t.string   "promo_img_content_type"
     t.integer  "promo_img_file_size"
     t.datetime "promo_img_updated_at"
-    t.string   "promo_url"
-    t.string   "promo_vid"
-    t.boolean  "family_friendly",        :default => false
-    t.integer  "parent_id"
-    t.string   "short_url"
-    t.boolean  "require_payment"
-    t.string   "slug"
-    t.integer  "city_id"
-    t.text     "description"
-    t.boolean  "one_time",               :default => false
-    t.boolean  "dead",                   :default => false
-    t.boolean  "friends_only",           :default => false
-    t.string   "fb_id"
-    t.integer  "visibility",             :default => 2
-    t.boolean  "over",                   :default => false
   end
 
   add_index "events", ["fb_id"], :name => "index_events_on_fb_id"
@@ -208,23 +171,92 @@ ActiveRecord::Schema.define(:version => 20130325192827) do
 
   add_index "gcm_notifications", ["device_id"], :name => "index_gcm_notifications_on_device_id"
 
-  create_table "invitations", :force => true do |t|
-    t.integer  "invited_user_id"
-    t.integer  "invited_event_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+  create_table "instance_invitations", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "instance_id"
+    t.integer  "inviter_id"
+    t.integer  "friends_in",  :default => 0
+    t.integer  "intros_in",   :default => 0
+    t.integer  "randos_in",   :default => 0
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
-  add_index "invitations", ["invited_event_id"], :name => "index_invitations_on_invited_event_id"
-  add_index "invitations", ["invited_user_id", "invited_event_id"], :name => "index_invitations_on_invited_user_id_and_invited_event_id", :unique => true
-  add_index "invitations", ["invited_user_id"], :name => "index_invitations_on_invited_user_id"
+  add_index "instance_invitations", ["instance_id"], :name => "index_instance_invitations_on_instance_id"
+  add_index "instance_invitations", ["inviter_id"], :name => "index_instance_invitations_on_inviter_id"
+  add_index "instance_invitations", ["user_id", "instance_id"], :name => "index_instance_invitations_on_user_id_and_instance_id", :unique => true
+  add_index "instance_invitations", ["user_id"], :name => "index_instance_invitations_on_user_id"
+
+  create_table "instance_outs", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "instance_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "instance_outs", ["instance_id"], :name => "index_instance_outs_on_instance_id"
+  add_index "instance_outs", ["user_id", "instance_id"], :name => "index_instance_outs_on_user_id_and_instance_id", :unique => true
+  add_index "instance_outs", ["user_id"], :name => "index_instance_outs_on_user_id"
+
+  create_table "instance_rsvps", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "instance_id"
+    t.integer  "friends_in",  :default => 0
+    t.integer  "intros_in",   :default => 0
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  add_index "instance_rsvps", ["instance_id"], :name => "index_instance_rsvps_on_instance_id"
+  add_index "instance_rsvps", ["user_id", "instance_id"], :name => "index_instance_rsvps_on_user_id_and_instance_id", :unique => true
+  add_index "instance_rsvps", ["user_id"], :name => "index_instance_rsvps_on_user_id"
+
+  create_table "instances", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "city_id"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.float    "duration"
+    t.boolean  "over",       :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "instances", ["event_id"], :name => "index_instances_on_event_id"
+
+  create_table "invitations", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.integer  "inviter_id"
+    t.integer  "friends_in", :default => 0
+    t.integer  "intros_in",  :default => 0
+    t.integer  "randos_in",  :default => 0
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "invitations", ["event_id"], :name => "index_invitations_on_event_id"
+  add_index "invitations", ["inviter_id"], :name => "index_invitations_on_inviter_id"
+  add_index "invitations", ["user_id", "event_id"], :name => "index_invitations_on_user_id_and_event_id", :unique => true
+  add_index "invitations", ["user_id"], :name => "index_invitations_on_user_id"
+
+  create_table "outs", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "outs", ["event_id"], :name => "index_outs_on_event_id"
+  add_index "outs", ["user_id", "event_id"], :name => "index_outs_on_user_id_and_event_id", :unique => true
+  add_index "outs", ["user_id"], :name => "index_outs_on_user_id"
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
+    t.integer  "status"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.integer  "status"
   end
 
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
@@ -234,16 +266,17 @@ ActiveRecord::Schema.define(:version => 20130325192827) do
 
   create_table "rsvps", :force => true do |t|
     t.integer  "guest_id"
-    t.integer  "plan_id"
+    t.integer  "event_id"
+    t.integer  "friends_in", :default => 0
+    t.integer  "intros_in",  :default => 0
+    t.boolean  "muted",      :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
-    t.integer  "inout"
-    t.boolean  "muted",      :default => false
   end
 
-  add_index "rsvps", ["guest_id", "plan_id"], :name => "index_rsvps_on_guest_id_and_plan_id", :unique => true
+  add_index "rsvps", ["event_id"], :name => "index_rsvps_on_event_id"
+  add_index "rsvps", ["guest_id", "event_id"], :name => "index_rsvps_on_guest_id_and_event_id", :unique => true
   add_index "rsvps", ["guest_id"], :name => "index_rsvps_on_guest_id"
-  add_index "rsvps", ["plan_id"], :name => "index_rsvps_on_plan_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -256,65 +289,56 @@ ActiveRecord::Schema.define(:version => 20130325192827) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                    :default => "",    :null => false
-    t.string   "encrypted_password",       :default => "",    :null => false
+    t.string   "email",                   :default => "",    :null => false
+    t.string   "encrypted_password",      :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",            :default => 0
+    t.integer  "sign_in_count",           :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
     t.string   "authentication_token"
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.boolean  "admin",                   :default => false
     t.string   "name"
-    t.boolean  "terms"
-    t.boolean  "allow_contact",            :default => true
-    t.boolean  "notify_event_reminders",   :default => true
-    t.boolean  "post_to_fb_wall",          :default => false
+    t.boolean  "terms",                   :default => false
+    t.boolean  "allow_contact",           :default => true
+    t.boolean  "follow_up",               :default => true
+    t.boolean  "digest",                  :default => true
+    t.boolean  "notify_event_reminders",  :default => true
     t.string   "APNtoken"
-    t.boolean  "iPhone_user",              :default => false
-    t.integer  "GCMdevice_id",             :default => 0
-    t.boolean  "android_user",             :default => false
+    t.boolean  "iPhone_user",             :default => false
+    t.integer  "GCMdevice_id",            :default => 0
+    t.boolean  "android_user",            :default => false
+    t.string   "slug"
+    t.integer  "friends_count",           :default => 0
+    t.integer  "intros_count",            :default => 0
+    t.integer  "friended_bys_count",      :default => 0
+    t.integer  "city_id"
+    t.boolean  "female"
+    t.datetime "birthday"
+    t.string   "phone_number"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.integer  "new_invited_events_count", :default => 0
-    t.boolean  "vendor",                   :default => false
-    t.boolean  "email_comments",           :default => true
-    t.boolean  "admin",                    :default => false
-    t.integer  "apn_device_id",            :default => 0
-    t.boolean  "digest",                   :default => true
+    t.integer  "apn_device_id",           :default => 0
     t.string   "GCMtoken"
-    t.boolean  "follow_up",                :default => true
-    t.boolean  "female"
-    t.datetime "birthday"
-    t.boolean  "family_filter"
     t.string   "background_file_name"
     t.string   "background_content_type"
     t.integer  "background_file_size"
     t.datetime "background_updated_at"
-    t.string   "type"
-    t.string   "street_address"
-    t.string   "postal_code"
-    t.string   "country"
-    t.string   "phone_number"
-    t.string   "account_uri"
-    t.string   "bank_account_uri"
-    t.string   "credits_uri"
-    t.string   "credit_card_uri"
-    t.string   "debits_uri"
-    t.integer  "city_id"
-    t.string   "slug"
-    t.integer  "friends_count",            :default => 0
-    t.integer  "intros_count",             :default => 0
-    t.integer  "friended_bys_count",       :default => 0
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
+  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["slug"], :name => "index_users_on_slug"

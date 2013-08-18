@@ -249,5 +249,26 @@ class AddMoreCities < ActiveRecord::Migration
 		City.create(name: 'Rialto, California', timezone: 'Pacific Time (US & Canada)')
 		City.create(name: 'Santa Maria, California', timezone: 'Pacific Time (US & Canada)')
 		City.create(name: 'Broken Arrow, Oklahoma', timezone: 'Central Time (US & Canada)')
+
+		City.create(name: 'Sydney, Australia', timezone: 'Sydney')
+		City.create(name: 'Melbourne, Australia', timezone: 'Sydney')
+		City.create(name: 'Brisbane, Australia', timezone: 'Sydney')
+		City.create(name: 'Gold Coast, Australia', timezone: 'Sydney')
+		City.create(name: 'Newcastle, Australia', timezone: 'Sydney')
+		City.create(name: 'Canberra, Australia', timezone: 'Sydney')
+		City.create(name: 'Wollongong, Australia', timezone: 'Sydney')
+		City.create(name: 'Sunshine Coast, Australia', timezone: 'Sydney')
+		City.create(name: 'Hobart, Australia', timezone: 'Sydney')
+		City.create(name: 'Geelong, Australia', timezone: 'Sydney')
+		City.create(name: 'Townsville, Australia', timezone: 'Sydney')
+		City.create(name: 'Cairns, Australia', timezone: 'Sydney')
+		City.create(name: 'Perth, Australia', timezone: 'Hong Kong')
+		City.create(name: 'Adelaide, Australia', timezone: 'Adelaide')
+		City.create(name: 'Darwin, Australia', timezone: 'Adelaide')
+
+		City.create(name: 'Hong Kong, China', timezone: 'Hong Kong')
+		City.create(name: 'Beijing, China', timezone: 'Hong Kong')
+		City.create(name: 'Taipei, Taiwan', timezone: 'Hong Kong')
+		City.create(name: 'Shanghai, China', timezone: 'Hong Kong')
   end
 end

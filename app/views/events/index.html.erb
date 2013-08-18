@@ -1,0 +1,106 @@
+<% provide(:title, " | #{@user.name}" ) %>
+<% if @user.background_file_size.present? %>
+  <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 320px;top: 0px;"></div>
+<% end %>
+
+<%= render 'users/inmates_bar' %>
+<div class="span3">
+  <div class="well clearfix">
+    <% if @user != current_user %>
+      <%= link_to "<< back", root_path, class:"back_link" %>
+    <% end %>
+    <%= large_profile_picture(@user) %>
+    <div class="show_name"><%= @user.name %></div>
+    <% if @user != current_user %>
+      <div class="show_city"><%= @user.city.name %></div>
+    <% end %>
+    <%= render 'users/inmate_or_friend' %>
+    <ul class="profile_stats" id="showInmates" data-slug=<%= @user.slug %>> 
+      <li>
+        <div><i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= @user.inmates.count %> </div>
+        <div>.intros</div>
+      </li>     
+      <li>
+        <div><i class="icon-star friend_star"></i> <span id="friendCount"><%= @user.friends.count %> </div>
+        <div>stars</div>
+      </li>
+      <li>
+        <div><i class="icon-star friend_star"></i> <%= @user.friended_bys.count %></div>
+        <div>starred by</div> 
+      </li>
+    </ul>
+    <%= link_to new_event_path, id: "btnNewIdea", class: 'btn btn-primary' do %>
+      <i class='icon-cloud'></i> New Idea
+    <% end %>
+  </div>
+</div>
+<div class="tabbable tabs-left">
+  <ul class="nav nav-tabs well">
+    <li class="active hover-purple">
+      <a href="#tab1" data-toggle="tab">
+        <i class="icon-cloud"></i><span id="invited_ideas_count"> <%= @invited_ideas.count %></span> ideas</span> <i class="icon-caret-right"></i>
+      </a>
+    </li>
+    <li class="hover-purple">
+      <a href="#tab2" data-toggle="tab">
+        <i class="icon-calendar"></i><span id="invited_times_count"> <%= @invited_times.count %></span> .invites </span>
+      </a>
+    </li>
+    <li class="hover-orange">
+      <a href="#tab3" data-toggle="tab">
+        <i class="icon-cloud"></i><i class="icon-ok"></i><span id="interesteds_count"> <%= @interesteds.count %></span> .interested 
+      </a>
+    </li>
+    <li class="hover-blue">
+      <a href="#tab4" data-toggle="tab">
+        <i class="icon-calendar"></i><i class="icon-ok"></i><span id="ins_count"> <%= @ins.count %></span> .ins 
+      </a>
+    </li>
+    <li class="hover-red">
+      <a href="#tab5" data-toggle="tab">
+        <i class="icon-remove"></i> outs
+      </a>
+    </li>
+    <li class="hover-green">
+      <a href="#tab6" data-toggle="tab">
+        <i class="icon-question-sign"></i> help
+      </a>
+    </li>
+    <li class="hover-light-orange">
+      <%= link_to edit_user_registration_path do %>
+        <i class='icon-cog user_settings'></i> settings
+      <% end %>
+    </li>
+    <li class="hover-red">
+      <%= link_to destroy_user_session_path, :method => :delete do %>
+        <i class='icon-signout logout'></i> logout
+      <% end %>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+      <%= render partial: "users/event", collection: @invited_ideas, as: :event %>
+      <%= will_paginate @invited_ideas, renderer: BootstrapPagination::Rails %>
+    </div>
+    <div class="tab-pane" id="tab2">
+      <%= render partial: "users/event", collection: @invited_times, as: :event %>
+      <%= will_paginate @invites_times, renderer: BootstrapPagination::Rails if @invites %>
+    </div>
+    <div class="tab-pane" id="tab3">
+      <%= render partial: "users/event", collection: @interesteds, as: :event %>
+      <%= will_paginate @interesteds, renderer: BootstrapPagination::Rails if @interesteds %>
+    </div>
+    <div class="tab-pane" id="tab4">
+      <%= render partial: "users/event", collection: @ins, as: :event %>
+      <%= will_paginate @ins, renderer: BootstrapPagination::Rails if @ins %>
+    </div>
+    <div class="tab-pane" id="tab5">
+      <%= render partial: "users/event", collection: @outs, as: :event %>
+      <%= will_paginate @outs, renderer: BootstrapPagination::Rails if @outs %>
+    </div>
+    <div class="tab-pane" id="tab6">
+      <%= render partial: "users/explanation" %>
+    </div>
+  </div>
+</div>

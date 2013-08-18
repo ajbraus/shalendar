@@ -4,7 +4,7 @@ describe Rsvp do
 
   let(:guest) { FactoryGirl.create(:user) }
   let(:plan) { FactoryGirl.create(:event) }
-  let(:rsvp) { guest.rsvps.build(plan_id: plan.id) }
+  let(:rsvp) { guest.rsvps.build(event_id: plan.id) }
 
   subject { rsvp }
 
@@ -26,7 +26,7 @@ describe Rsvp do
   end
 
   describe "when plan id is not present" do
-    before { rsvp.plan_id = nil }
+    before { rsvp.event_id = nil }
     it { should_not be_valid }
   end
 

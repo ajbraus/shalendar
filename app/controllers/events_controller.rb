@@ -1,25 +1,55 @@
  class EventsController < ApplicationController
-  before_filter :authenticate_user!
-  skip_before_filter :authenticate_user!, :only => :show
+  before_filter :authenticate_user!, except: [:show]
 
   require 'active_support/core_ext'
 
   # GET /events
   # GET /events.json
   def index
-    unless current_user.admin?
-      redirect_to root_path
+    if params[:id]
+      @user = User.find(params[:id])
+      
+      #ONLY SHOW EVENTS THEY ARE BOTH INVITED OR RSVPD TO
+      @current_user_invited_ideas = current_user.invited_events.where('city_id = ?', @current_city.id)
+      @current_user_invited_times = current_user.instance_invited_events.where('city_id = ?', @current_city.id).map(&:event)
+      @current_user_interesteds = current_user.plans.where('city_id = ?', @current_city.id)
+      @current_user_ins = current_user.instance_plans.where('city_id = ?', @current_city.id).map(&:event)
+
+      @user_invited_ideas = @user.invited_events.where('city_id = ?', @current_city.id)
+      @user_invited_times = @user.instance_invited_events.where('city_id = ?', @current_city.id).map(&:event)
+      @user_interesteds = @user.plans.where('city_id = ?', @current_city.id)
+      @user_ins = @user.instance_plans.where('city_id = ?', @current_city.id).map(&:event)
+
+      @invited_ideas = (@current_user_invited_ideas & @user_invited_ideas).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
+      @invited_times = (@current_user_invited_times & @user_invited_times).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
+      @interesteds = (@current_user_interesteds & @user_interesteds).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
+      @ins = (@current_user_ins & @user_ins).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
+    else
+      @user = current_user
+
+      @invited_ideas = @user.invited_events.where('city_id = ?', @current_city.id).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
+      @invited_times = @user.instance_invited_events.where('city_id = ?', @current_city.id).map(&:event).paginate(:page => params[:page], :per_page => 10)
+      @interesteds = @user.plans.where('city_id = ?', @current_city.id).paginate(:page => params[:page], :per_page => 10)
+      @ins = @user.instance_plans.where('city_id = ?', @current_city.id).map(&:event).paginate(:page => params[:page], :per_page => 10)
     end
 
-    @events = Event.scoped
-    @events = @events.after(params['start']) if (params['start'])
-    @events = @events.before(params['end']) if (params['end'])
+    #show alert if rescue from errors:
+    if params[:oofta] == 'true'
+      flash.now[:oofta] = "We're sorry, an error occured"
+    end
+    
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @event }
+      format.js # new.js.erb
+    end
   end
 
   # GET /events/new
   # GET /events/new.json
   def new
-    #@event = current_user.events.build
+    @idea = current_user.events.build
+    @instance = @idea.instances.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,54 +71,23 @@
   # POST /events
   # POST /events.json
   def create
-    #datetime datepicker => format Chronic can parse
-    if params[:event][:chronic_starts_at].present? 
-      params[:event][:chronic_starts_at] = params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' ')
-    end
-
     #removing http:// if present
     if params[:event][:link].present?
       params[:event][:link] = params[:event][:link].split("http://")[1]
     end
-
+    
     @event = current_user.events.build(params[:event])
     @event.city = @current_city
-    
-    # if @event.starts_at.present? && @event.duration.present?
-    #   @event.ends_at = @event.starts_at + @event.duration*3600
-    # end
+    @event.instances.each do |i|
+      i.city = @event.city
+    end
     
     if @event.save
       current_user.rsvp_in!(@event)
-      @event.save_shortened_url
-      
-      if @event.starts_at.present? && @event.duration.present?
-        @event.ends_at = @event.starts_at + @event.duration*3600
-        @instance = @event.instances.build(user_id: current_user.id,
-                               city_id: @event.city.id,
-                               title: @event.title,
-                               starts_at: @event.starts_at,
-                               ends_at: @event.ends_at,
-                               duration: @event.duration,
-                               address: @event.address,
-                               link: @event.link,
-                               promo_vid: @event.promo_vid,
-                               visibility: @event.visibility,
-                               one_time: @event.one_time,
-                               family_friendly: @event.family_friendly,
-                               price: @event.price
-                            )
-        if @instance.save
-          @instance.save_shortened_url
-          current_user.rsvp_in!(@instance)
-          
-          #CLEAR PARENT EVENT TIME ATTRIBUTES
-          @event.starts_at = nil
-          @event.ends_at = nil
-          @event.duration = nil
-          @event.save
-        end # END if instance.save
-      end # END If starts_at present
+      @event.instances.each { |i| current_user.instance_rsvp_in!(i) } #INVITATION TO ALL INSTANCES
+      @event.invited_users.each { |g| self.inmate!(g) } #INMATE EACH GUEST
+
+      @event.save_shortened_url if Rails.env.production?
 
       #SEND CONTACT TO ALL PPL WHO STAR CURRENT USER
       unless @event.visibility == 0
@@ -115,63 +114,12 @@
     end
   end
 
-  def create_new_time
-    #datetime datepicker => format Chronic can parse
-    params[:event][:starts_at] = Chronic.parse(params[:event][:chronic_starts_at].split(/\s/)[1,2].join(' '))
-    @parent = Event.find_by_id(params[:event][:parent_id])
-    @event = @parent.instances.build(user_id: current_user.id,
-                           title: @parent.title,
-                           starts_at: params[:event][:starts_at],
-                           ends_at: params[:event][:starts_at] + params[:event][:duration].to_f*3600,
-                           address: params[:event][:address],
-                           duration: params[:event][:duration],
-                           link: @parent.link,
-                           promo_img: @parent.promo_img,
-                           promo_url: @parent.promo_url,
-                           promo_vid: @parent.promo_vid,
-                           family_friendly: @parent.family_friendly,
-                           price: @parent.price,
-                           city_id: @parent.city.id, 
-                           visibility: @parent.visibility
-                           )
-    if @event.save
-      @event.save_shortened_url
-      current_user.rsvp_in!(@event)
-
-      if @parent.guests.any? 
-        @parent.guests.each do |g|
-          g.delay.contact_new_time(@event)
-        end
-      end
-      respond_to do |format|
-        format.html { redirect_to @event.parent, notice: "New Time Posted Successfully" }
-        format.json { render json: @event, status: :created, location: @event }
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to root_path, notice: "An Error Prevented A New Time From Posting" }
-      end
-    end
-  end
-
-
-  def edit_time
-    @event = Event.find_by_slug(params[:event_id])
-    @event_start_time = @event.start_time
-  end
-
   #GET /events/id
   #GET /events/id.json
   def show
     @event = Event.find(params[:id]) #find the event and eager load its guests as well as its comments and the comments' user association
-    @parent = @event.parent
-    if @parent.present? 
-      redirect_to @parent 
-      return
-    end
-
     @comments = @event.comments.order("created_at desc")
-    
+
     respond_to do |format|
       format.js
       format.html

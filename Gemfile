@@ -3,9 +3,8 @@ source 'https://rubygems.org'
 ruby '1.9.3'
 gem 'rails', '3.2.11'
 gem 'will_paginate'
-# gem 'bootstrap-will_paginate', '0.0.6'
+gem 'will_paginate-bootstrap'
 gem 'devise', '2.1.0'
-#gem "omniauth-facebook", "~> 1.4.0"
 gem 'omniauth-facebook', '1.2.0'
 gem 'omniauth-twitter'
 gem 'koala'
@@ -59,6 +58,7 @@ gem "friendly_id", "~> 4.0.1"
 
 group :development, :test do
   gem 'faker', '1.0.1'
+  gem 'populator'
   gem 'rspec-rails', '2.10.1'
   gem 'annotate', '~> 2.4.1.beta'
   gem 'awesome_print'
@@ -81,6 +81,8 @@ end
   gem 'jquery-rails'#, '2.0.0'
   gem 'coffee-rails', '3.2.2'
   gem 'sass-rails',   '3.2.4'
+  gem 'twitter-bootstrap-rails'
+  
   
 group :test do
   gem 'capybara', '1.1.2'

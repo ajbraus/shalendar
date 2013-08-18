@@ -3,12 +3,12 @@
       <%= render  :partial => 'events/follow_form', :locals => { :user => user } %>
   </div>
   <div class="pic">
-    <%= link_to user_path(user) do %>
+    <%= link_to root_path(id: user.id) do %>
       <%= image_tag("#{invite_raster_picture(user)}", class: "profile_picture") %>
     <% end %>
   </div>
   <div class="friend_name">
-    <%= link_to user_path(user) do %>
+    <%= link_to root_path(id: user.id) do %>
         <%= user.name %>
     <% end %>
   </div>

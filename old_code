@@ -647,7 +647,7 @@ we want
 
 @parents = Event.where(one_time: true, starts_at: nil)
 @parents.each do |p|
-  @rsvps = Rsvp.where(plan_id: p.id)
+  @rsvps = Rsvp.where(event_id: p.id)
   @rsvps.each do |r|
     r.destroy
   end
@@ -707,7 +707,7 @@ end
     Event.all.each do |e|
       User.all.each do |u|
         if u.rsvpd?(e)
-          @invitation = u.invitations.find_by_invited_event_id(e.id)
+          @invitation = u.invitations.find_by_event_id(e.id)
           if @invitation.present?
             @invitation.destroy
           end
@@ -729,7 +729,7 @@ end
   Event.all.each do |e|
     User.all.each do |u|
       if u.rsvpd?(e)
-        @invitation = u.invitations.find_by_invited_event_id(e.id)
+        @invitation = u.invitations.find_by_event_id(e.id)
         if @invitation.present?
           @invitation.destroy
         end
@@ -743,7 +743,7 @@ end
 
 
 fixing outs 
-  updating user.rsvpd_events in user.rb
+  updating user.plans in user.rb
   plucking event.id from this to remove rsvpd events
 - run the following fix
 
@@ -778,3 +778,55 @@ City.create(name: "Toronto, Canada", timezone: "Central Time (US & Canada)")
       end
     end
   end
+
+
+  $(document).ready(function() {
+    $('.idea_container').imagesLoaded( function(){
+      $('.idea_container').masonry({
+        itemSelector : '.event',
+        // column_width: 100,
+        isFitWidth: true,
+        isAnimated: true,
+        animationOptions: {
+        duration: 50,
+        // cornerStampSelector: '.suggested_friends'
+        }
+      });
+    });
+  });
+
+  
+  <% if user_signed_in? %>
+    <% if params[:controller] == "users" && params[:action] == "show" %>
+      <% if @user == current_user %>
+        <%= coffee_script_tag do %>
+          $.get '/upcoming_times',
+            id: $('#showInmates').attr('data-slug');              
+          $.get '/times',
+            id: $('#showInmates').attr('data-slug'); 
+          $.get '/interesteds',
+            id: $('#showInmates').attr('data-slug'); 
+          $.get '/ins',
+            id: $('#showInmates').attr('data-slug'); 
+          $.get '/intros',
+            id: $('#showInmates').attr('data-slug');               
+        <% end %>
+      <% elsif @user.is_inmates_or_friends_with?(current_user) %>
+        <%= coffee_script_tag do %> 
+          $.get '/upcoming_times',
+            id: $('#showInmates').attr('data-slug'); 
+          $.get '/interesteds',
+            id: $('#showInmates').attr('data-slug'); 
+          $.get '/ins',
+            id: $('#showInmates').attr('data-slug'); 
+         $.get '/intros',
+            id: $('#showInmates').attr('data-slug');              
+        <% end %>      
+      <% else %>
+        <%= coffee_script_tag do %>
+          $.get '/intros',
+            id: $('#showInmates').attr('data-slug');   
+        <% end %>           
+      <% end %>
+    <% end %>
+  <% end %>

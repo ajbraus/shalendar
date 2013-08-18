@@ -63,7 +63,7 @@
           });
         </script>
       <% end %>
-  <% elsif event.has_future_instance? %>
+  <% elsif event.future_instances.any? %>
     <ul class="social_buttons">
       <li>
         <%= render partial: 'social/twitter', locals: { :event => @event } %>
@@ -105,13 +105,13 @@
 
     <% if !current_user.rsvpd?(@next_instance) %>
       <div class="rsvp_to_time clearfix">
-        <%= form_for(current_user.rsvps.build(plan_id: @next_instance.id), remote: true) do |f| %>
-          <%= f.hidden_field :plan_id %>
+        <%= form_for(current_user.rsvps.build(event_id: @next_instance.id), remote: true) do |f| %>
+          <%= f.hidden_field :event_id %>
           <%= f.hidden_field :inout, value: "1" %>
           <%= f.submit "#{@next_instance.is_parent? ? '.into' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
         <% end %>
-        <%= form_for(current_user.rsvps.build(plan_id: @next_instance.id), remote: true) do |f| %>
-          <%= f.hidden_field :plan_id %>
+        <%= form_for(current_user.rsvps.build(event_id: @next_instance.id), remote: true) do |f| %>
+          <%= f.hidden_field :event_id %>
           <%= f.hidden_field :inout, value: "0" %>
           <%= f.submit "#{@next_instance.is_parent? ? 'nah' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
         <% end %>

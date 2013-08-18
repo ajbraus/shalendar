@@ -3,6 +3,7 @@ class City < ActiveRecord::Base
 
   has_many :users
   has_many :events
+  has_many :instances
   
   default_scope :order => 'name'
   # has_attached_file :icon, :styles => { :original => '380x520',

@@ -1,32 +1,11 @@
-<% if user_signed_in? %>
-	<div class="event shield
-		<% if event.ends_at.present? %>
-			time
-			<%= event.ends_at < Time.zone.now ? ' over' : '' %>
-		<% else %>
-			idea
-		<% end %>"
-		data-event-id='<%= event.id %>'>
-<% elsif @user.present? %>
-	<div class="event shield 
-		<% if event.starts_at.present? %>
-			<%= event.ends_at < Time.zone.now ? 'over' : '' %>
-		<% end %>
-		">
-<% end %>
-<%= link_to event_path(event) do %>
+<div class="event shield idea" data-event-id='<%= event.id %>'>
+	<%= link_to event_path(event) do %>
 		<% if user_signed_in? %>
 			<div class="shield_top">
 				<div class="rsvp_check">
 					<%= render :partial => "users/rsvp_check", :locals => { :event => event } %>
 				</div>
 			</div>
-			<% if event.starts_at.present? %>
-				<%= render partial: 'events/time', locals: { :event => event } %>
-			<% else %>
-				<%= render partial: 'events/time', collection: event.future_instances, as: :event %>
-			<% end %>
-
 		<% end %>
 
 			<div class="promo_img">
@@ -41,7 +20,7 @@
 				<% if user_signed_in? %>
 					<% if current_user.is_friends_with?(event.user) %>
 						<i class="icon-star" style="color:gold;"></i>
-					<% elsif current_user.is_inmates_with?(event.user) %>
+					<% elsif current_user.is_intros_with?(event.user) %>
 						<i class="icon-star" style="color:lightgrey;"></i>
 					<% end %>
 				<% end %>
@@ -51,13 +30,10 @@
 <% end %>
 
 	<% if user_signed_in? %>
+	<%= render partial: 'events/time', collection: event.future_instances, as: :instance %>
 		<div id="timeStatus">
 		<% if event.one_time? %>
 			<div class="add_time">one time idea</div>
-		<% elsif current_user.in?(event) && !event.one_time? && !event.public? %>
-			<%= link_to event_new_time_path(event) do %>
-				<div class="add_time fadeInGreen"><i class="icon-time"></i> suggest new time</div>
-			<% end %>
 		<% end %>
 		</div>
 	<% end %>

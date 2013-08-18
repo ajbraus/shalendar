@@ -32,7 +32,6 @@ private
         @user.add_fb_to_inmates(session[:graph])
         @user.add_fb_events(session[:graph])
       end
-      #@user.convert_email_invites
 
       sign_in_and_redirect @user, :event => :authentication
     else

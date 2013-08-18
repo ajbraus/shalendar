@@ -1,0 +1,78 @@
+<!-- IF NOT SIGNED IN -->
+<div class="instagramFeed">
+  <div class="instagram">
+    <span class="hoosinstagram">#hoosin</span>
+  </div>
+</div>
+  <div class="span11 offset1 text-center">
+    <div class='row-fluid message'>
+      <div class="span5">
+          <p>
+            <%= link_to root_path do %>
+              <%= image_tag "logo_beta.png", class:"not_signed_in_logo" %>
+            <% end %>
+          </p>
+          <p>
+            <%= link_to "more social, less network", "http://blog.hoos.in" %>
+            <div id="auth-status">
+                <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn btn-facebook btn-large"><i class="icon-facebook"></i> log.in w Facebook</span></a>
+            </div>
+          </p>
+          <p class="text-center">- or -</p>
+        <p>  
+          <%= link_to "log.in", new_user_session_path, class:"" %> | 
+          <%= link_to "sign up", new_user_registration_path, class:"" %> w email
+        </p>
+        <p class="clear-both">
+        <% if false %>
+          <a href="http://www.appszoom.com/android_applications/social/hoosin_dfatz.html"><%= image_tag "email/android_store.png" %></a>
+        <% end %>
+          <a href="http://itunes.com/apps/hoosin">
+            <%= image_tag "email/iphone_store.png", class:'span5' %>
+          </a>
+        </p>
+      </div>
+      <div class="span5">
+        <a id="fancyboxTrigger" class="iframe hi_video" href="http://api.dmcloud.net/player/embed/5122cd8706361d6a3600001b/5122dae506361d6ae300003f?auth=1676655966-0-h0hcm67q-813e0462310df76e4a03aa85d044e716?iframe"><%= image_tag "video.png" %></a>
+        <div class="fb-like" data-href="http://www.facebook.com/hoosinapp" data-send="false" data-width="250" data-show-faces="true"></div>
+        <% if false %>
+        <strong style="font-size: 22px;">hoos.in is a calendar of shared activities.</strong>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="span6 offset3 clearfix">
+    <a href="http://www.facebook.com/hoosinapp" target="_blank">
+      <div class="connect facebook">
+        <i class="icon-facebook"></i>
+      </div>
+    </a>
+    <a href="https://www.facebook.com/hoosinapp/app_267091300008193" target="_blank">
+      <div class="connect instagram-circle">
+        <i class="icon-camera-retro"></i>
+      </div>
+    </a>
+    <a href="http://www.twitter.com/hoos_in" target="_blank">
+      <div class="connect twitter">
+        <i class="icon-twitter"></i>
+      </div>
+    </a>
+    <a href="http://blog.hoos.in" target="_blank">
+      <div class="connect blog">
+        <i class="icon-pencil"></i>
+      </div>
+    </a>
+  </div>
+  <div class="press-box">
+    <div class="press">hoos.in the news</div>
+    <ul>
+      <li>
+        <%= link_to "http://host.madison.com/wsj/business/life-after-epic-from-epic-grad-to-entrepreneur/article_3511799e-9e42-11e2-a742-001a4bcf887a.html", target: "_blank" do %>
+          <%= image_tag 'wsj.png' %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>

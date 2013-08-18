@@ -1,7 +1,7 @@
 Shalendar::Application.routes.draw do
 
   authenticated :user do
-    root :to => 'users#show'
+    root :to => 'events#index'
   end
 
   root :to => 'static_pages#landing'
@@ -56,18 +56,15 @@ Shalendar::Application.routes.draw do
   match '/intros', to: 'users#get_intros', as: 'get_intros'
 
 
-  resources :events, path: "ideas", only: [:create, :destroy, :update, :edit, :new, :show, :new_time, :create_new_time, :edit_time] do #:index,
-    get :edit_time
-    get :new_time
-    put :update
-    post :create_new_time
+  resources :events, path: "ideas" do #:index,
     resources :comments, only: [:create, :destroy]
     resources :email_invites, only: [:create, :destroy]
+    resources :instances, only: [:create, :destroy]
   end
 
-  match '/new_idea', :to => 'events#new', :as => 'new_idea'
-
+  resource :instance_rsvps, only: [:create, :destroy]
   resources :rsvps, only: [:create, :destroy]
+
   resources :relationships, only: [:create, :destroy, :toggle, :comfirm] do
     put :toggle
     delete :ignore

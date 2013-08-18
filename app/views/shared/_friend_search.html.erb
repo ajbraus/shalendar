@@ -1,21 +1,6 @@
-<div id="view_search" class="user_search">
-<% if false %>
-    <div class="fb-icon" id="jrFbIcon">
-    <% if session[:access_token] %>
-      <%= link_to find_friends_path, :remote => true, class: "find_friends fancybox.ajax" do %>
-        <%= image_tag "social/fb.png", :width => "20", title: "Find Friends through Facebook" %>
-      <% end %>
-    <% else %>
-      <div class="fb_button" title="add Facebook to Find Friends">
-        <div id="auth-status">
-          <a href="#" id="auth-loginlink" class="fb-login-button" ><%= image_tag "social/fb.png", :width => "30" %></a>
-          </div>
-      </div>
-    <% end %>
-  </div>
-<% end %>
-<%= form_tag({:controller => 'users', :action => 'search'}, {id: 'search_form', remote: true }) do %>
-  <%= text_field_tag :search, params[:search], id: "user_search_field", placeholder:"Search for friends...", autocomplete: "off" %>
-  <input type="submit" id="btn_user_search" class="fa-input btn-user-search" value="&#xf002;">
-<% end %> 
+<div id="view_search">
+  <%= form_tag({:controller => 'users', :action => 'search'}, {id: 'search_form', remote: true }) do %>
+    <%= text_field_tag :search, params[:search], id: "user_search_field", placeholder:"Search for friends...", autocomplete: "off" %>
+    <input type="submit" id="btn_user_search" class="fa-input btn btn-primary" value="&#xf002;">
+  <% end %> 
 </div>

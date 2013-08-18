@@ -14,8 +14,6 @@ class RegistrationsController < Devise::RegistrationsController
     end
     build_resource
     if resource.save
-      resource.convert_email_invites
-
       @hoosin_user = User.find_by_email("info@hoos.in")
       if @hoosin_user.present?
         resource.inmate!(@hoosin_user)

@@ -5,6 +5,8 @@ class CreateAuthentications < ActiveRecord::Migration
       t.string :uid
       t.string :token
       t.string :secret
+      t.string :pic_url
+      t.string :city
       t.references :user
 
       t.timestamps

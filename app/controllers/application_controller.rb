@@ -33,12 +33,10 @@ class ApplicationController < ActionController::Base
     if session[:previous_urls].present? 
       @url = session[:previous_urls].reverse.first
 
-      if current_user.sign_in_count == 1 && current_user.vendor == true
-        new_card_path
-      elsif @url.present? && Rails.env.production?
+      if @url.present? && Rails.env.production?
         "http://www.hoos.in" + @url
-      elsif @url.present?
-        "http://www.hoos.dev" + @url
+      # elsif @url.present?
+      #   "http://www.hoos.dev" + @url
       else
         root_path
       end
@@ -79,10 +77,8 @@ class ApplicationController < ActionController::Base
 
   def check_venue_card
     if user_signed_in?
-      if current_user.vendor?
-        if !current_user.has_valid_credit_card? && current_user.sign_in_count != 1
-          flash[:notice] = "Our records show you must update your credit card data"
-        end
+      if !current_user.has_valid_credit_card? && current_user.sign_in_count != 1
+        flash[:notice] = "Our records show you must update your credit card data"
       end
     end
   end

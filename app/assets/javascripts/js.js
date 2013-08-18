@@ -1,15 +1,15 @@
 $(document).ready(function() {
-// REMOVE ALERT 
-$("div.alert").delay(6000).fadeOut(400);
+  // REMOVE ALERT 
+  $("div.alert").delay(6000).fadeOut(400);
 
-$('#fb_invite_img').click(function(){
-  $('#ajaxLoader').toggle();
-  $('#hi_invite_img').removeClass('box');
-  //$('#fb_invite_img').addClass('box');
-  $('#hiFriends').toggle(); 
-})
+  $('#fb_invite_img').click(function(){
+    $('#ajaxLoader').toggle();
+    $('#hi_invite_img').removeClass('box');
+    //$('#fb_invite_img').addClass('box');
+    $('#hiFriends').toggle(); 
+  })
 
-// NEW INVITED EVENTS
+  // NEW INVITED EVENTS
 
   if ( $('#new_invited_events_count').text() == 0 ) {
     $('#new_invited_events_count').hide();
