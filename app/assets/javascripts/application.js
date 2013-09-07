@@ -15,7 +15,4 @@
 //= require twitter/bootstrap
 //= require highcharts
 //= require jquery-ui
-//= require masonry/jquery.masonry
-//= require masonry/jquery.imagesloaded.min
-//= require masonry/modernizr-transitions
 //= require_tree
