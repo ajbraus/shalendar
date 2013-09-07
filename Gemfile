@@ -8,6 +8,7 @@ gem 'omniauth-facebook', '1.2.0'
 gem 'koala'
 gem 'thin'
 gem 'chronic' 
+
 #gem 'twilio-rb'
 #gem 'phony_rails'
 #gem 'useragent'
@@ -48,6 +49,8 @@ gem 'icalendar'
 gem 'bitly'
 gem "friendly_id", "~> 4.0.1"
 
+
+#ASSET GEMS
 gem 'sass-rails',   '3.2.4'
 gem 'font-awesome-sass-rails'
 gem 'jquery-ui-rails'
@@ -88,4 +91,5 @@ group :test do
   gem 'rb-fsevent', '~> 0.9.1'
 end
 
+gem 'rails_12factor', group: :production
 
