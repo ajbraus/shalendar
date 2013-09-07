@@ -11,8 +11,7 @@ Stripe payment gateway
 Mobile .json server & serializer
 Add payment gateway
 	add account at price in event#form (require payment?)
-
-add kickstarter payments - pay and get rewards
+	add kickstarter payments - pay 10$ ticket, 20$ t-shirt. 
 
 events have many instances
   event#show show instance_rsvps progress bars
@@ -88,8 +87,6 @@ make comments asynconous
 	so-n-so starred you
 	so-n-so created an idea
 
-
-
 APP
 
 personal settings/profile
@@ -99,8 +96,6 @@ App introduction
 setup mobile json feeds and test
 
 .interested in idea => prompted to .in some of the times
-
-
 
 bug:
 	click on face in comment errors
