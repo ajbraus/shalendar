@@ -1,5 +1,6 @@
 <div class="navbar">
-  <div class="navbar-inner">
+  <div class="navbar-inner clearfix">
+    <div class="container">
     <%= render 'layouts/logo' %>
     <% if user_signed_in? %>
       <div class="text-right">
@@ -13,6 +14,12 @@
           <span class="fadeInRed"><i class="icon-magic"></i></span>
         <% end %>
       <% end %>
+    <% else %>
+    <div class="pull-right iphone-android">
+      <%= image_tag "email/iphone_store.png", width:130 %>
+      <%= image_tag "email/android_store.png", width:130 %>
+    </div>
     <% end %>
+    </div>
   </div>
 </div>

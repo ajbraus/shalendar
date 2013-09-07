@@ -1,7 +1,12 @@
-Meetup API
+flatten all buttons
+remove all dropshadows
+make all ideas same size in grid
+
 Homepage working 
 	ajax loading sidebar navigation
 	infinite scrolling
+
+Meetup API
 Stripe payment gateway
 Mobile .json server & serializer
 
@@ -332,3 +337,5 @@ DONE event create - rsvp in to event and instance
 DONE make searching friends work
 
 DONE user#show path change to events_path(@user)
+
+DONE update to new boostrap

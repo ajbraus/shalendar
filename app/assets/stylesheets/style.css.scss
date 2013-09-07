@@ -21,26 +21,6 @@ text-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
   }
 }
 
-footer {
-text-align: center;
-bottom: 0px;
-left: 0px;
-background: #fffbfd;
-padding: 22px;
-color: #68615d;
-height: 19px;
-
-a {
-  color:$headerText;
-}
-  ul {
-    display: inline;
-    li {
-      display: inline;
-    }
-  }
-}
-
 ul {
   text-decoration: none;
 }
@@ -68,32 +48,28 @@ textarea:focus, input:focus {
   outline: none;
 }
 
-.container {
-  min-height: 580px;
-}
-
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
   margin:10px 0 10px 0;
+  font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
 }
 
 h1 {
-  font-size: 2.3em;
-  letter-spacing: -2px;
+  font-size: 40px;
   text-align: center;
   position: relative;
+  letter-spacing: 1px;
+  margin-bottom:35px;
 }
 
 h2 {
-  font-size: 1.7em;
-  letter-spacing: -1px;
-margin-top: 10px;
-margin-bottom: 20px;
-  text-align: center;
+  margin-top: 20px;
   font-weight: normal;
-  color: #999;
+  margin-bottom: 15px;
+  text-align: center;
+  color: black;
 }
 
 h3 {
@@ -267,19 +243,34 @@ position: absolute;
   }
 }
 
+.navbar {
+  margin-bottom:0;
+  border:none;
+}
+
+.navbar-inner {
+  height:83px;
+  background: white;
+  background-image:none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  border:none;
+  padding-top: 10px;
+}
+
 /*HEADER NOT SIGNED IN*/
-  .message {
-position: relative;
-background-color: rgba(250, 250, 250, 0.85);
+.message {
+  background-color: rgba(250, 250, 250, 0.85);
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;
-bottom:370px;
-padding: 20px;
-
+  padding: 20px;
 }
 
 .instagramFeed {
+  position: absolute;
+  top: 40px;
   span {
     color:white;
     font-weight: bold;
@@ -2867,25 +2858,22 @@ min-height: 20px;
 }
 
 .connect-box {
-border-top: 1px solid $divider;
-clear: both;
-width: 428px;
-margin: 0 auto;
-position: relative;
-top: 20px;
+  margin: 0 auto;
+  width: 27%;
+  margin-bottom:10px;
 }
 
 .connect {
-width: 95px;
-float: left;
-text-align: center;
-padding: 28px 0;
-border-radius: 100px;
-margin: 0px 6px;
-margin-top: 20px;
-color: white;
+  width: 55px;
+  float: left;
+  text-align: center;
+  padding: 14px 0;
+  border-radius: 100px;
+  margin: 0px 6px;
+  margin-top: 20px;
+  color: white;
   i {
-    font-size: 35px;
+    font-size: 24px;
   }
 }
 
@@ -3099,7 +3087,6 @@ bottom: 5px;
 }
 
 .press-box {
-  border-top: 1px solid #d1cdcd;
   clear: both;
   width: 80%;
   margin: 0 auto;
@@ -3135,9 +3122,26 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c4000000', e
   text-align: center;
   padding: 30px 0;
   margin-top: 70px;
-  border-top: 1px solid #e5e5e5;
-  background-color: #f5f5f5;  
+  background-color: #f5f5f5;
+  text-align: left;
+  bottom: 0px;
+  left: 0px;
+  background: white;
+  padding: 22px;
+  color: #68615d;
+  height: 100px;
+  letter-spacing: 1px;
+  a {
+    color:$headerText;
+  }
+    ul {
+      display: inline;
+      li {
+        display: inline;
+      }
+    }
 }
+
 
 .btn-facebook {
    background-color: hsl(218, 63%, 35%) !important;
@@ -3220,4 +3224,69 @@ box-shadow: -2px 2px 0 rgba(0, 0, 0, 0.1);
 .nav-tabs {
   clear:left;
   margin-left:20px;
+}
+
+.white-background {
+  background: white;
+}
+
+.flat-input {
+  border: none !important;
+  border-bottom: 1px solid black !important;
+  border-radius: 0 !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  -o-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.muted {
+  color: #ADACAC;
+}
+
+.hi-video {
+  .connect-box {
+    margin: 0 auto;
+    width: 40%;
+    margin-bottom:10px;
+  }
+}
+
+.hi-blerb {
+  margin: 0 auto;
+  width: 30%;
+  margin-bottom:10px;
+  text-align: left;
+}
+
+.columns {
+  margin: 20px auto 10px auto;
+  text-align: left;
+  line-height: 21px;
+   width:650px;
+   height:180px;
+   -webkit-column-count: 3;
+      -moz-column-count: 3;
+           column-count: 3;
+  -webkit-column-gap: 10px;
+     -moz-column-gap: 10px;
+          column-gap: 10px; 
+}
+
+.no-column {
+  margin: 10px auto 20px auto;
+  text-align: left;
+  padding:0 10px;
+}
+
+.iphone-android {
+  padding-top:5px;
+}
+
+.indent {
+  margin-left:9px;
+}
+
+.btn {
+  border:none !important;
 }

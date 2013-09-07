@@ -1,6 +1,6 @@
 	$(function(){
 	  var
-	    insta_container = $(".instagram")
+	    insta_container = $("#instagramFeed")
 	  , insta_next_url
 
 	  insta_container.instagram({

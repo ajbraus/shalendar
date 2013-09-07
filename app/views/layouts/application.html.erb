@@ -6,6 +6,7 @@
     <meta name="description" content="An online social calendar">
     <meta name="keywords" content="events, fun, friends">
     <%= stylesheet_link_tag    "application", media: "all" %>
+    
     <%= csrf_meta_tags %>
 
     <!-- For third-generation iPad with high-resolution Retina display: -->
@@ -58,12 +59,12 @@
     <%= render 'shared/get_time_zone_offset' %>
     <%= render 'layouts/fb_script' %> 
     <span id="shareAfterRsvp"></span>
+  <% if false %>
     <div id='feedback'><a href="mailto:info@hoos.in" target="_blank">.inform us</a></div>
+  <% end %>
     <%= render 'layouts/header' %>
     <%= render 'layouts/alerts' %>
-    <div class="container">
-      <%= yield %>
-    </div>
+    <%= yield %>
     <%= render 'layouts/footer' %>
     
     <!-- Javascripts

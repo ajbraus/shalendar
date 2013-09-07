@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 ruby '1.9.3'
 gem 'rails', '3.2.11'
 gem 'will_paginate'
-gem 'will_paginate-bootstrap'
 gem 'devise', '2.1.0'
 gem 'omniauth-facebook', '1.2.0'
 gem 'omniauth-twitter'
@@ -62,8 +61,16 @@ group :development, :test do
   gem 'rspec-rails', '2.10.1'
   gem 'annotate', '~> 2.4.1.beta'
   gem 'awesome_print'
-  gem 'vcr'
-  gem 'database_cleaner'
+  # Gems used only for assets and not required
+  gem 'uglifier', '1.2.3'
+  gem 'font-awesome-sass-rails'
+  gem 'jquery-ui-rails'
+  gem 'jquery-rails'#, '2.0.0'
+  gem 'coffee-rails', '3.2.2'
+  gem 'sass-rails',   '3.2.4'
+  gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
+                            :github => 'anjlab/bootstrap-rails',
+                            :branch => '3.0.0'
 end
 
 group :development do
@@ -72,17 +79,6 @@ group :development do
   gem 'taps'
   gem 'sqlite3'
 end
-
-# Gems used only for assets and not required
-# in production environments by default.
-  gem 'uglifier', '1.2.3'
-  gem 'font-awesome-sass-rails'
-  gem 'jquery-ui-rails'
-  gem 'jquery-rails'#, '2.0.0'
-  gem 'coffee-rails', '3.2.2'
-  gem 'sass-rails',   '3.2.4'
-  gem 'twitter-bootstrap-rails'
-  
   
 group :test do
   gem 'capybara', '1.1.2'

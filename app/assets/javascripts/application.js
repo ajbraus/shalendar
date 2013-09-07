@@ -15,7 +15,6 @@
 //= require twitter/bootstrap
 //= require highcharts
 //= require jquery-ui
-//= require fancybox
 //= require masonry/jquery.masonry
 //= require masonry/jquery.imagesloaded.min
 //= require masonry/modernizr-transitions
