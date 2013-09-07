@@ -63,13 +63,13 @@ group :development, :test do
   gem 'awesome_print'
   # Gems used only for assets and not required
   gem 'uglifier', '1.2.3'
-  gem 'font-awesome-sass-rails'
-  gem 'jquery-ui-rails'
-  gem 'jquery-rails'#, '2.0.0'
   gem 'coffee-rails', '3.2.2'
   gem 'sass-rails',   '3.2.4'
 end
 
+gem 'font-awesome-sass-rails'
+gem 'jquery-ui-rails'
+gem 'jquery-rails'#, '2.0.0'
 gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
                           :github => 'anjlab/bootstrap-rails',
                           :branch => '3.0.0'
