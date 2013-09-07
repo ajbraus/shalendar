@@ -610,8 +610,8 @@ class User < ActiveRecord::Base
   end
 
   def credit!(user, amount)
-    bank_account = Balanced::BankAccount.find(user.bank_account_uri)
-    bank_account.credit(amount)
+    # bank_account = Balanced::BankAccount.find(user.bank_account_uri)
+    # bank_account.credit(amount)
   end
 
   def refund!(amount)
