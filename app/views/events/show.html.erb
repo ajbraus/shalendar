@@ -60,6 +60,7 @@
         <div>
           <%= fi.nice_starts_at %>
           <%= link_to "x", event_instance_path(@event, fi), :method => :delete, id:"deleteInstance" %> 
+          <%= render partial: 'instance_rsvps/form', locals: { instance: fi } %>
         </div>
         <% end %>
       </div>

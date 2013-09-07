@@ -1,7 +1,20 @@
-events have many instances
-  create instance_rsvp button
+Meetup API
+Homepage working 
+	ajax loading sidebar navigation
+	infinite scrolling
+Stripe payment gateway
+Mobile .json server & serializer
 
-  use delayed jobs on deleting rsvp and instance_rsvp 
+
+events have many instances
+  event#show show instance_rsvps progress bars
+  create instance_rsvp button in event#show
+
+  delete invitation after rsvp - if rsvpd => NO INVITATION
+
+  separate .invited_times into their own lil' shields
+
+  use delayed jobs on deleting rsvp and instance_rsvp
     update invitations friends_in and intros_in
 
   When rsvp out of event, create Out
@@ -9,36 +22,28 @@ events have many instances
   when rsvp out of instance, create InstanceOut
     delete instance_invitation
 
-  event#show show instance_rsvps progress bars
-
-  event create - rsvp in to event and instance
-    rsvp creation drives invitations and instance_invitations sync
-
   after relationships are created or destroyed sync invitations and all friends_in, intros_in
 
-
-
-
   idea happening only once, destroy all times except the first, server and client
-
-  
   
 
 invitation as polymorphic?
+rsvp as polymorphic? (better code, slower queries)
 
-make searching friends work
+
+  meetup login and event create
+  facebook pages integration
+
 
 camelcase user slug
 
 tips in event#new go beyond boring
-events#new not magical any more :o(
+events#new not magical any more :o( (New Idea tutorial )
 
-user#show path change to events_path(@user)
-
-New Idea tutorial 
 
 @current_city not being set
-rake db:popualte
+
+rake db:popualte - relationships
 
 payment gateway
 
@@ -57,9 +62,6 @@ suck out user info, spit it back in
 
   create heroku scheduler rake task remove_over_invites set for every 2 hours
 
-  meetup login and event create
-  facebook pages integration
-
   recent activity
 
 add phone number and twillio texting
@@ -77,6 +79,8 @@ make comments asynconous
 	so-n-so starred you
 	so-n-so created an idea
 
+
+
 APP
 
 personal settings/profile
@@ -84,6 +88,9 @@ See times lumped by day
 Sign up through app
 App introduction
 setup mobile json feeds and test
+
+.interested in idea => prompted to .in some of the times
+
 
 
 bug:
@@ -320,3 +327,8 @@ DONE invited to event? invite to all instances
 DONE rsvp self to parent event
 DONE set friends_ and intros_in counts NOT WORKING
 DONE update event#show and event thumbnail to show instances
+DONE event create - rsvp in to event and instance
+
+DONE make searching friends work
+
+DONE user#show path change to events_path(@user)

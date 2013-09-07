@@ -1,28 +1,24 @@
-<% if user_signed_in? %>
+<% if !current_user.rsvpd?(event) %>	
+	<%= form_for(current_user.rsvps.build(event_id: event.id), remote: true) do |f| %>
+		<%= f.hidden_field :event_id %>
+	 		<button class="out" name="commit" type="submit">
+				<i class='icon-remove'></i></span>out
+	  	</button>
+	<% end %>	
+	<%= form_for(current_user.rsvps.build(event_id: event.id), remote: true) do |f| %>
+	  <%= f.hidden_field :event_id %>
+	 		<button class="in_check fadeInBlue" name="commit" type="submit">
+				<i class='icon-ok'></i><%= event.starts_at.blank? ? '.interested' : '.in' %>
+	  	</button>
+	<% end %>	
+<% else %>
 	<% if current_user.in?(event) %>
 		<span class="status_icon">
 			<i class="icon-ok blue"></i> .interested
 		</span>
-	<% elsif current_user.out?(event) %>
+	<% else %>
 		<span class="status_icon">
 			<i class="icon-remove red"></i> out
 		</span>	
-	<% else %>
-		<% if !current_user.rsvpd?(event) %>	
-			<%= form_for(current_user.rsvps.build(event_id: event.id), remote: true) do |f| %>
-				<%= f.hidden_field :event_id %>
-			  <%= f.hidden_field :inout, value: "0" %>
-			 		<button class="out" name="commit" type="submit">
-						<i class='icon-remove'></i></span>out
-			  	</button>
-			<% end %>	
-			<%= form_for(current_user.rsvps.build(event_id: event.id), remote: true) do |f| %>
-			  <%= f.hidden_field :event_id %>
-			  <%= f.hidden_field :inout, value: "1" %>
-			 		<button class="in_check fadeInBlue" name="commit" type="submit">
-						<i class='icon-ok'></i><%= event.starts_at.blank? ? '.interested' : '.in' %>
-			  	</button>
-			<% end %>	
-		<% end %>
 	<% end %>
 <% end %>

@@ -8,6 +8,9 @@ class Instance < ActiveRecord::Base
   has_many :instance_invitations
   has_many :invited_users, through: :instance_invitations, source: :user
 
+  has_many :instance_outs
+  has_many :outted_users, through: :instance_outs, source: :user
+
   attr_accessible :duration, :over, :starts_at, :ends_at, :chronic_starts_at
 
   validates :duration, :starts_at, presence: true

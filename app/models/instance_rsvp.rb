@@ -1,5 +1,5 @@
 class InstanceRsvp < ActiveRecord::Base
-  attr_accessible :instance_id, :friends_in, :intros_in
+  attr_accessible :instance_id, :friends_in, :intros_in, :user_id
 
   belongs_to :user
   belongs_to :instance

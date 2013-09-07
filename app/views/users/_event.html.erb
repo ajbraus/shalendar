@@ -1,13 +1,10 @@
 <div class="event shield idea" data-event-id='<%= event.id %>'>
+	<div class="shield_top">
+		<div class="rsvp_check">
+			<%= render :partial => "users/rsvp_check", :locals => { :event => event } %>
+		</div>
+	</div>
 	<%= link_to event_path(event) do %>
-		<% if user_signed_in? %>
-			<div class="shield_top">
-				<div class="rsvp_check">
-					<%= render :partial => "users/rsvp_check", :locals => { :event => event } %>
-				</div>
-			</div>
-		<% end %>
-
 			<div class="promo_img">
 				<div class="event_blerb black-to-transparent">
 					<div class="title"> <%= raw(event.visibility_icon) %><%= event.title %></div>

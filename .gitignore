@@ -28,3 +28,5 @@
 /config/s3.yml
 
 /vendor/cache/*
+
+/.rvmrc

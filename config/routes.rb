@@ -63,6 +63,7 @@ Shalendar::Application.routes.draw do
   end
 
   resource :instance_rsvps, only: [:create, :destroy]
+  resource :instance_outs, only: [:create, :destroy]
   resources :rsvps, only: [:create, :destroy]
 
   resources :relationships, only: [:create, :destroy, :toggle, :comfirm] do

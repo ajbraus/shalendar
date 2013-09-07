@@ -7,29 +7,31 @@
   <div class="span11 offset1 text-center">
     <div class='row-fluid message'>
       <div class="span5">
-          <p>
-            <%= link_to root_path do %>
-              <%= image_tag "logo_beta.png", class:"not_signed_in_logo" %>
-            <% end %>
-          </p>
-          <p>
-            <%= link_to "more social, less network", "http://blog.hoos.in" %>
-            <div id="auth-status">
-                <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn btn-facebook btn-large"><i class="icon-facebook"></i> log.in w Facebook</span></a>
-            </div>
-          </p>
-          <p class="text-center">- or -</p>
+        <p>
+          <%= link_to root_path do %>
+            <%= image_tag "logo_beta.png", class:"not_signed_in_logo" %>
+          <% end %>
+        </p>
+        <% if false %>
+        <p>
+          <%= link_to "more social, less network", "http://blog.hoos.in" %>
+          <div id="auth-status">
+              <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn btn-facebook btn-large"><i class="icon-facebook"></i> log.in w Facebook</span></a>
+          </div>
+        </p>
+        <p class="text-center">- or -</p>
         <p>  
           <%= link_to "log.in", new_user_session_path, class:"" %> | 
           <%= link_to "sign up", new_user_registration_path, class:"" %> w email
         </p>
+        <% end %>
         <p class="clear-both">
         <% if false %>
           <a href="http://www.appszoom.com/android_applications/social/hoosin_dfatz.html"><%= image_tag "email/android_store.png" %></a>
-        <% end %>
           <a href="http://itunes.com/apps/hoosin">
             <%= image_tag "email/iphone_store.png", class:'span5' %>
           </a>
+        <% end %>
         </p>
       </div>
       <div class="span5">
