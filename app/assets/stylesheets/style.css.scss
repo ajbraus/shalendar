@@ -1,3 +1,5 @@
+
+
 @import "font-awesome";
 
 @import "colors";
@@ -75,6 +77,10 @@ h2 {
 h3 {
 line-height: 27px;
 font-size: 22px;
+}
+
+h4 {
+  font-weight:normal;
 }
 
 p {
@@ -2860,7 +2866,8 @@ min-height: 20px;
 .connect-box {
   margin: 0 auto;
   width: 27%;
-  margin-bottom:10px;
+  margin-bottom: 10px;
+  margin-top: 80px;
 }
 
 .connect {
@@ -2870,7 +2877,6 @@ min-height: 20px;
   padding: 14px 0;
   border-radius: 100px;
   margin: 0px 6px;
-  margin-top: 20px;
   color: white;
   i {
     font-size: 24px;
@@ -3087,14 +3093,7 @@ bottom: 5px;
 }
 
 .press-box {
-  clear: both;
-  width: 80%;
-  margin: 0 auto;
-  position: relative;
-  top: 50px;
-  img {
-    width: 310px;
-  }
+  margin-top:40px;
 }
 
 .press {
@@ -3121,7 +3120,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c4000000', e
 .footer {
   text-align: center;
   padding: 30px 0;
-  margin-top: 70px;
+  margin-top: 60px;
   background-color: #f5f5f5;
   text-align: left;
   bottom: 0px;
@@ -3238,6 +3237,16 @@ box-shadow: -2px 2px 0 rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: none !important;
   -o-box-shadow: none !important;
   box-shadow: none !important;
+  text-align: center !important;
+}
+
+.mailchimp-form {
+  width:400px;
+  margin:0 auto;
+  .btn {
+    float:right;
+    width:50px;
+  }
 }
 
 .muted {
@@ -3263,8 +3272,8 @@ box-shadow: -2px 2px 0 rgba(0, 0, 0, 0.1);
   margin: 20px auto 10px auto;
   text-align: left;
   line-height: 21px;
-   width:650px;
-   height:180px;
+   width:675px;
+   height:200px;
    -webkit-column-count: 3;
       -moz-column-count: 3;
            column-count: 3;
@@ -3289,4 +3298,11 @@ box-shadow: -2px 2px 0 rgba(0, 0, 0, 0.1);
 
 .btn {
   border:none !important;
+}
+
+ul.inline {
+  display: inline;
+  li {
+    display:inline;
+  }
 }
