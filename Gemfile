@@ -68,10 +68,11 @@ group :development, :test do
   gem 'jquery-rails'#, '2.0.0'
   gem 'coffee-rails', '3.2.2'
   gem 'sass-rails',   '3.2.4'
-  gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
-                            :github => 'anjlab/bootstrap-rails',
-                            :branch => '3.0.0'
 end
+
+gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
+                          :github => 'anjlab/bootstrap-rails',
+                          :branch => '3.0.0'
 
 group :development do
   gem 'meta_request'
