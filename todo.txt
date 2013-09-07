@@ -9,7 +9,10 @@ Homepage working
 Meetup API
 Stripe payment gateway
 Mobile .json server & serializer
+Add payment gateway
+	add account at price in event#form (require payment?)
 
+add kickstarter payments - pay and get rewards
 
 events have many instances
   event#show show instance_rsvps progress bars
