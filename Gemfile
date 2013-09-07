@@ -13,17 +13,14 @@ gem 'twilio-rb'
 gem 'phony_rails'
 gem 'useragent'
 gem "fancybox-rails", "~> 0.2.1"
-gem "masonry-rails"
 #gem 'jquery-lazy-images'
-
-#gem "eventmachine" #fixing bug in staging
-#gem "multi_json", "~> 1.6"
 
 # gem 'apn_sender', :require => 'apn'
 # gem 'daemons-rails'
 # gem 'resque', "~> 1.22.0", :require => "resque/server"
 # gem 'resque-heroku-autoscaler'
 # gem 'redis'
+
 gem 'configatron'
 gem 'apn_on_rails', :git => "https://github.com/PRX/apn_on_rails.git"
 gem 'gcm_on_rails', :git => "git://github.com/dondeng/gcm_on_rails.git"
@@ -41,6 +38,7 @@ gem 'pry-remote', :group => :development
 gem 'powder', :group => :development
 gem 'powify', :group => :development
 # gem "recaptcha", :require => "recaptcha/rails"
+
 gem 'pg'
 gem "sendgrid", "~> 1.0.1"
 gem "rails_autolink", "~> 1.0.9"
@@ -48,6 +46,7 @@ gem "paperclip", "~> 3.0"
 gem 'aws-sdk', '~> 1.3.4'
 gem 'coffeebeans'
 gem 'lazy_high_charts'
+
 #gem "rqrcode", "~> 0.4.2"
 gem 'icalendar'
 gem 'bloggy', '0.1.1'
@@ -64,9 +63,9 @@ group :development, :test do
   # Gems used only for assets and not required
   gem 'uglifier', '1.2.3'
   gem 'coffee-rails', '3.2.2'
-  gem 'sass-rails',   '3.2.4'
 end
 
+gem 'sass-rails',   '3.2.4'
 gem 'font-awesome-sass-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-rails'#, '2.0.0'

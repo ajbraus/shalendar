@@ -228,8 +228,6 @@ GEM
       treetop (~> 1.4.8)
     maruku (0.6.1)
       syntax (>= 1.0.0)
-    masonry-rails (0.2.0)
-      rails
     meta_request (0.2.7)
       callsite
       rack-contrib
@@ -445,7 +443,6 @@ DEPENDENCIES
   jquery-ui-rails
   koala
   lazy_high_charts
-  masonry-rails
   meta_request
   newrelic_rpm
   omniauth-facebook (= 1.2.0)
