@@ -1,3 +1,5 @@
+make rsvps, invitations, and outs polymorphic
+
 flatten all buttons
 remove all dropshadows
 make all ideas same size in grid

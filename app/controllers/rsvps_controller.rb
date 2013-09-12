@@ -29,4 +29,20 @@ class RsvpsController < ApplicationController
       format.js
     end
   end
+
+  private
+
+  def load_rsvpable
+    resource, id = request.path.split('/')[1, 2]
+    @commentable = resource.singularize.classify.constantize.find(id)
+  end
+
+  def find_rsvpable
+    params.each do |name, value|
+      if name =~ /(.+)_id$/
+        return $1.classify.constantize.find(value)
+      end
+    end
+    nil
+  end
 end

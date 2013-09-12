@@ -33,5 +33,4 @@ class InstancesController < ApplicationController
       end
     end
   end
-
 end

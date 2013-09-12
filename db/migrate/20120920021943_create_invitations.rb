@@ -7,11 +7,14 @@ class CreateInvitations < ActiveRecord::Migration
       t.integer :friends_in, default: 0
       t.integer :intros_in, default: 0
       t.integer :randos_in, default: 0
+      t.integer :invitationable_id
+      t.string :invitationable_type
 
 
       t.timestamps
     end
 
+    add_index :invitations, :invitationable_id
     add_index :invitations, :user_id
     add_index :invitations, :event_id
     add_index :invitations, [:user_id, :event_id], unique: true

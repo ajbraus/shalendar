@@ -6,10 +6,13 @@ class CreateRsvps < ActiveRecord::Migration
       t.integer :friends_in, default: 0
       t.integer :intros_in, default: 0
       t.boolean :muted, default:false
+      t.integer :rsvpable_id
+      t.string :rsvpable_type
 
       t.timestamps
     end
 
+   add_index :rsvps, :rsvpable_id
    add_index :rsvps, :guest_id
    add_index :rsvps, :event_id
    add_index :rsvps, [:guest_id, :event_id], unique: true

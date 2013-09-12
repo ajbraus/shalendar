@@ -2,7 +2,7 @@ class Rsvp < ActiveRecord::Base
   attr_accessible :event_id, :muted, :friends_in, :intros_in
 
   belongs_to :guest, class_name: "User"
-  belongs_to :event
+  belongs_to :rsvpable, polymorphic: true
 
   validates :guest_id, presence: true
   validates :event_id, presence: true
