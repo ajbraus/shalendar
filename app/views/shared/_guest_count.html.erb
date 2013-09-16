@@ -1,17 +1,17 @@
 <div class="guest_count clearfix">
 	<% if user_signed_in? %>
 		<% rsvp = event.rsvps.find_by_guest_id(current_user.id) %>
-		<% invitation = event.invitations.find_by_user_id(current_user.id) %>
+		<% invite = event.invites.find_by_invitee_id(current_user.id) %>
 		<% if rsvp.present? %>
 			<div style="padding: 10px;">
 				<i class="icon-star friend_star"></i> <span id="friendCount"><%= rsvp.friends_in %></span>
 				<i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= rsvp.intros_in %>
 			</div>
-		<% elsif invitation.present? %>
+		<% elsif invite.present? %>
 			<div style="padding: 10px;">
-				<i class="icon-star friend_star"></i> <span id="friendCount"><%= invitation.friends_in %></span>
-				<i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= invitation.intros_in %>
-				<i class="icon-user"></i> <%= invitation.randos_in %>
+				<i class="icon-star friend_star"></i> <span id="friendCount"><%= invite.friends_in %></span>
+				<i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= invite.intros_in %>
+				<i class="icon-user"></i> <%= invite.randos_in %>
 			</div>
 		<% end %>
 	<% end %>

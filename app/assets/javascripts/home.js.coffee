@@ -17,16 +17,16 @@ $.fn.toggleIdeas = (container, path) ->
     $('.idea_container').masonry('reload')
 
 
-# $.fn.buildCalendar = () ->
-# 	date = $(@).data('date')
-# 	event = $('.mini_event').withDate("#{date}")
-# 	$(@).append(event);
+$.fn.buildCalendar = () ->
+	date = $(@).data('date')
+	event = $('.instance').withDate("#{date}")
+	$(@).append(event);
 
 $ ->
 
-#build calendar
-	# $('.day_container').each ->
-	# 	$(@).buildCalendar();
+	# build calendar
+	$('.day-container').each ->
+		$(@).buildCalendar();
 
 	$('#showInvitedIdeas').click ->
 		$('.open').hide();

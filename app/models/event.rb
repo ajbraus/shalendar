@@ -5,18 +5,18 @@ class Event < ActiveRecord::Base
   belongs_to :user
   belongs_to :city
 
-  has_many :rsvps, dependent: :destroy
+  has_many :rsvps, as: :rsvpable, dependent: :destroy
   has_many :guests, through: :rsvps, source: :guest
+
+  has_many :invites, as: :inviteable, dependent: :destroy
+  has_many :invited_users, through: :invites, source: :invitee, class_name: "User"
 
   has_many :comments, dependent: :destroy
   has_many :email_invites, dependent: :destroy
 
-  has_many :invitations, dependent: :destroy
-  has_many :invited_users, through: :invitations, source: :user
-
-  has_many :instances
+  has_many :instances, dependent: :destroy
+  
   accepts_nested_attributes_for :instances, allow_destroy: true
-  has_many :future_instances
 
   attr_accessible :user_id,
                   :title, 
@@ -111,54 +111,6 @@ class Event < ActiveRecord::Base
 
   def url_ends_at
     self.ends_at.utc.strftime "%Y%m%d" + "T" + "%H%M%S" + "Z"
-  end
-
-  def start_time
-    if starts_at.present?
-      self.starts_at.strftime "%A %B %e, %l:%M%P"
-    else
-      "TBD"
-    end
-  end
-
-  def start_date_time
-    if self.starts_at.present?
-      self.starts_at.strftime "%A %B %e, %l:%M%P"
-    else
-      "TBD"
-    end
-  end
-
-  def start_time_no_date
-    if self.starts_at.present?
-      self.starts_at.strftime "%l:%M%P"
-    else
-      "TBD"
-    end
-  end
-
-  def mini_start_date_time
-    if starts_at.present?
-      self.starts_at.strftime "%a %-m/%e, %l:%M%P"
-    else
-      "TBD"
-    end
-  end
-  
-  def mini_start_time
-    if starts_at.present?
-      self.starts_at.strftime "%l:%M%P"
-    else
-      "TBD"
-    end
-  end
-  
-  def start_date
-    if starts_at.present?
-      self.starts_at.strftime "%A, %B %e"
-    else
-      "TBD"
-    end
   end
 
   def self.format_date(date_time)

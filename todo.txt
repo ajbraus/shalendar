@@ -1,64 +1,81 @@
-make rsvps, invitations, and outs polymorphic
+create ajax calls for events and instances (ajax call removes all instances from calendar and adds the new ones)
+Mobile .json server & serializer
+	http://railscasts.com/episodes/409-active-model-serializers
 
-flatten all buttons
-remove all dropshadows
-make all ideas same size in grid
+infinite scrolling
 
-Homepage working 
-	ajax loading sidebar navigation
-	infinite scrolling
+RSVP to an event
+Create a new user
+view other user's events
+inmate the other user
+Join the other user events
+star other user
+
+create public event
+add public ideas to queries
+
+create one-time idea
+
+event#show show instance_rsvps progress bars
+create instance_rsvp button in event#show
+
+show facepile - replace friends_in count with association
+
+delete invitation after rsvp - if rsvpd => NO INVITATION
+
+use delayed jobs on deleting rsvp and instance_rsvp
+  update invites friends_in and intros_in
+  update rsvps friends_in and intros_in and randos_in
+
+When rsvp out of event, create Out
+  delete invitation (loosing access to how many friends are going)
+  track friends_in, intros_in, and randos_in on outs?
+when rsvp out of instance, create Out
+  delete invitation (loosing access to how many friends are going)
+  track friends_in, intros_in, and randos_in on outs?
+
+after relationships are created or destroyed sync invites and all friends_in, intros_in, randos_in on events and future instances
+
+How do we deal with "stale" ideas? They get pushed down - idea/interested sorts "popular" (#of friends_in), "activity" (last_touched), "newest" (recently created)
+
+when you inmate! create invites to all events and instances your rsvpd to.
+
+create 'overs' - instances in the past in shield view (.map(&:event))
+scope invited_intances to the future
+
+Digest
+  change self.digest to use invites
+  make digest email beautiful
+
+	change background button in profile
+
+make emails fucking beautiful and simple as shit
+	grey line on right side of logo in email
+
+exclusivity - private launch - you get 10 .invites to join hoos.in
+
+add phone number and twillio texting 
+	index on phone number
+  send text on comment - attach link
+  create a new twillio number every time it first needs to send messages
+  reply to text is parsed and added as a comment and sent out again
+  recieve text messages boolean on person
+  mute conversation on rsvp
+
+collect demographics
+
+promoted idea
+promoted invite
 
 Meetup API
-Stripe payment gateway
-Mobile .json server & serializer
+facebook pages API
+
 Add payment gateway
 	add account at price in event#form (require payment?)
 	add kickstarter payments - pay 10$ ticket, 20$ t-shirt. 
 
-events have many instances
-  event#show show instance_rsvps progress bars
-  create instance_rsvp button in event#show
-
-  delete invitation after rsvp - if rsvpd => NO INVITATION
-
-  create calendar view of rsvp_instances and invitation_instances
-  	table with 4 rows of 7 squares
-
-  use delayed jobs on deleting rsvp and instance_rsvp
-    update invitations friends_in and intros_in
-
-  When rsvp out of event, create Out
-    delete invitation (loosing access to how many friends are going)
-  when rsvp out of instance, create InstanceOut
-    delete instance_invitation
-
-  after relationships are created or destroyed sync invitations and all friends_in, intros_in
-
-  idea happening only once, destroy all times except the first, server and client
-  
-
-invitation as polymorphic?
-rsvp as polymorphic? (better code, slower queries)
-
-
-  meetup login and event create
-  facebook pages integration
-
-
-camelcase user slug
-
 tips in event#new go beyond boring
 events#new not magical any more :o( (New Idea tutorial )
-
-
-@current_city not being set
-
-rake db:popualte - relationships
-
-payment gateway
-
-put comments in right sidebar
-put tab nav on right sidebar
 
 suck out user info, spit it back in
 
@@ -70,17 +87,12 @@ suck out user info, spit it back in
 		u.save
 	end
 
-  create heroku scheduler rake task remove_over_invites set for every 2 hours
-
-  recent activity
-
-add phone number and twillio texting
-  send text on comment
-  recieve text scan for event id
-
-change self.digest to use invitations
+make event#create work
+put up tips for ideas - how to make a great idea - go beyond boring
 
 make comments asynconous 
+
+  public activity
 
 	.information
 	so-n-so tagged you in an idea
@@ -88,6 +100,15 @@ make comments asynconous
 	so-n-so commented on an idea
 	so-n-so starred you
 	so-n-so created an idea
+
+HI SDK
+Send idea global unique identifier
+Check if any inmates are in on the idea's identifier
+If yes in them on the most socially relevant
+Else have them create a duplicate of the idea
+
+Rsvp - checked_in? boolean with mobile api to check in.
+	sends message to folks that you checked in
 
 APP
 
@@ -126,8 +147,6 @@ bug:
 
 ----------------------------------------------------------------------
 
-	meetup signin/events
-
 	fb page signin/events
 		add your facebook pages ideas to hoos.in
 		added link with 'manage_pages' permissions
@@ -149,28 +168,11 @@ bug:
 	app request diaglog
 
 
-	hi SDK
-	
-	add face when rsvping
-
 	refactor EmailInvite code in api code
 
 	what are you up to tonight? - if someone views your profile and they are you're .intro shouldn't it show them?
 	check in somewhere on foursquare through hoos.in - creates an idea at that location
 
-HI SDK
-Send idea global unique identifier
-Check if any inmates are in on the idea's identifier
-If yes in them on the most socially relevant
-Else have them create a duplicate of the idea
-
-TEACHING USERS:
-
-	tutorial to create your first idea when you start
-
-	Email invitations to be .intros
-
-	put up tips for ideas - how to make a great idea - go beyond boring
 
 	--------------------------------------------------------------
 
@@ -199,14 +201,13 @@ TESTS
 NOTIFIERS:
 	add stats to digest
 	
-	personalize emails / invitations
+	personalize emails / invites
 
 	cancel message - out notification/message
 
 	in invite email display next time if exists
 
 	facepile on email
-
 
 
 --------------------------------------------------------------
@@ -216,10 +217,6 @@ NICE BUT NOT NEEDED
 	sort another person's friends by if they are inmates with current user
 
 	cancellation message
-
-	grey line on right side of logo in email
-
-	change background button in profile
 
 	refresh button
 
@@ -234,12 +231,6 @@ NICE BUT NOT NEEDED
 	add shortener - https://github.com/jpmcgrath/shortener
 
 	add <span>&#9733;</span> (star html symbol to title)
-
-	add change background picture from profile
-
-	add mute button to rsvp to avoid chatter
-
-	Rsvp - checked_in? boolean with mobile api to check in.
 
 
 PAYMENTS
@@ -311,7 +302,7 @@ add qr tag to reciept create a qr code per rsvp\
 		give the money to whomever we think is more ligit
 
 
-
+----------------------------------------------------------------
 
 
   DONE See one event
@@ -342,3 +333,14 @@ DONE user#show path change to events_path(@user)
 DONE update to new boostrap
 
 DONE redo landing page
+
+DONE make rsvps, invites, and outs polymorphic
+http://stackoverflow.com/questions/5886738/setting-up-a-polymorphic-has-many-through-relationship
+http://railscasts.com/episodes/154-polymorphic-association-revised?view=asciicast
+
+
+
+flatten all buttons
+remove all dropshadows
+
+DONE create calendar view of rsvp_instances and invitation_instances

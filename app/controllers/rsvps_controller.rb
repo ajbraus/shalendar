@@ -17,7 +17,7 @@ class RsvpsController < ApplicationController
     @rsvp.destroy
     if @event.instances.any?
       @event.instances.each do |i|
-        @instance_rsvps = i.instance_rsvps.where(:user_id => current_user.id)
+        @instance_rsvps = i.rsvps.where(:user_id => current_user.id, rsvpable_type: "Instance")
         @instance_rsvps.each do |r| 
           r.destroy
         end

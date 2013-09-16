@@ -1,19 +1,17 @@
 class Instance < ActiveRecord::Base
+  attr_accessible :duration, :over, :starts_at, :ends_at, :chronic_starts_at
+  validates :duration, :starts_at, presence: true
+
   belongs_to :event
   belongs_to :city
   
-  has_many :instance_rsvps
-  has_many :guests, through: :instance_rsvps, source: :user
+  has_many :rsvps, as: :rsvpable
+  has_many :guests, through: :rsvps, source: :guest
 
-  has_many :instance_invitations
-  has_many :invited_users, through: :instance_invitations, source: :user
+  has_many :invites, as: :inviteable
+  has_many :invitees, through: :invites, source: :invitee
 
-  has_many :instance_outs
-  has_many :outted_users, through: :instance_outs, source: :user
-
-  attr_accessible :duration, :over, :starts_at, :ends_at, :chronic_starts_at
-
-  validates :duration, :starts_at, presence: true
+  has_many :outs, as: :outable
 
   before_create :set_ends_at
 
@@ -38,6 +36,62 @@ class Instance < ActiveRecord::Base
       self.starts_at.strftime "%a %-m/%e, %l:%M%P"
     else
       "TBD"
+    end
+  end
+  
+  def start_time
+    if starts_at.present?
+      self.starts_at.strftime "%A %B %e, %l:%M%P"
+    else
+      "TBD"
+    end
+  end
+
+  def start_date_time
+    if self.starts_at.present?
+      self.starts_at.strftime "%A %B %e, %l:%M%P"
+    else
+      "TBD"
+    end
+  end
+
+  def start_time_no_date
+    if self.starts_at.present?
+      self.starts_at.strftime "%l:%M%P"
+    else
+      "TBD"
+    end
+  end
+
+  def mini_start_date_time
+    if starts_at.present?
+      self.starts_at.strftime "%a %-m/%e, %l:%M%P"
+    else
+      "TBD"
+    end
+  end
+  
+  def mini_start_time
+    if starts_at.present?
+      self.starts_at.strftime "%l:%M%P"
+    else
+      "TBD"
+    end
+  end
+  
+  def start_date
+    if starts_at.present?
+      self.starts_at.strftime "%A, %B %e"
+    else
+      "TBD"
+    end
+  end
+
+  def nice_duration
+    if duration > 1
+      self.duration.to_s.split(/\.0/)[0] + ' ' + 'hours' if duration
+    else
+      self.duration.to_s.split(/\.0/)[0] + ' ' + 'hour' if duration
     end
   end
 

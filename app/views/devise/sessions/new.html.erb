@@ -1,24 +1,28 @@
 <% provide(:title, " | log.in") %> 
-<div id="sign_in" class="span5 offset4 well">
-	<h2>log.in</h2>
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
+<div class="row">
+  <div id="sign_in" class="col-sm-3 col-sm-offset-4 well">
+  	<h2>log.in</h2>
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+      <div><%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true %></div>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+      <div><%= f.label :password %><br />
+      <%= f.password_field :password %></div>
 
-	<div>
-  <% if devise_mapping.rememberable? -%>
-  <div style="float:left;"><%= f.check_box :remember_me, checked: true %><%= f.label :remember_me %></div>
-  <% end -%>
-  <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-  	<div style="float:right;font-size: 13px;"><%= link_to "Forgot your password?", new_password_path(resource_name) %></div>
-	<% end -%>
+    	<div>
+      <% if devise_mapping.rememberable? -%>
+      <div style="float:left;"><%= f.check_box :remember_me, checked: true %><%= f.label :remember_me %></div>
+      <% end -%>
+      <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+      	<div style="float:right;font-size: 13px;"><%= link_to "Forgot your password?", new_password_path(resource_name) %></div>
+    	<% end -%>
+      </div>
+      <div><%= f.submit "log.in", class: "btn btn-warning btn-block btn-large" %></div>
+    <% end %>
+          <div id="auth-status">
+          <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn btn-facebook btn-large"><i class="icon-facebook"></i> log.in w Facebook</span></a>
+      </div>
+
+    <%= render :partial => "devise/shared/links" %>
   </div>
-  <div><%= f.submit "log.in", class: "btn btn-warning btn-block btn-large" %></div>
-
-<% end %>
-
-<%= render :partial => "devise/shared/links" %>
 </div>

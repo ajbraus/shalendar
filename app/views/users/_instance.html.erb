@@ -1,0 +1,36 @@
+<div class="instance" data-date='<%= instance.starts_at.to_date %>'>
+	<%= link_to instance.event, class:"#{ !current_user.rsvpd?(instance) ? 'not_rsvpd' : '' }" do %>
+		<div class="promo_img">
+			<% if instance.event.has_image? %>
+				<img src="<%= instance.event.image(:medium) %>"/>
+			<% end %>
+		</div>
+		<div class="mini_event_details">
+			<div class="event_time">			
+				<%= instance.start_time_no_date %> - <%= instance.nice_duration %>
+			</div>
+			<div class="event_blerb">
+				<%= instance.event.title %>
+			</div>
+			<div class="inviter">
+				by: <%= instance.event.user.first_name_with_last_initial %>
+			</div>
+		</div>
+		<%= render :partial => 'shared/guest_count', :locals => { :event => instance } %>
+<% end %>	
+	<% if !current_user.rsvpd?(instance) %> <!-- USER IS NOT RSVPD -->
+		<div class="mini_in_out">
+			<%= form_for(current_user.rsvps.build(event_id: instance.id), remote: true) do |f| %>
+			  <%= f.hidden_field :event_id %>
+			  <%= f.hidden_field :inout, value: "0" %>
+			  <%= f.submit "#{instance.starts_at.blank? ? 'out' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
+			<% end %>
+			<%= form_for(current_user.rsvps.build(event_id: instance.id), remote: true) do |f| %>
+			  <%= f.hidden_field :event_id %>
+			  <%= f.hidden_field :inout, value: "1" %>
+			  <%= f.submit "#{instance.is_parent? ? '.interested' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
+			<% end %>
+		</div>
+	<% end %>
+</div>
+

@@ -1,9 +1,9 @@
 <% unless @event.user.background_file_size.nil? %>
     <div id="backgroundImg" class="background-img" style="z-index: -1;position: fixed;background: url(<%= @event.user.background.url(:original) %>);-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;width: 100%;height: 100%;left: 0;top: 0;"></div>
 <% end %>
-<div class="row">
-  <div class="span4">
-    <div class="well clearfix">
+<div class="container tall">
+  <div class="row">
+    <div class="col-sm-4 well">
       <div class="promo-img">
         <%= image_tag @event.image(:large) if @event.has_image? %>
       </div>
@@ -56,13 +56,15 @@
       </div>
 
       <div class="instances">
-        <% @event.future_instances.each do |fi| %>
-        <div>
-          <%= fi.nice_starts_at %>
-          <%= link_to "x", event_instance_path(@event, fi), :method => :delete, id:"deleteInstance" %> 
-          <%= render partial: 'instance_rsvps/form', locals: { instance: fi } %>
-        </div>
-        <% end %>
+        <ul class="clearfix">
+          <% @event.future_instances.each do |fi| %>
+            <li>
+              <div class="col-sm-5"><%= fi.nice_starts_at %></div>
+              <div class="col-sm-1"><%= link_to "x", event_instance_path(@event, fi), :method => :delete, id:"deleteInstance" %></div>
+              <div class="col-sm-5"><%= render partial: 'rsvps/form', locals: { instance: fi } %></div>
+            </li>
+          <% end %>
+        </ul>
       </div>
 
       <% if @event.one_time? %>
@@ -74,11 +76,11 @@
           <div class="clear-both clearfix">
             <div class="pull-left">
               <%= f.label :starts_at, "Possible Time(s)" %></br>
-              <%= f.text_field :starts_at, class:"span2 datepicker", autocomplete:"off" %>
+              <%= f.text_field :starts_at, class:"col-sm-12 datepicker", autocomplete:"off" %>
             </div>
             <div class="pull-left">
               <%= f.label :duration, "Duration" %></br>
-              <%= f.text_field :duration, class:'span1', placeholder:"1.5" %>
+              <%= f.text_field :duration, class:'col-sm-3', placeholder:"1.5" %>
             </div>
           </div>
           <%= f.submit "Add Time", class:"btn btn-success pull-right" %>
@@ -88,33 +90,20 @@
         </div>
       <% end %>
     </div>
-  </div>
-  <div class="span4">
-    <div class="well clearfix">
+
+    <div class="col-sm-5 well">
       <%= render partial: 'comments_form' %>
     </div>
-  </div>
 
-  <div class="span4">
     <% if user_signed_in? %>
-      <ul class="social_buttons">
-        <li>
-          <%= render partial: 'social/twitter', locals: { :event => @event } %>
-        </li>
-        <li>
-          <%= render partial: 'social/facebook', locals: { :event => @event } %>
-        </li>
-        <li>
-          <%= render partial: 'social/email', locals: { :event => @event } %>
-        </li>
-      </ul>
-    <% end %>
-    <div class="well clearfix">
+    <div class="col-sm-3 well">
       <div id="rsvpForm" class="join_group_buttons padding_10">
         <%= render partial: 'rsvp_form', :locals => { :event => @event }  %> 
       </div>
-      <div id="fbSendInvite">    
-        <% if user_signed_in? && @graph.present? %>
+    </div>
+    <div class="col-sm-3 pull-right clear-right well">
+      <h5>.invite</h5>
+        <% if @graph.present? %>
           <div id="fbSendInvite">
             <%= image_tag "social/fb.png", :width => "20", title: "Find Friends through Facebook" %> <span class='share_on_fb'>.invite facebook friends</span>
           </div>
@@ -137,33 +126,47 @@
               })
             });
           </script>
-        <% elsif user_signed_in? %>
+        <% else %>
           <div class="fb_button" title="add Facebook to Find Friends">
             <div id="auth-status">
               <a href="#" id="auth-loginlink" class="fb-login-button" ><%= image_tag "social/fb.png", :width => "30" %> <span class='share_on_fb'>.invite facebook friends</span></a>
             </div>
           </div>
         <% end %>
+        <ul class="inline">
+          <li>
+            <%= render partial: 'social/twitter', locals: { :event => @event } %>
+          </li>
+          <li>
+            <%= render partial: 'social/facebook', locals: { :event => @event } %>
+          </li>
+          <li>
+            <%= render partial: 'social/email', locals: { :event => @event } %>
+          </li>
+        </ul>
       </div>
-      <%= render partial: 'shared/guest_count', locals: { :event => @event } %>
-      <% if user_signed_in? %>
-        <% if current_user.in?(@event) %>
-          <%= render partial: 'shared/user', collection: [@event.user], as: :user %>
-          <%= render partial: 'shared/user', collection: @event.guests - [@event.user], as: :user %>
+    <% end %>
+      <div class="col-sm-3 pull-right clear-right well">
+        <h5>hoos.in</h5>
+        <%= render partial: 'shared/guest_count', locals: { :event => @event } %>
+        <% if user_signed_in? %>
+          <% if current_user.in?(@event) %>
+            <%= render partial: 'shared/user', collection: [@event.user], as: :user %>
+            <%= render partial: 'shared/user', collection: @event.guests - [@event.user], as: :user %>
+          <% else %>
+            <%= render partial: 'shared/user_not_inmate', collection: [@event.user], as: :user %>
+            <%= render partial: 'shared/user_not_inmate', collection: @event.guests - [@event.user], as: :user %>
+          <% end %>
         <% else %>
           <%= render partial: 'shared/user_not_inmate', collection: [@event.user], as: :user %>
           <%= render partial: 'shared/user_not_inmate', collection: @event.guests - [@event.user], as: :user %>
         <% end %>
-      <% else %>
-        <%= render partial: 'shared/user_not_inmate', collection: [@event.user], as: :user %>
-        <%= render partial: 'shared/user_not_inmate', collection: @event.guests - [@event.user], as: :user %>
-      <% end %>
-      <% if @event.maybes.count - @event.guests.count > 0 %>
-        <div class="divider_line"></div>
-        <span id="invite_count"><%= @event.maybes.count - @event.guests.count %></span> 
-      <% end %>
-      <%= render partial: 'shared/user', collection: @event.maybes - @event.guests - [@event.user], as: :user %>
-    </div>
+        <% if @event.maybes.count - @event.guests.count > 0 %>
+          <div class="divider_line"></div>
+          <span id="invite_count"><%= @event.maybes.count - @event.guests.count %></span> 
+        <% end %>
+        <%= render partial: 'shared/user', collection: @event.maybes - @event.guests - [@event.user], as: :user %>
+      </div>
   </div>
 </div>
 

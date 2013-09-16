@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130811212442) do
+ActiveRecord::Schema.define(:version => 20130811212427) do
 
   create_table "apn_apps", :force => true do |t|
     t.text     "apn_dev_cert"
@@ -171,46 +171,6 @@ ActiveRecord::Schema.define(:version => 20130811212442) do
 
   add_index "gcm_notifications", ["device_id"], :name => "index_gcm_notifications_on_device_id"
 
-  create_table "instance_invitations", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "instance_id"
-    t.integer  "inviter_id"
-    t.integer  "friends_in",  :default => 0
-    t.integer  "intros_in",   :default => 0
-    t.integer  "randos_in",   :default => 0
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-  end
-
-  add_index "instance_invitations", ["instance_id"], :name => "index_instance_invitations_on_instance_id"
-  add_index "instance_invitations", ["inviter_id"], :name => "index_instance_invitations_on_inviter_id"
-  add_index "instance_invitations", ["user_id", "instance_id"], :name => "index_instance_invitations_on_user_id_and_instance_id", :unique => true
-  add_index "instance_invitations", ["user_id"], :name => "index_instance_invitations_on_user_id"
-
-  create_table "instance_outs", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "instance_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "instance_outs", ["instance_id"], :name => "index_instance_outs_on_instance_id"
-  add_index "instance_outs", ["user_id", "instance_id"], :name => "index_instance_outs_on_user_id_and_instance_id", :unique => true
-  add_index "instance_outs", ["user_id"], :name => "index_instance_outs_on_user_id"
-
-  create_table "instance_rsvps", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "instance_id"
-    t.integer  "friends_in",  :default => 0
-    t.integer  "intros_in",   :default => 0
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-  end
-
-  add_index "instance_rsvps", ["instance_id"], :name => "index_instance_rsvps_on_instance_id"
-  add_index "instance_rsvps", ["user_id", "instance_id"], :name => "index_instance_rsvps_on_user_id_and_instance_id", :unique => true
-  add_index "instance_rsvps", ["user_id"], :name => "index_instance_rsvps_on_user_id"
-
   create_table "instances", :force => true do |t|
     t.integer  "event_id"
     t.integer  "city_id"
@@ -224,32 +184,34 @@ ActiveRecord::Schema.define(:version => 20130811212442) do
 
   add_index "instances", ["event_id"], :name => "index_instances_on_event_id"
 
-  create_table "invitations", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "event_id"
+  create_table "invites", :force => true do |t|
+    t.integer  "invitee_id"
+    t.integer  "inviteable_id"
+    t.string   "inviteable_type"
     t.integer  "inviter_id"
-    t.integer  "friends_in", :default => 0
-    t.integer  "intros_in",  :default => 0
-    t.integer  "randos_in",  :default => 0
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.integer  "friends_in",      :default => 0
+    t.integer  "intros_in",       :default => 0
+    t.integer  "randos_in",       :default => 0
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
-  add_index "invitations", ["event_id"], :name => "index_invitations_on_event_id"
-  add_index "invitations", ["inviter_id"], :name => "index_invitations_on_inviter_id"
-  add_index "invitations", ["user_id", "event_id"], :name => "index_invitations_on_user_id_and_event_id", :unique => true
-  add_index "invitations", ["user_id"], :name => "index_invitations_on_user_id"
+  add_index "invites", ["inviteable_id", "inviteable_type"], :name => "index_invites_on_inviteable_id_and_inviteable_type"
+  add_index "invites", ["invitee_id", "inviteable_id", "inviteable_type"], :name => "unique_invites_index", :unique => true
+  add_index "invites", ["invitee_id", "inviteable_type"], :name => "index_invites_on_invitee_id_and_inviteable_type"
+  add_index "invites", ["inviter_id"], :name => "index_invites_on_inviter_id"
 
   create_table "outs", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "event_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "flake_id"
+    t.integer  "outable_id"
+    t.string   "outable_type"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
-  add_index "outs", ["event_id"], :name => "index_outs_on_event_id"
-  add_index "outs", ["user_id", "event_id"], :name => "index_outs_on_user_id_and_event_id", :unique => true
-  add_index "outs", ["user_id"], :name => "index_outs_on_user_id"
+  add_index "outs", ["flake_id", "outable_id", "outable_type"], :name => "index_outs_on_flake_id_and_outable_id_and_outable_type", :unique => true
+  add_index "outs", ["flake_id", "outable_type"], :name => "index_outs_on_flake_id_and_outable_type"
+  add_index "outs", ["outable_id", "outable_type"], :name => "index_outs_on_outable_id_and_outable_type"
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
@@ -266,17 +228,19 @@ ActiveRecord::Schema.define(:version => 20130811212442) do
 
   create_table "rsvps", :force => true do |t|
     t.integer  "guest_id"
-    t.integer  "event_id"
-    t.integer  "friends_in", :default => 0
-    t.integer  "intros_in",  :default => 0
-    t.boolean  "muted",      :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.integer  "friends_in",    :default => 0
+    t.integer  "intros_in",     :default => 0
+    t.integer  "randos_in",     :default => 0
+    t.boolean  "muted",         :default => false
+    t.integer  "rsvpable_id"
+    t.string   "rsvpable_type"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
-  add_index "rsvps", ["event_id"], :name => "index_rsvps_on_event_id"
-  add_index "rsvps", ["guest_id", "event_id"], :name => "index_rsvps_on_guest_id_and_event_id", :unique => true
-  add_index "rsvps", ["guest_id"], :name => "index_rsvps_on_guest_id"
+  add_index "rsvps", ["guest_id", "rsvpable_id", "rsvpable_type"], :name => "index_rsvps_on_guest_id_and_rsvpable_id_and_rsvpable_type", :unique => true
+  add_index "rsvps", ["guest_id", "rsvpable_type"], :name => "index_rsvps_on_guest_id_and_rsvpable_type"
+  add_index "rsvps", ["rsvpable_id", "rsvpable_type"], :name => "index_rsvps_on_rsvpable_id_and_rsvpable_type"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -308,7 +272,8 @@ ActiveRecord::Schema.define(:version => 20130811212442) do
     t.datetime "updated_at",                                 :null => false
     t.boolean  "admin",                   :default => false
     t.string   "name"
-    t.boolean  "terms",                   :default => false
+    t.boolean  "terms",                   :default => true
+    t.boolean  "email_comments",          :default => true
     t.boolean  "allow_contact",           :default => true
     t.boolean  "follow_up",               :default => true
     t.boolean  "digest",                  :default => true

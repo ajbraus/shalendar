@@ -1,0 +1,4 @@
+<%= form_for(instance.outs.build(flake_id: current_user.id)) do |f| %>
+  <div><%= f.hidden_field :flake_id %></div>
+  <%= f.submit "out", class: "btn btn-danger col-sm-6" %>
+<% end %>

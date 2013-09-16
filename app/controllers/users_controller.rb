@@ -1,71 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, except: [ :city_names ]
 
-  def get_upcoming_times
-    @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
-    if @user == current_user
-      @upcoming_times = @user.rsvps.where('city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now).order('starts_at ASC').limit(5)
-    elsif @user.is_friends_with?(current_user)
-      @upcoming_times = @user.rsvps.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 0, Time.zone.now).order('starts_at ASC').limit(5)
-    elsif @user.is_intros_with?(current_user)
-      @upcoming_times = @user.rsvps.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 1, Time.zone.now).order('starts_at ASC').limit(5)
-    end
-  end
-
-  def get_invited_ideas
-    @user = User.includes(:invitations).find_by_slug(params[:id])
-    invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false)
-    plans = current_user.plans.pluck(:event_id)
-    public_ideas = Event.where('id NOT IN (?)', plans)
-    .where('city_id = ? AND visibility = ? AND ends_at IS NULL', @current_city.id, 3).reject {|i| current_user.rsvpd?(i) }
-    @invited_ideas = invited_ideas | public_ideas
-  end
-
-  def get_invited_times
-    @user = User.includes(:invitations).find_by_slug(params[:id])
-    plans = current_user.rsvps.pluck(:event_id)
-    invited_times = @user.invited_times.where('events.id NOT IN (?) AND events.city_id = ? AND ends_at > ?', plans, @current_city.id, Time.zone.now)
-    public_times = Event.where('id NOT IN (?)', plans)
-    .where('city_id = ? AND visibility = ? AND starts_at > ? AND ends_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days)
-    @invited_times = invited_times | public_times
-  end
-
-  def get_interesteds
-    @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
-    if @user == current_user
-      @interesteds = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id).order("created_at DESC")
-    elsif @user.is_friends_with?(current_user)
-      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND ends_at IS NULL', @current_city.id, 0).order("created_at DESC")
-    elsif @user.is_intros_with?(current_user)
-      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND ends_at IS NULL', @current_city.id, 1).order("created_at DESC")
-    end
-  end
-
-  def get_ins
-    @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
-    if @user == current_user
-      @ins = @user.plans.where('city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now).order('starts_at ASC')
-    elsif @user.is_friends_with?(current_user)
-      @ins = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 0, Time.zone.now).order('starts_at ASC')     
-    elsif @user.is_intros_with?(current_user)
-      @ins = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 1, Time.zone.now).order('starts_at ASC')
-    end
-  end
-
-  def get_outs
-    @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
-    @outs = @user.outs.where('city_id = ? AND ends_at IS NULL', @current_city.id).limit(7)
-  end
-
-  # def get_overs
-  #   @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
-  #   @overs = @user.plans(:with_exclusive_scopewhere) {'over = ?', true).limit(7) }
-  # end
-
-  def explanation
-
-  end
-
   def get_intros
     @user = User.includes(:relationships).find_by_slug(params[:id])
     @user_friends = @user.friends.where(city_id: @current_city.id)
@@ -91,7 +26,7 @@ class UsersController < ApplicationController
         if @user.fb_user?
           @user.add_fb_events(@graph)
         end
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

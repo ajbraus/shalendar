@@ -1,0 +1,4 @@
+<%= form_for(instance.rsvps.build(guest_id: current_user.id)) do |f| %>
+  <div><%= f.hidden_field :guest_id %></div>
+  <%= f.submit ".in", class: "btn btn-primary col-sm-6" %>
+<% end %>

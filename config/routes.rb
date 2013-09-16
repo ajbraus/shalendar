@@ -1,10 +1,9 @@
-Shalendar::Application.routes.draw do
-
+Shalendar::Application.routes.draw do 
   authenticated :user do
     root :to => 'events#index'
   end
-
   root :to => 'static_pages#landing'
+  
 
   match '/about', :to => 'static_pages#about', :as => "about"
   match '/careers', :to => 'static_pages#careers', :as => "careers"
@@ -45,25 +44,22 @@ Shalendar::Application.routes.draw do
     #match '/new_venue', to: 'registrations#new_vendor', as: "new_vendor"
   #end
 
-  match '/upcoming_times', to: 'users#get_upcoming_times', as: 'upcoming_times'
-  match '/invited_ideas', to: 'users#get_invited_ideas', as: 'invited_ideas'
-  match '/times', to: 'users#get_invited_times', as: 'invited_times'
-  match '/interesteds', to: 'users#get_interesteds', as: 'interesteds'
-  match '/ins', to: 'users#get_ins', as: 'ins'
-  match '/outs', to: 'users#get_outs', as:'outs'
-  match '/overs', to: 'users#get_overs', as:'overs'
+  match '/invited_ideas', to: 'events#invited_ideas', as: 'invited_ideas'
+  match '/times', to: 'events#invited_instances', as: 'invited_times'
+  match '/interesteds', to: 'events#interesteds', as: 'interesteds'
+  match '/ins', to: 'events#ins', as: 'ins'
+  match '/outs', to: 'events#outs', as:'outs'
+  match '/overs', to: 'events#overs', as:'overs'
   match '/explanation', to: 'users#explanation', as: 'explanation'
   match '/intros', to: 'users#get_intros', as: 'get_intros'
 
 
-  resources :events, path: "ideas" do #:index,
+  resources :events, path: "ideas" do
     resources :comments, only: [:create, :destroy]
     resources :email_invites, only: [:create, :destroy]
     resources :instances, only: [:create, :destroy]
   end
 
-  resource :instance_rsvps, only: [:create, :destroy]
-  resource :instance_outs, only: [:create, :destroy]
   resources :rsvps, only: [:create, :destroy]
 
   resources :relationships, only: [:create, :destroy, :toggle, :comfirm] do

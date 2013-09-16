@@ -4,7 +4,7 @@ namespace :db do
     require 'populator'
     require 'faker'
     
-    [User, Event, Comment, Instance, Invitation, Relationship, Rsvp, InstanceRsvp].each(&:delete_all)
+    [User, Event, Comment, Instance, Invite, Relationship, Rsvp].each(&:delete_all)
     
     City.create(name:"Madison, WI", timezone:'Central Time (US & Canada)')
     adam = User.create!(name:"Adam Braus", email: "ajbraus@gmail.com", city: City.find_by_name("Madison, WI"), password:"password", terms:"true", confirmed_at: Time.now)

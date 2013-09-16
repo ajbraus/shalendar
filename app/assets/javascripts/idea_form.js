@@ -1,6 +1,6 @@
 $(document).ready(function() {
 // NEW IDEA FORM VALIDATION
-  $("#new_event_form").validate({
+  $("#new_event").validate({
     rules: {
       "event[title]": {
         maxlength: 60

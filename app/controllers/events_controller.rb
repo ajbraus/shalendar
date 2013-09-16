@@ -11,12 +11,12 @@
       
       #ONLY SHOW EVENTS THEY ARE BOTH INVITED OR RSVPD TO
       @current_user_invited_ideas = current_user.invited_events.where('city_id = ?', @current_city.id)
-      @current_user_invited_times = current_user.instance_invited_events.where('city_id = ?', @current_city.id).map(&:event)
+      @current_user_invited_times = current_user.invited_instances.where('city_id = ?', @current_city.id).map(&:event)
       @current_user_interesteds = current_user.plans.where('city_id = ?', @current_city.id)
       @current_user_ins = current_user.instance_plans.where('city_id = ?', @current_city.id).map(&:event)
 
       @user_invited_ideas = @user.invited_events.where('city_id = ?', @current_city.id)
-      @user_invited_times = @user.instance_invited_events.where('city_id = ?', @current_city.id).map(&:event)
+      @user_invited_times = @user.invited_instances.where('city_id = ?', @current_city.id).map(&:event)
       @user_interesteds = @user.plans.where('city_id = ?', @current_city.id)
       @user_ins = @user.instance_plans.where('city_id = ?', @current_city.id).map(&:event)
 
@@ -28,9 +28,9 @@
       @user = current_user
 
       @invited_ideas = @user.invited_events.where('city_id = ?', @current_city.id).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
-      @invited_times = @user.instance_invited_events.where('city_id = ?', @current_city.id).map(&:event).paginate(:page => params[:page], :per_page => 10)
+      @invited_times = @user.invited_instances.where('city_id = ?', @current_city.id).paginate(:page => params[:page], :per_page => 10)
       @interesteds = @user.plans.where('city_id = ?', @current_city.id).paginate(:page => params[:page], :per_page => 10)
-      @ins = @user.instance_plans.where('city_id = ?', @current_city.id).map(&:event).paginate(:page => params[:page], :per_page => 10)
+      @ins = @user.instance_plans.where('city_id = ?', @current_city.id).paginate(:page => params[:page], :per_page => 10)
     end
 
     #show alert if rescue from errors:
@@ -45,16 +45,69 @@
     end
   end
 
+  def invited_ideas
+    @user = User.includes(:invites).find_by_slug(params[:id])
+    invited_ideas = @user.invited_ideas.includes(:user).where('events.city_id = ? AND one_time = ?', @current_city.id, false)
+    plans = current_user.plans.pluck(:event_id)
+    public_ideas = Event.where('id NOT IN (?)', plans)
+    .where('city_id = ? AND visibility = ? AND ends_at IS NULL', @current_city.id, 3).reject {|i| current_user.rsvpd?(i) }
+    @invited_ideas = invited_ideas | public_ideas
+  end
+
+  def invited_times
+    @user = User.includes(:invites).find_by_slug(params[:id])
+    plans = current_user.rsvps.pluck(:event_id)
+    invited_times = @user.invited_times.where('events.id NOT IN (?) AND events.city_id = ? AND ends_at > ?', plans, @current_city.id, Time.zone.now)
+    public_times = Event.where('id NOT IN (?)', plans)
+    .where('city_id = ? AND visibility = ? AND starts_at > ? AND ends_at < ?', @current_city.id, 3, Time.zone.now, Time.zone.now + 59.days)
+    @invited_times = invited_times | public_times
+  end
+
+  def interesteds
+    @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
+    if @user == current_user
+      @interesteds = @user.plans.where('city_id = ? AND ends_at IS NULL', @current_city.id).order("created_at DESC")
+    elsif @user.is_friends_with?(current_user)
+      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND ends_at IS NULL', @current_city.id, 0).order("created_at DESC")
+    elsif @user.is_intros_with?(current_user)
+      @interesteds = @user.plans.where('city_id = ? AND visibility > ? AND ends_at IS NULL', @current_city.id, 1).order("created_at DESC")
+    end
+  end
+
+  def ins
+    @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
+    if @user == current_user
+      @ins = @user.plans.where('city_id = ? AND ends_at > ?', @current_city.id, Time.zone.now).order('starts_at ASC')
+    elsif @user.is_friends_with?(current_user)
+      @ins = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 0, Time.zone.now).order('starts_at ASC')     
+    elsif @user.is_intros_with?(current_user)
+      @ins = @user.plans.where('city_id = ? AND visibility > ? AND ends_at > ?', @current_city.id, 1, Time.zone.now).order('starts_at ASC')
+    end
+  end
+
+  def outs
+    @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
+    @outs = @user.outs.where('city_id = ? AND ends_at IS NULL', @current_city.id).limit(7)
+  end
+
+  # def overs
+  #   @user = User.includes(:rsvps => :plan).find_by_slug(params[:id])
+  #   @overs = @user.plans(:with_exclusive_scopewhere) {'over = ?', true).limit(7) }
+  # end
+
+  def explanation
+
+  end
+
   # GET /events/new
   # GET /events/new.json
   def new
-    @idea = current_user.events.build
-    @instance = @idea.instances.build
+    @idea = current_user.events.new
 
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @event }
-      format.js # new.js.erb
+      format.js
     end
   end
 
@@ -79,15 +132,15 @@
     @event = current_user.events.build(params[:event])
     @event.city = @current_city
     @event.instances.each do |i|
-      i.city = @event.city
+      i.city = @current_city
     end
     
     if @event.save
       current_user.rsvp_in!(@event)
-      @event.instances.each { |i| current_user.instance_rsvp_in!(i) } #INVITATION TO ALL INSTANCES
+      @event.instances.each { |i| current_user.rsvp_in!(i) } #INVITATION TO ALL INSTANCES
       @event.invited_users.each { |g| self.inmate!(g) } #INMATE EACH GUEST
 
-      @event.save_shortened_url if Rails.env.production?
+      @event.save_shortened_url if Rails.env.production? #SAVE SHORTENED URL
 
       #SEND CONTACT TO ALL PPL WHO STAR CURRENT USER
       unless @event.visibility == 0
@@ -109,7 +162,7 @@
       end
     else
       respond_to do |format|
-        format.html { redirect_to root_path, notice: "An Error prevented Your Idea from Posting" }
+        format.html { render action: "new", notice: "An Error prevented Your Idea from Posting" }
       end
     end
   end

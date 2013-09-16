@@ -5,16 +5,14 @@
     <% if current_user.authentications.find_by_provider("Facebook") == nil && current_user.avatar.present? == false %>
       <p><a href="http://gravatar.com/emails">Add or Update Gravatar Picture</a></p>
     <% end %>
-    <% unless current_user.vendor? %>
-      <% unless current_user.authentications.any? == true %>
-        <p><strong>Authentications</strong></p>
-        <p>Add Facebook Authentication</p>
-        <div class="fb_button">
-          <div id="auth-status">
-            <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
-          </div>
+    <% unless current_user.authentications.any? == true %>
+      <p><strong>Authentications</strong></p>
+      <p>Add Facebook Authentication</p>
+      <div class="fb_button">
+        <div id="auth-status">
+          <a href="#" id="auth-loginlink" class="fb-login-button"><span class="btn_fb_login"></span></a>
         </div>
-      <% end %>
+      </div>
     <% end %>
   </div>
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>

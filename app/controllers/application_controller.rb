@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :set_city, :except => [:pick_city, :city_names, :update]
+  before_filter :set_city, :except => [:city_names, :update]
   before_filter :set_graph #:check_venue_card, 
   after_filter :store_location
 

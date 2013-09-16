@@ -45,7 +45,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
     add_column :users, :admin, :boolean, default: false
     add_column :users, :name, :string
-    add_column :users, :terms, :boolean, default: false
+    add_column :users, :terms, :boolean, default: true
+    add_column :users, :email_comments, :boolean, default: true
     add_column :users, :allow_contact, :boolean, default: true
     add_column :users, :follow_up, :boolean, default: true
     add_column :users, :digest, :boolean, default: true

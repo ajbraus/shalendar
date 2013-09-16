@@ -9,10 +9,11 @@ gem 'koala'
 gem 'thin'
 gem 'chronic' 
 
-#gem 'twilio-rb'
-#gem 'phony_rails'
-#gem 'useragent'
-#gem "fancybox-rails", "~> 0.2.1"
+gem 'active_model_serializers'
+
+gem 'twilio-rb'
+gem 'phony_rails'
+
 #gem 'jquery-lazy-images'
 
 # gem 'apn_sender', :require => 'apn'

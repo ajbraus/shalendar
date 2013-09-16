@@ -1,30 +1,29 @@
 <div class="event shield idea" data-event-id='<%= event.id %>'>
-	<div class="shield_top">
-		<div class="rsvp_check">
-			<%= render :partial => "users/rsvp_check", :locals => { :event => event } %>
-		</div>
-	</div>
 	<%= link_to event_path(event) do %>
-			<div class="promo_img">
-				<div class="event_blerb black-to-transparent">
-					<div class="title"> <%= raw(event.visibility_icon) %><%= event.title %></div>
-				</div>				
+		<div class="promo_img">			
 			<% if event.has_image? %>
 				<%= image_tag event.image(:medium) %>
 			<% end %>
-			</div>
-			<u class="creator">
-				<% if user_signed_in? %>
-					<% if current_user.is_friends_with?(event.user) %>
-						<i class="icon-star" style="color:gold;"></i>
-					<% elsif current_user.is_intros_with?(event.user) %>
-						<i class="icon-star" style="color:lightgrey;"></i>
-					<% end %>
-				<% end %>
-				<%= event.user.first_name_with_last_initial %>
-			</u>
-		<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>		
-<% end %>
+		</div>
+		<div class="event_blerb black-to-transparent">
+			<div class="title"> <%= raw(event.visibility_icon) %><%= event.title %></div>
+		</div>	
+	<% end %>
+	<div class="rsvp_check">
+		<%= render :partial => "users/rsvp_check", :locals => { :event => event } %>
+	</div>
+	<u class="creator pull-left">
+		<% if user_signed_in? %>
+			<% if current_user.is_friends_with?(event.user) %>
+				<i class="icon-star" style="color:gold;"></i>
+			<% elsif current_user.is_intros_with?(event.user) %>
+				<i class="icon-star" style="color:lightgrey;"></i>
+			<% end %>
+		<% end %>
+		<%= link_to event.user.first_name_with_last_initial, events_path(event.user.slug) %>
+	</u>
+	<%= render :partial => 'shared/guest_count', :locals => { :event => event } %>		
+
 
 	<% if user_signed_in? %>
 	<%= render partial: 'events/time', collection: event.future_instances, as: :instance %>

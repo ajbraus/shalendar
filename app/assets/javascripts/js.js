@@ -9,6 +9,9 @@ $(document).ready(function() {
     $('#hiFriends').toggle(); 
   })
 
+  // AFFIX EVENT DETAILS
+  $("#eventDetails").affix();
+
   // NEW INVITED EVENTS
 
   if ( $('#new_invited_events_count').text() == 0 ) {
