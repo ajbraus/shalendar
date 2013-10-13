@@ -8,7 +8,7 @@
       <%= image_tag 'ajax-loader2.gif' %>
     </div>
 </div>
-<div class="row">
+<div class="row no-margin">
 <div class="col-sm-3 well sidebar">
   <div class="clearfix">
     <% if @user != current_user %>
@@ -19,21 +19,21 @@
     </div>
     
     <% if @user != current_user %>
-      <div class="show_city"><%= @user.city.name %></div>
+      <div class="show_city pull-left"><%= @user.city.name %></div>
     <% end %>
     <%= render 'users/inmate_or_friend' %>
-    <ul class="profile_stats clearfix" id="showInmates" data-slug=<%= @user.slug %>> 
+    <ul class="profile_stats clearfix clear-both" id="showInmates" data-slug=<%= @user.slug %>> 
       <li>
         <div><i class="icon-star inmate_star" style="color:lightgrey;"></i> <%= @user.inmates.count %> </div>
         <div>.intros</div>
       </li>     
       <li>
         <div><i class="icon-star friend_star"></i> <span id="friendCount"><%= @user.friends.count %> </div>
-        <div>stars</div>
+        <div>friends</div>
       </li>
       <li>
         <div><i class="icon-star friend_star"></i> <%= @user.friended_bys.count %></div>
-        <div>starred by</div> 
+        <div>friended by</div> 
       </li>
     </ul>
     <%= link_to new_event_path, id: "btnNewIdea", class: 'btn btn-primary btn-large btn-block' do %>

@@ -58,7 +58,7 @@
       <div class="instances">
         <ul class="clearfix">
           <% @event.future_instances.each do |fi| %>
-            <li>
+            <li class="clearfix">
               <div class="col-sm-5"><%= fi.nice_starts_at %></div>
               <div class="col-sm-1"><%= link_to "x", event_instance_path(@event, fi), :method => :delete, id:"deleteInstance" %></div>
               <div class="col-sm-5"><%= render partial: 'rsvps/form', locals: { instance: fi } %></div>
@@ -147,7 +147,7 @@
       </div>
     <% end %>
       <div class="col-sm-3 pull-right clear-right well">
-        <h5>hoos.in</h5>
+        <h5>hoos.in?</h5>
         <%= render partial: 'shared/guest_count', locals: { :event => @event } %>
         <% if user_signed_in? %>
           <% if current_user.in?(@event) %>

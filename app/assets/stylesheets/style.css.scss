@@ -113,7 +113,7 @@ ul, li {
 }
 
 .tall {
-  min-height: 500px;
+  min-height: 560px;
 }
 .padding_10 {
   padding: 10px;
@@ -146,6 +146,23 @@ ul, li {
   color:$before_hover;
   &:hover{
   color:$destroy;
+  -webkit-transition: color .25s linear .1s;
+  transition: color .25s linear .1s;
+  }
+}
+
+.fade-in-gold {
+  color:$before_hover;
+  &:hover{
+  color:gold;
+  -webkit-transition: color .25s linear .1s;
+  transition: color .25s linear .1s;
+  }
+}
+
+.fade-in-grey {
+  &:hover{
+  color:$before_hover;
   -webkit-transition: color .25s linear .1s;
   transition: color .25s linear .1s;
   }
@@ -969,7 +986,6 @@ margin-bottom: 10px;
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
-  /*background-color: $background-one;*/
   color: black;
   background: white;
   margin-bottom:10px;
@@ -1364,7 +1380,7 @@ width: 230px;
 
 /*NEW IDEA*/
 
-.new_event {
+.new_event, .edit_event  {
   margin: 0 auto;
   max-width: 460px;
   padding:0 7px;
@@ -1384,7 +1400,7 @@ margin-top: 5px;
 -webkit-border-radius: 8px;
 -moz-border-radius: 8px;
 border-radius: 8px;
-height: 60px;
+height: 120px;
   }
   label {
     font-size: 19px;
@@ -1657,6 +1673,10 @@ top: 38px;
     position: relative;
     bottom: 10px;
   }
+}
+
+.show_city {
+  margin-bottom:10px;
 }
 
 .user_friends_count {
@@ -2244,6 +2264,7 @@ margin: 10px;
 
 .sidebar {
 padding-left:30px;
+margin-bottom: 0px;
 }
 
 
@@ -2323,11 +2344,8 @@ right:19px;
 
 
 .user {
+  margin:5px 0;
   clear:both;
-  img {
-    width: 37px;
-    height: 37px;
-  }
   div {
     float:left;
   }
@@ -2779,12 +2797,12 @@ bottom: 4px;
 
 .back_link {
   position: absolute;
-left: 9px;
-top: 2px;
-color: white;
-font-size: 12px;
+  left: 30px;
+  top: 12px;
+  color: grey;
+  font-size: 12px;
   &:hover {
-    color:lightgrey;
+    color:$icon_color;
   }
 }
 
@@ -3261,4 +3279,20 @@ ul.inline {
 
 .tab-content {
   padding:0;
+}
+
+.no-button {
+  border:none;
+  background: none;
+}
+
+.small_profile_picture {
+  width:50px;
+}
+.very_small_profile_picture {
+  width:35px;
+}
+
+.no-margin {
+  margin:0;
 }

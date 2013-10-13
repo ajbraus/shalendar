@@ -8,7 +8,7 @@ class InstancesController < ApplicationController
 
     respond_to do |format|
       if @instance.save
-        current_user.instance_rsvp_in!(@instance)
+        current_user.rsvp_in!(@instance)
         format.html { redirect_to @event, notice: "Time Successfully Added" }
         format.js
       else

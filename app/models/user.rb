@@ -33,7 +33,8 @@ class User < ActiveRecord::Base
                   :debits_uri,
                   :birthday,
                   :female,
-                  :confirmed_at
+                  :confirmed_at,
+                  :city
 
   has_attached_file :avatar, :styles => { :original => "150x150#",
                                           :raster => "50x50#" },
@@ -205,7 +206,7 @@ class User < ActiveRecord::Base
       end
     else
       unless event.event.user == self
-        event.user.delay.contact_new_rsvp(event, self)
+        event.event.user.delay.contact_new_rsvp(event, self)
       end
     end
   end
@@ -220,12 +221,10 @@ class User < ActiveRecord::Base
   def rsvp_out!(event)
     unless event.outs.find_by_outable_id(event.id).present?
       @existing_rsvp = event.rsvps.find_by_guest_id(self.id)
-      if @existing_rsvp.present? 
-        @existing_rsvp.destroy
-      else
-        outs.create!(outable_id: event.id)
-      end
-  
+      @existing_rsvp.try(:destroy)
+
+      self.outs.create!(outable_id: event.id, outable_type: event.class.name)
+      
       @invitation = self.invites.find_by_inviteable_id(event.id)
       @invitation.try(:destroy)
     end

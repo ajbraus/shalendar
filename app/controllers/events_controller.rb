@@ -15,12 +15,12 @@
         @current_user_invited_ideas = current_user.invited_events.where('city_id = ?', @current_city.id)
         @current_user_invited_times = current_user.invited_instances.where('city_id = ?', @current_city.id).map(&:event)
         @current_user_interesteds = current_user.plans.where('city_id = ?', @current_city.id)
-        @current_user_ins = current_user.instance_plans.where('city_id = ?', @current_city.id).map(&:event)
+        @current_user_ins = current_user.instance_plans.where('city_id = ?', @current_city.id)
 
         @user_invited_ideas = @user.invited_events.where('city_id = ?', @current_city.id)
-        @user_invited_times = @user.invited_instances.where('city_id = ?', @current_city.id).map(&:event)
+        @user_invited_times = @user.invited_instances.where('city_id = ?', @current_city.id)
         @user_interesteds = @user.plans.where('city_id = ?', @current_city.id)
-        @user_ins = @user.instance_plans.where('city_id = ?', @current_city.id).map(&:event)
+        @user_ins = @user.instance_plans.where('city_id = ?', @current_city.id)
 
         @invited_ideas = (@current_user_invited_ideas & @user_invited_ideas).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
         @invited_times = (@current_user_invited_times & @user_invited_times).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
@@ -42,7 +42,7 @@
     else
       @user = current_user
       @current_city = current_user.city
-      
+
       @invited_ideas = @user.invited_events.where('city_id = ?', @current_city.id).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
       @invited_times = @user.invited_instances.where('city_id = ?', @current_city.id).paginate(:page => params[:page], :per_page => 10)
       @interesteds = @user.plans.where('city_id = ?', @current_city.id).paginate(:page => params[:page], :per_page => 10)
@@ -133,8 +133,7 @@
 
   # GET /events/1/edit
   def edit
-    @event = Event.find(params[:id])
-    @event_start_time = @event.start_time
+    @idea = Event.find(params[:id])
   end
 
   # POST /events

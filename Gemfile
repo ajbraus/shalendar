@@ -41,7 +41,7 @@ gem 'heroku'
 gem 'pg'
 gem "sendgrid", "~> 1.0.1"
 gem "rails_autolink", "~> 1.0.9"
-gem "paperclip", "~> 3.0"
+gem "paperclip"
 gem 'aws-sdk', '~> 1.3.4'
 gem 'coffeebeans'
 gem 'lazy_high_charts'

@@ -4,14 +4,14 @@
 		 	<%= form_for(current_user.relationships.find_by_followed_id(user.id),
 			         html: { method: :delete },
 			         remote: true) do |f| %>
-				<button class="btn btn-unfollow" name="commit" type="submit">
+				<button class="friend_star fade-in-grey no-button big" name="commit" type="submit">
 					<i class="icon-star"></i>
 				</button>
 			<% end %>
 		<% else %>
 			<%= form_for current_user.relationships.build(followed_id: user.id), remote:true do |f| %>
 			  <span><%= f.hidden_field :followed_id %></span>
-			  <button class="btn btn-follow rsvp_button" name="commit" type="submit">
+			  <button class="fade-in-gold no-button big" name="commit" type="submit">
 			  	<i class="icon-star"></i>
 			  </button>
 			<% end %>

@@ -52,12 +52,7 @@ module UsersHelper
     elsif user.authentications.where(:provider == "Twitter").any?
       twitter_picture(user, type: "normal") 
     else
-      if user.avatar.url.nil?
-        image_tag "https://s3.amazonaws.com/hoosin-production/user/avatars/raster/default_profile_pic.png",
-         class: "profile_picture"
-      else
-        image_tag user.avatar.url(:raster), class: "profile_picture"
-      end
+      image_tag user.avatar.url(:raster), class: "img-circle small_profile_picture"
     end
   end 
 
@@ -67,11 +62,7 @@ module UsersHelper
     elsif user.authentications.where(:provider == "Twitter").any?
       twitter_picture(user, type: "large") 
     else
-      if user.avatar.url.nil?
-        image_tag "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png", class:"img-circle", width:120
-      else
-        image_tag user.avatar.url(:original), class:"img-circle", width:120
-      end
+      image_tag user.avatar.url(:original), class:"img-circle", width:120
     end
   end
 
@@ -82,12 +73,7 @@ module UsersHelper
     elsif user.authentications.where(:provider == "Twitter").any?
       twitter_picture(user, type: "normal") 
     else
-      if user.avatar.url.nil?
-        image_tag "https://s3.amazonaws.com/hoosin-production/user/avatars/raster/default_profile_pic.png",
-         class: "profile_picture small_pic img-circle"
-      else
-        image_tag user.avatar.url(:raster), class: "profile_picture small_pic img-circle"
-      end
+      image_tag user.avatar.url(:raster), class: "img-circle"
     end
   end 
 
@@ -118,12 +104,7 @@ module UsersHelper
     elsif user.authentications.where(:provider == "Twitter").any?
       invite_twitter_picture(user, type: "normal") 
     else
-      if user.avatar.url.blank?
-        "https://s3.amazonaws.com/hoosin-production/user/avatars/raster/default_profile_pic.png"
-      else
-        user.avatar.url(:raster)
-      end
-      #invite_gravatar_for(user, :size => 50 )
+      user.avatar.url(:raster)
     end
   end
 

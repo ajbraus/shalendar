@@ -1,18 +1,18 @@
 <% if user_signed_in? %>
 	<% unless @user == current_user %>
 		<% if @user.is_inmates_or_friends_with?(current_user) %>
-			<div class="show_friend follow_form_hook" data-user-id='<%= @user.id %>'>
+			<div class="show_friend follow_form_hook pull-right" data-user-id='<%= @user.id %>'>
 				<%= render  :partial => 'events/follow_form', :locals => { :user => @user } %>
 			</div>
 		<% elsif current_user.ignores?(@user) %>
-			<div class="show_friend">
-				<%= link_to url_options = { :controller => :relationships, :action => :re_inmate, :id => @user.id }, html_options = { class:"btn btn-inmate", id:'re-inmate', title: "make #{@user.first_name} your friend again" } do %>
+			<div class="show_friend pull-right">
+				<%= link_to url_options = { :controller => :relationships, :action => :re_inmate, :id => @user.id }, html_options = { id:'re-inmate', title: "make #{@user.first_name} your friend again" } do %>
 					<i class="icon-star"></i>
 				<% end %>
 			</div>
 		<% elsif !@user.ignores?(current_user) %>
-			<div class="show_friend follow_form_hook" data-user-id='<%= @user.id %>'>
-				<%= link_to url_options = { :controller => :relationships, :action => :inmate, :id => @user.id }, html_options = { class:"btn btn-inmate", id:'re-inmate', title: "make #{@user.first_name} your friend" } do %>
+			<div class="show_friend follow_form_hook pull-right fadeInPurple" data-user-id='<%= @user.id %>'>
+				<%= link_to url_options = { :controller => :relationships, :action => :inmate, :id => @user.id }, html_options = { id:'re-inmate', title: "make #{@user.first_name} your friend" } do %>
 					add <i class="icon-star"></i>
 				<% end %>					
 			</div>

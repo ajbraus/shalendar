@@ -220,8 +220,7 @@ Shalendar::Application.routes.draw do
       match '/prune_invites', :to => 'events#prune_invites'
     end
     namespace :v4 do
-      devise_for :users, :controllers => { :registrations => "api/v1/registrations" }
-      #resources :registrations, only: [:create, :destroy] #add facebook reg, native reg
+      #devise_for :users, :controllers => { :sessions => "api/v4/sessions", :registrations => "api/v4/registrations" }
       resources :sessions, only: [:create, :destroy] #add facebook reg, native reg
       resources :users, except: [:create, :destroy]
       resources :relationships, only: [:create, :destroy]

@@ -6,8 +6,12 @@ bug -
 	@current_city not being set
 	share_after_rsvp not popping up
 
-allow friending and inmating, but don't create invites if they ignore you
+RSVP in to an event
+RSVP out from an event
+RSVP in to an instance
+RSVP out from an instance
 
+DONE allow friending and inmating, but don't create invites if they ignore you
 DONE RSVP to an event
 DONE Create a new user
 DONE inmate the other user

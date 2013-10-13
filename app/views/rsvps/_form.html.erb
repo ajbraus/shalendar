@@ -1,2 +1,11 @@
-<%= render partial: 'rsvps/out', locals: { :instance => instance } %>
-<%= render partial: 'rsvps/in_form', locals: { :instance => instance } %>
+<% if user_signed_in? %>
+  <% if current_user.in?(instance) %>
+    <%= render partial: 'rsvps/out', locals: { :instance => instance } %>
+  <% elsif current_user.out?(instance) %>
+    <%= render partial: 'rsvps/in_form', locals: { :instance => instance } %>
+  <% else %>
+    <%= render partial: 'rsvps/out', locals: { :instance => instance } %>
+    <%= render partial: 'rsvps/in_form', locals: { :instance => instance } %>
+  <% end %>
+<% end %>
+

@@ -9,7 +9,7 @@ before_filter :authenticate_user!
       @user.delay.contact_friend(current_user)
     end
     respond_to do |format|
-      format.html { redirect_to :back, notice: "You starred #{@user.name}" }
+      format.html { redirect_to :back, notice: "You friended #{@user.name} and will be alerted when they create or are .in on ideas" }
       format.js
     end
   end
@@ -19,7 +19,7 @@ before_filter :authenticate_user!
     current_user.unfriend!(@user)
 
     respond_to do |format|
-      format.html { redirect_to :back, notice: "You unstarred #{@user.name}" }
+      format.html { redirect_to :back, notice: "You unfriended #{@user.name} and will no longer be notified when they create or join .in on ideas" }
       format.js
     end
   end
@@ -30,7 +30,7 @@ before_filter :authenticate_user!
     @inmate.contact_new_inmate(current_user)
     
     respond_to do |format|
-      format.html { redirect_to root_path(id: @inmate.id), notice: "You are now friends with #{@inmate.name}" }
+      format.html { redirect_to root_path(id: @inmate.id), notice: "You are now .intros with #{@inmate.name} and will be invited to their ideas" }
       format.js
     end
   end
@@ -40,7 +40,7 @@ before_filter :authenticate_user!
     current_user.ignore!(@inmate)
 
     respond_to do |format|
-      format.html { redirect_to :back, notice: "Successfully removed #{@inmate.name} from friends" }
+      format.html { redirect_to :back, notice: "You successfully ignored #{@inmate.name} and you will no longer be invited to their ideas" }
       format.js
     end
   end
@@ -50,7 +50,7 @@ before_filter :authenticate_user!
     current_user.re_inmate!(@intro)
 
     respond_to do |format|
-      format.html { redirect_to root_path(id: @intro.id), notice: "You are now friends again with #{@intro.name}" }
+      format.html { redirect_to root_path(id: @intro.id), notice: "You are now .intros again with #{@intro.name}" }
       format.js
     end
   end

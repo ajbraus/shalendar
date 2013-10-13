@@ -1,11 +1,13 @@
 <% if user_signed_in? %>
 	<% if !current_user.rsvpd?(event) %> <!-- USER IS NOT RSVPD -->
-		<%= form_for(current_user.outs.build(event_id: event.id)) do |f| %>
-		  <%= f.hidden_field :event_id %>
+		<%= form_for(current_user.outs.build(outable_id: event.id, outable_type: event.class.name)) do |f| %>
+		  <%= f.hidden_field :outable_id %>
+		  <%= f.hidden_field :outable_type %>
 		  <%= f.submit "out", class:"btn btn-danger btn_stop_viewing" %>
 		<% end %>
-		<%= form_for(current_user.rsvps.build(event_id: event.id)) do |f| %>
-		  <%= f.hidden_field :event_id %>
+		<%= form_for(current_user.rsvps.build(rsvpable_id: event.id, rsvable_type: event.class.name)) do |f| %>
+		  <%= f.hidden_field :rsvpable_id %>
+		  <%= f.hidden_field :rsvpable_type %>
 		  <%= f.submit ".interested", class:"btn btn-primary" %>
 		<% end %>
 	<% elsif current_user.in?(event) %> <!-- IF RSVPED SHOW IN BUTTON AND TOGGLE OUT-->
@@ -19,17 +21,17 @@
 	<% elsif current_user.out?(event) %> <!-- IF RSVPD OUT SHOW OUT AND TOGGLE IN -->
 		<span id="inButton" class="in_on_idea">
 			<i class='icon-remove red' title="you're out"></i> you're out
-				<%= form_for(current_user.rsvps.build(event_id: event.id)) do |f| %>
-	  			<%= f.hidden_field :event_id %>
-	  			<%= f.hidden_field :inout, value: 1 %>
+				<%= form_for(current_user.rsvps.build(rsvpable_id: event.id, rsvable_type: event.class.name)) do |f| %>
+	  			<%= f.hidden_field :rsvpable_id %>
+	  			<%= f.hidden_field :rsvpable_type %>
 				  <%= f.submit "(join .in)", class: "let_me_in" %>
 				<% end %>
 		</span>
 	<% elsif event.ends_at.present? && event.ends_at > Time.zone.now %>
 		<span class="rsvp_btn"><!--  ELSE SHOW RSVP BUTTON -->
-			<%= form_for(current_user.rsvps.build(event_id: event.id)) do |f| %>
-	  		<%= f.hidden_field :event_id %>
-	  		<%= f.hidden_field :inout, value: 1 %>
+			<%= form_for(current_user.rsvps.build(rsvpable_id: event.id, rsvable_type: event.class.name)) do |f| %>
+	  		<%= f.hidden_field :rsvpable_id %>
+	  		<%= hidden_field_tag "class_name", event.class.name %>
 	  		<%= f.submit "join.in", class: "btn btn-rsvp rsvp_button", id:"Join" %>
 			<% end %>
 		</span>
