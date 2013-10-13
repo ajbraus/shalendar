@@ -6,9 +6,8 @@ namespace :db do
     
     [User, Event, Comment, Instance, Invite, Relationship, Rsvp].each(&:delete_all)
     
-    City.create(name:"Madison, WI", timezone:'Central Time (US & Canada)')
-    adam = User.create!(name:"Adam Braus", email: "ajbraus@gmail.com", city: City.find_by_name("Madison, WI"), password:"password", terms:"true", confirmed_at: Time.now)
-    test = User.create!(name:"Test One", email: "test@one.com", city: City.find_by_name("Madison, WI"), password:"password", terms:"true", confirmed_at: Time.now)
+    adam = User.create!(name:"Adam Braus", email: "ajbraus@gmail.com", city: City.find_by_name("Madison, Wisconsin"), password:"password", terms:"true", confirmed_at: Time.now)
+    test = User.create!(name:"Test One", email: "test@one.com", city: City.find_by_name("Madison, Wisconsin"), password:"password", terms:"true", confirmed_at: Time.now)
 
     Relationship.create!(follower_id: adam.id, followed_id: test.id, status: 2)
     adam.friends_count += 1
@@ -20,7 +19,7 @@ namespace :db do
     User.populate 30..50 do |user|
       user.name = Faker::Name.name
       user.email = Faker::Internet.email
-      user.city_id = City.find_by_name("Madison, WI").id
+      user.city_id = City.find_by_name("Madison, Wisconsin").id
       user.encrypted_password = "password"
       user.terms = true
       user.confirmed_at = Time.now
@@ -32,7 +31,7 @@ namespace :db do
         event.description = Populator.words(15..50)
         event.user_id = user.id
         event.visibility = 2
-        event.city_id = City.find_by_name("Madison, WI").id
+        event.city_id = City.find_by_name("Madison, Wisconsin").id
         event.slug = event.id
 
         Comment.populate 3..7 do |comment|

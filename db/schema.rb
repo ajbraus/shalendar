@@ -177,6 +177,7 @@ ActiveRecord::Schema.define(:version => 20130811212427) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.float    "duration"
+    t.integer  "visibility", :default => 2
     t.boolean  "over",       :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false

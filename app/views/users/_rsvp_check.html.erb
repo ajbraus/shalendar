@@ -1,12 +1,14 @@
 <% if !current_user.rsvpd?(event) %>	
-	<%= form_for(current_user.rsvps.build(event_id: event.id), remote: true) do |f| %>
-		<%= f.hidden_field :event_id %>
+	<%= form_for(current_user.rsvps.build(rsvpable_id: event.id, rsvpable_type: "Event"), remote: true) do |f| %>
+		<%= f.hidden_field :rsvpable_id %>
+		<%= f.hidden_field :rsvpable_type %>
 	 		<button class="out" name="commit" type="submit">
 				<i class='icon-remove'></i></span>out
 	  	</button>
 	<% end %>	
-	<%= form_for(current_user.rsvps.build(event_id: event.id), remote: true) do |f| %>
-	  <%= f.hidden_field :event_id %>
+	<%= form_for(current_user.rsvps.build(rsvpable_id: event.id, rsvpable_type: "Event"), remote: true) do |f| %>
+	  <%= f.hidden_field :rsvpable_id %>
+	  <%= f.hidden_field :rsvpable_type %>
 	 		<button class="in_check fadeInBlue" name="commit" type="submit">
 				<i class='icon-ok'></i><%= event.starts_at.blank? ? '.interested' : '.in' %>
 	  	</button>

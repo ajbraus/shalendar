@@ -15,20 +15,14 @@
 	<% if event.future_instances.any? %>
 		<br>
 		<strong>Next Time:</strong> <span style="padding-left:10px;"><%= event.next_instance.starts_at.strftime("%l:%M%P, %A %B %e") %></span>
-	<% elsif event.starts_at.present? %>
-		<br>
-		<strong>Time:</strong> <span style="padding-left:10px;"><%= event.starts_at.strftime("%l:%M%P, %A %B %e") %></span>
-		<% if event.starts_at < Time.zone.now.in_time_zone(user.city.timezone) %>
-		<strong>  (already over)</strong>
-		<% end %>
 	<% end %>
 		<br>
 		<strong>.ins:</strong>
 		<span style="padding-left:10px; font-size:13px;">
 			<% if !user.in?(event) %>
-				<img src="http://www.hoos.in/assets/gold_star.png" width="10" style="position:relative;top:4px;"/><span id="friendCount"><%= event.friends_in_count(user) %></span> / <img src="http://www.hoos.in/assets/grey_star.png" width="10" style="position:relative;top:4px;" /><%= event.inmates_in_count(user) %> / <%= event.rsvps.count %>
+				<img src="http://www.hoos.in/assets/gold_star.png" width="10" style="position:relative;top:4px;"/><span id="friendCount"><%= Invite.find_by_guest_id(user.id).friends_in %></span> / <img src="http://www.hoos.in/assets/grey_star.png" width="10" style="position:relative;top:4px;" /><%= Invite.find_by_guest_id(user.id).intros_in %> / <%= event.rsvps.count %>
 			<% elsif user.in?(event) %>
-				<img src="http://www.hoos.in/assets/gold_star.png" width="10" style="position:relative;top:4px;"/><span id="friendCount"><%= event.friends_in_count(user) %></span> / <img src="http://www.hoos.in/assets/grey_star.png" width="10" style="position:relative;top:4px;" /><%= event.inmates_in_count(user) %>
+				<img src="http://www.hoos.in/assets/gold_star.png" width="10" style="position:relative;top:4px;"/><span id="friendCount"><%= Rsvp.find_by_guest_id(user.id).friends_in %></span> / <img src="http://www.hoos.in/assets/grey_star.png" width="10" style="position:relative;top:4px;" /><%= Rsvp.find_by_guest_id(user.id).intros_in %>
 			<% end %>
 		</span>
 	<% if event.description.present? %>

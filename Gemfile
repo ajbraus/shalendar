@@ -9,7 +9,8 @@ gem 'koala'
 gem 'thin'
 gem 'chronic' 
 
-gem 'active_model_serializers'
+gem 'rabl'
+gem 'oj'
 
 gem 'twilio-rb'
 gem 'phony_rails'

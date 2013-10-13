@@ -97,7 +97,7 @@ Shalendar::Application.routes.draw do
   #match '/upgrade', :to => 'payments#upgrade', :as => 'upgrade'
 
   #MOBILE
-  namespace :api do
+  namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       #problem... POST/DELETE requests are being processed as GET..
       #resources :tokens, :only => [:create, :destroy]
@@ -177,33 +177,32 @@ Shalendar::Application.routes.draw do
     namespace :v3 do
       #problem... POST/DELETE requests are being processed as GET..
       #resources :tokens, :only => [:create, :destroy]
-      resources :sessions, :only => [:create, :destroy]
-      resources :registrations, :only => [:create, :destroy]
+      resources :sessions, :only => [:create, :destroy] #DONE
+      resources :registrations, :only => [:create, :destroy] #DONE
       #resources :relationships, :only => [:create]
       #resources :rsvps, :only => [:create]
       #resources :events, :only => [:create] 
       
-      match '/add_friend', :to => 'relationships#create'
-      match '/remove_friend', :to => 'relationships#destroy'#, :via => :delete
-      match '/add_star', :to => 'relationships#add_star'
-      match '/remove_star', :to => 'relationships#remove_star'
+      match '/add_friend', :to => 'relationships#create' #DONE 
+      match '/remove_friend', :to => 'relationships#destroy'#, :via => :delete #DONE 
+      match '/add_star', :to => 'relationships#add_star' #DONE 
+      match '/remove_star', :to => 'relationships#remove_star' #DONE 
+      match '/tokens', :to => 'tokens#create' #DONE
+      match '/invitations', :to => 'invitations#create' #NOT NEEDED
+      match '/search_for_friends', to: 'relationships#search_for_friends', as: "search_for_friends", via: :get #DONE 
+      match '/search_for_fb_friends', to: 'relationships#search_for_fb_friends', as: "search_for_fb_friends", via: :get #DONE
+      match '/create_event', :to => 'events#mobile_create' #DONE 
+      match '/invite_all_friends', :to => 'invitations#invite_all_friends' #NOT NEEDED
+      match '/add_time', :to => 'events#add_time' #DONE
+      match '/add_photo_to_event', :to => 'events#add_photo', :via => [:post, :get] #NOT NEEDED
+      match '/add_comment', :to => 'events#add_comment' #DONE
+      match '/cancel_idea', :to => 'events#cancel_idea' #DONE
+      match '/rsvps', :to => 'rsvps#create' #DONE
+      match '/unrsvp', :to => 'rsvps#destroy'#, :via => :delete #DONE
+      
 
-      match '/search_for_friends', to: 'relationships#search_for_friends', as: "search_for_friends", via: :get
-      match '/search_for_fb_friends', to: 'relationships#search_for_fb_friends', as: "search_for_fb_friends", via: :get
+      match '/flake_out', :to => 'rsvps#flake_out' #this is pretty much rsvps#destroy #DONE
 
-
-      match '/tokens', :to => 'tokens#create'
-      match '/invitations', :to => 'invitations#create'
-      match '/invite_all_friends', :to => 'invitations#invite_all_friends'
-      match '/create_event', :to => 'events#mobile_create'
-      match '/add_time', :to => 'events#add_time'
-      match '/add_photo_to_event', :to => 'events#add_photo', :via => [:post, :get]
-      match '/add_comment', :to => 'events#add_comment'
-      match '/cancel_idea', :to => 'events#cancel_idea'
-      #took out delete and post types bc not working from iphone http reqeust
-      match '/rsvps', :to => 'rsvps#create'
-      match '/unrsvp', :to => 'rsvps#destroy'#, :via => :delete
-      match '/flake_out', :to => 'rsvps#flake_out' #this is pretty much rsvps#destroy
       match '/get_user_info', :to => 'shalendar#get_user_info', :via => :get
       match '/apn_user', :to=> 'tokens#apn_user', :as => "apn_user"#, :via => :post
       match '/gcm_user', :to=> 'tokens#gcm_user', :as => "gcm_user"#, :via => :post
@@ -219,6 +218,23 @@ Shalendar::Application.routes.draw do
       match '/get_invites', :to => 'events#invites', :as => "invites", :via => :get
       match '/prune_ins', :to => 'events#prune_ins'
       match '/prune_invites', :to => 'events#prune_invites'
+    end
+    namespace :v4 do
+      devise_for :users, :controllers => { :registrations => "api/v1/registrations" }
+      #resources :registrations, only: [:create, :destroy] #add facebook reg, native reg
+      resources :sessions, only: [:create, :destroy] #add facebook reg, native reg
+      resources :users, except: [:create, :destroy]
+      resources :relationships, only: [:create, :destroy]
+      resources :tokens, only: [:create, :destroy]
+      match '/search_for_friends', to: 'relationships#search_for_friends', as: "search_for_friends", via: :get
+      match '/search_for_fb_friends', to: 'relationships#search_for_fb_friends', as: "search_for_fb_friends", via: :get
+      resources :instances, only: [:new, :create, :edit, :update, :destroy]
+      resources :rsvps, only: [:create, :destroy]
+      resources :outs, only: [:create, :destroy]
+
+      resources :events do
+        resources :comments, only: [:create, :destroy] #add notifier logic to these methods
+      end
     end
   end
 end

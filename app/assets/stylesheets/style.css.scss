@@ -722,13 +722,6 @@ width: 100%;
 top: 64px;
 }
 
-.ui-autocomplete {
-  width: 400px;
-position: relative;
-height: auto;
-line-height: 1.1;
-}
-
 
 .ui_tpicker_hour {
   .ui-slider-horizontal {
@@ -2171,6 +2164,13 @@ bottom: 6px;
 }
 }
 
+/*.ui-autocomplete {
+  width: 400px;
+position: relative;
+height: auto;
+line-height: 1.1;
+}
+*/
 ul.ui-autocomplete {
   position: absolute;
   list-style: none;

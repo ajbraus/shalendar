@@ -8,25 +8,41 @@
   def index
     if params[:id]
       @user = User.find(params[:id])
+      @current_city = @user.city
       
-      #ONLY SHOW EVENTS THEY ARE BOTH INVITED OR RSVPD TO
-      @current_user_invited_ideas = current_user.invited_events.where('city_id = ?', @current_city.id)
-      @current_user_invited_times = current_user.invited_instances.where('city_id = ?', @current_city.id).map(&:event)
-      @current_user_interesteds = current_user.plans.where('city_id = ?', @current_city.id)
-      @current_user_ins = current_user.instance_plans.where('city_id = ?', @current_city.id).map(&:event)
+      if !current_user.is_inmates_or_friends_with?(@user)
+        #IF RANDOS ONLY SHOW EVENTS THEY ARE BOTH INVITED OR RSVPD TO
+        @current_user_invited_ideas = current_user.invited_events.where('city_id = ?', @current_city.id)
+        @current_user_invited_times = current_user.invited_instances.where('city_id = ?', @current_city.id).map(&:event)
+        @current_user_interesteds = current_user.plans.where('city_id = ?', @current_city.id)
+        @current_user_ins = current_user.instance_plans.where('city_id = ?', @current_city.id).map(&:event)
 
-      @user_invited_ideas = @user.invited_events.where('city_id = ?', @current_city.id)
-      @user_invited_times = @user.invited_instances.where('city_id = ?', @current_city.id).map(&:event)
-      @user_interesteds = @user.plans.where('city_id = ?', @current_city.id)
-      @user_ins = @user.instance_plans.where('city_id = ?', @current_city.id).map(&:event)
+        @user_invited_ideas = @user.invited_events.where('city_id = ?', @current_city.id)
+        @user_invited_times = @user.invited_instances.where('city_id = ?', @current_city.id).map(&:event)
+        @user_interesteds = @user.plans.where('city_id = ?', @current_city.id)
+        @user_ins = @user.instance_plans.where('city_id = ?', @current_city.id).map(&:event)
 
-      @invited_ideas = (@current_user_invited_ideas & @user_invited_ideas).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
-      @invited_times = (@current_user_invited_times & @user_invited_times).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
-      @interesteds = (@current_user_interesteds & @user_interesteds).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
-      @ins = (@current_user_ins & @user_ins).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
+        @invited_ideas = (@current_user_invited_ideas & @user_invited_ideas).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
+        @invited_times = (@current_user_invited_times & @user_invited_times).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
+        @interesteds = (@current_user_interesteds & @user_interesteds).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
+        @ins = (@current_user_ins & @user_ins).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
+      elsif current_user.is_intros_with?(@user)
+        # IF INTROS SHOW ALL RSVPD EVENTS WITH VISIBILTY ABOVE @USER'S STARRED EVENTS
+        @invited_ideas = @user.invited_events.where('city_id = ? AND visibility > ?', @current_city.id, 1).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
+        @invited_times = @user.invited_instances.joins(:event).where('events.city_id = ? AND events.visibility > ?', @current_city.id, 1).paginate(:page => params[:page], :per_page => 10)
+        @interesteds = @user.plans.where('city_id = ? AND visibility > ?', @current_city.id, 1).paginate(:page => params[:page], :per_page => 10)
+        @ins = @user.instance_plans.joins(:event).where('events.city_id = ? AND events.visibility > ?', @current_city.id, 1).paginate(:page => params[:page], :per_page => 10)
+      elsif current_user.is_friends_with?(@user)
+        # IF FRIENDS SHOW ALL BUT @USER'S PRIVATE EVENTS
+        @invited_ideas = @user.invited_events.where('city_id = ? AND visibility > ?', @current_city.id, 0).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
+        @invited_times = @user.invited_instances.joins(:event).where('events.city_id = ? AND events.visibility > ?', @current_city.id, 0).paginate(:page => params[:page], :per_page => 10)
+        @interesteds = @user.plans.where('city_id = ? AND visibility > ?', @current_city.id, 0).paginate(:page => params[:page], :per_page => 10)
+        @ins = @user.instance_plans.joins(:event).where('events.city_id = ? AND events.visibility > ?', @current_city.id, 0).paginate(:page => params[:page], :per_page => 10)
+      end
     else
       @user = current_user
-
+      @current_city = current_user.city
+      
       @invited_ideas = @user.invited_events.where('city_id = ?', @current_city.id).paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
       @invited_times = @user.invited_instances.where('city_id = ?', @current_city.id).paginate(:page => params[:page], :per_page => 10)
       @interesteds = @user.plans.where('city_id = ?', @current_city.id).paginate(:page => params[:page], :per_page => 10)
@@ -132,13 +148,13 @@
     @event = current_user.events.build(params[:event])
     @event.city = @current_city
     @event.instances.each do |i|
-      i.city = @current_city
+      i.city = @event.city
+      i.visibility = @event.visibility
     end
     
     if @event.save
       current_user.rsvp_in!(@event)
       @event.instances.each { |i| current_user.rsvp_in!(i) } #INVITATION TO ALL INSTANCES
-      @event.invited_users.each { |g| self.inmate!(g) } #INMATE EACH GUEST
 
       @event.save_shortened_url if Rails.env.production? #SAVE SHORTENED URL
 
@@ -176,7 +192,6 @@
     respond_to do |format|
       format.js
       format.html
-      format.json { render json: @event }
       format.ics do
         calendar = Icalendar::Calendar.new
         calendar.add_event(@event.to_ics)

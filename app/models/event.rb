@@ -8,6 +8,9 @@ class Event < ActiveRecord::Base
   has_many :rsvps, as: :rsvpable, dependent: :destroy
   has_many :guests, through: :rsvps, source: :guest
 
+  has_many :outs, as: :outable, dependent: :destroy
+  has_many :flakes, through: :outs, source: :flake
+
   has_many :invites, as: :inviteable, dependent: :destroy
   has_many :invited_users, through: :invites, source: :invitee, class_name: "User"
 
@@ -35,7 +38,6 @@ class Event < ActiveRecord::Base
                   :slug,
                   :city_id,
                   :one_time,
-                  :dead,
                   :visibility,
                   :fb_id,
                   :instances_attributes
@@ -76,17 +78,17 @@ class Event < ActiveRecord::Base
   end
 
 
-  def as_json(options = {})
-    {
-      :eid => self.id,
-      :title => self.title,
-      :start => starts_at,
-      :end => ends_at,
-      :host => self.user,
-      :gcnt => self.guest_count,
-      :guests => self.guests    
-    }
-  end
+  # def as_json(options = {})
+  #   {
+  #     :eid => self.id,
+  #     :title => self.title,
+  #     :start => starts_at,
+  #     :end => ends_at,
+  #     :host => self.user,
+  #     :gcnt => self.guest_count,
+  #     :guests => self.guests    
+  #   }
+  # end
 
   def future_instances
     return self.instances.where('ends_at > ?', Time.zone.now).order('ends_at ASC')
@@ -316,11 +318,6 @@ class Event < ActiveRecord::Base
     else
       return []
     end    
-  end
-
-  def outs
-    @rsvps = self.rsvps.where(inout: 0)
-    @outs = @rsvps.map { |r| r.guest }
   end
 
   def public?

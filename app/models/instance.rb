@@ -8,8 +8,8 @@ class Instance < ActiveRecord::Base
   has_many :rsvps, as: :rsvpable
   has_many :guests, through: :rsvps, source: :guest
 
-  has_many :invites, as: :inviteable
-  has_many :invitees, through: :invites, source: :invitee
+  has_many :invites, as: :inviteable, dependent: :destroy
+  has_many :invited_users, through: :invites, source: :invitee, class_name: "User"
 
   has_many :outs, as: :outable
 
@@ -92,6 +92,48 @@ class Instance < ActiveRecord::Base
       self.duration.to_s.split(/\.0/)[0] + ' ' + 'hours' if duration
     else
       self.duration.to_s.split(/\.0/)[0] + ' ' + 'hour' if duration
+    end
+  end
+
+  def friends_in(current_user)
+    self.guests & current_user.friends
+  end
+
+  def inmates_in(current_user)
+    self.guests & current_user.inmates
+  end
+
+  def friends_in_count(current_user)
+    (self.guests & current_user.friends).count
+  end
+
+  def inmates_in_count(current_user)
+    (self.guests & current_user.inmates).count
+  end
+
+  def friends_and_inmates_in(current_user)
+    (self.guests & current_user.intros_and_friends)
+  end
+
+  def friends_invited_count(current_user)
+    @invited_friends = []
+    self.maybes.each do |u|
+      if current_user.is_friends_with?(u) && !u.rsvpd?(self)
+        @invited_friends.push(u)
+      end
+    end
+    return @invited_friends.count
+  end
+
+  def maybes
+    self.guests.each do |g|
+      @g_maybes = []
+      (g.inmates | g.friends).each do |person|
+        unless person.rsvpd?(self)
+          @g_maybes.push(person) 
+        end
+      end
+      @maybes = @maybes | @g_maybes
     end
   end
 

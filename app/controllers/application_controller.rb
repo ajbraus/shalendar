@@ -1,19 +1,19 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :set_city, :except => [:city_names, :update]
-  before_filter :set_graph #:check_venue_card, 
+  before_filter :set_city, :except => [:city_names]
+  before_filter :set_graph
   after_filter :store_location
 
   around_filter :user_time_zone, :if => :current_user, :except => [:pick_city, :city_names, :update]
-  before_filter :instantiateUser
+  # before_filter :instantiateUser
 
-  def instantiateUser
-    if user_signed_in?
-      @user = current_user
-    else
-      @user = User.new
-    end
-  end
+  # def instantiateUser
+  #   if user_signed_in?
+  #     @user = current_user
+  #   else
+  #     @user = User.new
+  #   end
+  # end
   private 
 
   def user_time_zone(&block)
@@ -70,10 +70,6 @@ class ApplicationController < ActionController::Base
       @graph = nil
     end
   end
-  
-  # def ios_user_agent?
-  #   request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(Mobile\/.+Safari)/]
-  # end
 
   def check_venue_card
     if user_signed_in?

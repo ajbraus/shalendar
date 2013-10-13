@@ -14,8 +14,10 @@
     <% if @user != current_user %>
       <%= link_to "<< back", root_path, class:"back_link" %>
     <% end %>
-    <%= large_profile_picture(@user) %>
-    <div class="show_name"><%= @user.name %></div>
+    <div class='text-center'>
+      <%= large_profile_picture(@user) %>
+    </div>
+    
     <% if @user != current_user %>
       <div class="show_city"><%= @user.city.name %></div>
     <% end %>
@@ -100,9 +102,7 @@
         <div class='text-center'><%= day.strftime "%b %d" %></div>
       </div>
     <% end %>
-    <% @invited_times.each do |i| %>
-      <%= render partial: "users/instance", locals: { instance: i } %>
-    <% end %>
+    <%= render partial: "users/instance", collection: @invited_times, as: :instance %>
     <%= will_paginate @invited_times if @invited_times %>
   </div>
   <div class="tab-pane fade" id="tab3">

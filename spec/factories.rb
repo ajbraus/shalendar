@@ -4,7 +4,7 @@ FactoryGirl.define do
     timezone 'Central Time (US & Canada)'
   end
 
-	factory :user do
+  factory :user do
     sequence(:name)  { |n| "Test #{n}" }
     sequence(:email) { |n| "test@#{n}.com"} 
 		password 'please'

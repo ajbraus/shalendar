@@ -24,9 +24,20 @@ before_filter :authenticate_user!
     end
   end
 
+  def inmate
+    @inmate = User.find_by_id(params[:id])
+    current_user.inmate!(@inmate)
+    @inmate.contact_new_inmate(current_user)
+    
+    respond_to do |format|
+      format.html { redirect_to root_path(id: @inmate.id), notice: "You are now friends with #{@inmate.name}" }
+      format.js
+    end
+  end
+
   def ignore_inmate
     @inmate = User.find_by_id(params[:id])
-    current_user.ignore_inmate!(@inmate)
+    current_user.ignore!(@inmate)
 
     respond_to do |format|
       format.html { redirect_to :back, notice: "Successfully removed #{@inmate.name} from friends" }
@@ -35,11 +46,11 @@ before_filter :authenticate_user!
   end
 
   def re_inmate
-    @inmate = User.find_by_id(params[:id])
-    current_user.re_inmate!(@inmate)
+    @intro = User.find_by_id(params[:id])
+    current_user.re_inmate!(@intro)
 
     respond_to do |format|
-      format.html { redirect_to user_path(@inmate), notice: "You are now friends again with #{@inmate.name}" }
+      format.html { redirect_to root_path(id: @intro.id), notice: "You are now friends again with #{@intro.name}" }
       format.js
     end
   end
@@ -51,17 +62,6 @@ before_filter :authenticate_user!
       @invitee_email = @invitee.email
     end
     
-    Notifier.inmate_invite(@invitee_email, current_user)
-  end
-
-  def inmate
-    @inmate = User.find_by_id(params[:id])
-    current_user.inmate!(@inmate)
-    @inmate.contact_new_inmate(current_user)
-    
-    respond_to do |format|
-      format.html { redirect_to root_path(id: @inmate.id), notice: "You are now friends with #{@inmate.name}" }
-      format.js
-    end
+    Notifier.delay.inmate_invite(@invitee_email, current_user)
   end
 end

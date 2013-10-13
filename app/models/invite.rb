@@ -1,5 +1,5 @@
 class Invite < ActiveRecord::Base
-  attr_accessible :event_id, :invitee_id, :inviter_id, :friends_in, :intros_in, :randos_in
+  attr_accessible :event_id, :invitee_id, :inviter_id, :inviteable_id, :inviteable_type, :friends_in, :intros_in, :randos_in
 
   belongs_to :inviteable, polymorphic: true
   belongs_to :invitee, class_name: "User"

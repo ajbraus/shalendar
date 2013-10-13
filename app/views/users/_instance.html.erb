@@ -20,15 +20,17 @@
 <% end %>	
 	<% if !current_user.rsvpd?(instance) %> <!-- USER IS NOT RSVPD -->
 		<div class="mini_in_out">
-			<%= form_for(current_user.rsvps.build(event_id: instance.id), remote: true) do |f| %>
-			  <%= f.hidden_field :event_id %>
+			<%= form_for(current_user.rsvps.build(rsvpable_id: instance.id, rsvpable_type: "Instance"), remote: true) do |f| %>
+			  <%= f.hidden_field :rsvpable_id %>
+			  <%= f.hidden_field :rsvpable_type %>
 			  <%= f.hidden_field :inout, value: "0" %>
 			  <%= f.submit "#{instance.starts_at.blank? ? 'out' : 'out'}", class:"btn rsvp_button btn_stop_viewing" %>
 			<% end %>
-			<%= form_for(current_user.rsvps.build(event_id: instance.id), remote: true) do |f| %>
-			  <%= f.hidden_field :event_id %>
+			<%= form_for(current_user.rsvps.build(rsvpable_id: instance.id, rsvpable_type: "Instance"), remote: true) do |f| %>
+			  <%= f.hidden_field :rsvpable_id %>
+			  <%= f.hidden_field :rsvpable_type %>
 			  <%= f.hidden_field :inout, value: "1" %>
-			  <%= f.submit "#{instance.is_parent? ? '.interested' : '.in'}", class:"btn rsvp_button btn-rsvp" %>
+			  <%= f.submit ".in", class:"btn rsvp_button btn-rsvp" %>
 			<% end %>
 		</div>
 	<% end %>

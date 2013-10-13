@@ -1,13 +1,21 @@
-create ajax calls for events and instances (ajax call removes all instances from calendar and adds the new ones)
-Mobile .json server & serializer
-	http://railscasts.com/episodes/409-active-model-serializers
+API - 	
+	iPhone error handeling
 
-infinite scrolling
+bug - 
+	autocomplete on city name not working
+	@current_city not being set
+	share_after_rsvp not popping up
 
-RSVP to an event
-Create a new user
+allow friending and inmating, but don't create invites if they ignore you
+
+DONE RSVP to an event
+DONE Create a new user
+DONE inmate the other user
+
+RSVP to instance
+Create facebook user
 view other user's events
-inmate the other user
+
 Join the other user events
 star other user
 
@@ -19,7 +27,7 @@ create one-time idea
 event#show show instance_rsvps progress bars
 create instance_rsvp button in event#show
 
-show facepile - replace friends_in count with association
+show facepile of friends .in and facepile of friends .invited- replace friends_in count with association
 
 delete invitation after rsvp - if rsvpd => NO INVITATION
 
@@ -100,6 +108,13 @@ make comments asynconous
 	so-n-so commented on an idea
 	so-n-so starred you
 	so-n-so created an idea
+
+
+create ajax calls for events and instances (ajax call removes all instances from calendar and adds the new ones)
+Mobile .json server & serializer
+	http://railscasts.com/episodes/409-active-model-serializers
+
+infinite scrolling
 
 HI SDK
 Send idea global unique identifier

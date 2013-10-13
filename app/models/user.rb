@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   
   attr_accessible :email, 
   								:password, 
+                  :password_confirmation,
   								:remember_me, 
                   :name,
                   :terms,
@@ -16,10 +17,7 @@ class User < ActiveRecord::Base
                   :digest,
                   :notify_event_reminders,
                   :city_id,
-                  :city,
                   :avatar,
-                  :vendor,
-                  :family_filter,
                   :email_comments,
                   :follow_up,
                   :background,
@@ -249,10 +247,7 @@ class User < ActiveRecord::Base
 
   #Relationship methods
   def is_friends_with?(other_user)
-    unless other_user.ignores?(self)
-      return self.friends.include?(other_user)
-    end
-    return false
+    return self.friends.include?(other_user)
   end
 
   def is_friended_by?(other_user)
@@ -264,10 +259,7 @@ class User < ActiveRecord::Base
   end
 
   def is_intros_with?(other_user)
-    unless other_user.ignores?(self)
-      return self.inmates.include?(other_user)
-    end
-    return false
+    return self.inmates.include?(other_user)
   end
 
   def is_inmates_or_friends_with?(other_user)
@@ -290,54 +282,50 @@ class User < ActiveRecord::Base
   end
 
   def friend!(other_user)
-    unless other_user.ignores?(self)
-      @reverse_relationship = other_user.relationships.find_by_followed_id(self.id)
-      if @reverse_relationship.nil?
-        other_user.inmate!(self)
-      end
-      @relationship = self.relationships.find_by_followed_id(other_user.id)
-      if @relationship.present?
-        @relationship.status = 2
-        @relationship.save
+    @reverse_relationship = other_user.relationships.find_by_followed_id(self.id)
+    if @reverse_relationship.blank? then other_user.inmate!(self) end
+    
+    @relationship = self.relationships.find_by_followed_id(other_user.id)
+    if @relationship.present?
+      @relationship.status = 2
+      @relationship.save
 
-        self.friends_count += 1
-        self.intros_count -= 1
-        self.save
+      self.friends_count += 1
+      self.save
 
-        other_user.friended_bys_count +=1
-        other_user.save
+      other_user.friended_bys_count +=1
+      other_user.save
 
-        self.events.where('visibility = ?', 1).each do |e|
-          unless other_user.already_invited?(e) || other_user.rsvpd?(e)
-            other_user.invites.create!(invited_event_id: e.id)
-          end
+      unless other_user.ignores?(self)
+        self.events.where(visibility: 1).each do |e|
+          other_user.invite!(e, self)
         end
-      else 
-        self.inmate!(other_user)
-        self.friend!(other_user)
       end
+    else 
+      self.inmate!(other_user)
+      self.friend!(other_user)
     end
   end
 
   def inmate!(other_user)
-    unless other_user == self || other_user.ignores?(self)
-      unless self.is_inmates_or_friends_with?(other_user) || self.ignores?(other_user)
+    unless other_user == self 
+      unless self.is_inmates_or_friends_with?(other_user)
         self.relationships.create(followed_id: other_user.id, status: 1)
         self.intros_count += 1
         self.save
-        other_user.plans.where(visibility: 2).each do |p| 
-          unless self.already_invited?(p) || self.rsvpd?(p)
-            self.invites.create!(invited_event_id: p.id)
+        unless self.ignores?(other_user)
+          other_user.plans.where("visibility >= ?", 2).each do |p| 
+            self.invite!(p, other_user)
           end
         end
       end
-      unless other_user.is_inmates_or_friends_with?(self) || self.ignores?(other_user)
+      unless other_user.is_inmates_or_friends_with?(self)
         other_user.relationships.create(followed_id: self.id, status: 1)
         other_user.intros_count += 1
         other_user.save
-        self.plans.where(visibility: 2).each do |p| 
-          unless other_user.already_invited?(p) || other_user.rsvpd?(p)
-            other_user.invites.create!(invited_event_id: p.id)
+        unless other_user.ignores?(self)
+          self.plans.where("visibility >= ?", 2).each do |p| 
+            other_user.invite!(p, self)
           end
         end
       end
@@ -355,12 +343,13 @@ class User < ActiveRecord::Base
       end
       self.intros_count += 1
       self.save
-
-      other_user.rsvps.each do |p| 
-        unless self.already_invited?(p) || self.rsvpd?(p)
-          self.invites.create!(invited_event_id: p.id)
+      
+      unless self.ignores?(other_user)
+        other_user.plans.where(visibility: 2).each do |p| 
+          self.invite!(p, other_user)
         end
       end
+
       @reverse_relationship = other_user.relationships.find_by_followed_id(self.id)
       if @reverse_relationship.blank?
         other_user.relationships.create(followed_id: self.id, status: 1)
@@ -371,29 +360,28 @@ class User < ActiveRecord::Base
       other_user.intros_count += 1
       other_user.save
 
-      self.rsvps.each do |p| 
-        unless other_user.already_invited?(p) || other_user.rsvpd?(p)
-          other_user.invites.create!(invited_event_id: p.id)
+      unless other_user.ignores?(self)
+        self.plans.where(visibility: 2).each do |p| 
+          unless other_user.already_invited?(p) || other_user.rsvpd?(p)
+            other_user.invites.create!(invited_event_id: p.id, inviter_id: self.id)
+          end
         end
       end
     end
   end
 
-  def ignore_inmate!(inmate)
-    #they don't ignore back, they just are no longer inmates
-    @reverse_relationship = inmate.relationships.find_by_followed_id(self.id)
-    unless @reverse_relationship.nil?
-      @reverse_relationship.destroy
-      self.intros_count -= 1
+  def ignore!(intro)
+    @relationship = self.relationships.find_by_followed_id(intro.id)
+    unless @relationship.blank? || @relationship.status == 0
+      if @relationship.status == 1
+        self.intros_count -=1
+      elsif @relationship.status == 2
+        self.friends_count -= 1
+      end
       self.save
-    end
-
-    @relationship = self.relationships.find_by_followed_id(inmate.id)
-    unless @relationship.nil?
+      
       @relationship.status = 0
       @relationship.save
-      self.intros_count -=1
-      self.save
     end
   end
 
@@ -412,37 +400,28 @@ class User < ActiveRecord::Base
   end
 
   def invited?(event)
-    if event.class == Event
-      return invites.find_by_event_id(event.id).present?
-    elsif event.class == Instance
-      return instance_invitations.find_by_instance_id(event.id).present?
-    end
+    return invites.find_by_event_id(event.id).present?
   end
 
   def invite!(event, inviter)
-    if event.class == Event
+    unless self.already_invited?(event) || self.rsvpd?(event)
+      friends_in = event.friends_in_count(self)
+      intros_in = event.inmates_in_count(self)
+      randos_in = event.guests.count - friends_in - intros_in
       self.invites.create(
-        event_id: event.id,
+        inviteable_id: event.id,
+        inviteable_type: event.class.name,
         inviter_id: inviter.id,
         friends_in: event.invited_users.select { |g| self.is_friends_with?(g) }.count,
         intros_in: event.invited_users.select { |g| self.is_intros_with?(g) }.count,
         randos_in: event.invited_users.select { |g| !self.is_inmates_or_friends_with?(g) }.count
         )
-      if event.instances.any? #INVITE TO ALL THE INSTANCES
-        event.instances.each do |i|
-          self.invite!(i, inviter) 
+      if event.class == "Event"
+        if event.instances.any? #INVITE TO ALL THE INSTANCES
+          event.instances.each do |i|
+            self.invite!(i, inviter) 
+          end
         end
-      end
-    elsif event.class == Instance
-      self.instance_invitations.create(
-        instance_id: event.id,
-        inviter_id: inviter.id,
-        friends_in: event.invited_users.select { |g| self.is_friends_with?(g) }.count,
-        intros_in: event.invited_users.select { |g| self.is_intros_with?(g) }.count,
-        randos_in: event.invited_users.select { |g| !self.is_inmates_or_friends_with?(g) }.count
-        )
-      unless self.invited?(event.event)
-        self.invite!(event.event, inviter) #INVITE TO THE PARENT
       end
     end
   end
@@ -594,11 +573,7 @@ class User < ActiveRecord::Base
   end
 
   def already_invited?(event)
-    if event.class == Event
-      return self.invites.find_by_event_id(event.id).present?
-    elsif event.class == Instance
-      return self.instance_invitations.find_by_instance_id(event.id).present?
-    end
+    return self.invites.find_by_inviteable_id(event.id).present?
   end
 
   # Contact methods

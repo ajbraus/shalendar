@@ -75,12 +75,10 @@ include UsersHelper
   end
 
   def search_for_fb_friends
-
     @graph = Koala::Facebook::API.new(params[:access_token]) 
     @found_users = current_user.fb_friends(@graph)[0]
 
     render json: @found_users.reject{|fu|current_user.following?(fu)}
-
   end
 
   def get_friends

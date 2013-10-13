@@ -6,6 +6,7 @@ class CreateInstances < ActiveRecord::Migration
       t.datetime :starts_at
       t.datetime :ends_at
       t.float :duration
+      t.integer :visibility, default: 2
       t.boolean :over, default: false
 
       t.timestamps

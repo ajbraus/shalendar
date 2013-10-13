@@ -4,7 +4,7 @@ class InstancesController < ApplicationController
   def create
     @event = Event.find(params[:event_id])
     @instance = @event.instances.build(params[:instance])
-    @instance.city = @event.city
+    @instance.city = current_user.city
 
     respond_to do |format|
       if @instance.save

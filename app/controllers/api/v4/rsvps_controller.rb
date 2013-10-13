@@ -1,14 +1,11 @@
-class RsvpsController < ApplicationController
+class Api::V4::RsvpsController < ApiController
   before_filter :authenticate_user!
 
   def create
+    # [:rsvp][:rsvpable_id, :rsvpable_type, :]
+
     @event = Event.find(params[:rsvp][:rsvpable_id])
     current_user.rsvp_in!(@event)
-    
-    respond_to do |format|
-      format.html { redirect_to @event }
-      format.js { render template: "rsvps/in" }
-    end
   end
 
   def destroy
@@ -22,11 +19,6 @@ class RsvpsController < ApplicationController
           r.destroy
         end
       end
-    end
-
-    respond_to do |format|
-      format.html { redirect_to @event }
-      format.js
     end
   end
 

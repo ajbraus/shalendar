@@ -63,14 +63,14 @@ module UsersHelper
 
   def large_profile_picture(user)
     if user.authentications.where(:provider == "Facebook").any?
-      image_tag "https://graph.facebook.com/#{user.fb_authentication.uid}/picture?type=large" 
+      image_tag "https://graph.facebook.com/#{user.fb_authentication.uid}/picture?type=large", class:"img-circle", width:120
     elsif user.authentications.where(:provider == "Twitter").any?
       twitter_picture(user, type: "large") 
     else
       if user.avatar.url.nil?
-        image_tag "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png"
+        image_tag "https://s3.amazonaws.com/hoosin-production/user/avatars/original/default_profile_pic.png", class:"img-circle", width:120
       else
-        image_tag user.avatar.url(:original)
+        image_tag user.avatar.url(:original), class:"img-circle", width:120
       end
     end
   end
@@ -78,15 +78,15 @@ module UsersHelper
   def small_profile_picture(user)
     if user.authentications.where(:provider == "Facebook").any?
       facebook_url = "#{user.authentications.find_by_provider("Facebook").pic_url}"
-      image_tag(facebook_url, alt: user.name, class: "profile_picture small_pic" )
+      image_tag(facebook_url, alt: user.name, class: "profile_picture small_pic img-circle" )
     elsif user.authentications.where(:provider == "Twitter").any?
       twitter_picture(user, type: "normal") 
     else
       if user.avatar.url.nil?
         image_tag "https://s3.amazonaws.com/hoosin-production/user/avatars/raster/default_profile_pic.png",
-         class: "profile_picture small_pic"
+         class: "profile_picture small_pic img-circle"
       else
-        image_tag user.avatar.url(:raster), class: "profile_picture small_pic"
+        image_tag user.avatar.url(:raster), class: "profile_picture small_pic img-circle"
       end
     end
   end 

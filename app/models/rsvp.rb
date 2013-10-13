@@ -1,5 +1,5 @@
 class Rsvp < ActiveRecord::Base
-  attr_accessible :muted, :friends_in, :intros_in, :rsvpable_id, :rsvpable_type, :randos_in, :guest_id
+  attr_accessible :guest_id, :rsvpable_id, :rsvpable_type, :muted, :friends_in, :intros_in, :randos_in
 
   belongs_to :guest, class_name: "User"
   belongs_to :rsvpable, polymorphic: true
@@ -75,7 +75,7 @@ class Rsvp < ActiveRecord::Base
   end
 
   def update_who_is_going
-    event.invites.each do |i|
+    rsvpable.invites.each do |i|
       if i.guest.is_friends_with(guest)
         i.friends_in -= 1
         i.save
